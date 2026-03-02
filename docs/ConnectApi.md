@@ -97,7 +97,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_connect_url
 
-> models::GetConnectUrl200Response get_connect_url(platform, profile_id, redirect_url)
+> models::GetConnectUrl200Response get_connect_url(platform, profile_id, redirect_url, headless)
 Get OAuth connect URL
 
 Initiate an OAuth connection flow. Returns an authUrl to redirect the user to. Standard flow: Late hosts the selection UI, then redirects to your redirect_url. Headless mode (headless=true): user is redirected to your redirect_url with OAuth data for custom UI. Use the platform-specific selection endpoints to complete. 
@@ -110,6 +110,7 @@ Name | Type | Description  | Required | Notes
 **platform** | **String** | Social media platform to connect | [required] |
 **profile_id** | **String** | Your Late profile ID (get from /v1/profiles) | [required] |
 **redirect_url** | Option<**String**> | Your custom redirect URL after connection completes. Standard mode appends ?connected={platform}&profileId=X&username=Y. Headless mode appends OAuth data params. |  |
+**headless** | Option<**bool**> | When true, the user is redirected to your redirect_url with raw OAuth data (code, state) instead of Late's default account selection UI. Use this to build a custom connect experience. |  |[default to false]
 
 ### Return type
 

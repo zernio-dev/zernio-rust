@@ -408,11 +408,13 @@ pub async fn get_connect_url(
     platform: &str,
     profile_id: &str,
     redirect_url: Option<&str>,
+    headless: Option<bool>,
 ) -> Result<models::GetConnectUrl200Response, Error<GetConnectUrlError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_platform = platform;
     let p_query_profile_id = profile_id;
     let p_query_redirect_url = redirect_url;
+    let p_query_headless = headless;
 
     let uri_str = format!(
         "{}/v1/connect/{platform}",
@@ -424,6 +426,9 @@ pub async fn get_connect_url(
     req_builder = req_builder.query(&[("profileId", &p_query_profile_id.to_string())]);
     if let Some(ref param_value) = p_query_redirect_url {
         req_builder = req_builder.query(&[("redirect_url", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_headless {
+        req_builder = req_builder.query(&[("headless", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());

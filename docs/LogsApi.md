@@ -78,7 +78,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_posts_logs
 
-> models::ListPostsLogs200Response list_posts_logs(status, platform, action, days, limit, skip)
+> models::ListPostsLogs200Response list_posts_logs(status, platform, action, days, limit, skip, search)
 List publishing logs
 
 Retrieve publishing logs for all posts with detailed information about each publishing attempt. Filter by status, platform, or action. Logs are automatically deleted after 7 days. 
@@ -94,6 +94,7 @@ Name | Type | Description  | Required | Notes
 **days** | Option<**i32**> | Number of days to look back (max 7) |  |[default to 7]
 **limit** | Option<**i32**> | Maximum number of logs to return (max 100) |  |[default to 50]
 **skip** | Option<**i32**> | Number of logs to skip (for pagination) |  |[default to 0]
+**search** | Option<**String**> | Search through log entries by text content. |  |
 
 ### Return type
 

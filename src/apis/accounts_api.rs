@@ -304,10 +304,12 @@ pub async fn get_follower_stats(
 pub async fn list_accounts(
     configuration: &configuration::Configuration,
     profile_id: Option<&str>,
+    platform: Option<&str>,
     include_over_limit: Option<bool>,
 ) -> Result<models::ListAccounts200Response, Error<ListAccountsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_profile_id = profile_id;
+    let p_query_platform = platform;
     let p_query_include_over_limit = include_over_limit;
 
     let uri_str = format!("{}/v1/accounts", configuration.base_path);
@@ -315,6 +317,9 @@ pub async fn list_accounts(
 
     if let Some(ref param_value) = p_query_profile_id {
         req_builder = req_builder.query(&[("profileId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_platform {
+        req_builder = req_builder.query(&[("platform", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_over_limit {
         req_builder = req_builder.query(&[("includeOverLimit", &param_value.to_string())]);

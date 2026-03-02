@@ -57,7 +57,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_best_time_to_post
 
-> models::GetBestTimeToPost200Response get_best_time_to_post(platform, profile_id)
+> models::GetBestTimeToPost200Response get_best_time_to_post(platform, profile_id, source)
 Get best times to post
 
 Returns the best times to post based on historical engagement data. Groups all published posts by day of week and hour (UTC), calculating average engagement per slot. Use this to auto-schedule posts at optimal times. Requires the Analytics add-on. 
@@ -69,6 +69,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **platform** | Option<**String**> | Filter by platform (e.g. \"instagram\", \"tiktok\"). Omit for all platforms. |  |
 **profile_id** | Option<**String**> | Filter by profile ID. Omit for all profiles. |  |
+**source** | Option<**String**> | Filter by post origin. \"late\" for posts published via Late, \"external\" for posts imported from platforms. |  |[default to all]
 
 ### Return type
 
@@ -88,7 +89,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_content_decay
 
-> models::GetContentDecay200Response get_content_decay(platform, profile_id)
+> models::GetContentDecay200Response get_content_decay(platform, profile_id, source)
 Get content performance decay
 
 Returns how engagement accumulates over time after a post is published. Each bucket shows what percentage of the post's total engagement had been reached by that time window. Useful for understanding content lifespan (e.g. \"posts reach 78% of total engagement within 24 hours\"). Requires the Analytics add-on. 
@@ -100,6 +101,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **platform** | Option<**String**> | Filter by platform (e.g. \"instagram\", \"tiktok\"). Omit for all platforms. |  |
 **profile_id** | Option<**String**> | Filter by profile ID. Omit for all profiles. |  |
+**source** | Option<**String**> | Filter by post origin. \"late\" for posts published via Late, \"external\" for posts imported from platforms. |  |[default to all]
 
 ### Return type
 
@@ -119,7 +121,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_daily_metrics
 
-> models::GetDailyMetrics200Response get_daily_metrics(platform, profile_id, from_date, to_date)
+> models::GetDailyMetrics200Response get_daily_metrics(platform, profile_id, from_date, to_date, source)
 Get daily aggregated metrics
 
 Returns daily aggregated analytics metrics and a per-platform breakdown. Each day includes post count, platform distribution, and summed metrics (impressions, reach, likes, comments, shares, saves, clicks, views). Defaults to the last 180 days. Requires the Analytics add-on. 
@@ -133,6 +135,7 @@ Name | Type | Description  | Required | Notes
 **profile_id** | Option<**String**> | Filter by profile ID. Omit for all profiles. |  |
 **from_date** | Option<**String**> | Inclusive start date (ISO 8601). Defaults to 180 days ago. |  |
 **to_date** | Option<**String**> | Inclusive end date (ISO 8601). Defaults to now. |  |
+**source** | Option<**String**> | Filter by post origin. \"late\" for posts published via Late, \"external\" for posts imported from platforms. |  |[default to all]
 
 ### Return type
 
@@ -251,7 +254,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_posting_frequency
 
-> models::GetPostingFrequency200Response get_posting_frequency(platform, profile_id)
+> models::GetPostingFrequency200Response get_posting_frequency(platform, profile_id, source)
 Get posting frequency vs engagement
 
 Returns the correlation between posting frequency (posts per week) and engagement rate, broken down by platform. Helps find the optimal posting cadence for each platform. Each row represents a specific (platform, posts_per_week) combination with the average engagement rate observed across all weeks matching that frequency. Requires the Analytics add-on. 
@@ -263,6 +266,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **platform** | Option<**String**> | Filter by platform (e.g. \"instagram\", \"tiktok\"). Omit for all platforms. |  |
 **profile_id** | Option<**String**> | Filter by profile ID. Omit for all profiles. |  |
+**source** | Option<**String**> | Filter by post origin. \"late\" for posts published via Late, \"external\" for posts imported from platforms. |  |[default to all]
 
 ### Return type
 

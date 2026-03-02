@@ -179,6 +179,7 @@ pub async fn list_posts_logs(
     days: Option<i32>,
     limit: Option<i32>,
     skip: Option<i32>,
+    search: Option<&str>,
 ) -> Result<models::ListPostsLogs200Response, Error<ListPostsLogsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_status = status;
@@ -187,6 +188,7 @@ pub async fn list_posts_logs(
     let p_query_days = days;
     let p_query_limit = limit;
     let p_query_skip = skip;
+    let p_query_search = search;
 
     let uri_str = format!("{}/v1/posts/logs", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -208,6 +210,9 @@ pub async fn list_posts_logs(
     }
     if let Some(ref param_value) = p_query_skip {
         req_builder = req_builder.query(&[("skip", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_search {
+        req_builder = req_builder.query(&[("search", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());

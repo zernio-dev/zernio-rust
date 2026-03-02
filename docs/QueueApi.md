@@ -139,7 +139,7 @@ Name | Type | Description  | Required | Notes
 
 ## preview_queue
 
-> models::PreviewQueue200Response preview_queue(profile_id, count)
+> models::PreviewQueue200Response preview_queue(profile_id, queue_id, count)
 Preview upcoming slots
 
 Returns the next N upcoming queue slot times for a profile as ISO datetime strings.
@@ -150,6 +150,7 @@ Returns the next N upcoming queue slot times for a profile as ISO datetime strin
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **profile_id** | **String** |  | [required] |
+**queue_id** | Option<**String**> | Filter by specific queue ID. Omit to use the default queue. |  |
 **count** | Option<**i32**> |  |  |[default to 20]
 
 ### Return type

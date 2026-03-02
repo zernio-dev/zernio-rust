@@ -206,10 +206,12 @@ pub async fn get_best_time_to_post(
     configuration: &configuration::Configuration,
     platform: Option<&str>,
     profile_id: Option<&str>,
+    source: Option<&str>,
 ) -> Result<models::GetBestTimeToPost200Response, Error<GetBestTimeToPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_platform = platform;
     let p_query_profile_id = profile_id;
+    let p_query_source = source;
 
     let uri_str = format!("{}/v1/analytics/best-time", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -219,6 +221,9 @@ pub async fn get_best_time_to_post(
     }
     if let Some(ref param_value) = p_query_profile_id {
         req_builder = req_builder.query(&[("profileId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_source {
+        req_builder = req_builder.query(&[("source", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
@@ -261,10 +266,12 @@ pub async fn get_content_decay(
     configuration: &configuration::Configuration,
     platform: Option<&str>,
     profile_id: Option<&str>,
+    source: Option<&str>,
 ) -> Result<models::GetContentDecay200Response, Error<GetContentDecayError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_platform = platform;
     let p_query_profile_id = profile_id;
+    let p_query_source = source;
 
     let uri_str = format!("{}/v1/analytics/content-decay", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -274,6 +281,9 @@ pub async fn get_content_decay(
     }
     if let Some(ref param_value) = p_query_profile_id {
         req_builder = req_builder.query(&[("profileId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_source {
+        req_builder = req_builder.query(&[("source", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
@@ -318,12 +328,14 @@ pub async fn get_daily_metrics(
     profile_id: Option<&str>,
     from_date: Option<String>,
     to_date: Option<String>,
+    source: Option<&str>,
 ) -> Result<models::GetDailyMetrics200Response, Error<GetDailyMetricsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_platform = platform;
     let p_query_profile_id = profile_id;
     let p_query_from_date = from_date;
     let p_query_to_date = to_date;
+    let p_query_source = source;
 
     let uri_str = format!("{}/v1/analytics/daily-metrics", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -339,6 +351,9 @@ pub async fn get_daily_metrics(
     }
     if let Some(ref param_value) = p_query_to_date {
         req_builder = req_builder.query(&[("toDate", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_source {
+        req_builder = req_builder.query(&[("source", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
@@ -580,10 +595,12 @@ pub async fn get_posting_frequency(
     configuration: &configuration::Configuration,
     platform: Option<&str>,
     profile_id: Option<&str>,
+    source: Option<&str>,
 ) -> Result<models::GetPostingFrequency200Response, Error<GetPostingFrequencyError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_platform = platform;
     let p_query_profile_id = profile_id;
+    let p_query_source = source;
 
     let uri_str = format!("{}/v1/analytics/posting-frequency", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -593,6 +610,9 @@ pub async fn get_posting_frequency(
     }
     if let Some(ref param_value) = p_query_profile_id {
         req_builder = req_builder.query(&[("profileId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_source {
+        req_builder = req_builder.query(&[("source", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());

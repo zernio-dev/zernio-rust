@@ -138,7 +138,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_posts
 
-> models::PostsListResponse list_posts(page, limit, status, platform, profile_id, created_by, date_from, date_to, include_hidden)
+> models::PostsListResponse list_posts(page, limit, status, platform, profile_id, created_by, date_from, date_to, include_hidden, search, sort_by)
 List posts
 
 Returns a paginated list of posts. Published posts include platformPostUrl with the public URL on each platform.
@@ -157,6 +157,8 @@ Name | Type | Description  | Required | Notes
 **date_from** | Option<**String**> |  |  |
 **date_to** | Option<**String**> |  |  |
 **include_hidden** | Option<**bool**> |  |  |[default to false]
+**search** | Option<**String**> | Search posts by text content. |  |
+**sort_by** | Option<**String**> | Sort order for results. |  |[default to scheduled-desc]
 
 ### Return type
 
