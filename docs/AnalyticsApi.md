@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**get_follower_stats**](AnalyticsApi.md#get_follower_stats) | **GET** /v1/accounts/follower-stats | Get follower stats
 [**get_linked_in_aggregate_analytics**](AnalyticsApi.md#get_linked_in_aggregate_analytics) | **GET** /v1/accounts/{accountId}/linkedin-aggregate-analytics | Get LinkedIn aggregate stats
 [**get_linked_in_post_analytics**](AnalyticsApi.md#get_linked_in_post_analytics) | **GET** /v1/accounts/{accountId}/linkedin-post-analytics | Get LinkedIn post stats
+[**get_post_timeline**](AnalyticsApi.md#get_post_timeline) | **GET** /v1/analytics/post-timeline | Get post analytics timeline
 [**get_posting_frequency**](AnalyticsApi.md#get_posting_frequency) | **GET** /v1/analytics/posting-frequency | Get posting frequency vs engagement
 [**get_you_tube_daily_views**](AnalyticsApi.md#get_you_tube_daily_views) | **GET** /v1/analytics/youtube/daily-views | Get YouTube daily views
 
@@ -239,6 +240,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetLinkedInPostAnalytics200Response**](getLinkedInPostAnalytics_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_post_timeline
+
+> models::GetPostTimeline200Response get_post_timeline(post_id, from_date, to_date)
+Get post analytics timeline
+
+Returns a daily timeline of analytics metrics for a specific post, showing how impressions, likes, and other metrics evolved day-by-day since publishing. Each row represents one day of data per platform. For multi-platform Late posts, returns separate rows for each platform. Requires the Analytics add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**post_id** | **String** | The post to fetch timeline for. Accepts an ExternalPost ID, a platformPostId, or a Late Post ID.  | [required] |
+**from_date** | Option<**String**> | Start of date range (ISO 8601). Defaults to 90 days ago. |  |
+**to_date** | Option<**String**> | End of date range (ISO 8601). Defaults to now. |  |
+
+### Return type
+
+[**models::GetPostTimeline200Response**](getPostTimeline_200_response.md)
 
 ### Authorization
 
