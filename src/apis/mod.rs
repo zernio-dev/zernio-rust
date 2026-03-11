@@ -141,5 +141,7 @@ pub mod usage_api;
 pub mod users_api;
 pub mod validate_api;
 pub mod webhooks_api;
+pub mod whats_app_api;
+pub mod whats_app_phone_numbers_api;
 
 pub mod configuration;
