@@ -13,7 +13,10 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TwitterPlatformData {
-    /// Controls who can reply to the tweet. \"following\" allows only people you follow, \"mentionedUsers\" allows only mentioned users, \"subscribers\" allows only subscribers. Omit for default (everyone can reply). For threads, applies to the first tweet only.
+    /// ID of an existing tweet to reply to. The published tweet will appear as a reply in that tweet's thread. For threads, only the first tweet replies to the target; subsequent tweets chain normally.
+    #[serde(rename = "replyToTweetId", skip_serializing_if = "Option::is_none")]
+    pub reply_to_tweet_id: Option<String>,
+    /// Controls who can reply to the tweet. \"following\" allows only people you follow, \"mentionedUsers\" allows only mentioned users, \"subscribers\" allows only subscribers, \"verified\" allows only verified users. Omit for default (everyone can reply). For threads, applies to the first tweet only. Cannot be combined with replyToTweetId.
     #[serde(rename = "replySettings", skip_serializing_if = "Option::is_none")]
     pub reply_settings: Option<ReplySettings>,
     /// Sequence of tweets in a thread. First item is the root tweet.
@@ -24,12 +27,13 @@ pub struct TwitterPlatformData {
 impl TwitterPlatformData {
     pub fn new() -> TwitterPlatformData {
         TwitterPlatformData {
+            reply_to_tweet_id: None,
             reply_settings: None,
             thread_items: None,
         }
     }
 }
-/// Controls who can reply to the tweet. \"following\" allows only people you follow, \"mentionedUsers\" allows only mentioned users, \"subscribers\" allows only subscribers. Omit for default (everyone can reply). For threads, applies to the first tweet only.
+/// Controls who can reply to the tweet. \"following\" allows only people you follow, \"mentionedUsers\" allows only mentioned users, \"subscribers\" allows only subscribers, \"verified\" allows only verified users. Omit for default (everyone can reply). For threads, applies to the first tweet only. Cannot be combined with replyToTweetId.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ReplySettings {
     #[serde(rename = "following")]
@@ -38,6 +42,8 @@ pub enum ReplySettings {
     MentionedUsers,
     #[serde(rename = "subscribers")]
     Subscribers,
+    #[serde(rename = "verified")]
+    Verified,
 }
 
 impl Default for ReplySettings {

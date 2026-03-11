@@ -27,8 +27,9 @@ Or add it manually to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-late = "0.0.49"
+late = "*"
 ```
+
 
 ## Documentation for API Endpoints
 
