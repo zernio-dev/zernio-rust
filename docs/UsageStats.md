@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **plan_name** | Option<**String**> |  | [optional]
 **billing_period** | Option<**BillingPeriod**> |  (enum: monthly, yearly) | [optional]
 **signup_date** | Option<**String**> |  | [optional]
+**billing_anchor_day** | Option<**i32**> | Day of month (1-31) when the billing cycle resets | [optional]
 **limits** | Option<[**models::UsageStatsLimits**](UsageStatsLimits.md)> |  | [optional]
 **usage** | Option<[**models::UsageStatsUsage**](UsageStatsUsage.md)> |  | [optional]
 

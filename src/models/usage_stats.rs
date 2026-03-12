@@ -19,6 +19,9 @@ pub struct UsageStats {
     pub billing_period: Option<BillingPeriod>,
     #[serde(rename = "signupDate", skip_serializing_if = "Option::is_none")]
     pub signup_date: Option<String>,
+    /// Day of month (1-31) when the billing cycle resets
+    #[serde(rename = "billingAnchorDay", skip_serializing_if = "Option::is_none")]
+    pub billing_anchor_day: Option<i32>,
     #[serde(rename = "limits", skip_serializing_if = "Option::is_none")]
     pub limits: Option<Box<models::UsageStatsLimits>>,
     #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
@@ -31,6 +34,7 @@ impl UsageStats {
             plan_name: None,
             billing_period: None,
             signup_date: None,
+            billing_anchor_day: None,
             limits: None,
             usage: None,
         }
