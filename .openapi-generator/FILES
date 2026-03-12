@@ -39,6 +39,9 @@ docs/CompleteTelegramConnect200Response.md
 docs/ConnectApi.md
 docs/ConnectBlueskyCredentials200Response.md
 docs/ConnectBlueskyCredentialsRequest.md
+docs/ConnectWhatsAppCredentials200Response.md
+docs/ConnectWhatsAppCredentials200ResponseAccount.md
+docs/ConnectWhatsAppCredentialsRequest.md
 docs/Connected.md
 docs/ConnectedAccount.md
 docs/ConnectionLog.md
@@ -76,6 +79,8 @@ docs/CreateWhatsAppContactRequest.md
 docs/CreateWhatsAppTemplate200Response.md
 docs/CreateWhatsAppTemplate200ResponseTemplate.md
 docs/CreateWhatsAppTemplateRequest.md
+docs/CreateWhatsAppTemplateRequestLibraryTemplateButtonInputsInner.md
+docs/CreateWhatsAppTemplateRequestLibraryTemplateButtonInputsInnerUrl.md
 docs/DeleteAccountGroup200Response.md
 docs/DeleteGoogleBusinessMedia200Response.md
 docs/DeleteGoogleBusinessPlaceAction200Response.md
@@ -613,6 +618,9 @@ src/models/check_instagram_hashtags_request.rs
 src/models/complete_telegram_connect_200_response.rs
 src/models/connect_bluesky_credentials_200_response.rs
 src/models/connect_bluesky_credentials_request.rs
+src/models/connect_whats_app_credentials_200_response.rs
+src/models/connect_whats_app_credentials_200_response_account.rs
+src/models/connect_whats_app_credentials_request.rs
 src/models/connected.rs
 src/models/connected_account.rs
 src/models/connection_log.rs
@@ -650,6 +658,8 @@ src/models/create_whats_app_contact_request.rs
 src/models/create_whats_app_template_200_response.rs
 src/models/create_whats_app_template_200_response_template.rs
 src/models/create_whats_app_template_request.rs
+src/models/create_whats_app_template_request_library_template_button_inputs_inner.rs
+src/models/create_whats_app_template_request_library_template_button_inputs_inner_url.rs
 src/models/delete_account_group_200_response.rs
 src/models/delete_google_business_media_200_response.rs
 src/models/delete_google_business_place_action_200_response.rs

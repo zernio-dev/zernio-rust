@@ -33,6 +33,16 @@ pub enum ConnectBlueskyCredentialsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`connect_whats_app_credentials`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ConnectWhatsAppCredentialsError {
+    Status400(),
+    Status401(),
+    Status403(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_connect_url`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -394,6 +404,59 @@ pub async fn connect_bluesky_credentials(
     } else {
         let content = resp.text().await?;
         let entity: Option<ConnectBlueskyCredentialsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Connect a WhatsApp Business Account by providing Meta credentials directly. This is the headless alternative to the Embedded Signup browser flow.  To get the required credentials: 1. Go to Meta Business Suite (business.facebook.com) 2. Create or select a WhatsApp Business Account 3. In Business Settings > System Users, create a System User 4. Assign it the `whatsapp_business_management` and `whatsapp_business_messaging` permissions 5. Generate a permanent access token 6. Get the WABA ID from WhatsApp Manager > Account Tools > Phone Numbers 7. Get the Phone Number ID from the same page (click on the number)
+pub async fn connect_whats_app_credentials(
+    configuration: &configuration::Configuration,
+    connect_whats_app_credentials_request: models::ConnectWhatsAppCredentialsRequest,
+) -> Result<models::ConnectWhatsAppCredentials200Response, Error<ConnectWhatsAppCredentialsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_connect_whats_app_credentials_request = connect_whats_app_credentials_request;
+
+    let uri_str = format!(
+        "{}/v1/connect/whatsapp/credentials",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_connect_whats_app_credentials_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ConnectWhatsAppCredentials200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ConnectWhatsAppCredentials200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ConnectWhatsAppCredentialsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

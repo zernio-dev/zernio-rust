@@ -25,9 +25,28 @@ pub struct CreateWhatsAppTemplateRequest {
     /// Template language code (e.g., en_US)
     #[serde(rename = "language")]
     pub language: String,
-    /// Template components (header, body, footer, buttons)
-    #[serde(rename = "components")]
-    pub components: Vec<serde_json::Value>,
+    /// Template components (header, body, footer, buttons). Required for custom templates, omit when using library_template_name.
+    #[serde(rename = "components", skip_serializing_if = "Option::is_none")]
+    pub components: Option<Vec<serde_json::Value>>,
+    /// Name of a pre-built template from Meta's template library (e.g., \"appointment_reminder\", \"auto_pay_reminder_1\", \"address_update\"). When provided, the template is pre-approved by Meta with no review wait. Omit `components` when using this field.
+    #[serde(
+        rename = "library_template_name",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub library_template_name: Option<String>,
+    /// Optional body customizations for library templates. Available options depend on the template (e.g., add_contact_number, add_learn_more_link, add_security_recommendation, add_track_package_link, code_expiration_minutes).
+    #[serde(
+        rename = "library_template_body_inputs",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub library_template_body_inputs: Option<serde_json::Value>,
+    /// Optional button customizations for library templates. Each item specifies button type and configuration (e.g., URL, phone number, quick reply).
+    #[serde(
+        rename = "library_template_button_inputs",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub library_template_button_inputs:
+        Option<Vec<models::CreateWhatsAppTemplateRequestLibraryTemplateButtonInputsInner>>,
 }
 
 impl CreateWhatsAppTemplateRequest {
@@ -36,14 +55,16 @@ impl CreateWhatsAppTemplateRequest {
         name: String,
         category: Category,
         language: String,
-        components: Vec<serde_json::Value>,
     ) -> CreateWhatsAppTemplateRequest {
         CreateWhatsAppTemplateRequest {
             account_id,
             name,
             category,
             language,
-            components,
+            components: None,
+            library_template_name: None,
+            library_template_body_inputs: None,
+            library_template_button_inputs: None,
         }
     }
 }

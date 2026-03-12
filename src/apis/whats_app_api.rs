@@ -615,7 +615,7 @@ pub async fn create_whats_app_contact(
     }
 }
 
-/// Create a new message template. Template names must be lowercase, start with a letter, and contain only letters, numbers, and underscores. Templates are submitted to Meta for review.
+/// Create a new message template. Supports two modes:  **Custom template:** Provide `components` with your own content. Submitted to Meta for review (can take up to 24h).  **Library template:** Provide `library_template_name` instead of `components` to use a pre-built template from Meta's template library. Library templates are **pre-approved** (no review wait). You can optionally customize parameters and buttons via `library_template_body_inputs` and `library_template_button_inputs`.  Browse available library templates at: https://business.facebook.com/wa/manage/message-templates/
 pub async fn create_whats_app_template(
     configuration: &configuration::Configuration,
     create_whats_app_template_request: models::CreateWhatsAppTemplateRequest,

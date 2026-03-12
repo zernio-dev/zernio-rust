@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**String**> |  | [optional]
 **name** | Option<**String**> |  | [optional]
-**status** | Option<**String**> |  | [optional]
+**status** | Option<**String**> | APPROVED for library templates, PENDING for custom | [optional]
 **category** | Option<**String**> |  | [optional]
 **language** | Option<**String**> |  | [optional]
 

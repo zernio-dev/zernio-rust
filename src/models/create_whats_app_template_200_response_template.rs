@@ -17,6 +17,7 @@ pub struct CreateWhatsAppTemplate200ResponseTemplate {
     pub id: Option<String>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
+    /// APPROVED for library templates, PENDING for custom
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
     #[serde(rename = "category", skip_serializing_if = "Option::is_none")]
