@@ -234,7 +234,7 @@ pub async fn get_inbox_post_comments(
     }
 }
 
-/// Hide a comment on a post. Supported by Facebook, Instagram, and Threads. Hidden comments are only visible to the commenter and page admin.
+/// Hide a comment on a post. Supported by Facebook, Instagram, Threads, and X/Twitter. Hidden comments are only visible to the commenter and page admin. For X/Twitter, the reply must belong to a conversation started by the authenticated user. Requires the tweet.moderate.write scope and X API Basic tier or higher.
 pub async fn hide_inbox_comment(
     configuration: &configuration::Configuration,
     post_id: &str,
@@ -557,7 +557,7 @@ pub async fn send_private_reply_to_comment(
     }
 }
 
-/// Unhide a previously hidden comment. Supported by Facebook, Instagram, and Threads.
+/// Unhide a previously hidden comment. Supported by Facebook, Instagram, Threads, and X/Twitter.
 pub async fn unhide_inbox_comment(
     configuration: &configuration::Configuration,
     post_id: &str,

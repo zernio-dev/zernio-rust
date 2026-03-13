@@ -22,6 +22,8 @@ docs/ApiKey.md
 docs/ApiKeyProfileIdsInner.md
 docs/ApiKeysApi.md
 docs/BlueskyPlatformData.md
+docs/BookmarkPost200Response.md
+docs/BookmarkPostRequest.md
 docs/BulkDeleteWhatsAppContacts200Response.md
 docs/BulkDeleteWhatsAppContactsRequest.md
 docs/BulkUpdateWhatsAppContacts200Response.md
@@ -108,6 +110,8 @@ docs/EditInboxMessageRequestReplyMarkupKeyboardInnerInner.md
 docs/ErrorResponse.md
 docs/Expired.md
 docs/FacebookPlatformData.md
+docs/FollowUser200Response.md
+docs/FollowUserRequest.md
 docs/FollowerStatsResponse.md
 docs/FoodMenu.md
 docs/FoodMenuItem.md
@@ -388,6 +392,7 @@ docs/RedditPlatformData.md
 docs/RedditSearchApi.md
 docs/ReleaseWhatsAppPhoneNumber200Response.md
 docs/ReleaseWhatsAppPhoneNumber200ResponsePhoneNumber.md
+docs/RemoveBookmark200Response.md
 docs/RemoveWhatsAppBroadcastRecipients200Response.md
 docs/RemoveWhatsAppBroadcastRecipientsRequest.md
 docs/RenameWhatsAppGroup200Response.md
@@ -398,6 +403,8 @@ docs/ReplyToInboxPostRequest.md
 docs/ReplyToInboxReview200Response.md
 docs/ReplyToInboxReview200ResponseReply.md
 docs/ReplyToInboxReviewRequest.md
+docs/RetweetPost200Response.md
+docs/RetweetPostRequest.md
 docs/ReviewsApi.md
 docs/ScheduleWhatsAppBroadcast200Response.md
 docs/ScheduleWhatsAppBroadcast200ResponseBroadcast.md
@@ -458,8 +465,11 @@ docs/TikTokPlatformData.md
 docs/ToolsApi.md
 docs/TranscriptResponse.md
 docs/TranscriptSegment.md
+docs/TwitterEngagementApi.md
 docs/TwitterPlatformData.md
 docs/TwitterPlatformDataThreadItemsInner.md
+docs/UndoRetweet200Response.md
+docs/UnfollowUser200Response.md
 docs/UnlikeInboxComment200Response.md
 docs/UnpublishPost200Response.md
 docs/UnpublishPostRequest.md
@@ -604,6 +614,7 @@ src/apis/queue_api.rs
 src/apis/reddit_search_api.rs
 src/apis/reviews_api.rs
 src/apis/tools_api.rs
+src/apis/twitter_engagement_api.rs
 src/apis/usage_api.rs
 src/apis/users_api.rs
 src/apis/validate_api.rs
@@ -626,6 +637,8 @@ src/models/analytics_single_post_response_media_items_inner.rs
 src/models/api_key.rs
 src/models/api_key_profile_ids_inner.rs
 src/models/bluesky_platform_data.rs
+src/models/bookmark_post_200_response.rs
+src/models/bookmark_post_request.rs
 src/models/bulk_delete_whats_app_contacts_200_response.rs
 src/models/bulk_delete_whats_app_contacts_request.rs
 src/models/bulk_update_whats_app_contacts_200_response.rs
@@ -710,6 +723,8 @@ src/models/edit_inbox_message_request_reply_markup_keyboard_inner_inner.rs
 src/models/error_response.rs
 src/models/expired.rs
 src/models/facebook_platform_data.rs
+src/models/follow_user_200_response.rs
+src/models/follow_user_request.rs
 src/models/follower_stats_response.rs
 src/models/food_menu.rs
 src/models/food_menu_item.rs
@@ -976,6 +991,7 @@ src/models/recycling_state.rs
 src/models/reddit_platform_data.rs
 src/models/release_whats_app_phone_number_200_response.rs
 src/models/release_whats_app_phone_number_200_response_phone_number.rs
+src/models/remove_bookmark_200_response.rs
 src/models/remove_whats_app_broadcast_recipients_200_response.rs
 src/models/remove_whats_app_broadcast_recipients_request.rs
 src/models/rename_whats_app_group_200_response.rs
@@ -986,6 +1002,8 @@ src/models/reply_to_inbox_post_request.rs
 src/models/reply_to_inbox_review_200_response.rs
 src/models/reply_to_inbox_review_200_response_reply.rs
 src/models/reply_to_inbox_review_request.rs
+src/models/retweet_post_200_response.rs
+src/models/retweet_post_request.rs
 src/models/schedule_whats_app_broadcast_200_response.rs
 src/models/schedule_whats_app_broadcast_200_response_broadcast.rs
 src/models/schedule_whats_app_broadcast_request.rs
@@ -1046,6 +1064,8 @@ src/models/transcript_response.rs
 src/models/transcript_segment.rs
 src/models/twitter_platform_data.rs
 src/models/twitter_platform_data_thread_items_inner.rs
+src/models/undo_retweet_200_response.rs
+src/models/unfollow_user_200_response.rs
 src/models/unlike_inbox_comment_200_response.rs
 src/models/unpublish_post_200_response.rs
 src/models/unpublish_post_request.rs

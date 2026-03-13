@@ -88,7 +88,7 @@ Name | Type | Description  | Required | Notes
 > models::HideInboxComment200Response hide_inbox_comment(post_id, comment_id, hide_inbox_comment_request)
 Hide comment
 
-Hide a comment on a post. Supported by Facebook, Instagram, and Threads. Hidden comments are only visible to the commenter and page admin. 
+Hide a comment on a post. Supported by Facebook, Instagram, Threads, and X/Twitter. Hidden comments are only visible to the commenter and page admin. For X/Twitter, the reply must belong to a conversation started by the authenticated user. Requires the tweet.moderate.write scope and X API Basic tier or higher. 
 
 ### Parameters
 
@@ -253,7 +253,7 @@ Name | Type | Description  | Required | Notes
 > models::HideInboxComment200Response unhide_inbox_comment(post_id, comment_id, account_id)
 Unhide comment
 
-Unhide a previously hidden comment. Supported by Facebook, Instagram, and Threads. 
+Unhide a previously hidden comment. Supported by Facebook, Instagram, Threads, and X/Twitter. 
 
 ### Parameters
 

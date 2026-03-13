@@ -166,6 +166,12 @@ Class | Method | HTTP request | Description
 *ToolsApi* | [**download_twitter_media**](docs/ToolsApi.md#download_twitter_media) | **GET** /v1/tools/twitter/download | Download Twitter/X media
 *ToolsApi* | [**download_you_tube_video**](docs/ToolsApi.md#download_you_tube_video) | **GET** /v1/tools/youtube/download | Download YouTube video
 *ToolsApi* | [**get_you_tube_transcript**](docs/ToolsApi.md#get_you_tube_transcript) | **GET** /v1/tools/youtube/transcript | Get YouTube transcript
+*TwitterEngagementApi* | [**bookmark_post**](docs/TwitterEngagementApi.md#bookmark_post) | **POST** /v1/twitter/bookmark | Bookmark a tweet
+*TwitterEngagementApi* | [**follow_user**](docs/TwitterEngagementApi.md#follow_user) | **POST** /v1/twitter/follow | Follow a user
+*TwitterEngagementApi* | [**remove_bookmark**](docs/TwitterEngagementApi.md#remove_bookmark) | **DELETE** /v1/twitter/bookmark | Remove bookmark
+*TwitterEngagementApi* | [**retweet_post**](docs/TwitterEngagementApi.md#retweet_post) | **POST** /v1/twitter/retweet | Retweet a post
+*TwitterEngagementApi* | [**undo_retweet**](docs/TwitterEngagementApi.md#undo_retweet) | **DELETE** /v1/twitter/retweet | Undo retweet
+*TwitterEngagementApi* | [**unfollow_user**](docs/TwitterEngagementApi.md#unfollow_user) | **DELETE** /v1/twitter/follow | Unfollow a user
 *UsageApi* | [**get_usage_stats**](docs/UsageApi.md#get_usage_stats) | **GET** /v1/usage-stats | Get plan and usage stats
 *UsersApi* | [**get_user**](docs/UsersApi.md#get_user) | **GET** /v1/users/{userId} | Get user
 *UsersApi* | [**list_users**](docs/UsersApi.md#list_users) | **GET** /v1/users | List users
@@ -234,6 +240,8 @@ Class | Method | HTTP request | Description
  - [ApiKey](docs/ApiKey.md)
  - [ApiKeyProfileIdsInner](docs/ApiKeyProfileIdsInner.md)
  - [BlueskyPlatformData](docs/BlueskyPlatformData.md)
+ - [BookmarkPost200Response](docs/BookmarkPost200Response.md)
+ - [BookmarkPostRequest](docs/BookmarkPostRequest.md)
  - [BulkDeleteWhatsAppContacts200Response](docs/BulkDeleteWhatsAppContacts200Response.md)
  - [BulkDeleteWhatsAppContactsRequest](docs/BulkDeleteWhatsAppContactsRequest.md)
  - [BulkUpdateWhatsAppContacts200Response](docs/BulkUpdateWhatsAppContacts200Response.md)
@@ -318,6 +326,8 @@ Class | Method | HTTP request | Description
  - [ErrorResponse](docs/ErrorResponse.md)
  - [Expired](docs/Expired.md)
  - [FacebookPlatformData](docs/FacebookPlatformData.md)
+ - [FollowUser200Response](docs/FollowUser200Response.md)
+ - [FollowUserRequest](docs/FollowUserRequest.md)
  - [FollowerStatsResponse](docs/FollowerStatsResponse.md)
  - [FoodMenu](docs/FoodMenu.md)
  - [FoodMenuItem](docs/FoodMenuItem.md)
@@ -583,6 +593,7 @@ Class | Method | HTTP request | Description
  - [RedditPlatformData](docs/RedditPlatformData.md)
  - [ReleaseWhatsAppPhoneNumber200Response](docs/ReleaseWhatsAppPhoneNumber200Response.md)
  - [ReleaseWhatsAppPhoneNumber200ResponsePhoneNumber](docs/ReleaseWhatsAppPhoneNumber200ResponsePhoneNumber.md)
+ - [RemoveBookmark200Response](docs/RemoveBookmark200Response.md)
  - [RemoveWhatsAppBroadcastRecipients200Response](docs/RemoveWhatsAppBroadcastRecipients200Response.md)
  - [RemoveWhatsAppBroadcastRecipientsRequest](docs/RemoveWhatsAppBroadcastRecipientsRequest.md)
  - [RenameWhatsAppGroup200Response](docs/RenameWhatsAppGroup200Response.md)
@@ -593,6 +604,8 @@ Class | Method | HTTP request | Description
  - [ReplyToInboxReview200Response](docs/ReplyToInboxReview200Response.md)
  - [ReplyToInboxReview200ResponseReply](docs/ReplyToInboxReview200ResponseReply.md)
  - [ReplyToInboxReviewRequest](docs/ReplyToInboxReviewRequest.md)
+ - [RetweetPost200Response](docs/RetweetPost200Response.md)
+ - [RetweetPostRequest](docs/RetweetPostRequest.md)
  - [ScheduleWhatsAppBroadcast200Response](docs/ScheduleWhatsAppBroadcast200Response.md)
  - [ScheduleWhatsAppBroadcast200ResponseBroadcast](docs/ScheduleWhatsAppBroadcast200ResponseBroadcast.md)
  - [ScheduleWhatsAppBroadcastRequest](docs/ScheduleWhatsAppBroadcastRequest.md)
@@ -653,6 +666,8 @@ Class | Method | HTTP request | Description
  - [TranscriptSegment](docs/TranscriptSegment.md)
  - [TwitterPlatformData](docs/TwitterPlatformData.md)
  - [TwitterPlatformDataThreadItemsInner](docs/TwitterPlatformDataThreadItemsInner.md)
+ - [UndoRetweet200Response](docs/UndoRetweet200Response.md)
+ - [UnfollowUser200Response](docs/UnfollowUser200Response.md)
  - [UnlikeInboxComment200Response](docs/UnlikeInboxComment200Response.md)
  - [UnpublishPost200Response](docs/UnpublishPost200Response.md)
  - [UnpublishPostRequest](docs/UnpublishPostRequest.md)
