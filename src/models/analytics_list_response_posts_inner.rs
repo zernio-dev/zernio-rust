@@ -37,8 +37,9 @@ pub struct AnalyticsListResponsePostsInner {
     pub thumbnail_url: Option<String>,
     #[serde(rename = "mediaType", skip_serializing_if = "Option::is_none")]
     pub media_type: Option<MediaType>,
+    /// All media items for this post. Carousel posts contain one entry per slide.
     #[serde(rename = "mediaItems", skip_serializing_if = "Option::is_none")]
-    pub media_items: Option<Vec<models::MediaItem>>,
+    pub media_items: Option<Vec<models::AnalyticsSinglePostResponseMediaItemsInner>>,
 }
 
 impl AnalyticsListResponsePostsInner {
@@ -71,6 +72,10 @@ pub enum MediaType {
     Gif,
     #[serde(rename = "document")]
     Document,
+    #[serde(rename = "carousel")]
+    Carousel,
+    #[serde(rename = "text")]
+    Text,
 }
 
 impl Default for MediaType {

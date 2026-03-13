@@ -14,6 +14,9 @@ Name | Type | Description | Notes
 **platform** | Option<**String**> |  | [optional]
 **platform_post_url** | Option<**String**> |  | [optional]
 **is_external** | Option<**bool**> |  | [optional]
+**thumbnail_url** | Option<**String**> |  | [optional]
+**media_type** | Option<**MediaType**> |  (enum: image, video, carousel, text) | [optional]
+**media_items** | Option<[**Vec<models::AnalyticsSinglePostResponseMediaItemsInner>**](AnalyticsSinglePostResponseMediaItemsInner.md)> | All media items for this post. Carousel posts contain one entry per slide. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

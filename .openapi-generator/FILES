@@ -17,6 +17,7 @@ docs/AnalyticsListResponse.md
 docs/AnalyticsListResponsePostsInner.md
 docs/AnalyticsOverview.md
 docs/AnalyticsSinglePostResponse.md
+docs/AnalyticsSinglePostResponseMediaItemsInner.md
 docs/ApiKey.md
 docs/ApiKeyProfileIdsInner.md
 docs/ApiKeysApi.md
@@ -621,6 +622,7 @@ src/models/analytics_list_response.rs
 src/models/analytics_list_response_posts_inner.rs
 src/models/analytics_overview.rs
 src/models/analytics_single_post_response.rs
+src/models/analytics_single_post_response_media_items_inner.rs
 src/models/api_key.rs
 src/models/api_key_profile_ids_inner.rs
 src/models/bluesky_platform_data.rs

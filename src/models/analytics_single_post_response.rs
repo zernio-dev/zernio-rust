@@ -33,6 +33,13 @@ pub struct AnalyticsSinglePostResponse {
     pub platform_post_url: Option<String>,
     #[serde(rename = "isExternal", skip_serializing_if = "Option::is_none")]
     pub is_external: Option<bool>,
+    #[serde(rename = "thumbnailUrl", skip_serializing_if = "Option::is_none")]
+    pub thumbnail_url: Option<String>,
+    #[serde(rename = "mediaType", skip_serializing_if = "Option::is_none")]
+    pub media_type: Option<MediaType>,
+    /// All media items for this post. Carousel posts contain one entry per slide.
+    #[serde(rename = "mediaItems", skip_serializing_if = "Option::is_none")]
+    pub media_items: Option<Vec<models::AnalyticsSinglePostResponseMediaItemsInner>>,
 }
 
 impl AnalyticsSinglePostResponse {
@@ -48,6 +55,27 @@ impl AnalyticsSinglePostResponse {
             platform: None,
             platform_post_url: None,
             is_external: None,
+            thumbnail_url: None,
+            media_type: None,
+            media_items: None,
         }
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum MediaType {
+    #[serde(rename = "image")]
+    Image,
+    #[serde(rename = "video")]
+    Video,
+    #[serde(rename = "carousel")]
+    Carousel,
+    #[serde(rename = "text")]
+    Text,
+}
+
+impl Default for MediaType {
+    fn default() -> MediaType {
+        Self::Image
     }
 }

@@ -20,6 +20,8 @@ pub mod analytics_overview;
 pub use self::analytics_overview::AnalyticsOverview;
 pub mod analytics_single_post_response;
 pub use self::analytics_single_post_response::AnalyticsSinglePostResponse;
+pub mod analytics_single_post_response_media_items_inner;
+pub use self::analytics_single_post_response_media_items_inner::AnalyticsSinglePostResponseMediaItemsInner;
 pub mod api_key;
 pub use self::api_key::ApiKey;
 pub mod api_key_profile_ids_inner;

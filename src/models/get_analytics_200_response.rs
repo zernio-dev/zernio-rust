@@ -23,3 +23,21 @@ impl Default for GetAnalytics200Response {
         Self::AnalyticsSinglePostResponse(Default::default())
     }
 }
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum MediaType {
+    #[serde(rename = "image")]
+    Image,
+    #[serde(rename = "video")]
+    Video,
+    #[serde(rename = "carousel")]
+    Carousel,
+    #[serde(rename = "text")]
+    Text,
+}
+
+impl Default for MediaType {
+    fn default() -> MediaType {
+        Self::Image
+    }
+}
