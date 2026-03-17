@@ -1,6 +1,6 @@
 # \AnalyticsApi
 
-All URIs are relative to *https://getlate.dev/api*
+All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -23,17 +23,17 @@ Method | HTTP request | Description
 > models::GetAnalytics200Response get_analytics(post_id, platform, profile_id, source, from_date, to_date, limit, page, sort_by, order)
 Get post analytics
 
-Returns analytics for posts. With postId, returns a single post. Without it, returns a paginated list with overview stats. Accepts both Late Post IDs and External Post IDs (auto-resolved). fromDate defaults to 90 days ago if omitted, max range 366 days. Single post lookups may return 202 (sync pending) or 424 (all platforms failed). For follower stats, use /v1/accounts/follower-stats. 
+Returns analytics for posts. With postId, returns a single post. Without it, returns a paginated list with overview stats. Accepts both Zernio Post IDs and External Post IDs (auto-resolved). fromDate defaults to 90 days ago if omitted, max range 366 days. Single post lookups may return 202 (sync pending) or 424 (all platforms failed). For follower stats, use /v1/accounts/follower-stats. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**post_id** | Option<**String**> | Returns analytics for a single post. Accepts both Late Post IDs and External Post IDs. Late IDs are auto-resolved to External Post analytics. |  |
+**post_id** | Option<**String**> | Returns analytics for a single post. Accepts both Zernio Post IDs and External Post IDs. Zernio IDs are auto-resolved to External Post analytics. |  |
 **platform** | Option<**String**> | Filter by platform (default \"all\") |  |
 **profile_id** | Option<**String**> | Filter by profile ID (default \"all\") |  |
-**source** | Option<**String**> | Filter by post source: late (posted via Late API), external (synced from platform), all (default) |  |[default to all]
+**source** | Option<**String**> | Filter by post source: late (posted via Zernio API), external (synced from platform), all (default) |  |[default to all]
 **from_date** | Option<**String**> | Inclusive lower bound (YYYY-MM-DD). Defaults to 90 days ago if omitted. Max range is 366 days. |  |
 **to_date** | Option<**String**> | Inclusive upper bound (YYYY-MM-DD). Defaults to today if omitted. |  |
 **limit** | Option<**i32**> | Page size (default 50) |  |[default to 50]
@@ -71,7 +71,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **platform** | Option<**String**> | Filter by platform (e.g. \"instagram\", \"tiktok\"). Omit for all platforms. |  |
 **profile_id** | Option<**String**> | Filter by profile ID. Omit for all profiles. |  |
-**source** | Option<**String**> | Filter by post origin. \"late\" for posts published via Late, \"external\" for posts imported from platforms. |  |[default to all]
+**source** | Option<**String**> | Filter by post origin. \"late\" for posts published via Zernio, \"external\" for posts imported from platforms. |  |[default to all]
 
 ### Return type
 
@@ -103,7 +103,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **platform** | Option<**String**> | Filter by platform (e.g. \"instagram\", \"tiktok\"). Omit for all platforms. |  |
 **profile_id** | Option<**String**> | Filter by profile ID. Omit for all profiles. |  |
-**source** | Option<**String**> | Filter by post origin. \"late\" for posts published via Late, \"external\" for posts imported from platforms. |  |[default to all]
+**source** | Option<**String**> | Filter by post origin. \"late\" for posts published via Zernio, \"external\" for posts imported from platforms. |  |[default to all]
 
 ### Return type
 
@@ -137,7 +137,7 @@ Name | Type | Description  | Required | Notes
 **profile_id** | Option<**String**> | Filter by profile ID. Omit for all profiles. |  |
 **from_date** | Option<**String**> | Inclusive start date (ISO 8601). Defaults to 180 days ago. |  |
 **to_date** | Option<**String**> | Inclusive end date (ISO 8601). Defaults to now. |  |
-**source** | Option<**String**> | Filter by post origin. \"late\" for posts published via Late, \"external\" for posts imported from platforms. |  |[default to all]
+**source** | Option<**String**> | Filter by post origin. \"late\" for posts published via Zernio, \"external\" for posts imported from platforms. |  |[default to all]
 
 ### Return type
 
@@ -292,14 +292,14 @@ Name | Type | Description  | Required | Notes
 > models::GetPostTimeline200Response get_post_timeline(post_id, from_date, to_date)
 Get post analytics timeline
 
-Returns a daily timeline of analytics metrics for a specific post, showing how impressions, likes, and other metrics evolved day-by-day since publishing. Each row represents one day of data per platform. For multi-platform Late posts, returns separate rows for each platform. Requires the Analytics add-on. 
+Returns a daily timeline of analytics metrics for a specific post, showing how impressions, likes, and other metrics evolved day-by-day since publishing. Each row represents one day of data per platform. For multi-platform Zernio posts, returns separate rows for each platform. Requires the Analytics add-on. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**post_id** | **String** | The post to fetch timeline for. Accepts an ExternalPost ID, a platformPostId, or a Late Post ID.  | [required] |
+**post_id** | **String** | The post to fetch timeline for. Accepts an ExternalPost ID, a platformPostId, or a Zernio Post ID.  | [required] |
 **from_date** | Option<**String**> | Start of date range (ISO 8601). Defaults to 90 days ago. |  |
 **to_date** | Option<**String**> | End of date range (ISO 8601). Defaults to now. |  |
 
@@ -333,7 +333,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **platform** | Option<**String**> | Filter by platform (e.g. \"instagram\", \"tiktok\"). Omit for all platforms. |  |
 **profile_id** | Option<**String**> | Filter by profile ID. Omit for all profiles. |  |
-**source** | Option<**String**> | Filter by post origin. \"late\" for posts published via Late, \"external\" for posts imported from platforms. |  |[default to all]
+**source** | Option<**String**> | Filter by post origin. \"late\" for posts published via Zernio, \"external\" for posts imported from platforms. |  |[default to all]
 
 ### Return type
 
@@ -364,7 +364,7 @@ Returns daily view counts for a YouTube video including views, watch time, and s
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **video_id** | **String** | The YouTube video ID (e.g., \"dQw4w9WgXcQ\") | [required] |
-**account_id** | **String** | The Late account ID for the YouTube account | [required] |
+**account_id** | **String** | The Zernio account ID for the YouTube account | [required] |
 **start_date** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to 30 days ago. |  |
 **end_date** | Option<**String**> | End date (YYYY-MM-DD). Defaults to 3 days ago (YouTube data latency). |  |
 

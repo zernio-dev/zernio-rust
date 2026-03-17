@@ -1,10 +1,10 @@
 # Rust API client for late
 
-API reference for Late. Authenticate with a Bearer API key.
-Base URL: https://getlate.dev/api
+API reference for Zernio. Authenticate with a Bearer API key.
+Base URL: https://zernio.com/api
 
 
-For more information, please visit [https://getlate.dev](https://getlate.dev)
+For more information, please visit [https://zernio.com](https://zernio.com)
 
 ## Overview
 
@@ -33,7 +33,7 @@ late = "*"
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://getlate.dev/api*
+All URIs are relative to *https://zernio.com/api*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -790,5 +790,5 @@ cargo doc --open
 
 ## Author
 
-support@getlate.dev
+support@zernio.com
 

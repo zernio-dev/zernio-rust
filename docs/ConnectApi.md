@@ -1,6 +1,6 @@
 # \ConnectApi
 
-All URIs are relative to *https://getlate.dev/api*
+All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -131,7 +131,7 @@ Name | Type | Description  | Required | Notes
 > models::GetConnectUrl200Response get_connect_url(platform, profile_id, redirect_url, headless)
 Get OAuth connect URL
 
-Initiate an OAuth connection flow. Returns an authUrl to redirect the user to. Standard flow: Late hosts the selection UI, then redirects to your redirect_url. Headless mode (headless=true): user is redirected to your redirect_url with OAuth data for custom UI. Use the platform-specific selection endpoints to complete. 
+Initiate an OAuth connection flow. Returns an authUrl to redirect the user to. Standard flow: Zernio hosts the selection UI, then redirects to your redirect_url. Headless mode (headless=true): user is redirected to your redirect_url with OAuth data for custom UI. Use the platform-specific selection endpoints to complete. 
 
 ### Parameters
 
@@ -139,9 +139,9 @@ Initiate an OAuth connection flow. Returns an authUrl to redirect the user to. S
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **platform** | **String** | Social media platform to connect | [required] |
-**profile_id** | **String** | Your Late profile ID (get from /v1/profiles) | [required] |
+**profile_id** | **String** | Your Zernio profile ID (get from /v1/profiles) | [required] |
 **redirect_url** | Option<**String**> | Your custom redirect URL after connection completes. Standard mode appends ?connected={platform}&profileId=X&accountId=Y&username=Z. Headless mode appends OAuth data params for platforms requiring selection (e.g. LinkedIn orgs, Facebook pages). If no selection is needed, the account is created directly and the redirect includes accountId. |  |
-**headless** | Option<**bool**> | When true, the user is redirected to your redirect_url with raw OAuth data (code, state) instead of Late's default account selection UI. Use this to build a custom connect experience. |  |[default to false]
+**headless** | Option<**bool**> | When true, the user is redirected to your redirect_url with raw OAuth data (code, state) instead of Zernio's default account selection UI. Use this to build a custom connect experience. |  |[default to false]
 
 ### Return type
 
@@ -567,7 +567,7 @@ For headless flows. Returns Pinterest boards the user can post to. Use X-Connect
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **x_connect_token** | **String** | Short-lived connect token from the OAuth redirect | [required] |
-**profile_id** | **String** | Your Late profile ID | [required] |
+**profile_id** | **String** | Your Zernio profile ID | [required] |
 **temp_token** | **String** | Temporary Pinterest access token from the OAuth callback redirect | [required] |
 
 ### Return type
@@ -599,7 +599,7 @@ For headless flows. Returns Snapchat Public Profiles the user can post to. Use X
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **x_connect_token** | **String** | Short-lived connect token from the OAuth redirect | [required] |
-**profile_id** | **String** | Your Late profile ID | [required] |
+**profile_id** | **String** | Your Zernio profile ID | [required] |
 **temp_token** | **String** | Temporary Snapchat access token from the OAuth callback redirect | [required] |
 
 ### Return type

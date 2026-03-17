@@ -1,6 +1,6 @@
 # \GmbLocationDetailsApi
 
-All URIs are relative to *https://getlate.dev/api*
+All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -21,7 +21,7 @@ Returns detailed GBP location info (hours, description, phone, website, categori
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | The Late account ID (from /v1/accounts) | [required] |
+**account_id** | **String** | The Zernio account ID (from /v1/accounts) | [required] |
 **location_id** | Option<**String**> | Override which location to query. If omitted, uses the account's selected location. Use GET /gmb-locations to list valid IDs. |  |
 **read_mask** | Option<**String**> | Comma-separated fields to return. Available: name, title, phoneNumbers, categories, storefrontAddress, websiteUri, regularHours, specialHours, serviceArea, serviceItems, profile, openInfo, metadata, moreHours. |  |
 
@@ -53,7 +53,7 @@ Updates GBP location details. The updateMask field is required and specifies whi
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | The Late account ID (from /v1/accounts) | [required] |
+**account_id** | **String** | The Zernio account ID (from /v1/accounts) | [required] |
 **update_google_business_location_details_request** | [**UpdateGoogleBusinessLocationDetailsRequest**](UpdateGoogleBusinessLocationDetailsRequest.md) |  | [required] |
 **location_id** | Option<**String**> | Override which location to target. If omitted, uses the account's selected location. Use GET /gmb-locations to list valid IDs. |  |
 

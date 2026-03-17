@@ -1,6 +1,6 @@
 # \GmbFoodMenusApi
 
-All URIs are relative to *https://getlate.dev/api*
+All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -21,7 +21,7 @@ Returns food menus for a GBP location including sections, items, pricing, and di
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | The Late account ID (from /v1/accounts) | [required] |
+**account_id** | **String** | The Zernio account ID (from /v1/accounts) | [required] |
 **location_id** | Option<**String**> | Override which location to query. If omitted, uses the account's selected location. Use GET /gmb-locations to list valid IDs. |  |
 
 ### Return type
@@ -52,7 +52,7 @@ Updates food menus for a GBP location. Send the full menus array. Use updateMask
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | The Late account ID (from /v1/accounts) | [required] |
+**account_id** | **String** | The Zernio account ID (from /v1/accounts) | [required] |
 **update_google_business_food_menus_request** | [**UpdateGoogleBusinessFoodMenusRequest**](UpdateGoogleBusinessFoodMenusRequest.md) |  | [required] |
 **location_id** | Option<**String**> | Override which location to target. If omitted, uses the account's selected location. Use GET /gmb-locations to list valid IDs. |  |
 

@@ -1,6 +1,6 @@
 # \PostsApi
 
-All URIs are relative to *https://getlate.dev/api*
+All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -81,7 +81,7 @@ Name | Type | Description  | Required | Notes
 > models::PostDeleteResponse delete_post(post_id)
 Delete post
 
-Delete a draft or scheduled post from Late. Published posts cannot be deleted; use the Unpublish endpoint instead. Upload quota is automatically refunded.
+Delete a draft or scheduled post from Zernio. Published posts cannot be deleted; use the Unpublish endpoint instead. Upload quota is automatically refunded.
 
 ### Parameters
 
@@ -211,7 +211,7 @@ Name | Type | Description  | Required | Notes
 > models::UnpublishPost200Response unpublish_post(post_id, unpublish_post_request)
 Unpublish post
 
-Deletes a published post from the specified platform. The post record in Late is kept but its status is updated to cancelled. Not supported on Instagram, TikTok, or Snapchat. Threaded posts delete all items. YouTube deletion is permanent. 
+Deletes a published post from the specified platform. The post record in Zernio is kept but its status is updated to cancelled. Not supported on Instagram, TikTok, or Snapchat. Threaded posts delete all items. YouTube deletion is permanent. 
 
 ### Parameters
 
