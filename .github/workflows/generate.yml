@@ -45,7 +45,7 @@ jobs:
             -g rust \
             -o . \
             --skip-validate-spec \
-            --additional-properties=packageName=late,library=reqwest \
+            --additional-properties=packageName=zernio,library=reqwest \
             --git-user-id=zernio-dev \
             --git-repo-id=zernio-rust
 
@@ -60,14 +60,14 @@ jobs:
           Add the crate to your project:
 
           \`\`\`bash
-          cargo add late
+          cargo add zernio
           \`\`\`
 
           Or add it manually to your \`Cargo.toml\`:
 
           \`\`\`toml
           [dependencies]
-          late = \"*\"
+          zernio = \"*\"
           \`\`\`'''
           import textwrap
           install_section = textwrap.dedent(install_section)
@@ -133,22 +133,22 @@ jobs:
         if: steps.changes.outputs.has_changes == 'true'
         run: cargo build --release
 
-      - name: Publish as late to crates.io
+      - name: Publish as zernio to crates.io
         if: steps.changes.outputs.has_changes == 'true'
         run: cargo publish --token ${{ secrets.CRATES_IO_TOKEN }}
         continue-on-error: true
 
-      - name: Publish as zernio to crates.io
+      - name: Publish as late to crates.io
         if: steps.changes.outputs.has_changes == 'true'
         run: |
-          sed -i 's/^name = "late"/name = "zernio"/' Cargo.toml
+          sed -i 's/^name = "zernio"/name = "late"/' Cargo.toml
           cargo publish --allow-dirty --token ${{ secrets.CRATES_IO_TOKEN }}
         continue-on-error: true
 
       - name: Restore Cargo.toml package name
         if: steps.changes.outputs.has_changes == 'true'
         run: |
-          sed -i 's/^name = "zernio"/name = "late"/' Cargo.toml
+          sed -i 's/^name = "late"/name = "zernio"/' Cargo.toml
 
       - name: Create GitHub Release
         if: steps.changes.outputs.has_changes == 'true'
@@ -160,12 +160,12 @@ jobs:
           body: |
             ## Auto-generated SDK Update
 
-            Available as both `late` and `zernio` on crates.io:
+            Available as both `zernio` and `late` on crates.io:
             ```toml
             [dependencies]
-            late = "${{ steps.version.outputs.cargo_version }}"
-            # or
             zernio = "${{ steps.version.outputs.cargo_version }}"
+            # or
+            late = "${{ steps.version.outputs.cargo_version }}"
             ```
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
