@@ -223,6 +223,11 @@ docs/GetRedditSubreddits200ResponseSubredditsInner.md
 docs/GetTelegramCommands200Response.md
 docs/GetTelegramCommands200ResponseDataInner.md
 docs/GetTelegramConnectStatus200Response.md
+docs/GetTikTokCreatorInfo200Response.md
+docs/GetTikTokCreatorInfo200ResponseCommercialContentTypesInner.md
+docs/GetTikTokCreatorInfo200ResponseCreator.md
+docs/GetTikTokCreatorInfo200ResponsePostingLimits.md
+docs/GetTikTokCreatorInfo200ResponsePrivacyLevelsInner.md
 docs/GetUser200Response.md
 docs/GetUser200ResponseUser.md
 docs/GetWebhookLogs200Response.md
@@ -837,6 +842,11 @@ src/models/get_reddit_subreddits_200_response_subreddits_inner.rs
 src/models/get_telegram_commands_200_response.rs
 src/models/get_telegram_commands_200_response_data_inner.rs
 src/models/get_telegram_connect_status_200_response.rs
+src/models/get_tik_tok_creator_info_200_response.rs
+src/models/get_tik_tok_creator_info_200_response_commercial_content_types_inner.rs
+src/models/get_tik_tok_creator_info_200_response_creator.rs
+src/models/get_tik_tok_creator_info_200_response_posting_limits.rs
+src/models/get_tik_tok_creator_info_200_response_privacy_levels_inner.rs
 src/models/get_user_200_response.rs
 src/models/get_user_200_response_user.rs
 src/models/get_webhook_logs_200_response.rs

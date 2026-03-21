@@ -59,12 +59,15 @@ pub struct TikTokPlatformData {
     /// Optional override. Defaults based on provided media items.
     #[serde(rename = "mediaType", skip_serializing_if = "Option::is_none")]
     pub media_type: Option<MediaType>,
-    /// Optional for video posts. Timestamp in milliseconds to select which frame to use as thumbnail (defaults to 1000ms/1 second).
+    /// Optional for video posts. Timestamp in milliseconds to select which frame to use as thumbnail (defaults to 1000ms/1 second). Ignored when videoCoverImageUrl is provided.
     #[serde(
         rename = "videoCoverTimestampMs",
         skip_serializing_if = "Option::is_none"
     )]
     pub video_cover_timestamp_ms: Option<i32>,
+    /// Optional for video posts. URL of a custom thumbnail image (JPG, PNG, or WebP, max 20MB). The image is prepended as a 1-second still frame to the video and used as the cover. Overrides videoCoverTimestampMs when provided.
+    #[serde(rename = "videoCoverImageUrl", skip_serializing_if = "Option::is_none")]
+    pub video_cover_image_url: Option<String>,
     /// Optional for photo carousels. Index of image to use as cover, 0-based (defaults to 0/first image).
     #[serde(rename = "photoCoverIndex", skip_serializing_if = "Option::is_none")]
     pub photo_cover_index: Option<i32>,
@@ -95,6 +98,7 @@ impl TikTokPlatformData {
             express_consent_given: None,
             media_type: None,
             video_cover_timestamp_ms: None,
+            video_cover_image_url: None,
             photo_cover_index: None,
             auto_add_music: None,
             video_made_with_ai: None,
