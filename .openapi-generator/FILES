@@ -67,6 +67,8 @@ docs/CreateAccountGroup201Response.md
 docs/CreateAccountGroupRequest.md
 docs/CreateApiKey201Response.md
 docs/CreateApiKeyRequest.md
+docs/CreateBroadcast200Response.md
+docs/CreateBroadcast200ResponseBroadcast.md
 docs/CreateBroadcastRequest.md
 docs/CreateBroadcastRequestMessage.md
 docs/CreateBroadcastRequestMessageAttachmentsInner.md
@@ -91,6 +93,8 @@ docs/CreatePostRequestPlatformsInnerPlatformSpecificData.md
 docs/CreateProfileRequest.md
 docs/CreateQueueSlot201Response.md
 docs/CreateQueueSlotRequest.md
+docs/CreateSequence200Response.md
+docs/CreateSequence200ResponseSequence.md
 docs/CreateSequenceRequest.md
 docs/CreateSequenceRequestStepsInner.md
 docs/CreateSequenceRequestStepsInnerTemplate.md
@@ -754,6 +758,8 @@ src/models/create_account_group_201_response.rs
 src/models/create_account_group_request.rs
 src/models/create_api_key_201_response.rs
 src/models/create_api_key_request.rs
+src/models/create_broadcast_200_response.rs
+src/models/create_broadcast_200_response_broadcast.rs
 src/models/create_broadcast_request.rs
 src/models/create_broadcast_request_message.rs
 src/models/create_broadcast_request_message_attachments_inner.rs
@@ -778,6 +784,8 @@ src/models/create_post_request_platforms_inner_platform_specific_data.rs
 src/models/create_profile_request.rs
 src/models/create_queue_slot_201_response.rs
 src/models/create_queue_slot_request.rs
+src/models/create_sequence_200_response.rs
+src/models/create_sequence_200_response_sequence.rs
 src/models/create_sequence_request.rs
 src/models/create_sequence_request_steps_inner.rs
 src/models/create_sequence_request_steps_inner_template.rs

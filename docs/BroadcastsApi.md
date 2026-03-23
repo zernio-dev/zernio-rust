@@ -76,7 +76,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_broadcast
 
-> create_broadcast(create_broadcast_request)
+> models::CreateBroadcast200Response create_broadcast(create_broadcast_request)
 Create a broadcast draft
 
 ### Parameters
@@ -88,7 +88,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::CreateBroadcast200Response**](createBroadcast_200_response.md)
 
 ### Authorization
 

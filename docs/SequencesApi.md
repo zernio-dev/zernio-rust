@@ -47,7 +47,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_sequence
 
-> create_sequence(create_sequence_request)
+> models::CreateSequence200Response create_sequence(create_sequence_request)
 Create a sequence
 
 ### Parameters
@@ -59,7 +59,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::CreateSequence200Response**](createSequence_200_response.md)
 
 ### Authorization
 
