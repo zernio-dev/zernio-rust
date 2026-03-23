@@ -906,6 +906,8 @@ pub mod transcript_segment;
 pub use self::transcript_segment::TranscriptSegment;
 pub mod twitter_platform_data;
 pub use self::twitter_platform_data::TwitterPlatformData;
+pub mod twitter_platform_data_poll;
+pub use self::twitter_platform_data_poll::TwitterPlatformDataPoll;
 pub mod twitter_platform_data_thread_items_inner;
 pub use self::twitter_platform_data_thread_items_inner::TwitterPlatformDataThreadItemsInner;
 pub mod undo_retweet_200_response;

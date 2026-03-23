@@ -481,6 +481,7 @@ docs/TranscriptResponse.md
 docs/TranscriptSegment.md
 docs/TwitterEngagementApi.md
 docs/TwitterPlatformData.md
+docs/TwitterPlatformDataPoll.md
 docs/TwitterPlatformDataThreadItemsInner.md
 docs/UndoRetweet200Response.md
 docs/UnfollowUser200Response.md
@@ -1091,6 +1092,7 @@ src/models/tik_tok_platform_data.rs
 src/models/transcript_response.rs
 src/models/transcript_segment.rs
 src/models/twitter_platform_data.rs
+src/models/twitter_platform_data_poll.rs
 src/models/twitter_platform_data_thread_items_inner.rs
 src/models/undo_retweet_200_response.rs
 src/models/unfollow_user_200_response.rs

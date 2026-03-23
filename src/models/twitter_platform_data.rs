@@ -22,6 +22,8 @@ pub struct TwitterPlatformData {
     /// Sequence of tweets in a thread. First item is the root tweet.
     #[serde(rename = "threadItems", skip_serializing_if = "Option::is_none")]
     pub thread_items: Option<Vec<models::TwitterPlatformDataThreadItemsInner>>,
+    #[serde(rename = "poll", skip_serializing_if = "Option::is_none")]
+    pub poll: Option<Box<models::TwitterPlatformDataPoll>>,
 }
 
 impl TwitterPlatformData {
@@ -30,6 +32,7 @@ impl TwitterPlatformData {
             reply_to_tweet_id: None,
             reply_settings: None,
             thread_items: None,
+            poll: None,
         }
     }
 }
