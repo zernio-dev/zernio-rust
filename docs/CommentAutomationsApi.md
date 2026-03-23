@@ -144,7 +144,7 @@ List all comment-to-DM automations for a profile. Returns automations with their
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**profile_id** | **String** | Profile ID | [required] |
+**profile_id** | Option<**String**> | Filter by profile. Omit to list across all profiles |  |
 
 ### Return type
 

@@ -108,7 +108,7 @@ List custom field definitions
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**profile_id** | **String** |  | [required] |
+**profile_id** | Option<**String**> | Filter by profile. Omit to list across all profiles |  |
 
 ### Return type
 

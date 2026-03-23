@@ -191,7 +191,7 @@ pub async fn delete_custom_field(
 
 pub async fn list_custom_fields(
     configuration: &configuration::Configuration,
-    profile_id: &str,
+    profile_id: Option<&str>,
 ) -> Result<(), Error<ListCustomFieldsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_profile_id = profile_id;
@@ -199,7 +199,9 @@ pub async fn list_custom_fields(
     let uri_str = format!("{}/v1/custom-fields", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("profileId", &p_query_profile_id.to_string())]);
+    if let Some(ref param_value) = p_query_profile_id {
+        req_builder = req_builder.query(&[("profileId", &param_value.to_string())]);
+    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }

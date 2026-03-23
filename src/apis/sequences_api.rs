@@ -362,7 +362,7 @@ pub async fn list_sequence_enrollments(
 
 pub async fn list_sequences(
     configuration: &configuration::Configuration,
-    profile_id: &str,
+    profile_id: Option<&str>,
     status: Option<&str>,
     limit: Option<i32>,
     skip: Option<i32>,
@@ -376,7 +376,9 @@ pub async fn list_sequences(
     let uri_str = format!("{}/v1/sequences", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("profileId", &p_query_profile_id.to_string())]);
+    if let Some(ref param_value) = p_query_profile_id {
+        req_builder = req_builder.query(&[("profileId", &param_value.to_string())]);
+    }
     if let Some(ref param_value) = p_query_status {
         req_builder = req_builder.query(&[("status", &param_value.to_string())]);
     }

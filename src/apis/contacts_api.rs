@@ -274,7 +274,7 @@ pub async fn get_contact_channels(
 /// List and search contacts for a profile. Supports filtering by tags, platform, subscription status, and full-text search.
 pub async fn list_contacts(
     configuration: &configuration::Configuration,
-    profile_id: &str,
+    profile_id: Option<&str>,
     search: Option<&str>,
     tag: Option<&str>,
     platform: Option<&str>,
@@ -294,7 +294,9 @@ pub async fn list_contacts(
     let uri_str = format!("{}/v1/contacts", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("profileId", &p_query_profile_id.to_string())]);
+    if let Some(ref param_value) = p_query_profile_id {
+        req_builder = req_builder.query(&[("profileId", &param_value.to_string())]);
+    }
     if let Some(ref param_value) = p_query_search {
         req_builder = req_builder.query(&[("search", &param_value.to_string())]);
     }

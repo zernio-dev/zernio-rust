@@ -199,7 +199,7 @@ List sequences
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**profile_id** | **String** |  | [required] |
+**profile_id** | Option<**String**> | Filter by profile. Omit to list across all profiles |  |
 **status** | Option<**String**> |  |  |
 **limit** | Option<**i32**> |  |  |[default to 50]
 **skip** | Option<**i32**> |  |  |[default to 0]

@@ -363,7 +363,7 @@ pub async fn list_broadcast_recipients(
 
 pub async fn list_broadcasts(
     configuration: &configuration::Configuration,
-    profile_id: &str,
+    profile_id: Option<&str>,
     status: Option<&str>,
     platform: Option<&str>,
     limit: Option<i32>,
@@ -379,7 +379,9 @@ pub async fn list_broadcasts(
     let uri_str = format!("{}/v1/broadcasts", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("profileId", &p_query_profile_id.to_string())]);
+    if let Some(ref param_value) = p_query_profile_id {
+        req_builder = req_builder.query(&[("profileId", &param_value.to_string())]);
+    }
     if let Some(ref param_value) = p_query_status {
         req_builder = req_builder.query(&[("status", &param_value.to_string())]);
     }
