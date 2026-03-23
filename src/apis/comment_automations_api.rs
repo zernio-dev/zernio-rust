@@ -71,7 +71,7 @@ pub enum UpdateCommentAutomationError {
 pub async fn create_comment_automation(
     configuration: &configuration::Configuration,
     create_comment_automation_request: models::CreateCommentAutomationRequest,
-) -> Result<(), Error<CreateCommentAutomationError>> {
+) -> Result<models::CreateCommentAutomation200Response, Error<CreateCommentAutomationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_comment_automation_request = create_comment_automation_request;
 
@@ -92,9 +92,20 @@ pub async fn create_comment_automation(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateCommentAutomation200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateCommentAutomation200Response`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateCommentAutomationError> = serde_json::from_str(&content).ok();
@@ -150,7 +161,7 @@ pub async fn delete_comment_automation(
 pub async fn get_comment_automation(
     configuration: &configuration::Configuration,
     automation_id: &str,
-) -> Result<(), Error<GetCommentAutomationError>> {
+) -> Result<models::GetCommentAutomation200Response, Error<GetCommentAutomationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_automation_id = automation_id;
 
@@ -172,9 +183,20 @@ pub async fn get_comment_automation(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetCommentAutomation200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCommentAutomation200Response`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetCommentAutomationError> = serde_json::from_str(&content).ok();
@@ -193,7 +215,7 @@ pub async fn list_comment_automation_logs(
     status: Option<&str>,
     limit: Option<i32>,
     skip: Option<i32>,
-) -> Result<(), Error<ListCommentAutomationLogsError>> {
+) -> Result<models::ListCommentAutomationLogs200Response, Error<ListCommentAutomationLogsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_automation_id = automation_id;
     let p_query_status = status;
@@ -227,9 +249,20 @@ pub async fn list_comment_automation_logs(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListCommentAutomationLogs200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListCommentAutomationLogs200Response`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<ListCommentAutomationLogsError> = serde_json::from_str(&content).ok();
@@ -295,7 +328,7 @@ pub async fn update_comment_automation(
     configuration: &configuration::Configuration,
     automation_id: &str,
     update_comment_automation_request: Option<models::UpdateCommentAutomationRequest>,
-) -> Result<(), Error<UpdateCommentAutomationError>> {
+) -> Result<models::UpdateCommentAutomation200Response, Error<UpdateCommentAutomationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_automation_id = automation_id;
     let p_body_update_comment_automation_request = update_comment_automation_request;
@@ -321,9 +354,20 @@ pub async fn update_comment_automation(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateCommentAutomation200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateCommentAutomation200Response`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateCommentAutomationError> = serde_json::from_str(&content).ok();

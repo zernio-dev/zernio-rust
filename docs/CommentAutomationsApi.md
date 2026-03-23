@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## create_comment_automation
 
-> create_comment_automation(create_comment_automation_request)
+> models::CreateCommentAutomation200Response create_comment_automation(create_comment_automation_request)
 Create a comment-to-DM automation
 
 Create a keyword-triggered DM automation on an Instagram or Facebook post. When someone comments a matching keyword, they automatically receive a DM. Only one active automation per post is allowed. 
@@ -29,7 +29,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::CreateCommentAutomation200Response**](createCommentAutomation_200_response.md)
 
 ### Authorization
 
@@ -73,7 +73,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_comment_automation
 
-> get_comment_automation(automation_id)
+> models::GetCommentAutomation200Response get_comment_automation(automation_id)
 Get automation details with recent logs
 
 ### Parameters
@@ -85,7 +85,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::GetCommentAutomation200Response**](getCommentAutomation_200_response.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_comment_automation_logs
 
-> list_comment_automation_logs(automation_id, status, limit, skip)
+> models::ListCommentAutomationLogs200Response list_comment_automation_logs(automation_id, status, limit, skip)
 List trigger logs for an automation
 
 Paginated list of every comment that triggered this automation, with send status and commenter info.
@@ -118,7 +118,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::ListCommentAutomationLogs200Response**](listCommentAutomationLogs_200_response.md)
 
 ### Authorization
 
@@ -164,7 +164,7 @@ Name | Type | Description  | Required | Notes
 
 ## update_comment_automation
 
-> update_comment_automation(automation_id, update_comment_automation_request)
+> models::UpdateCommentAutomation200Response update_comment_automation(automation_id, update_comment_automation_request)
 Update automation settings
 
 ### Parameters
@@ -177,7 +177,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::UpdateCommentAutomation200Response**](updateCommentAutomation_200_response.md)
 
 ### Authorization
 

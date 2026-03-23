@@ -44,7 +44,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_custom_field
 
-> create_custom_field(create_custom_field_request)
+> models::CreateCustomField200Response create_custom_field(create_custom_field_request)
 Create a custom field definition
 
 ### Parameters
@@ -56,7 +56,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::CreateCustomField200Response**](createCustomField_200_response.md)
 
 ### Authorization
 
@@ -100,7 +100,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_custom_fields
 
-> list_custom_fields(profile_id)
+> models::ListCustomFields200Response list_custom_fields(profile_id)
 List custom field definitions
 
 ### Parameters
@@ -112,7 +112,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::ListCustomFields200Response**](listCustomFields_200_response.md)
 
 ### Authorization
 
@@ -158,7 +158,7 @@ Name | Type | Description  | Required | Notes
 
 ## update_custom_field
 
-> update_custom_field(field_id, update_custom_field_request)
+> models::UpdateCustomField200Response update_custom_field(field_id, update_custom_field_request)
 Update a custom field definition
 
 ### Parameters
@@ -171,7 +171,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::UpdateCustomField200Response**](updateCustomField_200_response.md)
 
 ### Authorization
 

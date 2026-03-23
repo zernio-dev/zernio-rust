@@ -28,7 +28,7 @@ pub struct GetBroadcast200ResponseBroadcast {
     #[serde(rename = "template", skip_serializing_if = "Option::is_none")]
     pub template: Option<Box<models::GetWhatsAppBroadcasts200ResponseBroadcastsInnerTemplate>>,
     #[serde(rename = "segmentFilters", skip_serializing_if = "Option::is_none")]
-    pub segment_filters: Option<Box<models::GetBroadcast200ResponseBroadcastSegmentFilters>>,
+    pub segment_filters: Option<Box<models::ListContacts200ResponseFilters>>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
     #[serde(rename = "scheduledAt", skip_serializing_if = "Option::is_none")]

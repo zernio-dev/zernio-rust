@@ -78,7 +78,7 @@ pub enum UpdateContactError {
 pub async fn bulk_create_contacts(
     configuration: &configuration::Configuration,
     bulk_create_contacts_request: models::BulkCreateContactsRequest,
-) -> Result<(), Error<BulkCreateContactsError>> {
+) -> Result<models::BulkCreateContacts200Response, Error<BulkCreateContactsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_bulk_create_contacts_request = bulk_create_contacts_request;
 
@@ -99,9 +99,20 @@ pub async fn bulk_create_contacts(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::BulkCreateContacts200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::BulkCreateContacts200Response`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<BulkCreateContactsError> = serde_json::from_str(&content).ok();
@@ -117,7 +128,7 @@ pub async fn bulk_create_contacts(
 pub async fn create_contact(
     configuration: &configuration::Configuration,
     create_contact_request: models::CreateContactRequest,
-) -> Result<(), Error<CreateContactError>> {
+) -> Result<models::CreateContact200Response, Error<CreateContactError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_contact_request = create_contact_request;
 
@@ -138,9 +149,20 @@ pub async fn create_contact(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateContact200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateContact200Response`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateContactError> = serde_json::from_str(&content).ok();
@@ -196,7 +218,7 @@ pub async fn delete_contact(
 pub async fn get_contact(
     configuration: &configuration::Configuration,
     contact_id: &str,
-) -> Result<(), Error<GetContactError>> {
+) -> Result<models::GetContact200Response, Error<GetContactError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_contact_id = contact_id;
 
@@ -218,9 +240,20 @@ pub async fn get_contact(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetContact200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetContact200Response`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetContactError> = serde_json::from_str(&content).ok();
@@ -235,7 +268,7 @@ pub async fn get_contact(
 pub async fn get_contact_channels(
     configuration: &configuration::Configuration,
     contact_id: &str,
-) -> Result<(), Error<GetContactChannelsError>> {
+) -> Result<models::GetContactChannels200Response, Error<GetContactChannelsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_contact_id = contact_id;
 
@@ -257,9 +290,20 @@ pub async fn get_contact_channels(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetContactChannels200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetContactChannels200Response`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetContactChannelsError> = serde_json::from_str(&content).ok();
@@ -281,7 +325,7 @@ pub async fn list_contacts(
     is_subscribed: Option<&str>,
     limit: Option<i32>,
     skip: Option<i32>,
-) -> Result<(), Error<ListContactsError>> {
+) -> Result<models::ListContacts200Response, Error<ListContactsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_profile_id = profile_id;
     let p_query_search = search;
@@ -326,9 +370,20 @@ pub async fn list_contacts(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListContacts200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListContacts200Response`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<ListContactsError> = serde_json::from_str(&content).ok();
@@ -344,7 +399,7 @@ pub async fn update_contact(
     configuration: &configuration::Configuration,
     contact_id: &str,
     update_contact_request: Option<models::UpdateContactRequest>,
-) -> Result<(), Error<UpdateContactError>> {
+) -> Result<models::UpdateContact200Response, Error<UpdateContactError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_contact_id = contact_id;
     let p_body_update_contact_request = update_contact_request;
@@ -370,9 +425,20 @@ pub async fn update_contact(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateContact200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateContact200Response`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateContactError> = serde_json::from_str(&content).ok();

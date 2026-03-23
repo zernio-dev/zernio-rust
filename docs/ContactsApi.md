@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## bulk_create_contacts
 
-> bulk_create_contacts(bulk_create_contacts_request)
+> models::BulkCreateContacts200Response bulk_create_contacts(bulk_create_contacts_request)
 Bulk create contacts
 
 Import up to 1000 contacts at a time. Skips duplicates.
@@ -30,7 +30,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::BulkCreateContacts200Response**](bulkCreateContacts_200_response.md)
 
 ### Authorization
 
@@ -46,7 +46,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_contact
 
-> create_contact(create_contact_request)
+> models::CreateContact200Response create_contact(create_contact_request)
 Create a contact
 
 Create a new contact. Optionally create a platform channel in the same request by providing accountId, platform, and platformIdentifier.
@@ -60,7 +60,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::CreateContact200Response**](createContact_200_response.md)
 
 ### Authorization
 
@@ -104,7 +104,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_contact
 
-> get_contact(contact_id)
+> models::GetContact200Response get_contact(contact_id)
 Get contact with channels
 
 ### Parameters
@@ -116,7 +116,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::GetContact200Response**](getContact_200_response.md)
 
 ### Authorization
 
@@ -132,7 +132,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_contact_channels
 
-> get_contact_channels(contact_id)
+> models::GetContactChannels200Response get_contact_channels(contact_id)
 List channels for a contact
 
 ### Parameters
@@ -144,7 +144,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::GetContactChannels200Response**](getContactChannels_200_response.md)
 
 ### Authorization
 
@@ -160,7 +160,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_contacts
 
-> list_contacts(profile_id, search, tag, platform, is_subscribed, limit, skip)
+> models::ListContacts200Response list_contacts(profile_id, search, tag, platform, is_subscribed, limit, skip)
 List contacts
 
 List and search contacts for a profile. Supports filtering by tags, platform, subscription status, and full-text search.
@@ -180,7 +180,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::ListContacts200Response**](listContacts_200_response.md)
 
 ### Authorization
 
@@ -196,7 +196,7 @@ Name | Type | Description  | Required | Notes
 
 ## update_contact
 
-> update_contact(contact_id, update_contact_request)
+> models::UpdateContact200Response update_contact(contact_id, update_contact_request)
 Update a contact
 
 ### Parameters
@@ -209,7 +209,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::UpdateContact200Response**](updateContact_200_response.md)
 
 ### Authorization
 

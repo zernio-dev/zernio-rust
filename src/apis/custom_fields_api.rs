@@ -113,7 +113,7 @@ pub async fn clear_contact_field_value(
 pub async fn create_custom_field(
     configuration: &configuration::Configuration,
     create_custom_field_request: models::CreateCustomFieldRequest,
-) -> Result<(), Error<CreateCustomFieldError>> {
+) -> Result<models::CreateCustomField200Response, Error<CreateCustomFieldError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_custom_field_request = create_custom_field_request;
 
@@ -134,9 +134,20 @@ pub async fn create_custom_field(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateCustomField200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateCustomField200Response`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateCustomFieldError> = serde_json::from_str(&content).ok();
@@ -192,7 +203,7 @@ pub async fn delete_custom_field(
 pub async fn list_custom_fields(
     configuration: &configuration::Configuration,
     profile_id: Option<&str>,
-) -> Result<(), Error<ListCustomFieldsError>> {
+) -> Result<models::ListCustomFields200Response, Error<ListCustomFieldsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_profile_id = profile_id;
 
@@ -213,9 +224,20 @@ pub async fn list_custom_fields(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListCustomFields200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListCustomFields200Response`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<ListCustomFieldsError> = serde_json::from_str(&content).ok();
@@ -276,7 +298,7 @@ pub async fn update_custom_field(
     configuration: &configuration::Configuration,
     field_id: &str,
     update_custom_field_request: Option<models::UpdateCustomFieldRequest>,
-) -> Result<(), Error<UpdateCustomFieldError>> {
+) -> Result<models::UpdateCustomField200Response, Error<UpdateCustomFieldError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_field_id = field_id;
     let p_body_update_custom_field_request = update_custom_field_request;
@@ -302,9 +324,20 @@ pub async fn update_custom_field(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateCustomField200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateCustomField200Response`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateCustomFieldError> = serde_json::from_str(&content).ok();
