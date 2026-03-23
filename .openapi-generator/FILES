@@ -90,6 +90,8 @@ docs/CreateQueueSlotRequest.md
 docs/CreateSequenceRequest.md
 docs/CreateSequenceRequestStepsInner.md
 docs/CreateSequenceRequestStepsInnerMessage.md
+docs/CreateSequenceRequestStepsInnerTemplate.md
+docs/CreateSequenceRequestStepsInnerTemplateVariableMappingValue.md
 docs/CreateWebhookSettingsRequest.md
 docs/CreateWhatsAppBroadcast200Response.md
 docs/CreateWhatsAppBroadcast200ResponseBroadcast.md
@@ -748,6 +750,8 @@ src/models/create_queue_slot_request.rs
 src/models/create_sequence_request.rs
 src/models/create_sequence_request_steps_inner.rs
 src/models/create_sequence_request_steps_inner_message.rs
+src/models/create_sequence_request_steps_inner_template.rs
+src/models/create_sequence_request_steps_inner_template_variable_mapping_value.rs
 src/models/create_webhook_settings_request.rs
 src/models/create_whats_app_broadcast_200_response.rs
 src/models/create_whats_app_broadcast_200_response_broadcast.rs

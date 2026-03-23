@@ -20,7 +20,7 @@ pub struct CreateSequenceRequestStepsInner {
     #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
     pub message: Option<Box<models::CreateSequenceRequestStepsInnerMessage>>,
     #[serde(rename = "template", skip_serializing_if = "Option::is_none")]
-    pub template: Option<Box<models::GetWhatsAppBroadcasts200ResponseBroadcastsInnerTemplate>>,
+    pub template: Option<Box<models::CreateSequenceRequestStepsInnerTemplate>>,
 }
 
 impl CreateSequenceRequestStepsInner {
