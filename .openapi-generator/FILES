@@ -336,6 +336,8 @@ docs/ListAccountGroups200Response.md
 docs/ListAccountGroups200ResponseGroupsInner.md
 docs/ListAccounts200Response.md
 docs/ListApiKeys200Response.md
+docs/ListBroadcasts200Response.md
+docs/ListBroadcasts200ResponseBroadcastsInner.md
 docs/ListCommentAutomations200Response.md
 docs/ListCommentAutomations200ResponseAutomationsInner.md
 docs/ListCommentAutomations200ResponseAutomationsInnerStats.md
@@ -371,6 +373,8 @@ docs/ListPostsLogs200ResponsePagination.md
 docs/ListQueueSlots200Response.md
 docs/ListQueueSlots200ResponseOneOf.md
 docs/ListQueueSlots200ResponseOneOf1.md
+docs/ListSequences200Response.md
+docs/ListSequences200ResponseSequencesInner.md
 docs/ListSnapchatProfiles200Response.md
 docs/ListSnapchatProfiles200ResponsePublicProfilesInner.md
 docs/ListUsers200Response.md
@@ -469,6 +473,7 @@ docs/SelectSnapchatProfile200Response.md
 docs/SelectSnapchatProfile200ResponseAccount.md
 docs/SelectSnapchatProfileRequest.md
 docs/SelectSnapchatProfileRequestSelectedPublicProfile.md
+docs/SendBroadcast200Response.md
 docs/SendInboxMessage200Response.md
 docs/SendInboxMessage200ResponseData.md
 docs/SendInboxMessage400Response.md
@@ -987,6 +992,8 @@ src/models/list_account_groups_200_response.rs
 src/models/list_account_groups_200_response_groups_inner.rs
 src/models/list_accounts_200_response.rs
 src/models/list_api_keys_200_response.rs
+src/models/list_broadcasts_200_response.rs
+src/models/list_broadcasts_200_response_broadcasts_inner.rs
 src/models/list_comment_automations_200_response.rs
 src/models/list_comment_automations_200_response_automations_inner.rs
 src/models/list_comment_automations_200_response_automations_inner_stats.rs
@@ -1022,6 +1029,8 @@ src/models/list_posts_logs_200_response_pagination.rs
 src/models/list_queue_slots_200_response.rs
 src/models/list_queue_slots_200_response_one_of.rs
 src/models/list_queue_slots_200_response_one_of_1.rs
+src/models/list_sequences_200_response.rs
+src/models/list_sequences_200_response_sequences_inner.rs
 src/models/list_snapchat_profiles_200_response.rs
 src/models/list_snapchat_profiles_200_response_public_profiles_inner.rs
 src/models/list_users_200_response.rs
@@ -1113,6 +1122,7 @@ src/models/select_snapchat_profile_200_response.rs
 src/models/select_snapchat_profile_200_response_account.rs
 src/models/select_snapchat_profile_request.rs
 src/models/select_snapchat_profile_request_selected_public_profile.rs
+src/models/send_broadcast_200_response.rs
 src/models/send_inbox_message_200_response.rs
 src/models/send_inbox_message_200_response_data.rs
 src/models/send_inbox_message_400_response.rs

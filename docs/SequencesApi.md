@@ -191,7 +191,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_sequences
 
-> list_sequences(profile_id, status, limit, skip)
+> models::ListSequences200Response list_sequences(profile_id, status, limit, skip)
 List sequences
 
 ### Parameters
@@ -206,7 +206,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::ListSequences200Response**](listSequences_200_response.md)
 
 ### Authorization
 

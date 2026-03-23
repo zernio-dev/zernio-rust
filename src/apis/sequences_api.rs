@@ -366,7 +366,7 @@ pub async fn list_sequences(
     status: Option<&str>,
     limit: Option<i32>,
     skip: Option<i32>,
-) -> Result<(), Error<ListSequencesError>> {
+) -> Result<models::ListSequences200Response, Error<ListSequencesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_profile_id = profile_id;
     let p_query_status = status;
@@ -399,9 +399,20 @@ pub async fn list_sequences(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListSequences200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListSequences200Response`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<ListSequencesError> = serde_json::from_str(&content).ok();

@@ -191,7 +191,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_broadcasts
 
-> list_broadcasts(profile_id, status, platform, limit, skip)
+> models::ListBroadcasts200Response list_broadcasts(profile_id, status, platform, limit, skip)
 List broadcasts
 
 ### Parameters
@@ -207,7 +207,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::ListBroadcasts200Response**](listBroadcasts_200_response.md)
 
 ### Authorization
 
@@ -252,7 +252,7 @@ Name | Type | Description  | Required | Notes
 
 ## send_broadcast
 
-> send_broadcast(broadcast_id)
+> models::SendBroadcast200Response send_broadcast(broadcast_id)
 Trigger immediate send
 
 ### Parameters
@@ -264,7 +264,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::SendBroadcast200Response**](sendBroadcast_200_response.md)
 
 ### Authorization
 
