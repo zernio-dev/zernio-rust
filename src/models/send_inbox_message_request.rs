@@ -19,6 +19,12 @@ pub struct SendInboxMessageRequest {
     /// Message text
     #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
+    /// URL of the attachment to send (image, video, audio, or file). The URL must be publicly accessible. For binary file uploads, use multipart/form-data instead.
+    #[serde(rename = "attachmentUrl", skip_serializing_if = "Option::is_none")]
+    pub attachment_url: Option<String>,
+    /// Type of attachment. Defaults to file if not specified.
+    #[serde(rename = "attachmentType", skip_serializing_if = "Option::is_none")]
+    pub attachment_type: Option<AttachmentType>,
     /// Quick reply buttons. Mutually exclusive with buttons. Max 13 items.
     #[serde(rename = "quickReplies", skip_serializing_if = "Option::is_none")]
     pub quick_replies: Option<Vec<models::SendInboxMessageRequestQuickRepliesInner>>,
@@ -45,6 +51,8 @@ impl SendInboxMessageRequest {
         SendInboxMessageRequest {
             account_id,
             message: None,
+            attachment_url: None,
+            attachment_type: None,
             quick_replies: None,
             buttons: None,
             template: None,
@@ -53,6 +61,24 @@ impl SendInboxMessageRequest {
             message_tag: None,
             reply_to: None,
         }
+    }
+}
+/// Type of attachment. Defaults to file if not specified.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum AttachmentType {
+    #[serde(rename = "image")]
+    Image,
+    #[serde(rename = "video")]
+    Video,
+    #[serde(rename = "audio")]
+    Audio,
+    #[serde(rename = "file")]
+    File,
+}
+
+impl Default for AttachmentType {
+    fn default() -> AttachmentType {
+        Self::Image
     }
 }
 /// Facebook messaging type. Required when using messageTag.

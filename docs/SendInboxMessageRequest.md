@@ -6,6 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **account_id** | **String** | Social account ID | 
 **message** | Option<**String**> | Message text | [optional]
+**attachment_url** | Option<**String**> | URL of the attachment to send (image, video, audio, or file). The URL must be publicly accessible. For binary file uploads, use multipart/form-data instead. | [optional]
+**attachment_type** | Option<**AttachmentType**> | Type of attachment. Defaults to file if not specified. (enum: image, video, audio, file) | [optional]
 **quick_replies** | Option<[**Vec<models::SendInboxMessageRequestQuickRepliesInner>**](SendInboxMessageRequestQuickRepliesInner.md)> | Quick reply buttons. Mutually exclusive with buttons. Max 13 items. | [optional]
 **buttons** | Option<[**Vec<models::SendInboxMessageRequestButtonsInner>**](SendInboxMessageRequestButtonsInner.md)> | Action buttons. Mutually exclusive with quickReplies. Max 3 items. | [optional]
 **template** | Option<[**models::SendInboxMessageRequestTemplate**](SendInboxMessageRequestTemplate.md)> |  | [optional]
