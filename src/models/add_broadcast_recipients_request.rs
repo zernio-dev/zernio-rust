@@ -16,6 +16,9 @@ pub struct AddBroadcastRecipientsRequest {
     /// Specific contact IDs to add
     #[serde(rename = "contactIds", skip_serializing_if = "Option::is_none")]
     pub contact_ids: Option<Vec<String>>,
+    /// Raw phone numbers (auto-creates contacts). Useful for WhatsApp/Telegram manual entry
+    #[serde(rename = "phones", skip_serializing_if = "Option::is_none")]
+    pub phones: Option<Vec<String>>,
     /// Auto-populate from broadcast segment filters
     #[serde(rename = "useSegment", skip_serializing_if = "Option::is_none")]
     pub use_segment: Option<bool>,
@@ -25,6 +28,7 @@ impl AddBroadcastRecipientsRequest {
     pub fn new() -> AddBroadcastRecipientsRequest {
         AddBroadcastRecipientsRequest {
             contact_ids: None,
+            phones: None,
             use_segment: None,
         }
     }
