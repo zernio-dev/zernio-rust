@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct AnalyticsSinglePostResponse {
     #[serde(rename = "postId", skip_serializing_if = "Option::is_none")]
     pub post_id: Option<String>,
-    /// Original Late post ID if scheduled via Late
+    /// Original Zernio post ID if scheduled via Zernio
     #[serde(rename = "latePostId", skip_serializing_if = "Option::is_none")]
     pub late_post_id: Option<String>,
     /// Overall post status. \"partial\" when some platforms published and others failed.

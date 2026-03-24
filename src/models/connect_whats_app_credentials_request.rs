@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ConnectWhatsAppCredentialsRequest {
-    /// Your Late profile ID
+    /// Your Zernio profile ID
     #[serde(rename = "profileId")]
     pub profile_id: String,
     /// Permanent System User access token from Meta Business Suite

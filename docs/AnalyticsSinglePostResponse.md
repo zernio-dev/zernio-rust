@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **post_id** | Option<**String**> |  | [optional]
-**late_post_id** | Option<**String**> | Original Late post ID if scheduled via Late | [optional]
+**late_post_id** | Option<**String**> | Original Zernio post ID if scheduled via Zernio | [optional]
 **status** | Option<**Status**> | Overall post status. \"partial\" when some platforms published and others failed. (enum: published, failed, partial) | [optional]
 **content** | Option<**String**> |  | [optional]
 **scheduled_for** | Option<**String**> |  | [optional]

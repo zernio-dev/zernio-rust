@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct AnalyticsListResponsePostsInner {
     #[serde(rename = "_id", skip_serializing_if = "Option::is_none")]
     pub _id: Option<String>,
-    /// Original Late post ID if scheduled via Late
+    /// Original Zernio post ID if scheduled via Zernio
     #[serde(rename = "latePostId", skip_serializing_if = "Option::is_none")]
     pub late_post_id: Option<String>,
     #[serde(rename = "content", skip_serializing_if = "Option::is_none")]

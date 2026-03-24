@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **_id** | Option<**String**> |  | [optional]
-**late_post_id** | Option<**String**> | Original Late post ID if scheduled via Late | [optional]
+**late_post_id** | Option<**String**> | Original Zernio post ID if scheduled via Zernio | [optional]
 **content** | Option<**String**> |  | [optional]
 **scheduled_for** | Option<**String**> |  | [optional]
 **published_at** | Option<**String**> |  | [optional]
