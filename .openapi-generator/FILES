@@ -15,6 +15,7 @@ docs/AddBroadcastRecipientsRequest.md
 docs/AddWhatsAppBroadcastRecipients200Response.md
 docs/AddWhatsAppBroadcastRecipientsRequest.md
 docs/AddWhatsAppBroadcastRecipientsRequestRecipientsInner.md
+docs/AddWhatsAppGroupParticipantsRequest.md
 docs/AnalyticsApi.md
 docs/AnalyticsListResponse.md
 docs/AnalyticsListResponsePostsInner.md
@@ -25,6 +26,7 @@ docs/AnalyticsSinglePostResponseMediaItemsInner.md
 docs/ApiKey.md
 docs/ApiKeyProfileIdsInner.md
 docs/ApiKeysApi.md
+docs/ApproveWhatsAppGroupJoinRequestsRequest.md
 docs/BlueskyPlatformData.md
 docs/BookmarkPost200Response.md
 docs/BookmarkPostRequest.md
@@ -115,6 +117,10 @@ docs/CreateWhatsAppBroadcastRequestRecipientsInner.md
 docs/CreateWhatsAppContact200Response.md
 docs/CreateWhatsAppContact200ResponseContact.md
 docs/CreateWhatsAppContactRequest.md
+docs/CreateWhatsAppGroupChat201Response.md
+docs/CreateWhatsAppGroupChat201ResponseGroup.md
+docs/CreateWhatsAppGroupChatRequest.md
+docs/CreateWhatsAppGroupInviteLink200Response.md
 docs/CreateWhatsAppTemplate200Response.md
 docs/CreateWhatsAppTemplate200ResponseTemplate.md
 docs/CreateWhatsAppTemplateRequest.md
@@ -303,6 +309,9 @@ docs/GetWhatsAppContacts200ResponseFilters.md
 docs/GetWhatsAppContacts200ResponsePagination.md
 docs/GetWhatsAppDisplayName200Response.md
 docs/GetWhatsAppDisplayName200ResponseDisplayName.md
+docs/GetWhatsAppGroupChat200Response.md
+docs/GetWhatsAppGroupChat200ResponseGroup.md
+docs/GetWhatsAppGroupChat200ResponseGroupParticipantsInner.md
 docs/GetWhatsAppGroups200Response.md
 docs/GetWhatsAppGroups200ResponseGroupsInner.md
 docs/GetWhatsAppGroups200ResponseSummary.md
@@ -420,6 +429,12 @@ docs/ListSnapchatProfiles200Response.md
 docs/ListSnapchatProfiles200ResponsePublicProfilesInner.md
 docs/ListUsers200Response.md
 docs/ListUsers200ResponseUsersInner.md
+docs/ListWhatsAppGroupChats200Response.md
+docs/ListWhatsAppGroupChats200ResponseGroupsInner.md
+docs/ListWhatsAppGroupChats200ResponsePaging.md
+docs/ListWhatsAppGroupChats200ResponsePagingCursors.md
+docs/ListWhatsAppGroupJoinRequests200Response.md
+docs/ListWhatsAppGroupJoinRequests200ResponseJoinRequestsInner.md
 docs/LogsApi.md
 docs/MediaApi.md
 docs/MediaItem.md
@@ -473,11 +488,13 @@ docs/RecyclingConfig.md
 docs/RecyclingState.md
 docs/RedditPlatformData.md
 docs/RedditSearchApi.md
+docs/RejectWhatsAppGroupJoinRequestsRequest.md
 docs/ReleaseWhatsAppPhoneNumber200Response.md
 docs/ReleaseWhatsAppPhoneNumber200ResponsePhoneNumber.md
 docs/RemoveBookmark200Response.md
 docs/RemoveWhatsAppBroadcastRecipients200Response.md
 docs/RemoveWhatsAppBroadcastRecipientsRequest.md
+docs/RemoveWhatsAppGroupParticipantsRequest.md
 docs/RenameWhatsAppGroup200Response.md
 docs/RenameWhatsAppGroupRequest.md
 docs/ReplyToInboxPost200Response.md
@@ -626,6 +643,7 @@ docs/UpdateWhatsAppContactRequest.md
 docs/UpdateWhatsAppDisplayName200Response.md
 docs/UpdateWhatsAppDisplayName200ResponseDisplayName.md
 docs/UpdateWhatsAppDisplayNameRequest.md
+docs/UpdateWhatsAppGroupChatRequest.md
 docs/UpdateWhatsAppTemplate200Response.md
 docs/UpdateWhatsAppTemplate200ResponseTemplate.md
 docs/UpdateWhatsAppTemplateRequest.md
@@ -742,6 +760,7 @@ src/models/add_broadcast_recipients_request.rs
 src/models/add_whats_app_broadcast_recipients_200_response.rs
 src/models/add_whats_app_broadcast_recipients_request.rs
 src/models/add_whats_app_broadcast_recipients_request_recipients_inner.rs
+src/models/add_whats_app_group_participants_request.rs
 src/models/analytics_list_response.rs
 src/models/analytics_list_response_posts_inner.rs
 src/models/analytics_overview.rs
@@ -750,6 +769,7 @@ src/models/analytics_single_post_response.rs
 src/models/analytics_single_post_response_media_items_inner.rs
 src/models/api_key.rs
 src/models/api_key_profile_ids_inner.rs
+src/models/approve_whats_app_group_join_requests_request.rs
 src/models/bluesky_platform_data.rs
 src/models/bookmark_post_200_response.rs
 src/models/bookmark_post_request.rs
@@ -835,6 +855,10 @@ src/models/create_whats_app_broadcast_request_recipients_inner.rs
 src/models/create_whats_app_contact_200_response.rs
 src/models/create_whats_app_contact_200_response_contact.rs
 src/models/create_whats_app_contact_request.rs
+src/models/create_whats_app_group_chat_201_response.rs
+src/models/create_whats_app_group_chat_201_response_group.rs
+src/models/create_whats_app_group_chat_request.rs
+src/models/create_whats_app_group_invite_link_200_response.rs
 src/models/create_whats_app_template_200_response.rs
 src/models/create_whats_app_template_200_response_template.rs
 src/models/create_whats_app_template_request.rs
@@ -1022,6 +1046,9 @@ src/models/get_whats_app_contacts_200_response_filters.rs
 src/models/get_whats_app_contacts_200_response_pagination.rs
 src/models/get_whats_app_display_name_200_response.rs
 src/models/get_whats_app_display_name_200_response_display_name.rs
+src/models/get_whats_app_group_chat_200_response.rs
+src/models/get_whats_app_group_chat_200_response_group.rs
+src/models/get_whats_app_group_chat_200_response_group_participants_inner.rs
 src/models/get_whats_app_groups_200_response.rs
 src/models/get_whats_app_groups_200_response_groups_inner.rs
 src/models/get_whats_app_groups_200_response_summary.rs
@@ -1131,6 +1158,12 @@ src/models/list_snapchat_profiles_200_response.rs
 src/models/list_snapchat_profiles_200_response_public_profiles_inner.rs
 src/models/list_users_200_response.rs
 src/models/list_users_200_response_users_inner.rs
+src/models/list_whats_app_group_chats_200_response.rs
+src/models/list_whats_app_group_chats_200_response_groups_inner.rs
+src/models/list_whats_app_group_chats_200_response_paging.rs
+src/models/list_whats_app_group_chats_200_response_paging_cursors.rs
+src/models/list_whats_app_group_join_requests_200_response.rs
+src/models/list_whats_app_group_join_requests_200_response_join_requests_inner.rs
 src/models/media_item.rs
 src/models/media_upload_response.rs
 src/models/mod.rs
@@ -1178,11 +1211,13 @@ src/models/queue_update_response.rs
 src/models/recycling_config.rs
 src/models/recycling_state.rs
 src/models/reddit_platform_data.rs
+src/models/reject_whats_app_group_join_requests_request.rs
 src/models/release_whats_app_phone_number_200_response.rs
 src/models/release_whats_app_phone_number_200_response_phone_number.rs
 src/models/remove_bookmark_200_response.rs
 src/models/remove_whats_app_broadcast_recipients_200_response.rs
 src/models/remove_whats_app_broadcast_recipients_request.rs
+src/models/remove_whats_app_group_participants_request.rs
 src/models/rename_whats_app_group_200_response.rs
 src/models/rename_whats_app_group_request.rs
 src/models/reply_to_inbox_post_200_response.rs
@@ -1327,6 +1362,7 @@ src/models/update_whats_app_contact_request.rs
 src/models/update_whats_app_display_name_200_response.rs
 src/models/update_whats_app_display_name_200_response_display_name.rs
 src/models/update_whats_app_display_name_request.rs
+src/models/update_whats_app_group_chat_request.rs
 src/models/update_whats_app_template_200_response.rs
 src/models/update_whats_app_template_200_response_template.rs
 src/models/update_whats_app_template_request.rs

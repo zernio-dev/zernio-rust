@@ -5,15 +5,20 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**add_whats_app_broadcast_recipients**](WhatsAppApi.md#add_whats_app_broadcast_recipients) | **PATCH** /v1/whatsapp/broadcasts/{broadcastId}/recipients | Add recipients
+[**add_whats_app_group_participants**](WhatsAppApi.md#add_whats_app_group_participants) | **POST** /v1/whatsapp/wa-groups/{groupId}/participants | Add participants
+[**approve_whats_app_group_join_requests**](WhatsAppApi.md#approve_whats_app_group_join_requests) | **POST** /v1/whatsapp/wa-groups/{groupId}/join-requests | Approve join requests
 [**bulk_delete_whats_app_contacts**](WhatsAppApi.md#bulk_delete_whats_app_contacts) | **DELETE** /v1/whatsapp/contacts/bulk | Bulk delete contacts
 [**bulk_update_whats_app_contacts**](WhatsAppApi.md#bulk_update_whats_app_contacts) | **POST** /v1/whatsapp/contacts/bulk | Bulk update contacts
 [**cancel_whats_app_broadcast_schedule**](WhatsAppApi.md#cancel_whats_app_broadcast_schedule) | **DELETE** /v1/whatsapp/broadcasts/{broadcastId}/schedule | Cancel scheduled broadcast
 [**create_whats_app_broadcast**](WhatsAppApi.md#create_whats_app_broadcast) | **POST** /v1/whatsapp/broadcasts | Create broadcast
 [**create_whats_app_contact**](WhatsAppApi.md#create_whats_app_contact) | **POST** /v1/whatsapp/contacts | Create contact
+[**create_whats_app_group_chat**](WhatsAppApi.md#create_whats_app_group_chat) | **POST** /v1/whatsapp/wa-groups | Create group
+[**create_whats_app_group_invite_link**](WhatsAppApi.md#create_whats_app_group_invite_link) | **POST** /v1/whatsapp/wa-groups/{groupId}/invite-link | Create invite link
 [**create_whats_app_template**](WhatsAppApi.md#create_whats_app_template) | **POST** /v1/whatsapp/templates | Create template
 [**delete_whats_app_broadcast**](WhatsAppApi.md#delete_whats_app_broadcast) | **DELETE** /v1/whatsapp/broadcasts/{broadcastId} | Delete broadcast
 [**delete_whats_app_contact**](WhatsAppApi.md#delete_whats_app_contact) | **DELETE** /v1/whatsapp/contacts/{contactId} | Delete contact
 [**delete_whats_app_group**](WhatsAppApi.md#delete_whats_app_group) | **DELETE** /v1/whatsapp/groups | Delete group
+[**delete_whats_app_group_chat**](WhatsAppApi.md#delete_whats_app_group_chat) | **DELETE** /v1/whatsapp/wa-groups/{groupId} | Delete group
 [**delete_whats_app_template**](WhatsAppApi.md#delete_whats_app_template) | **DELETE** /v1/whatsapp/templates/{templateName} | Delete template
 [**get_whats_app_broadcast**](WhatsAppApi.md#get_whats_app_broadcast) | **GET** /v1/whatsapp/broadcasts/{broadcastId} | Get broadcast
 [**get_whats_app_broadcast_recipients**](WhatsAppApi.md#get_whats_app_broadcast_recipients) | **GET** /v1/whatsapp/broadcasts/{broadcastId}/recipients | List recipients
@@ -22,11 +27,16 @@ Method | HTTP request | Description
 [**get_whats_app_contact**](WhatsAppApi.md#get_whats_app_contact) | **GET** /v1/whatsapp/contacts/{contactId} | Get contact
 [**get_whats_app_contacts**](WhatsAppApi.md#get_whats_app_contacts) | **GET** /v1/whatsapp/contacts | List contacts
 [**get_whats_app_display_name**](WhatsAppApi.md#get_whats_app_display_name) | **GET** /v1/whatsapp/business-profile/display-name | Get display name and review status
+[**get_whats_app_group_chat**](WhatsAppApi.md#get_whats_app_group_chat) | **GET** /v1/whatsapp/wa-groups/{groupId} | Get group info
 [**get_whats_app_groups**](WhatsAppApi.md#get_whats_app_groups) | **GET** /v1/whatsapp/groups | List contact groups
 [**get_whats_app_template**](WhatsAppApi.md#get_whats_app_template) | **GET** /v1/whatsapp/templates/{templateName} | Get template
 [**get_whats_app_templates**](WhatsAppApi.md#get_whats_app_templates) | **GET** /v1/whatsapp/templates | List templates
 [**import_whats_app_contacts**](WhatsAppApi.md#import_whats_app_contacts) | **POST** /v1/whatsapp/contacts/import | Bulk import contacts
+[**list_whats_app_group_chats**](WhatsAppApi.md#list_whats_app_group_chats) | **GET** /v1/whatsapp/wa-groups | List active groups
+[**list_whats_app_group_join_requests**](WhatsAppApi.md#list_whats_app_group_join_requests) | **GET** /v1/whatsapp/wa-groups/{groupId}/join-requests | List join requests
+[**reject_whats_app_group_join_requests**](WhatsAppApi.md#reject_whats_app_group_join_requests) | **DELETE** /v1/whatsapp/wa-groups/{groupId}/join-requests | Reject join requests
 [**remove_whats_app_broadcast_recipients**](WhatsAppApi.md#remove_whats_app_broadcast_recipients) | **DELETE** /v1/whatsapp/broadcasts/{broadcastId}/recipients | Remove recipients
+[**remove_whats_app_group_participants**](WhatsAppApi.md#remove_whats_app_group_participants) | **DELETE** /v1/whatsapp/wa-groups/{groupId}/participants | Remove participants
 [**rename_whats_app_group**](WhatsAppApi.md#rename_whats_app_group) | **POST** /v1/whatsapp/groups | Rename group
 [**schedule_whats_app_broadcast**](WhatsAppApi.md#schedule_whats_app_broadcast) | **POST** /v1/whatsapp/broadcasts/{broadcastId}/schedule | Schedule broadcast
 [**send_whats_app_broadcast**](WhatsAppApi.md#send_whats_app_broadcast) | **POST** /v1/whatsapp/broadcasts/{broadcastId}/send | Send broadcast
@@ -34,6 +44,7 @@ Method | HTTP request | Description
 [**update_whats_app_business_profile**](WhatsAppApi.md#update_whats_app_business_profile) | **POST** /v1/whatsapp/business-profile | Update business profile
 [**update_whats_app_contact**](WhatsAppApi.md#update_whats_app_contact) | **PUT** /v1/whatsapp/contacts/{contactId} | Update contact
 [**update_whats_app_display_name**](WhatsAppApi.md#update_whats_app_display_name) | **POST** /v1/whatsapp/business-profile/display-name | Request display name change
+[**update_whats_app_group_chat**](WhatsAppApi.md#update_whats_app_group_chat) | **POST** /v1/whatsapp/wa-groups/{groupId} | Update group settings
 [**update_whats_app_template**](WhatsAppApi.md#update_whats_app_template) | **PATCH** /v1/whatsapp/templates/{templateName} | Update template
 [**upload_whats_app_profile_photo**](WhatsAppApi.md#upload_whats_app_profile_photo) | **POST** /v1/whatsapp/business-profile/photo | Upload profile picture
 
@@ -57,6 +68,70 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::AddWhatsAppBroadcastRecipients200Response**](addWhatsAppBroadcastRecipients_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## add_whats_app_group_participants
+
+> models::UnpublishPost200Response add_whats_app_group_participants(group_id, account_id, add_whats_app_group_participants_request)
+Add participants
+
+Add participants to a WhatsApp group. Maximum 8 participants per request. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**group_id** | **String** | Group ID | [required] |
+**account_id** | **String** | WhatsApp social account ID | [required] |
+**add_whats_app_group_participants_request** | [**AddWhatsAppGroupParticipantsRequest**](AddWhatsAppGroupParticipantsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UnpublishPost200Response**](unpublishPost_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## approve_whats_app_group_join_requests
+
+> models::UnpublishPost200Response approve_whats_app_group_join_requests(group_id, account_id, approve_whats_app_group_join_requests_request)
+Approve join requests
+
+Approve pending join requests for a WhatsApp group. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**group_id** | **String** | Group ID | [required] |
+**account_id** | **String** | WhatsApp social account ID | [required] |
+**approve_whats_app_group_join_requests_request** | [**ApproveWhatsAppGroupJoinRequestsRequest**](ApproveWhatsAppGroupJoinRequestsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UnpublishPost200Response**](unpublishPost_200_response.md)
 
 ### Authorization
 
@@ -220,6 +295,67 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## create_whats_app_group_chat
+
+> models::CreateWhatsAppGroupChat201Response create_whats_app_group_chat(create_whats_app_group_chat_request)
+Create group
+
+Create a new WhatsApp group chat. Returns the group ID and optionally an invite link. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_whats_app_group_chat_request** | [**CreateWhatsAppGroupChatRequest**](CreateWhatsAppGroupChatRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateWhatsAppGroupChat201Response**](createWhatsAppGroupChat_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_whats_app_group_invite_link
+
+> models::CreateWhatsAppGroupInviteLink200Response create_whats_app_group_invite_link(group_id, account_id)
+Create invite link
+
+Create a new invite link for a WhatsApp group. The previous link is revoked. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**group_id** | **String** | Group ID | [required] |
+**account_id** | **String** | WhatsApp social account ID | [required] |
+
+### Return type
+
+[**models::CreateWhatsAppGroupInviteLink200Response**](createWhatsAppGroupInviteLink_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## create_whats_app_template
 
 > models::CreateWhatsAppTemplate200Response create_whats_app_template(create_whats_app_template_request)
@@ -335,6 +471,37 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_whats_app_group_chat
+
+> models::UnpublishPost200Response delete_whats_app_group_chat(group_id, account_id)
+Delete group
+
+Delete a WhatsApp group and remove all participants. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**group_id** | **String** | Group ID | [required] |
+**account_id** | **String** | WhatsApp social account ID | [required] |
+
+### Return type
+
+[**models::UnpublishPost200Response**](unpublishPost_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -593,6 +760,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_whats_app_group_chat
+
+> models::GetWhatsAppGroupChat200Response get_whats_app_group_chat(group_id, account_id)
+Get group info
+
+Retrieve metadata about a WhatsApp group including subject, description, participants, and settings. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**group_id** | **String** | Group ID | [required] |
+**account_id** | **String** | WhatsApp social account ID | [required] |
+
+### Return type
+
+[**models::GetWhatsAppGroupChat200Response**](getWhatsAppGroupChat_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_whats_app_groups
 
 > models::GetWhatsAppGroups200Response get_whats_app_groups(account_id)
@@ -714,6 +912,101 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_whats_app_group_chats
+
+> models::ListWhatsAppGroupChats200Response list_whats_app_group_chats(account_id, limit, after)
+List active groups
+
+List active WhatsApp group chats for a business phone number. These are actual WhatsApp group conversations on the platform. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | WhatsApp social account ID | [required] |
+**limit** | Option<**i32**> | Max groups to return |  |[default to 25]
+**after** | Option<**String**> | Pagination cursor |  |
+
+### Return type
+
+[**models::ListWhatsAppGroupChats200Response**](listWhatsAppGroupChats_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_whats_app_group_join_requests
+
+> models::ListWhatsAppGroupJoinRequests200Response list_whats_app_group_join_requests(group_id, account_id)
+List join requests
+
+List pending join requests for a WhatsApp group (only for groups with approval_required mode). 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**group_id** | **String** | Group ID | [required] |
+**account_id** | **String** | WhatsApp social account ID | [required] |
+
+### Return type
+
+[**models::ListWhatsAppGroupJoinRequests200Response**](listWhatsAppGroupJoinRequests_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## reject_whats_app_group_join_requests
+
+> models::UnpublishPost200Response reject_whats_app_group_join_requests(group_id, account_id, reject_whats_app_group_join_requests_request)
+Reject join requests
+
+Reject pending join requests for a WhatsApp group. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**group_id** | **String** | Group ID | [required] |
+**account_id** | **String** | WhatsApp social account ID | [required] |
+**reject_whats_app_group_join_requests_request** | [**RejectWhatsAppGroupJoinRequestsRequest**](RejectWhatsAppGroupJoinRequestsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UnpublishPost200Response**](unpublishPost_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## remove_whats_app_broadcast_recipients
 
 > models::RemoveWhatsAppBroadcastRecipients200Response remove_whats_app_broadcast_recipients(broadcast_id, remove_whats_app_broadcast_recipients_request)
@@ -732,6 +1025,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::RemoveWhatsAppBroadcastRecipients200Response**](removeWhatsAppBroadcastRecipients_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## remove_whats_app_group_participants
+
+> models::UnpublishPost200Response remove_whats_app_group_participants(group_id, account_id, remove_whats_app_group_participants_request)
+Remove participants
+
+Remove participants from a WhatsApp group. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**group_id** | **String** | Group ID | [required] |
+**account_id** | **String** | WhatsApp social account ID | [required] |
+**remove_whats_app_group_participants_request** | [**RemoveWhatsAppGroupParticipantsRequest**](RemoveWhatsAppGroupParticipantsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UnpublishPost200Response**](unpublishPost_200_response.md)
 
 ### Authorization
 
@@ -944,6 +1269,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UpdateWhatsAppDisplayName200Response**](updateWhatsAppDisplayName_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_whats_app_group_chat
+
+> models::UnpublishPost200Response update_whats_app_group_chat(group_id, account_id, update_whats_app_group_chat_request)
+Update group settings
+
+Update the subject, description, or join approval mode of a WhatsApp group. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**group_id** | **String** | Group ID | [required] |
+**account_id** | **String** | WhatsApp social account ID | [required] |
+**update_whats_app_group_chat_request** | [**UpdateWhatsAppGroupChatRequest**](UpdateWhatsAppGroupChatRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UnpublishPost200Response**](unpublishPost_200_response.md)
 
 ### Authorization
 

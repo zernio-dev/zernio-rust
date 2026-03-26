@@ -25,6 +25,22 @@ pub enum AddWhatsAppBroadcastRecipientsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`add_whats_app_group_participants`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AddWhatsAppGroupParticipantsError {
+    Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`approve_whats_app_group_join_requests`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ApproveWhatsAppGroupJoinRequestsError {
+    Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`bulk_delete_whats_app_contacts`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -74,6 +90,22 @@ pub enum CreateWhatsAppContactError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`create_whats_app_group_chat`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateWhatsAppGroupChatError {
+    Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_whats_app_group_invite_link`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateWhatsAppGroupInviteLinkError {
+    Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`create_whats_app_template`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -110,6 +142,15 @@ pub enum DeleteWhatsAppGroupError {
     Status400(),
     Status401(models::InlineObject),
     Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`delete_whats_app_group_chat`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteWhatsAppGroupChatError {
+    Status401(models::InlineObject),
+    Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -189,6 +230,15 @@ pub enum GetWhatsAppDisplayNameError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_whats_app_group_chat`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetWhatsAppGroupChatError {
+    Status401(models::InlineObject),
+    Status404(models::InlineObject1),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_whats_app_groups`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -229,6 +279,30 @@ pub enum ImportWhatsAppContactsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_whats_app_group_chats`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListWhatsAppGroupChatsError {
+    Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_whats_app_group_join_requests`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListWhatsAppGroupJoinRequestsError {
+    Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`reject_whats_app_group_join_requests`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RejectWhatsAppGroupJoinRequestsError {
+    Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`remove_whats_app_broadcast_recipients`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -236,6 +310,14 @@ pub enum RemoveWhatsAppBroadcastRecipientsError {
     Status400(),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`remove_whats_app_group_participants`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RemoveWhatsAppGroupParticipantsError {
+    Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }
 
@@ -305,6 +387,15 @@ pub enum UpdateWhatsAppDisplayNameError {
     Status400(),
     Status401(models::InlineObject),
     Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_whats_app_group_chat`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateWhatsAppGroupChatError {
+    Status401(models::InlineObject),
+    Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -381,6 +472,126 @@ pub async fn add_whats_app_broadcast_recipients(
     } else {
         let content = resp.text().await?;
         let entity: Option<AddWhatsAppBroadcastRecipientsError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Add participants to a WhatsApp group. Maximum 8 participants per request.
+pub async fn add_whats_app_group_participants(
+    configuration: &configuration::Configuration,
+    group_id: &str,
+    account_id: &str,
+    add_whats_app_group_participants_request: models::AddWhatsAppGroupParticipantsRequest,
+) -> Result<models::UnpublishPost200Response, Error<AddWhatsAppGroupParticipantsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_group_id = group_id;
+    let p_query_account_id = account_id;
+    let p_body_add_whats_app_group_participants_request = add_whats_app_group_participants_request;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/wa-groups/{groupId}/participants",
+        configuration.base_path,
+        groupId = crate::apis::urlencode(p_path_group_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_add_whats_app_group_participants_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UnpublishPost200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UnpublishPost200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AddWhatsAppGroupParticipantsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Approve pending join requests for a WhatsApp group.
+pub async fn approve_whats_app_group_join_requests(
+    configuration: &configuration::Configuration,
+    group_id: &str,
+    account_id: &str,
+    approve_whats_app_group_join_requests_request: models::ApproveWhatsAppGroupJoinRequestsRequest,
+) -> Result<models::UnpublishPost200Response, Error<ApproveWhatsAppGroupJoinRequestsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_group_id = group_id;
+    let p_query_account_id = account_id;
+    let p_body_approve_whats_app_group_join_requests_request =
+        approve_whats_app_group_join_requests_request;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/wa-groups/{groupId}/join-requests",
+        configuration.base_path,
+        groupId = crate::apis::urlencode(p_path_group_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_approve_whats_app_group_join_requests_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UnpublishPost200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UnpublishPost200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ApproveWhatsAppGroupJoinRequestsError> =
             serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
@@ -652,6 +863,116 @@ pub async fn create_whats_app_contact(
     }
 }
 
+/// Create a new WhatsApp group chat. Returns the group ID and optionally an invite link.
+pub async fn create_whats_app_group_chat(
+    configuration: &configuration::Configuration,
+    create_whats_app_group_chat_request: models::CreateWhatsAppGroupChatRequest,
+) -> Result<models::CreateWhatsAppGroupChat201Response, Error<CreateWhatsAppGroupChatError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_whats_app_group_chat_request = create_whats_app_group_chat_request;
+
+    let uri_str = format!("{}/v1/whatsapp/wa-groups", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_whats_app_group_chat_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateWhatsAppGroupChat201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateWhatsAppGroupChat201Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateWhatsAppGroupChatError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Create a new invite link for a WhatsApp group. The previous link is revoked.
+pub async fn create_whats_app_group_invite_link(
+    configuration: &configuration::Configuration,
+    group_id: &str,
+    account_id: &str,
+) -> Result<
+    models::CreateWhatsAppGroupInviteLink200Response,
+    Error<CreateWhatsAppGroupInviteLinkError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_group_id = group_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/wa-groups/{groupId}/invite-link",
+        configuration.base_path,
+        groupId = crate::apis::urlencode(p_path_group_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateWhatsAppGroupInviteLink200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateWhatsAppGroupInviteLink200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateWhatsAppGroupInviteLinkError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Create a new message template. Supports two modes:  **Custom template:** Provide `components` with your own content. Submitted to Meta for review (can take up to 24h).  **Library template:** Provide `library_template_name` instead of `components` to use a pre-built template from Meta's template library. Library templates are **pre-approved** (no review wait). You can optionally customize parameters and buttons via `library_template_body_inputs` and `library_template_button_inputs`.  Browse available library templates at: https://business.facebook.com/wa/manage/message-templates/
 pub async fn create_whats_app_template(
     configuration: &configuration::Configuration,
@@ -853,6 +1174,62 @@ pub async fn delete_whats_app_group(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteWhatsAppGroupError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Delete a WhatsApp group and remove all participants.
+pub async fn delete_whats_app_group_chat(
+    configuration: &configuration::Configuration,
+    group_id: &str,
+    account_id: &str,
+) -> Result<models::UnpublishPost200Response, Error<DeleteWhatsAppGroupChatError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_group_id = group_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/wa-groups/{groupId}",
+        configuration.base_path,
+        groupId = crate::apis::urlencode(p_path_group_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UnpublishPost200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UnpublishPost200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteWhatsAppGroupChatError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1334,6 +1711,60 @@ pub async fn get_whats_app_display_name(
     }
 }
 
+/// Retrieve metadata about a WhatsApp group including subject, description, participants, and settings.
+pub async fn get_whats_app_group_chat(
+    configuration: &configuration::Configuration,
+    group_id: &str,
+    account_id: &str,
+) -> Result<models::GetWhatsAppGroupChat200Response, Error<GetWhatsAppGroupChatError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_group_id = group_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/wa-groups/{groupId}",
+        configuration.base_path,
+        groupId = crate::apis::urlencode(p_path_group_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetWhatsAppGroupChat200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetWhatsAppGroupChat200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetWhatsAppGroupChatError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// **Deprecated.** Use contact tags via `GET /v1/contacts` for grouping instead. WhatsApp groups have no cross-platform equivalent. List all contact groups for a WhatsApp account with contact counts. Groups are derived from the groups field on contacts, not stored as separate documents.
 #[deprecated]
 pub async fn get_whats_app_groups(
@@ -1536,6 +1967,183 @@ pub async fn import_whats_app_contacts(
     }
 }
 
+/// List active WhatsApp group chats for a business phone number. These are actual WhatsApp group conversations on the platform.
+pub async fn list_whats_app_group_chats(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    limit: Option<i32>,
+    after: Option<&str>,
+) -> Result<models::ListWhatsAppGroupChats200Response, Error<ListWhatsAppGroupChatsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_limit = limit;
+    let p_query_after = after;
+
+    let uri_str = format!("{}/v1/whatsapp/wa-groups", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListWhatsAppGroupChats200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListWhatsAppGroupChats200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListWhatsAppGroupChatsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// List pending join requests for a WhatsApp group (only for groups with approval_required mode).
+pub async fn list_whats_app_group_join_requests(
+    configuration: &configuration::Configuration,
+    group_id: &str,
+    account_id: &str,
+) -> Result<
+    models::ListWhatsAppGroupJoinRequests200Response,
+    Error<ListWhatsAppGroupJoinRequestsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_group_id = group_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/wa-groups/{groupId}/join-requests",
+        configuration.base_path,
+        groupId = crate::apis::urlencode(p_path_group_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListWhatsAppGroupJoinRequests200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListWhatsAppGroupJoinRequests200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListWhatsAppGroupJoinRequestsError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Reject pending join requests for a WhatsApp group.
+pub async fn reject_whats_app_group_join_requests(
+    configuration: &configuration::Configuration,
+    group_id: &str,
+    account_id: &str,
+    reject_whats_app_group_join_requests_request: models::RejectWhatsAppGroupJoinRequestsRequest,
+) -> Result<models::UnpublishPost200Response, Error<RejectWhatsAppGroupJoinRequestsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_group_id = group_id;
+    let p_query_account_id = account_id;
+    let p_body_reject_whats_app_group_join_requests_request =
+        reject_whats_app_group_join_requests_request;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/wa-groups/{groupId}/join-requests",
+        configuration.base_path,
+        groupId = crate::apis::urlencode(p_path_group_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_reject_whats_app_group_join_requests_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UnpublishPost200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UnpublishPost200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RejectWhatsAppGroupJoinRequestsError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// **Deprecated.** Use `POST /v1/broadcasts/{id}/recipients` with removal flag instead. Remove recipients from a draft broadcast by phone number.
 #[deprecated]
 pub async fn remove_whats_app_broadcast_recipients(
@@ -1589,6 +2197,67 @@ pub async fn remove_whats_app_broadcast_recipients(
     } else {
         let content = resp.text().await?;
         let entity: Option<RemoveWhatsAppBroadcastRecipientsError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Remove participants from a WhatsApp group.
+pub async fn remove_whats_app_group_participants(
+    configuration: &configuration::Configuration,
+    group_id: &str,
+    account_id: &str,
+    remove_whats_app_group_participants_request: models::RemoveWhatsAppGroupParticipantsRequest,
+) -> Result<models::UnpublishPost200Response, Error<RemoveWhatsAppGroupParticipantsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_group_id = group_id;
+    let p_query_account_id = account_id;
+    let p_body_remove_whats_app_group_participants_request =
+        remove_whats_app_group_participants_request;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/wa-groups/{groupId}/participants",
+        configuration.base_path,
+        groupId = crate::apis::urlencode(p_path_group_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_remove_whats_app_group_participants_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UnpublishPost200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UnpublishPost200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RemoveWhatsAppGroupParticipantsError> =
             serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
@@ -1963,6 +2632,65 @@ pub async fn update_whats_app_display_name(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateWhatsAppDisplayNameError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Update the subject, description, or join approval mode of a WhatsApp group.
+pub async fn update_whats_app_group_chat(
+    configuration: &configuration::Configuration,
+    group_id: &str,
+    account_id: &str,
+    update_whats_app_group_chat_request: models::UpdateWhatsAppGroupChatRequest,
+) -> Result<models::UnpublishPost200Response, Error<UpdateWhatsAppGroupChatError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_group_id = group_id;
+    let p_query_account_id = account_id;
+    let p_body_update_whats_app_group_chat_request = update_whats_app_group_chat_request;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/wa-groups/{groupId}",
+        configuration.base_path,
+        groupId = crate::apis::urlencode(p_path_group_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_whats_app_group_chat_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UnpublishPost200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UnpublishPost200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateWhatsAppGroupChatError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
