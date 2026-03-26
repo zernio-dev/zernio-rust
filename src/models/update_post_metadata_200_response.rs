@@ -17,6 +17,9 @@ pub struct UpdatePostMetadata200Response {
     pub success: Option<bool>,
     #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
+    /// Only present in direct video ID mode
+    #[serde(rename = "videoId", skip_serializing_if = "Option::is_none")]
+    pub video_id: Option<String>,
     #[serde(rename = "updatedFields", skip_serializing_if = "Option::is_none")]
     pub updated_fields: Option<Vec<String>>,
 }
@@ -26,6 +29,7 @@ impl UpdatePostMetadata200Response {
         UpdatePostMetadata200Response {
             success: None,
             message: None,
+            video_id: None,
             updated_fields: None,
         }
     }

@@ -16,6 +16,12 @@ pub struct UpdatePostMetadataRequest {
     /// The platform to update metadata on
     #[serde(rename = "platform")]
     pub platform: Platform,
+    /// YouTube video ID (required for direct mode, ignored for post-based mode)
+    #[serde(rename = "videoId", skip_serializing_if = "Option::is_none")]
+    pub video_id: Option<String>,
+    /// Zernio social account ID (required for direct mode, ignored for post-based mode)
+    #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
+    pub account_id: Option<String>,
     /// New video title (max 100 characters for YouTube)
     #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
@@ -37,6 +43,8 @@ impl UpdatePostMetadataRequest {
     pub fn new(platform: Platform) -> UpdatePostMetadataRequest {
         UpdatePostMetadataRequest {
             platform,
+            video_id: None,
+            account_id: None,
             title: None,
             description: None,
             tags: None,
