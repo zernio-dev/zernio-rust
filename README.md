@@ -173,6 +173,7 @@ Class | Method | HTTP request | Description
 *PostsApi* | [**retry_post**](docs/PostsApi.md#retry_post) | **POST** /v1/posts/{postId}/retry | Retry failed post
 *PostsApi* | [**unpublish_post**](docs/PostsApi.md#unpublish_post) | **POST** /v1/posts/{postId}/unpublish | Unpublish post
 *PostsApi* | [**update_post**](docs/PostsApi.md#update_post) | **PUT** /v1/posts/{postId} | Update post
+*PostsApi* | [**update_post_metadata**](docs/PostsApi.md#update_post_metadata) | **POST** /v1/posts/{postId}/update-metadata | Update post metadata
 *ProfilesApi* | [**create_profile**](docs/ProfilesApi.md#create_profile) | **POST** /v1/profiles | Create profile
 *ProfilesApi* | [**delete_profile**](docs/ProfilesApi.md#delete_profile) | **DELETE** /v1/profiles/{profileId} | Delete profile
 *ProfilesApi* | [**get_profile**](docs/ProfilesApi.md#get_profile) | **GET** /v1/profiles/{profileId} | Get profile
@@ -841,6 +842,8 @@ Class | Method | HTTP request | Description
  - [UpdateInboxConversationRequest](docs/UpdateInboxConversationRequest.md)
  - [UpdateLinkedInOrganizationRequest](docs/UpdateLinkedInOrganizationRequest.md)
  - [UpdatePinterestBoardsRequest](docs/UpdatePinterestBoardsRequest.md)
+ - [UpdatePostMetadata200Response](docs/UpdatePostMetadata200Response.md)
+ - [UpdatePostMetadataRequest](docs/UpdatePostMetadataRequest.md)
  - [UpdatePostRequest](docs/UpdatePostRequest.md)
  - [UpdateProfile200Response](docs/UpdateProfile200Response.md)
  - [UpdateProfileRequest](docs/UpdateProfileRequest.md)

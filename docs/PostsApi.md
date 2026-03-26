@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**retry_post**](PostsApi.md#retry_post) | **POST** /v1/posts/{postId}/retry | Retry failed post
 [**unpublish_post**](PostsApi.md#unpublish_post) | **POST** /v1/posts/{postId}/unpublish | Unpublish post
 [**update_post**](PostsApi.md#update_post) | **PUT** /v1/posts/{postId} | Update post
+[**update_post_metadata**](PostsApi.md#update_post_metadata) | **POST** /v1/posts/{postId}/update-metadata | Update post metadata
 
 
 
@@ -255,6 +256,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::PostUpdateResponse**](PostUpdateResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_post_metadata
+
+> models::UpdatePostMetadata200Response update_post_metadata(post_id, update_post_metadata_request)
+Update post metadata
+
+Updates metadata of an already-published post on the specified platform without re-uploading the media. Currently only supported for YouTube videos (title, description, tags, category, privacy status). The post must have \"published\" status on the target platform. At least one updatable field is required. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**post_id** | **String** |  | [required] |
+**update_post_metadata_request** | [**UpdatePostMetadataRequest**](UpdatePostMetadataRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdatePostMetadata200Response**](updatePostMetadata_200_response.md)
 
 ### Authorization
 

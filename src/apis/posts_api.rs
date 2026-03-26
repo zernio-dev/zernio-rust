@@ -102,6 +102,18 @@ pub enum UpdatePostError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`update_post_metadata`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdatePostMetadataError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(models::InlineObject1),
+    Status500(),
+    UnknownValue(serde_json::Value),
+}
+
 /// Create multiple posts by uploading a CSV file. Use dryRun=true to validate without creating posts.
 pub async fn bulk_upload_posts(
     configuration: &configuration::Configuration,
@@ -578,6 +590,62 @@ pub async fn update_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdatePostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Updates metadata of an already-published post on the specified platform without re-uploading the media. Currently only supported for YouTube videos (title, description, tags, category, privacy status). The post must have \"published\" status on the target platform. At least one updatable field is required.
+pub async fn update_post_metadata(
+    configuration: &configuration::Configuration,
+    post_id: &str,
+    update_post_metadata_request: models::UpdatePostMetadataRequest,
+) -> Result<models::UpdatePostMetadata200Response, Error<UpdatePostMetadataError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_post_id = post_id;
+    let p_body_update_post_metadata_request = update_post_metadata_request;
+
+    let uri_str = format!(
+        "{}/v1/posts/{postId}/update-metadata",
+        configuration.base_path,
+        postId = crate::apis::urlencode(p_path_post_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_post_metadata_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdatePostMetadata200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdatePostMetadata200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdatePostMetadataError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
