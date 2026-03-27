@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | Option<**String**> | Author's platform ID | [optional]
+**id** | **String** | Author's platform ID | 
 **username** | Option<**String**> |  | [optional]
 **name** | Option<**String**> |  | [optional]
 **picture** | Option<**String**> |  | [optional]

@@ -11,32 +11,28 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookPayloadAccountDisconnected : Webhook payload for account disconnected events
+/// WebhookPayloadTest : Webhook payload for test deliveries
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct WebhookPayloadAccountDisconnected {
+pub struct WebhookPayloadTest {
     /// Stable webhook event ID
     #[serde(rename = "id")]
     pub id: String,
     #[serde(rename = "event")]
     pub event: Event,
-    #[serde(rename = "account")]
-    pub account: Box<models::WebhookPayloadAccountDisconnectedAccount>,
+    /// Human-readable test message
+    #[serde(rename = "message")]
+    pub message: String,
     #[serde(rename = "timestamp")]
     pub timestamp: String,
 }
 
-impl WebhookPayloadAccountDisconnected {
-    /// Webhook payload for account disconnected events
-    pub fn new(
-        id: String,
-        event: Event,
-        account: models::WebhookPayloadAccountDisconnectedAccount,
-        timestamp: String,
-    ) -> WebhookPayloadAccountDisconnected {
-        WebhookPayloadAccountDisconnected {
+impl WebhookPayloadTest {
+    /// Webhook payload for test deliveries
+    pub fn new(id: String, event: Event, message: String, timestamp: String) -> WebhookPayloadTest {
+        WebhookPayloadTest {
             id,
             event,
-            account: Box::new(account),
+            message,
             timestamp,
         }
     }
@@ -44,12 +40,12 @@ impl WebhookPayloadAccountDisconnected {
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Event {
-    #[serde(rename = "account.disconnected")]
-    AccountDisconnected,
+    #[serde(rename = "webhook.test")]
+    WebhookTest,
 }
 
 impl Default for Event {
     fn default() -> Event {
-        Self::AccountDisconnected
+        Self::WebhookTest
     }
 }

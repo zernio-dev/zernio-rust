@@ -13,13 +13,10 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadMessageConversation {
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    #[serde(
-        rename = "platformConversationId",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub platform_conversation_id: Option<String>,
+    #[serde(rename = "id")]
+    pub id: String,
+    #[serde(rename = "platformConversationId")]
+    pub platform_conversation_id: String,
     #[serde(rename = "participantId", skip_serializing_if = "Option::is_none")]
     pub participant_id: Option<String>,
     #[serde(rename = "participantName", skip_serializing_if = "Option::is_none")]
@@ -31,46 +28,25 @@ pub struct WebhookPayloadMessageConversation {
     pub participant_username: Option<String>,
     #[serde(rename = "participantPicture", skip_serializing_if = "Option::is_none")]
     pub participant_picture: Option<String>,
-    /// X/Twitter verified badge type. Only present for Twitter/X conversations.
-    #[serde(
-        rename = "participantVerifiedType",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub participant_verified_type: Option<ParticipantVerifiedType>,
-    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<Status>,
+    #[serde(rename = "status")]
+    pub status: Status,
 }
 
 impl WebhookPayloadMessageConversation {
-    pub fn new() -> WebhookPayloadMessageConversation {
+    pub fn new(
+        id: String,
+        platform_conversation_id: String,
+        status: Status,
+    ) -> WebhookPayloadMessageConversation {
         WebhookPayloadMessageConversation {
-            id: None,
-            platform_conversation_id: None,
+            id,
+            platform_conversation_id,
             participant_id: None,
             participant_name: None,
             participant_username: None,
             participant_picture: None,
-            participant_verified_type: None,
-            status: None,
+            status,
         }
-    }
-}
-/// X/Twitter verified badge type. Only present for Twitter/X conversations.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum ParticipantVerifiedType {
-    #[serde(rename = "blue")]
-    Blue,
-    #[serde(rename = "government")]
-    Government,
-    #[serde(rename = "business")]
-    Business,
-    #[serde(rename = "none")]
-    None,
-}
-
-impl Default for ParticipantVerifiedType {
-    fn default() -> ParticipantVerifiedType {
-        Self::Blue
     }
 }
 ///

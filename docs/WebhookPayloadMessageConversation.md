@@ -4,14 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | Option<**String**> |  | [optional]
-**platform_conversation_id** | Option<**String**> |  | [optional]
+**id** | **String** |  | 
+**platform_conversation_id** | **String** |  | 
 **participant_id** | Option<**String**> |  | [optional]
 **participant_name** | Option<**String**> |  | [optional]
 **participant_username** | Option<**String**> |  | [optional]
 **participant_picture** | Option<**String**> |  | [optional]
-**participant_verified_type** | Option<**ParticipantVerifiedType**> | X/Twitter verified badge type. Only present for Twitter/X conversations. (enum: blue, government, business, none) | [optional]
-**status** | Option<**Status**> |  (enum: active, archived) | [optional]
+**status** | **Status** |  (enum: active, archived) | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

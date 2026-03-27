@@ -14,44 +14,55 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadMessageMessage {
     /// Internal message ID
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
+    #[serde(rename = "id")]
+    pub id: String,
     /// Internal conversation ID
-    #[serde(rename = "conversationId", skip_serializing_if = "Option::is_none")]
-    pub conversation_id: Option<String>,
-    #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
-    pub platform: Option<Platform>,
+    #[serde(rename = "conversationId")]
+    pub conversation_id: String,
+    #[serde(rename = "platform")]
+    pub platform: Platform,
     /// Platform's message ID
-    #[serde(rename = "platformMessageId", skip_serializing_if = "Option::is_none")]
-    pub platform_message_id: Option<String>,
-    #[serde(rename = "direction", skip_serializing_if = "Option::is_none")]
-    pub direction: Option<Direction>,
+    #[serde(rename = "platformMessageId")]
+    pub platform_message_id: String,
+    #[serde(rename = "direction")]
+    pub direction: Direction,
     /// Message text content
-    #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
-    pub text: Option<String>,
-    #[serde(rename = "attachments", skip_serializing_if = "Option::is_none")]
-    pub attachments: Option<Vec<models::WebhookPayloadMessageMessageAttachmentsInner>>,
-    #[serde(rename = "sender", skip_serializing_if = "Option::is_none")]
-    pub sender: Option<Box<models::WebhookPayloadMessageMessageSender>>,
-    #[serde(rename = "sentAt", skip_serializing_if = "Option::is_none")]
-    pub sent_at: Option<String>,
-    #[serde(rename = "isRead", skip_serializing_if = "Option::is_none")]
-    pub is_read: Option<bool>,
+    #[serde(rename = "text")]
+    pub text: String,
+    #[serde(rename = "attachments")]
+    pub attachments: Vec<models::WebhookPayloadMessageMessageAttachmentsInner>,
+    #[serde(rename = "sender")]
+    pub sender: Box<models::WebhookPayloadMessageMessageSender>,
+    #[serde(rename = "sentAt")]
+    pub sent_at: String,
+    #[serde(rename = "isRead")]
+    pub is_read: bool,
 }
 
 impl WebhookPayloadMessageMessage {
-    pub fn new() -> WebhookPayloadMessageMessage {
+    pub fn new(
+        id: String,
+        conversation_id: String,
+        platform: Platform,
+        platform_message_id: String,
+        direction: Direction,
+        text: String,
+        attachments: Vec<models::WebhookPayloadMessageMessageAttachmentsInner>,
+        sender: models::WebhookPayloadMessageMessageSender,
+        sent_at: String,
+        is_read: bool,
+    ) -> WebhookPayloadMessageMessage {
         WebhookPayloadMessageMessage {
-            id: None,
-            conversation_id: None,
-            platform: None,
-            platform_message_id: None,
-            direction: None,
-            text: None,
-            attachments: None,
-            sender: None,
-            sent_at: None,
-            is_read: None,
+            id,
+            conversation_id,
+            platform,
+            platform_message_id,
+            direction,
+            text,
+            attachments,
+            sender: Box::new(sender),
+            sent_at,
+            is_read,
         }
     }
 }
@@ -64,10 +75,8 @@ pub enum Platform {
     Facebook,
     #[serde(rename = "telegram")]
     Telegram,
-    #[serde(rename = "bluesky")]
-    Bluesky,
-    #[serde(rename = "reddit")]
-    Reddit,
+    #[serde(rename = "whatsapp")]
+    Whatsapp,
 }
 
 impl Default for Platform {
@@ -80,6 +89,8 @@ impl Default for Platform {
 pub enum Direction {
     #[serde(rename = "incoming")]
     Incoming,
+    #[serde(rename = "outgoing")]
+    Outgoing,
 }
 
 impl Default for Direction {

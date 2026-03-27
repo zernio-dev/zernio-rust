@@ -14,21 +14,30 @@ use serde::{Deserialize, Serialize};
 /// WebhookPayloadAccountConnected : Webhook payload for account connected events
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadAccountConnected {
-    #[serde(rename = "event", skip_serializing_if = "Option::is_none")]
-    pub event: Option<Event>,
-    #[serde(rename = "account", skip_serializing_if = "Option::is_none")]
-    pub account: Option<Box<models::WebhookPayloadAccountConnectedAccount>>,
-    #[serde(rename = "timestamp", skip_serializing_if = "Option::is_none")]
-    pub timestamp: Option<String>,
+    /// Stable webhook event ID
+    #[serde(rename = "id")]
+    pub id: String,
+    #[serde(rename = "event")]
+    pub event: Event,
+    #[serde(rename = "account")]
+    pub account: Box<models::WebhookPayloadAccountConnectedAccount>,
+    #[serde(rename = "timestamp")]
+    pub timestamp: String,
 }
 
 impl WebhookPayloadAccountConnected {
     /// Webhook payload for account connected events
-    pub fn new() -> WebhookPayloadAccountConnected {
+    pub fn new(
+        id: String,
+        event: Event,
+        account: models::WebhookPayloadAccountConnectedAccount,
+        timestamp: String,
+    ) -> WebhookPayloadAccountConnected {
         WebhookPayloadAccountConnected {
-            event: None,
-            account: None,
-            timestamp: None,
+            id,
+            event,
+            account: Box::new(account),
+            timestamp,
         }
     }
 }

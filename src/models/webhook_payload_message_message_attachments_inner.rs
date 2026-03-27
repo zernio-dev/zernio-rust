@@ -14,21 +14,21 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadMessageMessageAttachmentsInner {
     /// Attachment type (image, video, file, sticker, audio)
-    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<String>,
+    #[serde(rename = "type")]
+    pub r#type: String,
     /// Attachment URL (may expire for Meta platforms)
-    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
+    #[serde(rename = "url")]
+    pub url: String,
     /// Additional attachment metadata
     #[serde(rename = "payload", skip_serializing_if = "Option::is_none")]
     pub payload: Option<serde_json::Value>,
 }
 
 impl WebhookPayloadMessageMessageAttachmentsInner {
-    pub fn new() -> WebhookPayloadMessageMessageAttachmentsInner {
+    pub fn new(r#type: String, url: String) -> WebhookPayloadMessageMessageAttachmentsInner {
         WebhookPayloadMessageMessageAttachmentsInner {
-            r#type: None,
-            url: None,
+            r#type,
+            url,
             payload: None,
         }
     }

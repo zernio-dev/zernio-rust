@@ -4,9 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**event** | Option<**Event**> |  (enum: post.scheduled, post.published, post.failed, post.partial, post.recycled) | [optional]
-**post** | Option<[**models::WebhookPayloadPostPost**](WebhookPayloadPostPost.md)> |  | [optional]
-**timestamp** | Option<**String**> |  | [optional]
+**id** | **String** | Stable webhook event ID | 
+**event** | **Event** |  (enum: post.scheduled, post.published, post.failed, post.partial, post.cancelled, post.recycled) | 
+**post** | [**models::WebhookPayloadPostPost**](WebhookPayloadPostPost.md) |  | 
+**timestamp** | **String** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -13,29 +13,35 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadPostPost {
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
-    pub content: Option<String>,
-    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<String>,
-    #[serde(rename = "scheduledFor", skip_serializing_if = "Option::is_none")]
-    pub scheduled_for: Option<String>,
+    #[serde(rename = "id")]
+    pub id: String,
+    #[serde(rename = "content")]
+    pub content: String,
+    #[serde(rename = "status")]
+    pub status: String,
+    #[serde(rename = "scheduledFor")]
+    pub scheduled_for: String,
     #[serde(rename = "publishedAt", skip_serializing_if = "Option::is_none")]
     pub published_at: Option<String>,
-    #[serde(rename = "platforms", skip_serializing_if = "Option::is_none")]
-    pub platforms: Option<Vec<models::WebhookPayloadPostPostPlatformsInner>>,
+    #[serde(rename = "platforms")]
+    pub platforms: Vec<models::WebhookPayloadPostPostPlatformsInner>,
 }
 
 impl WebhookPayloadPostPost {
-    pub fn new() -> WebhookPayloadPostPost {
+    pub fn new(
+        id: String,
+        content: String,
+        status: String,
+        scheduled_for: String,
+        platforms: Vec<models::WebhookPayloadPostPostPlatformsInner>,
+    ) -> WebhookPayloadPostPost {
         WebhookPayloadPostPost {
-            id: None,
-            content: None,
-            status: None,
-            scheduled_for: None,
+            id,
+            content,
+            status,
+            scheduled_for,
             published_at: None,
-            platforms: None,
+            platforms,
         }
     }
 }

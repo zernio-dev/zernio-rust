@@ -14,21 +14,30 @@ use serde::{Deserialize, Serialize};
 /// WebhookPayloadPost : Webhook payload for post events
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadPost {
-    #[serde(rename = "event", skip_serializing_if = "Option::is_none")]
-    pub event: Option<Event>,
-    #[serde(rename = "post", skip_serializing_if = "Option::is_none")]
-    pub post: Option<Box<models::WebhookPayloadPostPost>>,
-    #[serde(rename = "timestamp", skip_serializing_if = "Option::is_none")]
-    pub timestamp: Option<String>,
+    /// Stable webhook event ID
+    #[serde(rename = "id")]
+    pub id: String,
+    #[serde(rename = "event")]
+    pub event: Event,
+    #[serde(rename = "post")]
+    pub post: Box<models::WebhookPayloadPostPost>,
+    #[serde(rename = "timestamp")]
+    pub timestamp: String,
 }
 
 impl WebhookPayloadPost {
     /// Webhook payload for post events
-    pub fn new() -> WebhookPayloadPost {
+    pub fn new(
+        id: String,
+        event: Event,
+        post: models::WebhookPayloadPostPost,
+        timestamp: String,
+    ) -> WebhookPayloadPost {
         WebhookPayloadPost {
-            event: None,
-            post: None,
-            timestamp: None,
+            id,
+            event,
+            post: Box::new(post),
+            timestamp,
         }
     }
 }
@@ -43,6 +52,8 @@ pub enum Event {
     PostFailed,
     #[serde(rename = "post.partial")]
     PostPartial,
+    #[serde(rename = "post.cancelled")]
+    PostCancelled,
     #[serde(rename = "post.recycled")]
     PostRecycled,
 }

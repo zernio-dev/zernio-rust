@@ -14,18 +14,18 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadCommentPost {
     /// Internal post ID
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
+    #[serde(rename = "id")]
+    pub id: String,
     /// Platform's post ID
-    #[serde(rename = "platformPostId", skip_serializing_if = "Option::is_none")]
-    pub platform_post_id: Option<String>,
+    #[serde(rename = "platformPostId")]
+    pub platform_post_id: String,
 }
 
 impl WebhookPayloadCommentPost {
-    pub fn new() -> WebhookPayloadCommentPost {
+    pub fn new(id: String, platform_post_id: String) -> WebhookPayloadCommentPost {
         WebhookPayloadCommentPost {
-            id: None,
-            platform_post_id: None,
+            id,
+            platform_post_id,
         }
     }
 }

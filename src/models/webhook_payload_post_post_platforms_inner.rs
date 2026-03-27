@@ -13,10 +13,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadPostPostPlatformsInner {
-    #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
-    pub platform: Option<String>,
-    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<String>,
+    #[serde(rename = "platform")]
+    pub platform: String,
+    #[serde(rename = "status")]
+    pub status: String,
+    #[serde(rename = "platformPostId", skip_serializing_if = "Option::is_none")]
+    pub platform_post_id: Option<String>,
     #[serde(rename = "publishedUrl", skip_serializing_if = "Option::is_none")]
     pub published_url: Option<String>,
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
@@ -24,10 +26,11 @@ pub struct WebhookPayloadPostPostPlatformsInner {
 }
 
 impl WebhookPayloadPostPostPlatformsInner {
-    pub fn new() -> WebhookPayloadPostPostPlatformsInner {
+    pub fn new(platform: String, status: String) -> WebhookPayloadPostPostPlatformsInner {
         WebhookPayloadPostPostPlatformsInner {
-            platform: None,
-            status: None,
+            platform,
+            status,
+            platform_post_id: None,
             published_url: None,
             error: None,
         }

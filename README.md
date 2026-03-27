@@ -944,6 +944,7 @@ Class | Method | HTTP request | Description
  - [WebhookPayloadPost](docs/WebhookPayloadPost.md)
  - [WebhookPayloadPostPost](docs/WebhookPayloadPostPost.md)
  - [WebhookPayloadPostPostPlatformsInner](docs/WebhookPayloadPostPostPlatformsInner.md)
+ - [WebhookPayloadTest](docs/WebhookPayloadTest.md)
  - [YouTubeDailyViewsResponse](docs/YouTubeDailyViewsResponse.md)
  - [YouTubeDailyViewsResponseDailyViewsInner](docs/YouTubeDailyViewsResponseDailyViewsInner.md)
  - [YouTubeDailyViewsResponseDateRange](docs/YouTubeDailyViewsResponseDateRange.md)

@@ -13,8 +13,8 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadMessageMessageSender {
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
+    #[serde(rename = "id")]
+    pub id: String,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(rename = "username", skip_serializing_if = "Option::is_none")]
@@ -26,9 +26,9 @@ pub struct WebhookPayloadMessageMessageSender {
 }
 
 impl WebhookPayloadMessageMessageSender {
-    pub fn new() -> WebhookPayloadMessageMessageSender {
+    pub fn new(id: String) -> WebhookPayloadMessageMessageSender {
         WebhookPayloadMessageMessageSender {
-            id: None,
+            id,
             name: None,
             username: None,
             picture: None,

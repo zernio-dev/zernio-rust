@@ -14,20 +14,20 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadCommentAccount {
     /// Social account ID
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
-    pub platform: Option<String>,
-    #[serde(rename = "username", skip_serializing_if = "Option::is_none")]
-    pub username: Option<String>,
+    #[serde(rename = "id")]
+    pub id: String,
+    #[serde(rename = "platform")]
+    pub platform: String,
+    #[serde(rename = "username")]
+    pub username: String,
 }
 
 impl WebhookPayloadCommentAccount {
-    pub fn new() -> WebhookPayloadCommentAccount {
+    pub fn new(id: String, platform: String, username: String) -> WebhookPayloadCommentAccount {
         WebhookPayloadCommentAccount {
-            id: None,
-            platform: None,
-            username: None,
+            id,
+            platform,
+            username,
         }
     }
 }

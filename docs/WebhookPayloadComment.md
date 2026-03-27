@@ -4,11 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**event** | Option<**Event**> |  (enum: comment.received) | [optional]
-**comment** | Option<[**models::WebhookPayloadCommentComment**](WebhookPayloadCommentComment.md)> |  | [optional]
-**post** | Option<[**models::WebhookPayloadCommentPost**](WebhookPayloadCommentPost.md)> |  | [optional]
-**account** | Option<[**models::WebhookPayloadCommentAccount**](WebhookPayloadCommentAccount.md)> |  | [optional]
-**timestamp** | Option<**String**> |  | [optional]
+**id** | **String** | Stable webhook event ID | 
+**event** | **Event** |  (enum: comment.received) | 
+**comment** | [**models::WebhookPayloadCommentComment**](WebhookPayloadCommentComment.md) |  | 
+**post** | [**models::WebhookPayloadCommentPost**](WebhookPayloadCommentPost.md) |  | 
+**account** | [**models::WebhookPayloadCommentAccount**](WebhookPayloadCommentAccount.md) |  | 
+**timestamp** | **String** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

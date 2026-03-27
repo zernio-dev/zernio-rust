@@ -11,33 +11,44 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookPayloadMessage : Webhook payload for message received events (DMs from Instagram, Facebook, Telegram, Bluesky, Reddit)
+/// WebhookPayloadMessage : Webhook payload for message received events
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadMessage {
-    #[serde(rename = "event", skip_serializing_if = "Option::is_none")]
-    pub event: Option<Event>,
-    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
-    pub message: Option<Box<models::WebhookPayloadMessageMessage>>,
-    #[serde(rename = "conversation", skip_serializing_if = "Option::is_none")]
-    pub conversation: Option<Box<models::WebhookPayloadMessageConversation>>,
-    #[serde(rename = "account", skip_serializing_if = "Option::is_none")]
-    pub account: Option<Box<models::WebhookPayloadMessageAccount>>,
+    /// Stable webhook event ID
+    #[serde(rename = "id")]
+    pub id: String,
+    #[serde(rename = "event")]
+    pub event: Event,
+    #[serde(rename = "message")]
+    pub message: Box<models::WebhookPayloadMessageMessage>,
+    #[serde(rename = "conversation")]
+    pub conversation: Box<models::WebhookPayloadMessageConversation>,
+    #[serde(rename = "account")]
+    pub account: Box<models::WebhookPayloadMessageAccount>,
     #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
     pub metadata: Option<Box<models::WebhookPayloadMessageMetadata>>,
-    #[serde(rename = "timestamp", skip_serializing_if = "Option::is_none")]
-    pub timestamp: Option<String>,
+    #[serde(rename = "timestamp")]
+    pub timestamp: String,
 }
 
 impl WebhookPayloadMessage {
-    /// Webhook payload for message received events (DMs from Instagram, Facebook, Telegram, Bluesky, Reddit)
-    pub fn new() -> WebhookPayloadMessage {
+    /// Webhook payload for message received events
+    pub fn new(
+        id: String,
+        event: Event,
+        message: models::WebhookPayloadMessageMessage,
+        conversation: models::WebhookPayloadMessageConversation,
+        account: models::WebhookPayloadMessageAccount,
+        timestamp: String,
+    ) -> WebhookPayloadMessage {
         WebhookPayloadMessage {
-            event: None,
-            message: None,
-            conversation: None,
-            account: None,
+            id,
+            event,
+            message: Box::new(message),
+            conversation: Box::new(conversation),
+            account: Box::new(account),
             metadata: None,
-            timestamp: None,
+            timestamp,
         }
     }
 }

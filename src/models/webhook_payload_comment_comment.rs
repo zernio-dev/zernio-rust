@@ -14,43 +14,53 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadCommentComment {
     /// Platform comment ID
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
+    #[serde(rename = "id")]
+    pub id: String,
     /// Internal post ID
-    #[serde(rename = "postId", skip_serializing_if = "Option::is_none")]
-    pub post_id: Option<String>,
+    #[serde(rename = "postId")]
+    pub post_id: String,
     /// Platform's post ID
-    #[serde(rename = "platformPostId", skip_serializing_if = "Option::is_none")]
-    pub platform_post_id: Option<String>,
-    #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
-    pub platform: Option<Platform>,
+    #[serde(rename = "platformPostId")]
+    pub platform_post_id: String,
+    #[serde(rename = "platform")]
+    pub platform: Platform,
     /// Comment text content
-    #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
-    pub text: Option<String>,
-    #[serde(rename = "author", skip_serializing_if = "Option::is_none")]
-    pub author: Option<Box<models::WebhookPayloadCommentCommentAuthor>>,
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<String>,
+    #[serde(rename = "text")]
+    pub text: String,
+    #[serde(rename = "author")]
+    pub author: Box<models::WebhookPayloadCommentCommentAuthor>,
+    #[serde(rename = "createdAt")]
+    pub created_at: String,
     /// Whether this is a reply to another comment
-    #[serde(rename = "isReply", skip_serializing_if = "Option::is_none")]
-    pub is_reply: Option<bool>,
+    #[serde(rename = "isReply")]
+    pub is_reply: bool,
     /// Parent comment ID if this is a reply
-    #[serde(rename = "parentCommentId", skip_serializing_if = "Option::is_none")]
-    pub parent_comment_id: Option<String>,
+    #[serde(rename = "parentCommentId")]
+    pub parent_comment_id: String,
 }
 
 impl WebhookPayloadCommentComment {
-    pub fn new() -> WebhookPayloadCommentComment {
+    pub fn new(
+        id: String,
+        post_id: String,
+        platform_post_id: String,
+        platform: Platform,
+        text: String,
+        author: models::WebhookPayloadCommentCommentAuthor,
+        created_at: String,
+        is_reply: bool,
+        parent_comment_id: String,
+    ) -> WebhookPayloadCommentComment {
         WebhookPayloadCommentComment {
-            id: None,
-            post_id: None,
-            platform_post_id: None,
-            platform: None,
-            text: None,
-            author: None,
-            created_at: None,
-            is_reply: None,
-            parent_comment_id: None,
+            id,
+            post_id,
+            platform_post_id,
+            platform,
+            text,
+            author: Box::new(author),
+            created_at,
+            is_reply,
+            parent_comment_id,
         }
     }
 }

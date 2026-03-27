@@ -14,27 +14,38 @@ use serde::{Deserialize, Serialize};
 /// WebhookPayloadComment : Webhook payload for comment received events (Instagram, Facebook, Twitter/X, YouTube, LinkedIn, Bluesky, Reddit)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadComment {
-    #[serde(rename = "event", skip_serializing_if = "Option::is_none")]
-    pub event: Option<Event>,
-    #[serde(rename = "comment", skip_serializing_if = "Option::is_none")]
-    pub comment: Option<Box<models::WebhookPayloadCommentComment>>,
-    #[serde(rename = "post", skip_serializing_if = "Option::is_none")]
-    pub post: Option<Box<models::WebhookPayloadCommentPost>>,
-    #[serde(rename = "account", skip_serializing_if = "Option::is_none")]
-    pub account: Option<Box<models::WebhookPayloadCommentAccount>>,
-    #[serde(rename = "timestamp", skip_serializing_if = "Option::is_none")]
-    pub timestamp: Option<String>,
+    /// Stable webhook event ID
+    #[serde(rename = "id")]
+    pub id: String,
+    #[serde(rename = "event")]
+    pub event: Event,
+    #[serde(rename = "comment")]
+    pub comment: Box<models::WebhookPayloadCommentComment>,
+    #[serde(rename = "post")]
+    pub post: Box<models::WebhookPayloadCommentPost>,
+    #[serde(rename = "account")]
+    pub account: Box<models::WebhookPayloadCommentAccount>,
+    #[serde(rename = "timestamp")]
+    pub timestamp: String,
 }
 
 impl WebhookPayloadComment {
     /// Webhook payload for comment received events (Instagram, Facebook, Twitter/X, YouTube, LinkedIn, Bluesky, Reddit)
-    pub fn new() -> WebhookPayloadComment {
+    pub fn new(
+        id: String,
+        event: Event,
+        comment: models::WebhookPayloadCommentComment,
+        post: models::WebhookPayloadCommentPost,
+        account: models::WebhookPayloadCommentAccount,
+        timestamp: String,
+    ) -> WebhookPayloadComment {
         WebhookPayloadComment {
-            event: None,
-            comment: None,
-            post: None,
-            account: None,
-            timestamp: None,
+            id,
+            event,
+            comment: Box::new(comment),
+            post: Box::new(post),
+            account: Box::new(account),
+            timestamp,
         }
     }
 }

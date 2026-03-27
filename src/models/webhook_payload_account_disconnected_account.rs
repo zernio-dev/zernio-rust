@@ -14,35 +14,42 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadAccountDisconnectedAccount {
     /// The account's unique identifier (same as used in /v1/accounts/{accountId})
-    #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
-    pub account_id: Option<String>,
+    #[serde(rename = "accountId")]
+    pub account_id: String,
     /// The profile's unique identifier this account belongs to
-    #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]
-    pub profile_id: Option<String>,
-    #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
-    pub platform: Option<String>,
-    #[serde(rename = "username", skip_serializing_if = "Option::is_none")]
-    pub username: Option<String>,
+    #[serde(rename = "profileId")]
+    pub profile_id: String,
+    #[serde(rename = "platform")]
+    pub platform: String,
+    #[serde(rename = "username")]
+    pub username: String,
     #[serde(rename = "displayName", skip_serializing_if = "Option::is_none")]
     pub display_name: Option<String>,
     /// Whether the disconnection was intentional (user action) or unintentional (token expired/revoked)
-    #[serde(rename = "disconnectionType", skip_serializing_if = "Option::is_none")]
-    pub disconnection_type: Option<DisconnectionType>,
+    #[serde(rename = "disconnectionType")]
+    pub disconnection_type: DisconnectionType,
     /// Human-readable reason for the disconnection
-    #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
-    pub reason: Option<String>,
+    #[serde(rename = "reason")]
+    pub reason: String,
 }
 
 impl WebhookPayloadAccountDisconnectedAccount {
-    pub fn new() -> WebhookPayloadAccountDisconnectedAccount {
+    pub fn new(
+        account_id: String,
+        profile_id: String,
+        platform: String,
+        username: String,
+        disconnection_type: DisconnectionType,
+        reason: String,
+    ) -> WebhookPayloadAccountDisconnectedAccount {
         WebhookPayloadAccountDisconnectedAccount {
-            account_id: None,
-            profile_id: None,
-            platform: None,
-            username: None,
+            account_id,
+            profile_id,
+            platform,
+            username,
             display_name: None,
-            disconnection_type: None,
-            reason: None,
+            disconnection_type,
+            reason,
         }
     }
 }

@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | Option<**String**> | Platform comment ID | [optional]
-**post_id** | Option<**String**> | Internal post ID | [optional]
-**platform_post_id** | Option<**String**> | Platform's post ID | [optional]
-**platform** | Option<**Platform**> |  (enum: instagram, facebook, twitter, youtube, linkedin, bluesky, reddit) | [optional]
-**text** | Option<**String**> | Comment text content | [optional]
-**author** | Option<[**models::WebhookPayloadCommentCommentAuthor**](WebhookPayloadCommentCommentAuthor.md)> |  | [optional]
-**created_at** | Option<**String**> |  | [optional]
-**is_reply** | Option<**bool**> | Whether this is a reply to another comment | [optional]
-**parent_comment_id** | Option<**String**> | Parent comment ID if this is a reply | [optional]
+**id** | **String** | Platform comment ID | 
+**post_id** | **String** | Internal post ID | 
+**platform_post_id** | **String** | Platform's post ID | 
+**platform** | **Platform** |  (enum: instagram, facebook, twitter, youtube, linkedin, bluesky, reddit) | 
+**text** | **String** | Comment text content | 
+**author** | [**models::WebhookPayloadCommentCommentAuthor**](WebhookPayloadCommentCommentAuthor.md) |  | 
+**created_at** | **String** |  | 
+**is_reply** | **bool** | Whether this is a reply to another comment | 
+**parent_comment_id** | **String** | Parent comment ID if this is a reply | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

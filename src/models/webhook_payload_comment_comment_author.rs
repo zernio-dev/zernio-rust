@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadCommentCommentAuthor {
     /// Author's platform ID
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
+    #[serde(rename = "id")]
+    pub id: String,
     #[serde(rename = "username", skip_serializing_if = "Option::is_none")]
     pub username: Option<String>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
@@ -25,9 +25,9 @@ pub struct WebhookPayloadCommentCommentAuthor {
 }
 
 impl WebhookPayloadCommentCommentAuthor {
-    pub fn new() -> WebhookPayloadCommentCommentAuthor {
+    pub fn new(id: String) -> WebhookPayloadCommentCommentAuthor {
         WebhookPayloadCommentCommentAuthor {
-            id: None,
+            id,
             username: None,
             name: None,
             picture: None,

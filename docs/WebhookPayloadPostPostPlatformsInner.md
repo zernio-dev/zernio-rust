@@ -4,8 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**platform** | Option<**String**> |  | [optional]
-**status** | Option<**String**> |  | [optional]
+**platform** | **String** |  | 
+**status** | **String** |  | 
+**platform_post_id** | Option<**String**> |  | [optional]
 **published_url** | Option<**String**> |  | [optional]
 **error** | Option<**String**> |  | [optional]
 
