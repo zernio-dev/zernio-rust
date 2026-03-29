@@ -4,13 +4,82 @@ All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**add_message_reaction**](MessagesApi.md#add_message_reaction) | **POST** /v1/inbox/conversations/{conversationId}/messages/{messageId}/reactions | Add reaction
+[**delete_inbox_message**](MessagesApi.md#delete_inbox_message) | **DELETE** /v1/inbox/conversations/{conversationId}/messages/{messageId} | Delete message
 [**edit_inbox_message**](MessagesApi.md#edit_inbox_message) | **PATCH** /v1/inbox/conversations/{conversationId}/messages/{messageId} | Edit message
 [**get_inbox_conversation**](MessagesApi.md#get_inbox_conversation) | **GET** /v1/inbox/conversations/{conversationId} | Get conversation
 [**get_inbox_conversation_messages**](MessagesApi.md#get_inbox_conversation_messages) | **GET** /v1/inbox/conversations/{conversationId}/messages | List messages
 [**list_inbox_conversations**](MessagesApi.md#list_inbox_conversations) | **GET** /v1/inbox/conversations | List conversations
+[**remove_message_reaction**](MessagesApi.md#remove_message_reaction) | **DELETE** /v1/inbox/conversations/{conversationId}/messages/{messageId}/reactions | Remove reaction
 [**send_inbox_message**](MessagesApi.md#send_inbox_message) | **POST** /v1/inbox/conversations/{conversationId}/messages | Send message
+[**send_typing_indicator**](MessagesApi.md#send_typing_indicator) | **POST** /v1/inbox/conversations/{conversationId}/typing | Send typing indicator
 [**update_inbox_conversation**](MessagesApi.md#update_inbox_conversation) | **PUT** /v1/inbox/conversations/{conversationId} | Update conversation status
+[**upload_media_direct**](MessagesApi.md#upload_media_direct) | **POST** /v1/media/upload-direct | Upload media file
 
+
+
+## add_message_reaction
+
+> models::UpdateRedditSubreddits200Response add_message_reaction(conversation_id, message_id, add_message_reaction_request)
+Add reaction
+
+Add an emoji reaction to a message. Platform support: - **Telegram**: Supports a subset of Unicode emoji reactions - **WhatsApp**: Supports any standard emoji (one reaction per message per sender) - **All others**: Returns 400 (not supported) 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**conversation_id** | **String** | The conversation ID | [required] |
+**message_id** | **String** | The platform message ID to react to | [required] |
+**add_message_reaction_request** | [**AddMessageReactionRequest**](AddMessageReactionRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateRedditSubreddits200Response**](updateRedditSubreddits_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_inbox_message
+
+> models::UpdateRedditSubreddits200Response delete_inbox_message(conversation_id, message_id, account_id)
+Delete message
+
+Delete a message from a conversation. Platform support varies: - **Telegram**: Full delete (bot's own messages anytime, others if admin) - **X/Twitter**: Full delete (own DM events only) - **Bluesky**: Delete for self only (recipient still sees it) - **Reddit**: Delete from sender's view only - **Facebook, Instagram, WhatsApp**: Not supported (returns 400) 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**conversation_id** | **String** | The conversation ID | [required] |
+**message_id** | **String** | The platform message ID to delete | [required] |
+**account_id** | **String** | Social account ID | [required] |
+
+### Return type
+
+[**models::UpdateRedditSubreddits200Response**](updateRedditSubreddits_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## edit_inbox_message
@@ -143,6 +212,38 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## remove_message_reaction
+
+> models::UpdateRedditSubreddits200Response remove_message_reaction(conversation_id, message_id, account_id)
+Remove reaction
+
+Remove a reaction from a message. Platform support: - **Telegram**: Send empty reaction array to clear - **WhatsApp**: Send empty emoji to remove - **All others**: Returns 400 (not supported) 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**conversation_id** | **String** | The conversation ID | [required] |
+**message_id** | **String** | The platform message ID | [required] |
+**account_id** | **String** | Social account ID | [required] |
+
+### Return type
+
+[**models::UpdateRedditSubreddits200Response**](updateRedditSubreddits_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## send_inbox_message
 
 > models::SendInboxMessage200Response send_inbox_message(conversation_id, send_inbox_message_request)
@@ -174,6 +275,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## send_typing_indicator
+
+> models::UpdateRedditSubreddits200Response send_typing_indicator(conversation_id, send_typing_indicator_request)
+Send typing indicator
+
+Show a typing indicator in a conversation. Platform support: - **Facebook Messenger**: Shows \"Page is typing...\" for 20 seconds - **Telegram**: Shows \"Bot is typing...\" for 5 seconds - **All others**: Returns 200 but no-op (platform doesn't support it)  Typing indicators are best-effort. The endpoint always returns 200 even if the platform call fails. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**conversation_id** | **String** | The conversation ID | [required] |
+**send_typing_indicator_request** | [**SendTypingIndicatorRequest**](SendTypingIndicatorRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateRedditSubreddits200Response**](updateRedditSubreddits_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## update_inbox_conversation
 
 > models::UpdateInboxConversation200Response update_inbox_conversation(conversation_id, update_inbox_conversation_request)
@@ -200,6 +332,37 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## upload_media_direct
+
+> models::UploadMediaDirect200Response upload_media_direct(file, content_type)
+Upload media file
+
+Upload a media file using API key authentication and get back a publicly accessible URL. The URL can be used as `attachmentUrl` when sending inbox messages.  Files are stored in temporary storage and auto-delete after 7 days. Maximum file size is 25MB.  Unlike `/v1/media/upload` (which uses upload tokens for end-user flows), this endpoint uses standard Bearer token authentication for programmatic use. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**file** | **std::path::PathBuf** | The file to upload (max 25MB) | [required] |
+**content_type** | Option<**String**> | Override MIME type (e.g. \\\"image/jpeg\\\"). Auto-detected from file if not provided. |  |
+
+### Return type
+
+[**models::UploadMediaDirect200Response**](uploadMediaDirect_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

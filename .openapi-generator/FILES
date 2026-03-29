@@ -12,6 +12,7 @@ docs/AccountsListResponse.md
 docs/ActivateSequence200Response.md
 docs/AddBroadcastRecipients200Response.md
 docs/AddBroadcastRecipientsRequest.md
+docs/AddMessageReactionRequest.md
 docs/AddWhatsAppBroadcastRecipients200Response.md
 docs/AddWhatsAppBroadcastRecipientsRequest.md
 docs/AddWhatsAppBroadcastRecipientsRequestRecipientsInner.md
@@ -547,6 +548,7 @@ docs/SendInboxMessageRequestTemplateElementsInner.md
 docs/SendInboxMessageRequestTemplateElementsInnerButtonsInner.md
 docs/SendPrivateReplyToComment200Response.md
 docs/SendPrivateReplyToCommentRequest.md
+docs/SendTypingIndicatorRequest.md
 docs/SendWhatsAppBroadcast200Response.md
 docs/SendWhatsAppBulk200Response.md
 docs/SendWhatsAppBulk200ResponseResultsInner.md
@@ -647,6 +649,7 @@ docs/UpdateWhatsAppGroupChatRequest.md
 docs/UpdateWhatsAppTemplate200Response.md
 docs/UpdateWhatsAppTemplate200ResponseTemplate.md
 docs/UpdateWhatsAppTemplateRequest.md
+docs/UploadMediaDirect200Response.md
 docs/UploadTokenResponse.md
 docs/UploadTokenStatusResponse.md
 docs/UploadedFile.md
@@ -760,6 +763,7 @@ src/models/accounts_list_response.rs
 src/models/activate_sequence_200_response.rs
 src/models/add_broadcast_recipients_200_response.rs
 src/models/add_broadcast_recipients_request.rs
+src/models/add_message_reaction_request.rs
 src/models/add_whats_app_broadcast_recipients_200_response.rs
 src/models/add_whats_app_broadcast_recipients_request.rs
 src/models/add_whats_app_broadcast_recipients_request_recipients_inner.rs
@@ -1272,6 +1276,7 @@ src/models/send_inbox_message_request_template_elements_inner.rs
 src/models/send_inbox_message_request_template_elements_inner_buttons_inner.rs
 src/models/send_private_reply_to_comment_200_response.rs
 src/models/send_private_reply_to_comment_request.rs
+src/models/send_typing_indicator_request.rs
 src/models/send_whats_app_broadcast_200_response.rs
 src/models/send_whats_app_bulk_200_response.rs
 src/models/send_whats_app_bulk_200_response_results_inner.rs
@@ -1369,6 +1374,7 @@ src/models/update_whats_app_group_chat_request.rs
 src/models/update_whats_app_template_200_response.rs
 src/models/update_whats_app_template_200_response_template.rs
 src/models/update_whats_app_template_request.rs
+src/models/upload_media_direct_200_response.rs
 src/models/upload_token_response.rs
 src/models/upload_token_status_response.rs
 src/models/uploaded_file.rs

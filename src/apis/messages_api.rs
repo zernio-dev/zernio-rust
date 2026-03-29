@@ -12,6 +12,30 @@ use super::{configuration, ContentType, Error};
 use crate::{apis::ResponseContent, models};
 use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
+use tokio::fs::File as TokioFile;
+use tokio_util::codec::{BytesCodec, FramedRead};
+
+/// struct for typed errors of method [`add_message_reaction`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AddMessageReactionError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`delete_inbox_message`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteInboxMessageError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
 
 /// struct for typed errors of method [`edit_inbox_message`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -51,6 +75,17 @@ pub enum ListInboxConversationsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`remove_message_reaction`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RemoveMessageReactionError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`send_inbox_message`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -61,6 +96,16 @@ pub enum SendInboxMessageError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`send_typing_indicator`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SendTypingIndicatorError {
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`update_inbox_conversation`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -68,6 +113,133 @@ pub enum UpdateInboxConversationError {
     Status401(models::InlineObject),
     Status403(),
     UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`upload_media_direct`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UploadMediaDirectError {
+    Status400(),
+    Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
+/// Add an emoji reaction to a message. Platform support: - **Telegram**: Supports a subset of Unicode emoji reactions - **WhatsApp**: Supports any standard emoji (one reaction per message per sender) - **All others**: Returns 400 (not supported)
+pub async fn add_message_reaction(
+    configuration: &configuration::Configuration,
+    conversation_id: &str,
+    message_id: &str,
+    add_message_reaction_request: models::AddMessageReactionRequest,
+) -> Result<models::UpdateRedditSubreddits200Response, Error<AddMessageReactionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_conversation_id = conversation_id;
+    let p_path_message_id = message_id;
+    let p_body_add_message_reaction_request = add_message_reaction_request;
+
+    let uri_str = format!(
+        "{}/v1/inbox/conversations/{conversationId}/messages/{messageId}/reactions",
+        configuration.base_path,
+        conversationId = crate::apis::urlencode(p_path_conversation_id),
+        messageId = crate::apis::urlencode(p_path_message_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_add_message_reaction_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateRedditSubreddits200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateRedditSubreddits200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AddMessageReactionError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Delete a message from a conversation. Platform support varies: - **Telegram**: Full delete (bot's own messages anytime, others if admin) - **X/Twitter**: Full delete (own DM events only) - **Bluesky**: Delete for self only (recipient still sees it) - **Reddit**: Delete from sender's view only - **Facebook, Instagram, WhatsApp**: Not supported (returns 400)
+pub async fn delete_inbox_message(
+    configuration: &configuration::Configuration,
+    conversation_id: &str,
+    message_id: &str,
+    account_id: &str,
+) -> Result<models::UpdateRedditSubreddits200Response, Error<DeleteInboxMessageError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_conversation_id = conversation_id;
+    let p_path_message_id = message_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/inbox/conversations/{conversationId}/messages/{messageId}",
+        configuration.base_path,
+        conversationId = crate::apis::urlencode(p_path_conversation_id),
+        messageId = crate::apis::urlencode(p_path_message_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateRedditSubreddits200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateRedditSubreddits200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteInboxMessageError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
 }
 
 /// Edit the text and/or reply markup of a previously sent Telegram message. Only supported for Telegram. Returns 400 for other platforms.
@@ -318,6 +490,65 @@ pub async fn list_inbox_conversations(
     }
 }
 
+/// Remove a reaction from a message. Platform support: - **Telegram**: Send empty reaction array to clear - **WhatsApp**: Send empty emoji to remove - **All others**: Returns 400 (not supported)
+pub async fn remove_message_reaction(
+    configuration: &configuration::Configuration,
+    conversation_id: &str,
+    message_id: &str,
+    account_id: &str,
+) -> Result<models::UpdateRedditSubreddits200Response, Error<RemoveMessageReactionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_conversation_id = conversation_id;
+    let p_path_message_id = message_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/inbox/conversations/{conversationId}/messages/{messageId}/reactions",
+        configuration.base_path,
+        conversationId = crate::apis::urlencode(p_path_conversation_id),
+        messageId = crate::apis::urlencode(p_path_message_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateRedditSubreddits200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateRedditSubreddits200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RemoveMessageReactionError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Send a message in a conversation. Supports text, attachments, quick replies, buttons, and message tags. Attachment and interactive message support varies by platform.
 pub async fn send_inbox_message(
     configuration: &configuration::Configuration,
@@ -374,6 +605,62 @@ pub async fn send_inbox_message(
     }
 }
 
+/// Show a typing indicator in a conversation. Platform support: - **Facebook Messenger**: Shows \"Page is typing...\" for 20 seconds - **Telegram**: Shows \"Bot is typing...\" for 5 seconds - **All others**: Returns 200 but no-op (platform doesn't support it)  Typing indicators are best-effort. The endpoint always returns 200 even if the platform call fails.
+pub async fn send_typing_indicator(
+    configuration: &configuration::Configuration,
+    conversation_id: &str,
+    send_typing_indicator_request: models::SendTypingIndicatorRequest,
+) -> Result<models::UpdateRedditSubreddits200Response, Error<SendTypingIndicatorError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_conversation_id = conversation_id;
+    let p_body_send_typing_indicator_request = send_typing_indicator_request;
+
+    let uri_str = format!(
+        "{}/v1/inbox/conversations/{conversationId}/typing",
+        configuration.base_path,
+        conversationId = crate::apis::urlencode(p_path_conversation_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_send_typing_indicator_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateRedditSubreddits200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateRedditSubreddits200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<SendTypingIndicatorError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Archive or activate a conversation. Requires accountId in request body.
 pub async fn update_inbox_conversation(
     configuration: &configuration::Configuration,
@@ -420,6 +707,71 @@ pub async fn update_inbox_conversation(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateInboxConversationError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Upload a media file using API key authentication and get back a publicly accessible URL. The URL can be used as `attachmentUrl` when sending inbox messages.  Files are stored in temporary storage and auto-delete after 7 days. Maximum file size is 25MB.  Unlike `/v1/media/upload` (which uses upload tokens for end-user flows), this endpoint uses standard Bearer token authentication for programmatic use.
+pub async fn upload_media_direct(
+    configuration: &configuration::Configuration,
+    file: std::path::PathBuf,
+    content_type: Option<&str>,
+) -> Result<models::UploadMediaDirect200Response, Error<UploadMediaDirectError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_file = file;
+    let p_form_content_type = content_type;
+
+    let uri_str = format!("{}/v1/media/upload-direct", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    let mut multipart_form = reqwest::multipart::Form::new();
+    let file = TokioFile::open(&p_form_file).await?;
+    let stream = FramedRead::new(file, BytesCodec::new());
+    let file_name = p_form_file
+        .file_name()
+        .map(|n| n.to_string_lossy().to_string())
+        .unwrap_or_default();
+    let file_part =
+        reqwest::multipart::Part::stream(reqwest::Body::wrap_stream(stream)).file_name(file_name);
+    multipart_form = multipart_form.part("file", file_part);
+    if let Some(param_value) = p_form_content_type {
+        multipart_form = multipart_form.text("contentType", param_value.to_string());
+    }
+    req_builder = req_builder.multipart(multipart_form);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UploadMediaDirect200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UploadMediaDirect200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UploadMediaDirectError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
