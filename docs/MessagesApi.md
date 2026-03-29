@@ -81,7 +81,7 @@ Name | Type | Description  | Required | Notes
 > models::GetInboxConversationMessages200Response get_inbox_conversation_messages(conversation_id, account_id)
 List messages
 
-Fetch messages for a specific conversation. Requires accountId query parameter.
+Fetch messages for a specific conversation. Requires accountId query parameter.  **Twitter/X limitation:** X's encrypted \"X Chat\" messages are not accessible via the API. Conversations where the other participant uses encrypted X Chat may only show your outgoing messages. See the [list conversations endpoint](#/Messages/listInboxConversations) for more details. 
 
 ### Parameters
 
@@ -112,7 +112,7 @@ Name | Type | Description  | Required | Notes
 > models::ListInboxConversations200Response list_inbox_conversations(profile_id, platform, status, sort_order, limit, cursor, account_id)
 List conversations
 
-Fetch conversations (DMs) from all connected messaging accounts in a single API call. Supports filtering by profile and platform. Results are aggregated and deduplicated. Supported platforms: Facebook, Instagram, Twitter/X, Bluesky, Reddit, Telegram. 
+Fetch conversations (DMs) from all connected messaging accounts in a single API call. Supports filtering by profile and platform. Results are aggregated and deduplicated. Supported platforms: Facebook, Instagram, Twitter/X, Bluesky, Reddit, Telegram.  **Twitter/X limitation:** X has replaced traditional DMs with encrypted \"X Chat\" for many accounts. Messages sent or received through encrypted X Chat are not accessible via X's API (the `/2/dm_events` endpoint only returns legacy unencrypted DMs). This means some Twitter/X conversations may show only outgoing messages or appear empty. This is an X platform limitation that affects all third-party applications. See [X's docs on encrypted messaging](https://help.x.com/en/using-x/about-chat) for more details. 
 
 ### Parameters
 
