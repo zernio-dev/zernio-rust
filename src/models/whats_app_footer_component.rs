@@ -38,7 +38,7 @@ impl WhatsAppFooterComponent {
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
-    #[serde(rename = "FOOTER")]
+    #[serde(rename = "footer")]
     Footer,
 }
 

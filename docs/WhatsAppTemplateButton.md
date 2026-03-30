@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: QUICK_REPLY, URL, PHONE_NUMBER, OTP, FLOW, MPM, CATALOG) | 
+**r#type** | **Type** |  (enum: quick_reply, url, phone_number, otp, flow, mpm, catalog) | 
 **text** | **String** |  | 
 **url** | Option<**String**> | Required when type is URL | [optional]
 **example** | Option<**Vec<String>**> | Example values for URL suffix variables | [optional]
-**phone_number** | Option<**String**> | Required when type is PHONE_NUMBER | [optional]
-**otp_type** | Option<**OtpType**> | Required when type is OTP (enum: COPY_CODE, ONE_TAP, ZERO_TAP) | [optional]
+**phone_number** | Option<**String**> | Required when type is phone_number | [optional]
+**otp_type** | Option<**OtpType**> | Required when type is otp (enum: copy_code, one_tap, zero_tap) | [optional]
 **autofill_text** | Option<**String**> |  | [optional]
 **package_name** | Option<**String**> |  | [optional]
 **signature_hash** | Option<**String**> |  | [optional]

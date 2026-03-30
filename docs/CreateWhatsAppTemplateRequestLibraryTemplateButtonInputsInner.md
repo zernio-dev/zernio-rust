@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | Option<**Type**> |  (enum: QUICK_REPLY, URL, PHONE_NUMBER) | [optional]
+**r#type** | Option<**Type**> |  (enum: quick_reply, url, phone_number) | [optional]
 **url** | Option<[**models::CreateWhatsAppTemplateRequestLibraryTemplateButtonInputsInnerUrl**](CreateWhatsAppTemplateRequestLibraryTemplateButtonInputsInnerUrl.md)> |  | [optional]
 **phone_number** | Option<**String**> |  | [optional]
 

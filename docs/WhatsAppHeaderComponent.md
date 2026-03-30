@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: HEADER) | 
-**format** | **Format** |  (enum: TEXT, IMAGE, VIDEO, GIF, DOCUMENT, LOCATION) | 
+**r#type** | **Type** |  (enum: header) | 
+**format** | **Format** |  (enum: text, image, video, gif, document, location) | 
 **text** | Option<**String**> | Header text (may include {{1}} variable). Used when format is TEXT. | [optional]
 **example** | Option<[**models::WhatsAppHeaderComponentExample**](WhatsAppHeaderComponentExample.md)> |  | [optional]
 

@@ -37,7 +37,7 @@ impl WhatsAppHeaderComponent {
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
-    #[serde(rename = "HEADER")]
+    #[serde(rename = "header")]
     Header,
 }
 
@@ -49,17 +49,17 @@ impl Default for Type {
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Format {
-    #[serde(rename = "TEXT")]
+    #[serde(rename = "text")]
     Text,
-    #[serde(rename = "IMAGE")]
+    #[serde(rename = "image")]
     Image,
-    #[serde(rename = "VIDEO")]
+    #[serde(rename = "video")]
     Video,
-    #[serde(rename = "GIF")]
+    #[serde(rename = "gif")]
     Gif,
-    #[serde(rename = "DOCUMENT")]
+    #[serde(rename = "document")]
     Document,
-    #[serde(rename = "LOCATION")]
+    #[serde(rename = "location")]
     Location,
 }
 

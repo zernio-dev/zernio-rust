@@ -33,11 +33,11 @@ impl CreateWhatsAppTemplateRequestLibraryTemplateButtonInputsInner {
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
-    #[serde(rename = "QUICK_REPLY")]
+    #[serde(rename = "quick_reply")]
     QuickReply,
-    #[serde(rename = "URL")]
+    #[serde(rename = "url")]
     Url,
-    #[serde(rename = "PHONE_NUMBER")]
+    #[serde(rename = "phone_number")]
     PhoneNumber,
 }
 

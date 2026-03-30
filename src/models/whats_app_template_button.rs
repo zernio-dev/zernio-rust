@@ -23,10 +23,10 @@ pub struct WhatsAppTemplateButton {
     /// Example values for URL suffix variables
     #[serde(rename = "example", skip_serializing_if = "Option::is_none")]
     pub example: Option<Vec<String>>,
-    /// Required when type is PHONE_NUMBER
+    /// Required when type is phone_number
     #[serde(rename = "phone_number", skip_serializing_if = "Option::is_none")]
     pub phone_number: Option<String>,
-    /// Required when type is OTP
+    /// Required when type is otp
     #[serde(rename = "otp_type", skip_serializing_if = "Option::is_none")]
     pub otp_type: Option<OtpType>,
     #[serde(rename = "autofill_text", skip_serializing_if = "Option::is_none")]
@@ -70,19 +70,19 @@ impl WhatsAppTemplateButton {
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
-    #[serde(rename = "QUICK_REPLY")]
+    #[serde(rename = "quick_reply")]
     QuickReply,
-    #[serde(rename = "URL")]
+    #[serde(rename = "url")]
     Url,
-    #[serde(rename = "PHONE_NUMBER")]
+    #[serde(rename = "phone_number")]
     PhoneNumber,
-    #[serde(rename = "OTP")]
+    #[serde(rename = "otp")]
     Otp,
-    #[serde(rename = "FLOW")]
+    #[serde(rename = "flow")]
     Flow,
-    #[serde(rename = "MPM")]
+    #[serde(rename = "mpm")]
     Mpm,
-    #[serde(rename = "CATALOG")]
+    #[serde(rename = "catalog")]
     Catalog,
 }
 
@@ -91,14 +91,14 @@ impl Default for Type {
         Self::QuickReply
     }
 }
-/// Required when type is OTP
+/// Required when type is otp
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OtpType {
-    #[serde(rename = "COPY_CODE")]
+    #[serde(rename = "copy_code")]
     CopyCode,
-    #[serde(rename = "ONE_TAP")]
+    #[serde(rename = "one_tap")]
     OneTap,
-    #[serde(rename = "ZERO_TAP")]
+    #[serde(rename = "zero_tap")]
     ZeroTap,
 }
 

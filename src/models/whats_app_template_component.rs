@@ -12,51 +12,38 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
+#[serde(tag = "type")]
 pub enum WhatsAppTemplateComponent {
-    WhatsAppHeaderComponent(Box<models::WhatsAppHeaderComponent>),
-    WhatsAppBodyComponent(Box<models::WhatsAppBodyComponent>),
-    WhatsAppFooterComponent(Box<models::WhatsAppFooterComponent>),
-    WhatsAppButtonsComponent(Box<models::WhatsAppButtonsComponent>),
+    #[serde(rename = "header")]
+    Header(Box<models::WhatsAppHeaderComponent>),
+    #[serde(rename = "body")]
+    Body(Box<models::WhatsAppBodyComponent>),
+    #[serde(rename = "footer")]
+    Footer(Box<models::WhatsAppFooterComponent>),
+    #[serde(rename = "buttons")]
+    Buttons(Box<models::WhatsAppButtonsComponent>),
 }
 
 impl Default for WhatsAppTemplateComponent {
     fn default() -> Self {
-        Self::WhatsAppHeaderComponent(Default::default())
+        Self::Header(Default::default())
     }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "HEADER")]
-    Header,
-    #[serde(rename = "BODY")]
-    Body,
-    #[serde(rename = "FOOTER")]
-    Footer,
-    #[serde(rename = "BUTTONS")]
-    Buttons,
 }
 
-impl Default for Type {
-    fn default() -> Type {
-        Self::Header
-    }
-}
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Format {
-    #[serde(rename = "TEXT")]
+    #[serde(rename = "text")]
     Text,
-    #[serde(rename = "IMAGE")]
+    #[serde(rename = "image")]
     Image,
-    #[serde(rename = "VIDEO")]
+    #[serde(rename = "video")]
     Video,
-    #[serde(rename = "GIF")]
+    #[serde(rename = "gif")]
     Gif,
-    #[serde(rename = "DOCUMENT")]
+    #[serde(rename = "document")]
     Document,
-    #[serde(rename = "LOCATION")]
+    #[serde(rename = "location")]
     Location,
 }
 

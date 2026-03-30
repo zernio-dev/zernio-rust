@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: BODY) | 
+**r#type** | **Type** |  (enum: body) | 
 **text** | **String** | Body text with optional {{n}} variables | 
 **add_security_recommendation** | Option<**bool**> | Add security recommendation text (authentication templates only) | [optional]
 **example** | Option<[**models::WhatsAppBodyComponentExample**](WhatsAppBodyComponentExample.md)> |  | [optional]

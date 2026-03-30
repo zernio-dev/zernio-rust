@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: BUTTONS) | 
+**r#type** | **Type** |  (enum: buttons) | 
 **buttons** | [**Vec<models::WhatsAppTemplateButton>**](WhatsAppTemplateButton.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
