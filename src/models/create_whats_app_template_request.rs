@@ -25,9 +25,9 @@ pub struct CreateWhatsAppTemplateRequest {
     /// Template language code (e.g., en_US)
     #[serde(rename = "language")]
     pub language: String,
-    /// Template components (header, body, footer, buttons). Required for custom templates, omit when using library_template_name.
+    /// Template components (HEADER, BODY, FOOTER, BUTTONS). Required for custom templates, omit when using library_template_name.
     #[serde(rename = "components", skip_serializing_if = "Option::is_none")]
-    pub components: Option<Vec<serde_json::Value>>,
+    pub components: Option<Vec<models::WhatsAppTemplateComponent>>,
     /// Name of a pre-built template from Meta's template library (e.g., \"appointment_reminder\", \"auto_pay_reminder_1\", \"address_update\"). When provided, the template is pre-approved by Meta with no review wait. Omit `components` when using this field.
     #[serde(
         rename = "library_template_name",

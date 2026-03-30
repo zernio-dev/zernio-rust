@@ -1,11 +1,11 @@
-# UpdateWhatsAppTemplateRequest
+# WhatsAppButtonsComponent
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**account_id** | **String** | WhatsApp social account ID | 
-**components** | [**Vec<models::WhatsAppTemplateComponent>**](WhatsAppTemplateComponent.md) | Updated template components | 
+**r#type** | **Type** |  (enum: BUTTONS) | 
+**buttons** | [**Vec<models::WhatsAppTemplateButton>**](WhatsAppTemplateButton.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

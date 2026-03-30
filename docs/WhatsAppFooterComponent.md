@@ -1,11 +1,12 @@
-# UpdateWhatsAppTemplateRequest
+# WhatsAppFooterComponent
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**account_id** | **String** | WhatsApp social account ID | 
-**components** | [**Vec<models::WhatsAppTemplateComponent>**](WhatsAppTemplateComponent.md) | Updated template components | 
+**r#type** | **Type** |  (enum: FOOTER) | 
+**text** | Option<**String**> | Static footer text | [optional]
+**code_expiration_minutes** | Option<**i32**> | OTP code expiry in minutes (authentication templates only) | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

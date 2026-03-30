@@ -18,13 +18,13 @@ pub struct UpdateWhatsAppTemplateRequest {
     pub account_id: String,
     /// Updated template components
     #[serde(rename = "components")]
-    pub components: Vec<serde_json::Value>,
+    pub components: Vec<models::WhatsAppTemplateComponent>,
 }
 
 impl UpdateWhatsAppTemplateRequest {
     pub fn new(
         account_id: String,
-        components: Vec<serde_json::Value>,
+        components: Vec<models::WhatsAppTemplateComponent>,
     ) -> UpdateWhatsAppTemplateRequest {
         UpdateWhatsAppTemplateRequest {
             account_id,
