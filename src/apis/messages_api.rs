@@ -130,7 +130,7 @@ pub async fn add_message_reaction(
     conversation_id: &str,
     message_id: &str,
     add_message_reaction_request: models::AddMessageReactionRequest,
-) -> Result<models::UpdateRedditSubreddits200Response, Error<AddMessageReactionError>> {
+) -> Result<models::UpdateYoutubeDefaultPlaylist200Response, Error<AddMessageReactionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_conversation_id = conversation_id;
     let p_path_message_id = message_id;
@@ -169,8 +169,8 @@ pub async fn add_message_reaction(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateRedditSubreddits200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateRedditSubreddits200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -189,7 +189,7 @@ pub async fn delete_inbox_message(
     conversation_id: &str,
     message_id: &str,
     account_id: &str,
-) -> Result<models::UpdateRedditSubreddits200Response, Error<DeleteInboxMessageError>> {
+) -> Result<models::UpdateYoutubeDefaultPlaylist200Response, Error<DeleteInboxMessageError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_conversation_id = conversation_id;
     let p_path_message_id = message_id;
@@ -228,8 +228,8 @@ pub async fn delete_inbox_message(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateRedditSubreddits200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateRedditSubreddits200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -496,7 +496,7 @@ pub async fn remove_message_reaction(
     conversation_id: &str,
     message_id: &str,
     account_id: &str,
-) -> Result<models::UpdateRedditSubreddits200Response, Error<RemoveMessageReactionError>> {
+) -> Result<models::UpdateYoutubeDefaultPlaylist200Response, Error<RemoveMessageReactionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_conversation_id = conversation_id;
     let p_path_message_id = message_id;
@@ -535,8 +535,8 @@ pub async fn remove_message_reaction(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateRedditSubreddits200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateRedditSubreddits200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -610,7 +610,7 @@ pub async fn send_typing_indicator(
     configuration: &configuration::Configuration,
     conversation_id: &str,
     send_typing_indicator_request: models::SendTypingIndicatorRequest,
-) -> Result<models::UpdateRedditSubreddits200Response, Error<SendTypingIndicatorError>> {
+) -> Result<models::UpdateYoutubeDefaultPlaylist200Response, Error<SendTypingIndicatorError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_conversation_id = conversation_id;
     let p_body_send_typing_indicator_request = send_typing_indicator_request;
@@ -647,8 +647,8 @@ pub async fn send_typing_indicator(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateRedditSubreddits200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateRedditSubreddits200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`")))),
         }
     } else {
         let content = resp.text().await?;

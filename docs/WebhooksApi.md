@@ -45,7 +45,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_webhook_settings
 
-> models::UpdateRedditSubreddits200Response delete_webhook_settings(id)
+> models::UpdateYoutubeDefaultPlaylist200Response delete_webhook_settings(id)
 Delete webhook
 
 Permanently delete a webhook configuration.
@@ -59,7 +59,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::UpdateRedditSubreddits200Response**](updateRedditSubreddits_200_response.md)
+[**models::UpdateYoutubeDefaultPlaylist200Response**](updateYoutubeDefaultPlaylist_200_response.md)
 
 ### Authorization
 

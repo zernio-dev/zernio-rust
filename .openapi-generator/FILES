@@ -329,6 +329,8 @@ docs/GetYouTubeDailyViews403Response.md
 docs/GetYouTubeDailyViews500Response.md
 docs/GetYouTubeTranscript200Response.md
 docs/GetYouTubeTranscript200ResponseSegmentsInner.md
+docs/GetYoutubePlaylists200Response.md
+docs/GetYoutubePlaylists200ResponsePlaylistsInner.md
 docs/GmbAttributesApi.md
 docs/GmbFoodMenusApi.md
 docs/GmbLocationDetailsApi.md
@@ -632,7 +634,6 @@ docs/UpdateProfile200Response.md
 docs/UpdateProfileRequest.md
 docs/UpdateQueueSlot200Response.md
 docs/UpdateQueueSlotRequest.md
-docs/UpdateRedditSubreddits200Response.md
 docs/UpdateRedditSubredditsRequest.md
 docs/UpdateSequence200Response.md
 docs/UpdateSequence200ResponseSequence.md
@@ -649,6 +650,8 @@ docs/UpdateWhatsAppGroupChatRequest.md
 docs/UpdateWhatsAppTemplate200Response.md
 docs/UpdateWhatsAppTemplate200ResponseTemplate.md
 docs/UpdateWhatsAppTemplateRequest.md
+docs/UpdateYoutubeDefaultPlaylist200Response.md
+docs/UpdateYoutubeDefaultPlaylistRequest.md
 docs/UploadMediaDirect200Response.md
 docs/UploadTokenResponse.md
 docs/UploadTokenStatusResponse.md
@@ -1072,6 +1075,8 @@ src/models/get_you_tube_daily_views_403_response.rs
 src/models/get_you_tube_daily_views_500_response.rs
 src/models/get_you_tube_transcript_200_response.rs
 src/models/get_you_tube_transcript_200_response_segments_inner.rs
+src/models/get_youtube_playlists_200_response.rs
+src/models/get_youtube_playlists_200_response_playlists_inner.rs
 src/models/google_business_platform_data.rs
 src/models/google_business_platform_data_call_to_action.rs
 src/models/handle_o_auth_callback_request.rs
@@ -1357,7 +1362,6 @@ src/models/update_profile_200_response.rs
 src/models/update_profile_request.rs
 src/models/update_queue_slot_200_response.rs
 src/models/update_queue_slot_request.rs
-src/models/update_reddit_subreddits_200_response.rs
 src/models/update_reddit_subreddits_request.rs
 src/models/update_sequence_200_response.rs
 src/models/update_sequence_200_response_sequence.rs
@@ -1374,6 +1378,8 @@ src/models/update_whats_app_group_chat_request.rs
 src/models/update_whats_app_template_200_response.rs
 src/models/update_whats_app_template_200_response_template.rs
 src/models/update_whats_app_template_request.rs
+src/models/update_youtube_default_playlist_200_response.rs
+src/models/update_youtube_default_playlist_request.rs
 src/models/upload_media_direct_200_response.rs
 src/models/upload_token_response.rs
 src/models/upload_token_status_response.rs

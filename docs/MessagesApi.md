@@ -20,7 +20,7 @@ Method | HTTP request | Description
 
 ## add_message_reaction
 
-> models::UpdateRedditSubreddits200Response add_message_reaction(conversation_id, message_id, add_message_reaction_request)
+> models::UpdateYoutubeDefaultPlaylist200Response add_message_reaction(conversation_id, message_id, add_message_reaction_request)
 Add reaction
 
 Add an emoji reaction to a message. Platform support: - **Telegram**: Supports a subset of Unicode emoji reactions - **WhatsApp**: Supports any standard emoji (one reaction per message per sender) - **All others**: Returns 400 (not supported) 
@@ -36,7 +36,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::UpdateRedditSubreddits200Response**](updateRedditSubreddits_200_response.md)
+[**models::UpdateYoutubeDefaultPlaylist200Response**](updateYoutubeDefaultPlaylist_200_response.md)
 
 ### Authorization
 
@@ -52,7 +52,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_inbox_message
 
-> models::UpdateRedditSubreddits200Response delete_inbox_message(conversation_id, message_id, account_id)
+> models::UpdateYoutubeDefaultPlaylist200Response delete_inbox_message(conversation_id, message_id, account_id)
 Delete message
 
 Delete a message from a conversation. Platform support varies: - **Telegram**: Full delete (bot's own messages anytime, others if admin) - **X/Twitter**: Full delete (own DM events only) - **Bluesky**: Delete for self only (recipient still sees it) - **Reddit**: Delete from sender's view only - **Facebook, Instagram, WhatsApp**: Not supported (returns 400) 
@@ -68,7 +68,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::UpdateRedditSubreddits200Response**](updateRedditSubreddits_200_response.md)
+[**models::UpdateYoutubeDefaultPlaylist200Response**](updateYoutubeDefaultPlaylist_200_response.md)
 
 ### Authorization
 
@@ -214,7 +214,7 @@ Name | Type | Description  | Required | Notes
 
 ## remove_message_reaction
 
-> models::UpdateRedditSubreddits200Response remove_message_reaction(conversation_id, message_id, account_id)
+> models::UpdateYoutubeDefaultPlaylist200Response remove_message_reaction(conversation_id, message_id, account_id)
 Remove reaction
 
 Remove a reaction from a message. Platform support: - **Telegram**: Send empty reaction array to clear - **WhatsApp**: Send empty emoji to remove - **All others**: Returns 400 (not supported) 
@@ -230,7 +230,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::UpdateRedditSubreddits200Response**](updateRedditSubreddits_200_response.md)
+[**models::UpdateYoutubeDefaultPlaylist200Response**](updateYoutubeDefaultPlaylist_200_response.md)
 
 ### Authorization
 
@@ -277,7 +277,7 @@ Name | Type | Description  | Required | Notes
 
 ## send_typing_indicator
 
-> models::UpdateRedditSubreddits200Response send_typing_indicator(conversation_id, send_typing_indicator_request)
+> models::UpdateYoutubeDefaultPlaylist200Response send_typing_indicator(conversation_id, send_typing_indicator_request)
 Send typing indicator
 
 Show a typing indicator in a conversation. Platform support: - **Facebook Messenger**: Shows \"Page is typing...\" for 20 seconds - **Telegram**: Shows \"Bot is typing...\" for 5 seconds - **All others**: Returns 200 but no-op (platform doesn't support it)  Typing indicators are best-effort. The endpoint always returns 200 even if the platform call fails. 
@@ -292,7 +292,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::UpdateRedditSubreddits200Response**](updateRedditSubreddits_200_response.md)
+[**models::UpdateYoutubeDefaultPlaylist200Response**](updateYoutubeDefaultPlaylist_200_response.md)
 
 ### Authorization
 

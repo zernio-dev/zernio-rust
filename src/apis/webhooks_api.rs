@@ -121,7 +121,7 @@ pub async fn create_webhook_settings(
 pub async fn delete_webhook_settings(
     configuration: &configuration::Configuration,
     id: &str,
-) -> Result<models::UpdateRedditSubreddits200Response, Error<DeleteWebhookSettingsError>> {
+) -> Result<models::UpdateYoutubeDefaultPlaylist200Response, Error<DeleteWebhookSettingsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_id = id;
 
@@ -153,8 +153,8 @@ pub async fn delete_webhook_settings(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateRedditSubreddits200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateRedditSubreddits200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`")))),
         }
     } else {
         let content = resp.text().await?;

@@ -35,6 +35,9 @@ pub struct YouTubePlatformData {
     /// YouTube video category ID. Defaults to 22 (People & Blogs). Common: 1 (Film), 2 (Autos), 10 (Music), 15 (Pets), 17 (Sports), 20 (Gaming), 23 (Comedy), 24 (Entertainment), 25 (News), 26 (Howto), 27 (Education), 28 (Science & Tech).
     #[serde(rename = "categoryId", skip_serializing_if = "Option::is_none")]
     pub category_id: Option<String>,
+    /// Optional YouTube playlist ID to add the video to after upload (e.g. 'PLxxxxxxxxxxxxx'). Use GET /v1/accounts/{id}/youtube-playlists to list available playlists. Works for both immediate and scheduled uploads. Quota cost: 50 YouTube API units per call.
+    #[serde(rename = "playlistId", skip_serializing_if = "Option::is_none")]
+    pub playlist_id: Option<String>,
 }
 
 impl YouTubePlatformData {
@@ -47,6 +50,7 @@ impl YouTubePlatformData {
             first_comment: None,
             contains_synthetic_media: None,
             category_id: None,
+            playlist_id: None,
         }
     }
 }
