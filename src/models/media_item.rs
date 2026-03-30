@@ -32,7 +32,7 @@ pub struct MediaItem {
     /// Optional custom thumbnail/cover image URL for videos. Supported for Facebook video posts, Facebook Reels, and regular video uploads. Max 10MB, JPG/PNG recommended.
     #[serde(rename = "thumbnail", skip_serializing_if = "Option::is_none")]
     pub thumbnail: Option<String>,
-    /// Optional custom cover image URL for Instagram Reels
+    /// Custom cover image URL for Instagram Reels. Can also be set via platformSpecificData.instagramThumbnail or platformSpecificData.reelCover. Resolution order: this field > platformSpecificData.instagramThumbnail > platformSpecificData.reelCover > platformSpecificData.thumbnailUrl (legacy).
     #[serde(rename = "instagramThumbnail", skip_serializing_if = "Option::is_none")]
     pub instagram_thumbnail: Option<String>,
     /// Internal flag indicating the image was resized for TikTok

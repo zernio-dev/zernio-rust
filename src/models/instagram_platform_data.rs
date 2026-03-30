@@ -34,9 +34,15 @@ pub struct InstagramPlatformData {
     /// Custom name for original audio in Reels. Replaces the default \"Original Audio\" label. Can only be set once.
     #[serde(rename = "audioName", skip_serializing_if = "Option::is_none")]
     pub audio_name: Option<String>,
-    /// Millisecond offset from video start for the Reel thumbnail. Ignored if a custom thumbnail URL is provided. Defaults to 0.
+    /// Millisecond offset from video start for the Reel cover frame. Ignored when instagramThumbnail or reelCover is provided. Defaults to 0.
     #[serde(rename = "thumbOffset", skip_serializing_if = "Option::is_none")]
     pub thumb_offset: Option<i32>,
+    /// Custom cover image URL for Instagram Reels (JPG or PNG, publicly accessible). Overrides thumbOffset when provided. Also accepted as reelCover (alias).
+    #[serde(rename = "instagramThumbnail", skip_serializing_if = "Option::is_none")]
+    pub instagram_thumbnail: Option<String>,
+    /// Alias for instagramThumbnail. If both are provided, instagramThumbnail takes priority.
+    #[serde(rename = "reelCover", skip_serializing_if = "Option::is_none")]
+    pub reel_cover: Option<String>,
 }
 
 impl InstagramPlatformData {
@@ -51,6 +57,8 @@ impl InstagramPlatformData {
             user_tags: None,
             audio_name: None,
             thumb_offset: None,
+            instagram_thumbnail: None,
+            reel_cover: None,
         }
     }
 }
