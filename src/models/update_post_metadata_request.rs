@@ -37,6 +37,9 @@ pub struct UpdatePostMetadataRequest {
     /// Video privacy setting
     #[serde(rename = "privacyStatus", skip_serializing_if = "Option::is_none")]
     pub privacy_status: Option<PrivacyStatus>,
+    /// Public URL of a custom thumbnail image (JPEG, PNG, or GIF, max 2 MB, recommended 1280x720). Works on any video you own, including existing videos not published through Zernio. The channel must be verified (phone verification) to set custom thumbnails.
+    #[serde(rename = "thumbnailUrl", skip_serializing_if = "Option::is_none")]
+    pub thumbnail_url: Option<String>,
 }
 
 impl UpdatePostMetadataRequest {
@@ -50,6 +53,7 @@ impl UpdatePostMetadataRequest {
             tags: None,
             category_id: None,
             privacy_status: None,
+            thumbnail_url: None,
         }
     }
 }
