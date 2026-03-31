@@ -25,13 +25,12 @@ pub struct ConnectWhatsAppCredentials200ResponseAccount {
     pub display_name: Option<String>,
     #[serde(rename = "isActive", skip_serializing_if = "Option::is_none")]
     pub is_active: Option<bool>,
-    #[serde(rename = "phoneNumber", skip_serializing_if = "Option::is_none")]
-    pub phone_number: Option<String>,
-    #[serde(rename = "verifiedName", skip_serializing_if = "Option::is_none")]
-    pub verified_name: Option<String>,
-    /// GREEN, YELLOW, or RED
-    #[serde(rename = "qualityRating", skip_serializing_if = "Option::is_none")]
-    pub quality_rating: Option<String>,
+    /// The connected phone number
+    #[serde(
+        rename = "selectedPhoneNumber",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub selected_phone_number: Option<String>,
 }
 
 impl ConnectWhatsAppCredentials200ResponseAccount {
@@ -42,9 +41,7 @@ impl ConnectWhatsAppCredentials200ResponseAccount {
             username: None,
             display_name: None,
             is_active: None,
-            phone_number: None,
-            verified_name: None,
-            quality_rating: None,
+            selected_phone_number: None,
         }
     }
 }
