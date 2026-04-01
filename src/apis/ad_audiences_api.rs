@@ -60,6 +60,7 @@ pub enum GetAdAudienceError {
 #[serde(untagged)]
 pub enum ListAdAudiencesError {
     Status401(models::InlineObject),
+    Status403(),
     UnknownValue(serde_json::Value),
 }
 

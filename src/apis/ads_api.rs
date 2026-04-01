@@ -20,6 +20,7 @@ pub enum BoostPostError {
     Status400(),
     Status401(models::InlineObject),
     Status403(),
+    Status422(),
     UnknownValue(serde_json::Value),
 }
 
@@ -30,6 +31,7 @@ pub enum CreateStandaloneAdError {
     Status400(),
     Status401(models::InlineObject),
     Status403(),
+    Status422(),
     UnknownValue(serde_json::Value),
 }
 
