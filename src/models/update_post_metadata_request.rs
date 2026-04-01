@@ -40,6 +40,18 @@ pub struct UpdatePostMetadataRequest {
     /// Public URL of a custom thumbnail image (JPEG, PNG, or GIF, max 2 MB, recommended 1280x720). Works on any video you own, including existing videos not published through Zernio. The channel must be verified (phone verification) to set custom thumbnails.
     #[serde(rename = "thumbnailUrl", skip_serializing_if = "Option::is_none")]
     pub thumbnail_url: Option<String>,
+    /// COPPA compliance flag. Set true for child-directed content (restricts comments, notifications, ad targeting).
+    #[serde(rename = "madeForKids", skip_serializing_if = "Option::is_none")]
+    pub made_for_kids: Option<bool>,
+    /// AI-generated content disclosure. Set true if the video contains synthetic content that could be mistaken for real. YouTube may add a label.
+    #[serde(
+        rename = "containsSyntheticMedia",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub contains_synthetic_media: Option<bool>,
+    /// YouTube playlist ID to add the video to (e.g. 'PLxxxxxxxxxxxxx'). Use GET /v1/accounts/{id}/youtube-playlists to list available playlists. Only playlists owned by the channel are supported.
+    #[serde(rename = "playlistId", skip_serializing_if = "Option::is_none")]
+    pub playlist_id: Option<String>,
 }
 
 impl UpdatePostMetadataRequest {
@@ -54,6 +66,9 @@ impl UpdatePostMetadataRequest {
             category_id: None,
             privacy_status: None,
             thumbnail_url: None,
+            made_for_kids: None,
+            contains_synthetic_media: None,
+            playlist_id: None,
         }
     }
 }
