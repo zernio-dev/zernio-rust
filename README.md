@@ -60,6 +60,23 @@ Class | Method | HTTP request | Description
 *AccountsApi* | [**get_tik_tok_creator_info**](docs/AccountsApi.md#get_tik_tok_creator_info) | **GET** /v1/accounts/{accountId}/tiktok/creator-info | Get TikTok creator info
 *AccountsApi* | [**list_accounts**](docs/AccountsApi.md#list_accounts) | **GET** /v1/accounts | List accounts
 *AccountsApi* | [**update_account**](docs/AccountsApi.md#update_account) | **PUT** /v1/accounts/{accountId} | Update account
+*AdAudiencesApi* | [**add_users_to_ad_audience**](docs/AdAudiencesApi.md#add_users_to_ad_audience) | **POST** /v1/ads/audiences/{audienceId}/users | Add users to a customer list audience
+*AdAudiencesApi* | [**create_ad_audience**](docs/AdAudiencesApi.md#create_ad_audience) | **POST** /v1/ads/audiences | Create a custom audience (Meta only)
+*AdAudiencesApi* | [**delete_ad_audience**](docs/AdAudiencesApi.md#delete_ad_audience) | **DELETE** /v1/ads/audiences/{audienceId} | Delete a custom audience
+*AdAudiencesApi* | [**get_ad_audience**](docs/AdAudiencesApi.md#get_ad_audience) | **GET** /v1/ads/audiences/{audienceId} | Get audience details
+*AdAudiencesApi* | [**list_ad_audiences**](docs/AdAudiencesApi.md#list_ad_audiences) | **GET** /v1/ads/audiences | List custom audiences
+*AdCampaignsApi* | [**list_ad_campaigns**](docs/AdCampaignsApi.md#list_ad_campaigns) | **GET** /v1/ads/campaigns | List campaigns with aggregate metrics
+*AdCampaignsApi* | [**update_ad_campaign_status**](docs/AdCampaignsApi.md#update_ad_campaign_status) | **PUT** /v1/ads/campaigns/{campaignId}/status | Pause or resume a campaign
+*AdsApi* | [**boost_post**](docs/AdsApi.md#boost_post) | **POST** /v1/ads/boost | Boost an existing post as a paid ad
+*AdsApi* | [**create_standalone_ad**](docs/AdsApi.md#create_standalone_ad) | **POST** /v1/ads/create | Create a standalone ad with custom creative
+*AdsApi* | [**delete_ad**](docs/AdsApi.md#delete_ad) | **DELETE** /v1/ads/{adId} | Cancel an ad
+*AdsApi* | [**get_ad**](docs/AdsApi.md#get_ad) | **GET** /v1/ads/{adId} | Get ad details
+*AdsApi* | [**get_ad_analytics**](docs/AdsApi.md#get_ad_analytics) | **GET** /v1/ads/{adId}/analytics | Get ad analytics with daily breakdown
+*AdsApi* | [**list_ad_accounts**](docs/AdsApi.md#list_ad_accounts) | **GET** /v1/ads/accounts | List ad accounts for a social account
+*AdsApi* | [**list_ads**](docs/AdsApi.md#list_ads) | **GET** /v1/ads | List ads
+*AdsApi* | [**search_ad_interests**](docs/AdsApi.md#search_ad_interests) | **GET** /v1/ads/interests | Search targeting interests
+*AdsApi* | [**sync_external_ads**](docs/AdsApi.md#sync_external_ads) | **POST** /v1/ads/sync | Sync external ads from platform ad managers
+*AdsApi* | [**update_ad**](docs/AdsApi.md#update_ad) | **PUT** /v1/ads/{adId} | Update ad (pause/resume, budget, targeting, name)
 *AnalyticsApi* | [**get_analytics**](docs/AnalyticsApi.md#get_analytics) | **GET** /v1/analytics | Get post analytics
 *AnalyticsApi* | [**get_best_time_to_post**](docs/AnalyticsApi.md#get_best_time_to_post) | **GET** /v1/analytics/best-time | Get best times to post
 *AnalyticsApi* | [**get_content_decay**](docs/AnalyticsApi.md#get_content_decay) | **GET** /v1/analytics/content-decay | Get content performance decay
@@ -291,9 +308,17 @@ Class | Method | HTTP request | Description
  - [AccountWithFollowerStatsAllOfAccountStats](docs/AccountWithFollowerStatsAllOfAccountStats.md)
  - [AccountsListResponse](docs/AccountsListResponse.md)
  - [ActivateSequence200Response](docs/ActivateSequence200Response.md)
+ - [Ad](docs/Ad.md)
+ - [AdBudget](docs/AdBudget.md)
+ - [AdCampaign](docs/AdCampaign.md)
+ - [AdMetrics](docs/AdMetrics.md)
+ - [AdSchedule](docs/AdSchedule.md)
  - [AddBroadcastRecipients200Response](docs/AddBroadcastRecipients200Response.md)
  - [AddBroadcastRecipientsRequest](docs/AddBroadcastRecipientsRequest.md)
  - [AddMessageReactionRequest](docs/AddMessageReactionRequest.md)
+ - [AddUsersToAdAudience200Response](docs/AddUsersToAdAudience200Response.md)
+ - [AddUsersToAdAudienceRequest](docs/AddUsersToAdAudienceRequest.md)
+ - [AddUsersToAdAudienceRequestUsersInner](docs/AddUsersToAdAudienceRequestUsersInner.md)
  - [AddWhatsAppBroadcastRecipients200Response](docs/AddWhatsAppBroadcastRecipients200Response.md)
  - [AddWhatsAppBroadcastRecipientsRequest](docs/AddWhatsAppBroadcastRecipientsRequest.md)
  - [AddWhatsAppBroadcastRecipientsRequestRecipientsInner](docs/AddWhatsAppBroadcastRecipientsRequestRecipientsInner.md)
@@ -310,6 +335,10 @@ Class | Method | HTTP request | Description
  - [BlueskyPlatformData](docs/BlueskyPlatformData.md)
  - [BookmarkPost200Response](docs/BookmarkPost200Response.md)
  - [BookmarkPostRequest](docs/BookmarkPostRequest.md)
+ - [BoostPostRequest](docs/BoostPostRequest.md)
+ - [BoostPostRequestBudget](docs/BoostPostRequestBudget.md)
+ - [BoostPostRequestSchedule](docs/BoostPostRequestSchedule.md)
+ - [BoostPostRequestTargeting](docs/BoostPostRequestTargeting.md)
  - [BulkCreateContacts200Response](docs/BulkCreateContacts200Response.md)
  - [BulkCreateContactsRequest](docs/BulkCreateContactsRequest.md)
  - [BulkCreateContactsRequestContactsInner](docs/BulkCreateContactsRequestContactsInner.md)
@@ -343,6 +372,8 @@ Class | Method | HTTP request | Description
  - [ConnectionLogSuccess](docs/ConnectionLogSuccess.md)
  - [CreateAccountGroup201Response](docs/CreateAccountGroup201Response.md)
  - [CreateAccountGroupRequest](docs/CreateAccountGroupRequest.md)
+ - [CreateAdAudience201Response](docs/CreateAdAudience201Response.md)
+ - [CreateAdAudienceRequest](docs/CreateAdAudienceRequest.md)
  - [CreateApiKey201Response](docs/CreateApiKey201Response.md)
  - [CreateApiKeyRequest](docs/CreateApiKeyRequest.md)
  - [CreateBroadcast200Response](docs/CreateBroadcast200Response.md)
@@ -384,6 +415,7 @@ Class | Method | HTTP request | Description
  - [CreateSequenceRequestStepsInner](docs/CreateSequenceRequestStepsInner.md)
  - [CreateSequenceRequestStepsInnerTemplate](docs/CreateSequenceRequestStepsInnerTemplate.md)
  - [CreateSequenceRequestStepsInnerTemplateVariableMappingValue](docs/CreateSequenceRequestStepsInnerTemplateVariableMappingValue.md)
+ - [CreateStandaloneAdRequest](docs/CreateStandaloneAdRequest.md)
  - [CreateWebhookSettingsRequest](docs/CreateWebhookSettingsRequest.md)
  - [CreateWhatsAppBroadcast200Response](docs/CreateWhatsAppBroadcast200Response.md)
  - [CreateWhatsAppBroadcast200ResponseBroadcast](docs/CreateWhatsAppBroadcast200ResponseBroadcast.md)
@@ -441,6 +473,12 @@ Class | Method | HTTP request | Description
  - [GetAccountHealth200ResponsePermissions](docs/GetAccountHealth200ResponsePermissions.md)
  - [GetAccountHealth200ResponsePermissionsPostingInner](docs/GetAccountHealth200ResponsePermissionsPostingInner.md)
  - [GetAccountHealth200ResponseTokenStatus](docs/GetAccountHealth200ResponseTokenStatus.md)
+ - [GetAd200Response](docs/GetAd200Response.md)
+ - [GetAdAnalytics200Response](docs/GetAdAnalytics200Response.md)
+ - [GetAdAnalytics200ResponseAd](docs/GetAdAnalytics200ResponseAd.md)
+ - [GetAdAnalytics200ResponseAnalytics](docs/GetAdAnalytics200ResponseAnalytics.md)
+ - [GetAdAnalytics200ResponseAnalyticsDailyInner](docs/GetAdAnalytics200ResponseAnalyticsDailyInner.md)
+ - [GetAdAudience200Response](docs/GetAdAudience200Response.md)
  - [GetAllAccountsHealth200Response](docs/GetAllAccountsHealth200Response.md)
  - [GetAllAccountsHealth200ResponseAccountsInner](docs/GetAllAccountsHealth200ResponseAccountsInner.md)
  - [GetAllAccountsHealth200ResponseSummary](docs/GetAllAccountsHealth200ResponseSummary.md)
@@ -643,6 +681,12 @@ Class | Method | HTTP request | Description
  - [ListAccountGroups200Response](docs/ListAccountGroups200Response.md)
  - [ListAccountGroups200ResponseGroupsInner](docs/ListAccountGroups200ResponseGroupsInner.md)
  - [ListAccounts200Response](docs/ListAccounts200Response.md)
+ - [ListAdAccounts200Response](docs/ListAdAccounts200Response.md)
+ - [ListAdAccounts200ResponseAccountsInner](docs/ListAdAccounts200ResponseAccountsInner.md)
+ - [ListAdAudiences200Response](docs/ListAdAudiences200Response.md)
+ - [ListAdAudiences200ResponseAudiencesInner](docs/ListAdAudiences200ResponseAudiencesInner.md)
+ - [ListAdCampaigns200Response](docs/ListAdCampaigns200Response.md)
+ - [ListAds200Response](docs/ListAds200Response.md)
  - [ListApiKeys200Response](docs/ListApiKeys200Response.md)
  - [ListBroadcastRecipients200Response](docs/ListBroadcastRecipients200Response.md)
  - [ListBroadcastRecipients200ResponseRecipientsInner](docs/ListBroadcastRecipients200ResponseRecipientsInner.md)
@@ -772,6 +816,8 @@ Class | Method | HTTP request | Description
  - [ScheduleWhatsAppBroadcast200Response](docs/ScheduleWhatsAppBroadcast200Response.md)
  - [ScheduleWhatsAppBroadcast200ResponseBroadcast](docs/ScheduleWhatsAppBroadcast200ResponseBroadcast.md)
  - [ScheduleWhatsAppBroadcastRequest](docs/ScheduleWhatsAppBroadcastRequest.md)
+ - [SearchAdInterests200Response](docs/SearchAdInterests200Response.md)
+ - [SearchAdInterests200ResponseInterestsInner](docs/SearchAdInterests200ResponseInterestsInner.md)
  - [SearchReddit200Response](docs/SearchReddit200Response.md)
  - [SearchReddit200ResponsePostsInner](docs/SearchReddit200ResponsePostsInner.md)
  - [SelectFacebookPage200Response](docs/SelectFacebookPage200Response.md)
@@ -824,6 +870,7 @@ Class | Method | HTTP request | Description
  - [SnapchatPlatformData](docs/SnapchatPlatformData.md)
  - [SocialAccount](docs/SocialAccount.md)
  - [SocialAccountProfileId](docs/SocialAccountProfileId.md)
+ - [SyncExternalAds200Response](docs/SyncExternalAds200Response.md)
  - [TelegramPlatformData](docs/TelegramPlatformData.md)
  - [TestWebhookRequest](docs/TestWebhookRequest.md)
  - [ThreadsPlatformData](docs/ThreadsPlatformData.md)
@@ -842,6 +889,12 @@ Class | Method | HTTP request | Description
  - [UpdateAccountGroup200Response](docs/UpdateAccountGroup200Response.md)
  - [UpdateAccountGroupRequest](docs/UpdateAccountGroupRequest.md)
  - [UpdateAccountRequest](docs/UpdateAccountRequest.md)
+ - [UpdateAd200Response](docs/UpdateAd200Response.md)
+ - [UpdateAdCampaignStatus200Response](docs/UpdateAdCampaignStatus200Response.md)
+ - [UpdateAdCampaignStatusRequest](docs/UpdateAdCampaignStatusRequest.md)
+ - [UpdateAdRequest](docs/UpdateAdRequest.md)
+ - [UpdateAdRequestBudget](docs/UpdateAdRequestBudget.md)
+ - [UpdateAdRequestTargeting](docs/UpdateAdRequestTargeting.md)
  - [UpdateBroadcast200Response](docs/UpdateBroadcast200Response.md)
  - [UpdateBroadcast200ResponseBroadcast](docs/UpdateBroadcast200ResponseBroadcast.md)
  - [UpdateCommentAutomation200Response](docs/UpdateCommentAutomation200Response.md)
