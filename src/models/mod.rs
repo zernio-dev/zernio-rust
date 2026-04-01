@@ -70,6 +70,8 @@ pub mod boost_post_request_schedule;
 pub use self::boost_post_request_schedule::BoostPostRequestSchedule;
 pub mod boost_post_request_targeting;
 pub use self::boost_post_request_targeting::BoostPostRequestTargeting;
+pub mod boost_post_request_tracking;
+pub use self::boost_post_request_tracking::BoostPostRequestTracking;
 pub mod bulk_create_contacts_200_response;
 pub use self::bulk_create_contacts_200_response::BulkCreateContacts200Response;
 pub mod bulk_create_contacts_request;

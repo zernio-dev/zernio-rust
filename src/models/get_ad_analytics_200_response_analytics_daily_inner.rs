@@ -32,6 +32,7 @@ pub struct GetAdAnalytics200ResponseAnalyticsDailyInner {
     pub cpm: Option<f64>,
     #[serde(rename = "engagement", skip_serializing_if = "Option::is_none")]
     pub engagement: Option<i32>,
+    /// Present on individual ads only, not on campaign aggregations
     #[serde(rename = "lastSyncedAt", skip_serializing_if = "Option::is_none")]
     pub last_synced_at: Option<String>,
     #[serde(rename = "date", skip_serializing_if = "Option::is_none")]

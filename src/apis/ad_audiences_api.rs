@@ -19,7 +19,9 @@ use serde::{de::Error as _, Deserialize, Serialize};
 pub enum AddUsersToAdAudienceError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     Status404(models::InlineObject1),
+    Status422(),
     UnknownValue(serde_json::Value),
 }
 
@@ -38,6 +40,7 @@ pub enum CreateAdAudienceError {
 #[serde(untagged)]
 pub enum DeleteAdAudienceError {
     Status401(models::InlineObject),
+    Status403(),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
@@ -47,6 +50,7 @@ pub enum DeleteAdAudienceError {
 #[serde(untagged)]
 pub enum GetAdAudienceError {
     Status401(models::InlineObject),
+    Status403(),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }

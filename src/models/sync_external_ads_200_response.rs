@@ -18,7 +18,7 @@ pub struct SyncExternalAds200Response {
     /// New ads imported
     #[serde(rename = "synced", skip_serializing_if = "Option::is_none")]
     pub synced: Option<i32>,
-    /// Already-synced ads updated
+    /// Already-known ads (skipped import
     #[serde(rename = "skipped", skip_serializing_if = "Option::is_none")]
     pub skipped: Option<i32>,
     /// Failed ad imports

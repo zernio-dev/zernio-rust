@@ -46,6 +46,7 @@ docs/BoostPostRequest.md
 docs/BoostPostRequestBudget.md
 docs/BoostPostRequestSchedule.md
 docs/BoostPostRequestTargeting.md
+docs/BoostPostRequestTracking.md
 docs/BroadcastsApi.md
 docs/BulkCreateContacts200Response.md
 docs/BulkCreateContactsRequest.md
@@ -845,6 +846,7 @@ src/models/boost_post_request.rs
 src/models/boost_post_request_budget.rs
 src/models/boost_post_request_schedule.rs
 src/models/boost_post_request_targeting.rs
+src/models/boost_post_request_tracking.rs
 src/models/bulk_create_contacts_200_response.rs
 src/models/bulk_create_contacts_request.rs
 src/models/bulk_create_contacts_request_contacts_inner.rs

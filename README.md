@@ -339,6 +339,7 @@ Class | Method | HTTP request | Description
  - [BoostPostRequestBudget](docs/BoostPostRequestBudget.md)
  - [BoostPostRequestSchedule](docs/BoostPostRequestSchedule.md)
  - [BoostPostRequestTargeting](docs/BoostPostRequestTargeting.md)
+ - [BoostPostRequestTracking](docs/BoostPostRequestTracking.md)
  - [BulkCreateContacts200Response](docs/BulkCreateContacts200Response.md)
  - [BulkCreateContactsRequest](docs/BulkCreateContactsRequest.md)
  - [BulkCreateContactsRequestContactsInner](docs/BulkCreateContactsRequestContactsInner.md)

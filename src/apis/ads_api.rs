@@ -56,6 +56,7 @@ pub enum GetAdError {
 #[serde(untagged)]
 pub enum GetAdAnalyticsError {
     Status401(models::InlineObject),
+    Status403(),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
@@ -65,6 +66,7 @@ pub enum GetAdAnalyticsError {
 #[serde(untagged)]
 pub enum ListAdAccountsError {
     Status401(models::InlineObject),
+    Status422(),
     UnknownValue(serde_json::Value),
 }
 
@@ -82,6 +84,7 @@ pub enum ListAdsError {
 #[serde(untagged)]
 pub enum SearchAdInterestsError {
     Status401(models::InlineObject),
+    Status403(),
     UnknownValue(serde_json::Value),
 }
 

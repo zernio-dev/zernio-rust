@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **cpc** | Option<**f64**> | Cost per click | [optional]
 **cpm** | Option<**f64**> | Cost per 1000 impressions | [optional]
 **engagement** | Option<**i32**> |  | [optional]
-**last_synced_at** | Option<**String**> |  | [optional]
+**last_synced_at** | Option<**String**> | Present on individual ads only, not on campaign aggregations | [optional]
 **date** | Option<[**String**](String.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

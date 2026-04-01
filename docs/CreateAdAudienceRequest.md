@@ -14,6 +14,8 @@ Name | Type | Description | Notes
 **source_audience_id** | Option<**String**> | Required for lookalike audiences | [optional]
 **country** | Option<**String**> | 2-letter code, required for lookalike audiences | [optional]
 **ratio** | Option<**f64**> | Required for lookalike audiences | [optional]
+**rule** | Option<**serde_json::Value**> | Pixel event rule for website audiences (optional) | [optional]
+**customer_file_source** | Option<**String**> | Data source declaration for GDPR compliance (customer_list only) | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

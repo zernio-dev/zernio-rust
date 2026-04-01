@@ -21,6 +21,9 @@ pub struct UpdateAdCampaignStatus200Response {
     pub skipped: Option<i32>,
     #[serde(rename = "skippedReasons", skip_serializing_if = "Option::is_none")]
     pub skipped_reasons: Option<Vec<String>>,
+    /// Human-readable summary (present when no ads were actionable)
+    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
+    pub message: Option<String>,
 }
 
 impl UpdateAdCampaignStatus200Response {
@@ -29,6 +32,7 @@ impl UpdateAdCampaignStatus200Response {
             updated: None,
             skipped: None,
             skipped_reasons: None,
+            message: None,
         }
     }
 }

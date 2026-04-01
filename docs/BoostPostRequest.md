@@ -14,6 +14,9 @@ Name | Type | Description | Notes
 **currency** | Option<**String**> |  | [optional]
 **schedule** | Option<[**models::BoostPostRequestSchedule**](BoostPostRequestSchedule.md)> |  | [optional]
 **targeting** | Option<[**models::BoostPostRequestTargeting**](BoostPostRequestTargeting.md)> |  | [optional]
+**bid_amount** | Option<**f64**> | Max bid cap (Meta only) | [optional]
+**tracking** | Option<[**models::BoostPostRequestTracking**](BoostPostRequestTracking.md)> |  | [optional]
+**special_ad_categories** | Option<**Vec<SpecialAdCategories>**> | Meta only. Required for housing, employment, credit, or political ads. (enum: HOUSING, EMPLOYMENT, CREDIT, ISSUES_ELECTIONS_POLITICS) | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

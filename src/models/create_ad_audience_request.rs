@@ -39,6 +39,12 @@ pub struct CreateAdAudienceRequest {
     /// Required for lookalike audiences
     #[serde(rename = "ratio", skip_serializing_if = "Option::is_none")]
     pub ratio: Option<f64>,
+    /// Pixel event rule for website audiences (optional)
+    #[serde(rename = "rule", skip_serializing_if = "Option::is_none")]
+    pub rule: Option<serde_json::Value>,
+    /// Data source declaration for GDPR compliance (customer_list only)
+    #[serde(rename = "customerFileSource", skip_serializing_if = "Option::is_none")]
+    pub customer_file_source: Option<String>,
 }
 
 impl CreateAdAudienceRequest {
@@ -59,6 +65,8 @@ impl CreateAdAudienceRequest {
             source_audience_id: None,
             country: None,
             ratio: None,
+            rule: None,
+            customer_file_source: None,
         }
     }
 }

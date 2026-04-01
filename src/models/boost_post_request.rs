@@ -37,6 +37,17 @@ pub struct BoostPostRequest {
     pub schedule: Option<Box<models::BoostPostRequestSchedule>>,
     #[serde(rename = "targeting", skip_serializing_if = "Option::is_none")]
     pub targeting: Option<Box<models::BoostPostRequestTargeting>>,
+    /// Max bid cap (Meta only)
+    #[serde(rename = "bidAmount", skip_serializing_if = "Option::is_none")]
+    pub bid_amount: Option<f64>,
+    #[serde(rename = "tracking", skip_serializing_if = "Option::is_none")]
+    pub tracking: Option<Box<models::BoostPostRequestTracking>>,
+    /// Meta only. Required for housing, employment, credit, or political ads.
+    #[serde(
+        rename = "specialAdCategories",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub special_ad_categories: Option<Vec<SpecialAdCategories>>,
 }
 
 impl BoostPostRequest {
@@ -58,6 +69,9 @@ impl BoostPostRequest {
             currency: None,
             schedule: None,
             targeting: None,
+            bid_amount: None,
+            tracking: None,
+            special_ad_categories: None,
         }
     }
 }
@@ -77,5 +91,23 @@ pub enum Goal {
 impl Default for Goal {
     fn default() -> Goal {
         Self::Engagement
+    }
+}
+/// Meta only. Required for housing, employment, credit, or political ads.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum SpecialAdCategories {
+    #[serde(rename = "HOUSING")]
+    Housing,
+    #[serde(rename = "EMPLOYMENT")]
+    Employment,
+    #[serde(rename = "CREDIT")]
+    Credit,
+    #[serde(rename = "ISSUES_ELECTIONS_POLITICS")]
+    IssuesElectionsPolitics,
+}
+
+impl Default for SpecialAdCategories {
+    fn default() -> SpecialAdCategories {
+        Self::Housing
     }
 }

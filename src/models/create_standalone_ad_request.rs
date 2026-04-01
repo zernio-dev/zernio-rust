@@ -30,6 +30,9 @@ pub struct CreateStandaloneAdRequest {
     /// Required for most platforms. Max: Meta=255, Google=30, Pinterest=100
     #[serde(rename = "headline", skip_serializing_if = "Option::is_none")]
     pub headline: Option<String>,
+    /// Google Display only
+    #[serde(rename = "longHeadline", skip_serializing_if = "Option::is_none")]
+    pub long_headline: Option<String>,
     /// Max: Google=90, Pinterest=500
     #[serde(rename = "body")]
     pub body: String,
@@ -38,9 +41,15 @@ pub struct CreateStandaloneAdRequest {
     pub call_to_action: Option<CallToAction>,
     #[serde(rename = "linkUrl", skip_serializing_if = "Option::is_none")]
     pub link_url: Option<String>,
-    /// Image URL (or video URL for TikTok)
-    #[serde(rename = "imageUrl")]
-    pub image_url: String,
+    /// Image URL (or video URL for TikTok). Not required for Google Search campaigns.
+    #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
+    pub image_url: Option<String>,
+    /// Google Display only
+    #[serde(rename = "businessName", skip_serializing_if = "Option::is_none")]
+    pub business_name: Option<String>,
+    /// Pinterest only. Board ID (auto-creates if not provided).
+    #[serde(rename = "boardId", skip_serializing_if = "Option::is_none")]
+    pub board_id: Option<String>,
     #[serde(rename = "countries", skip_serializing_if = "Option::is_none")]
     pub countries: Option<Vec<String>>,
     #[serde(rename = "ageMin", skip_serializing_if = "Option::is_none")]
@@ -61,6 +70,18 @@ pub struct CreateStandaloneAdRequest {
     /// Google Search only
     #[serde(rename = "keywords", skip_serializing_if = "Option::is_none")]
     pub keywords: Option<Vec<String>>,
+    /// Google Search RSA only. Extra headlines.
+    #[serde(
+        rename = "additionalHeadlines",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub additional_headlines: Option<Vec<String>>,
+    /// Google Search RSA only. Extra descriptions.
+    #[serde(
+        rename = "additionalDescriptions",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub additional_descriptions: Option<Vec<String>>,
 }
 
 impl CreateStandaloneAdRequest {
@@ -72,7 +93,6 @@ impl CreateStandaloneAdRequest {
         budget_amount: f64,
         budget_type: BudgetType,
         body: String,
-        image_url: String,
     ) -> CreateStandaloneAdRequest {
         CreateStandaloneAdRequest {
             account_id,
@@ -83,10 +103,13 @@ impl CreateStandaloneAdRequest {
             budget_type,
             currency: None,
             headline: None,
+            long_headline: None,
             body,
             call_to_action: None,
             link_url: None,
-            image_url,
+            image_url: None,
+            business_name: None,
+            board_id: None,
             countries: None,
             age_min: None,
             age_max: None,
@@ -95,6 +118,8 @@ impl CreateStandaloneAdRequest {
             audience_id: None,
             campaign_type: None,
             keywords: None,
+            additional_headlines: None,
+            additional_descriptions: None,
         }
     }
 }
