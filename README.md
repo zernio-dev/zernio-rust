@@ -303,6 +303,7 @@ Class | Method | HTTP request | Description
  - [Ad](docs/Ad.md)
  - [AdBudget](docs/AdBudget.md)
  - [AdCampaign](docs/AdCampaign.md)
+ - [AdCreative](docs/AdCreative.md)
  - [AdMetrics](docs/AdMetrics.md)
  - [AdSchedule](docs/AdSchedule.md)
  - [AdTreeAdSet](docs/AdTreeAdSet.md)

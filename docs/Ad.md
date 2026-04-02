@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **platform_ad_set_id** | Option<**String**> |  | [optional]
 **campaign_name** | Option<**String**> |  | [optional]
 **ad_set_name** | Option<**String**> |  | [optional]
-**creative** | Option<**serde_json::Value**> | Platform-specific creative data | [optional]
+**creative** | Option<[**models::AdCreative**](AdCreative.md)> |  | [optional]
 **targeting** | Option<**serde_json::Value**> |  | [optional]
 **schedule** | Option<[**models::AdSchedule**](AdSchedule.md)> |  | [optional]
 **rejection_reason** | Option<**String**> |  | [optional]

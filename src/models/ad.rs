@@ -47,9 +47,8 @@ pub struct Ad {
     pub campaign_name: Option<String>,
     #[serde(rename = "adSetName", skip_serializing_if = "Option::is_none")]
     pub ad_set_name: Option<String>,
-    /// Platform-specific creative data
     #[serde(rename = "creative", skip_serializing_if = "Option::is_none")]
-    pub creative: Option<serde_json::Value>,
+    pub creative: Option<Box<models::AdCreative>>,
     #[serde(rename = "targeting", skip_serializing_if = "Option::is_none")]
     pub targeting: Option<serde_json::Value>,
     #[serde(rename = "schedule", skip_serializing_if = "Option::is_none")]

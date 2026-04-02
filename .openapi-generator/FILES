@@ -15,6 +15,7 @@ docs/AdAudiencesApi.md
 docs/AdBudget.md
 docs/AdCampaign.md
 docs/AdCampaignsApi.md
+docs/AdCreative.md
 docs/AdMetrics.md
 docs/AdSchedule.md
 docs/AdTreeAdSet.md
@@ -799,6 +800,7 @@ src/models/activate_sequence_200_response.rs
 src/models/ad.rs
 src/models/ad_budget.rs
 src/models/ad_campaign.rs
+src/models/ad_creative.rs
 src/models/ad_metrics.rs
 src/models/ad_schedule.rs
 src/models/ad_tree_ad_set.rs

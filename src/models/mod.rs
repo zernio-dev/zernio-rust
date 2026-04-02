@@ -14,6 +14,8 @@ pub mod ad_budget;
 pub use self::ad_budget::AdBudget;
 pub mod ad_campaign;
 pub use self::ad_campaign::AdCampaign;
+pub mod ad_creative;
+pub use self::ad_creative::AdCreative;
 pub mod ad_metrics;
 pub use self::ad_metrics::AdMetrics;
 pub mod ad_schedule;
