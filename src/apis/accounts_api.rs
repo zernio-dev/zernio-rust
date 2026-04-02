@@ -367,17 +367,21 @@ pub async fn get_tik_tok_creator_info(
     }
 }
 
-/// Returns connected social accounts. Only includes accounts within the plan limit by default. Follower data requires analytics add-on.
+/// Returns connected social accounts. Only includes accounts within the plan limit by default. Follower data requires analytics add-on. Supports optional server-side pagination via page/limit params. When omitted, returns all accounts (backward-compatible).
 pub async fn list_accounts(
     configuration: &configuration::Configuration,
     profile_id: Option<&str>,
     platform: Option<&str>,
     include_over_limit: Option<bool>,
+    page: Option<i32>,
+    limit: Option<i32>,
 ) -> Result<models::ListAccounts200Response, Error<ListAccountsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_profile_id = profile_id;
     let p_query_platform = platform;
     let p_query_include_over_limit = include_over_limit;
+    let p_query_page = page;
+    let p_query_limit = limit;
 
     let uri_str = format!("{}/v1/accounts", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -390,6 +394,12 @@ pub async fn list_accounts(
     }
     if let Some(ref param_value) = p_query_include_over_limit {
         req_builder = req_builder.query(&[("includeOverLimit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());

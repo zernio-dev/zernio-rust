@@ -18,6 +18,9 @@ pub struct ListAccounts200Response {
     /// Whether user has analytics add-on access
     #[serde(rename = "hasAnalyticsAccess", skip_serializing_if = "Option::is_none")]
     pub has_analytics_access: Option<bool>,
+    /// Only present when page/limit params are provided
+    #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
+    pub pagination: Option<Box<models::Pagination>>,
 }
 
 impl ListAccounts200Response {
@@ -25,6 +28,7 @@ impl ListAccounts200Response {
         ListAccounts200Response {
             accounts: None,
             has_analytics_access: None,
+            pagination: None,
         }
     }
 }
