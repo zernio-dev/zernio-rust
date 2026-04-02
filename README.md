@@ -224,15 +224,6 @@ Class | Method | HTTP request | Description
 *SequencesApi* | [**pause_sequence**](docs/SequencesApi.md#pause_sequence) | **POST** /v1/sequences/{sequenceId}/pause | Pause a sequence
 *SequencesApi* | [**unenroll_contact**](docs/SequencesApi.md#unenroll_contact) | **DELETE** /v1/sequences/{sequenceId}/enroll/{contactId} | Unenroll a contact from a sequence
 *SequencesApi* | [**update_sequence**](docs/SequencesApi.md#update_sequence) | **PATCH** /v1/sequences/{sequenceId} | Update a sequence
-*ToolsApi* | [**check_instagram_hashtags**](docs/ToolsApi.md#check_instagram_hashtags) | **POST** /v1/tools/instagram/hashtag-checker | Check IG hashtag bans
-*ToolsApi* | [**download_bluesky_media**](docs/ToolsApi.md#download_bluesky_media) | **GET** /v1/tools/bluesky/download | Download Bluesky media
-*ToolsApi* | [**download_facebook_video**](docs/ToolsApi.md#download_facebook_video) | **GET** /v1/tools/facebook/download | Download Facebook video
-*ToolsApi* | [**download_instagram_media**](docs/ToolsApi.md#download_instagram_media) | **GET** /v1/tools/instagram/download | Download Instagram media
-*ToolsApi* | [**download_linked_in_video**](docs/ToolsApi.md#download_linked_in_video) | **GET** /v1/tools/linkedin/download | Download LinkedIn video
-*ToolsApi* | [**download_tik_tok_video**](docs/ToolsApi.md#download_tik_tok_video) | **GET** /v1/tools/tiktok/download | Download TikTok video
-*ToolsApi* | [**download_twitter_media**](docs/ToolsApi.md#download_twitter_media) | **GET** /v1/tools/twitter/download | Download Twitter/X media
-*ToolsApi* | [**download_you_tube_video**](docs/ToolsApi.md#download_you_tube_video) | **GET** /v1/tools/youtube/download | Download YouTube video
-*ToolsApi* | [**get_you_tube_transcript**](docs/ToolsApi.md#get_you_tube_transcript) | **GET** /v1/tools/youtube/transcript | Get YouTube transcript
 *TwitterEngagementApi* | [**bookmark_post**](docs/TwitterEngagementApi.md#bookmark_post) | **POST** /v1/twitter/bookmark | Bookmark a tweet
 *TwitterEngagementApi* | [**follow_user**](docs/TwitterEngagementApi.md#follow_user) | **POST** /v1/twitter/follow | Follow a user
 *TwitterEngagementApi* | [**remove_bookmark**](docs/TwitterEngagementApi.md#remove_bookmark) | **DELETE** /v1/twitter/bookmark | Remove bookmark
@@ -242,10 +233,6 @@ Class | Method | HTTP request | Description
 *UsageApi* | [**get_usage_stats**](docs/UsageApi.md#get_usage_stats) | **GET** /v1/usage-stats | Get plan and usage stats
 *UsersApi* | [**get_user**](docs/UsersApi.md#get_user) | **GET** /v1/users/{userId} | Get user
 *UsersApi* | [**list_users**](docs/UsersApi.md#list_users) | **GET** /v1/users | List users
-*ValidateApi* | [**validate_media**](docs/ValidateApi.md#validate_media) | **POST** /v1/tools/validate/media | Validate media URL
-*ValidateApi* | [**validate_post**](docs/ValidateApi.md#validate_post) | **POST** /v1/tools/validate/post | Validate post content
-*ValidateApi* | [**validate_post_length**](docs/ValidateApi.md#validate_post_length) | **POST** /v1/tools/validate/post-length | Validate post character count
-*ValidateApi* | [**validate_subreddit**](docs/ValidateApi.md#validate_subreddit) | **GET** /v1/tools/validate/subreddit | Check subreddit existence
 *WebhooksApi* | [**create_webhook_settings**](docs/WebhooksApi.md#create_webhook_settings) | **POST** /v1/webhooks/settings | Create webhook
 *WebhooksApi* | [**delete_webhook_settings**](docs/WebhooksApi.md#delete_webhook_settings) | **DELETE** /v1/webhooks/settings | Delete webhook
 *WebhooksApi* | [**get_webhook_logs**](docs/WebhooksApi.md#get_webhook_logs) | **GET** /v1/webhooks/logs | Get delivery logs
@@ -354,11 +341,6 @@ Class | Method | HTTP request | Description
  - [CancelBroadcast200ResponseBroadcast](docs/CancelBroadcast200ResponseBroadcast.md)
  - [CancelWhatsAppBroadcastSchedule200Response](docs/CancelWhatsAppBroadcastSchedule200Response.md)
  - [CancelWhatsAppBroadcastSchedule200ResponseBroadcast](docs/CancelWhatsAppBroadcastSchedule200ResponseBroadcast.md)
- - [CaptionResponse](docs/CaptionResponse.md)
- - [CheckInstagramHashtags200Response](docs/CheckInstagramHashtags200Response.md)
- - [CheckInstagramHashtags200ResponseResultsInner](docs/CheckInstagramHashtags200ResponseResultsInner.md)
- - [CheckInstagramHashtags200ResponseSummary](docs/CheckInstagramHashtags200ResponseSummary.md)
- - [CheckInstagramHashtagsRequest](docs/CheckInstagramHashtagsRequest.md)
  - [CompleteTelegramConnect200Response](docs/CompleteTelegramConnect200Response.md)
  - [ConnectBlueskyCredentials200Response](docs/ConnectBlueskyCredentials200Response.md)
  - [ConnectBlueskyCredentialsRequest](docs/ConnectBlueskyCredentialsRequest.md)
@@ -442,15 +424,6 @@ Class | Method | HTTP request | Description
  - [DeleteInboxReviewReplyRequest](docs/DeleteInboxReviewReplyRequest.md)
  - [DeleteQueueSlot200Response](docs/DeleteQueueSlot200Response.md)
  - [DeleteWhatsAppGroupRequest](docs/DeleteWhatsAppGroupRequest.md)
- - [DownloadBlueskyMedia200Response](docs/DownloadBlueskyMedia200Response.md)
- - [DownloadFacebookVideo200Response](docs/DownloadFacebookVideo200Response.md)
- - [DownloadFormat](docs/DownloadFormat.md)
- - [DownloadInstagramMedia200Response](docs/DownloadInstagramMedia200Response.md)
- - [DownloadResponse](docs/DownloadResponse.md)
- - [DownloadTikTokVideo200Response](docs/DownloadTikTokVideo200Response.md)
- - [DownloadTikTokVideo200ResponseFormatsInner](docs/DownloadTikTokVideo200ResponseFormatsInner.md)
- - [DownloadYouTubeVideo200Response](docs/DownloadYouTubeVideo200Response.md)
- - [DownloadYouTubeVideo200ResponseFormatsInner](docs/DownloadYouTubeVideo200ResponseFormatsInner.md)
  - [EditInboxMessage200Response](docs/EditInboxMessage200Response.md)
  - [EditInboxMessage200ResponseData](docs/EditInboxMessage200ResponseData.md)
  - [EditInboxMessageRequest](docs/EditInboxMessageRequest.md)
@@ -639,15 +612,11 @@ Class | Method | HTTP request | Description
  - [GetYouTubeDailyViews400Response](docs/GetYouTubeDailyViews400Response.md)
  - [GetYouTubeDailyViews403Response](docs/GetYouTubeDailyViews403Response.md)
  - [GetYouTubeDailyViews500Response](docs/GetYouTubeDailyViews500Response.md)
- - [GetYouTubeTranscript200Response](docs/GetYouTubeTranscript200Response.md)
- - [GetYouTubeTranscript200ResponseSegmentsInner](docs/GetYouTubeTranscript200ResponseSegmentsInner.md)
  - [GetYoutubePlaylists200Response](docs/GetYoutubePlaylists200Response.md)
  - [GetYoutubePlaylists200ResponsePlaylistsInner](docs/GetYoutubePlaylists200ResponsePlaylistsInner.md)
  - [GoogleBusinessPlatformData](docs/GoogleBusinessPlatformData.md)
  - [GoogleBusinessPlatformDataCallToAction](docs/GoogleBusinessPlatformDataCallToAction.md)
  - [HandleOAuthCallbackRequest](docs/HandleOAuthCallbackRequest.md)
- - [HashtagCheckResponse](docs/HashtagCheckResponse.md)
- - [HashtagInfo](docs/HashtagInfo.md)
  - [HideInboxComment200Response](docs/HideInboxComment200Response.md)
  - [HideInboxCommentRequest](docs/HideInboxCommentRequest.md)
  - [ImportWhatsAppContacts200Response](docs/ImportWhatsAppContacts200Response.md)
@@ -876,8 +845,6 @@ Class | Method | HTTP request | Description
  - [TestWebhookRequest](docs/TestWebhookRequest.md)
  - [ThreadsPlatformData](docs/ThreadsPlatformData.md)
  - [TikTokPlatformData](docs/TikTokPlatformData.md)
- - [TranscriptResponse](docs/TranscriptResponse.md)
- - [TranscriptSegment](docs/TranscriptSegment.md)
  - [TwitterPlatformData](docs/TwitterPlatformData.md)
  - [TwitterPlatformDataPoll](docs/TwitterPlatformDataPoll.md)
  - [TwitterPlatformDataThreadItemsInner](docs/TwitterPlatformDataThreadItemsInner.md)
@@ -970,25 +937,6 @@ Class | Method | HTTP request | Description
  - [User](docs/User.md)
  - [UserGetResponse](docs/UserGetResponse.md)
  - [UsersListResponse](docs/UsersListResponse.md)
- - [ValidateMedia200Response](docs/ValidateMedia200Response.md)
- - [ValidateMedia200ResponsePlatformLimitsValue](docs/ValidateMedia200ResponsePlatformLimitsValue.md)
- - [ValidateMediaRequest](docs/ValidateMediaRequest.md)
- - [ValidatePost200Response](docs/ValidatePost200Response.md)
- - [ValidatePost200ResponseOneOf](docs/ValidatePost200ResponseOneOf.md)
- - [ValidatePost200ResponseOneOf1](docs/ValidatePost200ResponseOneOf1.md)
- - [ValidatePost200ResponseOneOf1ErrorsInner](docs/ValidatePost200ResponseOneOf1ErrorsInner.md)
- - [ValidatePost200ResponseOneOfWarningsInner](docs/ValidatePost200ResponseOneOfWarningsInner.md)
- - [ValidatePostLength200Response](docs/ValidatePostLength200Response.md)
- - [ValidatePostLength200ResponsePlatformsValue](docs/ValidatePostLength200ResponsePlatformsValue.md)
- - [ValidatePostLengthRequest](docs/ValidatePostLengthRequest.md)
- - [ValidatePostRequest](docs/ValidatePostRequest.md)
- - [ValidatePostRequestMediaItemsInner](docs/ValidatePostRequestMediaItemsInner.md)
- - [ValidatePostRequestPlatformsInner](docs/ValidatePostRequestPlatformsInner.md)
- - [ValidatePostRequestPlatformsInnerCustomMediaInner](docs/ValidatePostRequestPlatformsInnerCustomMediaInner.md)
- - [ValidateSubreddit200Response](docs/ValidateSubreddit200Response.md)
- - [ValidateSubreddit200ResponseOneOf](docs/ValidateSubreddit200ResponseOneOf.md)
- - [ValidateSubreddit200ResponseOneOf1](docs/ValidateSubreddit200ResponseOneOf1.md)
- - [ValidateSubreddit200ResponseOneOfSubreddit](docs/ValidateSubreddit200ResponseOneOfSubreddit.md)
  - [Webhook](docs/Webhook.md)
  - [WebhookLog](docs/WebhookLog.md)
  - [WebhookPayloadAccountConnected](docs/WebhookPayloadAccountConnected.md)
