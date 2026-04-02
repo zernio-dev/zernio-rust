@@ -4,9 +4,47 @@ All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**get_ad_tree**](AdCampaignsApi.md#get_ad_tree) | **GET** /v1/ads/tree | Get nested campaign/ad-set/ad tree
 [**list_ad_campaigns**](AdCampaignsApi.md#list_ad_campaigns) | **GET** /v1/ads/campaigns | List campaigns with aggregate metrics
 [**update_ad_campaign_status**](AdCampaignsApi.md#update_ad_campaign_status) | **PUT** /v1/ads/campaigns/{campaignId}/status | Pause or resume a campaign
 
+
+
+## get_ad_tree
+
+> models::GetAdTree200Response get_ad_tree(page, limit, source, platform, status, ad_account_id, account_id, profile_id)
+Get nested campaign/ad-set/ad tree
+
+Returns a nested Campaign > Ad Set > Ad hierarchy with rolled-up metrics at each level. Uses a two-stage aggregation: ads are grouped into ad sets, then ad sets into campaigns. Pagination is at the campaign level. Ads without a campaign or ad set ID are grouped into synthetic \"Ungrouped\" buckets. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**page** | Option<**i32**> | Page number (1-based) |  |[default to 1]
+**limit** | Option<**i32**> | Campaigns per page |  |[default to 20]
+**source** | Option<**String**> |  |  |[default to zernio]
+**platform** | Option<**String**> |  |  |
+**status** | Option<**String**> | Filter by derived campaign status (post-aggregation) |  |
+**ad_account_id** | Option<**String**> | Platform ad account ID |  |
+**account_id** | Option<**String**> | Social account ID |  |
+**profile_id** | Option<**String**> | Profile ID |  |
+
+### Return type
+
+[**models::GetAdTree200Response**](getAdTree_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## list_ad_campaigns
