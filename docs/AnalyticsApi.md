@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**get_post_timeline**](AnalyticsApi.md#get_post_timeline) | **GET** /v1/analytics/post-timeline | Get post analytics timeline
 [**get_posting_frequency**](AnalyticsApi.md#get_posting_frequency) | **GET** /v1/analytics/posting-frequency | Get posting frequency vs engagement
 [**get_you_tube_daily_views**](AnalyticsApi.md#get_you_tube_daily_views) | **GET** /v1/analytics/youtube/daily-views | Get YouTube daily views
+[**get_you_tube_demographics**](AnalyticsApi.md#get_you_tube_demographics) | **GET** /v1/analytics/youtube/demographics | Get YouTube audience demographics
 
 
 
@@ -443,6 +444,39 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::YouTubeDailyViewsResponse**](YouTubeDailyViewsResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_you_tube_demographics
+
+> models::YouTubeDemographicsResponse get_you_tube_demographics(account_id, breakdown, start_date, end_date)
+Get YouTube audience demographics
+
+Returns audience demographic insights for a YouTube channel, broken down by age, gender, and/or country. Age and gender values are viewer percentages (0-100). Country values are view counts. Data is based on signed-in viewers only, with a 2-3 day delay. Requires the Analytics add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The Zernio SocialAccount ID for the YouTube account | [required] |
+**breakdown** | Option<**String**> | Comma-separated list of demographic dimensions: age, gender, country. Defaults to all three if omitted.  |  |
+**start_date** | Option<**String**> | Start date in YYYY-MM-DD format. Defaults to 90 days ago.  |  |
+**end_date** | Option<**String**> | End date in YYYY-MM-DD format. Defaults to 3 days ago (YouTube data latency).  |  |
+
+### Return type
+
+[**models::YouTubeDemographicsResponse**](YouTubeDemographicsResponse.md)
 
 ### Authorization
 
