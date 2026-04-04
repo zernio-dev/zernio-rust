@@ -108,6 +108,11 @@ docs/CreateGoogleBusinessMedia200Response.md
 docs/CreateGoogleBusinessMediaRequest.md
 docs/CreateGoogleBusinessPlaceAction200Response.md
 docs/CreateGoogleBusinessPlaceActionRequest.md
+docs/CreateInboxConversation201Response.md
+docs/CreateInboxConversation201ResponseData.md
+docs/CreateInboxConversation400Response.md
+docs/CreateInboxConversation422Response.md
+docs/CreateInboxConversationRequest.md
 docs/CreateInviteToken201Response.md
 docs/CreateInviteTokenRequest.md
 docs/CreatePost409Response.md
@@ -161,6 +166,8 @@ docs/EditInboxMessage200ResponseData.md
 docs/EditInboxMessageRequest.md
 docs/EditInboxMessageRequestReplyMarkup.md
 docs/EditInboxMessageRequestReplyMarkupKeyboardInnerInner.md
+docs/EditPost200Response.md
+docs/EditPostRequest.md
 docs/EnrollContacts200Response.md
 docs/EnrollContactsRequest.md
 docs/ErrorResponse.md
@@ -921,6 +928,11 @@ src/models/create_google_business_media_200_response.rs
 src/models/create_google_business_media_request.rs
 src/models/create_google_business_place_action_200_response.rs
 src/models/create_google_business_place_action_request.rs
+src/models/create_inbox_conversation_201_response.rs
+src/models/create_inbox_conversation_201_response_data.rs
+src/models/create_inbox_conversation_400_response.rs
+src/models/create_inbox_conversation_422_response.rs
+src/models/create_inbox_conversation_request.rs
 src/models/create_invite_token_201_response.rs
 src/models/create_invite_token_request.rs
 src/models/create_post_409_response.rs
@@ -973,6 +985,8 @@ src/models/edit_inbox_message_200_response_data.rs
 src/models/edit_inbox_message_request.rs
 src/models/edit_inbox_message_request_reply_markup.rs
 src/models/edit_inbox_message_request_reply_markup_keyboard_inner_inner.rs
+src/models/edit_post_200_response.rs
+src/models/edit_post_request.rs
 src/models/enroll_contacts_200_response.rs
 src/models/enroll_contacts_request.rs
 src/models/error_response.rs

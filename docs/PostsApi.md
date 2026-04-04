@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**bulk_upload_posts**](PostsApi.md#bulk_upload_posts) | **POST** /v1/posts/bulk-upload | Bulk upload from CSV
 [**create_post**](PostsApi.md#create_post) | **POST** /v1/posts | Create post
 [**delete_post**](PostsApi.md#delete_post) | **DELETE** /v1/posts/{postId} | Delete post
+[**edit_post**](PostsApi.md#edit_post) | **POST** /v1/posts/{postId}/edit | Edit published post
 [**get_post**](PostsApi.md#get_post) | **GET** /v1/posts/{postId} | Get post
 [**list_posts**](PostsApi.md#list_posts) | **GET** /v1/posts | List posts
 [**retry_post**](PostsApi.md#retry_post) | **POST** /v1/posts/{postId}/retry | Retry failed post
@@ -102,6 +103,37 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## edit_post
+
+> models::EditPost200Response edit_post(post_id, edit_post_request)
+Edit published post
+
+Edit a published post on a social media platform. Currently only supported for X (Twitter).  **Requirements:** - Connected X account must have an active X Premium subscription - Must be within 1 hour of original publish time - Maximum 5 edits per tweet (enforced by X) - Text-only edits (media changes are not supported)  The post record in Zernio is updated with the new content and edit history. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**post_id** | **String** |  | [required] |
+**edit_post_request** | [**EditPostRequest**](EditPostRequest.md) |  | [required] |
+
+### Return type
+
+[**models::EditPost200Response**](editPost_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -24,6 +24,9 @@ pub struct TwitterPlatformData {
     pub thread_items: Option<Vec<models::TwitterPlatformDataThreadItemsInner>>,
     #[serde(rename = "poll", skip_serializing_if = "Option::is_none")]
     pub poll: Option<Box<models::TwitterPlatformDataPoll>>,
+    /// Enable long video uploads (over 140 seconds) using amplify_video media category. Requires the connected X account to have an active X Premium subscription. When true, videos are uploaded with the amplify_video category which supports longer durations (up to 10 minutes via API). When false or omitted, the standard tweet_video category is used (140 second limit). Note that not all Premium accounts have API long-video access, as X may require separate allowlisting.
+    #[serde(rename = "longVideo", skip_serializing_if = "Option::is_none")]
+    pub long_video: Option<bool>,
 }
 
 impl TwitterPlatformData {
@@ -33,6 +36,7 @@ impl TwitterPlatformData {
             reply_settings: None,
             thread_items: None,
             poll: None,
+            long_video: None,
         }
     }
 }
