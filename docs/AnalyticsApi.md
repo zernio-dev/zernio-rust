@@ -9,6 +9,8 @@ Method | HTTP request | Description
 [**get_content_decay**](AnalyticsApi.md#get_content_decay) | **GET** /v1/analytics/content-decay | Get content performance decay
 [**get_daily_metrics**](AnalyticsApi.md#get_daily_metrics) | **GET** /v1/analytics/daily-metrics | Get daily aggregated metrics
 [**get_follower_stats**](AnalyticsApi.md#get_follower_stats) | **GET** /v1/accounts/follower-stats | Get follower stats
+[**get_google_business_performance**](AnalyticsApi.md#get_google_business_performance) | **GET** /v1/analytics/googlebusiness/performance | Get Google Business Profile performance metrics
+[**get_google_business_search_keywords**](AnalyticsApi.md#get_google_business_search_keywords) | **GET** /v1/analytics/googlebusiness/search-keywords | Get Google Business Profile search keywords
 [**get_instagram_account_insights**](AnalyticsApi.md#get_instagram_account_insights) | **GET** /v1/analytics/instagram/account-insights | Get Instagram account-level insights
 [**get_instagram_demographics**](AnalyticsApi.md#get_instagram_demographics) | **GET** /v1/analytics/instagram/demographics | Get Instagram audience demographics
 [**get_linked_in_aggregate_analytics**](AnalyticsApi.md#get_linked_in_aggregate_analytics) | **GET** /v1/accounts/{accountId}/linkedin-aggregate-analytics | Get LinkedIn aggregate stats
@@ -181,6 +183,71 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetFollowerStats200Response**](getFollowerStats_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_google_business_performance
+
+> models::GetGoogleBusinessPerformance200Response get_google_business_performance(account_id, metrics, start_date, end_date)
+Get Google Business Profile performance metrics
+
+Returns daily performance metrics for a Google Business Profile location. Metrics include impressions (Maps/Search, desktop/mobile), website clicks, call clicks, direction requests, conversations, bookings, and food orders. Data may be delayed 2-3 days. Max 18 months of historical data. Requires the Analytics add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The Zernio SocialAccount ID for the Google Business Profile account. | [required] |
+**metrics** | Option<**String**> | Comma-separated metric names. Defaults to all available metrics. Valid values: BUSINESS_IMPRESSIONS_DESKTOP_MAPS, BUSINESS_IMPRESSIONS_DESKTOP_SEARCH, BUSINESS_IMPRESSIONS_MOBILE_MAPS, BUSINESS_IMPRESSIONS_MOBILE_SEARCH, BUSINESS_CONVERSATIONS, BUSINESS_DIRECTION_REQUESTS, CALL_CLICKS, WEBSITE_CLICKS, BUSINESS_BOOKINGS, BUSINESS_FOOD_ORDERS, BUSINESS_FOOD_MENU_CLICKS  |  |
+**start_date** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to 30 days ago. Max 18 months back. |  |
+**end_date** | Option<**String**> | End date (YYYY-MM-DD). Defaults to today. |  |
+
+### Return type
+
+[**models::GetGoogleBusinessPerformance200Response**](getGoogleBusinessPerformance_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_google_business_search_keywords
+
+> models::GetGoogleBusinessSearchKeywords200Response get_google_business_search_keywords(account_id, start_month, end_month)
+Get Google Business Profile search keywords
+
+Returns search keywords that triggered impressions for a Google Business Profile location. Data is aggregated monthly. Keywords below a minimum impression threshold set by Google are excluded. Max 18 months of historical data. Requires the Analytics add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The Zernio SocialAccount ID for the Google Business Profile account. | [required] |
+**start_month** | Option<**String**> | Start month (YYYY-MM). Defaults to 3 months ago. |  |
+**end_month** | Option<**String**> | End month (YYYY-MM). Defaults to current month. |  |
+
+### Return type
+
+[**models::GetGoogleBusinessSearchKeywords200Response**](getGoogleBusinessSearchKeywords_200_response.md)
 
 ### Authorization
 

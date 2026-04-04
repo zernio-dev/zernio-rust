@@ -83,6 +83,8 @@ Class | Method | HTTP request | Description
 *AnalyticsApi* | [**get_content_decay**](docs/AnalyticsApi.md#get_content_decay) | **GET** /v1/analytics/content-decay | Get content performance decay
 *AnalyticsApi* | [**get_daily_metrics**](docs/AnalyticsApi.md#get_daily_metrics) | **GET** /v1/analytics/daily-metrics | Get daily aggregated metrics
 *AnalyticsApi* | [**get_follower_stats**](docs/AnalyticsApi.md#get_follower_stats) | **GET** /v1/accounts/follower-stats | Get follower stats
+*AnalyticsApi* | [**get_google_business_performance**](docs/AnalyticsApi.md#get_google_business_performance) | **GET** /v1/analytics/googlebusiness/performance | Get Google Business Profile performance metrics
+*AnalyticsApi* | [**get_google_business_search_keywords**](docs/AnalyticsApi.md#get_google_business_search_keywords) | **GET** /v1/analytics/googlebusiness/search-keywords | Get Google Business Profile search keywords
 *AnalyticsApi* | [**get_instagram_account_insights**](docs/AnalyticsApi.md#get_instagram_account_insights) | **GET** /v1/analytics/instagram/account-insights | Get Instagram account-level insights
 *AnalyticsApi* | [**get_instagram_demographics**](docs/AnalyticsApi.md#get_instagram_demographics) | **GET** /v1/analytics/instagram/demographics | Get Instagram audience demographics
 *AnalyticsApi* | [**get_linked_in_aggregate_analytics**](docs/AnalyticsApi.md#get_linked_in_aggregate_analytics) | **GET** /v1/accounts/{accountId}/linkedin-aggregate-analytics | Get LinkedIn aggregate stats
@@ -531,10 +533,19 @@ Class | Method | HTTP request | Description
  - [GetGoogleBusinessLocationDetails200ResponseSpecialHours](docs/GetGoogleBusinessLocationDetails200ResponseSpecialHours.md)
  - [GetGoogleBusinessLocationDetails200ResponseSpecialHoursSpecialHourPeriodsInner](docs/GetGoogleBusinessLocationDetails200ResponseSpecialHoursSpecialHourPeriodsInner.md)
  - [GetGoogleBusinessLocationDetails200ResponseSpecialHoursSpecialHourPeriodsInnerStartDate](docs/GetGoogleBusinessLocationDetails200ResponseSpecialHoursSpecialHourPeriodsInnerStartDate.md)
+ - [GetGoogleBusinessPerformance200Response](docs/GetGoogleBusinessPerformance200Response.md)
+ - [GetGoogleBusinessPerformance200ResponseDateRange](docs/GetGoogleBusinessPerformance200ResponseDateRange.md)
+ - [GetGoogleBusinessPerformance200ResponseMetricsValue](docs/GetGoogleBusinessPerformance200ResponseMetricsValue.md)
+ - [GetGoogleBusinessPerformance200ResponseMetricsValueValuesInner](docs/GetGoogleBusinessPerformance200ResponseMetricsValueValuesInner.md)
+ - [GetGoogleBusinessPerformance400Response](docs/GetGoogleBusinessPerformance400Response.md)
  - [GetGoogleBusinessReviews200Response](docs/GetGoogleBusinessReviews200Response.md)
  - [GetGoogleBusinessReviews200ResponseReviewsInner](docs/GetGoogleBusinessReviews200ResponseReviewsInner.md)
  - [GetGoogleBusinessReviews200ResponseReviewsInnerReviewReply](docs/GetGoogleBusinessReviews200ResponseReviewsInnerReviewReply.md)
  - [GetGoogleBusinessReviews200ResponseReviewsInnerReviewer](docs/GetGoogleBusinessReviews200ResponseReviewsInnerReviewer.md)
+ - [GetGoogleBusinessSearchKeywords200Response](docs/GetGoogleBusinessSearchKeywords200Response.md)
+ - [GetGoogleBusinessSearchKeywords200ResponseKeywordsInner](docs/GetGoogleBusinessSearchKeywords200ResponseKeywordsInner.md)
+ - [GetGoogleBusinessSearchKeywords200ResponseMonthRange](docs/GetGoogleBusinessSearchKeywords200ResponseMonthRange.md)
+ - [GetGoogleBusinessSearchKeywords400Response](docs/GetGoogleBusinessSearchKeywords400Response.md)
  - [GetInboxConversation200Response](docs/GetInboxConversation200Response.md)
  - [GetInboxConversation200ResponseData](docs/GetInboxConversation200ResponseData.md)
  - [GetInboxConversationMessages200Response](docs/GetInboxConversationMessages200Response.md)
