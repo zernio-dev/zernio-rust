@@ -23,7 +23,7 @@ pub struct FacebookPlatformData {
     /// Reel title (only for contentType=reel). Separate from the caption/content field.
     #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
-    /// Optional first comment to post immediately after publishing (feed posts only, not stories or reels). Skipped when draft is true.
+    /// Optional first comment to post immediately after publishing (feed posts and reels, not stories). Skipped when draft is true.
     #[serde(rename = "firstComment", skip_serializing_if = "Option::is_none")]
     pub first_comment: Option<String>,
     /// Target Facebook Page ID for multi-page posting. If omitted, uses the default page. Use GET /v1/accounts/{id}/facebook-page to list pages.
