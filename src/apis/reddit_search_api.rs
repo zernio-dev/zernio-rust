@@ -42,7 +42,7 @@ pub async fn get_reddit_feed(
     limit: Option<i32>,
     after: Option<&str>,
     t: Option<&str>,
-) -> Result<models::GetRedditFeed200Response, Error<GetRedditFeedError>> {
+) -> Result<models::SearchReddit200Response, Error<GetRedditFeedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_account_id = account_id;
     let p_query_subreddit = subreddit;
@@ -92,8 +92,8 @@ pub async fn get_reddit_feed(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetRedditFeed200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetRedditFeed200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SearchReddit200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SearchReddit200Response`")))),
         }
     } else {
         let content = resp.text().await?;

@@ -191,18 +191,23 @@ pub async fn validate_post_length(
     }
 }
 
-/// Check if a subreddit exists and return basic info (title, subscriber count, NSFW status, post types allowed).  Uses Reddit's public JSON API (no Reddit auth needed). Returns `exists: false` for private, banned, or nonexistent subreddits.
+/// Check if a subreddit exists and return basic info (title, subscriber count, NSFW status, post types allowed).  When accountId is provided, uses authenticated Reddit OAuth API with automatic token refresh (recommended). Falls back to Reddit's public JSON API, which may be unreliable from server IPs. Returns `exists: false` for private, banned, or nonexistent subreddits.
 pub async fn validate_subreddit(
     configuration: &configuration::Configuration,
     name: &str,
+    account_id: Option<&str>,
 ) -> Result<models::ValidateSubreddit200Response, Error<ValidateSubredditError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_name = name;
+    let p_query_account_id = account_id;
 
     let uri_str = format!("{}/v1/tools/validate/subreddit", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("name", &p_query_name.to_string())]);
+    if let Some(ref param_value) = p_query_account_id {
+        req_builder = req_builder.query(&[("accountId", &param_value.to_string())]);
+    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }

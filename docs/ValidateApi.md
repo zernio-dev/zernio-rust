@@ -103,10 +103,10 @@ Name | Type | Description  | Required | Notes
 
 ## validate_subreddit
 
-> models::ValidateSubreddit200Response validate_subreddit(name)
+> models::ValidateSubreddit200Response validate_subreddit(name, account_id)
 Check subreddit existence
 
-Check if a subreddit exists and return basic info (title, subscriber count, NSFW status, post types allowed).  Uses Reddit's public JSON API (no Reddit auth needed). Returns `exists: false` for private, banned, or nonexistent subreddits. 
+Check if a subreddit exists and return basic info (title, subscriber count, NSFW status, post types allowed).  When accountId is provided, uses authenticated Reddit OAuth API with automatic token refresh (recommended). Falls back to Reddit's public JSON API, which may be unreliable from server IPs. Returns `exists: false` for private, banned, or nonexistent subreddits. 
 
 ### Parameters
 
@@ -114,6 +114,7 @@ Check if a subreddit exists and return basic info (title, subscriber count, NSFW
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **name** | **String** | Subreddit name (with or without \"r/\" prefix) | [required] |
+**account_id** | Option<**String**> | Reddit social account ID for authenticated lookup (recommended for reliable results) |  |
 
 ### Return type
 

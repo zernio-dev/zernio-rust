@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## get_reddit_feed
 
-> models::GetRedditFeed200Response get_reddit_feed(account_id, subreddit, sort, limit, after, t)
+> models::SearchReddit200Response get_reddit_feed(account_id, subreddit, sort, limit, after, t)
 Get subreddit feed
 
 Fetch posts from a subreddit feed. Supports sorting, time filtering, and cursor-based pagination.
@@ -30,7 +30,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetRedditFeed200Response**](getRedditFeed_200_response.md)
+[**models::SearchReddit200Response**](searchReddit_200_response.md)
 
 ### Authorization
 

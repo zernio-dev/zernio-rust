@@ -13,17 +13,20 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SearchReddit200Response {
-    #[serde(rename = "posts", skip_serializing_if = "Option::is_none")]
-    pub posts: Option<Vec<models::SearchReddit200ResponsePostsInner>>,
+    #[serde(rename = "items", skip_serializing_if = "Option::is_none")]
+    pub items: Option<Vec<models::RedditPost>>,
     #[serde(rename = "after", skip_serializing_if = "Option::is_none")]
     pub after: Option<String>,
+    #[serde(rename = "before", skip_serializing_if = "Option::is_none")]
+    pub before: Option<String>,
 }
 
 impl SearchReddit200Response {
     pub fn new() -> SearchReddit200Response {
         SearchReddit200Response {
-            posts: None,
+            items: None,
             after: None,
+            before: None,
         }
     }
 }
