@@ -19,11 +19,9 @@ pub struct SelectGoogleBusinessLocationRequest {
     /// The Google Business location ID selected by the user
     #[serde(rename = "locationId")]
     pub location_id: String,
-    /// Temporary Google access token from OAuth
-    #[serde(rename = "tempToken")]
-    pub temp_token: String,
-    #[serde(rename = "userProfile", skip_serializing_if = "Option::is_none")]
-    pub user_profile: Option<Box<models::SelectGoogleBusinessLocationRequestUserProfile>>,
+    /// Token from the OAuth callback redirect (pendingDataToken query param). Tokens and profile data are retrieved server-side from this token.
+    #[serde(rename = "pendingDataToken")]
+    pub pending_data_token: String,
     /// Optional custom redirect URL to return to after selection
     #[serde(rename = "redirect_url", skip_serializing_if = "Option::is_none")]
     pub redirect_url: Option<String>,
@@ -33,13 +31,12 @@ impl SelectGoogleBusinessLocationRequest {
     pub fn new(
         profile_id: String,
         location_id: String,
-        temp_token: String,
+        pending_data_token: String,
     ) -> SelectGoogleBusinessLocationRequest {
         SelectGoogleBusinessLocationRequest {
             profile_id,
             location_id,
-            temp_token,
-            user_profile: None,
+            pending_data_token,
             redirect_url: None,
         }
     }

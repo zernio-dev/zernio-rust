@@ -526,18 +526,19 @@ Name | Type | Description  | Required | Notes
 
 ## list_google_business_locations
 
-> models::ListGoogleBusinessLocations200Response list_google_business_locations(profile_id, temp_token)
+> models::ListGoogleBusinessLocations200Response list_google_business_locations(profile_id, pending_data_token, temp_token)
 List GBP locations
 
-For headless flows. Returns the list of GBP locations the user can manage. Use X-Connect-Token if connecting via API key.
+For headless flows. Returns the list of GBP locations the user can manage. Use pendingDataToken (from the OAuth callback redirect) to list locations without consuming the token, so it remains available for select-location. Use X-Connect-Token header if connecting via API key. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**profile_id** | **String** | Profile ID from your connection flow | [required] |
-**temp_token** | **String** | Temporary Google access token from the OAuth callback redirect | [required] |
+**profile_id** | Option<**String**> | Profile ID from your connection flow. Required for auth validation when provided. |  |
+**pending_data_token** | Option<**String**> | Token from the OAuth callback redirect. Preferred over tempToken because it preserves server-side token storage. One of pendingDataToken or tempToken is required. |  |
+**temp_token** | Option<**String**> | Legacy. Direct Google access token. Use pendingDataToken instead when available. |  |
 
 ### Return type
 
@@ -685,7 +686,7 @@ Name | Type | Description  | Required | Notes
 > models::SelectGoogleBusinessLocation200Response select_google_business_location(select_google_business_location_request)
 Select GBP location
 
-Complete the headless flow by saving the user's selected GBP location. Include userProfile from the OAuth redirect (contains refresh token). Use X-Connect-Token if connecting via API key.
+Complete the headless GBP flow by saving the user's selected location. The pendingDataToken is returned in your redirect URL after OAuth completes (step=select_location). Tokens and profile data are stored server-side, so only the pendingDataToken is needed here. Use X-Connect-Token header if connecting via API key. 
 
 ### Parameters
 

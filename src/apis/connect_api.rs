@@ -1162,15 +1162,17 @@ pub async fn list_facebook_pages(
     }
 }
 
-/// For headless flows. Returns the list of GBP locations the user can manage. Use X-Connect-Token if connecting via API key.
+/// For headless flows. Returns the list of GBP locations the user can manage. Use pendingDataToken (from the OAuth callback redirect) to list locations without consuming the token, so it remains available for select-location. Use X-Connect-Token header if connecting via API key.
 pub async fn list_google_business_locations(
     configuration: &configuration::Configuration,
-    profile_id: &str,
-    temp_token: &str,
+    profile_id: Option<&str>,
+    pending_data_token: Option<&str>,
+    temp_token: Option<&str>,
 ) -> Result<models::ListGoogleBusinessLocations200Response, Error<ListGoogleBusinessLocationsError>>
 {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_profile_id = profile_id;
+    let p_query_pending_data_token = pending_data_token;
     let p_query_temp_token = temp_token;
 
     let uri_str = format!(
@@ -1179,8 +1181,15 @@ pub async fn list_google_business_locations(
     );
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("profileId", &p_query_profile_id.to_string())]);
-    req_builder = req_builder.query(&[("tempToken", &p_query_temp_token.to_string())]);
+    if let Some(ref param_value) = p_query_profile_id {
+        req_builder = req_builder.query(&[("profileId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_pending_data_token {
+        req_builder = req_builder.query(&[("pendingDataToken", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_temp_token {
+        req_builder = req_builder.query(&[("tempToken", &param_value.to_string())]);
+    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -1458,7 +1467,7 @@ pub async fn select_facebook_page(
     }
 }
 
-/// Complete the headless flow by saving the user's selected GBP location. Include userProfile from the OAuth redirect (contains refresh token). Use X-Connect-Token if connecting via API key.
+/// Complete the headless GBP flow by saving the user's selected location. The pendingDataToken is returned in your redirect URL after OAuth completes (step=select_location). Tokens and profile data are stored server-side, so only the pendingDataToken is needed here. Use X-Connect-Token header if connecting via API key.
 pub async fn select_google_business_location(
     configuration: &configuration::Configuration,
     select_google_business_location_request: models::SelectGoogleBusinessLocationRequest,

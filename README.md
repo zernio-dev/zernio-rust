@@ -849,7 +849,6 @@ Class | Method | HTTP request | Description
  - [SelectGoogleBusinessLocation200Response](docs/SelectGoogleBusinessLocation200Response.md)
  - [SelectGoogleBusinessLocation200ResponseAccount](docs/SelectGoogleBusinessLocation200ResponseAccount.md)
  - [SelectGoogleBusinessLocationRequest](docs/SelectGoogleBusinessLocationRequest.md)
- - [SelectGoogleBusinessLocationRequestUserProfile](docs/SelectGoogleBusinessLocationRequestUserProfile.md)
  - [SelectLinkedInOrganization200Response](docs/SelectLinkedInOrganization200Response.md)
  - [SelectLinkedInOrganization200ResponseAccount](docs/SelectLinkedInOrganization200ResponseAccount.md)
  - [SelectLinkedInOrganization200ResponseBulkRefresh](docs/SelectLinkedInOrganization200ResponseBulkRefresh.md)
