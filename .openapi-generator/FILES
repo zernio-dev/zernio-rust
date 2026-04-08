@@ -68,6 +68,9 @@ docs/CancelWhatsAppBroadcastSchedule200ResponseBroadcast.md
 docs/CommentAutomationsApi.md
 docs/CommentsApi.md
 docs/CompleteTelegramConnect200Response.md
+docs/ConnectAds200Response.md
+docs/ConnectAds200ResponseOneOf.md
+docs/ConnectAds200ResponseOneOf1.md
 docs/ConnectApi.md
 docs/ConnectBlueskyCredentials200Response.md
 docs/ConnectBlueskyCredentialsRequest.md
@@ -459,6 +462,9 @@ docs/ListInboxReviews200ResponseDataInnerReviewer.md
 docs/ListInboxReviews200ResponseSummary.md
 docs/ListLinkedInOrganizations200Response.md
 docs/ListLinkedInOrganizations200ResponseOrganizationsInner.md
+docs/ListLogs200Response.md
+docs/ListLogs200ResponseLogsInner.md
+docs/ListLogs200ResponsePagination.md
 docs/ListPinterestBoardsForSelection200Response.md
 docs/ListPinterestBoardsForSelection200ResponseBoardsInner.md
 docs/ListPostsLogs200Response.md
@@ -888,6 +894,9 @@ src/models/cancel_broadcast_200_response_broadcast.rs
 src/models/cancel_whats_app_broadcast_schedule_200_response.rs
 src/models/cancel_whats_app_broadcast_schedule_200_response_broadcast.rs
 src/models/complete_telegram_connect_200_response.rs
+src/models/connect_ads_200_response.rs
+src/models/connect_ads_200_response_one_of.rs
+src/models/connect_ads_200_response_one_of_1.rs
 src/models/connect_bluesky_credentials_200_response.rs
 src/models/connect_bluesky_credentials_request.rs
 src/models/connect_whats_app_credentials_200_response.rs
@@ -1268,6 +1277,9 @@ src/models/list_inbox_reviews_200_response_data_inner_reviewer.rs
 src/models/list_inbox_reviews_200_response_summary.rs
 src/models/list_linked_in_organizations_200_response.rs
 src/models/list_linked_in_organizations_200_response_organizations_inner.rs
+src/models/list_logs_200_response.rs
+src/models/list_logs_200_response_logs_inner.rs
+src/models/list_logs_200_response_pagination.rs
 src/models/list_pinterest_boards_for_selection_200_response.rs
 src/models/list_pinterest_boards_for_selection_200_response_boards_inner.rs
 src/models/list_posts_logs_200_response.rs

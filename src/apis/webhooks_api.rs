@@ -167,7 +167,8 @@ pub async fn delete_webhook_settings(
     }
 }
 
-/// Retrieve webhook delivery history. Logs are automatically deleted after 7 days.
+/// **Deprecated.** Use `GET /v1/logs?type=webhooks` instead. Retrieve webhook delivery history. Logs are retained for 90 days.
+#[deprecated]
 pub async fn get_webhook_logs(
     configuration: &configuration::Configuration,
     limit: Option<i32>,

@@ -37,6 +37,9 @@ pub struct SocialAccount {
         skip_serializing_if = "Option::is_none"
     )]
     pub followers_last_updated: Option<String>,
+    /// Ads connection status for this account. - `connected`: Ads are ready to use (same-token platforms like Meta/LinkedIn, or separate ads token is present). - `not_connected`: Platform supports ads but requires a separate ads OAuth. Use `GET /v1/connect/{platform}/ads` to connect. - `not_available`: Platform does not support ads (e.g., YouTube, Reddit, Bluesky).
+    #[serde(rename = "adsStatus", skip_serializing_if = "Option::is_none")]
+    pub ads_status: Option<AdsStatus>,
     /// Platform-specific metadata. Fields vary by platform. For WhatsApp accounts, includes: - `qualityRating`: Phone number quality rating from Meta (`GREEN`, `YELLOW`, `RED`, or `UNKNOWN`) - `nameStatus`: Display name review status (`APPROVED`, `PENDING_REVIEW`, `DECLINED`, or `NONE`). Messages cannot be sent until the display name is approved by Meta. - `messagingLimitTier`: Maximum unique business-initiated conversations per 24h rolling window (`TIER_250`, `TIER_1K`, `TIER_10K`, `TIER_100K`, or `TIER_UNLIMITED`). Scales automatically as quality rating improves. - `verifiedName`: Meta-verified business display name - `displayPhoneNumber`: Formatted phone number (e.g., \"+1 555-123-4567\") - `wabaId`: WhatsApp Business Account ID - `phoneNumberId`: Meta phone number ID
     #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
     pub metadata: Option<serde_json::Value>,
@@ -54,7 +57,24 @@ impl SocialAccount {
             is_active: None,
             followers_count: None,
             followers_last_updated: None,
+            ads_status: None,
             metadata: None,
         }
+    }
+}
+/// Ads connection status for this account. - `connected`: Ads are ready to use (same-token platforms like Meta/LinkedIn, or separate ads token is present). - `not_connected`: Platform supports ads but requires a separate ads OAuth. Use `GET /v1/connect/{platform}/ads` to connect. - `not_available`: Platform does not support ads (e.g., YouTube, Reddit, Bluesky).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum AdsStatus {
+    #[serde(rename = "connected")]
+    Connected,
+    #[serde(rename = "not_connected")]
+    NotConnected,
+    #[serde(rename = "not_available")]
+    NotAvailable,
+}
+
+impl Default for AdsStatus {
+    fn default() -> AdsStatus {
+        Self::Connected
     }
 }

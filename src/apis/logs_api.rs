@@ -31,6 +31,14 @@ pub enum ListConnectionLogsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_logs`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListLogsError {
+    Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_posts_logs`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -95,7 +103,8 @@ pub async fn get_post_logs(
     }
 }
 
-/// Retrieve connection event logs showing account connection and disconnection history. Event types: connect_success, connect_failed, disconnect, reconnect_success, reconnect_failed. Logs are automatically deleted after 7 days.
+/// **Deprecated.** Use `GET /v1/logs?type=connections` instead. Retrieve connection event logs. Logs are retained for 90 days.
+#[deprecated]
 pub async fn list_connection_logs(
     configuration: &configuration::Configuration,
     platform: Option<&str>,
@@ -170,7 +179,93 @@ pub async fn list_connection_logs(
     }
 }
 
-/// Retrieve publishing logs for all posts with detailed information about each publishing attempt. Filter by status, platform, or action. Logs are automatically deleted after 7 days.
+/// Unified logs endpoint. Returns logs for publishing, connections, webhooks, and messaging. Filter by type, platform, status, and time range. Logs are retained for 90 days.
+pub async fn list_logs(
+    configuration: &configuration::Configuration,
+    r#type: Option<&str>,
+    status: Option<&str>,
+    platform: Option<&str>,
+    action: Option<&str>,
+    search: Option<&str>,
+    days: Option<i32>,
+    limit: Option<i32>,
+    skip: Option<i32>,
+) -> Result<models::ListLogs200Response, Error<ListLogsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_type = r#type;
+    let p_query_status = status;
+    let p_query_platform = platform;
+    let p_query_action = action;
+    let p_query_search = search;
+    let p_query_days = days;
+    let p_query_limit = limit;
+    let p_query_skip = skip;
+
+    let uri_str = format!("{}/v1/logs", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_type {
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_status {
+        req_builder = req_builder.query(&[("status", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_platform {
+        req_builder = req_builder.query(&[("platform", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_action {
+        req_builder = req_builder.query(&[("action", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_search {
+        req_builder = req_builder.query(&[("search", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_days {
+        req_builder = req_builder.query(&[("days", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_skip {
+        req_builder = req_builder.query(&[("skip", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListLogs200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListLogs200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListLogsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// **Deprecated.** Use `GET /v1/logs?type=publishing` instead. Retrieve publishing logs for all posts. Logs are retained for 90 days.
+#[deprecated]
 pub async fn list_posts_logs(
     configuration: &configuration::Configuration,
     status: Option<&str>,

@@ -23,6 +23,17 @@ pub enum CompleteTelegramConnectError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`connect_ads`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ConnectAdsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`connect_bluesky_credentials`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -374,6 +385,75 @@ pub async fn complete_telegram_connect(
     } else {
         let content = resp.text().await?;
         let entity: Option<CompleteTelegramConnectError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Unified ads connection endpoint. Handles all platforms through a single route:  **Same-token platforms** (facebook, instagram, linkedin): If a posting account already exists, returns `alreadyConnected: true` immediately (no extra OAuth needed). If not, starts the normal OAuth flow, and the resulting account supports both posting and ads.  **Separate-token platforms** (tiktok, twitter, pinterest): Requires an existing posting account (`accountId` param). If ads are already connected, returns `alreadyConnected: true`. Otherwise, starts the platform-specific marketing API OAuth flow.  **Ads-only platforms** (googleads): If a Google Ads account exists, returns `alreadyConnected: true`. Otherwise, starts the Google Ads OAuth flow.  Use the `adsStatus` field from `GET /v1/accounts` to check which accounts need ads connection.
+pub async fn connect_ads(
+    configuration: &configuration::Configuration,
+    platform: &str,
+    profile_id: &str,
+    account_id: Option<&str>,
+    redirect_url: Option<&str>,
+    headless: Option<bool>,
+) -> Result<models::ConnectAds200Response, Error<ConnectAdsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_platform = platform;
+    let p_query_profile_id = profile_id;
+    let p_query_account_id = account_id;
+    let p_query_redirect_url = redirect_url;
+    let p_query_headless = headless;
+
+    let uri_str = format!(
+        "{}/v1/connect/{platform}/ads",
+        configuration.base_path,
+        platform = crate::apis::urlencode(p_path_platform)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("profileId", &p_query_profile_id.to_string())]);
+    if let Some(ref param_value) = p_query_account_id {
+        req_builder = req_builder.query(&[("accountId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_redirect_url {
+        req_builder = req_builder.query(&[("redirect_url", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_headless {
+        req_builder = req_builder.query(&[("headless", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ConnectAds200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ConnectAds200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ConnectAdsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

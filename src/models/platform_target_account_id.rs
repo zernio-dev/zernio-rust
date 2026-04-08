@@ -23,3 +23,19 @@ impl Default for PlatformTargetAccountId {
         Self::String(Default::default())
     }
 }
+/// Ads connection status for this account. - `connected`: Ads are ready to use (same-token platforms like Meta/LinkedIn, or separate ads token is present). - `not_connected`: Platform supports ads but requires a separate ads OAuth. Use `GET /v1/connect/{platform}/ads` to connect. - `not_available`: Platform does not support ads (e.g., YouTube, Reddit, Bluesky).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum AdsStatus {
+    #[serde(rename = "connected")]
+    Connected,
+    #[serde(rename = "not_connected")]
+    NotConnected,
+    #[serde(rename = "not_available")]
+    NotAvailable,
+}
+
+impl Default for AdsStatus {
+    fn default() -> AdsStatus {
+        Self::Connected
+    }
+}
