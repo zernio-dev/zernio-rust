@@ -17,7 +17,7 @@ pub struct ThreadsPlatformData {
     /// Topic tag for post categorization and discoverability on Threads. Must be 1-50 characters, cannot contain periods (.) or ampersands (&). Overrides auto-extraction from content hashtags when provided.
     #[serde(rename = "topic_tag", skip_serializing_if = "Option::is_none")]
     pub topic_tag: Option<String>,
-    /// Sequence of posts in a Threads thread (root then replies in order).
+    /// Complete sequence of posts in a Threads thread. The first item becomes the root post, subsequent items are chained as replies. When threadItems is provided, the top-level content field is used only for display and search purposes, it is NOT published. You must include your first post as threadItems[0].
     #[serde(rename = "threadItems", skip_serializing_if = "Option::is_none")]
     pub thread_items: Option<Vec<models::TwitterPlatformDataThreadItemsInner>>,
 }
