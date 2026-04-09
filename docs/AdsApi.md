@@ -12,7 +12,6 @@ Method | HTTP request | Description
 [**list_ad_accounts**](AdsApi.md#list_ad_accounts) | **GET** /v1/ads/accounts | List ad accounts for a social account
 [**list_ads**](AdsApi.md#list_ads) | **GET** /v1/ads | List ads
 [**search_ad_interests**](AdsApi.md#search_ad_interests) | **GET** /v1/ads/interests | Search targeting interests
-[**sync_external_ads**](AdsApi.md#sync_external_ads) | **POST** /v1/ads/sync | Sync external ads from platform ad managers
 [**update_ad**](AdsApi.md#update_ad) | **PUT** /v1/ads/{adId} | Update ad (pause/resume, budget, targeting, name)
 
 
@@ -137,10 +136,10 @@ Name | Type | Description  | Required | Notes
 
 ## get_ad_analytics
 
-> models::GetAdAnalytics200Response get_ad_analytics(ad_id, breakdowns)
+> models::GetAdAnalytics200Response get_ad_analytics(ad_id, from_date, to_date, breakdowns)
 Get ad analytics with daily breakdown
 
-Returns real-time analytics from the platform API (not cached). Includes summary metrics, daily breakdown, and optional demographic breakdowns (Meta and TikTok only). 
+Returns detailed performance analytics for an ad. Includes summary metrics, a daily timeline over the requested date range, and optional demographic breakdowns (Meta and TikTok only). If no date range is provided, defaults to the last 90 days. Date range is capped at 90 days max. 
 
 ### Parameters
 
@@ -148,6 +147,8 @@ Returns real-time analytics from the platform API (not cached). Includes summary
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **ad_id** | **String** |  | [required] |
+**from_date** | Option<**String**> | Start of date range (YYYY-MM-DD). Defaults to 90 days ago. |  |
+**to_date** | Option<**String**> | End of date range (YYYY-MM-DD). Defaults to today. Max 90-day range. |  |
 **breakdowns** | Option<**String**> | Comma-separated breakdown dimensions. Meta: age, gender, country, publisher_platform, device_platform, region. TikTok: gender, age, country_code, platform, ac, language. |  |
 
 ### Return type
@@ -198,10 +199,10 @@ Name | Type | Description  | Required | Notes
 
 ## list_ads
 
-> models::ListAds200Response list_ads(page, limit, source, status, platform, account_id, profile_id, campaign_id)
+> models::ListAds200Response list_ads(page, limit, source, status, platform, account_id, profile_id, campaign_id, from_date, to_date)
 List ads
 
-Returns a paginated list of ads with cached metrics. Use `source=all` to include externally-synced ads from platform ad managers.
+Returns a paginated list of ads with metrics computed over an optional date range. Use `source=all` to include externally-synced ads from platform ad managers. If no date range is provided, defaults to the last 90 days. Date range is capped at 90 days max. 
 
 ### Parameters
 
@@ -216,6 +217,8 @@ Name | Type | Description  | Required | Notes
 **account_id** | Option<**String**> | Social account ID |  |
 **profile_id** | Option<**String**> | Profile ID |  |
 **campaign_id** | Option<**String**> | Platform campaign ID (filter ads within a campaign) |  |
+**from_date** | Option<**String**> | Start of metrics date range (YYYY-MM-DD). Defaults to 90 days ago. |  |
+**to_date** | Option<**String**> | End of metrics date range (YYYY-MM-DD). Defaults to today. Max 90-day range. |  |
 
 ### Return type
 
@@ -251,33 +254,6 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::SearchAdInterests200Response**](searchAdInterests_200_response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## sync_external_ads
-
-> models::SyncExternalAds200Response sync_external_ads()
-Sync external ads from platform ad managers
-
-Discovers and imports ads created outside Zernio (e.g. in Meta Ads Manager, Google Ads). Upserts new ads and updates metrics/status for existing ones. Also runs automatically every 30 minutes.
-
-### Parameters
-
-This endpoint does not need any parameter.
-
-### Return type
-
-[**models::SyncExternalAds200Response**](syncExternalAds_200_response.md)
 
 ### Authorization
 

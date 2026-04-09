@@ -90,15 +90,6 @@ pub enum SearchAdInterestsError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`sync_external_ads`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum SyncExternalAdsError {
-    Status401(models::InlineObject),
-    Status403(),
-    UnknownValue(serde_json::Value),
-}
-
 /// struct for typed errors of method [`update_ad`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -312,14 +303,18 @@ pub async fn get_ad(
     }
 }
 
-/// Returns real-time analytics from the platform API (not cached). Includes summary metrics, daily breakdown, and optional demographic breakdowns (Meta and TikTok only).
+/// Returns detailed performance analytics for an ad. Includes summary metrics, a daily timeline over the requested date range, and optional demographic breakdowns (Meta and TikTok only). If no date range is provided, defaults to the last 90 days. Date range is capped at 90 days max.
 pub async fn get_ad_analytics(
     configuration: &configuration::Configuration,
     ad_id: &str,
+    from_date: Option<String>,
+    to_date: Option<String>,
     breakdowns: Option<&str>,
 ) -> Result<models::GetAdAnalytics200Response, Error<GetAdAnalyticsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_ad_id = ad_id;
+    let p_query_from_date = from_date;
+    let p_query_to_date = to_date;
     let p_query_breakdowns = breakdowns;
 
     let uri_str = format!(
@@ -329,6 +324,12 @@ pub async fn get_ad_analytics(
     );
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+    if let Some(ref param_value) = p_query_from_date {
+        req_builder = req_builder.query(&[("fromDate", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_to_date {
+        req_builder = req_builder.query(&[("toDate", &param_value.to_string())]);
+    }
     if let Some(ref param_value) = p_query_breakdowns {
         req_builder = req_builder.query(&[("breakdowns", &param_value.to_string())]);
     }
@@ -416,7 +417,7 @@ pub async fn list_ad_accounts(
     }
 }
 
-/// Returns a paginated list of ads with cached metrics. Use `source=all` to include externally-synced ads from platform ad managers.
+/// Returns a paginated list of ads with metrics computed over an optional date range. Use `source=all` to include externally-synced ads from platform ad managers. If no date range is provided, defaults to the last 90 days. Date range is capped at 90 days max.
 pub async fn list_ads(
     configuration: &configuration::Configuration,
     page: Option<i32>,
@@ -427,6 +428,8 @@ pub async fn list_ads(
     account_id: Option<&str>,
     profile_id: Option<&str>,
     campaign_id: Option<&str>,
+    from_date: Option<String>,
+    to_date: Option<String>,
 ) -> Result<models::ListAds200Response, Error<ListAdsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_page = page;
@@ -437,6 +440,8 @@ pub async fn list_ads(
     let p_query_account_id = account_id;
     let p_query_profile_id = profile_id;
     let p_query_campaign_id = campaign_id;
+    let p_query_from_date = from_date;
+    let p_query_to_date = to_date;
 
     let uri_str = format!("{}/v1/ads", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -464,6 +469,12 @@ pub async fn list_ads(
     }
     if let Some(ref param_value) = p_query_campaign_id {
         req_builder = req_builder.query(&[("campaignId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_from_date {
+        req_builder = req_builder.query(&[("fromDate", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_to_date {
+        req_builder = req_builder.query(&[("toDate", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
@@ -544,51 +555,6 @@ pub async fn search_ad_interests(
     } else {
         let content = resp.text().await?;
         let entity: Option<SearchAdInterestsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
-/// Discovers and imports ads created outside Zernio (e.g. in Meta Ads Manager, Google Ads). Upserts new ads and updates metrics/status for existing ones. Also runs automatically every 30 minutes.
-pub async fn sync_external_ads(
-    configuration: &configuration::Configuration,
-) -> Result<models::SyncExternalAds200Response, Error<SyncExternalAdsError>> {
-    let uri_str = format!("{}/v1/ads/sync", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SyncExternalAds200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SyncExternalAds200Response`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<SyncExternalAdsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

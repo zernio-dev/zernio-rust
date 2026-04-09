@@ -1180,8 +1180,6 @@ pub mod social_account;
 pub use self::social_account::SocialAccount;
 pub mod social_account_profile_id;
 pub use self::social_account_profile_id::SocialAccountProfileId;
-pub mod sync_external_ads_200_response;
-pub use self::sync_external_ads_200_response::SyncExternalAds200Response;
 pub mod telegram_platform_data;
 pub use self::telegram_platform_data::TelegramPlatformData;
 pub mod test_webhook_request;
