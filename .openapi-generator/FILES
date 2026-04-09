@@ -164,6 +164,7 @@ docs/DeleteInboxReviewReply200Response.md
 docs/DeleteInboxReviewReplyRequest.md
 docs/DeleteQueueSlot200Response.md
 docs/DeleteWhatsAppGroupRequest.md
+docs/DisconnectAdsRequest.md
 docs/EditInboxMessage200Response.md
 docs/EditInboxMessage200ResponseData.md
 docs/EditInboxMessageRequest.md
@@ -986,6 +987,7 @@ src/models/delete_inbox_review_reply_200_response.rs
 src/models/delete_inbox_review_reply_request.rs
 src/models/delete_queue_slot_200_response.rs
 src/models/delete_whats_app_group_request.rs
+src/models/disconnect_ads_request.rs
 src/models/edit_inbox_message_200_response.rs
 src/models/edit_inbox_message_200_response_data.rs
 src/models/edit_inbox_message_request.rs

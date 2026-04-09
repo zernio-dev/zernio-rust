@@ -294,6 +294,8 @@ pub mod delete_queue_slot_200_response;
 pub use self::delete_queue_slot_200_response::DeleteQueueSlot200Response;
 pub mod delete_whats_app_group_request;
 pub use self::delete_whats_app_group_request::DeleteWhatsAppGroupRequest;
+pub mod disconnect_ads_request;
+pub use self::disconnect_ads_request::DisconnectAdsRequest;
 pub mod edit_inbox_message_200_response;
 pub use self::edit_inbox_message_200_response::EditInboxMessage200Response;
 pub mod edit_inbox_message_200_response_data;

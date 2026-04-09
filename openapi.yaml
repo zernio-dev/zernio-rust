@@ -6514,6 +6514,55 @@ paths:
                 message: "Account disconnected successfully"
         '401': { $ref: '#/components/responses/Unauthorized' }
         '404': { $ref: '#/components/responses/NotFound' }
+  /v1/accounts/{accountId}/disconnect-ads:
+    post:
+      operationId: disconnectAds
+      tags: [Accounts]
+      summary: Disconnect ads from an account
+      description: |
+        Disconnects ads from a social account without removing the posting connection.
+
+        **Same-token platforms** (metaads, linkedinads, pinterestads): Sets an `adsOptOut` flag. The posting account and OAuth token are preserved. Reconnecting ads clears the flag.
+
+        **Separate-token platforms** (tiktokads, xads): Clears the ads-specific metadata (marketing API tokens). The posting account stays intact.
+
+        **Standalone platforms** (googleads): Do not use this endpoint. Use `DELETE /v1/accounts/{accountId}` instead, since Google Ads accounts are standalone.
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema: { type: string }
+          description: The SocialAccount ID (parent posting account for same-token/separate-token platforms)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [adsPlatform]
+              properties:
+                adsPlatform:
+                  type: string
+                  enum: [metaads, linkedinads, pinterestads, tiktokads, xads]
+                  description: The ads platform to disconnect
+            example:
+              adsPlatform: "tiktokads"
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Ads disconnected
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: { type: string }
+              example:
+                message: "tiktokads disconnected successfully"
+        '400': { description: Invalid ads platform }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
   /v1/accounts/health:
     get:
       operationId: getAllAccountsHealth
@@ -7085,9 +7134,9 @@ paths:
       description: |
         Unified ads connection endpoint. Handles all platforms through a single route:
 
-        **Same-token platforms** (facebook, instagram, linkedin): If a posting account already exists, returns `alreadyConnected: true` immediately (no extra OAuth needed). If not, starts the normal OAuth flow, and the resulting account supports both posting and ads.
+        **Same-token platforms** (facebook, instagram, linkedin, pinterest): If a posting account already exists, returns `alreadyConnected: true` immediately (no extra OAuth needed). If not, starts the normal OAuth flow, and the resulting account supports both posting and ads.
 
-        **Separate-token platforms** (tiktok, twitter, pinterest): Requires an existing posting account (`accountId` param). If ads are already connected, returns `alreadyConnected: true`. Otherwise, starts the platform-specific marketing API OAuth flow.
+        **Separate-token platforms** (tiktok, twitter): Requires an existing posting account (`accountId` param). If ads are already connected, returns `alreadyConnected: true`. Otherwise, starts the platform-specific marketing API OAuth flow.
 
         **Ads-only platforms** (googleads): If a Google Ads account exists, returns `alreadyConnected: true`. Otherwise, starts the Google Ads OAuth flow.
 
@@ -7108,7 +7157,7 @@ paths:
         - name: accountId
           in: query
           schema: { type: string }
-          description: Existing SocialAccount ID. Required for separate-token platforms (tiktok, twitter, pinterest). Ignored for same-token and ads-only platforms.
+          description: Existing SocialAccount ID. Required for separate-token platforms (tiktok, twitter). Ignored for same-token and ads-only platforms.
         - name: redirect_url
           in: query
           schema: { type: string, format: uri }
