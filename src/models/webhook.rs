@@ -80,6 +80,8 @@ pub enum Events {
     AccountDisconnected,
     #[serde(rename = "message.received")]
     MessageReceived,
+    #[serde(rename = "message.sent")]
+    MessageSent,
     #[serde(rename = "comment.received")]
     CommentReceived,
 }
