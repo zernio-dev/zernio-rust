@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **request_payload** | Option<**serde_json::Value**> | Payload sent to webhook endpoint | [optional]
 **response_body** | Option<**String**> | Response body from webhook endpoint (truncated to 10KB) | [optional]
 **error_message** | Option<**String**> | Error message if delivery failed | [optional]
-**attempt_number** | Option<**i32**> | Delivery attempt number (max 3 retries) | [optional]
+**attempt_number** | Option<**i32**> | Delivery attempt number (max 7 attempts) | [optional]
 **response_time** | Option<**i32**> | Response time in milliseconds | [optional]
 **created_at** | Option<**String**> |  | [optional]
 

@@ -40,7 +40,7 @@ pub struct WebhookLog {
     /// Error message if delivery failed
     #[serde(rename = "errorMessage", skip_serializing_if = "Option::is_none")]
     pub error_message: Option<String>,
-    /// Delivery attempt number (max 3 retries)
+    /// Delivery attempt number (max 7 attempts)
     #[serde(rename = "attemptNumber", skip_serializing_if = "Option::is_none")]
     pub attempt_number: Option<i32>,
     /// Response time in milliseconds
