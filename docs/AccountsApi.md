@@ -50,15 +50,15 @@ Name | Type | Description  | Required | Notes
 > models::DeleteAccountGroup200Response disconnect_ads(account_id, disconnect_ads_request)
 Disconnect ads from an account
 
-Disconnects ads from a social account without removing the posting connection.  **Same-token platforms** (metaads, linkedinads, pinterestads): Sets an `adsOptOut` flag. The posting account and OAuth token are preserved. Reconnecting ads clears the flag.  **Separate-token platforms** (tiktokads, xads): Clears the ads-specific metadata (marketing API tokens). The posting account stays intact.  **Standalone platforms** (googleads): Do not use this endpoint. Use `DELETE /v1/accounts/{accountId}` instead, since Google Ads accounts are standalone. 
+**Deprecated.** Ads accounts are now standalone SocialAccount documents. Use `DELETE /v1/accounts/{accountId}` instead, passing the ads account's own ID.  This endpoint is kept for backward compatibility. It soft-deletes the ads SocialAccount identified by `accountId` (which must be an ads account, not a posting account). The parent posting account is left untouched. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | The SocialAccount ID (parent posting account for same-token/separate-token platforms) | [required] |
-**disconnect_ads_request** | [**DisconnectAdsRequest**](DisconnectAdsRequest.md) |  | [required] |
+**account_id** | **String** | The ads SocialAccount ID to disconnect | [required] |
+**disconnect_ads_request** | Option<[**DisconnectAdsRequest**](DisconnectAdsRequest.md)> |  |  |
 
 ### Return type
 

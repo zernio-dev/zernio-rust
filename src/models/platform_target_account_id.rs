@@ -23,7 +23,57 @@ impl Default for PlatformTargetAccountId {
         Self::String(Default::default())
     }
 }
-/// Ads connection status for this account. - `connected`: Ads are ready to use (same-token platforms like Meta/LinkedIn, or separate ads token is present). - `not_connected`: Platform supports ads but requires a separate ads OAuth. Use `GET /v1/connect/{platform}/ads` to connect. - `not_available`: Platform does not support ads (e.g., YouTube, Reddit, Bluesky).
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Platform {
+    #[serde(rename = "tiktok")]
+    Tiktok,
+    #[serde(rename = "instagram")]
+    Instagram,
+    #[serde(rename = "facebook")]
+    Facebook,
+    #[serde(rename = "youtube")]
+    Youtube,
+    #[serde(rename = "linkedin")]
+    Linkedin,
+    #[serde(rename = "twitter")]
+    Twitter,
+    #[serde(rename = "threads")]
+    Threads,
+    #[serde(rename = "pinterest")]
+    Pinterest,
+    #[serde(rename = "reddit")]
+    Reddit,
+    #[serde(rename = "bluesky")]
+    Bluesky,
+    #[serde(rename = "googlebusiness")]
+    Googlebusiness,
+    #[serde(rename = "telegram")]
+    Telegram,
+    #[serde(rename = "snapchat")]
+    Snapchat,
+    #[serde(rename = "whatsapp")]
+    Whatsapp,
+    #[serde(rename = "linkedinads")]
+    Linkedinads,
+    #[serde(rename = "metaads")]
+    Metaads,
+    #[serde(rename = "pinterestads")]
+    Pinterestads,
+    #[serde(rename = "tiktokads")]
+    Tiktokads,
+    #[serde(rename = "xads")]
+    Xads,
+    #[serde(rename = "googleads")]
+    Googleads,
+}
+
+impl Default for Platform {
+    fn default() -> Platform {
+        Self::Tiktok
+    }
+}
+/// **Deprecated.** With the new ads account model, ads accounts are separate SocialAccount documents. Check for accounts with ads platform values (metaads, linkedinads, pinterestads, tiktokads, xads, googleads) instead.  Legacy behavior: - `connected`: Ads are ready to use (same-token platforms like Meta/LinkedIn, or separate ads token is present). - `not_connected`: Platform supports ads but requires a separate ads OAuth. Use `GET /v1/connect/{platform}/ads` to connect. - `not_available`: Platform does not support ads (e.g., YouTube, Reddit, Bluesky).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum AdsStatus {
     #[serde(rename = "connected")]

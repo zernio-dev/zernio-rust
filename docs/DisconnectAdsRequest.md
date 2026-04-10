@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ads_platform** | **AdsPlatform** | The ads platform to disconnect (enum: metaads, linkedinads, pinterestads, tiktokads, xads) | 
+**ads_platform** | Option<**AdsPlatform**> | The ads platform (optional, used for logging only) (enum: metaads, linkedinads, pinterestads, tiktokads, xads) | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

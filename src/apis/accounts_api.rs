@@ -140,11 +140,12 @@ pub async fn delete_account(
     }
 }
 
-/// Disconnects ads from a social account without removing the posting connection.  **Same-token platforms** (metaads, linkedinads, pinterestads): Sets an `adsOptOut` flag. The posting account and OAuth token are preserved. Reconnecting ads clears the flag.  **Separate-token platforms** (tiktokads, xads): Clears the ads-specific metadata (marketing API tokens). The posting account stays intact.  **Standalone platforms** (googleads): Do not use this endpoint. Use `DELETE /v1/accounts/{accountId}` instead, since Google Ads accounts are standalone.
+/// **Deprecated.** Ads accounts are now standalone SocialAccount documents. Use `DELETE /v1/accounts/{accountId}` instead, passing the ads account's own ID.  This endpoint is kept for backward compatibility. It soft-deletes the ads SocialAccount identified by `accountId` (which must be an ads account, not a posting account). The parent posting account is left untouched.
+#[deprecated]
 pub async fn disconnect_ads(
     configuration: &configuration::Configuration,
     account_id: &str,
-    disconnect_ads_request: models::DisconnectAdsRequest,
+    disconnect_ads_request: Option<models::DisconnectAdsRequest>,
 ) -> Result<models::DeleteAccountGroup200Response, Error<DisconnectAdsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_account_id = account_id;

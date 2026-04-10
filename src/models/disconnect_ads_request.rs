@@ -13,17 +13,17 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DisconnectAdsRequest {
-    /// The ads platform to disconnect
-    #[serde(rename = "adsPlatform")]
-    pub ads_platform: AdsPlatform,
+    /// The ads platform (optional, used for logging only)
+    #[serde(rename = "adsPlatform", skip_serializing_if = "Option::is_none")]
+    pub ads_platform: Option<AdsPlatform>,
 }
 
 impl DisconnectAdsRequest {
-    pub fn new(ads_platform: AdsPlatform) -> DisconnectAdsRequest {
-        DisconnectAdsRequest { ads_platform }
+    pub fn new() -> DisconnectAdsRequest {
+        DisconnectAdsRequest { ads_platform: None }
     }
 }
-/// The ads platform to disconnect
+/// The ads platform (optional, used for logging only)
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum AdsPlatform {
     #[serde(rename = "metaads")]

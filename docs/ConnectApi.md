@@ -74,7 +74,7 @@ Name | Type | Description  | Required | Notes
 > models::ConnectAds200Response connect_ads(platform, profile_id, account_id, redirect_url, headless)
 Connect ads for a platform
 
-Unified ads connection endpoint. Handles all platforms through a single route:  **Same-token platforms** (facebook, instagram, linkedin, pinterest): If a posting account already exists, returns `alreadyConnected: true` immediately (no extra OAuth needed). If not, starts the normal OAuth flow, and the resulting account supports both posting and ads.  **Separate-token platforms** (tiktok, twitter): Requires an existing posting account (`accountId` param). If ads are already connected, returns `alreadyConnected: true`. Otherwise, starts the platform-specific marketing API OAuth flow.  **Ads-only platforms** (googleads): If a Google Ads account exists, returns `alreadyConnected: true`. Otherwise, starts the Google Ads OAuth flow.  Use the `adsStatus` field from `GET /v1/accounts` to check which accounts need ads connection. 
+Unified ads connection endpoint. Creates a dedicated ads SocialAccount for the specified platform.  **Same-token platforms** (facebook, instagram, linkedin, pinterest): Creates an ads SocialAccount (`metaads`, `linkedinads`, `pinterestads`) with a copied OAuth token from the parent posting account. If the ads account already exists, returns `alreadyConnected: true`. No extra OAuth needed.  **Separate-token platforms** (tiktok, twitter): Starts the platform-specific marketing API OAuth flow and creates an ads SocialAccount (`tiktokads`, `xads`) with its own token. Requires an existing posting account (`accountId` param). If the ads account already exists, returns `alreadyConnected: true`.  **Standalone platforms** (googleads): Starts the Google Ads OAuth flow and creates a standalone ads SocialAccount (`googleads`) with no parent. If the account already exists, returns `alreadyConnected: true`.  Ads accounts appear as regular SocialAccount documents with ads platform values (e.g., `metaads`, `tiktokads`) in `GET /v1/accounts`. 
 
 ### Parameters
 
@@ -83,7 +83,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **platform** | **String** | Platform to connect ads for. Only platforms with ads support are accepted. | [required] |
 **profile_id** | **String** | Your Zernio profile ID | [required] |
-**account_id** | Option<**String**> | Existing SocialAccount ID. Required for separate-token platforms (tiktok, twitter). Ignored for same-token and ads-only platforms. |  |
+**account_id** | Option<**String**> | Existing SocialAccount ID. Required for separate-token platforms (tiktok, twitter). Ignored for same-token and standalone platforms. |  |
 **redirect_url** | Option<**String**> | Custom redirect URL after OAuth completes (same-token platforms only) |  |
 **headless** | Option<**bool**> | Enable headless mode (same-token platforms only) |  |[default to false]
 
