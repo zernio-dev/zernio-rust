@@ -22,8 +22,8 @@ pub struct SelectFacebookPageRequest {
     /// Temporary Facebook access token from OAuth
     #[serde(rename = "tempToken")]
     pub temp_token: String,
-    #[serde(rename = "userProfile", skip_serializing_if = "Option::is_none")]
-    pub user_profile: Option<Box<models::SelectFacebookPageRequestUserProfile>>,
+    #[serde(rename = "userProfile")]
+    pub user_profile: Box<models::SelectFacebookPageRequestUserProfile>,
     /// Optional custom redirect URL to return to after selection
     #[serde(rename = "redirect_url", skip_serializing_if = "Option::is_none")]
     pub redirect_url: Option<String>,
@@ -34,12 +34,13 @@ impl SelectFacebookPageRequest {
         profile_id: String,
         page_id: String,
         temp_token: String,
+        user_profile: models::SelectFacebookPageRequestUserProfile,
     ) -> SelectFacebookPageRequest {
         SelectFacebookPageRequest {
             profile_id,
             page_id,
             temp_token,
-            user_profile: None,
+            user_profile: Box::new(user_profile),
             redirect_url: None,
         }
     }
