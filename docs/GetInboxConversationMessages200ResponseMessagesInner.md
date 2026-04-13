@@ -18,6 +18,17 @@ Name | Type | Description | Notes
 **subject** | Option<**String**> | Reddit message subject | [optional]
 **story_reply** | Option<**bool**> | Instagram story reply | [optional]
 **is_story_mention** | Option<**bool**> | Instagram story mention | [optional]
+**is_edited** | Option<**bool**> | True if the sender has edited this message at least once. | [optional]
+**edited_at** | Option<**String**> | When the most recent edit happened. | [optional]
+**edit_count** | Option<**i32**> | Total number of edits applied. | [optional]
+**edit_history** | Option<[**Vec<models::GetInboxConversationMessages200ResponseMessagesInnerEditHistoryInner>**](GetInboxConversationMessages200ResponseMessagesInnerEditHistoryInner.md)> | Every prior version of the message, oldest first. | [optional]
+**is_deleted** | Option<**bool**> | True if the sender has deleted (unsent) this message. The original `message` and `attachments` fields remain populated. | [optional]
+**deleted_at** | Option<**String**> |  | [optional]
+**delivery_status** | Option<**DeliveryStatus**> | Lifecycle status for outgoing messages. Not all platforms emit every state (see webhook support matrix). (enum: sent, delivered, read, failed, deleted) | [optional]
+**delivered_at** | Option<**String**> |  | [optional]
+**read_at** | Option<**String**> |  | [optional]
+**sent_at** | Option<**String**> | Original send time for outgoing messages (used for Messenger watermark queries). | [optional]
+**delivery_error** | Option<[**models::GetInboxConversationMessages200ResponseMessagesInnerDeliveryError**](GetInboxConversationMessages200ResponseMessagesInnerDeliveryError.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

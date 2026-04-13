@@ -2,6 +2,7 @@
 .travis.yml
 Cargo.toml
 README.md
+docs/Account.md
 docs/AccountGetResponse.md
 docs/AccountGroupsApi.md
 docs/AccountSettingsApi.md
@@ -84,6 +85,7 @@ docs/ConnectionLogContext.md
 docs/ConnectionLogError.md
 docs/ConnectionLogSuccess.md
 docs/ContactsApi.md
+docs/Conversation.md
 docs/CreateAccountGroup201Response.md
 docs/CreateAccountGroupRequest.md
 docs/CreateAdAudience201Response.md
@@ -270,6 +272,9 @@ docs/GetInboxConversation200ResponseData.md
 docs/GetInboxConversationMessages200Response.md
 docs/GetInboxConversationMessages200ResponseMessagesInner.md
 docs/GetInboxConversationMessages200ResponseMessagesInnerAttachmentsInner.md
+docs/GetInboxConversationMessages200ResponseMessagesInnerDeliveryError.md
+docs/GetInboxConversationMessages200ResponseMessagesInnerEditHistoryInner.md
+docs/GetInboxConversationMessages200ResponseMessagesInnerEditHistoryInnerAttachmentsInner.md
 docs/GetInboxPostComments200Response.md
 docs/GetInboxPostComments200ResponseCommentsInner.md
 docs/GetInboxPostComments200ResponseCommentsInnerFrom.md
@@ -493,6 +498,7 @@ docs/LogsApi.md
 docs/MediaApi.md
 docs/MediaItem.md
 docs/MediaUploadResponse.md
+docs/Message.md
 docs/MessagesApi.md
 docs/Money.md
 docs/Pagination.md
@@ -764,6 +770,11 @@ docs/WebhookPayloadCommentPost.md
 docs/WebhookPayloadMessage.md
 docs/WebhookPayloadMessageAccount.md
 docs/WebhookPayloadMessageConversation.md
+docs/WebhookPayloadMessageDeleted.md
+docs/WebhookPayloadMessageDeliveryStatus.md
+docs/WebhookPayloadMessageDeliveryStatusError.md
+docs/WebhookPayloadMessageEdited.md
+docs/WebhookPayloadMessageEditedEditHistoryInner.md
 docs/WebhookPayloadMessageMessage.md
 docs/WebhookPayloadMessageMessageAttachmentsInner.md
 docs/WebhookPayloadMessageMessageSender.md
@@ -842,6 +853,7 @@ src/apis/whats_app_api.rs
 src/apis/whats_app_flows_api.rs
 src/apis/whats_app_phone_numbers_api.rs
 src/lib.rs
+src/models/account.rs
 src/models/account_get_response.rs
 src/models/account_with_follower_stats.rs
 src/models/account_with_follower_stats_all_of_account_stats.rs
@@ -911,6 +923,7 @@ src/models/connection_log.rs
 src/models/connection_log_context.rs
 src/models/connection_log_error.rs
 src/models/connection_log_success.rs
+src/models/conversation.rs
 src/models/create_account_group_201_response.rs
 src/models/create_account_group_request.rs
 src/models/create_ad_audience_201_response.rs
@@ -1096,6 +1109,9 @@ src/models/get_inbox_conversation_200_response_data.rs
 src/models/get_inbox_conversation_messages_200_response.rs
 src/models/get_inbox_conversation_messages_200_response_messages_inner.rs
 src/models/get_inbox_conversation_messages_200_response_messages_inner_attachments_inner.rs
+src/models/get_inbox_conversation_messages_200_response_messages_inner_delivery_error.rs
+src/models/get_inbox_conversation_messages_200_response_messages_inner_edit_history_inner.rs
+src/models/get_inbox_conversation_messages_200_response_messages_inner_edit_history_inner_attachments_inner.rs
 src/models/get_inbox_post_comments_200_response.rs
 src/models/get_inbox_post_comments_200_response_comments_inner.rs
 src/models/get_inbox_post_comments_200_response_comments_inner_from.rs
@@ -1309,6 +1325,7 @@ src/models/list_whats_app_group_join_requests_200_response.rs
 src/models/list_whats_app_group_join_requests_200_response_join_requests_inner.rs
 src/models/media_item.rs
 src/models/media_upload_response.rs
+src/models/message.rs
 src/models/mod.rs
 src/models/money.rs
 src/models/pagination.rs
@@ -1569,6 +1586,11 @@ src/models/webhook_payload_comment_post.rs
 src/models/webhook_payload_message.rs
 src/models/webhook_payload_message_account.rs
 src/models/webhook_payload_message_conversation.rs
+src/models/webhook_payload_message_deleted.rs
+src/models/webhook_payload_message_delivery_status.rs
+src/models/webhook_payload_message_delivery_status_error.rs
+src/models/webhook_payload_message_edited.rs
+src/models/webhook_payload_message_edited_edit_history_inner.rs
 src/models/webhook_payload_message_message.rs
 src/models/webhook_payload_message_message_attachments_inner.rs
 src/models/webhook_payload_message_message_sender.rs

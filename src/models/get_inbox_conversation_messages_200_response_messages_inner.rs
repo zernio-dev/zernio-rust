@@ -46,6 +46,37 @@ pub struct GetInboxConversationMessages200ResponseMessagesInner {
     /// Instagram story mention
     #[serde(rename = "isStoryMention", skip_serializing_if = "Option::is_none")]
     pub is_story_mention: Option<bool>,
+    /// True if the sender has edited this message at least once.
+    #[serde(rename = "isEdited", skip_serializing_if = "Option::is_none")]
+    pub is_edited: Option<bool>,
+    /// When the most recent edit happened.
+    #[serde(rename = "editedAt", skip_serializing_if = "Option::is_none")]
+    pub edited_at: Option<String>,
+    /// Total number of edits applied.
+    #[serde(rename = "editCount", skip_serializing_if = "Option::is_none")]
+    pub edit_count: Option<i32>,
+    /// Every prior version of the message, oldest first.
+    #[serde(rename = "editHistory", skip_serializing_if = "Option::is_none")]
+    pub edit_history:
+        Option<Vec<models::GetInboxConversationMessages200ResponseMessagesInnerEditHistoryInner>>,
+    /// True if the sender has deleted (unsent) this message. The original `message` and `attachments` fields remain populated.
+    #[serde(rename = "isDeleted", skip_serializing_if = "Option::is_none")]
+    pub is_deleted: Option<bool>,
+    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
+    pub deleted_at: Option<String>,
+    /// Lifecycle status for outgoing messages. Not all platforms emit every state (see webhook support matrix).
+    #[serde(rename = "deliveryStatus", skip_serializing_if = "Option::is_none")]
+    pub delivery_status: Option<DeliveryStatus>,
+    #[serde(rename = "deliveredAt", skip_serializing_if = "Option::is_none")]
+    pub delivered_at: Option<String>,
+    #[serde(rename = "readAt", skip_serializing_if = "Option::is_none")]
+    pub read_at: Option<String>,
+    /// Original send time for outgoing messages (used for Messenger watermark queries).
+    #[serde(rename = "sentAt", skip_serializing_if = "Option::is_none")]
+    pub sent_at: Option<String>,
+    #[serde(rename = "deliveryError", skip_serializing_if = "Option::is_none")]
+    pub delivery_error:
+        Option<Box<models::GetInboxConversationMessages200ResponseMessagesInnerDeliveryError>>,
 }
 
 impl GetInboxConversationMessages200ResponseMessagesInner {
@@ -65,6 +96,17 @@ impl GetInboxConversationMessages200ResponseMessagesInner {
             subject: None,
             story_reply: None,
             is_story_mention: None,
+            is_edited: None,
+            edited_at: None,
+            edit_count: None,
+            edit_history: None,
+            is_deleted: None,
+            deleted_at: None,
+            delivery_status: None,
+            delivered_at: None,
+            read_at: None,
+            sent_at: None,
+            delivery_error: None,
         }
     }
 }
@@ -98,5 +140,25 @@ pub enum Direction {
 impl Default for Direction {
     fn default() -> Direction {
         Self::Incoming
+    }
+}
+/// Lifecycle status for outgoing messages. Not all platforms emit every state (see webhook support matrix).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum DeliveryStatus {
+    #[serde(rename = "sent")]
+    Sent,
+    #[serde(rename = "delivered")]
+    Delivered,
+    #[serde(rename = "read")]
+    Read,
+    #[serde(rename = "failed")]
+    Failed,
+    #[serde(rename = "deleted")]
+    Deleted,
+}
+
+impl Default for DeliveryStatus {
+    fn default() -> DeliveryStatus {
+        Self::Sent
     }
 }
