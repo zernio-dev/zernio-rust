@@ -20,6 +20,15 @@ pub struct AdCreative {
     /// Alternative image URL
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
+    /// Meta video ID for VIDEO-type ads. Null for non-video ads. Callers that need an embeddable MP4 can call GET /{videoId}?fields=source with the page access token.
+    #[serde(rename = "videoId", skip_serializing_if = "Option::is_none")]
+    pub video_id: Option<String>,
+    /// Public Facebook watch URL for VIDEO-type ads (https://www.facebook.com/watch/?v={videoId}). Null for non-video ads.
+    #[serde(rename = "videoUrl", skip_serializing_if = "Option::is_none")]
+    pub video_url: Option<String>,
+    /// Meta creative object_type (e.g. SHARE, VIDEO, PRIVACY_CHECK_FAIL, POST_DELETED). Use this to render state-aware previews — when Meta moderation strips image/video fields, only thumbnailUrl at 64x64 is available.
+    #[serde(rename = "objectType", skip_serializing_if = "Option::is_none")]
+    pub object_type: Option<String>,
     /// All media URLs for this ad (carousel images, multiple assets). Populated for Meta (carousel child_attachments), Google Ads (responsive display marketing_images), and LinkedIn (multi-image posts).
     #[serde(rename = "mediaUrls", skip_serializing_if = "Option::is_none")]
     pub media_urls: Option<Vec<String>>,
@@ -52,6 +61,9 @@ impl AdCreative {
         AdCreative {
             thumbnail_url: None,
             image_url: None,
+            video_id: None,
+            video_url: None,
+            object_type: None,
             media_urls: None,
             body: None,
             google_headline: None,
