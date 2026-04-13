@@ -36,6 +36,41 @@ pub enum OnCommentReceivedError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`on_message_deleted`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnMessageDeletedError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`on_message_delivered`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnMessageDeliveredError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`on_message_edited`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnMessageEditedError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`on_message_failed`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnMessageFailedError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`on_message_read`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnMessageReadError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`on_message_received`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -186,6 +221,156 @@ pub async fn on_comment_received(configuration: &configuration::Configuration, w
     } else {
         let content = resp.text().await?;
         let entity: Option<OnCommentReceivedError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when a sender deletes (unsends) a message. Supported on Instagram (incoming unsend) and WhatsApp (when the business deletes an outgoing message via the Cloud API). The payload retains the pre-delete `text` and `attachments` so API consumers can access the original content for moderation or compliance — the Zernio dashboard UI hides it. 
+pub async fn on_message_deleted(configuration: &configuration::Configuration, webhook_payload_message_deleted: models::WebhookPayloadMessageDeleted) -> Result<(), Error<OnMessageDeletedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_payload_message_deleted = webhook_payload_message_deleted;
+
+    let uri_str = format!("{}/message.deleted", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_payload_message_deleted);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnMessageDeletedError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when an outgoing message is delivered to the recipient. Supported on WhatsApp and Facebook Messenger. 
+pub async fn on_message_delivered(configuration: &configuration::Configuration, webhook_payload_message_delivery_status: models::WebhookPayloadMessageDeliveryStatus) -> Result<(), Error<OnMessageDeliveredError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_payload_message_delivery_status = webhook_payload_message_delivery_status;
+
+    let uri_str = format!("{}/message.delivered", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_payload_message_delivery_status);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnMessageDeliveredError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when a sender edits a previously-sent message. Supported on Instagram, Facebook Messenger, and Telegram. The payload includes the full `editHistory` so consumers can show prior versions. 
+pub async fn on_message_edited(configuration: &configuration::Configuration, webhook_payload_message_edited: models::WebhookPayloadMessageEdited) -> Result<(), Error<OnMessageEditedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_payload_message_edited = webhook_payload_message_edited;
+
+    let uri_str = format!("{}/message.edited", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_payload_message_edited);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnMessageEditedError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when an outgoing message fails to deliver. Currently only emitted for WhatsApp (other platforms don't expose per-message failure via webhook). The payload `error` object contains `code`, `title`, and `message` from the platform. 
+pub async fn on_message_failed(configuration: &configuration::Configuration, webhook_payload_message_delivery_status: models::WebhookPayloadMessageDeliveryStatus) -> Result<(), Error<OnMessageFailedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_payload_message_delivery_status = webhook_payload_message_delivery_status;
+
+    let uri_str = format!("{}/message.failed", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_payload_message_delivery_status);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnMessageFailedError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when an outgoing message is read by the recipient. Supported on WhatsApp, Facebook Messenger, and Instagram. 
+pub async fn on_message_read(configuration: &configuration::Configuration, webhook_payload_message_delivery_status: models::WebhookPayloadMessageDeliveryStatus) -> Result<(), Error<OnMessageReadError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_payload_message_delivery_status = webhook_payload_message_delivery_status;
+
+    let uri_str = format!("{}/message.read", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_payload_message_delivery_status);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnMessageReadError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
