@@ -199,7 +199,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_ads
 
-> models::ListAds200Response list_ads(page, limit, source, status, platform, account_id, profile_id, campaign_id, from_date, to_date)
+> models::ListAds200Response list_ads(page, limit, source, status, platform, account_id, ad_account_id, profile_id, campaign_id, from_date, to_date)
 List ads
 
 Returns a paginated list of ads with metrics computed over an optional date range. Use `source=all` to include externally-synced ads from platform ad managers. If no date range is provided, defaults to the last 90 days. Date range is capped at 90 days max. 
@@ -215,6 +215,7 @@ Name | Type | Description  | Required | Notes
 **status** | Option<**String**> |  |  |
 **platform** | Option<**String**> |  |  |
 **account_id** | Option<**String**> | Social account ID |  |
+**ad_account_id** | Option<**String**> | Platform ad account ID (e.g. act_123 for Meta). Mirrors the same filter on /v1/ads/campaigns and /v1/ads/tree. |  |
 **profile_id** | Option<**String**> | Profile ID |  |
 **campaign_id** | Option<**String**> | Platform campaign ID (filter ads within a campaign) |  |
 **from_date** | Option<**String**> | Start of metrics date range (YYYY-MM-DD). Defaults to 90 days ago. |  |
