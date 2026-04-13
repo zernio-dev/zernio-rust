@@ -19,13 +19,13 @@ pub struct WebhookPayloadMessageDeleted {
     #[serde(rename = "event")]
     pub event: Event,
     #[serde(rename = "message")]
-    pub message: Box<models::WebhookPayloadMessageMessage>,
+    pub message: Box<models::InboxWebhookMessage>,
     #[serde(rename = "deletedAt")]
     pub deleted_at: String,
     #[serde(rename = "conversation")]
-    pub conversation: Box<models::WebhookPayloadMessageConversation>,
+    pub conversation: Box<models::InboxWebhookConversation>,
     #[serde(rename = "account")]
-    pub account: Box<models::WebhookPayloadMessageAccount>,
+    pub account: Box<models::InboxWebhookAccount>,
     #[serde(rename = "timestamp")]
     pub timestamp: String,
 }
@@ -35,10 +35,10 @@ impl WebhookPayloadMessageDeleted {
     pub fn new(
         id: String,
         event: Event,
-        message: models::WebhookPayloadMessageMessage,
+        message: models::InboxWebhookMessage,
         deleted_at: String,
-        conversation: models::WebhookPayloadMessageConversation,
-        account: models::WebhookPayloadMessageAccount,
+        conversation: models::InboxWebhookConversation,
+        account: models::InboxWebhookAccount,
         timestamp: String,
     ) -> WebhookPayloadMessageDeleted {
         WebhookPayloadMessageDeleted {

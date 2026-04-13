@@ -19,16 +19,16 @@ pub struct WebhookPayloadMessageDeliveryStatus {
     #[serde(rename = "event")]
     pub event: Event,
     #[serde(rename = "message")]
-    pub message: Box<models::WebhookPayloadMessageMessage>,
+    pub message: Box<models::InboxWebhookMessage>,
     /// When the platform reported this status.
     #[serde(rename = "statusAt")]
     pub status_at: String,
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
     pub error: Option<Box<models::WebhookPayloadMessageDeliveryStatusError>>,
     #[serde(rename = "conversation")]
-    pub conversation: Box<models::WebhookPayloadMessageConversation>,
+    pub conversation: Box<models::InboxWebhookConversation>,
     #[serde(rename = "account")]
-    pub account: Box<models::WebhookPayloadMessageAccount>,
+    pub account: Box<models::InboxWebhookAccount>,
     #[serde(rename = "timestamp")]
     pub timestamp: String,
 }
@@ -38,10 +38,10 @@ impl WebhookPayloadMessageDeliveryStatus {
     pub fn new(
         id: String,
         event: Event,
-        message: models::WebhookPayloadMessageMessage,
+        message: models::InboxWebhookMessage,
         status_at: String,
-        conversation: models::WebhookPayloadMessageConversation,
-        account: models::WebhookPayloadMessageAccount,
+        conversation: models::InboxWebhookConversation,
+        account: models::InboxWebhookAccount,
         timestamp: String,
     ) -> WebhookPayloadMessageDeliveryStatus {
         WebhookPayloadMessageDeliveryStatus {

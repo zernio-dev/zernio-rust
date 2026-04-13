@@ -11,8 +11,9 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// InboxWebhookMessage : The `message` object included in inbox webhook payloads.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct WebhookPayloadMessageMessage {
+pub struct InboxWebhookMessage {
     /// Internal message ID
     #[serde(rename = "id")]
     pub id: String,
@@ -26,20 +27,21 @@ pub struct WebhookPayloadMessageMessage {
     pub platform_message_id: String,
     #[serde(rename = "direction")]
     pub direction: Direction,
-    /// Message text content
+    /// Message text content (retained on deleted messages for API consumers; Zernio dashboard UI hides this)
     #[serde(rename = "text")]
     pub text: String,
     #[serde(rename = "attachments")]
     pub attachments: Vec<models::InboxWebhookMessageAttachmentsInner>,
     #[serde(rename = "sender")]
-    pub sender: Box<models::WebhookPayloadMessageMessageSender>,
+    pub sender: Box<models::InboxWebhookMessageSender>,
     #[serde(rename = "sentAt")]
     pub sent_at: String,
     #[serde(rename = "isRead")]
     pub is_read: bool,
 }
 
-impl WebhookPayloadMessageMessage {
+impl InboxWebhookMessage {
+    /// The `message` object included in inbox webhook payloads.
     pub fn new(
         id: String,
         conversation_id: String,
@@ -48,11 +50,11 @@ impl WebhookPayloadMessageMessage {
         direction: Direction,
         text: String,
         attachments: Vec<models::InboxWebhookMessageAttachmentsInner>,
-        sender: models::WebhookPayloadMessageMessageSender,
+        sender: models::InboxWebhookMessageSender,
         sent_at: String,
         is_read: bool,
-    ) -> WebhookPayloadMessageMessage {
-        WebhookPayloadMessageMessage {
+    ) -> InboxWebhookMessage {
+        InboxWebhookMessage {
             id,
             conversation_id,
             platform,

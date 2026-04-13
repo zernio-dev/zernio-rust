@@ -19,7 +19,7 @@ pub struct WebhookPayloadMessageEdited {
     #[serde(rename = "event")]
     pub event: Event,
     #[serde(rename = "message")]
-    pub message: Box<models::WebhookPayloadMessageMessage>,
+    pub message: Box<models::InboxWebhookMessage>,
     /// Prior versions of the message, oldest first.
     #[serde(rename = "editHistory")]
     pub edit_history: Vec<models::WebhookPayloadMessageEditedEditHistoryInner>,
@@ -30,9 +30,9 @@ pub struct WebhookPayloadMessageEdited {
     #[serde(rename = "editedAt")]
     pub edited_at: String,
     #[serde(rename = "conversation")]
-    pub conversation: Box<models::WebhookPayloadMessageConversation>,
+    pub conversation: Box<models::InboxWebhookConversation>,
     #[serde(rename = "account")]
-    pub account: Box<models::WebhookPayloadMessageAccount>,
+    pub account: Box<models::InboxWebhookAccount>,
     #[serde(rename = "timestamp")]
     pub timestamp: String,
 }
@@ -42,12 +42,12 @@ impl WebhookPayloadMessageEdited {
     pub fn new(
         id: String,
         event: Event,
-        message: models::WebhookPayloadMessageMessage,
+        message: models::InboxWebhookMessage,
         edit_history: Vec<models::WebhookPayloadMessageEditedEditHistoryInner>,
         edit_count: i32,
         edited_at: String,
-        conversation: models::WebhookPayloadMessageConversation,
-        account: models::WebhookPayloadMessageAccount,
+        conversation: models::InboxWebhookConversation,
+        account: models::InboxWebhookAccount,
         timestamp: String,
     ) -> WebhookPayloadMessageEdited {
         WebhookPayloadMessageEdited {
