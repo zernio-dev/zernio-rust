@@ -5,12 +5,12 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**bulk_create_contacts**](ContactsApi.md#bulk_create_contacts) | **POST** /v1/contacts/bulk | Bulk create contacts
-[**create_contact**](ContactsApi.md#create_contact) | **POST** /v1/contacts | Create a contact
-[**delete_contact**](ContactsApi.md#delete_contact) | **DELETE** /v1/contacts/{contactId} | Delete a contact
-[**get_contact**](ContactsApi.md#get_contact) | **GET** /v1/contacts/{contactId} | Get contact with channels
+[**create_contact**](ContactsApi.md#create_contact) | **POST** /v1/contacts | Create contact
+[**delete_contact**](ContactsApi.md#delete_contact) | **DELETE** /v1/contacts/{contactId} | Delete contact
+[**get_contact**](ContactsApi.md#get_contact) | **GET** /v1/contacts/{contactId} | Get contact
 [**get_contact_channels**](ContactsApi.md#get_contact_channels) | **GET** /v1/contacts/{contactId}/channels | List channels for a contact
 [**list_contacts**](ContactsApi.md#list_contacts) | **GET** /v1/contacts | List contacts
-[**update_contact**](ContactsApi.md#update_contact) | **PATCH** /v1/contacts/{contactId} | Update a contact
+[**update_contact**](ContactsApi.md#update_contact) | **PATCH** /v1/contacts/{contactId} | Update contact
 
 
 
@@ -47,7 +47,7 @@ Name | Type | Description  | Required | Notes
 ## create_contact
 
 > models::CreateContact200Response create_contact(create_contact_request)
-Create a contact
+Create contact
 
 Create a new contact. Optionally create a platform channel in the same request by providing accountId, platform, and platformIdentifier.
 
@@ -77,7 +77,7 @@ Name | Type | Description  | Required | Notes
 ## delete_contact
 
 > delete_contact(contact_id)
-Delete a contact
+Delete contact
 
 ### Parameters
 
@@ -105,7 +105,7 @@ Name | Type | Description  | Required | Notes
 ## get_contact
 
 > models::GetContact200Response get_contact(contact_id)
-Get contact with channels
+Get contact
 
 ### Parameters
 
@@ -197,7 +197,7 @@ Name | Type | Description  | Required | Notes
 ## update_contact
 
 > models::UpdateContact200Response update_contact(contact_id, update_contact_request)
-Update a contact
+Update contact
 
 ### Parameters
 

@@ -4,19 +4,19 @@ All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**clear_contact_field_value**](CustomFieldsApi.md#clear_contact_field_value) | **DELETE** /v1/contacts/{contactId}/fields/{slug} | Clear a custom field value
-[**create_custom_field**](CustomFieldsApi.md#create_custom_field) | **POST** /v1/custom-fields | Create a custom field definition
-[**delete_custom_field**](CustomFieldsApi.md#delete_custom_field) | **DELETE** /v1/custom-fields/{fieldId} | Delete a custom field definition
+[**clear_contact_field_value**](CustomFieldsApi.md#clear_contact_field_value) | **DELETE** /v1/contacts/{contactId}/fields/{slug} | Clear custom field value
+[**create_custom_field**](CustomFieldsApi.md#create_custom_field) | **POST** /v1/custom-fields | Create custom field
+[**delete_custom_field**](CustomFieldsApi.md#delete_custom_field) | **DELETE** /v1/custom-fields/{fieldId} | Delete custom field
 [**list_custom_fields**](CustomFieldsApi.md#list_custom_fields) | **GET** /v1/custom-fields | List custom field definitions
-[**set_contact_field_value**](CustomFieldsApi.md#set_contact_field_value) | **PUT** /v1/contacts/{contactId}/fields/{slug} | Set a custom field value
-[**update_custom_field**](CustomFieldsApi.md#update_custom_field) | **PATCH** /v1/custom-fields/{fieldId} | Update a custom field definition
+[**set_contact_field_value**](CustomFieldsApi.md#set_contact_field_value) | **PUT** /v1/contacts/{contactId}/fields/{slug} | Set custom field value
+[**update_custom_field**](CustomFieldsApi.md#update_custom_field) | **PATCH** /v1/custom-fields/{fieldId} | Update custom field
 
 
 
 ## clear_contact_field_value
 
 > clear_contact_field_value(contact_id, slug)
-Clear a custom field value
+Clear custom field value
 
 ### Parameters
 
@@ -45,7 +45,7 @@ Name | Type | Description  | Required | Notes
 ## create_custom_field
 
 > models::CreateCustomField200Response create_custom_field(create_custom_field_request)
-Create a custom field definition
+Create custom field
 
 ### Parameters
 
@@ -73,7 +73,7 @@ Name | Type | Description  | Required | Notes
 ## delete_custom_field
 
 > delete_custom_field(field_id)
-Delete a custom field definition
+Delete custom field
 
 ### Parameters
 
@@ -129,7 +129,7 @@ Name | Type | Description  | Required | Notes
 ## set_contact_field_value
 
 > set_contact_field_value(contact_id, slug, set_contact_field_value_request)
-Set a custom field value
+Set custom field value
 
 ### Parameters
 
@@ -159,7 +159,7 @@ Name | Type | Description  | Required | Notes
 ## update_custom_field
 
 > models::UpdateCustomField200Response update_custom_field(field_id, update_custom_field_request)
-Update a custom field definition
+Update custom field
 
 ### Parameters
 

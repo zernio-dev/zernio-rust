@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**validate_media**](ValidateApi.md#validate_media) | **POST** /v1/tools/validate/media | Validate media URL
 [**validate_post**](ValidateApi.md#validate_post) | **POST** /v1/tools/validate/post | Validate post content
-[**validate_post_length**](ValidateApi.md#validate_post_length) | **POST** /v1/tools/validate/post-length | Validate post character count
+[**validate_post_length**](ValidateApi.md#validate_post_length) | **POST** /v1/tools/validate/post-length | Validate character count
 [**validate_subreddit**](ValidateApi.md#validate_subreddit) | **GET** /v1/tools/validate/subreddit | Check subreddit existence
 
 
@@ -74,7 +74,7 @@ Name | Type | Description  | Required | Notes
 ## validate_post_length
 
 > models::ValidatePostLength200Response validate_post_length(validate_post_length_request)
-Validate post character count
+Validate character count
 
 Check weighted character count per platform and whether the text is within each platform's limit.  Twitter/X uses weighted counting (URLs = 23 chars via t.co, emojis = 2 chars). All other platforms use plain character length.  Returns counts and limits for all 15 supported platform variants. 
 

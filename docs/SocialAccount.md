@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **profile_id** | Option<[**models::SocialAccountProfileId**](SocialAccountProfileId.md)> |  | [optional]
 **username** | Option<**String**> |  | [optional]
 **display_name** | Option<**String**> |  | [optional]
+**profile_picture** | Option<**String**> | URL to the account's profile picture on the platform. May be null if the platform does not provide one. | [optional]
 **profile_url** | Option<**String**> | Full profile URL for the connected account on its platform. | [optional]
 **is_active** | Option<**bool**> |  | [optional]
 **followers_count** | Option<**f64**> | Follower count (only included if user has analytics add-on) | [optional]

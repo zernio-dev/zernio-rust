@@ -5,15 +5,15 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**add_broadcast_recipients**](BroadcastsApi.md#add_broadcast_recipients) | **POST** /v1/broadcasts/{broadcastId}/recipients | Add recipients to a broadcast
-[**cancel_broadcast**](BroadcastsApi.md#cancel_broadcast) | **POST** /v1/broadcasts/{broadcastId}/cancel | Cancel a broadcast
-[**create_broadcast**](BroadcastsApi.md#create_broadcast) | **POST** /v1/broadcasts | Create a broadcast draft
-[**delete_broadcast**](BroadcastsApi.md#delete_broadcast) | **DELETE** /v1/broadcasts/{broadcastId} | Delete a broadcast (draft only)
+[**cancel_broadcast**](BroadcastsApi.md#cancel_broadcast) | **POST** /v1/broadcasts/{broadcastId}/cancel | Cancel broadcast
+[**create_broadcast**](BroadcastsApi.md#create_broadcast) | **POST** /v1/broadcasts | Create broadcast draft
+[**delete_broadcast**](BroadcastsApi.md#delete_broadcast) | **DELETE** /v1/broadcasts/{broadcastId} | Delete broadcast
 [**get_broadcast**](BroadcastsApi.md#get_broadcast) | **GET** /v1/broadcasts/{broadcastId} | Get broadcast details
 [**list_broadcast_recipients**](BroadcastsApi.md#list_broadcast_recipients) | **GET** /v1/broadcasts/{broadcastId}/recipients | List broadcast recipients
 [**list_broadcasts**](BroadcastsApi.md#list_broadcasts) | **GET** /v1/broadcasts | List broadcasts
 [**schedule_broadcast**](BroadcastsApi.md#schedule_broadcast) | **POST** /v1/broadcasts/{broadcastId}/schedule | Schedule broadcast for later
-[**send_broadcast**](BroadcastsApi.md#send_broadcast) | **POST** /v1/broadcasts/{broadcastId}/send | Trigger immediate send
-[**update_broadcast**](BroadcastsApi.md#update_broadcast) | **PATCH** /v1/broadcasts/{broadcastId} | Update a broadcast
+[**send_broadcast**](BroadcastsApi.md#send_broadcast) | **POST** /v1/broadcasts/{broadcastId}/send | Send broadcast now
+[**update_broadcast**](BroadcastsApi.md#update_broadcast) | **PATCH** /v1/broadcasts/{broadcastId} | Update broadcast
 
 
 
@@ -49,7 +49,7 @@ Name | Type | Description  | Required | Notes
 ## cancel_broadcast
 
 > models::CancelBroadcast200Response cancel_broadcast(broadcast_id)
-Cancel a broadcast
+Cancel broadcast
 
 ### Parameters
 
@@ -77,7 +77,7 @@ Name | Type | Description  | Required | Notes
 ## create_broadcast
 
 > models::CreateBroadcast200Response create_broadcast(create_broadcast_request)
-Create a broadcast draft
+Create broadcast draft
 
 ### Parameters
 
@@ -105,7 +105,7 @@ Name | Type | Description  | Required | Notes
 ## delete_broadcast
 
 > delete_broadcast(broadcast_id)
-Delete a broadcast (draft only)
+Delete broadcast
 
 ### Parameters
 
@@ -253,7 +253,7 @@ Name | Type | Description  | Required | Notes
 ## send_broadcast
 
 > models::SendBroadcast200Response send_broadcast(broadcast_id)
-Trigger immediate send
+Send broadcast now
 
 ### Parameters
 
@@ -281,7 +281,7 @@ Name | Type | Description  | Required | Notes
 ## update_broadcast
 
 > models::UpdateBroadcast200Response update_broadcast(broadcast_id)
-Update a broadcast
+Update broadcast
 
 ### Parameters
 

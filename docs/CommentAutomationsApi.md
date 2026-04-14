@@ -4,10 +4,10 @@ All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_comment_automation**](CommentAutomationsApi.md#create_comment_automation) | **POST** /v1/comment-automations | Create a comment-to-DM automation
-[**delete_comment_automation**](CommentAutomationsApi.md#delete_comment_automation) | **DELETE** /v1/comment-automations/{automationId} | Delete automation and all logs
-[**get_comment_automation**](CommentAutomationsApi.md#get_comment_automation) | **GET** /v1/comment-automations/{automationId} | Get automation details with recent logs
-[**list_comment_automation_logs**](CommentAutomationsApi.md#list_comment_automation_logs) | **GET** /v1/comment-automations/{automationId}/logs | List trigger logs for an automation
+[**create_comment_automation**](CommentAutomationsApi.md#create_comment_automation) | **POST** /v1/comment-automations | Create comment-to-DM automation
+[**delete_comment_automation**](CommentAutomationsApi.md#delete_comment_automation) | **DELETE** /v1/comment-automations/{automationId} | Delete automation
+[**get_comment_automation**](CommentAutomationsApi.md#get_comment_automation) | **GET** /v1/comment-automations/{automationId} | Get automation details
+[**list_comment_automation_logs**](CommentAutomationsApi.md#list_comment_automation_logs) | **GET** /v1/comment-automations/{automationId}/logs | List automation logs
 [**list_comment_automations**](CommentAutomationsApi.md#list_comment_automations) | **GET** /v1/comment-automations | List comment-to-DM automations
 [**update_comment_automation**](CommentAutomationsApi.md#update_comment_automation) | **PATCH** /v1/comment-automations/{automationId} | Update automation settings
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 ## create_comment_automation
 
 > models::CreateCommentAutomation200Response create_comment_automation(create_comment_automation_request)
-Create a comment-to-DM automation
+Create comment-to-DM automation
 
 Create a keyword-triggered DM automation on an Instagram or Facebook post. When someone comments a matching keyword, they automatically receive a DM. Only one active automation per post is allowed. 
 
@@ -46,7 +46,7 @@ Name | Type | Description  | Required | Notes
 ## delete_comment_automation
 
 > delete_comment_automation(automation_id)
-Delete automation and all logs
+Delete automation
 
 ### Parameters
 
@@ -74,7 +74,7 @@ Name | Type | Description  | Required | Notes
 ## get_comment_automation
 
 > models::GetCommentAutomation200Response get_comment_automation(automation_id)
-Get automation details with recent logs
+Get automation details
 
 ### Parameters
 
@@ -102,7 +102,7 @@ Name | Type | Description  | Required | Notes
 ## list_comment_automation_logs
 
 > models::ListCommentAutomationLogs200Response list_comment_automation_logs(automation_id, status, limit, skip)
-List trigger logs for an automation
+List automation logs
 
 Paginated list of every comment that triggered this automation, with send status and commenter info.
 

@@ -4,23 +4,23 @@ All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**activate_sequence**](SequencesApi.md#activate_sequence) | **POST** /v1/sequences/{sequenceId}/activate | Activate a sequence
-[**create_sequence**](SequencesApi.md#create_sequence) | **POST** /v1/sequences | Create a sequence
-[**delete_sequence**](SequencesApi.md#delete_sequence) | **DELETE** /v1/sequences/{sequenceId} | Delete a sequence
+[**activate_sequence**](SequencesApi.md#activate_sequence) | **POST** /v1/sequences/{sequenceId}/activate | Activate sequence
+[**create_sequence**](SequencesApi.md#create_sequence) | **POST** /v1/sequences | Create sequence
+[**delete_sequence**](SequencesApi.md#delete_sequence) | **DELETE** /v1/sequences/{sequenceId} | Delete sequence
 [**enroll_contacts**](SequencesApi.md#enroll_contacts) | **POST** /v1/sequences/{sequenceId}/enroll | Enroll contacts in a sequence
 [**get_sequence**](SequencesApi.md#get_sequence) | **GET** /v1/sequences/{sequenceId} | Get sequence with steps
 [**list_sequence_enrollments**](SequencesApi.md#list_sequence_enrollments) | **GET** /v1/sequences/{sequenceId}/enrollments | List enrollments for a sequence
 [**list_sequences**](SequencesApi.md#list_sequences) | **GET** /v1/sequences | List sequences
-[**pause_sequence**](SequencesApi.md#pause_sequence) | **POST** /v1/sequences/{sequenceId}/pause | Pause a sequence
-[**unenroll_contact**](SequencesApi.md#unenroll_contact) | **DELETE** /v1/sequences/{sequenceId}/enroll/{contactId} | Unenroll a contact from a sequence
-[**update_sequence**](SequencesApi.md#update_sequence) | **PATCH** /v1/sequences/{sequenceId} | Update a sequence
+[**pause_sequence**](SequencesApi.md#pause_sequence) | **POST** /v1/sequences/{sequenceId}/pause | Pause sequence
+[**unenroll_contact**](SequencesApi.md#unenroll_contact) | **DELETE** /v1/sequences/{sequenceId}/enroll/{contactId} | Unenroll contact
+[**update_sequence**](SequencesApi.md#update_sequence) | **PATCH** /v1/sequences/{sequenceId} | Update sequence
 
 
 
 ## activate_sequence
 
 > models::ActivateSequence200Response activate_sequence(sequence_id)
-Activate a sequence
+Activate sequence
 
 ### Parameters
 
@@ -48,7 +48,7 @@ Name | Type | Description  | Required | Notes
 ## create_sequence
 
 > models::CreateSequence200Response create_sequence(create_sequence_request)
-Create a sequence
+Create sequence
 
 ### Parameters
 
@@ -76,7 +76,7 @@ Name | Type | Description  | Required | Notes
 ## delete_sequence
 
 > delete_sequence(sequence_id)
-Delete a sequence
+Delete sequence
 
 ### Parameters
 
@@ -223,7 +223,7 @@ Name | Type | Description  | Required | Notes
 ## pause_sequence
 
 > models::ActivateSequence200Response pause_sequence(sequence_id)
-Pause a sequence
+Pause sequence
 
 ### Parameters
 
@@ -251,7 +251,7 @@ Name | Type | Description  | Required | Notes
 ## unenroll_contact
 
 > unenroll_contact(sequence_id, contact_id)
-Unenroll a contact from a sequence
+Unenroll contact
 
 ### Parameters
 
@@ -280,7 +280,7 @@ Name | Type | Description  | Required | Notes
 ## update_sequence
 
 > models::UpdateSequence200Response update_sequence(sequence_id)
-Update a sequence
+Update sequence
 
 ### Parameters
 

@@ -4,9 +4,9 @@ All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_users_to_ad_audience**](AdAudiencesApi.md#add_users_to_ad_audience) | **POST** /v1/ads/audiences/{audienceId}/users | Add users to a customer list audience
-[**create_ad_audience**](AdAudiencesApi.md#create_ad_audience) | **POST** /v1/ads/audiences | Create a custom audience (Meta only)
-[**delete_ad_audience**](AdAudiencesApi.md#delete_ad_audience) | **DELETE** /v1/ads/audiences/{audienceId} | Delete a custom audience
+[**add_users_to_ad_audience**](AdAudiencesApi.md#add_users_to_ad_audience) | **POST** /v1/ads/audiences/{audienceId}/users | Add users to audience
+[**create_ad_audience**](AdAudiencesApi.md#create_ad_audience) | **POST** /v1/ads/audiences | Create custom audience
+[**delete_ad_audience**](AdAudiencesApi.md#delete_ad_audience) | **DELETE** /v1/ads/audiences/{audienceId} | Delete custom audience
 [**get_ad_audience**](AdAudiencesApi.md#get_ad_audience) | **GET** /v1/ads/audiences/{audienceId} | Get audience details
 [**list_ad_audiences**](AdAudiencesApi.md#list_ad_audiences) | **GET** /v1/ads/audiences | List custom audiences
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 ## add_users_to_ad_audience
 
 > models::AddUsersToAdAudience200Response add_users_to_ad_audience(audience_id, add_users_to_ad_audience_request)
-Add users to a customer list audience
+Add users to audience
 
 Upload user data (emails and/or phone numbers) to a customer_list audience. Data is SHA256-hashed server-side before sending to Meta. Max 10,000 users per request.
 
@@ -46,7 +46,7 @@ Name | Type | Description  | Required | Notes
 ## create_ad_audience
 
 > models::CreateAdAudience201Response create_ad_audience(create_ad_audience_request)
-Create a custom audience (Meta only)
+Create custom audience
 
 Create a customer list, website retargeting, or lookalike audience on Meta (Facebook/Instagram).
 
@@ -76,7 +76,7 @@ Name | Type | Description  | Required | Notes
 ## delete_ad_audience
 
 > models::DeleteAccountGroup200Response delete_ad_audience(audience_id)
-Delete a custom audience
+Delete custom audience
 
 Deletes the audience from both Meta and the local database.
 

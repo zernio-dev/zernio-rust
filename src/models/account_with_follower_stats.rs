@@ -23,6 +23,9 @@ pub struct AccountWithFollowerStats {
     pub username: Option<String>,
     #[serde(rename = "displayName", skip_serializing_if = "Option::is_none")]
     pub display_name: Option<String>,
+    /// URL to the account's profile picture on the platform. May be null if the platform does not provide one.
+    #[serde(rename = "profilePicture", skip_serializing_if = "Option::is_none")]
+    pub profile_picture: Option<String>,
     /// Full profile URL for the connected account on its platform.
     #[serde(rename = "profileUrl", skip_serializing_if = "Option::is_none")]
     pub profile_url: Option<String>,
@@ -46,8 +49,6 @@ pub struct AccountWithFollowerStats {
     /// Platform-specific metadata. Fields vary by platform. For WhatsApp accounts, includes: - `qualityRating`: Phone number quality rating from Meta (`GREEN`, `YELLOW`, `RED`, or `UNKNOWN`) - `nameStatus`: Display name review status (`APPROVED`, `PENDING_REVIEW`, `DECLINED`, or `NONE`). Messages cannot be sent until the display name is approved by Meta. - `messagingLimitTier`: Maximum unique business-initiated conversations per 24h rolling window (`TIER_250`, `TIER_1K`, `TIER_10K`, `TIER_100K`, or `TIER_UNLIMITED`). Scales automatically as quality rating improves. - `verifiedName`: Meta-verified business display name - `displayPhoneNumber`: Formatted phone number (e.g., \"+1 555-123-4567\") - `wabaId`: WhatsApp Business Account ID - `phoneNumberId`: Meta phone number ID
     #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
     pub metadata: Option<serde_json::Value>,
-    #[serde(rename = "profilePicture", skip_serializing_if = "Option::is_none")]
-    pub profile_picture: Option<String>,
     /// Current follower count
     #[serde(rename = "currentFollowers", skip_serializing_if = "Option::is_none")]
     pub current_followers: Option<f64>,
@@ -74,6 +75,7 @@ impl AccountWithFollowerStats {
             profile_id: None,
             username: None,
             display_name: None,
+            profile_picture: None,
             profile_url: None,
             is_active: None,
             followers_count: None,
@@ -81,7 +83,6 @@ impl AccountWithFollowerStats {
             parent_account_id: None,
             enabled: None,
             metadata: None,
-            profile_picture: None,
             current_followers: None,
             last_updated: None,
             growth: None,

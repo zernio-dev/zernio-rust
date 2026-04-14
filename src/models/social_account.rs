@@ -23,6 +23,9 @@ pub struct SocialAccount {
     pub username: Option<String>,
     #[serde(rename = "displayName", skip_serializing_if = "Option::is_none")]
     pub display_name: Option<String>,
+    /// URL to the account's profile picture on the platform. May be null if the platform does not provide one.
+    #[serde(rename = "profilePicture", skip_serializing_if = "Option::is_none")]
+    pub profile_picture: Option<String>,
     /// Full profile URL for the connected account on its platform.
     #[serde(rename = "profileUrl", skip_serializing_if = "Option::is_none")]
     pub profile_url: Option<String>,
@@ -56,6 +59,7 @@ impl SocialAccount {
             profile_id: None,
             username: None,
             display_name: None,
+            profile_picture: None,
             profile_url: None,
             is_active: None,
             followers_count: None,
