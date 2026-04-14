@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **platform** | Option<**String**> |  | [optional]
 **account_id** | Option<**String**> |  | [optional]
 **message** | Option<[**models::GetBroadcast200ResponseBroadcastMessage**](GetBroadcast200ResponseBroadcastMessage.md)> |  | [optional]
-**template** | Option<[**models::GetWhatsAppBroadcasts200ResponseBroadcastsInnerTemplate**](GetWhatsAppBroadcasts200ResponseBroadcastsInnerTemplate.md)> |  | [optional]
+**template** | Option<[**models::GetBroadcast200ResponseBroadcastTemplate**](GetBroadcast200ResponseBroadcastTemplate.md)> |  | [optional]
 **segment_filters** | Option<[**models::ListContacts200ResponseFilters**](ListContacts200ResponseFilters.md)> |  | [optional]
 **status** | Option<**Status**> |  (enum: draft, scheduled, sending, completed, failed, cancelled) | [optional]
 **scheduled_at** | Option<**String**> |  | [optional]

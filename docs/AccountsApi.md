@@ -5,7 +5,6 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**delete_account**](AccountsApi.md#delete_account) | **DELETE** /v1/accounts/{accountId} | Disconnect account
-[**disconnect_ads**](AccountsApi.md#disconnect_ads) | **POST** /v1/accounts/{accountId}/disconnect-ads | Disconnect ads from an account
 [**get_account_health**](AccountsApi.md#get_account_health) | **GET** /v1/accounts/{accountId}/health | Check account health
 [**get_all_accounts_health**](AccountsApi.md#get_all_accounts_health) | **GET** /v1/accounts/health | Check accounts health
 [**get_follower_stats**](AccountsApi.md#get_follower_stats) | **GET** /v1/accounts/follower-stats | Get follower stats
@@ -40,37 +39,6 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## disconnect_ads
-
-> models::DeleteAccountGroup200Response disconnect_ads(account_id, disconnect_ads_request)
-Disconnect ads from an account
-
-**Deprecated.** Ads accounts are now standalone SocialAccount documents. Use `DELETE /v1/accounts/{accountId}` instead, passing the ads account's own ID.  This endpoint is kept for backward compatibility. It soft-deletes the ads SocialAccount identified by `accountId` (which must be an ads account, not a posting account). The parent posting account is left untouched. 
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | The ads SocialAccount ID to disconnect | [required] |
-**disconnect_ads_request** | Option<[**DisconnectAdsRequest**](DisconnectAdsRequest.md)> |  |  |
-
-### Return type
-
-[**models::DeleteAccountGroup200Response**](deleteAccountGroup_200_response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

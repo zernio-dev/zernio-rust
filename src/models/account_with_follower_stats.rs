@@ -43,9 +43,6 @@ pub struct AccountWithFollowerStats {
     /// Whether the user explicitly activated this account. false means the account was created as a side effect (e.g., posting account auto-created when user connected ads first). Posting UI and scheduler ignore accounts with enabled: false.
     #[serde(rename = "enabled", skip_serializing_if = "Option::is_none")]
     pub enabled: Option<bool>,
-    /// **Deprecated.** With the new ads account model, ads accounts are separate SocialAccount documents. Check for accounts with ads platform values (metaads, linkedinads, pinterestads, tiktokads, xads, googleads) instead.  Legacy behavior: - `connected`: Ads are ready to use (same-token platforms like Meta/LinkedIn, or separate ads token is present). - `not_connected`: Platform supports ads but requires a separate ads OAuth. Use `GET /v1/connect/{platform}/ads` to connect. - `not_available`: Platform does not support ads (e.g., YouTube, Reddit, Bluesky).
-    #[serde(rename = "adsStatus", skip_serializing_if = "Option::is_none")]
-    pub ads_status: Option<AdsStatus>,
     /// Platform-specific metadata. Fields vary by platform. For WhatsApp accounts, includes: - `qualityRating`: Phone number quality rating from Meta (`GREEN`, `YELLOW`, `RED`, or `UNKNOWN`) - `nameStatus`: Display name review status (`APPROVED`, `PENDING_REVIEW`, `DECLINED`, or `NONE`). Messages cannot be sent until the display name is approved by Meta. - `messagingLimitTier`: Maximum unique business-initiated conversations per 24h rolling window (`TIER_250`, `TIER_1K`, `TIER_10K`, `TIER_100K`, or `TIER_UNLIMITED`). Scales automatically as quality rating improves. - `verifiedName`: Meta-verified business display name - `displayPhoneNumber`: Formatted phone number (e.g., \"+1 555-123-4567\") - `wabaId`: WhatsApp Business Account ID - `phoneNumberId`: Meta phone number ID
     #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
     pub metadata: Option<serde_json::Value>,
@@ -83,7 +80,6 @@ impl AccountWithFollowerStats {
             followers_last_updated: None,
             parent_account_id: None,
             enabled: None,
-            ads_status: None,
             metadata: None,
             profile_picture: None,
             current_followers: None,
@@ -145,21 +141,5 @@ pub enum Platform {
 impl Default for Platform {
     fn default() -> Platform {
         Self::Tiktok
-    }
-}
-/// **Deprecated.** With the new ads account model, ads accounts are separate SocialAccount documents. Check for accounts with ads platform values (metaads, linkedinads, pinterestads, tiktokads, xads, googleads) instead.  Legacy behavior: - `connected`: Ads are ready to use (same-token platforms like Meta/LinkedIn, or separate ads token is present). - `not_connected`: Platform supports ads but requires a separate ads OAuth. Use `GET /v1/connect/{platform}/ads` to connect. - `not_available`: Platform does not support ads (e.g., YouTube, Reddit, Bluesky).
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum AdsStatus {
-    #[serde(rename = "connected")]
-    Connected,
-    #[serde(rename = "not_connected")]
-    NotConnected,
-    #[serde(rename = "not_available")]
-    NotAvailable,
-}
-
-impl Default for AdsStatus {
-    fn default() -> AdsStatus {
-        Self::Connected
     }
 }

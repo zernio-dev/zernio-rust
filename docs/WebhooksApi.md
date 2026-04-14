@@ -6,7 +6,6 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_webhook_settings**](WebhooksApi.md#create_webhook_settings) | **POST** /v1/webhooks/settings | Create webhook
 [**delete_webhook_settings**](WebhooksApi.md#delete_webhook_settings) | **DELETE** /v1/webhooks/settings | Delete webhook
-[**get_webhook_logs**](WebhooksApi.md#get_webhook_logs) | **GET** /v1/webhooks/logs | Get delivery logs
 [**get_webhook_settings**](WebhooksApi.md#get_webhook_settings) | **GET** /v1/webhooks/settings | List webhooks
 [**test_webhook**](WebhooksApi.md#test_webhook) | **POST** /v1/webhooks/test | Send test webhook
 [**update_webhook_settings**](WebhooksApi.md#update_webhook_settings) | **PUT** /v1/webhooks/settings | Update webhook
@@ -60,39 +59,6 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UpdateYoutubeDefaultPlaylist200Response**](updateYoutubeDefaultPlaylist_200_response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## get_webhook_logs
-
-> models::GetWebhookLogs200Response get_webhook_logs(limit, status, event, webhook_id)
-Get delivery logs
-
-**Deprecated.** Use `GET /v1/logs?type=webhooks` instead. Retrieve webhook delivery history. Logs are retained for 90 days. 
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**limit** | Option<**i32**> | Maximum number of logs to return (max 100) |  |[default to 50]
-**status** | Option<**String**> | Filter by delivery status |  |
-**event** | Option<**String**> | Filter by event type |  |
-**webhook_id** | Option<**String**> | Filter by webhook ID |  |
-
-### Return type
-
-[**models::GetWebhookLogs200Response**](getWebhookLogs_200_response.md)
 
 ### Authorization
 

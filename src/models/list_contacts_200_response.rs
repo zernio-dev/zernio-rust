@@ -20,7 +20,7 @@ pub struct ListContacts200Response {
     #[serde(rename = "filters", skip_serializing_if = "Option::is_none")]
     pub filters: Option<Box<models::ListContacts200ResponseFilters>>,
     #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
-    pub pagination: Option<Box<models::GetWhatsAppContacts200ResponsePagination>>,
+    pub pagination: Option<Box<models::ListContacts200ResponsePagination>>,
 }
 
 impl ListContacts200Response {

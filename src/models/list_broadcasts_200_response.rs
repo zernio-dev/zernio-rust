@@ -18,7 +18,7 @@ pub struct ListBroadcasts200Response {
     #[serde(rename = "broadcasts", skip_serializing_if = "Option::is_none")]
     pub broadcasts: Option<Vec<models::ListBroadcasts200ResponseBroadcastsInner>>,
     #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
-    pub pagination: Option<Box<models::GetWhatsAppContacts200ResponsePagination>>,
+    pub pagination: Option<Box<models::ListContacts200ResponsePagination>>,
 }
 
 impl ListBroadcasts200Response {
