@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **_id** | Option<**String**> |  | [optional]
 **name** | Option<**String**> |  | [optional]
 **platform** | Option<**Platform**> |  (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter) | [optional]
-**status** | Option<**Status**> |  (enum: active, paused, pending_review, rejected, completed, cancelled, error) | [optional]
+**status** | Option<[**models::AdStatus**](AdStatus.md)> |  | [optional]
 **ad_type** | Option<**AdType**> |  (enum: boost, standalone) | [optional]
 **goal** | Option<**Goal**> |  (enum: engagement, traffic, awareness, video_views) | [optional]
 **is_external** | Option<**bool**> | True for ads synced from platform ad managers | [optional]

@@ -424,7 +424,7 @@ pub async fn list_ads(
     page: Option<i32>,
     limit: Option<i32>,
     source: Option<&str>,
-    status: Option<&str>,
+    status: Option<models::AdStatus>,
     platform: Option<&str>,
     account_id: Option<&str>,
     ad_account_id: Option<&str>,

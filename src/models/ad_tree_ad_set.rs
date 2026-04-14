@@ -20,7 +20,7 @@ pub struct AdTreeAdSet {
     pub ad_set_name: Option<String>,
     /// Derived from child ad statuses
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<Status>,
+    pub status: Option<models::AdStatus>,
     #[serde(rename = "adCount", skip_serializing_if = "Option::is_none")]
     pub ad_count: Option<i32>,
     #[serde(rename = "budget", skip_serializing_if = "Option::is_none")]
@@ -55,29 +55,5 @@ impl AdTreeAdSet {
             promoted_object: None,
             ads: None,
         }
-    }
-}
-/// Derived from child ad statuses
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "paused")]
-    Paused,
-    #[serde(rename = "pending_review")]
-    PendingReview,
-    #[serde(rename = "rejected")]
-    Rejected,
-    #[serde(rename = "completed")]
-    Completed,
-    #[serde(rename = "cancelled")]
-    Cancelled,
-    #[serde(rename = "error")]
-    Error,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::Active
     }
 }

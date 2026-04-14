@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **platform_ad_set_id** | Option<**String**> |  | [optional]
 **ad_set_name** | Option<**String**> |  | [optional]
-**status** | Option<**Status**> | Derived from child ad statuses (enum: active, paused, pending_review, rejected, completed, cancelled, error) | [optional]
+**status** | Option<[**models::AdStatus**](AdStatus.md)> | Derived from child ad statuses | [optional]
 **ad_count** | Option<**i32**> |  | [optional]
 **budget** | Option<[**models::AdBudget**](AdBudget.md)> |  | [optional]
 **metrics** | Option<[**models::AdMetrics**](AdMetrics.md)> |  | [optional]

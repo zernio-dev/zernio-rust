@@ -19,10 +19,10 @@ docs/AdCreative.md
 docs/AdMetrics.md
 docs/AdPromotedObject.md
 docs/AdSchedule.md
+docs/AdStatus.md
 docs/AdTreeAdSet.md
 docs/AdTreeAdSetPromotedObject.md
 docs/AdTreeCampaign.md
-docs/AdTreeCampaignOptimizationGoal.md
 docs/AdTreeCampaignPromotedObject.md
 docs/AddBroadcastRecipients200Response.md
 docs/AddBroadcastRecipientsRequest.md
@@ -802,10 +802,10 @@ src/models/ad_creative.rs
 src/models/ad_metrics.rs
 src/models/ad_promoted_object.rs
 src/models/ad_schedule.rs
+src/models/ad_status.rs
 src/models/ad_tree_ad_set.rs
 src/models/ad_tree_ad_set_promoted_object.rs
 src/models/ad_tree_campaign.rs
-src/models/ad_tree_campaign_optimization_goal.rs
 src/models/ad_tree_campaign_promoted_object.rs
 src/models/add_broadcast_recipients_200_response.rs
 src/models/add_broadcast_recipients_request.rs

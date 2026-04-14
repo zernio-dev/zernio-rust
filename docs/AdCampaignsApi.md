@@ -26,7 +26,7 @@ Name | Type | Description  | Required | Notes
 **limit** | Option<**i32**> | Campaigns per page |  |[default to 20]
 **source** | Option<**String**> |  |  |[default to zernio]
 **platform** | Option<**String**> |  |  |
-**status** | Option<**String**> | Filter by derived campaign status (post-aggregation) |  |
+**status** | Option<[**AdStatus**](AdStatus.md)> | Filter by derived campaign status (post-aggregation) |  |
 **ad_account_id** | Option<**String**> | Platform ad account ID |  |
 **account_id** | Option<**String**> | Social account ID |  |
 **profile_id** | Option<**String**> | Profile ID |  |
@@ -65,7 +65,7 @@ Name | Type | Description  | Required | Notes
 **limit** | Option<**i32**> |  |  |[default to 20]
 **source** | Option<**String**> |  |  |[default to zernio]
 **platform** | Option<**String**> |  |  |
-**status** | Option<**String**> | Filter by derived campaign status (post-aggregation) |  |
+**status** | Option<[**AdStatus**](AdStatus.md)> | Filter by derived campaign status (post-aggregation) |  |
 **ad_account_id** | Option<**String**> | Platform ad account ID (e.g. act_123 for Meta) |  |
 **account_id** | Option<**String**> | Social account ID |  |
 **profile_id** | Option<**String**> | Profile ID |  |

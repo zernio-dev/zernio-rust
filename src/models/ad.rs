@@ -20,7 +20,7 @@ pub struct Ad {
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<Platform>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<Status>,
+    pub status: Option<models::AdStatus>,
     #[serde(rename = "adType", skip_serializing_if = "Option::is_none")]
     pub ad_type: Option<AdType>,
     #[serde(rename = "goal", skip_serializing_if = "Option::is_none")]
@@ -125,30 +125,6 @@ pub enum Platform {
 impl Default for Platform {
     fn default() -> Platform {
         Self::Facebook
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "paused")]
-    Paused,
-    #[serde(rename = "pending_review")]
-    PendingReview,
-    #[serde(rename = "rejected")]
-    Rejected,
-    #[serde(rename = "completed")]
-    Completed,
-    #[serde(rename = "cancelled")]
-    Cancelled,
-    #[serde(rename = "error")]
-    Error,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::Active
     }
 }
 ///

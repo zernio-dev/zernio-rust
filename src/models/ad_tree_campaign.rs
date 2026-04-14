@@ -22,7 +22,7 @@ pub struct AdTreeCampaign {
     pub campaign_name: Option<String>,
     /// Derived from child ad statuses
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<Status>,
+    pub status: Option<models::AdStatus>,
     /// Total ads across all ad sets
     #[serde(rename = "adCount", skip_serializing_if = "Option::is_none")]
     pub ad_count: Option<i32>,
@@ -44,8 +44,9 @@ pub struct AdTreeCampaign {
     /// Raw Meta campaign objective (e.g. OUTCOME_SALES, OUTCOME_LEADS, OUTCOME_TRAFFIC)
     #[serde(rename = "platformObjective", skip_serializing_if = "Option::is_none")]
     pub platform_objective: Option<String>,
+    /// Meta optimization goal shared across ad sets, or comma-separated values when ad sets differ (e.g. OFFSITE_CONVERSIONS, VALUE, LEAD_GENERATION)
     #[serde(rename = "optimizationGoal", skip_serializing_if = "Option::is_none")]
-    pub optimization_goal: Option<Box<models::AdTreeCampaignOptimizationGoal>>,
+    pub optimization_goal: Option<String>,
     /// Campaign-level bid strategy (e.g. LOWEST_COST_WITHOUT_CAP, COST_CAP, LOWEST_COST_WITH_MIN_ROAS)
     #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
     pub bid_strategy: Option<String>,
@@ -100,29 +101,5 @@ pub enum Platform {
 impl Default for Platform {
     fn default() -> Platform {
         Self::Facebook
-    }
-}
-/// Derived from child ad statuses
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "paused")]
-    Paused,
-    #[serde(rename = "pending_review")]
-    PendingReview,
-    #[serde(rename = "rejected")]
-    Rejected,
-    #[serde(rename = "completed")]
-    Completed,
-    #[serde(rename = "cancelled")]
-    Cancelled,
-    #[serde(rename = "error")]
-    Error,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::Active
     }
 }

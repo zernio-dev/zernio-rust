@@ -214,7 +214,7 @@ Name | Type | Description  | Required | Notes
 **page** | Option<**i32**> | Page number (1-based) |  |[default to 1]
 **limit** | Option<**i32**> |  |  |[default to 50]
 **source** | Option<**String**> | zernio = Zernio-created only, all = include external ads |  |[default to zernio]
-**status** | Option<**String**> |  |  |
+**status** | Option<[**AdStatus**](AdStatus.md)> |  |  |
 **platform** | Option<**String**> |  |  |
 **account_id** | Option<**String**> | Social account ID |  |
 **ad_account_id** | Option<**String**> | Platform ad account ID (e.g. act_123 for Meta). Mirrors the same filter on /v1/ads/campaigns and /v1/ads/tree. |  |
