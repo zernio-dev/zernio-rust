@@ -178,7 +178,6 @@ Class | Method | HTTP request | Description
 *GmbReviewsApi* | [**get_google_business_reviews**](docs/GmbReviewsApi.md#get_google_business_reviews) | **GET** /v1/accounts/{accountId}/gmb-reviews | Get reviews
 *InvitesApi* | [**create_invite_token**](docs/InvitesApi.md#create_invite_token) | **POST** /v1/invite/tokens | Create invite token
 *LinkedInMentionsApi* | [**get_linked_in_mentions**](docs/LinkedInMentionsApi.md#get_linked_in_mentions) | **GET** /v1/accounts/{accountId}/linkedin-mentions | Resolve LinkedIn mention
-*LogsApi* | [**get_post_logs**](docs/LogsApi.md#get_post_logs) | **GET** /v1/posts/{postId}/logs | Get post logs
 *LogsApi* | [**list_logs**](docs/LogsApi.md#list_logs) | **GET** /v1/logs | List activity logs
 *MediaApi* | [**get_media_presigned_url**](docs/MediaApi.md#get_media_presigned_url) | **POST** /v1/media/presign | Get presigned upload URL
 *MessagesApi* | [**add_message_reaction**](docs/MessagesApi.md#add_message_reaction) | **POST** /v1/inbox/conversations/{conversationId}/messages/{messageId}/reactions | Add reaction
@@ -556,7 +555,6 @@ Class | Method | HTTP request | Description
  - [GetPendingOAuthData200ResponseOrganizationsInner](docs/GetPendingOAuthData200ResponseOrganizationsInner.md)
  - [GetPinterestBoards200Response](docs/GetPinterestBoards200Response.md)
  - [GetPinterestBoards200ResponseBoardsInner](docs/GetPinterestBoards200ResponseBoardsInner.md)
- - [GetPostLogs200Response](docs/GetPostLogs200Response.md)
  - [GetPostTimeline200Response](docs/GetPostTimeline200Response.md)
  - [GetPostTimeline200ResponseTimelineInner](docs/GetPostTimeline200ResponseTimelineInner.md)
  - [GetPostTimeline400Response](docs/GetPostTimeline400Response.md)
@@ -733,11 +731,6 @@ Class | Method | HTTP request | Description
  - [PostCreateResponse](docs/PostCreateResponse.md)
  - [PostDeleteResponse](docs/PostDeleteResponse.md)
  - [PostGetResponse](docs/PostGetResponse.md)
- - [PostLog](docs/PostLog.md)
- - [PostLogPostId](docs/PostLogPostId.md)
- - [PostLogPostIdOneOf](docs/PostLogPostIdOneOf.md)
- - [PostLogRequest](docs/PostLogRequest.md)
- - [PostLogResponse](docs/PostLogResponse.md)
  - [PostRetryResponse](docs/PostRetryResponse.md)
  - [PostUpdateResponse](docs/PostUpdateResponse.md)
  - [PostUserId](docs/PostUserId.md)

@@ -286,7 +286,6 @@ docs/GetPendingOAuthData200Response.md
 docs/GetPendingOAuthData200ResponseOrganizationsInner.md
 docs/GetPinterestBoards200Response.md
 docs/GetPinterestBoards200ResponseBoardsInner.md
-docs/GetPostLogs200Response.md
 docs/GetPostTimeline200Response.md
 docs/GetPostTimeline200ResponseTimelineInner.md
 docs/GetPostTimeline400Response.md
@@ -474,11 +473,6 @@ docs/PostAnalytics.md
 docs/PostCreateResponse.md
 docs/PostDeleteResponse.md
 docs/PostGetResponse.md
-docs/PostLog.md
-docs/PostLogPostId.md
-docs/PostLogPostIdOneOf.md
-docs/PostLogRequest.md
-docs/PostLogResponse.md
 docs/PostRetryResponse.md
 docs/PostUpdateResponse.md
 docs/PostUserId.md
@@ -1066,7 +1060,6 @@ src/models/get_pending_o_auth_data_200_response.rs
 src/models/get_pending_o_auth_data_200_response_organizations_inner.rs
 src/models/get_pinterest_boards_200_response.rs
 src/models/get_pinterest_boards_200_response_boards_inner.rs
-src/models/get_post_logs_200_response.rs
 src/models/get_post_timeline_200_response.rs
 src/models/get_post_timeline_200_response_timeline_inner.rs
 src/models/get_post_timeline_400_response.rs
@@ -1244,11 +1237,6 @@ src/models/post_analytics.rs
 src/models/post_create_response.rs
 src/models/post_delete_response.rs
 src/models/post_get_response.rs
-src/models/post_log.rs
-src/models/post_log_post_id.rs
-src/models/post_log_post_id_one_of.rs
-src/models/post_log_request.rs
-src/models/post_log_response.rs
 src/models/post_retry_response.rs
 src/models/post_update_response.rs
 src/models/post_user_id.rs

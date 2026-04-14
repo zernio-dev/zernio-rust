@@ -4,40 +4,8 @@ All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_post_logs**](LogsApi.md#get_post_logs) | **GET** /v1/posts/{postId}/logs | Get post logs
 [**list_logs**](LogsApi.md#list_logs) | **GET** /v1/logs | List activity logs
 
-
-
-## get_post_logs
-
-> models::GetPostLogs200Response get_post_logs(post_id, limit)
-Get post logs
-
-Retrieve all publishing logs for a specific post. Shows the complete history of publishing attempts for that post across all platforms. 
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**post_id** | **String** | The post ID | [required] |
-**limit** | Option<**i32**> | Maximum number of logs to return (max 100) |  |[default to 50]
-
-### Return type
-
-[**models::GetPostLogs200Response**](getPostLogs_200_response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## list_logs
