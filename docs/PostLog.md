@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **post_id** | Option<[**models::PostLogPostId**](PostLogPostId.md)> |  | [optional]
 **user_id** | Option<**String**> |  | [optional]
 **profile_id** | Option<**String**> |  | [optional]
-**platform** | Option<**Platform**> |  (enum: tiktok, instagram, facebook, youtube, linkedin, twitter, threads, pinterest, reddit, bluesky, googlebusiness, telegram, snapchat) | [optional]
+**platform** | Option<**Platform**> |  (enum: tiktok, instagram, facebook, youtube, linkedin, twitter, threads, pinterest, reddit, bluesky, googlebusiness, telegram, snapchat, discord) | [optional]
 **account_id** | Option<**String**> |  | [optional]
 **account_username** | Option<**String**> |  | [optional]
 **action** | Option<**Action**> | Type of action logged: publish (initial attempt), retry (after failure), media_upload, rate_limit_pause, token_refresh, cancelled (enum: publish, retry, media_upload, rate_limit_pause, token_refresh, cancelled) | [optional]

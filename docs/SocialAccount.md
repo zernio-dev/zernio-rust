@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **_id** | Option<**String**> |  | [optional]
-**platform** | Option<**Platform**> |  (enum: tiktok, instagram, facebook, youtube, linkedin, twitter, threads, pinterest, reddit, bluesky, googlebusiness, telegram, snapchat, whatsapp, linkedinads, metaads, pinterestads, tiktokads, xads, googleads) | [optional]
+**platform** | Option<**Platform**> |  (enum: tiktok, instagram, facebook, youtube, linkedin, twitter, threads, pinterest, reddit, bluesky, googlebusiness, telegram, snapchat, discord, whatsapp, linkedinads, metaads, pinterestads, tiktokads, xads, googleads) | [optional]
 **profile_id** | Option<[**models::SocialAccountProfileId**](SocialAccountProfileId.md)> |  | [optional]
 **username** | Option<**String**> |  | [optional]
 **display_name** | Option<**String**> |  | [optional]

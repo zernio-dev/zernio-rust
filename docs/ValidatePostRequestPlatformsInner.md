@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**platform** | **Platform** |  (enum: twitter, instagram, tiktok, youtube, facebook, linkedin, bluesky, threads, reddit, pinterest, telegram, snapchat, googlebusiness) | 
+**platform** | **Platform** |  (enum: twitter, instagram, tiktok, youtube, facebook, linkedin, bluesky, threads, reddit, pinterest, telegram, snapchat, googlebusiness, discord) | 
 **custom_content** | Option<**String**> |  | [optional]
 **platform_specific_data** | Option<**serde_json::Value**> |  | [optional]
 **custom_media** | Option<[**Vec<models::ValidatePostRequestPlatformsInnerCustomMediaInner>**](ValidatePostRequestPlatformsInnerCustomMediaInner.md)> |  | [optional]

@@ -65,6 +65,8 @@ pub enum Platform {
     Snapchat,
     #[serde(rename = "googlebusiness")]
     Googlebusiness,
+    #[serde(rename = "discord")]
+    Discord,
 }
 
 impl Default for Platform {

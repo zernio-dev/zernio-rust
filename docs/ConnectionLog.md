@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **user_id** | Option<**String**> | User who owns the connection (may be null for early OAuth failures) | [optional]
 **profile_id** | Option<**String**> |  | [optional]
 **account_id** | Option<**String**> | The social account ID (present on successful connections and disconnects) | [optional]
-**platform** | Option<**Platform**> |  (enum: tiktok, instagram, facebook, youtube, linkedin, twitter, threads, pinterest, reddit, bluesky, googlebusiness, telegram, snapchat) | [optional]
+**platform** | Option<**Platform**> |  (enum: tiktok, instagram, facebook, youtube, linkedin, twitter, threads, pinterest, reddit, bluesky, googlebusiness, telegram, snapchat, discord) | [optional]
 **event_type** | Option<**EventType**> | Type of connection event: connect_success, connect_failed, disconnect, reconnect_success, reconnect_failed (enum: connect_success, connect_failed, disconnect, reconnect_success, reconnect_failed) | [optional]
 **connection_method** | Option<**ConnectionMethod**> | How the connection was initiated (enum: oauth, credentials, invitation) | [optional]
 **error** | Option<[**models::ConnectionLogError**](ConnectionLogError.md)> |  | [optional]

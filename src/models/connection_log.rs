@@ -97,6 +97,8 @@ pub enum Platform {
     Telegram,
     #[serde(rename = "snapchat")]
     Snapchat,
+    #[serde(rename = "discord")]
+    Discord,
 }
 
 impl Default for Platform {
