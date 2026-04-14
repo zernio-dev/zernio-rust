@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **countries** | Option<**Vec<String>**> |  | [optional]
 **age_min** | Option<**i32**> |  | [optional]
 **age_max** | Option<**i32**> |  | [optional]
-**interests** | Option<**Vec<String>**> |  | [optional]
+**interests** | Option<[**Vec<models::UpdateAdRequestTargetingInterestsInner>**](UpdateAdRequestTargetingInterestsInner.md)> | Interest objects from /v1/ads/interests. Each must include id and name. | [optional]
 **end_date** | Option<**String**> | Required for lifetime budgets | [optional]
 **audience_id** | Option<**String**> | Custom audience ID for targeting | [optional]
 **campaign_type** | Option<**CampaignType**> | Google only (enum: display, search) | [optional][default to Display]

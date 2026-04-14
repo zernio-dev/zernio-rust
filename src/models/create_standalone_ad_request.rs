@@ -56,8 +56,9 @@ pub struct CreateStandaloneAdRequest {
     pub age_min: Option<i32>,
     #[serde(rename = "ageMax", skip_serializing_if = "Option::is_none")]
     pub age_max: Option<i32>,
+    /// Interest objects from /v1/ads/interests. Each must include id and name.
     #[serde(rename = "interests", skip_serializing_if = "Option::is_none")]
-    pub interests: Option<Vec<String>>,
+    pub interests: Option<Vec<models::UpdateAdRequestTargetingInterestsInner>>,
     /// Required for lifetime budgets
     #[serde(rename = "endDate", skip_serializing_if = "Option::is_none")]
     pub end_date: Option<String>,

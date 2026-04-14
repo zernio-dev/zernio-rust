@@ -19,8 +19,9 @@ pub struct BoostPostRequestTargeting {
     pub age_max: Option<i32>,
     #[serde(rename = "countries", skip_serializing_if = "Option::is_none")]
     pub countries: Option<Vec<String>>,
+    /// Interest objects from /v1/ads/interests. Each must include id and name.
     #[serde(rename = "interests", skip_serializing_if = "Option::is_none")]
-    pub interests: Option<Vec<String>>,
+    pub interests: Option<Vec<models::UpdateAdRequestTargetingInterestsInner>>,
 }
 
 impl BoostPostRequestTargeting {

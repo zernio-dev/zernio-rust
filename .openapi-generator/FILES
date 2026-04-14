@@ -601,6 +601,7 @@ docs/UpdateAdCampaignStatusRequest.md
 docs/UpdateAdRequest.md
 docs/UpdateAdRequestBudget.md
 docs/UpdateAdRequestTargeting.md
+docs/UpdateAdRequestTargetingInterestsInner.md
 docs/UpdateBroadcast200Response.md
 docs/UpdateBroadcast200ResponseBroadcast.md
 docs/UpdateCommentAutomation200Response.md
@@ -1363,6 +1364,7 @@ src/models/update_ad_campaign_status_request.rs
 src/models/update_ad_request.rs
 src/models/update_ad_request_budget.rs
 src/models/update_ad_request_targeting.rs
+src/models/update_ad_request_targeting_interests_inner.rs
 src/models/update_broadcast_200_response.rs
 src/models/update_broadcast_200_response_broadcast.rs
 src/models/update_comment_automation_200_response.rs

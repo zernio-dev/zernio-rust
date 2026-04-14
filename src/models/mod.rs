@@ -1132,6 +1132,8 @@ pub mod update_ad_request_budget;
 pub use self::update_ad_request_budget::UpdateAdRequestBudget;
 pub mod update_ad_request_targeting;
 pub use self::update_ad_request_targeting::UpdateAdRequestTargeting;
+pub mod update_ad_request_targeting_interests_inner;
+pub use self::update_ad_request_targeting_interests_inner::UpdateAdRequestTargetingInterestsInner;
 pub mod update_broadcast_200_response;
 pub use self::update_broadcast_200_response::UpdateBroadcast200Response;
 pub mod update_broadcast_200_response_broadcast;
