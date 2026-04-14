@@ -18,6 +18,8 @@ Method | HTTP request | Description
 > clear_contact_field_value(contact_id, slug)
 Clear custom field value
 
+Remove a custom field value from a contact. The field definition is not affected.
+
 ### Parameters
 
 
@@ -47,6 +49,8 @@ Name | Type | Description  | Required | Notes
 > models::CreateCustomField200Response create_custom_field(create_custom_field_request)
 Create custom field
 
+Create a new custom field definition. Supported types are text, number, date, boolean, and select.
+
 ### Parameters
 
 
@@ -74,6 +78,8 @@ Name | Type | Description  | Required | Notes
 
 > delete_custom_field(field_id)
 Delete custom field
+
+Delete a custom field definition and remove its values from all contacts.
 
 ### Parameters
 
@@ -103,6 +109,8 @@ Name | Type | Description  | Required | Notes
 > models::ListCustomFields200Response list_custom_fields(profile_id)
 List custom field definitions
 
+Returns all custom field definitions. Optionally filter by profile.
+
 ### Parameters
 
 
@@ -130,6 +138,8 @@ Name | Type | Description  | Required | Notes
 
 > set_contact_field_value(contact_id, slug, set_contact_field_value_request)
 Set custom field value
+
+Set or overwrite a custom field value on a contact. The value type must match the field definition.
 
 ### Parameters
 
@@ -160,6 +170,8 @@ Name | Type | Description  | Required | Notes
 
 > models::UpdateCustomField200Response update_custom_field(field_id, update_custom_field_request)
 Update custom field
+
+Update a custom field definition. The field type cannot be changed after creation.
 
 ### Parameters
 

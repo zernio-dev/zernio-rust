@@ -296,7 +296,7 @@ pub async fn delete_post(
     }
 }
 
-/// Edit a published post on a social media platform. Currently only supported for X (Twitter).  **Requirements:** - Connected X account must have an active X Premium subscription - Must be within 1 hour of original publish time - Maximum 5 edits per tweet (enforced by X) - Text-only edits (media changes are not supported)  The post record in Zernio is updated with the new content and edit history.
+/// Edit a published post on a social media platform. Currently only supported for X (Twitter).  Requirements: - Connected X account must have an active X Premium subscription - Must be within 1 hour of original publish time - Maximum 5 edits per tweet (enforced by X) - Text-only edits (media changes are not supported)  The post record in Zernio is updated with the new content and edit history.
 pub async fn edit_post(
     configuration: &configuration::Configuration,
     post_id: &str,
@@ -666,7 +666,7 @@ pub async fn update_post(
     }
 }
 
-/// Updates metadata of a published video on the specified platform without re-uploading. Currently only supported for YouTube. At least one updatable field is required.  **Two modes:**  1. **Post-based** (video published through Zernio): pass the Zernio postId in the URL and `platform` in the body. 2. **Direct video ID** (video uploaded outside Zernio, e.g. directly to YouTube): use `_` as the postId,    and pass `videoId` + `accountId` + `platform` in the body. The accountId is the Zernio social account ID    for the connected YouTube channel.
+/// Updates metadata of a published video on the specified platform without re-uploading. Currently only supported for YouTube. At least one updatable field is required.  Two modes:  1. Post-based (video published through Zernio): pass the Zernio postId in the URL and platform in the body. 2. Direct video ID (video uploaded outside Zernio, e.g. directly to YouTube): use _ as the postId,    and pass videoId + accountId + platform in the body. The accountId is the Zernio social account ID    for the connected YouTube channel.
 pub async fn update_post_metadata(
     configuration: &configuration::Configuration,
     post_id: &str,

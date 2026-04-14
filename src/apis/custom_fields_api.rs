@@ -66,6 +66,7 @@ pub enum UpdateCustomFieldError {
     UnknownValue(serde_json::Value),
 }
 
+/// Remove a custom field value from a contact. The field definition is not affected.
 pub async fn clear_contact_field_value(
     configuration: &configuration::Configuration,
     contact_id: &str,
@@ -110,6 +111,7 @@ pub async fn clear_contact_field_value(
     }
 }
 
+/// Create a new custom field definition. Supported types are text, number, date, boolean, and select.
 pub async fn create_custom_field(
     configuration: &configuration::Configuration,
     create_custom_field_request: models::CreateCustomFieldRequest,
@@ -159,6 +161,7 @@ pub async fn create_custom_field(
     }
 }
 
+/// Delete a custom field definition and remove its values from all contacts.
 pub async fn delete_custom_field(
     configuration: &configuration::Configuration,
     field_id: &str,
@@ -200,6 +203,7 @@ pub async fn delete_custom_field(
     }
 }
 
+/// Returns all custom field definitions. Optionally filter by profile.
 pub async fn list_custom_fields(
     configuration: &configuration::Configuration,
     profile_id: Option<&str>,
@@ -249,6 +253,7 @@ pub async fn list_custom_fields(
     }
 }
 
+/// Set or overwrite a custom field value on a contact. The value type must match the field definition.
 pub async fn set_contact_field_value(
     configuration: &configuration::Configuration,
     contact_id: &str,
@@ -294,6 +299,7 @@ pub async fn set_contact_field_value(
     }
 }
 
+/// Update a custom field definition. The field type cannot be changed after creation.
 pub async fn update_custom_field(
     configuration: &configuration::Configuration,
     field_id: &str,

@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// InboxWebhookConversation : The `conversation` context included in inbox webhook payloads.
+/// InboxWebhookConversation : The conversation context included in inbox webhook payloads.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct InboxWebhookConversation {
     #[serde(rename = "id")]
@@ -34,7 +34,7 @@ pub struct InboxWebhookConversation {
 }
 
 impl InboxWebhookConversation {
-    /// The `conversation` context included in inbox webhook payloads.
+    /// The conversation context included in inbox webhook payloads.
     pub fn new(
         id: String,
         platform_conversation_id: String,

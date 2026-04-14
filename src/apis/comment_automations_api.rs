@@ -117,6 +117,7 @@ pub async fn create_comment_automation(
     }
 }
 
+/// Permanently delete an automation and all its trigger logs.
 pub async fn delete_comment_automation(
     configuration: &configuration::Configuration,
     automation_id: &str,
@@ -158,6 +159,7 @@ pub async fn delete_comment_automation(
     }
 }
 
+/// Returns an automation with its configuration, stats, and recent trigger logs.
 pub async fn get_comment_automation(
     configuration: &configuration::Configuration,
     automation_id: &str,
@@ -324,6 +326,7 @@ pub async fn list_comment_automations(
     }
 }
 
+/// Update an automation's keywords, DM message, comment reply, or active status.
 pub async fn update_comment_automation(
     configuration: &configuration::Configuration,
     automation_id: &str,

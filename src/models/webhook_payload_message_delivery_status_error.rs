@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookPayloadMessageDeliveryStatusError : Populated only on `message.failed`.
+/// WebhookPayloadMessageDeliveryStatusError : Populated only on message.failed.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadMessageDeliveryStatusError {
     #[serde(rename = "code", skip_serializing_if = "Option::is_none")]
@@ -23,7 +23,7 @@ pub struct WebhookPayloadMessageDeliveryStatusError {
 }
 
 impl WebhookPayloadMessageDeliveryStatusError {
-    /// Populated only on `message.failed`.
+    /// Populated only on message.failed.
     pub fn new() -> WebhookPayloadMessageDeliveryStatusError {
         WebhookPayloadMessageDeliveryStatusError {
             code: None,

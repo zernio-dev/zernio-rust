@@ -22,6 +22,8 @@ Method | HTTP request | Description
 > models::ActivateSequence200Response activate_sequence(sequence_id)
 Activate sequence
 
+Start a draft or paused sequence. The sequence must have at least one step.
+
 ### Parameters
 
 
@@ -49,6 +51,8 @@ Name | Type | Description  | Required | Notes
 
 > models::CreateSequence200Response create_sequence(create_sequence_request)
 Create sequence
+
+Create a multi-step messaging sequence. Each step has a delay and a message or WhatsApp template.
 
 ### Parameters
 
@@ -78,6 +82,8 @@ Name | Type | Description  | Required | Notes
 > delete_sequence(sequence_id)
 Delete sequence
 
+Permanently delete a sequence. Active enrollments are stopped.
+
 ### Parameters
 
 
@@ -105,6 +111,8 @@ Name | Type | Description  | Required | Notes
 
 > models::EnrollContacts200Response enroll_contacts(sequence_id, enroll_contacts_request)
 Enroll contacts in a sequence
+
+Enroll one or more contacts into a sequence. Contacts already enrolled are skipped.
 
 ### Parameters
 
@@ -135,6 +143,8 @@ Name | Type | Description  | Required | Notes
 > models::GetSequence200Response get_sequence(sequence_id)
 Get sequence with steps
 
+Returns a sequence with all its steps and enrollment stats.
+
 ### Parameters
 
 
@@ -162,6 +172,8 @@ Name | Type | Description  | Required | Notes
 
 > models::ListSequenceEnrollments200Response list_sequence_enrollments(sequence_id, status, limit, skip)
 List enrollments for a sequence
+
+Returns enrolled contacts with their progress, status, and next scheduled step.
 
 ### Parameters
 
@@ -194,6 +206,8 @@ Name | Type | Description  | Required | Notes
 > models::ListSequences200Response list_sequences(profile_id, status, limit, skip)
 List sequences
 
+Returns sequences with enrollment stats. Filter by status, platform, or profile.
+
 ### Parameters
 
 
@@ -225,6 +239,8 @@ Name | Type | Description  | Required | Notes
 > models::ActivateSequence200Response pause_sequence(sequence_id)
 Pause sequence
 
+Pause an active sequence. Enrolled contacts stop receiving messages until the sequence is reactivated.
+
 ### Parameters
 
 
@@ -252,6 +268,8 @@ Name | Type | Description  | Required | Notes
 
 > unenroll_contact(sequence_id, contact_id)
 Unenroll contact
+
+Remove a contact from a sequence. No further messages will be sent to this contact.
 
 ### Parameters
 
@@ -281,6 +299,8 @@ Name | Type | Description  | Required | Notes
 
 > models::UpdateSequence200Response update_sequence(sequence_id)
 Update sequence
+
+Update a sequence's name, steps, or exit conditions. Active sequences can be updated without pausing.
 
 ### Parameters
 

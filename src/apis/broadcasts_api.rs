@@ -104,6 +104,7 @@ pub enum UpdateBroadcastError {
     UnknownValue(serde_json::Value),
 }
 
+/// Add recipients by contact IDs, raw phone numbers, or from the broadcast's segment filters.
 pub async fn add_broadcast_recipients(
     configuration: &configuration::Configuration,
     broadcast_id: &str,
@@ -159,6 +160,7 @@ pub async fn add_broadcast_recipients(
     }
 }
 
+/// Cancel a scheduled or in-progress broadcast. Already-sent messages are not affected.
 pub async fn cancel_broadcast(
     configuration: &configuration::Configuration,
     broadcast_id: &str,
@@ -211,6 +213,7 @@ pub async fn cancel_broadcast(
     }
 }
 
+/// Create a broadcast in draft status. Add recipients and then send or schedule it.
 pub async fn create_broadcast(
     configuration: &configuration::Configuration,
     create_broadcast_request: models::CreateBroadcastRequest,
@@ -260,6 +263,7 @@ pub async fn create_broadcast(
     }
 }
 
+/// Permanently delete a broadcast. Only drafts can be deleted.
 pub async fn delete_broadcast(
     configuration: &configuration::Configuration,
     broadcast_id: &str,
@@ -301,6 +305,7 @@ pub async fn delete_broadcast(
     }
 }
 
+/// Returns a broadcast with its full configuration and delivery stats.
 pub async fn get_broadcast(
     configuration: &configuration::Configuration,
     broadcast_id: &str,
@@ -351,6 +356,7 @@ pub async fn get_broadcast(
     }
 }
 
+/// Returns recipients for a broadcast with individual delivery status. Filter by status.
 pub async fn list_broadcast_recipients(
     configuration: &configuration::Configuration,
     broadcast_id: &str,
@@ -416,6 +422,7 @@ pub async fn list_broadcast_recipients(
     }
 }
 
+/// Returns broadcasts with delivery stats. Filter by status, platform, or profile.
 pub async fn list_broadcasts(
     configuration: &configuration::Configuration,
     profile_id: Option<&str>,
@@ -485,6 +492,7 @@ pub async fn list_broadcasts(
     }
 }
 
+/// Schedule a draft broadcast to be sent at a future date and time.
 pub async fn schedule_broadcast(
     configuration: &configuration::Configuration,
     broadcast_id: &str,
@@ -540,6 +548,7 @@ pub async fn schedule_broadcast(
     }
 }
 
+/// Immediately start sending a draft broadcast to its recipients.
 pub async fn send_broadcast(
     configuration: &configuration::Configuration,
     broadcast_id: &str,
@@ -592,6 +601,7 @@ pub async fn send_broadcast(
     }
 }
 
+/// Update a broadcast's name, message, template, or segment filters. Only draft broadcasts can be updated.
 pub async fn update_broadcast(
     configuration: &configuration::Configuration,
     broadcast_id: &str,

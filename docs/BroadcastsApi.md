@@ -22,6 +22,8 @@ Method | HTTP request | Description
 > models::AddBroadcastRecipients200Response add_broadcast_recipients(broadcast_id, add_broadcast_recipients_request)
 Add recipients to a broadcast
 
+Add recipients by contact IDs, raw phone numbers, or from the broadcast's segment filters.
+
 ### Parameters
 
 
@@ -51,6 +53,8 @@ Name | Type | Description  | Required | Notes
 > models::CancelBroadcast200Response cancel_broadcast(broadcast_id)
 Cancel broadcast
 
+Cancel a scheduled or in-progress broadcast. Already-sent messages are not affected.
+
 ### Parameters
 
 
@@ -78,6 +82,8 @@ Name | Type | Description  | Required | Notes
 
 > models::CreateBroadcast200Response create_broadcast(create_broadcast_request)
 Create broadcast draft
+
+Create a broadcast in draft status. Add recipients and then send or schedule it.
 
 ### Parameters
 
@@ -107,6 +113,8 @@ Name | Type | Description  | Required | Notes
 > delete_broadcast(broadcast_id)
 Delete broadcast
 
+Permanently delete a broadcast. Only drafts can be deleted.
+
 ### Parameters
 
 
@@ -135,6 +143,8 @@ Name | Type | Description  | Required | Notes
 > models::GetBroadcast200Response get_broadcast(broadcast_id)
 Get broadcast details
 
+Returns a broadcast with its full configuration and delivery stats.
+
 ### Parameters
 
 
@@ -162,6 +172,8 @@ Name | Type | Description  | Required | Notes
 
 > models::ListBroadcastRecipients200Response list_broadcast_recipients(broadcast_id, status, limit, skip)
 List broadcast recipients
+
+Returns recipients for a broadcast with individual delivery status. Filter by status.
 
 ### Parameters
 
@@ -193,6 +205,8 @@ Name | Type | Description  | Required | Notes
 
 > models::ListBroadcasts200Response list_broadcasts(profile_id, status, platform, limit, skip)
 List broadcasts
+
+Returns broadcasts with delivery stats. Filter by status, platform, or profile.
 
 ### Parameters
 
@@ -226,6 +240,8 @@ Name | Type | Description  | Required | Notes
 > models::ScheduleBroadcast200Response schedule_broadcast(broadcast_id, schedule_broadcast_request)
 Schedule broadcast for later
 
+Schedule a draft broadcast to be sent at a future date and time.
+
 ### Parameters
 
 
@@ -255,6 +271,8 @@ Name | Type | Description  | Required | Notes
 > models::SendBroadcast200Response send_broadcast(broadcast_id)
 Send broadcast now
 
+Immediately start sending a draft broadcast to its recipients.
+
 ### Parameters
 
 
@@ -282,6 +300,8 @@ Name | Type | Description  | Required | Notes
 
 > models::UpdateBroadcast200Response update_broadcast(broadcast_id)
 Update broadcast
+
+Update a broadcast's name, message, template, or segment filters. Only draft broadcasts can be updated.
 
 ### Parameters
 

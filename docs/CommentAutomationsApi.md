@@ -48,6 +48,8 @@ Name | Type | Description  | Required | Notes
 > delete_comment_automation(automation_id)
 Delete automation
 
+Permanently delete an automation and all its trigger logs.
+
 ### Parameters
 
 
@@ -75,6 +77,8 @@ Name | Type | Description  | Required | Notes
 
 > models::GetCommentAutomation200Response get_comment_automation(automation_id)
 Get automation details
+
+Returns an automation with its configuration, stats, and recent trigger logs.
 
 ### Parameters
 
@@ -166,6 +170,8 @@ Name | Type | Description  | Required | Notes
 
 > models::UpdateCommentAutomation200Response update_comment_automation(automation_id, update_comment_automation_request)
 Update automation settings
+
+Update an automation's keywords, DM message, comment reply, or active status.
 
 ### Parameters
 

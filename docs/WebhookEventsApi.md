@@ -119,7 +119,7 @@ Name | Type | Description  | Required | Notes
 > on_message_deleted(webhook_payload_message_deleted)
 Message deleted event
 
-Fired when a sender deletes (unsends) a message. Supported on Instagram (incoming unsend) and WhatsApp (when the business deletes an outgoing message via the Cloud API). The payload retains the pre-delete `text` and `attachments` so API consumers can access the original content for moderation or compliance — the Zernio dashboard UI hides it. 
+Fired when a sender deletes (unsends) a message. Supported on Instagram (incoming unsend) and WhatsApp (when the business deletes an outgoing message via the Cloud API). The payload retains the pre-delete text and attachments so API consumers can access the original content for moderation or compliance — the Zernio dashboard UI hides it. 
 
 ### Parameters
 
@@ -179,7 +179,7 @@ Name | Type | Description  | Required | Notes
 > on_message_edited(webhook_payload_message_edited)
 Message edited event
 
-Fired when a sender edits a previously-sent message. Supported on Instagram, Facebook Messenger, and Telegram. The payload includes the full `editHistory` so consumers can show prior versions. 
+Fired when a sender edits a previously-sent message. Supported on Instagram, Facebook Messenger, and Telegram. The payload includes the full editHistory so consumers can show prior versions. 
 
 ### Parameters
 
@@ -209,7 +209,7 @@ Name | Type | Description  | Required | Notes
 > on_message_failed(webhook_payload_message_delivery_status)
 Message delivery failed event
 
-Fired when an outgoing message fails to deliver. Currently only emitted for WhatsApp (other platforms don't expose per-message failure via webhook). The payload `error` object contains `code`, `title`, and `message` from the platform. 
+Fired when an outgoing message fails to deliver. Currently only emitted for WhatsApp (other platforms don't expose per-message failure via webhook). The payload error object contains code, title, and message from the platform. 
 
 ### Parameters
 

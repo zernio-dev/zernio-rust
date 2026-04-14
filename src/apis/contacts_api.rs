@@ -174,6 +174,7 @@ pub async fn create_contact(
     }
 }
 
+/// Permanently deletes a contact and all associated channels.
 pub async fn delete_contact(
     configuration: &configuration::Configuration,
     contact_id: &str,
@@ -215,6 +216,7 @@ pub async fn delete_contact(
     }
 }
 
+/// Returns a contact with all associated messaging channels.
 pub async fn get_contact(
     configuration: &configuration::Configuration,
     contact_id: &str,
@@ -265,6 +267,7 @@ pub async fn get_contact(
     }
 }
 
+/// Returns all messaging channels linked to a contact (e.g. Instagram DM, Telegram, WhatsApp).
 pub async fn get_contact_channels(
     configuration: &configuration::Configuration,
     contact_id: &str,
@@ -395,6 +398,7 @@ pub async fn list_contacts(
     }
 }
 
+/// Update one or more fields on a contact. Only provided fields are changed.
 pub async fn update_contact(
     configuration: &configuration::Configuration,
     contact_id: &str,

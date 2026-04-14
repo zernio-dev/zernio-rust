@@ -28,7 +28,7 @@ pub struct CreateWhatsAppTemplateRequest {
     /// Template components (header, body, footer, buttons). Required for custom templates, omit when using library_template_name.
     #[serde(rename = "components", skip_serializing_if = "Option::is_none")]
     pub components: Option<Vec<models::WhatsAppTemplateComponent>>,
-    /// Name of a pre-built template from Meta's template library (e.g., \"appointment_reminder\", \"auto_pay_reminder_1\", \"address_update\"). When provided, the template is pre-approved by Meta with no review wait. Omit `components` when using this field.
+    /// Name of a pre-built template from Meta's template library (e.g., \"appointment_reminder\", \"auto_pay_reminder_1\", \"address_update\"). When provided, the template is pre-approved by Meta with no review wait. Omit components when using this field.
     #[serde(
         rename = "library_template_name",
         skip_serializing_if = "Option::is_none"

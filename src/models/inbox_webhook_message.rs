@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// InboxWebhookMessage : The `message` object included in inbox webhook payloads.
+/// InboxWebhookMessage : The message object included in inbox webhook payloads.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct InboxWebhookMessage {
     /// Internal message ID
@@ -41,7 +41,7 @@ pub struct InboxWebhookMessage {
 }
 
 impl InboxWebhookMessage {
-    /// The `message` object included in inbox webhook payloads.
+    /// The message object included in inbox webhook payloads.
     pub fn new(
         id: String,
         conversation_id: String,

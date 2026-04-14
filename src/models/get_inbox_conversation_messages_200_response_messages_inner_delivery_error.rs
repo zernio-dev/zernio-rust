@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// GetInboxConversationMessages200ResponseMessagesInnerDeliveryError : Populated when `deliveryStatus === \"failed\"`.
+/// GetInboxConversationMessages200ResponseMessagesInnerDeliveryError : Populated when deliveryStatus === \"failed\".
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetInboxConversationMessages200ResponseMessagesInnerDeliveryError {
     #[serde(rename = "code", skip_serializing_if = "Option::is_none")]
@@ -23,7 +23,7 @@ pub struct GetInboxConversationMessages200ResponseMessagesInnerDeliveryError {
 }
 
 impl GetInboxConversationMessages200ResponseMessagesInnerDeliveryError {
-    /// Populated when `deliveryStatus === \"failed\"`.
+    /// Populated when deliveryStatus === \"failed\".
     pub fn new() -> GetInboxConversationMessages200ResponseMessagesInnerDeliveryError {
         GetInboxConversationMessages200ResponseMessagesInnerDeliveryError {
             code: None,

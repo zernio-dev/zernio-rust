@@ -111,6 +111,8 @@ Name | Type | Description  | Required | Notes
 > models::GetAd200Response get_ad(ad_id)
 Get ad details
 
+Returns an ad with its creative, targeting, status, and performance metrics.
+
 ### Parameters
 
 
@@ -202,7 +204,7 @@ Name | Type | Description  | Required | Notes
 > models::ListAds200Response list_ads(page, limit, source, status, platform, account_id, ad_account_id, profile_id, campaign_id, from_date, to_date)
 List ads
 
-Returns a paginated list of ads with metrics computed over an optional date range. Use `source=all` to include externally-synced ads from platform ad managers. If no date range is provided, defaults to the last 90 days. Date range is capped at 90 days max. 
+Returns a paginated list of ads with metrics computed over an optional date range. Use source=all to include externally-synced ads from platform ad managers. If no date range is provided, defaults to the last 90 days. Date range is capped at 90 days max. 
 
 ### Parameters
 

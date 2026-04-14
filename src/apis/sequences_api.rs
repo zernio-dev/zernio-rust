@@ -103,6 +103,7 @@ pub enum UpdateSequenceError {
     UnknownValue(serde_json::Value),
 }
 
+/// Start a draft or paused sequence. The sequence must have at least one step.
 pub async fn activate_sequence(
     configuration: &configuration::Configuration,
     sequence_id: &str,
@@ -155,6 +156,7 @@ pub async fn activate_sequence(
     }
 }
 
+/// Create a multi-step messaging sequence. Each step has a delay and a message or WhatsApp template.
 pub async fn create_sequence(
     configuration: &configuration::Configuration,
     create_sequence_request: models::CreateSequenceRequest,
@@ -204,6 +206,7 @@ pub async fn create_sequence(
     }
 }
 
+/// Permanently delete a sequence. Active enrollments are stopped.
 pub async fn delete_sequence(
     configuration: &configuration::Configuration,
     sequence_id: &str,
@@ -245,6 +248,7 @@ pub async fn delete_sequence(
     }
 }
 
+/// Enroll one or more contacts into a sequence. Contacts already enrolled are skipped.
 pub async fn enroll_contacts(
     configuration: &configuration::Configuration,
     sequence_id: &str,
@@ -300,6 +304,7 @@ pub async fn enroll_contacts(
     }
 }
 
+/// Returns a sequence with all its steps and enrollment stats.
 pub async fn get_sequence(
     configuration: &configuration::Configuration,
     sequence_id: &str,
@@ -350,6 +355,7 @@ pub async fn get_sequence(
     }
 }
 
+/// Returns enrolled contacts with their progress, status, and next scheduled step.
 pub async fn list_sequence_enrollments(
     configuration: &configuration::Configuration,
     sequence_id: &str,
@@ -415,6 +421,7 @@ pub async fn list_sequence_enrollments(
     }
 }
 
+/// Returns sequences with enrollment stats. Filter by status, platform, or profile.
 pub async fn list_sequences(
     configuration: &configuration::Configuration,
     profile_id: Option<&str>,
@@ -479,6 +486,7 @@ pub async fn list_sequences(
     }
 }
 
+/// Pause an active sequence. Enrolled contacts stop receiving messages until the sequence is reactivated.
 pub async fn pause_sequence(
     configuration: &configuration::Configuration,
     sequence_id: &str,
@@ -531,6 +539,7 @@ pub async fn pause_sequence(
     }
 }
 
+/// Remove a contact from a sequence. No further messages will be sent to this contact.
 pub async fn unenroll_contact(
     configuration: &configuration::Configuration,
     sequence_id: &str,
@@ -575,6 +584,7 @@ pub async fn unenroll_contact(
     }
 }
 
+/// Update a sequence's name, steps, or exit conditions. Active sequences can be updated without pausing.
 pub async fn update_sequence(
     configuration: &configuration::Configuration,
     sequence_id: &str,

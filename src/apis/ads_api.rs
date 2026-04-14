@@ -253,6 +253,7 @@ pub async fn delete_ad(
     }
 }
 
+/// Returns an ad with its creative, targeting, status, and performance metrics.
 pub async fn get_ad(
     configuration: &configuration::Configuration,
     ad_id: &str,
@@ -417,7 +418,7 @@ pub async fn list_ad_accounts(
     }
 }
 
-/// Returns a paginated list of ads with metrics computed over an optional date range. Use `source=all` to include externally-synced ads from platform ad managers. If no date range is provided, defaults to the last 90 days. Date range is capped at 90 days max.
+/// Returns a paginated list of ads with metrics computed over an optional date range. Use source=all to include externally-synced ads from platform ad managers. If no date range is provided, defaults to the last 90 days. Date range is capped at 90 days max.
 pub async fn list_ads(
     configuration: &configuration::Configuration,
     page: Option<i32>,

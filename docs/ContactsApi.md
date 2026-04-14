@@ -79,6 +79,8 @@ Name | Type | Description  | Required | Notes
 > delete_contact(contact_id)
 Delete contact
 
+Permanently deletes a contact and all associated channels.
+
 ### Parameters
 
 
@@ -107,6 +109,8 @@ Name | Type | Description  | Required | Notes
 > models::GetContact200Response get_contact(contact_id)
 Get contact
 
+Returns a contact with all associated messaging channels.
+
 ### Parameters
 
 
@@ -134,6 +138,8 @@ Name | Type | Description  | Required | Notes
 
 > models::GetContactChannels200Response get_contact_channels(contact_id)
 List channels for a contact
+
+Returns all messaging channels linked to a contact (e.g. Instagram DM, Telegram, WhatsApp).
 
 ### Parameters
 
@@ -198,6 +204,8 @@ Name | Type | Description  | Required | Notes
 
 > models::UpdateContact200Response update_contact(contact_id, update_contact_request)
 Update contact
+
+Update one or more fields on a contact. Only provided fields are changed.
 
 ### Parameters
 

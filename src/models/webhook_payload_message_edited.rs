@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookPayloadMessageEdited : Webhook payload for `message.edited` events. Fires when the sender edits a previously-sent message. Supported platforms: Instagram, Facebook Messenger, Telegram. The `message` object reflects the LATEST state; `editHistory` contains every prior version in order (oldest first), so the last entry is the version immediately before the current content.
+/// WebhookPayloadMessageEdited : Webhook payload for message.edited events. Fires when the sender edits a previously-sent message. Supported platforms: Instagram, Facebook Messenger, Telegram. The message object reflects the LATEST state; editHistory contains every prior version in order (oldest first), so the last entry is the version immediately before the current content.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadMessageEdited {
     #[serde(rename = "id")]
@@ -38,7 +38,7 @@ pub struct WebhookPayloadMessageEdited {
 }
 
 impl WebhookPayloadMessageEdited {
-    /// Webhook payload for `message.edited` events. Fires when the sender edits a previously-sent message. Supported platforms: Instagram, Facebook Messenger, Telegram. The `message` object reflects the LATEST state; `editHistory` contains every prior version in order (oldest first), so the last entry is the version immediately before the current content.
+    /// Webhook payload for message.edited events. Fires when the sender edits a previously-sent message. Supported platforms: Instagram, Facebook Messenger, Telegram. The message object reflects the LATEST state; editHistory contains every prior version in order (oldest first), so the last entry is the version immediately before the current content.
     pub fn new(
         id: String,
         event: Event,

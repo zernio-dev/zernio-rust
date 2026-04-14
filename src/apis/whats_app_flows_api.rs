@@ -217,7 +217,7 @@ pub async fn delete_whats_app_flow(
     }
 }
 
-/// Deprecate a PUBLISHED flow. **This is irreversible.** Deprecated flows cannot be sent or opened, but existing active sessions may continue until they complete.
+/// Deprecate a PUBLISHED flow. This is irreversible. Deprecated flows cannot be sent or opened, but existing active sessions may continue until they complete.
 pub async fn deprecate_whats_app_flow(
     configuration: &configuration::Configuration,
     flow_id: &str,
@@ -434,7 +434,7 @@ pub async fn list_whats_app_flows(
     }
 }
 
-/// Publish a DRAFT flow. **This is irreversible.** Once published, the flow and its JSON become immutable and the flow can be sent to users. To update a published flow, create a new flow (optionally cloning this one via `cloneFlowId`).
+/// Publish a DRAFT flow. This is irreversible. Once published, the flow and its JSON become immutable and the flow can be sent to users. To update a published flow, create a new flow (optionally cloning this one via cloneFlowId).
 pub async fn publish_whats_app_flow(
     configuration: &configuration::Configuration,
     flow_id: &str,

@@ -225,7 +225,7 @@ pub async fn on_comment_received(configuration: &configuration::Configuration, w
     }
 }
 
-/// Fired when a sender deletes (unsends) a message. Supported on Instagram (incoming unsend) and WhatsApp (when the business deletes an outgoing message via the Cloud API). The payload retains the pre-delete `text` and `attachments` so API consumers can access the original content for moderation or compliance — the Zernio dashboard UI hides it. 
+/// Fired when a sender deletes (unsends) a message. Supported on Instagram (incoming unsend) and WhatsApp (when the business deletes an outgoing message via the Cloud API). The payload retains the pre-delete text and attachments so API consumers can access the original content for moderation or compliance — the Zernio dashboard UI hides it. 
 pub async fn on_message_deleted(configuration: &configuration::Configuration, webhook_payload_message_deleted: models::WebhookPayloadMessageDeleted) -> Result<(), Error<OnMessageDeletedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_payload_message_deleted = webhook_payload_message_deleted;
@@ -285,7 +285,7 @@ pub async fn on_message_delivered(configuration: &configuration::Configuration, 
     }
 }
 
-/// Fired when a sender edits a previously-sent message. Supported on Instagram, Facebook Messenger, and Telegram. The payload includes the full `editHistory` so consumers can show prior versions. 
+/// Fired when a sender edits a previously-sent message. Supported on Instagram, Facebook Messenger, and Telegram. The payload includes the full editHistory so consumers can show prior versions. 
 pub async fn on_message_edited(configuration: &configuration::Configuration, webhook_payload_message_edited: models::WebhookPayloadMessageEdited) -> Result<(), Error<OnMessageEditedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_payload_message_edited = webhook_payload_message_edited;
@@ -315,7 +315,7 @@ pub async fn on_message_edited(configuration: &configuration::Configuration, web
     }
 }
 
-/// Fired when an outgoing message fails to deliver. Currently only emitted for WhatsApp (other platforms don't expose per-message failure via webhook). The payload `error` object contains `code`, `title`, and `message` from the platform. 
+/// Fired when an outgoing message fails to deliver. Currently only emitted for WhatsApp (other platforms don't expose per-message failure via webhook). The payload error object contains code, title, and message from the platform. 
 pub async fn on_message_failed(configuration: &configuration::Configuration, webhook_payload_message_delivery_status: models::WebhookPayloadMessageDeliveryStatus) -> Result<(), Error<OnMessageFailedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_payload_message_delivery_status = webhook_payload_message_delivery_status;

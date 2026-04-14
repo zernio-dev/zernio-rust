@@ -16,19 +16,19 @@ pub struct CreateInboxConversationRequest {
     /// The social account ID to send from
     #[serde(rename = "accountId")]
     pub account_id: String,
-    /// Twitter numeric user ID of the recipient. Provide either this or `participantUsername`.
+    /// Twitter numeric user ID of the recipient. Provide either this or participantUsername.
     #[serde(rename = "participantId", skip_serializing_if = "Option::is_none")]
     pub participant_id: Option<String>,
-    /// Twitter username (with or without @) of the recipient. Resolved to a user ID via lookup. Provide either this or `participantId`.
+    /// Twitter username (with or without @) of the recipient. Resolved to a user ID via lookup. Provide either this or participantId.
     #[serde(
         rename = "participantUsername",
         skip_serializing_if = "Option::is_none"
     )]
     pub participant_username: Option<String>,
-    /// Text content of the message. At least one of `message` or attachment is required.
+    /// Text content of the message. At least one of message or attachment is required.
     #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
-    /// Skip the `receives_your_dm` eligibility check before sending. Use if you have already verified the recipient accepts DMs.
+    /// Skip the receives_your_dm eligibility check before sending. Use if you have already verified the recipient accepts DMs.
     #[serde(rename = "skipDmCheck", skip_serializing_if = "Option::is_none")]
     pub skip_dm_check: Option<bool>,
 }

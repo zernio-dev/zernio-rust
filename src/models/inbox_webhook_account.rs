@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// InboxWebhookAccount : The `account` context included in inbox webhook payloads.
+/// InboxWebhookAccount : The account context included in inbox webhook payloads.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct InboxWebhookAccount {
     /// Social account ID
@@ -26,7 +26,7 @@ pub struct InboxWebhookAccount {
 }
 
 impl InboxWebhookAccount {
-    /// The `account` context included in inbox webhook payloads.
+    /// The account context included in inbox webhook payloads.
     pub fn new(id: String, platform: String, username: String) -> InboxWebhookAccount {
         InboxWebhookAccount {
             id,
