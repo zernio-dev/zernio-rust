@@ -27,6 +27,14 @@ pub struct AdTreeAdSet {
     pub budget: Option<Box<models::AdBudget>>,
     #[serde(rename = "metrics", skip_serializing_if = "Option::is_none")]
     pub metrics: Option<Box<models::AdMetrics>>,
+    /// Meta ad set optimization goal (e.g. OFFSITE_CONVERSIONS, VALUE, LEAD_GENERATION)
+    #[serde(rename = "optimizationGoal", skip_serializing_if = "Option::is_none")]
+    pub optimization_goal: Option<String>,
+    /// Bid strategy for this ad set (overrides campaign level when set)
+    #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
+    pub bid_strategy: Option<String>,
+    #[serde(rename = "promotedObject", skip_serializing_if = "Option::is_none")]
+    pub promoted_object: Option<Box<models::AdTreeAdSetPromotedObject>>,
     /// Individual ads within this ad set (capped at 100). Returns a subset of Ad fields from the aggregation (core fields like _id, name, platform, status, budget, metrics, creative, goal are included; targeting and schedule may be absent).
     #[serde(rename = "ads", skip_serializing_if = "Option::is_none")]
     pub ads: Option<Vec<models::Ad>>,
@@ -42,6 +50,9 @@ impl AdTreeAdSet {
             ad_count: None,
             budget: None,
             metrics: None,
+            optimization_goal: None,
+            bid_strategy: None,
+            promoted_object: None,
             ads: None,
         }
     }

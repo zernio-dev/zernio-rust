@@ -47,6 +47,17 @@ pub struct Ad {
     pub campaign_name: Option<String>,
     #[serde(rename = "adSetName", skip_serializing_if = "Option::is_none")]
     pub ad_set_name: Option<String>,
+    /// Raw Meta campaign objective (e.g. OUTCOME_SALES, OUTCOME_LEADS, OUTCOME_TRAFFIC). Only present for Meta ads.
+    #[serde(rename = "platformObjective", skip_serializing_if = "Option::is_none")]
+    pub platform_objective: Option<String>,
+    /// Meta ad set optimization goal (e.g. OFFSITE_CONVERSIONS, VALUE, LEAD_GENERATION, LINK_CLICKS). Only present for Meta ads.
+    #[serde(rename = "optimizationGoal", skip_serializing_if = "Option::is_none")]
+    pub optimization_goal: Option<String>,
+    /// Bid strategy (e.g. LOWEST_COST_WITHOUT_CAP, COST_CAP, LOWEST_COST_WITH_MIN_ROAS). Ad set level overrides campaign level. Only present for Meta ads.
+    #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
+    pub bid_strategy: Option<String>,
+    #[serde(rename = "promotedObject", skip_serializing_if = "Option::is_none")]
+    pub promoted_object: Option<Box<models::AdPromotedObject>>,
     #[serde(rename = "creative", skip_serializing_if = "Option::is_none")]
     pub creative: Option<Box<models::AdCreative>>,
     #[serde(rename = "targeting", skip_serializing_if = "Option::is_none")]
@@ -79,6 +90,10 @@ impl Ad {
             platform_ad_set_id: None,
             campaign_name: None,
             ad_set_name: None,
+            platform_objective: None,
+            optimization_goal: None,
+            bid_strategy: None,
+            promoted_object: None,
             creative: None,
             targeting: None,
             schedule: None,

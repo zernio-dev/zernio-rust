@@ -15,6 +15,10 @@ Name | Type | Description | Notes
 **platform_ad_account_id** | Option<**String**> |  | [optional]
 **account_id** | Option<**String**> |  | [optional]
 **profile_id** | Option<**String**> |  | [optional]
+**platform_objective** | Option<**String**> | Raw Meta campaign objective (e.g. OUTCOME_SALES, OUTCOME_LEADS, OUTCOME_TRAFFIC) | [optional]
+**optimization_goal** | Option<[**models::AdTreeCampaignOptimizationGoal**](AdTreeCampaignOptimizationGoal.md)> |  | [optional]
+**bid_strategy** | Option<**String**> | Campaign-level bid strategy (e.g. LOWEST_COST_WITHOUT_CAP, COST_CAP, LOWEST_COST_WITH_MIN_ROAS) | [optional]
+**promoted_object** | Option<[**models::AdTreeCampaignPromotedObject**](AdTreeCampaignPromotedObject.md)> |  | [optional]
 **ad_sets** | Option<[**Vec<models::AdTreeAdSet>**](AdTreeAdSet.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

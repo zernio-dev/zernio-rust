@@ -37,6 +37,16 @@ pub struct AdCampaign {
     pub account_id: Option<String>,
     #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]
     pub profile_id: Option<String>,
+    /// Raw Meta campaign objective (e.g. OUTCOME_SALES, OUTCOME_LEADS, OUTCOME_TRAFFIC)
+    #[serde(rename = "platformObjective", skip_serializing_if = "Option::is_none")]
+    pub platform_objective: Option<String>,
+    #[serde(rename = "optimizationGoal", skip_serializing_if = "Option::is_none")]
+    pub optimization_goal: Option<Box<models::AdTreeCampaignOptimizationGoal>>,
+    /// Campaign-level bid strategy (e.g. LOWEST_COST_WITHOUT_CAP, COST_CAP, LOWEST_COST_WITH_MIN_ROAS)
+    #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
+    pub bid_strategy: Option<String>,
+    #[serde(rename = "promotedObject", skip_serializing_if = "Option::is_none")]
+    pub promoted_object: Option<Box<models::AdTreeCampaignPromotedObject>>,
     #[serde(rename = "earliestAd", skip_serializing_if = "Option::is_none")]
     pub earliest_ad: Option<String>,
     #[serde(rename = "latestAd", skip_serializing_if = "Option::is_none")]
@@ -56,6 +66,10 @@ impl AdCampaign {
             platform_ad_account_id: None,
             account_id: None,
             profile_id: None,
+            platform_objective: None,
+            optimization_goal: None,
+            bid_strategy: None,
+            promoted_object: None,
             earliest_ad: None,
             latest_ad: None,
         }
