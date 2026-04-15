@@ -75,6 +75,10 @@ docs/ConnectWhatsAppCredentialsRequest.md
 docs/Connected.md
 docs/ConnectedAccount.md
 docs/ContactsApi.md
+docs/ConversionEvent.md
+docs/ConversionEventItemsInner.md
+docs/ConversionEventUser.md
+docs/ConversionEventUserClickIds.md
 docs/CreateAccountGroup201Response.md
 docs/CreateAccountGroupRequest.md
 docs/CreateAdAudience201Response.md
@@ -405,6 +409,8 @@ docs/ListContacts200Response.md
 docs/ListContacts200ResponseContactsInner.md
 docs/ListContacts200ResponseFilters.md
 docs/ListContacts200ResponsePagination.md
+docs/ListConversionDestinations200Response.md
+docs/ListConversionDestinations200ResponseDestinationsInner.md
 docs/ListCustomFields200Response.md
 docs/ListCustomFields200ResponseFieldsInner.md
 docs/ListFacebookPages200Response.md
@@ -544,6 +550,11 @@ docs/SelectSnapchatProfile200ResponseAccount.md
 docs/SelectSnapchatProfileRequest.md
 docs/SelectSnapchatProfileRequestSelectedPublicProfile.md
 docs/SendBroadcast200Response.md
+docs/SendConversions200Response.md
+docs/SendConversions200ResponseFailuresInner.md
+docs/SendConversions200ResponseFailuresInnerCode.md
+docs/SendConversionsRequest.md
+docs/SendConversionsRequestConsent.md
 docs/SendInboxMessage200Response.md
 docs/SendInboxMessage200ResponseData.md
 docs/SendInboxMessage400Response.md
@@ -850,6 +861,10 @@ src/models/connect_whats_app_credentials_200_response_account.rs
 src/models/connect_whats_app_credentials_request.rs
 src/models/connected.rs
 src/models/connected_account.rs
+src/models/conversion_event.rs
+src/models/conversion_event_items_inner.rs
+src/models/conversion_event_user.rs
+src/models/conversion_event_user_click_ids.rs
 src/models/create_account_group_201_response.rs
 src/models/create_account_group_request.rs
 src/models/create_ad_audience_201_response.rs
@@ -1171,6 +1186,8 @@ src/models/list_contacts_200_response.rs
 src/models/list_contacts_200_response_contacts_inner.rs
 src/models/list_contacts_200_response_filters.rs
 src/models/list_contacts_200_response_pagination.rs
+src/models/list_conversion_destinations_200_response.rs
+src/models/list_conversion_destinations_200_response_destinations_inner.rs
 src/models/list_custom_fields_200_response.rs
 src/models/list_custom_fields_200_response_fields_inner.rs
 src/models/list_facebook_pages_200_response.rs
@@ -1303,6 +1320,11 @@ src/models/select_snapchat_profile_200_response_account.rs
 src/models/select_snapchat_profile_request.rs
 src/models/select_snapchat_profile_request_selected_public_profile.rs
 src/models/send_broadcast_200_response.rs
+src/models/send_conversions_200_response.rs
+src/models/send_conversions_200_response_failures_inner.rs
+src/models/send_conversions_200_response_failures_inner_code.rs
+src/models/send_conversions_request.rs
+src/models/send_conversions_request_consent.rs
 src/models/send_inbox_message_200_response.rs
 src/models/send_inbox_message_200_response_data.rs
 src/models/send_inbox_message_400_response.rs
