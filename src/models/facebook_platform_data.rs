@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FacebookPlatformData : Feed posts support up to 10 images (no mixed video+image). Stories require single media (24h, no captions). Reels require single vertical video (9:16, 3-60s).
+/// FacebookPlatformData : Feed posts support up to 10 images (no mixed video+image). Stories require single media (24h, no captions). Reels require single vertical video (9:16, 3-60s). Geo-restriction is a hard visibility restriction: users outside the specified countries cannot see the post. Not supported for stories.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FacebookPlatformData {
     /// When true, creates the post as an unpublished draft visible in Facebook Publishing Tools instead of publishing immediately. Supported for feed posts (text, link, image, video) and reels. Not supported for stories. Drafts expire after ~30 days.
@@ -29,10 +29,12 @@ pub struct FacebookPlatformData {
     /// Target Facebook Page ID for multi-page posting. If omitted, uses the default page. Use GET /v1/accounts/{id}/facebook-page to list pages.
     #[serde(rename = "pageId", skip_serializing_if = "Option::is_none")]
     pub page_id: Option<String>,
+    #[serde(rename = "geoRestriction", skip_serializing_if = "Option::is_none")]
+    pub geo_restriction: Option<Box<models::GeoRestriction>>,
 }
 
 impl FacebookPlatformData {
-    /// Feed posts support up to 10 images (no mixed video+image). Stories require single media (24h, no captions). Reels require single vertical video (9:16, 3-60s).
+    /// Feed posts support up to 10 images (no mixed video+image). Stories require single media (24h, no captions). Reels require single vertical video (9:16, 3-60s). Geo-restriction is a hard visibility restriction: users outside the specified countries cannot see the post. Not supported for stories.
     pub fn new() -> FacebookPlatformData {
         FacebookPlatformData {
             draft: None,
@@ -40,6 +42,7 @@ impl FacebookPlatformData {
             title: None,
             first_comment: None,
             page_id: None,
+            geo_restriction: None,
         }
     }
 }

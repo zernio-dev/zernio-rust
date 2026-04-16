@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **title** | Option<**String**> | Reel title (only for contentType=reel). Separate from the caption/content field. | [optional]
 **first_comment** | Option<**String**> | Optional first comment to post immediately after publishing (feed posts and reels, not stories). Skipped when draft is true. | [optional]
 **page_id** | Option<**String**> | Target Facebook Page ID for multi-page posting. If omitted, uses the default page. Use GET /v1/accounts/{id}/facebook-page to list pages. | [optional]
+**geo_restriction** | Option<[**models::GeoRestriction**](GeoRestriction.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

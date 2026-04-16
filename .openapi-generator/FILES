@@ -184,6 +184,7 @@ docs/FoodMenuItemAttributes.md
 docs/FoodMenuItemOptionsInner.md
 docs/FoodMenuLabel.md
 docs/FoodMenuSection.md
+docs/GeoRestriction.md
 docs/GetAccountHealth200Response.md
 docs/GetAccountHealth200ResponsePermissions.md
 docs/GetAccountHealth200ResponsePermissionsPostingInner.md
@@ -988,6 +989,7 @@ src/models/food_menu_item_attributes.rs
 src/models/food_menu_item_options_inner.rs
 src/models/food_menu_label.rs
 src/models/food_menu_section.rs
+src/models/geo_restriction.rs
 src/models/get_account_health_200_response.rs
 src/models/get_account_health_200_response_permissions.rs
 src/models/get_account_health_200_response_permissions_posting_inner.rs

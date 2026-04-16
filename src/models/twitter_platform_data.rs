@@ -11,6 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// TwitterPlatformData : X (Twitter) geo-restriction applies at the media level. Media in geo-restricted tweets will be hidden for users outside the specified countries; the tweet text itself remains visible globally. Requires media to be attached (ignored for text-only tweets).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TwitterPlatformData {
     /// ID of an existing tweet to reply to. The published tweet will appear as a reply in that tweet's thread. For threads, only the first tweet replies to the target; subsequent tweets chain normally.
@@ -27,9 +28,12 @@ pub struct TwitterPlatformData {
     /// Enable long video uploads (over 140 seconds) using amplify_video media category. Requires the connected X account to have an active X Premium subscription. When true, videos are uploaded with the amplify_video category which supports longer durations (up to 10 minutes via API). When false or omitted, the standard tweet_video category is used (140 second limit). Note that not all Premium accounts have API long-video access, as X may require separate allowlisting.
     #[serde(rename = "longVideo", skip_serializing_if = "Option::is_none")]
     pub long_video: Option<bool>,
+    #[serde(rename = "geoRestriction", skip_serializing_if = "Option::is_none")]
+    pub geo_restriction: Option<Box<models::GeoRestriction>>,
 }
 
 impl TwitterPlatformData {
+    /// X (Twitter) geo-restriction applies at the media level. Media in geo-restricted tweets will be hidden for users outside the specified countries; the tweet text itself remains visible globally. Requires media to be attached (ignored for text-only tweets).
     pub fn new() -> TwitterPlatformData {
         TwitterPlatformData {
             reply_to_tweet_id: None,
@@ -37,6 +41,7 @@ impl TwitterPlatformData {
             thread_items: None,
             poll: None,
             long_video: None,
+            geo_restriction: None,
         }
     }
 }

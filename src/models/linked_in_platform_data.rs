@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// LinkedInPlatformData : Up to 20 images, no multi-video. Single PDF supported (max 100MB). Link previews auto-generated when no media attached. Use organizationUrn for multi-org posting.
+/// LinkedInPlatformData : Up to 20 images, no multi-video. Single PDF supported (max 100MB). Link previews auto-generated when no media attached. Use organizationUrn for multi-org posting. Geo-restriction only works for organization pages (not personal profiles) and requires the targeted audience to exceed 300 followers.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LinkedInPlatformData {
     /// Title displayed on LinkedIn document (PDF/carousel) posts. Required by LinkedIn for document posts. If omitted, falls back to the media item title, then the filename.
@@ -26,16 +26,19 @@ pub struct LinkedInPlatformData {
     /// Set to true to disable automatic link previews for URLs in the post content (default is false)
     #[serde(rename = "disableLinkPreview", skip_serializing_if = "Option::is_none")]
     pub disable_link_preview: Option<bool>,
+    #[serde(rename = "geoRestriction", skip_serializing_if = "Option::is_none")]
+    pub geo_restriction: Option<Box<models::GeoRestriction>>,
 }
 
 impl LinkedInPlatformData {
-    /// Up to 20 images, no multi-video. Single PDF supported (max 100MB). Link previews auto-generated when no media attached. Use organizationUrn for multi-org posting.
+    /// Up to 20 images, no multi-video. Single PDF supported (max 100MB). Link previews auto-generated when no media attached. Use organizationUrn for multi-org posting. Geo-restriction only works for organization pages (not personal profiles) and requires the targeted audience to exceed 300 followers.
     pub fn new() -> LinkedInPlatformData {
         LinkedInPlatformData {
             document_title: None,
             organization_urn: None,
             first_comment: None,
             disable_link_preview: None,
+            geo_restriction: None,
         }
     }
 }
