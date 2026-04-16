@@ -27,6 +27,7 @@ pub struct BoostPostRequest {
     pub ad_account_id: String,
     #[serde(rename = "name")]
     pub name: String,
+    /// Available goals vary by platform. Meta (Facebook/Instagram) and TikTok support all 7. LinkedIn supports all except app_promotion. Twitter/X supports engagement, traffic, awareness, video_views, app_promotion. Pinterest and Google Ads support only engagement, traffic, awareness, video_views.
     #[serde(rename = "goal")]
     pub goal: Goal,
     #[serde(rename = "budget")]
@@ -75,7 +76,7 @@ impl BoostPostRequest {
         }
     }
 }
-///
+/// Available goals vary by platform. Meta (Facebook/Instagram) and TikTok support all 7. LinkedIn supports all except app_promotion. Twitter/X supports engagement, traffic, awareness, video_views, app_promotion. Pinterest and Google Ads support only engagement, traffic, awareness, video_views.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Goal {
     #[serde(rename = "engagement")]
@@ -86,6 +87,12 @@ pub enum Goal {
     Awareness,
     #[serde(rename = "video_views")]
     VideoViews,
+    #[serde(rename = "lead_generation")]
+    LeadGeneration,
+    #[serde(rename = "conversions")]
+    Conversions,
+    #[serde(rename = "app_promotion")]
+    AppPromotion,
 }
 
 impl Default for Goal {

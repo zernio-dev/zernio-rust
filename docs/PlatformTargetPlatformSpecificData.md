@@ -5,6 +5,7 @@
 | Name | Description |
 |---- | -----|
 | BlueskyPlatformData | Platform-specific overrides and options. |
+| DiscordPlatformData | Platform-specific overrides and options. |
 | FacebookPlatformData | Platform-specific overrides and options. |
 | GoogleBusinessPlatformData | Platform-specific overrides and options. |
 | InstagramPlatformData | Platform-specific overrides and options. |

@@ -27,6 +27,7 @@ pub enum CreatePostRequestPlatformsInnerPlatformSpecificData {
     SnapchatPlatformData(Box<models::SnapchatPlatformData>),
     RedditPlatformData(Box<models::RedditPlatformData>),
     BlueskyPlatformData(Box<models::BlueskyPlatformData>),
+    DiscordPlatformData(Box<models::DiscordPlatformData>),
 }
 
 impl Default for CreatePostRequestPlatformsInnerPlatformSpecificData {

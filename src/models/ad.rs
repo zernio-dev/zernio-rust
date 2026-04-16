@@ -23,6 +23,7 @@ pub struct Ad {
     pub status: Option<models::AdStatus>,
     #[serde(rename = "adType", skip_serializing_if = "Option::is_none")]
     pub ad_type: Option<AdType>,
+    /// Available goals vary by platform. Meta (Facebook/Instagram) and TikTok support all 7. LinkedIn supports all except app_promotion. Twitter/X supports engagement, traffic, awareness, video_views, app_promotion. Pinterest and Google Ads support only engagement, traffic, awareness, video_views.
     #[serde(rename = "goal", skip_serializing_if = "Option::is_none")]
     pub goal: Option<Goal>,
     /// True for ads synced from platform ad managers
@@ -141,7 +142,7 @@ impl Default for AdType {
         Self::Boost
     }
 }
-///
+/// Available goals vary by platform. Meta (Facebook/Instagram) and TikTok support all 7. LinkedIn supports all except app_promotion. Twitter/X supports engagement, traffic, awareness, video_views, app_promotion. Pinterest and Google Ads support only engagement, traffic, awareness, video_views.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Goal {
     #[serde(rename = "engagement")]
@@ -152,6 +153,12 @@ pub enum Goal {
     Awareness,
     #[serde(rename = "video_views")]
     VideoViews,
+    #[serde(rename = "lead_generation")]
+    LeadGeneration,
+    #[serde(rename = "conversions")]
+    Conversions,
+    #[serde(rename = "app_promotion")]
+    AppPromotion,
 }
 
 impl Default for Goal {

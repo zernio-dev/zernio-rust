@@ -17,6 +17,9 @@ pub struct PlatformAnalytics {
     pub platform: Option<String>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
+    /// The native post ID on the platform (e.g. Instagram media ID, tweet ID)
+    #[serde(rename = "platformPostId", skip_serializing_if = "Option::is_none")]
+    pub platform_post_id: Option<String>,
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
     #[serde(rename = "accountUsername", skip_serializing_if = "Option::is_none")]
@@ -38,6 +41,7 @@ impl PlatformAnalytics {
         PlatformAnalytics {
             platform: None,
             status: None,
+            platform_post_id: None,
             account_id: None,
             account_username: None,
             analytics: None,

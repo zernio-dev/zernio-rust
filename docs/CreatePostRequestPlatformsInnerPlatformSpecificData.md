@@ -5,6 +5,7 @@
 | Name | Description |
 |---- | -----|
 | BlueskyPlatformData |  |
+| DiscordPlatformData |  |
 | FacebookPlatformData |  |
 | GoogleBusinessPlatformData |  |
 | InstagramPlatformData |  |

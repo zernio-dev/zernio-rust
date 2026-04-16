@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **platform** | Option<**String**> |  | [optional]
 **status** | Option<**Status**> |  (enum: published, failed) | [optional]
+**platform_post_id** | Option<**String**> | The native post ID on the platform (e.g. Instagram media ID, tweet ID) | [optional]
 **account_id** | Option<**String**> |  | [optional]
 **account_username** | Option<**String**> |  | [optional]
 **analytics** | Option<[**models::PostAnalytics**](PostAnalytics.md)> |  | [optional]
