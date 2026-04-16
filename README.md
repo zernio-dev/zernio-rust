@@ -180,7 +180,11 @@ Class | Method | HTTP request | Description
 *GmbPlaceActionsApi* | [**create_google_business_place_action**](docs/GmbPlaceActionsApi.md#create_google_business_place_action) | **POST** /v1/accounts/{accountId}/gmb-place-actions | Create action link
 *GmbPlaceActionsApi* | [**delete_google_business_place_action**](docs/GmbPlaceActionsApi.md#delete_google_business_place_action) | **DELETE** /v1/accounts/{accountId}/gmb-place-actions | Delete action link
 *GmbPlaceActionsApi* | [**list_google_business_place_actions**](docs/GmbPlaceActionsApi.md#list_google_business_place_actions) | **GET** /v1/accounts/{accountId}/gmb-place-actions | List action links
+*GmbPlaceActionsApi* | [**update_google_business_place_action**](docs/GmbPlaceActionsApi.md#update_google_business_place_action) | **PATCH** /v1/accounts/{accountId}/gmb-place-actions | Update action link
+*GmbReviewsApi* | [**batch_get_google_business_reviews**](docs/GmbReviewsApi.md#batch_get_google_business_reviews) | **POST** /v1/accounts/{accountId}/gmb-reviews/batch | Batch get reviews
 *GmbReviewsApi* | [**get_google_business_reviews**](docs/GmbReviewsApi.md#get_google_business_reviews) | **GET** /v1/accounts/{accountId}/gmb-reviews | Get reviews
+*GmbServicesApi* | [**get_google_business_services**](docs/GmbServicesApi.md#get_google_business_services) | **GET** /v1/accounts/{accountId}/gmb-services | Get services
+*GmbServicesApi* | [**update_google_business_services**](docs/GmbServicesApi.md#update_google_business_services) | **PUT** /v1/accounts/{accountId}/gmb-services | Replace services
 *InvitesApi* | [**create_invite_token**](docs/InvitesApi.md#create_invite_token) | **POST** /v1/invite/tokens | Create invite token
 *LinkedInMentionsApi* | [**get_linked_in_mentions**](docs/LinkedInMentionsApi.md#get_linked_in_mentions) | **GET** /v1/accounts/{accountId}/linkedin-mentions | Resolve LinkedIn mention
 *LogsApi* | [**list_logs**](docs/LogsApi.md#list_logs) | **GET** /v1/logs | List activity logs
@@ -323,6 +327,9 @@ Class | Method | HTTP request | Description
  - [ApiKey](docs/ApiKey.md)
  - [ApiKeyProfileIdsInner](docs/ApiKeyProfileIdsInner.md)
  - [ApproveWhatsAppGroupJoinRequestsRequest](docs/ApproveWhatsAppGroupJoinRequestsRequest.md)
+ - [BatchGetGoogleBusinessReviews200Response](docs/BatchGetGoogleBusinessReviews200Response.md)
+ - [BatchGetGoogleBusinessReviews200ResponseLocationReviewsInner](docs/BatchGetGoogleBusinessReviews200ResponseLocationReviewsInner.md)
+ - [BatchGetGoogleBusinessReviewsRequest](docs/BatchGetGoogleBusinessReviewsRequest.md)
  - [BlueskyPlatformData](docs/BlueskyPlatformData.md)
  - [BookmarkPost200Response](docs/BookmarkPost200Response.md)
  - [BookmarkPostRequest](docs/BookmarkPostRequest.md)
@@ -542,6 +549,11 @@ Class | Method | HTTP request | Description
  - [GetGoogleBusinessSearchKeywords200ResponseKeywordsInner](docs/GetGoogleBusinessSearchKeywords200ResponseKeywordsInner.md)
  - [GetGoogleBusinessSearchKeywords200ResponseMonthRange](docs/GetGoogleBusinessSearchKeywords200ResponseMonthRange.md)
  - [GetGoogleBusinessSearchKeywords400Response](docs/GetGoogleBusinessSearchKeywords400Response.md)
+ - [GetGoogleBusinessServices200Response](docs/GetGoogleBusinessServices200Response.md)
+ - [GetGoogleBusinessServices200ResponseServicesInner](docs/GetGoogleBusinessServices200ResponseServicesInner.md)
+ - [GetGoogleBusinessServices200ResponseServicesInnerFreeFormServiceItem](docs/GetGoogleBusinessServices200ResponseServicesInnerFreeFormServiceItem.md)
+ - [GetGoogleBusinessServices200ResponseServicesInnerFreeFormServiceItemLabel](docs/GetGoogleBusinessServices200ResponseServicesInnerFreeFormServiceItemLabel.md)
+ - [GetGoogleBusinessServices200ResponseServicesInnerPrice](docs/GetGoogleBusinessServices200ResponseServicesInnerPrice.md)
  - [GetInboxConversation200Response](docs/GetInboxConversation200Response.md)
  - [GetInboxConversation200ResponseData](docs/GetInboxConversation200ResponseData.md)
  - [GetInboxConversationMessages200Response](docs/GetInboxConversationMessages200Response.md)
@@ -923,6 +935,11 @@ Class | Method | HTTP request | Description
  - [UpdateGoogleBusinessLocationDetailsRequestServiceItemsInnerFreeFormServiceItemLabel](docs/UpdateGoogleBusinessLocationDetailsRequestServiceItemsInnerFreeFormServiceItemLabel.md)
  - [UpdateGoogleBusinessLocationDetailsRequestServiceItemsInnerPrice](docs/UpdateGoogleBusinessLocationDetailsRequestServiceItemsInnerPrice.md)
  - [UpdateGoogleBusinessLocationDetailsRequestServiceItemsInnerStructuredServiceItem](docs/UpdateGoogleBusinessLocationDetailsRequestServiceItemsInnerStructuredServiceItem.md)
+ - [UpdateGoogleBusinessPlaceAction200Response](docs/UpdateGoogleBusinessPlaceAction200Response.md)
+ - [UpdateGoogleBusinessPlaceActionRequest](docs/UpdateGoogleBusinessPlaceActionRequest.md)
+ - [UpdateGoogleBusinessServices200Response](docs/UpdateGoogleBusinessServices200Response.md)
+ - [UpdateGoogleBusinessServicesRequest](docs/UpdateGoogleBusinessServicesRequest.md)
+ - [UpdateGoogleBusinessServicesRequestServiceItemsInner](docs/UpdateGoogleBusinessServicesRequestServiceItemsInner.md)
  - [UpdateInboxConversation200Response](docs/UpdateInboxConversation200Response.md)
  - [UpdateInboxConversation200ResponseData](docs/UpdateInboxConversation200ResponseData.md)
  - [UpdateInboxConversationRequest](docs/UpdateInboxConversationRequest.md)

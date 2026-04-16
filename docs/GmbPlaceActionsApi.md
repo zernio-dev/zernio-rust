@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**create_google_business_place_action**](GmbPlaceActionsApi.md#create_google_business_place_action) | **POST** /v1/accounts/{accountId}/gmb-place-actions | Create action link
 [**delete_google_business_place_action**](GmbPlaceActionsApi.md#delete_google_business_place_action) | **DELETE** /v1/accounts/{accountId}/gmb-place-actions | Delete action link
 [**list_google_business_place_actions**](GmbPlaceActionsApi.md#list_google_business_place_actions) | **GET** /v1/accounts/{accountId}/gmb-place-actions | List action links
+[**update_google_business_place_action**](GmbPlaceActionsApi.md#update_google_business_place_action) | **PATCH** /v1/accounts/{accountId}/gmb-place-actions | Update action link
 
 
 
@@ -102,6 +103,38 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_google_business_place_action
+
+> models::UpdateGoogleBusinessPlaceAction200Response update_google_business_place_action(account_id, update_google_business_place_action_request, location_id)
+Update action link
+
+Updates a place action link (change URL or action type). Only the fields included in the request body will be updated. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** |  | [required] |
+**update_google_business_place_action_request** | [**UpdateGoogleBusinessPlaceActionRequest**](UpdateGoogleBusinessPlaceActionRequest.md) |  | [required] |
+**location_id** | Option<**String**> | Override which location to target. If omitted, uses the account's selected location. |  |
+
+### Return type
+
+[**models::UpdateGoogleBusinessPlaceAction200Response**](updateGoogleBusinessPlaceAction_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

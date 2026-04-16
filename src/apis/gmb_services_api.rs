@@ -13,104 +13,35 @@ use crate::{apis::ResponseContent, models};
 use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
 
-/// struct for typed errors of method [`batch_get_google_business_reviews`]
+/// struct for typed errors of method [`get_google_business_services`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum BatchGetGoogleBusinessReviewsError {
+pub enum GetGoogleBusinessServicesError {
+    Status401(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_google_business_services`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateGoogleBusinessServicesError {
     Status400(models::ErrorResponse),
     Status401(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`get_google_business_reviews`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum GetGoogleBusinessReviewsError {
-    Status400(models::ErrorResponse),
-    Status401(models::ErrorResponse),
-    Status403(models::ErrorResponse),
-    Status404(models::InlineObject1),
-    Status500(models::ErrorResponse),
-    UnknownValue(serde_json::Value),
-}
-
-/// Fetches reviews across multiple locations in a single request. More efficient than calling GET /gmb-reviews per location for multi-location businesses. Reviews are grouped by location in the response.
-pub async fn batch_get_google_business_reviews(
-    configuration: &configuration::Configuration,
-    account_id: &str,
-    batch_get_google_business_reviews_request: models::BatchGetGoogleBusinessReviewsRequest,
-) -> Result<
-    models::BatchGetGoogleBusinessReviews200Response,
-    Error<BatchGetGoogleBusinessReviewsError>,
-> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_account_id = account_id;
-    let p_body_batch_get_google_business_reviews_request =
-        batch_get_google_business_reviews_request;
-
-    let uri_str = format!(
-        "{}/v1/accounts/{accountId}/gmb-reviews/batch",
-        configuration.base_path,
-        accountId = crate::apis::urlencode(p_path_account_id)
-    );
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_batch_get_google_business_reviews_request);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::BatchGetGoogleBusinessReviews200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::BatchGetGoogleBusinessReviews200Response`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<BatchGetGoogleBusinessReviewsError> =
-            serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
-/// Returns reviews for a GBP account including ratings, comments, and owner replies. Use nextPageToken for pagination.
-pub async fn get_google_business_reviews(
+/// Gets the services offered by a Google Business Profile location. Returns an array of service items (structured or free-form with optional price).
+pub async fn get_google_business_services(
     configuration: &configuration::Configuration,
     account_id: &str,
     location_id: Option<&str>,
-    page_size: Option<i32>,
-    page_token: Option<&str>,
-) -> Result<models::GetGoogleBusinessReviews200Response, Error<GetGoogleBusinessReviewsError>> {
+) -> Result<models::GetGoogleBusinessServices200Response, Error<GetGoogleBusinessServicesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_account_id = account_id;
     let p_query_location_id = location_id;
-    let p_query_page_size = page_size;
-    let p_query_page_token = page_token;
 
     let uri_str = format!(
-        "{}/v1/accounts/{accountId}/gmb-reviews",
+        "{}/v1/accounts/{accountId}/gmb-services",
         configuration.base_path,
         accountId = crate::apis::urlencode(p_path_account_id)
     );
@@ -119,12 +50,6 @@ pub async fn get_google_business_reviews(
     if let Some(ref param_value) = p_query_location_id {
         req_builder = req_builder.query(&[("locationId", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_query_page_size {
-        req_builder = req_builder.query(&[("pageSize", &param_value.to_string())]);
-    }
-    if let Some(ref param_value) = p_query_page_token {
-        req_builder = req_builder.query(&[("pageToken", &param_value.to_string())]);
-    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -147,12 +72,72 @@ pub async fn get_google_business_reviews(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetGoogleBusinessReviews200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetGoogleBusinessReviews200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetGoogleBusinessServices200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetGoogleBusinessServices200Response`")))),
         }
     } else {
         let content = resp.text().await?;
-        let entity: Option<GetGoogleBusinessReviewsError> = serde_json::from_str(&content).ok();
+        let entity: Option<GetGoogleBusinessServicesError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Replaces the entire service list for a location. Google's API requires full replacement; individual item updates are not supported. Each service can be structured (using a predefined serviceTypeId) or free-form (custom label).
+pub async fn update_google_business_services(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    update_google_business_services_request: models::UpdateGoogleBusinessServicesRequest,
+    location_id: Option<&str>,
+) -> Result<models::UpdateGoogleBusinessServices200Response, Error<UpdateGoogleBusinessServicesError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_body_update_google_business_services_request = update_google_business_services_request;
+    let p_query_location_id = location_id;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/gmb-services",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
+
+    if let Some(ref param_value) = p_query_location_id {
+        req_builder = req_builder.query(&[("locationId", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_google_business_services_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateGoogleBusinessServices200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateGoogleBusinessServices200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateGoogleBusinessServicesError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

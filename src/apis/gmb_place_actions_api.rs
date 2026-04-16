@@ -40,6 +40,15 @@ pub enum ListGoogleBusinessPlaceActionsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`update_google_business_place_action`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateGoogleBusinessPlaceActionError {
+    Status400(models::ErrorResponse),
+    Status401(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
 /// Creates a place action link for a location.  Available action types: APPOINTMENT, ONLINE_APPOINTMENT, DINING_RESERVATION, FOOD_ORDERING, FOOD_DELIVERY, FOOD_TAKEOUT, SHOP_ONLINE.
 pub async fn create_google_business_place_action(
     configuration: &configuration::Configuration,
@@ -232,6 +241,72 @@ pub async fn list_google_business_place_actions(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListGoogleBusinessPlaceActionsError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Updates a place action link (change URL or action type). Only the fields included in the request body will be updated.
+pub async fn update_google_business_place_action(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    update_google_business_place_action_request: models::UpdateGoogleBusinessPlaceActionRequest,
+    location_id: Option<&str>,
+) -> Result<
+    models::UpdateGoogleBusinessPlaceAction200Response,
+    Error<UpdateGoogleBusinessPlaceActionError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_body_update_google_business_place_action_request =
+        update_google_business_place_action_request;
+    let p_query_location_id = location_id;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/gmb-place-actions",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::PATCH, &uri_str);
+
+    if let Some(ref param_value) = p_query_location_id {
+        req_builder = req_builder.query(&[("locationId", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_google_business_place_action_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateGoogleBusinessPlaceAction200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateGoogleBusinessPlaceAction200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateGoogleBusinessPlaceActionError> =
             serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,

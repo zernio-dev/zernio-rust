@@ -68,6 +68,12 @@ pub enum Events {
     MessageReceived,
     #[serde(rename = "comment.received")]
     CommentReceived,
+    #[serde(rename = "gbp.review.new")]
+    GbpReviewNew,
+    #[serde(rename = "gbp.review.updated")]
+    GbpReviewUpdated,
+    #[serde(rename = "gbp.media.new")]
+    GbpMediaNew,
 }
 
 impl Default for Events {
