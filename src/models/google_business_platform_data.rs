@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// GoogleBusinessPlatformData : Text and single image only (no videos). Optional call-to-action button. Posts appear on GBP, Google Search, and Maps. Use locationId for multi-location posting.
+/// GoogleBusinessPlatformData : Text and single image only (no videos). Supports STANDARD, EVENT, and OFFER post types. Posts appear on GBP, Google Search, and Maps. Use locationId for multi-location posting.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GoogleBusinessPlatformData {
     /// Target GBP location ID (e.g. \"locations/123456789\"). If omitted, uses the default location. Use GET /v1/accounts/{id}/gmb-locations to list locations.
@@ -20,17 +20,43 @@ pub struct GoogleBusinessPlatformData {
     /// BCP 47 language code (e.g. \"en\", \"de\", \"es\"). Auto-detected if omitted. Set explicitly for short or mixed-language posts.
     #[serde(rename = "languageCode", skip_serializing_if = "Option::is_none")]
     pub language_code: Option<String>,
+    /// Post type. STANDARD is a regular update. EVENT requires the event object. OFFER requires the offer object. Defaults to STANDARD if omitted.
+    #[serde(rename = "topicType", skip_serializing_if = "Option::is_none")]
+    pub topic_type: Option<TopicType>,
     #[serde(rename = "callToAction", skip_serializing_if = "Option::is_none")]
     pub call_to_action: Option<Box<models::GoogleBusinessPlatformDataCallToAction>>,
+    #[serde(rename = "event", skip_serializing_if = "Option::is_none")]
+    pub event: Option<Box<models::GoogleBusinessPlatformDataEvent>>,
+    #[serde(rename = "offer", skip_serializing_if = "Option::is_none")]
+    pub offer: Option<Box<models::GoogleBusinessPlatformDataOffer>>,
 }
 
 impl GoogleBusinessPlatformData {
-    /// Text and single image only (no videos). Optional call-to-action button. Posts appear on GBP, Google Search, and Maps. Use locationId for multi-location posting.
+    /// Text and single image only (no videos). Supports STANDARD, EVENT, and OFFER post types. Posts appear on GBP, Google Search, and Maps. Use locationId for multi-location posting.
     pub fn new() -> GoogleBusinessPlatformData {
         GoogleBusinessPlatformData {
             location_id: None,
             language_code: None,
+            topic_type: None,
             call_to_action: None,
+            event: None,
+            offer: None,
         }
+    }
+}
+/// Post type. STANDARD is a regular update. EVENT requires the event object. OFFER requires the offer object. Defaults to STANDARD if omitted.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum TopicType {
+    #[serde(rename = "STANDARD")]
+    Standard,
+    #[serde(rename = "EVENT")]
+    Event,
+    #[serde(rename = "OFFER")]
+    Offer,
+}
+
+impl Default for TopicType {
+    fn default() -> TopicType {
+        Self::Standard
     }
 }

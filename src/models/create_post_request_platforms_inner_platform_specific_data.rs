@@ -85,6 +85,22 @@ impl Default for Visibility {
         Self::Public
     }
 }
+/// Post type. STANDARD is a regular update. EVENT requires the event object. OFFER requires the offer object. Defaults to STANDARD if omitted.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum TopicType {
+    #[serde(rename = "STANDARD")]
+    Standard,
+    #[serde(rename = "EVENT")]
+    Event,
+    #[serde(rename = "OFFER")]
+    Offer,
+}
+
+impl Default for TopicType {
+    fn default() -> TopicType {
+        Self::Standard
+    }
+}
 /// Type of commercial content disclosure
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum CommercialContentType {

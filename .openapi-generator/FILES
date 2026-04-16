@@ -369,6 +369,13 @@ docs/GmbPlaceActionsApi.md
 docs/GmbReviewsApi.md
 docs/GoogleBusinessPlatformData.md
 docs/GoogleBusinessPlatformDataCallToAction.md
+docs/GoogleBusinessPlatformDataEvent.md
+docs/GoogleBusinessPlatformDataEventSchedule.md
+docs/GoogleBusinessPlatformDataEventScheduleEndDate.md
+docs/GoogleBusinessPlatformDataEventScheduleEndTime.md
+docs/GoogleBusinessPlatformDataEventScheduleStartDate.md
+docs/GoogleBusinessPlatformDataEventScheduleStartTime.md
+docs/GoogleBusinessPlatformDataOffer.md
 docs/HandleOAuthCallbackRequest.md
 docs/HideInboxComment200Response.md
 docs/HideInboxCommentRequest.md
@@ -1168,6 +1175,13 @@ src/models/get_youtube_playlists_200_response.rs
 src/models/get_youtube_playlists_200_response_playlists_inner.rs
 src/models/google_business_platform_data.rs
 src/models/google_business_platform_data_call_to_action.rs
+src/models/google_business_platform_data_event.rs
+src/models/google_business_platform_data_event_schedule.rs
+src/models/google_business_platform_data_event_schedule_end_date.rs
+src/models/google_business_platform_data_event_schedule_end_time.rs
+src/models/google_business_platform_data_event_schedule_start_date.rs
+src/models/google_business_platform_data_event_schedule_start_time.rs
+src/models/google_business_platform_data_offer.rs
 src/models/handle_o_auth_callback_request.rs
 src/models/hide_inbox_comment_200_response.rs
 src/models/hide_inbox_comment_request.rs
