@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | Platform comment ID | 
-**post_id** | **String** | Internal post ID | 
+**post_id** | **String** | Internal post ID (null for posts not published through Zernio) | 
 **platform_post_id** | **String** | Platform's post ID | 
 **platform** | **Platform** |  (enum: instagram, facebook, twitter, youtube, linkedin, bluesky, reddit) | 
 **text** | **String** | Comment text content | 

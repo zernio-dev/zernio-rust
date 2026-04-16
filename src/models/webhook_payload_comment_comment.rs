@@ -16,7 +16,7 @@ pub struct WebhookPayloadCommentComment {
     /// Platform comment ID
     #[serde(rename = "id")]
     pub id: String,
-    /// Internal post ID
+    /// Internal post ID (null for posts not published through Zernio)
     #[serde(rename = "postId")]
     pub post_id: String,
     /// Platform's post ID

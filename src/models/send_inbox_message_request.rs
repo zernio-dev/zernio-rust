@@ -41,7 +41,7 @@ pub struct SendInboxMessageRequest {
     /// Facebook message tag for messaging outside 24h window. Requires messagingType MESSAGE_TAG. Instagram only supports HUMAN_AGENT.
     #[serde(rename = "messageTag", skip_serializing_if = "Option::is_none")]
     pub message_tag: Option<MessageTag>,
-    /// Platform message ID to reply to (Telegram only).
+    /// Platform message ID to quote-reply to. For WhatsApp, pass the wamid (available in message.platformMessageId from webhooks). For Telegram, pass the Telegram message ID.
     #[serde(rename = "replyTo", skip_serializing_if = "Option::is_none")]
     pub reply_to: Option<String>,
 }

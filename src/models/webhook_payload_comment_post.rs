@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadCommentPost {
-    /// Internal post ID
+    /// Internal post ID (null for posts not published through Zernio)
     #[serde(rename = "id")]
     pub id: String,
     /// Platform's post ID
