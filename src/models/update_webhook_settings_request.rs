@@ -16,16 +16,16 @@ pub struct UpdateWebhookSettingsRequest {
     /// Webhook ID to update (required)
     #[serde(rename = "_id")]
     pub _id: String,
-    /// Webhook name (max 50 characters)
+    /// Webhook name (1-50 characters). Must be non-empty if provided.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Webhook endpoint URL (must be HTTPS in production)
+    /// Webhook endpoint URL (must be a valid URL, whitespace trimmed). Must be a valid URL if provided.
     #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
     /// Secret key for HMAC-SHA256 signature verification
     #[serde(rename = "secret", skip_serializing_if = "Option::is_none")]
     pub secret: Option<String>,
-    /// Events to subscribe to
+    /// Events to subscribe to. Must contain at least one event if provided.
     #[serde(rename = "events", skip_serializing_if = "Option::is_none")]
     pub events: Option<Vec<Events>>,
     /// Enable or disable webhook delivery
@@ -49,7 +49,7 @@ impl UpdateWebhookSettingsRequest {
         }
     }
 }
-/// Events to subscribe to
+/// Events to subscribe to. Must contain at least one event if provided.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Events {
     #[serde(rename = "post.scheduled")]

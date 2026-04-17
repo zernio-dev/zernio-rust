@@ -13,19 +13,19 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateWebhookSettingsRequest {
-    /// Webhook name (max 50 characters)
-    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
-    /// Webhook endpoint URL (must be HTTPS in production)
-    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
+    /// Webhook name (1-50 characters)
+    #[serde(rename = "name")]
+    pub name: String,
+    /// Webhook endpoint URL (must be a valid URL, whitespace trimmed)
+    #[serde(rename = "url")]
+    pub url: String,
     /// Secret key for HMAC-SHA256 signature verification
     #[serde(rename = "secret", skip_serializing_if = "Option::is_none")]
     pub secret: Option<String>,
-    /// Events to subscribe to
-    #[serde(rename = "events", skip_serializing_if = "Option::is_none")]
-    pub events: Option<Vec<Events>>,
-    /// Enable or disable webhook delivery
+    /// Events to subscribe to (at least one required)
+    #[serde(rename = "events")]
+    pub events: Vec<Events>,
+    /// Enable or disable webhook delivery. Defaults to `true` when omitted.
     #[serde(rename = "isActive", skip_serializing_if = "Option::is_none")]
     pub is_active: Option<bool>,
     /// Custom headers to include in webhook requests
@@ -34,18 +34,18 @@ pub struct CreateWebhookSettingsRequest {
 }
 
 impl CreateWebhookSettingsRequest {
-    pub fn new() -> CreateWebhookSettingsRequest {
+    pub fn new(name: String, url: String, events: Vec<Events>) -> CreateWebhookSettingsRequest {
         CreateWebhookSettingsRequest {
-            name: None,
-            url: None,
+            name,
+            url,
             secret: None,
-            events: None,
+            events,
             is_active: None,
             custom_headers: None,
         }
     }
 }
-/// Events to subscribe to
+/// Events to subscribe to (at least one required)
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Events {
     #[serde(rename = "post.scheduled")]

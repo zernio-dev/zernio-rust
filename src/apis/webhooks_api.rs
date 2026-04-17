@@ -59,7 +59,7 @@ pub enum UpdateWebhookSettingsError {
     UnknownValue(serde_json::Value),
 }
 
-/// Create a new webhook configuration. Maximum 10 webhooks per user.  Webhooks are automatically disabled after 10 consecutive delivery failures.
+/// Create a new webhook configuration. Maximum 10 webhooks per user.  `name`, `url` and `events` are required. `url` must be a valid URL and `events` must contain at least one event. Whitespace is trimmed from `url` before validation.  Webhooks are automatically disabled after 10 consecutive delivery failures.
 pub async fn create_webhook_settings(
     configuration: &configuration::Configuration,
     create_webhook_settings_request: models::CreateWebhookSettingsRequest,
@@ -252,7 +252,7 @@ pub async fn test_webhook(
     }
 }
 
-/// Update an existing webhook configuration. All fields except _id are optional; only provided fields will be updated.  Webhooks are automatically disabled after 10 consecutive delivery failures.
+/// Update an existing webhook configuration. All fields except `_id` are optional; only provided fields will be updated.  When provided, `name` must be 1-50 characters, `url` must be a valid URL, and `events` must contain at least one event. Whitespace is trimmed from `url` before validation.  Webhooks are automatically disabled after 10 consecutive delivery failures.
 pub async fn update_webhook_settings(
     configuration: &configuration::Configuration,
     update_webhook_settings_request: models::UpdateWebhookSettingsRequest,
