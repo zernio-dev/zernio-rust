@@ -94,6 +94,10 @@ pub enum Events {
     MessageFailed,
     #[serde(rename = "comment.received")]
     CommentReceived,
+    #[serde(rename = "review.new")]
+    ReviewNew,
+    #[serde(rename = "review.updated")]
+    ReviewUpdated,
 }
 
 impl Default for Events {

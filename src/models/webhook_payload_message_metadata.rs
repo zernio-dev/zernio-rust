@@ -14,18 +14,33 @@ use serde::{Deserialize, Serialize};
 /// WebhookPayloadMessageMetadata : Interactive message metadata (present when message is a quick reply tap, postback button tap, or inline keyboard callback)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadMessageMetadata {
-    /// Payload from a quick reply tap (Meta platforms)
+    /// Payload from a quick reply tap (Facebook/Instagram Messenger).
     #[serde(rename = "quickReplyPayload", skip_serializing_if = "Option::is_none")]
     pub quick_reply_payload: Option<String>,
-    /// Payload from a postback button tap (Meta platforms)
+    /// Payload from a postback button tap (Facebook/Instagram Messenger).
     #[serde(rename = "postbackPayload", skip_serializing_if = "Option::is_none")]
     pub postback_payload: Option<String>,
-    /// Title of the tapped postback button (Meta platforms)
+    /// Title of the tapped postback button (Facebook/Instagram Messenger).
     #[serde(rename = "postbackTitle", skip_serializing_if = "Option::is_none")]
     pub postback_title: Option<String>,
-    /// Callback data from an inline keyboard button tap (Telegram)
+    /// Callback data from an inline keyboard button tap (Telegram).
     #[serde(rename = "callbackData", skip_serializing_if = "Option::is_none")]
     pub callback_data: Option<String>,
+    /// WhatsApp only. Which kind of interactive reply the user sent: `button_reply` (tap on an interactive button), `list_reply` (tap on a list row), or `nfm_reply` (a WhatsApp Flow submission).
+    #[serde(rename = "interactiveType", skip_serializing_if = "Option::is_none")]
+    pub interactive_type: Option<InteractiveType>,
+    /// WhatsApp only. The `id` of the tapped button or list row, matching the `id` you supplied when the message was sent. Not set for Flow responses.
+    #[serde(rename = "interactiveId", skip_serializing_if = "Option::is_none")]
+    pub interactive_id: Option<String>,
+    /// WhatsApp only. Payload attached to a tapped template button. Template buttons emit a plain `button` webhook (not an interactive reply), so `interactiveType` is empty while this field is populated.
+    #[serde(rename = "buttonPayload", skip_serializing_if = "Option::is_none")]
+    pub button_payload: Option<String>,
+    /// WhatsApp only. Raw `nfm_reply.response_json` string returned by a Flow submission. Useful if you need the exact wire payload; for typed access use `flowResponseData` instead.
+    #[serde(rename = "flowResponseJson", skip_serializing_if = "Option::is_none")]
+    pub flow_response_json: Option<String>,
+    /// WhatsApp only. Parsed Flow response JSON. Populated when `flowResponseJson` is valid JSON; otherwise omitted. Keys and value types depend on the specific Flow that was submitted.
+    #[serde(rename = "flowResponseData", skip_serializing_if = "Option::is_none")]
+    pub flow_response_data: Option<std::collections::HashMap<String, serde_json::Value>>,
 }
 
 impl WebhookPayloadMessageMetadata {
@@ -36,6 +51,27 @@ impl WebhookPayloadMessageMetadata {
             postback_payload: None,
             postback_title: None,
             callback_data: None,
+            interactive_type: None,
+            interactive_id: None,
+            button_payload: None,
+            flow_response_json: None,
+            flow_response_data: None,
         }
+    }
+}
+/// WhatsApp only. Which kind of interactive reply the user sent: `button_reply` (tap on an interactive button), `list_reply` (tap on a list row), or `nfm_reply` (a WhatsApp Flow submission).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum InteractiveType {
+    #[serde(rename = "button_reply")]
+    ButtonReply,
+    #[serde(rename = "list_reply")]
+    ListReply,
+    #[serde(rename = "nfm_reply")]
+    NfmReply,
+}
+
+impl Default for InteractiveType {
+    fn default() -> InteractiveType {
+        Self::ButtonReply
     }
 }

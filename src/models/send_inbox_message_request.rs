@@ -33,6 +33,8 @@ pub struct SendInboxMessageRequest {
     pub buttons: Option<Vec<models::SendInboxMessageRequestButtonsInner>>,
     #[serde(rename = "template", skip_serializing_if = "Option::is_none")]
     pub template: Option<Box<models::SendInboxMessageRequestTemplate>>,
+    #[serde(rename = "interactive", skip_serializing_if = "Option::is_none")]
+    pub interactive: Option<Box<models::SendInboxMessageRequestInteractive>>,
     #[serde(rename = "replyMarkup", skip_serializing_if = "Option::is_none")]
     pub reply_markup: Option<Box<models::SendInboxMessageRequestReplyMarkup>>,
     /// Facebook messaging type. Required when using messageTag.
@@ -56,6 +58,7 @@ impl SendInboxMessageRequest {
             quick_replies: None,
             buttons: None,
             template: None,
+            interactive: None,
             reply_markup: None,
             messaging_type: None,
             message_tag: None,
