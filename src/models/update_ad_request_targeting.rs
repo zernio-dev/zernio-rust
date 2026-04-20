@@ -23,6 +23,9 @@ pub struct UpdateAdRequestTargeting {
     /// Interest objects from /v1/ads/interests. Each must include id and name.
     #[serde(rename = "interests", skip_serializing_if = "Option::is_none")]
     pub interests: Option<Vec<models::UpdateAdRequestTargetingInterestsInner>>,
+    /// Meta only. Omit to preserve the existing setting on update. 0 = disabled, 1 = enabled.
+    #[serde(rename = "advantage_audience", skip_serializing_if = "Option::is_none")]
+    pub advantage_audience: Option<AdvantageAudience>,
 }
 
 impl UpdateAdRequestTargeting {
@@ -33,6 +36,21 @@ impl UpdateAdRequestTargeting {
             age_max: None,
             countries: None,
             interests: None,
+            advantage_audience: None,
         }
+    }
+}
+/// Meta only. Omit to preserve the existing setting on update. 0 = disabled, 1 = enabled.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum AdvantageAudience {
+    #[serde(rename = "0")]
+    Variant0,
+    #[serde(rename = "1")]
+    Variant1,
+}
+
+impl Default for AdvantageAudience {
+    fn default() -> AdvantageAudience {
+        Self::Variant0
     }
 }

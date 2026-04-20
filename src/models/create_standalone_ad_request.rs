@@ -84,6 +84,9 @@ pub struct CreateStandaloneAdRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub additional_descriptions: Option<Vec<String>>,
+    /// Meta only. Controls the Advantage audience feature (targeting_automation). 0 = disabled (default), 1 = enabled. Meta Marketing API requires this field on all ad set creation requests.
+    #[serde(rename = "advantageAudience", skip_serializing_if = "Option::is_none")]
+    pub advantage_audience: Option<AdvantageAudience>,
 }
 
 impl CreateStandaloneAdRequest {
@@ -122,6 +125,7 @@ impl CreateStandaloneAdRequest {
             keywords: None,
             additional_headlines: None,
             additional_descriptions: None,
+            advantage_audience: None,
         }
     }
 }
@@ -205,5 +209,19 @@ pub enum CampaignType {
 impl Default for CampaignType {
     fn default() -> CampaignType {
         Self::Display
+    }
+}
+/// Meta only. Controls the Advantage audience feature (targeting_automation). 0 = disabled (default), 1 = enabled. Meta Marketing API requires this field on all ad set creation requests.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum AdvantageAudience {
+    #[serde(rename = "0")]
+    Variant0,
+    #[serde(rename = "1")]
+    Variant1,
+}
+
+impl Default for AdvantageAudience {
+    fn default() -> AdvantageAudience {
+        Self::Variant0
     }
 }

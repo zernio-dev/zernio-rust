@@ -29,6 +29,7 @@ Name | Type | Description | Notes
 **keywords** | Option<**Vec<String>**> | Google Search only | [optional]
 **additional_headlines** | Option<**Vec<String>**> | Google Search RSA only. Extra headlines. | [optional]
 **additional_descriptions** | Option<**Vec<String>**> | Google Search RSA only. Extra descriptions. | [optional]
+**advantage_audience** | Option<**AdvantageAudience**> | Meta only. Controls the Advantage audience feature (targeting_automation). 0 = disabled (default), 1 = enabled. Meta Marketing API requires this field on all ad set creation requests. (enum: 0, 1) | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
