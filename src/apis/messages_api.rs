@@ -125,6 +125,7 @@ pub enum SendTypingIndicatorError {
 pub enum UpdateInboxConversationError {
     Status401(models::InlineObject),
     Status403(),
+    Status404(),
     UnknownValue(serde_json::Value),
 }
 
