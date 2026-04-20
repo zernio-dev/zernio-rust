@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// RedditPlatformData : Posts are either link (with URL/media) or self (text-only). Use forceSelf to override. Subreddit defaults to the account's configured one. Some subreddits require a flair.
+/// RedditPlatformData : Posts are either link (with URL/media), native video (via nativeVideo), or self (text-only). Use forceSelf to override. Subreddit defaults to the account's configured one. Some subreddits require a flair.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RedditPlatformData {
     /// Target subreddit name (without \"r/\" prefix). Overrides the default. Use GET /v1/accounts/{id}/reddit-subreddits to list options.
@@ -29,10 +29,19 @@ pub struct RedditPlatformData {
     /// Flair ID for the post. Required by some subreddits. Use GET /v1/accounts/{id}/reddit-flairs?subreddit=name to list flairs.
     #[serde(rename = "flairId", skip_serializing_if = "Option::is_none")]
     pub flair_id: Option<String>,
+    /// Controls Reddit's native video upload flow. When true (default for video mediaItems), the video is uploaded to Reddit's CDN and submitted with kind=video so it renders as an embedded Reddit video player. Reddit transcodes server-side (1080p/30fps cap). Set to false to fall back to a legacy link post. If the subreddit blocks video posts, the upload falls back to a link post automatically.
+    #[serde(rename = "nativeVideo", skip_serializing_if = "Option::is_none")]
+    pub native_video: Option<bool>,
+    /// When true (and nativeVideo is active), submits the video as a silent videogif (kind=videogif). Use for short looping clips without audio.
+    #[serde(rename = "videogif", skip_serializing_if = "Option::is_none")]
+    pub videogif: Option<bool>,
+    /// Optional poster/thumbnail image URL for native video posts. If omitted, the first frame of the video is extracted and used automatically.
+    #[serde(rename = "videoPosterUrl", skip_serializing_if = "Option::is_none")]
+    pub video_poster_url: Option<String>,
 }
 
 impl RedditPlatformData {
-    /// Posts are either link (with URL/media) or self (text-only). Use forceSelf to override. Subreddit defaults to the account's configured one. Some subreddits require a flair.
+    /// Posts are either link (with URL/media), native video (via nativeVideo), or self (text-only). Use forceSelf to override. Subreddit defaults to the account's configured one. Some subreddits require a flair.
     pub fn new() -> RedditPlatformData {
         RedditPlatformData {
             subreddit: None,
@@ -40,6 +49,9 @@ impl RedditPlatformData {
             url: None,
             force_self: None,
             flair_id: None,
+            native_video: None,
+            videogif: None,
+            video_poster_url: None,
         }
     }
 }
