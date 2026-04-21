@@ -24,7 +24,9 @@ pub struct AdTreeAdSet {
     #[serde(rename = "adCount", skip_serializing_if = "Option::is_none")]
     pub ad_count: Option<i32>,
     #[serde(rename = "budget", skip_serializing_if = "Option::is_none")]
-    pub budget: Option<Box<models::AdBudget>>,
+    pub budget: Option<Box<models::AdTreeAdSetBudget>>,
+    #[serde(rename = "adSetBudget", skip_serializing_if = "Option::is_none")]
+    pub ad_set_budget: Option<Box<models::AdTreeAdSetAdSetBudget>>,
     #[serde(rename = "metrics", skip_serializing_if = "Option::is_none")]
     pub metrics: Option<Box<models::AdMetrics>>,
     /// Meta ad set optimization goal (e.g. OFFSITE_CONVERSIONS, VALUE, LEAD_GENERATION)
@@ -49,6 +51,7 @@ impl AdTreeAdSet {
             status: None,
             ad_count: None,
             budget: None,
+            ad_set_budget: None,
             metrics: None,
             optimization_goal: None,
             bid_strategy: None,

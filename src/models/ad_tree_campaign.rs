@@ -20,16 +20,42 @@ pub struct AdTreeCampaign {
     pub platform: Option<Platform>,
     #[serde(rename = "campaignName", skip_serializing_if = "Option::is_none")]
     pub campaign_name: Option<String>,
-    /// Derived from child ad statuses
+    /// Delivery status derived from child ad statuses. Distinct from `reviewStatus`, which reflects the platform-side review state.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<models::AdStatus>,
+    /// Platform-side review state of the campaign. Independent of the children-derived delivery `status`: a campaign can have ads already active (status=active) while the campaign itself is still being reviewed by the platform (reviewStatus=in_review). For Meta, derived from `effective_status` + `issues_info` on the Campaign, plus ad-level PENDING_REVIEW rollup.
+    #[serde(rename = "reviewStatus", skip_serializing_if = "Option::is_none")]
+    pub review_status: Option<ReviewStatus>,
+    /// Raw platform-level campaign status (Meta `effective_status`: ACTIVE, PAUSED, DELETED, ARCHIVED, IN_PROCESS, WITH_ISSUES). Distinct from per-ad `platformStatus`.
+    #[serde(
+        rename = "platformCampaignStatus",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub platform_campaign_status: Option<String>,
+    /// Platform-reported campaign issues (Meta `issues_info[]`). Populated only when the platform has delivery issues to report; contains the specific error codes and messages.
+    #[serde(rename = "campaignIssuesInfo", skip_serializing_if = "Option::is_none")]
+    pub campaign_issues_info: Option<Vec<serde_json::Value>>,
     /// Total ads across all ad sets
     #[serde(rename = "adCount", skip_serializing_if = "Option::is_none")]
     pub ad_count: Option<i32>,
     #[serde(rename = "adSetCount", skip_serializing_if = "Option::is_none")]
     pub ad_set_count: Option<i32>,
     #[serde(rename = "budget", skip_serializing_if = "Option::is_none")]
-    pub budget: Option<Box<models::AdBudget>>,
+    pub budget: Option<Box<models::AdTreeCampaignBudget>>,
+    #[serde(rename = "campaignBudget", skip_serializing_if = "Option::is_none")]
+    pub campaign_budget: Option<Box<models::AdTreeCampaignCampaignBudget>>,
+    /// Canonical CBO/ABO indicator. `campaign` = CBO (Advantage Campaign Budget, budget lives on the campaign). `adset` = ABO (budget lives on each ad set). Route budget updates to the matching Meta entity.
+    #[serde(rename = "budgetLevel", skip_serializing_if = "Option::is_none")]
+    pub budget_level: Option<BudgetLevel>,
+    /// Meta-only. Mirrors Campaign.is_budget_schedule_enabled — true when the campaign uses budget scheduling (time-based budget changes). Independent of CBO/ABO.
+    #[serde(
+        rename = "isBudgetScheduleEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_budget_schedule_enabled: Option<bool>,
+    /// ISO 4217 currency code (e.g. USD, EUR, CLP, JPY) for all budget amounts in this campaign node. Budgets are NOT normalized to USD.
+    #[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
+    pub currency: Option<String>,
     #[serde(rename = "metrics", skip_serializing_if = "Option::is_none")]
     pub metrics: Option<Box<models::AdMetrics>>,
     #[serde(
@@ -64,9 +90,16 @@ impl AdTreeCampaign {
             platform: None,
             campaign_name: None,
             status: None,
+            review_status: None,
+            platform_campaign_status: None,
+            campaign_issues_info: None,
             ad_count: None,
             ad_set_count: None,
             budget: None,
+            campaign_budget: None,
+            budget_level: None,
+            is_budget_schedule_enabled: None,
+            currency: None,
             metrics: None,
             platform_ad_account_id: None,
             account_id: None,
@@ -101,5 +134,37 @@ pub enum Platform {
 impl Default for Platform {
     fn default() -> Platform {
         Self::Facebook
+    }
+}
+/// Platform-side review state of the campaign. Independent of the children-derived delivery `status`: a campaign can have ads already active (status=active) while the campaign itself is still being reviewed by the platform (reviewStatus=in_review). For Meta, derived from `effective_status` + `issues_info` on the Campaign, plus ad-level PENDING_REVIEW rollup.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum ReviewStatus {
+    #[serde(rename = "in_review")]
+    InReview,
+    #[serde(rename = "approved")]
+    Approved,
+    #[serde(rename = "rejected")]
+    Rejected,
+    #[serde(rename = "with_issues")]
+    WithIssues,
+}
+
+impl Default for ReviewStatus {
+    fn default() -> ReviewStatus {
+        Self::InReview
+    }
+}
+/// Canonical CBO/ABO indicator. `campaign` = CBO (Advantage Campaign Budget, budget lives on the campaign). `adset` = ABO (budget lives on each ad set). Route budget updates to the matching Meta entity.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum BudgetLevel {
+    #[serde(rename = "campaign")]
+    Campaign,
+    #[serde(rename = "adset")]
+    Adset,
+}
+
+impl Default for BudgetLevel {
+    fn default() -> BudgetLevel {
+        Self::Campaign
     }
 }
