@@ -122,7 +122,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **page** | Option<**i32**> | Page number (1-based) |  |[default to 1]
 **limit** | Option<**i32**> | Campaigns per page |  |[default to 20]
-**source** | Option<**String**> | `zernio` (default) returns only ads created via Zernio (isExternal=false). `all` additionally returns ads discovered from the platform's ad manager (isExternal=true). Status is NOT filtered by default — use the `status` param for that. |  |[default to zernio]
+**source** | Option<**String**> | `all` (default) returns both Zernio-created ads and those discovered from the platform's ad manager — matches the web UI's default view. Pass `zernio` to restrict to isExternal=false only. Status is NOT filtered by default — use the `status` param for that. |  |[default to all]
 **platform** | Option<**String**> |  |  |
 **status** | Option<[**AdStatus**](AdStatus.md)> | Filter by derived campaign status (post-aggregation) |  |
 **ad_account_id** | Option<**String**> | Platform ad account ID |  |
@@ -161,7 +161,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **page** | Option<**i32**> | Page number (1-based) |  |[default to 1]
 **limit** | Option<**i32**> |  |  |[default to 20]
-**source** | Option<**String**> | `zernio` (default) returns only ads created via Zernio (isExternal=false). `all` additionally returns ads discovered from the platform's ad manager (isExternal=true). Status is NOT filtered by default — use the `status` param for that. |  |[default to zernio]
+**source** | Option<**String**> | `all` (default) returns both Zernio-created ads and those discovered from the platform's ad manager — matches the web UI's default view. Pass `zernio` to restrict to isExternal=false only. Status is NOT filtered by default — use the `status` param for that. |  |[default to all]
 **platform** | Option<**String**> |  |  |
 **status** | Option<[**AdStatus**](AdStatus.md)> | Filter by derived campaign status (post-aggregation) |  |
 **ad_account_id** | Option<**String**> | Platform ad account ID (e.g. act_123 for Meta) |  |

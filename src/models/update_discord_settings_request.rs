@@ -13,9 +13,6 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateDiscordSettingsRequest {
-    /// Discord account ID
-    #[serde(rename = "accountId")]
-    pub account_id: String,
     /// Custom display name for the webhook (1-80 chars). Empty string resets to default (\"Zernio\"). Cannot contain \"clyde\" or \"discord\".
     #[serde(rename = "webhookUsername", skip_serializing_if = "Option::is_none")]
     pub webhook_username: Option<String>,
@@ -28,9 +25,8 @@ pub struct UpdateDiscordSettingsRequest {
 }
 
 impl UpdateDiscordSettingsRequest {
-    pub fn new(account_id: String) -> UpdateDiscordSettingsRequest {
+    pub fn new() -> UpdateDiscordSettingsRequest {
         UpdateDiscordSettingsRequest {
-            account_id,
             webhook_username: None,
             webhook_avatar_url: None,
             channel_id: None,

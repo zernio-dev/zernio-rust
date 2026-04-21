@@ -215,7 +215,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **page** | Option<**i32**> | Page number (1-based) |  |[default to 1]
 **limit** | Option<**i32**> |  |  |[default to 50]
-**source** | Option<**String**> | zernio = Zernio-created only, all = include external ads |  |[default to zernio]
+**source** | Option<**String**> | all (default) = Zernio-created + platform-discovered ads. zernio = restrict to Zernio-created only. |  |[default to all]
 **status** | Option<[**AdStatus**](AdStatus.md)> |  |  |
 **platform** | Option<**String**> |  |  |
 **account_id** | Option<**String**> | Social account ID |  |
