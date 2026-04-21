@@ -32,6 +32,15 @@ pub struct GetAdAnalytics200ResponseAnalyticsDailyInner {
     pub cpm: Option<f64>,
     #[serde(rename = "engagement", skip_serializing_if = "Option::is_none")]
     pub engagement: Option<i32>,
+    /// Count of conversion events matching the campaign's promoted_object.custom_event_type (PURCHASE, LEAD, etc.) over the requested date range. 0 for non-conversion campaigns or when no events have fired. Meta-only at time of writing; other platforms return 0.
+    #[serde(rename = "conversions", skip_serializing_if = "Option::is_none")]
+    pub conversions: Option<i32>,
+    /// Derived spend / conversions in the same currency as spend. 0 when conversions is 0.
+    #[serde(rename = "costPerConversion", skip_serializing_if = "Option::is_none")]
+    pub cost_per_conversion: Option<f64>,
+    /// Raw per-action-type counts from Meta's Insights actions[] array, summed over the date range. Keys are Meta action_type strings (e.g. link_click, offsite_conversion.fb_pixel_purchase, onsite_conversion.lead_grouped). Use this to extract any conversion event (purchases, leads, add_to_cart, etc.) without relying on the derived conversions field. Empty object when no actions are reported.
+    #[serde(rename = "actions", skip_serializing_if = "Option::is_none")]
+    pub actions: Option<std::collections::HashMap<String, i32>>,
     /// Present on individual ads only, not on campaign aggregations
     #[serde(rename = "lastSyncedAt", skip_serializing_if = "Option::is_none")]
     pub last_synced_at: Option<String>,
@@ -50,6 +59,9 @@ impl GetAdAnalytics200ResponseAnalyticsDailyInner {
             cpc: None,
             cpm: None,
             engagement: None,
+            conversions: None,
+            cost_per_conversion: None,
+            actions: None,
             last_synced_at: None,
             date: None,
         }
