@@ -19,32 +19,41 @@ pub struct CreateStandaloneAdRequest {
     pub ad_account_id: String,
     #[serde(rename = "name")]
     pub name: String,
-    /// Available goals vary by platform. Meta (Facebook/Instagram) and TikTok support all 7. LinkedIn supports all except app_promotion. Twitter/X supports engagement, traffic, awareness, video_views, app_promotion. Pinterest and Google Ads support only engagement, traffic, awareness, video_views.
-    #[serde(rename = "goal")]
-    pub goal: Goal,
-    #[serde(rename = "budgetAmount")]
-    pub budget_amount: f64,
-    #[serde(rename = "budgetType")]
-    pub budget_type: BudgetType,
+    /// Required on legacy + multi-creative shapes. Inherited from the ad set on the attach shape. Available goals vary by platform.
+    #[serde(rename = "goal", skip_serializing_if = "Option::is_none")]
+    pub goal: Option<Goal>,
+    /// Required on legacy + multi-creative shapes. Inherited on attach.
+    #[serde(rename = "budgetAmount", skip_serializing_if = "Option::is_none")]
+    pub budget_amount: Option<f64>,
+    /// Required on legacy + multi-creative shapes. Inherited on attach.
+    #[serde(rename = "budgetType", skip_serializing_if = "Option::is_none")]
+    pub budget_type: Option<BudgetType>,
     #[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
     pub currency: Option<String>,
-    /// Required for most platforms. Max: Meta=255, Google=30, Pinterest=100
+    /// Required on legacy + attach shapes (skip for multi-creative — use `creatives[].headline`). Max: Meta=255, Google=30, Pinterest=100
     #[serde(rename = "headline", skip_serializing_if = "Option::is_none")]
     pub headline: Option<String>,
     /// Google Display only
     #[serde(rename = "longHeadline", skip_serializing_if = "Option::is_none")]
     pub long_headline: Option<String>,
-    /// Max: Google=90, Pinterest=500
-    #[serde(rename = "body")]
-    pub body: String,
-    /// Meta only
+    /// Required on legacy + attach shapes. Max: Google=90, Pinterest=500
+    #[serde(rename = "body", skip_serializing_if = "Option::is_none")]
+    pub body: Option<String>,
+    /// Required on legacy + attach shapes. Meta only.
     #[serde(rename = "callToAction", skip_serializing_if = "Option::is_none")]
     pub call_to_action: Option<CallToAction>,
+    /// Required on legacy + attach shapes. Skip for multi-creative.
     #[serde(rename = "linkUrl", skip_serializing_if = "Option::is_none")]
     pub link_url: Option<String>,
-    /// Image URL (or video URL for TikTok). Not required for Google Search campaigns.
+    /// Required on legacy + attach shapes. Not required for Google Search campaigns.
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
+    /// Meta-only. When present, switches to the multi-creative shape: creates 1 campaign + 1 ad set + N ads (one per entry here). Top-level `headline` / `body` / `imageUrl` / `linkUrl` / `callToAction` are ignored in this mode. Mutually exclusive with `adSetId`.
+    #[serde(rename = "creatives", skip_serializing_if = "Option::is_none")]
+    pub creatives: Option<Vec<models::CreateStandaloneAdRequestCreativesInner>>,
+    /// Meta-only. When present, switches to the attach shape: adds one new ad to this existing ad set without creating a new campaign. Budget, targeting, goal, and schedule are inherited from the ad set on Meta. Mutually exclusive with `creatives[]`.
+    #[serde(rename = "adSetId", skip_serializing_if = "Option::is_none")]
+    pub ad_set_id: Option<String>,
     /// Google Display only
     #[serde(rename = "businessName", skip_serializing_if = "Option::is_none")]
     pub business_name: Option<String>,
@@ -94,25 +103,23 @@ impl CreateStandaloneAdRequest {
         account_id: String,
         ad_account_id: String,
         name: String,
-        goal: Goal,
-        budget_amount: f64,
-        budget_type: BudgetType,
-        body: String,
     ) -> CreateStandaloneAdRequest {
         CreateStandaloneAdRequest {
             account_id,
             ad_account_id,
             name,
-            goal,
-            budget_amount,
-            budget_type,
+            goal: None,
+            budget_amount: None,
+            budget_type: None,
             currency: None,
             headline: None,
             long_headline: None,
-            body,
+            body: None,
             call_to_action: None,
             link_url: None,
             image_url: None,
+            creatives: None,
+            ad_set_id: None,
             business_name: None,
             board_id: None,
             countries: None,
@@ -129,7 +136,7 @@ impl CreateStandaloneAdRequest {
         }
     }
 }
-/// Available goals vary by platform. Meta (Facebook/Instagram) and TikTok support all 7. LinkedIn supports all except app_promotion. Twitter/X supports engagement, traffic, awareness, video_views, app_promotion. Pinterest and Google Ads support only engagement, traffic, awareness, video_views.
+/// Required on legacy + multi-creative shapes. Inherited from the ad set on the attach shape. Available goals vary by platform.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Goal {
     #[serde(rename = "engagement")]
@@ -153,7 +160,7 @@ impl Default for Goal {
         Self::Engagement
     }
 }
-///
+/// Required on legacy + multi-creative shapes. Inherited on attach.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum BudgetType {
     #[serde(rename = "daily")]
@@ -167,7 +174,7 @@ impl Default for BudgetType {
         Self::Daily
     }
 }
-/// Meta only
+/// Required on legacy + attach shapes. Meta only.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum CallToAction {
     #[serde(rename = "LEARN_MORE")]

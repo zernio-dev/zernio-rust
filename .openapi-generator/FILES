@@ -143,7 +143,11 @@ docs/CreateSequenceRequest.md
 docs/CreateSequenceRequestStepsInner.md
 docs/CreateSequenceRequestStepsInnerTemplate.md
 docs/CreateSequenceRequestStepsInnerTemplateVariableMappingValue.md
+docs/CreateStandaloneAd201Response.md
+docs/CreateStandaloneAd201ResponseOneOf.md
+docs/CreateStandaloneAd201ResponseOneOf1.md
 docs/CreateStandaloneAdRequest.md
+docs/CreateStandaloneAdRequestCreativesInner.md
 docs/CreateWebhookSettingsRequest.md
 docs/CreateWhatsAppFlow200Response.md
 docs/CreateWhatsAppFlow200ResponseFlow.md
@@ -1008,7 +1012,11 @@ src/models/create_sequence_request.rs
 src/models/create_sequence_request_steps_inner.rs
 src/models/create_sequence_request_steps_inner_template.rs
 src/models/create_sequence_request_steps_inner_template_variable_mapping_value.rs
+src/models/create_standalone_ad_201_response.rs
+src/models/create_standalone_ad_201_response_one_of.rs
+src/models/create_standalone_ad_201_response_one_of_1.rs
 src/models/create_standalone_ad_request.rs
+src/models/create_standalone_ad_request_creatives_inner.rs
 src/models/create_webhook_settings_request.rs
 src/models/create_whats_app_flow_200_response.rs
 src/models/create_whats_app_flow_200_response_flow.rs

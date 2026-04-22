@@ -7,16 +7,18 @@ Name | Type | Description | Notes
 **account_id** | **String** |  | 
 **ad_account_id** | **String** |  | 
 **name** | **String** |  | 
-**goal** | **Goal** | Available goals vary by platform. Meta (Facebook/Instagram) and TikTok support all 7. LinkedIn supports all except app_promotion. Twitter/X supports engagement, traffic, awareness, video_views, app_promotion. Pinterest and Google Ads support only engagement, traffic, awareness, video_views. (enum: engagement, traffic, awareness, video_views, lead_generation, conversions, app_promotion) | 
-**budget_amount** | **f64** |  | 
-**budget_type** | **BudgetType** |  (enum: daily, lifetime) | 
+**goal** | Option<**Goal**> | Required on legacy + multi-creative shapes. Inherited from the ad set on the attach shape. Available goals vary by platform. (enum: engagement, traffic, awareness, video_views, lead_generation, conversions, app_promotion) | [optional]
+**budget_amount** | Option<**f64**> | Required on legacy + multi-creative shapes. Inherited on attach. | [optional]
+**budget_type** | Option<**BudgetType**> | Required on legacy + multi-creative shapes. Inherited on attach. (enum: daily, lifetime) | [optional]
 **currency** | Option<**String**> |  | [optional]
-**headline** | Option<**String**> | Required for most platforms. Max: Meta=255, Google=30, Pinterest=100 | [optional]
+**headline** | Option<**String**> | Required on legacy + attach shapes (skip for multi-creative — use `creatives[].headline`). Max: Meta=255, Google=30, Pinterest=100 | [optional]
 **long_headline** | Option<**String**> | Google Display only | [optional]
-**body** | **String** | Max: Google=90, Pinterest=500 | 
-**call_to_action** | Option<**CallToAction**> | Meta only (enum: LEARN_MORE, SHOP_NOW, SIGN_UP, BOOK_TRAVEL, CONTACT_US, DOWNLOAD, GET_OFFER, GET_QUOTE, SUBSCRIBE, WATCH_MORE) | [optional]
-**link_url** | Option<**String**> |  | [optional]
-**image_url** | Option<**String**> | Image URL (or video URL for TikTok). Not required for Google Search campaigns. | [optional]
+**body** | Option<**String**> | Required on legacy + attach shapes. Max: Google=90, Pinterest=500 | [optional]
+**call_to_action** | Option<**CallToAction**> | Required on legacy + attach shapes. Meta only. (enum: LEARN_MORE, SHOP_NOW, SIGN_UP, BOOK_TRAVEL, CONTACT_US, DOWNLOAD, GET_OFFER, GET_QUOTE, SUBSCRIBE, WATCH_MORE) | [optional]
+**link_url** | Option<**String**> | Required on legacy + attach shapes. Skip for multi-creative. | [optional]
+**image_url** | Option<**String**> | Required on legacy + attach shapes. Not required for Google Search campaigns. | [optional]
+**creatives** | Option<[**Vec<models::CreateStandaloneAdRequestCreativesInner>**](CreateStandaloneAdRequestCreativesInner.md)> | Meta-only. When present, switches to the multi-creative shape: creates 1 campaign + 1 ad set + N ads (one per entry here). Top-level `headline` / `body` / `imageUrl` / `linkUrl` / `callToAction` are ignored in this mode. Mutually exclusive with `adSetId`.  | [optional]
+**ad_set_id** | Option<**String**> | Meta-only. When present, switches to the attach shape: adds one new ad to this existing ad set without creating a new campaign. Budget, targeting, goal, and schedule are inherited from the ad set on Meta. Mutually exclusive with `creatives[]`.  | [optional]
 **business_name** | Option<**String**> | Google Display only | [optional]
 **board_id** | Option<**String**> | Pinterest only. Board ID (auto-creates if not provided). | [optional]
 **countries** | Option<**Vec<String>**> |  | [optional]

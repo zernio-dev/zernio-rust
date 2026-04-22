@@ -172,11 +172,11 @@ pub async fn boost_post(
     }
 }
 
-/// Creates a paid ad with custom creative (headline, body, image/video, link). Creates the full platform campaign hierarchy.
+/// Creates a paid ad with custom creative. The request body supports three mutually-exclusive shapes:  1. **Legacy single-creative** (all platforms). Top-level `headline` + `body` + `imageUrl` + `linkUrl` + `callToAction` create 1 campaign + 1 ad set + 1 ad. 2. **Multi-creative** (Meta only — use `creatives[]` array). Creates 1 campaign + 1 ad set + N ads sharing the same budget / targeting / schedule. This is the standard performance-marketing creative-testing flow — Meta's delivery algorithm A/B tests the creatives inside a single ad set so budget isn't fragmented across N parallel campaigns. 3. **Attach to existing ad set** (Meta only — pass `adSetId` + a single creative). Adds one new ad to an existing ad set without creating a new campaign. Budget, targeting, goal are inherited from the ad set on Meta.  `creatives[]` and `adSetId` are mutually exclusive; specifying both returns 400.
 pub async fn create_standalone_ad(
     configuration: &configuration::Configuration,
     create_standalone_ad_request: models::CreateStandaloneAdRequest,
-) -> Result<models::UpdateAd200Response, Error<CreateStandaloneAdError>> {
+) -> Result<models::CreateStandaloneAd201Response, Error<CreateStandaloneAdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_standalone_ad_request = create_standalone_ad_request;
 
@@ -208,8 +208,8 @@ pub async fn create_standalone_ad(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateAd200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateAd200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateStandaloneAd201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateStandaloneAd201Response`")))),
         }
     } else {
         let content = resp.text().await?;
