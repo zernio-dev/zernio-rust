@@ -579,6 +579,9 @@ docs/ReplyToInboxReview200ResponseReply.md
 docs/ReplyToInboxReviewRequest.md
 docs/RetweetPost200Response.md
 docs/RetweetPostRequest.md
+docs/ReviewWebhookReview.md
+docs/ReviewWebhookReviewReply.md
+docs/ReviewWebhookReviewReviewer.md
 docs/ReviewsApi.md
 docs/ScheduleBroadcast200Response.md
 docs/ScheduleBroadcast200ResponseBroadcast.md
@@ -819,6 +822,9 @@ docs/WebhookPayloadMessageSentMessageSender.md
 docs/WebhookPayloadPost.md
 docs/WebhookPayloadPostPost.md
 docs/WebhookPayloadPostPostPlatformsInner.md
+docs/WebhookPayloadReviewNew.md
+docs/WebhookPayloadReviewNewAccount.md
+docs/WebhookPayloadReviewUpdated.md
 docs/WebhookPayloadTest.md
 docs/WebhooksApi.md
 docs/WhatsAppApi.md
@@ -1435,6 +1441,9 @@ src/models/reply_to_inbox_review_200_response_reply.rs
 src/models/reply_to_inbox_review_request.rs
 src/models/retweet_post_200_response.rs
 src/models/retweet_post_request.rs
+src/models/review_webhook_review.rs
+src/models/review_webhook_review_reply.rs
+src/models/review_webhook_review_reviewer.rs
 src/models/schedule_broadcast_200_response.rs
 src/models/schedule_broadcast_200_response_broadcast.rs
 src/models/schedule_broadcast_request.rs
@@ -1668,6 +1677,9 @@ src/models/webhook_payload_message_sent_message_sender.rs
 src/models/webhook_payload_post.rs
 src/models/webhook_payload_post_post.rs
 src/models/webhook_payload_post_post_platforms_inner.rs
+src/models/webhook_payload_review_new.rs
+src/models/webhook_payload_review_new_account.rs
+src/models/webhook_payload_review_updated.rs
 src/models/webhook_payload_test.rs
 src/models/whats_app_body_component.rs
 src/models/whats_app_body_component_example.rs

@@ -127,6 +127,20 @@ pub enum OnPostScheduledError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`on_review_new`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnReviewNewError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`on_review_updated`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnReviewUpdatedError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`on_webhook_test`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -611,6 +625,66 @@ pub async fn on_post_scheduled(configuration: &configuration::Configuration, web
     } else {
         let content = resp.text().await?;
         let entity: Option<OnPostScheduledError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when a new review is posted on a connected account. Currently supported for Google Business Profile (real-time via Pub/Sub). Requires the Inbox add-on. 
+pub async fn on_review_new(configuration: &configuration::Configuration, webhook_payload_review_new: models::WebhookPayloadReviewNew) -> Result<(), Error<OnReviewNewError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_payload_review_new = webhook_payload_review_new;
+
+    let uri_str = format!("{}/review.new", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_payload_review_new);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnReviewNewError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when a review changes: the reviewer edits their text or rating, or a reply is added (via the API or directly through the Google Business dashboard). Payload shape matches `review.new`. Requires the Inbox add-on. 
+pub async fn on_review_updated(configuration: &configuration::Configuration, webhook_payload_review_updated: models::WebhookPayloadReviewUpdated) -> Result<(), Error<OnReviewUpdatedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_payload_review_updated = webhook_payload_review_updated;
+
+    let uri_str = format!("{}/review.updated", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_payload_review_updated);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnReviewUpdatedError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

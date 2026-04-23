@@ -20,6 +20,8 @@ Method | HTTP request | Description
 [**on_post_published**](WebhookEventsApi.md#on_post_published) | **POST** /post.published | Post published event
 [**on_post_recycled**](WebhookEventsApi.md#on_post_recycled) | **POST** /post.recycled | Post recycled event
 [**on_post_scheduled**](WebhookEventsApi.md#on_post_scheduled) | **POST** /post.scheduled | Post scheduled event
+[**on_review_new**](WebhookEventsApi.md#on_review_new) | **POST** /review.new | Review new event
+[**on_review_updated**](WebhookEventsApi.md#on_review_updated) | **POST** /review.updated | Review updated event
 [**on_webhook_test**](WebhookEventsApi.md#on_webhook_test) | **POST** /webhook.test | Webhook test event
 
 
@@ -487,6 +489,66 @@ Fired when a post is created and scheduled for publishing.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_post** | [**WebhookPayloadPost**](WebhookPayloadPost.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_review_new
+
+> on_review_new(webhook_payload_review_new)
+Review new event
+
+Fired when a new review is posted on a connected account. Currently supported for Google Business Profile (real-time via Pub/Sub). Requires the Inbox add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_review_new** | [**WebhookPayloadReviewNew**](WebhookPayloadReviewNew.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_review_updated
+
+> on_review_updated(webhook_payload_review_updated)
+Review updated event
+
+Fired when a review changes: the reviewer edits their text or rating, or a reply is added (via the API or directly through the Google Business dashboard). Payload shape matches `review.new`. Requires the Inbox add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_review_updated** | [**WebhookPayloadReviewUpdated**](WebhookPayloadReviewUpdated.md) |  | [required] |
 
 ### Return type
 
