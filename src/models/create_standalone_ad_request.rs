@@ -45,9 +45,11 @@ pub struct CreateStandaloneAdRequest {
     /// Required on legacy + attach shapes. Skip for multi-creative.
     #[serde(rename = "linkUrl", skip_serializing_if = "Option::is_none")]
     pub link_url: Option<String>,
-    /// Image creative for Meta/Google/Pinterest on legacy + attach shapes (mutually exclusive with `video`). Not required for Google Search campaigns. For TikTok, this field carries the VIDEO URL (the TikTok ads endpoint is video-only; the field retains the `imageUrl` name for cross-platform consistency). Ignored for X/Twitter.
+    /// Image creative for Meta/Google/Pinterest on legacy + attach shapes (mutually exclusive with `video`). Not required for Google Search campaigns. For TikTok, this field carries the VIDEO URL (the TikTok ads endpoint is video-only; the field retains the `imageUrl` name for cross-platform consistency). Ignored for X/Twitter. For Google Display, treated as the landscape image (alias of `images.landscape`); supply `images.square` alongside or the request is rejected.
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
+    #[serde(rename = "images", skip_serializing_if = "Option::is_none")]
+    pub images: Option<Box<models::CreateStandaloneAdRequestImages>>,
     #[serde(rename = "video", skip_serializing_if = "Option::is_none")]
     pub video: Option<Box<models::CreateStandaloneAdRequestVideo>>,
     /// Meta-only. When present, switches to the multi-creative shape: creates 1 campaign + 1 ad set + N ads (one per entry here). Top-level `headline` / `body` / `imageUrl` / `linkUrl` / `callToAction` are ignored in this mode. Mutually exclusive with `adSetId`.
@@ -120,6 +122,7 @@ impl CreateStandaloneAdRequest {
             call_to_action: None,
             link_url: None,
             image_url: None,
+            images: None,
             video: None,
             creatives: None,
             ad_set_id: None,

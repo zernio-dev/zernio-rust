@@ -266,6 +266,8 @@ pub mod create_standalone_ad_request_creatives_inner;
 pub use self::create_standalone_ad_request_creatives_inner::CreateStandaloneAdRequestCreativesInner;
 pub mod create_standalone_ad_request_creatives_inner_video;
 pub use self::create_standalone_ad_request_creatives_inner_video::CreateStandaloneAdRequestCreativesInnerVideo;
+pub mod create_standalone_ad_request_images;
+pub use self::create_standalone_ad_request_images::CreateStandaloneAdRequestImages;
 pub mod create_standalone_ad_request_video;
 pub use self::create_standalone_ad_request_video::CreateStandaloneAdRequestVideo;
 pub mod create_webhook_settings_request;
