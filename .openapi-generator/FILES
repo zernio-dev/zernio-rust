@@ -220,6 +220,9 @@ docs/GetAdAnalytics200ResponseAd.md
 docs/GetAdAnalytics200ResponseAnalytics.md
 docs/GetAdAnalytics200ResponseAnalyticsDailyInner.md
 docs/GetAdAudience200Response.md
+docs/GetAdComments200Response.md
+docs/GetAdComments200ResponseMeta.md
+docs/GetAdComments200ResponsePagination.md
 docs/GetAdTree200Response.md
 docs/GetAllAccountsHealth200Response.md
 docs/GetAllAccountsHealth200ResponseAccountsInner.md
@@ -1097,6 +1100,9 @@ src/models/get_ad_analytics_200_response_ad.rs
 src/models/get_ad_analytics_200_response_analytics.rs
 src/models/get_ad_analytics_200_response_analytics_daily_inner.rs
 src/models/get_ad_audience_200_response.rs
+src/models/get_ad_comments_200_response.rs
+src/models/get_ad_comments_200_response_meta.rs
+src/models/get_ad_comments_200_response_pagination.rs
 src/models/get_ad_tree_200_response.rs
 src/models/get_all_accounts_health_200_response.rs
 src/models/get_all_accounts_health_200_response_accounts_inner.rs
