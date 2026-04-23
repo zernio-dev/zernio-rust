@@ -11,14 +11,18 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// CreateStandaloneAdRequestCreativesInner : Each creative must supply EXACTLY ONE of `imageUrl` (image creative) or `video` (video creative).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateStandaloneAdRequestCreativesInner {
     #[serde(rename = "headline")]
     pub headline: String,
     #[serde(rename = "body")]
     pub body: String,
-    #[serde(rename = "imageUrl")]
-    pub image_url: String,
+    /// Image creative. Mutually exclusive with `video`.
+    #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
+    pub image_url: Option<String>,
+    #[serde(rename = "video", skip_serializing_if = "Option::is_none")]
+    pub video: Option<Box<models::CreateStandaloneAdRequestCreativesInnerVideo>>,
     #[serde(rename = "linkUrl")]
     pub link_url: String,
     #[serde(rename = "callToAction")]
@@ -26,17 +30,18 @@ pub struct CreateStandaloneAdRequestCreativesInner {
 }
 
 impl CreateStandaloneAdRequestCreativesInner {
+    /// Each creative must supply EXACTLY ONE of `imageUrl` (image creative) or `video` (video creative).
     pub fn new(
         headline: String,
         body: String,
-        image_url: String,
         link_url: String,
         call_to_action: CallToAction,
     ) -> CreateStandaloneAdRequestCreativesInner {
         CreateStandaloneAdRequestCreativesInner {
             headline,
             body,
-            image_url,
+            image_url: None,
+            video: None,
             link_url,
             call_to_action,
         }

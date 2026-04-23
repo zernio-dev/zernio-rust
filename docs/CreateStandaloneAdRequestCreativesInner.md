@@ -6,7 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **headline** | **String** |  | 
 **body** | **String** |  | 
-**image_url** | **String** |  | 
+**image_url** | Option<**String**> | Image creative. Mutually exclusive with `video`. | [optional]
+**video** | Option<[**models::CreateStandaloneAdRequestCreativesInnerVideo**](CreateStandaloneAdRequestCreativesInnerVideo.md)> |  | [optional]
 **link_url** | **String** |  | 
 **call_to_action** | **CallToAction** |  (enum: LEARN_MORE, SHOP_NOW, SIGN_UP, BOOK_TRAVEL, CONTACT_US, DOWNLOAD, GET_OFFER, GET_QUOTE, SUBSCRIBE, WATCH_MORE) | 
 

@@ -30,13 +30,13 @@ pub struct CreateStandaloneAdRequest {
     pub budget_type: Option<BudgetType>,
     #[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
     pub currency: Option<String>,
-    /// Required on legacy + attach shapes (skip for multi-creative — use `creatives[].headline`). Max: Meta=255, Google=30, Pinterest=100
+    /// Required for Meta, Google, and Pinterest on legacy + attach shapes (skip for multi-creative — use `creatives[].headline`). Ignored for TikTok and X/Twitter. Max: Meta=255, Google=30, Pinterest=100.
     #[serde(rename = "headline", skip_serializing_if = "Option::is_none")]
     pub headline: Option<String>,
-    /// Google Display only
+    /// Google Display only. Defaults to `headline` if omitted.
     #[serde(rename = "longHeadline", skip_serializing_if = "Option::is_none")]
     pub long_headline: Option<String>,
-    /// Required on legacy + attach shapes. Max: Google=90, Pinterest=500
+    /// Required on legacy + attach shapes. For X/Twitter this is the tweet text (max 280 chars including a ~24-char URL when `linkUrl` is set). Max: Google=90, Pinterest=500.
     #[serde(rename = "body", skip_serializing_if = "Option::is_none")]
     pub body: Option<String>,
     /// Required on legacy + attach shapes. Meta only.
@@ -45,9 +45,11 @@ pub struct CreateStandaloneAdRequest {
     /// Required on legacy + attach shapes. Skip for multi-creative.
     #[serde(rename = "linkUrl", skip_serializing_if = "Option::is_none")]
     pub link_url: Option<String>,
-    /// Required on legacy + attach shapes. Not required for Google Search campaigns.
+    /// Image creative for Meta/Google/Pinterest on legacy + attach shapes (mutually exclusive with `video`). Not required for Google Search campaigns. For TikTok, this field carries the VIDEO URL (the TikTok ads endpoint is video-only; the field retains the `imageUrl` name for cross-platform consistency). Ignored for X/Twitter.
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
+    #[serde(rename = "video", skip_serializing_if = "Option::is_none")]
+    pub video: Option<Box<models::CreateStandaloneAdRequestVideo>>,
     /// Meta-only. When present, switches to the multi-creative shape: creates 1 campaign + 1 ad set + N ads (one per entry here). Top-level `headline` / `body` / `imageUrl` / `linkUrl` / `callToAction` are ignored in this mode. Mutually exclusive with `adSetId`.
     #[serde(rename = "creatives", skip_serializing_if = "Option::is_none")]
     pub creatives: Option<Vec<models::CreateStandaloneAdRequestCreativesInner>>,
@@ -118,6 +120,7 @@ impl CreateStandaloneAdRequest {
             call_to_action: None,
             link_url: None,
             image_url: None,
+            video: None,
             creatives: None,
             ad_set_id: None,
             business_name: None,
