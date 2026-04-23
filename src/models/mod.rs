@@ -1514,6 +1514,8 @@ pub mod webhook_payload_comment_account;
 pub use self::webhook_payload_comment_account::WebhookPayloadCommentAccount;
 pub mod webhook_payload_comment_comment;
 pub use self::webhook_payload_comment_comment::WebhookPayloadCommentComment;
+pub mod webhook_payload_comment_comment_ad;
+pub use self::webhook_payload_comment_comment_ad::WebhookPayloadCommentCommentAd;
 pub mod webhook_payload_comment_comment_author;
 pub use self::webhook_payload_comment_comment_author::WebhookPayloadCommentCommentAuthor;
 pub mod webhook_payload_comment_post;
