@@ -21,7 +21,7 @@ pub struct GetAdComments200ResponseMeta {
     /// Meta ad ID.
     #[serde(rename = "platformAdId")]
     pub platform_ad_id: String,
-    /// Underlying post ID the comments belong to (effective_object_story_id for FB, effective_instagram_media_id for IG).
+    /// Underlying post ID the comments belong to. effective_object_story_id for Facebook, effective_instagram_media_id for Instagram.
     #[serde(rename = "effectiveStoryId")]
     pub effective_story_id: String,
     /// Social account ID (ads SocialAccount).

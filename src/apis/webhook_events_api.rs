@@ -659,7 +659,7 @@ pub async fn on_review_new(configuration: &configuration::Configuration, webhook
     }
 }
 
-/// Fired when a review changes: the reviewer edits their text or rating, or a reply is added (via the API or directly through the Google Business dashboard). Payload shape matches `review.new`. Requires the Inbox add-on. 
+/// Fired when a review changes: the reviewer edits their text or rating, or a reply is added (via the API or directly through the Google Business dashboard). Payload shape matches review.new. Requires the Inbox add-on. 
 pub async fn on_review_updated(configuration: &configuration::Configuration, webhook_payload_review_updated: models::WebhookPayloadReviewUpdated) -> Result<(), Error<OnReviewUpdatedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_payload_review_updated = webhook_payload_review_updated;

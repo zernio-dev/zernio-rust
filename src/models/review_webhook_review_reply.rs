@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ReviewWebhookReviewReply : Present when `hasReply` is true.
+/// ReviewWebhookReviewReply : Present when hasReply is true.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ReviewWebhookReviewReply {
     #[serde(rename = "text")]
@@ -21,7 +21,7 @@ pub struct ReviewWebhookReviewReply {
 }
 
 impl ReviewWebhookReviewReply {
-    /// Present when `hasReply` is true.
+    /// Present when hasReply is true.
     pub fn new(text: String, created_at: String) -> ReviewWebhookReviewReply {
         ReviewWebhookReviewReply { text, created_at }
     }

@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookPayloadReviewNew : Webhook payload for the `review.new` event (new review posted on a connected account).
+/// WebhookPayloadReviewNew : Webhook payload for the review.new event (new review posted on a connected account).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadReviewNew {
     /// Stable webhook event ID
@@ -28,7 +28,7 @@ pub struct WebhookPayloadReviewNew {
 }
 
 impl WebhookPayloadReviewNew {
-    /// Webhook payload for the `review.new` event (new review posted on a connected account).
+    /// Webhook payload for the review.new event (new review posted on a connected account).
     pub fn new(
         id: String,
         event: Event,
