@@ -28,6 +28,12 @@ pub struct LinkedInAggregateAnalyticsTotalResponseAnalytics {
     /// Total reshares across all posts
     #[serde(rename = "shares", skip_serializing_if = "Option::is_none")]
     pub shares: Option<i32>,
+    /// Total times posts were saved (personal accounts only)
+    #[serde(rename = "saves", skip_serializing_if = "Option::is_none")]
+    pub saves: Option<i32>,
+    /// Total times posts were sent via LinkedIn messaging (personal accounts only)
+    #[serde(rename = "sends", skip_serializing_if = "Option::is_none")]
+    pub sends: Option<i32>,
     /// Overall engagement rate as percentage
     #[serde(rename = "engagementRate", skip_serializing_if = "Option::is_none")]
     pub engagement_rate: Option<f64>,
@@ -41,6 +47,8 @@ impl LinkedInAggregateAnalyticsTotalResponseAnalytics {
             reactions: None,
             comments: None,
             shares: None,
+            saves: None,
+            sends: None,
             engagement_rate: None,
         }
     }

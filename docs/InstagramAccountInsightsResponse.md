@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **success** | Option<**bool**> |  | [optional]
 **account_id** | Option<**String**> | The Zernio SocialAccount ID | [optional]
-**platform** | Option<**String**> |  | [optional]
+**platform** | Option<**Platform**> | Platform that served this response. (enum: facebook, instagram, youtube, linkedin, tiktok) | [optional]
 **date_range** | Option<[**models::InstagramAccountInsightsResponseDateRange**](InstagramAccountInsightsResponseDateRange.md)> |  | [optional]
 **metric_type** | Option<**MetricType**> |  (enum: time_series, total_value) | [optional]
 **breakdown** | Option<**String**> | Breakdown dimension used (only present when breakdown was requested) | [optional]

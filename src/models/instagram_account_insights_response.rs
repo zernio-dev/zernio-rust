@@ -11,6 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// InstagramAccountInsightsResponse : Shared account-insights response envelope used by every platform-level analytics endpoint (/v1/analytics/{facebook|instagram|youtube|linkedin|tiktok}/_*). The name is historical - the shape was first shipped for Instagram and every new platform endpoint reuses it for response-shape consistency. The platform field echoes back which platform served the response.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct InstagramAccountInsightsResponse {
     #[serde(rename = "success", skip_serializing_if = "Option::is_none")]
@@ -18,8 +19,9 @@ pub struct InstagramAccountInsightsResponse {
     /// The Zernio SocialAccount ID
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
+    /// Platform that served this response.
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
-    pub platform: Option<String>,
+    pub platform: Option<Platform>,
     #[serde(rename = "dateRange", skip_serializing_if = "Option::is_none")]
     pub date_range: Option<Box<models::InstagramAccountInsightsResponseDateRange>>,
     #[serde(rename = "metricType", skip_serializing_if = "Option::is_none")]
@@ -37,6 +39,7 @@ pub struct InstagramAccountInsightsResponse {
 }
 
 impl InstagramAccountInsightsResponse {
+    /// Shared account-insights response envelope used by every platform-level analytics endpoint (/v1/analytics/{facebook|instagram|youtube|linkedin|tiktok}/_*). The name is historical - the shape was first shipped for Instagram and every new platform endpoint reuses it for response-shape consistency. The platform field echoes back which platform served the response.
     pub fn new() -> InstagramAccountInsightsResponse {
         InstagramAccountInsightsResponse {
             success: None,
@@ -48,6 +51,26 @@ impl InstagramAccountInsightsResponse {
             metrics: None,
             data_delay: None,
         }
+    }
+}
+/// Platform that served this response.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Platform {
+    #[serde(rename = "facebook")]
+    Facebook,
+    #[serde(rename = "instagram")]
+    Instagram,
+    #[serde(rename = "youtube")]
+    Youtube,
+    #[serde(rename = "linkedin")]
+    Linkedin,
+    #[serde(rename = "tiktok")]
+    Tiktok,
+}
+
+impl Default for Platform {
+    fn default() -> Platform {
+        Self::Facebook
     }
 }
 ///

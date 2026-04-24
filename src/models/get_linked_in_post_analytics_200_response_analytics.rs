@@ -28,6 +28,12 @@ pub struct GetLinkedInPostAnalytics200ResponseAnalytics {
     /// Reshares of the post
     #[serde(rename = "shares", skip_serializing_if = "Option::is_none")]
     pub shares: Option<i32>,
+    /// Times the post was saved (personal accounts only; 0 for organization accounts)
+    #[serde(rename = "saves", skip_serializing_if = "Option::is_none")]
+    pub saves: Option<i32>,
+    /// Times the post was sent via LinkedIn messaging (personal accounts only; 0 for organization accounts)
+    #[serde(rename = "sends", skip_serializing_if = "Option::is_none")]
+    pub sends: Option<i32>,
     /// Clicks on the post (organization accounts only)
     #[serde(rename = "clicks", skip_serializing_if = "Option::is_none")]
     pub clicks: Option<i32>,
@@ -47,6 +53,8 @@ impl GetLinkedInPostAnalytics200ResponseAnalytics {
             likes: None,
             comments: None,
             shares: None,
+            saves: None,
+            sends: None,
             clicks: None,
             views: None,
             engagement_rate: None,

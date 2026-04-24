@@ -26,6 +26,14 @@ pub struct LinkedInAggregateAnalyticsDailyResponseAnalytics {
     #[serde(rename = "shares", skip_serializing_if = "Option::is_none")]
     pub shares:
         Option<Vec<models::LinkedInAggregateAnalyticsDailyResponseAnalyticsImpressionsInner>>,
+    /// Daily saves (personal accounts only)
+    #[serde(rename = "saves", skip_serializing_if = "Option::is_none")]
+    pub saves:
+        Option<Vec<models::LinkedInAggregateAnalyticsDailyResponseAnalyticsImpressionsInner>>,
+    /// Daily sends via LinkedIn messaging (personal accounts only)
+    #[serde(rename = "sends", skip_serializing_if = "Option::is_none")]
+    pub sends:
+        Option<Vec<models::LinkedInAggregateAnalyticsDailyResponseAnalyticsImpressionsInner>>,
 }
 
 impl LinkedInAggregateAnalyticsDailyResponseAnalytics {
@@ -36,6 +44,8 @@ impl LinkedInAggregateAnalyticsDailyResponseAnalytics {
             reactions: None,
             comments: None,
             shares: None,
+            saves: None,
+            sends: None,
         }
     }
 }

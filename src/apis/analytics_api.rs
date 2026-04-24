@@ -53,6 +53,17 @@ pub enum GetDailyMetricsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_facebook_page_insights`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetFacebookPageInsightsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status402(),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_follower_stats`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -108,6 +119,17 @@ pub enum GetInstagramDemographicsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_instagram_follower_history`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetInstagramFollowerHistoryError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status402(),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_linked_in_aggregate_analytics`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -117,6 +139,19 @@ pub enum GetLinkedInAggregateAnalyticsError {
     Status402(models::GetLinkedInAggregateAnalytics402Response),
     Status403(models::GetLinkedInAggregateAnalytics403Response),
     Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_linked_in_org_aggregate_analytics`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetLinkedInOrgAggregateAnalyticsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status402(),
+    Status403(),
+    Status404(),
+    Status412(),
     UnknownValue(serde_json::Value),
 }
 
@@ -162,6 +197,30 @@ pub enum GetPostTimelineError {
 pub enum GetPostingFrequencyError {
     Status401(models::InlineObject),
     Status403(models::GetBestTimeToPost403Response),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_tik_tok_account_insights`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetTikTokAccountInsightsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status402(),
+    Status404(),
+    Status412(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_you_tube_channel_insights`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetYouTubeChannelInsightsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status402(),
+    Status404(),
+    Status412(models::YouTubeScopeMissingResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -478,6 +537,77 @@ pub async fn get_daily_metrics(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetDailyMetricsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns page-level Facebook insights (media views, views, post engagements, video metrics, follower counts). Response shape matches /v1/analytics/instagram/account-insights so the same client handling works across platforms.  Metric names track the current (post-November 2025) Meta Graph API. The legacy page_impressions / page_fans / page_fan_adds / page_fan_removes metrics were deprecated by Meta on November 15, 2025 and are NOT accepted by this endpoint. Use the replacements below. Because Meta did not provide direct adds/removes replacements, Zernio synthesizes followers_gained / followers_lost from the daily follower snapshotter.  Max 89 days, defaults to last 30 days. Requires the Analytics add-on.
+pub async fn get_facebook_page_insights(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    metrics: Option<&str>,
+    since: Option<String>,
+    until: Option<String>,
+    metric_type: Option<&str>,
+) -> Result<models::InstagramAccountInsightsResponse, Error<GetFacebookPageInsightsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_metrics = metrics;
+    let p_query_since = since;
+    let p_query_until = until;
+    let p_query_metric_type = metric_type;
+
+    let uri_str = format!(
+        "{}/v1/analytics/facebook/page-insights",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_metrics {
+        req_builder = req_builder.query(&[("metrics", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_since {
+        req_builder = req_builder.query(&[("since", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_until {
+        req_builder = req_builder.query(&[("until", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_metric_type {
+        req_builder = req_builder.query(&[("metricType", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::InstagramAccountInsightsResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::InstagramAccountInsightsResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetFacebookPageInsightsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -830,7 +960,78 @@ pub async fn get_instagram_demographics(
     }
 }
 
-/// Returns aggregate analytics across all posts for a LinkedIn personal account. Only includes posts published through Zernio (LinkedIn API limitation). Org accounts should use /v1/analytics instead. Requires r_member_postAnalytics scope.
+/// Returns a daily running Instagram follower count time series, served from Zernio's cross-platform daily snapshotter. Exists because Meta removed follower_count from the /insights endpoint in Graph API v22+ and never exposed a historical daily series via any public API.  Response envelope matches /v1/analytics/instagram/account-insights so the same client handling works. Max 89 days, defaults to last 30 days. Requires the Analytics add-on.
+pub async fn get_instagram_follower_history(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    metrics: Option<&str>,
+    since: Option<String>,
+    until: Option<String>,
+    metric_type: Option<&str>,
+) -> Result<models::InstagramAccountInsightsResponse, Error<GetInstagramFollowerHistoryError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_metrics = metrics;
+    let p_query_since = since;
+    let p_query_until = until;
+    let p_query_metric_type = metric_type;
+
+    let uri_str = format!(
+        "{}/v1/analytics/instagram/follower-history",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_metrics {
+        req_builder = req_builder.query(&[("metrics", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_since {
+        req_builder = req_builder.query(&[("since", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_until {
+        req_builder = req_builder.query(&[("until", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_metric_type {
+        req_builder = req_builder.query(&[("metricType", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::InstagramAccountInsightsResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::InstagramAccountInsightsResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetInstagramFollowerHistoryError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns aggregate analytics across all posts for a LinkedIn personal account. Only includes posts published through Zernio (LinkedIn API limitation). Org accounts should use /v1/analytics instead. Requires r_member_postAnalytics scope. Saves (POST_SAVE) and sends (POST_SEND) are available for personal accounts; organization pages always return 0 for these two metrics because LinkedIn does not expose them on the organization analytics endpoint.
 pub async fn get_linked_in_aggregate_analytics(
     configuration: &configuration::Configuration,
     account_id: &str,
@@ -905,7 +1106,80 @@ pub async fn get_linked_in_aggregate_analytics(
     }
 }
 
-/// Returns analytics for a specific LinkedIn post by URN. Works for both personal and organization accounts.
+/// Returns aggregate analytics for a LinkedIn organization page. Parallel to /v1/accounts/{id}/linkedin-aggregate-analytics (which handles personal accounts only). Backed by LinkedIn's organizationalEntityShareStatistics, organizationalEntityFollowerStatistics, and organizationPageStatistics endpoints.  Response shape matches /v1/analytics/instagram/account-insights. Max 89 days, defaults to last 30 days. Requires the Analytics add-on.  Scope requirements: r_organization_social, r_organization_followers, and r_organization_admin must all be present on the account. Accounts connected before these scopes were included in the OAuth flow will return 412 with a reauth hint.  Enforced by this endpoint:   - Page-view metrics accept only metricType=total_value (LinkedIn omits per-day     segmentation even when the API is called with DAY granularity, so a time-series     response would be meaningless).   - Date range capped at 89 days.  LinkedIn-side platform limits (not re-enforced here, but worth knowing for larger ranges in a future release):   - Follower stats: rolling 12-month window, end must be no later than 2 days ago.   - Share stats: rolling 12-month window.
+pub async fn get_linked_in_org_aggregate_analytics(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    metrics: Option<&str>,
+    since: Option<String>,
+    until: Option<String>,
+    metric_type: Option<&str>,
+) -> Result<models::InstagramAccountInsightsResponse, Error<GetLinkedInOrgAggregateAnalyticsError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_metrics = metrics;
+    let p_query_since = since;
+    let p_query_until = until;
+    let p_query_metric_type = metric_type;
+
+    let uri_str = format!(
+        "{}/v1/analytics/linkedin/org-aggregate-analytics",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_metrics {
+        req_builder = req_builder.query(&[("metrics", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_since {
+        req_builder = req_builder.query(&[("since", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_until {
+        req_builder = req_builder.query(&[("until", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_metric_type {
+        req_builder = req_builder.query(&[("metricType", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::InstagramAccountInsightsResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::InstagramAccountInsightsResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetLinkedInOrgAggregateAnalyticsError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns analytics for a specific LinkedIn post by URN. Works for both personal and organization accounts. Saves and sends are only populated for personal accounts (LinkedIn does not expose these metrics on the organization analytics endpoint).
 pub async fn get_linked_in_post_analytics(
     configuration: &configuration::Configuration,
     account_id: &str,
@@ -1133,6 +1407,148 @@ pub async fn get_posting_frequency(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetPostingFrequencyError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns account-level TikTok insights from /v2/user/info/ (live) plus historical time series joined from Zernio's daily snapshotter (AccountStats).  Response shape matches /v1/analytics/instagram/account-insights. Max 89 days, defaults to last 30 days. Requires the Analytics add-on and the user.info.stats scope on the account (412 if missing).  Scope intentionally narrow. TikTok's public API exposes only the four counter metrics below. The deep metrics that live in TikTok Studio are NOT available on any public TikTok API, even for Business accounts:   - profile_views   - account-level impressions / reach   - follower inflow / outflow breakdown   - video watch time, average watch time, full-watched rate   - impression_sources (FYP / Following / Hashtag / Search / Personal profile)  TikTok's Research API doesn't expose those fields either, and is restricted to non-commercial academic use per TikTok's eligibility policy. There is no public API workaround. Post-level metrics (views, likes, comments, shares per video) are available via /v1/analytics?postId=... from TikTok's /v2/video/query/.
+pub async fn get_tik_tok_account_insights(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    metrics: Option<&str>,
+    since: Option<String>,
+    until: Option<String>,
+    metric_type: Option<&str>,
+) -> Result<models::InstagramAccountInsightsResponse, Error<GetTikTokAccountInsightsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_metrics = metrics;
+    let p_query_since = since;
+    let p_query_until = until;
+    let p_query_metric_type = metric_type;
+
+    let uri_str = format!(
+        "{}/v1/analytics/tiktok/account-insights",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_metrics {
+        req_builder = req_builder.query(&[("metrics", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_since {
+        req_builder = req_builder.query(&[("since", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_until {
+        req_builder = req_builder.query(&[("until", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_metric_type {
+        req_builder = req_builder.query(&[("metricType", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::InstagramAccountInsightsResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::InstagramAccountInsightsResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetTikTokAccountInsightsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns channel-scoped aggregate metrics from YouTube Analytics API v2. Saves you from looping /v1/analytics/youtube/daily-views over every video when you only need channel totals.  Response shape matches /v1/analytics/instagram/account-insights so the same client handling works. Requires yt-analytics.readonly scope (412 with reauthorizeUrl if missing). Data has a 2-3 day delay (endDate is clamped accordingly). Max 89 days, defaults to last 30 days. Requires the Analytics add-on.  NOT exposed: impressions (Studio thumbnail impressions) and impressionsClickThroughRate. YouTube Analytics API v2 does not expose these for any principal type, not channel owners, not Partner Program channels, not content owners with CMS access. The only way to get them is Studio CSV export. This is a Google-side limitation.
+pub async fn get_you_tube_channel_insights(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    metrics: Option<&str>,
+    since: Option<String>,
+    until: Option<String>,
+    metric_type: Option<&str>,
+) -> Result<models::InstagramAccountInsightsResponse, Error<GetYouTubeChannelInsightsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_metrics = metrics;
+    let p_query_since = since;
+    let p_query_until = until;
+    let p_query_metric_type = metric_type;
+
+    let uri_str = format!(
+        "{}/v1/analytics/youtube/channel-insights",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_metrics {
+        req_builder = req_builder.query(&[("metrics", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_since {
+        req_builder = req_builder.query(&[("since", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_until {
+        req_builder = req_builder.query(&[("until", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_metric_type {
+        req_builder = req_builder.query(&[("metricType", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::InstagramAccountInsightsResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::InstagramAccountInsightsResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetYouTubeChannelInsightsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **likes** | Option<**i32**> | Reactions on the post | [optional]
 **comments** | Option<**i32**> | Comments on the post | [optional]
 **shares** | Option<**i32**> | Reshares of the post | [optional]
+**saves** | Option<**i32**> | Times the post was saved (personal accounts only; 0 for organization accounts) | [optional]
+**sends** | Option<**i32**> | Times the post was sent via LinkedIn messaging (personal accounts only; 0 for organization accounts) | [optional]
 **clicks** | Option<**i32**> | Clicks on the post (organization accounts only) | [optional]
 **views** | Option<**i32**> | Video views (video posts only) | [optional]
 **engagement_rate** | Option<**f64**> | Engagement rate as percentage | [optional]
