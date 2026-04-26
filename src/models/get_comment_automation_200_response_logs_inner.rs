@@ -23,10 +23,18 @@ pub struct GetCommentAutomation200ResponseLogsInner {
     pub commenter_name: Option<String>,
     #[serde(rename = "commentText", skip_serializing_if = "Option::is_none")]
     pub comment_text: Option<String>,
+    /// DM outcome
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
+    /// DM error message if status is failed
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
     pub error: Option<String>,
+    /// Outcome of the optional public reply on the triggering comment. 'skipped' if no commentReply was configured or if the DM failed (the public reply is not attempted in that case).
+    #[serde(rename = "commentReplyStatus", skip_serializing_if = "Option::is_none")]
+    pub comment_reply_status: Option<CommentReplyStatus>,
+    /// Public-reply error message if commentReplyStatus is failed
+    #[serde(rename = "commentReplyError", skip_serializing_if = "Option::is_none")]
+    pub comment_reply_error: Option<String>,
     #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
     pub created_at: Option<String>,
 }
@@ -41,11 +49,13 @@ impl GetCommentAutomation200ResponseLogsInner {
             comment_text: None,
             status: None,
             error: None,
+            comment_reply_status: None,
+            comment_reply_error: None,
             created_at: None,
         }
     }
 }
-///
+/// DM outcome
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
     #[serde(rename = "sent")]
@@ -58,6 +68,22 @@ pub enum Status {
 
 impl Default for Status {
     fn default() -> Status {
+        Self::Sent
+    }
+}
+/// Outcome of the optional public reply on the triggering comment. 'skipped' if no commentReply was configured or if the DM failed (the public reply is not attempted in that case).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum CommentReplyStatus {
+    #[serde(rename = "sent")]
+    Sent,
+    #[serde(rename = "failed")]
+    Failed,
+    #[serde(rename = "skipped")]
+    Skipped,
+}
+
+impl Default for CommentReplyStatus {
+    fn default() -> CommentReplyStatus {
         Self::Sent
     }
 }
