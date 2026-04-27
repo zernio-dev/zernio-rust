@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **video** | Option<[**models::CreateCtwaAdRequestVideo**](CreateCtwaAdRequestVideo.md)> |  | [optional]
 **budget_amount** | **f64** | Budget amount in the ad account's currency major units (e.g. dollars for USD, not cents). Must be > 0.  | 
 **budget_type** | **BudgetType** |  (enum: daily, lifetime) | 
-**currency** | Option<**String**> | ISO 4217 currency code matching the ad account's currency (e.g. `USD`). Optional — Meta infers from the ad account when omitted.  | [optional]
+**currency** | Option<**String**> | ISO 4217 currency code matching the ad account's currency (e.g. `USD`). Optional; Meta infers from the ad account when omitted.  | [optional]
 **end_date** | Option<**String**> | ISO 8601 datetime. Required when `budgetType` is `lifetime`.  | [optional]
 **countries** | Option<**Vec<String>**> | ISO 3166-1 alpha-2 country codes. Defaults to `[\"US\"]`. | [optional]
 **age_min** | Option<**i32**> |  | [optional]

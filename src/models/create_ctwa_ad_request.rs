@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateCtwaAdRequest : In addition to the `required` list, **exactly one of `imageUrl` or `video` must be supplied** (mutually exclusive). The route enforces this at the Zod boundary; OpenAPI's `required` cannot express OR-required cleanly.
+/// CreateCtwaAdRequest : In addition to the `required` list, exactly one of `imageUrl` or `video` must be supplied (they are mutually exclusive). The route enforces this at the Zod boundary; OpenAPI's `required` cannot express OR-required cleanly.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateCtwaAdRequest {
     /// Facebook or Instagram SocialAccount ID.
@@ -38,7 +38,7 @@ pub struct CreateCtwaAdRequest {
     pub budget_amount: f64,
     #[serde(rename = "budgetType")]
     pub budget_type: BudgetType,
-    /// ISO 4217 currency code matching the ad account's currency (e.g. `USD`). Optional — Meta infers from the ad account when omitted.
+    /// ISO 4217 currency code matching the ad account's currency (e.g. `USD`). Optional; Meta infers from the ad account when omitted.
     #[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
     pub currency: Option<String>,
     /// ISO 8601 datetime. Required when `budgetType` is `lifetime`.
@@ -65,7 +65,7 @@ pub struct CreateCtwaAdRequest {
 }
 
 impl CreateCtwaAdRequest {
-    /// In addition to the `required` list, **exactly one of `imageUrl` or `video` must be supplied** (mutually exclusive). The route enforces this at the Zod boundary; OpenAPI's `required` cannot express OR-required cleanly.
+    /// In addition to the `required` list, exactly one of `imageUrl` or `video` must be supplied (they are mutually exclusive). The route enforces this at the Zod boundary; OpenAPI's `required` cannot express OR-required cleanly.
     pub fn new(
         account_id: String,
         ad_account_id: String,

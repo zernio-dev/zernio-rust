@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// SendWhatsAppConversionRequest : In addition to the `required` list, **at least one of `conversationId` or `phoneE164` must be supplied** (used to resolve the originating CTWA conversation). The route enforces this at the Zod boundary; OpenAPI's `required` cannot express OR-required cleanly.
+/// SendWhatsAppConversionRequest : In addition to the `required` list, at least one of `conversationId` or `phoneE164` must be supplied (used to resolve the originating CTWA conversation). The route enforces this at the Zod boundary; OpenAPI's `required` cannot express OR-required cleanly.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SendWhatsAppConversionRequest {
     /// WhatsApp SocialAccount ID.
@@ -53,7 +53,7 @@ pub struct SendWhatsAppConversionRequest {
 }
 
 impl SendWhatsAppConversionRequest {
-    /// In addition to the `required` list, **at least one of `conversationId` or `phoneE164` must be supplied** (used to resolve the originating CTWA conversation). The route enforces this at the Zod boundary; OpenAPI's `required` cannot express OR-required cleanly.
+    /// In addition to the `required` list, at least one of `conversationId` or `phoneE164` must be supplied (used to resolve the originating CTWA conversation). The route enforces this at the Zod boundary; OpenAPI's `required` cannot express OR-required cleanly.
     pub fn new(
         account_id: String,
         event_name: EventName,
