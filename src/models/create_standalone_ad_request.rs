@@ -100,6 +100,9 @@ pub struct CreateStandaloneAdRequest {
     /// Meta only. Controls the Advantage audience feature (targeting_automation). 0 = disabled (default), 1 = enabled. Meta Marketing API requires this field on all ad set creation requests.
     #[serde(rename = "advantageAudience", skip_serializing_if = "Option::is_none")]
     pub advantage_audience: Option<AdvantageAudience>,
+    /// Meta only. Restrict the audience by gender. 'male' targets men only, 'female' targets women only, 'all' (default) targets everyone. Ignored by non-Meta platforms.
+    #[serde(rename = "gender", skip_serializing_if = "Option::is_none")]
+    pub gender: Option<Gender>,
 }
 
 impl CreateStandaloneAdRequest {
@@ -139,6 +142,7 @@ impl CreateStandaloneAdRequest {
             additional_headlines: None,
             additional_descriptions: None,
             advantage_audience: None,
+            gender: None,
         }
     }
 }
@@ -236,5 +240,21 @@ pub enum AdvantageAudience {
 impl Default for AdvantageAudience {
     fn default() -> AdvantageAudience {
         Self::Variant0
+    }
+}
+/// Meta only. Restrict the audience by gender. 'male' targets men only, 'female' targets women only, 'all' (default) targets everyone. Ignored by non-Meta platforms.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Gender {
+    #[serde(rename = "all")]
+    All,
+    #[serde(rename = "male")]
+    Male,
+    #[serde(rename = "female")]
+    Female,
+}
+
+impl Default for Gender {
+    fn default() -> Gender {
+        Self::All
     }
 }
