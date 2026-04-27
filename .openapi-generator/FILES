@@ -797,6 +797,9 @@ docs/ValidateSubreddit200ResponseOneOf1.md
 docs/ValidateSubreddit200ResponseOneOfSubreddit.md
 docs/Webhook.md
 docs/WebhookEventsApi.md
+docs/WebhookPayloadAccountAdsInitialSyncCompleted.md
+docs/WebhookPayloadAccountAdsInitialSyncCompletedAccount.md
+docs/WebhookPayloadAccountAdsInitialSyncCompletedSync.md
 docs/WebhookPayloadAccountConnected.md
 docs/WebhookPayloadAccountConnectedAccount.md
 docs/WebhookPayloadAccountDisconnected.md
@@ -1655,6 +1658,9 @@ src/models/validate_subreddit_200_response_one_of.rs
 src/models/validate_subreddit_200_response_one_of_1.rs
 src/models/validate_subreddit_200_response_one_of_subreddit.rs
 src/models/webhook.rs
+src/models/webhook_payload_account_ads_initial_sync_completed.rs
+src/models/webhook_payload_account_ads_initial_sync_completed_account.rs
+src/models/webhook_payload_account_ads_initial_sync_completed_sync.rs
 src/models/webhook_payload_account_connected.rs
 src/models/webhook_payload_account_connected_account.rs
 src/models/webhook_payload_account_disconnected.rs

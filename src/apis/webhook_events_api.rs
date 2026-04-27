@@ -15,6 +15,13 @@ use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
 
+/// struct for typed errors of method [`on_account_ads_initial_sync_completed`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnAccountAdsInitialSyncCompletedError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`on_account_connected`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -148,6 +155,36 @@ pub enum OnWebhookTestError {
     UnknownValue(serde_json::Value),
 }
 
+
+/// Fired once per ads-enabled account when the initial sync (ad-account discovery + 90-day historical ad backfill) completes. The `sync` block reports whether the backfill succeeded and how many ads were synced. 
+pub async fn on_account_ads_initial_sync_completed(configuration: &configuration::Configuration, webhook_payload_account_ads_initial_sync_completed: models::WebhookPayloadAccountAdsInitialSyncCompleted) -> Result<(), Error<OnAccountAdsInitialSyncCompletedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_payload_account_ads_initial_sync_completed = webhook_payload_account_ads_initial_sync_completed;
+
+    let uri_str = format!("{}/account.ads.initial_sync_completed", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_payload_account_ads_initial_sync_completed);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnAccountAdsInitialSyncCompletedError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
 
 /// Fired when a social account is successfully connected.
 pub async fn on_account_connected(configuration: &configuration::Configuration, webhook_payload_account_connected: models::WebhookPayloadAccountConnected) -> Result<(), Error<OnAccountConnectedError>> {
