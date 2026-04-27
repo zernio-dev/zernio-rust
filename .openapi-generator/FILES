@@ -114,6 +114,10 @@ docs/CreateContact200Response.md
 docs/CreateContact200ResponseChannel.md
 docs/CreateContact200ResponseContact.md
 docs/CreateContactRequest.md
+docs/CreateCtwaAd201Response.md
+docs/CreateCtwaAdRequest.md
+docs/CreateCtwaAdRequestInterestsInner.md
+docs/CreateCtwaAdRequestVideo.md
 docs/CreateCustomField200Response.md
 docs/CreateCustomFieldRequest.md
 docs/CreateGoogleBusinessMedia200Response.md
@@ -644,6 +648,8 @@ docs/SendInboxMessageRequestTemplateElementsInnerButtonsInner.md
 docs/SendPrivateReplyToComment200Response.md
 docs/SendPrivateReplyToCommentRequest.md
 docs/SendTypingIndicatorRequest.md
+docs/SendWhatsAppConversion200Response.md
+docs/SendWhatsAppConversionRequest.md
 docs/SendWhatsAppFlowMessage200Response.md
 docs/SendWhatsAppFlowMessageRequest.md
 docs/SendWhatsAppFlowMessageRequestFlowActionPayload.md
@@ -999,6 +1005,10 @@ src/models/create_contact_200_response.rs
 src/models/create_contact_200_response_channel.rs
 src/models/create_contact_200_response_contact.rs
 src/models/create_contact_request.rs
+src/models/create_ctwa_ad_201_response.rs
+src/models/create_ctwa_ad_request.rs
+src/models/create_ctwa_ad_request_interests_inner.rs
+src/models/create_ctwa_ad_request_video.rs
 src/models/create_custom_field_200_response.rs
 src/models/create_custom_field_request.rs
 src/models/create_google_business_media_200_response.rs
@@ -1511,6 +1521,8 @@ src/models/send_inbox_message_request_template_elements_inner_buttons_inner.rs
 src/models/send_private_reply_to_comment_200_response.rs
 src/models/send_private_reply_to_comment_request.rs
 src/models/send_typing_indicator_request.rs
+src/models/send_whats_app_conversion_200_response.rs
+src/models/send_whats_app_conversion_request.rs
 src/models/send_whats_app_flow_message_200_response.rs
 src/models/send_whats_app_flow_message_request.rs
 src/models/send_whats_app_flow_message_request_flow_action_payload.rs
