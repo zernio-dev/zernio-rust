@@ -417,6 +417,7 @@ pub async fn list_posts(
     include_hidden: Option<bool>,
     search: Option<&str>,
     sort_by: Option<&str>,
+    account_id: Option<&str>,
 ) -> Result<models::PostsListResponse, Error<ListPostsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_page = page;
@@ -430,6 +431,7 @@ pub async fn list_posts(
     let p_query_include_hidden = include_hidden;
     let p_query_search = search;
     let p_query_sort_by = sort_by;
+    let p_query_account_id = account_id;
 
     let uri_str = format!("{}/v1/posts", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -466,6 +468,9 @@ pub async fn list_posts(
     }
     if let Some(ref param_value) = p_query_sort_by {
         req_builder = req_builder.query(&[("sortBy", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_account_id {
+        req_builder = req_builder.query(&[("accountId", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());

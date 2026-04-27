@@ -171,7 +171,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_posts
 
-> models::PostsListResponse list_posts(page, limit, status, platform, profile_id, created_by, date_from, date_to, include_hidden, search, sort_by)
+> models::PostsListResponse list_posts(page, limit, status, platform, profile_id, created_by, date_from, date_to, include_hidden, search, sort_by, account_id)
 List posts
 
 Returns a paginated list of posts. Published posts include platformPostUrl with the public URL on each platform.
@@ -192,6 +192,7 @@ Name | Type | Description  | Required | Notes
 **include_hidden** | Option<**bool**> |  |  |[default to false]
 **search** | Option<**String**> | Search posts by text content. |  |
 **sort_by** | Option<**String**> | Sort order for results. |  |[default to scheduled-desc]
+**account_id** | Option<**String**> | Filter posts to those published via a specific social account (24-char hex ObjectId). |  |
 
 ### Return type
 
