@@ -41,6 +41,8 @@ pub struct WebhookPayloadMessageMetadata {
     /// WhatsApp only. Parsed Flow response JSON. Populated when `flowResponseJson` is valid JSON; otherwise omitted. Keys and value types depend on the specific Flow that was submitted.
     #[serde(rename = "flowResponseData", skip_serializing_if = "Option::is_none")]
     pub flow_response_data: Option<std::collections::HashMap<String, serde_json::Value>>,
+    #[serde(rename = "referral", skip_serializing_if = "Option::is_none")]
+    pub referral: Option<Box<models::WebhookPayloadMessageMetadataReferral>>,
 }
 
 impl WebhookPayloadMessageMetadata {
@@ -56,6 +58,7 @@ impl WebhookPayloadMessageMetadata {
             button_payload: None,
             flow_response_json: None,
             flow_response_data: None,
+            referral: None,
         }
     }
 }

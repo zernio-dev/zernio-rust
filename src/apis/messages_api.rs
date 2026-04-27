@@ -419,16 +419,22 @@ pub async fn get_inbox_conversation(
     }
 }
 
-/// Fetch messages for a specific conversation. Requires accountId query parameter.  Twitter/X limitation: X's encrypted \"X Chat\" messages are not accessible via the API. Conversations where the other participant uses encrypted X Chat may only show your outgoing messages. See the list conversations endpoint for more details.
+/// Fetch messages for a specific conversation, with cursor-based pagination and ordering control.  Pagination: pass `pagination.nextCursor` from a prior response back as the `cursor` query param to fetch the next page. The cursor is opaque; do not parse or construct it client-side.  Sort order: defaults to `asc` (oldest first, chat style). For the \"show me the latest messages\" pattern, pass `?sortOrder=desc&limit=N`. For Twitter, Facebook and Bluesky, the upstream APIs only return newest-first and have no order parameter — sort order is best-effort and only reverses items within a single page (pages still walk newest→oldest). The response field `sortOrderApplied` tells you what was actually applied.  Reddit threads are paginated client-side because Reddit's API has no per-thread cursor. Very long threads may be upstream-truncated by Reddit's inbox/sent windows (~100 most-recent items each); this is a Reddit platform limitation.  Twitter/X limitation: X's encrypted \"X Chat\" messages are not accessible via the API. Conversations where the other participant uses encrypted X Chat may only show your outgoing messages. See the list conversations endpoint for more details.
 pub async fn get_inbox_conversation_messages(
     configuration: &configuration::Configuration,
     conversation_id: &str,
     account_id: &str,
+    limit: Option<i32>,
+    cursor: Option<&str>,
+    sort_order: Option<&str>,
 ) -> Result<models::GetInboxConversationMessages200Response, Error<GetInboxConversationMessagesError>>
 {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_conversation_id = conversation_id;
     let p_query_account_id = account_id;
+    let p_query_limit = limit;
+    let p_query_cursor = cursor;
+    let p_query_sort_order = sort_order;
 
     let uri_str = format!(
         "{}/v1/inbox/conversations/{conversationId}/messages",
@@ -438,6 +444,15 @@ pub async fn get_inbox_conversation_messages(
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_cursor {
+        req_builder = req_builder.query(&[("cursor", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_sort_order {
+        req_builder = req_builder.query(&[("sortOrder", &param_value.to_string())]);
+    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }

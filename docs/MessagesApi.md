@@ -178,10 +178,10 @@ Name | Type | Description  | Required | Notes
 
 ## get_inbox_conversation_messages
 
-> models::GetInboxConversationMessages200Response get_inbox_conversation_messages(conversation_id, account_id)
+> models::GetInboxConversationMessages200Response get_inbox_conversation_messages(conversation_id, account_id, limit, cursor, sort_order)
 List messages
 
-Fetch messages for a specific conversation. Requires accountId query parameter.  Twitter/X limitation: X's encrypted \"X Chat\" messages are not accessible via the API. Conversations where the other participant uses encrypted X Chat may only show your outgoing messages. See the list conversations endpoint for more details. 
+Fetch messages for a specific conversation, with cursor-based pagination and ordering control.  Pagination: pass `pagination.nextCursor` from a prior response back as the `cursor` query param to fetch the next page. The cursor is opaque; do not parse or construct it client-side.  Sort order: defaults to `asc` (oldest first, chat style). For the \"show me the latest messages\" pattern, pass `?sortOrder=desc&limit=N`. For Twitter, Facebook and Bluesky, the upstream APIs only return newest-first and have no order parameter — sort order is best-effort and only reverses items within a single page (pages still walk newest→oldest). The response field `sortOrderApplied` tells you what was actually applied.  Reddit threads are paginated client-side because Reddit's API has no per-thread cursor. Very long threads may be upstream-truncated by Reddit's inbox/sent windows (~100 most-recent items each); this is a Reddit platform limitation.  Twitter/X limitation: X's encrypted \"X Chat\" messages are not accessible via the API. Conversations where the other participant uses encrypted X Chat may only show your outgoing messages. See the list conversations endpoint for more details. 
 
 ### Parameters
 
@@ -190,6 +190,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **conversation_id** | **String** | The conversation ID (id field from list conversations endpoint). This is the platform-specific conversation identifier, not an internal database ID. | [required] |
 **account_id** | **String** | Social account ID | [required] |
+**limit** | Option<**i32**> | Number of messages to return per page. Default 100, max 100. |  |[default to 100]
+**cursor** | Option<**String**> | Opaque pagination cursor. Pass `pagination.nextCursor` from a prior response. |  |
+**sort_order** | Option<**String**> | Order of returned messages. Default `asc` (oldest first, chat style). For Twitter, Facebook and Bluesky, only intra-page ordering is affected — pages always walk newest→oldest. See `sortOrderApplied` in the response.  |  |[default to asc]
 
 ### Return type
 

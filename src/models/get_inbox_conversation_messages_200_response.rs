@@ -15,6 +15,11 @@ use serde::{Deserialize, Serialize};
 pub struct GetInboxConversationMessages200Response {
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
+    #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
+    pub pagination: Option<Box<models::GetInboxConversationMessages200ResponsePagination>>,
+    /// Sort order actually applied to the returned page. May differ from the requested `sortOrder` for Twitter, Facebook and Bluesky (always `desc` regardless of request).
+    #[serde(rename = "sortOrderApplied", skip_serializing_if = "Option::is_none")]
+    pub sort_order_applied: Option<SortOrderApplied>,
     #[serde(rename = "messages", skip_serializing_if = "Option::is_none")]
     pub messages: Option<Vec<models::GetInboxConversationMessages200ResponseMessagesInner>>,
     #[serde(rename = "lastUpdated", skip_serializing_if = "Option::is_none")]
@@ -25,8 +30,24 @@ impl GetInboxConversationMessages200Response {
     pub fn new() -> GetInboxConversationMessages200Response {
         GetInboxConversationMessages200Response {
             status: None,
+            pagination: None,
+            sort_order_applied: None,
             messages: None,
             last_updated: None,
         }
+    }
+}
+/// Sort order actually applied to the returned page. May differ from the requested `sortOrder` for Twitter, Facebook and Bluesky (always `desc` regardless of request).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum SortOrderApplied {
+    #[serde(rename = "asc")]
+    Asc,
+    #[serde(rename = "desc")]
+    Desc,
+}
+
+impl Default for SortOrderApplied {
+    fn default() -> SortOrderApplied {
+        Self::Asc
     }
 }

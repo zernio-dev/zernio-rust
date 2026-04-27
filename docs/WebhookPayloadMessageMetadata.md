@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **button_payload** | Option<**String**> | WhatsApp only. Payload attached to a tapped template button. Template buttons emit a plain `button` webhook (not an interactive reply), so `interactiveType` is empty while this field is populated.  | [optional]
 **flow_response_json** | Option<**String**> | WhatsApp only. Raw `nfm_reply.response_json` string returned by a Flow submission. Useful if you need the exact wire payload; for typed access use `flowResponseData` instead.  | [optional]
 **flow_response_data** | Option<**std::collections::HashMap<String, serde_json::Value>**> | WhatsApp only. Parsed Flow response JSON. Populated when `flowResponseJson` is valid JSON; otherwise omitted. Keys and value types depend on the specific Flow that was submitted.  | [optional]
+**referral** | Option<[**models::WebhookPayloadMessageMetadataReferral**](WebhookPayloadMessageMetadataReferral.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
