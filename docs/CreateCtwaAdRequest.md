@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **body** | **String** | Primary text shown above the image / video. | 
 **image_url** | Option<**String**> | Image asset for image creatives. Mutually exclusive with `video`. Required if `video` is not supplied.  | [optional]
 **video** | Option<[**models::CreateCtwaAdRequestVideo**](CreateCtwaAdRequestVideo.md)> |  | [optional]
-**budget_amount** | **f64** | Budget amount in the ad account's currency major units (e.g. dollars for USD, not cents). Must be positive.  | 
+**budget_amount** | **f64** | Budget amount in the ad account's currency major units (e.g. dollars for USD, not cents). Must be > 0.  | 
 **budget_type** | **BudgetType** |  (enum: daily, lifetime) | 
 **currency** | Option<**String**> | ISO 4217 currency code matching the ad account's currency (e.g. `USD`). Optional — Meta infers from the ad account when omitted.  | [optional]
 **end_date** | Option<**String**> | ISO 8601 datetime. Required when `budgetType` is `lifetime`.  | [optional]

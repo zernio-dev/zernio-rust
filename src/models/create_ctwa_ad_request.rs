@@ -33,7 +33,7 @@ pub struct CreateCtwaAdRequest {
     pub image_url: Option<String>,
     #[serde(rename = "video", skip_serializing_if = "Option::is_none")]
     pub video: Option<Box<models::CreateCtwaAdRequestVideo>>,
-    /// Budget amount in the ad account's currency major units (e.g. dollars for USD, not cents). Must be positive.
+    /// Budget amount in the ad account's currency major units (e.g. dollars for USD, not cents). Must be > 0.
     #[serde(rename = "budgetAmount")]
     pub budget_amount: f64,
     #[serde(rename = "budgetType")]
