@@ -22,6 +22,15 @@ pub struct ListAdAccounts200ResponseAccountsInner {
     pub currency: Option<String>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
+    /// IANA timezone of the ad account (Meta only). Drives daily-budget reset and Insights day boundaries.
+    #[serde(rename = "timezoneName", skip_serializing_if = "Option::is_none")]
+    pub timezone_name: Option<String>,
+    /// Signed UTC offset in hours, reflecting current DST (Meta only).
+    #[serde(
+        rename = "timezoneOffsetHoursUtc",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub timezone_offset_hours_utc: Option<f64>,
 }
 
 impl ListAdAccounts200ResponseAccountsInner {
@@ -31,6 +40,8 @@ impl ListAdAccounts200ResponseAccountsInner {
             name: None,
             currency: None,
             status: None,
+            timezone_name: None,
+            timezone_offset_hours_utc: None,
         }
     }
 }
