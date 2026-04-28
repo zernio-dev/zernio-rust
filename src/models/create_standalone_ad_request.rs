@@ -103,6 +103,12 @@ pub struct CreateStandaloneAdRequest {
     /// Meta only. Restrict the audience by gender. 'male' targets men only, 'female' targets women only, 'all' (default) targets everyone. Ignored by non-Meta platforms.
     #[serde(rename = "gender", skip_serializing_if = "Option::is_none")]
     pub gender: Option<Gender>,
+    /// Name of the legal entity benefiting from the ad. Required by Meta when targeting EU users (DSA Article 26). Not enforced at schema level; enforced server-side when targeting intersects EU member states.
+    #[serde(rename = "dsaBeneficiary", skip_serializing_if = "Option::is_none")]
+    pub dsa_beneficiary: Option<String>,
+    /// Name of the legal entity paying for the ad. Required by Meta when targeting EU users (DSA Article 26). Note Meta API spelling: dsa_payor (not dsa_payer).
+    #[serde(rename = "dsaPayor", skip_serializing_if = "Option::is_none")]
+    pub dsa_payor: Option<String>,
 }
 
 impl CreateStandaloneAdRequest {
@@ -143,6 +149,8 @@ impl CreateStandaloneAdRequest {
             additional_descriptions: None,
             advantage_audience: None,
             gender: None,
+            dsa_beneficiary: None,
+            dsa_payor: None,
         }
     }
 }

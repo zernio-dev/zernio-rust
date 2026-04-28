@@ -49,6 +49,12 @@ pub struct BoostPostRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub special_ad_categories: Option<Vec<SpecialAdCategories>>,
+    /// Name of the legal entity benefiting from the ad. Required by Meta when targeting EU users (DSA Article 26). Not enforced at schema level; enforced server-side when targeting intersects EU member states.
+    #[serde(rename = "dsaBeneficiary", skip_serializing_if = "Option::is_none")]
+    pub dsa_beneficiary: Option<String>,
+    /// Name of the legal entity paying for the ad. Required by Meta when targeting EU users (DSA Article 26). Note Meta API spelling: dsa_payor (not dsa_payer).
+    #[serde(rename = "dsaPayor", skip_serializing_if = "Option::is_none")]
+    pub dsa_payor: Option<String>,
 }
 
 impl BoostPostRequest {
@@ -73,6 +79,8 @@ impl BoostPostRequest {
             bid_amount: None,
             tracking: None,
             special_ad_categories: None,
+            dsa_beneficiary: None,
+            dsa_payor: None,
         }
     }
 }

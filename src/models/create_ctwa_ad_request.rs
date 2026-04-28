@@ -62,6 +62,12 @@ pub struct CreateCtwaAdRequest {
     /// Defaults to `OUTCOME_ENGAGEMENT` (the broadly-supported CTWA objective). `OUTCOME_SALES` and `OUTCOME_LEADS` require additional account configuration (Dataset linked to the WABA for sales) and may be rejected by Meta if missing.
     #[serde(rename = "objective", skip_serializing_if = "Option::is_none")]
     pub objective: Option<Objective>,
+    /// Name of the legal entity benefiting from the ad. Required by Meta when targeting EU users (DSA Article 26). Not enforced at schema level; enforced server-side when targeting intersects EU member states.
+    #[serde(rename = "dsaBeneficiary", skip_serializing_if = "Option::is_none")]
+    pub dsa_beneficiary: Option<String>,
+    /// Name of the legal entity paying for the ad. Required by Meta when targeting EU users (DSA Article 26). Note Meta API spelling: dsa_payor (not dsa_payer).
+    #[serde(rename = "dsaPayor", skip_serializing_if = "Option::is_none")]
+    pub dsa_payor: Option<String>,
 }
 
 impl CreateCtwaAdRequest {
@@ -94,6 +100,8 @@ impl CreateCtwaAdRequest {
             audience_id: None,
             advantage_audience: None,
             objective: None,
+            dsa_beneficiary: None,
+            dsa_payor: None,
         }
     }
 }

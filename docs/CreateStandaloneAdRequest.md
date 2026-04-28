@@ -35,6 +35,8 @@ Name | Type | Description | Notes
 **additional_descriptions** | Option<**Vec<String>**> | Google Search RSA only. Extra descriptions. | [optional]
 **advantage_audience** | Option<**AdvantageAudience**> | Meta only. Controls the Advantage audience feature (targeting_automation). 0 = disabled (default), 1 = enabled. Meta Marketing API requires this field on all ad set creation requests. (enum: 0, 1) | [optional]
 **gender** | Option<**Gender**> | Meta only. Restrict the audience by gender. 'male' targets men only, 'female' targets women only, 'all' (default) targets everyone. Ignored by non-Meta platforms. (enum: all, male, female) | [optional][default to All]
+**dsa_beneficiary** | Option<**String**> | Name of the legal entity benefiting from the ad. Required by Meta when targeting EU users (DSA Article 26). Not enforced at schema level; enforced server-side when targeting intersects EU member states.  | [optional]
+**dsa_payor** | Option<**String**> | Name of the legal entity paying for the ad. Required by Meta when targeting EU users (DSA Article 26). Note Meta API spelling: dsa_payor (not dsa_payer).  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

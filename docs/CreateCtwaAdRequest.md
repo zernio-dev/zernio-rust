@@ -22,6 +22,8 @@ Name | Type | Description | Notes
 **audience_id** | Option<**String**> | Custom audience ID to target. | [optional]
 **advantage_audience** | Option<**AdvantageAudience**> | Meta's Advantage+ audience expansion. `0` (default) keeps targeting strict; `1` lets Meta expand beyond the supplied targeting when its delivery system finds better matches. Always sent on CREATE (Meta requires it).  (enum: 0, 1) | [optional]
 **objective** | Option<**Objective**> | Defaults to `OUTCOME_ENGAGEMENT` (the broadly-supported CTWA objective). `OUTCOME_SALES` and `OUTCOME_LEADS` require additional account configuration (Dataset linked to the WABA for sales) and may be rejected by Meta if missing.  (enum: OUTCOME_ENGAGEMENT, OUTCOME_SALES, OUTCOME_LEADS) | [optional]
+**dsa_beneficiary** | Option<**String**> | Name of the legal entity benefiting from the ad. Required by Meta when targeting EU users (DSA Article 26). Not enforced at schema level; enforced server-side when targeting intersects EU member states.  | [optional]
+**dsa_payor** | Option<**String**> | Name of the legal entity paying for the ad. Required by Meta when targeting EU users (DSA Article 26). Note Meta API spelling: dsa_payor (not dsa_payer).  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
