@@ -158,17 +158,6 @@ pub enum SendWhatsAppConversionError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`trigger_ads_initial_sync`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum TriggerAdsInitialSyncError {
-    Status400(),
-    Status401(models::InlineObject),
-    Status404(),
-    Status503(),
-    UnknownValue(serde_json::Value),
-}
-
 /// struct for typed errors of method [`update_ad`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -961,56 +950,6 @@ pub async fn send_whats_app_conversion(
     } else {
         let content = resp.text().await?;
         let entity: Option<SendWhatsAppConversionError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
-/// Enqueue a full re-sync (discovery + 90-day metrics backfill) for one ads SocialAccount. Returns immediately with a trace ID; subscribe to the `account.ads.initial_sync_completed` webhook for completion.  Use this when: - the customer changed which TikTok Business Center / Meta ad account a   token can reach and wants Zernio to discover the new ads, - a previous sync errored out and the customer wants a clean retry, - the customer rotated permissions on the platform side.  Per-account 1h debounce: subsequent calls within an hour return `202` with `status: \"already_queued\"` and the prior trace ID.
-pub async fn trigger_ads_initial_sync(
-    configuration: &configuration::Configuration,
-    trigger_ads_initial_sync_request: models::TriggerAdsInitialSyncRequest,
-) -> Result<models::TriggerAdsInitialSync202Response, Error<TriggerAdsInitialSyncError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_trigger_ads_initial_sync_request = trigger_ads_initial_sync_request;
-
-    let uri_str = format!("{}/v1/ads/sync/initial", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_trigger_ads_initial_sync_request);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::TriggerAdsInitialSync202Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::TriggerAdsInitialSync202Response`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<TriggerAdsInitialSyncError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
