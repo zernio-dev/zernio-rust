@@ -55,7 +55,7 @@ pub struct CreateStandaloneAdRequest {
     /// Meta-only. When present, switches to the multi-creative shape: creates 1 campaign + 1 ad set + N ads (one per entry here). Top-level `headline` / `body` / `imageUrl` / `linkUrl` / `callToAction` are ignored in this mode. Mutually exclusive with `adSetId`.
     #[serde(rename = "creatives", skip_serializing_if = "Option::is_none")]
     pub creatives: Option<Vec<models::CreateStandaloneAdRequestCreativesInner>>,
-    /// Meta-only. When present, switches to the attach shape: adds one new ad to this existing ad set without creating a new campaign. Budget, targeting, goal, and schedule are inherited from the ad set on Meta. Mutually exclusive with `creatives[]`.
+    /// Meta-only. When present, switches to the attach shape: adds one new ad to this existing ad set without creating a new campaign. Budget, targeting, goal, schedule, AND bid strategy are inherited from the ad set on Meta — passing `bidStrategy` in attach mode returns 400. To change an existing ad set's bid, use `PUT /v1/ads/ad-sets/{adSetId}`. Mutually exclusive with `creatives[]`.
     #[serde(rename = "adSetId", skip_serializing_if = "Option::is_none")]
     pub ad_set_id: Option<String>,
     /// Google Display only
@@ -103,6 +103,15 @@ pub struct CreateStandaloneAdRequest {
     /// Meta only. Restrict the audience by gender. 'male' targets men only, 'female' targets women only, 'all' (default) targets everyone. Ignored by non-Meta platforms.
     #[serde(rename = "gender", skip_serializing_if = "Option::is_none")]
     pub gender: Option<Gender>,
+    /// Meta bid strategy applied to the ad set.
+    #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
+    pub bid_strategy: Option<models::BidStrategy>,
+    /// Bid cap in WHOLE currency units (USD: 5 = $5.00; JPY: 100 = ¥100). Required when `bidStrategy` is `LOWEST_COST_WITH_BID_CAP` or `COST_CAP`.
+    #[serde(rename = "bidAmount", skip_serializing_if = "Option::is_none")]
+    pub bid_amount: Option<f64>,
+    /// Minimum ROAS as a decimal multiplier (e.g. 2.0 = 2.0x ROAS). Required when `bidStrategy` is `LOWEST_COST_WITH_MIN_ROAS`. Sent to Meta as `bid_constraints.roas_average_floor` × 10000.
+    #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
+    pub roas_average_floor: Option<f64>,
     /// Name of the legal entity benefiting from the ad. Required by Meta when targeting EU users (DSA Article 26). Not enforced at schema level; enforced server-side when targeting intersects EU member states.
     #[serde(rename = "dsaBeneficiary", skip_serializing_if = "Option::is_none")]
     pub dsa_beneficiary: Option<String>,
@@ -149,6 +158,9 @@ impl CreateStandaloneAdRequest {
             additional_descriptions: None,
             advantage_audience: None,
             gender: None,
+            bid_strategy: None,
+            bid_amount: None,
+            roas_average_floor: None,
             dsa_beneficiary: None,
             dsa_payor: None,
         }

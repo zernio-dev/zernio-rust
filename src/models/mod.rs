@@ -82,6 +82,8 @@ pub mod batch_get_google_business_reviews_200_response_location_reviews_inner;
 pub use self::batch_get_google_business_reviews_200_response_location_reviews_inner::BatchGetGoogleBusinessReviews200ResponseLocationReviewsInner;
 pub mod batch_get_google_business_reviews_request;
 pub use self::batch_get_google_business_reviews_request::BatchGetGoogleBusinessReviewsRequest;
+pub mod bid_strategy;
+pub use self::bid_strategy::BidStrategy;
 pub mod bluesky_platform_data;
 pub use self::bluesky_platform_data::BlueskyPlatformData;
 pub mod bookmark_post_200_response;

@@ -17,9 +17,18 @@ pub struct UpdateAdSetRequest {
     pub platform: Platform,
     #[serde(rename = "budget", skip_serializing_if = "Option::is_none")]
     pub budget: Option<Box<models::UpdateAdSetRequestBudget>>,
-    /// Omit if only updating budget
+    /// Omit if not toggling delivery state
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
+    /// Ad-set-level bid strategy. Overrides the campaign-level default. Supported on Meta (facebook, instagram) and TikTok. On TikTok the Meta-style enum is mapped to bid_type / bid_price / deep_bid_type automatically. Other platforms (linkedin, pinterest, google, twitter) return 501 Not Implemented when bidStrategy is set.
+    #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
+    pub bid_strategy: Option<models::BidStrategy>,
+    /// Bid cap in WHOLE currency units (USD: 5 = $5.00; JPY: 100 = ¥100). Required when bidStrategy is LOWEST_COST_WITH_BID_CAP or COST_CAP. Internally converted to Meta's smallest-denomination integer.
+    #[serde(rename = "bidAmount", skip_serializing_if = "Option::is_none")]
+    pub bid_amount: Option<f64>,
+    /// Minimum ROAS as a decimal multiplier (2.0 = 2.0x). Required when bidStrategy is LOWEST_COST_WITH_MIN_ROAS. Sent to Meta as `bid_constraints.roas_average_floor` × 10000.
+    #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
+    pub roas_average_floor: Option<f64>,
 }
 
 impl UpdateAdSetRequest {
@@ -28,6 +37,9 @@ impl UpdateAdSetRequest {
             platform,
             budget: None,
             status: None,
+            bid_strategy: None,
+            bid_amount: None,
+            roas_average_floor: None,
         }
     }
 }
@@ -55,7 +67,7 @@ impl Default for Platform {
         Self::Facebook
     }
 }
-/// Omit if only updating budget
+/// Omit if not toggling delivery state
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
     #[serde(rename = "active")]

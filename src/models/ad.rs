@@ -54,9 +54,15 @@ pub struct Ad {
     /// Meta ad set optimization goal (e.g. OFFSITE_CONVERSIONS, VALUE, LEAD_GENERATION, LINK_CLICKS). Only present for Meta ads.
     #[serde(rename = "optimizationGoal", skip_serializing_if = "Option::is_none")]
     pub optimization_goal: Option<String>,
-    /// Bid strategy (e.g. LOWEST_COST_WITHOUT_CAP, COST_CAP, LOWEST_COST_WITH_MIN_ROAS). Ad set level overrides campaign level. Only present for Meta ads.
+    /// Ad-set bid strategy (overrides campaign level on Meta). Populated for Meta and TikTok. TikTok's native `bid_type` is normalized to the cross-platform Meta enum: `BID_TYPE_NO_BID` -> `LOWEST_COST_WITHOUT_CAP`, `BID_TYPE_CUSTOM` -> `LOWEST_COST_WITH_BID_CAP`, deep_bid_type=MIN_ROAS or roas_bid>0 -> `LOWEST_COST_WITH_MIN_ROAS`, `BID_TYPE_MAX_CONVERSION` -> `LOWEST_COST_WITHOUT_CAP`.
     #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
-    pub bid_strategy: Option<String>,
+    pub bid_strategy: Option<models::BidStrategy>,
+    /// Bid cap in WHOLE currency units of the ad account (USD: 5 = $5.00; JPY: 100 = ¥100). Populated when bidStrategy is `LOWEST_COST_WITH_BID_CAP` or `COST_CAP`. `null` for auto-bid (`LOWEST_COST_WITHOUT_CAP`).  - Meta source: `bid_amount` on the ad set (smallest-denomination int, decoded here). - TikTok source: priority order `bid_price` -> `conversion_bid_price` -> `deep_cpa_bid`   (whichever is set on the ad group). TikTok stores all three in whole currency units.  Source: facebook-business-sdk-codegen api_specs/specs/AdSet.json (`bid_amount`).
+    #[serde(rename = "bidAmount", skip_serializing_if = "Option::is_none")]
+    pub bid_amount: Option<f64>,
+    /// Minimum ROAS as a decimal multiplier (2.0 = 2.0x ROAS). Populated when bidStrategy is `LOWEST_COST_WITH_MIN_ROAS`.  - Meta source: decoded from `bid_constraints.roas_average_floor` (Meta stores as   fixed-point int × 10000; we return the decimal). - TikTok source: `roas_bid` on the ad group (already a decimal).  Source: facebook-business-sdk-codegen api_specs/specs/AdCampaignBidConstraint.json.
+    #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
+    pub roas_average_floor: Option<f64>,
     #[serde(rename = "promotedObject", skip_serializing_if = "Option::is_none")]
     pub promoted_object: Option<Box<models::AdPromotedObject>>,
     #[serde(rename = "creative", skip_serializing_if = "Option::is_none")]
@@ -94,6 +100,8 @@ impl Ad {
             platform_objective: None,
             optimization_goal: None,
             bid_strategy: None,
+            bid_amount: None,
+            roas_average_floor: None,
             promoted_object: None,
             creative: None,
             targeting: None,

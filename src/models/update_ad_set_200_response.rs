@@ -23,6 +23,12 @@ pub struct UpdateAdSet200Response {
     pub status_updated: Option<i32>,
     #[serde(rename = "statusSkipped", skip_serializing_if = "Option::is_none")]
     pub status_skipped: Option<i32>,
+    #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
+    pub bid_strategy: Option<models::BidStrategy>,
+    #[serde(rename = "bidAmount", skip_serializing_if = "Option::is_none")]
+    pub bid_amount: Option<f64>,
+    #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
+    pub roas_average_floor: Option<f64>,
 }
 
 impl UpdateAdSet200Response {
@@ -33,6 +39,9 @@ impl UpdateAdSet200Response {
             status: None,
             status_updated: None,
             status_skipped: None,
+            bid_strategy: None,
+            bid_amount: None,
+            roas_average_floor: None,
         }
     }
 }

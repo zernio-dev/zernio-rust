@@ -19,6 +19,8 @@ pub struct UpdateAdCampaign200Response {
     pub budget: Option<Box<models::AdBudget>>,
     #[serde(rename = "budgetLevel", skip_serializing_if = "Option::is_none")]
     pub budget_level: Option<BudgetLevel>,
+    #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
+    pub bid_strategy: Option<models::BidStrategy>,
 }
 
 impl UpdateAdCampaign200Response {
@@ -27,6 +29,7 @@ impl UpdateAdCampaign200Response {
             updated: None,
             budget: None,
             budget_level: None,
+            bid_strategy: None,
         }
     }
 }

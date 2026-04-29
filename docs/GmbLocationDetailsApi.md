@@ -23,7 +23,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** | The Zernio account ID (from /v1/accounts) | [required] |
 **location_id** | Option<**String**> | Override which location to query. If omitted, uses the account's selected location. Use GET /gmb-locations to list valid IDs. |  |
-**read_mask** | Option<**String**> | Comma-separated fields to return. Available: name, title, phoneNumbers, categories, storefrontAddress, websiteUri, regularHours, specialHours, serviceArea, serviceItems, profile, openInfo, metadata, moreHours. |  |
+**read_mask** | Option<**String**> | Comma-separated fields to return. Available: name, title, phoneNumbers, categories, storefrontAddress, websiteUri, regularHours, specialHours, serviceArea, serviceItems, profile, openInfo, metadata, moreHours. `title` and `metadata` are always included in the response so the `location` summary block can be populated, even if you omit them here. Note: `location` is a derived response field, not a Google readMask value, passing it returns 400.  |  |
 
 ### Return type
 

@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UpdateAdSetRequestBudget : Omit if only toggling status
+/// UpdateAdSetRequestBudget : Omit if not updating budget
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAdSetRequestBudget {
     #[serde(rename = "amount", skip_serializing_if = "Option::is_none")]
@@ -21,7 +21,7 @@ pub struct UpdateAdSetRequestBudget {
 }
 
 impl UpdateAdSetRequestBudget {
-    /// Omit if only toggling status
+    /// Omit if not updating budget
     pub fn new() -> UpdateAdSetRequestBudget {
         UpdateAdSetRequestBudget {
             amount: None,

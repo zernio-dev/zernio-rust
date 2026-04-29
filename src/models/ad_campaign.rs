@@ -69,9 +69,15 @@ pub struct AdCampaign {
     /// Meta optimization goal shared across ad sets, or comma-separated values when ad sets differ (e.g. OFFSITE_CONVERSIONS, VALUE, LEAD_GENERATION)
     #[serde(rename = "optimizationGoal", skip_serializing_if = "Option::is_none")]
     pub optimization_goal: Option<String>,
-    /// Campaign-level bid strategy (e.g. LOWEST_COST_WITHOUT_CAP, COST_CAP, LOWEST_COST_WITH_MIN_ROAS)
+    /// Campaign-level bid strategy. Ad sets inherit this unless they override.
     #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
-    pub bid_strategy: Option<String>,
+    pub bid_strategy: Option<models::BidStrategy>,
+    /// Representative bid cap from the top-spending ad set (whole currency units). Populated when bidStrategy is LOWEST_COST_WITH_BID_CAP or COST_CAP.
+    #[serde(rename = "bidAmount", skip_serializing_if = "Option::is_none")]
+    pub bid_amount: Option<f64>,
+    /// Representative ROAS floor from the top-spending ad set. Decimal multiplier (2.0 = 2.0x).
+    #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
+    pub roas_average_floor: Option<f64>,
     #[serde(rename = "promotedObject", skip_serializing_if = "Option::is_none")]
     pub promoted_object: Option<Box<models::AdTreeCampaignPromotedObject>>,
     #[serde(rename = "earliestAd", skip_serializing_if = "Option::is_none")]
@@ -103,6 +109,8 @@ impl AdCampaign {
             platform_objective: None,
             optimization_goal: None,
             bid_strategy: None,
+            bid_amount: None,
+            roas_average_floor: None,
             promoted_object: None,
             earliest_ad: None,
             latest_ad: None,

@@ -15,18 +15,19 @@ use serde::{Deserialize, Serialize};
 pub struct UpdateAdCampaignRequest {
     #[serde(rename = "platform")]
     pub platform: Platform,
-    #[serde(rename = "budget")]
-    pub budget: Box<models::UpdateAdCampaignRequestBudget>,
+    #[serde(rename = "budget", skip_serializing_if = "Option::is_none")]
+    pub budget: Option<Box<models::UpdateAdCampaignRequestBudget>>,
+    /// Campaign-level default. Ad sets inherit this unless they override.
+    #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
+    pub bid_strategy: Option<models::BidStrategy>,
 }
 
 impl UpdateAdCampaignRequest {
-    pub fn new(
-        platform: Platform,
-        budget: models::UpdateAdCampaignRequestBudget,
-    ) -> UpdateAdCampaignRequest {
+    pub fn new(platform: Platform) -> UpdateAdCampaignRequest {
         UpdateAdCampaignRequest {
             platform,
-            budget: Box::new(budget),
+            budget: None,
+            bid_strategy: None,
         }
     }
 }

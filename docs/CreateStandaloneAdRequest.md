@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **images** | Option<[**models::CreateStandaloneAdRequestImages**](CreateStandaloneAdRequestImages.md)> |  | [optional]
 **video** | Option<[**models::CreateStandaloneAdRequestVideo**](CreateStandaloneAdRequestVideo.md)> |  | [optional]
 **creatives** | Option<[**Vec<models::CreateStandaloneAdRequestCreativesInner>**](CreateStandaloneAdRequestCreativesInner.md)> | Meta-only. When present, switches to the multi-creative shape: creates 1 campaign + 1 ad set + N ads (one per entry here). Top-level `headline` / `body` / `imageUrl` / `linkUrl` / `callToAction` are ignored in this mode. Mutually exclusive with `adSetId`.  | [optional]
-**ad_set_id** | Option<**String**> | Meta-only. When present, switches to the attach shape: adds one new ad to this existing ad set without creating a new campaign. Budget, targeting, goal, and schedule are inherited from the ad set on Meta. Mutually exclusive with `creatives[]`.  | [optional]
+**ad_set_id** | Option<**String**> | Meta-only. When present, switches to the attach shape: adds one new ad to this existing ad set without creating a new campaign. Budget, targeting, goal, schedule, AND bid strategy are inherited from the ad set on Meta — passing `bidStrategy` in attach mode returns 400. To change an existing ad set's bid, use `PUT /v1/ads/ad-sets/{adSetId}`. Mutually exclusive with `creatives[]`.  | [optional]
 **business_name** | Option<**String**> | Google Display only | [optional]
 **board_id** | Option<**String**> | Pinterest only. Board ID (auto-creates if not provided). | [optional]
 **countries** | Option<**Vec<String>**> |  | [optional]
@@ -35,6 +35,9 @@ Name | Type | Description | Notes
 **additional_descriptions** | Option<**Vec<String>**> | Google Search RSA only. Extra descriptions. | [optional]
 **advantage_audience** | Option<**AdvantageAudience**> | Meta only. Controls the Advantage audience feature (targeting_automation). 0 = disabled (default), 1 = enabled. Meta Marketing API requires this field on all ad set creation requests. (enum: 0, 1) | [optional]
 **gender** | Option<**Gender**> | Meta only. Restrict the audience by gender. 'male' targets men only, 'female' targets women only, 'all' (default) targets everyone. Ignored by non-Meta platforms. (enum: all, male, female) | [optional][default to All]
+**bid_strategy** | Option<[**models::BidStrategy**](BidStrategy.md)> | Meta bid strategy applied to the ad set. | [optional]
+**bid_amount** | Option<**f64**> | Bid cap in WHOLE currency units (USD: 5 = $5.00; JPY: 100 = ¥100). Required when `bidStrategy` is `LOWEST_COST_WITH_BID_CAP` or `COST_CAP`.  | [optional]
+**roas_average_floor** | Option<**f64**> | Minimum ROAS as a decimal multiplier (e.g. 2.0 = 2.0x ROAS). Required when `bidStrategy` is `LOWEST_COST_WITH_MIN_ROAS`. Sent to Meta as `bid_constraints.roas_average_floor` × 10000.  | [optional]
 **dsa_beneficiary** | Option<**String**> | Name of the legal entity benefiting from the ad. Required by Meta when targeting EU users (DSA Article 26). Not enforced at schema level; enforced server-side when targeting intersects EU member states.  | [optional]
 **dsa_payor** | Option<**String**> | Name of the legal entity paying for the ad. Required by Meta when targeting EU users (DSA Article 26). Note Meta API spelling: dsa_payor (not dsa_payer).  | [optional]
 

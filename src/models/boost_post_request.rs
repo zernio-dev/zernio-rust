@@ -38,9 +38,15 @@ pub struct BoostPostRequest {
     pub schedule: Option<Box<models::BoostPostRequestSchedule>>,
     #[serde(rename = "targeting", skip_serializing_if = "Option::is_none")]
     pub targeting: Option<Box<models::BoostPostRequestTargeting>>,
-    /// Max bid cap (Meta only)
+    /// Meta bid strategy applied to the ad set. On TikTok, mapped to `bid_type` / `bid_price` / `deep_bid_type` automatically.
+    #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
+    pub bid_strategy: Option<models::BidStrategy>,
+    /// Bid cap in WHOLE currency units (USD: 5 = $5.00; JPY: 100 = ¥100). Required when `bidStrategy` is `LOWEST_COST_WITH_BID_CAP` or `COST_CAP`. Backward-compat: providing `bidAmount` without `bidStrategy` is treated as `LOWEST_COST_WITH_BID_CAP`.
     #[serde(rename = "bidAmount", skip_serializing_if = "Option::is_none")]
     pub bid_amount: Option<f64>,
+    /// Minimum ROAS as a decimal multiplier (e.g. 2.0 = 2.0x ROAS). Required when `bidStrategy` is `LOWEST_COST_WITH_MIN_ROAS`. Sent to Meta as `bid_constraints.roas_average_floor` × 10000 (Meta uses fixed-point integers).
+    #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
+    pub roas_average_floor: Option<f64>,
     #[serde(rename = "tracking", skip_serializing_if = "Option::is_none")]
     pub tracking: Option<Box<models::BoostPostRequestTracking>>,
     /// Meta only. Required for housing, employment, credit, or political ads.
@@ -49,6 +55,12 @@ pub struct BoostPostRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub special_ad_categories: Option<Vec<SpecialAdCategories>>,
+    /// TikTok-only. Custom destination URL for the Spark Ad. Without this, TikTok Spark Ads have no clickable destination — required for traffic / conversion objectives. Maps to `landing_page_url` on the creative entry of /v2/ad/create/ (TikTok SDK `AdcreateCreatives.landing_page_url`). Ignored on Meta / LinkedIn / Pinterest / X / Google (those infer the destination from the boosted post).
+    #[serde(rename = "linkUrl", skip_serializing_if = "Option::is_none")]
+    pub link_url: Option<String>,
+    /// TikTok-only. Call-to-action button label on the Spark Ad creative (e.g. `LEARN_MORE`, `SHOP_NOW`, `DOWNLOAD_NOW`, `SIGN_UP`, `WATCH_NOW`). Maps to `call_to_action` on the creative entry of /v2/ad/create/. Pass-through — the platform validates the value. See TikTok's \"Enumeration - Call-to-Action\" reference for the full list.
+    #[serde(rename = "callToAction", skip_serializing_if = "Option::is_none")]
+    pub call_to_action: Option<String>,
     /// Name of the legal entity benefiting from the ad. Required by Meta when targeting EU users (DSA Article 26). Not enforced at schema level; enforced server-side when targeting intersects EU member states.
     #[serde(rename = "dsaBeneficiary", skip_serializing_if = "Option::is_none")]
     pub dsa_beneficiary: Option<String>,
@@ -76,9 +88,13 @@ impl BoostPostRequest {
             currency: None,
             schedule: None,
             targeting: None,
+            bid_strategy: None,
             bid_amount: None,
+            roas_average_floor: None,
             tracking: None,
             special_ad_categories: None,
+            link_url: None,
+            call_to_action: None,
             dsa_beneficiary: None,
             dsa_payor: None,
         }

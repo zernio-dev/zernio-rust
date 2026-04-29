@@ -24,7 +24,9 @@ Name | Type | Description | Notes
 **profile_id** | Option<**String**> |  | [optional]
 **platform_objective** | Option<**String**> | Raw Meta campaign objective (e.g. OUTCOME_SALES, OUTCOME_LEADS, OUTCOME_TRAFFIC) | [optional]
 **optimization_goal** | Option<**String**> | Meta optimization goal shared across ad sets, or comma-separated values when ad sets differ (e.g. OFFSITE_CONVERSIONS, VALUE, LEAD_GENERATION) | [optional]
-**bid_strategy** | Option<**String**> | Campaign-level bid strategy (e.g. LOWEST_COST_WITHOUT_CAP, COST_CAP, LOWEST_COST_WITH_MIN_ROAS) | [optional]
+**bid_strategy** | Option<[**models::BidStrategy**](BidStrategy.md)> | Campaign-level bid strategy. Ad sets inherit this unless they override. | [optional]
+**bid_amount** | Option<**f64**> | Representative bid cap for the campaign — bubbled up from the top-spending ad set's `bid_amount` (whole currency units). Populated when the ad-set bidStrategy is LOWEST_COST_WITH_BID_CAP or COST_CAP. | [optional]
+**roas_average_floor** | Option<**f64**> | Representative ROAS floor for the campaign — bubbled up from the top-spending ad set. Decimal multiplier (2.0 = 2.0x). | [optional]
 **promoted_object** | Option<[**models::AdTreeCampaignPromotedObject**](AdTreeCampaignPromotedObject.md)> |  | [optional]
 **ad_sets** | Option<[**Vec<models::AdTreeAdSet>**](AdTreeAdSet.md)> |  | [optional]
 
