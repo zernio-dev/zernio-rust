@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **success** | Option<**bool**> |  | [optional]
 **account_id** | Option<**String**> |  | [optional]
 **location_id** | Option<**String**> |  | [optional]
+**location** | Option<[**models::GetGoogleBusinessLocationDetails200ResponseLocation**](GetGoogleBusinessLocationDetails200ResponseLocation.md)> |  | [optional]
 **title** | Option<**String**> | Business name | [optional]
 **regular_hours** | Option<[**models::GetGoogleBusinessLocationDetails200ResponseRegularHours**](GetGoogleBusinessLocationDetails200ResponseRegularHours.md)> |  | [optional]
 **special_hours** | Option<[**models::GetGoogleBusinessLocationDetails200ResponseSpecialHours**](GetGoogleBusinessLocationDetails200ResponseSpecialHours.md)> |  | [optional]

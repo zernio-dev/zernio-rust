@@ -19,6 +19,8 @@ pub struct GetGoogleBusinessLocationDetails200Response {
     pub account_id: Option<String>,
     #[serde(rename = "locationId", skip_serializing_if = "Option::is_none")]
     pub location_id: Option<String>,
+    #[serde(rename = "location", skip_serializing_if = "Option::is_none")]
+    pub location: Option<Box<models::GetGoogleBusinessLocationDetails200ResponseLocation>>,
     /// Business name
     #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
@@ -46,6 +48,7 @@ impl GetGoogleBusinessLocationDetails200Response {
             success: None,
             account_id: None,
             location_id: None,
+            location: None,
             title: None,
             regular_hours: None,
             special_hours: None,
