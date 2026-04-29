@@ -58,6 +58,8 @@ pub enum Platform {
     Facebook,
     #[serde(rename = "instagram")]
     Instagram,
+    #[serde(rename = "tiktok")]
+    Tiktok,
 }
 
 impl Default for Platform {

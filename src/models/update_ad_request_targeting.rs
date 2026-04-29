@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UpdateAdRequestTargeting : Meta-only. Targeting updates for other platforms are not supported after creation.
+/// UpdateAdRequestTargeting : Meta + TikTok only. Pinterest / X / LinkedIn / Google return 501.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAdRequestTargeting {
     #[serde(rename = "ageMin", skip_serializing_if = "Option::is_none")]
@@ -29,7 +29,7 @@ pub struct UpdateAdRequestTargeting {
 }
 
 impl UpdateAdRequestTargeting {
-    /// Meta-only. Targeting updates for other platforms are not supported after creation.
+    /// Meta + TikTok only. Pinterest / X / LinkedIn / Google return 501.
     pub fn new() -> UpdateAdRequestTargeting {
         UpdateAdRequestTargeting {
             age_min: None,

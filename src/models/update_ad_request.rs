@@ -19,6 +19,8 @@ pub struct UpdateAdRequest {
     pub budget: Option<Box<models::UpdateAdRequestBudget>>,
     #[serde(rename = "targeting", skip_serializing_if = "Option::is_none")]
     pub targeting: Option<Box<models::UpdateAdRequestTargeting>>,
+    #[serde(rename = "creative", skip_serializing_if = "Option::is_none")]
+    pub creative: Option<Box<models::UpdateAdRequestCreative>>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 }
@@ -29,6 +31,7 @@ impl UpdateAdRequest {
             status: None,
             budget: None,
             targeting: None,
+            creative: None,
             name: None,
         }
     }

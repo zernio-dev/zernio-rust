@@ -106,6 +106,16 @@ pub enum ListAdsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_ads_business_centers`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListAdsBusinessCentersError {
+    Status401(models::InlineObject),
+    Status404(),
+    Status422(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_conversion_destinations`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -148,6 +158,17 @@ pub enum SendWhatsAppConversionError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`trigger_ads_initial_sync`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum TriggerAdsInitialSyncError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status503(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`update_ad`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -155,6 +176,7 @@ pub enum UpdateAdError {
     Status400(),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
+    Status501(),
     UnknownValue(serde_json::Value),
 }
 
@@ -543,14 +565,24 @@ pub async fn get_ad_comments(
 pub async fn list_ad_accounts(
     configuration: &configuration::Configuration,
     account_id: &str,
+    ad_account_id: Option<&str>,
+    limit: Option<i32>,
 ) -> Result<models::ListAdAccounts200Response, Error<ListAdAccountsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_account_id = account_id;
+    let p_query_ad_account_id = ad_account_id;
+    let p_query_limit = limit;
 
     let uri_str = format!("{}/v1/ads/accounts", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_ad_account_id {
+        req_builder = req_builder.query(&[("adAccountId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -679,6 +711,54 @@ pub async fn list_ads(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListAdsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns the TikTok Business Centers (BCs) the connected `tiktokads` account can read. Each BC reports its advertiser count so callers can build agency-style pickers without re-walking `/v1/ads/accounts` per BC.  TikTok-only. Solo advertisers (non-agency tokens) return an empty array.
+pub async fn list_ads_business_centers(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+) -> Result<models::ListAdsBusinessCenters200Response, Error<ListAdsBusinessCentersError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+
+    let uri_str = format!("{}/v1/ads/business-centers", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListAdsBusinessCenters200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListAdsBusinessCenters200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListAdsBusinessCentersError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -889,7 +969,57 @@ pub async fn send_whats_app_conversion(
     }
 }
 
-/// Update one or more fields on an ad. Status changes and budget updates are propagated to the platform. Targeting updates are Meta-only.
+/// Enqueue a full re-sync (discovery + 90-day metrics backfill) for one ads SocialAccount. Returns immediately with a trace ID; subscribe to the `account.ads.initial_sync_completed` webhook for completion.  Use this when: - the customer changed which TikTok Business Center / Meta ad account a   token can reach and wants Zernio to discover the new ads, - a previous sync errored out and the customer wants a clean retry, - the customer rotated permissions on the platform side.  Per-account 1h debounce: subsequent calls within an hour return `202` with `status: \"already_queued\"` and the prior trace ID.
+pub async fn trigger_ads_initial_sync(
+    configuration: &configuration::Configuration,
+    trigger_ads_initial_sync_request: models::TriggerAdsInitialSyncRequest,
+) -> Result<models::TriggerAdsInitialSync202Response, Error<TriggerAdsInitialSyncError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_trigger_ads_initial_sync_request = trigger_ads_initial_sync_request;
+
+    let uri_str = format!("{}/v1/ads/sync/initial", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_trigger_ads_initial_sync_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::TriggerAdsInitialSync202Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::TriggerAdsInitialSync202Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<TriggerAdsInitialSyncError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Patch one or more fields on an ad. Status, budget, targeting, and creative changes are propagated to the platform.  Per-platform support: - **Meta** (Facebook + Instagram): all fields supported. - **TikTok**: status, budget, targeting (via `/v2/adgroup/update/`), and creative   (via `/v2/ad/update/` patch-style — `headline` is ignored, `body` becomes `ad_text`). - **Pinterest / X / LinkedIn / Google**: status + budget only. Sending `targeting`   or `creative` returns 501 with code `unsupported_platform_operation`.
 pub async fn update_ad(
     configuration: &configuration::Configuration,
     ad_id: &str,

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**platform** | **Platform** |  (enum: facebook, instagram) | 
+**platform** | **Platform** |  (enum: facebook, instagram, tiktok) | 
 **deep_copy** | Option<**bool**> | Copy child ad sets + ads + creatives + targeting | [optional][default to true]
 **status_option** | Option<**StatusOption**> |  (enum: ACTIVE, PAUSED, INHERITED_FROM_SOURCE) | [optional][default to Paused]
 **start_time** | Option<**String**> | Reschedule the copied hierarchy's start time | [optional]

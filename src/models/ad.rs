@@ -54,6 +54,15 @@ pub struct Ad {
     /// Meta ad set optimization goal (e.g. OFFSITE_CONVERSIONS, VALUE, LEAD_GENERATION, LINK_CLICKS). Only present for Meta ads.
     #[serde(rename = "optimizationGoal", skip_serializing_if = "Option::is_none")]
     pub optimization_goal: Option<String>,
+    /// Human-readable advertiser/account name (Meta `AdAccount.name`, TikTok `advertiser_name`, LinkedIn / X / Pinterest equivalents). Refreshed every sync so platform-side renames propagate within one cycle. `null` when the platform doesn't return a name or the sync hasn't run yet.
+    #[serde(
+        rename = "platformAdAccountName",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub platform_ad_account_name: Option<String>,
+    /// Platform-reported creation timestamp (Meta `created_time`, TikTok `create_time`). Distinct from `createdAt` which reflects when Zernio first synced the doc — for sort/filter by \"when the ad was actually created on the platform\", read this field. `null` for legacy ads synced before this field was added; aggregations fall back to `createdAt` in that case.
+    #[serde(rename = "platformCreatedAt", skip_serializing_if = "Option::is_none")]
+    pub platform_created_at: Option<String>,
     /// Ad-set bid strategy (overrides campaign level on Meta). Populated for Meta and TikTok. TikTok's native `bid_type` is normalized to the cross-platform Meta enum: `BID_TYPE_NO_BID` -> `LOWEST_COST_WITHOUT_CAP`, `BID_TYPE_CUSTOM` -> `LOWEST_COST_WITH_BID_CAP`, deep_bid_type=MIN_ROAS or roas_bid>0 -> `LOWEST_COST_WITH_MIN_ROAS`, `BID_TYPE_MAX_CONVERSION` -> `LOWEST_COST_WITHOUT_CAP`.
     #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
     pub bid_strategy: Option<models::BidStrategy>,
@@ -99,6 +108,8 @@ impl Ad {
             ad_set_name: None,
             platform_objective: None,
             optimization_goal: None,
+            platform_ad_account_name: None,
+            platform_created_at: None,
             bid_strategy: None,
             bid_amount: None,
             roas_average_floor: None,

@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **currency** | Option<**String**> | ISO 4217 currency code for all budget amounts. Budgets are NOT normalized to USD. | [optional]
 **metrics** | Option<[**models::AdMetrics**](AdMetrics.md)> |  | [optional]
 **platform_ad_account_id** | Option<**String**> |  | [optional]
+**platform_ad_account_name** | Option<**String**> | Human-readable advertiser/account name from the platform. Refreshed on every sync. | [optional]
 **account_id** | Option<**String**> |  | [optional]
 **profile_id** | Option<**String**> |  | [optional]
 **platform_objective** | Option<**String**> | Raw Meta campaign objective (e.g. OUTCOME_SALES, OUTCOME_LEADS, OUTCOME_TRAFFIC) | [optional]

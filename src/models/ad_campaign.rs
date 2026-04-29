@@ -59,6 +59,12 @@ pub struct AdCampaign {
         skip_serializing_if = "Option::is_none"
     )]
     pub platform_ad_account_id: Option<String>,
+    /// Human-readable advertiser/account name from the platform. Refreshed on every sync.
+    #[serde(
+        rename = "platformAdAccountName",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub platform_ad_account_name: Option<String>,
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
     #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]
@@ -104,6 +110,7 @@ impl AdCampaign {
             currency: None,
             metrics: None,
             platform_ad_account_id: None,
+            platform_ad_account_name: None,
             account_id: None,
             profile_id: None,
             platform_objective: None,

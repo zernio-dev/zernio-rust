@@ -61,6 +61,9 @@ pub struct BoostPostRequest {
     /// TikTok-only. Call-to-action button label on the Spark Ad creative (e.g. `LEARN_MORE`, `SHOP_NOW`, `DOWNLOAD_NOW`, `SIGN_UP`, `WATCH_NOW`). Maps to `call_to_action` on the creative entry of /v2/ad/create/. Pass-through — the platform validates the value. See TikTok's \"Enumeration - Call-to-Action\" reference for the full list.
     #[serde(rename = "callToAction", skip_serializing_if = "Option::is_none")]
     pub call_to_action: Option<String>,
+    /// TikTok-only. Spark Code (creator's `auth_code`) authorizing cross-creator Spark Ads — the advertiser can boost a video owned by a DIFFERENT TikTok account. Without this, boosts are limited to videos owned by the same account running the ads (same-BC creators only). The creator generates the code in their TikTok app's Promote settings and shares it with the advertiser. Maps to `auth_code` on the creative entry of /v2/ad/create/.
+    #[serde(rename = "sparkAuthCode", skip_serializing_if = "Option::is_none")]
+    pub spark_auth_code: Option<String>,
     /// Name of the legal entity benefiting from the ad. Required by Meta when targeting EU users (DSA Article 26). Not enforced at schema level; enforced server-side when targeting intersects EU member states.
     #[serde(rename = "dsaBeneficiary", skip_serializing_if = "Option::is_none")]
     pub dsa_beneficiary: Option<String>,
@@ -95,6 +98,7 @@ impl BoostPostRequest {
             special_ad_categories: None,
             link_url: None,
             call_to_action: None,
+            spark_auth_code: None,
             dsa_beneficiary: None,
             dsa_payor: None,
         }

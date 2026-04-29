@@ -73,6 +73,7 @@ docs/BulkUpdateAdCampaignStatusRequestCampaignsInner.md
 docs/BulkUploadPosts200Response.md
 docs/BulkUploadPosts200ResponseErrorsInner.md
 docs/BulkUploadPosts429Response.md
+docs/BusinessCenter.md
 docs/CancelBroadcast200Response.md
 docs/CancelBroadcast200ResponseBroadcast.md
 docs/CommentAutomationsApi.md
@@ -461,6 +462,7 @@ docs/ListAdAudiences200Response.md
 docs/ListAdAudiences200ResponseAudiencesInner.md
 docs/ListAdCampaigns200Response.md
 docs/ListAds200Response.md
+docs/ListAdsBusinessCenters200Response.md
 docs/ListApiKeys200Response.md
 docs/ListBroadcastRecipients200Response.md
 docs/ListBroadcastRecipients200ResponseRecipientsInner.md
@@ -671,6 +673,8 @@ docs/TelegramPlatformData.md
 docs/TestWebhookRequest.md
 docs/ThreadsPlatformData.md
 docs/TikTokPlatformData.md
+docs/TriggerAdsInitialSync202Response.md
+docs/TriggerAdsInitialSyncRequest.md
 docs/TwitterEngagementApi.md
 docs/TwitterPlatformData.md
 docs/TwitterPlatformDataPoll.md
@@ -692,6 +696,7 @@ docs/UpdateAdCampaignStatus200Response.md
 docs/UpdateAdCampaignStatusRequest.md
 docs/UpdateAdRequest.md
 docs/UpdateAdRequestBudget.md
+docs/UpdateAdRequestCreative.md
 docs/UpdateAdRequestTargeting.md
 docs/UpdateAdRequestTargetingInterestsInner.md
 docs/UpdateAdSet200Response.md
@@ -972,6 +977,7 @@ src/models/bulk_update_ad_campaign_status_request_campaigns_inner.rs
 src/models/bulk_upload_posts_200_response.rs
 src/models/bulk_upload_posts_200_response_errors_inner.rs
 src/models/bulk_upload_posts_429_response.rs
+src/models/business_center.rs
 src/models/cancel_broadcast_200_response.rs
 src/models/cancel_broadcast_200_response_broadcast.rs
 src/models/complete_telegram_connect_200_response.rs
@@ -1345,6 +1351,7 @@ src/models/list_ad_audiences_200_response.rs
 src/models/list_ad_audiences_200_response_audiences_inner.rs
 src/models/list_ad_campaigns_200_response.rs
 src/models/list_ads_200_response.rs
+src/models/list_ads_business_centers_200_response.rs
 src/models/list_api_keys_200_response.rs
 src/models/list_broadcast_recipients_200_response.rs
 src/models/list_broadcast_recipients_200_response_recipients_inner.rs
@@ -1547,6 +1554,8 @@ src/models/telegram_platform_data.rs
 src/models/test_webhook_request.rs
 src/models/threads_platform_data.rs
 src/models/tik_tok_platform_data.rs
+src/models/trigger_ads_initial_sync_202_response.rs
+src/models/trigger_ads_initial_sync_request.rs
 src/models/twitter_platform_data.rs
 src/models/twitter_platform_data_poll.rs
 src/models/twitter_platform_data_thread_items_inner.rs
@@ -1567,6 +1576,7 @@ src/models/update_ad_campaign_status_200_response.rs
 src/models/update_ad_campaign_status_request.rs
 src/models/update_ad_request.rs
 src/models/update_ad_request_budget.rs
+src/models/update_ad_request_creative.rs
 src/models/update_ad_request_targeting.rs
 src/models/update_ad_request_targeting_interests_inner.rs
 src/models/update_ad_set_200_response.rs
