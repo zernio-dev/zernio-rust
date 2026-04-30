@@ -20,7 +20,7 @@ pub struct BusinessCenter {
     /// Display name set by the BC owner
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Number of advertisers (ad accounts) reachable under this BC for the calling token
+    /// Number of advertisers reachable under this BC for the calling token. `null` when the BC asset walk returned empty or failed (typical for agency apps without full BC asset read scope) — distinct from `0`, which would imply the BC genuinely has no advertisers.
     #[serde(rename = "advertiserCount", skip_serializing_if = "Option::is_none")]
     pub advertiser_count: Option<i32>,
 }

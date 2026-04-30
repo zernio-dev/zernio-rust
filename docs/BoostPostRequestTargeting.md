@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **age_min** | Option<**i32**> |  | [optional]
 **age_max** | Option<**i32**> |  | [optional]
-**countries** | Option<**Vec<String>**> |  | [optional]
+**countries** | Option<**Vec<String>**> | ISO country codes. Required for TikTok boosts (TikTok's ad group requires location_ids); optional on other platforms. | [optional]
 **interests** | Option<[**Vec<models::UpdateAdRequestTargetingInterestsInner>**](UpdateAdRequestTargetingInterestsInner.md)> | Interest objects from /v1/ads/interests. Each must include id and name. | [optional]
 **advantage_audience** | Option<**AdvantageAudience**> | Meta only. 0 = disabled (default), 1 = enabled. (enum: 0, 1) | [optional]
 

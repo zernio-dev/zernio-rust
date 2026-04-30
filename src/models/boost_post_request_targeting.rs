@@ -17,6 +17,7 @@ pub struct BoostPostRequestTargeting {
     pub age_min: Option<i32>,
     #[serde(rename = "ageMax", skip_serializing_if = "Option::is_none")]
     pub age_max: Option<i32>,
+    /// ISO country codes. Required for TikTok boosts (TikTok's ad group requires location_ids); optional on other platforms.
     #[serde(rename = "countries", skip_serializing_if = "Option::is_none")]
     pub countries: Option<Vec<String>>,
     /// Interest objects from /v1/ads/interests. Each must include id and name.
