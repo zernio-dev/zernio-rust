@@ -156,6 +156,7 @@ docs/CreateStandaloneAdRequest.md
 docs/CreateStandaloneAdRequestCreativesInner.md
 docs/CreateStandaloneAdRequestCreativesInnerVideo.md
 docs/CreateStandaloneAdRequestImages.md
+docs/CreateStandaloneAdRequestPromotedObject.md
 docs/CreateStandaloneAdRequestVideo.md
 docs/CreateWebhookSettingsRequest.md
 docs/CreateWhatsAppFlow200Response.md
@@ -1054,6 +1055,7 @@ src/models/create_standalone_ad_request.rs
 src/models/create_standalone_ad_request_creatives_inner.rs
 src/models/create_standalone_ad_request_creatives_inner_video.rs
 src/models/create_standalone_ad_request_images.rs
+src/models/create_standalone_ad_request_promoted_object.rs
 src/models/create_standalone_ad_request_video.rs
 src/models/create_webhook_settings_request.rs
 src/models/create_whats_app_flow_200_response.rs

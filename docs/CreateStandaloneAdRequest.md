@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **account_id** | **String** |  | 
 **ad_account_id** | **String** |  | 
 **name** | **String** |  | 
-**goal** | Option<**Goal**> | Required on legacy + multi-creative shapes. Inherited from the ad set on the attach shape. Available goals vary by platform. (enum: engagement, traffic, awareness, video_views, lead_generation, conversions, app_promotion) | [optional]
+**goal** | Option<**Goal**> | Required on legacy + multi-creative shapes. Inherited from the ad set on the attach shape. Available goals vary by platform. Meta-specific: `conversions` requires `promotedObject.pixelId` + `promotedObject.customEventType`; `app_promotion` requires `promotedObject.applicationId` + `promotedObject.objectStoreUrl`; `lead_generation` accepts an optional `promotedObject.pageId` (auto-filled from the connected Page when omitted). (enum: engagement, traffic, awareness, video_views, lead_generation, conversions, app_promotion) | [optional]
 **budget_amount** | Option<**f64**> | Required on legacy + multi-creative shapes. Inherited on attach. | [optional]
 **budget_type** | Option<**BudgetType**> | Required on legacy + multi-creative shapes. Inherited on attach. (enum: daily, lifetime) | [optional]
 **currency** | Option<**String**> |  | [optional]
@@ -40,6 +40,7 @@ Name | Type | Description | Notes
 **roas_average_floor** | Option<**f64**> | Minimum ROAS as a decimal multiplier (e.g. 2.0 = 2.0x ROAS). Required when `bidStrategy` is `LOWEST_COST_WITH_MIN_ROAS`. Sent to Meta as `bid_constraints.roas_average_floor` × 10000.  | [optional]
 **dsa_beneficiary** | Option<**String**> | Name of the legal entity benefiting from the ad. Required by Meta when targeting EU users (DSA Article 26). Not enforced at schema level; enforced server-side when targeting intersects EU member states.  | [optional]
 **dsa_payor** | Option<**String**> | Name of the legal entity paying for the ad. Required by Meta when targeting EU users (DSA Article 26). Note Meta API spelling: dsa_payor (not dsa_payer).  | [optional]
+**promoted_object** | Option<[**models::CreateStandaloneAdRequestPromotedObject**](CreateStandaloneAdRequestPromotedObject.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

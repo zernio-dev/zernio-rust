@@ -19,7 +19,7 @@ pub struct CreateStandaloneAdRequest {
     pub ad_account_id: String,
     #[serde(rename = "name")]
     pub name: String,
-    /// Required on legacy + multi-creative shapes. Inherited from the ad set on the attach shape. Available goals vary by platform.
+    /// Required on legacy + multi-creative shapes. Inherited from the ad set on the attach shape. Available goals vary by platform. Meta-specific: `conversions` requires `promotedObject.pixelId` + `promotedObject.customEventType`; `app_promotion` requires `promotedObject.applicationId` + `promotedObject.objectStoreUrl`; `lead_generation` accepts an optional `promotedObject.pageId` (auto-filled from the connected Page when omitted).
     #[serde(rename = "goal", skip_serializing_if = "Option::is_none")]
     pub goal: Option<Goal>,
     /// Required on legacy + multi-creative shapes. Inherited on attach.
@@ -118,6 +118,8 @@ pub struct CreateStandaloneAdRequest {
     /// Name of the legal entity paying for the ad. Required by Meta when targeting EU users (DSA Article 26). Note Meta API spelling: dsa_payor (not dsa_payer).
     #[serde(rename = "dsaPayor", skip_serializing_if = "Option::is_none")]
     pub dsa_payor: Option<String>,
+    #[serde(rename = "promotedObject", skip_serializing_if = "Option::is_none")]
+    pub promoted_object: Option<Box<models::CreateStandaloneAdRequestPromotedObject>>,
 }
 
 impl CreateStandaloneAdRequest {
@@ -163,10 +165,11 @@ impl CreateStandaloneAdRequest {
             roas_average_floor: None,
             dsa_beneficiary: None,
             dsa_payor: None,
+            promoted_object: None,
         }
     }
 }
-/// Required on legacy + multi-creative shapes. Inherited from the ad set on the attach shape. Available goals vary by platform.
+/// Required on legacy + multi-creative shapes. Inherited from the ad set on the attach shape. Available goals vary by platform. Meta-specific: `conversions` requires `promotedObject.pixelId` + `promotedObject.customEventType`; `app_promotion` requires `promotedObject.applicationId` + `promotedObject.objectStoreUrl`; `lead_generation` accepts an optional `promotedObject.pageId` (auto-filled from the connected Page when omitted).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Goal {
     #[serde(rename = "engagement")]

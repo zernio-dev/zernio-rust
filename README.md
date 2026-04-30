@@ -451,6 +451,7 @@ Class | Method | HTTP request | Description
  - [CreateStandaloneAdRequestCreativesInner](docs/CreateStandaloneAdRequestCreativesInner.md)
  - [CreateStandaloneAdRequestCreativesInnerVideo](docs/CreateStandaloneAdRequestCreativesInnerVideo.md)
  - [CreateStandaloneAdRequestImages](docs/CreateStandaloneAdRequestImages.md)
+ - [CreateStandaloneAdRequestPromotedObject](docs/CreateStandaloneAdRequestPromotedObject.md)
  - [CreateStandaloneAdRequestVideo](docs/CreateStandaloneAdRequestVideo.md)
  - [CreateWebhookSettingsRequest](docs/CreateWebhookSettingsRequest.md)
  - [CreateWhatsAppFlow200Response](docs/CreateWhatsAppFlow200Response.md)
