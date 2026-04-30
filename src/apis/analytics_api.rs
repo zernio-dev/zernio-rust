@@ -355,11 +355,13 @@ pub async fn get_best_time_to_post(
     configuration: &configuration::Configuration,
     platform: Option<&str>,
     profile_id: Option<&str>,
+    account_id: Option<&str>,
     source: Option<&str>,
 ) -> Result<models::GetBestTimeToPost200Response, Error<GetBestTimeToPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_platform = platform;
     let p_query_profile_id = profile_id;
+    let p_query_account_id = account_id;
     let p_query_source = source;
 
     let uri_str = format!("{}/v1/analytics/best-time", configuration.base_path);
@@ -370,6 +372,9 @@ pub async fn get_best_time_to_post(
     }
     if let Some(ref param_value) = p_query_profile_id {
         req_builder = req_builder.query(&[("profileId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_account_id {
+        req_builder = req_builder.query(&[("accountId", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_source {
         req_builder = req_builder.query(&[("source", &param_value.to_string())]);
@@ -415,11 +420,13 @@ pub async fn get_content_decay(
     configuration: &configuration::Configuration,
     platform: Option<&str>,
     profile_id: Option<&str>,
+    account_id: Option<&str>,
     source: Option<&str>,
 ) -> Result<models::GetContentDecay200Response, Error<GetContentDecayError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_platform = platform;
     let p_query_profile_id = profile_id;
+    let p_query_account_id = account_id;
     let p_query_source = source;
 
     let uri_str = format!("{}/v1/analytics/content-decay", configuration.base_path);
@@ -430,6 +437,9 @@ pub async fn get_content_decay(
     }
     if let Some(ref param_value) = p_query_profile_id {
         req_builder = req_builder.query(&[("profileId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_account_id {
+        req_builder = req_builder.query(&[("accountId", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_source {
         req_builder = req_builder.query(&[("source", &param_value.to_string())]);
@@ -1360,11 +1370,13 @@ pub async fn get_posting_frequency(
     configuration: &configuration::Configuration,
     platform: Option<&str>,
     profile_id: Option<&str>,
+    account_id: Option<&str>,
     source: Option<&str>,
 ) -> Result<models::GetPostingFrequency200Response, Error<GetPostingFrequencyError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_platform = platform;
     let p_query_profile_id = profile_id;
+    let p_query_account_id = account_id;
     let p_query_source = source;
 
     let uri_str = format!("{}/v1/analytics/posting-frequency", configuration.base_path);
@@ -1375,6 +1387,9 @@ pub async fn get_posting_frequency(
     }
     if let Some(ref param_value) = p_query_profile_id {
         req_builder = req_builder.query(&[("profileId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_account_id {
+        req_builder = req_builder.query(&[("accountId", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_source {
         req_builder = req_builder.query(&[("source", &param_value.to_string())]);
