@@ -125,6 +125,11 @@ pub struct CreateStandaloneAdRequest {
     /// Name of the legal entity paying for the ad. Required by Meta when targeting EU users (DSA Article 26). Note Meta API spelling: dsa_payor (not dsa_payer).
     #[serde(rename = "dsaPayor", skip_serializing_if = "Option::is_none")]
     pub dsa_payor: Option<String>,
+    #[serde(rename = "brandIdentity", skip_serializing_if = "Option::is_none")]
+    pub brand_identity: Option<Box<models::CreateStandaloneAdRequestBrandIdentity>>,
+    /// TikTok only. Forces the identity attribution on the ad:    - `TT_USER`: the posting account's open_id (real @username     branding). Requires a connected TikTok posting account     on the same profile.   - `CUSTOMIZED_USER`: synthetic Brand Identity (display     name + avatar). Requires a configured Brand Identity     (cached on the `tiktokads` SocialAccount via     `PATCH /v1/connect/tiktok-ads`) or an inline     `brandIdentity` to create one on the fly.  When omitted, defaults to `TT_USER` if a posting account is connected on this profile, else `CUSTOMIZED_USER`. Spark Ads (`POST /v1/ads/boost`) always use `TT_USER` regardless of this field — TikTok requires the original organic post's author identity for Spark.
+    #[serde(rename = "identityType", skip_serializing_if = "Option::is_none")]
+    pub identity_type: Option<IdentityType>,
     #[serde(rename = "promotedObject", skip_serializing_if = "Option::is_none")]
     pub promoted_object: Option<Box<models::CreateStandaloneAdRequestPromotedObject>>,
 }
@@ -174,6 +179,8 @@ impl CreateStandaloneAdRequest {
             roas_average_floor: None,
             dsa_beneficiary: None,
             dsa_payor: None,
+            brand_identity: None,
+            identity_type: None,
             promoted_object: None,
         }
     }
@@ -288,5 +295,19 @@ pub enum Gender {
 impl Default for Gender {
     fn default() -> Gender {
         Self::All
+    }
+}
+/// TikTok only. Forces the identity attribution on the ad:    - `TT_USER`: the posting account's open_id (real @username     branding). Requires a connected TikTok posting account     on the same profile.   - `CUSTOMIZED_USER`: synthetic Brand Identity (display     name + avatar). Requires a configured Brand Identity     (cached on the `tiktokads` SocialAccount via     `PATCH /v1/connect/tiktok-ads`) or an inline     `brandIdentity` to create one on the fly.  When omitted, defaults to `TT_USER` if a posting account is connected on this profile, else `CUSTOMIZED_USER`. Spark Ads (`POST /v1/ads/boost`) always use `TT_USER` regardless of this field — TikTok requires the original organic post's author identity for Spark.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum IdentityType {
+    #[serde(rename = "TT_USER")]
+    TtUser,
+    #[serde(rename = "CUSTOMIZED_USER")]
+    CustomizedUser,
+}
+
+impl Default for IdentityType {
+    fn default() -> IdentityType {
+        Self::TtUser
     }
 }

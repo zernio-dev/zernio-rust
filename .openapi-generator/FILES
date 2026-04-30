@@ -79,6 +79,8 @@ docs/CancelBroadcast200ResponseBroadcast.md
 docs/CommentAutomationsApi.md
 docs/CommentsApi.md
 docs/CompleteTelegramConnect200Response.md
+docs/ConfigureTikTokAdsBrandIdentity200Response.md
+docs/ConfigureTikTokAdsBrandIdentityRequest.md
 docs/ConnectAds200Response.md
 docs/ConnectAds200ResponseOneOf.md
 docs/ConnectAds200ResponseOneOf1.md
@@ -153,6 +155,7 @@ docs/CreateStandaloneAd201Response.md
 docs/CreateStandaloneAd201ResponseOneOf.md
 docs/CreateStandaloneAd201ResponseOneOf1.md
 docs/CreateStandaloneAdRequest.md
+docs/CreateStandaloneAdRequestBrandIdentity.md
 docs/CreateStandaloneAdRequestCitiesInner.md
 docs/CreateStandaloneAdRequestCreativesInner.md
 docs/CreateStandaloneAdRequestCreativesInnerVideo.md
@@ -985,6 +988,8 @@ src/models/business_center.rs
 src/models/cancel_broadcast_200_response.rs
 src/models/cancel_broadcast_200_response_broadcast.rs
 src/models/complete_telegram_connect_200_response.rs
+src/models/configure_tik_tok_ads_brand_identity_200_response.rs
+src/models/configure_tik_tok_ads_brand_identity_request.rs
 src/models/connect_ads_200_response.rs
 src/models/connect_ads_200_response_one_of.rs
 src/models/connect_ads_200_response_one_of_1.rs
@@ -1057,6 +1062,7 @@ src/models/create_standalone_ad_201_response.rs
 src/models/create_standalone_ad_201_response_one_of.rs
 src/models/create_standalone_ad_201_response_one_of_1.rs
 src/models/create_standalone_ad_request.rs
+src/models/create_standalone_ad_request_brand_identity.rs
 src/models/create_standalone_ad_request_cities_inner.rs
 src/models/create_standalone_ad_request_creatives_inner.rs
 src/models/create_standalone_ad_request_creatives_inner_video.rs
