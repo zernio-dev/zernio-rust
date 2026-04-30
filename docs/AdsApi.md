@@ -16,6 +16,7 @@ Method | HTTP request | Description
 [**list_ads_business_centers**](AdsApi.md#list_ads_business_centers) | **GET** /v1/ads/business-centers | List TikTok Business Centers
 [**list_conversion_destinations**](AdsApi.md#list_conversion_destinations) | **GET** /v1/accounts/{accountId}/conversion-destinations | List destinations for the Conversions API
 [**search_ad_interests**](AdsApi.md#search_ad_interests) | **GET** /v1/ads/interests | Search targeting interests
+[**search_ad_targeting_locations**](AdsApi.md#search_ad_targeting_locations) | **GET** /v1/ads/targeting/search | Search geo targeting locations (Meta)
 [**send_conversions**](AdsApi.md#send_conversions) | **POST** /v1/ads/conversions | Send conversion events to an ad platform
 [**send_whats_app_conversion**](AdsApi.md#send_whats_app_conversion) | **POST** /v1/whatsapp/conversions | Send WhatsApp conversion event
 [**update_ad**](AdsApi.md#update_ad) | **PUT** /v1/ads/{adId} | Update ad
@@ -387,6 +388,40 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::SearchAdInterests200Response**](searchAdInterests_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## search_ad_targeting_locations
+
+> models::SearchAdTargetingLocations200Response search_ad_targeting_locations(account_id, q, r#type, country_code, limit)
+Search geo targeting locations (Meta)
+
+Resolve a human-readable location name into Meta's opaque `key` used in `targeting.cities[]` / `targeting.regions[]` on `POST /v1/ads/create` (and the same fields under `targeting.geo_locations` on `POST /v1/ads/boost`). Wraps Meta's `/search?type=adgeolocation` endpoint.  Meta-only for now. Other platforms have their own location id systems and are not exposed here.  Per Meta's docs, `q` must contain only the locality name (e.g. `\"Amsterdam\"`, not `\"Amsterdam, NL\"`). Use `countryCode` to disambiguate when the same name exists in multiple countries. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Social account ID (must be a connected Facebook or Instagram account). | [required] |
+**q** | **String** | Location name. Locality only — no region/country suffix. | [required] |
+**r#type** | Option<**String**> | Type of location to search. Defaults to city. |  |[default to city]
+**country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code (e.g. NL) to scope the search. |  |
+**limit** | Option<**i32**> | Maximum results to return. |  |[default to 25]
+
+### Return type
+
+[**models::SearchAdTargetingLocations200Response**](searchAdTargetingLocations_200_response.md)
 
 ### Authorization
 

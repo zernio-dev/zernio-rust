@@ -136,6 +136,17 @@ pub enum SearchAdInterestsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`search_ad_targeting_locations`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SearchAdTargetingLocationsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`send_conversions`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -850,6 +861,72 @@ pub async fn search_ad_interests(
     } else {
         let content = resp.text().await?;
         let entity: Option<SearchAdInterestsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Resolve a human-readable location name into Meta's opaque `key` used in `targeting.cities[]` / `targeting.regions[]` on `POST /v1/ads/create` (and the same fields under `targeting.geo_locations` on `POST /v1/ads/boost`). Wraps Meta's `/search?type=adgeolocation` endpoint.  Meta-only for now. Other platforms have their own location id systems and are not exposed here.  Per Meta's docs, `q` must contain only the locality name (e.g. `\"Amsterdam\"`, not `\"Amsterdam, NL\"`). Use `countryCode` to disambiguate when the same name exists in multiple countries.
+pub async fn search_ad_targeting_locations(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    q: &str,
+    r#type: Option<&str>,
+    country_code: Option<&str>,
+    limit: Option<i32>,
+) -> Result<models::SearchAdTargetingLocations200Response, Error<SearchAdTargetingLocationsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_q = q;
+    let p_query_type = r#type;
+    let p_query_country_code = country_code;
+    let p_query_limit = limit;
+
+    let uri_str = format!("{}/v1/ads/targeting/search", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    req_builder = req_builder.query(&[("q", &p_query_q.to_string())]);
+    if let Some(ref param_value) = p_query_type {
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_country_code {
+        req_builder = req_builder.query(&[("countryCode", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SearchAdTargetingLocations200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SearchAdTargetingLocations200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<SearchAdTargetingLocationsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

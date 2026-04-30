@@ -64,8 +64,15 @@ pub struct CreateStandaloneAdRequest {
     /// Pinterest only. Board ID (auto-creates if not provided).
     #[serde(rename = "boardId", skip_serializing_if = "Option::is_none")]
     pub board_id: Option<String>,
+    /// ISO 3166-1 alpha-2 country codes (e.g. ['NL']). Defaults to ['US'] when no `cities` or `regions` are provided.
     #[serde(rename = "countries", skip_serializing_if = "Option::is_none")]
     pub countries: Option<Vec<String>>,
+    /// Meta-only. City-level geo targeting. Each city is targeted by Meta's opaque `key` (the city ID) which can be looked up via `GET /v1/ads/targeting/search?type=city&q=<name>&country_code=<ISO>`. Optional `radius` + `distance_unit` extend the targeting beyond the city limits (e.g. radius 25 km around the city center). Both must be set together, or both omitted (Meta defaults to ~16 km when omitted).  Cannot overlap with the same country in `countries` (Meta returns a \"locations overlap\" error). Either drop the country or scope it to a different country.
+    #[serde(rename = "cities", skip_serializing_if = "Option::is_none")]
+    pub cities: Option<Vec<models::CreateStandaloneAdRequestCitiesInner>>,
+    /// Meta-only. Region-level (state/province) geo targeting. Each region is targeted by Meta's opaque `key` (the region ID) which can be looked up via `GET /v1/ads/targeting/search?type=region&q=<name>&country_code=<ISO>`.
+    #[serde(rename = "regions", skip_serializing_if = "Option::is_none")]
+    pub regions: Option<Vec<models::CreateStandaloneAdRequestRegionsInner>>,
     #[serde(rename = "ageMin", skip_serializing_if = "Option::is_none")]
     pub age_min: Option<i32>,
     #[serde(rename = "ageMax", skip_serializing_if = "Option::is_none")]
@@ -149,6 +156,8 @@ impl CreateStandaloneAdRequest {
             business_name: None,
             board_id: None,
             countries: None,
+            cities: None,
+            regions: None,
             age_min: None,
             age_max: None,
             interests: None,
