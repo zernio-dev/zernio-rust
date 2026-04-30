@@ -39,7 +39,7 @@ pub struct CreateStandaloneAdRequest {
     /// Required on legacy + attach shapes. For X/Twitter this is the tweet text (max 280 chars including a ~24-char URL when `linkUrl` is set). Max: Google=90, Pinterest=500.
     #[serde(rename = "body", skip_serializing_if = "Option::is_none")]
     pub body: Option<String>,
-    /// Required on legacy + attach shapes. Meta only.
+    /// Required on legacy + attach shapes for Meta. Honoured on TikTok too — passes through to the Spark Ad creative's `call_to_action`. Ignored by other platforms.
     #[serde(rename = "callToAction", skip_serializing_if = "Option::is_none")]
     pub call_to_action: Option<CallToAction>,
     /// Required on legacy + attach shapes. Skip for multi-creative.
@@ -204,7 +204,7 @@ impl Default for BudgetType {
         Self::Daily
     }
 }
-/// Required on legacy + attach shapes. Meta only.
+/// Required on legacy + attach shapes for Meta. Honoured on TikTok too — passes through to the Spark Ad creative's `call_to_action`. Ignored by other platforms.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum CallToAction {
     #[serde(rename = "LEARN_MORE")]
