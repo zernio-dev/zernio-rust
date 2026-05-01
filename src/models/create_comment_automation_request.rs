@@ -18,10 +18,10 @@ pub struct CreateCommentAutomationRequest {
     /// Instagram or Facebook account ID
     #[serde(rename = "accountId")]
     pub account_id: String,
-    /// Platform media/post ID
-    #[serde(rename = "platformPostId")]
-    pub platform_post_id: String,
-    /// Zernio post ID (optional)
+    /// Platform media/post ID. Omit for an account-wide (any-post) automation.
+    #[serde(rename = "platformPostId", skip_serializing_if = "Option::is_none")]
+    pub platform_post_id: Option<String>,
+    /// Zernio post ID. Required only when also targeting a specific post via platformPostId.
     #[serde(rename = "postId", skip_serializing_if = "Option::is_none")]
     pub post_id: Option<String>,
     /// Post content snippet for display
@@ -47,14 +47,13 @@ impl CreateCommentAutomationRequest {
     pub fn new(
         profile_id: String,
         account_id: String,
-        platform_post_id: String,
         name: String,
         dm_message: String,
     ) -> CreateCommentAutomationRequest {
         CreateCommentAutomationRequest {
             profile_id,
             account_id,
-            platform_post_id,
+            platform_post_id: None,
             post_id: None,
             post_title: None,
             name,

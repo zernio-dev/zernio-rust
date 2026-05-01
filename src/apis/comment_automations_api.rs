@@ -67,7 +67,7 @@ pub enum UpdateCommentAutomationError {
     UnknownValue(serde_json::Value),
 }
 
-/// Create a keyword-triggered DM automation on an Instagram or Facebook post. When someone comments a matching keyword, they automatically receive a DM. Only one active automation per post is allowed.
+/// Create a keyword-triggered DM automation on an Instagram or Facebook account. When someone comments a matching keyword, they automatically receive a DM.  Two modes:   * **Per-post** — set `platformPostId` to scope the automation to one specific post.     Only one active per-post automation is allowed per post.   * **Account-wide (\"any post\")** — omit `platformPostId` (and `postId`). The automation     evaluates every comment on every post on the account. You can stack unlimited     account-wide automations, each with its own keyword set, and they all run     independently. Per-post automations take priority on their post.
 pub async fn create_comment_automation(
     configuration: &configuration::Configuration,
     create_comment_automation_request: models::CreateCommentAutomationRequest,
