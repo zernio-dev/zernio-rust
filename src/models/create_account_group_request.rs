@@ -15,23 +15,12 @@ use serde::{Deserialize, Serialize};
 pub struct CreateAccountGroupRequest {
     #[serde(rename = "name")]
     pub name: String,
-    /// ID of the profile this group belongs to. All accountIds must belong to this profile.
-    #[serde(rename = "profileId")]
-    pub profile_id: String,
     #[serde(rename = "accountIds")]
     pub account_ids: Vec<String>,
 }
 
 impl CreateAccountGroupRequest {
-    pub fn new(
-        name: String,
-        profile_id: String,
-        account_ids: Vec<String>,
-    ) -> CreateAccountGroupRequest {
-        CreateAccountGroupRequest {
-            name,
-            profile_id,
-            account_ids,
-        }
+    pub fn new(name: String, account_ids: Vec<String>) -> CreateAccountGroupRequest {
+        CreateAccountGroupRequest { name, account_ids }
     }
 }
