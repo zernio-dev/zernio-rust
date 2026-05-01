@@ -164,6 +164,8 @@ pub mod conversion_event_user_click_ids;
 pub use self::conversion_event_user_click_ids::ConversionEventUserClickIds;
 pub mod create_account_group_201_response;
 pub use self::create_account_group_201_response::CreateAccountGroup201Response;
+pub mod create_account_group_201_response_group;
+pub use self::create_account_group_201_response_group::CreateAccountGroup201ResponseGroup;
 pub mod create_account_group_request;
 pub use self::create_account_group_request::CreateAccountGroupRequest;
 pub mod create_ad_audience_201_response;

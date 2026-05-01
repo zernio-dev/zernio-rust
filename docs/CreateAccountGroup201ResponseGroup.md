@@ -1,12 +1,12 @@
-# CreateAccountGroupRequest
+# CreateAccountGroup201ResponseGroup
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** |  | 
-**account_ids** | **Vec<String>** |  | 
-**profile_id** | Option<**String**> | Deprecated. Accepted for backward compatibility but ignored. Groups are no longer scoped to a single profile.  | [optional]
+**_id** | Option<**String**> |  | [optional]
+**name** | Option<**String**> |  | [optional]
+**account_ids** | Option<**Vec<String>**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

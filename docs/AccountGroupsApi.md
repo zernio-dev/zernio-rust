@@ -16,7 +16,7 @@ Method | HTTP request | Description
 > models::CreateAccountGroup201Response create_account_group(create_account_group_request)
 Create group
 
-Creates a new account group with a name and a list of social account IDs.
+Creates a new account group with a name and a list of social account IDs. Accounts can belong to different profiles; the caller must have access to every account's profile. Group names must be unique per user. 
 
 ### Parameters
 
@@ -76,7 +76,7 @@ Name | Type | Description  | Required | Notes
 > models::ListAccountGroups200Response list_account_groups()
 List groups
 
-Returns all account groups for the authenticated user, including group names and associated account IDs.
+Returns all account groups visible to the authenticated user. Groups can contain accounts from multiple profiles. For API keys scoped to specific profiles, only groups whose accounts all live in allowed profiles are returned. 
 
 ### Parameters
 

@@ -102,7 +102,7 @@ Name | Type | Description  | Required | Notes
 
 ## connect_ads
 
-> models::ConnectAds200Response connect_ads(platform, profile_id, account_id, redirect_url, headless)
+> models::ConnectAds200Response connect_ads(platform, profile_id, account_id, redirect_url, headless, ad_account_id, ad_account_ids)
 Connect ads for a platform
 
 Unified ads connection endpoint. Creates a dedicated ads SocialAccount for the specified platform.  Same-token platforms (facebook, instagram, linkedin, pinterest): Creates an ads SocialAccount (metaads, linkedinads, pinterestads) with a copied OAuth token from the parent posting account. If the ads account already exists, returns alreadyConnected: true. No extra OAuth needed.  Separate-token platforms (tiktok, twitter): Starts the platform-specific marketing API OAuth flow and creates an ads SocialAccount (tiktokads, xads) with its own token. If the ads account already exists, returns alreadyConnected: true.   - tiktok: accountId is OPTIONAL. With accountId, the new tiktokads account links to that posting account (parentAccountId set) — Spark Ads + standalone ads using the posting TT_USER identity become available. Without accountId, ads-only mode kicks in: the new tiktokads account has parentAccountId=null and standalone ads use a synthetic CUSTOMIZED_USER (\"Brand Identity\"); Spark Ads are unavailable because TikTok requires a posting account for them. The Brand Identity is configured separately via PATCH /v1/connect/tiktok-ads (or inline on POST /v1/ads/create via the brandIdentity field).   - twitter (X Ads): accountId is REQUIRED. There's no ads-only mode — tweets need to be authored by a real X user.  Standalone platforms (googleads): Starts the Google Ads OAuth flow and creates a standalone ads SocialAccount (googleads) with no parent. If the account already exists, returns alreadyConnected: true.  Ads accounts appear as regular SocialAccount documents with ads platform values (e.g., metaads, tiktokads) in GET /v1/accounts. 
@@ -117,6 +117,8 @@ Name | Type | Description  | Required | Notes
 **account_id** | Option<**String**> | Existing SocialAccount ID. Required for `twitter` (X Ads). Optional for `tiktok` — omit to enter ads-only mode (no TikTok posting account linked; ad creation uses a Brand Identity instead of a TT_USER). Ignored for same-token (`facebook`, `instagram`, `linkedin`, `pinterest`) and standalone (`googleads`) platforms.  |  |
 **redirect_url** | Option<**String**> | Custom redirect URL after OAuth completes (same-token platforms only) |  |
 **headless** | Option<**bool**> | Enable headless mode (same-token platforms only) |  |[default to false]
+**ad_account_id** | Option<**String**> | (metaads only) Scope ad sync to a single Meta ad account. Without this param, sync covers every `act_*` the connected token can see. Pass this to limit `sync.totalAds` / `synced` and the resulting ads to one ad account. Format: `act_<digits>` (matches what `/me/adaccounts` returns). Validated against the connected token; unreachable IDs return 400. For multiple accounts use `adAccountIds` instead.  |  |
+**ad_account_ids** | Option<[**Vec<String>**](String.md)> | (metaads only) Scope ad sync to multiple Meta ad accounts. Repeat the param (`?adAccountIds=act_1&adAccountIds=act_2`) or comma-separate (`?adAccountIds=act_1,act_2`). Validated against the connected token. Persisted server-side; latest call wins. Omitting both `adAccountId` and `adAccountIds` keeps any previously persisted scope unchanged.  |  |
 
 ### Return type
 

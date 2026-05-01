@@ -24,6 +24,9 @@ pub struct ConnectAds200ResponseOneOf {
     pub username: Option<String>,
     #[serde(rename = "displayName", skip_serializing_if = "Option::is_none")]
     pub display_name: Option<String>,
+    /// Echo of the persisted ad-account scope when the caller passed `adAccountId` / `adAccountIds`. Omitted when no scope is set.
+    #[serde(rename = "scopedAdAccountIds", skip_serializing_if = "Option::is_none")]
+    pub scoped_ad_account_ids: Option<Vec<String>>,
 }
 
 impl ConnectAds200ResponseOneOf {
@@ -35,6 +38,7 @@ impl ConnectAds200ResponseOneOf {
             platform: None,
             username: None,
             display_name: None,
+            scoped_ad_account_ids: None,
         }
     }
 }

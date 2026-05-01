@@ -98,6 +98,7 @@ docs/ConversionEventItemsInner.md
 docs/ConversionEventUser.md
 docs/ConversionEventUserClickIds.md
 docs/CreateAccountGroup201Response.md
+docs/CreateAccountGroup201ResponseGroup.md
 docs/CreateAccountGroupRequest.md
 docs/CreateAdAudience201Response.md
 docs/CreateAdAudienceRequest.md
@@ -1005,6 +1006,7 @@ src/models/conversion_event_items_inner.rs
 src/models/conversion_event_user.rs
 src/models/conversion_event_user_click_ids.rs
 src/models/create_account_group_201_response.rs
+src/models/create_account_group_201_response_group.rs
 src/models/create_account_group_request.rs
 src/models/create_ad_audience_201_response.rs
 src/models/create_ad_audience_request.rs

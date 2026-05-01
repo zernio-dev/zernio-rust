@@ -26,6 +26,18 @@ pub struct WebhookPayloadAccountAdsInitialSyncCompletedSync {
     /// Number of ads that failed to sync.
     #[serde(rename = "failed")]
     pub failed: i32,
+    /// Free-form error message from the platform (typically Meta's Marketing API). Truncated to ~2KB. Present when `status` is `failure` (and sometimes on `success` when discovery saw zero ad accounts). For UX branching prefer `errorCategory`; this field is for human display and debugging.
+    #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
+    pub error: Option<String>,
+    /// Platform-native error code if parsed (e.g. Meta `190`, `10`, `200`).
+    #[serde(rename = "errorCode", skip_serializing_if = "Option::is_none")]
+    pub error_code: Option<String>,
+    /// Platform-native error subcode if parsed.
+    #[serde(rename = "errorSubcode", skip_serializing_if = "Option::is_none")]
+    pub error_subcode: Option<String>,
+    /// Stable category for UX branching. New values may be added; existing ones are stable. Mapping:   - `token_invalid`: access token is expired or revoked. Reconnect.   - `permission_denied`: token lacks required scope, or the user has no role     on the Business Manager that owns the ad account. Reconnect with full     permissions, or have an admin grant access.   - `no_ad_accounts`: token is valid but sees zero ad accounts. The user     needs to connect a Business Manager that owns ad accounts.   - `rate_limited`: platform throttled us. Sync will retry automatically.   - `discovery_failed`: any other platform-side failure. Inspect `error`.   - `unknown`: classifier could not categorize the failure.
+    #[serde(rename = "errorCategory", skip_serializing_if = "Option::is_none")]
+    pub error_category: Option<ErrorCategory>,
 }
 
 impl WebhookPayloadAccountAdsInitialSyncCompletedSync {
@@ -41,6 +53,10 @@ impl WebhookPayloadAccountAdsInitialSyncCompletedSync {
             total_ads,
             synced,
             failed,
+            error: None,
+            error_code: None,
+            error_subcode: None,
+            error_category: None,
         }
     }
 }
@@ -56,5 +72,27 @@ pub enum Status {
 impl Default for Status {
     fn default() -> Status {
         Self::Success
+    }
+}
+/// Stable category for UX branching. New values may be added; existing ones are stable. Mapping:   - `token_invalid`: access token is expired or revoked. Reconnect.   - `permission_denied`: token lacks required scope, or the user has no role     on the Business Manager that owns the ad account. Reconnect with full     permissions, or have an admin grant access.   - `no_ad_accounts`: token is valid but sees zero ad accounts. The user     needs to connect a Business Manager that owns ad accounts.   - `rate_limited`: platform throttled us. Sync will retry automatically.   - `discovery_failed`: any other platform-side failure. Inspect `error`.   - `unknown`: classifier could not categorize the failure.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum ErrorCategory {
+    #[serde(rename = "token_invalid")]
+    TokenInvalid,
+    #[serde(rename = "permission_denied")]
+    PermissionDenied,
+    #[serde(rename = "no_ad_accounts")]
+    NoAdAccounts,
+    #[serde(rename = "rate_limited")]
+    RateLimited,
+    #[serde(rename = "discovery_failed")]
+    DiscoveryFailed,
+    #[serde(rename = "unknown")]
+    Unknown,
+}
+
+impl Default for ErrorCategory {
+    fn default() -> ErrorCategory {
+        Self::TokenInvalid
     }
 }

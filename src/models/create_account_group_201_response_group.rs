@@ -12,28 +12,21 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ListAccountGroups200ResponseGroupsInner {
+pub struct CreateAccountGroup201ResponseGroup {
     #[serde(rename = "_id", skip_serializing_if = "Option::is_none")]
     pub _id: Option<String>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(rename = "accountIds", skip_serializing_if = "Option::is_none")]
     pub account_ids: Option<Vec<String>>,
-    #[serde(rename = "createdBy", skip_serializing_if = "Option::is_none")]
-    pub created_by: Option<String>,
-    /// Legacy field. Present only on groups created before cross-profile groups were supported. New groups omit it.
-    #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]
-    pub profile_id: Option<String>,
 }
 
-impl ListAccountGroups200ResponseGroupsInner {
-    pub fn new() -> ListAccountGroups200ResponseGroupsInner {
-        ListAccountGroups200ResponseGroupsInner {
+impl CreateAccountGroup201ResponseGroup {
+    pub fn new() -> CreateAccountGroup201ResponseGroup {
+        CreateAccountGroup201ResponseGroup {
             _id: None,
             name: None,
             account_ids: None,
-            created_by: None,
-            profile_id: None,
         }
     }
 }

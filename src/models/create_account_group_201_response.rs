@@ -16,7 +16,7 @@ pub struct CreateAccountGroup201Response {
     #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
     #[serde(rename = "group", skip_serializing_if = "Option::is_none")]
-    pub group: Option<Box<models::ListAccountGroups200ResponseGroupsInner>>,
+    pub group: Option<Box<models::CreateAccountGroup201ResponseGroup>>,
 }
 
 impl CreateAccountGroup201Response {

@@ -17,10 +17,17 @@ pub struct CreateAccountGroupRequest {
     pub name: String,
     #[serde(rename = "accountIds")]
     pub account_ids: Vec<String>,
+    /// Deprecated. Accepted for backward compatibility but ignored. Groups are no longer scoped to a single profile.
+    #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]
+    pub profile_id: Option<String>,
 }
 
 impl CreateAccountGroupRequest {
     pub fn new(name: String, account_ids: Vec<String>) -> CreateAccountGroupRequest {
-        CreateAccountGroupRequest { name, account_ids }
+        CreateAccountGroupRequest {
+            name,
+            account_ids,
+            profile_id: None,
+        }
     }
 }

@@ -467,6 +467,8 @@ pub async fn connect_ads(
     account_id: Option<&str>,
     redirect_url: Option<&str>,
     headless: Option<bool>,
+    ad_account_id: Option<&str>,
+    ad_account_ids: Option<Vec<String>>,
 ) -> Result<models::ConnectAds200Response, Error<ConnectAdsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_platform = platform;
@@ -474,6 +476,8 @@ pub async fn connect_ads(
     let p_query_account_id = account_id;
     let p_query_redirect_url = redirect_url;
     let p_query_headless = headless;
+    let p_query_ad_account_id = ad_account_id;
+    let p_query_ad_account_ids = ad_account_ids;
 
     let uri_str = format!(
         "{}/v1/connect/{platform}/ads",
@@ -491,6 +495,28 @@ pub async fn connect_ads(
     }
     if let Some(ref param_value) = p_query_headless {
         req_builder = req_builder.query(&[("headless", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_ad_account_id {
+        req_builder = req_builder.query(&[("adAccountId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_ad_account_ids {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("adAccountIds".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "adAccountIds",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());

@@ -31,6 +31,18 @@ pub struct WebhookPayloadAccountAdsInitialSyncCompletedAccount {
     /// URL of the account's profile picture, when available.
     #[serde(rename = "profilePicture", skip_serializing_if = "Option::is_none")]
     pub profile_picture: Option<String>,
+    /// When the consumer scoped the connect call to a single ad account, this echoes that ID back so the webhook can be correlated to the originating connect request without consulting the consumer's DB. Meta uses the `act_*` shape.
+    #[serde(
+        rename = "platformAdAccountId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub platform_ad_account_id: Option<String>,
+    /// Every ad-account ID that the connected token could see at discovery time. Useful for \"we synced ads from these accounts\" UX without a follow-up API call. Empty array when the token had no ad-account visibility.
+    #[serde(
+        rename = "platformAdAccountIds",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub platform_ad_account_ids: Option<Vec<String>>,
 }
 
 impl WebhookPayloadAccountAdsInitialSyncCompletedAccount {
@@ -48,6 +60,8 @@ impl WebhookPayloadAccountAdsInitialSyncCompletedAccount {
             display_name: None,
             platform_user_id: None,
             profile_picture: None,
+            platform_ad_account_id: None,
+            platform_ad_account_ids: None,
         }
     }
 }
