@@ -136,6 +136,15 @@ docs/CreateInboxConversation422Response.md
 docs/CreateInboxConversationRequest.md
 docs/CreateInviteToken201Response.md
 docs/CreateInviteTokenRequest.md
+docs/CreateLeadForm201Response.md
+docs/CreateLeadFormBody.md
+docs/CreateLeadFormBodyContextCard.md
+docs/CreateLeadFormBodyLegalContent.md
+docs/CreateLeadFormBodyLegalContentCustomDisclaimer.md
+docs/CreateLeadFormTestLead200Response.md
+docs/CreateLeadFormTestLead200ResponseTestLead.md
+docs/CreateLeadFormTestLeadRequest.md
+docs/CreateLeadFormTestLeadRequestFieldDataInner.md
 docs/CreatePost409Response.md
 docs/CreatePost409ResponseDetails.md
 docs/CreatePost429Response.md
@@ -186,6 +195,7 @@ docs/DeleteGoogleBusinessPlaceAction200Response.md
 docs/DeleteInboxComment200Response.md
 docs/DeleteInboxReviewReply200Response.md
 docs/DeleteInboxReviewReplyRequest.md
+docs/DeleteLeadForm200Response.md
 docs/DeleteQueueSlot200Response.md
 docs/DiscordApi.md
 docs/DiscordPlatformData.md
@@ -331,6 +341,7 @@ docs/GetInboxPostComments200ResponseCommentsInnerFrom.md
 docs/GetInboxPostComments200ResponseMeta.md
 docs/GetInboxPostComments200ResponsePagination.md
 docs/GetInstagramAccountInsights404Response.md
+docs/GetLeadForm200Response.md
 docs/GetLinkedInAggregateAnalytics200Response.md
 docs/GetLinkedInAggregateAnalytics400Response.md
 docs/GetLinkedInAggregateAnalytics402Response.md
@@ -450,6 +461,13 @@ docs/InstagramPlatformData.md
 docs/InstagramPlatformDataTrialParams.md
 docs/InstagramPlatformDataUserTagsInner.md
 docs/InvitesApi.md
+docs/Lead.md
+docs/LeadFieldDataInner.md
+docs/LeadFormResponseMeta.md
+docs/LeadFormsApi.md
+docs/LeadGenForm.md
+docs/LeadGenFormQuestion.md
+docs/LeadGenFormQuestionOptionsInner.md
 docs/LikeInboxComment200Response.md
 docs/LikeInboxCommentRequest.md
 docs/LinkedInAggregateAnalyticsDailyResponse.md
@@ -509,6 +527,8 @@ docs/ListInboxReviews200ResponseDataInner.md
 docs/ListInboxReviews200ResponseDataInnerReply.md
 docs/ListInboxReviews200ResponseDataInnerReviewer.md
 docs/ListInboxReviews200ResponseSummary.md
+docs/ListLeadFormLeads200Response.md
+docs/ListLeadForms200Response.md
 docs/ListLinkedInOrganizations200Response.md
 docs/ListLinkedInOrganizations200ResponseOrganizationsInner.md
 docs/ListLogs200Response.md
@@ -756,6 +776,7 @@ docs/UpdateGoogleBusinessServicesRequestServiceItemsInner.md
 docs/UpdateInboxConversation200Response.md
 docs/UpdateInboxConversation200ResponseData.md
 docs/UpdateInboxConversationRequest.md
+docs/UpdateLeadFormRequest.md
 docs/UpdateLinkedInOrganizationRequest.md
 docs/UpdatePinterestBoardsRequest.md
 docs/UpdatePostMetadata200Response.md
@@ -832,6 +853,8 @@ docs/WebhookPayloadCommentComment.md
 docs/WebhookPayloadCommentCommentAd.md
 docs/WebhookPayloadCommentCommentAuthor.md
 docs/WebhookPayloadCommentPost.md
+docs/WebhookPayloadLeadReceived.md
+docs/WebhookPayloadLeadReceivedAccount.md
 docs/WebhookPayloadMessage.md
 docs/WebhookPayloadMessageAccount.md
 docs/WebhookPayloadMessageConversation.md
@@ -902,6 +925,7 @@ src/apis/gmb_place_actions_api.rs
 src/apis/gmb_reviews_api.rs
 src/apis/gmb_services_api.rs
 src/apis/invites_api.rs
+src/apis/lead_forms_api.rs
 src/apis/linked_in_mentions_api.rs
 src/apis/logs_api.rs
 src/apis/media_api.rs
@@ -1044,6 +1068,15 @@ src/models/create_inbox_conversation_422_response.rs
 src/models/create_inbox_conversation_request.rs
 src/models/create_invite_token_201_response.rs
 src/models/create_invite_token_request.rs
+src/models/create_lead_form_201_response.rs
+src/models/create_lead_form_body.rs
+src/models/create_lead_form_body_context_card.rs
+src/models/create_lead_form_body_legal_content.rs
+src/models/create_lead_form_body_legal_content_custom_disclaimer.rs
+src/models/create_lead_form_test_lead_200_response.rs
+src/models/create_lead_form_test_lead_200_response_test_lead.rs
+src/models/create_lead_form_test_lead_request.rs
+src/models/create_lead_form_test_lead_request_field_data_inner.rs
 src/models/create_post_409_response.rs
 src/models/create_post_409_response_details.rs
 src/models/create_post_429_response.rs
@@ -1093,6 +1126,7 @@ src/models/delete_google_business_place_action_200_response.rs
 src/models/delete_inbox_comment_200_response.rs
 src/models/delete_inbox_review_reply_200_response.rs
 src/models/delete_inbox_review_reply_request.rs
+src/models/delete_lead_form_200_response.rs
 src/models/delete_queue_slot_200_response.rs
 src/models/discord_platform_data.rs
 src/models/discord_platform_data_embeds_inner.rs
@@ -1237,6 +1271,7 @@ src/models/get_inbox_post_comments_200_response_comments_inner_from.rs
 src/models/get_inbox_post_comments_200_response_meta.rs
 src/models/get_inbox_post_comments_200_response_pagination.rs
 src/models/get_instagram_account_insights_404_response.rs
+src/models/get_lead_form_200_response.rs
 src/models/get_linked_in_aggregate_analytics_200_response.rs
 src/models/get_linked_in_aggregate_analytics_400_response.rs
 src/models/get_linked_in_aggregate_analytics_402_response.rs
@@ -1348,6 +1383,12 @@ src/models/instagram_demographics_response_demographics_value_inner.rs
 src/models/instagram_platform_data.rs
 src/models/instagram_platform_data_trial_params.rs
 src/models/instagram_platform_data_user_tags_inner.rs
+src/models/lead.rs
+src/models/lead_field_data_inner.rs
+src/models/lead_form_response_meta.rs
+src/models/lead_gen_form.rs
+src/models/lead_gen_form_question.rs
+src/models/lead_gen_form_question_options_inner.rs
 src/models/like_inbox_comment_200_response.rs
 src/models/like_inbox_comment_request.rs
 src/models/linked_in_aggregate_analytics_daily_response.rs
@@ -1406,6 +1447,8 @@ src/models/list_inbox_reviews_200_response_data_inner.rs
 src/models/list_inbox_reviews_200_response_data_inner_reply.rs
 src/models/list_inbox_reviews_200_response_data_inner_reviewer.rs
 src/models/list_inbox_reviews_200_response_summary.rs
+src/models/list_lead_form_leads_200_response.rs
+src/models/list_lead_forms_200_response.rs
 src/models/list_linked_in_organizations_200_response.rs
 src/models/list_linked_in_organizations_200_response_organizations_inner.rs
 src/models/list_logs_200_response.rs
@@ -1644,6 +1687,7 @@ src/models/update_google_business_services_request_service_items_inner.rs
 src/models/update_inbox_conversation_200_response.rs
 src/models/update_inbox_conversation_200_response_data.rs
 src/models/update_inbox_conversation_request.rs
+src/models/update_lead_form_request.rs
 src/models/update_linked_in_organization_request.rs
 src/models/update_pinterest_boards_request.rs
 src/models/update_post_metadata_200_response.rs
@@ -1716,6 +1760,8 @@ src/models/webhook_payload_comment_comment.rs
 src/models/webhook_payload_comment_comment_ad.rs
 src/models/webhook_payload_comment_comment_author.rs
 src/models/webhook_payload_comment_post.rs
+src/models/webhook_payload_lead_received.rs
+src/models/webhook_payload_lead_received_account.rs
 src/models/webhook_payload_message.rs
 src/models/webhook_payload_message_account.rs
 src/models/webhook_payload_message_conversation.rs

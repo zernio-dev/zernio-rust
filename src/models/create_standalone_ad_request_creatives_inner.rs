@@ -27,6 +27,9 @@ pub struct CreateStandaloneAdRequestCreativesInner {
     pub link_url: String,
     #[serde(rename = "callToAction")]
     pub call_to_action: CallToAction,
+    /// Per-creative Lead Gen Form ID. Wins over the top-level `leadGenFormId` so each ad in a campaign can A/B a different form. Forces CTA to SIGN_UP.
+    #[serde(rename = "leadGenFormId", skip_serializing_if = "Option::is_none")]
+    pub lead_gen_form_id: Option<String>,
 }
 
 impl CreateStandaloneAdRequestCreativesInner {
@@ -44,6 +47,7 @@ impl CreateStandaloneAdRequestCreativesInner {
             video: None,
             link_url,
             call_to_action,
+            lead_gen_form_id: None,
         }
     }
 }

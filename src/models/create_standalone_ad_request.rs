@@ -39,9 +39,12 @@ pub struct CreateStandaloneAdRequest {
     /// Required on legacy + attach shapes. For X/Twitter this is the tweet text (max 280 chars including a ~24-char URL when `linkUrl` is set). Max: Google=90, Pinterest=500.
     #[serde(rename = "body", skip_serializing_if = "Option::is_none")]
     pub body: Option<String>,
-    /// Required on legacy + attach shapes for Meta. Honoured on TikTok too — passes through to the Spark Ad creative's `call_to_action`. Ignored by other platforms.
+    /// Required on legacy + attach shapes for Meta. Honoured on TikTok too — passes through to the Spark Ad creative's `call_to_action`. Ignored by other platforms. Ignored on Meta when `leadGenFormId` is set — lead ads force CTA type to SIGN_UP.
     #[serde(rename = "callToAction", skip_serializing_if = "Option::is_none")]
     pub call_to_action: Option<CallToAction>,
+    /// Meta-only. Attaches a Lead Gen (Instant) Form to the creative. Required when `goal=\"lead_generation\"`. Force-overrides the CTA to SIGN_UP. Create a form first via POST /v1/ads/lead-forms. On the multi-creative shape this can also be set per `creatives[i]` to A/B different forms inside one ad set.
+    #[serde(rename = "leadGenFormId", skip_serializing_if = "Option::is_none")]
+    pub lead_gen_form_id: Option<String>,
     /// Required on legacy + attach shapes. Skip for multi-creative.
     #[serde(rename = "linkUrl", skip_serializing_if = "Option::is_none")]
     pub link_url: Option<String>,
@@ -152,6 +155,7 @@ impl CreateStandaloneAdRequest {
             long_headline: None,
             body: None,
             call_to_action: None,
+            lead_gen_form_id: None,
             link_url: None,
             image_url: None,
             images: None,
@@ -223,7 +227,7 @@ impl Default for BudgetType {
         Self::Daily
     }
 }
-/// Required on legacy + attach shapes for Meta. Honoured on TikTok too — passes through to the Spark Ad creative's `call_to_action`. Ignored by other platforms.
+/// Required on legacy + attach shapes for Meta. Honoured on TikTok too — passes through to the Spark Ad creative's `call_to_action`. Ignored by other platforms. Ignored on Meta when `leadGenFormId` is set — lead ads force CTA type to SIGN_UP.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum CallToAction {
     #[serde(rename = "LEARN_MORE")]
