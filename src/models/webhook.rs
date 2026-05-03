@@ -100,8 +100,6 @@ pub enum Events {
     ReviewNew,
     #[serde(rename = "review.updated")]
     ReviewUpdated,
-    #[serde(rename = "lead.received")]
-    LeadReceived,
 }
 
 impl Default for Events {
