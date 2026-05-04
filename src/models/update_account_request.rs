@@ -17,6 +17,8 @@ pub struct UpdateAccountRequest {
     pub username: Option<String>,
     #[serde(rename = "displayName", skip_serializing_if = "Option::is_none")]
     pub display_name: Option<String>,
+    #[serde(rename = "xCapabilities", skip_serializing_if = "Option::is_none")]
+    pub x_capabilities: Option<Box<models::UpdateAccountRequestXCapabilities>>,
 }
 
 impl UpdateAccountRequest {
@@ -24,6 +26,7 @@ impl UpdateAccountRequest {
         UpdateAccountRequest {
             username: None,
             display_name: None,
+            x_capabilities: None,
         }
     }
 }

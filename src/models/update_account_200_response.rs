@@ -19,6 +19,8 @@ pub struct UpdateAccount200Response {
     pub username: Option<String>,
     #[serde(rename = "displayName", skip_serializing_if = "Option::is_none")]
     pub display_name: Option<String>,
+    #[serde(rename = "xCapabilities", skip_serializing_if = "Option::is_none")]
+    pub x_capabilities: Option<Box<models::UpdateAccount200ResponseXCapabilities>>,
 }
 
 impl UpdateAccount200Response {
@@ -27,6 +29,7 @@ impl UpdateAccount200Response {
             message: None,
             username: None,
             display_name: None,
+            x_capabilities: None,
         }
     }
 }

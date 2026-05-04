@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 pub enum CreateProfileError {
     Status400(),
     Status401(models::InlineObject),
+    Status402(models::InlineObject2),
     Status403(),
     UnknownValue(serde_json::Value),
 }

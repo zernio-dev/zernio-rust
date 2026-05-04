@@ -439,6 +439,8 @@ docs/InitiateTelegramConnect200ResponseAccount.md
 docs/InitiateTelegramConnectRequest.md
 docs/InlineObject.md
 docs/InlineObject1.md
+docs/InlineObject2.md
+docs/InlineObject2Details.md
 docs/InstagramAccountInsightsResponse.md
 docs/InstagramAccountInsightsResponseDateRange.md
 docs/InstagramAccountInsightsResponseMetricsValue.md
@@ -694,9 +696,11 @@ docs/UnlikeInboxComment200Response.md
 docs/UnpublishPost200Response.md
 docs/UnpublishPostRequest.md
 docs/UpdateAccount200Response.md
+docs/UpdateAccount200ResponseXCapabilities.md
 docs/UpdateAccountGroup200Response.md
 docs/UpdateAccountGroupRequest.md
 docs/UpdateAccountRequest.md
+docs/UpdateAccountRequestXCapabilities.md
 docs/UpdateAd200Response.md
 docs/UpdateAdCampaign200Response.md
 docs/UpdateAdCampaignRequest.md
@@ -793,7 +797,9 @@ docs/UploadedFile.md
 docs/UsageApi.md
 docs/UsageStats.md
 docs/UsageStatsLimits.md
+docs/UsageStatsSpend.md
 docs/UsageStatsUsage.md
+docs/UsageStatsUsageXApiCalls.md
 docs/User.md
 docs/UserGetResponse.md
 docs/UsersApi.md
@@ -868,6 +874,10 @@ docs/WhatsAppHeaderComponentExample.md
 docs/WhatsAppPhoneNumbersApi.md
 docs/WhatsAppTemplateButton.md
 docs/WhatsAppTemplateComponent.md
+docs/XApiOperation.md
+docs/XApiOperationTriggeredByInner.md
+docs/XApiPricing.md
+docs/XApiPricingTiersInner.md
 docs/YouTubeDailyViewsResponse.md
 docs/YouTubeDailyViewsResponseDailyViewsInner.md
 docs/YouTubeDailyViewsResponseDateRange.md
@@ -1339,6 +1349,8 @@ src/models/initiate_telegram_connect_200_response_account.rs
 src/models/initiate_telegram_connect_request.rs
 src/models/inline_object.rs
 src/models/inline_object_1.rs
+src/models/inline_object_2.rs
+src/models/inline_object_2_details.rs
 src/models/instagram_account_insights_response.rs
 src/models/instagram_account_insights_response_date_range.rs
 src/models/instagram_account_insights_response_metrics_value.rs
@@ -1583,9 +1595,11 @@ src/models/unlike_inbox_comment_200_response.rs
 src/models/unpublish_post_200_response.rs
 src/models/unpublish_post_request.rs
 src/models/update_account_200_response.rs
+src/models/update_account_200_response_x_capabilities.rs
 src/models/update_account_group_200_response.rs
 src/models/update_account_group_request.rs
 src/models/update_account_request.rs
+src/models/update_account_request_x_capabilities.rs
 src/models/update_ad_200_response.rs
 src/models/update_ad_campaign_200_response.rs
 src/models/update_ad_campaign_request.rs
@@ -1681,7 +1695,9 @@ src/models/upload_whats_app_flow_json_request_flow_json.rs
 src/models/uploaded_file.rs
 src/models/usage_stats.rs
 src/models/usage_stats_limits.rs
+src/models/usage_stats_spend.rs
 src/models/usage_stats_usage.rs
+src/models/usage_stats_usage_x_api_calls.rs
 src/models/user.rs
 src/models/user_get_response.rs
 src/models/users_list_response.rs
@@ -1749,6 +1765,10 @@ src/models/whats_app_header_component.rs
 src/models/whats_app_header_component_example.rs
 src/models/whats_app_template_button.rs
 src/models/whats_app_template_component.rs
+src/models/x_api_operation.rs
+src/models/x_api_operation_triggered_by_inner.rs
+src/models/x_api_pricing.rs
+src/models/x_api_pricing_tiers_inner.rs
 src/models/you_tube_daily_views_response.rs
 src/models/you_tube_daily_views_response_daily_views_inner.rs
 src/models/you_tube_daily_views_response_date_range.rs

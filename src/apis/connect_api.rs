@@ -71,6 +71,7 @@ pub enum ConnectWhatsAppCredentialsError {
 pub enum GetConnectUrlError {
     Status400(),
     Status401(models::InlineObject),
+    Status402(models::InlineObject2),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),

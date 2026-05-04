@@ -1,12 +1,11 @@
-# UpdateAccountRequest
+# UpdateAccount200ResponseXCapabilities
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**username** | Option<**String**> |  | [optional]
-**display_name** | Option<**String**> |  | [optional]
-**x_capabilities** | Option<[**models::UpdateAccountRequestXCapabilities**](UpdateAccountRequestXCapabilities.md)> |  | [optional]
+**analytics** | Option<**bool**> |  | [optional]
+**inbox** | Option<**bool**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

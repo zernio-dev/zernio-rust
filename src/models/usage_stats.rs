@@ -11,8 +11,12 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// UsageStats : Plan and usage stats. The response shape depends on `billingSystem`:   * Stripe users (default): per-period counters like `usage.uploads` and     `usage.profiles` are returned, scoped by the plan's `limits`.   * Metronome users (usage-based): `limits` are unlimited (-1). The     `usage` block carries connected-account and per-X-operation counts,     and the `spend` block carries current-period costs plus the X cap.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UsageStats {
+    /// Which billing system the account is on. Shape of `usage`/`spend` differs.
+    #[serde(rename = "billingSystem", skip_serializing_if = "Option::is_none")]
+    pub billing_system: Option<BillingSystem>,
     #[serde(rename = "planName", skip_serializing_if = "Option::is_none")]
     pub plan_name: Option<String>,
     #[serde(rename = "billingPeriod", skip_serializing_if = "Option::is_none")]
@@ -22,22 +26,57 @@ pub struct UsageStats {
     /// Day of month (1-31) when the billing cycle resets
     #[serde(rename = "billingAnchorDay", skip_serializing_if = "Option::is_none")]
     pub billing_anchor_day: Option<i32>,
+    /// True if the account is in good standing. False for past-due/unpaid/paused subscriptions.
+    #[serde(rename = "hasAccess", skip_serializing_if = "Option::is_none")]
+    pub has_access: Option<bool>,
+    /// Stripe customer ID, when present.
+    #[serde(rename = "customerId", skip_serializing_if = "Option::is_none")]
+    pub customer_id: Option<String>,
+    /// True if this is a team member; limits/usage reflect the account owner.
+    #[serde(rename = "isInvitedUser", skip_serializing_if = "Option::is_none")]
+    pub is_invited_user: Option<bool>,
+    /// Stripe-only. Always false for Metronome users.
+    #[serde(rename = "autoUpgradeEnabled", skip_serializing_if = "Option::is_none")]
+    pub auto_upgrade_enabled: Option<bool>,
     #[serde(rename = "limits", skip_serializing_if = "Option::is_none")]
     pub limits: Option<Box<models::UsageStatsLimits>>,
     #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
     pub usage: Option<Box<models::UsageStatsUsage>>,
+    #[serde(rename = "spend", skip_serializing_if = "Option::is_none")]
+    pub spend: Option<Box<models::UsageStatsSpend>>,
 }
 
 impl UsageStats {
+    /// Plan and usage stats. The response shape depends on `billingSystem`:   * Stripe users (default): per-period counters like `usage.uploads` and     `usage.profiles` are returned, scoped by the plan's `limits`.   * Metronome users (usage-based): `limits` are unlimited (-1). The     `usage` block carries connected-account and per-X-operation counts,     and the `spend` block carries current-period costs plus the X cap.
     pub fn new() -> UsageStats {
         UsageStats {
+            billing_system: None,
             plan_name: None,
             billing_period: None,
             signup_date: None,
             billing_anchor_day: None,
+            has_access: None,
+            customer_id: None,
+            is_invited_user: None,
+            auto_upgrade_enabled: None,
             limits: None,
             usage: None,
+            spend: None,
         }
+    }
+}
+/// Which billing system the account is on. Shape of `usage`/`spend` differs.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum BillingSystem {
+    #[serde(rename = "stripe")]
+    Stripe,
+    #[serde(rename = "metronome")]
+    Metronome,
+}
+
+impl Default for BillingSystem {
+    fn default() -> BillingSystem {
+        Self::Stripe
     }
 }
 ///

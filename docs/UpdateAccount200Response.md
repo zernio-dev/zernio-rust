@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **message** | Option<**String**> |  | [optional]
 **username** | Option<**String**> |  | [optional]
 **display_name** | Option<**String**> |  | [optional]
+**x_capabilities** | Option<[**models::UpdateAccount200ResponseXCapabilities**](UpdateAccount200ResponseXCapabilities.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

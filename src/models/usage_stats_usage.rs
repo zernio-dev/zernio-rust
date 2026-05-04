@@ -11,22 +11,41 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// UsageStatsUsage : Per-period usage counts. Fields present depend on `billingSystem`: Stripe returns `uploads` / `profiles` / `lastReset`; Metronome returns `connectedAccounts` / `xApiCalls` / `xApiCallsByOperation`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UsageStatsUsage {
+    /// Stripe users only. Uploads consumed in the current period.
     #[serde(rename = "uploads", skip_serializing_if = "Option::is_none")]
     pub uploads: Option<i32>,
+    /// Stripe users only. Profiles currently owned.
     #[serde(rename = "profiles", skip_serializing_if = "Option::is_none")]
     pub profiles: Option<i32>,
+    /// Stripe users only.
     #[serde(rename = "lastReset", skip_serializing_if = "Option::is_none")]
     pub last_reset: Option<String>,
+    /// Metronome users only. Accounts currently connected across the team.
+    #[serde(rename = "connectedAccounts", skip_serializing_if = "Option::is_none")]
+    pub connected_accounts: Option<i32>,
+    #[serde(rename = "xApiCalls", skip_serializing_if = "Option::is_none")]
+    pub x_api_calls: Option<Box<models::UsageStatsUsageXApiCalls>>,
+    /// Metronome users only. Per-operation X API call counts keyed by operation (e.g. `posts_read`, `content_create`). Resolve each key to price and metadata via `GET /v1/billing/x-pricing`.
+    #[serde(
+        rename = "xApiCallsByOperation",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub x_api_calls_by_operation: Option<std::collections::HashMap<String, i32>>,
 }
 
 impl UsageStatsUsage {
+    /// Per-period usage counts. Fields present depend on `billingSystem`: Stripe returns `uploads` / `profiles` / `lastReset`; Metronome returns `connectedAccounts` / `xApiCalls` / `xApiCallsByOperation`.
     pub fn new() -> UsageStatsUsage {
         UsageStatsUsage {
             uploads: None,
             profiles: None,
             last_reset: None,
+            connected_accounts: None,
+            x_api_calls: None,
+            x_api_calls_by_operation: None,
         }
     }
 }

@@ -210,7 +210,7 @@ Name | Type | Description  | Required | Notes
 > models::UpdateAccount200Response update_account(account_id, update_account_request)
 Update account
 
-Updates a connected social account's display name or username override.
+Updates a connected social account's display name or username override.  For X/Twitter accounts on usage-based billing, also accepts an `xCapabilities` object to toggle background API operations that incur X API pass-through costs. Both fields are opt-in (default `false`) — when off, no analytics syncs or DM polling are performed for that account, and no API call is metered for those operations. Publishing and deleting posts are always available regardless of these toggles. Setting `xCapabilities` on a non-X account returns 400. 
 
 ### Parameters
 
