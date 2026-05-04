@@ -498,7 +498,7 @@ pub async fn reply_to_inbox_post(
     }
 }
 
-/// Send a private message to the author of a comment. Supported on Instagram and Facebook only. One reply per comment, must be sent within 7 days, text only.
+/// Send a private message to the author of a comment. Supported on Instagram and Facebook only. One reply per comment, must be sent within 7 days. Optionally include up to 13 quick-reply chips (`quickReplies`) on the same first message — useful for comment-to-DM automations that want to capture intent in a single round-trip.
 pub async fn send_private_reply_to_comment(
     configuration: &configuration::Configuration,
     post_id: &str,

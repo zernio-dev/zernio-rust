@@ -19,6 +19,9 @@ pub struct SendPrivateReplyToCommentRequest {
     /// The message text to send as a private DM
     #[serde(rename = "message")]
     pub message: String,
+    /// Optional quick-reply chips appended to the message. Visible only in the Instagram and Messenger apps (not on web). Maximum 13 entries.
+    #[serde(rename = "quickReplies", skip_serializing_if = "Option::is_none")]
+    pub quick_replies: Option<Vec<models::SendPrivateReplyToCommentRequestQuickRepliesInner>>,
 }
 
 impl SendPrivateReplyToCommentRequest {
@@ -26,6 +29,7 @@ impl SendPrivateReplyToCommentRequest {
         SendPrivateReplyToCommentRequest {
             account_id,
             message,
+            quick_replies: None,
         }
     }
 }

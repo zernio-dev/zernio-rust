@@ -1254,6 +1254,8 @@ pub mod send_private_reply_to_comment_200_response;
 pub use self::send_private_reply_to_comment_200_response::SendPrivateReplyToComment200Response;
 pub mod send_private_reply_to_comment_request;
 pub use self::send_private_reply_to_comment_request::SendPrivateReplyToCommentRequest;
+pub mod send_private_reply_to_comment_request_quick_replies_inner;
+pub use self::send_private_reply_to_comment_request_quick_replies_inner::SendPrivateReplyToCommentRequestQuickRepliesInner;
 pub mod send_typing_indicator_request;
 pub use self::send_typing_indicator_request::SendTypingIndicatorRequest;
 pub mod send_whats_app_conversion_200_response;

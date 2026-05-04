@@ -662,6 +662,7 @@ docs/SendInboxMessageRequestTemplateElementsInner.md
 docs/SendInboxMessageRequestTemplateElementsInnerButtonsInner.md
 docs/SendPrivateReplyToComment200Response.md
 docs/SendPrivateReplyToCommentRequest.md
+docs/SendPrivateReplyToCommentRequestQuickRepliesInner.md
 docs/SendTypingIndicatorRequest.md
 docs/SendWhatsAppConversion200Response.md
 docs/SendWhatsAppConversionRequest.md
@@ -1552,6 +1553,7 @@ src/models/send_inbox_message_request_template_elements_inner.rs
 src/models/send_inbox_message_request_template_elements_inner_buttons_inner.rs
 src/models/send_private_reply_to_comment_200_response.rs
 src/models/send_private_reply_to_comment_request.rs
+src/models/send_private_reply_to_comment_request_quick_replies_inner.rs
 src/models/send_typing_indicator_request.rs
 src/models/send_whats_app_conversion_200_response.rs
 src/models/send_whats_app_conversion_request.rs
