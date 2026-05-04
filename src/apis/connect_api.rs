@@ -23,6 +23,18 @@ pub enum CompleteTelegramConnectError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`complete_whats_app_phone_selection`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CompleteWhatsAppPhoneSelectionError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(models::ErrorResponse),
+    Status500(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`configure_tik_tok_ads_brand_identity`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -239,6 +251,16 @@ pub enum ListSnapchatProfilesError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_whats_app_phone_numbers`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListWhatsAppPhoneNumbersError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status500(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`select_facebook_page`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -397,6 +419,69 @@ pub async fn complete_telegram_connect(
     } else {
         let content = resp.text().await?;
         let entity: Option<CompleteTelegramConnectError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Bind a specific WhatsApp phone number to the Zernio profile after the user picks one from `listWhatsAppPhoneNumbers`. Exchanges the short-lived OAuth token for a long-lived token, subscribes the WABA to webhooks, and creates the SocialAccount.
+pub async fn complete_whats_app_phone_selection(
+    configuration: &configuration::Configuration,
+    complete_whats_app_phone_selection_request: models::CompleteWhatsAppPhoneSelectionRequest,
+    x_connect_token: Option<&str>,
+) -> Result<
+    models::CompleteWhatsAppPhoneSelection200Response,
+    Error<CompleteWhatsAppPhoneSelectionError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_complete_whats_app_phone_selection_request =
+        complete_whats_app_phone_selection_request;
+    let p_header_x_connect_token = x_connect_token;
+
+    let uri_str = format!(
+        "{}/v1/connect/whatsapp/select-phone-number",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_x_connect_token {
+        req_builder = req_builder.header("X-Connect-Token", param_value.to_string());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_complete_whats_app_phone_selection_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CompleteWhatsAppPhoneSelection200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CompleteWhatsAppPhoneSelection200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CompleteWhatsAppPhoneSelectionError> =
+            serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -875,7 +960,7 @@ pub async fn get_linked_in_organizations(
     }
 }
 
-/// Fetch pending OAuth data for headless mode using the pendingDataToken from the redirect URL. One-time use, expires after 10 minutes. No authentication required.
+/// Fetch pending OAuth data for headless mode using the pendingDataToken from the redirect URL.  **Scope**: This endpoint is used only for LinkedIn organizations and Snapchat profiles, where the selection list is too large to fit in URL params. WhatsApp, Facebook, Pinterest, Google Business and other platforms pass selection state directly via URL query params on the redirect (`profileId`, `tempToken`, `step`), no pending record is created, so this endpoint will return 404 for those flows. Use the platform-specific selection endpoint instead (e.g. `/v1/connect/whatsapp/select-phone-number`).  Token is one-time use and expires after 10 minutes. No authentication required.
 pub async fn get_pending_o_auth_data(
     configuration: &configuration::Configuration,
     token: &str,
@@ -1571,6 +1656,65 @@ pub async fn list_snapchat_profiles(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListSnapchatProfilesError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Fetch the WhatsApp phone numbers available across the user's WhatsApp Business Accounts (WABAs) after a headless OAuth flow.  WhatsApp OAuth grants access at the WABA level. When a connected WABA has 2 or more phone numbers, you must call this endpoint to list them and then `POST /v1/connect/whatsapp/select-phone-number` to bind one to the Zernio profile. Single-phone WABAs auto-complete during the OAuth callback and never reach this endpoint.  Use the `profileId` and `tempToken` returned in the headless redirect (`step=select_phone_number`).  Alternative: if you already know `wabaId` and `phoneNumberId` (e.g. from Meta Business Suite), use `connectWhatsAppCredentials` instead, which skips this two-step flow.
+pub async fn list_whats_app_phone_numbers(
+    configuration: &configuration::Configuration,
+    profile_id: &str,
+    temp_token: &str,
+    x_connect_token: Option<&str>,
+) -> Result<models::ListWhatsAppPhoneNumbers200Response, Error<ListWhatsAppPhoneNumbersError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_profile_id = profile_id;
+    let p_query_temp_token = temp_token;
+    let p_header_x_connect_token = x_connect_token;
+
+    let uri_str = format!(
+        "{}/v1/connect/whatsapp/select-phone-number",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("profileId", &p_query_profile_id.to_string())]);
+    req_builder = req_builder.query(&[("tempToken", &p_query_temp_token.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_x_connect_token {
+        req_builder = req_builder.header("X-Connect-Token", param_value.to_string());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListWhatsAppPhoneNumbers200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListWhatsAppPhoneNumbers200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListWhatsAppPhoneNumbersError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

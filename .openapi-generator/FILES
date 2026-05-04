@@ -79,6 +79,9 @@ docs/CancelBroadcast200ResponseBroadcast.md
 docs/CommentAutomationsApi.md
 docs/CommentsApi.md
 docs/CompleteTelegramConnect200Response.md
+docs/CompleteWhatsAppPhoneSelection200Response.md
+docs/CompleteWhatsAppPhoneSelection200ResponseAccount.md
+docs/CompleteWhatsAppPhoneSelectionRequest.md
 docs/ConfigureTikTokAdsBrandIdentity200Response.md
 docs/ConfigureTikTokAdsBrandIdentityRequest.md
 docs/ConnectAds200Response.md
@@ -537,6 +540,8 @@ docs/ListWhatsAppGroupChats200ResponsePaging.md
 docs/ListWhatsAppGroupChats200ResponsePagingCursors.md
 docs/ListWhatsAppGroupJoinRequests200Response.md
 docs/ListWhatsAppGroupJoinRequests200ResponseJoinRequestsInner.md
+docs/ListWhatsAppPhoneNumbers200Response.md
+docs/ListWhatsAppPhoneNumbers200ResponsePhoneNumbersInner.md
 docs/LogsApi.md
 docs/MediaApi.md
 docs/MediaItem.md
@@ -1000,6 +1005,9 @@ src/models/business_center.rs
 src/models/cancel_broadcast_200_response.rs
 src/models/cancel_broadcast_200_response_broadcast.rs
 src/models/complete_telegram_connect_200_response.rs
+src/models/complete_whats_app_phone_selection_200_response.rs
+src/models/complete_whats_app_phone_selection_200_response_account.rs
+src/models/complete_whats_app_phone_selection_request.rs
 src/models/configure_tik_tok_ads_brand_identity_200_response.rs
 src/models/configure_tik_tok_ads_brand_identity_request.rs
 src/models/connect_ads_200_response.rs
@@ -1445,6 +1453,8 @@ src/models/list_whats_app_group_chats_200_response_paging.rs
 src/models/list_whats_app_group_chats_200_response_paging_cursors.rs
 src/models/list_whats_app_group_join_requests_200_response.rs
 src/models/list_whats_app_group_join_requests_200_response_join_requests_inner.rs
+src/models/list_whats_app_phone_numbers_200_response.rs
+src/models/list_whats_app_phone_numbers_200_response_phone_numbers_inner.rs
 src/models/media_item.rs
 src/models/media_upload_response.rs
 src/models/mod.rs
