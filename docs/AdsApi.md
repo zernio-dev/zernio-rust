@@ -178,7 +178,7 @@ Name | Type | Description  | Required | Notes
 > models::GetAdAnalytics200Response get_ad_analytics(ad_id, from_date, to_date, breakdowns)
 Get ad analytics
 
-Returns detailed performance analytics for an ad. Includes summary metrics, a daily timeline over the requested date range, and optional demographic breakdowns (Meta and TikTok only). If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max. Ranges older than 90 days trigger a one-time on-demand fetch from the platform, then serve from cache on subsequent requests. 
+Returns detailed performance analytics for an ad. Includes summary metrics, a daily timeline over the requested date range, and optional demographic breakdowns (Meta and TikTok only). If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max. 
 
 ### Parameters
 
@@ -186,7 +186,7 @@ Returns detailed performance analytics for an ad. Includes summary metrics, a da
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **ad_id** | **String** |  | [required] |
-**from_date** | Option<**String**> | Start of date range (YYYY-MM-DD). Defaults to 90 days ago. Ranges older than 90 days trigger an on-demand platform fetch. |  |
+**from_date** | Option<**String**> | Start of date range (YYYY-MM-DD). Defaults to 90 days ago. |  |
 **to_date** | Option<**String**> | End of date range (YYYY-MM-DD). Defaults to today. Max 730-day range. |  |
 **breakdowns** | Option<**String**> | Comma-separated breakdown dimensions. Meta: age, gender, country, publisher_platform, device_platform, region. TikTok: gender, age, country_code, platform, ac, language. |  |
 
@@ -275,7 +275,7 @@ Name | Type | Description  | Required | Notes
 > models::ListAds200Response list_ads(page, limit, source, status, platform, account_id, ad_account_id, profile_id, campaign_id, from_date, to_date)
 List ads
 
-Returns a paginated list of ads with metrics computed over an optional date range. Use source=all to include externally-synced ads from platform ad managers. If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max. Ranges older than 90 days trigger a one-time on-demand fetch from the platform when scoped to a specific accountId, then serve from cache on subsequent requests. 
+Returns a paginated list of ads with metrics computed over an optional date range. Use source=all to include externally-synced ads from platform ad managers. If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max. 
 
 ### Parameters
 
@@ -291,7 +291,7 @@ Name | Type | Description  | Required | Notes
 **ad_account_id** | Option<**String**> | Platform ad account ID (e.g. act_123 for Meta). Mirrors the same filter on /v1/ads/campaigns and /v1/ads/tree. |  |
 **profile_id** | Option<**String**> | Profile ID |  |
 **campaign_id** | Option<**String**> | Platform campaign ID (filter ads within a campaign) |  |
-**from_date** | Option<**String**> | Start of metrics date range (YYYY-MM-DD). Defaults to 90 days ago. Ranges older than 90 days trigger an on-demand platform fetch when scoped to a specific accountId. |  |
+**from_date** | Option<**String**> | Start of metrics date range (YYYY-MM-DD). Defaults to 90 days ago. |  |
 **to_date** | Option<**String**> | End of metrics date range (YYYY-MM-DD). Defaults to today. Max 730-day range. |  |
 
 ### Return type

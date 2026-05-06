@@ -113,7 +113,7 @@ Name | Type | Description  | Required | Notes
 > models::GetAdTree200Response get_ad_tree(page, limit, source, platform, status, ad_account_id, account_id, profile_id, from_date, to_date)
 Get campaign tree
 
-Returns a nested Campaign > Ad Set > Ad hierarchy with rolled-up metrics at each level. Uses a two-stage aggregation: ads are grouped into ad sets, then ad sets into campaigns. Metrics are computed over an optional date range, then rolled up from ad level to ad set and campaign levels. Pagination is at the campaign level. Ads without a campaign or ad set ID are grouped into synthetic \"Ungrouped\" buckets. If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max. Ranges older than 90 days trigger a one-time on-demand fetch from the platform when scoped to a specific accountId, then serve from cache on subsequent requests. 
+Returns a nested Campaign > Ad Set > Ad hierarchy with rolled-up metrics at each level. Uses a two-stage aggregation: ads are grouped into ad sets, then ad sets into campaigns. Metrics are computed over an optional date range, then rolled up from ad level to ad set and campaign levels. Pagination is at the campaign level. Ads without a campaign or ad set ID are grouped into synthetic \"Ungrouped\" buckets. If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max. 
 
 ### Parameters
 
@@ -128,7 +128,7 @@ Name | Type | Description  | Required | Notes
 **ad_account_id** | Option<**String**> | Platform ad account ID |  |
 **account_id** | Option<**String**> | Social account ID |  |
 **profile_id** | Option<**String**> | Profile ID |  |
-**from_date** | Option<**String**> | Start of metrics date range (YYYY-MM-DD). Defaults to 90 days ago. Ranges older than 90 days trigger an on-demand platform fetch when scoped to a specific accountId. |  |
+**from_date** | Option<**String**> | Start of metrics date range (YYYY-MM-DD). Defaults to 90 days ago. |  |
 **to_date** | Option<**String**> | End of metrics date range (YYYY-MM-DD). Defaults to today. Max 730-day range. |  |
 
 ### Return type
