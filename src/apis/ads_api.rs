@@ -434,7 +434,7 @@ pub async fn get_ad(
     }
 }
 
-/// Returns detailed performance analytics for an ad. Includes summary metrics, a daily timeline over the requested date range, and optional demographic breakdowns (Meta and TikTok only). If no date range is provided, defaults to the last 90 days. Date range is capped at 90 days max.
+/// Returns detailed performance analytics for an ad. Includes summary metrics, a daily timeline over the requested date range, and optional demographic breakdowns (Meta and TikTok only). If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max. Ranges older than 90 days trigger a one-time on-demand fetch from the platform, then serve from cache on subsequent requests.
 pub async fn get_ad_analytics(
     configuration: &configuration::Configuration,
     ad_id: &str,
@@ -619,7 +619,7 @@ pub async fn list_ad_accounts(
     }
 }
 
-/// Returns a paginated list of ads with metrics computed over an optional date range. Use source=all to include externally-synced ads from platform ad managers. If no date range is provided, defaults to the last 90 days. Date range is capped at 90 days max.
+/// Returns a paginated list of ads with metrics computed over an optional date range. Use source=all to include externally-synced ads from platform ad managers. If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max. Ranges older than 90 days trigger a one-time on-demand fetch from the platform when scoped to a specific accountId, then serve from cache on subsequent requests.
 pub async fn list_ads(
     configuration: &configuration::Configuration,
     page: Option<i32>,
