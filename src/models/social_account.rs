@@ -13,12 +13,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SocialAccount {
-    #[serde(rename = "_id", skip_serializing_if = "Option::is_none")]
-    pub _id: Option<String>,
-    #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
-    pub platform: Option<Platform>,
-    #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]
-    pub profile_id: Option<Box<models::SocialAccountProfileId>>,
+    #[serde(rename = "_id")]
+    pub _id: String,
+    #[serde(rename = "platform")]
+    pub platform: Platform,
+    #[serde(rename = "profileId")]
+    pub profile_id: Box<models::SocialAccountProfileId>,
     #[serde(rename = "username", skip_serializing_if = "Option::is_none")]
     pub username: Option<String>,
     #[serde(rename = "displayName", skip_serializing_if = "Option::is_none")]
@@ -29,8 +29,8 @@ pub struct SocialAccount {
     /// Full profile URL for the connected account on its platform.
     #[serde(rename = "profileUrl", skip_serializing_if = "Option::is_none")]
     pub profile_url: Option<String>,
-    #[serde(rename = "isActive", skip_serializing_if = "Option::is_none")]
-    pub is_active: Option<bool>,
+    #[serde(rename = "isActive")]
+    pub is_active: bool,
     /// Follower count (only included if user has analytics add-on)
     #[serde(rename = "followersCount", skip_serializing_if = "Option::is_none")]
     pub followers_count: Option<f64>,
@@ -52,16 +52,21 @@ pub struct SocialAccount {
 }
 
 impl SocialAccount {
-    pub fn new() -> SocialAccount {
+    pub fn new(
+        _id: String,
+        platform: Platform,
+        profile_id: models::SocialAccountProfileId,
+        is_active: bool,
+    ) -> SocialAccount {
         SocialAccount {
-            _id: None,
-            platform: None,
-            profile_id: None,
+            _id,
+            platform,
+            profile_id: Box::new(profile_id),
             username: None,
             display_name: None,
             profile_picture: None,
             profile_url: None,
-            is_active: None,
+            is_active,
             followers_count: None,
             followers_last_updated: None,
             parent_account_id: None,
