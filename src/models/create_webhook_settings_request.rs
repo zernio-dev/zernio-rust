@@ -68,6 +68,18 @@ pub enum Events {
     AccountAdsInitialSyncCompleted,
     #[serde(rename = "message.received")]
     MessageReceived,
+    #[serde(rename = "message.sent")]
+    MessageSent,
+    #[serde(rename = "message.edited")]
+    MessageEdited,
+    #[serde(rename = "message.deleted")]
+    MessageDeleted,
+    #[serde(rename = "message.delivered")]
+    MessageDelivered,
+    #[serde(rename = "message.read")]
+    MessageRead,
+    #[serde(rename = "message.failed")]
+    MessageFailed,
     #[serde(rename = "comment.received")]
     CommentReceived,
     #[serde(rename = "review.new")]
