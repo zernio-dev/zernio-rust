@@ -29,6 +29,9 @@ pub struct ConversionEventUserClickIds {
     /// Google iOS 14.5+ web-to-app attribution ID.
     #[serde(rename = "wbraid", skip_serializing_if = "Option::is_none")]
     pub wbraid: Option<String>,
+    /// LinkedIn first-party ad tracking click ID. Captured by parsing `li_fat_id` from landing-page URLs after the advertiser enables enhanced conversion tracking on the LinkedIn Insight Tag. Sent to LinkedIn as the LINKEDIN_FIRST_PARTY_ADS_TRACKING_UUID userId. Opaque token, not hashed.
+    #[serde(rename = "li_fat_id", skip_serializing_if = "Option::is_none")]
+    pub li_fat_id: Option<String>,
 }
 
 impl ConversionEventUserClickIds {
@@ -40,6 +43,7 @@ impl ConversionEventUserClickIds {
             gclid: None,
             gbraid: None,
             wbraid: None,
+            li_fat_id: None,
         }
     }
 }

@@ -23,7 +23,7 @@ pub struct SendConversions200Response {
     pub events_failed: Option<i32>,
     #[serde(rename = "failures", skip_serializing_if = "Option::is_none")]
     pub failures: Option<Vec<models::SendConversions200ResponseFailuresInner>>,
-    /// Platform trace ID (fbtrace_id for Meta, requestId for Google) for debugging.
+    /// Platform trace ID for debugging. fbtrace_id for Meta, requestId for Google. Absent for LinkedIn (LinkedIn's conversionEvents endpoint does not surface a trace ID).
     #[serde(rename = "traceId", skip_serializing_if = "Option::is_none")]
     pub trace_id: Option<String>,
 }
@@ -46,6 +46,8 @@ pub enum Platform {
     Metaads,
     #[serde(rename = "googleads")]
     Googleads,
+    #[serde(rename = "linkedinads")]
+    Linkedinads,
 }
 
 impl Default for Platform {

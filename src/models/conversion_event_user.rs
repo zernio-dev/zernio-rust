@@ -26,7 +26,7 @@ pub struct ConversionEventUser {
     /// Plaintext last name. Hashed server-side.
     #[serde(rename = "lastName", skip_serializing_if = "Option::is_none")]
     pub last_name: Option<String>,
-    /// Stable customer identifier (e.g. CRM user ID). Hashed server-side.
+    /// Stable customer identifier (e.g. CRM user ID). Hashed server-side for Meta and Google. Sent as plaintext to LinkedIn (LinkedIn's Conversions API spec requires the raw value). Maximum effective list size on LinkedIn is 1.
     #[serde(rename = "externalId", skip_serializing_if = "Option::is_none")]
     pub external_id: Option<String>,
     /// Client IP address. Sent plaintext.

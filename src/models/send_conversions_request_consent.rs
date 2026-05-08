@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// SendConversionsRequestConsent : Batch-level user consent. Required by Google for EEA/UK events under the Feb 2026 restrictions. Ignored by Meta.
+/// SendConversionsRequestConsent : Batch-level user consent. Required by Google for EEA/UK events under the Feb 2026 restrictions. Ignored by Meta and LinkedIn.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SendConversionsRequestConsent {
     #[serde(rename = "adUserData", skip_serializing_if = "Option::is_none")]
@@ -21,7 +21,7 @@ pub struct SendConversionsRequestConsent {
 }
 
 impl SendConversionsRequestConsent {
-    /// Batch-level user consent. Required by Google for EEA/UK events under the Feb 2026 restrictions. Ignored by Meta.
+    /// Batch-level user consent. Required by Google for EEA/UK events under the Feb 2026 restrictions. Ignored by Meta and LinkedIn.
     pub fn new() -> SendConversionsRequestConsent {
         SendConversionsRequestConsent {
             ad_user_data: None,

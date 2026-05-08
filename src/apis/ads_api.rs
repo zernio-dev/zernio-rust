@@ -13,6 +13,19 @@ use crate::{apis::ResponseContent, models};
 use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
 
+/// struct for typed errors of method [`add_conversion_associations`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AddConversionAssociationsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    Status405(),
+    Status429(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`boost_post`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -21,6 +34,19 @@ pub enum BoostPostError {
     Status401(models::InlineObject),
     Status403(),
     Status422(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_conversion_destination`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateConversionDestinationError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    Status405(),
+    Status429(),
     UnknownValue(serde_json::Value),
 }
 
@@ -57,6 +83,19 @@ pub enum DeleteAdError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`delete_conversion_destination`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteConversionDestinationError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    Status405(),
+    Status429(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_ad`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -88,6 +127,32 @@ pub enum GetAdCommentsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_conversion_destination`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetConversionDestinationError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    Status405(),
+    Status429(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_conversion_metrics`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetConversionMetricsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    Status405(),
+    Status429(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_ad_accounts`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -116,6 +181,19 @@ pub enum ListAdsBusinessCentersError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_conversion_associations`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListConversionAssociationsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    Status405(),
+    Status429(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_conversion_destinations`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -124,6 +202,20 @@ pub enum ListConversionDestinationsError {
     Status401(models::InlineObject),
     Status403(),
     Status404(),
+    Status429(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`remove_conversion_associations`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RemoveConversionAssociationsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    Status405(),
+    Status429(),
     UnknownValue(serde_json::Value),
 }
 
@@ -155,6 +247,7 @@ pub enum SendConversionsError {
     Status401(models::InlineObject),
     Status403(),
     Status404(),
+    Status429(),
     UnknownValue(serde_json::Value),
 }
 
@@ -178,6 +271,78 @@ pub enum UpdateAdError {
     Status404(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_conversion_destination`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateConversionDestinationError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    Status405(),
+    Status429(),
+    UnknownValue(serde_json::Value),
+}
+
+/// Associate one or more campaigns with this conversion rule. Returns a per-campaign success/failure result so callers can retry only the rows that failed (e.g. wrong campaign type for the rule's objective).
+pub async fn add_conversion_associations(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    destination_id: &str,
+    add_conversion_associations_request: models::AddConversionAssociationsRequest,
+) -> Result<models::AddConversionAssociations200Response, Error<AddConversionAssociationsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_path_destination_id = destination_id;
+    let p_body_add_conversion_associations_request = add_conversion_associations_request;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id),
+        destinationId = crate::apis::urlencode(p_path_destination_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_add_conversion_associations_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AddConversionAssociations200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AddConversionAssociations200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AddConversionAssociationsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
 }
 
 /// Creates a paid ad campaign from an existing published post. Creates the full platform campaign hierarchy (campaign, ad set, ad).
@@ -222,6 +387,63 @@ pub async fn boost_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<BoostPostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Create a new conversion rule on the platform. LinkedIn-only today; other platforms manage destinations in their own UIs and return 405.  For LinkedIn, the rule is created with `conversionMethod=CONVERSIONS_API` and (by default) auto-associated with all of the ad account's campaigns via `autoAssociationType=ALL_CAMPAIGNS`. Pass `autoAssociationType: NONE` to opt out and manage associations explicitly via the associations endpoints below.  365-day attribution windows are only valid for `SUBMIT_APPLICATION`, `PURCHASE`, `ADD_TO_CART`, `QUALIFIED_LEAD`, and `LEAD` rule types; the API rejects other combinations locally.
+pub async fn create_conversion_destination(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    create_conversion_destination_request: models::CreateConversionDestinationRequest,
+) -> Result<models::CreateConversionDestination201Response, Error<CreateConversionDestinationError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_body_create_conversion_destination_request = create_conversion_destination_request;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/conversion-destinations",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_conversion_destination_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateConversionDestination201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateConversionDestination201Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateConversionDestinationError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -375,6 +597,56 @@ pub async fn delete_ad(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteAdError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// LinkedIn-only today. LinkedIn does not expose hard-delete on conversion rules — what their UI calls \"delete\" is the same `enabled: false` flip we apply here. The rule remains fetchable via GET with `status: 'inactive'`; the unified discovery endpoint hides it by default.  `adAccountId` may be passed as a query parameter (recommended) or as a JSON body field for clients that can send DELETE bodies.
+pub async fn delete_conversion_destination(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    destination_id: &str,
+    ad_account_id: Option<&str>,
+) -> Result<(), Error<DeleteConversionDestinationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_path_destination_id = destination_id;
+    let p_query_ad_account_id = ad_account_id;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/conversion-destinations/{destinationId}",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id),
+        destinationId = crate::apis::urlencode(p_path_destination_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref param_value) = p_query_ad_account_id {
+        req_builder = req_builder.query(&[("adAccountId", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteConversionDestinationError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -553,6 +825,133 @@ pub async fn get_ad_comments(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetAdCommentsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// LinkedIn-only today. Returns the full destination record for one conversion rule. The `adAccountId` query parameter is required because LinkedIn rules are scoped to a sponsored ad account.
+pub async fn get_conversion_destination(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    destination_id: &str,
+    ad_account_id: &str,
+) -> Result<models::CreateConversionDestination201Response, Error<GetConversionDestinationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_path_destination_id = destination_id;
+    let p_query_ad_account_id = ad_account_id;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/conversion-destinations/{destinationId}",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id),
+        destinationId = crate::apis::urlencode(p_path_destination_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("adAccountId", &p_query_ad_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateConversionDestination201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateConversionDestination201Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetConversionDestinationError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// LinkedIn-only today. Returns conversion-attribution metrics (`externalWebsiteConversions`, `externalWebsitePostClickConversions`, `externalWebsitePostViewConversions`, `conversionValueInLocalCurrency`, `qualifiedLeads`, `costInLocalCurrency`) bucketed by date.  Date-range constraints (passed through from LinkedIn): - `granularity=DAILY` is retained for ~6 months only - `granularity=ALL` with a range > 6 months auto-rounds to month boundaries - `granularity=MONTHLY`/`YEARLY` retains 24 months  Throttle: LinkedIn caps adAnalytics at 45M metric values per 5-minute window across the calling token. Single-rule queries are well within that limit; surfaces as 429 if hit.
+pub async fn get_conversion_metrics(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    destination_id: &str,
+    ad_account_id: &str,
+    start_date: &str,
+    end_date: Option<&str>,
+    granularity: Option<&str>,
+) -> Result<models::GetConversionMetrics200Response, Error<GetConversionMetricsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_path_destination_id = destination_id;
+    let p_query_ad_account_id = ad_account_id;
+    let p_query_start_date = start_date;
+    let p_query_end_date = end_date;
+    let p_query_granularity = granularity;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/conversion-destinations/{destinationId}/metrics",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id),
+        destinationId = crate::apis::urlencode(p_path_destination_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("adAccountId", &p_query_ad_account_id.to_string())]);
+    req_builder = req_builder.query(&[("startDate", &p_query_start_date.to_string())]);
+    if let Some(ref param_value) = p_query_end_date {
+        req_builder = req_builder.query(&[("endDate", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_granularity {
+        req_builder = req_builder.query(&[("granularity", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetConversionMetrics200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetConversionMetrics200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetConversionMetricsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -767,7 +1166,64 @@ pub async fn list_ads_business_centers(
     }
 }
 
-/// Returns the list of pixels (Meta) or conversion actions (Google) accessible to the connected ads account. Use the returned `id` as `destinationId` when posting to `POST /v1/ads/conversions`.  For Google, each destination's `type` reflects the conversion action's category (PURCHASE, LEAD, SIGN_UP, etc.) — the event type is locked to the destination. For Meta, `type` is absent: pixels accept any event name per request.
+/// LinkedIn-only today. Returns the campaigns currently associated with this conversion rule. Note that auto-association on rule creation runs once at create time; campaigns created after the rule still need explicit association.
+pub async fn list_conversion_associations(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    destination_id: &str,
+    ad_account_id: &str,
+) -> Result<models::ListConversionAssociations200Response, Error<ListConversionAssociationsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_path_destination_id = destination_id;
+    let p_query_ad_account_id = ad_account_id;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id),
+        destinationId = crate::apis::urlencode(p_path_destination_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("adAccountId", &p_query_ad_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListConversionAssociations200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListConversionAssociations200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListConversionAssociationsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns the list of pixels (Meta), conversion actions (Google), or conversion rules (LinkedIn) accessible to the connected ads account. Use the returned `id` as `destinationId` when posting to `POST /v1/ads/conversions`.  For Google and LinkedIn, each destination's `type` reflects the conversion type (PURCHASE, LEAD, SIGN_UP, etc.) — the event type is locked to the destination. For Meta, `type` is absent: pixels accept any event name per request.  For LinkedIn, destinations are returned across every sponsored ad account the connected token can access; the `adAccountId` field on each destination identifies the parent ad account and is required for subsequent CRUD calls (update, delete, associations, metrics).
 pub async fn list_conversion_destinations(
     configuration: &configuration::Configuration,
     account_id: &str,
@@ -810,6 +1266,69 @@ pub async fn list_conversion_destinations(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListConversionDestinationsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Remove one or more campaign associations from this conversion rule. Pass `adAccountId` and `campaignIds` as query parameters (`campaignIds` is comma-separated). The route also accepts a JSON body with the same fields for clients that prefer DELETE-with-body, but the documented surface is query-only because some SDK code generators (e.g. Python) collapse query + body parameters with the same name into a single kwarg.
+pub async fn remove_conversion_associations(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    destination_id: &str,
+    ad_account_id: &str,
+    campaign_ids: &str,
+) -> Result<models::RemoveConversionAssociations200Response, Error<RemoveConversionAssociationsError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_path_destination_id = destination_id;
+    let p_query_ad_account_id = ad_account_id;
+    let p_query_campaign_ids = campaign_ids;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id),
+        destinationId = crate::apis::urlencode(p_path_destination_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    req_builder = req_builder.query(&[("adAccountId", &p_query_ad_account_id.to_string())]);
+    req_builder = req_builder.query(&[("campaignIds", &p_query_campaign_ids.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::RemoveConversionAssociations200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::RemoveConversionAssociations200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RemoveConversionAssociationsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -935,7 +1454,7 @@ pub async fn search_ad_targeting_locations(
     }
 }
 
-/// Relay one or more conversion events to the target ad platform's native Conversions API. Supported platforms: Meta (metaads) via Graph API, Google Ads (googleads) via Data Manager API `ingestEvents`.  Platform is inferred from the provided `accountId`. `destinationId` semantics differ per platform: - Meta: pixel (dataset) ID, e.g. \"123456789012345\" - Google: conversion action resource name, e.g.   \"customers/1234567890/conversionActions/987654321\"  Callers can list valid destinations via `GET /v1/accounts/{accountId}/conversion-destinations`.  All PII (email, phone, names, external IDs) is hashed with SHA-256 server-side per each platform's normalization spec (including Google's Gmail-specific dot/plus-suffix stripping). Send plaintext.  Requires the Ads add-on.  Batching: Meta caps at 1000 events per request and rejects the entire batch if any event is malformed. Google caps at 2000. Both are handled automatically by chunking.  Dedup: pass a stable `eventId` on every event. Meta uses it to dedupe against pixel events; Google maps it to transactionId.
+/// Relay one or more conversion events to the target ad platform's native Conversions API. Supported platforms: Meta (metaads) via Graph API, Google Ads (googleads) via Data Manager API `ingestEvents`, LinkedIn (linkedinads) via `/rest/conversionEvents`.  Platform is inferred from the provided `accountId`. `destinationId` semantics differ per platform: - Meta: pixel (dataset) ID, e.g. \"123456789012345\" - Google: conversion action resource name, e.g.   \"customers/1234567890/conversionActions/987654321\" - LinkedIn: conversion rule ID or URN, e.g. \"104012\" or   \"urn:lla:llaPartnerConversion:104012\"  Callers can list valid destinations via `GET /v1/accounts/{accountId}/conversion-destinations`.  All PII (email, phone, names, external IDs) is hashed with SHA-256 server-side per each platform's normalization spec (including Google's Gmail-specific dot/plus-suffix stripping). Send plaintext. Note: LinkedIn `externalIds` are passed through as plaintext per LinkedIn's spec — only emails and phones are hashed.  Requires the Ads add-on. For LinkedIn, the connected account must have been authorized after the Conversions API rollout (i.e. the OAuth grant must include `rw_conversions`); older accounts must reconnect.  Batching: Meta caps at 1000 events per request and rejects the entire batch if any event is malformed. Google caps at 2000. LinkedIn caps at 5000 and is also all-or-nothing per chunk. All three are handled automatically.  Dedup: pass a stable `eventId` on every event. Meta and LinkedIn use it to dedupe against browser-side pixel/Insight Tag events; Google maps it to transactionId.  Per-platform `eventName` semantics: - Meta: free-form. Standard names (Purchase, Lead, ...) match Meta's   built-in events; custom strings are accepted. - Google: ignored — the conversion action's category determines the   event type. Send the standard name closest to your action for   documentation, but the platform will not branch on it. - LinkedIn: ignored — the conversion rule's `type` (LEAD, PURCHASE,   etc.) is locked to the destination at rule-creation time. Send the   standard name for documentation; LinkedIn does not branch on it.
 pub async fn send_conversions(
     configuration: &configuration::Configuration,
     send_conversions_request: models::SendConversionsRequest,
@@ -1081,6 +1600,66 @@ pub async fn update_ad(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateAdError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Partial-update a conversion rule. LinkedIn-only today. Whitelisted fields: `name`, `enabled`, attribution windows, `valueType`, `value`, `attributionType`. The rule's `type` and parent ad account are intentionally not exposed for update — recreate the rule if those need to change.
+pub async fn update_conversion_destination(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    destination_id: &str,
+    update_conversion_destination_request: models::UpdateConversionDestinationRequest,
+) -> Result<models::CreateConversionDestination201Response, Error<UpdateConversionDestinationError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_path_destination_id = destination_id;
+    let p_body_update_conversion_destination_request = update_conversion_destination_request;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/conversion-destinations/{destinationId}",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id),
+        destinationId = crate::apis::urlencode(p_path_destination_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::PATCH, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_conversion_destination_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateConversionDestination201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateConversionDestination201Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateConversionDestinationError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

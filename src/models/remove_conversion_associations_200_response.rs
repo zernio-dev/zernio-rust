@@ -12,34 +12,34 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ListConversionDestinations200Response {
+pub struct RemoveConversionAssociations200Response {
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<Platform>,
-    #[serde(rename = "destinations", skip_serializing_if = "Option::is_none")]
-    pub destinations: Option<Vec<models::ListConversionDestinations200ResponseDestinationsInner>>,
+    /// Numeric campaign IDs that were successfully removed.
+    #[serde(rename = "succeeded", skip_serializing_if = "Option::is_none")]
+    pub succeeded: Option<Vec<String>>,
+    #[serde(rename = "failed", skip_serializing_if = "Option::is_none")]
+    pub failed: Option<Vec<models::AddConversionAssociations200ResponseFailedInner>>,
 }
 
-impl ListConversionDestinations200Response {
-    pub fn new() -> ListConversionDestinations200Response {
-        ListConversionDestinations200Response {
+impl RemoveConversionAssociations200Response {
+    pub fn new() -> RemoveConversionAssociations200Response {
+        RemoveConversionAssociations200Response {
             platform: None,
-            destinations: None,
+            succeeded: None,
+            failed: None,
         }
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Platform {
-    #[serde(rename = "metaads")]
-    Metaads,
-    #[serde(rename = "googleads")]
-    Googleads,
     #[serde(rename = "linkedinads")]
     Linkedinads,
 }
 
 impl Default for Platform {
     fn default() -> Platform {
-        Self::Metaads
+        Self::Linkedinads
     }
 }

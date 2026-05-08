@@ -13,16 +13,19 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ListConversionDestinations200ResponseDestinationsInner {
-    /// Destination identifier. Meta: pixel ID. Google: conversion action resource name.
+    /// Destination identifier. Meta: pixel ID. Google: conversion action resource name. LinkedIn: numeric conversion rule ID.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Present when the platform locks event type to the destination (Google conversion actions).
+    /// Present when the platform locks event type to the destination (Google conversion actions, LinkedIn conversion rules).
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<String>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
+    /// Set by adapters whose destinations are scoped to a specific ad account (LinkedIn). Pass back on subsequent CRUD calls.
+    #[serde(rename = "adAccountId", skip_serializing_if = "Option::is_none")]
+    pub ad_account_id: Option<String>,
 }
 
 impl ListConversionDestinations200ResponseDestinationsInner {
@@ -32,6 +35,7 @@ impl ListConversionDestinations200ResponseDestinationsInner {
             name: None,
             r#type: None,
             status: None,
+            ad_account_id: None,
         }
     }
 }

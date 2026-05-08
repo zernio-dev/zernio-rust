@@ -32,6 +32,9 @@ docs/AdTreeCampaignCampaignBudget.md
 docs/AdTreeCampaignPromotedObject.md
 docs/AddBroadcastRecipients200Response.md
 docs/AddBroadcastRecipientsRequest.md
+docs/AddConversionAssociations200Response.md
+docs/AddConversionAssociations200ResponseFailedInner.md
+docs/AddConversionAssociationsRequest.md
 docs/AddMessageReactionRequest.md
 docs/AddUsersToAdAudience200Response.md
 docs/AddUsersToAdAudienceRequest.md
@@ -96,6 +99,7 @@ docs/ConnectWhatsAppCredentialsRequest.md
 docs/Connected.md
 docs/ConnectedAccount.md
 docs/ContactsApi.md
+docs/ConversionDestination.md
 docs/ConversionEvent.md
 docs/ConversionEventItemsInner.md
 docs/ConversionEventUser.md
@@ -122,6 +126,9 @@ docs/CreateContact200Response.md
 docs/CreateContact200ResponseChannel.md
 docs/CreateContact200ResponseContact.md
 docs/CreateContactRequest.md
+docs/CreateConversionDestination201Response.md
+docs/CreateConversionDestinationRequest.md
+docs/CreateConversionDestinationRequestValue.md
 docs/CreateCtwaAd201Response.md
 docs/CreateCtwaAdRequest.md
 docs/CreateCtwaAdRequestInterestsInner.md
@@ -264,6 +271,9 @@ docs/GetContactChannels200Response.md
 docs/GetContactChannels200ResponseChannelsInner.md
 docs/GetContentDecay200Response.md
 docs/GetContentDecay200ResponseBucketsInner.md
+docs/GetConversionMetrics200Response.md
+docs/GetConversionMetrics200ResponseRowsInner.md
+docs/GetConversionMetrics200ResponseRowsInnerMetricsValue.md
 docs/GetDailyMetrics200Response.md
 docs/GetDailyMetrics200ResponseDailyDataInner.md
 docs/GetDailyMetrics200ResponseDailyDataInnerMetrics.md
@@ -488,6 +498,8 @@ docs/ListContacts200Response.md
 docs/ListContacts200ResponseContactsInner.md
 docs/ListContacts200ResponseFilters.md
 docs/ListContacts200ResponsePagination.md
+docs/ListConversionAssociations200Response.md
+docs/ListConversionAssociations200ResponseAssociationsInner.md
 docs/ListConversionDestinations200Response.md
 docs/ListConversionDestinations200ResponseDestinationsInner.md
 docs/ListCustomFields200Response.md
@@ -596,6 +608,7 @@ docs/RejectWhatsAppGroupJoinRequestsRequest.md
 docs/ReleaseWhatsAppPhoneNumber200Response.md
 docs/ReleaseWhatsAppPhoneNumber200ResponsePhoneNumber.md
 docs/RemoveBookmark200Response.md
+docs/RemoveConversionAssociations200Response.md
 docs/RemoveWhatsAppGroupParticipantsRequest.md
 docs/ReplyToInboxPost200Response.md
 docs/ReplyToInboxPost200ResponseData.md
@@ -733,6 +746,8 @@ docs/UpdateCommentAutomationRequest.md
 docs/UpdateContact200Response.md
 docs/UpdateContact200ResponseContact.md
 docs/UpdateContactRequest.md
+docs/UpdateConversionDestinationRequest.md
+docs/UpdateConversionDestinationRequestValue.md
 docs/UpdateCustomField200Response.md
 docs/UpdateCustomField200ResponseField.md
 docs/UpdateCustomFieldRequest.md
@@ -969,6 +984,9 @@ src/models/ad_tree_campaign_campaign_budget.rs
 src/models/ad_tree_campaign_promoted_object.rs
 src/models/add_broadcast_recipients_200_response.rs
 src/models/add_broadcast_recipients_request.rs
+src/models/add_conversion_associations_200_response.rs
+src/models/add_conversion_associations_200_response_failed_inner.rs
+src/models/add_conversion_associations_request.rs
 src/models/add_message_reaction_request.rs
 src/models/add_users_to_ad_audience_200_response.rs
 src/models/add_users_to_ad_audience_request.rs
@@ -1025,6 +1043,7 @@ src/models/connect_whats_app_credentials_200_response_account.rs
 src/models/connect_whats_app_credentials_request.rs
 src/models/connected.rs
 src/models/connected_account.rs
+src/models/conversion_destination.rs
 src/models/conversion_event.rs
 src/models/conversion_event_items_inner.rs
 src/models/conversion_event_user.rs
@@ -1051,6 +1070,9 @@ src/models/create_contact_200_response.rs
 src/models/create_contact_200_response_channel.rs
 src/models/create_contact_200_response_contact.rs
 src/models/create_contact_request.rs
+src/models/create_conversion_destination_201_response.rs
+src/models/create_conversion_destination_request.rs
+src/models/create_conversion_destination_request_value.rs
 src/models/create_ctwa_ad_201_response.rs
 src/models/create_ctwa_ad_request.rs
 src/models/create_ctwa_ad_request_interests_inner.rs
@@ -1191,6 +1213,9 @@ src/models/get_contact_channels_200_response.rs
 src/models/get_contact_channels_200_response_channels_inner.rs
 src/models/get_content_decay_200_response.rs
 src/models/get_content_decay_200_response_buckets_inner.rs
+src/models/get_conversion_metrics_200_response.rs
+src/models/get_conversion_metrics_200_response_rows_inner.rs
+src/models/get_conversion_metrics_200_response_rows_inner_metrics_value.rs
 src/models/get_daily_metrics_200_response.rs
 src/models/get_daily_metrics_200_response_daily_data_inner.rs
 src/models/get_daily_metrics_200_response_daily_data_inner_metrics.rs
@@ -1406,6 +1431,8 @@ src/models/list_contacts_200_response.rs
 src/models/list_contacts_200_response_contacts_inner.rs
 src/models/list_contacts_200_response_filters.rs
 src/models/list_contacts_200_response_pagination.rs
+src/models/list_conversion_associations_200_response.rs
+src/models/list_conversion_associations_200_response_associations_inner.rs
 src/models/list_conversion_destinations_200_response.rs
 src/models/list_conversion_destinations_200_response_destinations_inner.rs
 src/models/list_custom_fields_200_response.rs
@@ -1508,6 +1535,7 @@ src/models/reject_whats_app_group_join_requests_request.rs
 src/models/release_whats_app_phone_number_200_response.rs
 src/models/release_whats_app_phone_number_200_response_phone_number.rs
 src/models/remove_bookmark_200_response.rs
+src/models/remove_conversion_associations_200_response.rs
 src/models/remove_whats_app_group_participants_request.rs
 src/models/reply_to_inbox_post_200_response.rs
 src/models/reply_to_inbox_post_200_response_data.rs
@@ -1642,6 +1670,8 @@ src/models/update_comment_automation_request.rs
 src/models/update_contact_200_response.rs
 src/models/update_contact_200_response_contact.rs
 src/models/update_contact_request.rs
+src/models/update_conversion_destination_request.rs
+src/models/update_conversion_destination_request_value.rs
 src/models/update_custom_field_200_response.rs
 src/models/update_custom_field_200_response_field.rs
 src/models/update_custom_field_request.rs

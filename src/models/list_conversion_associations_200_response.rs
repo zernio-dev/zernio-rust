@@ -12,34 +12,30 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ListConversionDestinations200Response {
+pub struct ListConversionAssociations200Response {
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<Platform>,
-    #[serde(rename = "destinations", skip_serializing_if = "Option::is_none")]
-    pub destinations: Option<Vec<models::ListConversionDestinations200ResponseDestinationsInner>>,
+    #[serde(rename = "associations", skip_serializing_if = "Option::is_none")]
+    pub associations: Option<Vec<models::ListConversionAssociations200ResponseAssociationsInner>>,
 }
 
-impl ListConversionDestinations200Response {
-    pub fn new() -> ListConversionDestinations200Response {
-        ListConversionDestinations200Response {
+impl ListConversionAssociations200Response {
+    pub fn new() -> ListConversionAssociations200Response {
+        ListConversionAssociations200Response {
             platform: None,
-            destinations: None,
+            associations: None,
         }
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Platform {
-    #[serde(rename = "metaads")]
-    Metaads,
-    #[serde(rename = "googleads")]
-    Googleads,
     #[serde(rename = "linkedinads")]
     Linkedinads,
 }
 
 impl Default for Platform {
     fn default() -> Platform {
-        Self::Metaads
+        Self::Linkedinads
     }
 }

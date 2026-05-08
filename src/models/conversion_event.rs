@@ -14,13 +14,13 @@ use serde::{Deserialize, Serialize};
 /// ConversionEvent : A single conversion event to relay to the ad platform. All PII fields (email, phone, names) are hashed with SHA-256 server-side using each platform's normalization rules before they leave Zernio. Callers send plaintext.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ConversionEvent {
-    /// Standard event name (Purchase, Lead, CompleteRegistration, AddToCart, InitiateCheckout, AddPaymentInfo, Subscribe, StartTrial, ViewContent, Search, Contact, SubmitApplication, Schedule) or a custom string (only supported on platforms that accept custom events).
+    /// Standard event name (Purchase, Lead, CompleteRegistration, AddToCart, InitiateCheckout, AddPaymentInfo, Subscribe, StartTrial, ViewContent, Search, Contact, SubmitApplication, Schedule) or a custom string (only supported on platforms that accept custom events — Meta).  Per-platform behavior: - Meta: free-form; standard names match Meta's built-ins. - Google: ignored — the conversion action's category determines the type. - LinkedIn: ignored — the conversion rule's `type` is locked to the destination.
     #[serde(rename = "eventName")]
     pub event_name: String,
     /// When the conversion happened, in unix seconds.
     #[serde(rename = "eventTime")]
     pub event_time: i32,
-    /// Unique dedup key. The same eventId must be used on pixel + CAPI to prevent double-counting. Mapped to event_id on Meta and transactionId on Google.
+    /// Unique dedup key. The same eventId must be used on pixel + CAPI to prevent double-counting. Mapped to event_id on Meta, transactionId on Google, eventId on LinkedIn (LinkedIn deduplicates against Insight Tag events with the same eventId; the Insight Tag event wins when both arrive).
     #[serde(rename = "eventId")]
     pub event_id: String,
     /// Conversion value in the specified currency.

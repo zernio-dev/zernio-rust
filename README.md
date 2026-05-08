@@ -74,22 +74,30 @@ Class | Method | HTTP request | Description
 *AdCampaignsApi* | [**update_ad_campaign_status**](docs/AdCampaignsApi.md#update_ad_campaign_status) | **PUT** /v1/ads/campaigns/{campaignId}/status | Pause or resume a campaign
 *AdCampaignsApi* | [**update_ad_set**](docs/AdCampaignsApi.md#update_ad_set) | **PUT** /v1/ads/ad-sets/{adSetId} | Update an ad set (budget, status, and/or bid strategy)
 *AdCampaignsApi* | [**update_ad_set_status**](docs/AdCampaignsApi.md#update_ad_set_status) | **PUT** /v1/ads/ad-sets/{adSetId}/status | Pause or resume a single ad set
+*AdsApi* | [**add_conversion_associations**](docs/AdsApi.md#add_conversion_associations) | **POST** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | Associate campaigns with a conversion destination
 *AdsApi* | [**boost_post**](docs/AdsApi.md#boost_post) | **POST** /v1/ads/boost | Boost post as ad
+*AdsApi* | [**create_conversion_destination**](docs/AdsApi.md#create_conversion_destination) | **POST** /v1/accounts/{accountId}/conversion-destinations | Create a conversion destination (LinkedIn)
 *AdsApi* | [**create_ctwa_ad**](docs/AdsApi.md#create_ctwa_ad) | **POST** /v1/ads/ctwa | Create Click-to-WhatsApp ad
 *AdsApi* | [**create_standalone_ad**](docs/AdsApi.md#create_standalone_ad) | **POST** /v1/ads/create | Create standalone ad
 *AdsApi* | [**delete_ad**](docs/AdsApi.md#delete_ad) | **DELETE** /v1/ads/{adId} | Cancel an ad
+*AdsApi* | [**delete_conversion_destination**](docs/AdsApi.md#delete_conversion_destination) | **DELETE** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Soft-delete a conversion destination
 *AdsApi* | [**get_ad**](docs/AdsApi.md#get_ad) | **GET** /v1/ads/{adId} | Get ad details
 *AdsApi* | [**get_ad_analytics**](docs/AdsApi.md#get_ad_analytics) | **GET** /v1/ads/{adId}/analytics | Get ad analytics
 *AdsApi* | [**get_ad_comments**](docs/AdsApi.md#get_ad_comments) | **GET** /v1/ads/{adId}/comments | List comments on an ad
+*AdsApi* | [**get_conversion_destination**](docs/AdsApi.md#get_conversion_destination) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Fetch a single conversion destination
+*AdsApi* | [**get_conversion_metrics**](docs/AdsApi.md#get_conversion_metrics) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/metrics | Fetch attribution metrics for a conversion destination
 *AdsApi* | [**list_ad_accounts**](docs/AdsApi.md#list_ad_accounts) | **GET** /v1/ads/accounts | List ad accounts
 *AdsApi* | [**list_ads**](docs/AdsApi.md#list_ads) | **GET** /v1/ads | List ads
 *AdsApi* | [**list_ads_business_centers**](docs/AdsApi.md#list_ads_business_centers) | **GET** /v1/ads/business-centers | List TikTok Business Centers
+*AdsApi* | [**list_conversion_associations**](docs/AdsApi.md#list_conversion_associations) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | List campaigns associated with a conversion destination
 *AdsApi* | [**list_conversion_destinations**](docs/AdsApi.md#list_conversion_destinations) | **GET** /v1/accounts/{accountId}/conversion-destinations | List destinations for the Conversions API
+*AdsApi* | [**remove_conversion_associations**](docs/AdsApi.md#remove_conversion_associations) | **DELETE** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | Remove campaign↔conversion associations
 *AdsApi* | [**search_ad_interests**](docs/AdsApi.md#search_ad_interests) | **GET** /v1/ads/interests | Search targeting interests
 *AdsApi* | [**search_ad_targeting_locations**](docs/AdsApi.md#search_ad_targeting_locations) | **GET** /v1/ads/targeting/search | Search geo targeting locations (Meta)
 *AdsApi* | [**send_conversions**](docs/AdsApi.md#send_conversions) | **POST** /v1/ads/conversions | Send conversion events to an ad platform
 *AdsApi* | [**send_whats_app_conversion**](docs/AdsApi.md#send_whats_app_conversion) | **POST** /v1/whatsapp/conversions | Send WhatsApp conversion event
 *AdsApi* | [**update_ad**](docs/AdsApi.md#update_ad) | **PUT** /v1/ads/{adId} | Update ad
+*AdsApi* | [**update_conversion_destination**](docs/AdsApi.md#update_conversion_destination) | **PATCH** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Update a conversion destination
 *AnalyticsApi* | [**get_analytics**](docs/AnalyticsApi.md#get_analytics) | **GET** /v1/analytics | Get post analytics
 *AnalyticsApi* | [**get_best_time_to_post**](docs/AnalyticsApi.md#get_best_time_to_post) | **GET** /v1/analytics/best-time | Get best times to post
 *AnalyticsApi* | [**get_content_decay**](docs/AnalyticsApi.md#get_content_decay) | **GET** /v1/analytics/content-decay | Get content performance decay
@@ -340,6 +348,9 @@ Class | Method | HTTP request | Description
  - [AdTreeCampaignPromotedObject](docs/AdTreeCampaignPromotedObject.md)
  - [AddBroadcastRecipients200Response](docs/AddBroadcastRecipients200Response.md)
  - [AddBroadcastRecipientsRequest](docs/AddBroadcastRecipientsRequest.md)
+ - [AddConversionAssociations200Response](docs/AddConversionAssociations200Response.md)
+ - [AddConversionAssociations200ResponseFailedInner](docs/AddConversionAssociations200ResponseFailedInner.md)
+ - [AddConversionAssociationsRequest](docs/AddConversionAssociationsRequest.md)
  - [AddMessageReactionRequest](docs/AddMessageReactionRequest.md)
  - [AddUsersToAdAudience200Response](docs/AddUsersToAdAudience200Response.md)
  - [AddUsersToAdAudienceRequest](docs/AddUsersToAdAudienceRequest.md)
@@ -396,6 +407,7 @@ Class | Method | HTTP request | Description
  - [ConnectWhatsAppCredentialsRequest](docs/ConnectWhatsAppCredentialsRequest.md)
  - [Connected](docs/Connected.md)
  - [ConnectedAccount](docs/ConnectedAccount.md)
+ - [ConversionDestination](docs/ConversionDestination.md)
  - [ConversionEvent](docs/ConversionEvent.md)
  - [ConversionEventItemsInner](docs/ConversionEventItemsInner.md)
  - [ConversionEventUser](docs/ConversionEventUser.md)
@@ -422,6 +434,9 @@ Class | Method | HTTP request | Description
  - [CreateContact200ResponseChannel](docs/CreateContact200ResponseChannel.md)
  - [CreateContact200ResponseContact](docs/CreateContact200ResponseContact.md)
  - [CreateContactRequest](docs/CreateContactRequest.md)
+ - [CreateConversionDestination201Response](docs/CreateConversionDestination201Response.md)
+ - [CreateConversionDestinationRequest](docs/CreateConversionDestinationRequest.md)
+ - [CreateConversionDestinationRequestValue](docs/CreateConversionDestinationRequestValue.md)
  - [CreateCtwaAd201Response](docs/CreateCtwaAd201Response.md)
  - [CreateCtwaAdRequest](docs/CreateCtwaAdRequest.md)
  - [CreateCtwaAdRequestInterestsInner](docs/CreateCtwaAdRequestInterestsInner.md)
@@ -562,6 +577,9 @@ Class | Method | HTTP request | Description
  - [GetContactChannels200ResponseChannelsInner](docs/GetContactChannels200ResponseChannelsInner.md)
  - [GetContentDecay200Response](docs/GetContentDecay200Response.md)
  - [GetContentDecay200ResponseBucketsInner](docs/GetContentDecay200ResponseBucketsInner.md)
+ - [GetConversionMetrics200Response](docs/GetConversionMetrics200Response.md)
+ - [GetConversionMetrics200ResponseRowsInner](docs/GetConversionMetrics200ResponseRowsInner.md)
+ - [GetConversionMetrics200ResponseRowsInnerMetricsValue](docs/GetConversionMetrics200ResponseRowsInnerMetricsValue.md)
  - [GetDailyMetrics200Response](docs/GetDailyMetrics200Response.md)
  - [GetDailyMetrics200ResponseDailyDataInner](docs/GetDailyMetrics200ResponseDailyDataInner.md)
  - [GetDailyMetrics200ResponseDailyDataInnerMetrics](docs/GetDailyMetrics200ResponseDailyDataInnerMetrics.md)
@@ -777,6 +795,8 @@ Class | Method | HTTP request | Description
  - [ListContacts200ResponseContactsInner](docs/ListContacts200ResponseContactsInner.md)
  - [ListContacts200ResponseFilters](docs/ListContacts200ResponseFilters.md)
  - [ListContacts200ResponsePagination](docs/ListContacts200ResponsePagination.md)
+ - [ListConversionAssociations200Response](docs/ListConversionAssociations200Response.md)
+ - [ListConversionAssociations200ResponseAssociationsInner](docs/ListConversionAssociations200ResponseAssociationsInner.md)
  - [ListConversionDestinations200Response](docs/ListConversionDestinations200Response.md)
  - [ListConversionDestinations200ResponseDestinationsInner](docs/ListConversionDestinations200ResponseDestinationsInner.md)
  - [ListCustomFields200Response](docs/ListCustomFields200Response.md)
@@ -878,6 +898,7 @@ Class | Method | HTTP request | Description
  - [ReleaseWhatsAppPhoneNumber200Response](docs/ReleaseWhatsAppPhoneNumber200Response.md)
  - [ReleaseWhatsAppPhoneNumber200ResponsePhoneNumber](docs/ReleaseWhatsAppPhoneNumber200ResponsePhoneNumber.md)
  - [RemoveBookmark200Response](docs/RemoveBookmark200Response.md)
+ - [RemoveConversionAssociations200Response](docs/RemoveConversionAssociations200Response.md)
  - [RemoveWhatsAppGroupParticipantsRequest](docs/RemoveWhatsAppGroupParticipantsRequest.md)
  - [ReplyToInboxPost200Response](docs/ReplyToInboxPost200Response.md)
  - [ReplyToInboxPost200ResponseData](docs/ReplyToInboxPost200ResponseData.md)
@@ -1012,6 +1033,8 @@ Class | Method | HTTP request | Description
  - [UpdateContact200Response](docs/UpdateContact200Response.md)
  - [UpdateContact200ResponseContact](docs/UpdateContact200ResponseContact.md)
  - [UpdateContactRequest](docs/UpdateContactRequest.md)
+ - [UpdateConversionDestinationRequest](docs/UpdateConversionDestinationRequest.md)
+ - [UpdateConversionDestinationRequestValue](docs/UpdateConversionDestinationRequestValue.md)
  - [UpdateCustomField200Response](docs/UpdateCustomField200Response.md)
  - [UpdateCustomField200ResponseField](docs/UpdateCustomField200ResponseField.md)
  - [UpdateCustomFieldRequest](docs/UpdateCustomFieldRequest.md)

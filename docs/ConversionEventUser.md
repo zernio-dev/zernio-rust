@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **phone** | Option<**String**> | Phone number, ideally E.164. Hashed server-side. | [optional]
 **first_name** | Option<**String**> | Plaintext first name. Hashed server-side. | [optional]
 **last_name** | Option<**String**> | Plaintext last name. Hashed server-side. | [optional]
-**external_id** | Option<**String**> | Stable customer identifier (e.g. CRM user ID). Hashed server-side. | [optional]
+**external_id** | Option<**String**> | Stable customer identifier (e.g. CRM user ID). Hashed server-side for Meta and Google. Sent as plaintext to LinkedIn (LinkedIn's Conversions API spec requires the raw value). Maximum effective list size on LinkedIn is 1.  | [optional]
 **ip_address** | Option<**String**> | Client IP address. Sent plaintext. | [optional]
 **user_agent** | Option<**String**> | Client user-agent string. Sent plaintext. | [optional]
 **country** | Option<**String**> | ISO 3166-1 alpha-2 country code, e.g. 'us'. | [optional]
