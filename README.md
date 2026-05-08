@@ -1159,6 +1159,7 @@ Class | Method | HTTP request | Description
  - [WebhookPayloadMessageMessageSenderInstagramProfile](docs/WebhookPayloadMessageMessageSenderInstagramProfile.md)
  - [WebhookPayloadMessageMetadata](docs/WebhookPayloadMessageMetadata.md)
  - [WebhookPayloadMessageMetadataReferral](docs/WebhookPayloadMessageMetadataReferral.md)
+ - [WebhookPayloadMessageMetadataReferralAdsContextData](docs/WebhookPayloadMessageMetadataReferralAdsContextData.md)
  - [WebhookPayloadMessageMetadataStoryReply](docs/WebhookPayloadMessageMetadataStoryReply.md)
  - [WebhookPayloadMessageSent](docs/WebhookPayloadMessageSent.md)
  - [WebhookPayloadMessageSentMessage](docs/WebhookPayloadMessageSentMessage.md)

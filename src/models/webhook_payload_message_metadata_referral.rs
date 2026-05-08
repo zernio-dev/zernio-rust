@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookPayloadMessageMetadataReferral : WhatsApp only. Click-to-WhatsApp (CTWA) ad attribution. Present only on the FIRST inbound message after a user reaches the business via a CTWA ad. Forwarded verbatim from Meta's referral envelope so it can be replayed to the Conversions API for Business Messaging. Attribution window is 7 days from click.
+/// WebhookPayloadMessageMetadataReferral : Ad-click attribution forwarded verbatim from Meta. Populated only on the FIRST inbound message after the click; absent on subsequent messages of the same conversation.  The populated subset identifies the source platform:   - `ctwa_clid` and `source_*` fields: WhatsApp CTWA     (Click-to-WhatsApp). Attribution window is 7 days from click.     Forward to Meta Conversions API for Business Messaging replay.   - `ad_id` and `ads_context_data`: Facebook Messenger CTM     (Click-to-Message) or Instagram CTD (Click-to-Direct). Use     `ad_id` to attribute the conversation to a specific ad.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadMessageMetadataReferral {
     /// Meta's GCLID-equivalent click identifier.
@@ -35,10 +35,24 @@ pub struct WebhookPayloadMessageMetadataReferral {
     pub video_url: Option<String>,
     #[serde(rename = "thumbnail_url", skip_serializing_if = "Option::is_none")]
     pub thumbnail_url: Option<String>,
+    /// Facebook Messenger CTM / Instagram CTD only. The Meta ad ID the user clicked to start the conversation.
+    #[serde(rename = "ad_id", skip_serializing_if = "Option::is_none")]
+    pub ad_id: Option<String>,
+    /// Optional `ref` parameter passed through from the Meta ad creative. Facebook Messenger CTM / Instagram CTD only.
+    #[serde(rename = "ref", skip_serializing_if = "Option::is_none")]
+    pub r#ref: Option<String>,
+    /// Meta-supplied source identifier (e.g. `ADS`). Facebook Messenger CTM / Instagram CTD only.
+    #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
+    pub source: Option<String>,
+    /// Meta-supplied referral type (e.g. `OPEN_THREAD`). Facebook Messenger CTM / Instagram CTD only.
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<String>,
+    #[serde(rename = "ads_context_data", skip_serializing_if = "Option::is_none")]
+    pub ads_context_data: Option<Box<models::WebhookPayloadMessageMetadataReferralAdsContextData>>,
 }
 
 impl WebhookPayloadMessageMetadataReferral {
-    /// WhatsApp only. Click-to-WhatsApp (CTWA) ad attribution. Present only on the FIRST inbound message after a user reaches the business via a CTWA ad. Forwarded verbatim from Meta's referral envelope so it can be replayed to the Conversions API for Business Messaging. Attribution window is 7 days from click.
+    /// Ad-click attribution forwarded verbatim from Meta. Populated only on the FIRST inbound message after the click; absent on subsequent messages of the same conversation.  The populated subset identifies the source platform:   - `ctwa_clid` and `source_*` fields: WhatsApp CTWA     (Click-to-WhatsApp). Attribution window is 7 days from click.     Forward to Meta Conversions API for Business Messaging replay.   - `ad_id` and `ads_context_data`: Facebook Messenger CTM     (Click-to-Message) or Instagram CTD (Click-to-Direct). Use     `ad_id` to attribute the conversation to a specific ad.
     pub fn new() -> WebhookPayloadMessageMetadataReferral {
         WebhookPayloadMessageMetadataReferral {
             ctwa_clid: None,
@@ -51,6 +65,11 @@ impl WebhookPayloadMessageMetadataReferral {
             image_url: None,
             video_url: None,
             thumbnail_url: None,
+            ad_id: None,
+            r#ref: None,
+            source: None,
+            r#type: None,
+            ads_context_data: None,
         }
     }
 }

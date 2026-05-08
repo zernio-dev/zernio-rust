@@ -1670,6 +1670,8 @@ pub mod webhook_payload_message_metadata;
 pub use self::webhook_payload_message_metadata::WebhookPayloadMessageMetadata;
 pub mod webhook_payload_message_metadata_referral;
 pub use self::webhook_payload_message_metadata_referral::WebhookPayloadMessageMetadataReferral;
+pub mod webhook_payload_message_metadata_referral_ads_context_data;
+pub use self::webhook_payload_message_metadata_referral_ads_context_data::WebhookPayloadMessageMetadataReferralAdsContextData;
 pub mod webhook_payload_message_metadata_story_reply;
 pub use self::webhook_payload_message_metadata_story_reply::WebhookPayloadMessageMetadataStoryReply;
 pub mod webhook_payload_message_sent;
