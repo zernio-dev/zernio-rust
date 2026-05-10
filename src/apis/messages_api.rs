@@ -684,7 +684,7 @@ pub async fn send_inbox_message(
     }
 }
 
-/// Show a typing indicator in a conversation. Platform support: - Facebook Messenger: Shows \"Page is typing...\" for 20 seconds - Telegram: Shows \"Bot is typing...\" for 5 seconds - All others: Returns 200 but no-op (platform doesn't support it)  Typing indicators are best-effort. The endpoint always returns 200 even if the platform call fails.
+/// Show a typing indicator in a conversation. Platform support: - Facebook Messenger: Shows \"Page is typing...\" for 20 seconds - Telegram: Shows \"Bot is typing...\" for 5 seconds - WhatsApp: Shows \"typing...\" for up to 25 seconds. Requires a recent inbound message in the conversation (Meta references the inbound message id) and also marks that message as read as a side-effect. - All others: Returns 200 but no-op (platform doesn't support it)  Typing indicators are best-effort. The endpoint always returns 200 even if the platform call fails.
 pub async fn send_typing_indicator(
     configuration: &configuration::Configuration,
     conversation_id: &str,
