@@ -13,9 +13,9 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct XApiPricingTiersInner {
-    /// Historical bucket key used in `xApiCalls` aggregation.
+    /// Tier key derived from price (e.g. `x_api_005` for $0.005, `x_api_200` for $0.200). The first three keys map to the legacy `xApiCalls` aggregate; new tiers (e.g. `x_api_200` for the URL tier added April 2026) are surfaced here but not in the legacy shape.
     #[serde(rename = "tier", skip_serializing_if = "Option::is_none")]
-    pub tier: Option<Tier>,
+    pub tier: Option<String>,
     #[serde(rename = "pricePerCallUsd", skip_serializing_if = "Option::is_none")]
     pub price_per_call_usd: Option<f64>,
     #[serde(rename = "operationCount", skip_serializing_if = "Option::is_none")]
@@ -29,21 +29,5 @@ impl XApiPricingTiersInner {
             price_per_call_usd: None,
             operation_count: None,
         }
-    }
-}
-/// Historical bucket key used in `xApiCalls` aggregation.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Tier {
-    #[serde(rename = "x_api_005")]
-    XApi005,
-    #[serde(rename = "x_api_010")]
-    XApi010,
-    #[serde(rename = "x_api_015")]
-    XApi015,
-}
-
-impl Default for Tier {
-    fn default() -> Tier {
-        Self::XApi005
     }
 }

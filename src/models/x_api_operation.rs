@@ -28,9 +28,9 @@ pub struct XApiOperation {
     /// Per-call price in cents. Fractional values are intentional.
     #[serde(rename = "pricePerCallCents", skip_serializing_if = "Option::is_none")]
     pub price_per_call_cents: Option<f64>,
-    /// Which aggregate price tier this operation falls into.
+    /// Tier key derived from `pricePerCallUsd` (e.g. `x_api_005` for $0.005, `x_api_200` for $0.200). Useful for grouping operations by price in dashboards.
     #[serde(rename = "tier", skip_serializing_if = "Option::is_none")]
-    pub tier: Option<Tier>,
+    pub tier: Option<String>,
     /// Zernio platform methods that emit this operation, with their metering rule.
     #[serde(rename = "triggeredBy", skip_serializing_if = "Option::is_none")]
     pub triggered_by: Option<Vec<models::XApiOperationTriggeredByInner>>,
@@ -48,21 +48,5 @@ impl XApiOperation {
             tier: None,
             triggered_by: None,
         }
-    }
-}
-/// Which aggregate price tier this operation falls into.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Tier {
-    #[serde(rename = "x_api_005")]
-    XApi005,
-    #[serde(rename = "x_api_010")]
-    XApi010,
-    #[serde(rename = "x_api_015")]
-    XApi015,
-}
-
-impl Default for Tier {
-    fn default() -> Tier {
-        Self::XApi005
     }
 }

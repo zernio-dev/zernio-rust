@@ -11,22 +11,22 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UsageStatsUsageXApiCalls : Metronome users only. Aggregated X API call counts bucketed by price tier (backward-compat). For per-operation breakdown use `xApiCallsByOperation`.
+/// UsageStatsUsageXApiCalls : **Deprecated.** Legacy 3-tier aggregate. Operations outside the three historical prices ($0.005/$0.010/$0.015) — notably the $0.200 \"Posts with URL\" tier added April 2026 — are silently excluded from this shape. Use `xApiCallsByOperation` instead; it captures every tier and is the source of truth for per-operation call counts.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UsageStatsUsageXApiCalls {
-    /// Calls at $0.005 per call (reads, list mgmt, bookmarks, etc.)
+    /// Calls at $0.005 per call (reads, lists, bookmarks, content manage, etc.)
     #[serde(rename = "x_api_005", skip_serializing_if = "Option::is_none")]
     pub x_api_005: Option<i32>,
-    /// Calls at $0.010 per call (publish/delete, DM reads, follows)
+    /// Calls at $0.010 per call (user reads, DM reads, follow reads, trends, list create, privacy update)
     #[serde(rename = "x_api_010", skip_serializing_if = "Option::is_none")]
     pub x_api_010: Option<i32>,
-    /// Calls at $0.015 per call (sending DMs, follow actions)
+    /// Calls at $0.015 per call (posts/replies, DM sends, user interactions)
     #[serde(rename = "x_api_015", skip_serializing_if = "Option::is_none")]
     pub x_api_015: Option<i32>,
 }
 
 impl UsageStatsUsageXApiCalls {
-    /// Metronome users only. Aggregated X API call counts bucketed by price tier (backward-compat). For per-operation breakdown use `xApiCallsByOperation`.
+    /// **Deprecated.** Legacy 3-tier aggregate. Operations outside the three historical prices ($0.005/$0.010/$0.015) — notably the $0.200 \"Posts with URL\" tier added April 2026 — are silently excluded from this shape. Use `xApiCallsByOperation` instead; it captures every tier and is the source of truth for per-operation call counts.
     pub fn new() -> UsageStatsUsageXApiCalls {
         UsageStatsUsageXApiCalls {
             x_api_005: None,

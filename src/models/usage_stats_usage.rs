@@ -28,7 +28,7 @@ pub struct UsageStatsUsage {
     pub connected_accounts: Option<i32>,
     #[serde(rename = "xApiCalls", skip_serializing_if = "Option::is_none")]
     pub x_api_calls: Option<Box<models::UsageStatsUsageXApiCalls>>,
-    /// Metronome users only. Per-operation X API call counts keyed by operation (e.g. `posts_read`, `content_create`). Resolve each key to price and metadata via `GET /v1/billing/x-pricing`.
+    /// Metronome users only. Per-operation X API call counts keyed by operation (e.g. `posts_read`, `content_create`, `content_create_with_url`). Resolve each key to price and metadata via `GET /v1/billing/x-pricing`. This is the canonical source — covers every price tier including the $0.200 URL tier that `xApiCalls` excludes.
     #[serde(
         rename = "xApiCallsByOperation",
         skip_serializing_if = "Option::is_none"
