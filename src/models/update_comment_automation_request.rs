@@ -21,6 +21,9 @@ pub struct UpdateCommentAutomationRequest {
     pub match_mode: Option<MatchMode>,
     #[serde(rename = "dmMessage", skip_serializing_if = "Option::is_none")]
     pub dm_message: Option<String>,
+    /// Inline DM buttons (1-3). Pass [] to clear all buttons.
+    #[serde(rename = "buttons", skip_serializing_if = "Option::is_none")]
+    pub buttons: Option<Vec<models::DmButton>>,
     #[serde(rename = "commentReply", skip_serializing_if = "Option::is_none")]
     pub comment_reply: Option<String>,
     #[serde(rename = "isActive", skip_serializing_if = "Option::is_none")]
@@ -34,6 +37,7 @@ impl UpdateCommentAutomationRequest {
             keywords: None,
             match_mode: None,
             dm_message: None,
+            buttons: None,
             comment_reply: None,
             is_active: None,
         }

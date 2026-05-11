@@ -515,6 +515,7 @@ Class | Method | HTTP request | Description
  - [DiscordPlatformDataPollAnswersInnerPollMedia](docs/DiscordPlatformDataPollAnswersInnerPollMedia.md)
  - [DiscordPlatformDataPollQuestion](docs/DiscordPlatformDataPollQuestion.md)
  - [DiscordPlatformDataThreadFromMessage](docs/DiscordPlatformDataThreadFromMessage.md)
+ - [DmButton](docs/DmButton.md)
  - [DuplicateAdCampaign200Response](docs/DuplicateAdCampaign200Response.md)
  - [DuplicateAdCampaignRequest](docs/DuplicateAdCampaignRequest.md)
  - [EditInboxMessage200Response](docs/EditInboxMessage200Response.md)

@@ -12,7 +12,8 @@ Name | Type | Description | Notes
 **name** | **String** | Automation label | 
 **keywords** | Option<**Vec<String>**> | Trigger keywords (empty = any comment triggers) | [optional]
 **match_mode** | Option<**MatchMode**> |  (enum: exact, contains) | [optional][default to Contains]
-**dm_message** | **String** | DM text to send to commenter | 
+**dm_message** | **String** | DM text to send to commenter. Max 640 chars when buttons are set, otherwise ~1000. | 
+**buttons** | Option<[**Vec<models::DmButton>**](DmButton.md)> | Optional inline DM buttons (1-3). Phone buttons are Facebook-only. Omit or pass [] for a plain-text DM. | [optional]
 **comment_reply** | Option<**String**> | Optional public reply to the comment | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

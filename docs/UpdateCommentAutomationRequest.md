@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **keywords** | Option<**Vec<String>**> |  | [optional]
 **match_mode** | Option<**MatchMode**> |  (enum: exact, contains) | [optional]
 **dm_message** | Option<**String**> |  | [optional]
+**buttons** | Option<[**Vec<models::DmButton>**](DmButton.md)> | Inline DM buttons (1-3). Pass [] to clear all buttons. | [optional]
 **comment_reply** | Option<**String**> |  | [optional]
 **is_active** | Option<**bool**> |  | [optional]
 

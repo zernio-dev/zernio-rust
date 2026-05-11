@@ -33,6 +33,9 @@ pub struct GetCommentAutomation200ResponseAutomation {
     pub match_mode: Option<MatchMode>,
     #[serde(rename = "dmMessage", skip_serializing_if = "Option::is_none")]
     pub dm_message: Option<String>,
+    /// Inline DM buttons (up to 3). Omitted when none are set.
+    #[serde(rename = "buttons", skip_serializing_if = "Option::is_none")]
+    pub buttons: Option<Vec<models::DmButton>>,
     #[serde(rename = "commentReply", skip_serializing_if = "Option::is_none")]
     pub comment_reply: Option<String>,
     #[serde(rename = "isActive", skip_serializing_if = "Option::is_none")]
@@ -58,6 +61,7 @@ impl GetCommentAutomation200ResponseAutomation {
             keywords: None,
             match_mode: None,
             dm_message: None,
+            buttons: None,
             comment_reply: None,
             is_active: None,
             stats: None,

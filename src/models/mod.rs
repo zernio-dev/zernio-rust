@@ -382,6 +382,8 @@ pub mod discord_platform_data_poll_question;
 pub use self::discord_platform_data_poll_question::DiscordPlatformDataPollQuestion;
 pub mod discord_platform_data_thread_from_message;
 pub use self::discord_platform_data_thread_from_message::DiscordPlatformDataThreadFromMessage;
+pub mod dm_button;
+pub use self::dm_button::DmButton;
 pub mod duplicate_ad_campaign_200_response;
 pub use self::duplicate_ad_campaign_200_response::DuplicateAdCampaign200Response;
 pub mod duplicate_ad_campaign_request;

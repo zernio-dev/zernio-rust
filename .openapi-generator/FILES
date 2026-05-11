@@ -209,6 +209,7 @@ docs/DiscordPlatformDataPollAnswersInner.md
 docs/DiscordPlatformDataPollAnswersInnerPollMedia.md
 docs/DiscordPlatformDataPollQuestion.md
 docs/DiscordPlatformDataThreadFromMessage.md
+docs/DmButton.md
 docs/DuplicateAdCampaign200Response.md
 docs/DuplicateAdCampaignRequest.md
 docs/EditInboxMessage200Response.md
@@ -1152,6 +1153,7 @@ src/models/discord_platform_data_poll_answers_inner.rs
 src/models/discord_platform_data_poll_answers_inner_poll_media.rs
 src/models/discord_platform_data_poll_question.rs
 src/models/discord_platform_data_thread_from_message.rs
+src/models/dm_button.rs
 src/models/duplicate_ad_campaign_200_response.rs
 src/models/duplicate_ad_campaign_request.rs
 src/models/edit_inbox_message_200_response.rs

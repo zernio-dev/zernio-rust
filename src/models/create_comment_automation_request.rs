@@ -35,9 +35,12 @@ pub struct CreateCommentAutomationRequest {
     pub keywords: Option<Vec<String>>,
     #[serde(rename = "matchMode", skip_serializing_if = "Option::is_none")]
     pub match_mode: Option<MatchMode>,
-    /// DM text to send to commenter
+    /// DM text to send to commenter. Max 640 chars when buttons are set, otherwise ~1000.
     #[serde(rename = "dmMessage")]
     pub dm_message: String,
+    /// Optional inline DM buttons (1-3). Phone buttons are Facebook-only. Omit or pass [] for a plain-text DM.
+    #[serde(rename = "buttons", skip_serializing_if = "Option::is_none")]
+    pub buttons: Option<Vec<models::DmButton>>,
     /// Optional public reply to the comment
     #[serde(rename = "commentReply", skip_serializing_if = "Option::is_none")]
     pub comment_reply: Option<String>,
@@ -60,6 +63,7 @@ impl CreateCommentAutomationRequest {
             keywords: None,
             match_mode: None,
             dm_message,
+            buttons: None,
             comment_reply: None,
         }
     }
