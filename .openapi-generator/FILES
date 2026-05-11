@@ -36,6 +36,8 @@ docs/AddConversionAssociations200Response.md
 docs/AddConversionAssociations200ResponseFailedInner.md
 docs/AddConversionAssociationsRequest.md
 docs/AddMessageReactionRequest.md
+docs/AddTrackingTagSharedAccount201Response.md
+docs/AddTrackingTagSharedAccountRequest.md
 docs/AddUsersToAdAudience200Response.md
 docs/AddUsersToAdAudienceRequest.md
 docs/AddUsersToAdAudienceRequestUsersInner.md
@@ -174,6 +176,8 @@ docs/CreateStandaloneAdRequestImages.md
 docs/CreateStandaloneAdRequestPromotedObject.md
 docs/CreateStandaloneAdRequestRegionsInner.md
 docs/CreateStandaloneAdRequestVideo.md
+docs/CreateTrackingTag201Response.md
+docs/CreateTrackingTagRequest.md
 docs/CreateWebhookSettingsRequest.md
 docs/CreateWhatsAppFlow200Response.md
 docs/CreateWhatsAppFlow200ResponseFlow.md
@@ -393,6 +397,8 @@ docs/GetTikTokCreatorInfo200ResponseCommercialContentTypesInner.md
 docs/GetTikTokCreatorInfo200ResponseCreator.md
 docs/GetTikTokCreatorInfo200ResponsePostingLimits.md
 docs/GetTikTokCreatorInfo200ResponsePrivacyLevelsInner.md
+docs/GetTrackingTagStats200Response.md
+docs/GetTrackingTagStats200ResponseStats.md
 docs/GetUser200Response.md
 docs/GetUser200ResponseUser.md
 docs/GetWebhookSettings200Response.md
@@ -543,6 +549,8 @@ docs/ListSequences200Response.md
 docs/ListSequences200ResponseSequencesInner.md
 docs/ListSnapchatProfiles200Response.md
 docs/ListSnapchatProfiles200ResponsePublicProfilesInner.md
+docs/ListTrackingTagSharedAccounts200Response.md
+docs/ListTrackingTags200Response.md
 docs/ListUsers200Response.md
 docs/ListUsers200ResponseUsersInner.md
 docs/ListWhatsAppFlows200Response.md
@@ -702,6 +710,7 @@ docs/SetInstagramIceBreakersRequestIceBreakersInner.md
 docs/SetMessengerMenuRequest.md
 docs/SetTelegramCommandsRequest.md
 docs/SetTelegramCommandsRequestCommandsInner.md
+docs/SharedAdAccount.md
 docs/SnapchatPlatformData.md
 docs/SocialAccount.md
 docs/SocialAccountProfileId.md
@@ -709,6 +718,7 @@ docs/TelegramPlatformData.md
 docs/TestWebhookRequest.md
 docs/ThreadsPlatformData.md
 docs/TikTokPlatformData.md
+docs/TrackingTag.md
 docs/TwitterEngagementApi.md
 docs/TwitterPlatformData.md
 docs/TwitterPlatformDataPoll.md
@@ -798,6 +808,7 @@ docs/UpdateQueueSlotRequest.md
 docs/UpdateRedditSubredditsRequest.md
 docs/UpdateSequence200Response.md
 docs/UpdateSequence200ResponseSequence.md
+docs/UpdateTrackingTagRequest.md
 docs/UpdateWebhookSettings200Response.md
 docs/UpdateWebhookSettingsRequest.md
 docs/UpdateWhatsAppBusinessProfileRequest.md
@@ -990,6 +1001,8 @@ src/models/add_conversion_associations_200_response.rs
 src/models/add_conversion_associations_200_response_failed_inner.rs
 src/models/add_conversion_associations_request.rs
 src/models/add_message_reaction_request.rs
+src/models/add_tracking_tag_shared_account_201_response.rs
+src/models/add_tracking_tag_shared_account_request.rs
 src/models/add_users_to_ad_audience_200_response.rs
 src/models/add_users_to_ad_audience_request.rs
 src/models/add_users_to_ad_audience_request_users_inner.rs
@@ -1120,6 +1133,8 @@ src/models/create_standalone_ad_request_images.rs
 src/models/create_standalone_ad_request_promoted_object.rs
 src/models/create_standalone_ad_request_regions_inner.rs
 src/models/create_standalone_ad_request_video.rs
+src/models/create_tracking_tag_201_response.rs
+src/models/create_tracking_tag_request.rs
 src/models/create_webhook_settings_request.rs
 src/models/create_whats_app_flow_200_response.rs
 src/models/create_whats_app_flow_200_response_flow.rs
@@ -1337,6 +1352,8 @@ src/models/get_tik_tok_creator_info_200_response_commercial_content_types_inner.
 src/models/get_tik_tok_creator_info_200_response_creator.rs
 src/models/get_tik_tok_creator_info_200_response_posting_limits.rs
 src/models/get_tik_tok_creator_info_200_response_privacy_levels_inner.rs
+src/models/get_tracking_tag_stats_200_response.rs
+src/models/get_tracking_tag_stats_200_response_stats.rs
 src/models/get_user_200_response.rs
 src/models/get_user_200_response_user.rs
 src/models/get_webhook_settings_200_response.rs
@@ -1478,6 +1495,8 @@ src/models/list_sequences_200_response.rs
 src/models/list_sequences_200_response_sequences_inner.rs
 src/models/list_snapchat_profiles_200_response.rs
 src/models/list_snapchat_profiles_200_response_public_profiles_inner.rs
+src/models/list_tracking_tag_shared_accounts_200_response.rs
+src/models/list_tracking_tags_200_response.rs
 src/models/list_users_200_response.rs
 src/models/list_users_200_response_users_inner.rs
 src/models/list_whats_app_flows_200_response.rs
@@ -1629,6 +1648,7 @@ src/models/set_instagram_ice_breakers_request_ice_breakers_inner.rs
 src/models/set_messenger_menu_request.rs
 src/models/set_telegram_commands_request.rs
 src/models/set_telegram_commands_request_commands_inner.rs
+src/models/shared_ad_account.rs
 src/models/snapchat_platform_data.rs
 src/models/social_account.rs
 src/models/social_account_profile_id.rs
@@ -1636,6 +1656,7 @@ src/models/telegram_platform_data.rs
 src/models/test_webhook_request.rs
 src/models/threads_platform_data.rs
 src/models/tik_tok_platform_data.rs
+src/models/tracking_tag.rs
 src/models/twitter_platform_data.rs
 src/models/twitter_platform_data_poll.rs
 src/models/twitter_platform_data_thread_items_inner.rs
@@ -1724,6 +1745,7 @@ src/models/update_queue_slot_request.rs
 src/models/update_reddit_subreddits_request.rs
 src/models/update_sequence_200_response.rs
 src/models/update_sequence_200_response_sequence.rs
+src/models/update_tracking_tag_request.rs
 src/models/update_webhook_settings_200_response.rs
 src/models/update_webhook_settings_request.rs
 src/models/update_whats_app_business_profile_request.rs
