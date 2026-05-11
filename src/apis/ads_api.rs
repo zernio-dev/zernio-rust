@@ -26,18 +26,6 @@ pub enum AddConversionAssociationsError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`add_tracking_tag_shared_account`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum AddTrackingTagSharedAccountError {
-    Status400(),
-    Status401(models::InlineObject),
-    Status403(),
-    Status404(),
-    Status405(),
-    UnknownValue(serde_json::Value),
-}
-
 /// struct for typed errors of method [`boost_post`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -83,18 +71,6 @@ pub enum CreateStandaloneAdError {
     Status401(models::InlineObject),
     Status403(),
     Status422(),
-    UnknownValue(serde_json::Value),
-}
-
-/// struct for typed errors of method [`create_tracking_tag`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum CreateTrackingTagError {
-    Status400(),
-    Status401(models::InlineObject),
-    Status403(),
-    Status404(),
-    Status405(),
     UnknownValue(serde_json::Value),
 }
 
@@ -177,29 +153,6 @@ pub enum GetConversionMetricsError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`get_tracking_tag`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum GetTrackingTagError {
-    Status401(models::InlineObject),
-    Status403(),
-    Status404(),
-    Status405(),
-    UnknownValue(serde_json::Value),
-}
-
-/// struct for typed errors of method [`get_tracking_tag_stats`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum GetTrackingTagStatsError {
-    Status400(),
-    Status401(models::InlineObject),
-    Status403(),
-    Status404(),
-    Status405(),
-    UnknownValue(serde_json::Value),
-}
-
 /// struct for typed errors of method [`list_ad_accounts`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -253,29 +206,6 @@ pub enum ListConversionDestinationsError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`list_tracking_tag_shared_accounts`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum ListTrackingTagSharedAccountsError {
-    Status401(models::InlineObject),
-    Status403(),
-    Status404(),
-    Status405(),
-    UnknownValue(serde_json::Value),
-}
-
-/// struct for typed errors of method [`list_tracking_tags`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum ListTrackingTagsError {
-    Status400(),
-    Status401(models::InlineObject),
-    Status403(),
-    Status404(),
-    Status405(),
-    UnknownValue(serde_json::Value),
-}
-
 /// struct for typed errors of method [`remove_conversion_associations`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -286,18 +216,6 @@ pub enum RemoveConversionAssociationsError {
     Status404(),
     Status405(),
     Status429(),
-    UnknownValue(serde_json::Value),
-}
-
-/// struct for typed errors of method [`remove_tracking_tag_shared_account`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum RemoveTrackingTagSharedAccountError {
-    Status400(),
-    Status401(models::InlineObject),
-    Status403(),
-    Status404(),
-    Status405(),
     UnknownValue(serde_json::Value),
 }
 
@@ -368,18 +286,6 @@ pub enum UpdateConversionDestinationError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`update_tracking_tag`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum UpdateTrackingTagError {
-    Status400(),
-    Status401(models::InlineObject),
-    Status403(),
-    Status404(),
-    Status405(),
-    UnknownValue(serde_json::Value),
-}
-
 /// Associate one or more campaigns with this conversion rule. Returns a per-campaign success/failure result so callers can retry only the rows that failed (e.g. wrong campaign type for the rule's objective).
 pub async fn add_conversion_associations(
     configuration: &configuration::Configuration,
@@ -431,66 +337,6 @@ pub async fn add_conversion_associations(
     } else {
         let content = resp.text().await?;
         let entity: Option<AddConversionAssociationsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
-/// Shares the pixel with another ad account so campaigns/audiences in that account can use it. Requires that you administer both the pixel's owning Business Manager and the target ad account; a pixel on a personal (non-BM) ad account can't be shared (Meta will reject the call). Meta only (platform `metaads`); other platforms return 405.
-pub async fn add_tracking_tag_shared_account(
-    configuration: &configuration::Configuration,
-    account_id: &str,
-    tag_id: &str,
-    add_tracking_tag_shared_account_request: models::AddTrackingTagSharedAccountRequest,
-) -> Result<models::AddTrackingTagSharedAccount201Response, Error<AddTrackingTagSharedAccountError>>
-{
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_account_id = account_id;
-    let p_path_tag_id = tag_id;
-    let p_body_add_tracking_tag_shared_account_request = add_tracking_tag_shared_account_request;
-
-    let uri_str = format!(
-        "{}/v1/accounts/{accountId}/tracking-tags/{tagId}/shared-accounts",
-        configuration.base_path,
-        accountId = crate::apis::urlencode(p_path_account_id),
-        tagId = crate::apis::urlencode(p_path_tag_id)
-    );
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_add_tracking_tag_shared_account_request);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AddTrackingTagSharedAccount201Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AddTrackingTagSharedAccount201Response`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<AddTrackingTagSharedAccountError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -698,62 +544,6 @@ pub async fn create_standalone_ad(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateStandaloneAdError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
-/// Creates a Meta Pixel on the given ad account (`POST /act_{id}/adspixels` — `name` is the only input). Returns the created tag including its install `code`. The pixel is owned by the Business Manager that owns the ad account; a pixel created on a personal (non-BM) ad account ends up with `ownerBusinessId: null` and can't be shared with other ad accounts.  Creating a pixel does NOT install it — install the returned `code` snippet on the site, or send events server-side via `POST /v1/ads/conversions`. The check `installed` is derived from `lastFiredTime`.  NOT idempotent: each call creates a new pixel. Do not retry blindly on timeout. Meta only (platform `metaads`); other platforms return 405.
-pub async fn create_tracking_tag(
-    configuration: &configuration::Configuration,
-    account_id: &str,
-    create_tracking_tag_request: models::CreateTrackingTagRequest,
-) -> Result<models::CreateTrackingTag201Response, Error<CreateTrackingTagError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_account_id = account_id;
-    let p_body_create_tracking_tag_request = create_tracking_tag_request;
-
-    let uri_str = format!(
-        "{}/v1/accounts/{accountId}/tracking-tags",
-        configuration.base_path,
-        accountId = crate::apis::urlencode(p_path_account_id)
-    );
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_create_tracking_tag_request);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateTrackingTag201Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateTrackingTag201Response`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<CreateTrackingTagError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1170,129 +960,6 @@ pub async fn get_conversion_metrics(
     }
 }
 
-/// Returns the full tag record including the base-code `code` snippet, `lastFiredTime`, `ownerBusinessId`, `isUnavailable`, etc. Meta only (platform `metaads`); other platforms return 405.
-pub async fn get_tracking_tag(
-    configuration: &configuration::Configuration,
-    account_id: &str,
-    tag_id: &str,
-) -> Result<models::CreateTrackingTag201Response, Error<GetTrackingTagError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_account_id = account_id;
-    let p_path_tag_id = tag_id;
-
-    let uri_str = format!(
-        "{}/v1/accounts/{accountId}/tracking-tags/{tagId}",
-        configuration.base_path,
-        accountId = crate::apis::urlencode(p_path_account_id),
-        tagId = crate::apis::urlencode(p_path_tag_id)
-    );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateTrackingTag201Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateTrackingTag201Response`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<GetTrackingTagError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
-/// Returns aggregated event counts for the pixel (`GET /{pixel_id}/stats`). Rows are passed through from Meta as-is — their shape depends on the `aggregation` requested. Meta only (platform `metaads`); other platforms return 405.
-pub async fn get_tracking_tag_stats(
-    configuration: &configuration::Configuration,
-    account_id: &str,
-    tag_id: &str,
-    aggregation: Option<&str>,
-    start_time: Option<i32>,
-    end_time: Option<i32>,
-) -> Result<models::GetTrackingTagStats200Response, Error<GetTrackingTagStatsError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_account_id = account_id;
-    let p_path_tag_id = tag_id;
-    let p_query_aggregation = aggregation;
-    let p_query_start_time = start_time;
-    let p_query_end_time = end_time;
-
-    let uri_str = format!(
-        "{}/v1/accounts/{accountId}/tracking-tags/{tagId}/stats",
-        configuration.base_path,
-        accountId = crate::apis::urlencode(p_path_account_id),
-        tagId = crate::apis::urlencode(p_path_tag_id)
-    );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
-
-    if let Some(ref param_value) = p_query_aggregation {
-        req_builder = req_builder.query(&[("aggregation", &param_value.to_string())]);
-    }
-    if let Some(ref param_value) = p_query_start_time {
-        req_builder = req_builder.query(&[("startTime", &param_value.to_string())]);
-    }
-    if let Some(ref param_value) = p_query_end_time {
-        req_builder = req_builder.query(&[("endTime", &param_value.to_string())]);
-    }
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTrackingTagStats200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTrackingTagStats200Response`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<GetTrackingTagStatsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
 /// Returns the platform ad accounts available for the given social account (e.g. Meta ad accounts, TikTok advertiser IDs, Google Ads customer IDs).  For TikTok agencies: enumerates every advertiser under every Business Center the token can read (paginated server-side), then chunks the lookup against TikTok's `/advertiser/info/` endpoint (which has a per-call cap of ≤100 IDs). Solo advertisers without a BC fall back to the OAuth-time `advertiser_ids` list. Cached for 1h on the SocialAccount; lazy-refreshed on first call after expiry.
 pub async fn list_ad_accounts(
     configuration: &configuration::Configuration,
@@ -1607,120 +1274,6 @@ pub async fn list_conversion_destinations(
     }
 }
 
-/// Meta only (platform `metaads`); other platforms return 405.
-pub async fn list_tracking_tag_shared_accounts(
-    configuration: &configuration::Configuration,
-    account_id: &str,
-    tag_id: &str,
-) -> Result<
-    models::ListTrackingTagSharedAccounts200Response,
-    Error<ListTrackingTagSharedAccountsError>,
-> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_account_id = account_id;
-    let p_path_tag_id = tag_id;
-
-    let uri_str = format!(
-        "{}/v1/accounts/{accountId}/tracking-tags/{tagId}/shared-accounts",
-        configuration.base_path,
-        accountId = crate::apis::urlencode(p_path_account_id),
-        tagId = crate::apis::urlencode(p_path_tag_id)
-    );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListTrackingTagSharedAccounts200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListTrackingTagSharedAccounts200Response`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<ListTrackingTagSharedAccountsError> =
-            serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
-/// Returns the tracking tags (Meta Pixels) the connected ads account can see. Pass `?adAccountId=act_...` to scope the list to a single ad account; omit it to list every pixel reachable by the token (the name is then suffixed with the ad account it was discovered on, for disambiguation). The list view omits `code` — call `getTrackingTag` for the install snippet and full detail.  Meta only today (platform `metaads`); other platforms return 405. The `accountId` must be the Meta *ads* SocialAccount created by the Ads add-on connect flow, not a Facebook/Instagram posting account. Get your `act_...` ids from `GET /v1/ads/accounts`.
-pub async fn list_tracking_tags(
-    configuration: &configuration::Configuration,
-    account_id: &str,
-    ad_account_id: Option<&str>,
-) -> Result<models::ListTrackingTags200Response, Error<ListTrackingTagsError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_account_id = account_id;
-    let p_query_ad_account_id = ad_account_id;
-
-    let uri_str = format!(
-        "{}/v1/accounts/{accountId}/tracking-tags",
-        configuration.base_path,
-        accountId = crate::apis::urlencode(p_path_account_id)
-    );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
-
-    if let Some(ref param_value) = p_query_ad_account_id {
-        req_builder = req_builder.query(&[("adAccountId", &param_value.to_string())]);
-    }
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListTrackingTags200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListTrackingTags200Response`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<ListTrackingTagsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
 /// Remove one or more campaign associations from this conversion rule. Pass `adAccountId` and `campaignIds` as query parameters (`campaignIds` is comma-separated). The route also accepts a JSON body with the same fields for clients that prefer DELETE-with-body, but the documented surface is query-only because some SDK code generators (e.g. Python) collapse query + body parameters with the same name into a single kwarg.
 pub async fn remove_conversion_associations(
     configuration: &configuration::Configuration,
@@ -1776,57 +1329,6 @@ pub async fn remove_conversion_associations(
     } else {
         let content = resp.text().await?;
         let entity: Option<RemoveConversionAssociationsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
-/// `adAccountId` may be passed as a query parameter (recommended) or as a JSON body field for clients that can send DELETE bodies. Meta only (platform `metaads`); other platforms return 405.
-pub async fn remove_tracking_tag_shared_account(
-    configuration: &configuration::Configuration,
-    account_id: &str,
-    tag_id: &str,
-    ad_account_id: Option<&str>,
-) -> Result<(), Error<RemoveTrackingTagSharedAccountError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_account_id = account_id;
-    let p_path_tag_id = tag_id;
-    let p_query_ad_account_id = ad_account_id;
-
-    let uri_str = format!(
-        "{}/v1/accounts/{accountId}/tracking-tags/{tagId}/shared-accounts",
-        configuration.base_path,
-        accountId = crate::apis::urlencode(p_path_account_id),
-        tagId = crate::apis::urlencode(p_path_tag_id)
-    );
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::DELETE, &uri_str);
-
-    if let Some(ref param_value) = p_query_ad_account_id {
-        req_builder = req_builder.query(&[("adAccountId", &param_value.to_string())]);
-    }
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<RemoveTrackingTagSharedAccountError> =
-            serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -2158,65 +1660,6 @@ pub async fn update_conversion_destination(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateConversionDestinationError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
-/// Partial-update a pixel. Whitelisted fields: `name` (rename), `enableAutomaticMatching`, `automaticMatchingFields`, `firstPartyCookieStatus`, `dataUseSetting`. At least one is required. Returns the re-fetched canonical tag. Meta only (platform `metaads`); other platforms return 405.  There is no DELETE — Meta has no API to delete a pixel. To stop using one, unshare it from your ad accounts (`DELETE .../tracking-tags/{tagId}/shared-accounts`) or disable it in Events Manager.
-pub async fn update_tracking_tag(
-    configuration: &configuration::Configuration,
-    account_id: &str,
-    tag_id: &str,
-    update_tracking_tag_request: models::UpdateTrackingTagRequest,
-) -> Result<models::CreateTrackingTag201Response, Error<UpdateTrackingTagError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_account_id = account_id;
-    let p_path_tag_id = tag_id;
-    let p_body_update_tracking_tag_request = update_tracking_tag_request;
-
-    let uri_str = format!(
-        "{}/v1/accounts/{accountId}/tracking-tags/{tagId}",
-        configuration.base_path,
-        accountId = crate::apis::urlencode(p_path_account_id),
-        tagId = crate::apis::urlencode(p_path_tag_id)
-    );
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::PATCH, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_update_tracking_tag_request);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateTrackingTag201Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateTrackingTag201Response`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<UpdateTrackingTagError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

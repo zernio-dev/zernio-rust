@@ -719,6 +719,7 @@ docs/TestWebhookRequest.md
 docs/ThreadsPlatformData.md
 docs/TikTokPlatformData.md
 docs/TrackingTag.md
+docs/TrackingTagsApi.md
 docs/TwitterEngagementApi.md
 docs/TwitterPlatformData.md
 docs/TwitterPlatformDataPoll.md
@@ -962,6 +963,7 @@ src/apis/queue_api.rs
 src/apis/reddit_search_api.rs
 src/apis/reviews_api.rs
 src/apis/sequences_api.rs
+src/apis/tracking_tags_api.rs
 src/apis/twitter_engagement_api.rs
 src/apis/usage_api.rs
 src/apis/users_api.rs
