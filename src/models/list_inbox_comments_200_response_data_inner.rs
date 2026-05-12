@@ -39,12 +39,15 @@ pub struct ListInboxComments200ResponseDataInner {
     /// Reddit subreddit name
     #[serde(rename = "subreddit", skip_serializing_if = "Option::is_none")]
     pub subreddit: Option<String>,
-    /// True when this row is an ad (boosted/dark post). `platform` is then the comment platform (facebook or instagram), `id` equals `adId`, and the thread is at GET /v1/ads/{adId}/comments.
+    /// True when this row is an ad (boosted/dark post). `platform` is then the placement (facebook = the Page dark post / instagram = the IG media), `id` is `{adId}:{placement}`, and the thread is at GET /v1/ads/{adId}/comments?placement={placement}.
     #[serde(rename = "isAd", skip_serializing_if = "Option::is_none")]
     pub is_ad: Option<bool>,
-    /// Internal Zernio ad id — only on ad rows (same value as `id`).
+    /// Internal Zernio ad id — only on ad rows.
     #[serde(rename = "adId", skip_serializing_if = "Option::is_none")]
     pub ad_id: Option<String>,
+    /// Which side of the ad this row's comments are on — only on ad rows.
+    #[serde(rename = "placement", skip_serializing_if = "Option::is_none")]
+    pub placement: Option<Placement>,
 }
 
 impl ListInboxComments200ResponseDataInner {
@@ -64,6 +67,21 @@ impl ListInboxComments200ResponseDataInner {
             subreddit: None,
             is_ad: None,
             ad_id: None,
+            placement: None,
         }
+    }
+}
+/// Which side of the ad this row's comments are on — only on ad rows.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Placement {
+    #[serde(rename = "facebook")]
+    Facebook,
+    #[serde(rename = "instagram")]
+    Instagram,
+}
+
+impl Default for Placement {
+    fn default() -> Placement {
+        Self::Facebook
     }
 }

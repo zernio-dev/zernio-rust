@@ -772,15 +772,17 @@ pub async fn get_ad_analytics(
     }
 }
 
-/// Returns comments on an ad's underlying creative post. Useful for moderating or analyzing engagement on dark posts (ad creatives that never went live organically), which the regular GET /v1/inbox/comments/{postId} endpoint cannot serve because dark posts are not in Zernio's post database.  Resolves the ad's creative effective_object_story_id (Facebook) or effective_instagram_media_id (Instagram) via the Marketing API on each call (cached in-process by the platform client), then fetches comments from the Graph API.  For Instagram-placed ads, the Instagram account that runs the ad must be connected to Zernio — comments are read through that account's token. If none of the connected Instagram accounts on the profile can read the ad's media, the call returns ads_connection_required.  Meta-only. Other ad platforms (TikTok, LinkedIn, Pinterest, Google, X) do not expose a public per-ad comments API and return feature_not_available.  Requires the Ads add-on. Response shape matches GET /v1/inbox/comments/{postId}.
+/// Returns comments on an ad's underlying creative post. Useful for moderating or analyzing engagement on dark posts (ad creatives that never went live organically), which the regular GET /v1/inbox/comments/{postId} endpoint cannot serve because dark posts are not in Zernio's post database.  An ad that runs on both Facebook feed and Instagram feed has two separate underlying posts with separate comment threads (the creative's effective_object_story_id and effective_instagram_media_id). Use the `placement` query param to pick one; with no param the Instagram side is returned when it exists, otherwise Facebook. The identifiers are read from the ad record (persisted during sync) with a Marketing-API fallback for ads that predate the field.  For Instagram-placed comments, the Instagram account that runs the ad must be connected to Zernio — those comments are read through that account's token. If no connected Instagram account on the profile can read the ad's media, the call returns ads_connection_required (the Facebook side, if any, is still readable via ?placement=facebook).  Meta-only. Other ad platforms (TikTok, LinkedIn, Pinterest, Google, X) do not expose a public per-ad comments API and return feature_not_available.  Requires the Ads add-on. Response shape matches GET /v1/inbox/comments/{postId}.
 pub async fn get_ad_comments(
     configuration: &configuration::Configuration,
     ad_id: &str,
+    placement: Option<&str>,
     limit: Option<i32>,
     cursor: Option<&str>,
 ) -> Result<models::GetAdComments200Response, Error<GetAdCommentsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_ad_id = ad_id;
+    let p_query_placement = placement;
     let p_query_limit = limit;
     let p_query_cursor = cursor;
 
@@ -791,6 +793,9 @@ pub async fn get_ad_comments(
     );
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+    if let Some(ref param_value) = p_query_placement {
+        req_builder = req_builder.query(&[("placement", &param_value.to_string())]);
+    }
     if let Some(ref param_value) = p_query_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }

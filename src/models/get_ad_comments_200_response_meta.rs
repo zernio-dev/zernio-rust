@@ -13,15 +13,19 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetAdComments200ResponseMeta {
+    /// Which side these comments are on (same as `placement`).
     #[serde(rename = "platform")]
     pub platform: Platform,
+    /// The placement these comments are for — useful when you didn't pass ?placement= and want to know which one you got.
+    #[serde(rename = "placement")]
+    pub placement: Placement,
     /// Internal Zernio ad ID.
     #[serde(rename = "adId")]
     pub ad_id: String,
     /// Meta ad ID.
     #[serde(rename = "platformAdId")]
     pub platform_ad_id: String,
-    /// Underlying post ID the comments belong to. effective_object_story_id for Facebook, effective_instagram_media_id for Instagram.
+    /// Underlying post ID the comments belong to. effective_object_story_id for the Facebook side, effective_instagram_media_id for the Instagram side.
     #[serde(rename = "effectiveStoryId")]
     pub effective_story_id: String,
     /// Instagram-only. The Instagram-scoped business ID that owns the boosted media (creative.instagram_user_id).
@@ -43,6 +47,7 @@ pub struct GetAdComments200ResponseMeta {
 impl GetAdComments200ResponseMeta {
     pub fn new(
         platform: Platform,
+        placement: Placement,
         ad_id: String,
         platform_ad_id: String,
         effective_story_id: String,
@@ -51,6 +56,7 @@ impl GetAdComments200ResponseMeta {
     ) -> GetAdComments200ResponseMeta {
         GetAdComments200ResponseMeta {
             platform,
+            placement,
             ad_id,
             platform_ad_id,
             effective_story_id,
@@ -62,7 +68,7 @@ impl GetAdComments200ResponseMeta {
         }
     }
 }
-///
+/// Which side these comments are on (same as `placement`).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Platform {
     #[serde(rename = "facebook")]
@@ -73,6 +79,20 @@ pub enum Platform {
 
 impl Default for Platform {
     fn default() -> Platform {
+        Self::Facebook
+    }
+}
+/// The placement these comments are for — useful when you didn't pass ?placement= and want to know which one you got.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Placement {
+    #[serde(rename = "facebook")]
+    Facebook,
+    #[serde(rename = "instagram")]
+    Instagram,
+}
+
+impl Default for Placement {
+    fn default() -> Placement {
         Self::Facebook
     }
 }
