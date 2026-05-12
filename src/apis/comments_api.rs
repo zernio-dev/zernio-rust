@@ -27,6 +27,7 @@ pub enum DeleteInboxCommentError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetInboxPostCommentsError {
+    Status400(),
     Status401(models::InlineObject),
     Status403(),
     UnknownValue(serde_json::Value),
@@ -352,7 +353,7 @@ pub async fn like_inbox_comment(
     }
 }
 
-/// Returns posts with comment counts from all connected accounts. Aggregates data across multiple accounts.
+/// Returns posts with comment counts from all connected accounts. Aggregates data across multiple accounts.  For users with the Ads add-on (Metronome plans always qualify), the user's Meta ads (boosted/dark posts) are included too, flagged with `isAd: true` and an `adId`. Use `?platform=metaads` to return *only* ad rows; passing `facebook`/`instagram` returns *organic* posts only (no ads); omitting `platform` returns both. Fetch an ad row's thread from GET /v1/ads/{adId}/comments. Ad comment counts are read with the Marketing API token (Facebook) or the connected Instagram account's token (Instagram); an ad whose count can't be read is omitted.
 pub async fn list_inbox_comments(
     configuration: &configuration::Configuration,
     profile_id: Option<&str>,

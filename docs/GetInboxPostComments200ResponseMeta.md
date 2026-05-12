@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **account_id** | Option<**String**> |  | [optional]
 **subreddit** | Option<**String**> | (Reddit only) Subreddit name | [optional]
 **last_updated** | Option<**String**> |  | [optional]
+**ad_comments** | Option<[**models::GetInboxPostComments200ResponseMetaAdComments**](GetInboxPostComments200ResponseMetaAdComments.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

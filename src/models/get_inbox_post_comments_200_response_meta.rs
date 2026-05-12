@@ -24,6 +24,8 @@ pub struct GetInboxPostComments200ResponseMeta {
     pub subreddit: Option<String>,
     #[serde(rename = "lastUpdated", skip_serializing_if = "Option::is_none")]
     pub last_updated: Option<String>,
+    #[serde(rename = "adComments", skip_serializing_if = "Option::is_none")]
+    pub ad_comments: Option<Box<models::GetInboxPostComments200ResponseMetaAdComments>>,
 }
 
 impl GetInboxPostComments200ResponseMeta {
@@ -34,6 +36,7 @@ impl GetInboxPostComments200ResponseMeta {
             account_id: None,
             subreddit: None,
             last_updated: None,
+            ad_comments: None,
         }
     }
 }

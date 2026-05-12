@@ -1018,7 +1018,7 @@ pub async fn list_ad_accounts(
     }
 }
 
-/// Returns a paginated list of ads with metrics computed over an optional date range. Use source=all to include externally-synced ads from platform ad managers. If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max.
+/// Returns a paginated list of ads with metrics computed over an optional date range. Use source=all to include externally-synced ads from platform ad managers. If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max.  To find the Zernio ad behind a comment you see in Meta Business Manager, filter by platformAdId (the Meta ad ID), effectiveObjectStoryId (Facebook), or effectiveInstagramMediaId (Instagram) — those are the post/media the ad's engagement lives on, and are also returned on each ad's `creative` object. Then call GET /v1/ads/{adId}/comments with the returned ad id.
 pub async fn list_ads(
     configuration: &configuration::Configuration,
     page: Option<i32>,
@@ -1030,6 +1030,9 @@ pub async fn list_ads(
     ad_account_id: Option<&str>,
     profile_id: Option<&str>,
     campaign_id: Option<&str>,
+    platform_ad_id: Option<&str>,
+    effective_object_story_id: Option<&str>,
+    effective_instagram_media_id: Option<&str>,
     from_date: Option<String>,
     to_date: Option<String>,
 ) -> Result<models::ListAds200Response, Error<ListAdsError>> {
@@ -1043,6 +1046,9 @@ pub async fn list_ads(
     let p_query_ad_account_id = ad_account_id;
     let p_query_profile_id = profile_id;
     let p_query_campaign_id = campaign_id;
+    let p_query_platform_ad_id = platform_ad_id;
+    let p_query_effective_object_story_id = effective_object_story_id;
+    let p_query_effective_instagram_media_id = effective_instagram_media_id;
     let p_query_from_date = from_date;
     let p_query_to_date = to_date;
 
@@ -1075,6 +1081,15 @@ pub async fn list_ads(
     }
     if let Some(ref param_value) = p_query_campaign_id {
         req_builder = req_builder.query(&[("campaignId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_platform_ad_id {
+        req_builder = req_builder.query(&[("platformAdId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_effective_object_story_id {
+        req_builder = req_builder.query(&[("effectiveObjectStoryId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_effective_instagram_media_id {
+        req_builder = req_builder.query(&[("effectiveInstagramMediaId", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_from_date {
         req_builder = req_builder.query(&[("fromDate", &param_value.to_string())]);

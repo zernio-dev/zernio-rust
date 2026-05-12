@@ -39,6 +39,12 @@ pub struct ListInboxComments200ResponseDataInner {
     /// Reddit subreddit name
     #[serde(rename = "subreddit", skip_serializing_if = "Option::is_none")]
     pub subreddit: Option<String>,
+    /// True when this row is an ad (boosted/dark post). `platform` is then the comment platform (facebook or instagram), `id` equals `adId`, and the thread is at GET /v1/ads/{adId}/comments.
+    #[serde(rename = "isAd", skip_serializing_if = "Option::is_none")]
+    pub is_ad: Option<bool>,
+    /// Internal Zernio ad id — only on ad rows (same value as `id`).
+    #[serde(rename = "adId", skip_serializing_if = "Option::is_none")]
+    pub ad_id: Option<String>,
 }
 
 impl ListInboxComments200ResponseDataInner {
@@ -56,6 +62,8 @@ impl ListInboxComments200ResponseDataInner {
             like_count: None,
             cid: None,
             subreddit: None,
+            is_ad: None,
+            ad_id: None,
         }
     }
 }
