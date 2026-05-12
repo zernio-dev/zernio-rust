@@ -28,13 +28,16 @@ pub struct GetAdComments200ResponseMeta {
     /// Underlying post ID the comments belong to. effective_object_story_id for the Facebook side, effective_instagram_media_id for the Instagram side.
     #[serde(rename = "effectiveStoryId")]
     pub effective_story_id: String,
+    /// Facebook-only. The connected Facebook Page SocialAccount these comments were read through — pass it as `accountId` (with `effectiveStoryId` as the postId) to /v1/inbox/comments to reply/hide/delete. Null when no connected Page was used (then moderation isn't possible).
+    #[serde(rename = "facebookAccountId", skip_serializing_if = "Option::is_none")]
+    pub facebook_account_id: Option<String>,
     /// Instagram-only. The Instagram-scoped business ID that owns the boosted media (creative.instagram_user_id).
     #[serde(rename = "instagramUserId", skip_serializing_if = "Option::is_none")]
     pub instagram_user_id: Option<String>,
     /// Instagram-only. Public permalink of the boosted IG post (creative.instagram_permalink_url).
     #[serde(rename = "instagramPermalink", skip_serializing_if = "Option::is_none")]
     pub instagram_permalink: Option<String>,
-    /// Instagram-only. The connected Instagram SocialAccount these comments were read through — use it for reply/hide actions via /v1/inbox/comments.
+    /// Instagram-only. The connected Instagram SocialAccount these comments were read through — pass it as `accountId` (with `effectiveStoryId` as the postId) to /v1/inbox/comments to reply/hide/delete.
     #[serde(rename = "instagramAccountId", skip_serializing_if = "Option::is_none")]
     pub instagram_account_id: Option<String>,
     /// Social account ID (ads SocialAccount).
@@ -60,6 +63,7 @@ impl GetAdComments200ResponseMeta {
             ad_id,
             platform_ad_id,
             effective_story_id,
+            facebook_account_id: None,
             instagram_user_id: None,
             instagram_permalink: None,
             instagram_account_id: None,
