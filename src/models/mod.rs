@@ -304,6 +304,8 @@ pub mod create_standalone_ad_201_response_one_of_1;
 pub use self::create_standalone_ad_201_response_one_of_1::CreateStandaloneAd201ResponseOneOf1;
 pub mod create_standalone_ad_request;
 pub use self::create_standalone_ad_request::CreateStandaloneAdRequest;
+pub mod create_standalone_ad_request_attribution_spec_inner;
+pub use self::create_standalone_ad_request_attribution_spec_inner::CreateStandaloneAdRequestAttributionSpecInner;
 pub mod create_standalone_ad_request_brand_identity;
 pub use self::create_standalone_ad_request_brand_identity::CreateStandaloneAdRequestBrandIdentity;
 pub mod create_standalone_ad_request_cities_inner;
