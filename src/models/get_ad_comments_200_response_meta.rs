@@ -24,6 +24,15 @@ pub struct GetAdComments200ResponseMeta {
     /// Underlying post ID the comments belong to. effective_object_story_id for Facebook, effective_instagram_media_id for Instagram.
     #[serde(rename = "effectiveStoryId")]
     pub effective_story_id: String,
+    /// Instagram-only. The Instagram-scoped business ID that owns the boosted media (creative.instagram_user_id).
+    #[serde(rename = "instagramUserId", skip_serializing_if = "Option::is_none")]
+    pub instagram_user_id: Option<String>,
+    /// Instagram-only. Public permalink of the boosted IG post (creative.instagram_permalink_url).
+    #[serde(rename = "instagramPermalink", skip_serializing_if = "Option::is_none")]
+    pub instagram_permalink: Option<String>,
+    /// Instagram-only. The connected Instagram SocialAccount these comments were read through — use it for reply/hide actions via /v1/inbox/comments.
+    #[serde(rename = "instagramAccountId", skip_serializing_if = "Option::is_none")]
+    pub instagram_account_id: Option<String>,
     /// Social account ID (ads SocialAccount).
     #[serde(rename = "accountId")]
     pub account_id: String,
@@ -45,6 +54,9 @@ impl GetAdComments200ResponseMeta {
             ad_id,
             platform_ad_id,
             effective_story_id,
+            instagram_user_id: None,
+            instagram_permalink: None,
+            instagram_account_id: None,
             account_id,
             last_updated,
         }
