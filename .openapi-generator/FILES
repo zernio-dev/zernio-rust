@@ -253,6 +253,8 @@ docs/GetAdComments200Response.md
 docs/GetAdComments200ResponseMeta.md
 docs/GetAdComments200ResponsePagination.md
 docs/GetAdTree200Response.md
+docs/GetAdsTimeline200Response.md
+docs/GetAdsTimeline200ResponseRowsInner.md
 docs/GetAllAccountsHealth200Response.md
 docs/GetAllAccountsHealth200ResponseAccountsInner.md
 docs/GetAllAccountsHealth200ResponseSummary.md
@@ -1214,6 +1216,8 @@ src/models/get_ad_comments_200_response.rs
 src/models/get_ad_comments_200_response_meta.rs
 src/models/get_ad_comments_200_response_pagination.rs
 src/models/get_ad_tree_200_response.rs
+src/models/get_ads_timeline_200_response.rs
+src/models/get_ads_timeline_200_response_rows_inner.rs
 src/models/get_all_accounts_health_200_response.rs
 src/models/get_all_accounts_health_200_response_accounts_inner.rs
 src/models/get_all_accounts_health_200_response_summary.rs
