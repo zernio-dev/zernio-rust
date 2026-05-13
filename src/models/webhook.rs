@@ -23,7 +23,7 @@ pub struct Webhook {
     /// Webhook endpoint URL
     #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
-    /// Secret key for HMAC-SHA256 signature (not returned in responses for security)
+    /// Secret key for HMAC-SHA256 signature verification.
     #[serde(rename = "secret", skip_serializing_if = "Option::is_none")]
     pub secret: Option<String>,
     /// Events subscribed to
