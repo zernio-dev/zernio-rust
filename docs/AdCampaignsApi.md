@@ -150,7 +150,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_ads_timeline
 
-> models::GetAdsTimeline200Response get_ads_timeline(account_id, from_date, to_date, platform)
+> models::GetAdsTimeline200Response get_ads_timeline(account_id, ad_account_id, from_date, to_date, platform)
 Get daily aggregate ad metrics for an account
 
 Returns daily aggregate metrics across all ads in a SocialAccount as a single time series — one row per calendar day in the requested range. Use this for dashboards that draw a daily-spend or daily-conversions chart, instead of calling `/v1/ads/tree` once per day.  `accountId` is required. The lookup is sibling-expanded so passing the `metaads` ID also includes ads under the linked `facebook` / `instagram` posting account (and vice-versa) — same convention as `/v1/ads/tree` and `/v1/ads`.  Date range defaults to the last 90 days. Capped at 730 days. Ranges older than the 90-day cache window trigger an on-demand backfill from the platform before returning. 
@@ -161,6 +161,7 @@ Returns daily aggregate metrics across all ads in a SocialAccount as a single ti
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** | Social account ID. Sibling-expanded to its linked posting↔ads pair. | [required] |
+**ad_account_id** | Option<**String**> | Optional platform-native ad account ID (e.g. Meta `act_…`, TikTok advertiser ID). Use when the connection wraps multiple platform ad accounts and the chart should show one only. Note: rows ingested before 2026-05-13 don't carry this column; the recurring 7-day re-sync repopulates them naturally. |  |
 **from_date** | Option<**String**> | Inclusive start of metrics range (YYYY-MM-DD). Defaults to 90 days ago. |  |
 **to_date** | Option<**String**> | Inclusive end of metrics range (YYYY-MM-DD). Defaults to today. Max 730-day range. |  |
 **platform** | Option<**String**> | Restrict to one platform. |  |

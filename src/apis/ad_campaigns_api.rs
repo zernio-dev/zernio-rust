@@ -375,12 +375,14 @@ pub async fn get_ad_tree(
 pub async fn get_ads_timeline(
     configuration: &configuration::Configuration,
     account_id: &str,
+    ad_account_id: Option<&str>,
     from_date: Option<String>,
     to_date: Option<String>,
     platform: Option<&str>,
 ) -> Result<models::GetAdsTimeline200Response, Error<GetAdsTimelineError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_account_id = account_id;
+    let p_query_ad_account_id = ad_account_id;
     let p_query_from_date = from_date;
     let p_query_to_date = to_date;
     let p_query_platform = platform;
@@ -389,6 +391,9 @@ pub async fn get_ads_timeline(
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_ad_account_id {
+        req_builder = req_builder.query(&[("adAccountId", &param_value.to_string())]);
+    }
     if let Some(ref param_value) = p_query_from_date {
         req_builder = req_builder.query(&[("fromDate", &param_value.to_string())]);
     }
