@@ -100,6 +100,8 @@ pub enum Events {
     ReviewNew,
     #[serde(rename = "review.updated")]
     ReviewUpdated,
+    #[serde(rename = "ad.status_changed")]
+    AdStatusChanged,
 }
 
 impl Default for Events {
