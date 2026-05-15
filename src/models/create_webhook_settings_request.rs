@@ -60,6 +60,10 @@ pub enum Events {
     PostCancelled,
     #[serde(rename = "post.recycled")]
     PostRecycled,
+    #[serde(rename = "post.platform.published")]
+    PostPlatformPublished,
+    #[serde(rename = "post.platform.failed")]
+    PostPlatformFailed,
     #[serde(rename = "account.connected")]
     AccountConnected,
     #[serde(rename = "account.disconnected")]
@@ -88,6 +92,8 @@ pub enum Events {
     ReviewUpdated,
     #[serde(rename = "ad.status_changed")]
     AdStatusChanged,
+    #[serde(rename = "whatsapp.template.status_updated")]
+    WhatsappTemplateStatusUpdated,
 }
 
 impl Default for Events {
