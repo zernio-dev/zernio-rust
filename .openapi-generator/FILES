@@ -133,6 +133,8 @@ docs/CreateConversionDestinationRequest.md
 docs/CreateConversionDestinationRequestValue.md
 docs/CreateCtwaAd201Response.md
 docs/CreateCtwaAdRequest.md
+docs/CreateCtwaAdRequestCreativesInner.md
+docs/CreateCtwaAdRequestCreativesInnerVideo.md
 docs/CreateCtwaAdRequestInterestsInner.md
 docs/CreateCtwaAdRequestVideo.md
 docs/CreateCustomField200Response.md
@@ -192,12 +194,15 @@ docs/CreateWhatsAppTemplate200ResponseTemplate.md
 docs/CreateWhatsAppTemplateRequest.md
 docs/CreateWhatsAppTemplateRequestLibraryTemplateButtonInputsInner.md
 docs/CreateWhatsAppTemplateRequestLibraryTemplateButtonInputsInnerUrl.md
+docs/CtwaMultiResponse.md
+docs/CtwaSingleResponse.md
 docs/CustomFieldsApi.md
 docs/DeleteAccountGroup200Response.md
 docs/DeleteAdCampaign200Response.md
 docs/DeleteAdCampaignRequest.md
 docs/DeleteGoogleBusinessMedia200Response.md
 docs/DeleteGoogleBusinessPlaceAction200Response.md
+docs/DeleteGoogleBusinessReviewReply200Response.md
 docs/DeleteInboxComment200Response.md
 docs/DeleteInboxReviewReply200Response.md
 docs/DeleteInboxReviewReplyRequest.md
@@ -625,6 +630,8 @@ docs/ReleaseWhatsAppPhoneNumber200ResponsePhoneNumber.md
 docs/RemoveBookmark200Response.md
 docs/RemoveConversionAssociations200Response.md
 docs/RemoveWhatsAppGroupParticipantsRequest.md
+docs/ReplyToGoogleBusinessReview200Response.md
+docs/ReplyToGoogleBusinessReviewRequest.md
 docs/ReplyToInboxPost200Response.md
 docs/ReplyToInboxPost200ResponseData.md
 docs/ReplyToInboxPostRequest.md
@@ -1103,6 +1110,8 @@ src/models/create_conversion_destination_request.rs
 src/models/create_conversion_destination_request_value.rs
 src/models/create_ctwa_ad_201_response.rs
 src/models/create_ctwa_ad_request.rs
+src/models/create_ctwa_ad_request_creatives_inner.rs
+src/models/create_ctwa_ad_request_creatives_inner_video.rs
 src/models/create_ctwa_ad_request_interests_inner.rs
 src/models/create_ctwa_ad_request_video.rs
 src/models/create_custom_field_200_response.rs
@@ -1162,11 +1171,14 @@ src/models/create_whats_app_template_200_response_template.rs
 src/models/create_whats_app_template_request.rs
 src/models/create_whats_app_template_request_library_template_button_inputs_inner.rs
 src/models/create_whats_app_template_request_library_template_button_inputs_inner_url.rs
+src/models/ctwa_multi_response.rs
+src/models/ctwa_single_response.rs
 src/models/delete_account_group_200_response.rs
 src/models/delete_ad_campaign_200_response.rs
 src/models/delete_ad_campaign_request.rs
 src/models/delete_google_business_media_200_response.rs
 src/models/delete_google_business_place_action_200_response.rs
+src/models/delete_google_business_review_reply_200_response.rs
 src/models/delete_inbox_comment_200_response.rs
 src/models/delete_inbox_review_reply_200_response.rs
 src/models/delete_inbox_review_reply_request.rs
@@ -1578,6 +1590,8 @@ src/models/release_whats_app_phone_number_200_response_phone_number.rs
 src/models/remove_bookmark_200_response.rs
 src/models/remove_conversion_associations_200_response.rs
 src/models/remove_whats_app_group_participants_request.rs
+src/models/reply_to_google_business_review_200_response.rs
+src/models/reply_to_google_business_review_request.rs
 src/models/reply_to_inbox_post_200_response.rs
 src/models/reply_to_inbox_post_200_response_data.rs
 src/models/reply_to_inbox_post_request.rs

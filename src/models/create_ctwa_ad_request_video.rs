@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateCtwaAdRequestVideo : Video creative. Mutually exclusive with `imageUrl`. Required if `imageUrl` is not supplied.
+/// CreateCtwaAdRequestVideo : Video creative for single-creative shape. Mutually exclusive with `imageUrl` and with `creatives[]`. Required on the single-creative shape if `imageUrl` is not supplied.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateCtwaAdRequestVideo {
     #[serde(rename = "url")]
@@ -22,7 +22,7 @@ pub struct CreateCtwaAdRequestVideo {
 }
 
 impl CreateCtwaAdRequestVideo {
-    /// Video creative. Mutually exclusive with `imageUrl`. Required if `imageUrl` is not supplied.
+    /// Video creative for single-creative shape. Mutually exclusive with `imageUrl` and with `creatives[]`. Required on the single-creative shape if `imageUrl` is not supplied.
     pub fn new(url: String, thumbnail_url: String) -> CreateCtwaAdRequestVideo {
         CreateCtwaAdRequestVideo { url, thumbnail_url }
     }

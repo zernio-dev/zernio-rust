@@ -11,20 +11,17 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct CreateCtwaAd201Response {
-    /// The persisted Ad document.
-    #[serde(rename = "ad", skip_serializing_if = "Option::is_none")]
-    pub ad: Option<serde_json::Value>,
-    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
-    pub message: Option<String>,
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(tag = "adType")]
+pub enum CreateCtwaAd201Response {
+    #[serde(rename = "single")]
+    Single(Box<models::CtwaSingleResponse>),
+    #[serde(rename = "multi")]
+    Multi(Box<models::CtwaMultiResponse>),
 }
 
-impl CreateCtwaAd201Response {
-    pub fn new() -> CreateCtwaAd201Response {
-        CreateCtwaAd201Response {
-            ad: None,
-            message: None,
-        }
+impl Default for CreateCtwaAd201Response {
+    fn default() -> Self {
+        Self::Single(Default::default())
     }
 }

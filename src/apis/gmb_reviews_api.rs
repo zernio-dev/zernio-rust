@@ -22,6 +22,17 @@ pub enum BatchGetGoogleBusinessReviewsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`delete_google_business_review_reply`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteGoogleBusinessReviewReplyError {
+    Status400(models::ErrorResponse),
+    Status401(models::ErrorResponse),
+    Status404(models::InlineObject1),
+    Status500(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_google_business_reviews`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -29,6 +40,17 @@ pub enum GetGoogleBusinessReviewsError {
     Status400(models::ErrorResponse),
     Status401(models::ErrorResponse),
     Status403(models::ErrorResponse),
+    Status404(models::InlineObject1),
+    Status500(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`reply_to_google_business_review`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ReplyToGoogleBusinessReviewError {
+    Status400(models::ErrorResponse),
+    Status401(models::ErrorResponse),
     Status404(models::InlineObject1),
     Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
@@ -86,6 +108,66 @@ pub async fn batch_get_google_business_reviews(
     } else {
         let content = resp.text().await?;
         let entity: Option<BatchGetGoogleBusinessReviewsError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Removes the business owner reply from a Google Business review. The review itself remains.
+pub async fn delete_google_business_review_reply(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    review_id: &str,
+) -> Result<
+    models::DeleteGoogleBusinessReviewReply200Response,
+    Error<DeleteGoogleBusinessReviewReplyError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_path_review_id = review_id;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/gmb-reviews/{reviewId}/reply",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id),
+        reviewId = crate::apis::urlencode(p_path_review_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteGoogleBusinessReviewReply200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteGoogleBusinessReviewReply200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteGoogleBusinessReviewReplyError> =
             serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
@@ -153,6 +235,66 @@ pub async fn get_google_business_reviews(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetGoogleBusinessReviewsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Posts (or updates) the business owner reply to a Google Business review. The reply is associated with the account's currently selected location (set via /v1/accounts/{accountId}/gmb-locations). Calling this endpoint a second time on the same review overwrites the previous reply (PUT semantics on Google's side).
+pub async fn reply_to_google_business_review(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    review_id: &str,
+    reply_to_google_business_review_request: models::ReplyToGoogleBusinessReviewRequest,
+) -> Result<models::ReplyToGoogleBusinessReview200Response, Error<ReplyToGoogleBusinessReviewError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_path_review_id = review_id;
+    let p_body_reply_to_google_business_review_request = reply_to_google_business_review_request;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/gmb-reviews/{reviewId}/reply",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id),
+        reviewId = crate::apis::urlencode(p_path_review_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_reply_to_google_business_review_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ReplyToGoogleBusinessReview200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ReplyToGoogleBusinessReview200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ReplyToGoogleBusinessReviewError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

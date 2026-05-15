@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateCtwaAdRequest : In addition to the `required` list, exactly one of `imageUrl` or `video` must be supplied (they are mutually exclusive). The route enforces this at the Zod boundary; OpenAPI's `required` cannot express OR-required cleanly.
+/// CreateCtwaAdRequest : In addition to the `required` list, the request must use EXACTLY ONE of the two shapes:  - Single-creative: `headline`, `body`, and one of   `imageUrl` / `video` (mutually exclusive). - Multi-creative: a non-empty `creatives[]` array. Top-level   `headline` / `body` / `imageUrl` / `video` must NOT be set   on this shape.  The route enforces this at the Zod boundary; OpenAPI's `required` cannot express the OR cleanly.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateCtwaAdRequest {
     /// Facebook or Instagram SocialAccount ID.
@@ -20,19 +20,23 @@ pub struct CreateCtwaAdRequest {
     /// Meta ad account ID, e.g. `act_123456789`.
     #[serde(rename = "adAccountId")]
     pub ad_account_id: String,
-    /// Ad display name. Used to derive campaign / ad set names.
+    /// Ad display name. Used to derive campaign / ad set names. On the multi-creative shape, each ad's Meta name gets a \" #N\" suffix (1-indexed) so Ads Manager shows them as a numbered batch.
     #[serde(rename = "name")]
     pub name: String,
-    #[serde(rename = "headline")]
-    pub headline: String,
-    /// Primary text shown above the image / video.
-    #[serde(rename = "body")]
-    pub body: String,
-    /// Image asset for image creatives. Mutually exclusive with `video`. Required if `video` is not supplied.
+    /// Single-creative shape only. Mutually exclusive with `creatives[]`.
+    #[serde(rename = "headline", skip_serializing_if = "Option::is_none")]
+    pub headline: Option<String>,
+    /// Primary text shown above the image / video. Single-creative shape only. Mutually exclusive with `creatives[]`.
+    #[serde(rename = "body", skip_serializing_if = "Option::is_none")]
+    pub body: Option<String>,
+    /// Image asset for single-creative shape. Mutually exclusive with `video` and with `creatives[]`. Required on the single-creative shape if `video` is not supplied.
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
     #[serde(rename = "video", skip_serializing_if = "Option::is_none")]
     pub video: Option<Box<models::CreateCtwaAdRequestVideo>>,
+    /// Multi-creative shape: N CTWA ads under one campaign + one ad set, sharing budget and targeting. Mutually exclusive with the top-level single-creative fields (`headline` / `body` / `imageUrl` / `video`). Each entry must supply its own headline, body, and exactly one of `imageUrl` / `video`.
+    #[serde(rename = "creatives", skip_serializing_if = "Option::is_none")]
+    pub creatives: Option<Vec<models::CreateCtwaAdRequestCreativesInner>>,
     /// Budget amount in the ad account's currency major units (e.g. dollars for USD, not cents). Must be > 0.
     #[serde(rename = "budgetAmount")]
     pub budget_amount: f64,
@@ -62,6 +66,15 @@ pub struct CreateCtwaAdRequest {
     /// Defaults to `OUTCOME_ENGAGEMENT` (the broadly-supported CTWA objective). `OUTCOME_SALES` and `OUTCOME_LEADS` require additional account configuration (Dataset linked to the WABA for sales) and may be rejected by Meta if missing.
     #[serde(rename = "objective", skip_serializing_if = "Option::is_none")]
     pub objective: Option<Objective>,
+    /// Meta bid strategy applied to the shared ad set. Defaults to `LOWEST_COST_WITHOUT_CAP` (auto-bid) when omitted. `LOWEST_COST_WITH_BID_CAP` and `COST_CAP` require `bidAmount`. `LOWEST_COST_WITH_MIN_ROAS` requires `roasAverageFloor`. CTWA's `optimization_goal` is fixed to `CONVERSATIONS`, but the bid strategy is independent.
+    #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
+    pub bid_strategy: Option<BidStrategy>,
+    /// Whole currency units (e.g. `5` = $5.00 on a USD account). Required when `bidStrategy` is `LOWEST_COST_WITH_BID_CAP` or `COST_CAP`; rejected otherwise.
+    #[serde(rename = "bidAmount", skip_serializing_if = "Option::is_none")]
+    pub bid_amount: Option<f64>,
+    /// Decimal ROAS multiplier (e.g. `2.0` = 2.0× ROAS floor). Required when `bidStrategy` is `LOWEST_COST_WITH_MIN_ROAS`; rejected otherwise. Meta enforces its own upper bound server-side.
+    #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
+    pub roas_average_floor: Option<f64>,
     /// Name of the legal entity benefiting from the ad. Required by Meta when targeting EU users (DSA Article 26). Not enforced at schema level; enforced server-side when targeting intersects EU member states.
     #[serde(rename = "dsaBeneficiary", skip_serializing_if = "Option::is_none")]
     pub dsa_beneficiary: Option<String>,
@@ -71,13 +84,11 @@ pub struct CreateCtwaAdRequest {
 }
 
 impl CreateCtwaAdRequest {
-    /// In addition to the `required` list, exactly one of `imageUrl` or `video` must be supplied (they are mutually exclusive). The route enforces this at the Zod boundary; OpenAPI's `required` cannot express OR-required cleanly.
+    /// In addition to the `required` list, the request must use EXACTLY ONE of the two shapes:  - Single-creative: `headline`, `body`, and one of   `imageUrl` / `video` (mutually exclusive). - Multi-creative: a non-empty `creatives[]` array. Top-level   `headline` / `body` / `imageUrl` / `video` must NOT be set   on this shape.  The route enforces this at the Zod boundary; OpenAPI's `required` cannot express the OR cleanly.
     pub fn new(
         account_id: String,
         ad_account_id: String,
         name: String,
-        headline: String,
-        body: String,
         budget_amount: f64,
         budget_type: BudgetType,
     ) -> CreateCtwaAdRequest {
@@ -85,10 +96,11 @@ impl CreateCtwaAdRequest {
             account_id,
             ad_account_id,
             name,
-            headline,
-            body,
+            headline: None,
+            body: None,
             image_url: None,
             video: None,
+            creatives: None,
             budget_amount,
             budget_type,
             currency: None,
@@ -100,6 +112,9 @@ impl CreateCtwaAdRequest {
             audience_id: None,
             advantage_audience: None,
             objective: None,
+            bid_strategy: None,
+            bid_amount: None,
+            roas_average_floor: None,
             dsa_beneficiary: None,
             dsa_payor: None,
         }
@@ -147,5 +162,23 @@ pub enum Objective {
 impl Default for Objective {
     fn default() -> Objective {
         Self::OutcomeEngagement
+    }
+}
+/// Meta bid strategy applied to the shared ad set. Defaults to `LOWEST_COST_WITHOUT_CAP` (auto-bid) when omitted. `LOWEST_COST_WITH_BID_CAP` and `COST_CAP` require `bidAmount`. `LOWEST_COST_WITH_MIN_ROAS` requires `roasAverageFloor`. CTWA's `optimization_goal` is fixed to `CONVERSATIONS`, but the bid strategy is independent.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum BidStrategy {
+    #[serde(rename = "LOWEST_COST_WITHOUT_CAP")]
+    LowestCostWithoutCap,
+    #[serde(rename = "LOWEST_COST_WITH_BID_CAP")]
+    LowestCostWithBidCap,
+    #[serde(rename = "COST_CAP")]
+    CostCap,
+    #[serde(rename = "LOWEST_COST_WITH_MIN_ROAS")]
+    LowestCostWithMinRoas,
+}
+
+impl Default for BidStrategy {
+    fn default() -> BidStrategy {
+        Self::LowestCostWithoutCap
     }
 }

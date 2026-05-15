@@ -5,7 +5,9 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**batch_get_google_business_reviews**](GmbReviewsApi.md#batch_get_google_business_reviews) | **POST** /v1/accounts/{accountId}/gmb-reviews/batch | Batch get reviews
+[**delete_google_business_review_reply**](GmbReviewsApi.md#delete_google_business_review_reply) | **DELETE** /v1/accounts/{accountId}/gmb-reviews/{reviewId}/reply | Delete a review reply
 [**get_google_business_reviews**](GmbReviewsApi.md#get_google_business_reviews) | **GET** /v1/accounts/{accountId}/gmb-reviews | Get reviews
+[**reply_to_google_business_review**](GmbReviewsApi.md#reply_to_google_business_review) | **POST** /v1/accounts/{accountId}/gmb-reviews/{reviewId}/reply | Reply to a review
 
 
 
@@ -40,6 +42,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## delete_google_business_review_reply
+
+> models::DeleteGoogleBusinessReviewReply200Response delete_google_business_review_reply(account_id, review_id)
+Delete a review reply
+
+Removes the business owner reply from a Google Business review. The review itself remains.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The Zernio account ID (from /v1/accounts) | [required] |
+**review_id** | **String** | The review ID portion (e.g. \"AIe9_BGx1234567890\"), not the full resource name | [required] |
+
+### Return type
+
+[**models::DeleteGoogleBusinessReviewReply200Response**](deleteGoogleBusinessReviewReply_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_google_business_reviews
 
 > models::GetGoogleBusinessReviews200Response get_google_business_reviews(account_id, location_id, page_size, page_token)
@@ -68,6 +101,38 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## reply_to_google_business_review
+
+> models::ReplyToGoogleBusinessReview200Response reply_to_google_business_review(account_id, review_id, reply_to_google_business_review_request)
+Reply to a review
+
+Posts (or updates) the business owner reply to a Google Business review. The reply is associated with the account's currently selected location (set via /v1/accounts/{accountId}/gmb-locations). Calling this endpoint a second time on the same review overwrites the previous reply (PUT semantics on Google's side). 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The Zernio account ID (from /v1/accounts) | [required] |
+**review_id** | **String** | The review ID portion (e.g. \"AIe9_BGx1234567890\"), not the full resource name | [required] |
+**reply_to_google_business_review_request** | [**ReplyToGoogleBusinessReviewRequest**](ReplyToGoogleBusinessReviewRequest.md) |  | [required] |
+
+### Return type
+
+[**models::ReplyToGoogleBusinessReview200Response**](replyToGoogleBusinessReview_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
