@@ -450,6 +450,8 @@ pub async fn list_ad_campaigns(
     ad_account_id: Option<&str>,
     account_id: Option<&str>,
     profile_id: Option<&str>,
+    from_date: Option<String>,
+    to_date: Option<String>,
 ) -> Result<models::ListAdCampaigns200Response, Error<ListAdCampaignsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_page = page;
@@ -460,6 +462,8 @@ pub async fn list_ad_campaigns(
     let p_query_ad_account_id = ad_account_id;
     let p_query_account_id = account_id;
     let p_query_profile_id = profile_id;
+    let p_query_from_date = from_date;
+    let p_query_to_date = to_date;
 
     let uri_str = format!("{}/v1/ads/campaigns", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -487,6 +491,12 @@ pub async fn list_ad_campaigns(
     }
     if let Some(ref param_value) = p_query_profile_id {
         req_builder = req_builder.query(&[("profileId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_from_date {
+        req_builder = req_builder.query(&[("fromDate", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_to_date {
+        req_builder = req_builder.query(&[("toDate", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());

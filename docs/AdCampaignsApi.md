@@ -184,7 +184,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_ad_campaigns
 
-> models::ListAdCampaigns200Response list_ad_campaigns(page, limit, source, platform, status, ad_account_id, account_id, profile_id)
+> models::ListAdCampaigns200Response list_ad_campaigns(page, limit, source, platform, status, ad_account_id, account_id, profile_id, from_date, to_date)
 List campaigns
 
 Returns campaigns as virtual aggregations over ad documents grouped by platform campaign ID. Metrics (spend, impressions, clicks, etc.) are summed across all ads in each campaign. Campaign status is derived from child ad statuses (active > pending_review > paused > error > completed > cancelled > rejected). 
@@ -202,6 +202,8 @@ Name | Type | Description  | Required | Notes
 **ad_account_id** | Option<**String**> | Platform ad account ID (e.g. act_123 for Meta) |  |
 **account_id** | Option<**String**> | Social account ID |  |
 **profile_id** | Option<**String**> | Profile ID |  |
+**from_date** | Option<**String**> | Start of metrics date range (YYYY-MM-DD, inclusive). Defaults to 90 days ago when both date params are omitted. |  |
+**to_date** | Option<**String**> | End of metrics date range (YYYY-MM-DD, inclusive). Defaults to today. Max 730-day range. |  |
 
 ### Return type
 
