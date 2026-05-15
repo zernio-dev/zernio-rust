@@ -102,6 +102,8 @@ pub enum Events {
     ReviewUpdated,
     #[serde(rename = "ad.status_changed")]
     AdStatusChanged,
+    #[serde(rename = "whatsapp.template.status_updated")]
+    WhatsappTemplateStatusUpdated,
 }
 
 impl Default for Events {

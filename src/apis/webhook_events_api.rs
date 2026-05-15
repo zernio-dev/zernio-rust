@@ -162,6 +162,13 @@ pub enum OnWebhookTestError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`on_whats_app_template_status_updated`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnWhatsAppTemplateStatusUpdatedError {
+    UnknownValue(serde_json::Value),
+}
+
 
 /// Fired once per ads-enabled account when the initial sync (ad-account discovery + 90-day historical ad backfill) completes. The `sync` block reports whether the backfill succeeded and how many ads were synced. 
 pub async fn on_account_ads_initial_sync_completed(configuration: &configuration::Configuration, webhook_payload_account_ads_initial_sync_completed: models::WebhookPayloadAccountAdsInitialSyncCompleted) -> Result<(), Error<OnAccountAdsInitialSyncCompletedError>> {
@@ -789,6 +796,36 @@ pub async fn on_webhook_test(configuration: &configuration::Configuration, webho
     } else {
         let content = resp.text().await?;
         let entity: Option<OnWebhookTestError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when Meta finishes (re)reviewing a WhatsApp Business template attached to a connected WABA. Forwarded from Meta's `message_template_status_update` webhook field on the WhatsApp Business Account. Consumers branch on `template.status` (APPROVED, REJECTED, PENDING, PAUSED, DISABLED, IN_APPEAL, PENDING_DELETION). Meta does not include the previous status or the template's category in this event. 
+pub async fn on_whats_app_template_status_updated(configuration: &configuration::Configuration, webhook_payload_whats_app_template_status_updated: models::WebhookPayloadWhatsAppTemplateStatusUpdated) -> Result<(), Error<OnWhatsAppTemplateStatusUpdatedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_payload_whats_app_template_status_updated = webhook_payload_whats_app_template_status_updated;
+
+    let uri_str = format!("{}/whatsapp.template.status_updated", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_payload_whats_app_template_status_updated);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnWhatsAppTemplateStatusUpdatedError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

@@ -919,6 +919,9 @@ docs/WebhookPayloadReviewNew.md
 docs/WebhookPayloadReviewNewAccount.md
 docs/WebhookPayloadReviewUpdated.md
 docs/WebhookPayloadTest.md
+docs/WebhookPayloadWhatsAppTemplateStatusUpdated.md
+docs/WebhookPayloadWhatsAppTemplateStatusUpdatedAccount.md
+docs/WebhookPayloadWhatsAppTemplateStatusUpdatedTemplate.md
 docs/WebhooksApi.md
 docs/WhatsAppApi.md
 docs/WhatsAppBodyComponent.md
@@ -1871,6 +1874,9 @@ src/models/webhook_payload_review_new.rs
 src/models/webhook_payload_review_new_account.rs
 src/models/webhook_payload_review_updated.rs
 src/models/webhook_payload_test.rs
+src/models/webhook_payload_whats_app_template_status_updated.rs
+src/models/webhook_payload_whats_app_template_status_updated_account.rs
+src/models/webhook_payload_whats_app_template_status_updated_template.rs
 src/models/whats_app_body_component.rs
 src/models/whats_app_body_component_example.rs
 src/models/whats_app_buttons_component.rs
