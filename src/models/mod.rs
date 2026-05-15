@@ -432,6 +432,8 @@ pub mod expired;
 pub use self::expired::Expired;
 pub mod facebook_platform_data;
 pub use self::facebook_platform_data::FacebookPlatformData;
+pub mod facebook_platform_data_carousel_cards_inner;
+pub use self::facebook_platform_data_carousel_cards_inner::FacebookPlatformDataCarouselCardsInner;
 pub mod follow_user_200_response;
 pub use self::follow_user_200_response::FollowUser200Response;
 pub mod follow_user_request;
