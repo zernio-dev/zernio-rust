@@ -811,9 +811,11 @@ pub async fn get_connect_url(
 pub async fn get_facebook_pages(
     configuration: &configuration::Configuration,
     account_id: &str,
+    refresh: Option<bool>,
 ) -> Result<models::GetFacebookPages200Response, Error<GetFacebookPagesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_account_id = account_id;
+    let p_query_refresh = refresh;
 
     let uri_str = format!(
         "{}/v1/accounts/{accountId}/facebook-page",
@@ -822,6 +824,9 @@ pub async fn get_facebook_pages(
     );
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+    if let Some(ref param_value) = p_query_refresh {
+        req_builder = req_builder.query(&[("refresh", &param_value.to_string())]);
+    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }

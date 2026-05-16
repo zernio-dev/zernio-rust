@@ -264,7 +264,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_facebook_pages
 
-> models::GetFacebookPages200Response get_facebook_pages(account_id)
+> models::GetFacebookPages200Response get_facebook_pages(account_id, refresh)
 List Facebook pages
 
 Returns all Facebook pages the connected account has access to, including the currently selected page.
@@ -275,6 +275,7 @@ Returns all Facebook pages the connected account has access to, including the cu
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** |  | [required] |
+**refresh** | Option<**bool**> | When true, bypasses the page cache and fetches fresh pages from Meta. Rate-limited server-side to 1 refresh per 60s. Pages no longer accessible to the connected account will be removed from the list on refresh.  |  |
 
 ### Return type
 
