@@ -289,6 +289,7 @@ pub async fn get_ad_tree(
     profile_id: Option<&str>,
     from_date: Option<String>,
     to_date: Option<String>,
+    sort: Option<&str>,
 ) -> Result<models::GetAdTree200Response, Error<GetAdTreeError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_page = page;
@@ -301,6 +302,7 @@ pub async fn get_ad_tree(
     let p_query_profile_id = profile_id;
     let p_query_from_date = from_date;
     let p_query_to_date = to_date;
+    let p_query_sort = sort;
 
     let uri_str = format!("{}/v1/ads/tree", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -334,6 +336,9 @@ pub async fn get_ad_tree(
     }
     if let Some(ref param_value) = p_query_to_date {
         req_builder = req_builder.query(&[("toDate", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_sort {
+        req_builder = req_builder.query(&[("sort", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
