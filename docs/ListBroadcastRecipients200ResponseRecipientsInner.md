@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **status** | Option<**Status**> |  (enum: pending, sent, delivered, read, failed) | [optional]
 **message_id** | Option<**String**> |  | [optional]
 **error** | Option<**String**> |  | [optional]
+**error_code** | Option<**i32**> | Meta WhatsApp error code (e.g. 131049 for antispam, 131021 for invalid phone, 131026 for re-engagement required). Only populated for status=failed. | [optional]
 **sent_at** | Option<**String**> |  | [optional]
 **delivered_at** | Option<**String**> |  | [optional]
 **read_at** | Option<**String**> |  | [optional]

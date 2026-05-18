@@ -29,6 +29,9 @@ pub struct ListBroadcastRecipients200ResponseRecipientsInner {
     pub message_id: Option<String>,
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
     pub error: Option<String>,
+    /// Meta WhatsApp error code (e.g. 131049 for antispam, 131021 for invalid phone, 131026 for re-engagement required). Only populated for status=failed.
+    #[serde(rename = "errorCode", skip_serializing_if = "Option::is_none")]
+    pub error_code: Option<i32>,
     #[serde(rename = "sentAt", skip_serializing_if = "Option::is_none")]
     pub sent_at: Option<String>,
     #[serde(rename = "deliveredAt", skip_serializing_if = "Option::is_none")]
@@ -48,6 +51,7 @@ impl ListBroadcastRecipients200ResponseRecipientsInner {
             status: None,
             message_id: None,
             error: None,
+            error_code: None,
             sent_at: None,
             delivered_at: None,
             read_at: None,
