@@ -359,6 +359,9 @@ docs/GetInboxPostComments200ResponseMeta.md
 docs/GetInboxPostComments200ResponseMetaAdComments.md
 docs/GetInboxPostComments200ResponsePagination.md
 docs/GetInstagramAccountInsights404Response.md
+docs/GetInstagramStoryInsights200Response.md
+docs/GetInstagramStoryInsights200ResponseData.md
+docs/GetInstagramStoryInsights200ResponseDataMetrics.md
 docs/GetLinkedInAggregateAnalytics200Response.md
 docs/GetLinkedInAggregateAnalytics400Response.md
 docs/GetLinkedInAggregateAnalytics402Response.md
@@ -476,6 +479,7 @@ docs/InstagramAccountInsightsResponseDateRange.md
 docs/InstagramAccountInsightsResponseMetricsValue.md
 docs/InstagramAccountInsightsResponseMetricsValueBreakdownsInner.md
 docs/InstagramAccountInsightsResponseMetricsValueValuesInner.md
+docs/InstagramApi.md
 docs/InstagramDemographicsResponse.md
 docs/InstagramDemographicsResponseDemographicsValueInner.md
 docs/InstagramPlatformData.md
@@ -543,6 +547,8 @@ docs/ListInboxReviews200ResponseDataInner.md
 docs/ListInboxReviews200ResponseDataInnerReply.md
 docs/ListInboxReviews200ResponseDataInnerReviewer.md
 docs/ListInboxReviews200ResponseSummary.md
+docs/ListInstagramStories200Response.md
+docs/ListInstagramStories200ResponseDataInner.md
 docs/ListLinkedInOrganizations200Response.md
 docs/ListLinkedInOrganizations200ResponseOrganizationsInner.md
 docs/ListLogs200Response.md
@@ -977,6 +983,7 @@ src/apis/gmb_media_api.rs
 src/apis/gmb_place_actions_api.rs
 src/apis/gmb_reviews_api.rs
 src/apis/gmb_services_api.rs
+src/apis/instagram_api.rs
 src/apis/invites_api.rs
 src/apis/linked_in_mentions_api.rs
 src/apis/logs_api.rs
@@ -1342,6 +1349,9 @@ src/models/get_inbox_post_comments_200_response_meta.rs
 src/models/get_inbox_post_comments_200_response_meta_ad_comments.rs
 src/models/get_inbox_post_comments_200_response_pagination.rs
 src/models/get_instagram_account_insights_404_response.rs
+src/models/get_instagram_story_insights_200_response.rs
+src/models/get_instagram_story_insights_200_response_data.rs
+src/models/get_instagram_story_insights_200_response_data_metrics.rs
 src/models/get_linked_in_aggregate_analytics_200_response.rs
 src/models/get_linked_in_aggregate_analytics_400_response.rs
 src/models/get_linked_in_aggregate_analytics_402_response.rs
@@ -1517,6 +1527,8 @@ src/models/list_inbox_reviews_200_response_data_inner.rs
 src/models/list_inbox_reviews_200_response_data_inner_reply.rs
 src/models/list_inbox_reviews_200_response_data_inner_reviewer.rs
 src/models/list_inbox_reviews_200_response_summary.rs
+src/models/list_instagram_stories_200_response.rs
+src/models/list_instagram_stories_200_response_data_inner.rs
 src/models/list_linked_in_organizations_200_response.rs
 src/models/list_linked_in_organizations_200_response_organizations_inner.rs
 src/models/list_logs_200_response.rs
