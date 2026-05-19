@@ -772,6 +772,10 @@ docs/UpdateAdSetRequestBudget.md
 docs/UpdateAdSetStatus200Response.md
 docs/UpdateBroadcast200Response.md
 docs/UpdateBroadcast200ResponseBroadcast.md
+docs/UpdateBroadcastRequest.md
+docs/UpdateBroadcastRequestMessage.md
+docs/UpdateBroadcastRequestTemplate.md
+docs/UpdateBroadcastRequestTemplateVariableMappingValue.md
 docs/UpdateCommentAutomation200Response.md
 docs/UpdateCommentAutomation200ResponseAutomation.md
 docs/UpdateCommentAutomationRequest.md
@@ -829,6 +833,9 @@ docs/UpdateQueueSlotRequest.md
 docs/UpdateRedditSubredditsRequest.md
 docs/UpdateSequence200Response.md
 docs/UpdateSequence200ResponseSequence.md
+docs/UpdateSequenceRequest.md
+docs/UpdateSequenceRequestStepsInner.md
+docs/UpdateSequenceRequestStepsInnerTemplate.md
 docs/UpdateTrackingTagRequest.md
 docs/UpdateWebhookSettings200Response.md
 docs/UpdateWebhookSettingsRequest.md
@@ -1742,6 +1749,10 @@ src/models/update_ad_set_request_budget.rs
 src/models/update_ad_set_status_200_response.rs
 src/models/update_broadcast_200_response.rs
 src/models/update_broadcast_200_response_broadcast.rs
+src/models/update_broadcast_request.rs
+src/models/update_broadcast_request_message.rs
+src/models/update_broadcast_request_template.rs
+src/models/update_broadcast_request_template_variable_mapping_value.rs
 src/models/update_comment_automation_200_response.rs
 src/models/update_comment_automation_200_response_automation.rs
 src/models/update_comment_automation_request.rs
@@ -1799,6 +1810,9 @@ src/models/update_queue_slot_request.rs
 src/models/update_reddit_subreddits_request.rs
 src/models/update_sequence_200_response.rs
 src/models/update_sequence_200_response_sequence.rs
+src/models/update_sequence_request.rs
+src/models/update_sequence_request_steps_inner.rs
+src/models/update_sequence_request_steps_inner_template.rs
 src/models/update_tracking_tag_request.rs
 src/models/update_webhook_settings_200_response.rs
 src/models/update_webhook_settings_request.rs

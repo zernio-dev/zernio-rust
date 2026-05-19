@@ -298,7 +298,7 @@ Name | Type | Description  | Required | Notes
 
 ## update_broadcast
 
-> models::UpdateBroadcast200Response update_broadcast(broadcast_id)
+> models::UpdateBroadcast200Response update_broadcast(broadcast_id, update_broadcast_request)
 Update broadcast
 
 Update a broadcast's name, message, template, or segment filters. Only draft broadcasts can be updated.
@@ -309,6 +309,7 @@ Update a broadcast's name, message, template, or segment filters. Only draft bro
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **broadcast_id** | **String** |  | [required] |
+**update_broadcast_request** | Option<[**UpdateBroadcastRequest**](UpdateBroadcastRequest.md)> |  |  |
 
 ### Return type
 
@@ -320,7 +321,7 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

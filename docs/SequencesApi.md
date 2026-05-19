@@ -297,10 +297,10 @@ Name | Type | Description  | Required | Notes
 
 ## update_sequence
 
-> models::UpdateSequence200Response update_sequence(sequence_id)
+> models::UpdateSequence200Response update_sequence(sequence_id, update_sequence_request)
 Update sequence
 
-Update a sequence's name, steps, or exit conditions. Active sequences can be updated without pausing.
+Update a sequence's name, steps, or exit conditions. Steps can only be modified while the sequence is draft or paused.
 
 ### Parameters
 
@@ -308,6 +308,7 @@ Update a sequence's name, steps, or exit conditions. Active sequences can be upd
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **sequence_id** | **String** |  | [required] |
+**update_sequence_request** | Option<[**UpdateSequenceRequest**](UpdateSequenceRequest.md)> |  |  |
 
 ### Return type
 
@@ -319,7 +320,7 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -605,9 +605,11 @@ pub async fn send_broadcast(
 pub async fn update_broadcast(
     configuration: &configuration::Configuration,
     broadcast_id: &str,
+    update_broadcast_request: Option<models::UpdateBroadcastRequest>,
 ) -> Result<models::UpdateBroadcast200Response, Error<UpdateBroadcastError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_broadcast_id = broadcast_id;
+    let p_body_update_broadcast_request = update_broadcast_request;
 
     let uri_str = format!(
         "{}/v1/broadcasts/{broadcastId}",
@@ -624,6 +626,7 @@ pub async fn update_broadcast(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
+    req_builder = req_builder.json(&p_body_update_broadcast_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
