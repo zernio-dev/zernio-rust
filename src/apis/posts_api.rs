@@ -131,7 +131,7 @@ pub async fn bulk_upload_posts(
     configuration: &configuration::Configuration,
     dry_run: Option<bool>,
     file: Option<std::path::PathBuf>,
-) -> Result<models::BulkUploadPosts200Response, Error<BulkUploadPostsError>> {
+) -> Result<models::BulkUploadResult, Error<BulkUploadPostsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_dry_run = dry_run;
     let p_form_file = file;
@@ -179,8 +179,8 @@ pub async fn bulk_upload_posts(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::BulkUploadPosts200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::BulkUploadPosts200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::BulkUploadResult`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::BulkUploadResult`")))),
         }
     } else {
         let content = resp.text().await?;

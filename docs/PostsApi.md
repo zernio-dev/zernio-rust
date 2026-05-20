@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 ## bulk_upload_posts
 
-> models::BulkUploadPosts200Response bulk_upload_posts(dry_run, file)
+> models::BulkUploadResult bulk_upload_posts(dry_run, file)
 Bulk upload from CSV
 
 Create multiple posts by uploading a CSV file. Use dryRun=true to validate without creating posts.
@@ -34,7 +34,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::BulkUploadPosts200Response**](bulkUploadPosts_200_response.md)
+[**models::BulkUploadResult**](BulkUploadResult.md)
 
 ### Authorization
 

@@ -75,9 +75,10 @@ docs/BulkUpdateAdCampaignStatus200ResponseResultsInner.md
 docs/BulkUpdateAdCampaignStatus200ResponseTotals.md
 docs/BulkUpdateAdCampaignStatusRequest.md
 docs/BulkUpdateAdCampaignStatusRequestCampaignsInner.md
-docs/BulkUploadPosts200Response.md
-docs/BulkUploadPosts200ResponseErrorsInner.md
 docs/BulkUploadPosts429Response.md
+docs/BulkUploadResult.md
+docs/BulkUploadResultRateLimitedAccountsInner.md
+docs/BulkUploadResultResultsInner.md
 docs/BusinessCenter.md
 docs/CancelBroadcast200Response.md
 docs/CancelBroadcast200ResponseBroadcast.md
@@ -1078,9 +1079,10 @@ src/models/bulk_update_ad_campaign_status_200_response_results_inner.rs
 src/models/bulk_update_ad_campaign_status_200_response_totals.rs
 src/models/bulk_update_ad_campaign_status_request.rs
 src/models/bulk_update_ad_campaign_status_request_campaigns_inner.rs
-src/models/bulk_upload_posts_200_response.rs
-src/models/bulk_upload_posts_200_response_errors_inner.rs
 src/models/bulk_upload_posts_429_response.rs
+src/models/bulk_upload_result.rs
+src/models/bulk_upload_result_rate_limited_accounts_inner.rs
+src/models/bulk_upload_result_results_inner.rs
 src/models/business_center.rs
 src/models/cancel_broadcast_200_response.rs
 src/models/cancel_broadcast_200_response_broadcast.rs
