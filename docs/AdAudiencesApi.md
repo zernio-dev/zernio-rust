@@ -138,7 +138,7 @@ Name | Type | Description  | Required | Notes
 > models::ListAdAudiences200Response list_ad_audiences(account_id, ad_account_id, platform)
 List custom audiences
 
-Returns custom audiences for the given ad account. Supports Meta, Google, TikTok, and Pinterest.
+Returns custom audiences for the given ad account. Supports Meta, Google, TikTok, Pinterest, LinkedIn, and X (Twitter).
 
 ### Parameters
 

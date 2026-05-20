@@ -274,7 +274,7 @@ pub async fn get_ad_audience(
     }
 }
 
-/// Returns custom audiences for the given ad account. Supports Meta, Google, TikTok, and Pinterest.
+/// Returns custom audiences for the given ad account. Supports Meta, Google, TikTok, Pinterest, LinkedIn, and X (Twitter).
 pub async fn list_ad_audiences(
     configuration: &configuration::Configuration,
     account_id: &str,
