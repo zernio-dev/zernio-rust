@@ -581,6 +581,7 @@ docs/ListWhatsAppGroupJoinRequests200ResponseJoinRequestsInner.md
 docs/ListWhatsAppPhoneNumbers200Response.md
 docs/ListWhatsAppPhoneNumbers200ResponsePhoneNumbersInner.md
 docs/LogsApi.md
+docs/MarkConversationRead200Response.md
 docs/MediaApi.md
 docs/MediaItem.md
 docs/MediaUploadResponse.md
@@ -1568,6 +1569,7 @@ src/models/list_whats_app_group_join_requests_200_response.rs
 src/models/list_whats_app_group_join_requests_200_response_join_requests_inner.rs
 src/models/list_whats_app_phone_numbers_200_response.rs
 src/models/list_whats_app_phone_numbers_200_response_phone_numbers_inner.rs
+src/models/mark_conversation_read_200_response.rs
 src/models/media_item.rs
 src/models/media_upload_response.rs
 src/models/mod.rs
