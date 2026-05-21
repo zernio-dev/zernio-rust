@@ -212,6 +212,8 @@ pub mod create_broadcast_request_segment_filters;
 pub use self::create_broadcast_request_segment_filters::CreateBroadcastRequestSegmentFilters;
 pub mod create_broadcast_request_template;
 pub use self::create_broadcast_request_template::CreateBroadcastRequestTemplate;
+pub mod create_broadcast_request_template_variable_mapping_value;
+pub use self::create_broadcast_request_template_variable_mapping_value::CreateBroadcastRequestTemplateVariableMappingValue;
 pub mod create_comment_automation_200_response;
 pub use self::create_comment_automation_200_response::CreateCommentAutomation200Response;
 pub mod create_comment_automation_200_response_automation;

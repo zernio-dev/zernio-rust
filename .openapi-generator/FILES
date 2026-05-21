@@ -122,6 +122,7 @@ docs/CreateBroadcastRequestMessage.md
 docs/CreateBroadcastRequestMessageAttachmentsInner.md
 docs/CreateBroadcastRequestSegmentFilters.md
 docs/CreateBroadcastRequestTemplate.md
+docs/CreateBroadcastRequestTemplateVariableMappingValue.md
 docs/CreateCommentAutomation200Response.md
 docs/CreateCommentAutomation200ResponseAutomation.md
 docs/CreateCommentAutomation200ResponseAutomationStats.md
@@ -1139,6 +1140,7 @@ src/models/create_broadcast_request_message.rs
 src/models/create_broadcast_request_message_attachments_inner.rs
 src/models/create_broadcast_request_segment_filters.rs
 src/models/create_broadcast_request_template.rs
+src/models/create_broadcast_request_template_variable_mapping_value.rs
 src/models/create_comment_automation_200_response.rs
 src/models/create_comment_automation_200_response_automation.rs
 src/models/create_comment_automation_200_response_automation_stats.rs

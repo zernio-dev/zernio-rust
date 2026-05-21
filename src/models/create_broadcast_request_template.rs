@@ -20,6 +20,14 @@ pub struct CreateBroadcastRequestTemplate {
     pub language: Option<String>,
     #[serde(rename = "components", skip_serializing_if = "Option::is_none")]
     pub components: Option<Vec<serde_json::Value>>,
+    /// Maps template variable positions (\"1\", \"2\") to contact fields or static values. Resolved per recipient at send time.
+    #[serde(rename = "variableMapping", skip_serializing_if = "Option::is_none")]
+    pub variable_mapping: Option<
+        std::collections::HashMap<
+            String,
+            models::CreateBroadcastRequestTemplateVariableMappingValue,
+        >,
+    >,
 }
 
 impl CreateBroadcastRequestTemplate {
@@ -29,6 +37,7 @@ impl CreateBroadcastRequestTemplate {
             name: None,
             language: None,
             components: None,
+            variable_mapping: None,
         }
     }
 }
