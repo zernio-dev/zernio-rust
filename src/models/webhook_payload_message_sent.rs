@@ -22,9 +22,9 @@ pub struct WebhookPayloadMessageSent {
     #[serde(rename = "message")]
     pub message: Box<models::WebhookPayloadMessageSentMessage>,
     #[serde(rename = "conversation")]
-    pub conversation: Box<models::WebhookPayloadMessageConversation>,
+    pub conversation: Box<models::WebhookPayloadReactionConversation>,
     #[serde(rename = "account")]
-    pub account: Box<models::WebhookPayloadMessageAccount>,
+    pub account: Box<models::WebhookPayloadReactionAccount>,
     #[serde(rename = "timestamp")]
     pub timestamp: String,
 }
@@ -35,8 +35,8 @@ impl WebhookPayloadMessageSent {
         id: String,
         event: Event,
         message: models::WebhookPayloadMessageSentMessage,
-        conversation: models::WebhookPayloadMessageConversation,
-        account: models::WebhookPayloadMessageAccount,
+        conversation: models::WebhookPayloadReactionConversation,
+        account: models::WebhookPayloadReactionAccount,
         timestamp: String,
     ) -> WebhookPayloadMessageSent {
         WebhookPayloadMessageSent {

@@ -11,43 +11,40 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookPayloadMessage : Webhook payload for message received events
+/// WebhookPayloadReaction : Webhook payload for reaction received events (WhatsApp, Telegram)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct WebhookPayloadMessage {
+pub struct WebhookPayloadReaction {
     /// Stable webhook event ID
     #[serde(rename = "id")]
     pub id: String,
     #[serde(rename = "event")]
     pub event: Event,
-    #[serde(rename = "message")]
-    pub message: Box<models::WebhookPayloadMessageMessage>,
+    #[serde(rename = "reaction")]
+    pub reaction: Box<models::WebhookPayloadReactionReaction>,
     #[serde(rename = "conversation")]
     pub conversation: Box<models::WebhookPayloadReactionConversation>,
     #[serde(rename = "account")]
     pub account: Box<models::WebhookPayloadReactionAccount>,
-    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<Box<models::WebhookPayloadMessageMetadata>>,
     #[serde(rename = "timestamp")]
     pub timestamp: String,
 }
 
-impl WebhookPayloadMessage {
-    /// Webhook payload for message received events
+impl WebhookPayloadReaction {
+    /// Webhook payload for reaction received events (WhatsApp, Telegram)
     pub fn new(
         id: String,
         event: Event,
-        message: models::WebhookPayloadMessageMessage,
+        reaction: models::WebhookPayloadReactionReaction,
         conversation: models::WebhookPayloadReactionConversation,
         account: models::WebhookPayloadReactionAccount,
         timestamp: String,
-    ) -> WebhookPayloadMessage {
-        WebhookPayloadMessage {
+    ) -> WebhookPayloadReaction {
+        WebhookPayloadReaction {
             id,
             event,
-            message: Box::new(message),
+            reaction: Box::new(reaction),
             conversation: Box::new(conversation),
             account: Box::new(account),
-            metadata: None,
             timestamp,
         }
     }
@@ -55,12 +52,12 @@ impl WebhookPayloadMessage {
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Event {
-    #[serde(rename = "message.received")]
-    MessageReceived,
+    #[serde(rename = "reaction.received")]
+    ReactionReceived,
 }
 
 impl Default for Event {
     fn default() -> Event {
-        Self::MessageReceived
+        Self::ReactionReceived
     }
 }

@@ -1,12 +1,12 @@
-# WebhookPayloadMessageSent
+# WebhookPayloadReaction
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | Stable webhook event ID | 
-**event** | **Event** |  (enum: message.sent) | 
-**message** | [**models::WebhookPayloadMessageSentMessage**](WebhookPayloadMessageSentMessage.md) |  | 
+**event** | **Event** |  (enum: reaction.received) | 
+**reaction** | [**models::WebhookPayloadReactionReaction**](WebhookPayloadReactionReaction.md) |  | 
 **conversation** | [**models::WebhookPayloadReactionConversation**](WebhookPayloadReactionConversation.md) |  | 
 **account** | [**models::WebhookPayloadReactionAccount**](WebhookPayloadReactionAccount.md) |  | 
 **timestamp** | **String** |  | 
