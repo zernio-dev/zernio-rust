@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **account_id** | **String** |  | 
-**ad_account_id** | **String** | Must start with act_ | 
+**ad_account_id** | **String** | Platform ad account ID. Must start with act_ for Meta; bare platform id for others (Google customer id, X/TikTok/LinkedIn/Pinterest account id). | 
 **name** | **String** |  | 
 **description** | Option<**String**> |  | [optional]
 **r#type** | **Type** |  (enum: customer_list, website, lookalike) | 

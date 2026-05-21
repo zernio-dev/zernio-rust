@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct CreateAdAudienceRequest {
     #[serde(rename = "accountId")]
     pub account_id: String,
-    /// Must start with act_
+    /// Platform ad account ID. Must start with act_ for Meta; bare platform id for others (Google customer id, X/TikTok/LinkedIn/Pinterest account id).
     #[serde(rename = "adAccountId")]
     pub ad_account_id: String,
     #[serde(rename = "name")]

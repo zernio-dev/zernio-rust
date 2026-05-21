@@ -17,7 +17,7 @@ Method | HTTP request | Description
 > models::AddUsersToAdAudience200Response add_users_to_ad_audience(audience_id, add_users_to_ad_audience_request)
 Add users to audience
 
-Upload user data (emails and/or phone numbers) to a customer_list audience. Data is SHA256-hashed server-side before sending to Meta. Max 10,000 users per request.
+Upload user data to a customer_list audience. Data is SHA256-hashed server-side before sending to the platform. Email is used on every platform; phone is used on Meta only (other platforms ignore it). On TikTok and Pinterest, the first upload also provisions the audience (deferred create). LinkedIn uploads are full-replace. Max 10,000 users per request. 
 
 ### Parameters
 
@@ -48,7 +48,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateAdAudience201Response create_ad_audience(create_ad_audience_request)
 Create custom audience
 
-Create a customer list, website retargeting, or lookalike audience on Meta (Facebook/Instagram).
+Create a custom audience. `customer_list` is supported on Meta, Google, X, LinkedIn, TikTok, and Pinterest; `website` and `lookalike` are Meta-only. The audience is created empty — add members via `POST /v1/ads/audiences/{audienceId}/users`. On TikTok and Pinterest the audience is provisioned lazily on the first member upload (until then its status is `pending`). Create is not idempotent — never auto-retry. 
 
 ### Parameters
 

@@ -84,6 +84,7 @@ docs/CancelBroadcast200Response.md
 docs/CancelBroadcast200ResponseBroadcast.md
 docs/CommentAutomationsApi.md
 docs/CommentsApi.md
+docs/CompleteGoogleBusinessVerificationRequest.md
 docs/CompleteTelegramConnect200Response.md
 docs/CompleteWhatsAppPhoneSelection200Response.md
 docs/CompleteWhatsAppPhoneSelection200ResponseAccount.md
@@ -236,6 +237,9 @@ docs/ErrorResponse.md
 docs/Expired.md
 docs/FacebookPlatformData.md
 docs/FacebookPlatformDataCarouselCardsInner.md
+docs/FetchGoogleBusinessVerificationOptions200Response.md
+docs/FetchGoogleBusinessVerificationOptions200ResponseOptionsInner.md
+docs/FetchGoogleBusinessVerificationOptionsRequest.md
 docs/FollowUser200Response.md
 docs/FollowUserRequest.md
 docs/FollowerStatsResponse.md
@@ -344,6 +348,10 @@ docs/GetGoogleBusinessServices200ResponseServicesInner.md
 docs/GetGoogleBusinessServices200ResponseServicesInnerFreeFormServiceItem.md
 docs/GetGoogleBusinessServices200ResponseServicesInnerFreeFormServiceItemLabel.md
 docs/GetGoogleBusinessServices200ResponseServicesInnerPrice.md
+docs/GetGoogleBusinessVerifications200Response.md
+docs/GetGoogleBusinessVerifications200ResponseVerificationsInner.md
+docs/GetGoogleBusinessVerifications200ResponseVoiceOfMerchantState.md
+docs/GetGoogleBusinessVerifications200ResponseVoiceOfMerchantStateVerify.md
 docs/GetInboxConversation200Response.md
 docs/GetInboxConversation200ResponseData.md
 docs/GetInboxConversationMessages200Response.md
@@ -450,6 +458,7 @@ docs/GmbMediaApi.md
 docs/GmbPlaceActionsApi.md
 docs/GmbReviewsApi.md
 docs/GmbServicesApi.md
+docs/GmbVerificationsApi.md
 docs/GoogleBusinessPlatformData.md
 docs/GoogleBusinessPlatformDataCallToAction.md
 docs/GoogleBusinessPlatformDataEvent.md
@@ -736,6 +745,9 @@ docs/SharedAdAccount.md
 docs/SnapchatPlatformData.md
 docs/SocialAccount.md
 docs/SocialAccountProfileId.md
+docs/StartGoogleBusinessVerification200Response.md
+docs/StartGoogleBusinessVerification200ResponseVerification.md
+docs/StartGoogleBusinessVerificationRequest.md
 docs/TelegramPlatformData.md
 docs/TestWebhookRequest.md
 docs/ThreadsPlatformData.md
@@ -995,6 +1007,7 @@ src/apis/gmb_media_api.rs
 src/apis/gmb_place_actions_api.rs
 src/apis/gmb_reviews_api.rs
 src/apis/gmb_services_api.rs
+src/apis/gmb_verifications_api.rs
 src/apis/instagram_api.rs
 src/apis/invites_api.rs
 src/apis/linked_in_mentions_api.rs
@@ -1090,6 +1103,7 @@ src/models/bulk_upload_result_results_inner.rs
 src/models/business_center.rs
 src/models/cancel_broadcast_200_response.rs
 src/models/cancel_broadcast_200_response_broadcast.rs
+src/models/complete_google_business_verification_request.rs
 src/models/complete_telegram_connect_200_response.rs
 src/models/complete_whats_app_phone_selection_200_response.rs
 src/models/complete_whats_app_phone_selection_200_response_account.rs
@@ -1238,6 +1252,9 @@ src/models/error_response.rs
 src/models/expired.rs
 src/models/facebook_platform_data.rs
 src/models/facebook_platform_data_carousel_cards_inner.rs
+src/models/fetch_google_business_verification_options_200_response.rs
+src/models/fetch_google_business_verification_options_200_response_options_inner.rs
+src/models/fetch_google_business_verification_options_request.rs
 src/models/follow_user_200_response.rs
 src/models/follow_user_request.rs
 src/models/follower_stats_response.rs
@@ -1346,6 +1363,10 @@ src/models/get_google_business_services_200_response_services_inner.rs
 src/models/get_google_business_services_200_response_services_inner_free_form_service_item.rs
 src/models/get_google_business_services_200_response_services_inner_free_form_service_item_label.rs
 src/models/get_google_business_services_200_response_services_inner_price.rs
+src/models/get_google_business_verifications_200_response.rs
+src/models/get_google_business_verifications_200_response_verifications_inner.rs
+src/models/get_google_business_verifications_200_response_voice_of_merchant_state.rs
+src/models/get_google_business_verifications_200_response_voice_of_merchant_state_verify.rs
 src/models/get_inbox_conversation_200_response.rs
 src/models/get_inbox_conversation_200_response_data.rs
 src/models/get_inbox_conversation_messages_200_response.rs
@@ -1720,6 +1741,9 @@ src/models/shared_ad_account.rs
 src/models/snapchat_platform_data.rs
 src/models/social_account.rs
 src/models/social_account_profile_id.rs
+src/models/start_google_business_verification_200_response.rs
+src/models/start_google_business_verification_200_response_verification.rs
+src/models/start_google_business_verification_request.rs
 src/models/telegram_platform_data.rs
 src/models/test_webhook_request.rs
 src/models/threads_platform_data.rs
