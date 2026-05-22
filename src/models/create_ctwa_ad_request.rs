@@ -56,7 +56,7 @@ pub struct CreateCtwaAdRequest {
     #[serde(rename = "ageMax", skip_serializing_if = "Option::is_none")]
     pub age_max: Option<i32>,
     #[serde(rename = "interests", skip_serializing_if = "Option::is_none")]
-    pub interests: Option<Vec<models::CreateCtwaAdRequestInterestsInner>>,
+    pub interests: Option<Vec<models::CreateStandaloneAdRequestBehaviorsInner>>,
     /// Custom audience ID to target.
     #[serde(rename = "audienceId", skip_serializing_if = "Option::is_none")]
     pub audience_id: Option<String>,

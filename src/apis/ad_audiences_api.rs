@@ -120,7 +120,7 @@ pub async fn add_users_to_ad_audience(
     }
 }
 
-/// Create a custom audience. `customer_list` is supported on Meta, Google, X, LinkedIn, TikTok, and Pinterest; `website` and `lookalike` are Meta-only. The audience is created empty — add members via `POST /v1/ads/audiences/{audienceId}/users`. On TikTok and Pinterest the audience is provisioned lazily on the first member upload (until then its status is `pending`). Create is not idempotent — never auto-retry.
+/// Create a custom audience. `customer_list` is supported on Meta, Google, X, LinkedIn, TikTok, and Pinterest; `website` and `lookalike` are Meta-only. `saved_targeting` stores a reusable TargetingSpec (no member upload, no adAccountId) that you reference later via `savedTargetingId` on `POST /v1/ads/create`. Upload-backed audiences are created empty, add members via `POST /v1/ads/audiences/{audienceId}/users`. On TikTok and Pinterest the audience is provisioned lazily on the first member upload (until then its status is `pending`). Create is not idempotent, never auto-retry.
 pub async fn create_ad_audience(
     configuration: &configuration::Configuration,
     create_ad_audience_request: models::CreateAdAudienceRequest,
@@ -280,11 +280,13 @@ pub async fn list_ad_audiences(
     account_id: &str,
     ad_account_id: &str,
     platform: Option<&str>,
+    r#type: Option<&str>,
 ) -> Result<models::ListAdAudiences200Response, Error<ListAdAudiencesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_account_id = account_id;
     let p_query_ad_account_id = ad_account_id;
     let p_query_platform = platform;
+    let p_query_type = r#type;
 
     let uri_str = format!("{}/v1/ads/audiences", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -293,6 +295,9 @@ pub async fn list_ad_audiences(
     req_builder = req_builder.query(&[("adAccountId", &p_query_ad_account_id.to_string())]);
     if let Some(ref param_value) = p_query_platform {
         req_builder = req_builder.query(&[("platform", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_type {
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());

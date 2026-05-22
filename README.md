@@ -83,6 +83,7 @@ Class | Method | HTTP request | Description
 *AdsApi* | [**create_standalone_ad**](docs/AdsApi.md#create_standalone_ad) | **POST** /v1/ads/create | Create standalone ad
 *AdsApi* | [**delete_ad**](docs/AdsApi.md#delete_ad) | **DELETE** /v1/ads/{adId} | Cancel an ad
 *AdsApi* | [**delete_conversion_destination**](docs/AdsApi.md#delete_conversion_destination) | **DELETE** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Soft-delete a conversion destination
+*AdsApi* | [**estimate_ad_reach**](docs/AdsApi.md#estimate_ad_reach) | **POST** /v1/ads/targeting/reach-estimate | Estimate audience reach
 *AdsApi* | [**get_ad**](docs/AdsApi.md#get_ad) | **GET** /v1/ads/{adId} | Get ad details
 *AdsApi* | [**get_ad_analytics**](docs/AdsApi.md#get_ad_analytics) | **GET** /v1/ads/{adId}/analytics | Get ad analytics
 *AdsApi* | [**get_ad_comments**](docs/AdsApi.md#get_ad_comments) | **GET** /v1/ads/{adId}/comments | List comments on an ad
@@ -94,8 +95,8 @@ Class | Method | HTTP request | Description
 *AdsApi* | [**list_conversion_associations**](docs/AdsApi.md#list_conversion_associations) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | List campaigns associated with a conversion destination
 *AdsApi* | [**list_conversion_destinations**](docs/AdsApi.md#list_conversion_destinations) | **GET** /v1/accounts/{accountId}/conversion-destinations | List destinations for the Conversions API
 *AdsApi* | [**remove_conversion_associations**](docs/AdsApi.md#remove_conversion_associations) | **DELETE** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | Remove campaign↔conversion associations
-*AdsApi* | [**search_ad_interests**](docs/AdsApi.md#search_ad_interests) | **GET** /v1/ads/interests | Search targeting interests
-*AdsApi* | [**search_ad_targeting_locations**](docs/AdsApi.md#search_ad_targeting_locations) | **GET** /v1/ads/targeting/search | Search geo targeting locations (Meta)
+*AdsApi* | [**search_ad_interests**](docs/AdsApi.md#search_ad_interests) | **GET** /v1/ads/interests | Search targeting interests (deprecated)
+*AdsApi* | [**search_ad_targeting**](docs/AdsApi.md#search_ad_targeting) | **GET** /v1/ads/targeting/search | Search targeting options
 *AdsApi* | [**send_conversions**](docs/AdsApi.md#send_conversions) | **POST** /v1/ads/conversions | Send conversion events to an ad platform
 *AdsApi* | [**send_whats_app_conversion**](docs/AdsApi.md#send_whats_app_conversion) | **POST** /v1/whatsapp/conversions | Send WhatsApp conversion event
 *AdsApi* | [**update_ad**](docs/AdsApi.md#update_ad) | **PUT** /v1/ads/{adId} | Update ad
@@ -465,7 +466,6 @@ Class | Method | HTTP request | Description
  - [CreateCtwaAdRequest](docs/CreateCtwaAdRequest.md)
  - [CreateCtwaAdRequestCreativesInner](docs/CreateCtwaAdRequestCreativesInner.md)
  - [CreateCtwaAdRequestCreativesInnerVideo](docs/CreateCtwaAdRequestCreativesInnerVideo.md)
- - [CreateCtwaAdRequestInterestsInner](docs/CreateCtwaAdRequestInterestsInner.md)
  - [CreateCtwaAdRequestVideo](docs/CreateCtwaAdRequestVideo.md)
  - [CreateCustomField200Response](docs/CreateCustomField200Response.md)
  - [CreateCustomFieldRequest](docs/CreateCustomFieldRequest.md)
@@ -500,14 +500,17 @@ Class | Method | HTTP request | Description
  - [CreateStandaloneAd201ResponseOneOf1](docs/CreateStandaloneAd201ResponseOneOf1.md)
  - [CreateStandaloneAdRequest](docs/CreateStandaloneAdRequest.md)
  - [CreateStandaloneAdRequestAttributionSpecInner](docs/CreateStandaloneAdRequestAttributionSpecInner.md)
+ - [CreateStandaloneAdRequestBehaviorsInner](docs/CreateStandaloneAdRequestBehaviorsInner.md)
  - [CreateStandaloneAdRequestBrandIdentity](docs/CreateStandaloneAdRequestBrandIdentity.md)
  - [CreateStandaloneAdRequestCitiesInner](docs/CreateStandaloneAdRequestCitiesInner.md)
  - [CreateStandaloneAdRequestCreativesInner](docs/CreateStandaloneAdRequestCreativesInner.md)
  - [CreateStandaloneAdRequestCreativesInnerVideo](docs/CreateStandaloneAdRequestCreativesInnerVideo.md)
+ - [CreateStandaloneAdRequestCustomLocationsInner](docs/CreateStandaloneAdRequestCustomLocationsInner.md)
  - [CreateStandaloneAdRequestImages](docs/CreateStandaloneAdRequestImages.md)
  - [CreateStandaloneAdRequestPromotedObject](docs/CreateStandaloneAdRequestPromotedObject.md)
  - [CreateStandaloneAdRequestRegionsInner](docs/CreateStandaloneAdRequestRegionsInner.md)
  - [CreateStandaloneAdRequestVideo](docs/CreateStandaloneAdRequestVideo.md)
+ - [CreateStandaloneAdRequestZipsInner](docs/CreateStandaloneAdRequestZipsInner.md)
  - [CreateTrackingTag201Response](docs/CreateTrackingTag201Response.md)
  - [CreateTrackingTagRequest](docs/CreateTrackingTagRequest.md)
  - [CreateWebhookSettingsRequest](docs/CreateWebhookSettingsRequest.md)
@@ -559,6 +562,8 @@ Class | Method | HTTP request | Description
  - [EnrollContacts200Response](docs/EnrollContacts200Response.md)
  - [EnrollContactsRequest](docs/EnrollContactsRequest.md)
  - [ErrorResponse](docs/ErrorResponse.md)
+ - [EstimateAdReach200Response](docs/EstimateAdReach200Response.md)
+ - [EstimateAdReachRequest](docs/EstimateAdReachRequest.md)
  - [Expired](docs/Expired.md)
  - [FacebookPlatformData](docs/FacebookPlatformData.md)
  - [FacebookPlatformDataCarouselCardsInner](docs/FacebookPlatformDataCarouselCardsInner.md)
@@ -969,14 +974,14 @@ Class | Method | HTTP request | Description
  - [ReviewWebhookReview](docs/ReviewWebhookReview.md)
  - [ReviewWebhookReviewReply](docs/ReviewWebhookReviewReply.md)
  - [ReviewWebhookReviewReviewer](docs/ReviewWebhookReviewReviewer.md)
+ - [SavedTargetingAudience](docs/SavedTargetingAudience.md)
  - [ScheduleBroadcast200Response](docs/ScheduleBroadcast200Response.md)
  - [ScheduleBroadcast200ResponseBroadcast](docs/ScheduleBroadcast200ResponseBroadcast.md)
  - [ScheduleBroadcastRequest](docs/ScheduleBroadcastRequest.md)
  - [SearchAdInterests200Response](docs/SearchAdInterests200Response.md)
  - [SearchAdInterests200ResponseInterestsInner](docs/SearchAdInterests200ResponseInterestsInner.md)
- - [SearchAdTargetingLocations200Response](docs/SearchAdTargetingLocations200Response.md)
- - [SearchAdTargetingLocations200ResponseResultsInner](docs/SearchAdTargetingLocations200ResponseResultsInner.md)
- - [SearchAdTargetingLocations200ResponseResultsInnerRegionId](docs/SearchAdTargetingLocations200ResponseResultsInnerRegionId.md)
+ - [SearchAdTargeting200Response](docs/SearchAdTargeting200Response.md)
+ - [SearchAdTargeting200ResponseResultsInner](docs/SearchAdTargeting200ResponseResultsInner.md)
  - [SearchReddit200Response](docs/SearchReddit200Response.md)
  - [SelectFacebookPage200Response](docs/SelectFacebookPage200Response.md)
  - [SelectFacebookPage200ResponseAccount](docs/SelectFacebookPage200ResponseAccount.md)
@@ -1054,6 +1059,10 @@ Class | Method | HTTP request | Description
  - [StartGoogleBusinessVerification200Response](docs/StartGoogleBusinessVerification200Response.md)
  - [StartGoogleBusinessVerification200ResponseVerification](docs/StartGoogleBusinessVerification200ResponseVerification.md)
  - [StartGoogleBusinessVerificationRequest](docs/StartGoogleBusinessVerificationRequest.md)
+ - [TargetingSpec](docs/TargetingSpec.md)
+ - [TargetingSpecCitiesInner](docs/TargetingSpecCitiesInner.md)
+ - [TargetingSpecCustomLocationsInner](docs/TargetingSpecCustomLocationsInner.md)
+ - [TargetingSpecExcludedLocations](docs/TargetingSpecExcludedLocations.md)
  - [TelegramPlatformData](docs/TelegramPlatformData.md)
  - [TestWebhookRequest](docs/TestWebhookRequest.md)
  - [ThreadsPlatformData](docs/ThreadsPlatformData.md)
@@ -1176,6 +1185,7 @@ Class | Method | HTTP request | Description
  - [UploadWhatsAppFlowJsonRequest](docs/UploadWhatsAppFlowJsonRequest.md)
  - [UploadWhatsAppFlowJsonRequestFlowJson](docs/UploadWhatsAppFlowJsonRequestFlowJson.md)
  - [UploadedFile](docs/UploadedFile.md)
+ - [UploadedOrDerivedAudience](docs/UploadedOrDerivedAudience.md)
  - [UsageStats](docs/UsageStats.md)
  - [UsageStatsLimits](docs/UsageStatsLimits.md)
  - [UsageStatsSpend](docs/UsageStatsSpend.md)

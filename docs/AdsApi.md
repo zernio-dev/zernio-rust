@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**create_standalone_ad**](AdsApi.md#create_standalone_ad) | **POST** /v1/ads/create | Create standalone ad
 [**delete_ad**](AdsApi.md#delete_ad) | **DELETE** /v1/ads/{adId} | Cancel an ad
 [**delete_conversion_destination**](AdsApi.md#delete_conversion_destination) | **DELETE** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Soft-delete a conversion destination
+[**estimate_ad_reach**](AdsApi.md#estimate_ad_reach) | **POST** /v1/ads/targeting/reach-estimate | Estimate audience reach
 [**get_ad**](AdsApi.md#get_ad) | **GET** /v1/ads/{adId} | Get ad details
 [**get_ad_analytics**](AdsApi.md#get_ad_analytics) | **GET** /v1/ads/{adId}/analytics | Get ad analytics
 [**get_ad_comments**](AdsApi.md#get_ad_comments) | **GET** /v1/ads/{adId}/comments | List comments on an ad
@@ -22,8 +23,8 @@ Method | HTTP request | Description
 [**list_conversion_associations**](AdsApi.md#list_conversion_associations) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | List campaigns associated with a conversion destination
 [**list_conversion_destinations**](AdsApi.md#list_conversion_destinations) | **GET** /v1/accounts/{accountId}/conversion-destinations | List destinations for the Conversions API
 [**remove_conversion_associations**](AdsApi.md#remove_conversion_associations) | **DELETE** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | Remove campaign↔conversion associations
-[**search_ad_interests**](AdsApi.md#search_ad_interests) | **GET** /v1/ads/interests | Search targeting interests
-[**search_ad_targeting_locations**](AdsApi.md#search_ad_targeting_locations) | **GET** /v1/ads/targeting/search | Search geo targeting locations (Meta)
+[**search_ad_interests**](AdsApi.md#search_ad_interests) | **GET** /v1/ads/interests | Search targeting interests (deprecated)
+[**search_ad_targeting**](AdsApi.md#search_ad_targeting) | **GET** /v1/ads/targeting/search | Search targeting options
 [**send_conversions**](AdsApi.md#send_conversions) | **POST** /v1/ads/conversions | Send conversion events to an ad platform
 [**send_whats_app_conversion**](AdsApi.md#send_whats_app_conversion) | **POST** /v1/whatsapp/conversions | Send WhatsApp conversion event
 [**update_ad**](AdsApi.md#update_ad) | **PUT** /v1/ads/{adId} | Update ad
@@ -241,6 +242,36 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## estimate_ad_reach
+
+> models::EstimateAdReach200Response estimate_ad_reach(estimate_ad_reach_request)
+Estimate audience reach
+
+Returns a normalized pre-flight audience-size estimate for a targeting spec, before any campaign is created. Backed by each platform's native reach API (Meta `delivery_estimate`, LinkedIn `audienceCounts`, X `audience_summary`, Pinterest `audience_sizing`).  Platforms without a usable pre-flight reach API (Google Search/Display, TikTok) return `available: false` with no bounds, so clients can hide or grey out the estimate rather than treat the absence as an error. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**estimate_ad_reach_request** | [**EstimateAdReachRequest**](EstimateAdReachRequest.md) |  | [required] |
+
+### Return type
+
+[**models::EstimateAdReach200Response**](estimateAdReach_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -612,9 +643,9 @@ Name | Type | Description  | Required | Notes
 ## search_ad_interests
 
 > models::SearchAdInterests200Response search_ad_interests(q, account_id)
-Search targeting interests
+Search targeting interests (deprecated)
 
-Search for interest-based targeting options available on the platform.
+Deprecated alias for `GET /v1/ads/targeting/search?dimension=interest`. Kept for backward compatibility, it returns the legacy `{ interests: [...] }` shape rather than the normalized `{ results: [...] }`. New integrations should use `GET /v1/ads/targeting/search` with `dimension=interest`. 
 
 ### Parameters
 
@@ -640,27 +671,28 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## search_ad_targeting_locations
+## search_ad_targeting
 
-> models::SearchAdTargetingLocations200Response search_ad_targeting_locations(account_id, q, r#type, country_code, limit)
-Search geo targeting locations (Meta)
+> models::SearchAdTargeting200Response search_ad_targeting(account_id, q, dimension, geo_type, country_code, limit)
+Search targeting options
 
-Resolve a human-readable location name into Meta's opaque `key` used in `targeting.cities[]` / `targeting.regions[]` on `POST /v1/ads/create` (and the same fields under `targeting.geo_locations` on `POST /v1/ads/boost`). Wraps Meta's `/search?type=adgeolocation` endpoint.  Meta-only for now. Other platforms have their own location id systems and are not exposed here.  Per Meta's docs, `q` must contain only the locality name (e.g. `\"Amsterdam\"`, not `\"Amsterdam, NL\"`). Use `countryCode` to disambiguate when the same name exists in multiple countries. 
+Resolve a human-readable query into the platform's opaque targeting ids used in the `TargetingSpec` (`countries`/`regions`/`cities`/`zips`/`metros` geo keys, and `interests`/`behaviors` entity ids) on `POST /v1/ads/create`, `POST /v1/ads/targeting/reach-estimate`, and `saved_targeting` audiences.  The `dimension` param selects what is searched, `geo` (locations, further scoped by `geoType`), `interest`, `behavior`, or `income`. Availability of each dimension varies by platform (e.g. behaviours are Meta/TikTok only). Results are normalized across platforms into a single shape, so the same client code consumes Meta, TikTok, LinkedIn, X, Pinterest, and Google results.  For geo queries, `q` should contain only the locality name (e.g. `\"Amsterdam\"`, not `\"Amsterdam, NL\"`). Use `countryCode` to disambiguate. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | Social account ID (must be a connected Facebook or Instagram account). | [required] |
-**q** | **String** | Location name. Locality only — no region/country suffix. | [required] |
-**r#type** | Option<**String**> | Type of location to search. Defaults to city. |  |[default to city]
-**country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code (e.g. NL) to scope the search. |  |
+**account_id** | **String** | Social account ID (a connected account on the target ad platform). | [required] |
+**q** | **String** | Search query. For geo, the locality name only (no region/country suffix). | [required] |
+**dimension** | Option<**String**> | What to search. `geo` resolves locations (scope further with `geoType`), `interest`/`behavior` resolve audience entities, `income` resolves income-tier options. Defaults to `interest` for backward compatibility with the deprecated /v1/ads/interests alias. |  |[default to interest]
+**geo_type** | Option<**String**> | Only used when `dimension=geo`. The kind of location to resolve. Defaults to `city`. |  |[default to city]
+**country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code (e.g. NL) to scope a geo search. |  |
 **limit** | Option<**i32**> | Maximum results to return. |  |[default to 25]
 
 ### Return type
 
-[**models::SearchAdTargetingLocations200Response**](searchAdTargetingLocations_200_response.md)
+[**models::SearchAdTargeting200Response**](searchAdTargeting_200_response.md)
 
 ### Authorization
 

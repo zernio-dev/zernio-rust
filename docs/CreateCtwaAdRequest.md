@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **countries** | Option<**Vec<String>**> | ISO 3166-1 alpha-2 country codes. Defaults to `[\"US\"]`. | [optional]
 **age_min** | Option<**i32**> |  | [optional]
 **age_max** | Option<**i32**> |  | [optional]
-**interests** | Option<[**Vec<models::CreateCtwaAdRequestInterestsInner>**](CreateCtwaAdRequestInterestsInner.md)> |  | [optional]
+**interests** | Option<[**Vec<models::CreateStandaloneAdRequestBehaviorsInner>**](CreateStandaloneAdRequestBehaviorsInner.md)> |  | [optional]
 **audience_id** | Option<**String**> | Custom audience ID to target. | [optional]
 **advantage_audience** | Option<**AdvantageAudience**> | Meta's Advantage+ audience expansion. `0` (default) keeps targeting strict; `1` lets Meta expand beyond the supplied targeting when its delivery system finds better matches. Always sent on CREATE (Meta requires it).  (enum: 0, 1) | [optional]
 **objective** | Option<**Objective**> | Defaults to `OUTCOME_ENGAGEMENT` (the broadly-supported CTWA objective). `OUTCOME_SALES` and `OUTCOME_LEADS` require additional account configuration (Dataset linked to the WABA for sales) and may be rejected by Meta if missing.  (enum: OUTCOME_ENGAGEMENT, OUTCOME_SALES, OUTCOME_LEADS) | [optional]

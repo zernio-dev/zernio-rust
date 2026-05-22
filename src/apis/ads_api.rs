@@ -96,6 +96,17 @@ pub enum DeleteConversionDestinationError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`estimate_ad_reach`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum EstimateAdReachError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(models::InlineObject1),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_ad`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -228,10 +239,10 @@ pub enum SearchAdInterestsError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`search_ad_targeting_locations`]
+/// struct for typed errors of method [`search_ad_targeting`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum SearchAdTargetingLocationsError {
+pub enum SearchAdTargetingError {
     Status400(),
     Status401(models::InlineObject),
     Status403(),
@@ -647,6 +658,59 @@ pub async fn delete_conversion_destination(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteConversionDestinationError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns a normalized pre-flight audience-size estimate for a targeting spec, before any campaign is created. Backed by each platform's native reach API (Meta `delivery_estimate`, LinkedIn `audienceCounts`, X `audience_summary`, Pinterest `audience_sizing`).  Platforms without a usable pre-flight reach API (Google Search/Display, TikTok) return `available: false` with no bounds, so clients can hide or grey out the estimate rather than treat the absence as an error.
+pub async fn estimate_ad_reach(
+    configuration: &configuration::Configuration,
+    estimate_ad_reach_request: models::EstimateAdReachRequest,
+) -> Result<models::EstimateAdReach200Response, Error<EstimateAdReachError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_estimate_ad_reach_request = estimate_ad_reach_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/targeting/reach-estimate",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_estimate_ad_reach_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::EstimateAdReach200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::EstimateAdReach200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<EstimateAdReachError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1357,7 +1421,8 @@ pub async fn remove_conversion_associations(
     }
 }
 
-/// Search for interest-based targeting options available on the platform.
+/// Deprecated alias for `GET /v1/ads/targeting/search?dimension=interest`. Kept for backward compatibility, it returns the legacy `{ interests: [...] }` shape rather than the normalized `{ results: [...] }`. New integrations should use `GET /v1/ads/targeting/search` with `dimension=interest`.
+#[deprecated]
 pub async fn search_ad_interests(
     configuration: &configuration::Configuration,
     q: &str,
@@ -1408,19 +1473,21 @@ pub async fn search_ad_interests(
     }
 }
 
-/// Resolve a human-readable location name into Meta's opaque `key` used in `targeting.cities[]` / `targeting.regions[]` on `POST /v1/ads/create` (and the same fields under `targeting.geo_locations` on `POST /v1/ads/boost`). Wraps Meta's `/search?type=adgeolocation` endpoint.  Meta-only for now. Other platforms have their own location id systems and are not exposed here.  Per Meta's docs, `q` must contain only the locality name (e.g. `\"Amsterdam\"`, not `\"Amsterdam, NL\"`). Use `countryCode` to disambiguate when the same name exists in multiple countries.
-pub async fn search_ad_targeting_locations(
+/// Resolve a human-readable query into the platform's opaque targeting ids used in the `TargetingSpec` (`countries`/`regions`/`cities`/`zips`/`metros` geo keys, and `interests`/`behaviors` entity ids) on `POST /v1/ads/create`, `POST /v1/ads/targeting/reach-estimate`, and `saved_targeting` audiences.  The `dimension` param selects what is searched, `geo` (locations, further scoped by `geoType`), `interest`, `behavior`, or `income`. Availability of each dimension varies by platform (e.g. behaviours are Meta/TikTok only). Results are normalized across platforms into a single shape, so the same client code consumes Meta, TikTok, LinkedIn, X, Pinterest, and Google results.  For geo queries, `q` should contain only the locality name (e.g. `\"Amsterdam\"`, not `\"Amsterdam, NL\"`). Use `countryCode` to disambiguate.
+pub async fn search_ad_targeting(
     configuration: &configuration::Configuration,
     account_id: &str,
     q: &str,
-    r#type: Option<&str>,
+    dimension: Option<&str>,
+    geo_type: Option<&str>,
     country_code: Option<&str>,
     limit: Option<i32>,
-) -> Result<models::SearchAdTargetingLocations200Response, Error<SearchAdTargetingLocationsError>> {
+) -> Result<models::SearchAdTargeting200Response, Error<SearchAdTargetingError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_account_id = account_id;
     let p_query_q = q;
-    let p_query_type = r#type;
+    let p_query_dimension = dimension;
+    let p_query_geo_type = geo_type;
     let p_query_country_code = country_code;
     let p_query_limit = limit;
 
@@ -1429,8 +1496,11 @@ pub async fn search_ad_targeting_locations(
 
     req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
     req_builder = req_builder.query(&[("q", &p_query_q.to_string())]);
-    if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
+    if let Some(ref param_value) = p_query_dimension {
+        req_builder = req_builder.query(&[("dimension", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_geo_type {
+        req_builder = req_builder.query(&[("geoType", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_country_code {
         req_builder = req_builder.query(&[("countryCode", &param_value.to_string())]);
@@ -1460,12 +1530,12 @@ pub async fn search_ad_targeting_locations(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SearchAdTargetingLocations200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SearchAdTargetingLocations200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SearchAdTargeting200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SearchAdTargeting200Response`")))),
         }
     } else {
         let content = resp.text().await?;
-        let entity: Option<SearchAdTargetingLocationsError> = serde_json::from_str(&content).ok();
+        let entity: Option<SearchAdTargetingError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

@@ -83,6 +83,33 @@ pub struct CreateStandaloneAdRequest {
     /// Interest objects from /v1/ads/interests. Each must include id and name.
     #[serde(rename = "interests", skip_serializing_if = "Option::is_none")]
     pub interests: Option<Vec<models::UpdateAdRequestTargetingInterestsInner>>,
+    /// Postal/ZIP geo targeting. `key` is the platform's postal location ID from /v1/ads/targeting/search?dimension=geo&geoType=zip. Supported on Meta, Google, TikTok, Pinterest, X.
+    #[serde(rename = "zips", skip_serializing_if = "Option::is_none")]
+    pub zips: Option<Vec<models::CreateStandaloneAdRequestZipsInner>>,
+    /// DMA / metro-area geo targeting. `key` is the platform's metro ID from /v1/ads/targeting/search?dimension=geo&geoType=metro.
+    #[serde(rename = "metros", skip_serializing_if = "Option::is_none")]
+    pub metros: Option<Vec<models::CreateStandaloneAdRequestZipsInner>>,
+    /// Point-radius (lat/lng) geo targeting. Meta only (custom_locations). Rejected on platforms without radius support.
+    #[serde(rename = "customLocations", skip_serializing_if = "Option::is_none")]
+    pub custom_locations: Option<Vec<models::CreateStandaloneAdRequestCustomLocationsInner>>,
+    /// Behaviour entities from /v1/ads/targeting/search?dimension=behavior. Supported on Meta and TikTok. Each must include id.
+    #[serde(rename = "behaviors", skip_serializing_if = "Option::is_none")]
+    pub behaviors: Option<Vec<models::CreateStandaloneAdRequestBehaviorsInner>>,
+    /// Normalized household-income tier. Meta and TikTok express all four; Google maps only `top_10`; rejected on LinkedIn, X, and Pinterest. On Meta, income targeting is incompatible with housing/employment/credit `specialAdCategories`.
+    #[serde(rename = "incomeTier", skip_serializing_if = "Option::is_none")]
+    pub income_tier: Option<IncomeTier>,
+    /// Language codes (e.g. ['en']). Restricts the audience by language.
+    #[serde(rename = "languages", skip_serializing_if = "Option::is_none")]
+    pub languages: Option<Vec<String>>,
+    /// ID of a `saved_targeting` audience (created via POST /v1/ads/audiences). When set, its stored TargetingSpec is expanded as the base targeting; inline fields on this body merge on top. Lets you reuse a named targeting preset without re-sending every field.
+    #[serde(rename = "savedTargetingId", skip_serializing_if = "Option::is_none")]
+    pub saved_targeting_id: Option<String>,
+    /// Meta only. Declares the ad's special category, required for housing, employment, credit, or political/social-issue ads (Meta enforces restricted targeting for these). Note: setting a special category disables income/zip targeting on Meta.
+    #[serde(
+        rename = "specialAdCategories",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub special_ad_categories: Option<Vec<SpecialAdCategories>>,
     /// Required for lifetime budgets
     #[serde(rename = "endDate", skip_serializing_if = "Option::is_none")]
     pub end_date: Option<String>,
@@ -173,6 +200,14 @@ impl CreateStandaloneAdRequest {
             age_min: None,
             age_max: None,
             interests: None,
+            zips: None,
+            metros: None,
+            custom_locations: None,
+            behaviors: None,
+            income_tier: None,
+            languages: None,
+            saved_targeting_id: None,
+            special_ad_categories: None,
             end_date: None,
             audience_id: None,
             campaign_type: None,
@@ -275,6 +310,42 @@ pub enum CallToAction {
 impl Default for CallToAction {
     fn default() -> CallToAction {
         Self::LearnMore
+    }
+}
+/// Normalized household-income tier. Meta and TikTok express all four; Google maps only `top_10`; rejected on LinkedIn, X, and Pinterest. On Meta, income targeting is incompatible with housing/employment/credit `specialAdCategories`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum IncomeTier {
+    #[serde(rename = "top_5")]
+    Top5,
+    #[serde(rename = "top_10")]
+    Top10,
+    #[serde(rename = "top_10_25")]
+    Top1025,
+    #[serde(rename = "top_25_50")]
+    Top2550,
+}
+
+impl Default for IncomeTier {
+    fn default() -> IncomeTier {
+        Self::Top5
+    }
+}
+/// Meta only. Declares the ad's special category, required for housing, employment, credit, or political/social-issue ads (Meta enforces restricted targeting for these). Note: setting a special category disables income/zip targeting on Meta.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum SpecialAdCategories {
+    #[serde(rename = "HOUSING")]
+    Housing,
+    #[serde(rename = "EMPLOYMENT")]
+    Employment,
+    #[serde(rename = "CREDIT")]
+    Credit,
+    #[serde(rename = "ISSUES_ELECTIONS_POLITICS")]
+    IssuesElectionsPolitics,
+}
+
+impl Default for SpecialAdCategories {
+    fn default() -> SpecialAdCategories {
+        Self::Housing
     }
 }
 /// Google only

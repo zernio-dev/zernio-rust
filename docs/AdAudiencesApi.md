@@ -48,7 +48,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateAdAudience201Response create_ad_audience(create_ad_audience_request)
 Create custom audience
 
-Create a custom audience. `customer_list` is supported on Meta, Google, X, LinkedIn, TikTok, and Pinterest; `website` and `lookalike` are Meta-only. The audience is created empty — add members via `POST /v1/ads/audiences/{audienceId}/users`. On TikTok and Pinterest the audience is provisioned lazily on the first member upload (until then its status is `pending`). Create is not idempotent — never auto-retry. 
+Create a custom audience. `customer_list` is supported on Meta, Google, X, LinkedIn, TikTok, and Pinterest; `website` and `lookalike` are Meta-only. `saved_targeting` stores a reusable TargetingSpec (no member upload, no adAccountId) that you reference later via `savedTargetingId` on `POST /v1/ads/create`. Upload-backed audiences are created empty, add members via `POST /v1/ads/audiences/{audienceId}/users`. On TikTok and Pinterest the audience is provisioned lazily on the first member upload (until then its status is `pending`). Create is not idempotent, never auto-retry. 
 
 ### Parameters
 
@@ -135,7 +135,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_ad_audiences
 
-> models::ListAdAudiences200Response list_ad_audiences(account_id, ad_account_id, platform)
+> models::ListAdAudiences200Response list_ad_audiences(account_id, ad_account_id, platform, r#type)
 List custom audiences
 
 Returns custom audiences for the given ad account. Supports Meta, Google, TikTok, Pinterest, LinkedIn, and X (Twitter).
@@ -148,6 +148,7 @@ Name | Type | Description  | Required | Notes
 **account_id** | **String** | Social account ID | [required] |
 **ad_account_id** | **String** | Platform ad account ID | [required] |
 **platform** | Option<**String**> |  |  |
+**r#type** | Option<**String**> | Filter to one audience type. `saved_targeting` returns stored TargetingSpec audiences (each item carries a `spec`); the other types return uploaded/derived audiences. |  |
 
 ### Return type
 

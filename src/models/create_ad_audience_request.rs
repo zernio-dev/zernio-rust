@@ -11,63 +11,16 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct CreateAdAudienceRequest {
-    #[serde(rename = "accountId")]
-    pub account_id: String,
-    /// Platform ad account ID. Must start with act_ for Meta; bare platform id for others (Google customer id, X/TikTok/LinkedIn/Pinterest account id).
-    #[serde(rename = "adAccountId")]
-    pub ad_account_id: String,
-    #[serde(rename = "name")]
-    pub name: String,
-    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    #[serde(rename = "type")]
-    pub r#type: Type,
-    /// Required for website audiences
-    #[serde(rename = "pixelId", skip_serializing_if = "Option::is_none")]
-    pub pixel_id: Option<String>,
-    /// Required for website audiences
-    #[serde(rename = "retentionDays", skip_serializing_if = "Option::is_none")]
-    pub retention_days: Option<i32>,
-    /// Required for lookalike audiences
-    #[serde(rename = "sourceAudienceId", skip_serializing_if = "Option::is_none")]
-    pub source_audience_id: Option<String>,
-    /// 2-letter code, required for lookalike audiences
-    #[serde(rename = "country", skip_serializing_if = "Option::is_none")]
-    pub country: Option<String>,
-    /// Required for lookalike audiences
-    #[serde(rename = "ratio", skip_serializing_if = "Option::is_none")]
-    pub ratio: Option<f64>,
-    /// Pixel event rule for website audiences (optional)
-    #[serde(rename = "rule", skip_serializing_if = "Option::is_none")]
-    pub rule: Option<serde_json::Value>,
-    /// Data source declaration for GDPR compliance (customer_list only)
-    #[serde(rename = "customerFileSource", skip_serializing_if = "Option::is_none")]
-    pub customer_file_source: Option<String>,
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateAdAudienceRequest {
+    UploadedOrDerivedAudience(Box<models::UploadedOrDerivedAudience>),
+    SavedTargetingAudience(Box<models::SavedTargetingAudience>),
 }
 
-impl CreateAdAudienceRequest {
-    pub fn new(
-        account_id: String,
-        ad_account_id: String,
-        name: String,
-        r#type: Type,
-    ) -> CreateAdAudienceRequest {
-        CreateAdAudienceRequest {
-            account_id,
-            ad_account_id,
-            name,
-            description: None,
-            r#type,
-            pixel_id: None,
-            retention_days: None,
-            source_audience_id: None,
-            country: None,
-            ratio: None,
-            rule: None,
-            customer_file_source: None,
-        }
+impl Default for CreateAdAudienceRequest {
+    fn default() -> Self {
+        Self::UploadedOrDerivedAudience(Default::default())
     }
 }
 ///
@@ -79,6 +32,8 @@ pub enum Type {
     Website,
     #[serde(rename = "lookalike")]
     Lookalike,
+    #[serde(rename = "saved_targeting")]
+    SavedTargeting,
 }
 
 impl Default for Type {

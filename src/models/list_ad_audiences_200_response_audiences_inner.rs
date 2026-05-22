@@ -23,6 +23,9 @@ pub struct ListAdAudiences200ResponseAudiencesInner {
     pub description: Option<String>,
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
+    /// Present (and the only meaningful payload) when `type` is `saved_targeting`. Null for uploaded/derived audience types.
+    #[serde(rename = "spec", skip_serializing_if = "Option::is_none")]
+    pub spec: Option<Box<models::TargetingSpec>>,
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<String>,
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
@@ -39,6 +42,7 @@ impl ListAdAudiences200ResponseAudiencesInner {
             name: None,
             description: None,
             r#type: None,
+            spec: None,
             platform: None,
             size: None,
             status: None,
@@ -54,6 +58,8 @@ pub enum Type {
     Website,
     #[serde(rename = "lookalike")]
     Lookalike,
+    #[serde(rename = "saved_targeting")]
+    SavedTargeting,
 }
 
 impl Default for Type {
