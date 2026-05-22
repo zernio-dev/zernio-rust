@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | Option<**String**> |  | [optional]
 **comments** | Option<[**Vec<models::GetInboxPostComments200ResponseCommentsInner>**](GetInboxPostComments200ResponseCommentsInner.md)> |  | [optional]
+**post** | Option<[**models::GetInboxPostComments200ResponsePost**](GetInboxPostComments200ResponsePost.md)> |  | [optional]
 **pagination** | Option<[**models::GetInboxPostComments200ResponsePagination**](GetInboxPostComments200ResponsePagination.md)> |  | [optional]
 **meta** | Option<[**models::GetInboxPostComments200ResponseMeta**](GetInboxPostComments200ResponseMeta.md)> |  | [optional]
 

@@ -367,6 +367,7 @@ docs/GetInboxPostComments200ResponseCommentsInnerFrom.md
 docs/GetInboxPostComments200ResponseMeta.md
 docs/GetInboxPostComments200ResponseMetaAdComments.md
 docs/GetInboxPostComments200ResponsePagination.md
+docs/GetInboxPostComments200ResponsePost.md
 docs/GetInstagramAccountInsights404Response.md
 docs/GetInstagramStoryInsights200Response.md
 docs/GetInstagramStoryInsights200ResponseData.md
@@ -895,9 +896,7 @@ docs/ValidatePostLength200Response.md
 docs/ValidatePostLength200ResponsePlatformsValue.md
 docs/ValidatePostLengthRequest.md
 docs/ValidatePostRequest.md
-docs/ValidatePostRequestMediaItemsInner.md
 docs/ValidatePostRequestPlatformsInner.md
-docs/ValidatePostRequestPlatformsInnerCustomMediaInner.md
 docs/ValidateSubreddit200Response.md
 docs/ValidateSubreddit200ResponseOneOf.md
 docs/ValidateSubreddit200ResponseOneOf1.md
@@ -1382,6 +1381,7 @@ src/models/get_inbox_post_comments_200_response_comments_inner_from.rs
 src/models/get_inbox_post_comments_200_response_meta.rs
 src/models/get_inbox_post_comments_200_response_meta_ad_comments.rs
 src/models/get_inbox_post_comments_200_response_pagination.rs
+src/models/get_inbox_post_comments_200_response_post.rs
 src/models/get_instagram_account_insights_404_response.rs
 src/models/get_instagram_story_insights_200_response.rs
 src/models/get_instagram_story_insights_200_response_data.rs
@@ -1886,9 +1886,7 @@ src/models/validate_post_length_200_response.rs
 src/models/validate_post_length_200_response_platforms_value.rs
 src/models/validate_post_length_request.rs
 src/models/validate_post_request.rs
-src/models/validate_post_request_media_items_inner.rs
 src/models/validate_post_request_platforms_inner.rs
-src/models/validate_post_request_platforms_inner_custom_media_inner.rs
 src/models/validate_subreddit_200_response.rs
 src/models/validate_subreddit_200_response_one_of.rs
 src/models/validate_subreddit_200_response_one_of_1.rs
