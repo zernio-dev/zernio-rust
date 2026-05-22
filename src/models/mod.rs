@@ -282,8 +282,6 @@ pub mod create_post_429_response;
 pub use self::create_post_429_response::CreatePost429Response;
 pub mod create_post_request;
 pub use self::create_post_request::CreatePostRequest;
-pub mod create_post_request_media_items_inner;
-pub use self::create_post_request_media_items_inner::CreatePostRequestMediaItemsInner;
 pub mod create_post_request_platforms_inner;
 pub use self::create_post_request_platforms_inner::CreatePostRequestPlatformsInner;
 pub mod create_post_request_platforms_inner_platform_specific_data;

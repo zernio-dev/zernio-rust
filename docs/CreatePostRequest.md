@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **title** | Option<**String**> |  | [optional]
 **content** | Option<**String**> | Post caption/text. Optional when media is attached or all platforms have customContent. Required for text-only posts. | [optional]
-**media_items** | Option<[**Vec<models::CreatePostRequestMediaItemsInner>**](CreatePostRequestMediaItemsInner.md)> |  | [optional]
+**media_items** | Option<[**Vec<models::MediaItem>**](MediaItem.md)> |  | [optional]
 **platforms** | Option<[**Vec<models::CreatePostRequestPlatformsInner>**](CreatePostRequestPlatformsInner.md)> | Target platforms and accounts for this post. Required for non-draft posts (returns 400 if empty). Drafts can omit platforms. | [optional]
 **scheduled_for** | Option<**String**> |  | [optional]
 **publish_now** | Option<**bool**> |  | [optional][default to false]

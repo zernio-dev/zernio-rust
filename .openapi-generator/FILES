@@ -157,7 +157,6 @@ docs/CreatePost409Response.md
 docs/CreatePost409ResponseDetails.md
 docs/CreatePost429Response.md
 docs/CreatePostRequest.md
-docs/CreatePostRequestMediaItemsInner.md
 docs/CreatePostRequestPlatformsInner.md
 docs/CreatePostRequestPlatformsInnerPlatformSpecificData.md
 docs/CreateProfileRequest.md
@@ -1175,7 +1174,6 @@ src/models/create_post_409_response.rs
 src/models/create_post_409_response_details.rs
 src/models/create_post_429_response.rs
 src/models/create_post_request.rs
-src/models/create_post_request_media_items_inner.rs
 src/models/create_post_request_platforms_inner.rs
 src/models/create_post_request_platforms_inner_platform_specific_data.rs
 src/models/create_profile_request.rs
