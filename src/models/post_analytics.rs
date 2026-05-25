@@ -30,6 +30,18 @@ pub struct PostAnalytics {
     pub clicks: Option<i32>,
     #[serde(rename = "views", skip_serializing_if = "Option::is_none")]
     pub views: Option<i32>,
+    /// Instagram Reels only: average watch time per play, in milliseconds. 0 for non-Reels media and other platforms.
+    #[serde(
+        rename = "igReelsAvgWatchTime",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub ig_reels_avg_watch_time: Option<i32>,
+    /// Instagram Reels only: total watch time including replays, in milliseconds. 0 for non-Reels media and other platforms.
+    #[serde(
+        rename = "igReelsVideoViewTotalTime",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub ig_reels_video_view_total_time: Option<i32>,
     #[serde(rename = "engagementRate", skip_serializing_if = "Option::is_none")]
     pub engagement_rate: Option<f64>,
     #[serde(rename = "lastUpdated", skip_serializing_if = "Option::is_none")]
@@ -47,6 +59,8 @@ impl PostAnalytics {
             saves: None,
             clicks: None,
             views: None,
+            ig_reels_avg_watch_time: None,
+            ig_reels_video_view_total_time: None,
             engagement_rate: None,
             last_updated: None,
         }
