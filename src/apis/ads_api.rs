@@ -26,6 +26,14 @@ pub enum AddConversionAssociationsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`archive_lead_form`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ArchiveLeadFormError {
+    Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`boost_post`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -63,6 +71,15 @@ pub enum CreateCtwaAdError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`create_lead_form`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateLeadFormError {
+    Status401(models::InlineObject),
+    Status403(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`create_standalone_ad`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -71,6 +88,14 @@ pub enum CreateStandaloneAdError {
     Status401(models::InlineObject),
     Status403(),
     Status422(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_test_lead`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateTestLeadError {
+    Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }
 
@@ -164,6 +189,14 @@ pub enum GetConversionMetricsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_lead_form`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetLeadFormError {
+    Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_ad_accounts`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -214,6 +247,32 @@ pub enum ListConversionDestinationsError {
     Status403(),
     Status404(),
     Status429(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_form_leads`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListFormLeadsError {
+    Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_lead_forms`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListLeadFormsError {
+    Status401(models::InlineObject),
+    Status403(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_leads`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListLeadsError {
+    Status401(models::InlineObject),
+    Status403(),
     UnknownValue(serde_json::Value),
 }
 
@@ -348,6 +407,62 @@ pub async fn add_conversion_associations(
     } else {
         let content = resp.text().await?;
         let entity: Option<AddConversionAssociationsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Meta has no hard delete for forms; this archives the form (status=ARCHIVED).
+pub async fn archive_lead_form(
+    configuration: &configuration::Configuration,
+    form_id: &str,
+    account_id: &str,
+) -> Result<models::ArchiveLeadForm200Response, Error<ArchiveLeadFormError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_form_id = form_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/ads/lead-forms/{formId}",
+        configuration.base_path,
+        formId = crate::apis::urlencode(p_path_form_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ArchiveLeadForm200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ArchiveLeadForm200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ArchiveLeadFormError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -513,6 +628,56 @@ pub async fn create_ctwa_ad(
     }
 }
 
+/// Creates a Lead Gen form on the connected Facebook Page (POST /{page-id}/leadgen_forms). NOT idempotent — a retry creates a second form. Prefilled question types (EMAIL, PHONE, FULL_NAME, …) must omit label/key; CUSTOM questions require both. Requires the Ads add-on.
+pub async fn create_lead_form(
+    configuration: &configuration::Configuration,
+    create_lead_form_request: models::CreateLeadFormRequest,
+) -> Result<models::CreateLeadForm200Response, Error<CreateLeadFormError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_lead_form_request = create_lead_form_request;
+
+    let uri_str = format!("{}/v1/ads/lead-forms", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_lead_form_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateLeadForm200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateLeadForm200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateLeadFormError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Creates a paid ad with custom creative across Meta, Google Ads, Pinterest, TikTok, X/Twitter, and LinkedIn. Supports three mutually-exclusive request shapes selected by the body, a legacy single-creative shape (all platforms, default), a Meta-only multi-creative shape via the creatives array (one ad set with N ads sharing budget and targeting), and a Meta-only attach shape via adSetId (adds one new ad to an existing ad set). Per-platform required fields, budget minimums, and video-ad rules are documented on each property below. LinkedIn creates a Single Image or Single Video Ad backed by a Direct Sponsored Content \"dark post\" authored by a Company Page (see `organizationId`); supported goals are engagement, traffic, awareness, and video_views (video ads use the `video` field; video_views requires a video), and traffic ads require `linkUrl`.
 pub async fn create_standalone_ad(
     configuration: &configuration::Configuration,
@@ -555,6 +720,62 @@ pub async fn create_standalone_ad(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateStandaloneAdError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Submits a test lead against the form (POST /{form-id}/test_leads) to exercise retrieval without waiting for real ad impressions. Meta allows one test lead per form at a time.
+pub async fn create_test_lead(
+    configuration: &configuration::Configuration,
+    form_id: &str,
+    create_test_lead_request: models::CreateTestLeadRequest,
+) -> Result<models::CreateTestLead200Response, Error<CreateTestLeadError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_form_id = form_id;
+    let p_body_create_test_lead_request = create_test_lead_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/lead-forms/{formId}/test-leads",
+        configuration.base_path,
+        formId = crate::apis::urlencode(p_path_form_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_test_lead_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateTestLead200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateTestLead200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateTestLeadError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1029,6 +1250,59 @@ pub async fn get_conversion_metrics(
     }
 }
 
+pub async fn get_lead_form(
+    configuration: &configuration::Configuration,
+    form_id: &str,
+    account_id: &str,
+) -> Result<models::GetLeadForm200Response, Error<GetLeadFormError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_form_id = form_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/ads/lead-forms/{formId}",
+        configuration.base_path,
+        formId = crate::apis::urlencode(p_path_form_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetLeadForm200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetLeadForm200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetLeadFormError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Returns the platform ad accounts available for the given social account (e.g. Meta ad accounts, TikTok advertiser IDs, Google Ads customer IDs).  For TikTok agencies: enumerates every advertiser under every Business Center the token can read (paginated server-side), then chunks the lookup against TikTok's `/advertiser/info/` endpoint (which has a per-call cap of ≤100 IDs). Solo advertisers without a BC fall back to the OAuth-time `advertiser_ids` list. Cached for 1h on the SocialAccount; lazy-refreshed on first call after expiry.
 pub async fn list_ad_accounts(
     configuration: &configuration::Configuration,
@@ -1350,6 +1624,203 @@ pub async fn list_conversion_destinations(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListConversionDestinationsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns leads for one form. Serves persisted leads (ingested via the leadgen webhook) when available, falling back to a live Graph read.
+pub async fn list_form_leads(
+    configuration: &configuration::Configuration,
+    form_id: &str,
+    account_id: &str,
+    limit: Option<i32>,
+    cursor: Option<&str>,
+    since: Option<i32>,
+) -> Result<models::ListFormLeads200Response, Error<ListFormLeadsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_form_id = form_id;
+    let p_query_account_id = account_id;
+    let p_query_limit = limit;
+    let p_query_cursor = cursor;
+    let p_query_since = since;
+
+    let uri_str = format!(
+        "{}/v1/ads/lead-forms/{formId}/leads",
+        configuration.base_path,
+        formId = crate::apis::urlencode(p_path_form_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_cursor {
+        req_builder = req_builder.query(&[("cursor", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_since {
+        req_builder = req_builder.query(&[("since", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListFormLeads200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListFormLeads200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListFormLeadsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Lists the Lead Gen forms owned by the connected Facebook Page. Requires the Ads add-on.
+pub async fn list_lead_forms(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    limit: Option<i32>,
+    cursor: Option<&str>,
+) -> Result<models::ListLeadForms200Response, Error<ListLeadFormsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_limit = limit;
+    let p_query_cursor = cursor;
+
+    let uri_str = format!("{}/v1/ads/lead-forms", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_cursor {
+        req_builder = req_builder.query(&[("cursor", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListLeadForms200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListLeadForms200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListLeadFormsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns persisted Meta Lead Gen leads for your team, newest-first, with keyset pagination on `cursor`. Leads are ingested in real time from the `leadgen` webhook. Requires the Ads add-on.
+pub async fn list_leads(
+    configuration: &configuration::Configuration,
+    form_id: Option<&str>,
+    account_id: Option<&str>,
+    limit: Option<i32>,
+    since: Option<i32>,
+    cursor: Option<&str>,
+) -> Result<models::ListLeads200Response, Error<ListLeadsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_form_id = form_id;
+    let p_query_account_id = account_id;
+    let p_query_limit = limit;
+    let p_query_since = since;
+    let p_query_cursor = cursor;
+
+    let uri_str = format!("{}/v1/ads/leads", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_form_id {
+        req_builder = req_builder.query(&[("formId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_account_id {
+        req_builder = req_builder.query(&[("accountId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_since {
+        req_builder = req_builder.query(&[("since", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_cursor {
+        req_builder = req_builder.query(&[("cursor", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListLeads200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListLeads200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListLeadsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

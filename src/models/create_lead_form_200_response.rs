@@ -12,21 +12,18 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ListLeadForms200Response {
+pub struct CreateLeadForm200Response {
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    #[serde(rename = "forms", skip_serializing_if = "Option::is_none")]
-    pub forms: Option<Vec<serde_json::Value>>,
-    #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
-    pub pagination: Option<Box<models::GetInboxPostComments200ResponsePagination>>,
+    #[serde(rename = "form", skip_serializing_if = "Option::is_none")]
+    pub form: Option<Box<models::UpdateFacebookPage200ResponseSelectedPage>>,
 }
 
-impl ListLeadForms200Response {
-    pub fn new() -> ListLeadForms200Response {
-        ListLeadForms200Response {
+impl CreateLeadForm200Response {
+    pub fn new() -> CreateLeadForm200Response {
+        CreateLeadForm200Response {
             status: None,
-            forms: None,
-            pagination: None,
+            form: None,
         }
     }
 }

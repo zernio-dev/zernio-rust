@@ -5,10 +5,13 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**add_conversion_associations**](AdsApi.md#add_conversion_associations) | **POST** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | Associate campaigns with a conversion destination
+[**archive_lead_form**](AdsApi.md#archive_lead_form) | **DELETE** /v1/ads/lead-forms/{formId} | Archive a Lead Gen form
 [**boost_post**](AdsApi.md#boost_post) | **POST** /v1/ads/boost | Boost post as ad
 [**create_conversion_destination**](AdsApi.md#create_conversion_destination) | **POST** /v1/accounts/{accountId}/conversion-destinations | Create a conversion destination (LinkedIn)
 [**create_ctwa_ad**](AdsApi.md#create_ctwa_ad) | **POST** /v1/ads/ctwa | Create Click-to-WhatsApp ad(s)
+[**create_lead_form**](AdsApi.md#create_lead_form) | **POST** /v1/ads/lead-forms | Create a Lead Gen (Instant) form
 [**create_standalone_ad**](AdsApi.md#create_standalone_ad) | **POST** /v1/ads/create | Create standalone ad
+[**create_test_lead**](AdsApi.md#create_test_lead) | **POST** /v1/ads/lead-forms/{formId}/test-leads | Create a synthetic test lead
 [**delete_ad**](AdsApi.md#delete_ad) | **DELETE** /v1/ads/{adId} | Cancel an ad
 [**delete_conversion_destination**](AdsApi.md#delete_conversion_destination) | **DELETE** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Soft-delete a conversion destination
 [**estimate_ad_reach**](AdsApi.md#estimate_ad_reach) | **POST** /v1/ads/targeting/reach-estimate | Estimate audience reach
@@ -17,11 +20,15 @@ Method | HTTP request | Description
 [**get_ad_comments**](AdsApi.md#get_ad_comments) | **GET** /v1/ads/{adId}/comments | List comments on an ad
 [**get_conversion_destination**](AdsApi.md#get_conversion_destination) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Fetch a single conversion destination
 [**get_conversion_metrics**](AdsApi.md#get_conversion_metrics) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/metrics | Fetch attribution metrics for a conversion destination
+[**get_lead_form**](AdsApi.md#get_lead_form) | **GET** /v1/ads/lead-forms/{formId} | Get a single Lead Gen form
 [**list_ad_accounts**](AdsApi.md#list_ad_accounts) | **GET** /v1/ads/accounts | List ad accounts
 [**list_ads**](AdsApi.md#list_ads) | **GET** /v1/ads | List ads
 [**list_ads_business_centers**](AdsApi.md#list_ads_business_centers) | **GET** /v1/ads/business-centers | List TikTok Business Centers
 [**list_conversion_associations**](AdsApi.md#list_conversion_associations) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | List campaigns associated with a conversion destination
 [**list_conversion_destinations**](AdsApi.md#list_conversion_destinations) | **GET** /v1/accounts/{accountId}/conversion-destinations | List destinations for the Conversions API
+[**list_form_leads**](AdsApi.md#list_form_leads) | **GET** /v1/ads/lead-forms/{formId}/leads | List leads for a single form
+[**list_lead_forms**](AdsApi.md#list_lead_forms) | **GET** /v1/ads/lead-forms | List Lead Gen (Instant) forms
+[**list_leads**](AdsApi.md#list_leads) | **GET** /v1/ads/leads | List submitted leads (cross-form CRM view)
 [**remove_conversion_associations**](AdsApi.md#remove_conversion_associations) | **DELETE** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | Remove campaign↔conversion associations
 [**search_ad_interests**](AdsApi.md#search_ad_interests) | **GET** /v1/ads/interests | Search targeting interests (deprecated)
 [**search_ad_targeting**](AdsApi.md#search_ad_targeting) | **GET** /v1/ads/targeting/search | Search targeting options
@@ -59,6 +66,37 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## archive_lead_form
+
+> models::ArchiveLeadForm200Response archive_lead_form(form_id, account_id)
+Archive a Lead Gen form
+
+Meta has no hard delete for forms; this archives the form (status=ARCHIVED).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**form_id** | **String** |  | [required] |
+**account_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::ArchiveLeadForm200Response**](archiveLeadForm_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -155,6 +193,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## create_lead_form
+
+> models::CreateLeadForm200Response create_lead_form(create_lead_form_request)
+Create a Lead Gen (Instant) form
+
+Creates a Lead Gen form on the connected Facebook Page (POST /{page-id}/leadgen_forms). NOT idempotent — a retry creates a second form. Prefilled question types (EMAIL, PHONE, FULL_NAME, …) must omit label/key; CUSTOM questions require both. Requires the Ads add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_lead_form_request** | [**CreateLeadFormRequest**](CreateLeadFormRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateLeadForm200Response**](createLeadForm_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## create_standalone_ad
 
 > models::CreateStandaloneAd201Response create_standalone_ad(create_standalone_ad_request)
@@ -172,6 +240,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::CreateStandaloneAd201Response**](createStandaloneAd_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_test_lead
+
+> models::CreateTestLead200Response create_test_lead(form_id, create_test_lead_request)
+Create a synthetic test lead
+
+Submits a test lead against the form (POST /{form-id}/test_leads) to exercise retrieval without waiting for real ad impressions. Meta allows one test lead per form at a time. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**form_id** | **String** |  | [required] |
+**create_test_lead_request** | [**CreateTestLeadRequest**](CreateTestLeadRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateTestLead200Response**](createTestLead_200_response.md)
 
 ### Authorization
 
@@ -440,6 +539,35 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_lead_form
+
+> models::GetLeadForm200Response get_lead_form(form_id, account_id)
+Get a single Lead Gen form
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**form_id** | **String** |  | [required] |
+**account_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::GetLeadForm200Response**](getLeadForm_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_ad_accounts
 
 > models::ListAdAccounts200Response list_ad_accounts(account_id, ad_account_id, limit)
@@ -594,6 +722,106 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListConversionDestinations200Response**](listConversionDestinations_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_form_leads
+
+> models::ListFormLeads200Response list_form_leads(form_id, account_id, limit, cursor, since)
+List leads for a single form
+
+Returns leads for one form. Serves persisted leads (ingested via the leadgen webhook) when available, falling back to a live Graph read. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**form_id** | **String** |  | [required] |
+**account_id** | **String** |  | [required] |
+**limit** | Option<**i32**> |  |  |[default to 25]
+**cursor** | Option<**String**> |  |  |
+**since** | Option<**i32**> | Unix seconds. |  |
+
+### Return type
+
+[**models::ListFormLeads200Response**](listFormLeads_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_lead_forms
+
+> models::ListLeadForms200Response list_lead_forms(account_id, limit, cursor)
+List Lead Gen (Instant) forms
+
+Lists the Lead Gen forms owned by the connected Facebook Page. Requires the Ads add-on.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Connected facebook account id. | [required] |
+**limit** | Option<**i32**> |  |  |[default to 25]
+**cursor** | Option<**String**> |  |  |
+
+### Return type
+
+[**models::ListLeadForms200Response**](listLeadForms_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_leads
+
+> models::ListLeads200Response list_leads(form_id, account_id, limit, since, cursor)
+List submitted leads (cross-form CRM view)
+
+Returns persisted Meta Lead Gen leads for your team, newest-first, with keyset pagination on `cursor`. Leads are ingested in real time from the `leadgen` webhook. Requires the Ads add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**form_id** | Option<**String**> | Filter to a single lead form. |  |
+**account_id** | Option<**String**> | Filter to a single connected account. |  |
+**limit** | Option<**i32**> |  |  |[default to 25]
+**since** | Option<**i32**> | Unix seconds; only leads created at/after this Meta timestamp. |  |
+**cursor** | Option<**String**> | Keyset cursor from a previous response's pagination.cursor. |  |
+
+### Return type
+
+[**models::ListLeads200Response**](listLeads_200_response.md)
 
 ### Authorization
 

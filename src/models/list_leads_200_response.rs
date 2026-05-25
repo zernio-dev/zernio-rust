@@ -12,20 +12,20 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ListLeadForms200Response {
+pub struct ListLeads200Response {
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    #[serde(rename = "forms", skip_serializing_if = "Option::is_none")]
-    pub forms: Option<Vec<serde_json::Value>>,
+    #[serde(rename = "leads", skip_serializing_if = "Option::is_none")]
+    pub leads: Option<Vec<models::ListLeads200ResponseLeadsInner>>,
     #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
     pub pagination: Option<Box<models::GetInboxPostComments200ResponsePagination>>,
 }
 
-impl ListLeadForms200Response {
-    pub fn new() -> ListLeadForms200Response {
-        ListLeadForms200Response {
+impl ListLeads200Response {
+    pub fn new() -> ListLeads200Response {
+        ListLeads200Response {
             status: None,
-            forms: None,
+            leads: None,
             pagination: None,
         }
     }

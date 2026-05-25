@@ -1,11 +1,11 @@
-# GetLeadForm200Response
+# CreateTestLeadRequest
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | Option<**String**> |  | [optional]
-**form** | Option<**serde_json::Value**> |  | [optional]
+**account_id** | **String** |  | 
+**field_data** | [**Vec<models::CreateTestLeadRequestFieldDataInner>**](CreateTestLeadRequestFieldDataInner.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

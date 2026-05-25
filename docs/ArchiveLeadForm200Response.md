@@ -1,12 +1,12 @@
-# ListLeadForms200Response
+# ArchiveLeadForm200Response
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | Option<**String**> |  | [optional]
-**forms** | Option<**Vec<serde_json::Value>**> |  | [optional]
-**pagination** | Option<[**models::GetInboxPostComments200ResponsePagination**](GetInboxPostComments200ResponsePagination.md)> |  | [optional]
+**form_id** | Option<**String**> |  | [optional]
+**archived** | Option<**bool**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

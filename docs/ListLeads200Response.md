@@ -1,11 +1,11 @@
-# ListLeadForms200Response
+# ListLeads200Response
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | Option<**String**> |  | [optional]
-**forms** | Option<**Vec<serde_json::Value>**> |  | [optional]
+**leads** | Option<[**Vec<models::ListLeads200ResponseLeadsInner>**](ListLeads200ResponseLeadsInner.md)> |  | [optional]
 **pagination** | Option<[**models::GetInboxPostComments200ResponsePagination**](GetInboxPostComments200ResponsePagination.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
