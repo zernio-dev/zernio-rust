@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **messaging_type** | Option<**MessagingType**> | Facebook messaging type. Required when using messageTag. (enum: RESPONSE, UPDATE, MESSAGE_TAG) | [optional]
 **message_tag** | Option<**MessageTag**> | Facebook message tag for messaging outside 24h window. Requires messagingType MESSAGE_TAG. Instagram only supports HUMAN_AGENT. (enum: CONFIRMED_EVENT_UPDATE, POST_PURCHASE_UPDATE, ACCOUNT_UPDATE, HUMAN_AGENT) | [optional]
 **reply_to** | Option<**String**> | Platform message ID to quote-reply to. For WhatsApp, pass the wamid (available in message.platformMessageId from webhooks). For Telegram, pass the Telegram message ID. | [optional]
+**location** | Option<[**models::SendInboxMessageRequestLocation**](SendInboxMessageRequestLocation.md)> |  | [optional]
+**contacts** | Option<[**Vec<models::SendInboxMessageRequestContactsInner>**](SendInboxMessageRequestContactsInner.md)> | WhatsApp-only. Send one or more contact cards. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

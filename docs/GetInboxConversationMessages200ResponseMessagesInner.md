@@ -29,6 +29,7 @@ Name | Type | Description | Notes
 **read_at** | Option<**String**> |  | [optional]
 **sent_at** | Option<**String**> | Original send time for outgoing messages (used for Messenger watermark queries). | [optional]
 **delivery_error** | Option<[**models::GetInboxConversationMessages200ResponseMessagesInnerDeliveryError**](GetInboxConversationMessages200ResponseMessagesInnerDeliveryError.md)> |  | [optional]
+**reactions** | Option<[**Vec<models::GetInboxConversationMessages200ResponseMessagesInnerReactionsInner>**](GetInboxConversationMessages200ResponseMessagesInnerReactionsInner.md)> | Emoji reactions on this message (WhatsApp / Telegram). At most one per party in a 1:1 thread. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

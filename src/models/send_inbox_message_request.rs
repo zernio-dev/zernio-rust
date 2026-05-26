@@ -46,6 +46,11 @@ pub struct SendInboxMessageRequest {
     /// Platform message ID to quote-reply to. For WhatsApp, pass the wamid (available in message.platformMessageId from webhooks). For Telegram, pass the Telegram message ID.
     #[serde(rename = "replyTo", skip_serializing_if = "Option::is_none")]
     pub reply_to: Option<String>,
+    #[serde(rename = "location", skip_serializing_if = "Option::is_none")]
+    pub location: Option<Box<models::SendInboxMessageRequestLocation>>,
+    /// WhatsApp-only. Send one or more contact cards.
+    #[serde(rename = "contacts", skip_serializing_if = "Option::is_none")]
+    pub contacts: Option<Vec<models::SendInboxMessageRequestContactsInner>>,
 }
 
 impl SendInboxMessageRequest {
@@ -63,6 +68,8 @@ impl SendInboxMessageRequest {
             messaging_type: None,
             message_tag: None,
             reply_to: None,
+            location: None,
+            contacts: None,
         }
     }
 }

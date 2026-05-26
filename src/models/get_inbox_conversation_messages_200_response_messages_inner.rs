@@ -77,6 +77,10 @@ pub struct GetInboxConversationMessages200ResponseMessagesInner {
     #[serde(rename = "deliveryError", skip_serializing_if = "Option::is_none")]
     pub delivery_error:
         Option<Box<models::GetInboxConversationMessages200ResponseMessagesInnerDeliveryError>>,
+    /// Emoji reactions on this message (WhatsApp / Telegram). At most one per party in a 1:1 thread.
+    #[serde(rename = "reactions", skip_serializing_if = "Option::is_none")]
+    pub reactions:
+        Option<Vec<models::GetInboxConversationMessages200ResponseMessagesInnerReactionsInner>>,
 }
 
 impl GetInboxConversationMessages200ResponseMessagesInner {
@@ -107,6 +111,7 @@ impl GetInboxConversationMessages200ResponseMessagesInner {
             read_at: None,
             sent_at: None,
             delivery_error: None,
+            reactions: None,
         }
     }
 }
