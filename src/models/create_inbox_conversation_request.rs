@@ -16,21 +16,30 @@ pub struct CreateInboxConversationRequest {
     /// The social account ID to send from
     #[serde(rename = "accountId")]
     pub account_id: String,
-    /// Twitter numeric user ID of the recipient. Provide either this or participantUsername.
+    /// Recipient identifier. For X this is the numeric user ID; for WhatsApp, the recipient phone number in international format (digits, country code included). Provide either this or participantUsername.
     #[serde(rename = "participantId", skip_serializing_if = "Option::is_none")]
     pub participant_id: Option<String>,
-    /// Twitter username (with or without @) of the recipient. Resolved to a user ID via lookup. Provide either this or participantId.
+    /// Recipient handle/username — an X or Bluesky handle (with or without @) or a Reddit username (with or without u/). Resolved via lookup. Provide either this or participantId.
     #[serde(
         rename = "participantUsername",
         skip_serializing_if = "Option::is_none"
     )]
     pub participant_username: Option<String>,
-    /// Text content of the message. At least one of message or attachment is required.
+    /// Text content of the message. At least one of message, attachment, or (for WhatsApp) templateName is required.
     #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
-    /// Skip the receives_your_dm eligibility check before sending. Use if you have already verified the recipient accepts DMs.
+    /// X/Twitter only. Skip the receives_your_dm eligibility check before sending. Use if you have already verified the recipient accepts DMs.
     #[serde(rename = "skipDmCheck", skip_serializing_if = "Option::is_none")]
     pub skip_dm_check: Option<bool>,
+    /// WhatsApp only. Name of the approved template to start the conversation with (required for WhatsApp).
+    #[serde(rename = "templateName", skip_serializing_if = "Option::is_none")]
+    pub template_name: Option<String>,
+    /// WhatsApp only. Template language code (e.g. en_US).
+    #[serde(rename = "templateLanguage", skip_serializing_if = "Option::is_none")]
+    pub template_language: Option<String>,
+    /// WhatsApp only. Body variable values, in order, substituted into the template body ({{1}}, {{2}}, ...).
+    #[serde(rename = "templateParams", skip_serializing_if = "Option::is_none")]
+    pub template_params: Option<Vec<String>>,
 }
 
 impl CreateInboxConversationRequest {
@@ -41,6 +50,9 @@ impl CreateInboxConversationRequest {
             participant_username: None,
             message: None,
             skip_dm_check: None,
+            template_name: None,
+            template_language: None,
+            template_params: None,
         }
     }
 }
