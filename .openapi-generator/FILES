@@ -453,6 +453,9 @@ docs/GetWhatsAppFlowPreview200Response.md
 docs/GetWhatsAppGroupChat200Response.md
 docs/GetWhatsAppGroupChat200ResponseGroup.md
 docs/GetWhatsAppGroupChat200ResponseGroupParticipantsInner.md
+docs/GetWhatsAppLibraryTemplate200Response.md
+docs/GetWhatsAppLibraryTemplate200ResponseTemplate.md
+docs/GetWhatsAppLibraryTemplate200ResponseTemplateButtonsInner.md
 docs/GetWhatsAppPhoneNumber200Response.md
 docs/GetWhatsAppPhoneNumber200ResponsePhoneNumber.md
 docs/GetWhatsAppPhoneNumbers200Response.md
@@ -1006,6 +1009,7 @@ docs/WhatsAppHeaderComponentExample.md
 docs/WhatsAppPhoneNumbersApi.md
 docs/WhatsAppTemplateButton.md
 docs/WhatsAppTemplateComponent.md
+docs/WhatsAppTemplatesApi.md
 docs/XApiOperation.md
 docs/XApiOperationTriggeredByInner.md
 docs/XApiPricing.md
@@ -1068,6 +1072,7 @@ src/apis/webhooks_api.rs
 src/apis/whats_app_api.rs
 src/apis/whats_app_flows_api.rs
 src/apis/whats_app_phone_numbers_api.rs
+src/apis/whats_app_templates_api.rs
 src/lib.rs
 src/models/account_get_response.rs
 src/models/account_with_follower_stats.rs
@@ -1505,6 +1510,9 @@ src/models/get_whats_app_flow_preview_200_response.rs
 src/models/get_whats_app_group_chat_200_response.rs
 src/models/get_whats_app_group_chat_200_response_group.rs
 src/models/get_whats_app_group_chat_200_response_group_participants_inner.rs
+src/models/get_whats_app_library_template_200_response.rs
+src/models/get_whats_app_library_template_200_response_template.rs
+src/models/get_whats_app_library_template_200_response_template_buttons_inner.rs
 src/models/get_whats_app_phone_number_200_response.rs
 src/models/get_whats_app_phone_number_200_response_phone_number.rs
 src/models/get_whats_app_phone_numbers_200_response.rs
