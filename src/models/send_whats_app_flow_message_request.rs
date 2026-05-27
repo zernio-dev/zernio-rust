@@ -28,7 +28,7 @@ pub struct SendWhatsAppFlowMessageRequest {
     /// Action type: navigate opens a screen directly, data_exchange hits your endpoint first
     #[serde(rename = "flow_action", skip_serializing_if = "Option::is_none")]
     pub flow_action: Option<FlowAction>,
-    /// Unique token to correlate responses. Auto-generated UUID if omitted.
+    /// Unique token to correlate responses. If omitted, auto-generated as '<flowId>:<uuid>' so the response can be attributed to this flow in the Flow Responses view.
     #[serde(rename = "flow_token", skip_serializing_if = "Option::is_none")]
     pub flow_token: Option<String>,
     #[serde(
