@@ -21,6 +21,12 @@ pub struct CreateWhatsAppFlow200ResponseFlow {
     pub status: Option<String>,
     #[serde(rename = "categories", skip_serializing_if = "Option::is_none")]
     pub categories: Option<Vec<String>>,
+    /// Version within the clone lineage
+    #[serde(rename = "version", skip_serializing_if = "Option::is_none")]
+    pub version: Option<i32>,
+    /// Version-lineage group key
+    #[serde(rename = "lineageId", skip_serializing_if = "Option::is_none")]
+    pub lineage_id: Option<String>,
 }
 
 impl CreateWhatsAppFlow200ResponseFlow {
@@ -30,6 +36,8 @@ impl CreateWhatsAppFlow200ResponseFlow {
             name: None,
             status: None,
             categories: None,
+            version: None,
+            lineage_id: None,
         }
     }
 }

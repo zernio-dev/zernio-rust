@@ -23,6 +23,12 @@ pub struct ListWhatsAppFlows200ResponseFlowsInner {
     pub categories: Option<Vec<String>>,
     #[serde(rename = "validation_errors", skip_serializing_if = "Option::is_none")]
     pub validation_errors: Option<Vec<serde_json::Value>>,
+    /// 1-based version within the flow's clone lineage (Zernio-tracked; Meta has no native versioning). Standalone flows are version 1.
+    #[serde(rename = "version", skip_serializing_if = "Option::is_none")]
+    pub version: Option<i32>,
+    /// Stable group key for the flow's version lineage (the root flow's ID).
+    #[serde(rename = "lineageId", skip_serializing_if = "Option::is_none")]
+    pub lineage_id: Option<String>,
 }
 
 impl ListWhatsAppFlows200ResponseFlowsInner {
@@ -33,6 +39,8 @@ impl ListWhatsAppFlows200ResponseFlowsInner {
             status: None,
             categories: None,
             validation_errors: None,
+            version: None,
+            lineage_id: None,
         }
     }
 }

@@ -22,9 +22,12 @@ pub struct CreateWhatsAppFlowRequest {
     /// Flow categories
     #[serde(rename = "categories")]
     pub categories: Vec<Categories>,
-    /// Optional: ID of an existing flow to clone
+    /// Optional: ID of an existing flow to clone the Flow JSON from
     #[serde(rename = "cloneFlowId", skip_serializing_if = "Option::is_none")]
     pub clone_flow_id: Option<String>,
+    /// When cloning, true keeps the clone in cloneFlowId's version lineage (auto-numbered next version); false/absent creates an independent flow. Ignored without cloneFlowId.
+    #[serde(rename = "asVersion", skip_serializing_if = "Option::is_none")]
+    pub as_version: Option<bool>,
 }
 
 impl CreateWhatsAppFlowRequest {
@@ -38,6 +41,7 @@ impl CreateWhatsAppFlowRequest {
             name,
             categories,
             clone_flow_id: None,
+            as_version: None,
         }
     }
 }
