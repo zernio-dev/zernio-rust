@@ -30,6 +30,7 @@ Name | Type | Description | Notes
 **sent_at** | Option<**String**> | Original send time for outgoing messages (used for Messenger watermark queries). | [optional]
 **delivery_error** | Option<[**models::GetInboxConversationMessages200ResponseMessagesInnerDeliveryError**](GetInboxConversationMessages200ResponseMessagesInnerDeliveryError.md)> |  | [optional]
 **reactions** | Option<[**Vec<models::GetInboxConversationMessages200ResponseMessagesInnerReactionsInner>**](GetInboxConversationMessages200ResponseMessagesInnerReactionsInner.md)> | Emoji reactions on this message (WhatsApp / Telegram). At most one per party in a 1:1 thread. | [optional]
+**metadata** | Option<**std::collections::HashMap<String, serde_json::Value>**> | Platform-specific extras. Free-form, but commonly includes: `quotedMessageId` (platformMessageId this message replies to), `waInteractive` (a compact descriptor of WhatsApp interactive content sent: buttons / list / cta_url / flow), and for inbound interactive taps `interactiveType` / `interactiveId`.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
