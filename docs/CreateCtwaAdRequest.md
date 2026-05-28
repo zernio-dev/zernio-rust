@@ -16,7 +16,12 @@ Name | Type | Description | Notes
 **budget_type** | **BudgetType** |  (enum: daily, lifetime) | 
 **currency** | Option<**String**> | ISO 4217 currency code matching the ad account's currency (e.g. `USD`). Optional; Meta infers from the ad account when omitted.  | [optional]
 **end_date** | Option<**String**> | ISO 8601 datetime. Required when `budgetType` is `lifetime`.  | [optional]
-**countries** | Option<**Vec<String>**> | ISO 3166-1 alpha-2 country codes. Defaults to `[\"US\"]`. | [optional]
+**countries** | Option<**Vec<String>**> | ISO 3166-1 alpha-2 country codes. Defaults to `[\"US\"]` only when no other geo (`cities`, `regions`, `zips`, `metros`, `customLocations`) is supplied.  | [optional]
+**cities** | Option<[**Vec<models::CreateCtwaAdRequestCitiesInner>**](CreateCtwaAdRequestCitiesInner.md)> | City-level geo targeting for local CTWA campaigns (e.g. 25km radius around Milan). Each entry maps to Meta's TargetingGeoLocationCity. `key` is Meta's city ID (lookupable via GET /v1/ads/targeting/search). `radius` and `distance_unit` are coupled: set both or neither.  | [optional]
+**regions** | Option<[**Vec<models::CreateCtwaAdRequestRegionsInner>**](CreateCtwaAdRequestRegionsInner.md)> | Region / state-level geo targeting. `key` is Meta's region ID (lookupable via GET /v1/ads/targeting/search?type=region).  | [optional]
+**zips** | Option<[**Vec<models::CreateCtwaAdRequestZipsInner>**](CreateCtwaAdRequestZipsInner.md)> | ZIP / postal-code geo targeting. `key` is the platform's postal id resolved via /v1/ads/targeting/search.  | [optional]
+**metros** | Option<[**Vec<models::CreateCtwaAdRequestZipsInner>**](CreateCtwaAdRequestZipsInner.md)> | DMA / metro-area geo targeting. `key` is Meta's metro id (e.g. `DMA:807`).  | [optional]
+**custom_locations** | Option<[**Vec<models::CreateStandaloneAdRequestCustomLocationsInner>**](CreateStandaloneAdRequestCustomLocationsInner.md)> | Point-radius geo (Meta `geo_locations.custom_locations`). Use for targeting a radius around a specific lat/long when no Meta city/region key fits. `distanceUnit` is required.  | [optional]
 **age_min** | Option<**i32**> |  | [optional]
 **age_max** | Option<**i32**> |  | [optional]
 **interests** | Option<[**Vec<models::CreateStandaloneAdRequestBehaviorsInner>**](CreateStandaloneAdRequestBehaviorsInner.md)> |  | [optional]

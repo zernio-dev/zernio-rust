@@ -48,9 +48,24 @@ pub struct CreateCtwaAdRequest {
     /// ISO 8601 datetime. Required when `budgetType` is `lifetime`.
     #[serde(rename = "endDate", skip_serializing_if = "Option::is_none")]
     pub end_date: Option<String>,
-    /// ISO 3166-1 alpha-2 country codes. Defaults to `[\"US\"]`.
+    /// ISO 3166-1 alpha-2 country codes. Defaults to `[\"US\"]` only when no other geo (`cities`, `regions`, `zips`, `metros`, `customLocations`) is supplied.
     #[serde(rename = "countries", skip_serializing_if = "Option::is_none")]
     pub countries: Option<Vec<String>>,
+    /// City-level geo targeting for local CTWA campaigns (e.g. 25km radius around Milan). Each entry maps to Meta's TargetingGeoLocationCity. `key` is Meta's city ID (lookupable via GET /v1/ads/targeting/search). `radius` and `distance_unit` are coupled: set both or neither.
+    #[serde(rename = "cities", skip_serializing_if = "Option::is_none")]
+    pub cities: Option<Vec<models::CreateCtwaAdRequestCitiesInner>>,
+    /// Region / state-level geo targeting. `key` is Meta's region ID (lookupable via GET /v1/ads/targeting/search?type=region).
+    #[serde(rename = "regions", skip_serializing_if = "Option::is_none")]
+    pub regions: Option<Vec<models::CreateCtwaAdRequestRegionsInner>>,
+    /// ZIP / postal-code geo targeting. `key` is the platform's postal id resolved via /v1/ads/targeting/search.
+    #[serde(rename = "zips", skip_serializing_if = "Option::is_none")]
+    pub zips: Option<Vec<models::CreateCtwaAdRequestZipsInner>>,
+    /// DMA / metro-area geo targeting. `key` is Meta's metro id (e.g. `DMA:807`).
+    #[serde(rename = "metros", skip_serializing_if = "Option::is_none")]
+    pub metros: Option<Vec<models::CreateCtwaAdRequestZipsInner>>,
+    /// Point-radius geo (Meta `geo_locations.custom_locations`). Use for targeting a radius around a specific lat/long when no Meta city/region key fits. `distanceUnit` is required.
+    #[serde(rename = "customLocations", skip_serializing_if = "Option::is_none")]
+    pub custom_locations: Option<Vec<models::CreateStandaloneAdRequestCustomLocationsInner>>,
     #[serde(rename = "ageMin", skip_serializing_if = "Option::is_none")]
     pub age_min: Option<i32>,
     #[serde(rename = "ageMax", skip_serializing_if = "Option::is_none")]
@@ -106,6 +121,11 @@ impl CreateCtwaAdRequest {
             currency: None,
             end_date: None,
             countries: None,
+            cities: None,
+            regions: None,
+            zips: None,
+            metros: None,
+            custom_locations: None,
             age_min: None,
             age_max: None,
             interests: None,

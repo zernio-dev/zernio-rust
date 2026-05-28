@@ -137,9 +137,12 @@ docs/CreateConversionDestinationRequest.md
 docs/CreateConversionDestinationRequestValue.md
 docs/CreateCtwaAd201Response.md
 docs/CreateCtwaAdRequest.md
+docs/CreateCtwaAdRequestCitiesInner.md
 docs/CreateCtwaAdRequestCreativesInner.md
 docs/CreateCtwaAdRequestCreativesInnerVideo.md
+docs/CreateCtwaAdRequestRegionsInner.md
 docs/CreateCtwaAdRequestVideo.md
+docs/CreateCtwaAdRequestZipsInner.md
 docs/CreateCustomField200Response.md
 docs/CreateCustomFieldRequest.md
 docs/CreateGoogleBusinessMedia200Response.md
@@ -1206,9 +1209,12 @@ src/models/create_conversion_destination_request.rs
 src/models/create_conversion_destination_request_value.rs
 src/models/create_ctwa_ad_201_response.rs
 src/models/create_ctwa_ad_request.rs
+src/models/create_ctwa_ad_request_cities_inner.rs
 src/models/create_ctwa_ad_request_creatives_inner.rs
 src/models/create_ctwa_ad_request_creatives_inner_video.rs
+src/models/create_ctwa_ad_request_regions_inner.rs
 src/models/create_ctwa_ad_request_video.rs
+src/models/create_ctwa_ad_request_zips_inner.rs
 src/models/create_custom_field_200_response.rs
 src/models/create_custom_field_request.rs
 src/models/create_google_business_media_200_response.rs
