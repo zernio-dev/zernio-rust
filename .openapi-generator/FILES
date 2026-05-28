@@ -195,6 +195,8 @@ docs/CreateTestLeadRequestFieldDataInner.md
 docs/CreateTrackingTag201Response.md
 docs/CreateTrackingTagRequest.md
 docs/CreateWebhookSettingsRequest.md
+docs/CreateWhatsAppDataset200Response.md
+docs/CreateWhatsAppDatasetRequest.md
 docs/CreateWhatsAppFlow200Response.md
 docs/CreateWhatsAppFlow200ResponseFlow.md
 docs/CreateWhatsAppFlowRequest.md
@@ -442,6 +444,7 @@ docs/GetUser200ResponseUser.md
 docs/GetWebhookSettings200Response.md
 docs/GetWhatsAppBusinessProfile200Response.md
 docs/GetWhatsAppBusinessProfile200ResponseBusinessProfile.md
+docs/GetWhatsAppDataset200Response.md
 docs/GetWhatsAppDisplayName200Response.md
 docs/GetWhatsAppDisplayName200ResponseDisplayName.md
 docs/GetWhatsAppFlow200Response.md
@@ -656,7 +659,6 @@ docs/ProfileGetResponse.md
 docs/ProfileUpdateResponse.md
 docs/ProfilesApi.md
 docs/ProfilesListResponse.md
-docs/PublishWhatsAppFlowRequest.md
 docs/PurchaseWhatsAppPhoneNumber200Response.md
 docs/PurchaseWhatsAppPhoneNumber200ResponseOneOf.md
 docs/PurchaseWhatsAppPhoneNumber200ResponseOneOf1.md
@@ -1258,6 +1260,8 @@ src/models/create_test_lead_request_field_data_inner.rs
 src/models/create_tracking_tag_201_response.rs
 src/models/create_tracking_tag_request.rs
 src/models/create_webhook_settings_request.rs
+src/models/create_whats_app_dataset_200_response.rs
+src/models/create_whats_app_dataset_request.rs
 src/models/create_whats_app_flow_200_response.rs
 src/models/create_whats_app_flow_200_response_flow.rs
 src/models/create_whats_app_flow_request.rs
@@ -1503,6 +1507,7 @@ src/models/get_user_200_response_user.rs
 src/models/get_webhook_settings_200_response.rs
 src/models/get_whats_app_business_profile_200_response.rs
 src/models/get_whats_app_business_profile_200_response_business_profile.rs
+src/models/get_whats_app_dataset_200_response.rs
 src/models/get_whats_app_display_name_200_response.rs
 src/models/get_whats_app_display_name_200_response_display_name.rs
 src/models/get_whats_app_flow_200_response.rs
@@ -1702,7 +1707,6 @@ src/models/profile_delete_response.rs
 src/models/profile_get_response.rs
 src/models/profile_update_response.rs
 src/models/profiles_list_response.rs
-src/models/publish_whats_app_flow_request.rs
 src/models/purchase_whats_app_phone_number_200_response.rs
 src/models/purchase_whats_app_phone_number_200_response_one_of.rs
 src/models/purchase_whats_app_phone_number_200_response_one_of_1.rs
