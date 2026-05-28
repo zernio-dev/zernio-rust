@@ -1283,6 +1283,8 @@ Class | Method | HTTP request | Description
  - [WebhookPayloadCommentCommentAd](docs/WebhookPayloadCommentCommentAd.md)
  - [WebhookPayloadCommentCommentAuthor](docs/WebhookPayloadCommentCommentAuthor.md)
  - [WebhookPayloadCommentPost](docs/WebhookPayloadCommentPost.md)
+ - [WebhookPayloadConversationStarted](docs/WebhookPayloadConversationStarted.md)
+ - [WebhookPayloadConversationStartedConversation](docs/WebhookPayloadConversationStartedConversation.md)
  - [WebhookPayloadLead](docs/WebhookPayloadLead.md)
  - [WebhookPayloadLeadAccount](docs/WebhookPayloadLeadAccount.md)
  - [WebhookPayloadLeadLead](docs/WebhookPayloadLeadLead.md)

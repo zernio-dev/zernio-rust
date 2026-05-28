@@ -967,6 +967,8 @@ docs/WebhookPayloadCommentComment.md
 docs/WebhookPayloadCommentCommentAd.md
 docs/WebhookPayloadCommentCommentAuthor.md
 docs/WebhookPayloadCommentPost.md
+docs/WebhookPayloadConversationStarted.md
+docs/WebhookPayloadConversationStartedConversation.md
 docs/WebhookPayloadLead.md
 docs/WebhookPayloadLeadAccount.md
 docs/WebhookPayloadLeadLead.md
@@ -2007,6 +2009,8 @@ src/models/webhook_payload_comment_comment.rs
 src/models/webhook_payload_comment_comment_ad.rs
 src/models/webhook_payload_comment_comment_author.rs
 src/models/webhook_payload_comment_post.rs
+src/models/webhook_payload_conversation_started.rs
+src/models/webhook_payload_conversation_started_conversation.rs
 src/models/webhook_payload_lead.rs
 src/models/webhook_payload_lead_account.rs
 src/models/webhook_payload_lead_lead.rs
