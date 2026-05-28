@@ -999,8 +999,6 @@ docs/WebhookPayloadPostPlatformPost.md
 docs/WebhookPayloadPostPost.md
 docs/WebhookPayloadPostPostPlatformsInner.md
 docs/WebhookPayloadReaction.md
-docs/WebhookPayloadReactionAccount.md
-docs/WebhookPayloadReactionConversation.md
 docs/WebhookPayloadReactionReaction.md
 docs/WebhookPayloadReactionReactionSender.md
 docs/WebhookPayloadReviewNew.md
@@ -2044,8 +2042,6 @@ src/models/webhook_payload_post_platform_post.rs
 src/models/webhook_payload_post_post.rs
 src/models/webhook_payload_post_post_platforms_inner.rs
 src/models/webhook_payload_reaction.rs
-src/models/webhook_payload_reaction_account.rs
-src/models/webhook_payload_reaction_conversation.rs
 src/models/webhook_payload_reaction_reaction.rs
 src/models/webhook_payload_reaction_reaction_sender.rs
 src/models/webhook_payload_review_new.rs

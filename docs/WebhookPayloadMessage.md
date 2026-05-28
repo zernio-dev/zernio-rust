@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **id** | **String** | Stable webhook event ID | 
 **event** | **Event** |  (enum: message.received) | 
 **message** | [**models::WebhookPayloadMessageMessage**](WebhookPayloadMessageMessage.md) |  | 
-**conversation** | [**models::WebhookPayloadReactionConversation**](WebhookPayloadReactionConversation.md) |  | 
-**account** | [**models::WebhookPayloadReactionAccount**](WebhookPayloadReactionAccount.md) |  | 
+**conversation** | [**models::InboxWebhookConversation**](InboxWebhookConversation.md) |  | 
+**account** | [**models::InboxWebhookAccount**](InboxWebhookAccount.md) |  | 
 **metadata** | Option<[**models::WebhookPayloadMessageMetadata**](WebhookPayloadMessageMetadata.md)> |  | [optional]
 **timestamp** | **String** |  | 
 

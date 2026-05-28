@@ -35,6 +35,9 @@ pub struct WebhookPayloadConversationStartedConversation {
     pub participant_picture: Option<String>,
     #[serde(rename = "status")]
     pub status: Status,
+    /// Zernio CRM Contact ID for the participant, when one exists. Resolved by joining `participantId` to the ContactChannel collection (same join used by message.*, reaction.received, and call.* webhooks). Best-effort: omitted when no channel matches or `participantId` is absent. Lets integrators seed the CRM straight from `conversation.started` without waiting for the first `message.*` event.
+    #[serde(rename = "contactId", skip_serializing_if = "Option::is_none")]
+    pub contact_id: Option<String>,
 }
 
 impl WebhookPayloadConversationStartedConversation {
@@ -54,6 +57,7 @@ impl WebhookPayloadConversationStartedConversation {
             participant_username: None,
             participant_picture: None,
             status,
+            contact_id: None,
         }
     }
 }
