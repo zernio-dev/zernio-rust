@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **message** | Option<**String**> | Message text | [optional]
 **attachment_url** | Option<**String**> | URL of the attachment to send (image, video, audio, or file). The URL must be publicly accessible. For binary file uploads, use multipart/form-data instead. | [optional]
 **attachment_type** | Option<**AttachmentType**> | Type of attachment. Defaults to file if not specified. (enum: image, video, audio, file) | [optional]
+**voice_note** | Option<**bool**> | WhatsApp only. When `true` on an audio attachment, the message is sent as a voice message (PTT) — the recipient sees the waveform + voice-note UI instead of a basic audio attachment. The audio file MUST be `.ogg` encoded with the OPUS codec (mono) per Meta's voice-message contract; other formats are rejected by WhatsApp. Ignored for non-audio attachments.  | [optional]
 **quick_replies** | Option<[**Vec<models::SendInboxMessageRequestQuickRepliesInner>**](SendInboxMessageRequestQuickRepliesInner.md)> | Quick reply buttons. Mutually exclusive with buttons. Max 13 items. | [optional]
 **buttons** | Option<[**Vec<models::SendInboxMessageRequestButtonsInner>**](SendInboxMessageRequestButtonsInner.md)> | Action buttons. Mutually exclusive with quickReplies. Max 3 items. | [optional]
 **template** | Option<[**models::SendInboxMessageRequestTemplate**](SendInboxMessageRequestTemplate.md)> |  | [optional]

@@ -25,6 +25,9 @@ pub struct SendInboxMessageRequest {
     /// Type of attachment. Defaults to file if not specified.
     #[serde(rename = "attachmentType", skip_serializing_if = "Option::is_none")]
     pub attachment_type: Option<AttachmentType>,
+    /// WhatsApp only. When `true` on an audio attachment, the message is sent as a voice message (PTT) — the recipient sees the waveform + voice-note UI instead of a basic audio attachment. The audio file MUST be `.ogg` encoded with the OPUS codec (mono) per Meta's voice-message contract; other formats are rejected by WhatsApp. Ignored for non-audio attachments.
+    #[serde(rename = "voiceNote", skip_serializing_if = "Option::is_none")]
+    pub voice_note: Option<bool>,
     /// Quick reply buttons. Mutually exclusive with buttons. Max 13 items.
     #[serde(rename = "quickReplies", skip_serializing_if = "Option::is_none")]
     pub quick_replies: Option<Vec<models::SendInboxMessageRequestQuickRepliesInner>>,
@@ -60,6 +63,7 @@ impl SendInboxMessageRequest {
             message: None,
             attachment_url: None,
             attachment_type: None,
+            voice_note: None,
             quick_replies: None,
             buttons: None,
             template: None,
