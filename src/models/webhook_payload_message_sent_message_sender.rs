@@ -15,6 +15,9 @@ use serde::{Deserialize, Serialize};
 pub struct WebhookPayloadMessageSentMessageSender {
     #[serde(rename = "id")]
     pub id: String,
+    /// Zernio CRM Contact id for this sender, when one exists.
+    #[serde(rename = "contactId", skip_serializing_if = "Option::is_none")]
+    pub contact_id: Option<String>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(rename = "username", skip_serializing_if = "Option::is_none")]
@@ -27,6 +30,7 @@ impl WebhookPayloadMessageSentMessageSender {
     pub fn new(id: String) -> WebhookPayloadMessageSentMessageSender {
         WebhookPayloadMessageSentMessageSender {
             id,
+            contact_id: None,
             name: None,
             username: None,
             picture: None,

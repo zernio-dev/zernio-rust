@@ -16,6 +16,9 @@ pub struct WebhookPayloadMessageMessageSender {
     /// Sender's platform identifier. For WhatsApp this is the phone number (without leading `+`) when available, otherwise the `businessScopedUserId`.
     #[serde(rename = "id")]
     pub id: String,
+    /// Zernio CRM Contact id for this sender, when one exists (omitted for outgoing/business sender).
+    #[serde(rename = "contactId", skip_serializing_if = "Option::is_none")]
+    pub contact_id: Option<String>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(rename = "username", skip_serializing_if = "Option::is_none")]
@@ -48,6 +51,7 @@ impl WebhookPayloadMessageMessageSender {
     pub fn new(id: String) -> WebhookPayloadMessageMessageSender {
         WebhookPayloadMessageMessageSender {
             id,
+            contact_id: None,
             name: None,
             username: None,
             picture: None,

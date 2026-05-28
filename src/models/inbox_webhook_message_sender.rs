@@ -16,6 +16,9 @@ pub struct InboxWebhookMessageSender {
     /// Sender's platform identifier. For WhatsApp this is the phone number (without leading `+`) when available, otherwise the `businessScopedUserId`. For other platforms, the platform's own user ID.
     #[serde(rename = "id")]
     pub id: String,
+    /// Zernio CRM Contact id for this sender, when one exists (joined via the ContactChannel mapping). Lets integrators link a message straight to a Contact without a follow-up Contacts API call. Omitted when the sender isn't a tracked contact (e.g. outgoing messages where the sender is the business, or first-touch messages before the contact is created).
+    #[serde(rename = "contactId", skip_serializing_if = "Option::is_none")]
+    pub contact_id: Option<String>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(rename = "username", skip_serializing_if = "Option::is_none")]
@@ -48,6 +51,7 @@ impl InboxWebhookMessageSender {
     pub fn new(id: String) -> InboxWebhookMessageSender {
         InboxWebhookMessageSender {
             id,
+            contact_id: None,
             name: None,
             username: None,
             picture: None,
