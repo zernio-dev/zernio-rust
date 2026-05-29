@@ -13,12 +13,17 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadCallEndedCallBilling {
+    /// Meta per-minute charge. Billed by Meta DIRECTLY to your WhatsApp Business Account payment method (your separate Meta invoice). Zernio does NOT charge this. Display only.
     #[serde(rename = "metaCostUSD", skip_serializing_if = "Option::is_none")]
     pub meta_cost_usd: Option<f64>,
     #[serde(rename = "telnyxCostUSD", skip_serializing_if = "Option::is_none")]
     pub telnyx_cost_usd: Option<f64>,
     #[serde(rename = "recordingCostUSD", skip_serializing_if = "Option::is_none")]
     pub recording_cost_usd: Option<f64>,
+    /// The amount Zernio bills you = Telnyx leg + recording. Excludes Meta (billed by Meta directly).
+    #[serde(rename = "billableCostUSD", skip_serializing_if = "Option::is_none")]
+    pub billable_cost_usd: Option<f64>,
+    /// Full economic cost incl. the Meta portion you pay directly (Meta + Telnyx + recording). Display only, not the Zernio-billed amount.
     #[serde(rename = "totalCostUSD", skip_serializing_if = "Option::is_none")]
     pub total_cost_usd: Option<f64>,
 }
@@ -29,6 +34,7 @@ impl WebhookPayloadCallEndedCallBilling {
             meta_cost_usd: None,
             telnyx_cost_usd: None,
             recording_cost_usd: None,
+            billable_cost_usd: None,
             total_cost_usd: None,
         }
     }

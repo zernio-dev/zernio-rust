@@ -13,12 +13,17 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ListWhatsAppCalls200ResponseCallsInnerBilling {
+    /// Meta per-minute charge, billed by Meta directly to your WABA. Display only; not billed by Zernio.
     #[serde(rename = "metaCostUSD", skip_serializing_if = "Option::is_none")]
     pub meta_cost_usd: Option<f64>,
     #[serde(rename = "telnyxCostUSD", skip_serializing_if = "Option::is_none")]
     pub telnyx_cost_usd: Option<f64>,
     #[serde(rename = "recordingCostUSD", skip_serializing_if = "Option::is_none")]
     pub recording_cost_usd: Option<f64>,
+    /// Amount Zernio bills you = Telnyx leg + recording (excludes Meta).
+    #[serde(rename = "billableCostUSD", skip_serializing_if = "Option::is_none")]
+    pub billable_cost_usd: Option<f64>,
+    /// Full cost incl. the Meta portion you pay directly. Display only.
     #[serde(rename = "totalCostUSD", skip_serializing_if = "Option::is_none")]
     pub total_cost_usd: Option<f64>,
     #[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
@@ -31,6 +36,7 @@ impl ListWhatsAppCalls200ResponseCallsInnerBilling {
             meta_cost_usd: None,
             telnyx_cost_usd: None,
             recording_cost_usd: None,
+            billable_cost_usd: None,
             total_cost_usd: None,
             currency: None,
         }

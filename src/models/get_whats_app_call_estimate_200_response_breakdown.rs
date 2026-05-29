@@ -15,12 +15,17 @@ use serde::{Deserialize, Serialize};
 pub struct GetWhatsAppCallEstimate200ResponseBreakdown {
     #[serde(rename = "metaMinutes", skip_serializing_if = "Option::is_none")]
     pub meta_minutes: Option<i32>,
+    /// Estimated Meta per-minute charge, billed by Meta directly to your WABA. Display only; not billed by Zernio.
     #[serde(rename = "metaCostUSD", skip_serializing_if = "Option::is_none")]
     pub meta_cost_usd: Option<f64>,
     #[serde(rename = "telnyxCostUSD", skip_serializing_if = "Option::is_none")]
     pub telnyx_cost_usd: Option<f64>,
     #[serde(rename = "recordingCostUSD", skip_serializing_if = "Option::is_none")]
     pub recording_cost_usd: Option<f64>,
+    /// Estimated amount Zernio bills you = Telnyx leg + recording (excludes Meta).
+    #[serde(rename = "billableCostUSD", skip_serializing_if = "Option::is_none")]
+    pub billable_cost_usd: Option<f64>,
+    /// Estimated full cost incl. the Meta portion you pay directly. Display only.
     #[serde(rename = "totalCostUSD", skip_serializing_if = "Option::is_none")]
     pub total_cost_usd: Option<f64>,
 }
@@ -32,6 +37,7 @@ impl GetWhatsAppCallEstimate200ResponseBreakdown {
             meta_cost_usd: None,
             telnyx_cost_usd: None,
             recording_cost_usd: None,
+            billable_cost_usd: None,
             total_cost_usd: None,
         }
     }
