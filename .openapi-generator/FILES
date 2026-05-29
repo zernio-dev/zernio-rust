@@ -10,6 +10,8 @@ docs/AccountWithFollowerStatsAllOfAccountStats.md
 docs/AccountsApi.md
 docs/AccountsListResponse.md
 docs/ActivateSequence200Response.md
+docs/ActivateWorkflow200Response.md
+docs/ActivateWorkflow200ResponseWorkflow.md
 docs/Ad.md
 docs/AdAudiencesApi.md
 docs/AdBudget.md
@@ -214,6 +216,9 @@ docs/CreateWhatsAppTemplate200ResponseTemplate.md
 docs/CreateWhatsAppTemplateRequest.md
 docs/CreateWhatsAppTemplateRequestLibraryTemplateButtonInputsInner.md
 docs/CreateWhatsAppTemplateRequestLibraryTemplateButtonInputsInnerUrl.md
+docs/CreateWorkflow200Response.md
+docs/CreateWorkflow200ResponseWorkflow.md
+docs/CreateWorkflowRequest.md
 docs/CtwaMultiResponse.md
 docs/CtwaSingleResponse.md
 docs/CustomFieldsApi.md
@@ -488,6 +493,8 @@ docs/GetWhatsAppTemplate200Response.md
 docs/GetWhatsAppTemplate200ResponseTemplate.md
 docs/GetWhatsAppTemplates200Response.md
 docs/GetWhatsAppTemplates200ResponseTemplatesInner.md
+docs/GetWorkflow200Response.md
+docs/GetWorkflow200ResponseWorkflow.md
 docs/GetYouTubeDailyViews400Response.md
 docs/GetYouTubeDailyViews403Response.md
 docs/GetYouTubeDailyViews500Response.md
@@ -650,6 +657,11 @@ docs/ListWhatsAppGroupJoinRequests200ResponseJoinRequestsInner.md
 docs/ListWhatsAppPhoneNumbers200Response.md
 docs/ListWhatsAppPhoneNumbers200ResponsePhoneNumbersInner.md
 docs/ListWhatsAppSandboxSessions200Response.md
+docs/ListWorkflowExecutions200Response.md
+docs/ListWorkflowExecutions200ResponseExecutionsInner.md
+docs/ListWorkflowExecutions200ResponseExecutionsInnerWaitingFor.md
+docs/ListWorkflows200Response.md
+docs/ListWorkflows200ResponseWorkflowsInner.md
 docs/LogsApi.md
 docs/MarkConversationRead200Response.md
 docs/MediaApi.md
@@ -660,6 +672,7 @@ docs/Money.md
 docs/MoveAccountToProfile200Response.md
 docs/MoveAccountToProfileRequest.md
 docs/Pagination.md
+docs/PauseWorkflow200Response.md
 docs/Pending.md
 docs/PinterestPlatformData.md
 docs/PlatformAnalytics.md
@@ -823,6 +836,9 @@ docs/ThreadsPlatformData.md
 docs/TikTokPlatformData.md
 docs/TrackingTag.md
 docs/TrackingTagsApi.md
+docs/TriggerWorkflow200Response.md
+docs/TriggerWorkflow200ResponseExecution.md
+docs/TriggerWorkflowRequest.md
 docs/TwitterEngagementApi.md
 docs/TwitterPlatformData.md
 docs/TwitterPlatformDataPoll.md
@@ -932,6 +948,9 @@ docs/UpdateWhatsAppGroupChatRequest.md
 docs/UpdateWhatsAppTemplate200Response.md
 docs/UpdateWhatsAppTemplate200ResponseTemplate.md
 docs/UpdateWhatsAppTemplateRequest.md
+docs/UpdateWorkflow200Response.md
+docs/UpdateWorkflow200ResponseWorkflow.md
+docs/UpdateWorkflowRequest.md
 docs/UpdateYoutubeDefaultPlaylist200Response.md
 docs/UpdateYoutubeDefaultPlaylistRequest.md
 docs/UploadMediaDirect200Response.md
@@ -1055,6 +1074,10 @@ docs/WhatsAppSandboxSession.md
 docs/WhatsAppTemplateButton.md
 docs/WhatsAppTemplateComponent.md
 docs/WhatsAppTemplatesApi.md
+docs/WorkflowEdge.md
+docs/WorkflowNode.md
+docs/WorkflowNodePosition.md
+docs/WorkflowsApi.md
 docs/XApiOperation.md
 docs/XApiOperationTriggeredByInner.md
 docs/XApiPricing.md
@@ -1120,12 +1143,15 @@ src/apis/whats_app_flows_api.rs
 src/apis/whats_app_phone_numbers_api.rs
 src/apis/whats_app_sandbox_api.rs
 src/apis/whats_app_templates_api.rs
+src/apis/workflows_api.rs
 src/lib.rs
 src/models/account_get_response.rs
 src/models/account_with_follower_stats.rs
 src/models/account_with_follower_stats_all_of_account_stats.rs
 src/models/accounts_list_response.rs
 src/models/activate_sequence_200_response.rs
+src/models/activate_workflow_200_response.rs
+src/models/activate_workflow_200_response_workflow.rs
 src/models/ad.rs
 src/models/ad_budget.rs
 src/models/ad_campaign.rs
@@ -1320,6 +1346,9 @@ src/models/create_whats_app_template_200_response_template.rs
 src/models/create_whats_app_template_request.rs
 src/models/create_whats_app_template_request_library_template_button_inputs_inner.rs
 src/models/create_whats_app_template_request_library_template_button_inputs_inner_url.rs
+src/models/create_workflow_200_response.rs
+src/models/create_workflow_200_response_workflow.rs
+src/models/create_workflow_request.rs
 src/models/ctwa_multi_response.rs
 src/models/ctwa_single_response.rs
 src/models/delete_account_group_200_response.rs
@@ -1592,6 +1621,8 @@ src/models/get_whats_app_template_200_response.rs
 src/models/get_whats_app_template_200_response_template.rs
 src/models/get_whats_app_templates_200_response.rs
 src/models/get_whats_app_templates_200_response_templates_inner.rs
+src/models/get_workflow_200_response.rs
+src/models/get_workflow_200_response_workflow.rs
 src/models/get_you_tube_daily_views_400_response.rs
 src/models/get_you_tube_daily_views_403_response.rs
 src/models/get_you_tube_daily_views_500_response.rs
@@ -1743,6 +1774,11 @@ src/models/list_whats_app_group_join_requests_200_response_join_requests_inner.r
 src/models/list_whats_app_phone_numbers_200_response.rs
 src/models/list_whats_app_phone_numbers_200_response_phone_numbers_inner.rs
 src/models/list_whats_app_sandbox_sessions_200_response.rs
+src/models/list_workflow_executions_200_response.rs
+src/models/list_workflow_executions_200_response_executions_inner.rs
+src/models/list_workflow_executions_200_response_executions_inner_waiting_for.rs
+src/models/list_workflows_200_response.rs
+src/models/list_workflows_200_response_workflows_inner.rs
 src/models/mark_conversation_read_200_response.rs
 src/models/media_item.rs
 src/models/media_upload_response.rs
@@ -1751,6 +1787,7 @@ src/models/money.rs
 src/models/move_account_to_profile_200_response.rs
 src/models/move_account_to_profile_request.rs
 src/models/pagination.rs
+src/models/pause_workflow_200_response.rs
 src/models/pending.rs
 src/models/pinterest_platform_data.rs
 src/models/platform_analytics.rs
@@ -1907,6 +1944,9 @@ src/models/test_webhook_request.rs
 src/models/threads_platform_data.rs
 src/models/tik_tok_platform_data.rs
 src/models/tracking_tag.rs
+src/models/trigger_workflow_200_response.rs
+src/models/trigger_workflow_200_response_execution.rs
+src/models/trigger_workflow_request.rs
 src/models/twitter_platform_data.rs
 src/models/twitter_platform_data_poll.rs
 src/models/twitter_platform_data_thread_items_inner.rs
@@ -2015,6 +2055,9 @@ src/models/update_whats_app_group_chat_request.rs
 src/models/update_whats_app_template_200_response.rs
 src/models/update_whats_app_template_200_response_template.rs
 src/models/update_whats_app_template_request.rs
+src/models/update_workflow_200_response.rs
+src/models/update_workflow_200_response_workflow.rs
+src/models/update_workflow_request.rs
 src/models/update_youtube_default_playlist_200_response.rs
 src/models/update_youtube_default_playlist_request.rs
 src/models/upload_media_direct_200_response.rs
@@ -2127,6 +2170,9 @@ src/models/whats_app_header_component_example.rs
 src/models/whats_app_sandbox_session.rs
 src/models/whats_app_template_button.rs
 src/models/whats_app_template_component.rs
+src/models/workflow_edge.rs
+src/models/workflow_node.rs
+src/models/workflow_node_position.rs
 src/models/x_api_operation.rs
 src/models/x_api_operation_triggered_by_inner.rs
 src/models/x_api_pricing.rs

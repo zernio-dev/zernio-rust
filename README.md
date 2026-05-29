@@ -367,6 +367,15 @@ Class | Method | HTTP request | Description
 *WhatsAppSandboxApi* | [**delete_whats_app_sandbox_session**](docs/WhatsAppSandboxApi.md#delete_whats_app_sandbox_session) | **DELETE** /v1/whatsapp/sandbox/sessions/{sessionId} | Revoke a sandbox session
 *WhatsAppSandboxApi* | [**list_whats_app_sandbox_sessions**](docs/WhatsAppSandboxApi.md#list_whats_app_sandbox_sessions) | **GET** /v1/whatsapp/sandbox/sessions | List your sandbox sessions
 *WhatsAppTemplatesApi* | [**get_whats_app_library_template**](docs/WhatsAppTemplatesApi.md#get_whats_app_library_template) | **GET** /v1/whatsapp/template-library | Look up a library template
+*WorkflowsApi* | [**activate_workflow**](docs/WorkflowsApi.md#activate_workflow) | **POST** /v1/workflows/{workflowId}/activate | Activate workflow
+*WorkflowsApi* | [**create_workflow**](docs/WorkflowsApi.md#create_workflow) | **POST** /v1/workflows | Create workflow
+*WorkflowsApi* | [**delete_workflow**](docs/WorkflowsApi.md#delete_workflow) | **DELETE** /v1/workflows/{workflowId} | Delete workflow
+*WorkflowsApi* | [**get_workflow**](docs/WorkflowsApi.md#get_workflow) | **GET** /v1/workflows/{workflowId} | Get workflow with graph
+*WorkflowsApi* | [**list_workflow_executions**](docs/WorkflowsApi.md#list_workflow_executions) | **GET** /v1/workflows/{workflowId}/executions | List workflow runs
+*WorkflowsApi* | [**list_workflows**](docs/WorkflowsApi.md#list_workflows) | **GET** /v1/workflows | List workflows
+*WorkflowsApi* | [**pause_workflow**](docs/WorkflowsApi.md#pause_workflow) | **POST** /v1/workflows/{workflowId}/pause | Pause workflow
+*WorkflowsApi* | [**trigger_workflow**](docs/WorkflowsApi.md#trigger_workflow) | **POST** /v1/workflows/{workflowId}/executions | Manually start a workflow run
+*WorkflowsApi* | [**update_workflow**](docs/WorkflowsApi.md#update_workflow) | **PATCH** /v1/workflows/{workflowId} | Update workflow
 
 
 ## Documentation For Models
@@ -376,6 +385,8 @@ Class | Method | HTTP request | Description
  - [AccountWithFollowerStatsAllOfAccountStats](docs/AccountWithFollowerStatsAllOfAccountStats.md)
  - [AccountsListResponse](docs/AccountsListResponse.md)
  - [ActivateSequence200Response](docs/ActivateSequence200Response.md)
+ - [ActivateWorkflow200Response](docs/ActivateWorkflow200Response.md)
+ - [ActivateWorkflow200ResponseWorkflow](docs/ActivateWorkflow200ResponseWorkflow.md)
  - [Ad](docs/Ad.md)
  - [AdBudget](docs/AdBudget.md)
  - [AdCampaign](docs/AdCampaign.md)
@@ -570,6 +581,9 @@ Class | Method | HTTP request | Description
  - [CreateWhatsAppTemplateRequest](docs/CreateWhatsAppTemplateRequest.md)
  - [CreateWhatsAppTemplateRequestLibraryTemplateButtonInputsInner](docs/CreateWhatsAppTemplateRequestLibraryTemplateButtonInputsInner.md)
  - [CreateWhatsAppTemplateRequestLibraryTemplateButtonInputsInnerUrl](docs/CreateWhatsAppTemplateRequestLibraryTemplateButtonInputsInnerUrl.md)
+ - [CreateWorkflow200Response](docs/CreateWorkflow200Response.md)
+ - [CreateWorkflow200ResponseWorkflow](docs/CreateWorkflow200ResponseWorkflow.md)
+ - [CreateWorkflowRequest](docs/CreateWorkflowRequest.md)
  - [CtwaMultiResponse](docs/CtwaMultiResponse.md)
  - [CtwaSingleResponse](docs/CtwaSingleResponse.md)
  - [DeleteAccountGroup200Response](docs/DeleteAccountGroup200Response.md)
@@ -842,6 +856,8 @@ Class | Method | HTTP request | Description
  - [GetWhatsAppTemplate200ResponseTemplate](docs/GetWhatsAppTemplate200ResponseTemplate.md)
  - [GetWhatsAppTemplates200Response](docs/GetWhatsAppTemplates200Response.md)
  - [GetWhatsAppTemplates200ResponseTemplatesInner](docs/GetWhatsAppTemplates200ResponseTemplatesInner.md)
+ - [GetWorkflow200Response](docs/GetWorkflow200Response.md)
+ - [GetWorkflow200ResponseWorkflow](docs/GetWorkflow200ResponseWorkflow.md)
  - [GetYouTubeDailyViews400Response](docs/GetYouTubeDailyViews400Response.md)
  - [GetYouTubeDailyViews403Response](docs/GetYouTubeDailyViews403Response.md)
  - [GetYouTubeDailyViews500Response](docs/GetYouTubeDailyViews500Response.md)
@@ -993,6 +1009,11 @@ Class | Method | HTTP request | Description
  - [ListWhatsAppPhoneNumbers200Response](docs/ListWhatsAppPhoneNumbers200Response.md)
  - [ListWhatsAppPhoneNumbers200ResponsePhoneNumbersInner](docs/ListWhatsAppPhoneNumbers200ResponsePhoneNumbersInner.md)
  - [ListWhatsAppSandboxSessions200Response](docs/ListWhatsAppSandboxSessions200Response.md)
+ - [ListWorkflowExecutions200Response](docs/ListWorkflowExecutions200Response.md)
+ - [ListWorkflowExecutions200ResponseExecutionsInner](docs/ListWorkflowExecutions200ResponseExecutionsInner.md)
+ - [ListWorkflowExecutions200ResponseExecutionsInnerWaitingFor](docs/ListWorkflowExecutions200ResponseExecutionsInnerWaitingFor.md)
+ - [ListWorkflows200Response](docs/ListWorkflows200Response.md)
+ - [ListWorkflows200ResponseWorkflowsInner](docs/ListWorkflows200ResponseWorkflowsInner.md)
  - [MarkConversationRead200Response](docs/MarkConversationRead200Response.md)
  - [MediaItem](docs/MediaItem.md)
  - [MediaUploadResponse](docs/MediaUploadResponse.md)
@@ -1000,6 +1021,7 @@ Class | Method | HTTP request | Description
  - [MoveAccountToProfile200Response](docs/MoveAccountToProfile200Response.md)
  - [MoveAccountToProfileRequest](docs/MoveAccountToProfileRequest.md)
  - [Pagination](docs/Pagination.md)
+ - [PauseWorkflow200Response](docs/PauseWorkflow200Response.md)
  - [Pending](docs/Pending.md)
  - [PinterestPlatformData](docs/PinterestPlatformData.md)
  - [PlatformAnalytics](docs/PlatformAnalytics.md)
@@ -1156,6 +1178,9 @@ Class | Method | HTTP request | Description
  - [ThreadsPlatformData](docs/ThreadsPlatformData.md)
  - [TikTokPlatformData](docs/TikTokPlatformData.md)
  - [TrackingTag](docs/TrackingTag.md)
+ - [TriggerWorkflow200Response](docs/TriggerWorkflow200Response.md)
+ - [TriggerWorkflow200ResponseExecution](docs/TriggerWorkflow200ResponseExecution.md)
+ - [TriggerWorkflowRequest](docs/TriggerWorkflowRequest.md)
  - [TwitterPlatformData](docs/TwitterPlatformData.md)
  - [TwitterPlatformDataPoll](docs/TwitterPlatformDataPoll.md)
  - [TwitterPlatformDataThreadItemsInner](docs/TwitterPlatformDataThreadItemsInner.md)
@@ -1264,6 +1289,9 @@ Class | Method | HTTP request | Description
  - [UpdateWhatsAppTemplate200Response](docs/UpdateWhatsAppTemplate200Response.md)
  - [UpdateWhatsAppTemplate200ResponseTemplate](docs/UpdateWhatsAppTemplate200ResponseTemplate.md)
  - [UpdateWhatsAppTemplateRequest](docs/UpdateWhatsAppTemplateRequest.md)
+ - [UpdateWorkflow200Response](docs/UpdateWorkflow200Response.md)
+ - [UpdateWorkflow200ResponseWorkflow](docs/UpdateWorkflow200ResponseWorkflow.md)
+ - [UpdateWorkflowRequest](docs/UpdateWorkflowRequest.md)
  - [UpdateYoutubeDefaultPlaylist200Response](docs/UpdateYoutubeDefaultPlaylist200Response.md)
  - [UpdateYoutubeDefaultPlaylistRequest](docs/UpdateYoutubeDefaultPlaylistRequest.md)
  - [UploadMediaDirect200Response](docs/UploadMediaDirect200Response.md)
@@ -1376,6 +1404,9 @@ Class | Method | HTTP request | Description
  - [WhatsAppSandboxSession](docs/WhatsAppSandboxSession.md)
  - [WhatsAppTemplateButton](docs/WhatsAppTemplateButton.md)
  - [WhatsAppTemplateComponent](docs/WhatsAppTemplateComponent.md)
+ - [WorkflowEdge](docs/WorkflowEdge.md)
+ - [WorkflowNode](docs/WorkflowNode.md)
+ - [WorkflowNodePosition](docs/WorkflowNodePosition.md)
  - [XApiOperation](docs/XApiOperation.md)
  - [XApiOperationTriggeredByInner](docs/XApiOperationTriggeredByInner.md)
  - [XApiPricing](docs/XApiPricing.md)
