@@ -207,6 +207,8 @@ docs/CreateWhatsAppGroupChat201Response.md
 docs/CreateWhatsAppGroupChat201ResponseGroup.md
 docs/CreateWhatsAppGroupChatRequest.md
 docs/CreateWhatsAppGroupInviteLink200Response.md
+docs/CreateWhatsAppSandboxSession200Response.md
+docs/CreateWhatsAppSandboxSessionRequest.md
 docs/CreateWhatsAppTemplate200Response.md
 docs/CreateWhatsAppTemplate200ResponseTemplate.md
 docs/CreateWhatsAppTemplateRequest.md
@@ -225,6 +227,7 @@ docs/DeleteInboxComment200Response.md
 docs/DeleteInboxReviewReply200Response.md
 docs/DeleteInboxReviewReplyRequest.md
 docs/DeleteQueueSlot200Response.md
+docs/DeleteWhatsAppSandboxSession200Response.md
 docs/DiscordApi.md
 docs/DiscordPlatformData.md
 docs/DiscordPlatformDataEmbedsInner.md
@@ -479,6 +482,8 @@ docs/GetWhatsAppPhoneNumber200Response.md
 docs/GetWhatsAppPhoneNumber200ResponsePhoneNumber.md
 docs/GetWhatsAppPhoneNumbers200Response.md
 docs/GetWhatsAppPhoneNumbers200ResponseNumbersInner.md
+docs/GetWhatsAppPhoneNumbers200ResponseSandbox.md
+docs/GetWhatsAppPhoneNumbers200ResponseSandboxTemplate.md
 docs/GetWhatsAppTemplate200Response.md
 docs/GetWhatsAppTemplate200ResponseTemplate.md
 docs/GetWhatsAppTemplates200Response.md
@@ -644,6 +649,7 @@ docs/ListWhatsAppGroupJoinRequests200Response.md
 docs/ListWhatsAppGroupJoinRequests200ResponseJoinRequestsInner.md
 docs/ListWhatsAppPhoneNumbers200Response.md
 docs/ListWhatsAppPhoneNumbers200ResponsePhoneNumbersInner.md
+docs/ListWhatsAppSandboxSessions200Response.md
 docs/LogsApi.md
 docs/MarkConversationRead200Response.md
 docs/MediaApi.md
@@ -1044,6 +1050,8 @@ docs/WhatsAppFooterComponent.md
 docs/WhatsAppHeaderComponent.md
 docs/WhatsAppHeaderComponentExample.md
 docs/WhatsAppPhoneNumbersApi.md
+docs/WhatsAppSandboxApi.md
+docs/WhatsAppSandboxSession.md
 docs/WhatsAppTemplateButton.md
 docs/WhatsAppTemplateComponent.md
 docs/WhatsAppTemplatesApi.md
@@ -1110,6 +1118,7 @@ src/apis/whats_app_api.rs
 src/apis/whats_app_calling_api.rs
 src/apis/whats_app_flows_api.rs
 src/apis/whats_app_phone_numbers_api.rs
+src/apis/whats_app_sandbox_api.rs
 src/apis/whats_app_templates_api.rs
 src/lib.rs
 src/models/account_get_response.rs
@@ -1304,6 +1313,8 @@ src/models/create_whats_app_group_chat_201_response.rs
 src/models/create_whats_app_group_chat_201_response_group.rs
 src/models/create_whats_app_group_chat_request.rs
 src/models/create_whats_app_group_invite_link_200_response.rs
+src/models/create_whats_app_sandbox_session_200_response.rs
+src/models/create_whats_app_sandbox_session_request.rs
 src/models/create_whats_app_template_200_response.rs
 src/models/create_whats_app_template_200_response_template.rs
 src/models/create_whats_app_template_request.rs
@@ -1321,6 +1332,7 @@ src/models/delete_inbox_comment_200_response.rs
 src/models/delete_inbox_review_reply_200_response.rs
 src/models/delete_inbox_review_reply_request.rs
 src/models/delete_queue_slot_200_response.rs
+src/models/delete_whats_app_sandbox_session_200_response.rs
 src/models/discord_platform_data.rs
 src/models/discord_platform_data_embeds_inner.rs
 src/models/discord_platform_data_embeds_inner_author.rs
@@ -1574,6 +1586,8 @@ src/models/get_whats_app_phone_number_200_response.rs
 src/models/get_whats_app_phone_number_200_response_phone_number.rs
 src/models/get_whats_app_phone_numbers_200_response.rs
 src/models/get_whats_app_phone_numbers_200_response_numbers_inner.rs
+src/models/get_whats_app_phone_numbers_200_response_sandbox.rs
+src/models/get_whats_app_phone_numbers_200_response_sandbox_template.rs
 src/models/get_whats_app_template_200_response.rs
 src/models/get_whats_app_template_200_response_template.rs
 src/models/get_whats_app_templates_200_response.rs
@@ -1728,6 +1742,7 @@ src/models/list_whats_app_group_join_requests_200_response.rs
 src/models/list_whats_app_group_join_requests_200_response_join_requests_inner.rs
 src/models/list_whats_app_phone_numbers_200_response.rs
 src/models/list_whats_app_phone_numbers_200_response_phone_numbers_inner.rs
+src/models/list_whats_app_sandbox_sessions_200_response.rs
 src/models/mark_conversation_read_200_response.rs
 src/models/media_item.rs
 src/models/media_upload_response.rs
@@ -2109,6 +2124,7 @@ src/models/whats_app_buttons_component.rs
 src/models/whats_app_footer_component.rs
 src/models/whats_app_header_component.rs
 src/models/whats_app_header_component_example.rs
+src/models/whats_app_sandbox_session.rs
 src/models/whats_app_template_button.rs
 src/models/whats_app_template_component.rs
 src/models/x_api_operation.rs

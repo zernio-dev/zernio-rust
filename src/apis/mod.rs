@@ -158,6 +158,7 @@ pub mod whats_app_api;
 pub mod whats_app_calling_api;
 pub mod whats_app_flows_api;
 pub mod whats_app_phone_numbers_api;
+pub mod whats_app_sandbox_api;
 pub mod whats_app_templates_api;
 
 pub mod configuration;
