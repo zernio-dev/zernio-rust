@@ -29,6 +29,24 @@ pub struct GetContact200ResponseContact {
     pub is_subscribed: Option<bool>,
     #[serde(rename = "isBlocked", skip_serializing_if = "Option::is_none")]
     pub is_blocked: Option<bool>,
+    /// Messages sent to the contact, derived live from message history across all linked conversations.
+    #[serde(rename = "messagesSentCount", skip_serializing_if = "Option::is_none")]
+    pub messages_sent_count: Option<i32>,
+    /// Messages received from the contact, derived live from message history across all linked conversations.
+    #[serde(
+        rename = "messagesReceivedCount",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub messages_received_count: Option<i32>,
+    /// Timestamp of the most recent outgoing message, or null if none.
+    #[serde(rename = "lastMessageSentAt", skip_serializing_if = "Option::is_none")]
+    pub last_message_sent_at: Option<String>,
+    /// Timestamp of the most recent incoming message, or null if none.
+    #[serde(
+        rename = "lastMessageReceivedAt",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_message_received_at: Option<String>,
     #[serde(rename = "customFields", skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<serde_json::Value>,
     #[serde(rename = "notes", skip_serializing_if = "Option::is_none")]
@@ -52,6 +70,10 @@ impl GetContact200ResponseContact {
             tags: None,
             is_subscribed: None,
             is_blocked: None,
+            messages_sent_count: None,
+            messages_received_count: None,
+            last_message_sent_at: None,
+            last_message_received_at: None,
             custom_fields: None,
             notes: None,
             conversation_ids: None,

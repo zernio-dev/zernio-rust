@@ -27,6 +27,9 @@ pub struct GetContact200ResponseChannelsInner {
     pub is_subscribed: Option<bool>,
     #[serde(rename = "conversationId", skip_serializing_if = "Option::is_none")]
     pub conversation_id: Option<String>,
+    /// Most recent message (either direction) in this channel's conversation, or null if none.
+    #[serde(rename = "lastActiveAt", skip_serializing_if = "Option::is_none")]
+    pub last_active_at: Option<String>,
     #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
     pub created_at: Option<String>,
 }
@@ -41,6 +44,7 @@ impl GetContact200ResponseChannelsInner {
             display_identifier: None,
             is_subscribed: None,
             conversation_id: None,
+            last_active_at: None,
             created_at: None,
         }
     }

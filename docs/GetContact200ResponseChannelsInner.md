@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **display_identifier** | Option<**String**> |  | [optional]
 **is_subscribed** | Option<**bool**> |  | [optional]
 **conversation_id** | Option<**String**> |  | [optional]
+**last_active_at** | Option<**String**> | Most recent message (either direction) in this channel's conversation, or null if none. | [optional]
 **created_at** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
