@@ -483,6 +483,9 @@ docs/GetWhatsAppNumberInfo200Response.md
 docs/GetWhatsAppNumberInfo200ResponsePhone.md
 docs/GetWhatsAppNumberInfo200ResponsePhoneThroughput.md
 docs/GetWhatsAppNumberInfo200ResponseWaba.md
+docs/GetWhatsAppNumberKycForm200Response.md
+docs/GetWhatsAppNumberKycForm200ResponseFieldsInner.md
+docs/GetWhatsAppNumberKycForm200ResponseReusable.md
 docs/GetWhatsAppPhoneNumber200Response.md
 docs/GetWhatsAppPhoneNumber200ResponsePhoneNumber.md
 docs/GetWhatsAppPhoneNumbers200Response.md
@@ -654,6 +657,8 @@ docs/ListWhatsAppGroupChats200ResponsePaging.md
 docs/ListWhatsAppGroupChats200ResponsePagingCursors.md
 docs/ListWhatsAppGroupJoinRequests200Response.md
 docs/ListWhatsAppGroupJoinRequests200ResponseJoinRequestsInner.md
+docs/ListWhatsAppNumberCountries200Response.md
+docs/ListWhatsAppNumberCountries200ResponseCountriesInner.md
 docs/ListWhatsAppPhoneNumbers200Response.md
 docs/ListWhatsAppPhoneNumbers200ResponsePhoneNumbersInner.md
 docs/ListWhatsAppSandboxSessions200Response.md
@@ -671,6 +676,11 @@ docs/MessagesApi.md
 docs/Money.md
 docs/MoveAccountToProfile200Response.md
 docs/MoveAccountToProfileRequest.md
+docs/OnWhatsAppNumberActivatedRequest.md
+docs/OnWhatsAppNumberActivatedRequestNumber.md
+docs/OnWhatsAppNumberDeclinedRequest.md
+docs/OnWhatsAppNumberDeclinedRequestNumber.md
+docs/OnWhatsAppNumberVerificationRequiredRequest.md
 docs/Pagination.md
 docs/PauseWorkflow200Response.md
 docs/Pending.md
@@ -701,6 +711,7 @@ docs/PurchaseWhatsAppPhoneNumber200Response.md
 docs/PurchaseWhatsAppPhoneNumber200ResponseOneOf.md
 docs/PurchaseWhatsAppPhoneNumber200ResponseOneOf1.md
 docs/PurchaseWhatsAppPhoneNumber200ResponseOneOf1PhoneNumber.md
+docs/PurchaseWhatsAppPhoneNumber202Response.md
 docs/PurchaseWhatsAppPhoneNumberRequest.md
 docs/QueueApi.md
 docs/QueueDeleteResponse.md
@@ -743,6 +754,8 @@ docs/SearchAdInterests200Response.md
 docs/SearchAdInterests200ResponseInterestsInner.md
 docs/SearchAdTargeting200Response.md
 docs/SearchAdTargeting200ResponseResultsInner.md
+docs/SearchAvailableWhatsAppNumbers200Response.md
+docs/SearchAvailableWhatsAppNumbers200ResponseNumbersInner.md
 docs/SearchReddit200Response.md
 docs/SelectFacebookPage200Response.md
 docs/SelectFacebookPage200ResponseAccount.md
@@ -826,6 +839,11 @@ docs/SocialAccountProfileId.md
 docs/StartGoogleBusinessVerification200Response.md
 docs/StartGoogleBusinessVerification200ResponseVerification.md
 docs/StartGoogleBusinessVerificationRequest.md
+docs/SubmitWhatsAppNumberKyc200Response.md
+docs/SubmitWhatsAppNumberKyc200ResponsePhoneNumber.md
+docs/SubmitWhatsAppNumberKycRequest.md
+docs/SubmitWhatsAppNumberKycRequestAddress.md
+docs/SubmitWhatsAppNumberKycRequestDocumentsInner.md
 docs/TargetingSpec.md
 docs/TargetingSpecCitiesInner.md
 docs/TargetingSpecCustomLocationsInner.md
@@ -1611,6 +1629,9 @@ src/models/get_whats_app_number_info_200_response.rs
 src/models/get_whats_app_number_info_200_response_phone.rs
 src/models/get_whats_app_number_info_200_response_phone_throughput.rs
 src/models/get_whats_app_number_info_200_response_waba.rs
+src/models/get_whats_app_number_kyc_form_200_response.rs
+src/models/get_whats_app_number_kyc_form_200_response_fields_inner.rs
+src/models/get_whats_app_number_kyc_form_200_response_reusable.rs
 src/models/get_whats_app_phone_number_200_response.rs
 src/models/get_whats_app_phone_number_200_response_phone_number.rs
 src/models/get_whats_app_phone_numbers_200_response.rs
@@ -1771,6 +1792,8 @@ src/models/list_whats_app_group_chats_200_response_paging.rs
 src/models/list_whats_app_group_chats_200_response_paging_cursors.rs
 src/models/list_whats_app_group_join_requests_200_response.rs
 src/models/list_whats_app_group_join_requests_200_response_join_requests_inner.rs
+src/models/list_whats_app_number_countries_200_response.rs
+src/models/list_whats_app_number_countries_200_response_countries_inner.rs
 src/models/list_whats_app_phone_numbers_200_response.rs
 src/models/list_whats_app_phone_numbers_200_response_phone_numbers_inner.rs
 src/models/list_whats_app_sandbox_sessions_200_response.rs
@@ -1786,6 +1809,11 @@ src/models/mod.rs
 src/models/money.rs
 src/models/move_account_to_profile_200_response.rs
 src/models/move_account_to_profile_request.rs
+src/models/on_whats_app_number_activated_request.rs
+src/models/on_whats_app_number_activated_request_number.rs
+src/models/on_whats_app_number_declined_request.rs
+src/models/on_whats_app_number_declined_request_number.rs
+src/models/on_whats_app_number_verification_required_request.rs
 src/models/pagination.rs
 src/models/pause_workflow_200_response.rs
 src/models/pending.rs
@@ -1814,6 +1842,7 @@ src/models/purchase_whats_app_phone_number_200_response.rs
 src/models/purchase_whats_app_phone_number_200_response_one_of.rs
 src/models/purchase_whats_app_phone_number_200_response_one_of_1.rs
 src/models/purchase_whats_app_phone_number_200_response_one_of_1_phone_number.rs
+src/models/purchase_whats_app_phone_number_202_response.rs
 src/models/purchase_whats_app_phone_number_request.rs
 src/models/queue_delete_response.rs
 src/models/queue_next_slot_response.rs
@@ -1853,6 +1882,8 @@ src/models/search_ad_interests_200_response.rs
 src/models/search_ad_interests_200_response_interests_inner.rs
 src/models/search_ad_targeting_200_response.rs
 src/models/search_ad_targeting_200_response_results_inner.rs
+src/models/search_available_whats_app_numbers_200_response.rs
+src/models/search_available_whats_app_numbers_200_response_numbers_inner.rs
 src/models/search_reddit_200_response.rs
 src/models/select_facebook_page_200_response.rs
 src/models/select_facebook_page_200_response_account.rs
@@ -1935,6 +1966,11 @@ src/models/social_account_profile_id.rs
 src/models/start_google_business_verification_200_response.rs
 src/models/start_google_business_verification_200_response_verification.rs
 src/models/start_google_business_verification_request.rs
+src/models/submit_whats_app_number_kyc_200_response.rs
+src/models/submit_whats_app_number_kyc_200_response_phone_number.rs
+src/models/submit_whats_app_number_kyc_request.rs
+src/models/submit_whats_app_number_kyc_request_address.rs
+src/models/submit_whats_app_number_kyc_request_documents_inner.rs
 src/models/targeting_spec.rs
 src/models/targeting_spec_cities_inner.rs
 src/models/targeting_spec_custom_locations_inner.rs

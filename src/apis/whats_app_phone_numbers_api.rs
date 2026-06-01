@@ -23,6 +23,15 @@ pub enum GetWhatsAppNumberInfoError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_whats_app_number_kyc_form`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetWhatsAppNumberKycFormError {
+    Status400(),
+    Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_whats_app_phone_number`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -40,6 +49,14 @@ pub enum GetWhatsAppPhoneNumbersError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_whats_app_number_countries`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListWhatsAppNumberCountriesError {
+    Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`purchase_whats_app_phone_number`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -47,6 +64,8 @@ pub enum PurchaseWhatsAppPhoneNumberError {
     Status400(),
     Status401(models::InlineObject),
     Status403(),
+    Status402(),
+    Status422(),
     UnknownValue(serde_json::Value),
 }
 
@@ -57,6 +76,25 @@ pub enum ReleaseWhatsAppPhoneNumberError {
     Status400(),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`search_available_whats_app_numbers`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SearchAvailableWhatsAppNumbersError {
+    Status400(),
+    Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`submit_whats_app_number_kyc`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SubmitWhatsAppNumberKycError {
+    Status400(),
+    Status409(),
+    Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }
 
@@ -108,7 +146,58 @@ pub async fn get_whats_app_number_info(
     }
 }
 
-/// Retrieve the current status of a purchased phone number. Used to poll for Meta pre-verification completion after purchase.
+/// For a Tier 3/4 country, the fields the end customer must provide (Telnyx regulatory requirements) before a number can be ordered: text, date, address, or file (document) per requirement.
+pub async fn get_whats_app_number_kyc_form(
+    configuration: &configuration::Configuration,
+    country: &str,
+    profile_id: &str,
+) -> Result<models::GetWhatsAppNumberKycForm200Response, Error<GetWhatsAppNumberKycFormError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_country = country;
+    let p_query_profile_id = profile_id;
+
+    let uri_str = format!("{}/v1/whatsapp/phone-numbers/kyc", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("country", &p_query_country.to_string())]);
+    req_builder = req_builder.query(&[("profileId", &p_query_profile_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetWhatsAppNumberKycForm200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetWhatsAppNumberKycForm200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetWhatsAppNumberKycFormError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Retrieve the current status of a purchased phone number. Poll this to track Meta pre-verification (US sync path) and, for regulated (Tier 3/4) numbers, the async lifecycle: pending_regulatory → active (or regulatory_declined). When a regulated number has an Onfido ID step, `onfidoVerificationUrl` appears here once the order is placed — forward it to the end user. (Or subscribe to the whatsapp.number.* webhooks instead of polling.)
 pub async fn get_whats_app_phone_number(
     configuration: &configuration::Configuration,
     phone_number_id: &str,
@@ -206,6 +295,53 @@ pub async fn get_whats_app_phone_numbers(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetWhatsAppPhoneNumbersError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// The WhatsApp number countries available to purchase, each with its flat monthly price (cents), regulatory tier, whether it needs end-user KYC (Tier 3/4), and whether outbound calling is available (not BIC-blocked). Drives the country picker. Tier-4 countries appear only when enabled.
+pub async fn list_whats_app_number_countries(
+    configuration: &configuration::Configuration,
+) -> Result<models::ListWhatsAppNumberCountries200Response, Error<ListWhatsAppNumberCountriesError>>
+{
+    let uri_str = format!(
+        "{}/v1/whatsapp/phone-numbers/countries",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListWhatsAppNumberCountries200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListWhatsAppNumberCountries200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListWhatsAppNumberCountriesError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -313,6 +449,138 @@ pub async fn release_whats_app_phone_number(
     } else {
         let content = resp.text().await?;
         let entity: Option<ReleaseWhatsAppPhoneNumberError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Search the provider's inventory for numbers available to purchase in a country (default US). Optional filters narrow the results. The country must be offerable (see GET /v1/whatsapp/phone-numbers/countries).
+pub async fn search_available_whats_app_numbers(
+    configuration: &configuration::Configuration,
+    country: Option<&str>,
+    r#type: Option<&str>,
+    prefix: Option<&str>,
+    locality: Option<&str>,
+    contains: Option<&str>,
+    limit: Option<i32>,
+) -> Result<
+    models::SearchAvailableWhatsAppNumbers200Response,
+    Error<SearchAvailableWhatsAppNumbersError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_country = country;
+    let p_query_type = r#type;
+    let p_query_prefix = prefix;
+    let p_query_locality = locality;
+    let p_query_contains = contains;
+    let p_query_limit = limit;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/phone-numbers/available",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_country {
+        req_builder = req_builder.query(&[("country", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_type {
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_prefix {
+        req_builder = req_builder.query(&[("prefix", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_locality {
+        req_builder = req_builder.query(&[("locality", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_contains {
+        req_builder = req_builder.query(&[("contains", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SearchAvailableWhatsAppNumbers200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SearchAvailableWhatsAppNumbers200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<SearchAvailableWhatsAppNumbersError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Submit the end customer's KYC (textual values, uploaded documents, address) for a Tier 3/4 country. Documents are streamed straight to the number provider and are not stored by Zernio. Builds + submits a regulatory requirement group and claims a pending_regulatory slot; the number is ordered + activated once the provider approves (asynchronous). Idempotent per (owner, country).
+pub async fn submit_whats_app_number_kyc(
+    configuration: &configuration::Configuration,
+    submit_whats_app_number_kyc_request: models::SubmitWhatsAppNumberKycRequest,
+) -> Result<models::SubmitWhatsAppNumberKyc200Response, Error<SubmitWhatsAppNumberKycError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_submit_whats_app_number_kyc_request = submit_whats_app_number_kyc_request;
+
+    let uri_str = format!("{}/v1/whatsapp/phone-numbers/kyc", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_submit_whats_app_number_kyc_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SubmitWhatsAppNumberKyc200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SubmitWhatsAppNumberKyc200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<SubmitWhatsAppNumberKycError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

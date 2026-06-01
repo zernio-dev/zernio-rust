@@ -28,6 +28,22 @@ pub struct GetWhatsAppPhoneNumber200ResponsePhoneNumber {
         skip_serializing_if = "Option::is_none"
     )]
     pub meta_verification_status: Option<String>,
+    /// For a regulated number with an Onfido ID step — the link to forward to the end user. Appears once the order is placed; null otherwise.
+    #[serde(
+        rename = "onfidoVerificationUrl",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub onfido_verification_url: Option<String>,
+    #[serde(rename = "endUserFirstName", skip_serializing_if = "Option::is_none")]
+    pub end_user_first_name: Option<String>,
+    #[serde(rename = "endUserLastName", skip_serializing_if = "Option::is_none")]
+    pub end_user_last_name: Option<String>,
+    /// Reviewer rejection reason when status is regulatory_declined.
+    #[serde(
+        rename = "regulatoryDeclineReason",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub regulatory_decline_reason: Option<String>,
     #[serde(rename = "provisionedAt", skip_serializing_if = "Option::is_none")]
     pub provisioned_at: Option<String>,
 }
@@ -41,6 +57,10 @@ impl GetWhatsAppPhoneNumber200ResponsePhoneNumber {
             country: None,
             meta_preverified_id: None,
             meta_verification_status: None,
+            onfido_verification_url: None,
+            end_user_first_name: None,
+            end_user_last_name: None,
+            regulatory_decline_reason: None,
             provisioned_at: None,
         }
     }
@@ -50,6 +70,10 @@ impl GetWhatsAppPhoneNumber200ResponsePhoneNumber {
 pub enum Status {
     #[serde(rename = "pending_payment")]
     PendingPayment,
+    #[serde(rename = "pending_regulatory")]
+    PendingRegulatory,
+    #[serde(rename = "regulatory_declined")]
+    RegulatoryDeclined,
     #[serde(rename = "provisioning")]
     Provisioning,
     #[serde(rename = "active")]

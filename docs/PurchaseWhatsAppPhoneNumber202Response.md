@@ -1,12 +1,12 @@
-# SearchAvailableWhatsAppNumbers200Response
+# PurchaseWhatsAppPhoneNumber202Response
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**status** | Option<**Status**> |  (enum: kyc_required) | [optional]
 **country** | Option<**String**> |  | [optional]
-**number_type** | Option<**String**> |  | [optional]
-**numbers** | Option<[**Vec<models::SearchAvailableWhatsAppNumbers200ResponseNumbersInner>**](SearchAvailableWhatsAppNumbers200ResponseNumbersInner.md)> |  | [optional]
+**kyc_url** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

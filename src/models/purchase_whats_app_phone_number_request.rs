@@ -16,10 +16,16 @@ pub struct PurchaseWhatsAppPhoneNumberRequest {
     /// Profile to associate the number with
     #[serde(rename = "profileId")]
     pub profile_id: String,
+    /// ISO 3166-1 alpha-2 country for the number (default US). International numbers require usage-based billing. Tier 3/4 countries return 202 { status: \"kyc_required\", kycUrl } — the customer must complete KYC at that URL before the number is ordered. See GET /v1/whatsapp/phone-numbers/countries.
+    #[serde(rename = "country", skip_serializing_if = "Option::is_none")]
+    pub country: Option<String>,
 }
 
 impl PurchaseWhatsAppPhoneNumberRequest {
     pub fn new(profile_id: String) -> PurchaseWhatsAppPhoneNumberRequest {
-        PurchaseWhatsAppPhoneNumberRequest { profile_id }
+        PurchaseWhatsAppPhoneNumberRequest {
+            profile_id,
+            country: None,
+        }
     }
 }

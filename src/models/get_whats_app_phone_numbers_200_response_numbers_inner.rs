@@ -21,6 +21,9 @@ pub struct GetWhatsAppPhoneNumbers200ResponseNumbersInner {
     pub country: Option<String>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
+    /// Per-country monthly price in cents ($2..$25).
+    #[serde(rename = "monthlyCents", skip_serializing_if = "Option::is_none")]
+    pub monthly_cents: Option<i32>,
     #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]
     pub profile_id: Option<serde_json::Value>,
     #[serde(rename = "provisionedAt", skip_serializing_if = "Option::is_none")]
@@ -32,6 +35,22 @@ pub struct GetWhatsAppPhoneNumbers200ResponseNumbersInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub meta_verification_status: Option<String>,
+    /// For regulated (Tier 3/4) numbers with an Onfido ID-verification step — the link to forward to the end user. Set once the order is placed; null otherwise. Poll this field after submitting KYC.
+    #[serde(
+        rename = "onfidoVerificationUrl",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub onfido_verification_url: Option<String>,
+    #[serde(rename = "endUserFirstName", skip_serializing_if = "Option::is_none")]
+    pub end_user_first_name: Option<String>,
+    #[serde(rename = "endUserLastName", skip_serializing_if = "Option::is_none")]
+    pub end_user_last_name: Option<String>,
+    /// Reviewer rejection reason when status is regulatory_declined.
+    #[serde(
+        rename = "regulatoryDeclineReason",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub regulatory_decline_reason: Option<String>,
     #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
     pub created_at: Option<String>,
 }
@@ -43,10 +62,15 @@ impl GetWhatsAppPhoneNumbers200ResponseNumbersInner {
             phone_number: None,
             country: None,
             status: None,
+            monthly_cents: None,
             profile_id: None,
             provisioned_at: None,
             meta_preverified_id: None,
             meta_verification_status: None,
+            onfido_verification_url: None,
+            end_user_first_name: None,
+            end_user_last_name: None,
+            regulatory_decline_reason: None,
             created_at: None,
         }
     }
@@ -56,6 +80,10 @@ impl GetWhatsAppPhoneNumbers200ResponseNumbersInner {
 pub enum Status {
     #[serde(rename = "pending_payment")]
     PendingPayment,
+    #[serde(rename = "pending_regulatory")]
+    PendingRegulatory,
+    #[serde(rename = "regulatory_declined")]
+    RegulatoryDeclined,
     #[serde(rename = "provisioning")]
     Provisioning,
     #[serde(rename = "active")]

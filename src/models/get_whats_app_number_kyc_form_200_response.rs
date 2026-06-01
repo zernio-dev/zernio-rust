@@ -12,21 +12,24 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct SearchAvailableWhatsAppNumbers200Response {
+pub struct GetWhatsAppNumberKycForm200Response {
     #[serde(rename = "country", skip_serializing_if = "Option::is_none")]
     pub country: Option<String>,
     #[serde(rename = "numberType", skip_serializing_if = "Option::is_none")]
     pub number_type: Option<String>,
-    #[serde(rename = "numbers", skip_serializing_if = "Option::is_none")]
-    pub numbers: Option<Vec<models::SearchAvailableWhatsAppNumbers200ResponseNumbersInner>>,
+    #[serde(rename = "fields", skip_serializing_if = "Option::is_none")]
+    pub fields: Option<Vec<models::GetWhatsAppNumberKycForm200ResponseFieldsInner>>,
+    #[serde(rename = "reusable", skip_serializing_if = "Option::is_none")]
+    pub reusable: Option<Box<models::GetWhatsAppNumberKycForm200ResponseReusable>>,
 }
 
-impl SearchAvailableWhatsAppNumbers200Response {
-    pub fn new() -> SearchAvailableWhatsAppNumbers200Response {
-        SearchAvailableWhatsAppNumbers200Response {
+impl GetWhatsAppNumberKycForm200Response {
+    pub fn new() -> GetWhatsAppNumberKycForm200Response {
+        GetWhatsAppNumberKycForm200Response {
             country: None,
             number_type: None,
-            numbers: None,
+            fields: None,
+            reusable: None,
         }
     }
 }

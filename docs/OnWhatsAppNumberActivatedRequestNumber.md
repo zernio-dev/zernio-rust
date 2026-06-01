@@ -1,12 +1,13 @@
-# SearchAvailableWhatsAppNumbers200Response
+# OnWhatsAppNumberActivatedRequestNumber
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | Option<**String**> |  | [optional]
+**phone_number** | Option<**String**> |  | [optional]
 **country** | Option<**String**> |  | [optional]
-**number_type** | Option<**String**> |  | [optional]
-**numbers** | Option<[**Vec<models::SearchAvailableWhatsAppNumbers200ResponseNumbersInner>**](SearchAvailableWhatsAppNumbers200ResponseNumbersInner.md)> |  | [optional]
+**profile_id** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -225,6 +225,27 @@ pub enum OnWebhookTestError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`on_whats_app_number_activated`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnWhatsAppNumberActivatedError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`on_whats_app_number_declined`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnWhatsAppNumberDeclinedError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`on_whats_app_number_verification_required`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnWhatsAppNumberVerificationRequiredError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`on_whats_app_template_status_updated`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -1129,6 +1150,96 @@ pub async fn on_webhook_test(configuration: &configuration::Configuration, webho
     } else {
         let content = resp.text().await?;
         let entity: Option<OnWebhookTestError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when a purchased WhatsApp number becomes active and usable — both the synchronous (Tier 1/2) path and the asynchronous regulated (Tier 3/4) path land here. Lets integrators react without polling GET /v1/whatsapp/phone-numbers. 
+pub async fn on_whats_app_number_activated(configuration: &configuration::Configuration, on_whats_app_number_activated_request: models::OnWhatsAppNumberActivatedRequest) -> Result<(), Error<OnWhatsAppNumberActivatedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_on_whats_app_number_activated_request = on_whats_app_number_activated_request;
+
+    let uri_str = format!("{}/whatsapp.number.activated", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_on_whats_app_number_activated_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnWhatsAppNumberActivatedError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when a regulated (Tier 3/4) number order is declined or fails review. The number is never billed. `reason` carries the reviewer's rejection reason when available. 
+pub async fn on_whats_app_number_declined(configuration: &configuration::Configuration, on_whats_app_number_declined_request: models::OnWhatsAppNumberDeclinedRequest) -> Result<(), Error<OnWhatsAppNumberDeclinedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_on_whats_app_number_declined_request = on_whats_app_number_declined_request;
+
+    let uri_str = format!("{}/whatsapp.number.declined", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_on_whats_app_number_declined_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnWhatsAppNumberDeclinedError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when a regulated number has an out-of-band identity-verification step (e.g. Onfido). `verificationUrl` is the link to forward to the number's end user; the order completes once they pass. 
+pub async fn on_whats_app_number_verification_required(configuration: &configuration::Configuration, on_whats_app_number_verification_required_request: models::OnWhatsAppNumberVerificationRequiredRequest) -> Result<(), Error<OnWhatsAppNumberVerificationRequiredError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_on_whats_app_number_verification_required_request = on_whats_app_number_verification_required_request;
+
+    let uri_str = format!("{}/whatsapp.number.verification_required", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_on_whats_app_number_verification_required_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnWhatsAppNumberVerificationRequiredError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

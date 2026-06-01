@@ -110,6 +110,12 @@ pub enum Events {
     AdStatusChanged,
     #[serde(rename = "whatsapp.template.status_updated")]
     WhatsappTemplateStatusUpdated,
+    #[serde(rename = "whatsapp.number.activated")]
+    WhatsappNumberActivated,
+    #[serde(rename = "whatsapp.number.declined")]
+    WhatsappNumberDeclined,
+    #[serde(rename = "whatsapp.number.verification_required")]
+    WhatsappNumberVerificationRequired,
 }
 
 impl Default for Events {
