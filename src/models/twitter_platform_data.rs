@@ -17,6 +17,9 @@ pub struct TwitterPlatformData {
     /// ID of an existing tweet to reply to. The published tweet will appear as a reply in that tweet's thread. For threads, only the first tweet replies to the target; subsequent tweets chain normally.
     #[serde(rename = "replyToTweetId", skip_serializing_if = "Option::is_none")]
     pub reply_to_tweet_id: Option<String>,
+    /// ID (or full status URL) of an existing tweet to quote-repost. The published tweet becomes a quote tweet of the target. Mutually exclusive with media and poll. X only permits quoting your own posts or posts you are mentioned in / part of the conversation thread of; quoting an arbitrary other account's post is rejected by X. Billed at the standard create rate ($0.015), unlike pasting a tweet URL into the text which is billed at the URL rate ($0.20). For threads, applies to the first tweet only.
+    #[serde(rename = "quoteTweetId", skip_serializing_if = "Option::is_none")]
+    pub quote_tweet_id: Option<String>,
     /// Controls who can reply to the tweet. \"following\" allows only people you follow, \"mentionedUsers\" allows only mentioned users, \"subscribers\" allows only subscribers, \"verified\" allows only verified users. Omit for default (everyone can reply). For threads, applies to the first tweet only. Cannot be combined with replyToTweetId.
     #[serde(rename = "replySettings", skip_serializing_if = "Option::is_none")]
     pub reply_settings: Option<ReplySettings>,
@@ -37,6 +40,7 @@ impl TwitterPlatformData {
     pub fn new() -> TwitterPlatformData {
         TwitterPlatformData {
             reply_to_tweet_id: None,
+            quote_tweet_id: None,
             reply_settings: None,
             thread_items: None,
             poll: None,
