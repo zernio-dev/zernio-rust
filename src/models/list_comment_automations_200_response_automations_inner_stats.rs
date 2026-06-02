@@ -27,6 +27,12 @@ pub struct ListCommentAutomations200ResponseAutomationsInnerStats {
     /// Distinct people who clicked a tracked link.
     #[serde(rename = "uniqueClicks", skip_serializing_if = "Option::is_none")]
     pub unique_clicks: Option<i32>,
+    /// DMs confirmed delivered (Messenger; IG emits no delivery receipt).
+    #[serde(rename = "delivered", skip_serializing_if = "Option::is_none")]
+    pub delivered: Option<i32>,
+    /// DMs confirmed read (IG messaging_seen / Messenger message_reads).
+    #[serde(rename = "read", skip_serializing_if = "Option::is_none")]
+    pub read: Option<i32>,
 }
 
 impl ListCommentAutomations200ResponseAutomationsInnerStats {
@@ -38,6 +44,8 @@ impl ListCommentAutomations200ResponseAutomationsInnerStats {
             unique_contacts: None,
             link_clicks: None,
             unique_clicks: None,
+            delivered: None,
+            read: None,
         }
     }
 }
