@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **dm_message** | Option<**String**> |  | [optional]
 **buttons** | Option<[**Vec<models::DmButton>**](DmButton.md)> | Inline DM buttons (up to 3). Omitted when none are set. | [optional]
 **comment_reply** | Option<**String**> |  | [optional]
+**link_tracking** | Option<**bool**> |  | [optional]
 **is_active** | Option<**bool**> |  | [optional]
 **stats** | Option<[**models::CreateCommentAutomation200ResponseAutomationStats**](CreateCommentAutomation200ResponseAutomationStats.md)> |  | [optional]
 **created_at** | Option<**String**> |  | [optional]

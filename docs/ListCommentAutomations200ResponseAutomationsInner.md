@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **dm_message** | Option<**String**> |  | [optional]
 **buttons** | Option<[**Vec<models::DmButton>**](DmButton.md)> | Inline DM buttons (up to 3). Omitted when none are set. | [optional]
 **comment_reply** | Option<**String**> |  | [optional]
+**link_tracking** | Option<**bool**> | Whether link buttons in the DM are wrapped in a tracked redirect to count clicks. | [optional]
 **is_active** | Option<**bool**> |  | [optional]
 **stats** | Option<[**models::ListCommentAutomations200ResponseAutomationsInnerStats**](ListCommentAutomations200ResponseAutomationsInnerStats.md)> |  | [optional]
 **created_at** | Option<**String**> |  | [optional]

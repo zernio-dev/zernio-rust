@@ -44,6 +44,9 @@ pub struct CreateCommentAutomationRequest {
     /// Optional public reply to the comment
     #[serde(rename = "commentReply", skip_serializing_if = "Option::is_none")]
     pub comment_reply: Option<String>,
+    /// Wrap link buttons in the DM in a tracked redirect so clicks are counted (Link Clicks / CTR). Pass false to send links exactly as written. Defaults to on.
+    #[serde(rename = "linkTracking", skip_serializing_if = "Option::is_none")]
+    pub link_tracking: Option<bool>,
 }
 
 impl CreateCommentAutomationRequest {
@@ -65,6 +68,7 @@ impl CreateCommentAutomationRequest {
             dm_message,
             buttons: None,
             comment_reply: None,
+            link_tracking: None,
         }
     }
 }

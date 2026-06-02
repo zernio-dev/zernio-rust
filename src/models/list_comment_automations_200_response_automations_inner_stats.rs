@@ -21,6 +21,12 @@ pub struct ListCommentAutomations200ResponseAutomationsInnerStats {
     pub dms_failed: Option<i32>,
     #[serde(rename = "uniqueContacts", skip_serializing_if = "Option::is_none")]
     pub unique_contacts: Option<i32>,
+    /// Total clicks on tracked links (bots/prefetch excluded).
+    #[serde(rename = "linkClicks", skip_serializing_if = "Option::is_none")]
+    pub link_clicks: Option<i32>,
+    /// Distinct people who clicked a tracked link.
+    #[serde(rename = "uniqueClicks", skip_serializing_if = "Option::is_none")]
+    pub unique_clicks: Option<i32>,
 }
 
 impl ListCommentAutomations200ResponseAutomationsInnerStats {
@@ -30,6 +36,8 @@ impl ListCommentAutomations200ResponseAutomationsInnerStats {
             dms_sent: None,
             dms_failed: None,
             unique_contacts: None,
+            link_clicks: None,
+            unique_clicks: None,
         }
     }
 }
