@@ -129,6 +129,8 @@ pub struct CreateStandaloneAdRequest {
     pub instagram_account_id: Option<String>,
     #[serde(rename = "dynamicCreative", skip_serializing_if = "Option::is_none")]
     pub dynamic_creative: Option<Box<models::CreateStandaloneAdRequestDynamicCreative>>,
+    #[serde(rename = "placementAssets", skip_serializing_if = "Option::is_none")]
+    pub placement_assets: Option<Box<models::CreateStandaloneAdRequestPlacementAssets>>,
     /// Custom audience ID for targeting
     #[serde(rename = "audienceId", skip_serializing_if = "Option::is_none")]
     pub audience_id: Option<String>,
@@ -231,6 +233,7 @@ impl CreateStandaloneAdRequest {
             start_date: None,
             instagram_account_id: None,
             dynamic_creative: None,
+            placement_assets: None,
             audience_id: None,
             campaign_type: None,
             keywords: None,

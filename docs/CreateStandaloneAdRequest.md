@@ -45,6 +45,7 @@ Name | Type | Description | Notes
 **start_date** | Option<**String**> | Meta only. Ad-set start time (ISO 8601, e.g. \"2026-06-10T09:00:00Z\"), mapped to the ad set's `start_time`. When omitted the ad starts delivering immediately. For lifetime budgets Meta also requires `endDate`. (Same `schedule.startDate` semantics already available on `POST /v1/ads/boost`.)  | [optional]
 **instagram_account_id** | Option<**String**> | Meta only. Override the Instagram account the ad is delivered as — pass an Instagram Business Account ID (e.g. 17841...), mapped to the creative's `instagram_user_id`. When omitted we auto-resolve the IG account linked to the connected Facebook Page (the existing default). Useful when a Page has more than one eligible IG account.  | [optional]
 **dynamic_creative** | Option<[**models::CreateStandaloneAdRequestDynamicCreative**](CreateStandaloneAdRequestDynamicCreative.md)> |  | [optional]
+**placement_assets** | Option<[**models::CreateStandaloneAdRequestPlacementAssets**](CreateStandaloneAdRequestPlacementAssets.md)> |  | [optional]
 **audience_id** | Option<**String**> | Custom audience ID for targeting | [optional]
 **campaign_type** | Option<**CampaignType**> | Google only (enum: display, search) | [optional][default to Display]
 **keywords** | Option<**Vec<String>**> | Google Search only | [optional]
