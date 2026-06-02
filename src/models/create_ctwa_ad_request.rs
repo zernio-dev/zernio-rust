@@ -65,7 +65,7 @@ pub struct CreateCtwaAdRequest {
     pub metros: Option<Vec<models::CreateCtwaAdRequestZipsInner>>,
     /// Point-radius geo (Meta `geo_locations.custom_locations`). Use for targeting a radius around a specific lat/long when no Meta city/region key fits. `distanceUnit` is required.
     #[serde(rename = "customLocations", skip_serializing_if = "Option::is_none")]
-    pub custom_locations: Option<Vec<models::CreateStandaloneAdRequestCustomLocationsInner>>,
+    pub custom_locations: Option<Vec<models::CreateCtwaAdRequestCustomLocationsInner>>,
     #[serde(rename = "ageMin", skip_serializing_if = "Option::is_none")]
     pub age_min: Option<i32>,
     #[serde(rename = "ageMax", skip_serializing_if = "Option::is_none")]

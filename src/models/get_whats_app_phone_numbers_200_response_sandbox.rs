@@ -21,7 +21,7 @@ pub struct GetWhatsAppPhoneNumbers200ResponseSandbox {
     #[serde(rename = "template", skip_serializing_if = "Option::is_none")]
     pub template: Option<Box<models::GetWhatsAppPhoneNumbers200ResponseSandboxTemplate>>,
     #[serde(rename = "isSandbox", skip_serializing_if = "Option::is_none")]
-    pub is_sandbox: Option<IsSandbox>,
+    pub is_sandbox: Option<bool>,
 }
 
 impl GetWhatsAppPhoneNumbers200ResponseSandbox {
@@ -33,17 +33,5 @@ impl GetWhatsAppPhoneNumbers200ResponseSandbox {
             template: None,
             is_sandbox: None,
         }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum IsSandbox {
-    #[serde(rename = "true")]
-    True,
-}
-
-impl Default for IsSandbox {
-    fn default() -> IsSandbox {
-        Self::True
     }
 }

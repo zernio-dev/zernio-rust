@@ -42,7 +42,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_whats_app_sandbox_session
 
-> models::DeleteWhatsAppSandboxSession200Response delete_whats_app_sandbox_session(session_id)
+> models::UpdateYoutubeDefaultPlaylist200Response delete_whats_app_sandbox_session(session_id)
 Revoke a sandbox session
 
 Hard-deletes the session. The user loses the ability to send to that phone via the sandbox until they re-activate it. Existing conversations and messages already exchanged with that phone are untouched — revocation only blocks FUTURE sends.  Sessions belonging to other users cannot be revoked; the response is the same 400 as \"session not found\" so existence isn't leaked. 
@@ -56,7 +56,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::DeleteWhatsAppSandboxSession200Response**](deleteWhatsAppSandboxSession_200_response.md)
+[**models::UpdateYoutubeDefaultPlaylist200Response**](updateYoutubeDefaultPlaylist_200_response.md)
 
 ### Authorization
 

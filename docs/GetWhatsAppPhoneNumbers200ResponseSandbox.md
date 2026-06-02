@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **phone_number** | Option<**String**> |  | [optional]
 **account_id** | Option<**String**> |  | [optional]
 **template** | Option<[**models::GetWhatsAppPhoneNumbers200ResponseSandboxTemplate**](GetWhatsAppPhoneNumbers200ResponseSandboxTemplate.md)> |  | [optional]
-**is_sandbox** | Option<**IsSandbox**> |  (enum: true) | [optional]
+**is_sandbox** | Option<**bool**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

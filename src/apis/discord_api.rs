@@ -13,11 +13,52 @@ use crate::{apis::ResponseContent, models};
 use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
 
+/// struct for typed errors of method [`add_discord_member_role`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AddDiscordMemberRoleError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_discord_scheduled_event`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateDiscordScheduledEventError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`delete_discord_scheduled_event`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteDiscordScheduledEventError {
+    Status401(models::InlineObject),
+    Status404(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_discord_channels`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetDiscordChannelsError {
     Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_discord_scheduled_event`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetDiscordScheduledEventError {
     Status401(models::InlineObject),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -33,6 +74,104 @@ pub enum GetDiscordSettingsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_discord_guild_members`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListDiscordGuildMembersError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_discord_guild_roles`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListDiscordGuildRolesError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_discord_pinned_messages`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListDiscordPinnedMessagesError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_discord_scheduled_events`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListDiscordScheduledEventsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`pin_discord_message`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum PinDiscordMessageError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`remove_discord_member_role`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RemoveDiscordMemberRoleError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`send_discord_direct_message`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SendDiscordDirectMessageError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`unpin_discord_message`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UnpinDiscordMessageError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_discord_scheduled_event`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateDiscordScheduledEventError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`update_discord_settings`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -41,6 +180,183 @@ pub enum UpdateDiscordSettingsError {
     Status401(models::InlineObject),
     Status404(),
     UnknownValue(serde_json::Value),
+}
+
+/// Assign one role to one member. Idempotent on Discord's side — re-running on a member who already has the role is a 204 no-op.  Path shape mirrors Discord's own API (`PUT /guilds/{guild}/members/{user}/roles/{role}`) for zero-translation mental mapping.  Bot needs MANAGE_ROLES permission in the guild AND its highest role must be above the target role (Discord hierarchy rule). The `@everyone` role (where roleId == guildId) cannot be assigned.
+pub async fn add_discord_member_role(
+    configuration: &configuration::Configuration,
+    guild_id: &str,
+    user_id: &str,
+    role_id: &str,
+    account_id: &str,
+) -> Result<models::AddDiscordMemberRole200Response, Error<AddDiscordMemberRoleError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_guild_id = guild_id;
+    let p_path_user_id = user_id;
+    let p_path_role_id = role_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/discord/guilds/{guildId}/members/{userId}/roles/{roleId}",
+        configuration.base_path,
+        guildId = crate::apis::urlencode(p_path_guild_id),
+        userId = crate::apis::urlencode(p_path_user_id),
+        roleId = crate::apis::urlencode(p_path_role_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AddDiscordMemberRole200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AddDiscordMemberRole200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AddDiscordMemberRoleError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Create a guild scheduled event. Three event types, selected via the discriminator on `entity.type`:    - `external` — off-platform (Zoom, in-person, livestream). Requires     both `location` and `endsAt`. Most common type for scheduler     integrations.   - `voice` — hosted in a Discord voice channel. Requires `channelId`.   - `stage` — hosted in a Discord stage channel. Requires `channelId`.  Bot needs MANAGE_EVENTS in the guild. Existing installs (pre-events PR) need a re-invite OR a server admin manually granting the permission — see route header for details.
+pub async fn create_discord_scheduled_event(
+    configuration: &configuration::Configuration,
+    guild_id: &str,
+    create_discord_scheduled_event_request: models::CreateDiscordScheduledEventRequest,
+) -> Result<models::CreateDiscordScheduledEvent200Response, Error<CreateDiscordScheduledEventError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_guild_id = guild_id;
+    let p_body_create_discord_scheduled_event_request = create_discord_scheduled_event_request;
+
+    let uri_str = format!(
+        "{}/v1/discord/guilds/{guildId}/events",
+        configuration.base_path,
+        guildId = crate::apis::urlencode(p_path_guild_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_discord_scheduled_event_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateDiscordScheduledEvent200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateDiscordScheduledEvent200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateDiscordScheduledEventError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Hard-delete an event. Use PATCH with `status: 'cancelled'` instead if you want the event preserved in the guild's history.
+pub async fn delete_discord_scheduled_event(
+    configuration: &configuration::Configuration,
+    guild_id: &str,
+    event_id: &str,
+    account_id: &str,
+) -> Result<models::DeleteDiscordScheduledEvent200Response, Error<DeleteDiscordScheduledEventError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_guild_id = guild_id;
+    let p_path_event_id = event_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/discord/guilds/{guildId}/events/{eventId}",
+        configuration.base_path,
+        guildId = crate::apis::urlencode(p_path_guild_id),
+        eventId = crate::apis::urlencode(p_path_event_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteDiscordScheduledEvent200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteDiscordScheduledEvent200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteDiscordScheduledEventError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
 }
 
 /// Returns the text, announcement, and forum channels in the connected Discord guild. Use this to discover available channels when switching the connected channel via PATCH /v1/accounts/{accountId}/discord-settings.
@@ -94,6 +410,62 @@ pub async fn get_discord_channels(
     }
 }
 
+pub async fn get_discord_scheduled_event(
+    configuration: &configuration::Configuration,
+    guild_id: &str,
+    event_id: &str,
+    account_id: &str,
+) -> Result<models::CreateDiscordScheduledEvent200Response, Error<GetDiscordScheduledEventError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_guild_id = guild_id;
+    let p_path_event_id = event_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/discord/guilds/{guildId}/events/{eventId}",
+        configuration.base_path,
+        guildId = crate::apis::urlencode(p_path_guild_id),
+        eventId = crate::apis::urlencode(p_path_event_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateDiscordScheduledEvent200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateDiscordScheduledEvent200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetDiscordScheduledEventError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Returns the current Discord account settings including webhook identity (display name and avatar), connected channel, and guild information.
 pub async fn get_discord_settings(
     configuration: &configuration::Configuration,
@@ -137,6 +509,525 @@ pub async fn get_discord_settings(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetDiscordSettingsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Cursor-paginated list of guild members. Returns Discord's raw member objects so callers can build community-ops automation (e.g. \"add role to all members joined in the last 7 days\") on the actual platform shape.  **Important:** this endpoint requires the privileged \"Server Members Intent\" enabled on the Discord app (Developer Portal → Bot tab → toggle \"Server Members Intent\" ON, then Save). Without it, Discord returns an empty array with no error. Verify the intent is enabled before relying on this endpoint.  Pagination: pass `after` = the last `user.id` from the previous page. Omit on the first call. Response includes a `nextCursor` and `hasMore` flag so callers don't need to know Discord's pagination shape.
+pub async fn list_discord_guild_members(
+    configuration: &configuration::Configuration,
+    guild_id: &str,
+    account_id: &str,
+    limit: Option<i32>,
+    after: Option<&str>,
+) -> Result<models::ListDiscordGuildMembers200Response, Error<ListDiscordGuildMembersError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_guild_id = guild_id;
+    let p_query_account_id = account_id;
+    let p_query_limit = limit;
+    let p_query_after = after;
+
+    let uri_str = format!(
+        "{}/v1/discord/guilds/{guildId}/members",
+        configuration.base_path,
+        guildId = crate::apis::urlencode(p_path_guild_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListDiscordGuildMembers200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListDiscordGuildMembers200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListDiscordGuildMembersError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns all roles in a Discord guild. Useful for building role-mention pickers, role-permission UIs, or finding the role ID before calling the role-assign endpoint.  Roles are returned unordered — sort client-side by `position` if you need Discord's UI ordering.  Caller must pass `accountId` of a Discord SocialAccount bound to this guild (route verifies team access + guild match).
+pub async fn list_discord_guild_roles(
+    configuration: &configuration::Configuration,
+    guild_id: &str,
+    account_id: &str,
+) -> Result<models::ListDiscordGuildRoles200Response, Error<ListDiscordGuildRolesError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_guild_id = guild_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/discord/guilds/{guildId}/roles",
+        configuration.base_path,
+        guildId = crate::apis::urlencode(p_path_guild_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListDiscordGuildRoles200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListDiscordGuildRoles200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListDiscordGuildRolesError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns the channel's pinned messages, sorted most-recently-pinned first. Discord caps a channel at 50 pinned messages and returns the full list unpaginated.  Bot needs READ_MESSAGE_HISTORY in the channel (granted by default BOT_PERMISSIONS).
+pub async fn list_discord_pinned_messages(
+    configuration: &configuration::Configuration,
+    channel_id: &str,
+    account_id: &str,
+) -> Result<models::ListDiscordPinnedMessages200Response, Error<ListDiscordPinnedMessagesError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_channel_id = channel_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/discord/channels/{channelId}/pins",
+        configuration.base_path,
+        channelId = crate::apis::urlencode(p_path_channel_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListDiscordPinnedMessages200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListDiscordPinnedMessages200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListDiscordPinnedMessagesError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Return all scheduled events in the guild. Events are distinct from messages — they appear in the server's Events panel and Discord auto-notifies interested members ahead of start time.  Pass `withUserCount=true` to include `user_count` (number of members who RSVP'd) on each event. Useful for surfacing engagement.
+pub async fn list_discord_scheduled_events(
+    configuration: &configuration::Configuration,
+    guild_id: &str,
+    account_id: &str,
+    with_user_count: Option<bool>,
+) -> Result<models::ListDiscordScheduledEvents200Response, Error<ListDiscordScheduledEventsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_guild_id = guild_id;
+    let p_query_account_id = account_id;
+    let p_query_with_user_count = with_user_count;
+
+    let uri_str = format!(
+        "{}/v1/discord/guilds/{guildId}/events",
+        configuration.base_path,
+        guildId = crate::apis::urlencode(p_path_guild_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_with_user_count {
+        req_builder = req_builder.query(&[("withUserCount", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListDiscordScheduledEvents200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListDiscordScheduledEvents200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListDiscordScheduledEventsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Pin a specific message in a channel. Path shape mirrors Discord's own API (`PUT /channels/{cid}/pins/{mid}`).  Idempotent — re-pinning an already-pinned message is a 204 no-op.  Constraints:   - Bot needs MANAGE_MESSAGES in the channel.   - 50-pin cap per channel — hitting it returns 400 (Discord-side).     Caller should unpin one first.
+pub async fn pin_discord_message(
+    configuration: &configuration::Configuration,
+    channel_id: &str,
+    message_id: &str,
+    account_id: &str,
+) -> Result<models::PinDiscordMessage200Response, Error<PinDiscordMessageError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_channel_id = channel_id;
+    let p_path_message_id = message_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/discord/channels/{channelId}/pins/{messageId}",
+        configuration.base_path,
+        channelId = crate::apis::urlencode(p_path_channel_id),
+        messageId = crate::apis::urlencode(p_path_message_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PinDiscordMessage200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PinDiscordMessage200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<PinDiscordMessageError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Remove one role from one member. Idempotent — removing a role the member doesn't have returns 204 no-op.  Same permission + hierarchy constraints as the PUT counterpart.
+pub async fn remove_discord_member_role(
+    configuration: &configuration::Configuration,
+    guild_id: &str,
+    user_id: &str,
+    role_id: &str,
+    account_id: &str,
+) -> Result<models::RemoveDiscordMemberRole200Response, Error<RemoveDiscordMemberRoleError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_guild_id = guild_id;
+    let p_path_user_id = user_id;
+    let p_path_role_id = role_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/discord/guilds/{guildId}/members/{userId}/roles/{roleId}",
+        configuration.base_path,
+        guildId = crate::apis::urlencode(p_path_guild_id),
+        userId = crate::apis::urlencode(p_path_user_id),
+        roleId = crate::apis::urlencode(p_path_role_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::RemoveDiscordMemberRole200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::RemoveDiscordMemberRole200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RemoveDiscordMemberRoleError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Send a 1:1 Direct Message from the bot to a Discord user (by snowflake ID). Supports the same payload shape as channel posts — content, embeds, media attachments, and TTS.  Constraints (Discord platform limits):   - The bot can only DM users it shares at least one guild with.   - If the recipient has DMs disabled for non-friends, Discord returns 403     (surfaces as a 502 platform error).   - `content` capped at 2,000 chars.   - At least one of `content`, `embeds`, or `attachments` is required.   - The recipient must be identified by Discord snowflake ID (not username).  This is a dedicated endpoint rather than a `POST /v1/posts` variant because DMs are 1:1 operational messages (onboarding, billing reminders, support pings) with a different lifecycle than scheduled channel posts. DMs are not persisted to `Post` / `ExternalPost` and are always sent immediately.
+pub async fn send_discord_direct_message(
+    configuration: &configuration::Configuration,
+    send_discord_direct_message_request: models::SendDiscordDirectMessageRequest,
+) -> Result<models::SendDiscordDirectMessage200Response, Error<SendDiscordDirectMessageError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_send_discord_direct_message_request = send_discord_direct_message_request;
+
+    let uri_str = format!("{}/v1/discord/dms", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_send_discord_direct_message_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SendDiscordDirectMessage200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SendDiscordDirectMessage200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<SendDiscordDirectMessageError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Unpin a message. Same MANAGE_MESSAGES permission requirement as pin. Idempotent — unpinning a non-pinned message is a 204 no-op.
+pub async fn unpin_discord_message(
+    configuration: &configuration::Configuration,
+    channel_id: &str,
+    message_id: &str,
+    account_id: &str,
+) -> Result<models::UnpinDiscordMessage200Response, Error<UnpinDiscordMessageError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_channel_id = channel_id;
+    let p_path_message_id = message_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/discord/channels/{channelId}/pins/{messageId}",
+        configuration.base_path,
+        channelId = crate::apis::urlencode(p_path_channel_id),
+        messageId = crate::apis::urlencode(p_path_message_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UnpinDiscordMessage200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UnpinDiscordMessage200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UnpinDiscordMessageError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Patch any subset of fields. Passing `status: 'cancelled'` is how you cancel an event — Discord doesn't have a dedicated cancel endpoint, it's a status transition.  Most status transitions Discord enforces (you can't go SCHEDULED → COMPLETED directly). The common consumer case is SCHEDULED → CANCELED.
+pub async fn update_discord_scheduled_event(
+    configuration: &configuration::Configuration,
+    guild_id: &str,
+    event_id: &str,
+    update_discord_scheduled_event_request: models::UpdateDiscordScheduledEventRequest,
+) -> Result<models::CreateDiscordScheduledEvent200Response, Error<UpdateDiscordScheduledEventError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_guild_id = guild_id;
+    let p_path_event_id = event_id;
+    let p_body_update_discord_scheduled_event_request = update_discord_scheduled_event_request;
+
+    let uri_str = format!(
+        "{}/v1/discord/guilds/{guildId}/events/{eventId}",
+        configuration.base_path,
+        guildId = crate::apis::urlencode(p_path_guild_id),
+        eventId = crate::apis::urlencode(p_path_event_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::PATCH, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_discord_scheduled_event_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateDiscordScheduledEvent200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateDiscordScheduledEvent200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateDiscordScheduledEventError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

@@ -97,7 +97,7 @@ pub async fn create_whats_app_sandbox_session(
 pub async fn delete_whats_app_sandbox_session(
     configuration: &configuration::Configuration,
     session_id: &str,
-) -> Result<models::DeleteWhatsAppSandboxSession200Response, Error<DeleteWhatsAppSandboxSessionError>>
+) -> Result<models::UpdateYoutubeDefaultPlaylist200Response, Error<DeleteWhatsAppSandboxSessionError>>
 {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -133,8 +133,8 @@ pub async fn delete_whats_app_sandbox_session(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteWhatsAppSandboxSession200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteWhatsAppSandboxSession200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`")))),
         }
     } else {
         let content = resp.text().await?;

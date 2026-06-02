@@ -37,6 +37,7 @@ docs/AddBroadcastRecipientsRequest.md
 docs/AddConversionAssociations200Response.md
 docs/AddConversionAssociations200ResponseFailedInner.md
 docs/AddConversionAssociationsRequest.md
+docs/AddDiscordMemberRole200Response.md
 docs/AddMessageReactionRequest.md
 docs/AddTrackingTagSharedAccount201Response.md
 docs/AddTrackingTagSharedAccountRequest.md
@@ -142,11 +143,18 @@ docs/CreateCtwaAdRequest.md
 docs/CreateCtwaAdRequestCitiesInner.md
 docs/CreateCtwaAdRequestCreativesInner.md
 docs/CreateCtwaAdRequestCreativesInnerVideo.md
+docs/CreateCtwaAdRequestCustomLocationsInner.md
 docs/CreateCtwaAdRequestRegionsInner.md
 docs/CreateCtwaAdRequestVideo.md
 docs/CreateCtwaAdRequestZipsInner.md
 docs/CreateCustomField200Response.md
 docs/CreateCustomFieldRequest.md
+docs/CreateDiscordScheduledEvent200Response.md
+docs/CreateDiscordScheduledEventRequest.md
+docs/CreateDiscordScheduledEventRequestEntity.md
+docs/CreateDiscordScheduledEventRequestEntityOneOf.md
+docs/CreateDiscordScheduledEventRequestEntityOneOf1.md
+docs/CreateDiscordScheduledEventRequestEntityOneOf2.md
 docs/CreateGoogleBusinessMedia200Response.md
 docs/CreateGoogleBusinessMediaRequest.md
 docs/CreateGoogleBusinessPlaceAction200Response.md
@@ -225,6 +233,7 @@ docs/CustomFieldsApi.md
 docs/DeleteAccountGroup200Response.md
 docs/DeleteAdCampaign200Response.md
 docs/DeleteAdCampaignRequest.md
+docs/DeleteDiscordScheduledEvent200Response.md
 docs/DeleteGoogleBusinessMedia200Response.md
 docs/DeleteGoogleBusinessPlaceAction200Response.md
 docs/DeleteGoogleBusinessReviewReply200Response.md
@@ -232,7 +241,6 @@ docs/DeleteInboxComment200Response.md
 docs/DeleteInboxReviewReply200Response.md
 docs/DeleteInboxReviewReplyRequest.md
 docs/DeleteQueueSlot200Response.md
-docs/DeleteWhatsAppSandboxSession200Response.md
 docs/DiscordApi.md
 docs/DiscordPlatformData.md
 docs/DiscordPlatformDataEmbedsInner.md
@@ -245,6 +253,8 @@ docs/DiscordPlatformDataPollAnswersInner.md
 docs/DiscordPlatformDataPollAnswersInnerPollMedia.md
 docs/DiscordPlatformDataPollQuestion.md
 docs/DiscordPlatformDataThreadFromMessage.md
+docs/DiscordScheduledEvent.md
+docs/DiscordScheduledEventEntityMetadata.md
 docs/DmButton.md
 docs/DuplicateAdCampaign200Response.md
 docs/DuplicateAdCampaignRequest.md
@@ -595,6 +605,15 @@ docs/ListConversionDestinations200Response.md
 docs/ListConversionDestinations200ResponseDestinationsInner.md
 docs/ListCustomFields200Response.md
 docs/ListCustomFields200ResponseFieldsInner.md
+docs/ListDiscordGuildMembers200Response.md
+docs/ListDiscordGuildMembers200ResponseDataInner.md
+docs/ListDiscordGuildMembers200ResponseDataInnerUser.md
+docs/ListDiscordGuildMembers200ResponsePagination.md
+docs/ListDiscordGuildRoles200Response.md
+docs/ListDiscordGuildRoles200ResponseDataInner.md
+docs/ListDiscordPinnedMessages200Response.md
+docs/ListDiscordPinnedMessages200ResponseDataInner.md
+docs/ListDiscordScheduledEvents200Response.md
 docs/ListFacebookPages200Response.md
 docs/ListFacebookPages200ResponsePagesInner.md
 docs/ListFormLeads200Response.md
@@ -692,6 +711,7 @@ docs/OnWhatsAppNumberVerificationRequiredRequest.md
 docs/Pagination.md
 docs/PauseWorkflow200Response.md
 docs/Pending.md
+docs/PinDiscordMessage200Response.md
 docs/PinterestPlatformData.md
 docs/PlatformAnalytics.md
 docs/PlatformTarget.md
@@ -739,6 +759,7 @@ docs/ReleaseWhatsAppPhoneNumber200Response.md
 docs/ReleaseWhatsAppPhoneNumber200ResponsePhoneNumber.md
 docs/RemoveBookmark200Response.md
 docs/RemoveConversionAssociations200Response.md
+docs/RemoveDiscordMemberRole200Response.md
 docs/RemoveWhatsAppGroupParticipantsRequest.md
 docs/ReplyToGoogleBusinessReview200Response.md
 docs/ReplyToGoogleBusinessReviewRequest.md
@@ -791,6 +812,11 @@ docs/SendConversions200ResponseFailuresInner.md
 docs/SendConversions200ResponseFailuresInnerCode.md
 docs/SendConversionsRequest.md
 docs/SendConversionsRequestConsent.md
+docs/SendDiscordDirectMessage200Response.md
+docs/SendDiscordDirectMessage200ResponseAccount.md
+docs/SendDiscordDirectMessage200ResponseRecipient.md
+docs/SendDiscordDirectMessageRequest.md
+docs/SendDiscordDirectMessageRequestAttachmentsInner.md
 docs/SendInboxMessage200Response.md
 docs/SendInboxMessage200ResponseData.md
 docs/SendInboxMessage400Response.md
@@ -874,6 +900,7 @@ docs/TwitterPlatformDataThreadItemsInner.md
 docs/UndoRetweet200Response.md
 docs/UnfollowUser200Response.md
 docs/UnlikeInboxComment200Response.md
+docs/UnpinDiscordMessage200Response.md
 docs/UnpublishPost200Response.md
 docs/UnpublishPostRequest.md
 docs/UpdateAccount200Response.md
@@ -914,6 +941,7 @@ docs/UpdateConversionDestinationRequestValue.md
 docs/UpdateCustomField200Response.md
 docs/UpdateCustomField200ResponseField.md
 docs/UpdateCustomFieldRequest.md
+docs/UpdateDiscordScheduledEventRequest.md
 docs/UpdateDiscordSettings200Response.md
 docs/UpdateDiscordSettings200ResponseAccount.md
 docs/UpdateDiscordSettingsRequest.md
@@ -1204,6 +1232,7 @@ src/models/add_broadcast_recipients_request.rs
 src/models/add_conversion_associations_200_response.rs
 src/models/add_conversion_associations_200_response_failed_inner.rs
 src/models/add_conversion_associations_request.rs
+src/models/add_discord_member_role_200_response.rs
 src/models/add_message_reaction_request.rs
 src/models/add_tracking_tag_shared_account_201_response.rs
 src/models/add_tracking_tag_shared_account_request.rs
@@ -1301,11 +1330,18 @@ src/models/create_ctwa_ad_request.rs
 src/models/create_ctwa_ad_request_cities_inner.rs
 src/models/create_ctwa_ad_request_creatives_inner.rs
 src/models/create_ctwa_ad_request_creatives_inner_video.rs
+src/models/create_ctwa_ad_request_custom_locations_inner.rs
 src/models/create_ctwa_ad_request_regions_inner.rs
 src/models/create_ctwa_ad_request_video.rs
 src/models/create_ctwa_ad_request_zips_inner.rs
 src/models/create_custom_field_200_response.rs
 src/models/create_custom_field_request.rs
+src/models/create_discord_scheduled_event_200_response.rs
+src/models/create_discord_scheduled_event_request.rs
+src/models/create_discord_scheduled_event_request_entity.rs
+src/models/create_discord_scheduled_event_request_entity_one_of.rs
+src/models/create_discord_scheduled_event_request_entity_one_of_1.rs
+src/models/create_discord_scheduled_event_request_entity_one_of_2.rs
 src/models/create_google_business_media_200_response.rs
 src/models/create_google_business_media_request.rs
 src/models/create_google_business_place_action_200_response.rs
@@ -1383,6 +1419,7 @@ src/models/ctwa_single_response.rs
 src/models/delete_account_group_200_response.rs
 src/models/delete_ad_campaign_200_response.rs
 src/models/delete_ad_campaign_request.rs
+src/models/delete_discord_scheduled_event_200_response.rs
 src/models/delete_google_business_media_200_response.rs
 src/models/delete_google_business_place_action_200_response.rs
 src/models/delete_google_business_review_reply_200_response.rs
@@ -1390,7 +1427,6 @@ src/models/delete_inbox_comment_200_response.rs
 src/models/delete_inbox_review_reply_200_response.rs
 src/models/delete_inbox_review_reply_request.rs
 src/models/delete_queue_slot_200_response.rs
-src/models/delete_whats_app_sandbox_session_200_response.rs
 src/models/discord_platform_data.rs
 src/models/discord_platform_data_embeds_inner.rs
 src/models/discord_platform_data_embeds_inner_author.rs
@@ -1402,6 +1438,8 @@ src/models/discord_platform_data_poll_answers_inner.rs
 src/models/discord_platform_data_poll_answers_inner_poll_media.rs
 src/models/discord_platform_data_poll_question.rs
 src/models/discord_platform_data_thread_from_message.rs
+src/models/discord_scheduled_event.rs
+src/models/discord_scheduled_event_entity_metadata.rs
 src/models/dm_button.rs
 src/models/duplicate_ad_campaign_200_response.rs
 src/models/duplicate_ad_campaign_request.rs
@@ -1741,6 +1779,15 @@ src/models/list_conversion_destinations_200_response.rs
 src/models/list_conversion_destinations_200_response_destinations_inner.rs
 src/models/list_custom_fields_200_response.rs
 src/models/list_custom_fields_200_response_fields_inner.rs
+src/models/list_discord_guild_members_200_response.rs
+src/models/list_discord_guild_members_200_response_data_inner.rs
+src/models/list_discord_guild_members_200_response_data_inner_user.rs
+src/models/list_discord_guild_members_200_response_pagination.rs
+src/models/list_discord_guild_roles_200_response.rs
+src/models/list_discord_guild_roles_200_response_data_inner.rs
+src/models/list_discord_pinned_messages_200_response.rs
+src/models/list_discord_pinned_messages_200_response_data_inner.rs
+src/models/list_discord_scheduled_events_200_response.rs
 src/models/list_facebook_pages_200_response.rs
 src/models/list_facebook_pages_200_response_pages_inner.rs
 src/models/list_form_leads_200_response.rs
@@ -1836,6 +1883,7 @@ src/models/on_whats_app_number_verification_required_request.rs
 src/models/pagination.rs
 src/models/pause_workflow_200_response.rs
 src/models/pending.rs
+src/models/pin_discord_message_200_response.rs
 src/models/pinterest_platform_data.rs
 src/models/platform_analytics.rs
 src/models/platform_target.rs
@@ -1879,6 +1927,7 @@ src/models/release_whats_app_phone_number_200_response.rs
 src/models/release_whats_app_phone_number_200_response_phone_number.rs
 src/models/remove_bookmark_200_response.rs
 src/models/remove_conversion_associations_200_response.rs
+src/models/remove_discord_member_role_200_response.rs
 src/models/remove_whats_app_group_participants_request.rs
 src/models/reply_to_google_business_review_200_response.rs
 src/models/reply_to_google_business_review_request.rs
@@ -1930,6 +1979,11 @@ src/models/send_conversions_200_response_failures_inner.rs
 src/models/send_conversions_200_response_failures_inner_code.rs
 src/models/send_conversions_request.rs
 src/models/send_conversions_request_consent.rs
+src/models/send_discord_direct_message_200_response.rs
+src/models/send_discord_direct_message_200_response_account.rs
+src/models/send_discord_direct_message_200_response_recipient.rs
+src/models/send_discord_direct_message_request.rs
+src/models/send_discord_direct_message_request_attachments_inner.rs
 src/models/send_inbox_message_200_response.rs
 src/models/send_inbox_message_200_response_data.rs
 src/models/send_inbox_message_400_response.rs
@@ -2010,6 +2064,7 @@ src/models/twitter_platform_data_thread_items_inner.rs
 src/models/undo_retweet_200_response.rs
 src/models/unfollow_user_200_response.rs
 src/models/unlike_inbox_comment_200_response.rs
+src/models/unpin_discord_message_200_response.rs
 src/models/unpublish_post_200_response.rs
 src/models/unpublish_post_request.rs
 src/models/update_account_200_response.rs
@@ -2050,6 +2105,7 @@ src/models/update_conversion_destination_request_value.rs
 src/models/update_custom_field_200_response.rs
 src/models/update_custom_field_200_response_field.rs
 src/models/update_custom_field_request.rs
+src/models/update_discord_scheduled_event_request.rs
 src/models/update_discord_settings_200_response.rs
 src/models/update_discord_settings_200_response_account.rs
 src/models/update_discord_settings_request.rs
