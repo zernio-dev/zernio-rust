@@ -29,6 +29,9 @@ pub struct UpdateCommentAutomationRequest {
     /// Wrap link buttons in a tracked redirect to count clicks. Pass false to send links untouched.
     #[serde(rename = "linkTracking", skip_serializing_if = "Option::is_none")]
     pub link_tracking: Option<bool>,
+    /// Tag applied to a contact when they click a tracked link (requires linkTracking). Empty string clears it.
+    #[serde(rename = "clickTag", skip_serializing_if = "Option::is_none")]
+    pub click_tag: Option<String>,
     #[serde(rename = "isActive", skip_serializing_if = "Option::is_none")]
     pub is_active: Option<bool>,
 }
@@ -43,6 +46,7 @@ impl UpdateCommentAutomationRequest {
             buttons: None,
             comment_reply: None,
             link_tracking: None,
+            click_tag: None,
             is_active: None,
         }
     }

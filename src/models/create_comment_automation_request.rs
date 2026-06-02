@@ -47,6 +47,9 @@ pub struct CreateCommentAutomationRequest {
     /// Wrap link buttons in the DM in a tracked redirect so clicks are counted (Link Clicks / CTR). Pass false to send links exactly as written. Defaults to on.
     #[serde(rename = "linkTracking", skip_serializing_if = "Option::is_none")]
     pub link_tracking: Option<bool>,
+    /// Optional tag applied to a contact when they click a tracked link (requires linkTracking). Lets you segment clickers for broadcasts/sequences.
+    #[serde(rename = "clickTag", skip_serializing_if = "Option::is_none")]
+    pub click_tag: Option<String>,
 }
 
 impl CreateCommentAutomationRequest {
@@ -69,6 +72,7 @@ impl CreateCommentAutomationRequest {
             buttons: None,
             comment_reply: None,
             link_tracking: None,
+            click_tag: None,
         }
     }
 }

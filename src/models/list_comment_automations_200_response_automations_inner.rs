@@ -39,6 +39,9 @@ pub struct ListCommentAutomations200ResponseAutomationsInner {
     /// Whether link buttons in the DM are wrapped in a tracked redirect to count clicks.
     #[serde(rename = "linkTracking", skip_serializing_if = "Option::is_none")]
     pub link_tracking: Option<bool>,
+    /// Tag applied to a contact when they click a tracked link.
+    #[serde(rename = "clickTag", skip_serializing_if = "Option::is_none")]
+    pub click_tag: Option<String>,
     #[serde(rename = "isActive", skip_serializing_if = "Option::is_none")]
     pub is_active: Option<bool>,
     #[serde(rename = "stats", skip_serializing_if = "Option::is_none")]
@@ -62,6 +65,7 @@ impl ListCommentAutomations200ResponseAutomationsInner {
             buttons: None,
             comment_reply: None,
             link_tracking: None,
+            click_tag: None,
             is_active: None,
             stats: None,
             created_at: None,

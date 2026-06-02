@@ -40,6 +40,8 @@ pub struct GetCommentAutomation200ResponseAutomation {
     pub comment_reply: Option<String>,
     #[serde(rename = "linkTracking", skip_serializing_if = "Option::is_none")]
     pub link_tracking: Option<bool>,
+    #[serde(rename = "clickTag", skip_serializing_if = "Option::is_none")]
+    pub click_tag: Option<String>,
     #[serde(rename = "isActive", skip_serializing_if = "Option::is_none")]
     pub is_active: Option<bool>,
     #[serde(rename = "stats", skip_serializing_if = "Option::is_none")]
@@ -66,6 +68,7 @@ impl GetCommentAutomation200ResponseAutomation {
             buttons: None,
             comment_reply: None,
             link_tracking: None,
+            click_tag: None,
             is_active: None,
             stats: None,
             created_at: None,
