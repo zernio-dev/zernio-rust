@@ -248,6 +248,8 @@ docs/DiscordPlatformDataThreadFromMessage.md
 docs/DmButton.md
 docs/DuplicateAdCampaign200Response.md
 docs/DuplicateAdCampaignRequest.md
+docs/DuplicateWorkflow201Response.md
+docs/DuplicateWorkflow201ResponseWorkflow.md
 docs/EditInboxMessage200Response.md
 docs/EditInboxMessage200ResponseData.md
 docs/EditInboxMessageRequest.md
@@ -498,6 +500,8 @@ docs/GetWhatsAppTemplates200Response.md
 docs/GetWhatsAppTemplates200ResponseTemplatesInner.md
 docs/GetWorkflow200Response.md
 docs/GetWorkflow200ResponseWorkflow.md
+docs/GetWorkflowVersion200Response.md
+docs/GetWorkflowVersion200ResponseVersion.md
 docs/GetYouTubeDailyViews400Response.md
 docs/GetYouTubeDailyViews403Response.md
 docs/GetYouTubeDailyViews500Response.md
@@ -662,9 +666,13 @@ docs/ListWhatsAppNumberCountries200ResponseCountriesInner.md
 docs/ListWhatsAppPhoneNumbers200Response.md
 docs/ListWhatsAppPhoneNumbers200ResponsePhoneNumbersInner.md
 docs/ListWhatsAppSandboxSessions200Response.md
+docs/ListWorkflowExecutionEvents200Response.md
+docs/ListWorkflowExecutionEvents200ResponseExecution.md
 docs/ListWorkflowExecutions200Response.md
 docs/ListWorkflowExecutions200ResponseExecutionsInner.md
 docs/ListWorkflowExecutions200ResponseExecutionsInnerWaitingFor.md
+docs/ListWorkflowVersions200Response.md
+docs/ListWorkflowVersions200ResponseVersionsInner.md
 docs/ListWorkflows200Response.md
 docs/ListWorkflows200ResponseWorkflowsInner.md
 docs/LogsApi.md
@@ -740,6 +748,8 @@ docs/ReplyToInboxPostRequest.md
 docs/ReplyToInboxReview200Response.md
 docs/ReplyToInboxReview200ResponseReply.md
 docs/ReplyToInboxReviewRequest.md
+docs/RestoreWorkflowVersion200Response.md
+docs/RestoreWorkflowVersion200ResponseWorkflow.md
 docs/RetweetPost200Response.md
 docs/RetweetPostRequest.md
 docs/ReviewWebhookReview.md
@@ -1093,6 +1103,7 @@ docs/WhatsAppTemplateButton.md
 docs/WhatsAppTemplateComponent.md
 docs/WhatsAppTemplatesApi.md
 docs/WorkflowEdge.md
+docs/WorkflowExecutionEvent.md
 docs/WorkflowNode.md
 docs/WorkflowNodePosition.md
 docs/WorkflowsApi.md
@@ -1394,6 +1405,8 @@ src/models/discord_platform_data_thread_from_message.rs
 src/models/dm_button.rs
 src/models/duplicate_ad_campaign_200_response.rs
 src/models/duplicate_ad_campaign_request.rs
+src/models/duplicate_workflow_201_response.rs
+src/models/duplicate_workflow_201_response_workflow.rs
 src/models/edit_inbox_message_200_response.rs
 src/models/edit_inbox_message_200_response_data.rs
 src/models/edit_inbox_message_request.rs
@@ -1644,6 +1657,8 @@ src/models/get_whats_app_templates_200_response.rs
 src/models/get_whats_app_templates_200_response_templates_inner.rs
 src/models/get_workflow_200_response.rs
 src/models/get_workflow_200_response_workflow.rs
+src/models/get_workflow_version_200_response.rs
+src/models/get_workflow_version_200_response_version.rs
 src/models/get_you_tube_daily_views_400_response.rs
 src/models/get_you_tube_daily_views_403_response.rs
 src/models/get_you_tube_daily_views_500_response.rs
@@ -1797,9 +1812,13 @@ src/models/list_whats_app_number_countries_200_response_countries_inner.rs
 src/models/list_whats_app_phone_numbers_200_response.rs
 src/models/list_whats_app_phone_numbers_200_response_phone_numbers_inner.rs
 src/models/list_whats_app_sandbox_sessions_200_response.rs
+src/models/list_workflow_execution_events_200_response.rs
+src/models/list_workflow_execution_events_200_response_execution.rs
 src/models/list_workflow_executions_200_response.rs
 src/models/list_workflow_executions_200_response_executions_inner.rs
 src/models/list_workflow_executions_200_response_executions_inner_waiting_for.rs
+src/models/list_workflow_versions_200_response.rs
+src/models/list_workflow_versions_200_response_versions_inner.rs
 src/models/list_workflows_200_response.rs
 src/models/list_workflows_200_response_workflows_inner.rs
 src/models/mark_conversation_read_200_response.rs
@@ -1869,6 +1888,8 @@ src/models/reply_to_inbox_post_request.rs
 src/models/reply_to_inbox_review_200_response.rs
 src/models/reply_to_inbox_review_200_response_reply.rs
 src/models/reply_to_inbox_review_request.rs
+src/models/restore_workflow_version_200_response.rs
+src/models/restore_workflow_version_200_response_workflow.rs
 src/models/retweet_post_200_response.rs
 src/models/retweet_post_request.rs
 src/models/review_webhook_review.rs
@@ -2207,6 +2228,7 @@ src/models/whats_app_sandbox_session.rs
 src/models/whats_app_template_button.rs
 src/models/whats_app_template_component.rs
 src/models/workflow_edge.rs
+src/models/workflow_execution_event.rs
 src/models/workflow_node.rs
 src/models/workflow_node_position.rs
 src/models/x_api_operation.rs

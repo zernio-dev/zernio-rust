@@ -41,6 +41,15 @@ pub enum DeleteWorkflowError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`duplicate_workflow`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DuplicateWorkflowError {
+    Status401(models::InlineObject),
+    Status404(models::InlineObject1),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_workflow`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -50,10 +59,37 @@ pub enum GetWorkflowError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_workflow_version`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetWorkflowVersionError {
+    Status401(models::InlineObject),
+    Status404(models::InlineObject1),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_workflow_execution_events`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListWorkflowExecutionEventsError {
+    Status401(models::InlineObject),
+    Status404(models::InlineObject1),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_workflow_executions`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListWorkflowExecutionsError {
+    Status401(models::InlineObject),
+    Status404(models::InlineObject1),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_workflow_versions`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListWorkflowVersionsError {
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
@@ -71,6 +107,16 @@ pub enum ListWorkflowsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum PauseWorkflowError {
+    Status401(models::InlineObject),
+    Status404(models::InlineObject1),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`restore_workflow_version`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RestoreWorkflowVersionError {
+    Status400(),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
@@ -241,6 +287,59 @@ pub async fn delete_workflow(
     }
 }
 
+/// Create an independent copy of a workflow's graph, name, description, and account binding. The copy is created in `draft` status with fresh execution counters and a new id — execution history is NOT copied. Useful for branching off a known-good workflow before making experimental edits.
+pub async fn duplicate_workflow(
+    configuration: &configuration::Configuration,
+    workflow_id: &str,
+) -> Result<models::DuplicateWorkflow201Response, Error<DuplicateWorkflowError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workflow_id = workflow_id;
+
+    let uri_str = format!(
+        "{}/v1/workflows/{workflowId}/duplicate",
+        configuration.base_path,
+        workflowId = crate::apis::urlencode(p_path_workflow_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DuplicateWorkflow201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DuplicateWorkflow201Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DuplicateWorkflowError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Returns a workflow including its full node/edge graph and run stats.
 pub async fn get_workflow(
     configuration: &configuration::Configuration,
@@ -284,6 +383,115 @@ pub async fn get_workflow(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetWorkflowError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns the full snapshot for a single historical version, including the graph.
+pub async fn get_workflow_version(
+    configuration: &configuration::Configuration,
+    workflow_id: &str,
+    version: i32,
+) -> Result<models::GetWorkflowVersion200Response, Error<GetWorkflowVersionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workflow_id = workflow_id;
+    let p_path_version = version;
+
+    let uri_str = format!(
+        "{}/v1/workflows/{workflowId}/versions/{version}",
+        configuration.base_path,
+        workflowId = crate::apis::urlencode(p_path_workflow_id),
+        version = p_path_version
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetWorkflowVersion200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetWorkflowVersion200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetWorkflowVersionError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns the per-step run-log for a single workflow execution: trigger fired, each node visited, edge handles taken, errors, and durations. Backed by Tinybird (90-day retention). Used by the Runs UI drawer to render the timeline.
+pub async fn list_workflow_execution_events(
+    configuration: &configuration::Configuration,
+    workflow_id: &str,
+    execution_id: &str,
+) -> Result<models::ListWorkflowExecutionEvents200Response, Error<ListWorkflowExecutionEventsError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workflow_id = workflow_id;
+    let p_path_execution_id = execution_id;
+
+    let uri_str = format!(
+        "{}/v1/workflows/{workflowId}/executions/{executionId}/events",
+        configuration.base_path,
+        workflowId = crate::apis::urlencode(p_path_workflow_id),
+        executionId = crate::apis::urlencode(p_path_execution_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListWorkflowExecutionEvents200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListWorkflowExecutionEvents200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListWorkflowExecutionEventsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -350,6 +558,57 @@ pub async fn list_workflow_executions(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListWorkflowExecutionsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns the snapshot history. A new version is recorded automatically before every PATCH to `nodes` / `edges` / `entryNodeId`, and explicitly when a previous version is restored. Lightweight list — call `getWorkflowVersion` for the full snapshot graph.
+pub async fn list_workflow_versions(
+    configuration: &configuration::Configuration,
+    workflow_id: &str,
+) -> Result<models::ListWorkflowVersions200Response, Error<ListWorkflowVersionsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workflow_id = workflow_id;
+
+    let uri_str = format!(
+        "{}/v1/workflows/{workflowId}/versions",
+        configuration.base_path,
+        workflowId = crate::apis::urlencode(p_path_workflow_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListWorkflowVersions200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListWorkflowVersions200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListWorkflowVersionsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -476,6 +735,62 @@ pub async fn pause_workflow(
     }
 }
 
+/// Replace the current graph with the named version's snapshot. Before the swap, the current graph is itself snapshotted as a new version, so a restore is reversible. The workflow must be in `draft` or `paused` status (same gate as a normal graph edit). The returned workflow carries `restoredFromVersion` so the UI can surface which version was rolled back to.
+pub async fn restore_workflow_version(
+    configuration: &configuration::Configuration,
+    workflow_id: &str,
+    version: i32,
+) -> Result<models::RestoreWorkflowVersion200Response, Error<RestoreWorkflowVersionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workflow_id = workflow_id;
+    let p_path_version = version;
+
+    let uri_str = format!(
+        "{}/v1/workflows/{workflowId}/versions/{version}/restore",
+        configuration.base_path,
+        workflowId = crate::apis::urlencode(p_path_workflow_id),
+        version = p_path_version
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::RestoreWorkflowVersion200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::RestoreWorkflowVersion200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RestoreWorkflowVersionError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Kick off a run without waiting for an inbound message (useful for testing). Target an existing conversation by `conversationId`, or — WhatsApp only — a phone number via `to` (a conversation is found or created). `text` seeds the run's `lastMessage` variable. The graph must be runnable.
 pub async fn trigger_workflow(
     configuration: &configuration::Configuration,
@@ -532,7 +847,7 @@ pub async fn trigger_workflow(
     }
 }
 
-/// Update name, description, or the graph. The graph can only be modified while the workflow is draft or paused.
+/// Update name, description, the graph, or reassign to a different account. The graph can only be modified while the workflow is draft or paused. Account swaps re-validate the graph against the new platform (so e.g. moving from WhatsApp to Facebook surfaces a `start_call` node as an error instead of silently saving an unrunnable graph).
 pub async fn update_workflow(
     configuration: &configuration::Configuration,
     workflow_id: &str,

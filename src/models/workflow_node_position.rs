@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WorkflowNodePosition : Canvas coordinates (ignored by the executor; used by the future visual builder).
+/// WorkflowNodePosition : Canvas coordinates (ignored by the executor; used by the visual builder).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkflowNodePosition {
     #[serde(rename = "x", skip_serializing_if = "Option::is_none")]
@@ -21,7 +21,7 @@ pub struct WorkflowNodePosition {
 }
 
 impl WorkflowNodePosition {
-    /// Canvas coordinates (ignored by the executor; used by the future visual builder).
+    /// Canvas coordinates (ignored by the executor; used by the visual builder).
     pub fn new() -> WorkflowNodePosition {
         WorkflowNodePosition { x: None, y: None }
     }

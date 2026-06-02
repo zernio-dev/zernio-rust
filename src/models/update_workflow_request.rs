@@ -23,6 +23,9 @@ pub struct UpdateWorkflowRequest {
     pub edges: Option<Vec<models::WorkflowEdge>>,
     #[serde(rename = "entryNodeId", skip_serializing_if = "Option::is_none")]
     pub entry_node_id: Option<String>,
+    /// Reassign the workflow to a different `SocialAccount`. `platform` and `profileId` are derived server-side from the new account (the client never sends them directly). The account must belong to the caller's workspace and be on a workflow-supported platform (whatsapp, instagram, facebook, telegram, twitter, bluesky, reddit). Changing this triggers a graph revalidation against the new platform.
+    #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
+    pub account_id: Option<String>,
 }
 
 impl UpdateWorkflowRequest {
@@ -33,6 +36,7 @@ impl UpdateWorkflowRequest {
             nodes: None,
             edges: None,
             entry_node_id: None,
+            account_id: None,
         }
     }
 }

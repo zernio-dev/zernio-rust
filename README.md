@@ -374,10 +374,15 @@ Class | Method | HTTP request | Description
 *WorkflowsApi* | [**activate_workflow**](docs/WorkflowsApi.md#activate_workflow) | **POST** /v1/workflows/{workflowId}/activate | Activate workflow
 *WorkflowsApi* | [**create_workflow**](docs/WorkflowsApi.md#create_workflow) | **POST** /v1/workflows | Create workflow
 *WorkflowsApi* | [**delete_workflow**](docs/WorkflowsApi.md#delete_workflow) | **DELETE** /v1/workflows/{workflowId} | Delete workflow
+*WorkflowsApi* | [**duplicate_workflow**](docs/WorkflowsApi.md#duplicate_workflow) | **POST** /v1/workflows/{workflowId}/duplicate | Duplicate a workflow
 *WorkflowsApi* | [**get_workflow**](docs/WorkflowsApi.md#get_workflow) | **GET** /v1/workflows/{workflowId} | Get workflow with graph
+*WorkflowsApi* | [**get_workflow_version**](docs/WorkflowsApi.md#get_workflow_version) | **GET** /v1/workflows/{workflowId}/versions/{version} | Get a specific workflow version
+*WorkflowsApi* | [**list_workflow_execution_events**](docs/WorkflowsApi.md#list_workflow_execution_events) | **GET** /v1/workflows/{workflowId}/executions/{executionId}/events | Get an execution's timeline
 *WorkflowsApi* | [**list_workflow_executions**](docs/WorkflowsApi.md#list_workflow_executions) | **GET** /v1/workflows/{workflowId}/executions | List workflow runs
+*WorkflowsApi* | [**list_workflow_versions**](docs/WorkflowsApi.md#list_workflow_versions) | **GET** /v1/workflows/{workflowId}/versions | List a workflow's version history
 *WorkflowsApi* | [**list_workflows**](docs/WorkflowsApi.md#list_workflows) | **GET** /v1/workflows | List workflows
 *WorkflowsApi* | [**pause_workflow**](docs/WorkflowsApi.md#pause_workflow) | **POST** /v1/workflows/{workflowId}/pause | Pause workflow
+*WorkflowsApi* | [**restore_workflow_version**](docs/WorkflowsApi.md#restore_workflow_version) | **POST** /v1/workflows/{workflowId}/versions/{version}/restore | Restore a previous workflow version
 *WorkflowsApi* | [**trigger_workflow**](docs/WorkflowsApi.md#trigger_workflow) | **POST** /v1/workflows/{workflowId}/executions | Manually start a workflow run
 *WorkflowsApi* | [**update_workflow**](docs/WorkflowsApi.md#update_workflow) | **PATCH** /v1/workflows/{workflowId} | Update workflow
 
@@ -615,6 +620,8 @@ Class | Method | HTTP request | Description
  - [DmButton](docs/DmButton.md)
  - [DuplicateAdCampaign200Response](docs/DuplicateAdCampaign200Response.md)
  - [DuplicateAdCampaignRequest](docs/DuplicateAdCampaignRequest.md)
+ - [DuplicateWorkflow201Response](docs/DuplicateWorkflow201Response.md)
+ - [DuplicateWorkflow201ResponseWorkflow](docs/DuplicateWorkflow201ResponseWorkflow.md)
  - [EditInboxMessage200Response](docs/EditInboxMessage200Response.md)
  - [EditInboxMessage200ResponseData](docs/EditInboxMessage200ResponseData.md)
  - [EditInboxMessageRequest](docs/EditInboxMessageRequest.md)
@@ -865,6 +872,8 @@ Class | Method | HTTP request | Description
  - [GetWhatsAppTemplates200ResponseTemplatesInner](docs/GetWhatsAppTemplates200ResponseTemplatesInner.md)
  - [GetWorkflow200Response](docs/GetWorkflow200Response.md)
  - [GetWorkflow200ResponseWorkflow](docs/GetWorkflow200ResponseWorkflow.md)
+ - [GetWorkflowVersion200Response](docs/GetWorkflowVersion200Response.md)
+ - [GetWorkflowVersion200ResponseVersion](docs/GetWorkflowVersion200ResponseVersion.md)
  - [GetYouTubeDailyViews400Response](docs/GetYouTubeDailyViews400Response.md)
  - [GetYouTubeDailyViews403Response](docs/GetYouTubeDailyViews403Response.md)
  - [GetYouTubeDailyViews500Response](docs/GetYouTubeDailyViews500Response.md)
@@ -1018,9 +1027,13 @@ Class | Method | HTTP request | Description
  - [ListWhatsAppPhoneNumbers200Response](docs/ListWhatsAppPhoneNumbers200Response.md)
  - [ListWhatsAppPhoneNumbers200ResponsePhoneNumbersInner](docs/ListWhatsAppPhoneNumbers200ResponsePhoneNumbersInner.md)
  - [ListWhatsAppSandboxSessions200Response](docs/ListWhatsAppSandboxSessions200Response.md)
+ - [ListWorkflowExecutionEvents200Response](docs/ListWorkflowExecutionEvents200Response.md)
+ - [ListWorkflowExecutionEvents200ResponseExecution](docs/ListWorkflowExecutionEvents200ResponseExecution.md)
  - [ListWorkflowExecutions200Response](docs/ListWorkflowExecutions200Response.md)
  - [ListWorkflowExecutions200ResponseExecutionsInner](docs/ListWorkflowExecutions200ResponseExecutionsInner.md)
  - [ListWorkflowExecutions200ResponseExecutionsInnerWaitingFor](docs/ListWorkflowExecutions200ResponseExecutionsInnerWaitingFor.md)
+ - [ListWorkflowVersions200Response](docs/ListWorkflowVersions200Response.md)
+ - [ListWorkflowVersions200ResponseVersionsInner](docs/ListWorkflowVersions200ResponseVersionsInner.md)
  - [ListWorkflows200Response](docs/ListWorkflows200Response.md)
  - [ListWorkflows200ResponseWorkflowsInner](docs/ListWorkflows200ResponseWorkflowsInner.md)
  - [MarkConversationRead200Response](docs/MarkConversationRead200Response.md)
@@ -1089,6 +1102,8 @@ Class | Method | HTTP request | Description
  - [ReplyToInboxReview200Response](docs/ReplyToInboxReview200Response.md)
  - [ReplyToInboxReview200ResponseReply](docs/ReplyToInboxReview200ResponseReply.md)
  - [ReplyToInboxReviewRequest](docs/ReplyToInboxReviewRequest.md)
+ - [RestoreWorkflowVersion200Response](docs/RestoreWorkflowVersion200Response.md)
+ - [RestoreWorkflowVersion200ResponseWorkflow](docs/RestoreWorkflowVersion200ResponseWorkflow.md)
  - [RetweetPost200Response](docs/RetweetPost200Response.md)
  - [RetweetPostRequest](docs/RetweetPostRequest.md)
  - [ReviewWebhookReview](docs/ReviewWebhookReview.md)
@@ -1427,6 +1442,7 @@ Class | Method | HTTP request | Description
  - [WhatsAppTemplateButton](docs/WhatsAppTemplateButton.md)
  - [WhatsAppTemplateComponent](docs/WhatsAppTemplateComponent.md)
  - [WorkflowEdge](docs/WorkflowEdge.md)
+ - [WorkflowExecutionEvent](docs/WorkflowExecutionEvent.md)
  - [WorkflowNode](docs/WorkflowNode.md)
  - [WorkflowNodePosition](docs/WorkflowNodePosition.md)
  - [XApiOperation](docs/XApiOperation.md)
