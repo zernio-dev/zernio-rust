@@ -19,6 +19,8 @@ pub struct CreateCommentAutomation200ResponseAutomation {
     pub name: Option<String>,
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<String>,
+    #[serde(rename = "trigger", skip_serializing_if = "Option::is_none")]
+    pub trigger: Option<Trigger>,
     #[serde(rename = "platformPostId", skip_serializing_if = "Option::is_none")]
     pub platform_post_id: Option<String>,
     #[serde(rename = "keywords", skip_serializing_if = "Option::is_none")]
@@ -50,6 +52,7 @@ impl CreateCommentAutomation200ResponseAutomation {
             id: None,
             name: None,
             platform: None,
+            trigger: None,
             platform_post_id: None,
             keywords: None,
             match_mode: None,
@@ -62,6 +65,20 @@ impl CreateCommentAutomation200ResponseAutomation {
             stats: None,
             created_at: None,
         }
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Trigger {
+    #[serde(rename = "comment")]
+    Comment,
+    #[serde(rename = "story_reply")]
+    StoryReply,
+}
+
+impl Default for Trigger {
+    fn default() -> Trigger {
+        Self::Comment
     }
 }
 ///

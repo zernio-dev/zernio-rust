@@ -19,6 +19,8 @@ pub struct ListCommentAutomations200ResponseAutomationsInner {
     pub name: Option<String>,
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<Platform>,
+    #[serde(rename = "trigger", skip_serializing_if = "Option::is_none")]
+    pub trigger: Option<Trigger>,
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
     #[serde(rename = "platformPostId", skip_serializing_if = "Option::is_none")]
@@ -56,6 +58,7 @@ impl ListCommentAutomations200ResponseAutomationsInner {
             id: None,
             name: None,
             platform: None,
+            trigger: None,
             account_id: None,
             platform_post_id: None,
             post_title: None,
@@ -84,6 +87,20 @@ pub enum Platform {
 impl Default for Platform {
     fn default() -> Platform {
         Self::Instagram
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Trigger {
+    #[serde(rename = "comment")]
+    Comment,
+    #[serde(rename = "story_reply")]
+    StoryReply,
+}
+
+impl Default for Trigger {
+    fn default() -> Trigger {
+        Self::Comment
     }
 }
 ///

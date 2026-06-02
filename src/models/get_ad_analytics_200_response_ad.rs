@@ -19,6 +19,8 @@ pub struct GetAdAnalytics200ResponseAd {
     pub name: Option<String>,
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<String>,
+    #[serde(rename = "trigger", skip_serializing_if = "Option::is_none")]
+    pub trigger: Option<Trigger>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
     /// ISO 4217 code of the ad account that owns this ad (e.g. USD, THB, INR). All money values in `summary` and `daily` are in this currency. Null only on legacy ads synced before currency was persisted.
@@ -32,8 +34,23 @@ impl GetAdAnalytics200ResponseAd {
             id: None,
             name: None,
             platform: None,
+            trigger: None,
             status: None,
             currency: None,
         }
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Trigger {
+    #[serde(rename = "comment")]
+    Comment,
+    #[serde(rename = "story_reply")]
+    StoryReply,
+}
+
+impl Default for Trigger {
+    fn default() -> Trigger {
+        Self::Comment
     }
 }

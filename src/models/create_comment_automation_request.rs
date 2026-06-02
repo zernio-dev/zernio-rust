@@ -18,7 +18,10 @@ pub struct CreateCommentAutomationRequest {
     /// Instagram or Facebook account ID
     #[serde(rename = "accountId")]
     pub account_id: String,
-    /// Platform media/post ID. Omit for an account-wide (any-post) automation.
+    /// What fires the automation. 'comment' (keyword comment on a post) or 'story_reply' (keyword reply to an Instagram story). For 'story_reply', platformPostId is the story media id (omit for any story).
+    #[serde(rename = "trigger", skip_serializing_if = "Option::is_none")]
+    pub trigger: Option<Trigger>,
+    /// Platform media/post ID (or story media id when trigger=story_reply). Omit for an account-wide (any-post / any-story) automation.
     #[serde(rename = "platformPostId", skip_serializing_if = "Option::is_none")]
     pub platform_post_id: Option<String>,
     /// Zernio post ID. Required only when also targeting a specific post via platformPostId.
@@ -62,6 +65,7 @@ impl CreateCommentAutomationRequest {
         CreateCommentAutomationRequest {
             profile_id,
             account_id,
+            trigger: None,
             platform_post_id: None,
             post_id: None,
             post_title: None,
@@ -74,6 +78,20 @@ impl CreateCommentAutomationRequest {
             link_tracking: None,
             click_tag: None,
         }
+    }
+}
+/// What fires the automation. 'comment' (keyword comment on a post) or 'story_reply' (keyword reply to an Instagram story). For 'story_reply', platformPostId is the story media id (omit for any story).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Trigger {
+    #[serde(rename = "comment")]
+    Comment,
+    #[serde(rename = "story_reply")]
+    StoryReply,
+}
+
+impl Default for Trigger {
+    fn default() -> Trigger {
+        Self::Comment
     }
 }
 ///

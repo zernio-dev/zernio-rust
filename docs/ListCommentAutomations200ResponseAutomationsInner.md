@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **id** | Option<**String**> |  | [optional]
 **name** | Option<**String**> |  | [optional]
 **platform** | Option<**Platform**> |  (enum: instagram, facebook) | [optional]
+**trigger** | Option<**Trigger**> |  (enum: comment, story_reply) | [optional]
 **account_id** | Option<**String**> |  | [optional]
 **platform_post_id** | Option<**String**> |  | [optional]
 **post_title** | Option<**String**> |  | [optional]
