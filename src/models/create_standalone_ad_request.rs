@@ -28,6 +28,9 @@ pub struct CreateStandaloneAdRequest {
     /// Required on legacy + multi-creative shapes. Inherited on attach.
     #[serde(rename = "budgetType", skip_serializing_if = "Option::is_none")]
     pub budget_type: Option<BudgetType>,
+    /// Meta only. Where the budget lives, which selects the Meta budget model:   - `adset` (default): ABO (Ad-set Budget Optimization). The budget is set on the     ad set. This is the back-compatible behaviour — omit this field to keep it.   - `campaign`: CBO (Campaign Budget Optimization / Advantage Campaign Budget). The     budget AND `bidStrategy` are set on the CAMPAIGN, and Meta distributes spend     across ad sets automatically. Meta requires the budget at exactly one level, never both. Non-Meta platforms ignore this field. Ignored on the attach shape (`adSetId`), which inherits the existing budget.
+    #[serde(rename = "budgetLevel", skip_serializing_if = "Option::is_none")]
+    pub budget_level: Option<BudgetLevel>,
     #[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
     pub currency: Option<String>,
     /// Required for Meta, Google, Pinterest, and LinkedIn on legacy + attach shapes (skip for multi-creative — use `creatives[].headline`). Ignored for TikTok and X/Twitter. Max: Meta=255, Google=30, Pinterest=100, LinkedIn=400. On LinkedIn this is the ad's headline (the bold text on the creative); for traffic ads it's the link card title.
@@ -104,6 +107,8 @@ pub struct CreateStandaloneAdRequest {
     /// Language codes (e.g. ['en']). Restricts the audience by language.
     #[serde(rename = "languages", skip_serializing_if = "Option::is_none")]
     pub languages: Option<Vec<String>>,
+    #[serde(rename = "placements", skip_serializing_if = "Option::is_none")]
+    pub placements: Option<Box<models::CreateStandaloneAdRequestPlacements>>,
     /// ID of a `saved_targeting` audience (created via POST /v1/ads/audiences). When set, its stored TargetingSpec is expanded as the base targeting; inline fields on this body merge on top. Lets you reuse a named targeting preset without re-sending every field.
     #[serde(rename = "savedTargetingId", skip_serializing_if = "Option::is_none")]
     pub saved_targeting_id: Option<String>,
@@ -116,6 +121,14 @@ pub struct CreateStandaloneAdRequest {
     /// Required for lifetime budgets
     #[serde(rename = "endDate", skip_serializing_if = "Option::is_none")]
     pub end_date: Option<String>,
+    /// Meta only. Ad-set start time (ISO 8601, e.g. \"2026-06-10T09:00:00Z\"), mapped to the ad set's `start_time`. When omitted the ad starts delivering immediately. For lifetime budgets Meta also requires `endDate`. (Same `schedule.startDate` semantics already available on `POST /v1/ads/boost`.)
+    #[serde(rename = "startDate", skip_serializing_if = "Option::is_none")]
+    pub start_date: Option<String>,
+    /// Meta only. Override the Instagram account the ad is delivered as — pass an Instagram Business Account ID (e.g. 17841...), mapped to the creative's `instagram_user_id`. When omitted we auto-resolve the IG account linked to the connected Facebook Page (the existing default). Useful when a Page has more than one eligible IG account.
+    #[serde(rename = "instagramAccountId", skip_serializing_if = "Option::is_none")]
+    pub instagram_account_id: Option<String>,
+    #[serde(rename = "dynamicCreative", skip_serializing_if = "Option::is_none")]
+    pub dynamic_creative: Option<Box<models::CreateStandaloneAdRequestDynamicCreative>>,
     /// Custom audience ID for targeting
     #[serde(rename = "audienceId", skip_serializing_if = "Option::is_none")]
     pub audience_id: Option<String>,
@@ -183,6 +196,7 @@ impl CreateStandaloneAdRequest {
             goal: None,
             budget_amount: None,
             budget_type: None,
+            budget_level: None,
             currency: None,
             headline: None,
             long_headline: None,
@@ -210,9 +224,13 @@ impl CreateStandaloneAdRequest {
             behaviors: None,
             income_tier: None,
             languages: None,
+            placements: None,
             saved_targeting_id: None,
             special_ad_categories: None,
             end_date: None,
+            start_date: None,
+            instagram_account_id: None,
+            dynamic_creative: None,
             audience_id: None,
             campaign_type: None,
             keywords: None,
@@ -268,6 +286,20 @@ pub enum BudgetType {
 impl Default for BudgetType {
     fn default() -> BudgetType {
         Self::Daily
+    }
+}
+/// Meta only. Where the budget lives, which selects the Meta budget model:   - `adset` (default): ABO (Ad-set Budget Optimization). The budget is set on the     ad set. This is the back-compatible behaviour — omit this field to keep it.   - `campaign`: CBO (Campaign Budget Optimization / Advantage Campaign Budget). The     budget AND `bidStrategy` are set on the CAMPAIGN, and Meta distributes spend     across ad sets automatically. Meta requires the budget at exactly one level, never both. Non-Meta platforms ignore this field. Ignored on the attach shape (`adSetId`), which inherits the existing budget.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum BudgetLevel {
+    #[serde(rename = "adset")]
+    Adset,
+    #[serde(rename = "campaign")]
+    Campaign,
+}
+
+impl Default for BudgetLevel {
+    fn default() -> BudgetLevel {
+        Self::Adset
     }
 }
 /// Required on legacy + attach shapes for Meta. Honoured on TikTok (passes through to the Spark Ad creative's `call_to_action`) and on LinkedIn (the CTA button on the ad; defaults to LEARN_MORE when `linkUrl` is set). LinkedIn accepts: LEARN_MORE, SIGN_UP, DOWNLOAD, SUBSCRIBE, REGISTER, JOIN, ATTEND, REQUEST_DEMO, VIEW_QUOTE, APPLY, SEE_MORE, SHOP_NOW, BUY_NOW. Ignored by Google, Pinterest, and X/Twitter.

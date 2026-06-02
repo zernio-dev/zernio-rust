@@ -196,7 +196,9 @@ docs/CreateStandaloneAdRequestCitiesInner.md
 docs/CreateStandaloneAdRequestCreativesInner.md
 docs/CreateStandaloneAdRequestCreativesInnerVideo.md
 docs/CreateStandaloneAdRequestCustomLocationsInner.md
+docs/CreateStandaloneAdRequestDynamicCreative.md
 docs/CreateStandaloneAdRequestImages.md
+docs/CreateStandaloneAdRequestPlacements.md
 docs/CreateStandaloneAdRequestPromotedObject.md
 docs/CreateStandaloneAdRequestRegionsInner.md
 docs/CreateStandaloneAdRequestVideo.md
@@ -1383,7 +1385,9 @@ src/models/create_standalone_ad_request_cities_inner.rs
 src/models/create_standalone_ad_request_creatives_inner.rs
 src/models/create_standalone_ad_request_creatives_inner_video.rs
 src/models/create_standalone_ad_request_custom_locations_inner.rs
+src/models/create_standalone_ad_request_dynamic_creative.rs
 src/models/create_standalone_ad_request_images.rs
+src/models/create_standalone_ad_request_placements.rs
 src/models/create_standalone_ad_request_promoted_object.rs
 src/models/create_standalone_ad_request_regions_inner.rs
 src/models/create_standalone_ad_request_video.rs
