@@ -28,7 +28,7 @@ Name | Type | Description | Notes
 **roas_average_floor** | Option<**f64**> | Minimum ROAS as a decimal multiplier (2.0 = 2.0x ROAS). Populated when bidStrategy is `LOWEST_COST_WITH_MIN_ROAS`.  - Meta source: decoded from `bid_constraints.roas_average_floor` (Meta stores as   fixed-point int × 10000; we return the decimal). - TikTok source: `roas_bid` on the ad group (already a decimal).  Source: facebook-business-sdk-codegen api_specs/specs/AdCampaignBidConstraint.json.  | [optional]
 **promoted_object** | Option<[**models::AdPromotedObject**](AdPromotedObject.md)> |  | [optional]
 **creative** | Option<[**models::AdCreative**](AdCreative.md)> |  | [optional]
-**targeting** | Option<**serde_json::Value**> |  | [optional]
+**targeting** | Option<**serde_json::Value**> | The ad set's targeting (age, gender, geo, interests, placements, audience inclusions/exclusions). For ads created through Zernio this is the spec you supplied. For external ads (synced from Meta Ads Manager, `isExternal: true`) targeting lives at the ad set and isn't stored at ingest, so on the first `GET /v1/ads/{adId}` Zernio resolves it live from Meta and caches it on the ad; the value is then Meta's raw `targeting` shape (snake_case, e.g. `geo_locations`, `age_min`), the same object Ads Manager shows. May be absent if the ad set exposes no targeting or the lookup fails.  | [optional]
 **schedule** | Option<[**models::AdSchedule**](AdSchedule.md)> |  | [optional]
 **rejection_reason** | Option<**String**> |  | [optional]
 **created_at** | Option<**String**> |  | [optional]

@@ -76,6 +76,7 @@ pub struct Ad {
     pub promoted_object: Option<Box<models::AdPromotedObject>>,
     #[serde(rename = "creative", skip_serializing_if = "Option::is_none")]
     pub creative: Option<Box<models::AdCreative>>,
+    /// The ad set's targeting (age, gender, geo, interests, placements, audience inclusions/exclusions). For ads created through Zernio this is the spec you supplied. For external ads (synced from Meta Ads Manager, `isExternal: true`) targeting lives at the ad set and isn't stored at ingest, so on the first `GET /v1/ads/{adId}` Zernio resolves it live from Meta and caches it on the ad; the value is then Meta's raw `targeting` shape (snake_case, e.g. `geo_locations`, `age_min`), the same object Ads Manager shows. May be absent if the ad set exposes no targeting or the lookup fails.
     #[serde(rename = "targeting", skip_serializing_if = "Option::is_none")]
     pub targeting: Option<serde_json::Value>,
     #[serde(rename = "schedule", skip_serializing_if = "Option::is_none")]
