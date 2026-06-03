@@ -1892,6 +1892,8 @@ pub mod update_post_metadata_request;
 pub use self::update_post_metadata_request::UpdatePostMetadataRequest;
 pub mod update_post_request;
 pub use self::update_post_request::UpdatePostRequest;
+pub mod update_post_request_platforms_inner;
+pub use self::update_post_request_platforms_inner::UpdatePostRequestPlatformsInner;
 pub mod update_profile_200_response;
 pub use self::update_profile_200_response::UpdateProfile200Response;
 pub mod update_profile_request;

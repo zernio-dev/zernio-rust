@@ -12,30 +12,29 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct CreatePostRequestPlatformsInner {
+pub struct UpdatePostRequestPlatformsInner {
     #[serde(rename = "platform")]
     pub platform: String,
     #[serde(rename = "accountId")]
     pub account_id: String,
-    /// Platform-specific text override. When set, this content is used instead of the top-level post content for this platform. Useful for tailoring captions per platform (e.g. keeping tweets under 280 characters).
+    /// Platform-specific text override.
     #[serde(rename = "customContent", skip_serializing_if = "Option::is_none")]
     pub custom_content: Option<String>,
     #[serde(rename = "customMedia", skip_serializing_if = "Option::is_none")]
     pub custom_media: Option<Vec<models::MediaItem>>,
-    /// Optional per-platform scheduled time override. When omitted, the top-level scheduledFor is used.
+    /// Optional per-platform scheduled time override.
     #[serde(rename = "scheduledFor", skip_serializing_if = "Option::is_none")]
     pub scheduled_for: Option<String>,
     #[serde(
         rename = "platformSpecificData",
         skip_serializing_if = "Option::is_none"
     )]
-    pub platform_specific_data:
-        Option<Box<models::CreatePostRequestPlatformsInnerPlatformSpecificData>>,
+    pub platform_specific_data: Option<std::collections::HashMap<String, serde_json::Value>>,
 }
 
-impl CreatePostRequestPlatformsInner {
-    pub fn new(platform: String, account_id: String) -> CreatePostRequestPlatformsInner {
-        CreatePostRequestPlatformsInner {
+impl UpdatePostRequestPlatformsInner {
+    pub fn new(platform: String, account_id: String) -> UpdatePostRequestPlatformsInner {
+        UpdatePostRequestPlatformsInner {
             platform,
             account_id,
             custom_content: None,

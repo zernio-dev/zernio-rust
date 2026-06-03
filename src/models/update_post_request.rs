@@ -13,10 +13,44 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdatePostRequest {
+    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
     #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
     pub content: Option<String>,
+    #[serde(rename = "mediaItems", skip_serializing_if = "Option::is_none")]
+    pub media_items: Option<Vec<models::MediaItem>>,
+    /// Target platforms and accounts for this post. Each item must include platform and accountId.
+    #[serde(rename = "platforms", skip_serializing_if = "Option::is_none")]
+    pub platforms: Option<Vec<models::UpdatePostRequestPlatformsInner>>,
     #[serde(rename = "scheduledFor", skip_serializing_if = "Option::is_none")]
     pub scheduled_for: Option<String>,
+    #[serde(rename = "publishNow", skip_serializing_if = "Option::is_none")]
+    pub publish_now: Option<bool>,
+    #[serde(rename = "isDraft", skip_serializing_if = "Option::is_none")]
+    pub is_draft: Option<bool>,
+    #[serde(rename = "timezone", skip_serializing_if = "Option::is_none")]
+    pub timezone: Option<String>,
+    #[serde(rename = "visibility", skip_serializing_if = "Option::is_none")]
+    pub visibility: Option<Visibility>,
+    #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
+    pub tags: Option<Vec<String>>,
+    #[serde(rename = "hashtags", skip_serializing_if = "Option::is_none")]
+    pub hashtags: Option<Vec<String>>,
+    #[serde(rename = "mentions", skip_serializing_if = "Option::is_none")]
+    pub mentions: Option<Vec<String>>,
+    #[serde(
+        rename = "crosspostingEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub crossposting_enabled: Option<bool>,
+    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<std::collections::HashMap<String, serde_json::Value>>,
+    /// Profile ID to schedule via queue.
+    #[serde(rename = "queuedFromProfile", skip_serializing_if = "Option::is_none")]
+    pub queued_from_profile: Option<String>,
+    /// Specific queue ID to use when scheduling via queue.
+    #[serde(rename = "queueId", skip_serializing_if = "Option::is_none")]
+    pub queue_id: Option<String>,
     /// Root-level TikTok settings applied to all TikTok platforms. Merged into each platform's platformSpecificData, with platform-specific settings taking precedence.
     #[serde(rename = "tiktokSettings", skip_serializing_if = "Option::is_none")]
     pub tiktok_settings: Option<Box<models::TikTokPlatformData>>,
@@ -30,11 +64,41 @@ pub struct UpdatePostRequest {
 impl UpdatePostRequest {
     pub fn new() -> UpdatePostRequest {
         UpdatePostRequest {
+            title: None,
             content: None,
+            media_items: None,
+            platforms: None,
             scheduled_for: None,
+            publish_now: None,
+            is_draft: None,
+            timezone: None,
+            visibility: None,
+            tags: None,
+            hashtags: None,
+            mentions: None,
+            crossposting_enabled: None,
+            metadata: None,
+            queued_from_profile: None,
+            queue_id: None,
             tiktok_settings: None,
             facebook_settings: None,
             recycling: None,
         }
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Visibility {
+    #[serde(rename = "public")]
+    Public,
+    #[serde(rename = "private")]
+    Private,
+    #[serde(rename = "unlisted")]
+    Unlisted,
+}
+
+impl Default for Visibility {
+    fn default() -> Visibility {
+        Self::Public
     }
 }
