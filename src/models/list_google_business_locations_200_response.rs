@@ -15,10 +15,16 @@ use serde::{Deserialize, Serialize};
 pub struct ListGoogleBusinessLocations200Response {
     #[serde(rename = "locations", skip_serializing_if = "Option::is_none")]
     pub locations: Option<Vec<models::ListGoogleBusinessLocations200ResponseLocationsInner>>,
+    /// True when more locations exist than were returned (the list is bounded). Prompt the user to narrow the result set with search.
+    #[serde(rename = "hasMore", skip_serializing_if = "Option::is_none")]
+    pub has_more: Option<bool>,
 }
 
 impl ListGoogleBusinessLocations200Response {
     pub fn new() -> ListGoogleBusinessLocations200Response {
-        ListGoogleBusinessLocations200Response { locations: None }
+        ListGoogleBusinessLocations200Response {
+            locations: None,
+            has_more: None,
+        }
     }
 }

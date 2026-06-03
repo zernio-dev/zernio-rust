@@ -27,6 +27,8 @@ pub struct GetGmbLocations200ResponseLocationsInner {
     pub category: Option<String>,
     #[serde(rename = "websiteUrl", skip_serializing_if = "Option::is_none")]
     pub website_url: Option<String>,
+    #[serde(rename = "storeCode", skip_serializing_if = "Option::is_none")]
+    pub store_code: Option<String>,
 }
 
 impl GetGmbLocations200ResponseLocationsInner {
@@ -39,6 +41,7 @@ impl GetGmbLocations200ResponseLocationsInner {
             address: None,
             category: None,
             website_url: None,
+            store_code: None,
         }
     }
 }

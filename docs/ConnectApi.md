@@ -295,10 +295,10 @@ Name | Type | Description  | Required | Notes
 
 ## get_gmb_locations
 
-> models::GetGmbLocations200Response get_gmb_locations(account_id)
+> models::GetGmbLocations200Response get_gmb_locations(account_id, search, filter)
 List GBP locations
 
-Returns all Google Business Profile locations the connected account has access to, including the currently selected location.
+Returns Google Business Profile locations the connected account can access, plus the currently selected location. The list is bounded (see hasMore); for accounts that own many locations, use the search or filter query params to find a specific one instead of loading them all. 
 
 ### Parameters
 
@@ -306,6 +306,8 @@ Returns all Google Business Profile locations the connected account has access t
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** |  | [required] |
+**search** | Option<**String**> | Free-text search on the business name, applied server-side by Google. Use for accounts with many locations. |  |
+**filter** | Option<**String**> | Raw Google Business Information API filter expression (advanced; takes precedence over search), e.g. storeCode=\"LH279411\". |  |
 
 ### Return type
 
@@ -628,7 +630,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_google_business_locations
 
-> models::ListGoogleBusinessLocations200Response list_google_business_locations(profile_id, pending_data_token, temp_token)
+> models::ListGoogleBusinessLocations200Response list_google_business_locations(profile_id, pending_data_token, temp_token, search, filter)
 List GBP locations
 
 For headless flows. Returns the list of GBP locations the user can manage. Use pendingDataToken (from the OAuth callback redirect) to list locations without consuming the token, so it remains available for select-location. Use X-Connect-Token header if connecting via API key. 
@@ -641,6 +643,8 @@ Name | Type | Description  | Required | Notes
 **profile_id** | Option<**String**> | Profile ID from your connection flow. Required for auth validation when provided. |  |
 **pending_data_token** | Option<**String**> | Token from the OAuth callback redirect. Preferred over tempToken because it preserves server-side token storage. One of pendingDataToken or tempToken is required. |  |
 **temp_token** | Option<**String**> | Legacy. Direct Google access token. Use pendingDataToken instead when available. |  |
+**search** | Option<**String**> | Free-text search on the business name, applied server-side by Google. Use this for accounts that own many locations (the response is bounded, see hasMore) so the user can find a specific location without loading the full list.  |  |
+**filter** | Option<**String**> | Raw Google Business Information API filter expression (advanced; takes precedence over search). Supports fields such as title, storeCode, storefront_address.postal_code, labels and categories, e.g. storeCode=\"LH279411\". See Google's \"Work with location data\" guide.  |  |
 
 ### Return type
 

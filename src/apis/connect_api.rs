@@ -863,13 +863,17 @@ pub async fn get_facebook_pages(
     }
 }
 
-/// Returns all Google Business Profile locations the connected account has access to, including the currently selected location.
+/// Returns Google Business Profile locations the connected account can access, plus the currently selected location. The list is bounded (see hasMore); for accounts that own many locations, use the search or filter query params to find a specific one instead of loading them all.
 pub async fn get_gmb_locations(
     configuration: &configuration::Configuration,
     account_id: &str,
+    search: Option<&str>,
+    filter: Option<&str>,
 ) -> Result<models::GetGmbLocations200Response, Error<GetGmbLocationsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_account_id = account_id;
+    let p_query_search = search;
+    let p_query_filter = filter;
 
     let uri_str = format!(
         "{}/v1/accounts/{accountId}/gmb-locations",
@@ -878,6 +882,12 @@ pub async fn get_gmb_locations(
     );
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+    if let Some(ref param_value) = p_query_search {
+        req_builder = req_builder.query(&[("search", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_filter {
+        req_builder = req_builder.query(&[("filter", &param_value.to_string())]);
+    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -1431,12 +1441,16 @@ pub async fn list_google_business_locations(
     profile_id: Option<&str>,
     pending_data_token: Option<&str>,
     temp_token: Option<&str>,
+    search: Option<&str>,
+    filter: Option<&str>,
 ) -> Result<models::ListGoogleBusinessLocations200Response, Error<ListGoogleBusinessLocationsError>>
 {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_profile_id = profile_id;
     let p_query_pending_data_token = pending_data_token;
     let p_query_temp_token = temp_token;
+    let p_query_search = search;
+    let p_query_filter = filter;
 
     let uri_str = format!(
         "{}/v1/connect/googlebusiness/locations",
@@ -1452,6 +1466,12 @@ pub async fn list_google_business_locations(
     }
     if let Some(ref param_value) = p_query_temp_token {
         req_builder = req_builder.query(&[("tempToken", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_search {
+        req_builder = req_builder.query(&[("search", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_filter {
+        req_builder = req_builder.query(&[("filter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());

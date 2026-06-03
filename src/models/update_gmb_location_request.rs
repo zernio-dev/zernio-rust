@@ -15,12 +15,16 @@ use serde::{Deserialize, Serialize};
 pub struct UpdateGmbLocationRequest {
     #[serde(rename = "selectedLocationId")]
     pub selected_location_id: String,
+    /// Optional but recommended. The Google Business Account resource name (\"accounts/123\") that owns the new location (from GET gmb-locations). When provided, the location is resolved directly instead of by enumerating the account, which is required for accounts with many locations.
+    #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
+    pub account_id: Option<String>,
 }
 
 impl UpdateGmbLocationRequest {
     pub fn new(selected_location_id: String) -> UpdateGmbLocationRequest {
         UpdateGmbLocationRequest {
             selected_location_id,
+            account_id: None,
         }
     }
 }

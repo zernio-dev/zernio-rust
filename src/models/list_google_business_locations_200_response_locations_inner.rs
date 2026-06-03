@@ -31,6 +31,9 @@ pub struct ListGoogleBusinessLocations200ResponseLocationsInner {
     /// Business category
     #[serde(rename = "category", skip_serializing_if = "Option::is_none")]
     pub category: Option<String>,
+    /// Store code set on the location in Google Business Profile (if any)
+    #[serde(rename = "storeCode", skip_serializing_if = "Option::is_none")]
+    pub store_code: Option<String>,
 }
 
 impl ListGoogleBusinessLocations200ResponseLocationsInner {
@@ -42,6 +45,7 @@ impl ListGoogleBusinessLocations200ResponseLocationsInner {
             account_name: None,
             address: None,
             category: None,
+            store_code: None,
         }
     }
 }

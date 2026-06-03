@@ -19,6 +19,9 @@ pub struct SelectGoogleBusinessLocationRequest {
     /// The Google Business location ID selected by the user
     #[serde(rename = "locationId")]
     pub location_id: String,
+    /// Optional but recommended. The Google Business Account resource name (\"accounts/123\") that owns the selected location (returned per-location by GET /v1/connect/googlebusiness/locations). When provided, the location is resolved directly instead of by enumerating the account, which is required for accounts that own many locations. Omit only for small accounts.
+    #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
+    pub account_id: Option<String>,
     /// Token from the OAuth callback redirect (pendingDataToken query param). Tokens and profile data are retrieved server-side from this token.
     #[serde(rename = "pendingDataToken")]
     pub pending_data_token: String,
@@ -36,6 +39,7 @@ impl SelectGoogleBusinessLocationRequest {
         SelectGoogleBusinessLocationRequest {
             profile_id,
             location_id,
+            account_id: None,
             pending_data_token,
             redirect_url: None,
         }

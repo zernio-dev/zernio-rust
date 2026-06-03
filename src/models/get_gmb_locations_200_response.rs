@@ -15,6 +15,9 @@ use serde::{Deserialize, Serialize};
 pub struct GetGmbLocations200Response {
     #[serde(rename = "locations", skip_serializing_if = "Option::is_none")]
     pub locations: Option<Vec<models::GetGmbLocations200ResponseLocationsInner>>,
+    /// True when more locations exist than were returned (use search to narrow down).
+    #[serde(rename = "hasMore", skip_serializing_if = "Option::is_none")]
+    pub has_more: Option<bool>,
     #[serde(rename = "selectedLocationId", skip_serializing_if = "Option::is_none")]
     pub selected_location_id: Option<String>,
     #[serde(rename = "cached", skip_serializing_if = "Option::is_none")]
@@ -25,6 +28,7 @@ impl GetGmbLocations200Response {
     pub fn new() -> GetGmbLocations200Response {
         GetGmbLocations200Response {
             locations: None,
+            has_more: None,
             selected_location_id: None,
             cached: None,
         }
