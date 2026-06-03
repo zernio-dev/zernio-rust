@@ -18,8 +18,10 @@ Method | HTTP request | Description
 [**get_ad**](AdsApi.md#get_ad) | **GET** /v1/ads/{adId} | Get ad details
 [**get_ad_analytics**](AdsApi.md#get_ad_analytics) | **GET** /v1/ads/{adId}/analytics | Get ad analytics
 [**get_ad_comments**](AdsApi.md#get_ad_comments) | **GET** /v1/ads/{adId}/comments | List comments on an ad
+[**get_ad_tracking_tags**](AdsApi.md#get_ad_tracking_tags) | **GET** /v1/ads/{adId}/tracking-tags | Read an ad's click-URL tracking tags
 [**get_conversion_destination**](AdsApi.md#get_conversion_destination) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Fetch a single conversion destination
 [**get_conversion_metrics**](AdsApi.md#get_conversion_metrics) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/metrics | Fetch attribution metrics for a conversion destination
+[**get_conversions_quality**](AdsApi.md#get_conversions_quality) | **GET** /v1/ads/conversions/quality | Read Event Match Quality + coverage for a Meta pixel
 [**get_lead_form**](AdsApi.md#get_lead_form) | **GET** /v1/ads/lead-forms/{formId} | Get a single Lead Gen form
 [**list_ad_accounts**](AdsApi.md#list_ad_accounts) | **GET** /v1/ads/accounts | List ad accounts
 [**list_ads**](AdsApi.md#list_ads) | **GET** /v1/ads | List ads
@@ -36,6 +38,7 @@ Method | HTTP request | Description
 [**send_conversions**](AdsApi.md#send_conversions) | **POST** /v1/ads/conversions | Send conversion events to an ad platform
 [**send_whats_app_conversion**](AdsApi.md#send_whats_app_conversion) | **POST** /v1/whatsapp/conversions | Send WhatsApp conversion event
 [**update_ad**](AdsApi.md#update_ad) | **PUT** /v1/ads/{adId} | Update ad
+[**update_ad_tracking_tags**](AdsApi.md#update_ad_tracking_tags) | **PATCH** /v1/ads/{adId}/tracking-tags | Set/update an ad's click-URL tracking tags
 [**update_conversion_destination**](AdsApi.md#update_conversion_destination) | **PATCH** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Update a conversion destination
 
 
@@ -473,6 +476,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_ad_tracking_tags
+
+> models::GetAdTrackingTags200Response get_ad_tracking_tags(ad_id)
+Read an ad's click-URL tracking tags
+
+Unified read of the platform's native click-URL tracking params. - Meta (facebook/instagram): the creative's `url_tags` (and template_url_spec). - Google (googleads): the campaign's `trackingUrlTemplate` + `finalUrlSuffix`.   Subject to the Google Ads API access-tier daily quota; bulk audits need Standard access. - LinkedIn (linkedinads): the campaign's Dynamic UTM `dynamicValueParameters` + `customValueParameters`. Returns 405 for platforms without a click-URL tracking surface (TikTok, X, Pinterest). 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**ad_id** | **String** | Ad id (hex _id, platformAdId, or effective story/media id). | [required] |
+
+### Return type
+
+[**models::GetAdTrackingTags200Response**](getAdTrackingTags_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_conversion_destination
 
 > models::CreateConversionDestination201Response get_conversion_destination(account_id, destination_id, ad_account_id)
@@ -527,6 +560,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetConversionMetrics200Response**](getConversionMetrics_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_conversions_quality
+
+> models::GetConversionsQuality200Response get_conversions_quality(account_id, destination_id)
+Read Event Match Quality + coverage for a Meta pixel
+
+Reads Meta Event Match Quality (EMQ) and pixel↔CAPI event coverage for a pixel/dataset, live from Meta's Dataset Quality API. Web events only (a Meta limitation). Meta-only; other platforms return 405. Requires the Ads add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | SocialAccount _id (must be a metaads account). | [required] |
+**destination_id** | **String** | Meta pixel/dataset ID. | [required] |
+
+### Return type
+
+[**models::GetConversionsQuality200Response**](getConversionsQuality_200_response.md)
 
 ### Authorization
 
@@ -1044,6 +1108,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UpdateAd200Response**](updateAd_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_ad_tracking_tags
+
+> update_ad_tracking_tags(ad_id, update_ad_tracking_tags_request)
+Set/update an ad's click-URL tracking tags
+
+Unified update. Send only the fields for the ad's platform: - Meta: `urlTags` (array of {key,value}) + `creative` (headline, body, callToAction, linkUrl, imageUrl).   Meta creatives are immutable, so this REBUILDS the creative and repoints the ad — the full   creative is required. Placement-customized / asset-feed / dark creatives may not be   rebuildable this way and return 422. - Google: `trackingUrlTemplate` and/or `finalUrlSuffix` (full template strings; account quota applies). - LinkedIn: `dynamicValueParameters` and/or `customValueParameters` (campaign-level Dynamic UTM). 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**ad_id** | **String** |  | [required] |
+**update_ad_tracking_tags_request** | [**UpdateAdTrackingTagsRequest**](UpdateAdTrackingTagsRequest.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
 
 ### Authorization
 

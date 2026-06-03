@@ -38,6 +38,21 @@ pub struct ConversionEventUser {
     /// ISO 3166-1 alpha-2 country code, e.g. 'us'.
     #[serde(rename = "country", skip_serializing_if = "Option::is_none")]
     pub country: Option<String>,
+    /// Meta advanced matching (ct). Plaintext city; normalized + SHA-256 hashed server-side. Meta only.
+    #[serde(rename = "city", skip_serializing_if = "Option::is_none")]
+    pub city: Option<String>,
+    /// Meta advanced matching (st). 2-letter ANSI for US; hashed server-side. Meta only.
+    #[serde(rename = "state", skip_serializing_if = "Option::is_none")]
+    pub state: Option<String>,
+    /// Meta advanced matching (zp). US uses first 5 digits; hashed server-side. Meta only.
+    #[serde(rename = "zip", skip_serializing_if = "Option::is_none")]
+    pub zip: Option<String>,
+    /// Meta advanced matching (db). YYYYMMDD; hashed server-side. Meta only.
+    #[serde(rename = "dob", skip_serializing_if = "Option::is_none")]
+    pub dob: Option<String>,
+    /// Meta advanced matching (ge). 'f' or 'm'; hashed server-side. Meta only.
+    #[serde(rename = "gender", skip_serializing_if = "Option::is_none")]
+    pub gender: Option<String>,
     #[serde(rename = "clickIds", skip_serializing_if = "Option::is_none")]
     pub click_ids: Option<Box<models::ConversionEventUserClickIds>>,
 }
@@ -54,6 +69,11 @@ impl ConversionEventUser {
             ip_address: None,
             user_agent: None,
             country: None,
+            city: None,
+            state: None,
+            zip: None,
+            dob: None,
+            gender: None,
             click_ids: None,
         }
     }

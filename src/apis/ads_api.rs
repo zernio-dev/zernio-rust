@@ -163,6 +163,16 @@ pub enum GetAdCommentsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_ad_tracking_tags`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAdTrackingTagsError {
+    Status401(models::InlineObject),
+    Status404(),
+    Status405(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_conversion_destination`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -186,6 +196,15 @@ pub enum GetConversionMetricsError {
     Status404(),
     Status405(),
     Status429(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_conversions_quality`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetConversionsQualityError {
+    Status401(models::InlineObject),
+    Status405(),
     UnknownValue(serde_json::Value),
 }
 
@@ -349,6 +368,17 @@ pub enum UpdateAdError {
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
     Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_ad_tracking_tags`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateAdTrackingTagsError {
+    Status401(models::InlineObject),
+    Status404(),
+    Status405(),
+    Status422(),
     UnknownValue(serde_json::Value),
 }
 
@@ -1132,6 +1162,57 @@ pub async fn get_ad_comments(
     }
 }
 
+/// Unified read of the platform's native click-URL tracking params. - Meta (facebook/instagram): the creative's `url_tags` (and template_url_spec). - Google (googleads): the campaign's `trackingUrlTemplate` + `finalUrlSuffix`.   Subject to the Google Ads API access-tier daily quota; bulk audits need Standard access. - LinkedIn (linkedinads): the campaign's Dynamic UTM `dynamicValueParameters` + `customValueParameters`. Returns 405 for platforms without a click-URL tracking surface (TikTok, X, Pinterest).
+pub async fn get_ad_tracking_tags(
+    configuration: &configuration::Configuration,
+    ad_id: &str,
+) -> Result<models::GetAdTrackingTags200Response, Error<GetAdTrackingTagsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_ad_id = ad_id;
+
+    let uri_str = format!(
+        "{}/v1/ads/{adId}/tracking-tags",
+        configuration.base_path,
+        adId = crate::apis::urlencode(p_path_ad_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetAdTrackingTags200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetAdTrackingTags200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAdTrackingTagsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// LinkedIn-only today. Returns the full destination record for one conversion rule. The `adAccountId` query parameter is required because LinkedIn rules are scoped to a sponsored ad account.
 pub async fn get_conversion_destination(
     configuration: &configuration::Configuration,
@@ -1251,6 +1332,57 @@ pub async fn get_conversion_metrics(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetConversionMetricsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Reads Meta Event Match Quality (EMQ) and pixel↔CAPI event coverage for a pixel/dataset, live from Meta's Dataset Quality API. Web events only (a Meta limitation). Meta-only; other platforms return 405. Requires the Ads add-on.
+pub async fn get_conversions_quality(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    destination_id: &str,
+) -> Result<models::GetConversionsQuality200Response, Error<GetConversionsQualityError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_destination_id = destination_id;
+
+    let uri_str = format!("{}/v1/ads/conversions/quality", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    req_builder = req_builder.query(&[("destinationId", &p_query_destination_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetConversionsQuality200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetConversionsQuality200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetConversionsQualityError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -2223,6 +2355,51 @@ pub async fn update_ad(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateAdError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Unified update. Send only the fields for the ad's platform: - Meta: `urlTags` (array of {key,value}) + `creative` (headline, body, callToAction, linkUrl, imageUrl).   Meta creatives are immutable, so this REBUILDS the creative and repoints the ad — the full   creative is required. Placement-customized / asset-feed / dark creatives may not be   rebuildable this way and return 422. - Google: `trackingUrlTemplate` and/or `finalUrlSuffix` (full template strings; account quota applies). - LinkedIn: `dynamicValueParameters` and/or `customValueParameters` (campaign-level Dynamic UTM).
+pub async fn update_ad_tracking_tags(
+    configuration: &configuration::Configuration,
+    ad_id: &str,
+    update_ad_tracking_tags_request: models::UpdateAdTrackingTagsRequest,
+) -> Result<(), Error<UpdateAdTrackingTagsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_ad_id = ad_id;
+    let p_body_update_ad_tracking_tags_request = update_ad_tracking_tags_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/{adId}/tracking-tags",
+        configuration.base_path,
+        adId = crate::apis::urlencode(p_path_ad_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::PATCH, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_ad_tracking_tags_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateAdTrackingTagsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
