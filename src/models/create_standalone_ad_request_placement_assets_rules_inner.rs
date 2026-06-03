@@ -13,20 +13,27 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateStandaloneAdRequestPlacementAssetsRulesInner {
-    /// The image to deliver for this rule's placements.
-    #[serde(rename = "imageUrl")]
-    pub image_url: String,
+    /// Image mode. The image to deliver for this rule's placements.
+    #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
+    pub image_url: Option<String>,
+    /// Video mode. The video to deliver for this rule's placements.
+    #[serde(rename = "videoUrl", skip_serializing_if = "Option::is_none")]
+    pub video_url: Option<String>,
+    /// Video mode (optional). Poster image for this rule's video; auto-generated when omitted.
+    #[serde(rename = "thumbnailUrl", skip_serializing_if = "Option::is_none")]
+    pub thumbnail_url: Option<String>,
     #[serde(rename = "placements")]
     pub placements: Box<models::CreateStandaloneAdRequestPlacementAssetsRulesInnerPlacements>,
 }
 
 impl CreateStandaloneAdRequestPlacementAssetsRulesInner {
     pub fn new(
-        image_url: String,
         placements: models::CreateStandaloneAdRequestPlacementAssetsRulesInnerPlacements,
     ) -> CreateStandaloneAdRequestPlacementAssetsRulesInner {
         CreateStandaloneAdRequestPlacementAssetsRulesInner {
-            image_url,
+            image_url: None,
+            video_url: None,
+            thumbnail_url: None,
             placements: Box::new(placements),
         }
     }

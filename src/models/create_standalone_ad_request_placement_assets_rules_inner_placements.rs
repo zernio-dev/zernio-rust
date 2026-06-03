@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateStandaloneAdRequestPlacementAssetsRulesInnerPlacements : Placements this image is pinned to. At least one field must be set (an empty rule is invalid — that role is served by defaultImageUrl). Same enums as the top-level `placements` object.
+/// CreateStandaloneAdRequestPlacementAssetsRulesInnerPlacements : Placements this asset is pinned to. At least one field must be set (an empty rule is invalid — that role is served by the default asset). Same enums as the top-level `placements` object.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateStandaloneAdRequestPlacementAssetsRulesInnerPlacements {
     #[serde(rename = "publisherPlatforms", skip_serializing_if = "Option::is_none")]
@@ -36,7 +36,7 @@ pub struct CreateStandaloneAdRequestPlacementAssetsRulesInnerPlacements {
 }
 
 impl CreateStandaloneAdRequestPlacementAssetsRulesInnerPlacements {
-    /// Placements this image is pinned to. At least one field must be set (an empty rule is invalid — that role is served by defaultImageUrl). Same enums as the top-level `placements` object.
+    /// Placements this asset is pinned to. At least one field must be set (an empty rule is invalid — that role is served by the default asset). Same enums as the top-level `placements` object.
     pub fn new() -> CreateStandaloneAdRequestPlacementAssetsRulesInnerPlacements {
         CreateStandaloneAdRequestPlacementAssetsRulesInnerPlacements {
             publisher_platforms: None,
