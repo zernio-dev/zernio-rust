@@ -13,9 +13,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct EstimateAdReachRequest {
-    /// Social account ID on the target ad platform.
+    /// Zernio social account ID on the target ad platform (the estimate runs against its platform).
     #[serde(rename = "accountId")]
     pub account_id: String,
+    /// Required. The platform ad-account ID the reach call runs against (Meta act_..., LinkedIn numeric sponsoredAccount ID, Pinterest ad-account ID, X account ID) - every backing reach API is scoped to one ad account. Get it from GET /v1/ads/accounts.
+    #[serde(rename = "adAccountId")]
+    pub ad_account_id: String,
     /// The targeting spec to estimate. Same shape used by POST /v1/ads/create.
     #[serde(rename = "spec")]
     pub spec: Box<models::TargetingSpec>,
@@ -25,9 +28,14 @@ pub struct EstimateAdReachRequest {
 }
 
 impl EstimateAdReachRequest {
-    pub fn new(account_id: String, spec: models::TargetingSpec) -> EstimateAdReachRequest {
+    pub fn new(
+        account_id: String,
+        ad_account_id: String,
+        spec: models::TargetingSpec,
+    ) -> EstimateAdReachRequest {
         EstimateAdReachRequest {
             account_id,
+            ad_account_id,
             spec: Box::new(spec),
             optimization_goal: None,
         }
