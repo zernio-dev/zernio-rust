@@ -20,6 +20,9 @@ pub struct UpdateAdSetRequest {
     /// Omit if not toggling delivery state
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
+    /// Rename the ad set (Meta only; other platforms return 501). At least one of budget/status/bidStrategy/name is required.
+    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
     /// Ad-set-level bid strategy. Overrides the campaign-level default. Supported on Meta (facebook, instagram) and TikTok. On TikTok the Meta-style enum is mapped to bid_type / bid_price / deep_bid_type automatically. Other platforms (linkedin, pinterest, google, twitter) return 501 Not Implemented when bidStrategy is set.
     #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
     pub bid_strategy: Option<models::BidStrategy>,
@@ -37,6 +40,7 @@ impl UpdateAdSetRequest {
             platform,
             budget: None,
             status: None,
+            name: None,
             bid_strategy: None,
             bid_amount: None,
             roas_average_floor: None,

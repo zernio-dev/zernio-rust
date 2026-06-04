@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**name** | Option<**String**> | Exact name for this ad. Falls back to `<name> #N` (N = 1-based position). | [optional]
 **headline** | **String** |  | 
 **body** | **String** |  | 
 **image_url** | Option<**String**> | Image creative. Mutually exclusive with `video`. | [optional]

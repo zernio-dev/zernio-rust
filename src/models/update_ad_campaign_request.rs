@@ -20,6 +20,9 @@ pub struct UpdateAdCampaignRequest {
     /// Campaign-level default. Ad sets inherit this unless they override.
     #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
     pub bid_strategy: Option<models::BidStrategy>,
+    /// Rename the campaign (Meta only; other platforms return 501). At least one of budget/bidStrategy/name is required.
+    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
 }
 
 impl UpdateAdCampaignRequest {
@@ -28,6 +31,7 @@ impl UpdateAdCampaignRequest {
             platform,
             budget: None,
             bid_strategy: None,
+            name: None,
         }
     }
 }

@@ -21,6 +21,7 @@ pub struct UpdateAdRequest {
     pub targeting: Option<Box<models::UpdateAdRequestTargeting>>,
     #[serde(rename = "creative", skip_serializing_if = "Option::is_none")]
     pub creative: Option<Box<models::UpdateAdRequestCreative>>,
+    /// Rename the ad. Now propagated to Meta (POST /{ad-id}); non-Meta platforms return 501.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 }

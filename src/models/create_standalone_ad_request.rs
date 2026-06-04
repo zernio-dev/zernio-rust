@@ -19,6 +19,12 @@ pub struct CreateStandaloneAdRequest {
     pub ad_account_id: String,
     #[serde(rename = "name")]
     pub name: String,
+    /// Meta only. Exact campaign name. Overrides the default `<name> - Campaign`.
+    #[serde(rename = "campaignName", skip_serializing_if = "Option::is_none")]
+    pub campaign_name: Option<String>,
+    /// Meta only. Exact ad set name. Overrides the default `<name> - Ad Set`. (For per-ad names on the multi-creative shape, set `name` on each `creatives[]` entry.)
+    #[serde(rename = "adSetName", skip_serializing_if = "Option::is_none")]
+    pub ad_set_name: Option<String>,
     /// Required on legacy + multi-creative shapes. Inherited from the ad set on the attach shape. Available goals vary by platform. Meta-specific: `conversions` requires `promotedObject.pixelId` + `promotedObject.customEventType`; `app_promotion` requires `promotedObject.applicationId` + `promotedObject.objectStoreUrl`; `lead_generation` accepts an optional `promotedObject.pageId` (auto-filled from the connected Page when omitted). TikTok-specific: `conversions` (website-conversion ad group) requires `promotedObject.pixelId` (your TikTok Pixel ID) and accepts an optional `promotedObject.customEventType` (a TikTok `optimization_event` code like `ON_WEB_ORDER`, `INITIATE_ORDER`, `ON_WEB_REGISTER`, `FORM`); to inherit a pixel + event from an existing ad group, pass `adSetId` instead. LinkedIn-specific: `engagement`, `traffic`, `awareness`, and `video_views` are supported for standalone ads (creates a Direct Sponsored Content single image or single video ad). `traffic` requires `linkUrl`; `video_views` requires the `video` field. For `lead_generation` / `conversions` on LinkedIn — or to promote an existing post — use `POST /v1/ads/boost`.
     #[serde(rename = "goal", skip_serializing_if = "Option::is_none")]
     pub goal: Option<Goal>,
@@ -198,6 +204,8 @@ impl CreateStandaloneAdRequest {
             account_id,
             ad_account_id,
             name,
+            campaign_name: None,
+            ad_set_name: None,
             goal: None,
             budget_amount: None,
             budget_type: None,

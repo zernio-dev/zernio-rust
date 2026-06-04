@@ -14,6 +14,9 @@ use serde::{Deserialize, Serialize};
 /// CreateStandaloneAdRequestCreativesInner : Each creative must supply EXACTLY ONE of `imageUrl` (image creative) or `video` (video creative).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateStandaloneAdRequestCreativesInner {
+    /// Exact name for this ad. Falls back to `<name> #N` (N = 1-based position).
+    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
     #[serde(rename = "headline")]
     pub headline: String,
     #[serde(rename = "body")]
@@ -38,6 +41,7 @@ impl CreateStandaloneAdRequestCreativesInner {
         call_to_action: CallToAction,
     ) -> CreateStandaloneAdRequestCreativesInner {
         CreateStandaloneAdRequestCreativesInner {
+            name: None,
             headline,
             body,
             image_url: None,
