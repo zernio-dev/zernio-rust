@@ -12,6 +12,8 @@ use super::{configuration, ContentType, Error};
 use crate::{apis::ResponseContent, models};
 use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
+use tokio::fs::File as TokioFile;
+use tokio_util::codec::{BytesCodec, FramedRead};
 
 /// struct for typed errors of method [`get_whats_app_number_info`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -94,6 +96,15 @@ pub enum SearchAvailableWhatsAppNumbersError {
 pub enum SubmitWhatsAppNumberKycError {
     Status400(),
     Status409(),
+    Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`upload_whats_app_number_kyc_document`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UploadWhatsAppNumberKycDocumentError {
+    Status400(),
     Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }
@@ -539,7 +550,7 @@ pub async fn search_available_whats_app_numbers(
     }
 }
 
-/// Submit the end customer's KYC (textual values, uploaded documents, address) for a Tier 3/4 country. Documents are streamed straight to the number provider and are not stored by Zernio. Builds + submits a regulatory requirement group and claims a pending_regulatory slot; the number is ordered + activated once the provider approves (asynchronous). Idempotent per (owner, country).
+/// Submit the end customer's KYC (textual values, uploaded documents, address) for a Tier 3/4 country. Documents are streamed straight to the number provider and are not stored by Zernio. Builds + submits a regulatory requirement group and claims a pending_regulatory slot; the number is ordered + activated once the provider approves (asynchronous). A customer may hold several same-country numbers in review at once; a double-submit of the SAME attempt is deduped via `submissionId`.
 pub async fn submit_whats_app_number_kyc(
     configuration: &configuration::Configuration,
     submit_whats_app_number_kyc_request: models::SubmitWhatsAppNumberKycRequest,
@@ -581,6 +592,68 @@ pub async fn submit_whats_app_number_kyc(
     } else {
         let content = resp.text().await?;
         let entity: Option<SubmitWhatsAppNumberKycError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Upload ONE document and get back its provider document id, to reference from POST /v1/whatsapp/phone-numbers/kyc via `documents[].documentId`. Send the RAW file bytes as the request body (not base64); put the filename in the `X-Filename` header. Uploading documents one-per-request keeps each request under the ~4.5MB body limit. The document streams straight to the number provider and is not stored by Zernio.
+pub async fn upload_whats_app_number_kyc_document(
+    configuration: &configuration::Configuration,
+    x_filename: &str,
+    body: std::path::PathBuf,
+) -> Result<
+    models::UploadWhatsAppNumberKycDocument200Response,
+    Error<UploadWhatsAppNumberKycDocumentError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_header_x_filename = x_filename;
+    let p_body_body = body;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/phone-numbers/kyc/upload-document",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    req_builder = req_builder.header("X-Filename", p_header_x_filename.to_string());
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    let file = TokioFile::open(p_body_body).await?;
+    let stream = FramedRead::new(file, BytesCodec::new());
+    req_builder = req_builder.body(reqwest::Body::wrap_stream(stream));
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UploadWhatsAppNumberKycDocument200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UploadWhatsAppNumberKycDocument200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UploadWhatsAppNumberKycDocumentError> =
+            serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

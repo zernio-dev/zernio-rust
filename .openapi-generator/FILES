@@ -889,6 +889,8 @@ docs/SubmitWhatsAppNumberKyc200ResponsePhoneNumber.md
 docs/SubmitWhatsAppNumberKycRequest.md
 docs/SubmitWhatsAppNumberKycRequestAddress.md
 docs/SubmitWhatsAppNumberKycRequestDocumentsInner.md
+docs/SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf.md
+docs/SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf1.md
 docs/TargetingSpec.md
 docs/TargetingSpecCitiesInner.md
 docs/TargetingSpecCustomLocationsInner.md
@@ -1029,6 +1031,7 @@ docs/UploadWhatsAppFlowJson200Response.md
 docs/UploadWhatsAppFlowJson200ResponseValidationErrorsInner.md
 docs/UploadWhatsAppFlowJsonRequest.md
 docs/UploadWhatsAppFlowJsonRequestFlowJson.md
+docs/UploadWhatsAppNumberKycDocument200Response.md
 docs/UploadedFile.md
 docs/UploadedOrDerivedAudience.md
 docs/UsageApi.md
@@ -2068,6 +2071,8 @@ src/models/submit_whats_app_number_kyc_200_response_phone_number.rs
 src/models/submit_whats_app_number_kyc_request.rs
 src/models/submit_whats_app_number_kyc_request_address.rs
 src/models/submit_whats_app_number_kyc_request_documents_inner.rs
+src/models/submit_whats_app_number_kyc_request_documents_inner_one_of.rs
+src/models/submit_whats_app_number_kyc_request_documents_inner_one_of_1.rs
 src/models/targeting_spec.rs
 src/models/targeting_spec_cities_inner.rs
 src/models/targeting_spec_custom_locations_inner.rs
@@ -2206,6 +2211,7 @@ src/models/upload_whats_app_flow_json_200_response.rs
 src/models/upload_whats_app_flow_json_200_response_validation_errors_inner.rs
 src/models/upload_whats_app_flow_json_request.rs
 src/models/upload_whats_app_flow_json_request_flow_json.rs
+src/models/upload_whats_app_number_kyc_document_200_response.rs
 src/models/uploaded_file.rs
 src/models/uploaded_or_derived_audience.rs
 src/models/usage_stats.rs

@@ -11,22 +11,19 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct SubmitWhatsAppNumberKycRequestDocumentsInner {
-    #[serde(rename = "requirementId", skip_serializing_if = "Option::is_none")]
-    pub requirement_id: Option<String>,
-    #[serde(rename = "filename", skip_serializing_if = "Option::is_none")]
-    pub filename: Option<String>,
-    #[serde(rename = "base64", skip_serializing_if = "Option::is_none")]
-    pub base64: Option<String>,
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SubmitWhatsAppNumberKycRequestDocumentsInner {
+    SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf(
+        Box<models::SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf>,
+    ),
+    SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf1(
+        Box<models::SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf1>,
+    ),
 }
 
-impl SubmitWhatsAppNumberKycRequestDocumentsInner {
-    pub fn new() -> SubmitWhatsAppNumberKycRequestDocumentsInner {
-        SubmitWhatsAppNumberKycRequestDocumentsInner {
-            requirement_id: None,
-            filename: None,
-            base64: None,
-        }
+impl Default for SubmitWhatsAppNumberKycRequestDocumentsInner {
+    fn default() -> Self {
+        Self::SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf(Default::default())
     }
 }

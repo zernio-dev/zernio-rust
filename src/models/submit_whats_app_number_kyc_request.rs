@@ -17,6 +17,9 @@ pub struct SubmitWhatsAppNumberKycRequest {
     pub profile_id: String,
     #[serde(rename = "country")]
     pub country: String,
+    /// Idempotency token for this submission attempt. A retry/double-submit with the same token returns the same number; omit and each call creates a new number.
+    #[serde(rename = "submissionId", skip_serializing_if = "Option::is_none")]
+    pub submission_id: Option<String>,
     /// Reuse a prior approved verification for this country (skips document/field collection; places the order immediately).
     #[serde(rename = "reuse", skip_serializing_if = "Option::is_none")]
     pub reuse: Option<bool>,
@@ -29,6 +32,7 @@ pub struct SubmitWhatsAppNumberKycRequest {
     /// requirementId → textual value
     #[serde(rename = "values", skip_serializing_if = "Option::is_none")]
     pub values: Option<std::collections::HashMap<String, String>>,
+    /// One per document requirement. Each is EITHER inline base64 OR a `documentId` returned by POST /v1/whatsapp/phone-numbers/kyc/upload-document (use the upload endpoint for large files to stay under the request-size limit).
     #[serde(rename = "documents", skip_serializing_if = "Option::is_none")]
     pub documents: Option<Vec<models::SubmitWhatsAppNumberKycRequestDocumentsInner>>,
     #[serde(rename = "address", skip_serializing_if = "Option::is_none")]
@@ -40,6 +44,7 @@ impl SubmitWhatsAppNumberKycRequest {
         SubmitWhatsAppNumberKycRequest {
             profile_id,
             country,
+            submission_id: None,
             reuse: None,
             end_user_first_name: None,
             end_user_last_name: None,
