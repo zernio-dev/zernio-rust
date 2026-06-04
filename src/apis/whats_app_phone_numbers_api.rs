@@ -15,6 +15,15 @@ use serde::{de::Error as _, Deserialize, Serialize};
 use tokio::fs::File as TokioFile;
 use tokio_util::codec::{BytesCodec, FramedRead};
 
+/// struct for typed errors of method [`check_whats_app_number_availability`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CheckWhatsAppNumberAvailabilityError {
+    Status400(),
+    Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_whats_app_number_info`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -31,6 +40,16 @@ pub enum GetWhatsAppNumberInfoError {
 pub enum GetWhatsAppNumberKycFormError {
     Status400(),
     Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_whats_app_number_remediation`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetWhatsAppNumberRemediationError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
     UnknownValue(serde_json::Value),
 }
 
@@ -81,6 +100,16 @@ pub enum ReleaseWhatsAppPhoneNumberError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`remediate_whats_app_number`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RemediateWhatsAppNumberError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`search_available_whats_app_numbers`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -107,6 +136,61 @@ pub enum UploadWhatsAppNumberKycDocumentError {
     Status400(),
     Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
+}
+
+/// Pre-purchase check, so you can warn BEFORE a customer invests in KYC (regulated review is async, 1-3 days). Tells you whether we have deliverable inventory, and what address the customer needs:   - `addressConstraint: geo`  → the registered address MUST be in one of     the returned `areas` (the only place we have stock). A different-area     address passes pre-approval but the number can never be assigned.   - `addressConstraint: country` → any in-country address works.   - `addressConstraint: none` → field-only / instant country, no address. Call this before starting the KYC form for regulated countries.
+pub async fn check_whats_app_number_availability(
+    configuration: &configuration::Configuration,
+    country: &str,
+) -> Result<
+    models::CheckWhatsAppNumberAvailability200Response,
+    Error<CheckWhatsAppNumberAvailabilityError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_country = country;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/phone-numbers/availability",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("country", &p_query_country.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CheckWhatsAppNumberAvailability200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CheckWhatsAppNumberAvailability200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CheckWhatsAppNumberAvailabilityError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
 }
 
 /// Live snapshot of a connected number straight from Meta: the phone-number node (display number, display name + approval, quality rating, messaging-limit tier, throughput, official-business badge, connection status, health_status) and its owning WhatsApp Business Account (name, business verification, timezone, health_status). Fetched live because Meta updates quality/tier/name/health over time; the call also refreshes the cached values shown on the connection card.
@@ -200,6 +284,58 @@ pub async fn get_whats_app_number_kyc_form(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetWhatsAppNumberKycFormError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// For a number in `regulatory_declined`, returns ONLY the requirements the reviewer flagged declined, as a form spec (same shape as the KYC form GET). The customer fixes just those — Telnyx supports correcting a declined requirement group and re-submitting it (no new number/group). Falls back to the full spec if the provider exposes no per-requirement flags.
+pub async fn get_whats_app_number_remediation(
+    configuration: &configuration::Configuration,
+    id: &str,
+) -> Result<models::GetWhatsAppNumberRemediation200Response, Error<GetWhatsAppNumberRemediationError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/phone-numbers/{id}/remediate",
+        configuration.base_path,
+        id = crate::apis::urlencode(p_path_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetWhatsAppNumberRemediation200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetWhatsAppNumberRemediation200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetWhatsAppNumberRemediationError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -468,6 +604,62 @@ pub async fn release_whats_app_phone_number(
     }
 }
 
+/// Submit corrected values/documents for the declined requirement(s). We PATCH them onto the SAME requirement group and re-submit it for approval; the number goes `regulatory_declined` → `pending_regulatory`. No new number and no new billing. Body shape matches the KYC submit (values / documents / address) — send only the corrected fields.
+pub async fn remediate_whats_app_number(
+    configuration: &configuration::Configuration,
+    id: &str,
+    remediate_whats_app_number_request: models::RemediateWhatsAppNumberRequest,
+) -> Result<models::RemediateWhatsAppNumber200Response, Error<RemediateWhatsAppNumberError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_body_remediate_whats_app_number_request = remediate_whats_app_number_request;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/phone-numbers/{id}/remediate",
+        configuration.base_path,
+        id = crate::apis::urlencode(p_path_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_remediate_whats_app_number_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::RemediateWhatsAppNumber200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::RemediateWhatsAppNumber200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RemediateWhatsAppNumberError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Search the provider's inventory for numbers available to purchase in a country (default US). Optional filters narrow the results. The country must be offerable (see GET /v1/whatsapp/phone-numbers/countries).
 pub async fn search_available_whats_app_numbers(
     configuration: &configuration::Configuration,
@@ -550,7 +742,7 @@ pub async fn search_available_whats_app_numbers(
     }
 }
 
-/// Submit the end customer's KYC (textual values, uploaded documents, address) for a Tier 3/4 country. Documents are streamed straight to the number provider and are not stored by Zernio. Builds + submits a regulatory requirement group and claims a pending_regulatory slot; the number is ordered + activated once the provider approves (asynchronous). A customer may hold several same-country numbers in review at once; a double-submit of the SAME attempt is deduped via `submissionId`.
+/// Submit the end customer's KYC (textual values, uploaded documents, address) for a Tier 3/4 country. Documents are streamed straight to the number provider and are not stored by Zernio. Builds + submits a regulatory requirement group and claims a pending_regulatory slot; the number is ordered + activated once the provider approves (asynchronous). A customer may hold several same-country numbers in review at once; a double-submit of the SAME attempt is deduped via `submissionId`.  For an ID-card document requirement, carriers commonly require BOTH sides: combine the front and back into a single file before uploading (the dashboard does this automatically). A one-sided ID is a common decline reason; fix it via POST /v1/whatsapp/phone-numbers/{id}/remediate.  Before submitting, call GET /v1/whatsapp/phone-numbers/availability to check the country has deliverable inventory and, for geographic-match countries, which area the address must be in — otherwise the submission can pass review yet never be assignable a number.
 pub async fn submit_whats_app_number_kyc(
     configuration: &configuration::Configuration,
     submit_whats_app_number_kyc_request: models::SubmitWhatsAppNumberKycRequest,

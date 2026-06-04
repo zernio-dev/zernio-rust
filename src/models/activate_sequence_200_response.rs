@@ -16,7 +16,7 @@ pub struct ActivateSequence200Response {
     #[serde(rename = "success", skip_serializing_if = "Option::is_none")]
     pub success: Option<bool>,
     #[serde(rename = "sequence", skip_serializing_if = "Option::is_none")]
-    pub sequence: Option<Box<models::CancelBroadcast200ResponseBroadcast>>,
+    pub sequence: Option<Box<models::RemediateWhatsAppNumber200ResponsePhoneNumber>>,
 }
 
 impl ActivateSequence200Response {

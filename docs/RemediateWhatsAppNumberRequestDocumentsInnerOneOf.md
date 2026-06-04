@@ -1,11 +1,11 @@
-# ActivateSequence200Response
+# RemediateWhatsAppNumberRequestDocumentsInnerOneOf
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**success** | Option<**bool**> |  | [optional]
-**sequence** | Option<[**models::RemediateWhatsAppNumber200ResponsePhoneNumber**](RemediateWhatsAppNumber200ResponsePhoneNumber.md)> |  | [optional]
+**requirement_id** | **String** |  | 
+**document_id** | **String** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

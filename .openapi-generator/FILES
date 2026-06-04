@@ -85,7 +85,7 @@ docs/BulkUploadResultRateLimitedAccountsInner.md
 docs/BulkUploadResultResultsInner.md
 docs/BusinessCenter.md
 docs/CancelBroadcast200Response.md
-docs/CancelBroadcast200ResponseBroadcast.md
+docs/CheckWhatsAppNumberAvailability200Response.md
 docs/CommentAutomationsApi.md
 docs/CommentsApi.md
 docs/CompleteGoogleBusinessVerificationRequest.md
@@ -507,6 +507,7 @@ docs/GetWhatsAppNumberInfo200ResponseWaba.md
 docs/GetWhatsAppNumberKycForm200Response.md
 docs/GetWhatsAppNumberKycForm200ResponseFieldsInner.md
 docs/GetWhatsAppNumberKycForm200ResponseReusable.md
+docs/GetWhatsAppNumberRemediation200Response.md
 docs/GetWhatsAppPhoneNumber200Response.md
 docs/GetWhatsAppPhoneNumber200ResponsePhoneNumber.md
 docs/GetWhatsAppPhoneNumbers200Response.md
@@ -766,6 +767,11 @@ docs/RedditSearchApi.md
 docs/RejectWhatsAppGroupJoinRequestsRequest.md
 docs/ReleaseWhatsAppPhoneNumber200Response.md
 docs/ReleaseWhatsAppPhoneNumber200ResponsePhoneNumber.md
+docs/RemediateWhatsAppNumber200Response.md
+docs/RemediateWhatsAppNumber200ResponsePhoneNumber.md
+docs/RemediateWhatsAppNumberRequest.md
+docs/RemediateWhatsAppNumberRequestDocumentsInner.md
+docs/RemediateWhatsAppNumberRequestDocumentsInnerOneOf.md
 docs/RemoveBookmark200Response.md
 docs/RemoveConversionAssociations200Response.md
 docs/RemoveDiscordMemberRole200Response.md
@@ -1292,7 +1298,7 @@ src/models/bulk_upload_result_rate_limited_accounts_inner.rs
 src/models/bulk_upload_result_results_inner.rs
 src/models/business_center.rs
 src/models/cancel_broadcast_200_response.rs
-src/models/cancel_broadcast_200_response_broadcast.rs
+src/models/check_whats_app_number_availability_200_response.rs
 src/models/complete_google_business_verification_request.rs
 src/models/complete_telegram_connect_200_response.rs
 src/models/complete_whats_app_phone_selection_200_response.rs
@@ -1708,6 +1714,7 @@ src/models/get_whats_app_number_info_200_response_waba.rs
 src/models/get_whats_app_number_kyc_form_200_response.rs
 src/models/get_whats_app_number_kyc_form_200_response_fields_inner.rs
 src/models/get_whats_app_number_kyc_form_200_response_reusable.rs
+src/models/get_whats_app_number_remediation_200_response.rs
 src/models/get_whats_app_phone_number_200_response.rs
 src/models/get_whats_app_phone_number_200_response_phone_number.rs
 src/models/get_whats_app_phone_numbers_200_response.rs
@@ -1950,6 +1957,11 @@ src/models/reddit_post.rs
 src/models/reject_whats_app_group_join_requests_request.rs
 src/models/release_whats_app_phone_number_200_response.rs
 src/models/release_whats_app_phone_number_200_response_phone_number.rs
+src/models/remediate_whats_app_number_200_response.rs
+src/models/remediate_whats_app_number_200_response_phone_number.rs
+src/models/remediate_whats_app_number_request.rs
+src/models/remediate_whats_app_number_request_documents_inner.rs
+src/models/remediate_whats_app_number_request_documents_inner_one_of.rs
 src/models/remove_bookmark_200_response.rs
 src/models/remove_conversion_associations_200_response.rs
 src/models/remove_discord_member_role_200_response.rs

@@ -21,6 +21,12 @@ pub struct GetWhatsAppPhoneNumbers200ResponseNumbersInner {
     pub country: Option<String>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
+    /// For regulated numbers
+    #[serde(rename = "registrantName", skip_serializing_if = "Option::is_none")]
+    pub registrant_name: Option<String>,
+    /// Present once the number order has been placed (i.e. the requirement group was approved). Absent while still in identity review.
+    #[serde(rename = "telnyxOrderId", skip_serializing_if = "Option::is_none")]
+    pub telnyx_order_id: Option<String>,
     /// Per-country monthly price in cents ($2..$25).
     #[serde(rename = "monthlyCents", skip_serializing_if = "Option::is_none")]
     pub monthly_cents: Option<i32>,
@@ -62,6 +68,8 @@ impl GetWhatsAppPhoneNumbers200ResponseNumbersInner {
             phone_number: None,
             country: None,
             status: None,
+            registrant_name: None,
+            telnyx_order_id: None,
             monthly_cents: None,
             profile_id: None,
             provisioned_at: None,

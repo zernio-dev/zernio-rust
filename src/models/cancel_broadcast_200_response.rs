@@ -16,7 +16,7 @@ pub struct CancelBroadcast200Response {
     #[serde(rename = "success", skip_serializing_if = "Option::is_none")]
     pub success: Option<bool>,
     #[serde(rename = "broadcast", skip_serializing_if = "Option::is_none")]
-    pub broadcast: Option<Box<models::CancelBroadcast200ResponseBroadcast>>,
+    pub broadcast: Option<Box<models::RemediateWhatsAppNumber200ResponsePhoneNumber>>,
 }
 
 impl CancelBroadcast200Response {

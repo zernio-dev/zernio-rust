@@ -16,7 +16,7 @@ pub struct PauseWorkflow200Response {
     #[serde(rename = "success", skip_serializing_if = "Option::is_none")]
     pub success: Option<bool>,
     #[serde(rename = "workflow", skip_serializing_if = "Option::is_none")]
-    pub workflow: Option<Box<models::CancelBroadcast200ResponseBroadcast>>,
+    pub workflow: Option<Box<models::RemediateWhatsAppNumber200ResponsePhoneNumber>>,
 }
 
 impl PauseWorkflow200Response {

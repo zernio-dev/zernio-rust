@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **phone_number** | Option<**String**> |  | [optional]
 **country** | Option<**String**> |  | [optional]
 **status** | Option<**Status**> |  (enum: pending_payment, pending_regulatory, regulatory_declined, provisioning, active, suspended, releasing, released) | [optional]
+**registrant_name** | Option<**String**> | For regulated numbers | [optional]
+**telnyx_order_id** | Option<**String**> | Present once the number order has been placed (i.e. the requirement group was approved). Absent while still in identity review. | [optional]
 **monthly_cents** | Option<**i32**> | Per-country monthly price in cents ($2..$25). | [optional]
 **profile_id** | Option<**serde_json::Value**> |  | [optional]
 **provisioned_at** | Option<**String**> |  | [optional]
