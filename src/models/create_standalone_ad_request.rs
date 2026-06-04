@@ -112,6 +112,9 @@ pub struct CreateStandaloneAdRequest {
     /// ID of a `saved_targeting` audience (created via POST /v1/ads/audiences). When set, its stored TargetingSpec is expanded as the base targeting; inline fields on this body merge on top. Lets you reuse a named targeting preset without re-sending every field.
     #[serde(rename = "savedTargetingId", skip_serializing_if = "Option::is_none")]
     pub saved_targeting_id: Option<String>,
+    /// Meta only. A raw Meta-native targeting spec passed to the ad set VERBATIM (snake_case: `geo_locations`, `age_min`, `excluded_custom_audiences`, `flexible_spec`, `targeting_automation`, business places, etc.) — exactly the shape `GET /v1/ads/{adId}` returns for external ads. Use it to clone a campaign's targeting EXACTLY, preserving advanced fields the camelCase targeting fields can't model. Mutually exclusive with the camelCase targeting fields (countries/regions/cities/interests/ ageMin/...), `audienceId`, and `savedTargetingId` (sending both → 422). Sent as-is; Meta validates and surfaces any errors. If cloning an EU campaign, also pass `dsaBeneficiary` / `dsaPayor` (those are separate fields, not part of targeting).
+    #[serde(rename = "rawTargeting", skip_serializing_if = "Option::is_none")]
+    pub raw_targeting: Option<std::collections::HashMap<String, serde_json::Value>>,
     /// Meta only. Declares the ad's special category, required for housing, employment, credit, or political/social-issue ads (Meta enforces restricted targeting for these). Note: setting a special category disables income/zip targeting on Meta.
     #[serde(
         rename = "specialAdCategories",
@@ -228,6 +231,7 @@ impl CreateStandaloneAdRequest {
             languages: None,
             placements: None,
             saved_targeting_id: None,
+            raw_targeting: None,
             special_ad_categories: None,
             end_date: None,
             start_date: None,
