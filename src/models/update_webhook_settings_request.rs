@@ -106,6 +106,12 @@ pub enum Events {
     WhatsappNumberDeclined,
     #[serde(rename = "whatsapp.number.verification_required")]
     WhatsappNumberVerificationRequired,
+    #[serde(rename = "whatsapp.number.suspended")]
+    WhatsappNumberSuspended,
+    #[serde(rename = "whatsapp.number.reactivated")]
+    WhatsappNumberReactivated,
+    #[serde(rename = "whatsapp.number.released")]
+    WhatsappNumberReleased,
 }
 
 impl Default for Events {

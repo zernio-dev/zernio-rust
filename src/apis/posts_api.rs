@@ -21,7 +21,7 @@ use tokio_util::codec::{BytesCodec, FramedRead};
 pub enum BulkUploadPostsError {
     Status400(),
     Status401(models::InlineObject),
-    Status429(models::BulkUploadPosts429Response),
+    Status429(models::GetInboxVolume400Response),
     UnknownValue(serde_json::Value),
 }
 
@@ -87,7 +87,7 @@ pub enum RetryPostError {
     Status403(),
     Status404(models::InlineObject1),
     Status409(),
-    Status429(models::BulkUploadPosts429Response),
+    Status429(models::GetInboxVolume400Response),
     UnknownValue(serde_json::Value),
 }
 

@@ -245,6 +245,13 @@ Class | Method | HTTP request | Description
 *GmbVerificationsApi* | [**fetch_google_business_verification_options**](docs/GmbVerificationsApi.md#fetch_google_business_verification_options) | **POST** /v1/accounts/{accountId}/gmb-verifications/options | Fetch verification options
 *GmbVerificationsApi* | [**get_google_business_verifications**](docs/GmbVerificationsApi.md#get_google_business_verifications) | **GET** /v1/accounts/{accountId}/gmb-verifications | Get verification state
 *GmbVerificationsApi* | [**start_google_business_verification**](docs/GmbVerificationsApi.md#start_google_business_verification) | **POST** /v1/accounts/{accountId}/gmb-verifications | Start a verification
+*InboxAnalyticsApi* | [**get_inbox_conversation_analytics**](docs/InboxAnalyticsApi.md#get_inbox_conversation_analytics) | **GET** /v1/analytics/inbox/conversations/{conversationId} | Get analytics for a single conversation
+*InboxAnalyticsApi* | [**get_inbox_heatmap**](docs/InboxAnalyticsApi.md#get_inbox_heatmap) | **GET** /v1/analytics/inbox/heatmap | Get inbox day-of-week × hour-of-day heatmap
+*InboxAnalyticsApi* | [**get_inbox_response_time**](docs/InboxAnalyticsApi.md#get_inbox_response_time) | **GET** /v1/analytics/inbox/response-time | Get inbox response-time stats
+*InboxAnalyticsApi* | [**get_inbox_source_breakdown**](docs/InboxAnalyticsApi.md#get_inbox_source_breakdown) | **GET** /v1/analytics/inbox/source-breakdown | Get inbox source breakdown
+*InboxAnalyticsApi* | [**get_inbox_top_accounts**](docs/InboxAnalyticsApi.md#get_inbox_top_accounts) | **GET** /v1/analytics/inbox/top-accounts | Get top accounts by inbox volume
+*InboxAnalyticsApi* | [**get_inbox_volume**](docs/InboxAnalyticsApi.md#get_inbox_volume) | **GET** /v1/analytics/inbox/volume | Get inbox messaging volume
+*InboxAnalyticsApi* | [**list_inbox_conversation_analytics**](docs/InboxAnalyticsApi.md#list_inbox_conversation_analytics) | **GET** /v1/analytics/inbox/conversations | List conversations with inbox analytics
 *InstagramApi* | [**get_instagram_story_insights**](docs/InstagramApi.md#get_instagram_story_insights) | **GET** /v1/accounts/{accountId}/instagram/stories/{storyId}/insights | Get Instagram story insights
 *InstagramApi* | [**list_instagram_stories**](docs/InstagramApi.md#list_instagram_stories) | **GET** /v1/accounts/{accountId}/instagram/stories | List active Instagram stories
 *InvitesApi* | [**create_invite_token**](docs/InvitesApi.md#create_invite_token) | **POST** /v1/invite/tokens | Create invite token
@@ -477,7 +484,6 @@ Class | Method | HTTP request | Description
  - [BulkUpdateAdCampaignStatus200ResponseTotals](docs/BulkUpdateAdCampaignStatus200ResponseTotals.md)
  - [BulkUpdateAdCampaignStatusRequest](docs/BulkUpdateAdCampaignStatusRequest.md)
  - [BulkUpdateAdCampaignStatusRequestCampaignsInner](docs/BulkUpdateAdCampaignStatusRequestCampaignsInner.md)
- - [BulkUploadPosts429Response](docs/BulkUploadPosts429Response.md)
  - [BulkUploadResult](docs/BulkUploadResult.md)
  - [BulkUploadResultRateLimitedAccountsInner](docs/BulkUploadResultRateLimitedAccountsInner.md)
  - [BulkUploadResultResultsInner](docs/BulkUploadResultResultsInner.md)
@@ -795,6 +801,10 @@ Class | Method | HTTP request | Description
  - [GetGoogleBusinessVerifications200ResponseVoiceOfMerchantStateVerify](docs/GetGoogleBusinessVerifications200ResponseVoiceOfMerchantStateVerify.md)
  - [GetInboxConversation200Response](docs/GetInboxConversation200Response.md)
  - [GetInboxConversation200ResponseData](docs/GetInboxConversation200ResponseData.md)
+ - [GetInboxConversationAnalytics200Response](docs/GetInboxConversationAnalytics200Response.md)
+ - [GetInboxConversationAnalytics200ResponseBySourceInner](docs/GetInboxConversationAnalytics200ResponseBySourceInner.md)
+ - [GetInboxConversationAnalytics200ResponseSummary](docs/GetInboxConversationAnalytics200ResponseSummary.md)
+ - [GetInboxConversationAnalytics404Response](docs/GetInboxConversationAnalytics404Response.md)
  - [GetInboxConversationMessages200Response](docs/GetInboxConversationMessages200Response.md)
  - [GetInboxConversationMessages200ResponseMessagesInner](docs/GetInboxConversationMessages200ResponseMessagesInner.md)
  - [GetInboxConversationMessages200ResponseMessagesInnerAttachmentsInner](docs/GetInboxConversationMessages200ResponseMessagesInnerAttachmentsInner.md)
@@ -803,6 +813,8 @@ Class | Method | HTTP request | Description
  - [GetInboxConversationMessages200ResponseMessagesInnerEditHistoryInnerAttachmentsInner](docs/GetInboxConversationMessages200ResponseMessagesInnerEditHistoryInnerAttachmentsInner.md)
  - [GetInboxConversationMessages200ResponseMessagesInnerReactionsInner](docs/GetInboxConversationMessages200ResponseMessagesInnerReactionsInner.md)
  - [GetInboxConversationMessages200ResponsePagination](docs/GetInboxConversationMessages200ResponsePagination.md)
+ - [GetInboxHeatmap200Response](docs/GetInboxHeatmap200Response.md)
+ - [GetInboxHeatmap200ResponseBucketsInner](docs/GetInboxHeatmap200ResponseBucketsInner.md)
  - [GetInboxPostComments200Response](docs/GetInboxPostComments200Response.md)
  - [GetInboxPostComments200ResponseCommentsInner](docs/GetInboxPostComments200ResponseCommentsInner.md)
  - [GetInboxPostComments200ResponseCommentsInnerFrom](docs/GetInboxPostComments200ResponseCommentsInnerFrom.md)
@@ -810,6 +822,19 @@ Class | Method | HTTP request | Description
  - [GetInboxPostComments200ResponseMetaAdComments](docs/GetInboxPostComments200ResponseMetaAdComments.md)
  - [GetInboxPostComments200ResponsePagination](docs/GetInboxPostComments200ResponsePagination.md)
  - [GetInboxPostComments200ResponsePost](docs/GetInboxPostComments200ResponsePost.md)
+ - [GetInboxResponseTime200Response](docs/GetInboxResponseTime200Response.md)
+ - [GetInboxResponseTime200ResponseHistogramInner](docs/GetInboxResponseTime200ResponseHistogramInner.md)
+ - [GetInboxResponseTime200ResponseSummary](docs/GetInboxResponseTime200ResponseSummary.md)
+ - [GetInboxSourceBreakdown200Response](docs/GetInboxSourceBreakdown200Response.md)
+ - [GetInboxSourceBreakdown200ResponseSourcesInner](docs/GetInboxSourceBreakdown200ResponseSourcesInner.md)
+ - [GetInboxSourceBreakdown200ResponseSourcesInnerByPlatformInner](docs/GetInboxSourceBreakdown200ResponseSourcesInnerByPlatformInner.md)
+ - [GetInboxTopAccounts200Response](docs/GetInboxTopAccounts200Response.md)
+ - [GetInboxTopAccounts200ResponseAccountsInner](docs/GetInboxTopAccounts200ResponseAccountsInner.md)
+ - [GetInboxVolume200Response](docs/GetInboxVolume200Response.md)
+ - [GetInboxVolume200ResponseByPlatformInner](docs/GetInboxVolume200ResponseByPlatformInner.md)
+ - [GetInboxVolume200ResponseSummary](docs/GetInboxVolume200ResponseSummary.md)
+ - [GetInboxVolume200ResponseTimeseriesInner](docs/GetInboxVolume200ResponseTimeseriesInner.md)
+ - [GetInboxVolume400Response](docs/GetInboxVolume400Response.md)
  - [GetInstagramAccountInsights404Response](docs/GetInstagramAccountInsights404Response.md)
  - [GetInstagramStoryInsights200Response](docs/GetInstagramStoryInsights200Response.md)
  - [GetInstagramStoryInsights200ResponseData](docs/GetInstagramStoryInsights200ResponseData.md)
@@ -1018,6 +1043,9 @@ Class | Method | HTTP request | Description
  - [ListGoogleBusinessPlaceActions200ResponsePlaceActionLinksInner](docs/ListGoogleBusinessPlaceActions200ResponsePlaceActionLinksInner.md)
  - [ListInboxComments200Response](docs/ListInboxComments200Response.md)
  - [ListInboxComments200ResponseDataInner](docs/ListInboxComments200ResponseDataInner.md)
+ - [ListInboxConversationAnalytics200Response](docs/ListInboxConversationAnalytics200Response.md)
+ - [ListInboxConversationAnalytics200ResponseItemsInner](docs/ListInboxConversationAnalytics200ResponseItemsInner.md)
+ - [ListInboxConversationAnalytics200ResponsePagination](docs/ListInboxConversationAnalytics200ResponsePagination.md)
  - [ListInboxConversations200Response](docs/ListInboxConversations200Response.md)
  - [ListInboxConversations200ResponseDataInner](docs/ListInboxConversations200ResponseDataInner.md)
  - [ListInboxConversations200ResponseDataInnerInstagramProfile](docs/ListInboxConversations200ResponseDataInnerInstagramProfile.md)
@@ -1095,6 +1123,9 @@ Class | Method | HTTP request | Description
  - [OnWhatsAppNumberActivatedRequestNumber](docs/OnWhatsAppNumberActivatedRequestNumber.md)
  - [OnWhatsAppNumberDeclinedRequest](docs/OnWhatsAppNumberDeclinedRequest.md)
  - [OnWhatsAppNumberDeclinedRequestNumber](docs/OnWhatsAppNumberDeclinedRequestNumber.md)
+ - [OnWhatsAppNumberReactivatedRequest](docs/OnWhatsAppNumberReactivatedRequest.md)
+ - [OnWhatsAppNumberReleasedRequest](docs/OnWhatsAppNumberReleasedRequest.md)
+ - [OnWhatsAppNumberSuspendedRequest](docs/OnWhatsAppNumberSuspendedRequest.md)
  - [OnWhatsAppNumberVerificationRequiredRequest](docs/OnWhatsAppNumberVerificationRequiredRequest.md)
  - [Pagination](docs/Pagination.md)
  - [PauseWorkflow200Response](docs/PauseWorkflow200Response.md)

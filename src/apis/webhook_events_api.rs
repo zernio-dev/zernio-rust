@@ -239,6 +239,27 @@ pub enum OnWhatsAppNumberDeclinedError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`on_whats_app_number_reactivated`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnWhatsAppNumberReactivatedError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`on_whats_app_number_released`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnWhatsAppNumberReleasedError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`on_whats_app_number_suspended`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnWhatsAppNumberSuspendedError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`on_whats_app_number_verification_required`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -1210,6 +1231,96 @@ pub async fn on_whats_app_number_declined(configuration: &configuration::Configu
     } else {
         let content = resp.text().await?;
         let entity: Option<OnWhatsAppNumberDeclinedError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when a suspended number is reactivated (e.g. the payment recovered) and is usable again. 
+pub async fn on_whats_app_number_reactivated(configuration: &configuration::Configuration, on_whats_app_number_reactivated_request: models::OnWhatsAppNumberReactivatedRequest) -> Result<(), Error<OnWhatsAppNumberReactivatedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_on_whats_app_number_reactivated_request = on_whats_app_number_reactivated_request;
+
+    let uri_str = format!("{}/whatsapp.number.reactivated", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_on_whats_app_number_reactivated_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnWhatsAppNumberReactivatedError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when a number is released and is no longer usable (by the user, a billing cleanup, or an admin). Terminal. `reason` carries the cause (e.g. `user_requested`, `cleanup_suspended`). 
+pub async fn on_whats_app_number_released(configuration: &configuration::Configuration, on_whats_app_number_released_request: models::OnWhatsAppNumberReleasedRequest) -> Result<(), Error<OnWhatsAppNumberReleasedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_on_whats_app_number_released_request = on_whats_app_number_released_request;
+
+    let uri_str = format!("{}/whatsapp.number.released", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_on_whats_app_number_released_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnWhatsAppNumberReleasedError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when an active number is suspended (e.g. a failed payment). The number stops working until the issue is resolved, after which a `whatsapp.number.reactivated` event is sent. `reason` carries the cause (e.g. `payment_failed`, `subscription_ended`). 
+pub async fn on_whats_app_number_suspended(configuration: &configuration::Configuration, on_whats_app_number_suspended_request: models::OnWhatsAppNumberSuspendedRequest) -> Result<(), Error<OnWhatsAppNumberSuspendedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_on_whats_app_number_suspended_request = on_whats_app_number_suspended_request;
+
+    let uri_str = format!("{}/whatsapp.number.suspended", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_on_whats_app_number_suspended_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnWhatsAppNumberSuspendedError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
