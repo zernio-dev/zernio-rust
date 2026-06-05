@@ -280,8 +280,8 @@ docs/ErrorResponse.md
 docs/EstimateAdReach200Response.md
 docs/EstimateAdReachRequest.md
 docs/Expired.md
+docs/ExternalPostMediaItem.md
 docs/ExternalPostWebhookPost.md
-docs/ExternalPostWebhookPostMediaItemsInner.md
 docs/FacebookPlatformData.md
 docs/FacebookPlatformDataCarouselCardsInner.md
 docs/FetchGoogleBusinessVerificationOptions200Response.md
@@ -1517,8 +1517,8 @@ src/models/error_response.rs
 src/models/estimate_ad_reach_200_response.rs
 src/models/estimate_ad_reach_request.rs
 src/models/expired.rs
+src/models/external_post_media_item.rs
 src/models/external_post_webhook_post.rs
-src/models/external_post_webhook_post_media_items_inner.rs
 src/models/facebook_platform_data.rs
 src/models/facebook_platform_data_carousel_cards_inner.rs
 src/models/fetch_google_business_verification_options_200_response.rs

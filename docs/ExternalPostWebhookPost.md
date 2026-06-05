@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **url** | **String** | Direct URL to the post on the platform, when available. | 
 **content** | **String** | Post text. May be empty. | 
 **media_type** | **String** | One of image, video, gif, document, text, carousel. | 
-**media_items** | [**Vec<models::ExternalPostWebhookPostMediaItemsInner>**](ExternalPostWebhookPostMediaItemsInner.md) |  | 
+**media_items** | [**Vec<models::ExternalPostMediaItem>**](ExternalPostMediaItem.md) |  | 
 **thumbnail_url** | **String** |  | 
 **published_at** | **String** |  | 
 **source** | **Source** | Always \"external\" — distinguishes these from Zernio-originated post.* events. (enum: external) | 

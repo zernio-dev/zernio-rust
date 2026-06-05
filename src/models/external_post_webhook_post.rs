@@ -33,7 +33,7 @@ pub struct ExternalPostWebhookPost {
     #[serde(rename = "mediaType")]
     pub media_type: String,
     #[serde(rename = "mediaItems")]
-    pub media_items: Vec<models::ExternalPostWebhookPostMediaItemsInner>,
+    pub media_items: Vec<models::ExternalPostMediaItem>,
     #[serde(rename = "thumbnailUrl")]
     pub thumbnail_url: String,
     #[serde(rename = "publishedAt")]
@@ -55,7 +55,7 @@ impl ExternalPostWebhookPost {
         url: String,
         content: String,
         media_type: String,
-        media_items: Vec<models::ExternalPostWebhookPostMediaItemsInner>,
+        media_items: Vec<models::ExternalPostMediaItem>,
         thumbnail_url: String,
         published_at: String,
         source: Source,
