@@ -13,23 +13,19 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BatchGetGoogleBusinessReviews200ResponseLocationReviewsInner {
-    #[serde(rename = "locationName", skip_serializing_if = "Option::is_none")]
-    pub location_name: Option<String>,
-    #[serde(rename = "reviews", skip_serializing_if = "Option::is_none")]
-    pub reviews: Option<Vec<serde_json::Value>>,
-    #[serde(rename = "averageRating", skip_serializing_if = "Option::is_none")]
-    pub average_rating: Option<f64>,
-    #[serde(rename = "totalReviewCount", skip_serializing_if = "Option::is_none")]
-    pub total_review_count: Option<i32>,
+    /// Full review resource name (accounts/_*_/locations/_*_/reviews/_*)
+    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    /// The review object (reviewId
+    #[serde(rename = "review", skip_serializing_if = "Option::is_none")]
+    pub review: Option<serde_json::Value>,
 }
 
 impl BatchGetGoogleBusinessReviews200ResponseLocationReviewsInner {
     pub fn new() -> BatchGetGoogleBusinessReviews200ResponseLocationReviewsInner {
         BatchGetGoogleBusinessReviews200ResponseLocationReviewsInner {
-            location_name: None,
-            reviews: None,
-            average_rating: None,
-            total_review_count: None,
+            name: None,
+            review: None,
         }
     }
 }
