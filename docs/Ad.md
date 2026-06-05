@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **platform** | Option<**Platform**> |  (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter) | [optional]
 **status** | Option<[**models::AdStatus**](AdStatus.md)> |  | [optional]
 **ad_type** | Option<**AdType**> |  (enum: boost, standalone) | [optional]
-**goal** | Option<**Goal**> | Available goals vary by platform. Meta (Facebook/Instagram) and TikTok support all 7. LinkedIn supports all except app_promotion. Twitter/X supports engagement, traffic, awareness, video_views, app_promotion. Pinterest and Google Ads support only engagement, traffic, awareness, video_views. (enum: engagement, traffic, awareness, video_views, lead_generation, conversions, app_promotion) | [optional]
+**goal** | Option<**Goal**> | Available goals vary by platform. Meta (Facebook/Instagram) supports all 8 (incl. `lead_conversion` = website pixel lead optimization). TikTok supports the 7 non-`lead_conversion` goals. LinkedIn supports all except app_promotion / lead_conversion. Twitter/X supports engagement, traffic, awareness, video_views, app_promotion. Pinterest and Google Ads support only engagement, traffic, awareness, video_views. (enum: engagement, traffic, awareness, video_views, lead_generation, lead_conversion, conversions, app_promotion) | [optional]
 **is_external** | Option<**bool**> | True for ads synced from platform ad managers | [optional]
 **budget** | Option<[**models::AdBudget**](AdBudget.md)> |  | [optional]
 **metrics** | Option<[**models::AdMetrics**](AdMetrics.md)> |  | [optional]

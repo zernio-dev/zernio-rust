@@ -45,6 +45,11 @@ docs/AddUsersToAdAudience200Response.md
 docs/AddUsersToAdAudienceRequest.md
 docs/AddUsersToAdAudienceRequestUsersInner.md
 docs/AddWhatsAppGroupParticipantsRequest.md
+docs/AdjustConversions200Response.md
+docs/AdjustConversions200ResponseFailuresInner.md
+docs/AdjustConversionsRequest.md
+docs/AdjustConversionsRequestAdjustmentsInner.md
+docs/AdjustConversionsRequestAdjustmentsInnerUser.md
 docs/AdsApi.md
 docs/AnalyticsApi.md
 docs/AnalyticsListResponse.md
@@ -1292,6 +1297,11 @@ src/models/add_users_to_ad_audience_200_response.rs
 src/models/add_users_to_ad_audience_request.rs
 src/models/add_users_to_ad_audience_request_users_inner.rs
 src/models/add_whats_app_group_participants_request.rs
+src/models/adjust_conversions_200_response.rs
+src/models/adjust_conversions_200_response_failures_inner.rs
+src/models/adjust_conversions_request.rs
+src/models/adjust_conversions_request_adjustments_inner.rs
+src/models/adjust_conversions_request_adjustments_inner_user.rs
 src/models/analytics_list_response.rs
 src/models/analytics_list_response_posts_inner.rs
 src/models/analytics_overview.rs

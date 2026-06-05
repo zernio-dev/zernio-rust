@@ -77,6 +77,7 @@ Class | Method | HTTP request | Description
 *AdCampaignsApi* | [**update_ad_set**](docs/AdCampaignsApi.md#update_ad_set) | **PUT** /v1/ads/ad-sets/{adSetId} | Update an ad set (budget, status, and/or bid strategy)
 *AdCampaignsApi* | [**update_ad_set_status**](docs/AdCampaignsApi.md#update_ad_set_status) | **PUT** /v1/ads/ad-sets/{adSetId}/status | Pause or resume a single ad set
 *AdsApi* | [**add_conversion_associations**](docs/AdsApi.md#add_conversion_associations) | **POST** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | Associate campaigns with a conversion destination
+*AdsApi* | [**adjust_conversions**](docs/AdsApi.md#adjust_conversions) | **POST** /v1/ads/conversions/adjustments | Adjust already-uploaded conversions (Google only)
 *AdsApi* | [**archive_lead_form**](docs/AdsApi.md#archive_lead_form) | **DELETE** /v1/ads/lead-forms/{formId} | Archive a Lead Gen form
 *AdsApi* | [**boost_post**](docs/AdsApi.md#boost_post) | **POST** /v1/ads/boost | Boost post as ad
 *AdsApi* | [**create_conversion_destination**](docs/AdsApi.md#create_conversion_destination) | **POST** /v1/accounts/{accountId}/conversion-destinations | Create a conversion destination (LinkedIn)
@@ -454,6 +455,11 @@ Class | Method | HTTP request | Description
  - [AddUsersToAdAudienceRequest](docs/AddUsersToAdAudienceRequest.md)
  - [AddUsersToAdAudienceRequestUsersInner](docs/AddUsersToAdAudienceRequestUsersInner.md)
  - [AddWhatsAppGroupParticipantsRequest](docs/AddWhatsAppGroupParticipantsRequest.md)
+ - [AdjustConversions200Response](docs/AdjustConversions200Response.md)
+ - [AdjustConversions200ResponseFailuresInner](docs/AdjustConversions200ResponseFailuresInner.md)
+ - [AdjustConversionsRequest](docs/AdjustConversionsRequest.md)
+ - [AdjustConversionsRequestAdjustmentsInner](docs/AdjustConversionsRequestAdjustmentsInner.md)
+ - [AdjustConversionsRequestAdjustmentsInnerUser](docs/AdjustConversionsRequestAdjustmentsInnerUser.md)
  - [AnalyticsListResponse](docs/AnalyticsListResponse.md)
  - [AnalyticsListResponsePostsInner](docs/AnalyticsListResponsePostsInner.md)
  - [AnalyticsOverview](docs/AnalyticsOverview.md)
