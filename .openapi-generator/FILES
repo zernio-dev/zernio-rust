@@ -203,6 +203,7 @@ docs/CreateStandaloneAdRequestPlacementAssetsRulesInnerPlacements.md
 docs/CreateStandaloneAdRequestPlacements.md
 docs/CreateStandaloneAdRequestPromotedObject.md
 docs/CreateStandaloneAdRequestRegionsInner.md
+docs/CreateStandaloneAdRequestTracking.md
 docs/CreateStandaloneAdRequestVideo.md
 docs/CreateStandaloneAdRequestZipsInner.md
 docs/CreateTestLead200Response.md
@@ -1438,6 +1439,7 @@ src/models/create_standalone_ad_request_placement_assets_rules_inner_placements.
 src/models/create_standalone_ad_request_placements.rs
 src/models/create_standalone_ad_request_promoted_object.rs
 src/models/create_standalone_ad_request_regions_inner.rs
+src/models/create_standalone_ad_request_tracking.rs
 src/models/create_standalone_ad_request_video.rs
 src/models/create_standalone_ad_request_zips_inner.rs
 src/models/create_test_lead_200_response.rs
