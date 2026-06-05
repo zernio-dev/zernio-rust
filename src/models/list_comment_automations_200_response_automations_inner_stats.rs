@@ -21,6 +21,9 @@ pub struct ListCommentAutomations200ResponseAutomationsInnerStats {
     pub dms_failed: Option<i32>,
     #[serde(rename = "uniqueContacts", skip_serializing_if = "Option::is_none")]
     pub unique_contacts: Option<i32>,
+    /// DMs sent with a trackable (wrapped) link. CTR denominator: divide clicks by this, not dmsSent. Lags dmsSent for campaigns that predate click tracking.
+    #[serde(rename = "trackedSends", skip_serializing_if = "Option::is_none")]
+    pub tracked_sends: Option<i32>,
     /// Total clicks on tracked links (bots/prefetch excluded).
     #[serde(rename = "linkClicks", skip_serializing_if = "Option::is_none")]
     pub link_clicks: Option<i32>,
@@ -42,6 +45,7 @@ impl ListCommentAutomations200ResponseAutomationsInnerStats {
             dms_sent: None,
             dms_failed: None,
             unique_contacts: None,
+            tracked_sends: None,
             link_clicks: None,
             unique_clicks: None,
             delivered: None,
