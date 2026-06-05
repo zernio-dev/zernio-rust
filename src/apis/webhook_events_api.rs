@@ -148,6 +148,27 @@ pub enum OnPostCancelledError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`on_post_external_created`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnPostExternalCreatedError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`on_post_external_deleted`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnPostExternalDeletedError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`on_post_external_updated`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnPostExternalUpdatedError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`on_post_failed`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -841,6 +862,96 @@ pub async fn on_post_cancelled(configuration: &configuration::Configuration, web
     } else {
         let content = resp.text().await?;
         let entity: Option<OnPostCancelledError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when Zernio's background sync detects a natively-authored post (created outside Zernio, e.g. a Google Business Profile localPost made in the Google UI) for the first time. Poll-driven (~hourly), not real-time. `post.source` is always \"external\". 
+pub async fn on_post_external_created(configuration: &configuration::Configuration, webhook_payload_external_post: models::WebhookPayloadExternalPost) -> Result<(), Error<OnPostExternalCreatedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_payload_external_post = webhook_payload_external_post;
+
+    let uri_str = format!("{}/post.external.created", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_payload_external_post);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnPostExternalCreatedError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when a tracked native post is detected as removed from the platform. `post.deletedAt` carries the detection time. Coverage is bounded to the most recent posts the platform listing returns. 
+pub async fn on_post_external_deleted(configuration: &configuration::Configuration, webhook_payload_external_post: models::WebhookPayloadExternalPost) -> Result<(), Error<OnPostExternalDeletedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_payload_external_post = webhook_payload_external_post;
+
+    let uri_str = format!("{}/post.external.deleted", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_payload_external_post);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnPostExternalDeletedError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when a tracked native post's text or media changed on the platform. Detected by comparing text/media structure and, where available, the platform's own edit timestamp; a media-URL-only refresh does not fire this. 
+pub async fn on_post_external_updated(configuration: &configuration::Configuration, webhook_payload_external_post: models::WebhookPayloadExternalPost) -> Result<(), Error<OnPostExternalUpdatedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_payload_external_post = webhook_payload_external_post;
+
+    let uri_str = format!("{}/post.external.updated", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_payload_external_post);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnPostExternalUpdatedError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

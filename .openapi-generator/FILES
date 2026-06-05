@@ -280,6 +280,8 @@ docs/ErrorResponse.md
 docs/EstimateAdReach200Response.md
 docs/EstimateAdReachRequest.md
 docs/Expired.md
+docs/ExternalPostWebhookPost.md
+docs/ExternalPostWebhookPostMediaItemsInner.md
 docs/FacebookPlatformData.md
 docs/FacebookPlatformDataCarouselCardsInner.md
 docs/FetchGoogleBusinessVerificationOptions200Response.md
@@ -1126,6 +1128,7 @@ docs/WebhookPayloadCommentCommentAuthor.md
 docs/WebhookPayloadCommentPost.md
 docs/WebhookPayloadConversationStarted.md
 docs/WebhookPayloadConversationStartedConversation.md
+docs/WebhookPayloadExternalPost.md
 docs/WebhookPayloadLead.md
 docs/WebhookPayloadLeadAccount.md
 docs/WebhookPayloadLeadLead.md
@@ -1514,6 +1517,8 @@ src/models/error_response.rs
 src/models/estimate_ad_reach_200_response.rs
 src/models/estimate_ad_reach_request.rs
 src/models/expired.rs
+src/models/external_post_webhook_post.rs
+src/models/external_post_webhook_post_media_items_inner.rs
 src/models/facebook_platform_data.rs
 src/models/facebook_platform_data_carousel_cards_inner.rs
 src/models/fetch_google_business_verification_options_200_response.rs
@@ -2334,6 +2339,7 @@ src/models/webhook_payload_comment_comment_author.rs
 src/models/webhook_payload_comment_post.rs
 src/models/webhook_payload_conversation_started.rs
 src/models/webhook_payload_conversation_started_conversation.rs
+src/models/webhook_payload_external_post.rs
 src/models/webhook_payload_lead.rs
 src/models/webhook_payload_lead_account.rs
 src/models/webhook_payload_lead_lead.rs

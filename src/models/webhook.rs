@@ -78,6 +78,12 @@ pub enum Events {
     PostPlatformPublished,
     #[serde(rename = "post.platform.failed")]
     PostPlatformFailed,
+    #[serde(rename = "post.external.created")]
+    PostExternalCreated,
+    #[serde(rename = "post.external.updated")]
+    PostExternalUpdated,
+    #[serde(rename = "post.external.deleted")]
+    PostExternalDeleted,
     #[serde(rename = "account.connected")]
     AccountConnected,
     #[serde(rename = "account.disconnected")]
