@@ -138,6 +138,15 @@ pub enum UploadWhatsAppNumberKycDocumentError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`validate_whats_app_number_kyc_address`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ValidateWhatsAppNumberKycAddressError {
+    Status400(models::ValidateWhatsAppNumberKycAddress400Response),
+    Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
 /// Pre-purchase check, so you can warn BEFORE a customer invests in KYC (regulated review is async, 1-3 days). Tells you whether we have deliverable inventory, and what address the customer needs:   - `addressConstraint: geo`  → the registered address MUST be in one of     the returned `areas` (the only place we have stock). A different-area     address passes pre-approval but the number can never be assigned.   - `addressConstraint: country` → any in-country address works.   - `addressConstraint: none` → field-only / instant country, no address. Call this before starting the KYC form for regulated countries.
 pub async fn check_whats_app_number_availability(
     configuration: &configuration::Configuration,
@@ -845,6 +854,64 @@ pub async fn upload_whats_app_number_kyc_document(
     } else {
         let content = resp.text().await?;
         let entity: Option<UploadWhatsAppNumberKycDocumentError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Optional early check for the address step of a Tier 4 (end-user identity) registration: validates a postal address for deliverability BEFORE the full KYC submit, so it can be corrected before any documents are uploaded. The full submit (POST /v1/whatsapp/phone-numbers/kyc) re-validates the address, so this call is purely a fast feedback path and skipping it is safe. Only the postal address is sent (no documents, no gov-ID fields). A region (`administrative_area`) is required by the validator; when it is omitted the pre-check is skipped and `{ ok: true, skipped: true }` is returned (the final submit still validates).
+pub async fn validate_whats_app_number_kyc_address(
+    configuration: &configuration::Configuration,
+    validate_whats_app_number_kyc_address_request: models::ValidateWhatsAppNumberKycAddressRequest,
+) -> Result<
+    models::ValidateWhatsAppNumberKycAddress200Response,
+    Error<ValidateWhatsAppNumberKycAddressError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_validate_whats_app_number_kyc_address_request =
+        validate_whats_app_number_kyc_address_request;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/phone-numbers/kyc/validate-address",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_validate_whats_app_number_kyc_address_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ValidateWhatsAppNumberKycAddress200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ValidateWhatsAppNumberKycAddress200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ValidateWhatsAppNumberKycAddressError> =
             serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
