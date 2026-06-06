@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**String**> |  | [optional]
 **phone_number** | Option<**String**> |  | [optional]
-**status** | Option<**Status**> |  (enum: pending_payment, pending_regulatory, regulatory_declined, provisioning, active, suspended, releasing, released) | [optional]
+**status** | Option<**Status**> |  (enum: pending_payment, pending_regulatory, regulatory_declined, provisioning, verifying, active, suspended, releasing, released) | [optional]
 **country** | Option<**String**> |  | [optional]
 **meta_preverified_id** | Option<**String**> |  | [optional]
 **meta_verification_status** | Option<**String**> |  | [optional]

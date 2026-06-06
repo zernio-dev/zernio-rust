@@ -76,6 +76,8 @@ pub enum Status {
     RegulatoryDeclined,
     #[serde(rename = "provisioning")]
     Provisioning,
+    #[serde(rename = "verifying")]
+    Verifying,
     #[serde(rename = "active")]
     Active,
     #[serde(rename = "suspended")]
