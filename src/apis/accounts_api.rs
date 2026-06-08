@@ -383,6 +383,7 @@ pub async fn list_accounts(
     configuration: &configuration::Configuration,
     profile_id: Option<&str>,
     platform: Option<&str>,
+    status: Option<&str>,
     include_over_limit: Option<bool>,
     page: Option<i32>,
     limit: Option<i32>,
@@ -390,6 +391,7 @@ pub async fn list_accounts(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_profile_id = profile_id;
     let p_query_platform = platform;
+    let p_query_status = status;
     let p_query_include_over_limit = include_over_limit;
     let p_query_page = page;
     let p_query_limit = limit;
@@ -402,6 +404,9 @@ pub async fn list_accounts(
     }
     if let Some(ref param_value) = p_query_platform {
         req_builder = req_builder.query(&[("platform", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_status {
+        req_builder = req_builder.query(&[("status", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_over_limit {
         req_builder = req_builder.query(&[("includeOverLimit", &param_value.to_string())]);

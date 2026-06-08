@@ -174,7 +174,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_accounts
 
-> models::ListAccounts200Response list_accounts(profile_id, platform, include_over_limit, page, limit)
+> models::ListAccounts200Response list_accounts(profile_id, platform, status, include_over_limit, page, limit)
 List accounts
 
 Returns connected social accounts. Only includes accounts within the plan limit by default. Follower data requires analytics add-on. Supports optional server-side pagination via page/limit params. When omitted, returns all accounts (backward-compatible). 
@@ -186,6 +186,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **profile_id** | Option<**String**> | Filter accounts by profile ID |  |
 **platform** | Option<**String**> | Filter accounts by platform (e.g. \"instagram\", \"twitter\"). |  |
+**status** | Option<**String**> | Filter accounts by connection status. `connected` returns healthy accounts; `disconnected` returns accounts that need reconnection (per the same reconnection check surfaced in the dashboard). Omit to return accounts in any status. When combined with page/limit, pagination totals reflect the filtered result set.  |  |
 **include_over_limit** | Option<**bool**> | When true, includes accounts from over-limit profiles. |  |[default to false]
 **page** | Option<**i32**> | Page number (1-based). When provided with limit, enables server-side pagination. Omit for all accounts. |  |
 **limit** | Option<**i32**> | Page size. Required alongside page for pagination. |  |
