@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UpdateAdTrackingTagsRequestCreative : Meta only. Required to rebuild the immutable creative when setting urlTags.
+/// UpdateAdTrackingTagsRequestCreative : Meta only. OPTIONAL — omit to preserve the existing creative verbatim (default). Provide it only to rebuild the creative explicitly, or for creatives whose object_story_spec Meta strips.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAdTrackingTagsRequestCreative {
     #[serde(rename = "headline")]
@@ -29,7 +29,7 @@ pub struct UpdateAdTrackingTagsRequestCreative {
 }
 
 impl UpdateAdTrackingTagsRequestCreative {
-    /// Meta only. Required to rebuild the immutable creative when setting urlTags.
+    /// Meta only. OPTIONAL — omit to preserve the existing creative verbatim (default). Provide it only to rebuild the creative explicitly, or for creatives whose object_story_spec Meta strips.
     pub fn new(
         headline: String,
         body: String,
