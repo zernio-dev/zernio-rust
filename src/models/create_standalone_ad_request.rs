@@ -33,6 +33,9 @@ pub struct CreateStandaloneAdRequest {
     /// Required on legacy + multi-creative shapes. Inherited from the ad set on the attach shape. Available goals vary by platform. Meta-specific: `conversions` (OUTCOME_SALES) requires `promotedObject.pixelId` + `promotedObject.customEventType` (use a commerce event, e.g. PURCHASE, START_TRIAL); `lead_conversion` (OUTCOME_LEADS, website pixel leads) requires the same pixel + event but with a leads-class event (e.g. LEAD, SUBMIT_APPLICATION, SCHEDULE, CONTACT) — these are rejected under `conversions` because Meta gates conversion events by objective; `lead_generation` is OUTCOME_LEADS with instant forms (`leadGenFormId`), distinct from `lead_conversion`'s website pixel optimization; `app_promotion` requires `promotedObject.applicationId` + `promotedObject.objectStoreUrl`; `lead_generation` accepts an optional `promotedObject.pageId` (auto-filled from the connected Page when omitted). TikTok-specific: `conversions` (website-conversion ad group) requires `promotedObject.pixelId` (your TikTok Pixel ID) and accepts an optional `promotedObject.customEventType` (a TikTok `optimization_event` code like `ON_WEB_ORDER`, `INITIATE_ORDER`, `ON_WEB_REGISTER`, `FORM`); to inherit a pixel + event from an existing ad group, pass `adSetId` instead. LinkedIn-specific: `engagement`, `traffic`, `awareness`, and `video_views` are supported for standalone ads (creates a Direct Sponsored Content single image or single video ad). `traffic` requires `linkUrl`; `video_views` requires the `video` field. For `lead_generation` / `conversions` on LinkedIn — or to promote an existing post — use `POST /v1/ads/boost`.
     #[serde(rename = "goal", skip_serializing_if = "Option::is_none")]
     pub goal: Option<Goal>,
+    /// Meta only. Explicit ad-set `optimization_goal` (e.g. `LANDING_PAGE_VIEWS`, `LINK_CLICKS`, `REACH`, `IMPRESSIONS`, `OFFSITE_CONVERSIONS`, `THRUPLAY`, `LEAD_GENERATION`). Overrides the default derived from `goal` (e.g. `traffic` defaults to `LINK_CLICKS`). Forwarded verbatim to Meta, which validates compatibility with the campaign objective and rejects incompatible combinations.
+    #[serde(rename = "optimizationGoal", skip_serializing_if = "Option::is_none")]
+    pub optimization_goal: Option<String>,
     /// Required on legacy + multi-creative shapes. Inherited on attach.
     #[serde(rename = "budgetAmount", skip_serializing_if = "Option::is_none")]
     pub budget_amount: Option<f64>,
@@ -214,6 +217,7 @@ impl CreateStandaloneAdRequest {
             ad_name: None,
             tracking: None,
             goal: None,
+            optimization_goal: None,
             budget_amount: None,
             budget_type: None,
             budget_level: None,
