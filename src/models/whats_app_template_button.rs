@@ -15,14 +15,14 @@ use serde::{Deserialize, Serialize};
 pub struct WhatsAppTemplateButton {
     #[serde(rename = "type")]
     pub r#type: Type,
-    #[serde(rename = "text")]
-    pub text: String,
+    /// Visible button label. Required for all types except copy_code (whose label is fixed by WhatsApp).
+    #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
+    pub text: Option<String>,
     /// Required when type is URL
     #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
-    /// Example values for URL suffix variables
     #[serde(rename = "example", skip_serializing_if = "Option::is_none")]
-    pub example: Option<Vec<String>>,
+    pub example: Option<Box<models::WhatsAppTemplateButtonExample>>,
     /// Required when type is phone_number
     #[serde(rename = "phone_number", skip_serializing_if = "Option::is_none")]
     pub phone_number: Option<String>,
@@ -48,10 +48,10 @@ pub struct WhatsAppTemplateButton {
 }
 
 impl WhatsAppTemplateButton {
-    pub fn new(r#type: Type, text: String) -> WhatsAppTemplateButton {
+    pub fn new(r#type: Type) -> WhatsAppTemplateButton {
         WhatsAppTemplateButton {
             r#type,
-            text,
+            text: None,
             url: None,
             example: None,
             phone_number: None,
@@ -78,6 +78,8 @@ pub enum Type {
     PhoneNumber,
     #[serde(rename = "otp")]
     Otp,
+    #[serde(rename = "copy_code")]
+    CopyCode,
     #[serde(rename = "flow")]
     Flow,
     #[serde(rename = "mpm")]

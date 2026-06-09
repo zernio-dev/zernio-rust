@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: quick_reply, url, phone_number, otp, flow, mpm, catalog) | 
-**text** | **String** |  | 
+**r#type** | **Type** |  (enum: quick_reply, url, phone_number, otp, copy_code, flow, mpm, catalog) | 
+**text** | Option<**String**> | Visible button label. Required for all types except copy_code (whose label is fixed by WhatsApp). | [optional]
 **url** | Option<**String**> | Required when type is URL | [optional]
-**example** | Option<**Vec<String>**> | Example values for URL suffix variables | [optional]
+**example** | Option<[**models::WhatsAppTemplateButtonExample**](WhatsAppTemplateButtonExample.md)> |  | [optional]
 **phone_number** | Option<**String**> | Required when type is phone_number | [optional]
 **otp_type** | Option<**OtpType**> | Required when type is otp (enum: copy_code, one_tap, zero_tap) | [optional]
 **autofill_text** | Option<**String**> |  | [optional]
