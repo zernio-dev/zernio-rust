@@ -245,7 +245,7 @@ pub enum UploadWhatsAppProfilePhotoError {
     UnknownValue(serde_json::Value),
 }
 
-/// Add participants to a WhatsApp group. Maximum 8 participants per request.  Not available on [Coexistence](/platforms/whatsapp#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
+/// Add participants to a WhatsApp group. Maximum 8 participants per request.  Not available on [Coexistence](/platforms/whatsapp/connection#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
 pub async fn add_whats_app_group_participants(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -304,7 +304,7 @@ pub async fn add_whats_app_group_participants(
     }
 }
 
-/// Approve pending join requests for a WhatsApp group.  Not available on [Coexistence](/platforms/whatsapp#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
+/// Approve pending join requests for a WhatsApp group.  Not available on [Coexistence](/platforms/whatsapp/connection#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
 pub async fn approve_whats_app_group_join_requests(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -415,7 +415,7 @@ pub async fn create_whats_app_dataset(
     }
 }
 
-/// Create a new WhatsApp group chat. Returns the group ID and optionally an invite link.  Not available on [Coexistence](/platforms/whatsapp#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
+/// Create a new WhatsApp group chat. Returns the group ID and optionally an invite link.  Not available on [Coexistence](/platforms/whatsapp/connection#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
 pub async fn create_whats_app_group_chat(
     configuration: &configuration::Configuration,
     create_whats_app_group_chat_request: models::CreateWhatsAppGroupChatRequest,
@@ -465,7 +465,7 @@ pub async fn create_whats_app_group_chat(
     }
 }
 
-/// Create a new invite link for a WhatsApp group. The previous link is revoked.  Not available on [Coexistence](/platforms/whatsapp#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
+/// Create a new invite link for a WhatsApp group. The previous link is revoked.  Not available on [Coexistence](/platforms/whatsapp/connection#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
 pub async fn create_whats_app_group_invite_link(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -575,7 +575,7 @@ pub async fn create_whats_app_template(
     }
 }
 
-/// Delete a WhatsApp group and remove all participants.  Not available on [Coexistence](/platforms/whatsapp#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
+/// Delete a WhatsApp group and remove all participants.  Not available on [Coexistence](/platforms/whatsapp/connection#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
 pub async fn delete_whats_app_group_chat(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -834,7 +834,7 @@ pub async fn get_whats_app_display_name(
     }
 }
 
-/// Retrieve metadata about a WhatsApp group including subject, description, participants, and settings.  Not available on [Coexistence](/platforms/whatsapp#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
+/// Retrieve metadata about a WhatsApp group including subject, description, participants, and settings.  Not available on [Coexistence](/platforms/whatsapp/connection#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
 pub async fn get_whats_app_group_chat(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -1043,7 +1043,7 @@ pub async fn list_whats_app_conversions(
     }
 }
 
-/// List active WhatsApp group chats for a business phone number. These are actual WhatsApp group conversations on the platform.  Not available on [Coexistence](/platforms/whatsapp#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
+/// List active WhatsApp group chats for a business phone number. These are actual WhatsApp group conversations on the platform.  Not available on [Coexistence](/platforms/whatsapp/connection#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
 pub async fn list_whats_app_group_chats(
     configuration: &configuration::Configuration,
     account_id: &str,
@@ -1101,7 +1101,7 @@ pub async fn list_whats_app_group_chats(
     }
 }
 
-/// List pending join requests for a WhatsApp group (only for groups with approval_required mode).  Not available on [Coexistence](/platforms/whatsapp#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
+/// List pending join requests for a WhatsApp group (only for groups with approval_required mode).  Not available on [Coexistence](/platforms/whatsapp/connection#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
 pub async fn list_whats_app_group_join_requests(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -1159,7 +1159,7 @@ pub async fn list_whats_app_group_join_requests(
     }
 }
 
-/// Reject pending join requests for a WhatsApp group.  Not available on [Coexistence](/platforms/whatsapp#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
+/// Reject pending join requests for a WhatsApp group.  Not available on [Coexistence](/platforms/whatsapp/connection#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
 pub async fn reject_whats_app_group_join_requests(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -1220,7 +1220,7 @@ pub async fn reject_whats_app_group_join_requests(
     }
 }
 
-/// Remove participants from a WhatsApp group.  Not available on [Coexistence](/platforms/whatsapp#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
+/// Remove participants from a WhatsApp group.  Not available on [Coexistence](/platforms/whatsapp/connection#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
 pub async fn remove_whats_app_group_participants(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -1436,7 +1436,7 @@ pub async fn update_whats_app_display_name(
     }
 }
 
-/// Update the subject, description, or join approval mode of a WhatsApp group.  Not available on [Coexistence](/platforms/whatsapp#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
+/// Update the subject, description, or join approval mode of a WhatsApp group.  Not available on [Coexistence](/platforms/whatsapp/connection#whatsapp-business-app-coexistence) numbers. Requires a Cloud API-only number.
 pub async fn update_whats_app_group_chat(
     configuration: &configuration::Configuration,
     group_id: &str,
