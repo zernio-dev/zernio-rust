@@ -19,6 +19,12 @@ pub struct CreateInviteTokenRequest {
     /// Required if scope is 'profiles'. Array of profile IDs to grant access to.
     #[serde(rename = "profileIds", skip_serializing_if = "Option::is_none")]
     pub profile_ids: Option<Vec<String>>,
+    /// Org role granted to the invitee. Defaults to 'member'.
+    #[serde(rename = "role", skip_serializing_if = "Option::is_none")]
+    pub role: Option<Role>,
+    /// When true, the invitee can view everything in their profile scope but cannot perform any content mutation (publish, edit, delete, connect accounts).
+    #[serde(rename = "readOnly", skip_serializing_if = "Option::is_none")]
+    pub read_only: Option<bool>,
 }
 
 impl CreateInviteTokenRequest {
@@ -26,6 +32,8 @@ impl CreateInviteTokenRequest {
         CreateInviteTokenRequest {
             scope,
             profile_ids: None,
+            role: None,
+            read_only: None,
         }
     }
 }
@@ -41,5 +49,19 @@ pub enum Scope {
 impl Default for Scope {
     fn default() -> Scope {
         Self::All
+    }
+}
+/// Org role granted to the invitee. Defaults to 'member'.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Role {
+    #[serde(rename = "member")]
+    Member,
+    #[serde(rename = "billing_admin")]
+    BillingAdmin,
+}
+
+impl Default for Role {
+    fn default() -> Role {
+        Self::Member
     }
 }
