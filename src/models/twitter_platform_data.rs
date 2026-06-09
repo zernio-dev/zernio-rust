@@ -33,6 +33,14 @@ pub struct TwitterPlatformData {
     pub long_video: Option<bool>,
     #[serde(rename = "geoRestriction", skip_serializing_if = "Option::is_none")]
     pub geo_restriction: Option<Box<models::GeoRestriction>>,
+    /// When true, the post is labeled by X as a paid partnership / paid promotion. For threads, applies to the root tweet only. Field availability may depend on your X API access tier.
+    #[serde(rename = "paidPartnership", skip_serializing_if = "Option::is_none")]
+    pub paid_partnership: Option<bool>,
+    /// When true, the post is labeled by X as containing AI-generated media. Per X, this label is for AI-generated media, not AI-written text. For threads, applies to the root tweet only.
+    #[serde(rename = "madeWithAi", skip_serializing_if = "Option::is_none")]
+    pub made_with_ai: Option<bool>,
+    #[serde(rename = "sensitiveMedia", skip_serializing_if = "Option::is_none")]
+    pub sensitive_media: Option<Box<models::TwitterPlatformDataSensitiveMedia>>,
 }
 
 impl TwitterPlatformData {
@@ -46,6 +54,9 @@ impl TwitterPlatformData {
             poll: None,
             long_video: None,
             geo_restriction: None,
+            paid_partnership: None,
+            made_with_ai: None,
+            sensitive_media: None,
         }
     }
 }

@@ -29,6 +29,18 @@ pub struct RedditPlatformData {
     /// Flair ID for the post. Required by some subreddits. Use GET /v1/accounts/{id}/reddit-flairs?subreddit=name to list flairs.
     #[serde(rename = "flairId", skip_serializing_if = "Option::is_none")]
     pub flair_id: Option<String>,
+    /// Custom flair text, for subreddits that allow free-text flair. Ignored when flairId is provided (flairId wins).
+    #[serde(rename = "flairText", skip_serializing_if = "Option::is_none")]
+    pub flair_text: Option<String>,
+    /// Mark the post as NSFW (Not Safe For Work / over 18).
+    #[serde(rename = "nsfw", skip_serializing_if = "Option::is_none")]
+    pub nsfw: Option<bool>,
+    /// Mark the post as a spoiler. The subreddit must have spoiler tagging enabled for this to take effect.
+    #[serde(rename = "spoiler", skip_serializing_if = "Option::is_none")]
+    pub spoiler: Option<bool>,
+    /// Whether to receive inbox replies for comments on this post. Set to false to opt out.
+    #[serde(rename = "sendreplies", skip_serializing_if = "Option::is_none")]
+    pub sendreplies: Option<bool>,
     /// Controls Reddit's native video upload flow. When true (default for video mediaItems), the video is uploaded to Reddit's CDN and submitted with kind=video so it renders as an embedded Reddit video player. Reddit transcodes server-side (1080p/30fps cap). Set to false to fall back to a legacy link post. If the subreddit blocks video posts, the upload falls back to a link post automatically.
     #[serde(rename = "nativeVideo", skip_serializing_if = "Option::is_none")]
     pub native_video: Option<bool>,
@@ -49,6 +61,10 @@ impl RedditPlatformData {
             url: None,
             force_self: None,
             flair_id: None,
+            flair_text: None,
+            nsfw: None,
+            spoiler: None,
+            sendreplies: None,
             native_video: None,
             videogif: None,
             video_poster_url: None,

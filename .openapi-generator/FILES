@@ -946,6 +946,7 @@ docs/TriggerWorkflowRequest.md
 docs/TwitterEngagementApi.md
 docs/TwitterPlatformData.md
 docs/TwitterPlatformDataPoll.md
+docs/TwitterPlatformDataSensitiveMedia.md
 docs/TwitterPlatformDataThreadItemsInner.md
 docs/UndoRetweet200Response.md
 docs/UnfollowUser200Response.md
@@ -2171,6 +2172,7 @@ src/models/trigger_workflow_200_response_execution.rs
 src/models/trigger_workflow_request.rs
 src/models/twitter_platform_data.rs
 src/models/twitter_platform_data_poll.rs
+src/models/twitter_platform_data_sensitive_media.rs
 src/models/twitter_platform_data_thread_items_inner.rs
 src/models/undo_retweet_200_response.rs
 src/models/unfollow_user_200_response.rs

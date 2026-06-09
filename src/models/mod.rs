@@ -1810,6 +1810,8 @@ pub mod twitter_platform_data;
 pub use self::twitter_platform_data::TwitterPlatformData;
 pub mod twitter_platform_data_poll;
 pub use self::twitter_platform_data_poll::TwitterPlatformDataPoll;
+pub mod twitter_platform_data_sensitive_media;
+pub use self::twitter_platform_data_sensitive_media::TwitterPlatformDataSensitiveMedia;
 pub mod twitter_platform_data_thread_items_inner;
 pub use self::twitter_platform_data_thread_items_inner::TwitterPlatformDataThreadItemsInner;
 pub mod undo_retweet_200_response;
