@@ -501,6 +501,8 @@ docs/GetTrackingTagStats200Response.md
 docs/GetTrackingTagStats200ResponseStats.md
 docs/GetUser200Response.md
 docs/GetUser200ResponseUser.md
+docs/GetWebhookLogs200Response.md
+docs/GetWebhookLogs200ResponsePagination.md
 docs/GetWebhookSettings200Response.md
 docs/GetWhatsAppBusinessProfile200Response.md
 docs/GetWhatsAppBusinessProfile200ResponseBusinessProfile.md
@@ -1109,6 +1111,7 @@ docs/ValidateWhatsAppNumberKycAddress400ResponseDetailsAddressSuggestionsInner.m
 docs/ValidateWhatsAppNumberKycAddressRequest.md
 docs/Webhook.md
 docs/WebhookEventsApi.md
+docs/WebhookLog.md
 docs/WebhookPayloadAccountAdsInitialSyncCompleted.md
 docs/WebhookPayloadAccountAdsInitialSyncCompletedAccount.md
 docs/WebhookPayloadAccountAdsInitialSyncCompletedSync.md
@@ -1749,6 +1752,8 @@ src/models/get_tracking_tag_stats_200_response.rs
 src/models/get_tracking_tag_stats_200_response_stats.rs
 src/models/get_user_200_response.rs
 src/models/get_user_200_response_user.rs
+src/models/get_webhook_logs_200_response.rs
+src/models/get_webhook_logs_200_response_pagination.rs
 src/models/get_webhook_settings_200_response.rs
 src/models/get_whats_app_business_profile_200_response.rs
 src/models/get_whats_app_business_profile_200_response_business_profile.rs
@@ -2331,6 +2336,7 @@ src/models/validate_whats_app_number_kyc_address_400_response_details.rs
 src/models/validate_whats_app_number_kyc_address_400_response_details_address_suggestions_inner.rs
 src/models/validate_whats_app_number_kyc_address_request.rs
 src/models/webhook.rs
+src/models/webhook_log.rs
 src/models/webhook_payload_account_ads_initial_sync_completed.rs
 src/models/webhook_payload_account_ads_initial_sync_completed_account.rs
 src/models/webhook_payload_account_ads_initial_sync_completed_sync.rs

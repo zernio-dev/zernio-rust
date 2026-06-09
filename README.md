@@ -332,6 +332,7 @@ Class | Method | HTTP request | Description
 *ValidateApi* | [**validate_subreddit**](docs/ValidateApi.md#validate_subreddit) | **GET** /v1/tools/validate/subreddit | Check subreddit existence
 *WebhooksApi* | [**create_webhook_settings**](docs/WebhooksApi.md#create_webhook_settings) | **POST** /v1/webhooks/settings | Create webhook
 *WebhooksApi* | [**delete_webhook_settings**](docs/WebhooksApi.md#delete_webhook_settings) | **DELETE** /v1/webhooks/settings | Delete webhook
+*WebhooksApi* | [**get_webhook_logs**](docs/WebhooksApi.md#get_webhook_logs) | **GET** /v1/webhooks/logs | List webhook delivery logs
 *WebhooksApi* | [**get_webhook_settings**](docs/WebhooksApi.md#get_webhook_settings) | **GET** /v1/webhooks/settings | List webhooks
 *WebhooksApi* | [**test_webhook**](docs/WebhooksApi.md#test_webhook) | **POST** /v1/webhooks/test | Send test webhook
 *WebhooksApi* | [**update_webhook_settings**](docs/WebhooksApi.md#update_webhook_settings) | **PUT** /v1/webhooks/settings | Update webhook
@@ -902,6 +903,8 @@ Class | Method | HTTP request | Description
  - [GetTrackingTagStats200ResponseStats](docs/GetTrackingTagStats200ResponseStats.md)
  - [GetUser200Response](docs/GetUser200Response.md)
  - [GetUser200ResponseUser](docs/GetUser200ResponseUser.md)
+ - [GetWebhookLogs200Response](docs/GetWebhookLogs200Response.md)
+ - [GetWebhookLogs200ResponsePagination](docs/GetWebhookLogs200ResponsePagination.md)
  - [GetWebhookSettings200Response](docs/GetWebhookSettings200Response.md)
  - [GetWhatsAppBusinessProfile200Response](docs/GetWhatsAppBusinessProfile200Response.md)
  - [GetWhatsAppBusinessProfile200ResponseBusinessProfile](docs/GetWhatsAppBusinessProfile200ResponseBusinessProfile.md)
@@ -1483,6 +1486,7 @@ Class | Method | HTTP request | Description
  - [ValidateWhatsAppNumberKycAddress400ResponseDetailsAddressSuggestionsInner](docs/ValidateWhatsAppNumberKycAddress400ResponseDetailsAddressSuggestionsInner.md)
  - [ValidateWhatsAppNumberKycAddressRequest](docs/ValidateWhatsAppNumberKycAddressRequest.md)
  - [Webhook](docs/Webhook.md)
+ - [WebhookLog](docs/WebhookLog.md)
  - [WebhookPayloadAccountAdsInitialSyncCompleted](docs/WebhookPayloadAccountAdsInitialSyncCompleted.md)
  - [WebhookPayloadAccountAdsInitialSyncCompletedAccount](docs/WebhookPayloadAccountAdsInitialSyncCompletedAccount.md)
  - [WebhookPayloadAccountAdsInitialSyncCompletedSync](docs/WebhookPayloadAccountAdsInitialSyncCompletedSync.md)
