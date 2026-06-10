@@ -11,18 +11,21 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateStandaloneAdRequestCreativesInnerVideo : Video creative for this entry. Mutually exclusive with `imageUrl`.
+/// CreateStandaloneAdRequestCreativesInnerVideo : Video creative for this entry. Mutually exclusive with `imageUrl`. thumbnailUrl is optional — when omitted, the poster is auto-generated from Meta's preferred video thumbnail.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateStandaloneAdRequestCreativesInnerVideo {
     #[serde(rename = "url")]
     pub url: String,
-    #[serde(rename = "thumbnailUrl")]
-    pub thumbnail_url: String,
+    #[serde(rename = "thumbnailUrl", skip_serializing_if = "Option::is_none")]
+    pub thumbnail_url: Option<String>,
 }
 
 impl CreateStandaloneAdRequestCreativesInnerVideo {
-    /// Video creative for this entry. Mutually exclusive with `imageUrl`.
-    pub fn new(url: String, thumbnail_url: String) -> CreateStandaloneAdRequestCreativesInnerVideo {
-        CreateStandaloneAdRequestCreativesInnerVideo { url, thumbnail_url }
+    /// Video creative for this entry. Mutually exclusive with `imageUrl`. thumbnailUrl is optional — when omitted, the poster is auto-generated from Meta's preferred video thumbnail.
+    pub fn new(url: String) -> CreateStandaloneAdRequestCreativesInnerVideo {
+        CreateStandaloneAdRequestCreativesInnerVideo {
+            url,
+            thumbnail_url: None,
+        }
     }
 }
