@@ -21,8 +21,13 @@ pub struct WhatsAppTemplateButton {
     /// Required when type is URL
     #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
-    #[serde(rename = "example", skip_serializing_if = "Option::is_none")]
-    pub example: Option<Box<models::WhatsAppTemplateButtonExample>>,
+    #[serde(
+        rename = "example",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub example: Option<Option<serde_json::Value>>,
     /// Required when type is phone_number
     #[serde(rename = "phone_number", skip_serializing_if = "Option::is_none")]
     pub phone_number: Option<String>,

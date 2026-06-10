@@ -1,6 +1,6 @@
 [package]
 name = "zernio"
-version = "0.0.347"
+version = "0.0.348"
 authors = ["support@zernio.com"]
 description = "API reference for Zernio. Authenticate with a Bearer API key. Base URL: https://zernio.com/api "
 # Override this license by providing a License Object in the OpenAPI.
@@ -9,6 +9,7 @@ edition = "2021"
 
 [dependencies]
 serde = { version = "^1.0", features = ["derive"] }
+serde_with = { version = "^3.8", default-features = false, features = ["base64", "std", "macros"] }
 serde_json = "^1.0"
 serde_repr = "^0.1"
 url = "^2.5"

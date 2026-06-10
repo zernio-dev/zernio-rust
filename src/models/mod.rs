@@ -2286,8 +2286,6 @@ pub mod whats_app_sandbox_session;
 pub use self::whats_app_sandbox_session::WhatsAppSandboxSession;
 pub mod whats_app_template_button;
 pub use self::whats_app_template_button::WhatsAppTemplateButton;
-pub mod whats_app_template_button_example;
-pub use self::whats_app_template_button_example::WhatsAppTemplateButtonExample;
 pub mod whats_app_template_component;
 pub use self::whats_app_template_component::WhatsAppTemplateComponent;
 pub mod workflow_edge;

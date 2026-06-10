@@ -1563,7 +1563,6 @@ Class | Method | HTTP request | Description
  - [WhatsAppHeaderComponentExample](docs/WhatsAppHeaderComponentExample.md)
  - [WhatsAppSandboxSession](docs/WhatsAppSandboxSession.md)
  - [WhatsAppTemplateButton](docs/WhatsAppTemplateButton.md)
- - [WhatsAppTemplateButtonExample](docs/WhatsAppTemplateButtonExample.md)
  - [WhatsAppTemplateComponent](docs/WhatsAppTemplateComponent.md)
  - [WorkflowEdge](docs/WorkflowEdge.md)
  - [WorkflowExecutionEvent](docs/WorkflowExecutionEvent.md)
