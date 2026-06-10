@@ -1424,6 +1424,8 @@ pub mod move_account_to_profile_200_response;
 pub use self::move_account_to_profile_200_response::MoveAccountToProfile200Response;
 pub mod move_account_to_profile_request;
 pub use self::move_account_to_profile_request::MoveAccountToProfileRequest;
+pub mod on_whats_app_number_action_required_request;
+pub use self::on_whats_app_number_action_required_request::OnWhatsAppNumberActionRequiredRequest;
 pub mod on_whats_app_number_activated_request;
 pub use self::on_whats_app_number_activated_request::OnWhatsAppNumberActivatedRequest;
 pub mod on_whats_app_number_activated_request_number;

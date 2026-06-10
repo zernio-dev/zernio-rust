@@ -745,6 +745,7 @@ docs/MessagesApi.md
 docs/Money.md
 docs/MoveAccountToProfile200Response.md
 docs/MoveAccountToProfileRequest.md
+docs/OnWhatsAppNumberActionRequiredRequest.md
 docs/OnWhatsAppNumberActivatedRequest.md
 docs/OnWhatsAppNumberActivatedRequestNumber.md
 docs/OnWhatsAppNumberDeclinedRequest.md
@@ -1983,6 +1984,7 @@ src/models/mod.rs
 src/models/money.rs
 src/models/move_account_to_profile_200_response.rs
 src/models/move_account_to_profile_request.rs
+src/models/on_whats_app_number_action_required_request.rs
 src/models/on_whats_app_number_activated_request.rs
 src/models/on_whats_app_number_activated_request_number.rs
 src/models/on_whats_app_number_declined_request.rs
