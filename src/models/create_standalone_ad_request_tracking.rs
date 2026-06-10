@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateStandaloneAdRequestTracking : Meta only. Attaches pixel measurement to the ad regardless of the optimization goal (the \"Website events\" tracking row in Ads Manager). `pixelId` becomes the ad's `tracking_specs` (offsite_conversion + fb_pixel); `urlTags` becomes the ad's `url_tags` (click-tracking query params). Applied to every ad on the legacy single-creative and multi-creative shapes.
+/// CreateStandaloneAdRequestTracking : Meta only. Attaches pixel measurement to the ad regardless of the optimization goal (the \"Website events\" tracking row in Ads Manager). `pixelId` becomes the ad's `tracking_specs` (offsite_conversion + fb_pixel); `urlTags` becomes the ad's `url_tags` (click-tracking query params). Applied on the legacy single-creative shape, every ad of the multi-creative shape, and the attach shape. NOTE: tracking lives on the AD object and is not inherited from the ad set, so pass it on EVERY attach call that should carry the pixel.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateStandaloneAdRequestTracking {
     /// Meta Pixel ID to attach for offsite-conversion measurement.
@@ -23,7 +23,7 @@ pub struct CreateStandaloneAdRequestTracking {
 }
 
 impl CreateStandaloneAdRequestTracking {
-    /// Meta only. Attaches pixel measurement to the ad regardless of the optimization goal (the \"Website events\" tracking row in Ads Manager). `pixelId` becomes the ad's `tracking_specs` (offsite_conversion + fb_pixel); `urlTags` becomes the ad's `url_tags` (click-tracking query params). Applied to every ad on the legacy single-creative and multi-creative shapes.
+    /// Meta only. Attaches pixel measurement to the ad regardless of the optimization goal (the \"Website events\" tracking row in Ads Manager). `pixelId` becomes the ad's `tracking_specs` (offsite_conversion + fb_pixel); `urlTags` becomes the ad's `url_tags` (click-tracking query params). Applied on the legacy single-creative shape, every ad of the multi-creative shape, and the attach shape. NOTE: tracking lives on the AD object and is not inherited from the ad set, so pass it on EVERY attach call that should carry the pixel.
     pub fn new() -> CreateStandaloneAdRequestTracking {
         CreateStandaloneAdRequestTracking {
             pixel_id: None,
