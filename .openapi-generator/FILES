@@ -788,7 +788,9 @@ docs/PurchaseWhatsAppPhoneNumber200Response.md
 docs/PurchaseWhatsAppPhoneNumber200ResponseOneOf.md
 docs/PurchaseWhatsAppPhoneNumber200ResponseOneOf1.md
 docs/PurchaseWhatsAppPhoneNumber200ResponseOneOf1PhoneNumber.md
+docs/PurchaseWhatsAppPhoneNumber200ResponseOneOf2.md
 docs/PurchaseWhatsAppPhoneNumber202Response.md
+docs/PurchaseWhatsAppPhoneNumber409Response.md
 docs/PurchaseWhatsAppPhoneNumberRequest.md
 docs/QueueApi.md
 docs/QueueDeleteResponse.md
@@ -2027,7 +2029,9 @@ src/models/purchase_whats_app_phone_number_200_response.rs
 src/models/purchase_whats_app_phone_number_200_response_one_of.rs
 src/models/purchase_whats_app_phone_number_200_response_one_of_1.rs
 src/models/purchase_whats_app_phone_number_200_response_one_of_1_phone_number.rs
+src/models/purchase_whats_app_phone_number_200_response_one_of_2.rs
 src/models/purchase_whats_app_phone_number_202_response.rs
+src/models/purchase_whats_app_phone_number_409_response.rs
 src/models/purchase_whats_app_phone_number_request.rs
 src/models/queue_delete_response.rs
 src/models/queue_next_slot_response.rs

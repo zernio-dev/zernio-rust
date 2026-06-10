@@ -20,10 +20,25 @@ pub enum PurchaseWhatsAppPhoneNumber200Response {
     PurchaseWhatsAppPhoneNumber200ResponseOneOf1(
         Box<models::PurchaseWhatsAppPhoneNumber200ResponseOneOf1>,
     ),
+    PurchaseWhatsAppPhoneNumber200ResponseOneOf2(
+        Box<models::PurchaseWhatsAppPhoneNumber200ResponseOneOf2>,
+    ),
 }
 
 impl Default for PurchaseWhatsAppPhoneNumber200Response {
     fn default() -> Self {
         Self::PurchaseWhatsAppPhoneNumber200ResponseOneOf(Default::default())
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Status {
+    #[serde(rename = "already_purchased")]
+    AlreadyPurchased,
+}
+
+impl Default for Status {
+    fn default() -> Status {
+        Self::AlreadyPurchased
     }
 }

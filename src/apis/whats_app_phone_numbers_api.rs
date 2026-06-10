@@ -85,6 +85,7 @@ pub enum PurchaseWhatsAppPhoneNumberError {
     Status400(),
     Status401(models::InlineObject),
     Status403(),
+    Status409(models::PurchaseWhatsAppPhoneNumber409Response),
     Status402(),
     Status422(),
     UnknownValue(serde_json::Value),
