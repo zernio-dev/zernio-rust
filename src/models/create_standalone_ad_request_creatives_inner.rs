@@ -21,6 +21,9 @@ pub struct CreateStandaloneAdRequestCreativesInner {
     pub headline: String,
     #[serde(rename = "body")]
     pub body: String,
+    /// Link description for this ad (link_data.description; video creatives: video_data.link_description). Falls back to the top-level `description`; when both are omitted Meta scrapes the destination URL's OG description.
+    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
     /// Image creative. Mutually exclusive with `video`.
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
@@ -44,6 +47,7 @@ impl CreateStandaloneAdRequestCreativesInner {
             name: None,
             headline,
             body,
+            description: None,
             image_url: None,
             video: None,
             link_url,
