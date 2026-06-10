@@ -37,7 +37,7 @@ pub struct CreateInboxConversationRequest {
     /// WhatsApp only. Template language code (e.g. en_US).
     #[serde(rename = "templateLanguage", skip_serializing_if = "Option::is_none")]
     pub template_language: Option<String>,
-    /// WhatsApp only. Body variable values, in order, substituted into the template body ({{1}}, {{2}}, ...).
+    /// WhatsApp only. Body variable values, in order. Works with positional placeholders ({{1}}, {{2}}, ...) and with named placeholders ({{name}}, {{company}} - how Meta Business Manager creates templates), where values fill the named slots in order of appearance.
     #[serde(rename = "templateParams", skip_serializing_if = "Option::is_none")]
     pub template_params: Option<Vec<String>>,
 }
