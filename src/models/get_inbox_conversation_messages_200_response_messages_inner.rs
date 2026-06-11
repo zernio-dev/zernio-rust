@@ -81,7 +81,7 @@ pub struct GetInboxConversationMessages200ResponseMessagesInner {
     #[serde(rename = "reactions", skip_serializing_if = "Option::is_none")]
     pub reactions:
         Option<Vec<models::GetInboxConversationMessages200ResponseMessagesInnerReactionsInner>>,
-    /// Platform-specific extras. Free-form, but commonly includes: `quotedMessageId` (platformMessageId this message replies to), `waInteractive` (a compact descriptor of WhatsApp interactive content sent: buttons / list / cta_url / flow), and for inbound interactive taps `interactiveType` / `interactiveId`.
+    /// Platform-specific extras. Free-form, but commonly includes: `quotedMessageId` (platformMessageId this message replies to), `waInteractive` (a compact descriptor of WhatsApp interactive content sent: buttons / list / cta_url / flow / location_request), and for inbound interactive taps `interactiveType` / `interactiveId`.
     #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
     pub metadata: Option<std::collections::HashMap<String, serde_json::Value>>,
 }

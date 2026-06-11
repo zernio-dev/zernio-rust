@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// SendInboxMessageRequestInteractive : WhatsApp-only. Rich interactive payload for list messages, CTA URL buttons, and Flow prompts. When set, takes priority over `buttons` and `quickReplies`. The shape mirrors Meta's Cloud API `interactive` object verbatim, so any payload that works against Meta directly will also work here.  Use `buttons` / `quickReplies` for simple button replies (WhatsApp's `interactive.type: \"button\"`) — the abstraction caps at 3 buttons and handles the auto-conversion for you. Use this field only for `list`, `cta_url`, or `flow` messages.  Tap events come back via the `message.received` webhook with `metadata.interactiveType` set to `list_reply` or `nfm_reply`.
+/// SendInboxMessageRequestInteractive : WhatsApp-only. Rich interactive payload for list messages, CTA URL buttons, Flow prompts, and location requests. When set, takes priority over `buttons` and `quickReplies`. The shape mirrors Meta's Cloud API `interactive` object verbatim, so any payload that works against Meta directly will also work here.  Use `buttons` / `quickReplies` for simple button replies (WhatsApp's `interactive.type: \"button\"`) — the abstraction caps at 3 buttons and handles the auto-conversion for you. Use this field only for `list`, `cta_url`, `flow`, or `location_request_message` messages.  For `location_request_message`, `action` may be omitted (we default it to `{ \"name\": \"send_location\" }`). WhatsApp renders a localized \"Send location\" button; the user's reply arrives as a regular location message in the conversation.  Tap events come back via the `message.received` webhook with `metadata.interactiveType` set to `list_reply` or `nfm_reply`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SendInboxMessageRequestInteractive {
     /// Which interactive layout to render.
@@ -23,23 +23,22 @@ pub struct SendInboxMessageRequestInteractive {
     pub body: Box<models::SendInboxMessageRequestInteractiveBody>,
     #[serde(rename = "footer", skip_serializing_if = "Option::is_none")]
     pub footer: Option<Box<models::SendInboxMessageRequestInteractiveFooter>>,
-    #[serde(rename = "action")]
-    pub action: Box<models::SendInboxMessageRequestInteractiveAction>,
+    #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
+    pub action: Option<Box<models::SendInboxMessageRequestInteractiveAction>>,
 }
 
 impl SendInboxMessageRequestInteractive {
-    /// WhatsApp-only. Rich interactive payload for list messages, CTA URL buttons, and Flow prompts. When set, takes priority over `buttons` and `quickReplies`. The shape mirrors Meta's Cloud API `interactive` object verbatim, so any payload that works against Meta directly will also work here.  Use `buttons` / `quickReplies` for simple button replies (WhatsApp's `interactive.type: \"button\"`) — the abstraction caps at 3 buttons and handles the auto-conversion for you. Use this field only for `list`, `cta_url`, or `flow` messages.  Tap events come back via the `message.received` webhook with `metadata.interactiveType` set to `list_reply` or `nfm_reply`.
+    /// WhatsApp-only. Rich interactive payload for list messages, CTA URL buttons, Flow prompts, and location requests. When set, takes priority over `buttons` and `quickReplies`. The shape mirrors Meta's Cloud API `interactive` object verbatim, so any payload that works against Meta directly will also work here.  Use `buttons` / `quickReplies` for simple button replies (WhatsApp's `interactive.type: \"button\"`) — the abstraction caps at 3 buttons and handles the auto-conversion for you. Use this field only for `list`, `cta_url`, `flow`, or `location_request_message` messages.  For `location_request_message`, `action` may be omitted (we default it to `{ \"name\": \"send_location\" }`). WhatsApp renders a localized \"Send location\" button; the user's reply arrives as a regular location message in the conversation.  Tap events come back via the `message.received` webhook with `metadata.interactiveType` set to `list_reply` or `nfm_reply`.
     pub fn new(
         r#type: Type,
         body: models::SendInboxMessageRequestInteractiveBody,
-        action: models::SendInboxMessageRequestInteractiveAction,
     ) -> SendInboxMessageRequestInteractive {
         SendInboxMessageRequestInteractive {
             r#type,
             header: None,
             body: Box::new(body),
             footer: None,
-            action: Box::new(action),
+            action: None,
         }
     }
 }
@@ -52,6 +51,8 @@ pub enum Type {
     CtaUrl,
     #[serde(rename = "flow")]
     Flow,
+    #[serde(rename = "location_request_message")]
+    LocationRequestMessage,
 }
 
 impl Default for Type {

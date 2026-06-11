@@ -31,6 +31,15 @@ pub enum ApproveWhatsAppGroupJoinRequestsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`block_whats_app_users`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum BlockWhatsAppUsersError {
+    Status401(models::InlineObject),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`create_whats_app_dataset`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -84,6 +93,15 @@ pub enum DeleteWhatsAppTemplateError {
     Status400(),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_whats_app_blocked_users`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetWhatsAppBlockedUsersError {
+    Status401(models::InlineObject),
+    Status404(),
     UnknownValue(serde_json::Value),
 }
 
@@ -193,6 +211,15 @@ pub enum SendWhatsAppConversionError {
     Status401(models::InlineObject),
     Status404(),
     Status422(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`unblock_whats_app_users`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UnblockWhatsAppUsersError {
+    Status401(models::InlineObject),
+    Status404(),
     UnknownValue(serde_json::Value),
 }
 
@@ -357,6 +384,56 @@ pub async fn approve_whats_app_group_join_requests(
         let content = resp.text().await?;
         let entity: Option<ApproveWhatsAppGroupJoinRequestsError> =
             serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Block one or more WhatsApp users on this number. Blocked users cannot message your number or see that you are online, and your sends to them return an error.  Meta constraints, surfaced per-user in `failed` (the request itself still succeeds for the rest of the batch): - Only users who messaged your business within the last 24 hours can be   blocked (failures outside the window report \"Re-engagement required\"). - Up to 1,000 users per request; the blocklist caps at 64,000. - Other WhatsApp Business accounts cannot be blocked.
+pub async fn block_whats_app_users(
+    configuration: &configuration::Configuration,
+    block_whats_app_users_request: models::BlockWhatsAppUsersRequest,
+) -> Result<models::BlockWhatsAppUsers200Response, Error<BlockWhatsAppUsersError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_block_whats_app_users_request = block_whats_app_users_request;
+
+    let uri_str = format!("{}/v1/whatsapp/block-users", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_block_whats_app_users_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::BlockWhatsAppUsers200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::BlockWhatsAppUsers200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<BlockWhatsAppUsersError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -679,6 +756,64 @@ pub async fn delete_whats_app_template(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteWhatsAppTemplateError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// List the WhatsApp users blocked on this number. Cursor-paginated; pass `nextCursor` back as `after` to fetch the next page. The blocklist holds up to 64,000 users.
+pub async fn get_whats_app_blocked_users(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    limit: Option<i32>,
+    after: Option<&str>,
+) -> Result<models::GetWhatsAppBlockedUsers200Response, Error<GetWhatsAppBlockedUsersError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_limit = limit;
+    let p_query_after = after;
+
+    let uri_str = format!("{}/v1/whatsapp/block-users", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetWhatsAppBlockedUsers200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetWhatsAppBlockedUsers200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetWhatsAppBlockedUsersError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1323,6 +1458,56 @@ pub async fn send_whats_app_conversion(
     } else {
         let content = resp.text().await?;
         let entity: Option<SendWhatsAppConversionError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Unblock one or more previously blocked WhatsApp users on this number. Up to 1,000 users per request; per-user failures are reported in `failed` without failing the rest of the batch.
+pub async fn unblock_whats_app_users(
+    configuration: &configuration::Configuration,
+    unblock_whats_app_users_request: models::UnblockWhatsAppUsersRequest,
+) -> Result<models::UnblockWhatsAppUsers200Response, Error<UnblockWhatsAppUsersError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_unblock_whats_app_users_request = unblock_whats_app_users_request;
+
+    let uri_str = format!("{}/v1/whatsapp/block-users", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_unblock_whats_app_users_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UnblockWhatsAppUsers200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UnblockWhatsAppUsers200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UnblockWhatsAppUsersError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

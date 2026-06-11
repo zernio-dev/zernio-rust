@@ -67,6 +67,10 @@ docs/BatchGetGoogleBusinessReviews200Response.md
 docs/BatchGetGoogleBusinessReviews200ResponseLocationReviewsInner.md
 docs/BatchGetGoogleBusinessReviewsRequest.md
 docs/BidStrategy.md
+docs/BlockWhatsAppUsers200Response.md
+docs/BlockWhatsAppUsers200ResponseBlockedInner.md
+docs/BlockWhatsAppUsers200ResponseFailedInner.md
+docs/BlockWhatsAppUsersRequest.md
 docs/BlueskyPlatformData.md
 docs/BookmarkPost200Response.md
 docs/BookmarkPostRequest.md
@@ -507,6 +511,8 @@ docs/GetUser200ResponseUser.md
 docs/GetWebhookLogs200Response.md
 docs/GetWebhookLogs200ResponsePagination.md
 docs/GetWebhookSettings200Response.md
+docs/GetWhatsAppBlockedUsers200Response.md
+docs/GetWhatsAppBlockedUsers200ResponseBlockedUsersInner.md
 docs/GetWhatsAppBusinessProfile200Response.md
 docs/GetWhatsAppBusinessProfile200ResponseBusinessProfile.md
 docs/GetWhatsAppCall200Response.md
@@ -895,6 +901,7 @@ docs/SendInboxMessageRequestInteractiveActionOneOf1Parameters.md
 docs/SendInboxMessageRequestInteractiveActionOneOf2.md
 docs/SendInboxMessageRequestInteractiveActionOneOf2Parameters.md
 docs/SendInboxMessageRequestInteractiveActionOneOf2ParametersFlowActionPayload.md
+docs/SendInboxMessageRequestInteractiveActionOneOf3.md
 docs/SendInboxMessageRequestInteractiveActionOneOfSectionsInner.md
 docs/SendInboxMessageRequestInteractiveActionOneOfSectionsInnerRowsInner.md
 docs/SendInboxMessageRequestInteractiveBody.md
@@ -961,6 +968,8 @@ docs/TwitterPlatformData.md
 docs/TwitterPlatformDataPoll.md
 docs/TwitterPlatformDataSensitiveMedia.md
 docs/TwitterPlatformDataThreadItemsInner.md
+docs/UnblockWhatsAppUsers200Response.md
+docs/UnblockWhatsAppUsersRequest.md
 docs/UndoRetweet200Response.md
 docs/UnfollowUser200Response.md
 docs/UnlikeInboxComment200Response.md
@@ -1336,6 +1345,10 @@ src/models/batch_get_google_business_reviews_200_response.rs
 src/models/batch_get_google_business_reviews_200_response_location_reviews_inner.rs
 src/models/batch_get_google_business_reviews_request.rs
 src/models/bid_strategy.rs
+src/models/block_whats_app_users_200_response.rs
+src/models/block_whats_app_users_200_response_blocked_inner.rs
+src/models/block_whats_app_users_200_response_failed_inner.rs
+src/models/block_whats_app_users_request.rs
 src/models/bluesky_platform_data.rs
 src/models/bookmark_post_200_response.rs
 src/models/bookmark_post_request.rs
@@ -1769,6 +1782,8 @@ src/models/get_user_200_response_user.rs
 src/models/get_webhook_logs_200_response.rs
 src/models/get_webhook_logs_200_response_pagination.rs
 src/models/get_webhook_settings_200_response.rs
+src/models/get_whats_app_blocked_users_200_response.rs
+src/models/get_whats_app_blocked_users_200_response_blocked_users_inner.rs
 src/models/get_whats_app_business_profile_200_response.rs
 src/models/get_whats_app_business_profile_200_response_business_profile.rs
 src/models/get_whats_app_call_200_response.rs
@@ -2138,6 +2153,7 @@ src/models/send_inbox_message_request_interactive_action_one_of_1_parameters.rs
 src/models/send_inbox_message_request_interactive_action_one_of_2.rs
 src/models/send_inbox_message_request_interactive_action_one_of_2_parameters.rs
 src/models/send_inbox_message_request_interactive_action_one_of_2_parameters_flow_action_payload.rs
+src/models/send_inbox_message_request_interactive_action_one_of_3.rs
 src/models/send_inbox_message_request_interactive_action_one_of_sections_inner.rs
 src/models/send_inbox_message_request_interactive_action_one_of_sections_inner_rows_inner.rs
 src/models/send_inbox_message_request_interactive_body.rs
@@ -2201,6 +2217,8 @@ src/models/twitter_platform_data.rs
 src/models/twitter_platform_data_poll.rs
 src/models/twitter_platform_data_sensitive_media.rs
 src/models/twitter_platform_data_thread_items_inner.rs
+src/models/unblock_whats_app_users_200_response.rs
+src/models/unblock_whats_app_users_request.rs
 src/models/undo_retweet_200_response.rs
 src/models/unfollow_user_200_response.rs
 src/models/unlike_inbox_comment_200_response.rs

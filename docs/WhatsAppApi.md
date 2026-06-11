@@ -6,12 +6,14 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**add_whats_app_group_participants**](WhatsAppApi.md#add_whats_app_group_participants) | **POST** /v1/whatsapp/wa-groups/{groupId}/participants | Add participants
 [**approve_whats_app_group_join_requests**](WhatsAppApi.md#approve_whats_app_group_join_requests) | **POST** /v1/whatsapp/wa-groups/{groupId}/join-requests | Approve join requests
+[**block_whats_app_users**](WhatsAppApi.md#block_whats_app_users) | **POST** /v1/whatsapp/block-users | Block users
 [**create_whats_app_dataset**](WhatsAppApi.md#create_whats_app_dataset) | **POST** /v1/whatsapp/dataset | Provision CTWA conversions dataset
 [**create_whats_app_group_chat**](WhatsAppApi.md#create_whats_app_group_chat) | **POST** /v1/whatsapp/wa-groups | Create group
 [**create_whats_app_group_invite_link**](WhatsAppApi.md#create_whats_app_group_invite_link) | **POST** /v1/whatsapp/wa-groups/{groupId}/invite-link | Create invite link
 [**create_whats_app_template**](WhatsAppApi.md#create_whats_app_template) | **POST** /v1/whatsapp/templates | Create template
 [**delete_whats_app_group_chat**](WhatsAppApi.md#delete_whats_app_group_chat) | **DELETE** /v1/whatsapp/wa-groups/{groupId} | Delete group
 [**delete_whats_app_template**](WhatsAppApi.md#delete_whats_app_template) | **DELETE** /v1/whatsapp/templates/{templateName} | Delete template
+[**get_whats_app_blocked_users**](WhatsAppApi.md#get_whats_app_blocked_users) | **GET** /v1/whatsapp/block-users | List blocked users
 [**get_whats_app_business_profile**](WhatsAppApi.md#get_whats_app_business_profile) | **GET** /v1/whatsapp/business-profile | Get business profile
 [**get_whats_app_dataset**](WhatsAppApi.md#get_whats_app_dataset) | **GET** /v1/whatsapp/dataset | Get CTWA conversions dataset
 [**get_whats_app_display_name**](WhatsAppApi.md#get_whats_app_display_name) | **GET** /v1/whatsapp/business-profile/display-name | Get display name status
@@ -24,6 +26,7 @@ Method | HTTP request | Description
 [**reject_whats_app_group_join_requests**](WhatsAppApi.md#reject_whats_app_group_join_requests) | **DELETE** /v1/whatsapp/wa-groups/{groupId}/join-requests | Reject join requests
 [**remove_whats_app_group_participants**](WhatsAppApi.md#remove_whats_app_group_participants) | **DELETE** /v1/whatsapp/wa-groups/{groupId}/participants | Remove participants
 [**send_whats_app_conversion**](WhatsAppApi.md#send_whats_app_conversion) | **POST** /v1/whatsapp/conversions | Send WhatsApp conversion event
+[**unblock_whats_app_users**](WhatsAppApi.md#unblock_whats_app_users) | **DELETE** /v1/whatsapp/block-users | Unblock users
 [**update_whats_app_business_profile**](WhatsAppApi.md#update_whats_app_business_profile) | **POST** /v1/whatsapp/business-profile | Update business profile
 [**update_whats_app_display_name**](WhatsAppApi.md#update_whats_app_display_name) | **POST** /v1/whatsapp/business-profile/display-name | Request display name change
 [**update_whats_app_group_chat**](WhatsAppApi.md#update_whats_app_group_chat) | **POST** /v1/whatsapp/wa-groups/{groupId} | Update group settings
@@ -83,6 +86,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UnpublishPost200Response**](unpublishPost_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## block_whats_app_users
+
+> models::BlockWhatsAppUsers200Response block_whats_app_users(block_whats_app_users_request)
+Block users
+
+Block one or more WhatsApp users on this number. Blocked users cannot message your number or see that you are online, and your sends to them return an error.  Meta constraints, surfaced per-user in `failed` (the request itself still succeeds for the rest of the batch): - Only users who messaged your business within the last 24 hours can be   blocked (failures outside the window report \"Re-engagement required\"). - Up to 1,000 users per request; the blocklist caps at 64,000. - Other WhatsApp Business accounts cannot be blocked. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**block_whats_app_users_request** | [**BlockWhatsAppUsersRequest**](BlockWhatsAppUsersRequest.md) |  | [required] |
+
+### Return type
+
+[**models::BlockWhatsAppUsers200Response**](blockWhatsAppUsers_200_response.md)
 
 ### Authorization
 
@@ -266,6 +299,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UnpublishPost200Response**](unpublishPost_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_whats_app_blocked_users
+
+> models::GetWhatsAppBlockedUsers200Response get_whats_app_blocked_users(account_id, limit, after)
+List blocked users
+
+List the WhatsApp users blocked on this number. Cursor-paginated; pass `nextCursor` back as `after` to fetch the next page. The blocklist holds up to 64,000 users. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | WhatsApp social account ID | [required] |
+**limit** | Option<**i32**> | Page size. |  |
+**after** | Option<**String**> | Cursor from a previous response's `nextCursor`. |  |
+
+### Return type
+
+[**models::GetWhatsAppBlockedUsers200Response**](getWhatsAppBlockedUsers_200_response.md)
 
 ### Authorization
 
@@ -636,6 +701,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::SendWhatsAppConversion200Response**](sendWhatsAppConversion_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## unblock_whats_app_users
+
+> models::UnblockWhatsAppUsers200Response unblock_whats_app_users(unblock_whats_app_users_request)
+Unblock users
+
+Unblock one or more previously blocked WhatsApp users on this number. Up to 1,000 users per request; per-user failures are reported in `failed` without failing the rest of the batch. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**unblock_whats_app_users_request** | [**UnblockWhatsAppUsersRequest**](UnblockWhatsAppUsersRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UnblockWhatsAppUsers200Response**](unblockWhatsAppUsers_200_response.md)
 
 ### Authorization
 
