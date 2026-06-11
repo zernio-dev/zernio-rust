@@ -13,26 +13,39 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SendInboxMessageRequestTemplateElementsInner {
-    /// Element title (max 80 chars)
-    #[serde(rename = "title")]
-    pub title: String,
-    /// Element subtitle
+    /// Element title (max 80 chars). Required for Instagram/Facebook generic templates.
+    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    /// Element subtitle (Instagram/Facebook only)
     #[serde(rename = "subtitle", skip_serializing_if = "Option::is_none")]
     pub subtitle: Option<String>,
-    /// Element image URL
+    /// Element image URL (Instagram/Facebook only)
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
+    /// Element buttons (Instagram/Facebook only)
     #[serde(rename = "buttons", skip_serializing_if = "Option::is_none")]
     pub buttons: Option<Vec<models::SendInboxMessageRequestTemplateElementsInnerButtonsInner>>,
+    /// WhatsApp only. Name of the approved template to send.
+    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    /// WhatsApp only. Template language code (e.g. en_US).
+    #[serde(rename = "language", skip_serializing_if = "Option::is_none")]
+    pub language: Option<String>,
+    /// WhatsApp only. Meta Cloud API send-shape components array, forwarded to Meta verbatim.
+    #[serde(rename = "components", skip_serializing_if = "Option::is_none")]
+    pub components: Option<Vec<std::collections::HashMap<String, serde_json::Value>>>,
 }
 
 impl SendInboxMessageRequestTemplateElementsInner {
-    pub fn new(title: String) -> SendInboxMessageRequestTemplateElementsInner {
+    pub fn new() -> SendInboxMessageRequestTemplateElementsInner {
         SendInboxMessageRequestTemplateElementsInner {
-            title,
+            title: None,
             subtitle: None,
             image_url: None,
             buttons: None,
+            name: None,
+            language: None,
+            components: None,
         }
     }
 }
