@@ -627,6 +627,10 @@ docs/ListAdAccounts200ResponseAccountsInner.md
 docs/ListAdAudiences200Response.md
 docs/ListAdAudiences200ResponseAudiencesInner.md
 docs/ListAdCampaigns200Response.md
+docs/ListAdCatalogProductSets200Response.md
+docs/ListAdCatalogProductSets200ResponseProductSetsInner.md
+docs/ListAdCatalogs200Response.md
+docs/ListAdCatalogs200ResponseCatalogsInner.md
 docs/ListAds200Response.md
 docs/ListAdsBusinessCenters200Response.md
 docs/ListApiKeys200Response.md
@@ -1873,6 +1877,10 @@ src/models/list_ad_accounts_200_response_accounts_inner.rs
 src/models/list_ad_audiences_200_response.rs
 src/models/list_ad_audiences_200_response_audiences_inner.rs
 src/models/list_ad_campaigns_200_response.rs
+src/models/list_ad_catalog_product_sets_200_response.rs
+src/models/list_ad_catalog_product_sets_200_response_product_sets_inner.rs
+src/models/list_ad_catalogs_200_response.rs
+src/models/list_ad_catalogs_200_response_catalogs_inner.rs
 src/models/list_ads_200_response.rs
 src/models/list_ads_business_centers_200_response.rs
 src/models/list_api_keys_200_response.rs

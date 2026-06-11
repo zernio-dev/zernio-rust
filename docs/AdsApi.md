@@ -25,6 +25,8 @@ Method | HTTP request | Description
 [**get_conversions_quality**](AdsApi.md#get_conversions_quality) | **GET** /v1/ads/conversions/quality | Read Event Match Quality + coverage for a Meta pixel
 [**get_lead_form**](AdsApi.md#get_lead_form) | **GET** /v1/ads/lead-forms/{formId} | Get a single Lead Gen form
 [**list_ad_accounts**](AdsApi.md#list_ad_accounts) | **GET** /v1/ads/accounts | List ad accounts
+[**list_ad_catalog_product_sets**](AdsApi.md#list_ad_catalog_product_sets) | **GET** /v1/ads/catalogs/{catalogId}/product-sets | List a catalog's product sets
+[**list_ad_catalogs**](AdsApi.md#list_ad_catalogs) | **GET** /v1/ads/catalogs | List Meta product catalogs
 [**list_ads**](AdsApi.md#list_ads) | **GET** /v1/ads | List ads
 [**list_ads_business_centers**](AdsApi.md#list_ads_business_centers) | **GET** /v1/ads/business-centers | List TikTok Business Centers
 [**list_conversion_associations**](AdsApi.md#list_conversion_associations) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | List campaigns associated with a conversion destination
@@ -684,6 +686,68 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListAdAccounts200Response**](listAdAccounts_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_ad_catalog_product_sets
+
+> models::ListAdCatalogProductSets200Response list_ad_catalog_product_sets(catalog_id, account_id)
+List a catalog's product sets
+
+Lists a Meta product catalog's product sets — the unit a catalog ad promotes. Pass the chosen set as `promotedObject.productSetId` on POST /v1/ads/create with `goal: catalog_sales`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**catalog_id** | **String** | Meta product catalog ID (from GET /v1/ads/catalogs) | [required] |
+**account_id** | **String** | A facebook, instagram, or metaads social account ID | [required] |
+
+### Return type
+
+[**models::ListAdCatalogProductSets200Response**](listAdCatalogProductSets_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_ad_catalogs
+
+> models::ListAdCatalogs200Response list_ad_catalogs(account_id, ad_account_id)
+List Meta product catalogs
+
+Lists the Meta product catalogs reachable from an ad account (owned + agency-shared catalogs of the ad account's business), for Advantage+ catalog ads (`goal: catalog_sales` on POST /v1/ads/create — e.g. vehicle inventory catalogs). Read-only; uses scopes customers already granted (no reconnect needed). Catalog contents (items, feeds) are managed in Meta Commerce Manager, not through this API.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | A facebook, instagram, or metaads social account ID | [required] |
+**ad_account_id** | **String** | Meta ad account ID (act_...) | [required] |
+
+### Return type
+
+[**models::ListAdCatalogs200Response**](listAdCatalogs_200_response.md)
 
 ### Authorization
 
