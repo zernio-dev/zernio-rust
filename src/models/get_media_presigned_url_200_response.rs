@@ -22,9 +22,9 @@ pub struct GetMediaPresignedUrl200Response {
     /// Storage key/path of the file
     #[serde(rename = "key", skip_serializing_if = "Option::is_none")]
     pub key: Option<String>,
-    /// Detected file type based on content type
-    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<Type>,
+    /// Seconds until the presigned uploadUrl expires (always 3600)
+    #[serde(rename = "expiresIn", skip_serializing_if = "Option::is_none")]
+    pub expires_in: Option<i32>,
 }
 
 impl GetMediaPresignedUrl200Response {
@@ -33,23 +33,7 @@ impl GetMediaPresignedUrl200Response {
             upload_url: None,
             public_url: None,
             key: None,
-            r#type: None,
+            expires_in: None,
         }
-    }
-}
-/// Detected file type based on content type
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "image")]
-    Image,
-    #[serde(rename = "video")]
-    Video,
-    #[serde(rename = "document")]
-    Document,
-}
-
-impl Default for Type {
-    fn default() -> Type {
-        Self::Image
     }
 }
