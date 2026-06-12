@@ -18,6 +18,9 @@ pub struct GetWhatsAppNumberKycForm200ResponseReusable {
     pub available: Option<bool>,
     #[serde(rename = "fromPhoneNumber", skip_serializing_if = "Option::is_none")]
     pub from_phone_number: Option<String>,
+    /// Human-readable summary of the verification on file (field labels + values, plus the address as one line). Best-effort — may be empty if the provider lookup fails.
+    #[serde(rename = "details", skip_serializing_if = "Option::is_none")]
+    pub details: Option<Vec<models::GetWhatsAppNumberKycForm200ResponseReusableDetailsInner>>,
 }
 
 impl GetWhatsAppNumberKycForm200ResponseReusable {
@@ -26,6 +29,7 @@ impl GetWhatsAppNumberKycForm200ResponseReusable {
         GetWhatsAppNumberKycForm200ResponseReusable {
             available: None,
             from_phone_number: None,
+            details: None,
         }
     }
 }
