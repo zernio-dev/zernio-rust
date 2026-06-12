@@ -136,6 +136,7 @@ Class | Method | HTTP request | Description
 *AnalyticsApi* | [**get_you_tube_channel_insights**](docs/AnalyticsApi.md#get_you_tube_channel_insights) | **GET** /v1/analytics/youtube/channel-insights | Get YouTube channel-level insights
 *AnalyticsApi* | [**get_you_tube_daily_views**](docs/AnalyticsApi.md#get_you_tube_daily_views) | **GET** /v1/analytics/youtube/daily-views | Get YouTube daily views
 *AnalyticsApi* | [**get_you_tube_demographics**](docs/AnalyticsApi.md#get_you_tube_demographics) | **GET** /v1/analytics/youtube/demographics | Get YouTube demographics
+*AnalyticsApi* | [**get_you_tube_video_retention**](docs/AnalyticsApi.md#get_you_tube_video_retention) | **GET** /v1/analytics/youtube/video-retention | Get YouTube video retention curve
 *BroadcastsApi* | [**add_broadcast_recipients**](docs/BroadcastsApi.md#add_broadcast_recipients) | **POST** /v1/broadcasts/{broadcastId}/recipients | Add recipients to a broadcast
 *BroadcastsApi* | [**cancel_broadcast**](docs/BroadcastsApi.md#cancel_broadcast) | **POST** /v1/broadcasts/{broadcastId}/cancel | Cancel broadcast
 *BroadcastsApi* | [**create_broadcast**](docs/BroadcastsApi.md#create_broadcast) | **POST** /v1/broadcasts | Create broadcast draft
@@ -975,6 +976,7 @@ Class | Method | HTTP request | Description
  - [GetYouTubeDailyViews500Response](docs/GetYouTubeDailyViews500Response.md)
  - [GetYouTubeDemographics412Response](docs/GetYouTubeDemographics412Response.md)
  - [GetYouTubeDemographics412ResponseScopeStatus](docs/GetYouTubeDemographics412ResponseScopeStatus.md)
+ - [GetYouTubeVideoRetention404Response](docs/GetYouTubeVideoRetention404Response.md)
  - [GetYoutubePlaylists200Response](docs/GetYoutubePlaylists200Response.md)
  - [GetYoutubePlaylists200ResponsePlaylistsInner](docs/GetYoutubePlaylists200ResponsePlaylistsInner.md)
  - [GoogleBusinessPlatformData](docs/GoogleBusinessPlatformData.md)
@@ -1609,6 +1611,8 @@ Class | Method | HTTP request | Description
  - [YouTubePlatformData](docs/YouTubePlatformData.md)
  - [YouTubeScopeMissingResponse](docs/YouTubeScopeMissingResponse.md)
  - [YouTubeScopeMissingResponseScopeStatus](docs/YouTubeScopeMissingResponseScopeStatus.md)
+ - [YouTubeVideoRetentionResponse](docs/YouTubeVideoRetentionResponse.md)
+ - [YouTubeVideoRetentionResponseRetentionCurveInner](docs/YouTubeVideoRetentionResponseRetentionCurveInner.md)
 
 
 To get access to the crate's generated documentation, use:

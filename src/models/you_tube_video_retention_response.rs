@@ -12,39 +12,48 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct YouTubeDailyViewsResponse {
+pub struct YouTubeVideoRetentionResponse {
     #[serde(rename = "success", skip_serializing_if = "Option::is_none")]
     pub success: Option<bool>,
+    /// The Zernio account ID for the YouTube account
+    #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
+    pub account_id: Option<String>,
     /// The YouTube video ID
     #[serde(rename = "videoId", skip_serializing_if = "Option::is_none")]
     pub video_id: Option<String>,
+    /// Video title
+    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    /// When the video was published on YouTube
+    #[serde(rename = "publishedAt", skip_serializing_if = "Option::is_none")]
+    pub published_at: Option<String>,
     /// Video length in seconds (from YouTube contentDetails.duration)
     #[serde(rename = "durationSeconds", skip_serializing_if = "Option::is_none")]
     pub duration_seconds: Option<i32>,
     #[serde(rename = "dateRange", skip_serializing_if = "Option::is_none")]
     pub date_range: Option<Box<models::YouTubeDailyViewsResponseDateRange>>,
-    /// Sum of views across all days in the range
-    #[serde(rename = "totalViews", skip_serializing_if = "Option::is_none")]
-    pub total_views: Option<i32>,
-    #[serde(rename = "dailyViews", skip_serializing_if = "Option::is_none")]
-    pub daily_views: Option<Vec<models::YouTubeDailyViewsResponseDailyViewsInner>>,
-    /// When the data was last synced from YouTube
-    #[serde(rename = "lastSyncedAt", skip_serializing_if = "Option::is_none")]
-    pub last_synced_at: Option<String>,
+    /// Up to 100 points covering the video timeline, aggregated over the date range. Empty for videos with very few views.
+    #[serde(rename = "retentionCurve", skip_serializing_if = "Option::is_none")]
+    pub retention_curve: Option<Vec<models::YouTubeVideoRetentionResponseRetentionCurveInner>>,
+    /// Present only when the curve is empty, explaining why
+    #[serde(rename = "note", skip_serializing_if = "Option::is_none")]
+    pub note: Option<String>,
     #[serde(rename = "scopeStatus", skip_serializing_if = "Option::is_none")]
     pub scope_status: Option<Box<models::YouTubeDailyViewsResponseScopeStatus>>,
 }
 
-impl YouTubeDailyViewsResponse {
-    pub fn new() -> YouTubeDailyViewsResponse {
-        YouTubeDailyViewsResponse {
+impl YouTubeVideoRetentionResponse {
+    pub fn new() -> YouTubeVideoRetentionResponse {
+        YouTubeVideoRetentionResponse {
             success: None,
+            account_id: None,
             video_id: None,
+            title: None,
+            published_at: None,
             duration_seconds: None,
             date_range: None,
-            total_views: None,
-            daily_views: None,
-            last_synced_at: None,
+            retention_curve: None,
+            note: None,
             scope_status: None,
         }
     }

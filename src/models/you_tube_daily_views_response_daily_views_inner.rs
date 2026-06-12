@@ -28,6 +28,12 @@ pub struct YouTubeDailyViewsResponseDailyViewsInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub average_view_duration: Option<f64>,
+    /// Average percentage of the video watched per view. Can exceed 100 on Shorts (looping rewatches), so do not clamp it client-side.
+    #[serde(
+        rename = "averageViewPercentage",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub average_view_percentage: Option<f64>,
     #[serde(rename = "subscribersGained", skip_serializing_if = "Option::is_none")]
     pub subscribers_gained: Option<i32>,
     #[serde(rename = "subscribersLost", skip_serializing_if = "Option::is_none")]
@@ -47,6 +53,7 @@ impl YouTubeDailyViewsResponseDailyViewsInner {
             views: None,
             estimated_minutes_watched: None,
             average_view_duration: None,
+            average_view_percentage: None,
             subscribers_gained: None,
             subscribers_lost: None,
             likes: None,

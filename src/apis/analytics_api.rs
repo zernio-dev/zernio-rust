@@ -250,6 +250,20 @@ pub enum GetYouTubeDemographicsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_you_tube_video_retention`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetYouTubeVideoRetentionError {
+    Status400(models::GetYouTubeDailyViews400Response),
+    Status401(models::InlineObject),
+    Status402(models::GetAnalytics402Response),
+    Status403(models::GetYouTubeDailyViews403Response),
+    Status404(models::GetYouTubeVideoRetention404Response),
+    Status412(models::YouTubeScopeMissingResponse),
+    Status500(models::GetYouTubeDailyViews500Response),
+    UnknownValue(serde_json::Value),
+}
+
 /// Returns analytics for posts. With postId, returns a single post. Without it, returns a paginated list with overview stats. Accepts both Zernio Post IDs and External Post IDs (auto-resolved). fromDate defaults to 90 days ago if omitted, max range 366 days. Single post lookups may return 202 (sync pending) or 424 (all platforms failed). For follower stats, use /v1/accounts/follower-stats.  LinkedIn personal accounts: Analytics are only available for posts published through Zernio. LinkedIn's API only returns metrics for posts authored by the authenticated user. Organization/company page analytics work for all posts.
 pub async fn get_analytics(
     configuration: &configuration::Configuration,
@@ -1699,6 +1713,70 @@ pub async fn get_you_tube_demographics(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetYouTubeDemographicsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns the audience retention curve for a single YouTube video, plus the video's duration for rendering the curve on a time axis. The curve has up to 100 points (elapsedVideoTimeRatio 0.01-1.0) aggregated over the whole date range; YouTube does not support per-day retention breakdowns.  audienceWatchRatio is the absolute share of viewers watching at that point in the video and can exceed 1 (rewinds and looping, common on Shorts). relativeRetentionPerformance compares against videos of similar length (0 = worst, 0.5 = median, 1 = best). YouTube returns an empty curve for videos with very few views or before analytics processing completes (2-3 day delay).  Requires yt-analytics.readonly scope (re-authorization may be needed).
+pub async fn get_you_tube_video_retention(
+    configuration: &configuration::Configuration,
+    video_id: &str,
+    account_id: &str,
+    start_date: Option<String>,
+    end_date: Option<String>,
+) -> Result<models::YouTubeVideoRetentionResponse, Error<GetYouTubeVideoRetentionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_video_id = video_id;
+    let p_query_account_id = account_id;
+    let p_query_start_date = start_date;
+    let p_query_end_date = end_date;
+
+    let uri_str = format!(
+        "{}/v1/analytics/youtube/video-retention",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("videoId", &p_query_video_id.to_string())]);
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_start_date {
+        req_builder = req_builder.query(&[("startDate", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_end_date {
+        req_builder = req_builder.query(&[("endDate", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::YouTubeVideoRetentionResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::YouTubeVideoRetentionResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetYouTubeVideoRetentionError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

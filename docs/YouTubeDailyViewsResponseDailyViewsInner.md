@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **views** | Option<**i32**> |  | [optional]
 **estimated_minutes_watched** | Option<**f64**> |  | [optional]
 **average_view_duration** | Option<**f64**> | Average view duration in seconds | [optional]
+**average_view_percentage** | Option<**f64**> | Average percentage of the video watched per view. Can exceed 100 on Shorts (looping rewatches), so do not clamp it client-side. | [optional]
 **subscribers_gained** | Option<**i32**> |  | [optional]
 **subscribers_lost** | Option<**i32**> |  | [optional]
 **likes** | Option<**i32**> |  | [optional]
