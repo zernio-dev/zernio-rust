@@ -73,6 +73,12 @@ pub struct AdTreeCampaign {
     pub account_id: Option<String>,
     #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]
     pub profile_id: Option<String>,
+    /// Google-only. Raw campaign.advertising_channel_type (SEARCH, PERFORMANCE_MAX, VIDEO, DEMAND_GEN, DISPLAY, SHOPPING, ...). Serving surface, distinct from platformObjective (advertiser intent). Null/absent for non-Google platforms.
+    #[serde(
+        rename = "advertisingChannelType",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub advertising_channel_type: Option<String>,
     /// Raw Meta campaign objective (e.g. OUTCOME_SALES, OUTCOME_LEADS, OUTCOME_TRAFFIC)
     #[serde(rename = "platformObjective", skip_serializing_if = "Option::is_none")]
     pub platform_objective: Option<String>,
@@ -117,6 +123,7 @@ impl AdTreeCampaign {
             platform_ad_account_name: None,
             account_id: None,
             profile_id: None,
+            advertising_channel_type: None,
             platform_objective: None,
             optimization_goal: None,
             bid_strategy: None,

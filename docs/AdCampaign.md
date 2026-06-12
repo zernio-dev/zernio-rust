@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **platform_ad_account_name** | Option<**String**> | Human-readable advertiser/account name from the platform. Refreshed on every sync. | [optional]
 **account_id** | Option<**String**> |  | [optional]
 **profile_id** | Option<**String**> |  | [optional]
+**advertising_channel_type** | Option<**String**> | Google-only. Raw campaign.advertising_channel_type. See AdTreeCampaign.advertisingChannelType. | [optional]
 **platform_objective** | Option<**String**> | Raw Meta campaign objective (e.g. OUTCOME_SALES, OUTCOME_LEADS, OUTCOME_TRAFFIC) | [optional]
 **optimization_goal** | Option<**String**> | Meta optimization goal shared across ad sets, or comma-separated values when ad sets differ (e.g. OFFSITE_CONVERSIONS, VALUE, LEAD_GENERATION) | [optional]
 **bid_strategy** | Option<[**models::BidStrategy**](BidStrategy.md)> | Campaign-level bid strategy. Ad sets inherit this unless they override. | [optional]
