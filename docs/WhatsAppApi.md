@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**create_whats_app_template**](WhatsAppApi.md#create_whats_app_template) | **POST** /v1/whatsapp/templates | Create template
 [**delete_whats_app_group_chat**](WhatsAppApi.md#delete_whats_app_group_chat) | **DELETE** /v1/whatsapp/wa-groups/{groupId} | Delete group
 [**delete_whats_app_template**](WhatsAppApi.md#delete_whats_app_template) | **DELETE** /v1/whatsapp/templates/{templateName} | Delete template
+[**get_whats_app_block_status**](WhatsAppApi.md#get_whats_app_block_status) | **GET** /v1/whatsapp/block-users/status | Check if a user is blocked
 [**get_whats_app_blocked_users**](WhatsAppApi.md#get_whats_app_blocked_users) | **GET** /v1/whatsapp/block-users | List blocked users
 [**get_whats_app_business_profile**](WhatsAppApi.md#get_whats_app_business_profile) | **GET** /v1/whatsapp/business-profile | Get business profile
 [**get_whats_app_dataset**](WhatsAppApi.md#get_whats_app_dataset) | **GET** /v1/whatsapp/dataset | Get CTWA conversions dataset
@@ -299,6 +300,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UnpublishPost200Response**](unpublishPost_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_whats_app_block_status
+
+> models::GetWhatsAppBlockStatus200Response get_whats_app_block_status(account_id, user)
+Check if a user is blocked
+
+Definitive blocked-state lookup for a single contact. Meta exposes no membership endpoint, so this reads Zernio's blocklist mirror (kept in sync by the block/unblock endpoints; the first call per account backfills the mirror from Meta's full list). Constant-time regardless of blocklist size. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** |  | [required] |
+**user** | **String** | Consumer wa_id or E.164 phone (leading + optional) | [required] |
+
+### Return type
+
+[**models::GetWhatsAppBlockStatus200Response**](getWhatsAppBlockStatus_200_response.md)
 
 ### Authorization
 

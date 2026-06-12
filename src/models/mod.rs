@@ -986,6 +986,8 @@ pub mod get_webhook_logs_200_response_pagination;
 pub use self::get_webhook_logs_200_response_pagination::GetWebhookLogs200ResponsePagination;
 pub mod get_webhook_settings_200_response;
 pub use self::get_webhook_settings_200_response::GetWebhookSettings200Response;
+pub mod get_whats_app_block_status_200_response;
+pub use self::get_whats_app_block_status_200_response::GetWhatsAppBlockStatus200Response;
 pub mod get_whats_app_blocked_users_200_response;
 pub use self::get_whats_app_blocked_users_200_response::GetWhatsAppBlockedUsers200Response;
 pub mod get_whats_app_blocked_users_200_response_blocked_users_inner;

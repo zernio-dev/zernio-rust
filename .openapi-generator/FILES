@@ -511,6 +511,7 @@ docs/GetUser200ResponseUser.md
 docs/GetWebhookLogs200Response.md
 docs/GetWebhookLogs200ResponsePagination.md
 docs/GetWebhookSettings200Response.md
+docs/GetWhatsAppBlockStatus200Response.md
 docs/GetWhatsAppBlockedUsers200Response.md
 docs/GetWhatsAppBlockedUsers200ResponseBlockedUsersInner.md
 docs/GetWhatsAppBusinessProfile200Response.md
@@ -1782,6 +1783,7 @@ src/models/get_user_200_response_user.rs
 src/models/get_webhook_logs_200_response.rs
 src/models/get_webhook_logs_200_response_pagination.rs
 src/models/get_webhook_settings_200_response.rs
+src/models/get_whats_app_block_status_200_response.rs
 src/models/get_whats_app_blocked_users_200_response.rs
 src/models/get_whats_app_blocked_users_200_response_blocked_users_inner.rs
 src/models/get_whats_app_business_profile_200_response.rs
