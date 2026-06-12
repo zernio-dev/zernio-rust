@@ -136,7 +136,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_daily_metrics
 
-> models::GetDailyMetrics200Response get_daily_metrics(platform, profile_id, account_id, from_date, to_date, source)
+> models::GetDailyMetrics200Response get_daily_metrics(platform, profile_id, account_id, from_date, to_date, source, attribution)
 Get daily aggregated metrics
 
 Returns daily aggregated analytics metrics and a per-platform breakdown. Each day includes post count, platform distribution, and summed metrics (impressions, reach, likes, comments, shares, saves, clicks, views). Defaults to the last 180 days. Requires the Analytics add-on. 
@@ -152,6 +152,7 @@ Name | Type | Description  | Required | Notes
 **from_date** | Option<**String**> | Inclusive start date (ISO 8601). Defaults to 180 days ago. |  |
 **to_date** | Option<**String**> | Inclusive end date (ISO 8601). Defaults to now. |  |
 **source** | Option<**String**> | Filter by post origin. \"late\" for posts published via Zernio, \"external\" for posts imported from platforms. |  |[default to all]
+**attribution** | Option<**String**> | How each post's engagement is attributed to a day. \"publish\" (default) sums each post's lifetime total on its publish date. \"received\" buckets the per-day increase in engagement by the day it actually arrived (engagement-over-time), so engagement on older posts appears on the day it was gained rather than the post's publish date.  |  |[default to publish]
 
 ### Return type
 

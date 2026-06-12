@@ -489,6 +489,7 @@ pub async fn get_daily_metrics(
     from_date: Option<String>,
     to_date: Option<String>,
     source: Option<&str>,
+    attribution: Option<&str>,
 ) -> Result<models::GetDailyMetrics200Response, Error<GetDailyMetricsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_platform = platform;
@@ -497,6 +498,7 @@ pub async fn get_daily_metrics(
     let p_query_from_date = from_date;
     let p_query_to_date = to_date;
     let p_query_source = source;
+    let p_query_attribution = attribution;
 
     let uri_str = format!("{}/v1/analytics/daily-metrics", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -518,6 +520,9 @@ pub async fn get_daily_metrics(
     }
     if let Some(ref param_value) = p_query_source {
         req_builder = req_builder.query(&[("source", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_attribution {
+        req_builder = req_builder.query(&[("attribution", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
