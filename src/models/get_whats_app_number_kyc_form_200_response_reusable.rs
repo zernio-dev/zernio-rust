@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// GetWhatsAppNumberKycForm200ResponseReusable : Present when this account already has an approved verification for the country that can be reused (skip the form).
+/// GetWhatsAppNumberKycForm200ResponseReusable : Present when this account already has an approved verification for the country that can be reused (skip the form). `fromPhoneNumber`/`details` mirror the newest option; `options` lists ALL approved verifications (agencies hold one per end client) — pass the chosen option's `fromPhoneNumber` as `reuseFrom` on POST.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetWhatsAppNumberKycForm200ResponseReusable {
     #[serde(rename = "available", skip_serializing_if = "Option::is_none")]
@@ -21,15 +21,19 @@ pub struct GetWhatsAppNumberKycForm200ResponseReusable {
     /// Human-readable summary of the verification on file (field labels + values, plus the address as one line). Best-effort — may be empty if the provider lookup fails.
     #[serde(rename = "details", skip_serializing_if = "Option::is_none")]
     pub details: Option<Vec<models::GetWhatsAppNumberKycForm200ResponseReusableDetailsInner>>,
+    /// One entry per distinct approved verification, newest first.
+    #[serde(rename = "options", skip_serializing_if = "Option::is_none")]
+    pub options: Option<Vec<models::GetWhatsAppNumberKycForm200ResponseReusableOptionsInner>>,
 }
 
 impl GetWhatsAppNumberKycForm200ResponseReusable {
-    /// Present when this account already has an approved verification for the country that can be reused (skip the form).
+    /// Present when this account already has an approved verification for the country that can be reused (skip the form). `fromPhoneNumber`/`details` mirror the newest option; `options` lists ALL approved verifications (agencies hold one per end client) — pass the chosen option's `fromPhoneNumber` as `reuseFrom` on POST.
     pub fn new() -> GetWhatsAppNumberKycForm200ResponseReusable {
         GetWhatsAppNumberKycForm200ResponseReusable {
             available: None,
             from_phone_number: None,
             details: None,
+            options: None,
         }
     }
 }

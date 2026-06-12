@@ -23,6 +23,9 @@ pub struct SubmitWhatsAppNumberKycRequest {
     /// Reuse a prior approved verification for this country (skips document/field collection; places the order immediately).
     #[serde(rename = "reuse", skip_serializing_if = "Option::is_none")]
     pub reuse: Option<bool>,
+    /// Which approved verification to reuse when several exist: the phone number it was originally approved for (GET reusable.options[].fromPhoneNumber). Omitted = newest. No match = 409.
+    #[serde(rename = "reuseFrom", skip_serializing_if = "Option::is_none")]
+    pub reuse_from: Option<String>,
     /// End user's legal first name. Required when the country has an action/ID-verification (Onfido) requirement.
     #[serde(rename = "endUserFirstName", skip_serializing_if = "Option::is_none")]
     pub end_user_first_name: Option<String>,
@@ -46,6 +49,7 @@ impl SubmitWhatsAppNumberKycRequest {
             country,
             submission_id: None,
             reuse: None,
+            reuse_from: None,
             end_user_first_name: None,
             end_user_last_name: None,
             values: None,

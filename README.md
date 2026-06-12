@@ -956,6 +956,7 @@ Class | Method | HTTP request | Description
  - [GetWhatsAppNumberKycForm200ResponseFieldsInner](docs/GetWhatsAppNumberKycForm200ResponseFieldsInner.md)
  - [GetWhatsAppNumberKycForm200ResponseReusable](docs/GetWhatsAppNumberKycForm200ResponseReusable.md)
  - [GetWhatsAppNumberKycForm200ResponseReusableDetailsInner](docs/GetWhatsAppNumberKycForm200ResponseReusableDetailsInner.md)
+ - [GetWhatsAppNumberKycForm200ResponseReusableOptionsInner](docs/GetWhatsAppNumberKycForm200ResponseReusableOptionsInner.md)
  - [GetWhatsAppNumberRemediation200Response](docs/GetWhatsAppNumberRemediation200Response.md)
  - [GetWhatsAppPhoneNumber200Response](docs/GetWhatsAppPhoneNumber200Response.md)
  - [GetWhatsAppPhoneNumber200ResponsePhoneNumber](docs/GetWhatsAppPhoneNumber200ResponsePhoneNumber.md)
