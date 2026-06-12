@@ -20,6 +20,9 @@ pub struct WebhookPayloadMessageDeliveryStatusError {
     pub title: Option<String>,
     #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
+    /// Plain-language translation of `code` (e.g. for 131026, that the recipient has likely opted out of marketing messages while utility templates are unaffected). Null for unmapped codes; fall back to title/message.
+    #[serde(rename = "explanation", skip_serializing_if = "Option::is_none")]
+    pub explanation: Option<String>,
 }
 
 impl WebhookPayloadMessageDeliveryStatusError {
@@ -29,6 +32,7 @@ impl WebhookPayloadMessageDeliveryStatusError {
             code: None,
             title: None,
             message: None,
+            explanation: None,
         }
     }
 }
