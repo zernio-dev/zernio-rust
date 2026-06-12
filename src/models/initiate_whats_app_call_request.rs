@@ -18,6 +18,12 @@ pub struct InitiateWhatsAppCallRequest {
     /// Consumer wa_id (E.164
     #[serde(rename = "to")]
     pub to: String,
+    /// Omit to place a call. Set to send the consent prompt instead.
+    #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
+    pub action: Option<Action>,
+    /// Body text shown with the consent prompt (send_call_permission_request only).
+    #[serde(rename = "bodyText", skip_serializing_if = "Option::is_none")]
+    pub body_text: Option<String>,
     /// Per-call destination override. Same accepted shape as the number's stored forwardTo (tel:+E164, sip:..., wss://...).
     #[serde(rename = "forwardTo", skip_serializing_if = "Option::is_none")]
     pub forward_to: Option<String>,
@@ -36,9 +42,23 @@ impl InitiateWhatsAppCallRequest {
         InitiateWhatsAppCallRequest {
             account_id,
             to,
+            action: None,
+            body_text: None,
             forward_to: None,
             record_override: None,
             biz_opaque_callback_data: None,
         }
+    }
+}
+/// Omit to place a call. Set to send the consent prompt instead.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Action {
+    #[serde(rename = "send_call_permission_request")]
+    SendCallPermissionRequest,
+}
+
+impl Default for Action {
+    fn default() -> Action {
+        Self::SendCallPermissionRequest
     }
 }
