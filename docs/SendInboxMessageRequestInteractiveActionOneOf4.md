@@ -1,11 +1,10 @@
-# SendInboxMessageRequestInteractiveActionOneOf2
+# SendInboxMessageRequestInteractiveActionOneOf4
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **Name** |  (enum: voice_call) | 
-**parameters** | Option<[**models::SendInboxMessageRequestInteractiveActionOneOf2Parameters**](SendInboxMessageRequestInteractiveActionOneOf2Parameters.md)> |  | [optional]
+**name** | **Name** |  (enum: send_location) | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

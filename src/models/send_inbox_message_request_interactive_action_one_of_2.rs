@@ -11,36 +11,33 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// SendInboxMessageRequestInteractiveActionOneOf2 : Flow action. `type` on the parent must be `flow`.
+/// SendInboxMessageRequestInteractiveActionOneOf2 : Voice-call action. `type` on the parent must be `voice_call`. Renders WhatsApp's native call button (requires Calling enabled on the sending number).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SendInboxMessageRequestInteractiveActionOneOf2 {
     #[serde(rename = "name")]
     pub name: Name,
-    #[serde(rename = "parameters")]
-    pub parameters: Box<models::SendInboxMessageRequestInteractiveActionOneOf2Parameters>,
+    #[serde(rename = "parameters", skip_serializing_if = "Option::is_none")]
+    pub parameters: Option<Box<models::SendInboxMessageRequestInteractiveActionOneOf2Parameters>>,
 }
 
 impl SendInboxMessageRequestInteractiveActionOneOf2 {
-    /// Flow action. `type` on the parent must be `flow`.
-    pub fn new(
-        name: Name,
-        parameters: models::SendInboxMessageRequestInteractiveActionOneOf2Parameters,
-    ) -> SendInboxMessageRequestInteractiveActionOneOf2 {
+    /// Voice-call action. `type` on the parent must be `voice_call`. Renders WhatsApp's native call button (requires Calling enabled on the sending number).
+    pub fn new(name: Name) -> SendInboxMessageRequestInteractiveActionOneOf2 {
         SendInboxMessageRequestInteractiveActionOneOf2 {
             name,
-            parameters: Box::new(parameters),
+            parameters: None,
         }
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Name {
-    #[serde(rename = "flow")]
-    Flow,
+    #[serde(rename = "voice_call")]
+    VoiceCall,
 }
 
 impl Default for Name {
     fn default() -> Name {
-        Self::Flow
+        Self::VoiceCall
     }
 }

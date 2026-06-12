@@ -11,28 +11,36 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// SendInboxMessageRequestInteractiveActionOneOf3 : Location request action. `type` on the parent must be `location_request_message`. May be omitted entirely; it is defaulted.
+/// SendInboxMessageRequestInteractiveActionOneOf3 : Flow action. `type` on the parent must be `flow`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SendInboxMessageRequestInteractiveActionOneOf3 {
     #[serde(rename = "name")]
     pub name: Name,
+    #[serde(rename = "parameters")]
+    pub parameters: Box<models::SendInboxMessageRequestInteractiveActionOneOf3Parameters>,
 }
 
 impl SendInboxMessageRequestInteractiveActionOneOf3 {
-    /// Location request action. `type` on the parent must be `location_request_message`. May be omitted entirely; it is defaulted.
-    pub fn new(name: Name) -> SendInboxMessageRequestInteractiveActionOneOf3 {
-        SendInboxMessageRequestInteractiveActionOneOf3 { name }
+    /// Flow action. `type` on the parent must be `flow`.
+    pub fn new(
+        name: Name,
+        parameters: models::SendInboxMessageRequestInteractiveActionOneOf3Parameters,
+    ) -> SendInboxMessageRequestInteractiveActionOneOf3 {
+        SendInboxMessageRequestInteractiveActionOneOf3 {
+            name,
+            parameters: Box::new(parameters),
+        }
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Name {
-    #[serde(rename = "send_location")]
-    SendLocation,
+    #[serde(rename = "flow")]
+    Flow,
 }
 
 impl Default for Name {
     fn default() -> Name {
-        Self::SendLocation
+        Self::Flow
     }
 }

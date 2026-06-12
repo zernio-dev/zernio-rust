@@ -26,6 +26,9 @@ pub enum SendInboxMessageRequestInteractiveAction {
     SendInboxMessageRequestInteractiveActionOneOf3(
         Box<models::SendInboxMessageRequestInteractiveActionOneOf3>,
     ),
+    SendInboxMessageRequestInteractiveActionOneOf4(
+        Box<models::SendInboxMessageRequestInteractiveActionOneOf4>,
+    ),
 }
 
 impl Default for SendInboxMessageRequestInteractiveAction {

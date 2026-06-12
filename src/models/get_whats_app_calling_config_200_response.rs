@@ -20,6 +20,9 @@ pub struct GetWhatsAppCallingConfig200Response {
     pub phone_number: Option<String>,
     #[serde(rename = "callingEnabled", skip_serializing_if = "Option::is_none")]
     pub calling_enabled: Option<bool>,
+    /// Public calling deep link (https://wa.me/call/<number>). Tapping it on a phone starts a WhatsApp voice call to this number. Embed it on websites, emails, or QR codes. Null while calling is disabled; not supported by WhatsApp desktop clients.
+    #[serde(rename = "callDeepLink", skip_serializing_if = "Option::is_none")]
+    pub call_deep_link: Option<String>,
     /// tel:+E164 / sip:... / wss://... destination
     #[serde(rename = "forwardTo", skip_serializing_if = "Option::is_none")]
     pub forward_to: Option<String>,
@@ -43,6 +46,7 @@ impl GetWhatsAppCallingConfig200Response {
             phone_number_doc_id: None,
             phone_number: None,
             calling_enabled: None,
+            call_deep_link: None,
             forward_to: None,
             recording_enabled: None,
             sip_auth_username: None,

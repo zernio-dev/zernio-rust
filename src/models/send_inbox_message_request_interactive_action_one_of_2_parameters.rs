@@ -11,91 +11,27 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// SendInboxMessageRequestInteractiveActionOneOf2Parameters : All optional.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SendInboxMessageRequestInteractiveActionOneOf2Parameters {
-    /// Defaults to \"3\" when omitted.
-    #[serde(
-        rename = "flow_message_version",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub flow_message_version: Option<FlowMessageVersion>,
-    /// Opaque token you choose to correlate Flow responses with your own state (max 200 chars).
-    #[serde(rename = "flow_token")]
-    pub flow_token: String,
-    /// Published Flow ID from Meta Business Manager.
-    #[serde(rename = "flow_id")]
-    pub flow_id: String,
-    /// Button label that opens the Flow (max 20 chars).
-    #[serde(rename = "flow_cta")]
-    pub flow_cta: String,
-    /// `navigate` sends the user to `flow_action_payload.screen`; `data_exchange` posts data to your Flow endpoint.
-    #[serde(rename = "flow_action")]
-    pub flow_action: FlowAction,
-    #[serde(
-        rename = "flow_action_payload",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub flow_action_payload: Option<
-        Box<models::SendInboxMessageRequestInteractiveActionOneOf2ParametersFlowActionPayload>,
-    >,
-    /// Set to `draft` to test an unpublished Flow.
-    #[serde(rename = "mode", skip_serializing_if = "Option::is_none")]
-    pub mode: Option<Mode>,
+    /// Button label. Defaults to \"Call Now\".
+    #[serde(rename = "display_text", skip_serializing_if = "Option::is_none")]
+    pub display_text: Option<String>,
+    /// How long the button stays tappable. Defaults to 10080 (7 days).
+    #[serde(rename = "ttl_minutes", skip_serializing_if = "Option::is_none")]
+    pub ttl_minutes: Option<i32>,
+    /// Arbitrary string echoed back as `cta_payload` on the `calls` webhook (connect/terminate) for attribution.
+    #[serde(rename = "payload", skip_serializing_if = "Option::is_none")]
+    pub payload: Option<String>,
 }
 
 impl SendInboxMessageRequestInteractiveActionOneOf2Parameters {
-    pub fn new(
-        flow_token: String,
-        flow_id: String,
-        flow_cta: String,
-        flow_action: FlowAction,
-    ) -> SendInboxMessageRequestInteractiveActionOneOf2Parameters {
+    /// All optional.
+    pub fn new() -> SendInboxMessageRequestInteractiveActionOneOf2Parameters {
         SendInboxMessageRequestInteractiveActionOneOf2Parameters {
-            flow_message_version: None,
-            flow_token,
-            flow_id,
-            flow_cta,
-            flow_action,
-            flow_action_payload: None,
-            mode: None,
+            display_text: None,
+            ttl_minutes: None,
+            payload: None,
         }
-    }
-}
-/// Defaults to \"3\" when omitted.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum FlowMessageVersion {
-    #[serde(rename = "3")]
-    Variant3,
-}
-
-impl Default for FlowMessageVersion {
-    fn default() -> FlowMessageVersion {
-        Self::Variant3
-    }
-}
-/// `navigate` sends the user to `flow_action_payload.screen`; `data_exchange` posts data to your Flow endpoint.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum FlowAction {
-    #[serde(rename = "navigate")]
-    Navigate,
-    #[serde(rename = "data_exchange")]
-    DataExchange,
-}
-
-impl Default for FlowAction {
-    fn default() -> FlowAction {
-        Self::Navigate
-    }
-}
-/// Set to `draft` to test an unpublished Flow.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Mode {
-    #[serde(rename = "draft")]
-    Draft,
-}
-
-impl Default for Mode {
-    fn default() -> Mode {
-        Self::Draft
     }
 }
