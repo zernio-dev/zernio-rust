@@ -347,6 +347,7 @@ docs/GetContactChannels200Response.md
 docs/GetContactChannels200ResponseChannelsInner.md
 docs/GetContentDecay200Response.md
 docs/GetContentDecay200ResponseBucketsInner.md
+docs/GetConversionDestination200Response.md
 docs/GetConversionMetrics200Response.md
 docs/GetConversionMetrics200ResponseRowsInner.md
 docs/GetConversionMetrics200ResponseRowsInnerMetricsValue.md
@@ -1626,6 +1627,7 @@ src/models/get_contact_channels_200_response.rs
 src/models/get_contact_channels_200_response_channels_inner.rs
 src/models/get_content_decay_200_response.rs
 src/models/get_content_decay_200_response_buckets_inner.rs
+src/models/get_conversion_destination_200_response.rs
 src/models/get_conversion_metrics_200_response.rs
 src/models/get_conversion_metrics_200_response_rows_inner.rs
 src/models/get_conversion_metrics_200_response_rows_inner_metrics_value.rs

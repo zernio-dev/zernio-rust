@@ -13,39 +13,46 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateConversionDestinationRequest {
-    /// Sponsored ad account ID. Numeric (e.g. \"5123456\") or full `urn:li:sponsoredAccount:{id}` URN.
+    /// Ad account ID. For LinkedIn: numeric (e.g. \"5123456\") or full `urn:li:sponsoredAccount:{id}` URN. For Google: numeric customer ID (e.g. \"1234567890\") or `customers/{id}` form.
     #[serde(rename = "adAccountId")]
     pub ad_account_id: String,
     #[serde(rename = "name")]
     pub name: String,
-    /// Either a unified standard event name (e.g. \"Purchase\", \"Lead\", \"AddToCart\") or a LinkedIn rule type enum value (e.g. \"PURCHASE\", \"QUALIFIED_LEAD\"). The API maps standard names to LinkedIn enum values automatically.
+    /// Conversion type. For LinkedIn: a unified standard event name (e.g. \"Purchase\", \"Lead\", \"AddToCart\") or a LinkedIn rule type enum (e.g. \"PURCHASE\", \"QUALIFIED_LEAD\"). For Google: a unified standard event name (Purchase, Subscribe, CompleteRegistration, Lead, Schedule) or a Google ConversionActionCategory enum value directly (e.g. \"PURCHASE\", \"SUBSCRIBE_PAID\", \"SIGNUP\", \"IMPORTED_LEAD\", \"BOOK_APPOINTMENT\"). Unknown values pass through to the platform.
     #[serde(rename = "type")]
     pub r#type: String,
+    /// LinkedIn only.
     #[serde(rename = "attributionType", skip_serializing_if = "Option::is_none")]
     pub attribution_type: Option<AttributionType>,
-    /// Default 30. 365 only allowed for LEAD, PURCHASE, ADD_TO_CART, QUALIFIED_LEAD, SUBMIT_APPLICATION rule types — the API rejects other combinations locally.
+    /// LinkedIn only. Default 30. 365 only allowed for LEAD, PURCHASE, ADD_TO_CART, QUALIFIED_LEAD, SUBMIT_APPLICATION rule types; the API rejects other combinations locally.
     #[serde(
         rename = "postClickAttributionWindowSize",
         skip_serializing_if = "Option::is_none"
     )]
     pub post_click_attribution_window_size: Option<PostClickAttributionWindowSize>,
-    /// Default 7. Same 365-day-window type restriction applies as `postClickAttributionWindowSize`.
+    /// LinkedIn only. Default 7. Same 365-day-window type restriction applies as `postClickAttributionWindowSize`.
     #[serde(
         rename = "viewThroughAttributionWindowSize",
         skip_serializing_if = "Option::is_none"
     )]
     pub view_through_attribution_window_size: Option<ViewThroughAttributionWindowSize>,
-    /// DYNAMIC (default) uses the per-event `value` from `sendConversions`. FIXED uses the rule's `value` field. NO_VALUE drops monetary value entirely.
+    /// LinkedIn only. DYNAMIC (default) uses the per-event `value` from `sendConversions`. FIXED uses the rule's `value` field. NO_VALUE drops monetary value entirely.
     #[serde(rename = "valueType", skip_serializing_if = "Option::is_none")]
     pub value_type: Option<ValueType>,
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Box<models::CreateConversionDestinationRequestValue>>,
-    /// Controls campaign association at rule-creation time: - ALL_CAMPAIGNS: associate the rule with every active,   paused, and draft campaign in the ad account - OBJECTIVE_BASED: associate only campaigns whose   objective matches the rule's type - NONE: don't auto-associate. Manage associations via   the `/associations` endpoints below. Note: auto-association runs once at create time; new campaigns added after the rule still need explicit association.
+    /// LinkedIn only. Controls campaign association at rule-creation time: - ALL_CAMPAIGNS: associate the rule with every active,   paused, and draft campaign in the ad account - OBJECTIVE_BASED: associate only campaigns whose   objective matches the rule's type - NONE: don't auto-associate. Manage associations via   the `/associations` endpoints below. Note: auto-association runs once at create time; new campaigns added after the rule still need explicit association.
     #[serde(
         rename = "autoAssociationType",
         skip_serializing_if = "Option::is_none"
     )]
     pub auto_association_type: Option<AutoAssociationType>,
+    /// Google Ads only. Whether to count multiple conversions from the same click (MANY_PER_CLICK) or at most one (ONE_PER_CLICK). Defaults to MANY_PER_CLICK if omitted.
+    #[serde(rename = "countingType", skip_serializing_if = "Option::is_none")]
+    pub counting_type: Option<CountingType>,
+    /// Google Ads only. When true, the conversion action is marked as primary and immediately influences Smart Bidding. Defaults to false (secondary, record-only) to avoid unintentionally steering the customer's campaigns on creation.
+    #[serde(rename = "primaryForGoal", skip_serializing_if = "Option::is_none")]
+    pub primary_for_goal: Option<bool>,
 }
 
 impl CreateConversionDestinationRequest {
@@ -64,10 +71,12 @@ impl CreateConversionDestinationRequest {
             value_type: None,
             value: None,
             auto_association_type: None,
+            counting_type: None,
+            primary_for_goal: None,
         }
     }
 }
-///
+/// LinkedIn only.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum AttributionType {
     #[serde(rename = "LAST_TOUCH_BY_CAMPAIGN")]
@@ -81,7 +90,7 @@ impl Default for AttributionType {
         Self::LastTouchByCampaign
     }
 }
-/// Default 30. 365 only allowed for LEAD, PURCHASE, ADD_TO_CART, QUALIFIED_LEAD, SUBMIT_APPLICATION rule types — the API rejects other combinations locally.
+/// LinkedIn only. Default 30. 365 only allowed for LEAD, PURCHASE, ADD_TO_CART, QUALIFIED_LEAD, SUBMIT_APPLICATION rule types; the API rejects other combinations locally.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum PostClickAttributionWindowSize {
     #[serde(rename = "1")]
@@ -101,7 +110,7 @@ impl Default for PostClickAttributionWindowSize {
         Self::Variant1
     }
 }
-/// Default 7. Same 365-day-window type restriction applies as `postClickAttributionWindowSize`.
+/// LinkedIn only. Default 7. Same 365-day-window type restriction applies as `postClickAttributionWindowSize`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ViewThroughAttributionWindowSize {
     #[serde(rename = "1")]
@@ -121,7 +130,7 @@ impl Default for ViewThroughAttributionWindowSize {
         Self::Variant1
     }
 }
-/// DYNAMIC (default) uses the per-event `value` from `sendConversions`. FIXED uses the rule's `value` field. NO_VALUE drops monetary value entirely.
+/// LinkedIn only. DYNAMIC (default) uses the per-event `value` from `sendConversions`. FIXED uses the rule's `value` field. NO_VALUE drops monetary value entirely.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ValueType {
     #[serde(rename = "DYNAMIC")]
@@ -137,7 +146,7 @@ impl Default for ValueType {
         Self::Dynamic
     }
 }
-/// Controls campaign association at rule-creation time: - ALL_CAMPAIGNS: associate the rule with every active,   paused, and draft campaign in the ad account - OBJECTIVE_BASED: associate only campaigns whose   objective matches the rule's type - NONE: don't auto-associate. Manage associations via   the `/associations` endpoints below. Note: auto-association runs once at create time; new campaigns added after the rule still need explicit association.
+/// LinkedIn only. Controls campaign association at rule-creation time: - ALL_CAMPAIGNS: associate the rule with every active,   paused, and draft campaign in the ad account - OBJECTIVE_BASED: associate only campaigns whose   objective matches the rule's type - NONE: don't auto-associate. Manage associations via   the `/associations` endpoints below. Note: auto-association runs once at create time; new campaigns added after the rule still need explicit association.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum AutoAssociationType {
     #[serde(rename = "ALL_CAMPAIGNS")]
@@ -151,5 +160,19 @@ pub enum AutoAssociationType {
 impl Default for AutoAssociationType {
     fn default() -> AutoAssociationType {
         Self::AllCampaigns
+    }
+}
+/// Google Ads only. Whether to count multiple conversions from the same click (MANY_PER_CLICK) or at most one (ONE_PER_CLICK). Defaults to MANY_PER_CLICK if omitted.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum CountingType {
+    #[serde(rename = "MANY_PER_CLICK")]
+    ManyPerClick,
+    #[serde(rename = "ONE_PER_CLICK")]
+    OnePerClick,
+}
+
+impl Default for CountingType {
+    fn default() -> CountingType {
+        Self::ManyPerClick
     }
 }

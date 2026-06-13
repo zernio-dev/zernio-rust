@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**adjust_conversions**](AdsApi.md#adjust_conversions) | **POST** /v1/ads/conversions/adjustments | Adjust already-uploaded conversions (Google only)
 [**archive_lead_form**](AdsApi.md#archive_lead_form) | **DELETE** /v1/ads/lead-forms/{formId} | Archive a Lead Gen form
 [**boost_post**](AdsApi.md#boost_post) | **POST** /v1/ads/boost | Boost post as ad
-[**create_conversion_destination**](AdsApi.md#create_conversion_destination) | **POST** /v1/accounts/{accountId}/conversion-destinations | Create a conversion destination (LinkedIn)
+[**create_conversion_destination**](AdsApi.md#create_conversion_destination) | **POST** /v1/accounts/{accountId}/conversion-destinations | Create a conversion destination (LinkedIn, Google Ads)
 [**create_ctwa_ad**](AdsApi.md#create_ctwa_ad) | **POST** /v1/ads/ctwa | Create Click-to-WhatsApp ad(s)
 [**create_lead_form**](AdsApi.md#create_lead_form) | **POST** /v1/ads/lead-forms | Create a Lead Gen (Instant) form
 [**create_standalone_ad**](AdsApi.md#create_standalone_ad) | **POST** /v1/ads/create | Create standalone ad
@@ -172,16 +172,16 @@ Name | Type | Description  | Required | Notes
 ## create_conversion_destination
 
 > models::CreateConversionDestination201Response create_conversion_destination(account_id, create_conversion_destination_request)
-Create a conversion destination (LinkedIn)
+Create a conversion destination (LinkedIn, Google Ads)
 
-Create a new conversion rule on the platform. LinkedIn-only today; other platforms manage destinations in their own UIs and return 405.  For LinkedIn, the rule is created with `conversionMethod=CONVERSIONS_API` and (by default) auto-associated with all of the ad account's campaigns via `autoAssociationType=ALL_CAMPAIGNS`. Pass `autoAssociationType: NONE` to opt out and manage associations explicitly via the associations endpoints below.  365-day attribution windows are only valid for `SUBMIT_APPLICATION`, `PURCHASE`, `ADD_TO_CART`, `QUALIFIED_LEAD`, and `LEAD` rule types; the API rejects other combinations locally. 
+Create a new conversion destination on the platform. Supported for LinkedIn (conversion rule) and Google Ads (conversion action). Meta manages destinations in its own UI and returns 405.  **WARNING: creation is NOT idempotent.** A retry creates a second destination. Deduplicate before retrying.  **LinkedIn:** the rule is created with `conversionMethod=CONVERSIONS_API` and (by default) auto-associated with all of the ad account's campaigns via `autoAssociationType=ALL_CAMPAIGNS`. Pass `autoAssociationType: NONE` to opt out and manage associations explicitly via the associations endpoints below.  365-day attribution windows are only valid for `SUBMIT_APPLICATION`, `PURCHASE`, `ADD_TO_CART`, `QUALIFIED_LEAD`, and `LEAD` rule types; the API rejects other combinations locally.  **Google Ads:** the conversion action is created with `type=UPLOAD_CLICKS` (required for API-uploaded offline conversions, immutable after creation). The `type` field carries the Google `ConversionActionCategory` enum value, e.g. `PURCHASE`, `SUBSCRIBE_PAID`, `SIGNUP`, `IMPORTED_LEAD`, `BOOK_APPOINTMENT`. Unified standard event names (e.g. `Purchase`, `Subscribe`, `CompleteRegistration`, `Lead`, `Schedule`) are resolved to their Google category equivalents automatically. The action defaults to secondary (non-primary) to avoid immediately steering Smart Bidding; pass `primaryForGoal: true` to opt in. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | SocialAccount ID (linkedinads). | [required] |
+**account_id** | **String** | SocialAccount ID (linkedinads or googleads). | [required] |
 **create_conversion_destination_request** | [**CreateConversionDestinationRequest**](CreateConversionDestinationRequest.md) |  | [required] |
 
 ### Return type
@@ -542,7 +542,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_conversion_destination
 
-> models::CreateConversionDestination201Response get_conversion_destination(account_id, destination_id, ad_account_id)
+> models::GetConversionDestination200Response get_conversion_destination(account_id, destination_id, ad_account_id)
 Fetch a single conversion destination
 
 LinkedIn-only today. Returns the full destination record for one conversion rule. The `adAccountId` query parameter is required because LinkedIn rules are scoped to a sponsored ad account. 
@@ -558,7 +558,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::CreateConversionDestination201Response**](createConversionDestination_201_response.md)
+[**models::GetConversionDestination200Response**](getConversionDestination_200_response.md)
 
 ### Authorization
 
@@ -1250,7 +1250,7 @@ Name | Type | Description  | Required | Notes
 
 ## update_conversion_destination
 
-> models::CreateConversionDestination201Response update_conversion_destination(account_id, destination_id, update_conversion_destination_request)
+> models::GetConversionDestination200Response update_conversion_destination(account_id, destination_id, update_conversion_destination_request)
 Update a conversion destination
 
 Partial-update a conversion rule. LinkedIn-only today. Whitelisted fields: `name`, `enabled`, attribution windows, `valueType`, `value`, `attributionType`. The rule's `type` and parent ad account are intentionally not exposed for update — recreate the rule if those need to change. 
@@ -1266,7 +1266,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::CreateConversionDestination201Response**](createConversionDestination_201_response.md)
+[**models::GetConversionDestination200Response**](getConversionDestination_200_response.md)
 
 ### Authorization
 

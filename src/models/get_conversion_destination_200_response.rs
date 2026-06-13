@@ -12,16 +12,16 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct CreateConversionDestination201Response {
+pub struct GetConversionDestination200Response {
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<Platform>,
     #[serde(rename = "destination", skip_serializing_if = "Option::is_none")]
     pub destination: Option<Box<models::ConversionDestination>>,
 }
 
-impl CreateConversionDestination201Response {
-    pub fn new() -> CreateConversionDestination201Response {
-        CreateConversionDestination201Response {
+impl GetConversionDestination200Response {
+    pub fn new() -> GetConversionDestination200Response {
+        GetConversionDestination200Response {
             platform: None,
             destination: None,
         }
@@ -32,8 +32,6 @@ impl CreateConversionDestination201Response {
 pub enum Platform {
     #[serde(rename = "linkedinads")]
     Linkedinads,
-    #[serde(rename = "googleads")]
-    Googleads,
 }
 
 impl Default for Platform {

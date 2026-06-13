@@ -636,7 +636,7 @@ pub async fn boost_post(
     }
 }
 
-/// Create a new conversion rule on the platform. LinkedIn-only today; other platforms manage destinations in their own UIs and return 405.  For LinkedIn, the rule is created with `conversionMethod=CONVERSIONS_API` and (by default) auto-associated with all of the ad account's campaigns via `autoAssociationType=ALL_CAMPAIGNS`. Pass `autoAssociationType: NONE` to opt out and manage associations explicitly via the associations endpoints below.  365-day attribution windows are only valid for `SUBMIT_APPLICATION`, `PURCHASE`, `ADD_TO_CART`, `QUALIFIED_LEAD`, and `LEAD` rule types; the API rejects other combinations locally.
+/// Create a new conversion destination on the platform. Supported for LinkedIn (conversion rule) and Google Ads (conversion action). Meta manages destinations in its own UI and returns 405.  **WARNING: creation is NOT idempotent.** A retry creates a second destination. Deduplicate before retrying.  **LinkedIn:** the rule is created with `conversionMethod=CONVERSIONS_API` and (by default) auto-associated with all of the ad account's campaigns via `autoAssociationType=ALL_CAMPAIGNS`. Pass `autoAssociationType: NONE` to opt out and manage associations explicitly via the associations endpoints below.  365-day attribution windows are only valid for `SUBMIT_APPLICATION`, `PURCHASE`, `ADD_TO_CART`, `QUALIFIED_LEAD`, and `LEAD` rule types; the API rejects other combinations locally.  **Google Ads:** the conversion action is created with `type=UPLOAD_CLICKS` (required for API-uploaded offline conversions, immutable after creation). The `type` field carries the Google `ConversionActionCategory` enum value, e.g. `PURCHASE`, `SUBSCRIBE_PAID`, `SIGNUP`, `IMPORTED_LEAD`, `BOOK_APPOINTMENT`. Unified standard event names (e.g. `Purchase`, `Subscribe`, `CompleteRegistration`, `Lead`, `Schedule`) are resolved to their Google category equivalents automatically. The action defaults to secondary (non-primary) to avoid immediately steering Smart Bidding; pass `primaryForGoal: true` to opt in.
 pub async fn create_conversion_destination(
     configuration: &configuration::Configuration,
     account_id: &str,
@@ -1300,7 +1300,7 @@ pub async fn get_conversion_destination(
     account_id: &str,
     destination_id: &str,
     ad_account_id: &str,
-) -> Result<models::CreateConversionDestination201Response, Error<GetConversionDestinationError>> {
+) -> Result<models::GetConversionDestination200Response, Error<GetConversionDestinationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_account_id = account_id;
     let p_path_destination_id = destination_id;
@@ -1337,8 +1337,8 @@ pub async fn get_conversion_destination(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateConversionDestination201Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateConversionDestination201Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetConversionDestination200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetConversionDestination200Response`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -2600,8 +2600,7 @@ pub async fn update_conversion_destination(
     account_id: &str,
     destination_id: &str,
     update_conversion_destination_request: models::UpdateConversionDestinationRequest,
-) -> Result<models::CreateConversionDestination201Response, Error<UpdateConversionDestinationError>>
-{
+) -> Result<models::GetConversionDestination200Response, Error<UpdateConversionDestinationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_account_id = account_id;
     let p_path_destination_id = destination_id;
@@ -2640,8 +2639,8 @@ pub async fn update_conversion_destination(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateConversionDestination201Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateConversionDestination201Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetConversionDestination200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetConversionDestination200Response`")))),
         }
     } else {
         let content = resp.text().await?;

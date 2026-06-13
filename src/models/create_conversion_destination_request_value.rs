@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateConversionDestinationRequestValue : Static conversion value. Used when `valueType=FIXED`. The currency should match the ad account's currency.
+/// CreateConversionDestinationRequestValue : LinkedIn only. Static conversion value. Used when `valueType=FIXED`. The currency should match the ad account's currency.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateConversionDestinationRequestValue {
     /// ISO 4217 (e.g. \"USD\").
@@ -23,7 +23,7 @@ pub struct CreateConversionDestinationRequestValue {
 }
 
 impl CreateConversionDestinationRequestValue {
-    /// Static conversion value. Used when `valueType=FIXED`. The currency should match the ad account's currency.
+    /// LinkedIn only. Static conversion value. Used when `valueType=FIXED`. The currency should match the ad account's currency.
     pub fn new(currency_code: String, amount: String) -> CreateConversionDestinationRequestValue {
         CreateConversionDestinationRequestValue {
             currency_code,

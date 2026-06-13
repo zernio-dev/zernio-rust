@@ -658,6 +658,8 @@ pub mod get_content_decay_200_response;
 pub use self::get_content_decay_200_response::GetContentDecay200Response;
 pub mod get_content_decay_200_response_buckets_inner;
 pub use self::get_content_decay_200_response_buckets_inner::GetContentDecay200ResponseBucketsInner;
+pub mod get_conversion_destination_200_response;
+pub use self::get_conversion_destination_200_response::GetConversionDestination200Response;
 pub mod get_conversion_metrics_200_response;
 pub use self::get_conversion_metrics_200_response::GetConversionMetrics200Response;
 pub mod get_conversion_metrics_200_response_rows_inner;
