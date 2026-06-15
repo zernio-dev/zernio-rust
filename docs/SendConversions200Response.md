@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**platform** | Option<**Platform**> |  (enum: metaads, googleads, linkedinads) | [optional]
+**platform** | Option<**Platform**> |  (enum: metaads, googleads, linkedinads, tiktokads) | [optional]
 **events_received** | Option<**i32**> | Events accepted by the platform. | [optional]
 **events_failed** | Option<**i32**> | Events rejected (see failures). | [optional]
 **failures** | Option<[**Vec<models::SendConversions200ResponseFailuresInner>**](SendConversions200ResponseFailuresInner.md)> |  | [optional]

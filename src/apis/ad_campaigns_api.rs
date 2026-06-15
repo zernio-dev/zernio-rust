@@ -287,6 +287,7 @@ pub async fn get_ad_tree(
     ad_account_id: Option<&str>,
     account_id: Option<&str>,
     profile_id: Option<&str>,
+    campaign_id: Option<&str>,
     from_date: Option<String>,
     to_date: Option<String>,
     sort: Option<&str>,
@@ -300,6 +301,7 @@ pub async fn get_ad_tree(
     let p_query_ad_account_id = ad_account_id;
     let p_query_account_id = account_id;
     let p_query_profile_id = profile_id;
+    let p_query_campaign_id = campaign_id;
     let p_query_from_date = from_date;
     let p_query_to_date = to_date;
     let p_query_sort = sort;
@@ -330,6 +332,9 @@ pub async fn get_ad_tree(
     }
     if let Some(ref param_value) = p_query_profile_id {
         req_builder = req_builder.query(&[("profileId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_campaign_id {
+        req_builder = req_builder.query(&[("campaignId", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_from_date {
         req_builder = req_builder.query(&[("fromDate", &param_value.to_string())]);

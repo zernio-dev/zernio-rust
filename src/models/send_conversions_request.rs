@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SendConversionsRequest {
-    /// SocialAccount ID (metaads, googleads, or linkedinads).
+    /// SocialAccount ID (metaads, googleads, linkedinads, or tiktokads).
     #[serde(rename = "accountId")]
     pub account_id: String,
     /// Platform destination identifier. For Meta, the pixel/dataset ID. For Google, the conversion action resource name. For LinkedIn, the conversion rule ID or full `urn:lla:llaPartnerConversion:{id}` URN.

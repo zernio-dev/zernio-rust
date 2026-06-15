@@ -36,6 +36,8 @@ pub enum Platform {
     Googleads,
     #[serde(rename = "linkedinads")]
     Linkedinads,
+    #[serde(rename = "tiktokads")]
+    Tiktokads,
 }
 
 impl Default for Platform {

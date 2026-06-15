@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**account_id** | **String** | SocialAccount ID (metaads, googleads, or linkedinads). | 
+**account_id** | **String** | SocialAccount ID (metaads, googleads, linkedinads, or tiktokads). | 
 **destination_id** | **String** | Platform destination identifier. For Meta, the pixel/dataset ID. For Google, the conversion action resource name. For LinkedIn, the conversion rule ID or full `urn:lla:llaPartnerConversion:{id}` URN.  | 
 **events** | [**Vec<models::ConversionEvent>**](ConversionEvent.md) |  | 
 **test_code** | Option<**String**> | Meta `test_event_code` passthrough. Ignored by Google and LinkedIn. | [optional]
