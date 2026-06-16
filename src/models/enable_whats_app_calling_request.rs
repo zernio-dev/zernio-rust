@@ -20,7 +20,7 @@ pub struct EnableWhatsAppCallingRequest {
     pub forward_to: String,
     #[serde(rename = "sipAuthUsername", skip_serializing_if = "Option::is_none")]
     pub sip_auth_username: Option<String>,
-    /// Stored encrypted
+    /// Stored encrypted, never returned by any endpoint.
     #[serde(rename = "sipAuthPassword", skip_serializing_if = "Option::is_none")]
     pub sip_auth_password: Option<String>,
     #[serde(rename = "recordingEnabled", skip_serializing_if = "Option::is_none")]

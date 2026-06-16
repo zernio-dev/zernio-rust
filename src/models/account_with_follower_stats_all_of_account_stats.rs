@@ -20,7 +20,7 @@ pub struct AccountWithFollowerStatsAllOfAccountStats {
     /// Total media posts (Instagram)
     #[serde(rename = "mediaCount", skip_serializing_if = "Option::is_none")]
     pub media_count: Option<f64>,
-    /// Total videos (YouTube
+    /// Total videos (YouTube, TikTok)
     #[serde(rename = "videoCount", skip_serializing_if = "Option::is_none")]
     pub video_count: Option<f64>,
     /// Total tweets (X/Twitter)

@@ -16,7 +16,7 @@ pub struct BatchGetGoogleBusinessReviews200ResponseLocationReviewsInner {
     /// Full review resource name (accounts/_*_/locations/_*_/reviews/_*)
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// The review object (reviewId
+    /// The review object (reviewId, starRating, comment, reviewer, createTime, updateTime, reviewReply)
     #[serde(rename = "review", skip_serializing_if = "Option::is_none")]
     pub review: Option<serde_json::Value>,
 }

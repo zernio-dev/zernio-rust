@@ -20,7 +20,7 @@ pub struct WebhookPayloadConversationStartedConversation {
     pub platform: Platform,
     #[serde(rename = "platformConversationId")]
     pub platform_conversation_id: String,
-    /// Contact's platform identifier (IGSID
+    /// Contact's platform identifier (IGSID, PSID, wa_id, etc.)
     #[serde(rename = "participantId", skip_serializing_if = "Option::is_none")]
     pub participant_id: Option<String>,
     #[serde(rename = "participantName")]

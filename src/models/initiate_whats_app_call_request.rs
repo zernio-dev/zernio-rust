@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct InitiateWhatsAppCallRequest {
     #[serde(rename = "accountId")]
     pub account_id: String,
-    /// Consumer wa_id (E.164
+    /// Consumer wa_id (E.164, leading + optional)
     #[serde(rename = "to")]
     pub to: String,
     /// Omit to place a call. Set to send the consent prompt instead.

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **following_count** | Option<**f64**> | Number of accounts being followed | [optional]
 **media_count** | Option<**f64**> | Total media posts (Instagram) | [optional]
-**video_count** | Option<**f64**> | Total videos (YouTube | [optional]
+**video_count** | Option<**f64**> | Total videos (YouTube, TikTok) | [optional]
 **tweet_count** | Option<**f64**> | Total tweets (X/Twitter) | [optional]
 **posts_count** | Option<**f64**> | Total posts (Bluesky) | [optional]
 **pin_count** | Option<**f64**> | Total pins (Pinterest) | [optional]

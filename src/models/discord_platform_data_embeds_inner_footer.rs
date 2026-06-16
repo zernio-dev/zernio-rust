@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DiscordPlatformDataEmbedsInnerFooter {
-    /// Footer text (max 2
+    /// Footer text (max 2,048 chars)
     #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
     pub text: Option<String>,
     #[serde(rename = "icon_url", skip_serializing_if = "Option::is_none")]

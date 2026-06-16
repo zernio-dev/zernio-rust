@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct GetInboxConversationMessages200ResponseMessagesInnerReactionsInner {
     #[serde(rename = "emoji", skip_serializing_if = "Option::is_none")]
     pub emoji: Option<String>,
-    /// true if the connected account reacted
+    /// true if the connected account reacted, false if the contact did.
     #[serde(rename = "fromMe", skip_serializing_if = "Option::is_none")]
     pub from_me: Option<bool>,
     #[serde(rename = "reactedAt", skip_serializing_if = "Option::is_none")]

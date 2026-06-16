@@ -16,7 +16,7 @@ pub struct DiscordPlatformDataEmbedsInnerFieldsInner {
     /// Field name (max 256 chars)
     #[serde(rename = "name")]
     pub name: String,
-    /// Field value (max 1
+    /// Field value (max 1,024 chars)
     #[serde(rename = "value")]
     pub value: String,
     /// Display fields side-by-side

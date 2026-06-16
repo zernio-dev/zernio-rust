@@ -25,16 +25,16 @@ pub struct GetInboxPostComments200ResponsePost {
     /// Body text for self-posts (empty for link posts)
     #[serde(rename = "selftext", skip_serializing_if = "Option::is_none")]
     pub selftext: Option<String>,
-    /// Reddit username
+    /// Reddit username, without the u/ prefix
     #[serde(rename = "author", skip_serializing_if = "Option::is_none")]
     pub author: Option<String>,
-    /// Subreddit name
+    /// Subreddit name, without the r/ prefix
     #[serde(rename = "subreddit", skip_serializing_if = "Option::is_none")]
     pub subreddit: Option<String>,
     /// Absolute URL to the post on reddit.com
     #[serde(rename = "permalink", skip_serializing_if = "Option::is_none")]
     pub permalink: Option<String>,
-    /// For link posts
+    /// For link posts, the external URL; for self-posts, the Reddit permalink
     #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
     /// Net upvotes (upvotes minus downvotes)

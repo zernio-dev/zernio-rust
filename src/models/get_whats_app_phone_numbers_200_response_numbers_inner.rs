@@ -21,7 +21,7 @@ pub struct GetWhatsAppPhoneNumbers200ResponseNumbersInner {
     pub country: Option<String>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
-    /// For regulated numbers
+    /// For regulated numbers, who it's registered for (company or person) — set from the submitted KYC.
     #[serde(rename = "registrantName", skip_serializing_if = "Option::is_none")]
     pub registrant_name: Option<String>,
     /// Present once the number order has been placed (i.e. the requirement group was approved). Absent while still in identity review.

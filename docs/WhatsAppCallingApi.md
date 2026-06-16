@@ -153,7 +153,7 @@ Returns the permission state and the list of available actions for a given consu
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** |  | [required] |
-**to** | **String** | Consumer wa_id (E.164 | [required] |
+**to** | **String** | Consumer wa_id (E.164, leading + optional) | [required] |
 
 ### Return type
 

@@ -20,7 +20,7 @@ pub struct TriggerWorkflowRequest {
     /// An existing conversation to run in (required for non-WhatsApp workflows)
     #[serde(rename = "conversationId", skip_serializing_if = "Option::is_none")]
     pub conversation_id: Option<String>,
-    /// Simulated inbound text
+    /// Simulated inbound text, seeded as the run's lastMessage variable
     #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
     pub text: Option<String>,
 }

@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// GetGoogleBusinessVerifications200ResponseVoiceOfMerchantState : Raw Voice of Merchant state from Google.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetGoogleBusinessVerifications200ResponseVoiceOfMerchantState {
-    /// True when the listing is verified and published (eligible to surface reviews
+    /// True when the listing is verified and published (eligible to surface reviews, edits, etc.).
     #[serde(rename = "hasVoiceOfMerchant", skip_serializing_if = "Option::is_none")]
     pub has_voice_of_merchant: Option<bool>,
     /// True when the authenticated user has owner/manager authority over the listing.

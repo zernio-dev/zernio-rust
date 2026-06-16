@@ -21,7 +21,7 @@ pub struct ValidateWhatsAppNumberKycAddressRequest {
     /// City / town.
     #[serde(rename = "locality")]
     pub locality: String,
-    /// State / province / region. When omitted
+    /// State / province / region. When omitted, the pre-check is skipped (the final submit still validates).
     #[serde(
         rename = "administrative_area",
         skip_serializing_if = "Option::is_none"

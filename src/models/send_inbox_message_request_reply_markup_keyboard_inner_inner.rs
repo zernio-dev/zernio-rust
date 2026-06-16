@@ -16,7 +16,7 @@ pub struct SendInboxMessageRequestReplyMarkupKeyboardInnerInner {
     /// Button text
     #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
     pub text: Option<String>,
-    /// Callback data (inline_keyboard only
+    /// Callback data (inline_keyboard only, max 64 bytes)
     #[serde(rename = "callbackData", skip_serializing_if = "Option::is_none")]
     pub callback_data: Option<String>,
     /// URL to open (inline_keyboard only)

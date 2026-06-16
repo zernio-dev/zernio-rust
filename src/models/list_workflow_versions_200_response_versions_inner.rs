@@ -26,7 +26,7 @@ pub struct ListWorkflowVersions200ResponseVersionsInner {
     /// Denormalized email so the history UI can render without a join
     #[serde(rename = "createdByEmail", skip_serializing_if = "Option::is_none")]
     pub created_by_email: Option<String>,
-    /// When non-null
+    /// When non-null, this snapshot was created by restoring that version
     #[serde(
         rename = "restoredFromVersion",
         skip_serializing_if = "Option::is_none"

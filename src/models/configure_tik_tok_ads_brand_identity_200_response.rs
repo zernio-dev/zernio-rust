@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct ConfigureTikTokAdsBrandIdentity200Response {
     #[serde(rename = "success", skip_serializing_if = "Option::is_none")]
     pub success: Option<bool>,
-    /// The TikTok-assigned identity_id
+    /// The TikTok-assigned identity_id, cached on the account.
     #[serde(rename = "identityId", skip_serializing_if = "Option::is_none")]
     pub identity_id: Option<String>,
     #[serde(rename = "displayName", skip_serializing_if = "Option::is_none")]

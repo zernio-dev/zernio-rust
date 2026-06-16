@@ -26,7 +26,7 @@ pub struct RedditPost {
     pub author: Option<String>,
     #[serde(rename = "subreddit", skip_serializing_if = "Option::is_none")]
     pub subreddit: Option<String>,
-    /// Post URL (may be a gallery URL
+    /// Post URL (may be a gallery URL, external link, or self-post URL)
     #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
     /// Full permalink to the Reddit post

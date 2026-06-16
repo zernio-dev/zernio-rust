@@ -19,7 +19,7 @@ pub struct SharedAdAccount {
     pub id: String,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Business Manager id that owns the ad account
+    /// Business Manager id that owns the ad account, when reported.
     #[serde(rename = "businessId", skip_serializing_if = "Option::is_none")]
     pub business_id: Option<String>,
 }
