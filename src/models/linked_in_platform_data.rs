@@ -26,6 +26,9 @@ pub struct LinkedInPlatformData {
     /// Set to true to disable automatic link previews for URLs in the post content (default is false)
     #[serde(rename = "disableLinkPreview", skip_serializing_if = "Option::is_none")]
     pub disable_link_preview: Option<bool>,
+    /// LinkedIn post link to repost (use the post's \"Copy link to post\" action), or a urn:li:share / urn:li:ugcPost / urn:li:groupPost URN. The published post becomes a quote-reshare: your content is shown as the commentary and the original post is embedded underneath (LinkedIn's \"repost with your thoughts\"). Mutually exclusive with media. Works on personal profiles and organization pages.
+    #[serde(rename = "reshareUrl", skip_serializing_if = "Option::is_none")]
+    pub reshare_url: Option<String>,
     #[serde(rename = "geoRestriction", skip_serializing_if = "Option::is_none")]
     pub geo_restriction: Option<Box<models::GeoRestriction>>,
 }
@@ -38,6 +41,7 @@ impl LinkedInPlatformData {
             organization_urn: None,
             first_comment: None,
             disable_link_preview: None,
+            reshare_url: None,
             geo_restriction: None,
         }
     }
