@@ -42,6 +42,9 @@ pub struct CreateStandaloneAdRequest {
     /// Required on legacy + multi-creative shapes. Inherited on attach.
     #[serde(rename = "budgetType", skip_serializing_if = "Option::is_none")]
     pub budget_type: Option<BudgetType>,
+    /// Meta only. Publish state of the created ad set + ad. Omitted or ACTIVE publishes live (default, back-compat); PAUSED creates them paused and skips activation, so you can review before they spend.
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<Status>,
     /// Meta only. Where the budget lives, which selects the Meta budget model:   - `adset` (default): ABO (Ad-set Budget Optimization). The budget is set on the     ad set. This is the back-compatible behaviour — omit this field to keep it.   - `campaign`: CBO (Campaign Budget Optimization / Advantage Campaign Budget). The     budget AND `bidStrategy` are set on the CAMPAIGN, and Meta distributes spend     across ad sets automatically. Meta requires the budget at exactly one level, never both. Non-Meta platforms ignore this field. Ignored on the attach shape (`adSetId`), which inherits the existing budget.
     #[serde(rename = "budgetLevel", skip_serializing_if = "Option::is_none")]
     pub budget_level: Option<BudgetLevel>,
@@ -81,6 +84,12 @@ pub struct CreateStandaloneAdRequest {
     /// Meta-only. When present, switches to the attach shape: adds one new ad to this existing ad set without creating a new campaign. Budget, targeting, goal, schedule, AND bid strategy are inherited from the ad set on Meta — passing `bidStrategy` in attach mode returns 400. To change an existing ad set's bid, use `PUT /v1/ads/ad-sets/{adSetId}`. Mutually exclusive with `creatives[]`.  The attached ad takes the full single-creative surface: `headline`/`body`/`description`/`callToAction` plus either `imageUrl`/`video` OR `placementAssets` (its own per-placement Feed/Story assets), and `leadGenFormId` when the target is a lead ad set (the parent must be ON_AD — true for ad sets created via goal `lead_generation`; Meta rejects a formless ad there, so pass the form on EVERY attached ad). This is the way to build N full ads sharing one ad set: create the first ad via the normal shape, then attach the rest one call each.  Supported on Meta (facebook, instagram) and TikTok. On TikTok the `adSetId` is the ad group ID; the new ad inherits the ad group's bid + budget + targeting.
     #[serde(rename = "adSetId", skip_serializing_if = "Option::is_none")]
     pub ad_set_id: Option<String>,
+    /// Meta only. Add the new ad set under this EXISTING campaign instead of creating a new one (multi-ad-set audience testing). The new ad set's budget is matched to the campaign's mode automatically: for a CBO campaign (campaign-level budget) omit `budgetAmount`/`budgetType` — the campaign owns the budget; for an ABO campaign pass them (they go on the new ad set). On failure only the new ad set is cleaned up; the existing campaign is left untouched and is never (re)activated. Mutually exclusive with `adSetId` and `creatives[]`.
+    #[serde(rename = "existingCampaignId", skip_serializing_if = "Option::is_none")]
+    pub existing_campaign_id: Option<String>,
+    /// Meta only. Reuse an EXISTING ad creative by id instead of building a new one from the copy/media fields (which are then ignored). Combine with `existingCampaignId` to build a multi-ad-set campaign that shares one creative. Mutually exclusive with `creatives[]`, `dynamicCreative`, and `placementAssets`. The creative id used is returned as `creativeId` on the create response.
+    #[serde(rename = "existingCreativeId", skip_serializing_if = "Option::is_none")]
+    pub existing_creative_id: Option<String>,
     /// Google Display only
     #[serde(rename = "businessName", skip_serializing_if = "Option::is_none")]
     pub business_name: Option<String>,
@@ -223,6 +232,7 @@ impl CreateStandaloneAdRequest {
             optimization_goal: None,
             budget_amount: None,
             budget_type: None,
+            status: None,
             budget_level: None,
             currency: None,
             headline: None,
@@ -237,6 +247,8 @@ impl CreateStandaloneAdRequest {
             video: None,
             creatives: None,
             ad_set_id: None,
+            existing_campaign_id: None,
+            existing_creative_id: None,
             business_name: None,
             board_id: None,
             organization_id: None,
@@ -320,6 +332,20 @@ pub enum BudgetType {
 impl Default for BudgetType {
     fn default() -> BudgetType {
         Self::Daily
+    }
+}
+/// Meta only. Publish state of the created ad set + ad. Omitted or ACTIVE publishes live (default, back-compat); PAUSED creates them paused and skips activation, so you can review before they spend.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Status {
+    #[serde(rename = "ACTIVE")]
+    Active,
+    #[serde(rename = "PAUSED")]
+    Paused,
+}
+
+impl Default for Status {
+    fn default() -> Status {
+        Self::Active
     }
 }
 /// Meta only. Where the budget lives, which selects the Meta budget model:   - `adset` (default): ABO (Ad-set Budget Optimization). The budget is set on the     ad set. This is the back-compatible behaviour — omit this field to keep it.   - `campaign`: CBO (Campaign Budget Optimization / Advantage Campaign Budget). The     budget AND `bidStrategy` are set on the CAMPAIGN, and Meta distributes spend     across ad sets automatically. Meta requires the budget at exactly one level, never both. Non-Meta platforms ignore this field. Ignored on the attach shape (`adSetId`), which inherits the existing budget.
