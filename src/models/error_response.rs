@@ -11,19 +11,67 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// ErrorResponse : Canonical error envelope. `error` is the human-readable message; `type`, `code`, `param`, `platform`, and `platformError` are top-level siblings for programmatic handling. For upstream platform failures (`type: platform_error`), `platformError` carries the provider's raw payload verbatim (for Meta: `error_subcode`, `error_user_title`, `error_user_msg`).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ErrorResponse {
+    /// Human-readable error message.
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
     pub error: Option<String>,
+    /// Error class for programmatic handling.
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<Type>,
+    /// Stable machine-readable error code.
+    #[serde(rename = "code", skip_serializing_if = "Option::is_none")]
+    pub code: Option<String>,
+    /// The request field that caused the error, when applicable.
+    #[serde(rename = "param", skip_serializing_if = "Option::is_none")]
+    pub param: Option<String>,
+    /// Upstream platform (e.g. meta, google, tiktok) — present when type is platform_error.
+    #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
+    pub platform: Option<String>,
+    /// Raw error payload from the upstream platform, passed through verbatim so integrators can read provider-specific codes. For Meta this includes error_subcode, error_user_title, and error_user_msg.
+    #[serde(rename = "platformError", skip_serializing_if = "Option::is_none")]
+    pub platform_error: Option<std::collections::HashMap<String, serde_json::Value>>,
+    /// Additional structured context (e.g. field-level validation errors).
     #[serde(rename = "details", skip_serializing_if = "Option::is_none")]
     pub details: Option<std::collections::HashMap<String, serde_json::Value>>,
 }
 
 impl ErrorResponse {
+    /// Canonical error envelope. `error` is the human-readable message; `type`, `code`, `param`, `platform`, and `platformError` are top-level siblings for programmatic handling. For upstream platform failures (`type: platform_error`), `platformError` carries the provider's raw payload verbatim (for Meta: `error_subcode`, `error_user_title`, `error_user_msg`).
     pub fn new() -> ErrorResponse {
         ErrorResponse {
             error: None,
+            r#type: None,
+            code: None,
+            param: None,
+            platform: None,
+            platform_error: None,
             details: None,
         }
+    }
+}
+/// Error class for programmatic handling.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "invalid_request_error")]
+    InvalidRequestError,
+    #[serde(rename = "authentication_error")]
+    AuthenticationError,
+    #[serde(rename = "permission_error")]
+    PermissionError,
+    #[serde(rename = "not_found")]
+    NotFound,
+    #[serde(rename = "rate_limit_error")]
+    RateLimitError,
+    #[serde(rename = "platform_error")]
+    PlatformError,
+    #[serde(rename = "api_error")]
+    ApiError,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::InvalidRequestError
     }
 }
