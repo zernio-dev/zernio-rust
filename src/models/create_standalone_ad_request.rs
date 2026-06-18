@@ -42,9 +42,12 @@ pub struct CreateStandaloneAdRequest {
     /// Required on legacy + multi-creative shapes. Inherited on attach.
     #[serde(rename = "budgetType", skip_serializing_if = "Option::is_none")]
     pub budget_type: Option<BudgetType>,
-    /// Meta only. Publish state of the created ad set + ad. Omitted or ACTIVE publishes live (default, back-compat); PAUSED creates them paused and skips activation, so you can review before they spend.
+    /// Meta only. Desired publish state of the ad (and, on the legacy/multi-ad-set shapes, the ad set too). Omitted or `ACTIVE` publishes live immediately (default). `PAUSED` creates the objects paused and skips activation — useful to stage ads before they spend. On the attach shape (`adSetId`), only the new ad is affected; the existing ad set and campaign are already live and are not touched.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
+    /// Meta only. Independent publish state for the CAMPAIGN when the create makes both a new campaign and a new ad set (legacy shape). When omitted, the campaign follows `status`. Use this to stage a paused campaign with an active ad set (`status: ACTIVE, campaignStatus: PAUSED`) — the ad set will start delivering as soon as the campaign is activated later. Ignored when `existingCampaignId` is set (the campaign is already live and its status is not changed).
+    #[serde(rename = "campaignStatus", skip_serializing_if = "Option::is_none")]
+    pub campaign_status: Option<CampaignStatus>,
     /// Meta only. Where the budget lives, which selects the Meta budget model:   - `adset` (default): ABO (Ad-set Budget Optimization). The budget is set on the     ad set. This is the back-compatible behaviour — omit this field to keep it.   - `campaign`: CBO (Campaign Budget Optimization / Advantage Campaign Budget). The     budget AND `bidStrategy` are set on the CAMPAIGN, and Meta distributes spend     across ad sets automatically. Meta requires the budget at exactly one level, never both. Non-Meta platforms ignore this field. Ignored on the attach shape (`adSetId`), which inherits the existing budget.
     #[serde(rename = "budgetLevel", skip_serializing_if = "Option::is_none")]
     pub budget_level: Option<BudgetLevel>,
@@ -87,7 +90,7 @@ pub struct CreateStandaloneAdRequest {
     /// Meta only. Add the new ad set under this EXISTING campaign instead of creating a new one (multi-ad-set audience testing). The new ad set's budget is matched to the campaign's mode automatically: for a CBO campaign (campaign-level budget) omit `budgetAmount`/`budgetType` — the campaign owns the budget; for an ABO campaign pass them (they go on the new ad set). On failure only the new ad set is cleaned up; the existing campaign is left untouched and is never (re)activated. Mutually exclusive with `adSetId` and `creatives[]`.
     #[serde(rename = "existingCampaignId", skip_serializing_if = "Option::is_none")]
     pub existing_campaign_id: Option<String>,
-    /// Meta only. Reuse an EXISTING ad creative by id instead of building a new one from the copy/media fields (which are then ignored). Combine with `existingCampaignId` to build a multi-ad-set campaign that shares one creative. Mutually exclusive with `creatives[]`, `dynamicCreative`, and `placementAssets`. The creative id used is returned as `creativeId` on the create response.
+    /// Meta only. Reuse an EXISTING ad creative by id instead of building a new one from the copy/media fields (which are then ignored). Works on both shapes: - Legacy/multi-ad-set (`existingCampaignId`): combine with   `existingCampaignId` to build a multi-ad-set campaign that   shares one creative across audiences. - Attach (`adSetId`): combine with `adSetId` to add a second   (or Nth) ad to an existing ad set reusing the same creative —   no `headline`/`body`/`imageUrl` required on the body. Mutually exclusive with `creatives[]`, `dynamicCreative`, and `placementAssets`. The creative id is returned as `creativeId` on the create response.
     #[serde(rename = "existingCreativeId", skip_serializing_if = "Option::is_none")]
     pub existing_creative_id: Option<String>,
     /// Google Display only
@@ -233,6 +236,7 @@ impl CreateStandaloneAdRequest {
             budget_amount: None,
             budget_type: None,
             status: None,
+            campaign_status: None,
             budget_level: None,
             currency: None,
             headline: None,
@@ -334,7 +338,7 @@ impl Default for BudgetType {
         Self::Daily
     }
 }
-/// Meta only. Publish state of the created ad set + ad. Omitted or ACTIVE publishes live (default, back-compat); PAUSED creates them paused and skips activation, so you can review before they spend.
+/// Meta only. Desired publish state of the ad (and, on the legacy/multi-ad-set shapes, the ad set too). Omitted or `ACTIVE` publishes live immediately (default). `PAUSED` creates the objects paused and skips activation — useful to stage ads before they spend. On the attach shape (`adSetId`), only the new ad is affected; the existing ad set and campaign are already live and are not touched.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
     #[serde(rename = "ACTIVE")]
@@ -345,6 +349,20 @@ pub enum Status {
 
 impl Default for Status {
     fn default() -> Status {
+        Self::Active
+    }
+}
+/// Meta only. Independent publish state for the CAMPAIGN when the create makes both a new campaign and a new ad set (legacy shape). When omitted, the campaign follows `status`. Use this to stage a paused campaign with an active ad set (`status: ACTIVE, campaignStatus: PAUSED`) — the ad set will start delivering as soon as the campaign is activated later. Ignored when `existingCampaignId` is set (the campaign is already live and its status is not changed).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum CampaignStatus {
+    #[serde(rename = "ACTIVE")]
+    Active,
+    #[serde(rename = "PAUSED")]
+    Paused,
+}
+
+impl Default for CampaignStatus {
+    fn default() -> CampaignStatus {
         Self::Active
     }
 }
