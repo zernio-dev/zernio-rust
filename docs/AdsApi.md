@@ -1106,7 +1106,7 @@ Name | Type | Description  | Required | Notes
 **account_id** | **String** | Social account ID (a connected account on the target ad platform). | [required] |
 **q** | **String** | Search query. For geo, the locality name only (no region/country suffix). | [required] |
 **dimension** | Option<**String**> | What to search. `geo` resolves locations (scope further with `geoType`), `interest`/`behavior` resolve audience entities, `income` resolves income-tier options. Defaults to `interest` for backward compatibility with the deprecated /v1/ads/interests alias. |  |[default to interest]
-**geo_type** | Option<**String**> | Only used when `dimension=geo`. The kind of location to resolve. Defaults to `city`. |  |[default to city]
+**geo_type** | Option<**String**> | Only used when `dimension=geo`. The kind of location to resolve. `place` resolves named points of interest (businesses, landmarks) by proximity. `neighborhood` resolves named neighbourhood areas. Defaults to `city`. |  |[default to city]
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code (e.g. NL) to scope a geo search. |  |
 **limit** | Option<**i32**> | Maximum results to return. |  |[default to 25]
 
