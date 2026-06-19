@@ -149,6 +149,7 @@ pub mod queue_api;
 pub mod reddit_search_api;
 pub mod reviews_api;
 pub mod sequences_api;
+pub mod sms_api;
 pub mod tracking_tags_api;
 pub mod twitter_engagement_api;
 pub mod usage_api;

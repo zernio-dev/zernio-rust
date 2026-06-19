@@ -302,6 +302,7 @@ Class | Method | HTTP request | Description
 *ReviewsApi* | [**delete_inbox_review_reply**](docs/ReviewsApi.md#delete_inbox_review_reply) | **DELETE** /v1/inbox/reviews/{reviewId}/reply | Delete review reply
 *ReviewsApi* | [**list_inbox_reviews**](docs/ReviewsApi.md#list_inbox_reviews) | **GET** /v1/inbox/reviews | List reviews
 *ReviewsApi* | [**reply_to_inbox_review**](docs/ReviewsApi.md#reply_to_inbox_review) | **POST** /v1/inbox/reviews/{reviewId}/reply | Reply to review
+*SmsApi* | [**send_sms**](docs/SmsApi.md#send_sms) | **POST** /v1/sms/messages | Send an SMS or MMS
 *SequencesApi* | [**activate_sequence**](docs/SequencesApi.md#activate_sequence) | **POST** /v1/sequences/{sequenceId}/activate | Activate sequence
 *SequencesApi* | [**create_sequence**](docs/SequencesApi.md#create_sequence) | **POST** /v1/sequences | Create sequence
 *SequencesApi* | [**delete_sequence**](docs/SequencesApi.md#delete_sequence) | **DELETE** /v1/sequences/{sequenceId} | Delete sequence
@@ -1319,6 +1320,8 @@ Class | Method | HTTP request | Description
  - [SendPrivateReplyToCommentRequestButtonsInnerOneOf1](docs/SendPrivateReplyToCommentRequestButtonsInnerOneOf1.md)
  - [SendPrivateReplyToCommentRequestButtonsInnerOneOf2](docs/SendPrivateReplyToCommentRequestButtonsInnerOneOf2.md)
  - [SendPrivateReplyToCommentRequestQuickRepliesInner](docs/SendPrivateReplyToCommentRequestQuickRepliesInner.md)
+ - [SendSms200Response](docs/SendSms200Response.md)
+ - [SendSmsRequest](docs/SendSmsRequest.md)
  - [SendTypingIndicatorRequest](docs/SendTypingIndicatorRequest.md)
  - [SendWhatsAppConversion200Response](docs/SendWhatsAppConversion200Response.md)
  - [SendWhatsAppConversionRequest](docs/SendWhatsAppConversionRequest.md)
