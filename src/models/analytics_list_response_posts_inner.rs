@@ -36,6 +36,9 @@ pub struct AnalyticsListResponsePostsInner {
     pub platform_post_url: Option<String>,
     #[serde(rename = "isExternal", skip_serializing_if = "Option::is_none")]
     pub is_external: Option<bool>,
+    /// True when the post is an ad creative. False for organic posts or platforms where the signal is unavailable. For now is only available for LinkedIn posts.
+    #[serde(rename = "isAd", skip_serializing_if = "Option::is_none")]
+    pub is_ad: Option<bool>,
     #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]
     pub profile_id: Option<String>,
     #[serde(rename = "thumbnailUrl", skip_serializing_if = "Option::is_none")]
@@ -61,6 +64,7 @@ impl AnalyticsListResponsePostsInner {
             platform: None,
             platform_post_url: None,
             is_external: None,
+            is_ad: None,
             profile_id: None,
             thumbnail_url: None,
             media_type: None,
