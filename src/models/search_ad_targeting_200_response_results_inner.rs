@@ -28,6 +28,12 @@ pub struct SearchAdTargeting200ResponseResultsInner {
     /// Optional estimated reachable users for this option, when the platform returns it.
     #[serde(rename = "audienceSize", skip_serializing_if = "Option::is_none")]
     pub audience_size: Option<i32>,
+    /// Centre latitude of the location. Populated on Meta geo results (city, neighborhood, place, etc.). Useful for map views.
+    #[serde(rename = "latitude", skip_serializing_if = "Option::is_none")]
+    pub latitude: Option<f32>,
+    /// Centre longitude of the location.
+    #[serde(rename = "longitude", skip_serializing_if = "Option::is_none")]
+    pub longitude: Option<f32>,
 }
 
 impl SearchAdTargeting200ResponseResultsInner {
@@ -42,6 +48,8 @@ impl SearchAdTargeting200ResponseResultsInner {
             r#type,
             path: None,
             audience_size: None,
+            latitude: None,
+            longitude: None,
         }
     }
 }

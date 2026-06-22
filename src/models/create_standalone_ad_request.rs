@@ -127,6 +127,14 @@ pub struct CreateStandaloneAdRequest {
     /// Point-radius (lat/lng) geo targeting. Meta only (custom_locations). Rejected on platforms without radius support.
     #[serde(rename = "customLocations", skip_serializing_if = "Option::is_none")]
     pub custom_locations: Option<Vec<models::CreateStandaloneAdRequestCustomLocationsInner>>,
+    /// Named points of interest (businesses, landmarks). Meta only. `key` from /v1/ads/targeting/search?dimension=geo&geoType=place. Maps to geo_locations.places.
+    #[serde(rename = "places", skip_serializing_if = "Option::is_none")]
+    pub places: Option<Vec<models::CreateStandaloneAdRequestPlacesInner>>,
+    /// Named neighbourhood areas. Meta only. `key` from /v1/ads/targeting/search?dimension=geo&geoType=neighborhood. Maps to geo_locations.neighborhoods.
+    #[serde(rename = "neighborhoods", skip_serializing_if = "Option::is_none")]
+    pub neighborhoods: Option<Vec<models::CreateStandaloneAdRequestPlacesInner>>,
+    #[serde(rename = "excludedLocations", skip_serializing_if = "Option::is_none")]
+    pub excluded_locations: Option<Box<models::CreateStandaloneAdRequestExcludedLocations>>,
     /// Behaviour entities from /v1/ads/targeting/search?dimension=behavior. Supported on Meta and TikTok. Each must include id.
     #[serde(rename = "behaviors", skip_serializing_if = "Option::is_none")]
     pub behaviors: Option<Vec<models::CreateStandaloneAdRequestBehaviorsInner>>,
@@ -265,6 +273,9 @@ impl CreateStandaloneAdRequest {
             zips: None,
             metros: None,
             custom_locations: None,
+            places: None,
+            neighborhoods: None,
+            excluded_locations: None,
             behaviors: None,
             income_tier: None,
             languages: None,

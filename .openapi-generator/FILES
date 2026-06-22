@@ -176,6 +176,7 @@ docs/CreateInviteToken201Response.md
 docs/CreateInviteTokenRequest.md
 docs/CreateLeadForm200Response.md
 docs/CreateLeadFormRequest.md
+docs/CreateLeadFormRequestContextCard.md
 docs/CreateLeadFormRequestQuestionsInner.md
 docs/CreateLeadFormRequestQuestionsInnerOptionsInner.md
 docs/CreatePost409Response.md
@@ -205,11 +206,13 @@ docs/CreateStandaloneAdRequestCreativesInner.md
 docs/CreateStandaloneAdRequestCreativesInnerVideo.md
 docs/CreateStandaloneAdRequestCustomLocationsInner.md
 docs/CreateStandaloneAdRequestDynamicCreative.md
+docs/CreateStandaloneAdRequestExcludedLocations.md
 docs/CreateStandaloneAdRequestImages.md
 docs/CreateStandaloneAdRequestPlacementAssets.md
 docs/CreateStandaloneAdRequestPlacementAssetsRulesInner.md
 docs/CreateStandaloneAdRequestPlacementAssetsRulesInnerPlacements.md
 docs/CreateStandaloneAdRequestPlacements.md
+docs/CreateStandaloneAdRequestPlacesInner.md
 docs/CreateStandaloneAdRequestPromotedObject.md
 docs/CreateStandaloneAdRequestRegionsInner.md
 docs/CreateStandaloneAdRequestTracking.md
@@ -1465,6 +1468,7 @@ src/models/create_invite_token_201_response.rs
 src/models/create_invite_token_request.rs
 src/models/create_lead_form_200_response.rs
 src/models/create_lead_form_request.rs
+src/models/create_lead_form_request_context_card.rs
 src/models/create_lead_form_request_questions_inner.rs
 src/models/create_lead_form_request_questions_inner_options_inner.rs
 src/models/create_post_409_response.rs
@@ -1494,11 +1498,13 @@ src/models/create_standalone_ad_request_creatives_inner.rs
 src/models/create_standalone_ad_request_creatives_inner_video.rs
 src/models/create_standalone_ad_request_custom_locations_inner.rs
 src/models/create_standalone_ad_request_dynamic_creative.rs
+src/models/create_standalone_ad_request_excluded_locations.rs
 src/models/create_standalone_ad_request_images.rs
 src/models/create_standalone_ad_request_placement_assets.rs
 src/models/create_standalone_ad_request_placement_assets_rules_inner.rs
 src/models/create_standalone_ad_request_placement_assets_rules_inner_placements.rs
 src/models/create_standalone_ad_request_placements.rs
+src/models/create_standalone_ad_request_places_inner.rs
 src/models/create_standalone_ad_request_promoted_object.rs
 src/models/create_standalone_ad_request_regions_inner.rs
 src/models/create_standalone_ad_request_tracking.rs
