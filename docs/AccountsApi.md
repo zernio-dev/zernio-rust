@@ -109,7 +109,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_follower_stats
 
-> models::GetFollowerStats200Response get_follower_stats(account_ids, profile_id, from_date, to_date, granularity)
+> models::FollowerStatsResponse get_follower_stats(account_ids, profile_id, from_date, to_date, granularity)
 Get follower stats
 
 Returns follower count history and growth metrics for connected social accounts. Requires analytics add-on subscription. Follower counts are refreshed once per day. 
@@ -127,7 +127,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetFollowerStats200Response**](getFollowerStats_200_response.md)
+[**models::FollowerStatsResponse**](FollowerStatsResponse.md)
 
 ### Authorization
 
@@ -174,7 +174,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_accounts
 
-> models::ListAccounts200Response list_accounts(profile_id, platform, status, include_over_limit, page, limit)
+> models::AccountsListResponse list_accounts(profile_id, platform, status, include_over_limit, page, limit)
 List accounts
 
 Returns connected social accounts. Only includes accounts within the plan limit by default. Follower data requires analytics add-on. Supports optional server-side pagination via page/limit params. When omitted, returns all accounts (backward-compatible). 
@@ -193,7 +193,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::ListAccounts200Response**](listAccounts_200_response.md)
+[**models::AccountsListResponse**](AccountsListResponse.md)
 
 ### Authorization
 

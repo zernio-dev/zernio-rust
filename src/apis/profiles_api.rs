@@ -115,7 +115,7 @@ pub async fn create_profile(
 pub async fn delete_profile(
     configuration: &configuration::Configuration,
     profile_id: &str,
-) -> Result<models::DeleteAccountGroup200Response, Error<DeleteProfileError>> {
+) -> Result<models::ProfileDeleteResponse, Error<DeleteProfileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_profile_id = profile_id;
 
@@ -150,8 +150,8 @@ pub async fn delete_profile(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteAccountGroup200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteAccountGroup200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ProfileDeleteResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ProfileDeleteResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -168,7 +168,7 @@ pub async fn delete_profile(
 pub async fn get_profile(
     configuration: &configuration::Configuration,
     profile_id: &str,
-) -> Result<models::GetProfile200Response, Error<GetProfileError>> {
+) -> Result<models::ProfileGetResponse, Error<GetProfileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_profile_id = profile_id;
 
@@ -201,8 +201,8 @@ pub async fn get_profile(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetProfile200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetProfile200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ProfileGetResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ProfileGetResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -270,7 +270,7 @@ pub async fn update_profile(
     configuration: &configuration::Configuration,
     profile_id: &str,
     update_profile_request: models::UpdateProfileRequest,
-) -> Result<models::UpdateProfile200Response, Error<UpdateProfileError>> {
+) -> Result<models::ProfileUpdateResponse, Error<UpdateProfileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_profile_id = profile_id;
     let p_body_update_profile_request = update_profile_request;
@@ -305,8 +305,8 @@ pub async fn update_profile(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateProfile200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateProfile200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ProfileUpdateResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ProfileUpdateResponse`")))),
         }
     } else {
         let content = resp.text().await?;

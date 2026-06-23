@@ -5,6 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **profile_id** | Option<**String**> |  | [optional]
+**queue_id** | Option<**String**> |  | [optional]
+**queue_name** | Option<**String**> |  | [optional]
 **count** | Option<**i32**> |  | [optional]
 **slots** | Option<**Vec<String>**> |  | [optional]
 

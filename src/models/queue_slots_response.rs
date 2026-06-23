@@ -11,6 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// QueueSlotsResponse : Single queue response (default behavior)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct QueueSlotsResponse {
     #[serde(rename = "exists", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,7 @@ pub struct QueueSlotsResponse {
 }
 
 impl QueueSlotsResponse {
+    /// Single queue response (default behavior)
     pub fn new() -> QueueSlotsResponse {
         QueueSlotsResponse {
             exists: None,

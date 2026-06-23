@@ -11,24 +11,21 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ListQueueSlots200ResponseOneOf : Single queue response (default behavior)
+/// ListQueueSlots200ResponseOneOf : All queues response (when all=true)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ListQueueSlots200ResponseOneOf {
-    #[serde(rename = "exists", skip_serializing_if = "Option::is_none")]
-    pub exists: Option<bool>,
-    #[serde(rename = "schedule", skip_serializing_if = "Option::is_none")]
-    pub schedule: Option<Box<models::QueueSchedule>>,
-    #[serde(rename = "nextSlots", skip_serializing_if = "Option::is_none")]
-    pub next_slots: Option<Vec<String>>,
+    #[serde(rename = "queues", skip_serializing_if = "Option::is_none")]
+    pub queues: Option<Vec<models::QueueSchedule>>,
+    #[serde(rename = "count", skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
 }
 
 impl ListQueueSlots200ResponseOneOf {
-    /// Single queue response (default behavior)
+    /// All queues response (when all=true)
     pub fn new() -> ListQueueSlots200ResponseOneOf {
         ListQueueSlots200ResponseOneOf {
-            exists: None,
-            schedule: None,
-            next_slots: None,
+            queues: None,
+            count: None,
         }
     }
 }

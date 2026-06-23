@@ -21,6 +21,10 @@ pub struct QueueUpdateResponse {
     pub next_slots: Option<Vec<String>>,
     #[serde(rename = "reshuffledCount", skip_serializing_if = "Option::is_none")]
     pub reshuffled_count: Option<i32>,
+    #[serde(rename = "skippedDailyLimit", skip_serializing_if = "Option::is_none")]
+    pub skipped_daily_limit: Option<i32>,
+    #[serde(rename = "isNewQueue", skip_serializing_if = "Option::is_none")]
+    pub is_new_queue: Option<bool>,
 }
 
 impl QueueUpdateResponse {
@@ -30,6 +34,8 @@ impl QueueUpdateResponse {
             schedule: None,
             next_slots: None,
             reshuffled_count: None,
+            skipped_daily_limit: None,
+            is_new_queue: None,
         }
     }
 }

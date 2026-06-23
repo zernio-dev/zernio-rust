@@ -15,34 +15,23 @@ use serde::{Deserialize, Serialize};
 pub struct FollowerStatsResponse {
     #[serde(rename = "accounts", skip_serializing_if = "Option::is_none")]
     pub accounts: Option<Vec<models::AccountWithFollowerStats>>,
+    #[serde(rename = "stats", skip_serializing_if = "Option::is_none")]
+    pub stats: Option<
+        std::collections::HashMap<String, Vec<models::FollowerStatsResponseStatsValueInner>>,
+    >,
     #[serde(rename = "dateRange", skip_serializing_if = "Option::is_none")]
-    pub date_range: Option<Box<models::GetFollowerStats200ResponseDateRange>>,
-    #[serde(rename = "aggregation", skip_serializing_if = "Option::is_none")]
-    pub aggregation: Option<Aggregation>,
+    pub date_range: Option<Box<models::FollowerStatsResponseDateRange>>,
+    #[serde(rename = "granularity", skip_serializing_if = "Option::is_none")]
+    pub granularity: Option<String>,
 }
 
 impl FollowerStatsResponse {
     pub fn new() -> FollowerStatsResponse {
         FollowerStatsResponse {
             accounts: None,
+            stats: None,
             date_range: None,
-            aggregation: None,
+            granularity: None,
         }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Aggregation {
-    #[serde(rename = "daily")]
-    Daily,
-    #[serde(rename = "weekly")]
-    Weekly,
-    #[serde(rename = "monthly")]
-    Monthly,
-}
-
-impl Default for Aggregation {
-    fn default() -> Aggregation {
-        Self::Daily
     }
 }

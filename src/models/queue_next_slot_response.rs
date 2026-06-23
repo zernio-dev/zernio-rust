@@ -19,6 +19,12 @@ pub struct QueueNextSlotResponse {
     pub next_slot: Option<String>,
     #[serde(rename = "timezone", skip_serializing_if = "Option::is_none")]
     pub timezone: Option<String>,
+    /// Queue ID this slot belongs to
+    #[serde(rename = "queueId", skip_serializing_if = "Option::is_none")]
+    pub queue_id: Option<String>,
+    /// Queue name
+    #[serde(rename = "queueName", skip_serializing_if = "Option::is_none")]
+    pub queue_name: Option<String>,
 }
 
 impl QueueNextSlotResponse {
@@ -27,6 +33,8 @@ impl QueueNextSlotResponse {
             profile_id: None,
             next_slot: None,
             timezone: None,
+            queue_id: None,
+            queue_name: None,
         }
     }
 }

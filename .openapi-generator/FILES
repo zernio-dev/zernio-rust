@@ -7,6 +7,7 @@ docs/AccountSettingsApi.md
 docs/AccountWithFollowerStats.md
 docs/AccountWithFollowerStatsAllOfAccountStats.md
 docs/AccountsApi.md
+docs/AccountsListResponse.md
 docs/ActivateSequence200Response.md
 docs/ActivateWorkflow200Response.md
 docs/ActivateWorkflow200ResponseWorkflow.md
@@ -254,7 +255,6 @@ docs/DeleteGoogleBusinessReviewReply200Response.md
 docs/DeleteInboxComment200Response.md
 docs/DeleteInboxReviewReply200Response.md
 docs/DeleteInboxReviewReplyRequest.md
-docs/DeleteQueueSlot200Response.md
 docs/DiscordApi.md
 docs/DiscordPlatformData.md
 docs/DiscordPlatformDataEmbedsInner.md
@@ -298,6 +298,9 @@ docs/FetchGoogleBusinessVerificationOptions200ResponseOptionsInner.md
 docs/FetchGoogleBusinessVerificationOptionsRequest.md
 docs/FollowUser200Response.md
 docs/FollowUserRequest.md
+docs/FollowerStatsResponse.md
+docs/FollowerStatsResponseDateRange.md
+docs/FollowerStatsResponseStatsValueInner.md
 docs/FoodMenu.md
 docs/FoodMenuItem.md
 docs/FoodMenuItemAttributes.md
@@ -363,9 +366,6 @@ docs/GetDiscordSettings200Response.md
 docs/GetDiscordSettings200ResponseAccount.md
 docs/GetFacebookPages200Response.md
 docs/GetFacebookPages200ResponsePagesInner.md
-docs/GetFollowerStats200Response.md
-docs/GetFollowerStats200ResponseDateRange.md
-docs/GetFollowerStats200ResponseStatsValueInner.md
 docs/GetFollowerStats403Response.md
 docs/GetGmbAttributeMetadata200Response.md
 docs/GetGmbAttributeMetadata200ResponseAttributeMetadataInner.md
@@ -475,7 +475,6 @@ docs/GetLinkedInPostReactions400Response.md
 docs/GetMediaPresignedUrl200Response.md
 docs/GetMediaPresignedUrlRequest.md
 docs/GetMessengerMenu200Response.md
-docs/GetNextQueueSlot200Response.md
 docs/GetPendingOAuthData200Response.md
 docs/GetPendingOAuthData200ResponseOrganizationsInner.md
 docs/GetPinterestBoards200Response.md
@@ -487,7 +486,6 @@ docs/GetPostTimeline403Response.md
 docs/GetPostTimeline404Response.md
 docs/GetPostingFrequency200Response.md
 docs/GetPostingFrequency200ResponseFrequencyInner.md
-docs/GetProfile200Response.md
 docs/GetRedditFlairs200Response.md
 docs/GetRedditFlairs200ResponseFlairsInner.md
 docs/GetRedditSubreddits200Response.md
@@ -630,7 +628,6 @@ docs/LinkedInMentionsApi.md
 docs/LinkedInPlatformData.md
 docs/ListAccountGroups200Response.md
 docs/ListAccountGroups200ResponseGroupsInner.md
-docs/ListAccounts200Response.md
 docs/ListAdAccounts200Response.md
 docs/ListAdAccounts200ResponseAccountsInner.md
 docs/ListAdAudiences200Response.md
@@ -711,7 +708,6 @@ docs/ListPinterestBoardsForSelection200Response.md
 docs/ListPinterestBoardsForSelection200ResponseBoardsInner.md
 docs/ListQueueSlots200Response.md
 docs/ListQueueSlots200ResponseOneOf.md
-docs/ListQueueSlots200ResponseOneOf1.md
 docs/ListSequenceEnrollments200Response.md
 docs/ListSequenceEnrollments200ResponseEnrollmentsInner.md
 docs/ListSequences200Response.md
@@ -757,6 +753,7 @@ docs/LogsApi.md
 docs/MarkConversationRead200Response.md
 docs/MediaApi.md
 docs/MediaItem.md
+docs/MediaUploadResponse.md
 docs/MessagesApi.md
 docs/Money.md
 docs/MoveAccountToProfile200Response.md
@@ -790,9 +787,11 @@ docs/PostUpdateResponse.md
 docs/PostUserId.md
 docs/PostsApi.md
 docs/PostsListResponse.md
-docs/PreviewQueue200Response.md
 docs/Profile.md
 docs/ProfileCreateResponse.md
+docs/ProfileDeleteResponse.md
+docs/ProfileGetResponse.md
+docs/ProfileUpdateResponse.md
 docs/ProfilesApi.md
 docs/ProfilesListResponse.md
 docs/PurchaseWhatsAppPhoneNumber200Response.md
@@ -804,8 +803,13 @@ docs/PurchaseWhatsAppPhoneNumber202Response.md
 docs/PurchaseWhatsAppPhoneNumber409Response.md
 docs/PurchaseWhatsAppPhoneNumberRequest.md
 docs/QueueApi.md
+docs/QueueDeleteResponse.md
+docs/QueueNextSlotResponse.md
+docs/QueuePreviewResponse.md
 docs/QueueSchedule.md
 docs/QueueSlot.md
+docs/QueueSlotsResponse.md
+docs/QueueUpdateResponse.md
 docs/RecyclingConfig.md
 docs/RecyclingState.md
 docs/RedditPlatformData.md
@@ -1055,9 +1059,7 @@ docs/UpdatePostMetadata200Response.md
 docs/UpdatePostMetadataRequest.md
 docs/UpdatePostRequest.md
 docs/UpdatePostRequestPlatformsInner.md
-docs/UpdateProfile200Response.md
 docs/UpdateProfileRequest.md
-docs/UpdateQueueSlot200Response.md
 docs/UpdateQueueSlotRequest.md
 docs/UpdateRedditSubredditsRequest.md
 docs/UpdateSequence200Response.md
@@ -1084,11 +1086,14 @@ docs/UpdateWorkflowRequest.md
 docs/UpdateYoutubeDefaultPlaylist200Response.md
 docs/UpdateYoutubeDefaultPlaylistRequest.md
 docs/UploadMediaDirect200Response.md
+docs/UploadTokenResponse.md
+docs/UploadTokenStatusResponse.md
 docs/UploadWhatsAppFlowJson200Response.md
 docs/UploadWhatsAppFlowJson200ResponseValidationErrorsInner.md
 docs/UploadWhatsAppFlowJsonRequest.md
 docs/UploadWhatsAppFlowJsonRequestFlowJson.md
 docs/UploadWhatsAppNumberKycDocument200Response.md
+docs/UploadedFile.md
 docs/UploadedOrDerivedAudience.md
 docs/UsageApi.md
 docs/UsageStats.md
@@ -1097,7 +1102,9 @@ docs/UsageStatsSpend.md
 docs/UsageStatsUsage.md
 docs/UsageStatsUsageXApiCalls.md
 docs/User.md
+docs/UserGetResponse.md
 docs/UsersApi.md
+docs/UsersListResponse.md
 docs/ValidateApi.md
 docs/ValidateMedia200Response.md
 docs/ValidateMedia200ResponsePlatformLimitsValue.md
@@ -1285,6 +1292,7 @@ src/apis/workflows_api.rs
 src/lib.rs
 src/models/account_with_follower_stats.rs
 src/models/account_with_follower_stats_all_of_account_stats.rs
+src/models/accounts_list_response.rs
 src/models/activate_sequence_200_response.rs
 src/models/activate_workflow_200_response.rs
 src/models/activate_workflow_200_response_workflow.rs
@@ -1521,7 +1529,6 @@ src/models/delete_google_business_review_reply_200_response.rs
 src/models/delete_inbox_comment_200_response.rs
 src/models/delete_inbox_review_reply_200_response.rs
 src/models/delete_inbox_review_reply_request.rs
-src/models/delete_queue_slot_200_response.rs
 src/models/discord_platform_data.rs
 src/models/discord_platform_data_embeds_inner.rs
 src/models/discord_platform_data_embeds_inner_author.rs
@@ -1564,6 +1571,9 @@ src/models/fetch_google_business_verification_options_200_response_options_inner
 src/models/fetch_google_business_verification_options_request.rs
 src/models/follow_user_200_response.rs
 src/models/follow_user_request.rs
+src/models/follower_stats_response.rs
+src/models/follower_stats_response_date_range.rs
+src/models/follower_stats_response_stats_value_inner.rs
 src/models/food_menu.rs
 src/models/food_menu_item.rs
 src/models/food_menu_item_attributes.rs
@@ -1629,9 +1639,6 @@ src/models/get_discord_settings_200_response.rs
 src/models/get_discord_settings_200_response_account.rs
 src/models/get_facebook_pages_200_response.rs
 src/models/get_facebook_pages_200_response_pages_inner.rs
-src/models/get_follower_stats_200_response.rs
-src/models/get_follower_stats_200_response_date_range.rs
-src/models/get_follower_stats_200_response_stats_value_inner.rs
 src/models/get_follower_stats_403_response.rs
 src/models/get_gmb_attribute_metadata_200_response.rs
 src/models/get_gmb_attribute_metadata_200_response_attribute_metadata_inner.rs
@@ -1741,7 +1748,6 @@ src/models/get_linked_in_post_reactions_400_response.rs
 src/models/get_media_presigned_url_200_response.rs
 src/models/get_media_presigned_url_request.rs
 src/models/get_messenger_menu_200_response.rs
-src/models/get_next_queue_slot_200_response.rs
 src/models/get_pending_o_auth_data_200_response.rs
 src/models/get_pending_o_auth_data_200_response_organizations_inner.rs
 src/models/get_pinterest_boards_200_response.rs
@@ -1753,7 +1759,6 @@ src/models/get_post_timeline_403_response.rs
 src/models/get_post_timeline_404_response.rs
 src/models/get_posting_frequency_200_response.rs
 src/models/get_posting_frequency_200_response_frequency_inner.rs
-src/models/get_profile_200_response.rs
 src/models/get_reddit_flairs_200_response.rs
 src/models/get_reddit_flairs_200_response_flairs_inner.rs
 src/models/get_reddit_subreddits_200_response.rs
@@ -1884,7 +1889,6 @@ src/models/linked_in_aggregate_analytics_total_response_analytics.rs
 src/models/linked_in_platform_data.rs
 src/models/list_account_groups_200_response.rs
 src/models/list_account_groups_200_response_groups_inner.rs
-src/models/list_accounts_200_response.rs
 src/models/list_ad_accounts_200_response.rs
 src/models/list_ad_accounts_200_response_accounts_inner.rs
 src/models/list_ad_audiences_200_response.rs
@@ -1965,7 +1969,6 @@ src/models/list_pinterest_boards_for_selection_200_response.rs
 src/models/list_pinterest_boards_for_selection_200_response_boards_inner.rs
 src/models/list_queue_slots_200_response.rs
 src/models/list_queue_slots_200_response_one_of.rs
-src/models/list_queue_slots_200_response_one_of_1.rs
 src/models/list_sequence_enrollments_200_response.rs
 src/models/list_sequence_enrollments_200_response_enrollments_inner.rs
 src/models/list_sequences_200_response.rs
@@ -2009,6 +2012,7 @@ src/models/list_workflows_200_response.rs
 src/models/list_workflows_200_response_workflows_inner.rs
 src/models/mark_conversation_read_200_response.rs
 src/models/media_item.rs
+src/models/media_upload_response.rs
 src/models/mod.rs
 src/models/money.rs
 src/models/move_account_to_profile_200_response.rs
@@ -2041,9 +2045,11 @@ src/models/post_retry_response.rs
 src/models/post_update_response.rs
 src/models/post_user_id.rs
 src/models/posts_list_response.rs
-src/models/preview_queue_200_response.rs
 src/models/profile.rs
 src/models/profile_create_response.rs
+src/models/profile_delete_response.rs
+src/models/profile_get_response.rs
+src/models/profile_update_response.rs
 src/models/profiles_list_response.rs
 src/models/purchase_whats_app_phone_number_200_response.rs
 src/models/purchase_whats_app_phone_number_200_response_one_of.rs
@@ -2053,8 +2059,13 @@ src/models/purchase_whats_app_phone_number_200_response_one_of_2.rs
 src/models/purchase_whats_app_phone_number_202_response.rs
 src/models/purchase_whats_app_phone_number_409_response.rs
 src/models/purchase_whats_app_phone_number_request.rs
+src/models/queue_delete_response.rs
+src/models/queue_next_slot_response.rs
+src/models/queue_preview_response.rs
 src/models/queue_schedule.rs
 src/models/queue_slot.rs
+src/models/queue_slots_response.rs
+src/models/queue_update_response.rs
 src/models/recycling_config.rs
 src/models/recycling_state.rs
 src/models/reddit_platform_data.rs
@@ -2299,9 +2310,7 @@ src/models/update_post_metadata_200_response.rs
 src/models/update_post_metadata_request.rs
 src/models/update_post_request.rs
 src/models/update_post_request_platforms_inner.rs
-src/models/update_profile_200_response.rs
 src/models/update_profile_request.rs
-src/models/update_queue_slot_200_response.rs
 src/models/update_queue_slot_request.rs
 src/models/update_reddit_subreddits_request.rs
 src/models/update_sequence_200_response.rs
@@ -2328,11 +2337,14 @@ src/models/update_workflow_request.rs
 src/models/update_youtube_default_playlist_200_response.rs
 src/models/update_youtube_default_playlist_request.rs
 src/models/upload_media_direct_200_response.rs
+src/models/upload_token_response.rs
+src/models/upload_token_status_response.rs
 src/models/upload_whats_app_flow_json_200_response.rs
 src/models/upload_whats_app_flow_json_200_response_validation_errors_inner.rs
 src/models/upload_whats_app_flow_json_request.rs
 src/models/upload_whats_app_flow_json_request_flow_json.rs
 src/models/upload_whats_app_number_kyc_document_200_response.rs
+src/models/uploaded_file.rs
 src/models/uploaded_or_derived_audience.rs
 src/models/usage_stats.rs
 src/models/usage_stats_limits.rs
@@ -2340,6 +2352,8 @@ src/models/usage_stats_spend.rs
 src/models/usage_stats_usage.rs
 src/models/usage_stats_usage_x_api_calls.rs
 src/models/user.rs
+src/models/user_get_response.rs
+src/models/users_list_response.rs
 src/models/validate_media_200_response.rs
 src/models/validate_media_200_response_platform_limits_value.rs
 src/models/validate_media_request.rs

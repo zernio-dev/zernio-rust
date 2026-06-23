@@ -17,6 +17,10 @@ pub struct QueueDeleteResponse {
     pub success: Option<bool>,
     #[serde(rename = "deleted", skip_serializing_if = "Option::is_none")]
     pub deleted: Option<bool>,
+    #[serde(rename = "deletedCount", skip_serializing_if = "Option::is_none")]
+    pub deleted_count: Option<i32>,
+    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
+    pub message: Option<String>,
 }
 
 impl QueueDeleteResponse {
@@ -24,6 +28,8 @@ impl QueueDeleteResponse {
         QueueDeleteResponse {
             success: None,
             deleted: None,
+            deleted_count: None,
+            message: None,
         }
     }
 }

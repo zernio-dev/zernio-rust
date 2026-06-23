@@ -13,18 +13,25 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AccountsListResponse {
-    #[serde(rename = "accounts", skip_serializing_if = "Option::is_none")]
-    pub accounts: Option<Vec<models::SocialAccount>>,
+    #[serde(rename = "accounts")]
+    pub accounts: Vec<models::SocialAccount>,
     /// Whether user has analytics add-on access
-    #[serde(rename = "hasAnalyticsAccess", skip_serializing_if = "Option::is_none")]
-    pub has_analytics_access: Option<bool>,
+    #[serde(rename = "hasAnalyticsAccess")]
+    pub has_analytics_access: bool,
+    /// Only present when page/limit params are provided
+    #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
+    pub pagination: Option<Box<models::Pagination>>,
 }
 
 impl AccountsListResponse {
-    pub fn new() -> AccountsListResponse {
+    pub fn new(
+        accounts: Vec<models::SocialAccount>,
+        has_analytics_access: bool,
+    ) -> AccountsListResponse {
         AccountsListResponse {
-            accounts: None,
-            has_analytics_access: None,
+            accounts,
+            has_analytics_access,
+            pagination: None,
         }
     }
 }

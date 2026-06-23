@@ -1,13 +1,11 @@
-# QueueDeleteResponse
+# FollowerStatsResponseDateRange
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**success** | Option<**bool**> |  | [optional]
-**deleted** | Option<**bool**> |  | [optional]
-**deleted_count** | Option<**i32**> |  | [optional]
-**message** | Option<**String**> |  | [optional]
+**from** | Option<**String**> |  | [optional]
+**to** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

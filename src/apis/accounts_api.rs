@@ -260,7 +260,7 @@ pub async fn get_follower_stats(
     from_date: Option<String>,
     to_date: Option<String>,
     granularity: Option<&str>,
-) -> Result<models::GetFollowerStats200Response, Error<GetFollowerStatsError>> {
+) -> Result<models::FollowerStatsResponse, Error<GetFollowerStatsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_account_ids = account_ids;
     let p_query_profile_id = profile_id;
@@ -308,8 +308,8 @@ pub async fn get_follower_stats(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetFollowerStats200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetFollowerStats200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::FollowerStatsResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::FollowerStatsResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -387,7 +387,7 @@ pub async fn list_accounts(
     include_over_limit: Option<bool>,
     page: Option<i32>,
     limit: Option<i32>,
-) -> Result<models::ListAccounts200Response, Error<ListAccountsError>> {
+) -> Result<models::AccountsListResponse, Error<ListAccountsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_profile_id = profile_id;
     let p_query_platform = platform;
@@ -439,8 +439,8 @@ pub async fn list_accounts(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListAccounts200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListAccounts200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AccountsListResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AccountsListResponse`")))),
         }
     } else {
         let content = resp.text().await?;

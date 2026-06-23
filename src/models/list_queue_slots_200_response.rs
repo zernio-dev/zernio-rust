@@ -14,12 +14,12 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListQueueSlots200Response {
+    QueueSlotsResponse(Box<models::QueueSlotsResponse>),
     ListQueueSlots200ResponseOneOf(Box<models::ListQueueSlots200ResponseOneOf>),
-    ListQueueSlots200ResponseOneOf1(Box<models::ListQueueSlots200ResponseOneOf1>),
 }
 
 impl Default for ListQueueSlots200Response {
     fn default() -> Self {
-        Self::ListQueueSlots200ResponseOneOf(Default::default())
+        Self::QueueSlotsResponse(Default::default())
     }
 }

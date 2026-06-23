@@ -15,6 +15,10 @@ use serde::{Deserialize, Serialize};
 pub struct QueuePreviewResponse {
     #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]
     pub profile_id: Option<String>,
+    #[serde(rename = "queueId", skip_serializing_if = "Option::is_none")]
+    pub queue_id: Option<String>,
+    #[serde(rename = "queueName", skip_serializing_if = "Option::is_none")]
+    pub queue_name: Option<String>,
     #[serde(rename = "count", skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
     #[serde(rename = "slots", skip_serializing_if = "Option::is_none")]
@@ -25,6 +29,8 @@ impl QueuePreviewResponse {
     pub fn new() -> QueuePreviewResponse {
         QueuePreviewResponse {
             profile_id: None,
+            queue_id: None,
+            queue_name: None,
             count: None,
             slots: None,
         }

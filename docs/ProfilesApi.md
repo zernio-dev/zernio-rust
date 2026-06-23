@@ -44,7 +44,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_profile
 
-> models::DeleteAccountGroup200Response delete_profile(profile_id)
+> models::ProfileDeleteResponse delete_profile(profile_id)
 Delete profile
 
 Permanently deletes a profile by ID.
@@ -58,7 +58,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::DeleteAccountGroup200Response**](deleteAccountGroup_200_response.md)
+[**models::ProfileDeleteResponse**](ProfileDeleteResponse.md)
 
 ### Authorization
 
@@ -74,7 +74,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_profile
 
-> models::GetProfile200Response get_profile(profile_id)
+> models::ProfileGetResponse get_profile(profile_id)
 Get profile
 
 Returns a single profile by ID, including its name, color, and default status.
@@ -88,7 +88,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetProfile200Response**](getProfile_200_response.md)
+[**models::ProfileGetResponse**](ProfileGetResponse.md)
 
 ### Authorization
 
@@ -134,7 +134,7 @@ Name | Type | Description  | Required | Notes
 
 ## update_profile
 
-> models::UpdateProfile200Response update_profile(profile_id, update_profile_request)
+> models::ProfileUpdateResponse update_profile(profile_id, update_profile_request)
 Update profile
 
 Updates a profile's name, description, color, or default status.
@@ -149,7 +149,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::UpdateProfile200Response**](updateProfile_200_response.md)
+[**models::ProfileUpdateResponse**](ProfileUpdateResponse.md)
 
 ### Authorization
 

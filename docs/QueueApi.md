@@ -45,7 +45,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_queue_slot
 
-> models::DeleteQueueSlot200Response delete_queue_slot(profile_id, queue_id)
+> models::QueueDeleteResponse delete_queue_slot(profile_id, queue_id)
 Delete schedule
 
 Delete a queue from a profile. Requires queueId to specify which queue to delete. If deleting the default queue, another queue will be promoted to default. 
@@ -60,7 +60,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::DeleteQueueSlot200Response**](deleteQueueSlot_200_response.md)
+[**models::QueueDeleteResponse**](QueueDeleteResponse.md)
 
 ### Authorization
 
@@ -76,7 +76,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_next_queue_slot
 
-> models::GetNextQueueSlot200Response get_next_queue_slot(profile_id, queue_id)
+> models::QueueNextSlotResponse get_next_queue_slot(profile_id, queue_id)
 Get next available slot
 
 Returns the next available queue slot for preview purposes. To create a queue post, use POST /v1/posts with queuedFromProfile instead of scheduledFor.
@@ -91,7 +91,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetNextQueueSlot200Response**](getNextQueueSlot_200_response.md)
+[**models::QueueNextSlotResponse**](QueueNextSlotResponse.md)
 
 ### Authorization
 
@@ -139,7 +139,7 @@ Name | Type | Description  | Required | Notes
 
 ## preview_queue
 
-> models::PreviewQueue200Response preview_queue(profile_id, queue_id, count)
+> models::QueuePreviewResponse preview_queue(profile_id, queue_id, count)
 Preview upcoming slots
 
 Returns the next N upcoming queue slot times for a profile as ISO datetime strings.
@@ -155,7 +155,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::PreviewQueue200Response**](previewQueue_200_response.md)
+[**models::QueuePreviewResponse**](QueuePreviewResponse.md)
 
 ### Authorization
 
@@ -171,7 +171,7 @@ Name | Type | Description  | Required | Notes
 
 ## update_queue_slot
 
-> models::UpdateQueueSlot200Response update_queue_slot(update_queue_slot_request)
+> models::QueueUpdateResponse update_queue_slot(update_queue_slot_request)
 Update schedule
 
 Create a new queue or update an existing one. Without queueId, creates/updates the default queue. With queueId, updates a specific queue. With setAsDefault=true, makes this queue the default for the profile. 
@@ -185,7 +185,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::UpdateQueueSlot200Response**](updateQueueSlot_200_response.md)
+[**models::QueueUpdateResponse**](QueueUpdateResponse.md)
 
 ### Authorization
 

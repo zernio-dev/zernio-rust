@@ -127,7 +127,7 @@ pub async fn delete_queue_slot(
     configuration: &configuration::Configuration,
     profile_id: &str,
     queue_id: &str,
-) -> Result<models::DeleteQueueSlot200Response, Error<DeleteQueueSlotError>> {
+) -> Result<models::QueueDeleteResponse, Error<DeleteQueueSlotError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_profile_id = profile_id;
     let p_query_queue_id = queue_id;
@@ -161,8 +161,8 @@ pub async fn delete_queue_slot(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteQueueSlot200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteQueueSlot200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::QueueDeleteResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::QueueDeleteResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -180,7 +180,7 @@ pub async fn get_next_queue_slot(
     configuration: &configuration::Configuration,
     profile_id: &str,
     queue_id: Option<&str>,
-) -> Result<models::GetNextQueueSlot200Response, Error<GetNextQueueSlotError>> {
+) -> Result<models::QueueNextSlotResponse, Error<GetNextQueueSlotError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_profile_id = profile_id;
     let p_query_queue_id = queue_id;
@@ -214,8 +214,8 @@ pub async fn get_next_queue_slot(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetNextQueueSlot200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetNextQueueSlot200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::QueueNextSlotResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::QueueNextSlotResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -292,7 +292,7 @@ pub async fn preview_queue(
     profile_id: &str,
     queue_id: Option<&str>,
     count: Option<i32>,
-) -> Result<models::PreviewQueue200Response, Error<PreviewQueueError>> {
+) -> Result<models::QueuePreviewResponse, Error<PreviewQueueError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_profile_id = profile_id;
     let p_query_queue_id = queue_id;
@@ -330,8 +330,8 @@ pub async fn preview_queue(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PreviewQueue200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PreviewQueue200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::QueuePreviewResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::QueuePreviewResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -348,7 +348,7 @@ pub async fn preview_queue(
 pub async fn update_queue_slot(
     configuration: &configuration::Configuration,
     update_queue_slot_request: models::UpdateQueueSlotRequest,
-) -> Result<models::UpdateQueueSlot200Response, Error<UpdateQueueSlotError>> {
+) -> Result<models::QueueUpdateResponse, Error<UpdateQueueSlotError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_update_queue_slot_request = update_queue_slot_request;
 
@@ -378,8 +378,8 @@ pub async fn update_queue_slot(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateQueueSlot200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateQueueSlot200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::QueueUpdateResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::QueueUpdateResponse`")))),
         }
     } else {
         let content = resp.text().await?;
