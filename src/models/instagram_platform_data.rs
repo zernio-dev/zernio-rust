@@ -43,6 +43,9 @@ pub struct InstagramPlatformData {
     /// Alias for instagramThumbnail. If both are provided, instagramThumbnail takes priority.
     #[serde(rename = "reelCover", skip_serializing_if = "Option::is_none")]
     pub reel_cover: Option<String>,
+    /// When true, the post is labeled by Instagram as containing AI-generated media. Per Meta, this self-disclosure label is for AI-generated media, not AI-written captions. Applies to feed posts, Reels, Stories, and carousels.
+    #[serde(rename = "isAiGenerated", skip_serializing_if = "Option::is_none")]
+    pub is_ai_generated: Option<bool>,
 }
 
 impl InstagramPlatformData {
@@ -59,6 +62,7 @@ impl InstagramPlatformData {
             thumb_offset: None,
             instagram_thumbnail: None,
             reel_cover: None,
+            is_ai_generated: None,
         }
     }
 }
