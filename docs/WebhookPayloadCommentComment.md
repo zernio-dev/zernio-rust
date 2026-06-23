@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **is_reply** | **bool** | Whether this is a reply to another comment | 
 **parent_comment_id** | Option<**String**> | Parent comment ID if this is a reply | 
 **ad** | Option<[**models::WebhookPayloadCommentCommentAd**](WebhookPayloadCommentCommentAd.md)> |  | [optional]
+**attachment** | Option<[**models::WebhookPayloadCommentCommentAttachment**](WebhookPayloadCommentCommentAttachment.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

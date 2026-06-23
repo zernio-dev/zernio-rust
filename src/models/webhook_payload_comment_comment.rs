@@ -39,6 +39,8 @@ pub struct WebhookPayloadCommentComment {
     pub parent_comment_id: Option<String>,
     #[serde(rename = "ad", skip_serializing_if = "Option::is_none")]
     pub ad: Option<Box<models::WebhookPayloadCommentCommentAd>>,
+    #[serde(rename = "attachment", skip_serializing_if = "Option::is_none")]
+    pub attachment: Option<Box<models::WebhookPayloadCommentCommentAttachment>>,
 }
 
 impl WebhookPayloadCommentComment {
@@ -64,6 +66,7 @@ impl WebhookPayloadCommentComment {
             is_reply,
             parent_comment_id,
             ad: None,
+            attachment: None,
         }
     }
 }
