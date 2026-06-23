@@ -25,7 +25,7 @@ pub struct LinkedInAggregateAnalyticsTotalResponse {
     #[serde(rename = "aggregation", skip_serializing_if = "Option::is_none")]
     pub aggregation: Option<Aggregation>,
     #[serde(rename = "dateRange", skip_serializing_if = "Option::is_none")]
-    pub date_range: Option<Box<models::LinkedInAggregateAnalyticsTotalResponseDateRange>>,
+    pub date_range: Option<Box<models::YouTubeDailyViewsResponseDateRange>>,
     #[serde(rename = "analytics", skip_serializing_if = "Option::is_none")]
     pub analytics: Option<Box<models::LinkedInAggregateAnalyticsTotalResponseAnalytics>>,
     #[serde(rename = "note", skip_serializing_if = "Option::is_none")]

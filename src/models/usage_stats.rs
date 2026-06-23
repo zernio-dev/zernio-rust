@@ -30,8 +30,13 @@ pub struct UsageStats {
     #[serde(rename = "hasAccess", skip_serializing_if = "Option::is_none")]
     pub has_access: Option<bool>,
     /// Stripe customer ID, when present.
-    #[serde(rename = "customerId", skip_serializing_if = "Option::is_none")]
-    pub customer_id: Option<String>,
+    #[serde(
+        rename = "customerId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub customer_id: Option<Option<String>>,
     /// True if this is a team member; limits/usage reflect the account owner.
     #[serde(rename = "isInvitedUser", skip_serializing_if = "Option::is_none")]
     pub is_invited_user: Option<bool>,

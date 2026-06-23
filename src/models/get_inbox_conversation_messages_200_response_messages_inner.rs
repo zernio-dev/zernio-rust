@@ -25,11 +25,21 @@ pub struct GetInboxConversationMessages200ResponseMessagesInner {
     pub message: Option<String>,
     #[serde(rename = "senderId", skip_serializing_if = "Option::is_none")]
     pub sender_id: Option<String>,
-    #[serde(rename = "senderName", skip_serializing_if = "Option::is_none")]
-    pub sender_name: Option<String>,
+    #[serde(
+        rename = "senderName",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub sender_name: Option<Option<String>>,
     /// X/Twitter verified badge type. Only present for Twitter/X messages.
-    #[serde(rename = "senderVerifiedType", skip_serializing_if = "Option::is_none")]
-    pub sender_verified_type: Option<SenderVerifiedType>,
+    #[serde(
+        rename = "senderVerifiedType",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub sender_verified_type: Option<Option<SenderVerifiedType>>,
     #[serde(rename = "direction", skip_serializing_if = "Option::is_none")]
     pub direction: Option<Direction>,
     #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
@@ -38,20 +48,40 @@ pub struct GetInboxConversationMessages200ResponseMessagesInner {
     pub attachments:
         Option<Vec<models::GetInboxConversationMessages200ResponseMessagesInnerAttachmentsInner>>,
     /// Reddit message subject
-    #[serde(rename = "subject", skip_serializing_if = "Option::is_none")]
-    pub subject: Option<String>,
+    #[serde(
+        rename = "subject",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub subject: Option<Option<String>>,
     /// Instagram story reply
-    #[serde(rename = "storyReply", skip_serializing_if = "Option::is_none")]
-    pub story_reply: Option<bool>,
+    #[serde(
+        rename = "storyReply",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub story_reply: Option<Option<bool>>,
     /// Instagram story mention
-    #[serde(rename = "isStoryMention", skip_serializing_if = "Option::is_none")]
-    pub is_story_mention: Option<bool>,
+    #[serde(
+        rename = "isStoryMention",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_story_mention: Option<Option<bool>>,
     /// True if the sender has edited this message at least once.
     #[serde(rename = "isEdited", skip_serializing_if = "Option::is_none")]
     pub is_edited: Option<bool>,
     /// When the most recent edit happened.
-    #[serde(rename = "editedAt", skip_serializing_if = "Option::is_none")]
-    pub edited_at: Option<String>,
+    #[serde(
+        rename = "editedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub edited_at: Option<Option<String>>,
     /// Total number of edits applied.
     #[serde(rename = "editCount", skip_serializing_if = "Option::is_none")]
     pub edit_count: Option<i32>,
@@ -62,18 +92,43 @@ pub struct GetInboxConversationMessages200ResponseMessagesInner {
     /// True if the sender has deleted (unsent) this message. The original message and attachments fields remain populated.
     #[serde(rename = "isDeleted", skip_serializing_if = "Option::is_none")]
     pub is_deleted: Option<bool>,
-    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
-    pub deleted_at: Option<String>,
+    #[serde(
+        rename = "deletedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub deleted_at: Option<Option<String>>,
     /// Lifecycle status for outgoing messages. Not all platforms emit every state (see webhook support matrix).
-    #[serde(rename = "deliveryStatus", skip_serializing_if = "Option::is_none")]
-    pub delivery_status: Option<DeliveryStatus>,
-    #[serde(rename = "deliveredAt", skip_serializing_if = "Option::is_none")]
-    pub delivered_at: Option<String>,
-    #[serde(rename = "readAt", skip_serializing_if = "Option::is_none")]
-    pub read_at: Option<String>,
+    #[serde(
+        rename = "deliveryStatus",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub delivery_status: Option<Option<DeliveryStatus>>,
+    #[serde(
+        rename = "deliveredAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub delivered_at: Option<Option<String>>,
+    #[serde(
+        rename = "readAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub read_at: Option<Option<String>>,
     /// Original send time for outgoing messages (used for Messenger watermark queries).
-    #[serde(rename = "sentAt", skip_serializing_if = "Option::is_none")]
-    pub sent_at: Option<String>,
+    #[serde(
+        rename = "sentAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub sent_at: Option<Option<String>>,
     #[serde(rename = "deliveryError", skip_serializing_if = "Option::is_none")]
     pub delivery_error:
         Option<Box<models::GetInboxConversationMessages200ResponseMessagesInnerDeliveryError>>,

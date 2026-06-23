@@ -15,10 +15,20 @@ use serde::{Deserialize, Serialize};
 pub struct SearchReddit200Response {
     #[serde(rename = "items", skip_serializing_if = "Option::is_none")]
     pub items: Option<Vec<models::RedditPost>>,
-    #[serde(rename = "after", skip_serializing_if = "Option::is_none")]
-    pub after: Option<String>,
-    #[serde(rename = "before", skip_serializing_if = "Option::is_none")]
-    pub before: Option<String>,
+    #[serde(
+        rename = "after",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub after: Option<Option<String>>,
+    #[serde(
+        rename = "before",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub before: Option<Option<String>>,
 }
 
 impl SearchReddit200Response {

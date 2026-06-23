@@ -30,16 +30,31 @@ pub struct ListWorkflowExecutions200ResponseExecutionsInner {
     pub conversation_id: Option<String>,
     #[serde(rename = "stepCount", skip_serializing_if = "Option::is_none")]
     pub step_count: Option<i32>,
-    #[serde(rename = "lastError", skip_serializing_if = "Option::is_none")]
-    pub last_error: Option<String>,
-    #[serde(rename = "resumeAt", skip_serializing_if = "Option::is_none")]
-    pub resume_at: Option<String>,
+    #[serde(
+        rename = "lastError",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_error: Option<Option<String>>,
+    #[serde(
+        rename = "resumeAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub resume_at: Option<Option<String>>,
     #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
     pub created_at: Option<String>,
     #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
     pub updated_at: Option<String>,
-    #[serde(rename = "completedAt", skip_serializing_if = "Option::is_none")]
-    pub completed_at: Option<String>,
+    #[serde(
+        rename = "completedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub completed_at: Option<Option<String>>,
 }
 
 impl ListWorkflowExecutions200ResponseExecutionsInner {

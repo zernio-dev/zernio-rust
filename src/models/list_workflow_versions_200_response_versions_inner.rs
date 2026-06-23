@@ -18,20 +18,37 @@ pub struct ListWorkflowVersions200ResponseVersionsInner {
     pub version: Option<i32>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
+    #[serde(
+        rename = "description",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub description: Option<Option<String>>,
     /// User id that authored this version
-    #[serde(rename = "createdBy", skip_serializing_if = "Option::is_none")]
-    pub created_by: Option<String>,
+    #[serde(
+        rename = "createdBy",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_by: Option<Option<String>>,
     /// Denormalized email so the history UI can render without a join
-    #[serde(rename = "createdByEmail", skip_serializing_if = "Option::is_none")]
-    pub created_by_email: Option<String>,
+    #[serde(
+        rename = "createdByEmail",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_by_email: Option<Option<String>>,
     /// When non-null, this snapshot was created by restoring that version
     #[serde(
         rename = "restoredFromVersion",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub restored_from_version: Option<i32>,
+    pub restored_from_version: Option<Option<i32>>,
     #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
     pub created_at: Option<String>,
 }

@@ -19,8 +19,13 @@ pub struct GetInboxResponseTime200ResponseHistogramInner {
     #[serde(rename = "lowerSeconds", skip_serializing_if = "Option::is_none")]
     pub lower_seconds: Option<i32>,
     /// null on the open-ended last bucket
-    #[serde(rename = "upperSeconds", skip_serializing_if = "Option::is_none")]
-    pub upper_seconds: Option<i32>,
+    #[serde(
+        rename = "upperSeconds",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub upper_seconds: Option<Option<i32>>,
     #[serde(rename = "count", skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
 }

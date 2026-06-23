@@ -17,14 +17,29 @@ pub struct UpdateWhatsAppCallingRequest {
     pub account_id: String,
     #[serde(rename = "forwardTo", skip_serializing_if = "Option::is_none")]
     pub forward_to: Option<String>,
-    #[serde(rename = "sipAuthUsername", skip_serializing_if = "Option::is_none")]
-    pub sip_auth_username: Option<String>,
-    #[serde(rename = "sipAuthPassword", skip_serializing_if = "Option::is_none")]
-    pub sip_auth_password: Option<String>,
+    #[serde(
+        rename = "sipAuthUsername",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub sip_auth_username: Option<Option<String>>,
+    #[serde(
+        rename = "sipAuthPassword",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub sip_auth_password: Option<Option<String>>,
     #[serde(rename = "recordingEnabled", skip_serializing_if = "Option::is_none")]
     pub recording_enabled: Option<bool>,
-    #[serde(rename = "callIconCountries", skip_serializing_if = "Option::is_none")]
-    pub call_icon_countries: Option<Vec<String>>,
+    #[serde(
+        rename = "callIconCountries",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub call_icon_countries: Option<Option<Vec<String>>>,
 }
 
 impl UpdateWhatsAppCallingRequest {

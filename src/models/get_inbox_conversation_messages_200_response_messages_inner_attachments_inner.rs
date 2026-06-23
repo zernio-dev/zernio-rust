@@ -19,10 +19,20 @@ pub struct GetInboxConversationMessages200ResponseMessagesInnerAttachmentsInner 
     pub r#type: Option<Type>,
     #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
-    #[serde(rename = "filename", skip_serializing_if = "Option::is_none")]
-    pub filename: Option<String>,
-    #[serde(rename = "previewUrl", skip_serializing_if = "Option::is_none")]
-    pub preview_url: Option<String>,
+    #[serde(
+        rename = "filename",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub filename: Option<Option<String>>,
+    #[serde(
+        rename = "previewUrl",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub preview_url: Option<Option<String>>,
 }
 
 impl GetInboxConversationMessages200ResponseMessagesInnerAttachmentsInner {

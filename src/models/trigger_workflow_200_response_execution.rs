@@ -19,8 +19,13 @@ pub struct TriggerWorkflow200ResponseExecution {
     pub status: Option<String>,
     #[serde(rename = "currentNodeId", skip_serializing_if = "Option::is_none")]
     pub current_node_id: Option<String>,
-    #[serde(rename = "waitingFor", skip_serializing_if = "Option::is_none")]
-    pub waiting_for: Option<serde_json::Value>,
+    #[serde(
+        rename = "waitingFor",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub waiting_for: Option<Option<serde_json::Value>>,
     #[serde(rename = "variables", skip_serializing_if = "Option::is_none")]
     pub variables: Option<std::collections::HashMap<String, serde_json::Value>>,
     #[serde(rename = "conversationId", skip_serializing_if = "Option::is_none")]

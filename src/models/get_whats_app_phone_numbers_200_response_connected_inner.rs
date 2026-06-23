@@ -15,14 +15,34 @@ use serde::{Deserialize, Serialize};
 pub struct GetWhatsAppPhoneNumbers200ResponseConnectedInner {
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
-    #[serde(rename = "phoneNumber", skip_serializing_if = "Option::is_none")]
-    pub phone_number: Option<String>,
-    #[serde(rename = "displayName", skip_serializing_if = "Option::is_none")]
-    pub display_name: Option<String>,
-    #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]
-    pub profile_id: Option<String>,
-    #[serde(rename = "connectedAt", skip_serializing_if = "Option::is_none")]
-    pub connected_at: Option<String>,
+    #[serde(
+        rename = "phoneNumber",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub phone_number: Option<Option<String>>,
+    #[serde(
+        rename = "displayName",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub display_name: Option<Option<String>>,
+    #[serde(
+        rename = "profileId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub profile_id: Option<Option<String>>,
+    #[serde(
+        rename = "connectedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connected_at: Option<Option<String>>,
 }
 
 impl GetWhatsAppPhoneNumbers200ResponseConnectedInner {

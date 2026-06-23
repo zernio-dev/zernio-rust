@@ -29,8 +29,13 @@ pub struct GetInboxPostComments200ResponseCommentsInner {
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<String>,
     /// Direct link to the comment on the platform (if available)
-    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
+    #[serde(
+        rename = "url",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub url: Option<Option<String>>,
     #[serde(rename = "replies", skip_serializing_if = "Option::is_none")]
     pub replies: Option<Vec<serde_json::Value>>,
     #[serde(rename = "canReply", skip_serializing_if = "Option::is_none")]
@@ -50,20 +55,45 @@ pub struct GetInboxPostComments200ResponseCommentsInner {
     #[serde(rename = "isLiked", skip_serializing_if = "Option::is_none")]
     pub is_liked: Option<bool>,
     /// Bluesky like URI for unliking
-    #[serde(rename = "likeUri", skip_serializing_if = "Option::is_none")]
-    pub like_uri: Option<String>,
+    #[serde(
+        rename = "likeUri",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub like_uri: Option<Option<String>>,
     /// Bluesky content identifier
-    #[serde(rename = "cid", skip_serializing_if = "Option::is_none")]
-    pub cid: Option<String>,
+    #[serde(
+        rename = "cid",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub cid: Option<Option<String>>,
     /// Parent comment ID for nested replies
-    #[serde(rename = "parentId", skip_serializing_if = "Option::is_none")]
-    pub parent_id: Option<String>,
+    #[serde(
+        rename = "parentId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub parent_id: Option<Option<String>>,
     /// Bluesky root post URI
-    #[serde(rename = "rootUri", skip_serializing_if = "Option::is_none")]
-    pub root_uri: Option<String>,
+    #[serde(
+        rename = "rootUri",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub root_uri: Option<Option<String>>,
     /// Bluesky root post CID
-    #[serde(rename = "rootCid", skip_serializing_if = "Option::is_none")]
-    pub root_cid: Option<String>,
+    #[serde(
+        rename = "rootCid",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub root_cid: Option<Option<String>>,
 }
 
 impl GetInboxPostComments200ResponseCommentsInner {

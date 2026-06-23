@@ -16,7 +16,7 @@ pub struct ReplyToInboxReview200Response {
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
     #[serde(rename = "reply", skip_serializing_if = "Option::is_none")]
-    pub reply: Option<Box<models::ReplyToInboxReview200ResponseReply>>,
+    pub reply: Option<Box<models::ListInboxReviews200ResponseDataInnerReply>>,
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<String>,
 }

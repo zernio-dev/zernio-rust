@@ -28,8 +28,8 @@ pub struct InboxWebhookMessage {
     #[serde(rename = "direction")]
     pub direction: Direction,
     /// Message text content (retained on deleted messages for API consumers; Zernio dashboard UI hides this)
-    #[serde(rename = "text")]
-    pub text: String,
+    #[serde(rename = "text", deserialize_with = "Option::deserialize")]
+    pub text: Option<String>,
     #[serde(rename = "attachments")]
     pub attachments: Vec<models::InboxWebhookMessageAttachmentsInner>,
     #[serde(rename = "sender")]
@@ -48,7 +48,7 @@ impl InboxWebhookMessage {
         platform: Platform,
         platform_message_id: String,
         direction: Direction,
-        text: String,
+        text: Option<String>,
         attachments: Vec<models::InboxWebhookMessageAttachmentsInner>,
         sender: models::InboxWebhookMessageSender,
         sent_at: String,

@@ -24,17 +24,29 @@ pub struct AdTreeCampaign {
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<models::AdStatus>,
     /// Platform-side review state of the campaign. Independent of the children-derived delivery `status`: a campaign can have ads already active (status=active) while the campaign itself is still being reviewed by the platform (reviewStatus=in_review). For Meta, derived from `effective_status` + `issues_info` on the Campaign, plus ad-level PENDING_REVIEW rollup.
-    #[serde(rename = "reviewStatus", skip_serializing_if = "Option::is_none")]
-    pub review_status: Option<ReviewStatus>,
+    #[serde(
+        rename = "reviewStatus",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub review_status: Option<Option<ReviewStatus>>,
     /// Raw platform-level campaign status (Meta `effective_status`: ACTIVE, PAUSED, DELETED, ARCHIVED, IN_PROCESS, WITH_ISSUES). Distinct from per-ad `platformStatus`.
     #[serde(
         rename = "platformCampaignStatus",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub platform_campaign_status: Option<String>,
+    pub platform_campaign_status: Option<Option<String>>,
     /// Platform-reported campaign issues (Meta `issues_info[]`). Populated only when the platform has delivery issues to report; contains the specific error codes and messages.
-    #[serde(rename = "campaignIssuesInfo", skip_serializing_if = "Option::is_none")]
-    pub campaign_issues_info: Option<Vec<serde_json::Value>>,
+    #[serde(
+        rename = "campaignIssuesInfo",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub campaign_issues_info: Option<Option<Vec<serde_json::Value>>>,
     /// Total ads across all ad sets
     #[serde(rename = "adCount", skip_serializing_if = "Option::is_none")]
     pub ad_count: Option<i32>,
@@ -45,8 +57,13 @@ pub struct AdTreeCampaign {
     #[serde(rename = "campaignBudget", skip_serializing_if = "Option::is_none")]
     pub campaign_budget: Option<Box<models::AdTreeCampaignCampaignBudget>>,
     /// Canonical CBO/ABO indicator. `campaign` = CBO (Advantage Campaign Budget, budget lives on the campaign). `adset` = ABO (budget lives on each ad set). Route budget updates to the matching Meta entity.
-    #[serde(rename = "budgetLevel", skip_serializing_if = "Option::is_none")]
-    pub budget_level: Option<BudgetLevel>,
+    #[serde(
+        rename = "budgetLevel",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub budget_level: Option<Option<BudgetLevel>>,
     /// Meta-only. Mirrors Campaign.is_budget_schedule_enabled — true when the campaign uses budget scheduling (time-based budget changes). Independent of CBO/ABO.
     #[serde(
         rename = "isBudgetScheduleEnabled",
@@ -54,8 +71,13 @@ pub struct AdTreeCampaign {
     )]
     pub is_budget_schedule_enabled: Option<bool>,
     /// ISO 4217 currency code (e.g. USD, EUR, CLP, JPY) for all budget amounts in this campaign node. Budgets are NOT normalized to USD.
-    #[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
-    pub currency: Option<String>,
+    #[serde(
+        rename = "currency",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub currency: Option<Option<String>>,
     #[serde(rename = "metrics", skip_serializing_if = "Option::is_none")]
     pub metrics: Option<Box<models::AdMetrics>>,
     #[serde(
@@ -66,9 +88,11 @@ pub struct AdTreeCampaign {
     /// Human-readable advertiser/account name from the platform. Refreshed on every sync.
     #[serde(
         rename = "platformAdAccountName",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub platform_ad_account_name: Option<String>,
+    pub platform_ad_account_name: Option<Option<String>>,
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
     #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]
@@ -76,24 +100,50 @@ pub struct AdTreeCampaign {
     /// Google-only. Raw campaign.advertising_channel_type (SEARCH, PERFORMANCE_MAX, VIDEO, DEMAND_GEN, DISPLAY, SHOPPING, ...). Serving surface, distinct from platformObjective (advertiser intent). Null/absent for non-Google platforms.
     #[serde(
         rename = "advertisingChannelType",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub advertising_channel_type: Option<String>,
+    pub advertising_channel_type: Option<Option<String>>,
     /// Raw Meta campaign objective (e.g. OUTCOME_SALES, OUTCOME_LEADS, OUTCOME_TRAFFIC)
-    #[serde(rename = "platformObjective", skip_serializing_if = "Option::is_none")]
-    pub platform_objective: Option<String>,
+    #[serde(
+        rename = "platformObjective",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub platform_objective: Option<Option<String>>,
     /// Meta optimization goal shared across ad sets, or comma-separated values when ad sets differ (e.g. OFFSITE_CONVERSIONS, VALUE, LEAD_GENERATION)
-    #[serde(rename = "optimizationGoal", skip_serializing_if = "Option::is_none")]
-    pub optimization_goal: Option<String>,
-    /// Campaign-level bid strategy. Ad sets inherit this unless they override.
-    #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
-    pub bid_strategy: Option<models::BidStrategy>,
+    #[serde(
+        rename = "optimizationGoal",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub optimization_goal: Option<Option<String>>,
+    #[serde(
+        rename = "bidStrategy",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub bid_strategy: Option<Option<models::BidStrategy>>,
     /// Representative bid cap for the campaign — bubbled up from the top-spending ad set's `bid_amount` (whole currency units). Populated when the ad-set bidStrategy is LOWEST_COST_WITH_BID_CAP or COST_CAP.
-    #[serde(rename = "bidAmount", skip_serializing_if = "Option::is_none")]
-    pub bid_amount: Option<f64>,
+    #[serde(
+        rename = "bidAmount",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub bid_amount: Option<Option<f64>>,
     /// Representative ROAS floor for the campaign — bubbled up from the top-spending ad set. Decimal multiplier (2.0 = 2.0x).
-    #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
-    pub roas_average_floor: Option<f64>,
+    #[serde(
+        rename = "roasAverageFloor",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub roas_average_floor: Option<Option<f64>>,
     #[serde(rename = "promotedObject", skip_serializing_if = "Option::is_none")]
     pub promoted_object: Option<Box<models::AdTreeCampaignPromotedObject>>,
     #[serde(rename = "adSets", skip_serializing_if = "Option::is_none")]

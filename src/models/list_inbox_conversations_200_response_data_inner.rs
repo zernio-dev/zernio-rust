@@ -25,14 +25,21 @@ pub struct ListInboxConversations200ResponseDataInner {
     pub participant_id: Option<String>,
     #[serde(rename = "participantName", skip_serializing_if = "Option::is_none")]
     pub participant_name: Option<String>,
-    #[serde(rename = "participantPicture", skip_serializing_if = "Option::is_none")]
-    pub participant_picture: Option<String>,
+    #[serde(
+        rename = "participantPicture",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub participant_picture: Option<Option<String>>,
     /// X/Twitter verified badge type. Only present for Twitter/X conversations.
     #[serde(
         rename = "participantVerifiedType",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub participant_verified_type: Option<ParticipantVerifiedType>,
+    pub participant_verified_type: Option<Option<ParticipantVerifiedType>>,
     #[serde(rename = "lastMessage", skip_serializing_if = "Option::is_none")]
     pub last_message: Option<String>,
     #[serde(rename = "updatedTime", skip_serializing_if = "Option::is_none")]
@@ -40,17 +47,24 @@ pub struct ListInboxConversations200ResponseDataInner {
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
     /// Number of unread messages
-    #[serde(rename = "unreadCount", skip_serializing_if = "Option::is_none")]
-    pub unread_count: Option<i32>,
+    #[serde(
+        rename = "unreadCount",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub unread_count: Option<Option<i32>>,
     /// Direct link to open the conversation on the platform (if available)
-    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
+    #[serde(
+        rename = "url",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub url: Option<Option<String>>,
     #[serde(rename = "instagramProfile", skip_serializing_if = "Option::is_none")]
     pub instagram_profile:
         Option<Box<models::ListInboxConversations200ResponseDataInnerInstagramProfile>>,
-    /// Ad-click attribution captured on the first inbound message of the conversation. Only present when the conversation originated from a click-to-message ad. Absent on organic conversations.  Two sources populate this field:   - WhatsApp CTWA (Click-to-WhatsApp): `ctwa_clid`, `ctwa_source_id`,     `ctwa_source_url`, `ctwa_headline`, `ctwa_source_type`, `ctwa_captured_at`.   - Facebook Messenger CTM / Instagram CTD: `meta_ad_id`, `meta_ad_title`,     `meta_ad_source`, `meta_ad_type`, `meta_ad_ref`, `meta_ad_captured_at`,     `meta_ad_photo_url`, `meta_ad_video_url`, `meta_ad_post_id`,     `meta_ad_product_id`, `meta_ad_flow_id`.  Note: `meta_ad_photo_url` and `meta_ad_video_url` are Facebook CDN URLs that may expire. Use `meta_ad_id` for a permanent reference to the ad.
-    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<std::collections::HashMap<String, String>>,
 }
 
 impl ListInboxConversations200ResponseDataInner {
@@ -70,7 +84,6 @@ impl ListInboxConversations200ResponseDataInner {
             unread_count: None,
             url: None,
             instagram_profile: None,
-            metadata: None,
         }
     }
 }

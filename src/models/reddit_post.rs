@@ -48,8 +48,13 @@ pub struct RedditPost {
     #[serde(rename = "stickied", skip_serializing_if = "Option::is_none")]
     pub stickied: Option<bool>,
     /// Link flair text if set
-    #[serde(rename = "flairText", skip_serializing_if = "Option::is_none")]
-    pub flair_text: Option<String>,
+    #[serde(
+        rename = "flairText",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub flair_text: Option<Option<String>>,
     /// Whether the post is a gallery with multiple images
     #[serde(rename = "isGallery", skip_serializing_if = "Option::is_none")]
     pub is_gallery: Option<bool>,

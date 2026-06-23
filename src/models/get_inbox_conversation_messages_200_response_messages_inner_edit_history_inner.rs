@@ -13,8 +13,8 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetInboxConversationMessages200ResponseMessagesInnerEditHistoryInner {
-    #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
-    pub text: Option<String>,
+    #[serde(rename = "text", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+    pub text: Option<Option<String>>,
     #[serde(rename = "attachments", skip_serializing_if = "Option::is_none")]
     pub attachments: Option<Vec<models::GetInboxConversationMessages200ResponseMessagesInnerEditHistoryInnerAttachmentsInner>>,
     #[serde(rename = "editedAt", skip_serializing_if = "Option::is_none")]

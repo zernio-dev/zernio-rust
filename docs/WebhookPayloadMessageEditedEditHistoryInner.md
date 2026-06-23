@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**text** | **String** |  | 
+**text** | Option<**String**> |  | 
 **attachments** | [**Vec<models::GetInboxConversationMessages200ResponseMessagesInnerEditHistoryInnerAttachmentsInner>**](GetInboxConversationMessages200ResponseMessagesInnerEditHistoryInnerAttachmentsInner.md) |  | 
 **edited_at** | **String** |  | 
 

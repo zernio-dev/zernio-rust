@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **platform** | **Platform** |  (enum: instagram, facebook, telegram, whatsapp) | 
 **platform_message_id** | **String** | Platform's message ID | 
 **direction** | **Direction** |  (enum: incoming, outgoing) | 
-**text** | **String** | Message text content | 
+**text** | Option<**String**> | Message text content | 
 **attachments** | [**Vec<models::InboxWebhookMessageAttachmentsInner>**](InboxWebhookMessageAttachmentsInner.md) |  | 
 **sender** | [**models::WebhookPayloadMessageMessageSender**](WebhookPayloadMessageMessageSender.md) |  | 
 **sent_at** | **String** |  | 

@@ -24,8 +24,8 @@ pub struct SavedTargetingAudience {
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     /// The targeting spec to store.
-    #[serde(rename = "spec")]
-    pub spec: Box<models::TargetingSpec>,
+    #[serde(rename = "spec", deserialize_with = "Option::deserialize")]
+    pub spec: Option<Box<models::TargetingSpec>>,
 }
 
 impl SavedTargetingAudience {
@@ -34,14 +34,18 @@ impl SavedTargetingAudience {
         r#type: Type,
         account_id: String,
         name: String,
-        spec: models::TargetingSpec,
+        spec: Option<models::TargetingSpec>,
     ) -> SavedTargetingAudience {
         SavedTargetingAudience {
             r#type,
             account_id,
             name,
             description: None,
-            spec: Box::new(spec),
+            spec: if let Some(x) = spec {
+                Some(Box::new(x))
+            } else {
+                None
+            },
         }
     }
 }

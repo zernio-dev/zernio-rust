@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **account_type** | Option<**String**> |  | [optional]
 **username** | Option<**String**> |  | [optional]
 **aggregation** | Option<**Aggregation**> |  (enum: DAILY) | [optional]
-**date_range** | Option<[**models::LinkedInAggregateAnalyticsTotalResponseDateRange**](LinkedInAggregateAnalyticsTotalResponseDateRange.md)> |  | [optional]
+**date_range** | Option<[**models::YouTubeDailyViewsResponseDateRange**](YouTubeDailyViewsResponseDateRange.md)> |  | [optional]
 **analytics** | Option<[**models::LinkedInAggregateAnalyticsDailyResponseAnalytics**](LinkedInAggregateAnalyticsDailyResponseAnalytics.md)> |  | [optional]
 **skipped_metrics** | Option<**Vec<String>**> | Metrics that were skipped due to API limitations | [optional]
 **note** | Option<**String**> |  | [optional]

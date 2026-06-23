@@ -16,26 +16,61 @@ use serde::{Deserialize, Serialize};
 pub struct WorkflowExecutionEvent {
     #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
     pub action: Option<Action>,
-    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<Status>,
+    #[serde(
+        rename = "status",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub status: Option<Option<Status>>,
     /// Present on `node_*` events
-    #[serde(rename = "nodeId", skip_serializing_if = "Option::is_none")]
-    pub node_id: Option<String>,
+    #[serde(
+        rename = "nodeId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub node_id: Option<Option<String>>,
     /// Present on `node_*` events
-    #[serde(rename = "nodeType", skip_serializing_if = "Option::is_none")]
-    pub node_type: Option<String>,
+    #[serde(
+        rename = "nodeType",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub node_type: Option<Option<String>>,
     /// The edge handle the executor followed out of this node (see `WorkflowEdge.sourceHandle`)
-    #[serde(rename = "sourceHandle", skip_serializing_if = "Option::is_none")]
-    pub source_handle: Option<String>,
+    #[serde(
+        rename = "sourceHandle",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub source_handle: Option<Option<String>>,
     /// Node run time; present on `node_completed` and `node_failed`
-    #[serde(rename = "durationMs", skip_serializing_if = "Option::is_none")]
-    pub duration_ms: Option<i32>,
+    #[serde(
+        rename = "durationMs",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub duration_ms: Option<Option<i32>>,
     /// Failure detail; present on `node_failed` and `execution_exited`
-    #[serde(rename = "errorMessage", skip_serializing_if = "Option::is_none")]
-    pub error_message: Option<String>,
+    #[serde(
+        rename = "errorMessage",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub error_message: Option<Option<String>>,
     /// Per-node-type payload. Shape varies — see WorkflowNode `type`. Examples:   `send_message` → `{ messageType, text, recipient }`,   `webhook` → `{ url, method, statusCode, responseTimeMs, responsePreview }`,   `ai` → `{ model, provider, inputTokens, outputTokens, responsePreview }`,   `condition` → `{ matchedHandle, rulesEvaluated }`,   `a_b_split` → `{ percentage, chosen }`.
-    #[serde(rename = "meta", skip_serializing_if = "Option::is_none")]
-    pub meta: Option<std::collections::HashMap<String, serde_json::Value>>,
+    #[serde(
+        rename = "meta",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub meta: Option<Option<std::collections::HashMap<String, serde_json::Value>>>,
     /// Event timestamp (UTC)
     #[serde(rename = "at", skip_serializing_if = "Option::is_none")]
     pub at: Option<String>,

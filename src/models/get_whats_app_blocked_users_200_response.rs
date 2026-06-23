@@ -16,8 +16,13 @@ pub struct GetWhatsAppBlockedUsers200Response {
     #[serde(rename = "blockedUsers", skip_serializing_if = "Option::is_none")]
     pub blocked_users: Option<Vec<models::GetWhatsAppBlockedUsers200ResponseBlockedUsersInner>>,
     /// Pass as `after` to fetch the next page. Null when there are no more pages.
-    #[serde(rename = "nextCursor", skip_serializing_if = "Option::is_none")]
-    pub next_cursor: Option<String>,
+    #[serde(
+        rename = "nextCursor",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub next_cursor: Option<Option<String>>,
 }
 
 impl GetWhatsAppBlockedUsers200Response {

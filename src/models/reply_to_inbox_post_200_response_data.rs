@@ -18,8 +18,13 @@ pub struct ReplyToInboxPost200ResponseData {
     #[serde(rename = "isReply", skip_serializing_if = "Option::is_none")]
     pub is_reply: Option<bool>,
     /// Bluesky CID
-    #[serde(rename = "cid", skip_serializing_if = "Option::is_none")]
-    pub cid: Option<String>,
+    #[serde(
+        rename = "cid",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub cid: Option<Option<String>>,
 }
 
 impl ReplyToInboxPost200ResponseData {

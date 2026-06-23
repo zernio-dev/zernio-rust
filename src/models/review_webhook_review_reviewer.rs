@@ -14,16 +14,20 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ReviewWebhookReviewReviewer {
     /// Platform reviewer ID. Null when the platform does not expose it (common on Google Business anonymous reviews).
-    #[serde(rename = "id")]
-    pub id: String,
+    #[serde(rename = "id", deserialize_with = "Option::deserialize")]
+    pub id: Option<String>,
     #[serde(rename = "name")]
     pub name: String,
-    #[serde(rename = "profileImage")]
-    pub profile_image: String,
+    #[serde(rename = "profileImage", deserialize_with = "Option::deserialize")]
+    pub profile_image: Option<String>,
 }
 
 impl ReviewWebhookReviewReviewer {
-    pub fn new(id: String, name: String, profile_image: String) -> ReviewWebhookReviewReviewer {
+    pub fn new(
+        id: Option<String>,
+        name: String,
+        profile_image: Option<String>,
+    ) -> ReviewWebhookReviewReviewer {
         ReviewWebhookReviewReviewer {
             id,
             name,

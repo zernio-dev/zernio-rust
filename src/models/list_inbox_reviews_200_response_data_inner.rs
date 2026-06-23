@@ -33,8 +33,13 @@ pub struct ListInboxReviews200ResponseDataInner {
     pub has_reply: Option<bool>,
     #[serde(rename = "reply", skip_serializing_if = "Option::is_none")]
     pub reply: Option<Box<models::ListInboxReviews200ResponseDataInnerReply>>,
-    #[serde(rename = "reviewUrl", skip_serializing_if = "Option::is_none")]
-    pub review_url: Option<String>,
+    #[serde(
+        rename = "reviewUrl",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub review_url: Option<Option<String>>,
 }
 
 impl ListInboxReviews200ResponseDataInner {

@@ -17,8 +17,13 @@ pub struct GetInboxVolume200Response {
     pub success: Option<bool>,
     #[serde(rename = "from", skip_serializing_if = "Option::is_none")]
     pub from: Option<String>,
-    #[serde(rename = "to", skip_serializing_if = "Option::is_none")]
-    pub to: Option<String>,
+    #[serde(
+        rename = "to",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub to: Option<Option<String>>,
     #[serde(rename = "summary", skip_serializing_if = "Option::is_none")]
     pub summary: Option<Box<models::GetInboxVolume200ResponseSummary>>,
     #[serde(rename = "timeseries", skip_serializing_if = "Option::is_none")]

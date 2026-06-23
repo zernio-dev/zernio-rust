@@ -21,38 +21,64 @@ pub struct AdCreative {
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
     /// Meta video ID for VIDEO-type ads. Null for non-video ads. Callers that need an embeddable MP4 can call GET /{videoId}?fields=source with the page access token.
-    #[serde(rename = "videoId", skip_serializing_if = "Option::is_none")]
-    pub video_id: Option<String>,
+    #[serde(
+        rename = "videoId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub video_id: Option<Option<String>>,
     /// Public Facebook watch URL for VIDEO-type ads (https://www.facebook.com/watch/?v={videoId}). Null for non-video ads.
-    #[serde(rename = "videoUrl", skip_serializing_if = "Option::is_none")]
-    pub video_url: Option<String>,
+    #[serde(
+        rename = "videoUrl",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub video_url: Option<Option<String>>,
     /// Meta creative object_type (e.g. SHARE, VIDEO, PRIVACY_CHECK_FAIL, POST_DELETED). Use this to render state-aware previews — when Meta moderation strips image/video fields, only thumbnailUrl at 64x64 is available.
     #[serde(rename = "objectType", skip_serializing_if = "Option::is_none")]
     pub object_type: Option<String>,
     /// Meta creative `object_story_id` (the SHARE reference). Frequently absent — Meta omits it for SHARE creatives. Use effectiveObjectStoryId instead.
-    #[serde(rename = "objectStoryId", skip_serializing_if = "Option::is_none")]
-    pub object_story_id: Option<String>,
+    #[serde(
+        rename = "objectStoryId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub object_story_id: Option<Option<String>>,
     /// Meta `effective_object_story_id` — `{pageId}_{postId}` of the Facebook post the ad's engagement (comments) lives on. Pass to GET /v1/ads?effectiveObjectStoryId= to map a Business-Manager-visible post back to this ad; GET /v1/ads/{adId}/comments resolves comments against it.
     #[serde(
         rename = "effectiveObjectStoryId",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub effective_object_story_id: Option<String>,
+    pub effective_object_story_id: Option<Option<String>>,
     /// Meta `effective_instagram_media_id` — the Instagram media ID of the boosted post the ad's engagement lives on. Pass to GET /v1/ads?effectiveInstagramMediaId= to map a Business-Manager-visible IG post back to this ad.
     #[serde(
         rename = "effectiveInstagramMediaId",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub effective_instagram_media_id: Option<String>,
+    pub effective_instagram_media_id: Option<Option<String>>,
     /// Meta `instagram_user_id` — the Instagram-scoped business ID that owns the boosted media.
-    #[serde(rename = "instagramUserId", skip_serializing_if = "Option::is_none")]
-    pub instagram_user_id: Option<String>,
+    #[serde(
+        rename = "instagramUserId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub instagram_user_id: Option<Option<String>>,
     /// Meta `instagram_permalink_url` — public Instagram post URL of the boosted media.
     #[serde(
         rename = "instagramPermalinkUrl",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub instagram_permalink_url: Option<String>,
+    pub instagram_permalink_url: Option<Option<String>>,
     /// All media URLs for this ad (carousel images, multiple assets). Populated for Meta (carousel child_attachments), Google Ads (responsive display marketing_images), and LinkedIn (multi-image posts).
     #[serde(rename = "mediaUrls", skip_serializing_if = "Option::is_none")]
     pub media_urls: Option<Vec<String>>,

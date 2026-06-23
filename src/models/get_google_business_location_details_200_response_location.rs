@@ -15,17 +15,37 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetGoogleBusinessLocationDetails200ResponseLocation {
     /// Business name as set in GBP
-    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+    #[serde(
+        rename = "name",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub name: Option<Option<String>>,
     /// Google Maps Place ID for this location
-    #[serde(rename = "placeId", skip_serializing_if = "Option::is_none")]
-    pub place_id: Option<String>,
+    #[serde(
+        rename = "placeId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub place_id: Option<Option<String>>,
     /// Public \"write a review\" URL Google generates for this place
-    #[serde(rename = "reviewUrl", skip_serializing_if = "Option::is_none")]
-    pub review_url: Option<String>,
+    #[serde(
+        rename = "reviewUrl",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub review_url: Option<Option<String>>,
     /// Public Google Maps URL for this location
-    #[serde(rename = "mapsUri", skip_serializing_if = "Option::is_none")]
-    pub maps_uri: Option<String>,
+    #[serde(
+        rename = "mapsUri",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub maps_uri: Option<Option<String>>,
     /// True when the location has Voice of Merchant (verified + live on Google)
     #[serde(rename = "isVerified", skip_serializing_if = "Option::is_none")]
     pub is_verified: Option<bool>,

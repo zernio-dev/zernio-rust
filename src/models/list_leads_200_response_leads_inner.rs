@@ -21,21 +21,46 @@ pub struct ListLeads200ResponseLeadsInner {
     pub leadgen_id: Option<String>,
     #[serde(rename = "formId", skip_serializing_if = "Option::is_none")]
     pub form_id: Option<String>,
-    #[serde(rename = "formName", skip_serializing_if = "Option::is_none")]
-    pub form_name: Option<String>,
+    #[serde(
+        rename = "formName",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub form_name: Option<Option<String>>,
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
-    #[serde(rename = "adId", skip_serializing_if = "Option::is_none")]
-    pub ad_id: Option<String>,
-    #[serde(rename = "adsetId", skip_serializing_if = "Option::is_none")]
-    pub adset_id: Option<String>,
-    #[serde(rename = "campaignId", skip_serializing_if = "Option::is_none")]
-    pub campaign_id: Option<String>,
+    #[serde(
+        rename = "adId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub ad_id: Option<Option<String>>,
+    #[serde(
+        rename = "adsetId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub adset_id: Option<Option<String>>,
+    #[serde(
+        rename = "campaignId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub campaign_id: Option<Option<String>>,
     #[serde(rename = "isOrganic", skip_serializing_if = "Option::is_none")]
     pub is_organic: Option<bool>,
     /// ISO 8601.
-    #[serde(rename = "createdTime", skip_serializing_if = "Option::is_none")]
-    pub created_time: Option<String>,
+    #[serde(
+        rename = "createdTime",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_time: Option<Option<String>>,
     /// Question key → answer.
     #[serde(rename = "fields", skip_serializing_if = "Option::is_none")]
     pub fields: Option<std::collections::HashMap<String, String>>,

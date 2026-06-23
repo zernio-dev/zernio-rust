@@ -21,14 +21,29 @@ pub struct GetWhatsAppNumberKycForm200ResponseFieldsInner {
     #[serde(rename = "kind", skip_serializing_if = "Option::is_none")]
     pub kind: Option<Kind>,
     /// Plain-English explanation of what to provide.
-    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
+    #[serde(
+        rename = "description",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub description: Option<Option<String>>,
     /// Concrete example value.
-    #[serde(rename = "example", skip_serializing_if = "Option::is_none")]
-    pub example: Option<String>,
+    #[serde(
+        rename = "example",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub example: Option<Option<String>>,
     /// ISO country the value must be local to
-    #[serde(rename = "localTo", skip_serializing_if = "Option::is_none")]
-    pub local_to: Option<String>,
+    #[serde(
+        rename = "localTo",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub local_to: Option<Option<String>>,
 }
 
 impl GetWhatsAppNumberKycForm200ResponseFieldsInner {

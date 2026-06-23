@@ -27,10 +27,20 @@ pub struct WhatsAppSandboxSession {
     #[serde(rename = "expiresAt")]
     pub expires_at: String,
     /// When the session transitioned `pending → active`, or null.
-    #[serde(rename = "activatedAt", skip_serializing_if = "Option::is_none")]
-    pub activated_at: Option<String>,
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<String>,
+    #[serde(
+        rename = "activatedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub activated_at: Option<Option<String>>,
+    #[serde(
+        rename = "createdAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_at: Option<Option<String>>,
 }
 
 impl WhatsAppSandboxSession {

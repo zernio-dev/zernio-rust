@@ -15,8 +15,13 @@ use serde::{Deserialize, Serialize};
 pub struct GetYoutubePlaylists200Response {
     #[serde(rename = "playlists", skip_serializing_if = "Option::is_none")]
     pub playlists: Option<Vec<models::GetYoutubePlaylists200ResponsePlaylistsInner>>,
-    #[serde(rename = "defaultPlaylistId", skip_serializing_if = "Option::is_none")]
-    pub default_playlist_id: Option<String>,
+    #[serde(
+        rename = "defaultPlaylistId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub default_playlist_id: Option<Option<String>>,
 }
 
 impl GetYoutubePlaylists200Response {

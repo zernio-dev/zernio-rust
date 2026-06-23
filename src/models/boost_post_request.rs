@@ -47,9 +47,6 @@ pub struct BoostPostRequest {
     /// Minimum ROAS as a decimal multiplier (e.g. 2.0 = 2.0x ROAS). Required when `bidStrategy` is `LOWEST_COST_WITH_MIN_ROAS`. Sent to Meta as `bid_constraints.roas_average_floor` × 10000 (Meta uses fixed-point integers).
     #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
     pub roas_average_floor: Option<f64>,
-    /// Meta only. A raw Meta-native targeting spec passed to the ad set VERBATIM (snake_case: `geo_locations`, `custom_audiences`, `excluded_custom_audiences`, `flexible_spec`, `targeting_automation`, etc.). Use it to target specific custom or lookalike audiences, or to clone a campaign's targeting exactly. Mutually exclusive with `targeting` (sending both → 422). Sent as-is; Meta validates and surfaces any errors.
-    #[serde(rename = "rawTargeting", skip_serializing_if = "Option::is_none")]
-    pub raw_targeting: Option<std::collections::HashMap<String, serde_json::Value>>,
     #[serde(rename = "tracking", skip_serializing_if = "Option::is_none")]
     pub tracking: Option<Box<models::BoostPostRequestTracking>>,
     /// Meta only. Required for housing, employment, credit, or political ads.
@@ -97,7 +94,6 @@ impl BoostPostRequest {
             bid_strategy: None,
             bid_amount: None,
             roas_average_floor: None,
-            raw_targeting: None,
             tracking: None,
             special_ad_categories: None,
             link_url: None,

@@ -18,22 +18,47 @@ pub struct PlatformAnalytics {
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
     /// The native post ID on the platform (e.g. Instagram media ID, tweet ID)
-    #[serde(rename = "platformPostId", skip_serializing_if = "Option::is_none")]
-    pub platform_post_id: Option<String>,
+    #[serde(
+        rename = "platformPostId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub platform_post_id: Option<Option<String>>,
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
-    #[serde(rename = "accountUsername", skip_serializing_if = "Option::is_none")]
-    pub account_username: Option<String>,
-    #[serde(rename = "analytics", skip_serializing_if = "Option::is_none")]
-    pub analytics: Option<Box<models::PostAnalytics>>,
+    #[serde(
+        rename = "accountUsername",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub account_username: Option<Option<String>>,
+    #[serde(
+        rename = "analytics",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub analytics: Option<Option<Box<models::PostAnalytics>>>,
     /// Sync state of analytics for this platform
     #[serde(rename = "syncStatus", skip_serializing_if = "Option::is_none")]
     pub sync_status: Option<SyncStatus>,
-    #[serde(rename = "platformPostUrl", skip_serializing_if = "Option::is_none")]
-    pub platform_post_url: Option<String>,
+    #[serde(
+        rename = "platformPostUrl",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub platform_post_url: Option<Option<String>>,
     /// Error details when status is failed
-    #[serde(rename = "errorMessage", skip_serializing_if = "Option::is_none")]
-    pub error_message: Option<String>,
+    #[serde(
+        rename = "errorMessage",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub error_message: Option<Option<String>>,
 }
 
 impl PlatformAnalytics {

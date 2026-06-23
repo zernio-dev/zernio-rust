@@ -17,8 +17,8 @@ pub struct WebhookPayloadCommentComment {
     #[serde(rename = "id")]
     pub id: String,
     /// Internal post ID (null for posts not published through Zernio)
-    #[serde(rename = "postId")]
-    pub post_id: String,
+    #[serde(rename = "postId", deserialize_with = "Option::deserialize")]
+    pub post_id: Option<String>,
     /// Platform's post ID
     #[serde(rename = "platformPostId")]
     pub platform_post_id: String,
@@ -35,8 +35,8 @@ pub struct WebhookPayloadCommentComment {
     #[serde(rename = "isReply")]
     pub is_reply: bool,
     /// Parent comment ID if this is a reply
-    #[serde(rename = "parentCommentId")]
-    pub parent_comment_id: String,
+    #[serde(rename = "parentCommentId", deserialize_with = "Option::deserialize")]
+    pub parent_comment_id: Option<String>,
     #[serde(rename = "ad", skip_serializing_if = "Option::is_none")]
     pub ad: Option<Box<models::WebhookPayloadCommentCommentAd>>,
 }
@@ -44,14 +44,14 @@ pub struct WebhookPayloadCommentComment {
 impl WebhookPayloadCommentComment {
     pub fn new(
         id: String,
-        post_id: String,
+        post_id: Option<String>,
         platform_post_id: String,
         platform: Platform,
         text: String,
         author: models::WebhookPayloadCommentCommentAuthor,
         created_at: String,
         is_reply: bool,
-        parent_comment_id: String,
+        parent_comment_id: Option<String>,
     ) -> WebhookPayloadCommentComment {
         WebhookPayloadCommentComment {
             id,

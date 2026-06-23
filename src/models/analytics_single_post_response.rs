@@ -16,8 +16,13 @@ pub struct AnalyticsSinglePostResponse {
     #[serde(rename = "postId", skip_serializing_if = "Option::is_none")]
     pub post_id: Option<String>,
     /// Original Zernio post ID if scheduled via Zernio
-    #[serde(rename = "latePostId", skip_serializing_if = "Option::is_none")]
-    pub late_post_id: Option<String>,
+    #[serde(
+        rename = "latePostId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub late_post_id: Option<Option<String>>,
     /// Overall post status. \"partial\" when some platforms published and others failed.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -25,28 +30,53 @@ pub struct AnalyticsSinglePostResponse {
     pub content: Option<String>,
     #[serde(rename = "scheduledFor", skip_serializing_if = "Option::is_none")]
     pub scheduled_for: Option<String>,
-    #[serde(rename = "publishedAt", skip_serializing_if = "Option::is_none")]
-    pub published_at: Option<String>,
+    #[serde(
+        rename = "publishedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub published_at: Option<Option<String>>,
     #[serde(rename = "analytics", skip_serializing_if = "Option::is_none")]
     pub analytics: Option<Box<models::PostAnalytics>>,
     #[serde(rename = "platformAnalytics", skip_serializing_if = "Option::is_none")]
     pub platform_analytics: Option<Vec<models::PlatformAnalytics>>,
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<String>,
-    #[serde(rename = "platformPostUrl", skip_serializing_if = "Option::is_none")]
-    pub platform_post_url: Option<String>,
+    #[serde(
+        rename = "platformPostUrl",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub platform_post_url: Option<Option<String>>,
     #[serde(rename = "isExternal", skip_serializing_if = "Option::is_none")]
     pub is_external: Option<bool>,
     /// Overall sync state across all platforms
     #[serde(rename = "syncStatus", skip_serializing_if = "Option::is_none")]
     pub sync_status: Option<SyncStatus>,
     /// Human-readable status message for pending, partial, or failed states
-    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
-    pub message: Option<String>,
-    #[serde(rename = "thumbnailUrl", skip_serializing_if = "Option::is_none")]
-    pub thumbnail_url: Option<String>,
-    #[serde(rename = "mediaType", skip_serializing_if = "Option::is_none")]
-    pub media_type: Option<MediaType>,
+    #[serde(
+        rename = "message",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub message: Option<Option<String>>,
+    #[serde(
+        rename = "thumbnailUrl",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub thumbnail_url: Option<Option<String>>,
+    #[serde(
+        rename = "mediaType",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub media_type: Option<Option<MediaType>>,
     /// All media items for this post. Carousel posts contain one entry per slide.
     #[serde(rename = "mediaItems", skip_serializing_if = "Option::is_none")]
     pub media_items: Option<Vec<models::AnalyticsSinglePostResponseMediaItemsInner>>,

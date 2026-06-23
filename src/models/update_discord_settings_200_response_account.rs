@@ -31,10 +31,20 @@ pub struct UpdateDiscordSettings200ResponseAccount {
     pub channel_type: Option<String>,
     #[serde(rename = "guildId", skip_serializing_if = "Option::is_none")]
     pub guild_id: Option<String>,
-    #[serde(rename = "webhookUsername", skip_serializing_if = "Option::is_none")]
-    pub webhook_username: Option<String>,
-    #[serde(rename = "webhookAvatarUrl", skip_serializing_if = "Option::is_none")]
-    pub webhook_avatar_url: Option<String>,
+    #[serde(
+        rename = "webhookUsername",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub webhook_username: Option<Option<String>>,
+    #[serde(
+        rename = "webhookAvatarUrl",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub webhook_avatar_url: Option<Option<String>>,
 }
 
 impl UpdateDiscordSettings200ResponseAccount {

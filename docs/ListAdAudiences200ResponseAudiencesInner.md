@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **name** | Option<**String**> |  | [optional]
 **description** | Option<**String**> |  | [optional]
 **r#type** | Option<**Type**> |  (enum: customer_list, website, lookalike, saved_targeting) | [optional]
-**spec** | Option<[**models::TargetingSpec**](TargetingSpec.md)> | Present (and the only meaningful payload) when `type` is `saved_targeting`. Null for uploaded/derived audience types. | [optional]
+**spec** | Option<[**models::TargetingSpec**](TargetingSpec.md)> |  | [optional]
 **platform** | Option<**String**> |  | [optional]
 **size** | Option<**i32**> |  | [optional]
 **status** | Option<**String**> |  | [optional]

@@ -17,8 +17,13 @@ pub struct ListInboxConversationAnalytics200Response {
     pub success: Option<bool>,
     #[serde(rename = "from", skip_serializing_if = "Option::is_none")]
     pub from: Option<String>,
-    #[serde(rename = "to", skip_serializing_if = "Option::is_none")]
-    pub to: Option<String>,
+    #[serde(
+        rename = "to",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub to: Option<Option<String>>,
     #[serde(rename = "items", skip_serializing_if = "Option::is_none")]
     pub items: Option<Vec<models::ListInboxConversationAnalytics200ResponseItemsInner>>,
     #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]

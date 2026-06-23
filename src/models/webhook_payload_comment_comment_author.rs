@@ -20,8 +20,13 @@ pub struct WebhookPayloadCommentCommentAuthor {
     pub username: Option<String>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[serde(rename = "picture", skip_serializing_if = "Option::is_none")]
-    pub picture: Option<String>,
+    #[serde(
+        rename = "picture",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub picture: Option<Option<String>>,
 }
 
 impl WebhookPayloadCommentCommentAuthor {

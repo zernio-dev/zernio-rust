@@ -17,10 +17,20 @@ pub struct ListWorkflowExecutionEvents200ResponseExecution {
     pub id: Option<String>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
-    #[serde(rename = "startedAt", skip_serializing_if = "Option::is_none")]
-    pub started_at: Option<String>,
-    #[serde(rename = "completedAt", skip_serializing_if = "Option::is_none")]
-    pub completed_at: Option<String>,
+    #[serde(
+        rename = "startedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub started_at: Option<Option<String>>,
+    #[serde(
+        rename = "completedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub completed_at: Option<Option<String>>,
 }
 
 impl ListWorkflowExecutionEvents200ResponseExecution {

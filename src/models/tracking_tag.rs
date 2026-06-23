@@ -31,8 +31,13 @@ pub struct TrackingTag {
     #[serde(rename = "code", skip_serializing_if = "Option::is_none")]
     pub code: Option<String>,
     /// Unix seconds of the last event the tag received, or `null` if it never fired. The practical \"is it installed and working\" signal.
-    #[serde(rename = "lastFiredTime", skip_serializing_if = "Option::is_none")]
-    pub last_fired_time: Option<i32>,
+    #[serde(
+        rename = "lastFiredTime",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_fired_time: Option<Option<i32>>,
     /// Whether the tag is in a broken/unavailable state (Meta `is_unavailable`).
     #[serde(rename = "isUnavailable", skip_serializing_if = "Option::is_none")]
     pub is_unavailable: Option<bool>,
@@ -43,8 +48,13 @@ pub struct TrackingTag {
     #[serde(rename = "creationTime", skip_serializing_if = "Option::is_none")]
     pub creation_time: Option<i32>,
     /// Business Manager id that owns the tag, or `null` when the tag lives on a personal (non-BM) ad account — such tags can't be shared with other ad accounts.
-    #[serde(rename = "ownerBusinessId", skip_serializing_if = "Option::is_none")]
-    pub owner_business_id: Option<String>,
+    #[serde(
+        rename = "ownerBusinessId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub owner_business_id: Option<Option<String>>,
     /// Ad account id (`act_...`) that owns the tag, when reported.
     #[serde(rename = "ownerAdAccountId", skip_serializing_if = "Option::is_none")]
     pub owner_ad_account_id: Option<String>,

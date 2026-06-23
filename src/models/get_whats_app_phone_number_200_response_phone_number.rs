@@ -31,19 +31,33 @@ pub struct GetWhatsAppPhoneNumber200ResponsePhoneNumber {
     /// For a regulated number with an Onfido ID step — the link to forward to the end user. Appears once the order is placed; null otherwise.
     #[serde(
         rename = "onfidoVerificationUrl",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub onfido_verification_url: Option<String>,
-    #[serde(rename = "endUserFirstName", skip_serializing_if = "Option::is_none")]
-    pub end_user_first_name: Option<String>,
-    #[serde(rename = "endUserLastName", skip_serializing_if = "Option::is_none")]
-    pub end_user_last_name: Option<String>,
+    pub onfido_verification_url: Option<Option<String>>,
+    #[serde(
+        rename = "endUserFirstName",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub end_user_first_name: Option<Option<String>>,
+    #[serde(
+        rename = "endUserLastName",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub end_user_last_name: Option<Option<String>>,
     /// Reviewer rejection reason when status is regulatory_declined.
     #[serde(
         rename = "regulatoryDeclineReason",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub regulatory_decline_reason: Option<String>,
+    pub regulatory_decline_reason: Option<Option<String>>,
     #[serde(rename = "provisionedAt", skip_serializing_if = "Option::is_none")]
     pub provisioned_at: Option<String>,
 }

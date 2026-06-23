@@ -39,11 +39,21 @@ pub struct GetDiscordSettings200ResponseAccount {
     #[serde(rename = "guildId", skip_serializing_if = "Option::is_none")]
     pub guild_id: Option<String>,
     /// Custom webhook display name (null = default \"Zernio\")
-    #[serde(rename = "webhookUsername", skip_serializing_if = "Option::is_none")]
-    pub webhook_username: Option<String>,
+    #[serde(
+        rename = "webhookUsername",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub webhook_username: Option<Option<String>>,
     /// Custom webhook avatar URL (null = default bot avatar)
-    #[serde(rename = "webhookAvatarUrl", skip_serializing_if = "Option::is_none")]
-    pub webhook_avatar_url: Option<String>,
+    #[serde(
+        rename = "webhookAvatarUrl",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub webhook_avatar_url: Option<Option<String>>,
 }
 
 impl GetDiscordSettings200ResponseAccount {

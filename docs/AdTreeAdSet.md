@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **ad_set_budget** | Option<[**models::AdTreeAdSetAdSetBudget**](AdTreeAdSetAdSetBudget.md)> |  | [optional]
 **metrics** | Option<[**models::AdMetrics**](AdMetrics.md)> |  | [optional]
 **optimization_goal** | Option<**String**> | Meta ad set optimization goal (e.g. OFFSITE_CONVERSIONS, VALUE, LEAD_GENERATION) | [optional]
-**bid_strategy** | Option<[**models::BidStrategy**](BidStrategy.md)> | Bid strategy for this ad set (overrides campaign level when set) | [optional]
+**bid_strategy** | Option<[**models::BidStrategy**](BidStrategy.md)> |  | [optional]
 **bid_amount** | Option<**f64**> | Bid cap in whole currency units. Populated when bidStrategy is LOWEST_COST_WITH_BID_CAP or COST_CAP. | [optional]
 **roas_average_floor** | Option<**f64**> | Minimum ROAS as a decimal multiplier (2.0 = 2.0x). Populated when bidStrategy is LOWEST_COST_WITH_MIN_ROAS. | [optional]
 **promoted_object** | Option<[**models::AdTreeAdSetPromotedObject**](AdTreeAdSetPromotedObject.md)> |  | [optional]

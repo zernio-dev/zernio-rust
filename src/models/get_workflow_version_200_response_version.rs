@@ -17,10 +17,20 @@ pub struct GetWorkflowVersion200ResponseVersion {
     pub version: Option<i32>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    #[serde(rename = "entryNodeId", skip_serializing_if = "Option::is_none")]
-    pub entry_node_id: Option<String>,
+    #[serde(
+        rename = "description",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub description: Option<Option<String>>,
+    #[serde(
+        rename = "entryNodeId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub entry_node_id: Option<Option<String>>,
     #[serde(rename = "nodes", skip_serializing_if = "Option::is_none")]
     pub nodes: Option<Vec<models::WorkflowNode>>,
     #[serde(rename = "edges", skip_serializing_if = "Option::is_none")]
@@ -31,15 +41,27 @@ pub struct GetWorkflowVersion200ResponseVersion {
     pub account_id: Option<String>,
     #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]
     pub profile_id: Option<String>,
-    #[serde(rename = "createdBy", skip_serializing_if = "Option::is_none")]
-    pub created_by: Option<String>,
-    #[serde(rename = "createdByEmail", skip_serializing_if = "Option::is_none")]
-    pub created_by_email: Option<String>,
     #[serde(
-        rename = "restoredFromVersion",
+        rename = "createdBy",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub restored_from_version: Option<i32>,
+    pub created_by: Option<Option<String>>,
+    #[serde(
+        rename = "createdByEmail",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_by_email: Option<Option<String>>,
+    #[serde(
+        rename = "restoredFromVersion",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub restored_from_version: Option<Option<i32>>,
     #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
     pub created_at: Option<String>,
 }

@@ -16,8 +16,13 @@ pub struct ListWhatsAppSandboxSessions200Response {
     #[serde(rename = "sessions", skip_serializing_if = "Option::is_none")]
     pub sessions: Option<Vec<models::WhatsAppSandboxSession>>,
     /// The shared sandbox phone number in E.164 form.
-    #[serde(rename = "sandboxNumber", skip_serializing_if = "Option::is_none")]
-    pub sandbox_number: Option<String>,
+    #[serde(
+        rename = "sandboxNumber",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub sandbox_number: Option<Option<String>>,
 }
 
 impl ListWhatsAppSandboxSessions200Response {

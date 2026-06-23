@@ -17,8 +17,13 @@ pub struct GetInboxConversationMessages200ResponsePagination {
     #[serde(rename = "hasMore", skip_serializing_if = "Option::is_none")]
     pub has_more: Option<bool>,
     /// Opaque cursor to fetch the next page. `null` on the last page.
-    #[serde(rename = "nextCursor", skip_serializing_if = "Option::is_none")]
-    pub next_cursor: Option<String>,
+    #[serde(
+        rename = "nextCursor",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub next_cursor: Option<Option<String>>,
 }
 
 impl GetInboxConversationMessages200ResponsePagination {

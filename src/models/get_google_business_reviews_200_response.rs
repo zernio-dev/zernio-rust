@@ -28,8 +28,13 @@ pub struct GetGoogleBusinessReviews200Response {
     #[serde(rename = "totalReviewCount", skip_serializing_if = "Option::is_none")]
     pub total_review_count: Option<i32>,
     /// Token for next page
-    #[serde(rename = "nextPageToken", skip_serializing_if = "Option::is_none")]
-    pub next_page_token: Option<String>,
+    #[serde(
+        rename = "nextPageToken",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub next_page_token: Option<Option<String>>,
 }
 
 impl GetGoogleBusinessReviews200Response {

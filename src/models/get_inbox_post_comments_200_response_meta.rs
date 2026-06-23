@@ -20,8 +20,13 @@ pub struct GetInboxPostComments200ResponseMeta {
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
     /// (Reddit only) Subreddit name
-    #[serde(rename = "subreddit", skip_serializing_if = "Option::is_none")]
-    pub subreddit: Option<String>,
+    #[serde(
+        rename = "subreddit",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub subreddit: Option<Option<String>>,
     #[serde(rename = "lastUpdated", skip_serializing_if = "Option::is_none")]
     pub last_updated: Option<String>,
     #[serde(rename = "adComments", skip_serializing_if = "Option::is_none")]

@@ -22,14 +22,29 @@ pub struct YouTubeVideoRetentionResponse {
     #[serde(rename = "videoId", skip_serializing_if = "Option::is_none")]
     pub video_id: Option<String>,
     /// Video title
-    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
-    pub title: Option<String>,
+    #[serde(
+        rename = "title",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub title: Option<Option<String>>,
     /// When the video was published on YouTube
-    #[serde(rename = "publishedAt", skip_serializing_if = "Option::is_none")]
-    pub published_at: Option<String>,
+    #[serde(
+        rename = "publishedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub published_at: Option<Option<String>>,
     /// Video length in seconds (from YouTube contentDetails.duration)
-    #[serde(rename = "durationSeconds", skip_serializing_if = "Option::is_none")]
-    pub duration_seconds: Option<i32>,
+    #[serde(
+        rename = "durationSeconds",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub duration_seconds: Option<Option<i32>>,
     #[serde(rename = "dateRange", skip_serializing_if = "Option::is_none")]
     pub date_range: Option<Box<models::YouTubeDailyViewsResponseDateRange>>,
     /// Up to 100 points covering the video timeline, aggregated over the date range. Empty for videos with very few views.

@@ -15,10 +15,20 @@ use serde::{Deserialize, Serialize};
 pub struct ListFormLeads200ResponseLeadsInner {
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
-    #[serde(rename = "createdTime", skip_serializing_if = "Option::is_none")]
-    pub created_time: Option<String>,
-    #[serde(rename = "adId", skip_serializing_if = "Option::is_none")]
-    pub ad_id: Option<String>,
+    #[serde(
+        rename = "createdTime",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_time: Option<Option<String>>,
+    #[serde(
+        rename = "adId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub ad_id: Option<Option<String>>,
     #[serde(rename = "formId", skip_serializing_if = "Option::is_none")]
     pub form_id: Option<String>,
     #[serde(rename = "fields", skip_serializing_if = "Option::is_none")]

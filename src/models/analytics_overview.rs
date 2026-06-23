@@ -19,8 +19,13 @@ pub struct AnalyticsOverview {
     pub published_posts: Option<i32>,
     #[serde(rename = "scheduledPosts", skip_serializing_if = "Option::is_none")]
     pub scheduled_posts: Option<i32>,
-    #[serde(rename = "lastSync", skip_serializing_if = "Option::is_none")]
-    pub last_sync: Option<String>,
+    #[serde(
+        rename = "lastSync",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_sync: Option<Option<String>>,
     #[serde(rename = "dataStaleness", skip_serializing_if = "Option::is_none")]
     pub data_staleness: Option<Box<models::AnalyticsOverviewDataStaleness>>,
 }

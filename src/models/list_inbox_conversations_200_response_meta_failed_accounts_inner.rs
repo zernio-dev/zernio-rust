@@ -15,18 +15,33 @@ use serde::{Deserialize, Serialize};
 pub struct ListInboxConversations200ResponseMetaFailedAccountsInner {
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
-    #[serde(rename = "accountUsername", skip_serializing_if = "Option::is_none")]
-    pub account_username: Option<String>,
+    #[serde(
+        rename = "accountUsername",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub account_username: Option<Option<String>>,
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<String>,
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
     pub error: Option<String>,
     /// Error code if available
-    #[serde(rename = "code", skip_serializing_if = "Option::is_none")]
-    pub code: Option<String>,
+    #[serde(
+        rename = "code",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub code: Option<Option<String>>,
     /// Seconds to wait before retry (rate limits)
-    #[serde(rename = "retryAfter", skip_serializing_if = "Option::is_none")]
-    pub retry_after: Option<i32>,
+    #[serde(
+        rename = "retryAfter",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub retry_after: Option<Option<i32>>,
 }
 
 impl ListInboxConversations200ResponseMetaFailedAccountsInner {

@@ -15,8 +15,13 @@ use serde::{Deserialize, Serialize};
 pub struct GetInboxPostComments200ResponsePagination {
     #[serde(rename = "hasMore", skip_serializing_if = "Option::is_none")]
     pub has_more: Option<bool>,
-    #[serde(rename = "cursor", skip_serializing_if = "Option::is_none")]
-    pub cursor: Option<String>,
+    #[serde(
+        rename = "cursor",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub cursor: Option<Option<String>>,
 }
 
 impl GetInboxPostComments200ResponsePagination {

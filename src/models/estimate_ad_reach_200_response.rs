@@ -17,20 +17,45 @@ pub struct EstimateAdReach200Response {
     #[serde(rename = "available")]
     pub available: bool,
     /// Lower bound of the estimated reachable audience. Present only when available.
-    #[serde(rename = "lower", skip_serializing_if = "Option::is_none")]
-    pub lower: Option<i32>,
+    #[serde(
+        rename = "lower",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub lower: Option<Option<i32>>,
     /// Upper bound of the estimated reachable audience. Present only when available.
-    #[serde(rename = "upper", skip_serializing_if = "Option::is_none")]
-    pub upper: Option<i32>,
+    #[serde(
+        rename = "upper",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub upper: Option<Option<i32>>,
     /// Optional estimated daily reach/results at the given budget, when the platform returns it.
-    #[serde(rename = "daily", skip_serializing_if = "Option::is_none")]
-    pub daily: Option<i32>,
+    #[serde(
+        rename = "daily",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub daily: Option<Option<i32>>,
     /// Currency of any monetary fields in the estimate, when applicable.
-    #[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
-    pub currency: Option<String>,
+    #[serde(
+        rename = "currency",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub currency: Option<Option<String>>,
     /// Meta only. False when Meta is still computing the estimate (the audience is too new); retry shortly.
-    #[serde(rename = "estimateReady", skip_serializing_if = "Option::is_none")]
-    pub estimate_ready: Option<bool>,
+    #[serde(
+        rename = "estimateReady",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub estimate_ready: Option<Option<bool>>,
 }
 
 impl EstimateAdReach200Response {

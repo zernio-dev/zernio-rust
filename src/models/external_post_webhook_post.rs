@@ -24,8 +24,8 @@ pub struct ExternalPostWebhookPost {
     #[serde(rename = "accountId")]
     pub account_id: String,
     /// Direct URL to the post on the platform, when available.
-    #[serde(rename = "url")]
-    pub url: String,
+    #[serde(rename = "url", deserialize_with = "Option::deserialize")]
+    pub url: Option<String>,
     /// Post text. May be empty.
     #[serde(rename = "content")]
     pub content: String,
@@ -34,16 +34,21 @@ pub struct ExternalPostWebhookPost {
     pub media_type: String,
     #[serde(rename = "mediaItems")]
     pub media_items: Vec<models::ExternalPostMediaItem>,
-    #[serde(rename = "thumbnailUrl")]
-    pub thumbnail_url: String,
+    #[serde(rename = "thumbnailUrl", deserialize_with = "Option::deserialize")]
+    pub thumbnail_url: Option<String>,
     #[serde(rename = "publishedAt")]
     pub published_at: String,
     /// Always \"external\" — distinguishes these from Zernio-originated post.* events.
     #[serde(rename = "source")]
     pub source: Source,
     /// Detection time of deletion. Present on post.external.deleted; null/absent otherwise.
-    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
-    pub deleted_at: Option<String>,
+    #[serde(
+        rename = "deletedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub deleted_at: Option<Option<String>>,
 }
 
 impl ExternalPostWebhookPost {
@@ -52,11 +57,11 @@ impl ExternalPostWebhookPost {
         id: String,
         platform: String,
         account_id: String,
-        url: String,
+        url: Option<String>,
         content: String,
         media_type: String,
         media_items: Vec<models::ExternalPostMediaItem>,
-        thumbnail_url: String,
+        thumbnail_url: Option<String>,
         published_at: String,
         source: Source,
     ) -> ExternalPostWebhookPost {

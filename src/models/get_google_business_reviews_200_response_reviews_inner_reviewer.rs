@@ -15,8 +15,13 @@ use serde::{Deserialize, Serialize};
 pub struct GetGoogleBusinessReviews200ResponseReviewsInnerReviewer {
     #[serde(rename = "displayName", skip_serializing_if = "Option::is_none")]
     pub display_name: Option<String>,
-    #[serde(rename = "profilePhotoUrl", skip_serializing_if = "Option::is_none")]
-    pub profile_photo_url: Option<String>,
+    #[serde(
+        rename = "profilePhotoUrl",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub profile_photo_url: Option<Option<String>>,
     #[serde(rename = "isAnonymous", skip_serializing_if = "Option::is_none")]
     pub is_anonymous: Option<bool>,
 }

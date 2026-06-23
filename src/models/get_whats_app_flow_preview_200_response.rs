@@ -13,10 +13,20 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetWhatsAppFlowPreview200Response {
-    #[serde(rename = "preview_url", skip_serializing_if = "Option::is_none")]
-    pub preview_url: Option<String>,
-    #[serde(rename = "expires_at", skip_serializing_if = "Option::is_none")]
-    pub expires_at: Option<String>,
+    #[serde(
+        rename = "preview_url",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub preview_url: Option<Option<String>>,
+    #[serde(
+        rename = "expires_at",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expires_at: Option<Option<String>>,
 }
 
 impl GetWhatsAppFlowPreview200Response {

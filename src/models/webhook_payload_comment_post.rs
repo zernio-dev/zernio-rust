@@ -14,15 +14,15 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadCommentPost {
     /// Internal post ID (null for posts not published through Zernio)
-    #[serde(rename = "id")]
-    pub id: String,
+    #[serde(rename = "id", deserialize_with = "Option::deserialize")]
+    pub id: Option<String>,
     /// Platform's post ID
     #[serde(rename = "platformPostId")]
     pub platform_post_id: String,
 }
 
 impl WebhookPayloadCommentPost {
-    pub fn new(id: String, platform_post_id: String) -> WebhookPayloadCommentPost {
+    pub fn new(id: Option<String>, platform_post_id: String) -> WebhookPayloadCommentPost {
         WebhookPayloadCommentPost {
             id,
             platform_post_id,

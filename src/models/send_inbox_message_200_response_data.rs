@@ -17,14 +17,29 @@ pub struct SendInboxMessage200ResponseData {
     #[serde(rename = "messageId", skip_serializing_if = "Option::is_none")]
     pub message_id: Option<String>,
     /// Twitter conversation ID
-    #[serde(rename = "conversationId", skip_serializing_if = "Option::is_none")]
-    pub conversation_id: Option<String>,
+    #[serde(
+        rename = "conversationId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub conversation_id: Option<Option<String>>,
     /// Bluesky sent timestamp
-    #[serde(rename = "sentAt", skip_serializing_if = "Option::is_none")]
-    pub sent_at: Option<String>,
+    #[serde(
+        rename = "sentAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub sent_at: Option<Option<String>>,
     /// Success message (Reddit only)
-    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
-    pub message: Option<String>,
+    #[serde(
+        rename = "message",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub message: Option<Option<String>>,
 }
 
 impl SendInboxMessage200ResponseData {

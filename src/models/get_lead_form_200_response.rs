@@ -16,7 +16,7 @@ pub struct GetLeadForm200Response {
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
     #[serde(rename = "form", skip_serializing_if = "Option::is_none")]
-    pub form: Option<Box<models::GetLeadForm200ResponseForm>>,
+    pub form: Option<serde_json::Value>,
 }
 
 impl GetLeadForm200Response {

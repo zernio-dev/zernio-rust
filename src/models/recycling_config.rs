@@ -27,11 +27,21 @@ pub struct RecyclingConfig {
     #[serde(rename = "startDate", skip_serializing_if = "Option::is_none")]
     pub start_date: Option<String>,
     /// Stop recycling after this many copies have been created. Send null on update to clear this limit.
-    #[serde(rename = "expireCount", skip_serializing_if = "Option::is_none")]
-    pub expire_count: Option<i32>,
+    #[serde(
+        rename = "expireCount",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expire_count: Option<Option<i32>>,
     /// Stop recycling after this date, regardless of count. Send null on update to clear this limit.
-    #[serde(rename = "expireDate", skip_serializing_if = "Option::is_none")]
-    pub expire_date: Option<String>,
+    #[serde(
+        rename = "expireDate",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expire_date: Option<Option<String>>,
     /// Array of content variations for recycled copies. On each recycle, the next variation is used in round-robin order. Recommended for Twitter and Pinterest to avoid duplicate content flags. If omitted, the original post content is used for all recycled copies. Send an empty array [] to clear existing variations. Must have 2+ entries when setting variations. Platform-level customContent still overrides the base content per platform.
     #[serde(rename = "contentVariations", skip_serializing_if = "Option::is_none")]
     pub content_variations: Option<Vec<String>>,

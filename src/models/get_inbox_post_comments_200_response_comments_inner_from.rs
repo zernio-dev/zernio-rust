@@ -19,13 +19,23 @@ pub struct GetInboxPostComments200ResponseCommentsInnerFrom {
     pub name: Option<String>,
     #[serde(rename = "username", skip_serializing_if = "Option::is_none")]
     pub username: Option<String>,
-    #[serde(rename = "picture", skip_serializing_if = "Option::is_none")]
-    pub picture: Option<String>,
+    #[serde(
+        rename = "picture",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub picture: Option<Option<String>>,
     #[serde(rename = "isOwner", skip_serializing_if = "Option::is_none")]
     pub is_owner: Option<bool>,
     /// X/Twitter verified badge type. Only present for Twitter/X comments.
-    #[serde(rename = "verifiedType", skip_serializing_if = "Option::is_none")]
-    pub verified_type: Option<VerifiedType>,
+    #[serde(
+        rename = "verifiedType",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub verified_type: Option<Option<VerifiedType>>,
 }
 
 impl GetInboxPostComments200ResponseCommentsInnerFrom {

@@ -17,23 +17,53 @@ pub struct ListInstagramStories200ResponseDataInner {
     #[serde(rename = "id")]
     pub id: String,
     /// IMAGE / VIDEO / CAROUSEL_ALBUM
-    #[serde(rename = "mediaType", skip_serializing_if = "Option::is_none")]
-    pub media_type: Option<String>,
+    #[serde(
+        rename = "mediaType",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub media_type: Option<Option<String>>,
     /// Always 'STORY' for this endpoint.
-    #[serde(rename = "mediaProductType", skip_serializing_if = "Option::is_none")]
-    pub media_product_type: Option<String>,
+    #[serde(
+        rename = "mediaProductType",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub media_product_type: Option<Option<String>>,
     /// Direct media URL. Null if Meta flagged the story for copyright. URL expires when the story expires.
-    #[serde(rename = "mediaUrl", skip_serializing_if = "Option::is_none")]
-    pub media_url: Option<String>,
+    #[serde(
+        rename = "mediaUrl",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub media_url: Option<Option<String>>,
     /// Public Instagram permalink to the story (only viewable while live).
-    #[serde(rename = "permalink", skip_serializing_if = "Option::is_none")]
-    pub permalink: Option<String>,
+    #[serde(
+        rename = "permalink",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub permalink: Option<Option<String>>,
     /// Thumbnail URL for video stories.
-    #[serde(rename = "thumbnailUrl", skip_serializing_if = "Option::is_none")]
-    pub thumbnail_url: Option<String>,
+    #[serde(
+        rename = "thumbnailUrl",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub thumbnail_url: Option<Option<String>>,
     /// When the story was posted.
-    #[serde(rename = "timestamp", skip_serializing_if = "Option::is_none")]
-    pub timestamp: Option<String>,
+    #[serde(
+        rename = "timestamp",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub timestamp: Option<Option<String>>,
 }
 
 impl ListInstagramStories200ResponseDataInner {

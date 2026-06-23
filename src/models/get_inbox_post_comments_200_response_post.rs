@@ -50,8 +50,13 @@ pub struct GetInboxPostComments200ResponsePost {
     #[serde(rename = "stickied", skip_serializing_if = "Option::is_none")]
     pub stickied: Option<bool>,
     /// Link flair text if any
-    #[serde(rename = "flairText", skip_serializing_if = "Option::is_none")]
-    pub flair_text: Option<String>,
+    #[serde(
+        rename = "flairText",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub flair_text: Option<Option<String>>,
     /// True if the post is a Reddit gallery (multiple images)
     #[serde(rename = "isGallery", skip_serializing_if = "Option::is_none")]
     pub is_gallery: Option<bool>,

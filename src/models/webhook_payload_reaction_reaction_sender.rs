@@ -26,8 +26,13 @@ pub struct WebhookPayloadReactionReactionSender {
     #[serde(rename = "picture", skip_serializing_if = "Option::is_none")]
     pub picture: Option<String>,
     /// WhatsApp only. Sender's phone number in E.164 format (with leading `+`), when available.
-    #[serde(rename = "phoneNumber", skip_serializing_if = "Option::is_none")]
-    pub phone_number: Option<String>,
+    #[serde(
+        rename = "phoneNumber",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub phone_number: Option<Option<String>>,
 }
 
 impl WebhookPayloadReactionReactionSender {

@@ -29,8 +29,13 @@ pub struct GetAdComments200ResponseMeta {
     #[serde(rename = "effectiveStoryId")]
     pub effective_story_id: String,
     /// Facebook-only. The connected Facebook Page SocialAccount these comments were read through — pass it as `accountId` (with `effectiveStoryId` as the postId) to /v1/inbox/comments to reply/hide/delete. Null when no connected Page was used (then moderation isn't possible).
-    #[serde(rename = "facebookAccountId", skip_serializing_if = "Option::is_none")]
-    pub facebook_account_id: Option<String>,
+    #[serde(
+        rename = "facebookAccountId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub facebook_account_id: Option<Option<String>>,
     /// Instagram-only. The Instagram-scoped business ID that owns the boosted media (creative.instagram_user_id).
     #[serde(rename = "instagramUserId", skip_serializing_if = "Option::is_none")]
     pub instagram_user_id: Option<String>,

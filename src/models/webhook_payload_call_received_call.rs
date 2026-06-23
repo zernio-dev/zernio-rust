@@ -17,8 +17,13 @@ pub struct WebhookPayloadCallReceivedCall {
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     /// Meta wacid.* call id when known
-    #[serde(rename = "metaCallId", skip_serializing_if = "Option::is_none")]
-    pub meta_call_id: Option<String>,
+    #[serde(
+        rename = "metaCallId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub meta_call_id: Option<Option<String>>,
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
     /// Meta phone_number_id

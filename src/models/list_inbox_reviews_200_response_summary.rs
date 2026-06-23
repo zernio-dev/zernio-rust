@@ -15,8 +15,13 @@ use serde::{Deserialize, Serialize};
 pub struct ListInboxReviews200ResponseSummary {
     #[serde(rename = "totalReviews", skip_serializing_if = "Option::is_none")]
     pub total_reviews: Option<i32>,
-    #[serde(rename = "averageRating", skip_serializing_if = "Option::is_none")]
-    pub average_rating: Option<f64>,
+    #[serde(
+        rename = "averageRating",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub average_rating: Option<Option<f64>>,
 }
 
 impl ListInboxReviews200ResponseSummary {

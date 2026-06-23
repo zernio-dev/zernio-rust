@@ -30,9 +30,11 @@ pub struct GetInboxConversation200ResponseData {
     /// X/Twitter verified badge type. Only present for Twitter/X conversations.
     #[serde(
         rename = "participantVerifiedType",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub participant_verified_type: Option<ParticipantVerifiedType>,
+    pub participant_verified_type: Option<Option<ParticipantVerifiedType>>,
     #[serde(rename = "lastMessage", skip_serializing_if = "Option::is_none")]
     pub last_message: Option<String>,
     #[serde(rename = "lastMessageAt", skip_serializing_if = "Option::is_none")]
@@ -44,9 +46,6 @@ pub struct GetInboxConversation200ResponseData {
     #[serde(rename = "instagramProfile", skip_serializing_if = "Option::is_none")]
     pub instagram_profile:
         Option<Box<models::ListInboxConversations200ResponseDataInnerInstagramProfile>>,
-    /// Ad-click attribution captured on the first inbound message of the conversation. Only present when the conversation originated from a click-to-message ad. Absent on organic conversations.  Two sources populate this field:   - WhatsApp CTWA (Click-to-WhatsApp): `ctwa_clid`, `ctwa_source_id`,     `ctwa_source_url`, `ctwa_headline`, `ctwa_source_type`, `ctwa_captured_at`.   - Facebook Messenger CTM / Instagram CTD: `meta_ad_id`, `meta_ad_title`,     `meta_ad_source`, `meta_ad_type`, `meta_ad_ref`, `meta_ad_captured_at`,     `meta_ad_photo_url`, `meta_ad_video_url`, `meta_ad_post_id`,     `meta_ad_product_id`, `meta_ad_flow_id`.  Note: `meta_ad_photo_url` and `meta_ad_video_url` are Facebook CDN URLs that may expire. Use `meta_ad_id` for a permanent reference to the ad (e.g. to link to Meta Ads Manager).
-    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<std::collections::HashMap<String, String>>,
 }
 
 impl GetInboxConversation200ResponseData {
@@ -65,7 +64,6 @@ impl GetInboxConversation200ResponseData {
             updated_time: None,
             participants: None,
             instagram_profile: None,
-            metadata: None,
         }
     }
 }

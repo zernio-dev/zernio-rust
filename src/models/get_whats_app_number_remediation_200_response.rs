@@ -17,8 +17,13 @@ pub struct GetWhatsAppNumberRemediation200Response {
     pub country: Option<String>,
     #[serde(rename = "numberType", skip_serializing_if = "Option::is_none")]
     pub number_type: Option<String>,
-    #[serde(rename = "declineReason", skip_serializing_if = "Option::is_none")]
-    pub decline_reason: Option<String>,
+    #[serde(
+        rename = "declineReason",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub decline_reason: Option<Option<String>>,
     /// Same field shape as GET /v1/whatsapp/phone-numbers/kyc.
     #[serde(rename = "fields", skip_serializing_if = "Option::is_none")]
     pub fields: Option<Vec<serde_json::Value>>,

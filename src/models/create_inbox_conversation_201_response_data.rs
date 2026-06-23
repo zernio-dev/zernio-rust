@@ -23,14 +23,21 @@ pub struct CreateInboxConversation201ResponseData {
     #[serde(rename = "participantId", skip_serializing_if = "Option::is_none")]
     pub participant_id: Option<String>,
     /// Display name of the recipient
-    #[serde(rename = "participantName", skip_serializing_if = "Option::is_none")]
-    pub participant_name: Option<String>,
+    #[serde(
+        rename = "participantName",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub participant_name: Option<Option<String>>,
     /// Twitter username of the recipient
     #[serde(
         rename = "participantUsername",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub participant_username: Option<String>,
+    pub participant_username: Option<Option<String>>,
 }
 
 impl CreateInboxConversation201ResponseData {

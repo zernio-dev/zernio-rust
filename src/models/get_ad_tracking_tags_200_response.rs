@@ -18,32 +18,53 @@ pub struct GetAdTrackingTags200Response {
     #[serde(rename = "level", skip_serializing_if = "Option::is_none")]
     pub level: Option<Level>,
     /// Meta: &-joined click-URL params.
-    #[serde(rename = "urlTags", skip_serializing_if = "Option::is_none")]
-    pub url_tags: Option<String>,
+    #[serde(
+        rename = "urlTags",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub url_tags: Option<Option<String>>,
     /// Meta: third-party click-tracking template (Dynamic Ads).
-    #[serde(rename = "templateUrlSpec", skip_serializing_if = "Option::is_none")]
-    pub template_url_spec: Option<serde_json::Value>,
+    #[serde(
+        rename = "templateUrlSpec",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub template_url_spec: Option<Option<serde_json::Value>>,
     /// Google.
     #[serde(
         rename = "trackingUrlTemplate",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tracking_url_template: Option<String>,
+    pub tracking_url_template: Option<Option<String>>,
     /// Google.
-    #[serde(rename = "finalUrlSuffix", skip_serializing_if = "Option::is_none")]
-    pub final_url_suffix: Option<String>,
+    #[serde(
+        rename = "finalUrlSuffix",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub final_url_suffix: Option<Option<String>>,
     /// LinkedIn.
     #[serde(
         rename = "dynamicValueParameters",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub dynamic_value_parameters: Option<serde_json::Value>,
+    pub dynamic_value_parameters: Option<Option<serde_json::Value>>,
     /// LinkedIn.
     #[serde(
         rename = "customValueParameters",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub custom_value_parameters: Option<serde_json::Value>,
+    pub custom_value_parameters: Option<Option<serde_json::Value>>,
 }
 
 impl GetAdTrackingTags200Response {

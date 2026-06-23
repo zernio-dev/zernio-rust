@@ -17,24 +17,46 @@ pub struct ListInboxConversationAnalytics200ResponseItemsInner {
     #[serde(rename = "conversationId", skip_serializing_if = "Option::is_none")]
     pub conversation_id: Option<String>,
     /// The Conversation document _id, when a matching doc exists
-    #[serde(rename = "mongoId", skip_serializing_if = "Option::is_none")]
-    pub mongo_id: Option<String>,
+    #[serde(
+        rename = "mongoId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub mongo_id: Option<Option<String>>,
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<String>,
-    #[serde(rename = "participantName", skip_serializing_if = "Option::is_none")]
-    pub participant_name: Option<String>,
     #[serde(
-        rename = "participantUsername",
+        rename = "participantName",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub participant_username: Option<String>,
-    #[serde(rename = "participantPicture", skip_serializing_if = "Option::is_none")]
-    pub participant_picture: Option<String>,
+    pub participant_name: Option<Option<String>>,
+    #[serde(
+        rename = "participantUsername",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub participant_username: Option<Option<String>>,
+    #[serde(
+        rename = "participantPicture",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub participant_picture: Option<Option<String>>,
     /// Cached preview from the Conversation doc
-    #[serde(rename = "lastMessage", skip_serializing_if = "Option::is_none")]
-    pub last_message: Option<String>,
+    #[serde(
+        rename = "lastMessage",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_message: Option<Option<String>>,
     #[serde(rename = "totalMessages", skip_serializing_if = "Option::is_none")]
     pub total_messages: Option<i32>,
     #[serde(rename = "received", skip_serializing_if = "Option::is_none")]

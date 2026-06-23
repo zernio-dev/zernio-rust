@@ -14,14 +14,34 @@ use serde::{Deserialize, Serialize};
 /// InboxWebhookMessageSenderInstagramProfile : Instagram profile data. Only present for Instagram conversations.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct InboxWebhookMessageSenderInstagramProfile {
-    #[serde(rename = "isFollower", skip_serializing_if = "Option::is_none")]
-    pub is_follower: Option<bool>,
-    #[serde(rename = "isFollowing", skip_serializing_if = "Option::is_none")]
-    pub is_following: Option<bool>,
-    #[serde(rename = "followerCount", skip_serializing_if = "Option::is_none")]
-    pub follower_count: Option<i32>,
-    #[serde(rename = "isVerified", skip_serializing_if = "Option::is_none")]
-    pub is_verified: Option<bool>,
+    #[serde(
+        rename = "isFollower",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_follower: Option<Option<bool>>,
+    #[serde(
+        rename = "isFollowing",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_following: Option<Option<bool>>,
+    #[serde(
+        rename = "followerCount",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub follower_count: Option<Option<i32>>,
+    #[serde(
+        rename = "isVerified",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_verified: Option<Option<bool>>,
 }
 
 impl InboxWebhookMessageSenderInstagramProfile {

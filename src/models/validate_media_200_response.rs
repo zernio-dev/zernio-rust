@@ -23,8 +23,13 @@ pub struct ValidateMedia200Response {
     #[serde(rename = "contentType", skip_serializing_if = "Option::is_none")]
     pub content_type: Option<String>,
     /// File size in bytes
-    #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
-    pub size: Option<i32>,
+    #[serde(
+        rename = "size",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub size: Option<Option<i32>>,
     #[serde(rename = "sizeFormatted", skip_serializing_if = "Option::is_none")]
     pub size_formatted: Option<String>,
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]

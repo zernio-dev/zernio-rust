@@ -16,8 +16,13 @@ use serde::{Deserialize, Serialize};
 pub struct GetWhatsAppPhoneNumbers200ResponseSandbox {
     #[serde(rename = "phoneNumber", skip_serializing_if = "Option::is_none")]
     pub phone_number: Option<String>,
-    #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
-    pub account_id: Option<String>,
+    #[serde(
+        rename = "accountId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub account_id: Option<Option<String>>,
     #[serde(rename = "template", skip_serializing_if = "Option::is_none")]
     pub template: Option<Box<models::GetWhatsAppPhoneNumbers200ResponseSandboxTemplate>>,
     #[serde(rename = "isSandbox", skip_serializing_if = "Option::is_none")]

@@ -20,11 +20,21 @@ pub struct ListDiscordGuildMembers200ResponseDataInnerUser {
     pub username: Option<String>,
     #[serde(rename = "discriminator", skip_serializing_if = "Option::is_none")]
     pub discriminator: Option<String>,
-    #[serde(rename = "avatar", skip_serializing_if = "Option::is_none")]
-    pub avatar: Option<String>,
+    #[serde(
+        rename = "avatar",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub avatar: Option<Option<String>>,
     /// User's display name (post-2023 Discord rebrand)
-    #[serde(rename = "global_name", skip_serializing_if = "Option::is_none")]
-    pub global_name: Option<String>,
+    #[serde(
+        rename = "global_name",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub global_name: Option<Option<String>>,
 }
 
 impl ListDiscordGuildMembers200ResponseDataInnerUser {

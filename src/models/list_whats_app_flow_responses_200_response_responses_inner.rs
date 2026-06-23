@@ -19,20 +19,45 @@ pub struct ListWhatsAppFlowResponses200ResponseResponsesInner {
     #[serde(rename = "receivedAt", skip_serializing_if = "Option::is_none")]
     pub received_at: Option<String>,
     /// Sender wa_id / phone
-    #[serde(rename = "from", skip_serializing_if = "Option::is_none")]
-    pub from: Option<String>,
-    #[serde(rename = "senderName", skip_serializing_if = "Option::is_none")]
-    pub sender_name: Option<String>,
-    #[serde(rename = "conversationId", skip_serializing_if = "Option::is_none")]
-    pub conversation_id: Option<String>,
-    #[serde(rename = "flowToken", skip_serializing_if = "Option::is_none")]
-    pub flow_token: Option<String>,
+    #[serde(
+        rename = "from",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub from: Option<Option<String>>,
+    #[serde(
+        rename = "senderName",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub sender_name: Option<Option<String>>,
+    #[serde(
+        rename = "conversationId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub conversation_id: Option<Option<String>>,
+    #[serde(
+        rename = "flowToken",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub flow_token: Option<Option<String>>,
     /// Submitted field values (flow_token removed)
     #[serde(rename = "data", skip_serializing_if = "Option::is_none")]
     pub data: Option<serde_json::Value>,
     /// Raw response_json string
-    #[serde(rename = "raw", skip_serializing_if = "Option::is_none")]
-    pub raw: Option<String>,
+    #[serde(
+        rename = "raw",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub raw: Option<Option<String>>,
 }
 
 impl ListWhatsAppFlowResponses200ResponseResponsesInner {

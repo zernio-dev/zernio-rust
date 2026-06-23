@@ -20,22 +20,42 @@ pub struct DiscordScheduledEvent {
     #[serde(rename = "guild_id", skip_serializing_if = "Option::is_none")]
     pub guild_id: Option<String>,
     /// Voice/stage channel ID; null for external events.
-    #[serde(rename = "channel_id", skip_serializing_if = "Option::is_none")]
-    pub channel_id: Option<String>,
-    #[serde(rename = "creator_id", skip_serializing_if = "Option::is_none")]
-    pub creator_id: Option<String>,
+    #[serde(
+        rename = "channel_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub channel_id: Option<Option<String>>,
+    #[serde(
+        rename = "creator_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub creator_id: Option<Option<String>>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
+    #[serde(
+        rename = "description",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub description: Option<Option<String>>,
     #[serde(
         rename = "scheduled_start_time",
         skip_serializing_if = "Option::is_none"
     )]
     pub scheduled_start_time: Option<String>,
     /// Required for external events; optional for voice/stage.
-    #[serde(rename = "scheduled_end_time", skip_serializing_if = "Option::is_none")]
-    pub scheduled_end_time: Option<String>,
+    #[serde(
+        rename = "scheduled_end_time",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub scheduled_end_time: Option<Option<String>>,
     /// Always 2 (GUILD_ONLY) — Discord deprecated PUBLIC events.
     #[serde(rename = "privacy_level", skip_serializing_if = "Option::is_none")]
     pub privacy_level: Option<PrivacyLevel>,
@@ -45,16 +65,26 @@ pub struct DiscordScheduledEvent {
     /// 1=STAGE_INSTANCE, 2=VOICE, 3=EXTERNAL
     #[serde(rename = "entity_type", skip_serializing_if = "Option::is_none")]
     pub entity_type: Option<EntityType>,
-    #[serde(rename = "entity_id", skip_serializing_if = "Option::is_none")]
-    pub entity_id: Option<String>,
+    #[serde(
+        rename = "entity_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub entity_id: Option<Option<String>>,
     #[serde(rename = "entity_metadata", skip_serializing_if = "Option::is_none")]
     pub entity_metadata: Option<Box<models::DiscordScheduledEventEntityMetadata>>,
     /// Number of members who RSVP'd. Only present when withUserCount=true on list.
     #[serde(rename = "user_count", skip_serializing_if = "Option::is_none")]
     pub user_count: Option<i32>,
     /// Cover image hash; build URL via cdn.discordapp.com.
-    #[serde(rename = "image", skip_serializing_if = "Option::is_none")]
-    pub image: Option<String>,
+    #[serde(
+        rename = "image",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub image: Option<Option<String>>,
 }
 
 impl DiscordScheduledEvent {

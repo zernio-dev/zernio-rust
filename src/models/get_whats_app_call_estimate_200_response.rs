@@ -13,8 +13,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetWhatsAppCallEstimate200Response {
-    #[serde(rename = "destinationCountry", skip_serializing_if = "Option::is_none")]
-    pub destination_country: Option<String>,
+    #[serde(
+        rename = "destinationCountry",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub destination_country: Option<Option<String>>,
     #[serde(rename = "perMinuteUsd", skip_serializing_if = "Option::is_none")]
     pub per_minute_usd: Option<f64>,
     #[serde(rename = "breakdown", skip_serializing_if = "Option::is_none")]

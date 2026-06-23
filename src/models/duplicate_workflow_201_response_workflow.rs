@@ -27,8 +27,13 @@ pub struct DuplicateWorkflow201ResponseWorkflow {
     pub account_id: Option<String>,
     #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]
     pub profile_id: Option<String>,
-    #[serde(rename = "entryNodeId", skip_serializing_if = "Option::is_none")]
-    pub entry_node_id: Option<String>,
+    #[serde(
+        rename = "entryNodeId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub entry_node_id: Option<Option<String>>,
     #[serde(rename = "nodeCount", skip_serializing_if = "Option::is_none")]
     pub node_count: Option<i32>,
     #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]

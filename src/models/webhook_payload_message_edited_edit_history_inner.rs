@@ -13,8 +13,8 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadMessageEditedEditHistoryInner {
-    #[serde(rename = "text")]
-    pub text: String,
+    #[serde(rename = "text", deserialize_with = "Option::deserialize")]
+    pub text: Option<String>,
     #[serde(rename = "attachments")]
     pub attachments: Vec<models::GetInboxConversationMessages200ResponseMessagesInnerEditHistoryInnerAttachmentsInner>,
     #[serde(rename = "editedAt")]
@@ -23,7 +23,7 @@ pub struct WebhookPayloadMessageEditedEditHistoryInner {
 
 impl WebhookPayloadMessageEditedEditHistoryInner {
     pub fn new(
-        text: String,
+        text: Option<String>,
         attachments: Vec<models::GetInboxConversationMessages200ResponseMessagesInnerEditHistoryInnerAttachmentsInner>,
         edited_at: String,
     ) -> WebhookPayloadMessageEditedEditHistoryInner {

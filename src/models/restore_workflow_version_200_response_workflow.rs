@@ -21,8 +21,13 @@ pub struct RestoreWorkflowVersion200ResponseWorkflow {
     pub description: Option<String>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    #[serde(rename = "entryNodeId", skip_serializing_if = "Option::is_none")]
-    pub entry_node_id: Option<String>,
+    #[serde(
+        rename = "entryNodeId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub entry_node_id: Option<Option<String>>,
     #[serde(rename = "nodeCount", skip_serializing_if = "Option::is_none")]
     pub node_count: Option<i32>,
     #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]

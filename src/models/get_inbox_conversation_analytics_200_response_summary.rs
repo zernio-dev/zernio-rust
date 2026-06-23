@@ -23,10 +23,20 @@ pub struct GetInboxConversationAnalytics200ResponseSummary {
     pub failed: Option<i32>,
     #[serde(rename = "totalMessages", skip_serializing_if = "Option::is_none")]
     pub total_messages: Option<i32>,
-    #[serde(rename = "firstMessageAt", skip_serializing_if = "Option::is_none")]
-    pub first_message_at: Option<String>,
-    #[serde(rename = "lastMessageAt", skip_serializing_if = "Option::is_none")]
-    pub last_message_at: Option<String>,
+    #[serde(
+        rename = "firstMessageAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub first_message_at: Option<Option<String>>,
+    #[serde(
+        rename = "lastMessageAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_message_at: Option<Option<String>>,
 }
 
 impl GetInboxConversationAnalytics200ResponseSummary {

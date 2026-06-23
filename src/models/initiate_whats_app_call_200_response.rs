@@ -30,8 +30,13 @@ pub struct InitiateWhatsAppCall200Response {
     pub direction: Option<Direction>,
     #[serde(rename = "to", skip_serializing_if = "Option::is_none")]
     pub to: Option<String>,
-    #[serde(rename = "forwardTo", skip_serializing_if = "Option::is_none")]
-    pub forward_to: Option<String>,
+    #[serde(
+        rename = "forwardTo",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub forward_to: Option<Option<String>>,
     #[serde(rename = "recordingEnabled", skip_serializing_if = "Option::is_none")]
     pub recording_enabled: Option<bool>,
 }

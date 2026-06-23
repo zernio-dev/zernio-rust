@@ -27,8 +27,8 @@ pub struct WebhookPayloadMessageMessage {
     #[serde(rename = "direction")]
     pub direction: Direction,
     /// Message text content
-    #[serde(rename = "text")]
-    pub text: String,
+    #[serde(rename = "text", deserialize_with = "Option::deserialize")]
+    pub text: Option<String>,
     #[serde(rename = "attachments")]
     pub attachments: Vec<models::InboxWebhookMessageAttachmentsInner>,
     #[serde(rename = "sender")]
@@ -46,7 +46,7 @@ impl WebhookPayloadMessageMessage {
         platform: Platform,
         platform_message_id: String,
         direction: Direction,
-        text: String,
+        text: Option<String>,
         attachments: Vec<models::InboxWebhookMessageAttachmentsInner>,
         sender: models::WebhookPayloadMessageMessageSender,
         sent_at: String,

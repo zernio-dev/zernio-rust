@@ -24,8 +24,13 @@ pub struct SocialAccount {
     #[serde(rename = "displayName", skip_serializing_if = "Option::is_none")]
     pub display_name: Option<String>,
     /// URL to the account's profile picture on the platform. May be null if the platform does not provide one.
-    #[serde(rename = "profilePicture", skip_serializing_if = "Option::is_none")]
-    pub profile_picture: Option<String>,
+    #[serde(
+        rename = "profilePicture",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub profile_picture: Option<Option<String>>,
     /// Full profile URL for the connected account on its platform.
     #[serde(rename = "profileUrl", skip_serializing_if = "Option::is_none")]
     pub profile_url: Option<String>,
@@ -41,8 +46,13 @@ pub struct SocialAccount {
     )]
     pub followers_last_updated: Option<String>,
     /// Reference to the parent posting SocialAccount. Set for ads accounts that share or derive from a posting account's OAuth token. null for standalone ads (Google Ads) and all posting accounts.
-    #[serde(rename = "parentAccountId", skip_serializing_if = "Option::is_none")]
-    pub parent_account_id: Option<String>,
+    #[serde(
+        rename = "parentAccountId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub parent_account_id: Option<Option<String>>,
     /// Whether the user explicitly activated this account. false means the account was created as a side effect (e.g., posting account auto-created when user connected ads first). Posting UI and scheduler ignore accounts with enabled: false.
     #[serde(rename = "enabled", skip_serializing_if = "Option::is_none")]
     pub enabled: Option<bool>,

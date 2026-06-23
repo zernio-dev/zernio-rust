@@ -17,12 +17,27 @@ pub struct ListWhatsAppFlowVersions200ResponseVersionsInner {
     pub flow_id: Option<String>,
     #[serde(rename = "version", skip_serializing_if = "Option::is_none")]
     pub version: Option<i32>,
-    #[serde(rename = "parentFlowId", skip_serializing_if = "Option::is_none")]
-    pub parent_flow_id: Option<String>,
-    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
-    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<String>,
+    #[serde(
+        rename = "parentFlowId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub parent_flow_id: Option<Option<String>>,
+    #[serde(
+        rename = "name",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub name: Option<Option<String>>,
+    #[serde(
+        rename = "status",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub status: Option<Option<String>>,
     /// True when Meta no longer has this flow
     #[serde(rename = "missing", skip_serializing_if = "Option::is_none")]
     pub missing: Option<bool>,

@@ -19,8 +19,13 @@ pub struct YouTubeDailyViewsResponse {
     #[serde(rename = "videoId", skip_serializing_if = "Option::is_none")]
     pub video_id: Option<String>,
     /// Video length in seconds (from YouTube contentDetails.duration)
-    #[serde(rename = "durationSeconds", skip_serializing_if = "Option::is_none")]
-    pub duration_seconds: Option<i32>,
+    #[serde(
+        rename = "durationSeconds",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub duration_seconds: Option<Option<i32>>,
     #[serde(rename = "dateRange", skip_serializing_if = "Option::is_none")]
     pub date_range: Option<Box<models::YouTubeDailyViewsResponseDateRange>>,
     /// Sum of views across all days in the range
@@ -29,8 +34,13 @@ pub struct YouTubeDailyViewsResponse {
     #[serde(rename = "dailyViews", skip_serializing_if = "Option::is_none")]
     pub daily_views: Option<Vec<models::YouTubeDailyViewsResponseDailyViewsInner>>,
     /// When the data was last synced from YouTube
-    #[serde(rename = "lastSyncedAt", skip_serializing_if = "Option::is_none")]
-    pub last_synced_at: Option<String>,
+    #[serde(
+        rename = "lastSyncedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_synced_at: Option<Option<String>>,
     #[serde(rename = "scopeStatus", skip_serializing_if = "Option::is_none")]
     pub scope_status: Option<Box<models::YouTubeDailyViewsResponseScopeStatus>>,
 }

@@ -14,8 +14,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetWhatsAppDataset200Response {
     /// Meta dataset ID linked to the WABA, or null if not provisioned yet
-    #[serde(rename = "datasetId", skip_serializing_if = "Option::is_none")]
-    pub dataset_id: Option<String>,
+    #[serde(
+        rename = "datasetId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub dataset_id: Option<Option<String>>,
 }
 
 impl GetWhatsAppDataset200Response {

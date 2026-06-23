@@ -2,13 +2,11 @@
 .travis.yml
 Cargo.toml
 README.md
-docs/AccountGetResponse.md
 docs/AccountGroupsApi.md
 docs/AccountSettingsApi.md
 docs/AccountWithFollowerStats.md
 docs/AccountWithFollowerStatsAllOfAccountStats.md
 docs/AccountsApi.md
-docs/AccountsListResponse.md
 docs/ActivateSequence200Response.md
 docs/ActivateWorkflow200Response.md
 docs/ActivateWorkflow200ResponseWorkflow.md
@@ -151,7 +149,6 @@ docs/CreateCtwaAdRequest.md
 docs/CreateCtwaAdRequestCitiesInner.md
 docs/CreateCtwaAdRequestCreativesInner.md
 docs/CreateCtwaAdRequestCreativesInnerVideo.md
-docs/CreateCtwaAdRequestCustomLocationsInner.md
 docs/CreateCtwaAdRequestRegionsInner.md
 docs/CreateCtwaAdRequestVideo.md
 docs/CreateCtwaAdRequestZipsInner.md
@@ -176,7 +173,6 @@ docs/CreateInviteToken201Response.md
 docs/CreateInviteTokenRequest.md
 docs/CreateLeadForm200Response.md
 docs/CreateLeadFormRequest.md
-docs/CreateLeadFormRequestContextCard.md
 docs/CreateLeadFormRequestQuestionsInner.md
 docs/CreateLeadFormRequestQuestionsInnerOptionsInner.md
 docs/CreatePost409Response.md
@@ -206,13 +202,11 @@ docs/CreateStandaloneAdRequestCreativesInner.md
 docs/CreateStandaloneAdRequestCreativesInnerVideo.md
 docs/CreateStandaloneAdRequestCustomLocationsInner.md
 docs/CreateStandaloneAdRequestDynamicCreative.md
-docs/CreateStandaloneAdRequestExcludedLocations.md
 docs/CreateStandaloneAdRequestImages.md
 docs/CreateStandaloneAdRequestPlacementAssets.md
 docs/CreateStandaloneAdRequestPlacementAssetsRulesInner.md
 docs/CreateStandaloneAdRequestPlacementAssetsRulesInnerPlacements.md
 docs/CreateStandaloneAdRequestPlacements.md
-docs/CreateStandaloneAdRequestPlacesInner.md
 docs/CreateStandaloneAdRequestPromotedObject.md
 docs/CreateStandaloneAdRequestRegionsInner.md
 docs/CreateStandaloneAdRequestTracking.md
@@ -301,7 +295,6 @@ docs/FetchGoogleBusinessVerificationOptions200ResponseOptionsInner.md
 docs/FetchGoogleBusinessVerificationOptionsRequest.md
 docs/FollowUser200Response.md
 docs/FollowUserRequest.md
-docs/FollowerStatsResponse.md
 docs/FoodMenu.md
 docs/FoodMenuItem.md
 docs/FoodMenuItemAttributes.md
@@ -460,9 +453,6 @@ docs/GetInstagramStoryInsights200Response.md
 docs/GetInstagramStoryInsights200ResponseData.md
 docs/GetInstagramStoryInsights200ResponseDataMetrics.md
 docs/GetLeadForm200Response.md
-docs/GetLeadForm200ResponseForm.md
-docs/GetLeadForm200ResponseFormQuestionsInner.md
-docs/GetLeadForm200ResponseFormThankYouPage.md
 docs/GetLinkedInAggregateAnalytics200Response.md
 docs/GetLinkedInAggregateAnalytics400Response.md
 docs/GetLinkedInAggregateAnalytics402Response.md
@@ -633,7 +623,6 @@ docs/LinkedInAggregateAnalyticsDailyResponseAnalytics.md
 docs/LinkedInAggregateAnalyticsDailyResponseAnalyticsImpressionsInner.md
 docs/LinkedInAggregateAnalyticsTotalResponse.md
 docs/LinkedInAggregateAnalyticsTotalResponseAnalytics.md
-docs/LinkedInAggregateAnalyticsTotalResponseDateRange.md
 docs/LinkedInMentionsApi.md
 docs/LinkedInPlatformData.md
 docs/ListAccountGroups200Response.md
@@ -765,7 +754,6 @@ docs/LogsApi.md
 docs/MarkConversationRead200Response.md
 docs/MediaApi.md
 docs/MediaItem.md
-docs/MediaUploadResponse.md
 docs/MessagesApi.md
 docs/Money.md
 docs/MoveAccountToProfile200Response.md
@@ -801,9 +789,6 @@ docs/PostsListResponse.md
 docs/PreviewQueue200Response.md
 docs/Profile.md
 docs/ProfileCreateResponse.md
-docs/ProfileDeleteResponse.md
-docs/ProfileGetResponse.md
-docs/ProfileUpdateResponse.md
 docs/ProfilesApi.md
 docs/ProfilesListResponse.md
 docs/PurchaseWhatsAppPhoneNumber200Response.md
@@ -815,13 +800,8 @@ docs/PurchaseWhatsAppPhoneNumber202Response.md
 docs/PurchaseWhatsAppPhoneNumber409Response.md
 docs/PurchaseWhatsAppPhoneNumberRequest.md
 docs/QueueApi.md
-docs/QueueDeleteResponse.md
-docs/QueueNextSlotResponse.md
-docs/QueuePreviewResponse.md
 docs/QueueSchedule.md
 docs/QueueSlot.md
-docs/QueueSlotsResponse.md
-docs/QueueUpdateResponse.md
 docs/RecyclingConfig.md
 docs/RecyclingState.md
 docs/RedditPlatformData.md
@@ -845,7 +825,6 @@ docs/ReplyToInboxPost200Response.md
 docs/ReplyToInboxPost200ResponseData.md
 docs/ReplyToInboxPostRequest.md
 docs/ReplyToInboxReview200Response.md
-docs/ReplyToInboxReview200ResponseReply.md
 docs/ReplyToInboxReviewRequest.md
 docs/RestoreWorkflowVersion200Response.md
 docs/RestoreWorkflowVersion200ResponseWorkflow.md
@@ -935,8 +914,6 @@ docs/SendPrivateReplyToCommentRequestButtonsInnerOneOf.md
 docs/SendPrivateReplyToCommentRequestButtonsInnerOneOf1.md
 docs/SendPrivateReplyToCommentRequestButtonsInnerOneOf2.md
 docs/SendPrivateReplyToCommentRequestQuickRepliesInner.md
-docs/SendSms200Response.md
-docs/SendSmsRequest.md
 docs/SendTypingIndicatorRequest.md
 docs/SendWhatsAppConversion200Response.md
 docs/SendWhatsAppConversionRequest.md
@@ -952,7 +929,6 @@ docs/SetMessengerMenuRequest.md
 docs/SetTelegramCommandsRequest.md
 docs/SetTelegramCommandsRequestCommandsInner.md
 docs/SharedAdAccount.md
-docs/SmsApi.md
 docs/SnapchatPlatformData.md
 docs/SocialAccount.md
 docs/SocialAccountProfileId.md
@@ -1103,14 +1079,11 @@ docs/UpdateWorkflowRequest.md
 docs/UpdateYoutubeDefaultPlaylist200Response.md
 docs/UpdateYoutubeDefaultPlaylistRequest.md
 docs/UploadMediaDirect200Response.md
-docs/UploadTokenResponse.md
-docs/UploadTokenStatusResponse.md
 docs/UploadWhatsAppFlowJson200Response.md
 docs/UploadWhatsAppFlowJson200ResponseValidationErrorsInner.md
 docs/UploadWhatsAppFlowJsonRequest.md
 docs/UploadWhatsAppFlowJsonRequestFlowJson.md
 docs/UploadWhatsAppNumberKycDocument200Response.md
-docs/UploadedFile.md
 docs/UploadedOrDerivedAudience.md
 docs/UsageApi.md
 docs/UsageStats.md
@@ -1119,9 +1092,7 @@ docs/UsageStatsSpend.md
 docs/UsageStatsUsage.md
 docs/UsageStatsUsageXApiCalls.md
 docs/User.md
-docs/UserGetResponse.md
 docs/UsersApi.md
-docs/UsersListResponse.md
 docs/ValidateApi.md
 docs/ValidateMedia200Response.md
 docs/ValidateMedia200ResponsePlatformLimitsValue.md
@@ -1291,7 +1262,6 @@ src/apis/queue_api.rs
 src/apis/reddit_search_api.rs
 src/apis/reviews_api.rs
 src/apis/sequences_api.rs
-src/apis/sms_api.rs
 src/apis/tracking_tags_api.rs
 src/apis/twitter_engagement_api.rs
 src/apis/usage_api.rs
@@ -1307,10 +1277,8 @@ src/apis/whats_app_sandbox_api.rs
 src/apis/whats_app_templates_api.rs
 src/apis/workflows_api.rs
 src/lib.rs
-src/models/account_get_response.rs
 src/models/account_with_follower_stats.rs
 src/models/account_with_follower_stats_all_of_account_stats.rs
-src/models/accounts_list_response.rs
 src/models/activate_sequence_200_response.rs
 src/models/activate_workflow_200_response.rs
 src/models/activate_workflow_200_response_workflow.rs
@@ -1443,7 +1411,6 @@ src/models/create_ctwa_ad_request.rs
 src/models/create_ctwa_ad_request_cities_inner.rs
 src/models/create_ctwa_ad_request_creatives_inner.rs
 src/models/create_ctwa_ad_request_creatives_inner_video.rs
-src/models/create_ctwa_ad_request_custom_locations_inner.rs
 src/models/create_ctwa_ad_request_regions_inner.rs
 src/models/create_ctwa_ad_request_video.rs
 src/models/create_ctwa_ad_request_zips_inner.rs
@@ -1468,7 +1435,6 @@ src/models/create_invite_token_201_response.rs
 src/models/create_invite_token_request.rs
 src/models/create_lead_form_200_response.rs
 src/models/create_lead_form_request.rs
-src/models/create_lead_form_request_context_card.rs
 src/models/create_lead_form_request_questions_inner.rs
 src/models/create_lead_form_request_questions_inner_options_inner.rs
 src/models/create_post_409_response.rs
@@ -1498,13 +1464,11 @@ src/models/create_standalone_ad_request_creatives_inner.rs
 src/models/create_standalone_ad_request_creatives_inner_video.rs
 src/models/create_standalone_ad_request_custom_locations_inner.rs
 src/models/create_standalone_ad_request_dynamic_creative.rs
-src/models/create_standalone_ad_request_excluded_locations.rs
 src/models/create_standalone_ad_request_images.rs
 src/models/create_standalone_ad_request_placement_assets.rs
 src/models/create_standalone_ad_request_placement_assets_rules_inner.rs
 src/models/create_standalone_ad_request_placement_assets_rules_inner_placements.rs
 src/models/create_standalone_ad_request_placements.rs
-src/models/create_standalone_ad_request_places_inner.rs
 src/models/create_standalone_ad_request_promoted_object.rs
 src/models/create_standalone_ad_request_regions_inner.rs
 src/models/create_standalone_ad_request_tracking.rs
@@ -1591,7 +1555,6 @@ src/models/fetch_google_business_verification_options_200_response_options_inner
 src/models/fetch_google_business_verification_options_request.rs
 src/models/follow_user_200_response.rs
 src/models/follow_user_request.rs
-src/models/follower_stats_response.rs
 src/models/food_menu.rs
 src/models/food_menu_item.rs
 src/models/food_menu_item_attributes.rs
@@ -1750,9 +1713,6 @@ src/models/get_instagram_story_insights_200_response.rs
 src/models/get_instagram_story_insights_200_response_data.rs
 src/models/get_instagram_story_insights_200_response_data_metrics.rs
 src/models/get_lead_form_200_response.rs
-src/models/get_lead_form_200_response_form.rs
-src/models/get_lead_form_200_response_form_questions_inner.rs
-src/models/get_lead_form_200_response_form_thank_you_page.rs
 src/models/get_linked_in_aggregate_analytics_200_response.rs
 src/models/get_linked_in_aggregate_analytics_400_response.rs
 src/models/get_linked_in_aggregate_analytics_402_response.rs
@@ -1912,7 +1872,6 @@ src/models/linked_in_aggregate_analytics_daily_response_analytics.rs
 src/models/linked_in_aggregate_analytics_daily_response_analytics_impressions_inner.rs
 src/models/linked_in_aggregate_analytics_total_response.rs
 src/models/linked_in_aggregate_analytics_total_response_analytics.rs
-src/models/linked_in_aggregate_analytics_total_response_date_range.rs
 src/models/linked_in_platform_data.rs
 src/models/list_account_groups_200_response.rs
 src/models/list_account_groups_200_response_groups_inner.rs
@@ -2041,7 +2000,6 @@ src/models/list_workflows_200_response.rs
 src/models/list_workflows_200_response_workflows_inner.rs
 src/models/mark_conversation_read_200_response.rs
 src/models/media_item.rs
-src/models/media_upload_response.rs
 src/models/mod.rs
 src/models/money.rs
 src/models/move_account_to_profile_200_response.rs
@@ -2076,9 +2034,6 @@ src/models/posts_list_response.rs
 src/models/preview_queue_200_response.rs
 src/models/profile.rs
 src/models/profile_create_response.rs
-src/models/profile_delete_response.rs
-src/models/profile_get_response.rs
-src/models/profile_update_response.rs
 src/models/profiles_list_response.rs
 src/models/purchase_whats_app_phone_number_200_response.rs
 src/models/purchase_whats_app_phone_number_200_response_one_of.rs
@@ -2088,13 +2043,8 @@ src/models/purchase_whats_app_phone_number_200_response_one_of_2.rs
 src/models/purchase_whats_app_phone_number_202_response.rs
 src/models/purchase_whats_app_phone_number_409_response.rs
 src/models/purchase_whats_app_phone_number_request.rs
-src/models/queue_delete_response.rs
-src/models/queue_next_slot_response.rs
-src/models/queue_preview_response.rs
 src/models/queue_schedule.rs
 src/models/queue_slot.rs
-src/models/queue_slots_response.rs
-src/models/queue_update_response.rs
 src/models/recycling_config.rs
 src/models/recycling_state.rs
 src/models/reddit_platform_data.rs
@@ -2117,7 +2067,6 @@ src/models/reply_to_inbox_post_200_response.rs
 src/models/reply_to_inbox_post_200_response_data.rs
 src/models/reply_to_inbox_post_request.rs
 src/models/reply_to_inbox_review_200_response.rs
-src/models/reply_to_inbox_review_200_response_reply.rs
 src/models/reply_to_inbox_review_request.rs
 src/models/restore_workflow_version_200_response.rs
 src/models/restore_workflow_version_200_response_workflow.rs
@@ -2206,8 +2155,6 @@ src/models/send_private_reply_to_comment_request_buttons_inner_one_of.rs
 src/models/send_private_reply_to_comment_request_buttons_inner_one_of_1.rs
 src/models/send_private_reply_to_comment_request_buttons_inner_one_of_2.rs
 src/models/send_private_reply_to_comment_request_quick_replies_inner.rs
-src/models/send_sms_200_response.rs
-src/models/send_sms_request.rs
 src/models/send_typing_indicator_request.rs
 src/models/send_whats_app_conversion_200_response.rs
 src/models/send_whats_app_conversion_request.rs
@@ -2370,14 +2317,11 @@ src/models/update_workflow_request.rs
 src/models/update_youtube_default_playlist_200_response.rs
 src/models/update_youtube_default_playlist_request.rs
 src/models/upload_media_direct_200_response.rs
-src/models/upload_token_response.rs
-src/models/upload_token_status_response.rs
 src/models/upload_whats_app_flow_json_200_response.rs
 src/models/upload_whats_app_flow_json_200_response_validation_errors_inner.rs
 src/models/upload_whats_app_flow_json_request.rs
 src/models/upload_whats_app_flow_json_request_flow_json.rs
 src/models/upload_whats_app_number_kyc_document_200_response.rs
-src/models/uploaded_file.rs
 src/models/uploaded_or_derived_audience.rs
 src/models/usage_stats.rs
 src/models/usage_stats_limits.rs
@@ -2385,8 +2329,6 @@ src/models/usage_stats_spend.rs
 src/models/usage_stats_usage.rs
 src/models/usage_stats_usage_x_api_calls.rs
 src/models/user.rs
-src/models/user_get_response.rs
-src/models/users_list_response.rs
 src/models/validate_media_200_response.rs
 src/models/validate_media_200_response_platform_limits_value.rs
 src/models/validate_media_request.rs

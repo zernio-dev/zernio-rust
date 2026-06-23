@@ -15,20 +15,45 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ListInboxConversations200ResponseDataInnerInstagramProfile {
     /// Whether the participant follows your Instagram business account
-    #[serde(rename = "isFollower", skip_serializing_if = "Option::is_none")]
-    pub is_follower: Option<bool>,
+    #[serde(
+        rename = "isFollower",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_follower: Option<Option<bool>>,
     /// Whether your Instagram business account follows the participant
-    #[serde(rename = "isFollowing", skip_serializing_if = "Option::is_none")]
-    pub is_following: Option<bool>,
+    #[serde(
+        rename = "isFollowing",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_following: Option<Option<bool>>,
     /// The participant's follower count on Instagram
-    #[serde(rename = "followerCount", skip_serializing_if = "Option::is_none")]
-    pub follower_count: Option<i32>,
+    #[serde(
+        rename = "followerCount",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub follower_count: Option<Option<i32>>,
     /// Whether the participant is a verified Instagram user
-    #[serde(rename = "isVerified", skip_serializing_if = "Option::is_none")]
-    pub is_verified: Option<bool>,
+    #[serde(
+        rename = "isVerified",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_verified: Option<Option<bool>>,
     /// When this profile data was last fetched from Instagram
-    #[serde(rename = "fetchedAt", skip_serializing_if = "Option::is_none")]
-    pub fetched_at: Option<String>,
+    #[serde(
+        rename = "fetchedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub fetched_at: Option<Option<String>>,
 }
 
 impl ListInboxConversations200ResponseDataInnerInstagramProfile {

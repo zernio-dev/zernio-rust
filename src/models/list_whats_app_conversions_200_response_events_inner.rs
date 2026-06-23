@@ -19,19 +19,44 @@ pub struct ListWhatsAppConversions200ResponseEventsInner {
     /// One of LeadSubmitted, Purchase, AddToCart, InitiateCheckout, ViewContent.
     #[serde(rename = "eventName", skip_serializing_if = "Option::is_none")]
     pub event_name: Option<String>,
-    #[serde(rename = "conversationId", skip_serializing_if = "Option::is_none")]
-    pub conversation_id: Option<String>,
+    #[serde(
+        rename = "conversationId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub conversation_id: Option<Option<String>>,
     /// Number of events Meta accepted on this send (usually 1).
-    #[serde(rename = "eventsReceived", skip_serializing_if = "Option::is_none")]
-    pub events_received: Option<i32>,
+    #[serde(
+        rename = "eventsReceived",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub events_received: Option<Option<i32>>,
     /// Number of events Meta rejected (usually 0).
-    #[serde(rename = "eventsFailed", skip_serializing_if = "Option::is_none")]
-    pub events_failed: Option<i32>,
+    #[serde(
+        rename = "eventsFailed",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub events_failed: Option<Option<i32>>,
     /// Meta fbtrace_id for cross-referencing in Events Manager.
-    #[serde(rename = "traceId", skip_serializing_if = "Option::is_none")]
-    pub trace_id: Option<String>,
-    #[serde(rename = "durationMs", skip_serializing_if = "Option::is_none")]
-    pub duration_ms: Option<i32>,
+    #[serde(
+        rename = "traceId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub trace_id: Option<Option<String>>,
+    #[serde(
+        rename = "durationMs",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub duration_ms: Option<Option<i32>>,
 }
 
 impl ListWhatsAppConversions200ResponseEventsInner {

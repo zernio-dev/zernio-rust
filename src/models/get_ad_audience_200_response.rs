@@ -16,8 +16,13 @@ pub struct GetAdAudience200Response {
     #[serde(rename = "audience", skip_serializing_if = "Option::is_none")]
     pub audience: Option<serde_json::Value>,
     /// Fresh data from Meta API
-    #[serde(rename = "metaData", skip_serializing_if = "Option::is_none")]
-    pub meta_data: Option<serde_json::Value>,
+    #[serde(
+        rename = "metaData",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub meta_data: Option<Option<serde_json::Value>>,
 }
 
 impl GetAdAudience200Response {

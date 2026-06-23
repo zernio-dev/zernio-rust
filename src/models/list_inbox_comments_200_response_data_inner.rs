@@ -23,10 +23,20 @@ pub struct ListInboxComments200ResponseDataInner {
     pub account_username: Option<String>,
     #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
     pub content: Option<String>,
-    #[serde(rename = "picture", skip_serializing_if = "Option::is_none")]
-    pub picture: Option<String>,
-    #[serde(rename = "permalink", skip_serializing_if = "Option::is_none")]
-    pub permalink: Option<String>,
+    #[serde(
+        rename = "picture",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub picture: Option<Option<String>>,
+    #[serde(
+        rename = "permalink",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub permalink: Option<Option<String>>,
     #[serde(rename = "createdTime", skip_serializing_if = "Option::is_none")]
     pub created_time: Option<String>,
     #[serde(rename = "commentCount", skip_serializing_if = "Option::is_none")]
@@ -34,11 +44,21 @@ pub struct ListInboxComments200ResponseDataInner {
     #[serde(rename = "likeCount", skip_serializing_if = "Option::is_none")]
     pub like_count: Option<i32>,
     /// Bluesky content identifier
-    #[serde(rename = "cid", skip_serializing_if = "Option::is_none")]
-    pub cid: Option<String>,
+    #[serde(
+        rename = "cid",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub cid: Option<Option<String>>,
     /// Reddit subreddit name
-    #[serde(rename = "subreddit", skip_serializing_if = "Option::is_none")]
-    pub subreddit: Option<String>,
+    #[serde(
+        rename = "subreddit",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub subreddit: Option<Option<String>>,
     /// True when this row is an ad (boosted/dark post). `platform` is then the placement (facebook = the Page dark post / instagram = the IG media), `id` is `{adId}:{placement}`, and the thread is at GET /v1/ads/{adId}/comments?placement={placement}.
     #[serde(rename = "isAd", skip_serializing_if = "Option::is_none")]
     pub is_ad: Option<bool>,

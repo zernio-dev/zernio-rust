@@ -16,16 +16,26 @@ pub struct ListDiscordGuildMembers200ResponseDataInner {
     #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
     pub user: Option<Box<models::ListDiscordGuildMembers200ResponseDataInnerUser>>,
     /// Guild-specific nickname
-    #[serde(rename = "nick", skip_serializing_if = "Option::is_none")]
-    pub nick: Option<String>,
+    #[serde(
+        rename = "nick",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub nick: Option<Option<String>>,
     /// Snowflake IDs of roles assigned to this member
     #[serde(rename = "roles", skip_serializing_if = "Option::is_none")]
     pub roles: Option<Vec<String>>,
     #[serde(rename = "joined_at", skip_serializing_if = "Option::is_none")]
     pub joined_at: Option<String>,
     /// When the user started boosting the server
-    #[serde(rename = "premium_since", skip_serializing_if = "Option::is_none")]
-    pub premium_since: Option<String>,
+    #[serde(
+        rename = "premium_since",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub premium_since: Option<Option<String>>,
 }
 
 impl ListDiscordGuildMembers200ResponseDataInner {

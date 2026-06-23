@@ -30,11 +30,21 @@ pub struct ListBroadcastRecipients200ResponseRecipientsInner {
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
     pub error: Option<String>,
     /// Meta WhatsApp error code (e.g. 131049 for antispam, 131021 for invalid phone, 131026 for re-engagement required). Only populated for status=failed.
-    #[serde(rename = "errorCode", skip_serializing_if = "Option::is_none")]
-    pub error_code: Option<i32>,
+    #[serde(
+        rename = "errorCode",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub error_code: Option<Option<i32>>,
     /// Plain-language translation of errorCode (e.g. for 131026, that the recipient has likely opted out of marketing messages). Null for unmapped codes; fall back to error.
-    #[serde(rename = "errorExplanation", skip_serializing_if = "Option::is_none")]
-    pub error_explanation: Option<String>,
+    #[serde(
+        rename = "errorExplanation",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub error_explanation: Option<Option<String>>,
     #[serde(rename = "sentAt", skip_serializing_if = "Option::is_none")]
     pub sent_at: Option<String>,
     #[serde(rename = "deliveredAt", skip_serializing_if = "Option::is_none")]

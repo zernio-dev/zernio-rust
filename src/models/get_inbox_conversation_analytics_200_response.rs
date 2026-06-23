@@ -20,12 +20,22 @@ pub struct GetInboxConversationAnalytics200Response {
     pub conversation_id: Option<String>,
     #[serde(rename = "mongoId", skip_serializing_if = "Option::is_none")]
     pub mongo_id: Option<String>,
-    #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
-    pub platform: Option<String>,
+    #[serde(
+        rename = "platform",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub platform: Option<Option<String>>,
     #[serde(rename = "from", skip_serializing_if = "Option::is_none")]
     pub from: Option<String>,
-    #[serde(rename = "to", skip_serializing_if = "Option::is_none")]
-    pub to: Option<String>,
+    #[serde(
+        rename = "to",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub to: Option<Option<String>>,
     #[serde(rename = "summary", skip_serializing_if = "Option::is_none")]
     pub summary: Option<Box<models::GetInboxConversationAnalytics200ResponseSummary>>,
     #[serde(rename = "timeseries", skip_serializing_if = "Option::is_none")]

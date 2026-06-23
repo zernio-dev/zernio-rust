@@ -18,8 +18,13 @@ pub struct ListAdCatalogs200ResponseCatalogsInner {
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     /// Catalog vertical (e.g. commerce, vehicles, hotels)
-    #[serde(rename = "vertical", skip_serializing_if = "Option::is_none")]
-    pub vertical: Option<String>,
+    #[serde(
+        rename = "vertical",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub vertical: Option<Option<String>>,
     #[serde(rename = "productCount", skip_serializing_if = "Option::is_none")]
     pub product_count: Option<i32>,
 }

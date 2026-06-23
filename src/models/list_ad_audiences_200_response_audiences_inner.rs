@@ -13,8 +13,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ListAdAudiences200ResponseAudiencesInner {
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
+    #[serde(
+        rename = "id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub id: Option<Option<String>>,
     #[serde(rename = "platformAudienceId", skip_serializing_if = "Option::is_none")]
     pub platform_audience_id: Option<String>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
@@ -23,9 +28,13 @@ pub struct ListAdAudiences200ResponseAudiencesInner {
     pub description: Option<String>,
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
-    /// Present (and the only meaningful payload) when `type` is `saved_targeting`. Null for uploaded/derived audience types.
-    #[serde(rename = "spec", skip_serializing_if = "Option::is_none")]
-    pub spec: Option<Box<models::TargetingSpec>>,
+    #[serde(
+        rename = "spec",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub spec: Option<Option<Box<models::TargetingSpec>>>,
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<String>,
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]

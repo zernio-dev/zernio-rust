@@ -22,11 +22,21 @@ pub struct GetWhatsAppPhoneNumbers200ResponseNumbersInner {
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
     /// For regulated numbers, who it's registered for (company or person) — set from the submitted KYC.
-    #[serde(rename = "registrantName", skip_serializing_if = "Option::is_none")]
-    pub registrant_name: Option<String>,
+    #[serde(
+        rename = "registrantName",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub registrant_name: Option<Option<String>>,
     /// Present once the number order has been placed (i.e. the requirement group was approved). Absent while still in identity review.
-    #[serde(rename = "telnyxOrderId", skip_serializing_if = "Option::is_none")]
-    pub telnyx_order_id: Option<String>,
+    #[serde(
+        rename = "telnyxOrderId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub telnyx_order_id: Option<Option<String>>,
     /// Per-country monthly price in cents ($2..$25).
     #[serde(rename = "monthlyCents", skip_serializing_if = "Option::is_none")]
     pub monthly_cents: Option<i32>,
@@ -44,19 +54,33 @@ pub struct GetWhatsAppPhoneNumbers200ResponseNumbersInner {
     /// For regulated (Tier 3/4) numbers with an Onfido ID-verification step — the link to forward to the end user. Set once the order is placed; null otherwise. Poll this field after submitting KYC.
     #[serde(
         rename = "onfidoVerificationUrl",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub onfido_verification_url: Option<String>,
-    #[serde(rename = "endUserFirstName", skip_serializing_if = "Option::is_none")]
-    pub end_user_first_name: Option<String>,
-    #[serde(rename = "endUserLastName", skip_serializing_if = "Option::is_none")]
-    pub end_user_last_name: Option<String>,
+    pub onfido_verification_url: Option<Option<String>>,
+    #[serde(
+        rename = "endUserFirstName",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub end_user_first_name: Option<Option<String>>,
+    #[serde(
+        rename = "endUserLastName",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub end_user_last_name: Option<Option<String>>,
     /// Reviewer rejection reason when status is regulatory_declined.
     #[serde(
         rename = "regulatoryDeclineReason",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub regulatory_decline_reason: Option<String>,
+    pub regulatory_decline_reason: Option<Option<String>>,
     #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
     pub created_at: Option<String>,
 }

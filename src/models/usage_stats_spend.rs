@@ -27,8 +27,13 @@ pub struct UsageStatsSpend {
     #[serde(rename = "xSpendCents", skip_serializing_if = "Option::is_none")]
     pub x_spend_cents: Option<i32>,
     /// Monthly X spend cap set by the account owner, or null if no cap. When current X spend hits this cap, analytics and inbox sync are auto-paused for X accounts. Publishing is never blocked by this cap.
-    #[serde(rename = "xSpendLimitCents", skip_serializing_if = "Option::is_none")]
-    pub x_spend_limit_cents: Option<i32>,
+    #[serde(
+        rename = "xSpendLimitCents",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub x_spend_limit_cents: Option<Option<i32>>,
 }
 
 impl UsageStatsSpend {

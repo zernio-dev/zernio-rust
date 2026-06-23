@@ -16,8 +16,13 @@ pub struct AnalyticsListResponsePostsInner {
     #[serde(rename = "_id", skip_serializing_if = "Option::is_none")]
     pub _id: Option<String>,
     /// Original Zernio post ID if scheduled via Zernio
-    #[serde(rename = "latePostId", skip_serializing_if = "Option::is_none")]
-    pub late_post_id: Option<String>,
+    #[serde(
+        rename = "latePostId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub late_post_id: Option<Option<String>>,
     #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
     pub content: Option<String>,
     #[serde(rename = "scheduledFor", skip_serializing_if = "Option::is_none")]
@@ -36,11 +41,13 @@ pub struct AnalyticsListResponsePostsInner {
     pub platform_post_url: Option<String>,
     #[serde(rename = "isExternal", skip_serializing_if = "Option::is_none")]
     pub is_external: Option<bool>,
-    /// True when the post is an ad creative. False for organic posts or platforms where the signal is unavailable. For now is only available for LinkedIn posts.
-    #[serde(rename = "isAd", skip_serializing_if = "Option::is_none")]
-    pub is_ad: Option<bool>,
-    #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]
-    pub profile_id: Option<String>,
+    #[serde(
+        rename = "profileId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub profile_id: Option<Option<String>>,
     #[serde(rename = "thumbnailUrl", skip_serializing_if = "Option::is_none")]
     pub thumbnail_url: Option<String>,
     #[serde(rename = "mediaType", skip_serializing_if = "Option::is_none")]
@@ -64,7 +71,6 @@ impl AnalyticsListResponsePostsInner {
             platform: None,
             platform_post_url: None,
             is_external: None,
-            is_ad: None,
             profile_id: None,
             thumbnail_url: None,
             media_type: None,

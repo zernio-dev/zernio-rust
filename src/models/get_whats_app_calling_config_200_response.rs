@@ -21,23 +21,43 @@ pub struct GetWhatsAppCallingConfig200Response {
     #[serde(rename = "callingEnabled", skip_serializing_if = "Option::is_none")]
     pub calling_enabled: Option<bool>,
     /// Public calling deep link (https://wa.me/call/<number>). Tapping it on a phone starts a WhatsApp voice call to this number. Embed it on websites, emails, or QR codes. Null while calling is disabled; not supported by WhatsApp desktop clients.
-    #[serde(rename = "callDeepLink", skip_serializing_if = "Option::is_none")]
-    pub call_deep_link: Option<String>,
+    #[serde(
+        rename = "callDeepLink",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub call_deep_link: Option<Option<String>>,
     /// tel:+E164 / sip:... / wss://... destination
-    #[serde(rename = "forwardTo", skip_serializing_if = "Option::is_none")]
-    pub forward_to: Option<String>,
+    #[serde(
+        rename = "forwardTo",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub forward_to: Option<Option<String>>,
     #[serde(rename = "recordingEnabled", skip_serializing_if = "Option::is_none")]
     pub recording_enabled: Option<bool>,
-    #[serde(rename = "sipAuthUsername", skip_serializing_if = "Option::is_none")]
-    pub sip_auth_username: Option<String>,
+    #[serde(
+        rename = "sipAuthUsername",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub sip_auth_username: Option<Option<String>>,
     /// True when a SIP digest password is stored. The plaintext is never returned.
     #[serde(
         rename = "sipAuthPasswordConfigured",
         skip_serializing_if = "Option::is_none"
     )]
     pub sip_auth_password_configured: Option<bool>,
-    #[serde(rename = "callIconCountries", skip_serializing_if = "Option::is_none")]
-    pub call_icon_countries: Option<Vec<String>>,
+    #[serde(
+        rename = "callIconCountries",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub call_icon_countries: Option<Option<Vec<String>>>,
 }
 
 impl GetWhatsAppCallingConfig200Response {

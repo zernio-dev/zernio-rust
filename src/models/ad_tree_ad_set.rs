@@ -30,17 +30,36 @@ pub struct AdTreeAdSet {
     #[serde(rename = "metrics", skip_serializing_if = "Option::is_none")]
     pub metrics: Option<Box<models::AdMetrics>>,
     /// Meta ad set optimization goal (e.g. OFFSITE_CONVERSIONS, VALUE, LEAD_GENERATION)
-    #[serde(rename = "optimizationGoal", skip_serializing_if = "Option::is_none")]
-    pub optimization_goal: Option<String>,
-    /// Bid strategy for this ad set (overrides campaign level when set)
-    #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
-    pub bid_strategy: Option<models::BidStrategy>,
+    #[serde(
+        rename = "optimizationGoal",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub optimization_goal: Option<Option<String>>,
+    #[serde(
+        rename = "bidStrategy",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub bid_strategy: Option<Option<models::BidStrategy>>,
     /// Bid cap in whole currency units. Populated when bidStrategy is LOWEST_COST_WITH_BID_CAP or COST_CAP.
-    #[serde(rename = "bidAmount", skip_serializing_if = "Option::is_none")]
-    pub bid_amount: Option<f64>,
+    #[serde(
+        rename = "bidAmount",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub bid_amount: Option<Option<f64>>,
     /// Minimum ROAS as a decimal multiplier (2.0 = 2.0x). Populated when bidStrategy is LOWEST_COST_WITH_MIN_ROAS.
-    #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
-    pub roas_average_floor: Option<f64>,
+    #[serde(
+        rename = "roasAverageFloor",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub roas_average_floor: Option<Option<f64>>,
     #[serde(rename = "promotedObject", skip_serializing_if = "Option::is_none")]
     pub promoted_object: Option<Box<models::AdTreeAdSetPromotedObject>>,
     /// Individual ads within this ad set (capped at 100). Returns a subset of Ad fields from the aggregation (core fields like _id, name, platform, status, budget, metrics, creative, goal are included; targeting and schedule may be absent).

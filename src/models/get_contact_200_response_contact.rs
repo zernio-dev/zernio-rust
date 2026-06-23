@@ -39,14 +39,21 @@ pub struct GetContact200ResponseContact {
     )]
     pub messages_received_count: Option<i32>,
     /// Timestamp of the most recent outgoing message, or null if none.
-    #[serde(rename = "lastMessageSentAt", skip_serializing_if = "Option::is_none")]
-    pub last_message_sent_at: Option<String>,
+    #[serde(
+        rename = "lastMessageSentAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_message_sent_at: Option<Option<String>>,
     /// Timestamp of the most recent incoming message, or null if none.
     #[serde(
         rename = "lastMessageReceivedAt",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub last_message_received_at: Option<String>,
+    pub last_message_received_at: Option<Option<String>>,
     #[serde(rename = "customFields", skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<serde_json::Value>,
     #[serde(rename = "notes", skip_serializing_if = "Option::is_none")]

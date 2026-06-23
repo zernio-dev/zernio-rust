@@ -23,15 +23,35 @@ pub struct WebhookPayloadLeadLead {
     #[serde(rename = "formId")]
     pub form_id: String,
     /// Human-readable form name (best-effort; may be null)
-    #[serde(rename = "formName", skip_serializing_if = "Option::is_none")]
-    pub form_name: Option<String>,
+    #[serde(
+        rename = "formName",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub form_name: Option<Option<String>>,
     /// Meta ad ID that drove the lead (null for organic/test leads)
-    #[serde(rename = "adId", skip_serializing_if = "Option::is_none")]
-    pub ad_id: Option<String>,
-    #[serde(rename = "adsetId", skip_serializing_if = "Option::is_none")]
-    pub adset_id: Option<String>,
-    #[serde(rename = "campaignId", skip_serializing_if = "Option::is_none")]
-    pub campaign_id: Option<String>,
+    #[serde(
+        rename = "adId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub ad_id: Option<Option<String>>,
+    #[serde(
+        rename = "adsetId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub adset_id: Option<Option<String>>,
+    #[serde(
+        rename = "campaignId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub campaign_id: Option<Option<String>>,
     /// Flattened question key -> answer map. For multiple-choice questions the value is the option key (e.g. \"k1\"), not the display label.
     #[serde(rename = "fields")]
     pub fields: std::collections::HashMap<String, String>,
