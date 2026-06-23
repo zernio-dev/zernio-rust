@@ -11,23 +11,24 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// SubmitWhatsAppNumberKyc200ResponsePhoneNumber : The first/primary number, kept at the top level for backward compatibility. See `numbers` for the full set when `quantity` > 1.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct SubmitWhatsAppNumberKyc200ResponsePhoneNumber {
+pub struct SubmitWhatsAppNumberKyc200ResponseNumbersInner {
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
+    #[serde(rename = "phoneNumber", skip_serializing_if = "Option::is_none")]
+    pub phone_number: Option<String>,
     #[serde(rename = "country", skip_serializing_if = "Option::is_none")]
     pub country: Option<String>,
 }
 
-impl SubmitWhatsAppNumberKyc200ResponsePhoneNumber {
-    /// The first/primary number, kept at the top level for backward compatibility. See `numbers` for the full set when `quantity` > 1.
-    pub fn new() -> SubmitWhatsAppNumberKyc200ResponsePhoneNumber {
-        SubmitWhatsAppNumberKyc200ResponsePhoneNumber {
+impl SubmitWhatsAppNumberKyc200ResponseNumbersInner {
+    pub fn new() -> SubmitWhatsAppNumberKyc200ResponseNumbersInner {
+        SubmitWhatsAppNumberKyc200ResponseNumbersInner {
             id: None,
             status: None,
+            phone_number: None,
             country: None,
         }
     }

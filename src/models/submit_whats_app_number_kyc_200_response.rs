@@ -17,6 +17,9 @@ pub struct SubmitWhatsAppNumberKyc200Response {
     pub status: Option<Status>,
     #[serde(rename = "phoneNumber", skip_serializing_if = "Option::is_none")]
     pub phone_number: Option<Box<models::SubmitWhatsAppNumberKyc200ResponsePhoneNumber>>,
+    /// Every number provisioned from this submission. Length equals the requested `quantity` on full success (fewer if some orders failed; best-effort). The first element mirrors `phoneNumber`.
+    #[serde(rename = "numbers", skip_serializing_if = "Option::is_none")]
+    pub numbers: Option<Vec<models::SubmitWhatsAppNumberKyc200ResponseNumbersInner>>,
 }
 
 impl SubmitWhatsAppNumberKyc200Response {
@@ -24,6 +27,7 @@ impl SubmitWhatsAppNumberKyc200Response {
         SubmitWhatsAppNumberKyc200Response {
             status: None,
             phone_number: None,
+            numbers: None,
         }
     }
 }
