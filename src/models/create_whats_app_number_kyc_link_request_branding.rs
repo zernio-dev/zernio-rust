@@ -14,13 +14,13 @@ use serde::{Deserialize, Serialize};
 /// CreateWhatsAppNumberKycLinkRequestBranding : Optional white-label of the hosted page the end customer sees.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateWhatsAppNumberKycLinkRequestBranding {
-    /// Your company name
+    /// Your company name, shown on the hosted page.
     #[serde(rename = "companyName", skip_serializing_if = "Option::is_none")]
     pub company_name: Option<String>,
     /// Logo shown above the form.
     #[serde(rename = "logoUrl", skip_serializing_if = "Option::is_none")]
     pub logo_url: Option<String>,
-    /// Hex color (e.g. \"#1a73e8\") applied to the primary action.
+    /// Hex color (e.g. #1a73e8) used as a brand accent on the page.
     #[serde(rename = "brandColor", skip_serializing_if = "Option::is_none")]
     pub brand_color: Option<String>,
 }
