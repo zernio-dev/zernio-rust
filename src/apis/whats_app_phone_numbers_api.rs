@@ -24,6 +24,15 @@ pub enum CheckWhatsAppNumberAvailabilityError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`create_whats_app_number_kyc_link`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateWhatsAppNumberKycLinkError {
+    Status400(),
+    Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_whats_app_number_info`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -195,6 +204,60 @@ pub async fn check_whats_app_number_availability(
         let content = resp.text().await?;
         let entity: Option<CheckWhatsAppNumberAvailabilityError> =
             serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Create a single-use, 7-day hosted KYC link that your end customer completes WITHOUT a Zernio login — useful when the person who holds the ID and address is not your team. They fill the regulated verification on a Zernio-hosted page; the number provisions under YOUR account once they submit. Only regulated (KYC) countries are valid: a country that does not require KYC returns 400.  White-label the page with `branding` (your company name, logo, brand color). Supply `redirect_url` to send the end customer back to your own site after a successful submit (completion params are appended — see below). Listen for the `whatsapp.number.kyc_submitted` webhook to react when the form is completed.
+pub async fn create_whats_app_number_kyc_link(
+    configuration: &configuration::Configuration,
+    create_whats_app_number_kyc_link_request: models::CreateWhatsAppNumberKycLinkRequest,
+) -> Result<models::CreateWhatsAppNumberKycLink200Response, Error<CreateWhatsAppNumberKycLinkError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_whats_app_number_kyc_link_request = create_whats_app_number_kyc_link_request;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/phone-numbers/kyc/share",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_whats_app_number_kyc_link_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateWhatsAppNumberKycLink200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateWhatsAppNumberKycLink200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateWhatsAppNumberKycLinkError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
