@@ -12,12 +12,10 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct TargetingSpecCitiesInner {
+pub struct TargetingSpecExcludedLocationsCitiesInner {
     #[serde(rename = "key")]
     pub key: String,
-    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
-    /// Radius around the city. Requires distance_unit.
+    /// Radius around the excluded city. Requires distance_unit.
     #[serde(rename = "radius", skip_serializing_if = "Option::is_none")]
     pub radius: Option<f64>,
     /// Required if radius is set.
@@ -25,11 +23,10 @@ pub struct TargetingSpecCitiesInner {
     pub distance_unit: Option<DistanceUnit>,
 }
 
-impl TargetingSpecCitiesInner {
-    pub fn new(key: String) -> TargetingSpecCitiesInner {
-        TargetingSpecCitiesInner {
+impl TargetingSpecExcludedLocationsCitiesInner {
+    pub fn new(key: String) -> TargetingSpecExcludedLocationsCitiesInner {
+        TargetingSpecExcludedLocationsCitiesInner {
             key,
-            name: None,
             radius: None,
             distance_unit: None,
         }

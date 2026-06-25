@@ -955,6 +955,8 @@ docs/TargetingSpec.md
 docs/TargetingSpecCitiesInner.md
 docs/TargetingSpecCustomLocationsInner.md
 docs/TargetingSpecExcludedLocations.md
+docs/TargetingSpecExcludedLocationsCitiesInner.md
+docs/TargetingSpecExcludedLocationsPlacesInner.md
 docs/TelegramPlatformData.md
 docs/TestWebhookRequest.md
 docs/ThreadsPlatformData.md
@@ -2208,6 +2210,8 @@ src/models/targeting_spec.rs
 src/models/targeting_spec_cities_inner.rs
 src/models/targeting_spec_custom_locations_inner.rs
 src/models/targeting_spec_excluded_locations.rs
+src/models/targeting_spec_excluded_locations_cities_inner.rs
+src/models/targeting_spec_excluded_locations_places_inner.rs
 src/models/telegram_platform_data.rs
 src/models/test_webhook_request.rs
 src/models/threads_platform_data.rs

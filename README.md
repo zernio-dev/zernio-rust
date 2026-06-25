@@ -1345,6 +1345,8 @@ Class | Method | HTTP request | Description
  - [TargetingSpecCitiesInner](docs/TargetingSpecCitiesInner.md)
  - [TargetingSpecCustomLocationsInner](docs/TargetingSpecCustomLocationsInner.md)
  - [TargetingSpecExcludedLocations](docs/TargetingSpecExcludedLocations.md)
+ - [TargetingSpecExcludedLocationsCitiesInner](docs/TargetingSpecExcludedLocationsCitiesInner.md)
+ - [TargetingSpecExcludedLocationsPlacesInner](docs/TargetingSpecExcludedLocationsPlacesInner.md)
  - [TelegramPlatformData](docs/TelegramPlatformData.md)
  - [TestWebhookRequest](docs/TestWebhookRequest.md)
  - [ThreadsPlatformData](docs/ThreadsPlatformData.md)

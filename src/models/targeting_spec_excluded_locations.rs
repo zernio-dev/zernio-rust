@@ -11,27 +11,40 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// TargetingSpecExcludedLocations : Geo to exclude from the audience. A subset of the inclusion geo shape.
+/// TargetingSpecExcludedLocations : Geo to exclude from the audience. Mirrors the inclusion geo shape: excluded cities can carry a radius catchment and excluded custom (lat/lng) pins are supported, both on Meta (excluded_geo_locations).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TargetingSpecExcludedLocations {
     #[serde(rename = "countries", skip_serializing_if = "Option::is_none")]
     pub countries: Option<Vec<String>>,
     #[serde(rename = "regions", skip_serializing_if = "Option::is_none")]
     pub regions: Option<Vec<models::CreateStandaloneAdRequestZipsInner>>,
+    /// Cities to exclude. Optional `radius` + `distance_unit` exclude a catchment around the city (both must be set together or both omitted); Meta honours the radius on excluded cities.
     #[serde(rename = "cities", skip_serializing_if = "Option::is_none")]
-    pub cities: Option<Vec<models::CreateStandaloneAdRequestZipsInner>>,
+    pub cities: Option<Vec<models::TargetingSpecExcludedLocationsCitiesInner>>,
     #[serde(rename = "zips", skip_serializing_if = "Option::is_none")]
     pub zips: Option<Vec<models::CreateStandaloneAdRequestZipsInner>>,
+    /// Named points of interest to exclude. `key` from /v1/ads/targeting/search.
+    #[serde(rename = "places", skip_serializing_if = "Option::is_none")]
+    pub places: Option<Vec<models::TargetingSpecExcludedLocationsPlacesInner>>,
+    /// Named neighbourhood areas to exclude. `key` from /v1/ads/targeting/search.
+    #[serde(rename = "neighborhoods", skip_serializing_if = "Option::is_none")]
+    pub neighborhoods: Option<Vec<models::TargetingSpecExcludedLocationsPlacesInner>>,
+    /// Point-radius (lat/lng) pins to exclude (Meta excluded_geo_locations.custom_locations). Mirrors the inclusion customLocations shape.
+    #[serde(rename = "customLocations", skip_serializing_if = "Option::is_none")]
+    pub custom_locations: Option<Vec<models::TargetingSpecCustomLocationsInner>>,
 }
 
 impl TargetingSpecExcludedLocations {
-    /// Geo to exclude from the audience. A subset of the inclusion geo shape.
+    /// Geo to exclude from the audience. Mirrors the inclusion geo shape: excluded cities can carry a radius catchment and excluded custom (lat/lng) pins are supported, both on Meta (excluded_geo_locations).
     pub fn new() -> TargetingSpecExcludedLocations {
         TargetingSpecExcludedLocations {
             countries: None,
             regions: None,
             cities: None,
             zips: None,
+            places: None,
+            neighborhoods: None,
+            custom_locations: None,
         }
     }
 }

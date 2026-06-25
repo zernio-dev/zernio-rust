@@ -24,6 +24,7 @@ pub struct TargetingSpecCustomLocationsInner {
     pub distance_unit: DistanceUnit,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
+    /// Optional label, sent to Meta as `address_string`. latitude/longitude take precedence for the pin location.
     #[serde(rename = "address", skip_serializing_if = "Option::is_none")]
     pub address: Option<String>,
 }
