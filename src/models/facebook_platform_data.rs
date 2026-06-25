@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// FacebookPlatformData : Feed posts support up to 10 images (no mixed video+image). Stories require single media (24h, no captions). Reels require single vertical video (9:16, 3-60s). Carousel posts (carouselCards) render a 2-5 card multi-link post, images only, mutually exclusive with story/reel. Geo-restriction is a hard visibility restriction: users outside the specified countries cannot see the post. Not supported for stories.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FacebookPlatformData {
-    /// When true, creates the post as an unpublished draft visible in Facebook Publishing Tools instead of publishing immediately. Supported for feed posts (text, link, image, video) and reels. Not supported for stories. Drafts expire after ~30 days.
+    /// When true, creates the post as a draft in Facebook Publishing Tools instead of publishing immediately. Supported for feed posts (text, link, image, video) and reels. Not supported for stories. Drafts expire after ~30 days.
     #[serde(rename = "draft", skip_serializing_if = "Option::is_none")]
     pub draft: Option<bool>,
     /// Set to 'story' for Page Stories (24h ephemeral) or 'reel' for Reels (short vertical video). Defaults to feed post if omitted.
