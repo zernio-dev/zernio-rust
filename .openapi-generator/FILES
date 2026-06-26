@@ -312,6 +312,9 @@ docs/GetAccountHealth200Response.md
 docs/GetAccountHealth200ResponsePermissions.md
 docs/GetAccountHealth200ResponsePermissionsPostingInner.md
 docs/GetAccountHealth200ResponseTokenStatus.md
+docs/GetAccountPosts200Response.md
+docs/GetAccountPosts200ResponsePostsInner.md
+docs/GetAccountPosts401Response.md
 docs/GetAd200Response.md
 docs/GetAdAnalytics200Response.md
 docs/GetAdAnalytics200ResponseAd.md
@@ -1587,6 +1590,9 @@ src/models/get_account_health_200_response.rs
 src/models/get_account_health_200_response_permissions.rs
 src/models/get_account_health_200_response_permissions_posting_inner.rs
 src/models/get_account_health_200_response_token_status.rs
+src/models/get_account_posts_200_response.rs
+src/models/get_account_posts_200_response_posts_inner.rs
+src/models/get_account_posts_401_response.rs
 src/models/get_ad_200_response.rs
 src/models/get_ad_analytics_200_response.rs
 src/models/get_ad_analytics_200_response_ad.rs
