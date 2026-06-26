@@ -31,17 +31,6 @@ pub enum GetAccountHealthError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`get_account_posts`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum GetAccountPostsError {
-    Status400(),
-    Status401(models::GetAccountPosts401Response),
-    Status404(),
-    Status500(),
-    UnknownValue(serde_json::Value),
-}
-
 /// struct for typed errors of method [`get_all_accounts_health`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -195,62 +184,6 @@ pub async fn get_account_health(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetAccountHealthError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
-/// Returns recent posts from a connected social account by calling the platform API directly. Supports Facebook, Instagram, X/Twitter, Bluesky, Threads, YouTube, LinkedIn, Reddit, TikTok, and Pinterest.  For YouTube accounts, the `excludeUnlisted` parameter can be used to filter out unlisted and private videos, which is useful when the account contains internal content not meant for social monitoring.
-pub async fn get_account_posts(
-    configuration: &configuration::Configuration,
-    account_id: &str,
-    exclude_unlisted: Option<bool>,
-) -> Result<models::GetAccountPosts200Response, Error<GetAccountPostsError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_account_id = account_id;
-    let p_query_exclude_unlisted = exclude_unlisted;
-
-    let uri_str = format!(
-        "{}/v1/accounts/{accountId}/posts",
-        configuration.base_path,
-        accountId = crate::apis::urlencode(p_path_account_id)
-    );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
-
-    if let Some(ref param_value) = p_query_exclude_unlisted {
-        req_builder = req_builder.query(&[("excludeUnlisted", &param_value.to_string())]);
-    }
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetAccountPosts200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetAccountPosts200Response`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<GetAccountPostsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

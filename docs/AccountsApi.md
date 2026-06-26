@@ -6,7 +6,6 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**delete_account**](AccountsApi.md#delete_account) | **DELETE** /v1/accounts/{accountId} | Disconnect account
 [**get_account_health**](AccountsApi.md#get_account_health) | **GET** /v1/accounts/{accountId}/health | Check account health
-[**get_account_posts**](AccountsApi.md#get_account_posts) | **GET** /v1/accounts/{accountId}/posts | List posts for an account
 [**get_all_accounts_health**](AccountsApi.md#get_all_accounts_health) | **GET** /v1/accounts/health | Check accounts health
 [**get_follower_stats**](AccountsApi.md#get_follower_stats) | **GET** /v1/accounts/follower-stats | Get follower stats
 [**get_tik_tok_creator_info**](AccountsApi.md#get_tik_tok_creator_info) | **GET** /v1/accounts/{accountId}/tiktok/creator-info | Get TikTok creator info
@@ -63,37 +62,6 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetAccountHealth200Response**](getAccountHealth_200_response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## get_account_posts
-
-> models::GetAccountPosts200Response get_account_posts(account_id, exclude_unlisted)
-List posts for an account
-
-Returns recent posts from a connected social account by calling the platform API directly. Supports Facebook, Instagram, X/Twitter, Bluesky, Threads, YouTube, LinkedIn, Reddit, TikTok, and Pinterest.  For YouTube accounts, the `excludeUnlisted` parameter can be used to filter out unlisted and private videos, which is useful when the account contains internal content not meant for social monitoring. 
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** |  | [required] |
-**exclude_unlisted** | Option<**bool**> | YouTube only. When `true`, excludes unlisted and private videos from the response. Has no effect on other platforms. |  |
-
-### Return type
-
-[**models::GetAccountPosts200Response**](getAccountPosts_200_response.md)
 
 ### Authorization
 

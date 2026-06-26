@@ -55,7 +55,6 @@ Class | Method | HTTP request | Description
 *AccountSettingsApi* | [**set_telegram_commands**](docs/AccountSettingsApi.md#set_telegram_commands) | **PUT** /v1/accounts/{accountId}/telegram-commands | Set TG bot commands
 *AccountsApi* | [**delete_account**](docs/AccountsApi.md#delete_account) | **DELETE** /v1/accounts/{accountId} | Disconnect account
 *AccountsApi* | [**get_account_health**](docs/AccountsApi.md#get_account_health) | **GET** /v1/accounts/{accountId}/health | Check account health
-*AccountsApi* | [**get_account_posts**](docs/AccountsApi.md#get_account_posts) | **GET** /v1/accounts/{accountId}/posts | List posts for an account
 *AccountsApi* | [**get_all_accounts_health**](docs/AccountsApi.md#get_all_accounts_health) | **GET** /v1/accounts/health | Check accounts health
 *AccountsApi* | [**get_follower_stats**](docs/AccountsApi.md#get_follower_stats) | **GET** /v1/accounts/follower-stats | Get follower stats
 *AccountsApi* | [**get_tik_tok_creator_info**](docs/AccountsApi.md#get_tik_tok_creator_info) | **GET** /v1/accounts/{accountId}/tiktok/creator-info | Get TikTok creator info
@@ -724,9 +723,6 @@ Class | Method | HTTP request | Description
  - [GetAccountHealth200ResponsePermissions](docs/GetAccountHealth200ResponsePermissions.md)
  - [GetAccountHealth200ResponsePermissionsPostingInner](docs/GetAccountHealth200ResponsePermissionsPostingInner.md)
  - [GetAccountHealth200ResponseTokenStatus](docs/GetAccountHealth200ResponseTokenStatus.md)
- - [GetAccountPosts200Response](docs/GetAccountPosts200Response.md)
- - [GetAccountPosts200ResponsePostsInner](docs/GetAccountPosts200ResponsePostsInner.md)
- - [GetAccountPosts401Response](docs/GetAccountPosts401Response.md)
  - [GetAd200Response](docs/GetAd200Response.md)
  - [GetAdAnalytics200Response](docs/GetAdAnalytics200Response.md)
  - [GetAdAnalytics200ResponseAd](docs/GetAdAnalytics200ResponseAd.md)
