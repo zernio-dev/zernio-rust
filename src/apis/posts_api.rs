@@ -413,6 +413,7 @@ pub async fn list_posts(
     configuration: &configuration::Configuration,
     page: Option<i32>,
     limit: Option<i32>,
+    source: Option<&str>,
     status: Option<&str>,
     platform: Option<&str>,
     profile_id: Option<&str>,
@@ -427,6 +428,7 @@ pub async fn list_posts(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_page = page;
     let p_query_limit = limit;
+    let p_query_source = source;
     let p_query_status = status;
     let p_query_platform = platform;
     let p_query_profile_id = profile_id;
@@ -446,6 +448,9 @@ pub async fn list_posts(
     }
     if let Some(ref param_value) = p_query_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_source {
+        req_builder = req_builder.query(&[("source", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_status {
         req_builder = req_builder.query(&[("status", &param_value.to_string())]);

@@ -172,7 +172,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_posts
 
-> models::PostsListResponse list_posts(page, limit, status, platform, profile_id, created_by, date_from, date_to, include_hidden, search, sort_by, account_id)
+> models::PostsListResponse list_posts(page, limit, source, status, platform, profile_id, created_by, date_from, date_to, include_hidden, search, sort_by, account_id)
 List posts
 
 Returns a paginated list of posts. Published posts include platformPostUrl with the public URL on each platform.
@@ -184,6 +184,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **page** | Option<**i32**> | Page number (1-based) |  |[default to 1]
 **limit** | Option<**i32**> | Page size |  |[default to 10]
+**source** | Option<**String**> | Which collection to read. `zernio` (default) returns posts authored through Zernio. `external` returns posts synced from the platform (existing/historical posts that were published outside Zernio). Combine with `accountId` and paginate via `page`/`limit` to walk the full synced history (we keep up to the last ~12 months per account). |  |[default to zernio]
 **status** | Option<**String**> |  |  |
 **platform** | Option<**String**> |  |  |
 **profile_id** | Option<**String**> |  |  |
