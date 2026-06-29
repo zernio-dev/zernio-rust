@@ -43,6 +43,15 @@ pub struct PlatformTarget {
     /// Timestamp when the post was published to this platform
     #[serde(rename = "publishedAt", skip_serializing_if = "Option::is_none")]
     pub published_at: Option<String>,
+    /// Present and true only when this Instagram reel was launched as a Trial through Zernio (created with platformSpecificData.trialParams). Use it to segment trial reels in analytics. Note: Instagram's Graph API exposes no readable trial field, so this reflects creation-time intent only. It indicates the reel STARTED as a trial, not whether or when it graduated.
+    #[serde(rename = "isTrialReel", skip_serializing_if = "Option::is_none")]
+    pub is_trial_reel: Option<bool>,
+    /// Graduation strategy the trial reel was launched with. Present only when isTrialReel is true.
+    #[serde(
+        rename = "trialGraduationStrategy",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub trial_graduation_strategy: Option<TrialGraduationStrategy>,
     /// Human-readable error message when status is failed. Contains platform-specific error details explaining why the publish failed.
     #[serde(rename = "errorMessage", skip_serializing_if = "Option::is_none")]
     pub error_message: Option<String>,
@@ -67,10 +76,26 @@ impl PlatformTarget {
             platform_post_id: None,
             platform_post_url: None,
             published_at: None,
+            is_trial_reel: None,
+            trial_graduation_strategy: None,
             error_message: None,
             error_category: None,
             error_source: None,
         }
+    }
+}
+/// Graduation strategy the trial reel was launched with. Present only when isTrialReel is true.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum TrialGraduationStrategy {
+    #[serde(rename = "MANUAL")]
+    Manual,
+    #[serde(rename = "SS_PERFORMANCE")]
+    SsPerformance,
+}
+
+impl Default for TrialGraduationStrategy {
+    fn default() -> TrialGraduationStrategy {
+        Self::Manual
     }
 }
 /// Error category for programmatic handling: auth_expired (token expired/revoked), user_content (wrong format/too long), user_abuse (rate limits/spam), account_issue (config problems), platform_rejected (policy violation), platform_error (5xx/maintenance), system_error (Zernio infra), unknown
