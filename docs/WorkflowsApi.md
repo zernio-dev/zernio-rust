@@ -15,7 +15,7 @@ Method | HTTP request | Description
 [**list_workflow_versions**](WorkflowsApi.md#list_workflow_versions) | **GET** /v1/workflows/{workflowId}/versions | List a workflow's version history
 [**list_workflows**](WorkflowsApi.md#list_workflows) | **GET** /v1/workflows | List workflows
 [**pause_workflow**](WorkflowsApi.md#pause_workflow) | **POST** /v1/workflows/{workflowId}/pause | Pause workflow
-[**restore_workflow_version**](WorkflowsApi.md#restore_workflow_version) | **POST** /v1/workflows/{workflowId}/versions/{version}/restore | Restore a previous workflow version
+[**restore_workflow_version**](WorkflowsApi.md#restore_workflow_version) | **POST** /v1/workflows/{workflowId}/versions/{version}/restore | Restore a workflow version
 [**trigger_workflow**](WorkflowsApi.md#trigger_workflow) | **POST** /v1/workflows/{workflowId}/executions | Manually start a workflow run
 [**update_workflow**](WorkflowsApi.md#update_workflow) | **PATCH** /v1/workflows/{workflowId} | Update workflow
 
@@ -362,7 +362,7 @@ Name | Type | Description  | Required | Notes
 ## restore_workflow_version
 
 > models::RestoreWorkflowVersion200Response restore_workflow_version(workflow_id, version)
-Restore a previous workflow version
+Restore a workflow version
 
 Replace the current graph with the named version's snapshot. Before the swap, the current graph is itself snapshotted as a new version, so a restore is reversible. The workflow must be in `draft` or `paused` status (same gate as a normal graph edit). The returned workflow carries `restoredFromVersion` so the UI can surface which version was rolled back to. 
 

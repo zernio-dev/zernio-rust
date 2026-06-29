@@ -4,20 +4,20 @@ All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_inbox_conversation_analytics**](InboxAnalyticsApi.md#get_inbox_conversation_analytics) | **GET** /v1/analytics/inbox/conversations/{conversationId} | Get analytics for a single conversation
-[**get_inbox_heatmap**](InboxAnalyticsApi.md#get_inbox_heatmap) | **GET** /v1/analytics/inbox/heatmap | Get inbox day-of-week × hour-of-day heatmap
+[**get_inbox_conversation_analytics**](InboxAnalyticsApi.md#get_inbox_conversation_analytics) | **GET** /v1/analytics/inbox/conversations/{conversationId} | Get conversation analytics
+[**get_inbox_heatmap**](InboxAnalyticsApi.md#get_inbox_heatmap) | **GET** /v1/analytics/inbox/heatmap | Get day × hour heatmap
 [**get_inbox_response_time**](InboxAnalyticsApi.md#get_inbox_response_time) | **GET** /v1/analytics/inbox/response-time | Get inbox response-time stats
 [**get_inbox_source_breakdown**](InboxAnalyticsApi.md#get_inbox_source_breakdown) | **GET** /v1/analytics/inbox/source-breakdown | Get inbox source breakdown
 [**get_inbox_top_accounts**](InboxAnalyticsApi.md#get_inbox_top_accounts) | **GET** /v1/analytics/inbox/top-accounts | Get top accounts by inbox volume
 [**get_inbox_volume**](InboxAnalyticsApi.md#get_inbox_volume) | **GET** /v1/analytics/inbox/volume | Get inbox messaging volume
-[**list_inbox_conversation_analytics**](InboxAnalyticsApi.md#list_inbox_conversation_analytics) | **GET** /v1/analytics/inbox/conversations | List conversations with inbox analytics
+[**list_inbox_conversation_analytics**](InboxAnalyticsApi.md#list_inbox_conversation_analytics) | **GET** /v1/analytics/inbox/conversations | List conversation analytics
 
 
 
 ## get_inbox_conversation_analytics
 
 > models::GetInboxConversationAnalytics200Response get_inbox_conversation_analytics(conversation_id, from_date, to_date)
-Get analytics for a single conversation
+Get conversation analytics
 
 Per-conversation inbox analytics. The inbox analog of /v1/analytics/post-timeline — one conversation, daily totals, source mix.  The {conversationId} path param accepts EITHER the Mongo `_id` of the Conversation document OR its `platformConversationId` (the same identity used by metadata.conversationId at ingest time). Ownership is verified in MongoDB against the caller's team before the Tinybird query fires.  Max date range is 365 days. 
 
@@ -49,7 +49,7 @@ Name | Type | Description  | Required | Notes
 ## get_inbox_heatmap
 
 > models::GetInboxHeatmap200Response get_inbox_heatmap(from_date, to_date, profile_id, platform, account_id, source, action)
-Get inbox day-of-week × hour-of-day heatmap
+Get day × hour heatmap
 
 Day-of-week × hour-of-day breakdown of inbox messages. Buckets are sparse — only cells with at least one event are returned; clients zero-fill the rest to render the full 7×24 grid. The `dow` field follows ClickHouse's `toDayOfWeek` convention (1 = Monday … 7 = Sunday). Max date range is 365 days. 
 
@@ -223,7 +223,7 @@ Name | Type | Description  | Required | Notes
 ## list_inbox_conversation_analytics
 
 > models::ListInboxConversationAnalytics200Response list_inbox_conversation_analytics(from_date, to_date, profile_id, platform, account_id, source, limit, page, sort_by, order)
-List conversations with inbox analytics
+List conversation analytics
 
 Per-conversation listing with per-row totals + first/last message timestamps. The inbox analog of GET /v1/analytics (posts listing) — same filter shape, same pagination, same sort/order semantics. Use as the entry point for the per-conversation analytics drawer at /v1/analytics/inbox/conversations/{conversationId}.  Rows are enriched with the conversation's participant info (`participantName`, `participantUsername`, `participantPicture`) and last-message preview by joining the Conversation document scoped to the caller's team. Max date range is 365 days. 
 

@@ -12,7 +12,7 @@ Method | HTTP request | Description
 [**get_discord_settings**](DiscordApi.md#get_discord_settings) | **GET** /v1/accounts/{accountId}/discord-settings | Get Discord account settings
 [**list_discord_guild_members**](DiscordApi.md#list_discord_guild_members) | **GET** /v1/discord/guilds/{guildId}/members | List Discord guild members
 [**list_discord_guild_roles**](DiscordApi.md#list_discord_guild_roles) | **GET** /v1/discord/guilds/{guildId}/roles | List Discord guild roles
-[**list_discord_pinned_messages**](DiscordApi.md#list_discord_pinned_messages) | **GET** /v1/discord/channels/{channelId}/pins | List pinned messages in a Discord channel
+[**list_discord_pinned_messages**](DiscordApi.md#list_discord_pinned_messages) | **GET** /v1/discord/channels/{channelId}/pins | List pinned messages
 [**list_discord_scheduled_events**](DiscordApi.md#list_discord_scheduled_events) | **GET** /v1/discord/guilds/{guildId}/events | List Discord scheduled events
 [**pin_discord_message**](DiscordApi.md#pin_discord_message) | **PUT** /v1/discord/channels/{channelId}/pins/{messageId} | Pin a Discord message
 [**remove_discord_member_role**](DiscordApi.md#remove_discord_member_role) | **DELETE** /v1/discord/guilds/{guildId}/members/{userId}/roles/{roleId} | Remove a role from a guild member
@@ -276,7 +276,7 @@ Name | Type | Description  | Required | Notes
 ## list_discord_pinned_messages
 
 > models::ListDiscordPinnedMessages200Response list_discord_pinned_messages(channel_id, account_id)
-List pinned messages in a Discord channel
+List pinned messages
 
 Returns the channel's pinned messages, sorted most-recently-pinned first. Discord caps a channel at 50 pinned messages and returns the full list unpaginated.  Bot needs READ_MESSAGE_HISTORY in the channel (granted by default BOT_PERMISSIONS). 
 
