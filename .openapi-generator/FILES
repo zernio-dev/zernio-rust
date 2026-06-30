@@ -222,7 +222,6 @@ docs/CreateTrackingTag201Response.md
 docs/CreateTrackingTagRequest.md
 docs/CreateWebhookSettingsRequest.md
 docs/CreateWhatsAppDataset200Response.md
-docs/CreateWhatsAppDatasetRequest.md
 docs/CreateWhatsAppFlow200Response.md
 docs/CreateWhatsAppFlow200ResponseFlow.md
 docs/CreateWhatsAppFlowRequest.md
@@ -256,6 +255,7 @@ docs/DeleteGoogleBusinessReviewReply200Response.md
 docs/DeleteInboxComment200Response.md
 docs/DeleteInboxReviewReply200Response.md
 docs/DeleteInboxReviewReplyRequest.md
+docs/DeleteWhatsappBusinessUsernameRequest.md
 docs/DiscordApi.md
 docs/DiscordPlatformData.md
 docs/DiscordPlatformDataEmbedsInner.md
@@ -560,6 +560,8 @@ docs/GetWhatsAppTemplate200Response.md
 docs/GetWhatsAppTemplate200ResponseTemplate.md
 docs/GetWhatsAppTemplates200Response.md
 docs/GetWhatsAppTemplates200ResponseTemplatesInner.md
+docs/GetWhatsappBusinessUsername200Response.md
+docs/GetWhatsappBusinessUsernameSuggestions200Response.md
 docs/GetWorkflow200Response.md
 docs/GetWorkflow200ResponseWorkflow.md
 docs/GetWorkflowVersion200Response.md
@@ -944,6 +946,8 @@ docs/SetInstagramIceBreakersRequestIceBreakersInner.md
 docs/SetMessengerMenuRequest.md
 docs/SetTelegramCommandsRequest.md
 docs/SetTelegramCommandsRequestCommandsInner.md
+docs/SetWhatsappBusinessUsername200Response.md
+docs/SetWhatsappBusinessUsernameRequest.md
 docs/SharedAdAccount.md
 docs/SnapchatPlatformData.md
 docs/SocialAccount.md
@@ -1508,7 +1512,6 @@ src/models/create_tracking_tag_201_response.rs
 src/models/create_tracking_tag_request.rs
 src/models/create_webhook_settings_request.rs
 src/models/create_whats_app_dataset_200_response.rs
-src/models/create_whats_app_dataset_request.rs
 src/models/create_whats_app_flow_200_response.rs
 src/models/create_whats_app_flow_200_response_flow.rs
 src/models/create_whats_app_flow_request.rs
@@ -1541,6 +1544,7 @@ src/models/delete_google_business_review_reply_200_response.rs
 src/models/delete_inbox_comment_200_response.rs
 src/models/delete_inbox_review_reply_200_response.rs
 src/models/delete_inbox_review_reply_request.rs
+src/models/delete_whatsapp_business_username_request.rs
 src/models/discord_platform_data.rs
 src/models/discord_platform_data_embeds_inner.rs
 src/models/discord_platform_data_embeds_inner_author.rs
@@ -1844,6 +1848,8 @@ src/models/get_whats_app_template_200_response.rs
 src/models/get_whats_app_template_200_response_template.rs
 src/models/get_whats_app_templates_200_response.rs
 src/models/get_whats_app_templates_200_response_templates_inner.rs
+src/models/get_whatsapp_business_username_200_response.rs
+src/models/get_whatsapp_business_username_suggestions_200_response.rs
 src/models/get_workflow_200_response.rs
 src/models/get_workflow_200_response_workflow.rs
 src/models/get_workflow_version_200_response.rs
@@ -2207,6 +2213,8 @@ src/models/set_instagram_ice_breakers_request_ice_breakers_inner.rs
 src/models/set_messenger_menu_request.rs
 src/models/set_telegram_commands_request.rs
 src/models/set_telegram_commands_request_commands_inner.rs
+src/models/set_whatsapp_business_username_200_response.rs
+src/models/set_whatsapp_business_username_request.rs
 src/models/shared_ad_account.rs
 src/models/snapchat_platform_data.rs
 src/models/social_account.rs

@@ -248,11 +248,12 @@ pub async fn delete_whats_app_flow(
 pub async fn deprecate_whats_app_flow(
     configuration: &configuration::Configuration,
     flow_id: &str,
-    create_whats_app_dataset_request: models::CreateWhatsAppDatasetRequest,
+    delete_whatsapp_business_username_request: models::DeleteWhatsappBusinessUsernameRequest,
 ) -> Result<models::UpdateYoutubeDefaultPlaylist200Response, Error<DeprecateWhatsAppFlowError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_flow_id = flow_id;
-    let p_body_create_whats_app_dataset_request = create_whats_app_dataset_request;
+    let p_body_delete_whatsapp_business_username_request =
+        delete_whatsapp_business_username_request;
 
     let uri_str = format!(
         "{}/v1/whatsapp/flows/{flowId}/deprecate",
@@ -269,7 +270,7 @@ pub async fn deprecate_whats_app_flow(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_create_whats_app_dataset_request);
+    req_builder = req_builder.json(&p_body_delete_whatsapp_business_username_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -636,11 +637,12 @@ pub async fn list_whats_app_flows(
 pub async fn publish_whats_app_flow(
     configuration: &configuration::Configuration,
     flow_id: &str,
-    create_whats_app_dataset_request: models::CreateWhatsAppDatasetRequest,
+    delete_whatsapp_business_username_request: models::DeleteWhatsappBusinessUsernameRequest,
 ) -> Result<models::UpdateYoutubeDefaultPlaylist200Response, Error<PublishWhatsAppFlowError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_flow_id = flow_id;
-    let p_body_create_whats_app_dataset_request = create_whats_app_dataset_request;
+    let p_body_delete_whatsapp_business_username_request =
+        delete_whatsapp_business_username_request;
 
     let uri_str = format!(
         "{}/v1/whatsapp/flows/{flowId}/publish",
@@ -657,7 +659,7 @@ pub async fn publish_whats_app_flow(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_create_whats_app_dataset_request);
+    req_builder = req_builder.json(&p_body_delete_whatsapp_business_username_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

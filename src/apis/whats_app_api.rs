@@ -96,6 +96,15 @@ pub enum DeleteWhatsAppTemplateError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`delete_whatsapp_business_username`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteWhatsappBusinessUsernameError {
+    Status401(models::InlineObject),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_whats_app_block_status`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -171,6 +180,24 @@ pub enum GetWhatsAppTemplatesError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_whatsapp_business_username`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetWhatsappBusinessUsernameError {
+    Status401(models::InlineObject),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_whatsapp_business_username_suggestions`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetWhatsappBusinessUsernameSuggestionsError {
+    Status401(models::InlineObject),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_whats_app_conversions`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -220,6 +247,16 @@ pub enum SendWhatsAppConversionError {
     Status401(models::InlineObject),
     Status404(),
     Status422(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`set_whatsapp_business_username`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SetWhatsappBusinessUsernameError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
     UnknownValue(serde_json::Value),
 }
 
@@ -454,10 +491,11 @@ pub async fn block_whats_app_users(
 /// Creates (or fetches, if one already exists) the Meta dataset that Click-to-WhatsApp ad events are reported against via the Conversions API, and persists its ID on the account as `metadata.metaCapiDatasetId`.  The call is GET-first idempotent — a WABA can only own one CTWA dataset, so a second call after a successful provision is a safe no-op that returns the same ID with `created: false`.  Requires the connected WhatsApp account's token to carry the `whatsapp_business_manage_events` permission. If the permission is missing the endpoint returns 422 with a message asking the user to reconnect the account.
 pub async fn create_whats_app_dataset(
     configuration: &configuration::Configuration,
-    create_whats_app_dataset_request: models::CreateWhatsAppDatasetRequest,
+    delete_whatsapp_business_username_request: models::DeleteWhatsappBusinessUsernameRequest,
 ) -> Result<models::CreateWhatsAppDataset200Response, Error<CreateWhatsAppDatasetError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_create_whats_app_dataset_request = create_whats_app_dataset_request;
+    let p_body_delete_whatsapp_business_username_request =
+        delete_whatsapp_business_username_request;
 
     let uri_str = format!("{}/v1/whatsapp/dataset", configuration.base_path);
     let mut req_builder = configuration
@@ -470,7 +508,7 @@ pub async fn create_whats_app_dataset(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_create_whats_app_dataset_request);
+    req_builder = req_builder.json(&p_body_delete_whatsapp_business_username_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -765,6 +803,64 @@ pub async fn delete_whats_app_template(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteWhatsAppTemplateError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Release the currently claimed WhatsApp Business username from the account. After deletion the username becomes available for other accounts to claim.
+pub async fn delete_whatsapp_business_username(
+    configuration: &configuration::Configuration,
+    delete_whatsapp_business_username_request: models::DeleteWhatsappBusinessUsernameRequest,
+) -> Result<
+    models::UpdateYoutubeDefaultPlaylist200Response,
+    Error<DeleteWhatsappBusinessUsernameError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_delete_whatsapp_business_username_request =
+        delete_whatsapp_business_username_request;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/business-profile/username",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_delete_whatsapp_business_username_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteWhatsappBusinessUsernameError> =
+            serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1185,6 +1281,113 @@ pub async fn get_whats_app_templates(
     }
 }
 
+/// Fetch the current WhatsApp Business username and its approval status. Username status can be `approved` (active), `reserved` (pending activation), or `none` (no username set).
+pub async fn get_whatsapp_business_username(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+) -> Result<models::GetWhatsappBusinessUsername200Response, Error<GetWhatsappBusinessUsernameError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/business-profile/username",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetWhatsappBusinessUsername200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetWhatsappBusinessUsername200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetWhatsappBusinessUsernameError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Retrieve a list of available WhatsApp Business username suggestions based on the account's business profile name. Use these to help users discover valid, unclaimed usernames.
+pub async fn get_whatsapp_business_username_suggestions(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+) -> Result<
+    models::GetWhatsappBusinessUsernameSuggestions200Response,
+    Error<GetWhatsappBusinessUsernameSuggestionsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/business-profile/username/suggestions",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetWhatsappBusinessUsernameSuggestions200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetWhatsappBusinessUsernameSuggestions200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetWhatsappBusinessUsernameSuggestionsError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Returns the most recent conversion events sent through `POST /v1/whatsapp/conversions` for the given WhatsApp account. Sourced from delivery logs (Axiom `late` dataset), so the visible window is bounded by log retention (about 30 days). Useful for rendering a \"recent activity\" panel on the conversions setup tab without standing up a parallel persistence layer.  Per-event payload mirrors the structured log we write on every successful send: `eventName`, `conversationId`, `eventsReceived`, `eventsFailed`, `traceId`, `durationMs`, and the wall-clock `timestamp`.
 pub async fn list_whats_app_conversions(
     configuration: &configuration::Configuration,
@@ -1518,6 +1721,60 @@ pub async fn send_whats_app_conversion(
     } else {
         let content = resp.text().await?;
         let entity: Option<SendWhatsAppConversionError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Claim or transfer a WhatsApp Business username for the account.  Username rules: 3-35 characters, letters/digits/period/underscore only, must contain at least one letter, no leading or trailing periods, no consecutive periods, no `www` prefix, no domain TLD suffix (e.g. `.com`).  If the desired username is currently held by another account, pass `transferAction: \"force_transfer\"` to request a transfer. On failure the API returns a standard error envelope with one of these codes: `whatsapp_username_unavailable` (already taken and transfer not requested), `whatsapp_username_ineligible` (account not eligible to claim a username), or `whatsapp_username_transfer_required` (username is held elsewhere; retry with `force_transfer`).
+pub async fn set_whatsapp_business_username(
+    configuration: &configuration::Configuration,
+    set_whatsapp_business_username_request: models::SetWhatsappBusinessUsernameRequest,
+) -> Result<models::SetWhatsappBusinessUsername200Response, Error<SetWhatsappBusinessUsernameError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_set_whatsapp_business_username_request = set_whatsapp_business_username_request;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/business-profile/username",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_set_whatsapp_business_username_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SetWhatsappBusinessUsername200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SetWhatsappBusinessUsername200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<SetWhatsappBusinessUsernameError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
