@@ -692,6 +692,10 @@ docs/ListInboxConversations200ResponseDataInnerInstagramProfile.md
 docs/ListInboxConversations200ResponseMeta.md
 docs/ListInboxConversations200ResponseMetaFailedAccountsInner.md
 docs/ListInboxConversations200ResponsePagination.md
+docs/ListInboxMentions200Response.md
+docs/ListInboxMentions200ResponseDataInner.md
+docs/ListInboxMentions200ResponseMeta.md
+docs/ListInboxMentions200ResponsePagination.md
 docs/ListInboxReviews200Response.md
 docs/ListInboxReviews200ResponseDataInner.md
 docs/ListInboxReviews200ResponseDataInnerReply.md
@@ -757,6 +761,7 @@ docs/MarkConversationRead200Response.md
 docs/MediaApi.md
 docs/MediaItem.md
 docs/MediaUploadResponse.md
+docs/MentionsApi.md
 docs/MessagesApi.md
 docs/Money.md
 docs/MoveAccountToProfile200Response.md
@@ -1272,6 +1277,7 @@ src/apis/invites_api.rs
 src/apis/linked_in_mentions_api.rs
 src/apis/logs_api.rs
 src/apis/media_api.rs
+src/apis/mentions_api.rs
 src/apis/messages_api.rs
 src/apis/mod.rs
 src/apis/posts_api.rs
@@ -1958,6 +1964,10 @@ src/models/list_inbox_conversations_200_response_data_inner_instagram_profile.rs
 src/models/list_inbox_conversations_200_response_meta.rs
 src/models/list_inbox_conversations_200_response_meta_failed_accounts_inner.rs
 src/models/list_inbox_conversations_200_response_pagination.rs
+src/models/list_inbox_mentions_200_response.rs
+src/models/list_inbox_mentions_200_response_data_inner.rs
+src/models/list_inbox_mentions_200_response_meta.rs
+src/models/list_inbox_mentions_200_response_pagination.rs
 src/models/list_inbox_reviews_200_response.rs
 src/models/list_inbox_reviews_200_response_data_inner.rs
 src/models/list_inbox_reviews_200_response_data_inner_reply.rs

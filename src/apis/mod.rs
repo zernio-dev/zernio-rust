@@ -142,6 +142,7 @@ pub mod invites_api;
 pub mod linked_in_mentions_api;
 pub mod logs_api;
 pub mod media_api;
+pub mod mentions_api;
 pub mod messages_api;
 pub mod posts_api;
 pub mod profiles_api;
