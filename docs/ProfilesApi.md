@@ -47,7 +47,7 @@ Name | Type | Description  | Required | Notes
 > models::ProfileDeleteResponse delete_profile(profile_id)
 Delete profile
 
-Permanently deletes a profile by ID.
+Permanently deletes a profile. Active connected accounts block deletion (returns 400) - disconnect them first. Any remaining disconnected accounts and provisioned WhatsApp numbers are moved to another of your profiles (a new one is created only if needed), never deleted.
 
 ### Parameters
 
