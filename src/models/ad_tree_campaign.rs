@@ -148,6 +148,9 @@ pub struct AdTreeCampaign {
     pub promoted_object: Option<Box<models::AdTreeCampaignPromotedObject>>,
     #[serde(rename = "adSets", skip_serializing_if = "Option::is_none")]
     pub ad_sets: Option<Vec<models::AdTreeAdSet>>,
+    /// Per-day metric series for this campaign. Present only when `GET /v1/ads/tree` is called with `timeIncrement=1` (any `dailyLevel`). This is the per-campaign daily trend — summing its additive fields reproduces the campaign `metrics` total.
+    #[serde(rename = "daily", skip_serializing_if = "Option::is_none")]
+    pub daily: Option<Vec<models::AdDailyMetrics>>,
 }
 
 impl AdTreeCampaign {
@@ -181,6 +184,7 @@ impl AdTreeCampaign {
             roas_average_floor: None,
             promoted_object: None,
             ad_sets: None,
+            daily: None,
         }
     }
 }

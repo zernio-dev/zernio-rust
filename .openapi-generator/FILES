@@ -19,6 +19,7 @@ docs/AdCampaignBudget.md
 docs/AdCampaignCampaignBudget.md
 docs/AdCampaignsApi.md
 docs/AdCreative.md
+docs/AdDailyMetrics.md
 docs/AdMetrics.md
 docs/AdPromotedObject.md
 docs/AdSchedule.md
@@ -315,8 +316,6 @@ docs/GetAccountHealth200ResponseTokenStatus.md
 docs/GetAd200Response.md
 docs/GetAdAnalytics200Response.md
 docs/GetAdAnalytics200ResponseAd.md
-docs/GetAdAnalytics200ResponseAnalytics.md
-docs/GetAdAnalytics200ResponseAnalyticsDailyInner.md
 docs/GetAdAudience200Response.md
 docs/GetAdComments200Response.md
 docs/GetAdComments200ResponseMeta.md
@@ -338,6 +337,10 @@ docs/GetBroadcast200Response.md
 docs/GetBroadcast200ResponseBroadcast.md
 docs/GetBroadcast200ResponseBroadcastMessage.md
 docs/GetBroadcast200ResponseBroadcastTemplate.md
+docs/GetCampaignAnalytics200Response.md
+docs/GetCampaignAnalytics200ResponseAnalytics.md
+docs/GetCampaignAnalytics200ResponseAnalyticsDailyInner.md
+docs/GetCampaignAnalytics200ResponseCampaign.md
 docs/GetCommentAutomation200Response.md
 docs/GetCommentAutomation200ResponseAutomation.md
 docs/GetCommentAutomation200ResponseLogsInner.md
@@ -1304,6 +1307,7 @@ src/models/ad_campaign.rs
 src/models/ad_campaign_budget.rs
 src/models/ad_campaign_campaign_budget.rs
 src/models/ad_creative.rs
+src/models/ad_daily_metrics.rs
 src/models/ad_metrics.rs
 src/models/ad_promoted_object.rs
 src/models/ad_schedule.rs
@@ -1590,8 +1594,6 @@ src/models/get_account_health_200_response_token_status.rs
 src/models/get_ad_200_response.rs
 src/models/get_ad_analytics_200_response.rs
 src/models/get_ad_analytics_200_response_ad.rs
-src/models/get_ad_analytics_200_response_analytics.rs
-src/models/get_ad_analytics_200_response_analytics_daily_inner.rs
 src/models/get_ad_audience_200_response.rs
 src/models/get_ad_comments_200_response.rs
 src/models/get_ad_comments_200_response_meta.rs
@@ -1613,6 +1615,10 @@ src/models/get_broadcast_200_response.rs
 src/models/get_broadcast_200_response_broadcast.rs
 src/models/get_broadcast_200_response_broadcast_message.rs
 src/models/get_broadcast_200_response_broadcast_template.rs
+src/models/get_campaign_analytics_200_response.rs
+src/models/get_campaign_analytics_200_response_analytics.rs
+src/models/get_campaign_analytics_200_response_analytics_daily_inner.rs
+src/models/get_campaign_analytics_200_response_campaign.rs
 src/models/get_comment_automation_200_response.rs
 src/models/get_comment_automation_200_response_automation.rs
 src/models/get_comment_automation_200_response_logs_inner.rs

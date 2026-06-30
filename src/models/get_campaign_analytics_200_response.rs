@@ -12,17 +12,17 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetAdAnalytics200Response {
-    #[serde(rename = "ad", skip_serializing_if = "Option::is_none")]
-    pub ad: Option<Box<models::GetAdAnalytics200ResponseAd>>,
+pub struct GetCampaignAnalytics200Response {
+    #[serde(rename = "campaign", skip_serializing_if = "Option::is_none")]
+    pub campaign: Option<Box<models::GetCampaignAnalytics200ResponseCampaign>>,
     #[serde(rename = "analytics", skip_serializing_if = "Option::is_none")]
     pub analytics: Option<Box<models::GetCampaignAnalytics200ResponseAnalytics>>,
 }
 
-impl GetAdAnalytics200Response {
-    pub fn new() -> GetAdAnalytics200Response {
-        GetAdAnalytics200Response {
-            ad: None,
+impl GetCampaignAnalytics200Response {
+    pub fn new() -> GetCampaignAnalytics200Response {
+        GetCampaignAnalytics200Response {
+            campaign: None,
             analytics: None,
         }
     }

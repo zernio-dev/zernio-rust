@@ -276,7 +276,7 @@ pub async fn duplicate_ad_campaign(
     }
 }
 
-/// Returns a nested Campaign > Ad Set > Ad hierarchy with rolled-up metrics at each level. Uses a two-stage aggregation: ads are grouped into ad sets, then ad sets into campaigns. Metrics are computed over an optional date range, then rolled up from ad level to ad set and campaign levels. Pagination is at the campaign level. Ads without a campaign or ad set ID are grouped into synthetic \"Ungrouped\" buckets. If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max.
+/// Returns a nested Campaign > Ad Set > Ad hierarchy with rolled-up metrics at each level. Uses a two-stage aggregation: ads are grouped into ad sets, then ad sets into campaigns. Metrics are computed over an optional date range, then rolled up from ad level to ad set and campaign levels. Pagination is at the campaign level. Ads without a campaign or ad set ID are grouped into synthetic \"Ungrouped\" buckets. If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max.  Pass `timeIncrement=1` to also get a daily breakdown: each node gains a `daily[]` array of per-day metrics (same fields as the aggregated `metrics`) in the same call. Use `dailyLevel` (`campaign` default, or `adset` / `ad`) to choose which levels carry the series. This replaces calling the tree once per day for per-campaign daily trends.
 pub async fn get_ad_tree(
     configuration: &configuration::Configuration,
     page: Option<i32>,
@@ -291,6 +291,8 @@ pub async fn get_ad_tree(
     from_date: Option<String>,
     to_date: Option<String>,
     sort: Option<&str>,
+    time_increment: Option<i32>,
+    daily_level: Option<&str>,
 ) -> Result<models::GetAdTree200Response, Error<GetAdTreeError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_page = page;
@@ -305,6 +307,8 @@ pub async fn get_ad_tree(
     let p_query_from_date = from_date;
     let p_query_to_date = to_date;
     let p_query_sort = sort;
+    let p_query_time_increment = time_increment;
+    let p_query_daily_level = daily_level;
 
     let uri_str = format!("{}/v1/ads/tree", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -344,6 +348,12 @@ pub async fn get_ad_tree(
     }
     if let Some(ref param_value) = p_query_sort {
         req_builder = req_builder.query(&[("sort", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_time_increment {
+        req_builder = req_builder.query(&[("timeIncrement", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_daily_level {
+        req_builder = req_builder.query(&[("dailyLevel", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());

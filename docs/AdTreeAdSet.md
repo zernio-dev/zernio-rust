@@ -16,7 +16,8 @@ Name | Type | Description | Notes
 **bid_amount** | Option<**f64**> | Bid cap in whole currency units. Populated when bidStrategy is LOWEST_COST_WITH_BID_CAP or COST_CAP. | [optional]
 **roas_average_floor** | Option<**f64**> | Minimum ROAS as a decimal multiplier (2.0 = 2.0x). Populated when bidStrategy is LOWEST_COST_WITH_MIN_ROAS. | [optional]
 **promoted_object** | Option<[**models::AdTreeAdSetPromotedObject**](AdTreeAdSetPromotedObject.md)> |  | [optional]
-**ads** | Option<[**Vec<models::Ad>**](Ad.md)> | Individual ads within this ad set (capped at 100). Returns a subset of Ad fields from the aggregation (core fields like _id, name, platform, status, budget, metrics, creative, goal are included; targeting and schedule may be absent). | [optional]
+**ads** | Option<[**Vec<models::Ad>**](Ad.md)> | Individual ads within this ad set (capped at 100). Returns a subset of Ad fields from the aggregation (core fields like _id, name, platform, status, budget, metrics, creative, goal are included; targeting and schedule may be absent). When `timeIncrement=1&dailyLevel=ad`, each entry also carries a `daily[]` array of `AdDailyMetrics`. | [optional]
+**daily** | Option<[**Vec<models::AdDailyMetrics>**](AdDailyMetrics.md)> | Per-day metric series for this ad set. Present only when `GET /v1/ads/tree` is called with `timeIncrement=1` and `dailyLevel` is `adset` or `ad`. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

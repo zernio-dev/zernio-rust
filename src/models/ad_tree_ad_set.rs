@@ -62,9 +62,12 @@ pub struct AdTreeAdSet {
     pub roas_average_floor: Option<Option<f64>>,
     #[serde(rename = "promotedObject", skip_serializing_if = "Option::is_none")]
     pub promoted_object: Option<Box<models::AdTreeAdSetPromotedObject>>,
-    /// Individual ads within this ad set (capped at 100). Returns a subset of Ad fields from the aggregation (core fields like _id, name, platform, status, budget, metrics, creative, goal are included; targeting and schedule may be absent).
+    /// Individual ads within this ad set (capped at 100). Returns a subset of Ad fields from the aggregation (core fields like _id, name, platform, status, budget, metrics, creative, goal are included; targeting and schedule may be absent). When `timeIncrement=1&dailyLevel=ad`, each entry also carries a `daily[]` array of `AdDailyMetrics`.
     #[serde(rename = "ads", skip_serializing_if = "Option::is_none")]
     pub ads: Option<Vec<models::Ad>>,
+    /// Per-day metric series for this ad set. Present only when `GET /v1/ads/tree` is called with `timeIncrement=1` and `dailyLevel` is `adset` or `ad`.
+    #[serde(rename = "daily", skip_serializing_if = "Option::is_none")]
+    pub daily: Option<Vec<models::AdDailyMetrics>>,
 }
 
 impl AdTreeAdSet {
@@ -84,6 +87,7 @@ impl AdTreeAdSet {
             roas_average_floor: None,
             promoted_object: None,
             ads: None,
+            daily: None,
         }
     }
 }
