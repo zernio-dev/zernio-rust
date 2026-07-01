@@ -285,6 +285,7 @@ Class | Method | HTTP request | Description
 *PostsApi* | [**get_post**](docs/PostsApi.md#get_post) | **GET** /v1/posts/{postId} | Get post
 *PostsApi* | [**list_posts**](docs/PostsApi.md#list_posts) | **GET** /v1/posts | List posts
 *PostsApi* | [**retry_post**](docs/PostsApi.md#retry_post) | **POST** /v1/posts/{postId}/retry | Retry failed post
+*PostsApi* | [**sync_external_posts**](docs/PostsApi.md#sync_external_posts) | **POST** /v1/posts/sync-external | Sync or verify an external post on demand
 *PostsApi* | [**unpublish_post**](docs/PostsApi.md#unpublish_post) | **POST** /v1/posts/{postId}/unpublish | Unpublish post
 *PostsApi* | [**update_post**](docs/PostsApi.md#update_post) | **PUT** /v1/posts/{postId} | Update post
 *PostsApi* | [**update_post_metadata**](docs/PostsApi.md#update_post_metadata) | **POST** /v1/posts/{postId}/update-metadata | Update post metadata
@@ -708,6 +709,8 @@ Class | Method | HTTP request | Description
  - [EstimateAdReachRequest](docs/EstimateAdReachRequest.md)
  - [Expired](docs/Expired.md)
  - [ExternalPostMediaItem](docs/ExternalPostMediaItem.md)
+ - [ExternalPostSummary](docs/ExternalPostSummary.md)
+ - [ExternalPostSummaryAnalytics](docs/ExternalPostSummaryAnalytics.md)
  - [ExternalPostWebhookPost](docs/ExternalPostWebhookPost.md)
  - [FacebookPlatformData](docs/FacebookPlatformData.md)
  - [FacebookPlatformDataCarouselCardsInner](docs/FacebookPlatformDataCarouselCardsInner.md)
@@ -1358,6 +1361,9 @@ Class | Method | HTTP request | Description
  - [SubmitWhatsAppNumberKycRequestDocumentsInner](docs/SubmitWhatsAppNumberKycRequestDocumentsInner.md)
  - [SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf](docs/SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf.md)
  - [SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf1](docs/SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf1.md)
+ - [SyncExternalPosts200Response](docs/SyncExternalPosts200Response.md)
+ - [SyncExternalPosts200ResponseSynced](docs/SyncExternalPosts200ResponseSynced.md)
+ - [SyncExternalPostsRequest](docs/SyncExternalPostsRequest.md)
  - [TargetingSpec](docs/TargetingSpec.md)
  - [TargetingSpecCitiesInner](docs/TargetingSpecCitiesInner.md)
  - [TargetingSpecCustomLocationsInner](docs/TargetingSpecCustomLocationsInner.md)
