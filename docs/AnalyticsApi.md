@@ -26,6 +26,7 @@ Method | HTTP request | Description
 [**get_you_tube_daily_views**](AnalyticsApi.md#get_you_tube_daily_views) | **GET** /v1/analytics/youtube/daily-views | Get YouTube daily views
 [**get_you_tube_demographics**](AnalyticsApi.md#get_you_tube_demographics) | **GET** /v1/analytics/youtube/demographics | Get YouTube demographics
 [**get_you_tube_video_retention**](AnalyticsApi.md#get_you_tube_video_retention) | **GET** /v1/analytics/youtube/video-retention | Get YouTube video retention curve
+[**sync_external_posts**](AnalyticsApi.md#sync_external_posts) | **POST** /v1/posts/sync-external | Sync an external post
 
 
 
@@ -765,6 +766,36 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## sync_external_posts
+
+> models::SyncExternalPosts200Response sync_external_posts(sync_external_posts_request)
+Sync an external post
+
+Fetch an account's latest external posts (published directly on the platform, not through Zernio) on demand, so a just-published post is retrievable within seconds instead of waiting for the background sync (which refreshes each account at most every ~90 minutes).  Primary use case: verifying a submitted post. When a user publishes on the platform and immediately pastes the post URL into your app, call this with `accountId` plus `url` (or `postId`) to confirm the post exists and return its metadata.  Behavior: - We check our stored copy first and return immediately if the post is already known (no platform call). - Otherwise we fetch the account's latest posts live from the platform, then match and return the submitted post. - Requests are debounced per account (~15s): if the account was just synced, the live fetch is skipped.  `accountId` is required — a post URL or id alone cannot be resolved to an account, and the account must be connected to Zernio (we use its token to read the platform). Supported for every platform with a listing API (Instagram, Facebook, TikTok, YouTube, X, Threads, Pinterest, Reddit, Bluesky, Google Business, and LinkedIn organization accounts; LinkedIn personal accounts are not supported).  `url` accepts any format the platform uses (e.g. `instagram.com/p/…`, `instagram.com/reel/…`, `youtu.be/…`, `youtube.com/shorts/…`, `tiktok.com/@user/video/…`, and `vm.tiktok.com` short links). Pass `postId` (the platform media/video id) as an alternative locator.  Note: post-level analytics (reach, impressions) still carry the platform's own delay (e.g. ~24h on Instagram). This endpoint confirms the post exists and returns its metadata plus basic engagement (likes, comments), not delayed insights. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**sync_external_posts_request** | [**SyncExternalPostsRequest**](SyncExternalPostsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::SyncExternalPosts200Response**](syncExternalPosts_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

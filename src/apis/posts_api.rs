@@ -91,15 +91,6 @@ pub enum RetryPostError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`sync_external_posts`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum SyncExternalPostsError {
-    Status400(models::ErrorResponse),
-    Status404(models::ErrorResponse),
-    UnknownValue(serde_json::Value),
-}
-
 /// struct for typed errors of method [`unpublish_post`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -572,56 +563,6 @@ pub async fn retry_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetryPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
-/// Fetch an account's latest external posts (published directly on the platform, not through Zernio) on demand, so a just-published post is retrievable within seconds instead of waiting for the background sync (which refreshes each account at most every ~90 minutes).  Primary use case: verifying a submitted post. When a user publishes on the platform and immediately pastes the post URL into your app, call this with `accountId` plus `url` (or `postId`) to confirm the post exists and return its metadata.  Behavior: - We check our stored copy first and return immediately if the post is already known (no platform call). - Otherwise we fetch the account's latest posts live from the platform, then match and return the submitted post. - Requests are debounced per account (~15s): if the account was just synced, the live fetch is skipped.  `accountId` is required — a post URL or id alone cannot be resolved to an account, and the account must be connected to Zernio (we use its token to read the platform). Supported for every platform with a listing API (Instagram, Facebook, TikTok, YouTube, X, Threads, Pinterest, Reddit, Bluesky, Google Business, and LinkedIn organization accounts; LinkedIn personal accounts are not supported).  `url` accepts any format the platform uses (e.g. `instagram.com/p/…`, `instagram.com/reel/…`, `youtu.be/…`, `youtube.com/shorts/…`, `tiktok.com/@user/video/…`, and `vm.tiktok.com` short links). Pass `postId` (the platform media/video id) as an alternative locator.  Note: post-level analytics (reach, impressions) still carry the platform's own delay (e.g. ~24h on Instagram). This endpoint confirms the post exists and returns its metadata plus basic engagement (likes, comments), not delayed insights.
-pub async fn sync_external_posts(
-    configuration: &configuration::Configuration,
-    sync_external_posts_request: models::SyncExternalPostsRequest,
-) -> Result<models::SyncExternalPosts200Response, Error<SyncExternalPostsError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_sync_external_posts_request = sync_external_posts_request;
-
-    let uri_str = format!("{}/v1/posts/sync-external", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_sync_external_posts_request);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SyncExternalPosts200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SyncExternalPosts200Response`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<SyncExternalPostsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
