@@ -49,6 +49,24 @@ pub struct ListLogs200ResponseLogsInner {
     /// Additional context as JSON string
     #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
     pub metadata: Option<String>,
+    /// Correlation ID linking every log from one API request (api_request logs)
+    #[serde(rename = "request_id", skip_serializing_if = "Option::is_none")]
+    pub request_id: Option<String>,
+    /// The API key that made the request (api_request logs)
+    #[serde(rename = "api_key_id", skip_serializing_if = "Option::is_none")]
+    pub api_key_id: Option<String>,
+    /// HTTP method (api_request logs)
+    #[serde(rename = "method", skip_serializing_if = "Option::is_none")]
+    pub method: Option<String>,
+    /// Request path (api_request logs)
+    #[serde(rename = "path", skip_serializing_if = "Option::is_none")]
+    pub path: Option<String>,
+    /// Client IP address (api_request logs)
+    #[serde(rename = "ip_address", skip_serializing_if = "Option::is_none")]
+    pub ip_address: Option<String>,
+    /// Client user-agent (api_request logs)
+    #[serde(rename = "user_agent", skip_serializing_if = "Option::is_none")]
+    pub user_agent: Option<String>,
 }
 
 impl ListLogs200ResponseLogsInner {
@@ -69,6 +87,12 @@ impl ListLogs200ResponseLogsInner {
             response_body: None,
             created_at: None,
             metadata: None,
+            request_id: None,
+            api_key_id: None,
+            method: None,
+            path: None,
+            ip_address: None,
+            user_agent: None,
         }
     }
 }

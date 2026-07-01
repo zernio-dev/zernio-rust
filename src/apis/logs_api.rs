@@ -32,6 +32,14 @@ pub async fn list_logs(
     days: Option<i32>,
     limit: Option<i32>,
     skip: Option<i32>,
+    account_id: Option<&str>,
+    event: Option<&str>,
+    request_id: Option<&str>,
+    from: Option<String>,
+    to: Option<String>,
+    status_code: Option<i32>,
+    api_key_id: Option<&str>,
+    include_read_receipts: Option<bool>,
 ) -> Result<models::ListLogs200Response, Error<ListLogsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_type = r#type;
@@ -42,6 +50,14 @@ pub async fn list_logs(
     let p_query_days = days;
     let p_query_limit = limit;
     let p_query_skip = skip;
+    let p_query_account_id = account_id;
+    let p_query_event = event;
+    let p_query_request_id = request_id;
+    let p_query_from = from;
+    let p_query_to = to;
+    let p_query_status_code = status_code;
+    let p_query_api_key_id = api_key_id;
+    let p_query_include_read_receipts = include_read_receipts;
 
     let uri_str = format!("{}/v1/logs", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -69,6 +85,30 @@ pub async fn list_logs(
     }
     if let Some(ref param_value) = p_query_skip {
         req_builder = req_builder.query(&[("skip", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_account_id {
+        req_builder = req_builder.query(&[("account_id", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_event {
+        req_builder = req_builder.query(&[("event", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_request_id {
+        req_builder = req_builder.query(&[("request_id", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_from {
+        req_builder = req_builder.query(&[("from", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_to {
+        req_builder = req_builder.query(&[("to", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_status_code {
+        req_builder = req_builder.query(&[("status_code", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_api_key_id {
+        req_builder = req_builder.query(&[("api_key_id", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_include_read_receipts {
+        req_builder = req_builder.query(&[("include_read_receipts", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
