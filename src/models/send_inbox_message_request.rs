@@ -25,6 +25,9 @@ pub struct SendInboxMessageRequest {
     /// Type of attachment. Defaults to file if not specified.
     #[serde(rename = "attachmentType", skip_serializing_if = "Option::is_none")]
     pub attachment_type: Option<AttachmentType>,
+    /// WhatsApp only. Display name for a document sent via attachmentUrl with attachmentType: file (e.g. \"Report.pdf\"). Maps to the recipient's file name; without it WhatsApp derives the name from the URL and shows \"Untitled\". Ignored for image/video/audio and for binary uploads (which use the uploaded file's name).
+    #[serde(rename = "attachmentName", skip_serializing_if = "Option::is_none")]
+    pub attachment_name: Option<String>,
     /// WhatsApp only. When `true` on an audio attachment, the message is sent as a voice message (PTT) — the recipient sees the waveform + voice-note UI instead of a basic audio attachment. The audio file MUST be `.ogg` encoded with the OPUS codec (mono) per Meta's voice-message contract; other formats are rejected by WhatsApp. Ignored for non-audio attachments.
     #[serde(rename = "voiceNote", skip_serializing_if = "Option::is_none")]
     pub voice_note: Option<bool>,
@@ -63,6 +66,7 @@ impl SendInboxMessageRequest {
             message: None,
             attachment_url: None,
             attachment_type: None,
+            attachment_name: None,
             voice_note: None,
             quick_replies: None,
             buttons: None,
