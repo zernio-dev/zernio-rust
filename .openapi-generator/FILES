@@ -1206,6 +1206,7 @@ docs/WebhookPayloadPostPlatform.md
 docs/WebhookPayloadPostPlatformAccount.md
 docs/WebhookPayloadPostPlatformPlatform.md
 docs/WebhookPayloadPostPlatformPost.md
+docs/WebhookPayloadPostPlatformPostPlatformsInner.md
 docs/WebhookPayloadPostPost.md
 docs/WebhookPayloadPostPostPlatformsInner.md
 docs/WebhookPayloadReaction.md
@@ -2472,6 +2473,7 @@ src/models/webhook_payload_post_platform.rs
 src/models/webhook_payload_post_platform_account.rs
 src/models/webhook_payload_post_platform_platform.rs
 src/models/webhook_payload_post_platform_post.rs
+src/models/webhook_payload_post_platform_post_platforms_inner.rs
 src/models/webhook_payload_post_post.rs
 src/models/webhook_payload_post_post_platforms_inner.rs
 src/models/webhook_payload_reaction.rs

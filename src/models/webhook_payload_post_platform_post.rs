@@ -25,7 +25,7 @@ pub struct WebhookPayloadPostPlatformPost {
     #[serde(rename = "publishedAt", skip_serializing_if = "Option::is_none")]
     pub published_at: Option<String>,
     #[serde(rename = "platforms")]
-    pub platforms: Vec<models::WebhookPayloadPostPostPlatformsInner>,
+    pub platforms: Vec<models::WebhookPayloadPostPlatformPostPlatformsInner>,
 }
 
 impl WebhookPayloadPostPlatformPost {
@@ -34,7 +34,7 @@ impl WebhookPayloadPostPlatformPost {
         content: String,
         status: String,
         scheduled_for: String,
-        platforms: Vec<models::WebhookPayloadPostPostPlatformsInner>,
+        platforms: Vec<models::WebhookPayloadPostPlatformPostPlatformsInner>,
     ) -> WebhookPayloadPostPlatformPost {
         WebhookPayloadPostPlatformPost {
             id,

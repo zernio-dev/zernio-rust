@@ -1596,6 +1596,7 @@ Class | Method | HTTP request | Description
  - [WebhookPayloadPostPlatformAccount](docs/WebhookPayloadPostPlatformAccount.md)
  - [WebhookPayloadPostPlatformPlatform](docs/WebhookPayloadPostPlatformPlatform.md)
  - [WebhookPayloadPostPlatformPost](docs/WebhookPayloadPostPlatformPost.md)
+ - [WebhookPayloadPostPlatformPostPlatformsInner](docs/WebhookPayloadPostPlatformPostPlatformsInner.md)
  - [WebhookPayloadPostPost](docs/WebhookPayloadPostPost.md)
  - [WebhookPayloadPostPostPlatformsInner](docs/WebhookPayloadPostPostPlatformsInner.md)
  - [WebhookPayloadReaction](docs/WebhookPayloadReaction.md)

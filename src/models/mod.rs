@@ -2320,6 +2320,8 @@ pub mod webhook_payload_post_platform_platform;
 pub use self::webhook_payload_post_platform_platform::WebhookPayloadPostPlatformPlatform;
 pub mod webhook_payload_post_platform_post;
 pub use self::webhook_payload_post_platform_post::WebhookPayloadPostPlatformPost;
+pub mod webhook_payload_post_platform_post_platforms_inner;
+pub use self::webhook_payload_post_platform_post_platforms_inner::WebhookPayloadPostPlatformPostPlatformsInner;
 pub mod webhook_payload_post_post;
 pub use self::webhook_payload_post_post::WebhookPayloadPostPost;
 pub mod webhook_payload_post_post_platforms_inner;

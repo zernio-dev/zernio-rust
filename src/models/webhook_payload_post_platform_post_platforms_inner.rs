@@ -12,12 +12,12 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct WebhookPayloadPostPostPlatformsInner {
+pub struct WebhookPayloadPostPlatformPostPlatformsInner {
     #[serde(rename = "platform")]
     pub platform: String,
     #[serde(rename = "status")]
     pub status: String,
-    /// SocialAccount id this platform target published through. Use it to route events by connected account (e.g. separate staging vs production endpoints). A post can span multiple accounts.
+    /// SocialAccount id this platform target published through. On post.platform.* events see also the top-level `account` block.
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
     #[serde(rename = "platformPostId", skip_serializing_if = "Option::is_none")]
@@ -28,9 +28,9 @@ pub struct WebhookPayloadPostPostPlatformsInner {
     pub error: Option<String>,
 }
 
-impl WebhookPayloadPostPostPlatformsInner {
-    pub fn new(platform: String, status: String) -> WebhookPayloadPostPostPlatformsInner {
-        WebhookPayloadPostPostPlatformsInner {
+impl WebhookPayloadPostPlatformPostPlatformsInner {
+    pub fn new(platform: String, status: String) -> WebhookPayloadPostPlatformPostPlatformsInner {
+        WebhookPayloadPostPlatformPostPlatformsInner {
             platform,
             status,
             account_id: None,
