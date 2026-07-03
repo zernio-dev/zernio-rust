@@ -44,6 +44,14 @@ pub struct GetWhatsAppNumberKycForm200ResponseFieldsInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub local_to: Option<Option<String>>,
+    /// When set, the requirement applies ONLY to this end-user type — provide it for that type and OMIT it for the other (e.g. Brazil: \"Cartão CNPJ\" is business-only, \"CPF\" and \"ID/Passport Copy\" are personal-only). Submitting both sets makes the regulator ask whether the number is for personal or business use and stalls the review. Pass `entityType` on POST so the server drops the inapplicable set.
+    #[serde(
+        rename = "audience",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub audience: Option<Option<Audience>>,
 }
 
 impl GetWhatsAppNumberKycForm200ResponseFieldsInner {
@@ -55,6 +63,7 @@ impl GetWhatsAppNumberKycForm200ResponseFieldsInner {
             description: None,
             example: None,
             local_to: None,
+            audience: None,
         }
     }
 }
@@ -76,5 +85,19 @@ pub enum Kind {
 impl Default for Kind {
     fn default() -> Kind {
         Self::Text
+    }
+}
+/// When set, the requirement applies ONLY to this end-user type — provide it for that type and OMIT it for the other (e.g. Brazil: \"Cartão CNPJ\" is business-only, \"CPF\" and \"ID/Passport Copy\" are personal-only). Submitting both sets makes the regulator ask whether the number is for personal or business use and stalls the review. Pass `entityType` on POST so the server drops the inapplicable set.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Audience {
+    #[serde(rename = "business")]
+    Business,
+    #[serde(rename = "individual")]
+    Individual,
+}
+
+impl Default for Audience {
+    fn default() -> Audience {
+        Self::Business
     }
 }
