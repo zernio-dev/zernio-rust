@@ -16,13 +16,20 @@ pub struct WebhookPayloadLeadAccount {
     /// Social account ID (the facebook account owning the Page)
     #[serde(rename = "id")]
     pub id: String,
+    /// Social account ID (same as id); canonical field for account filtering.
+    #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
+    pub account_id: Option<String>,
     #[serde(rename = "platform")]
     pub platform: Platform,
 }
 
 impl WebhookPayloadLeadAccount {
     pub fn new(id: String, platform: Platform) -> WebhookPayloadLeadAccount {
-        WebhookPayloadLeadAccount { id, platform }
+        WebhookPayloadLeadAccount {
+            id,
+            account_id: None,
+            platform,
+        }
     }
 }
 ///

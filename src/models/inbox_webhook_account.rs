@@ -17,6 +17,9 @@ pub struct InboxWebhookAccount {
     /// Social account ID
     #[serde(rename = "id")]
     pub id: String,
+    /// Social account ID (same value as id). Canonical field so consumers can filter every webhook event on one field (e.g. route staging vs production by account). id is kept for backward compatibility.
+    #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
+    pub account_id: Option<String>,
     #[serde(rename = "platform")]
     pub platform: String,
     #[serde(rename = "username")]
@@ -30,6 +33,7 @@ impl InboxWebhookAccount {
     pub fn new(id: String, platform: String, username: String) -> InboxWebhookAccount {
         InboxWebhookAccount {
             id,
+            account_id: None,
             platform,
             username,
             display_name: None,

@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
+**account_id** | Option<**String**> | Social account ID (same as id); canonical field for account filtering. | [optional]
 **platform** | **String** |  | 
 **username** | **String** |  | 
 

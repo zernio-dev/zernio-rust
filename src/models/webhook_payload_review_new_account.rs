@@ -15,6 +15,9 @@ use serde::{Deserialize, Serialize};
 pub struct WebhookPayloadReviewNewAccount {
     #[serde(rename = "id")]
     pub id: String,
+    /// Social account ID (same as id); canonical field for account filtering.
+    #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
+    pub account_id: Option<String>,
     #[serde(rename = "platform")]
     pub platform: String,
     #[serde(rename = "username")]
@@ -25,6 +28,7 @@ impl WebhookPayloadReviewNewAccount {
     pub fn new(id: String, platform: String, username: String) -> WebhookPayloadReviewNewAccount {
         WebhookPayloadReviewNewAccount {
             id,
+            account_id: None,
             platform,
             username,
         }
