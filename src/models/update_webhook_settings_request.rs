@@ -68,6 +68,8 @@ pub enum Events {
     PostPlatformPublished,
     #[serde(rename = "post.platform.failed")]
     PostPlatformFailed,
+    #[serde(rename = "post.tiktok.url_resolved")]
+    PostTiktokUrlResolved,
     #[serde(rename = "post.external.created")]
     PostExternalCreated,
     #[serde(rename = "post.external.updated")]

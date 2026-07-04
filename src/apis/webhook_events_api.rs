@@ -218,6 +218,13 @@ pub enum OnPostScheduledError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`on_post_tik_tok_url_resolved`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnPostTikTokUrlResolvedError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`on_reaction_received`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -1176,6 +1183,36 @@ pub async fn on_post_scheduled(configuration: &configuration::Configuration, web
     } else {
         let content = resp.text().await?;
         let entity: Option<OnPostScheduledError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when an already-published TikTok platform entry gets its public URL backfilled. TikTok exposes the numeric video id asynchronously (often minutes after PUBLISH_COMPLETE), so the terminal events can carry an empty `publishedUrl` for TikTok. This event delivers `platform.publishedUrl` and the resolved `platform.platformPostId` once available. At most once per platform target; never fires for drafts or private posts (no public URL exists). Payload shape is identical to `post.platform.published`. 
+pub async fn on_post_tik_tok_url_resolved(configuration: &configuration::Configuration, webhook_payload_post_platform: models::WebhookPayloadPostPlatform) -> Result<(), Error<OnPostTikTokUrlResolvedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_payload_post_platform = webhook_payload_post_platform;
+
+    let uri_str = format!("{}/post.tiktok.url_resolved", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_payload_post_platform);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnPostTikTokUrlResolvedError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

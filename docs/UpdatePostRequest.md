@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **platforms** | Option<[**Vec<models::UpdatePostRequestPlatformsInner>**](UpdatePostRequestPlatformsInner.md)> | Target platforms and accounts for this post. Each item must include platform and accountId. | [optional]
 **scheduled_for** | Option<**String**> |  | [optional]
 **publish_now** | Option<**bool**> |  | [optional][default to false]
-**is_draft** | Option<**bool**> |  | [optional]
+**is_draft** | Option<**bool**> | When omitted, the post keeps its current draft status. Send `false` to promote a draft to scheduled (combined with `scheduledFor`, `publishNow`, or a queue). | [optional]
 **timezone** | Option<**String**> |  | [optional]
 **visibility** | Option<**Visibility**> |  (enum: public, private, unlisted) | [optional]
 **tags** | Option<**Vec<String>**> |  | [optional]
