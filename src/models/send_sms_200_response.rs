@@ -13,13 +13,14 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SendSms200Response {
-    /// Telnyx message id
+    /// Message ID
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
+    /// Inbox conversation the message was threaded into.
     #[serde(rename = "conversationId", skip_serializing_if = "Option::is_none")]
     pub conversation_id: Option<String>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<String>,
+    pub status: Option<Status>,
 }
 
 impl SendSms200Response {
@@ -29,5 +30,17 @@ impl SendSms200Response {
             conversation_id: None,
             status: None,
         }
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Status {
+    #[serde(rename = "sent")]
+    Sent,
+}
+
+impl Default for Status {
+    fn default() -> Status {
+        Self::Sent
     }
 }

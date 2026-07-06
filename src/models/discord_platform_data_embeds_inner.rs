@@ -26,9 +26,9 @@ pub struct DiscordPlatformDataEmbedsInner {
     #[serde(rename = "color", skip_serializing_if = "Option::is_none")]
     pub color: Option<i32>,
     #[serde(rename = "image", skip_serializing_if = "Option::is_none")]
-    pub image: Option<Box<models::DiscordPlatformDataEmbedsInnerImage>>,
+    pub image: Option<Box<models::GetWhatsAppCallRecording200Response>>,
     #[serde(rename = "thumbnail", skip_serializing_if = "Option::is_none")]
-    pub thumbnail: Option<Box<models::DiscordPlatformDataEmbedsInnerImage>>,
+    pub thumbnail: Option<Box<models::GetWhatsAppCallRecording200Response>>,
     #[serde(rename = "footer", skip_serializing_if = "Option::is_none")]
     pub footer: Option<Box<models::DiscordPlatformDataEmbedsInnerFooter>>,
     #[serde(rename = "author", skip_serializing_if = "Option::is_none")]

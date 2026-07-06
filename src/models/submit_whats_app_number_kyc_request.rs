@@ -42,7 +42,7 @@ pub struct SubmitWhatsAppNumberKycRequest {
     #[serde(rename = "documents", skip_serializing_if = "Option::is_none")]
     pub documents: Option<Vec<models::SubmitWhatsAppNumberKycRequestDocumentsInner>>,
     #[serde(rename = "address", skip_serializing_if = "Option::is_none")]
-    pub address: Option<Box<models::SubmitWhatsAppNumberKycRequestAddress>>,
+    pub address: Option<Box<models::SubmitPhoneNumberKycRequestAddress>>,
 }
 
 impl SubmitWhatsAppNumberKycRequest {

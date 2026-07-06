@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetWhatsAppCallingConfig200Response {
-    /// WhatsAppPhoneNumber Mongo ID (use on /v1/whatsapp/phone-numbers/{id}/calling)
+    /// Phone number record ID (use on /v1/phone-numbers/{id}/whatsapp/calling)
     #[serde(rename = "phoneNumberDocId", skip_serializing_if = "Option::is_none")]
     pub phone_number_doc_id: Option<String>,
     #[serde(rename = "phoneNumber", skip_serializing_if = "Option::is_none")]

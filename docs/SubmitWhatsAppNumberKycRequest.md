@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **end_user_last_name** | Option<**String**> | End user's legal last name. Same condition as endUserFirstName. | [optional]
 **values** | Option<**std::collections::HashMap<String, String>**> | requirementId → textual value | [optional]
 **documents** | Option<[**Vec<models::SubmitWhatsAppNumberKycRequestDocumentsInner>**](SubmitWhatsAppNumberKycRequestDocumentsInner.md)> | One per document requirement. Each is EITHER inline base64 OR a `documentId` returned by POST /v1/whatsapp/phone-numbers/kyc/upload-document (use the upload endpoint for large files to stay under the request-size limit). | [optional]
-**address** | Option<[**models::SubmitWhatsAppNumberKycRequestAddress**](SubmitWhatsAppNumberKycRequestAddress.md)> |  | [optional]
+**address** | Option<[**models::SubmitPhoneNumberKycRequestAddress**](SubmitPhoneNumberKycRequestAddress.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

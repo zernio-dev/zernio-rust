@@ -1,0 +1,14 @@
+# CheckPhoneNumberPortability200ResponseResultsInner
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**phone_number** | Option<**String**> |  | [optional]
+**portable** | Option<**bool**> |  | [optional]
+**fast_portable** | Option<**bool**> | Qualifies for the carrier's accelerated FastPort lane. | [optional]
+**not_portable_reason** | Option<**String**> | Carrier reason when not portable; null when portable. | [optional]
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

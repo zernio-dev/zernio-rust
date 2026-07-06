@@ -14,16 +14,16 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SubmitWhatsAppNumberKycRequestDocumentsInner {
+    SubmitPhoneNumberKycRequestDocumentsInnerOneOf(
+        Box<models::SubmitPhoneNumberKycRequestDocumentsInnerOneOf>,
+    ),
     SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf(
         Box<models::SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf>,
-    ),
-    SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf1(
-        Box<models::SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf1>,
     ),
 }
 
 impl Default for SubmitWhatsAppNumberKycRequestDocumentsInner {
     fn default() -> Self {
-        Self::SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf(Default::default())
+        Self::SubmitPhoneNumberKycRequestDocumentsInnerOneOf(Default::default())
     }
 }

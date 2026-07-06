@@ -35,7 +35,7 @@ pub struct WebhookPayloadCallFailedCall {
     #[serde(rename = "failedAt", skip_serializing_if = "Option::is_none")]
     pub failed_at: Option<String>,
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
-    pub error: Option<Box<models::WebhookPayloadCallFailedCallError>>,
+    pub error: Option<Box<models::CallRecordCallErrorsInner>>,
 }
 
 impl WebhookPayloadCallFailedCall {

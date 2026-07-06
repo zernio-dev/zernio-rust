@@ -13,15 +13,16 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SendSmsRequest {
-    /// One of your SMS-enabled numbers (E.164).
+    /// One of your SMS-enabled numbers (E.164; formatting is normalized).
     #[serde(rename = "from")]
     pub from: String,
     /// Recipient number (E.164).
     #[serde(rename = "to")]
     pub to: String,
+    /// Message body. Required unless `mediaUrls` is set. Max 10 SMS segments (1530 GSM-7 or 670 unicode characters).
     #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
     pub text: Option<String>,
-    /// Publicly reachable media URLs for MMS (max 10, total < 1MB).
+    /// Public media URLs to attach (sends as MMS). Max 10.
     #[serde(rename = "mediaUrls", skip_serializing_if = "Option::is_none")]
     pub media_urls: Option<Vec<String>>,
 }

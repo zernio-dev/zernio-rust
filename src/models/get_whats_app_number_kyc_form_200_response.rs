@@ -20,7 +20,7 @@ pub struct GetWhatsAppNumberKycForm200Response {
     #[serde(rename = "fields", skip_serializing_if = "Option::is_none")]
     pub fields: Option<Vec<models::GetWhatsAppNumberKycForm200ResponseFieldsInner>>,
     #[serde(rename = "reusable", skip_serializing_if = "Option::is_none")]
-    pub reusable: Option<Box<models::GetWhatsAppNumberKycForm200ResponseReusable>>,
+    pub reusable: Option<Box<models::GetPhoneNumberKycForm200ResponseReusable>>,
 }
 
 impl GetWhatsAppNumberKycForm200Response {

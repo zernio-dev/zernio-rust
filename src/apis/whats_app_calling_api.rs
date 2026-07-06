@@ -22,10 +22,29 @@ pub enum DisableWhatsAppCallingError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`disable_whats_app_calling_legacy`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DisableWhatsAppCallingLegacyError {
+    Status401(models::InlineObject),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`enable_whats_app_calling`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum EnableWhatsAppCallingError {
+    Status401(models::InlineObject),
+    Status404(),
+    Status422(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`enable_whats_app_calling_legacy`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum EnableWhatsAppCallingLegacyError {
     Status401(models::InlineObject),
     Status404(),
     Status422(),
@@ -53,6 +72,25 @@ pub enum GetWhatsAppCallEstimateError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetWhatsAppCallPermissionsError {
+    Status401(models::InlineObject),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_whats_app_call_recording`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetWhatsAppCallRecordingError {
+    Status401(models::InlineObject),
+    Status404(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_whats_app_calling`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetWhatsAppCallingError {
     Status401(models::InlineObject),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -96,6 +134,16 @@ pub enum UpdateWhatsAppCallingError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`update_whats_app_calling_legacy`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateWhatsAppCallingLegacyError {
+    Status401(models::InlineObject),
+    Status404(),
+    Status422(),
+    UnknownValue(serde_json::Value),
+}
+
 /// Disable calling. Sends calling.status=DISABLED to Meta (best-effort) and flips the local `callingEnabled` flag off. forwardTo and SIP creds are preserved so a re-enable does not lose the destination.
 pub async fn disable_whats_app_calling(
     configuration: &configuration::Configuration,
@@ -107,7 +155,7 @@ pub async fn disable_whats_app_calling(
     let p_query_account_id = account_id;
 
     let uri_str = format!(
-        "{}/v1/whatsapp/phone-numbers/{id}/calling",
+        "{}/v1/phone-numbers/{id}/whatsapp/calling",
         configuration.base_path,
         id = crate::apis::urlencode(p_path_id)
     );
@@ -141,18 +189,64 @@ pub async fn disable_whats_app_calling(
     }
 }
 
+/// Deprecated alias of `/v1/phone-numbers/{id}/whatsapp/calling`; same contract. New integrations should use that path.  Disable calling. Sends calling.status=DISABLED to Meta (best-effort) and flips the local `callingEnabled` flag off. forwardTo and SIP creds are preserved so a re-enable does not lose the destination.
+#[deprecated]
+pub async fn disable_whats_app_calling_legacy(
+    configuration: &configuration::Configuration,
+    id: &str,
+    account_id: &str,
+) -> Result<(), Error<DisableWhatsAppCallingLegacyError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/phone-numbers/{id}/calling",
+        configuration.base_path,
+        id = crate::apis::urlencode(p_path_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DisableWhatsAppCallingLegacyError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Enable WhatsApp Business Calling on a connected number. Configures Meta calling.status=ENABLED with our Telnyx SIP endpoint, fetches and stores the Meta-issued SIP password (encrypted), and snapshots the customer's forward-to destination.
 pub async fn enable_whats_app_calling(
     configuration: &configuration::Configuration,
     id: &str,
-    enable_whats_app_calling_request: models::EnableWhatsAppCallingRequest,
-) -> Result<models::EnableWhatsAppCalling200Response, Error<EnableWhatsAppCallingError>> {
+    enable_whats_app_calling_legacy_request: models::EnableWhatsAppCallingLegacyRequest,
+) -> Result<models::EnableWhatsAppCallingLegacy200Response, Error<EnableWhatsAppCallingError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_body_enable_whats_app_calling_request = enable_whats_app_calling_request;
+    let p_body_enable_whats_app_calling_legacy_request = enable_whats_app_calling_legacy_request;
 
     let uri_str = format!(
-        "{}/v1/whatsapp/phone-numbers/{id}/calling",
+        "{}/v1/phone-numbers/{id}/whatsapp/calling",
         configuration.base_path,
         id = crate::apis::urlencode(p_path_id)
     );
@@ -166,7 +260,7 @@ pub async fn enable_whats_app_calling(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_enable_whats_app_calling_request);
+    req_builder = req_builder.json(&p_body_enable_whats_app_calling_legacy_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -183,12 +277,70 @@ pub async fn enable_whats_app_calling(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::EnableWhatsAppCalling200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::EnableWhatsAppCalling200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::EnableWhatsAppCallingLegacy200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::EnableWhatsAppCallingLegacy200Response`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<EnableWhatsAppCallingError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Deprecated alias of `/v1/phone-numbers/{id}/whatsapp/calling`; same contract. New integrations should use that path.  Enable WhatsApp Business Calling on a connected number. Configures Meta calling.status=ENABLED with our Telnyx SIP endpoint, fetches and stores the Meta-issued SIP password (encrypted), and snapshots the customer's forward-to destination.
+#[deprecated]
+pub async fn enable_whats_app_calling_legacy(
+    configuration: &configuration::Configuration,
+    id: &str,
+    enable_whats_app_calling_legacy_request: models::EnableWhatsAppCallingLegacyRequest,
+) -> Result<models::EnableWhatsAppCallingLegacy200Response, Error<EnableWhatsAppCallingLegacyError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_body_enable_whats_app_calling_legacy_request = enable_whats_app_calling_legacy_request;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/phone-numbers/{id}/calling",
+        configuration.base_path,
+        id = crate::apis::urlencode(p_path_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_enable_whats_app_calling_legacy_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::EnableWhatsAppCallingLegacy200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::EnableWhatsAppCallingLegacy200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<EnableWhatsAppCallingLegacyError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -362,7 +514,117 @@ pub async fn get_whats_app_call_permissions(
     }
 }
 
-/// Returns the local calling configuration snapshot for the connected WhatsApp account: whether calling is enabled, the forward-to destination URI, recording opt-in state, the WhatsAppPhoneNumber doc id (use as `{id}` on the calling-config write endpoints) and whether SIP digest credentials are stored (the encrypted password itself is never returned).
+/// Resolves a fresh, playable MP3 URL for the call's recording. Provider-signed recording URLs expire ~10 minutes after signing, so the `recordingUrl` stored on the call is usually stale by the time it is played; this endpoint re-signs on demand. Default responds `302 Found` redirecting to the fresh URL (point an `<audio>` element or a link straight at this endpoint); pass `as=json` to receive `{ url }` instead.
+pub async fn get_whats_app_call_recording(
+    configuration: &configuration::Configuration,
+    call_id: &str,
+    account_id: &str,
+    r#as: Option<&str>,
+) -> Result<models::GetWhatsAppCallRecording200Response, Error<GetWhatsAppCallRecordingError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_call_id = call_id;
+    let p_query_account_id = account_id;
+    let p_query_as = r#as;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/calls/{callId}/recording",
+        configuration.base_path,
+        callId = crate::apis::urlencode(p_path_call_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_as {
+        req_builder = req_builder.query(&[("as", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetWhatsAppCallRecording200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetWhatsAppCallRecording200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetWhatsAppCallRecordingError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// The WhatsApp Business Calling configuration of this number, keyed the same way as the POST/PATCH/DELETE below (full read-write on one sub-resource). Encrypted secrets are never returned; only a boolean saying whether a SIP password is stored. The account-scoped read (`GET /v1/whatsapp/calling?accountId=`) remains for callers that only know the social account id, and additionally carries account-level extras (billing eligibility, current-period spend).
+pub async fn get_whats_app_calling(
+    configuration: &configuration::Configuration,
+    id: &str,
+) -> Result<models::GetWhatsAppCalling200Response, Error<GetWhatsAppCallingError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+
+    let uri_str = format!(
+        "{}/v1/phone-numbers/{id}/whatsapp/calling",
+        configuration.base_path,
+        id = crate::apis::urlencode(p_path_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetWhatsAppCalling200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetWhatsAppCalling200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetWhatsAppCallingError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns the local calling configuration snapshot for the connected WhatsApp account: whether calling is enabled, the forward-to destination URI, recording opt-in state, the phone number record id (use as `{id}` on the read-write calling sub-resource at /v1/phone-numbers/{id}/whatsapp/calling) and whether SIP digest credentials are stored (the encrypted password itself is never returned). Also carries account-level extras (billing eligibility, current-period spend) that the number-keyed GET does not.
 pub async fn get_whats_app_calling_config(
     configuration: &configuration::Configuration,
     account_id: &str,
@@ -410,13 +672,15 @@ pub async fn get_whats_app_calling_config(
     }
 }
 
-/// Initiates an outbound Business-Initiated Call. The Telnyx-side SIP leg is originated server-side (Option B: SIP-first). Telnyx INVITEs Meta directly over TLS:5061 with the SIP digest credentials we captured at calling-enablement time). No client-side SDP is required; pass only `accountId` and `to`.  To send the consumer the call-consent prompt instead of placing a call, pass `action: \"send_call_permission_request\"` (+ optional `bodyText`). The consumer must tap Allow in WhatsApp before `start_call` is permitted; Meta limits the prompt to 1 per consumer per 24h (2 per 7 days) and requires an open 24h service window.
+/// Initiates an outbound Business-Initiated Call. The Telnyx-side SIP leg is originated server-side (Option B: SIP-first). Telnyx INVITEs Meta directly over TLS:5061 with the SIP digest credentials we captured at calling-enablement time). No client-side SDP is required; pass only `accountId` and `to`.  To send the consumer the call-consent prompt instead of placing a call, pass `action: \"send_call_permission_request\"` (+ optional `bodyText`). The consumer must tap Allow in WhatsApp before `start_call` is permitted; Meta limits the prompt to 1 per consumer per 24h (2 per 7 days) and requires an open 24h service window.  **Idempotency:** send an `Idempotency-Key` header to make retries safe; same key + same body replays the original response instead of dialing (and billing) a second call.
 pub async fn initiate_whats_app_call(
     configuration: &configuration::Configuration,
     initiate_whats_app_call_request: models::InitiateWhatsAppCallRequest,
+    idempotency_key: Option<&str>,
 ) -> Result<models::InitiateWhatsAppCall200Response, Error<InitiateWhatsAppCallError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_initiate_whats_app_call_request = initiate_whats_app_call_request;
+    let p_header_idempotency_key = idempotency_key;
 
     let uri_str = format!("{}/v1/whatsapp/calls", configuration.base_path);
     let mut req_builder = configuration
@@ -425,6 +689,9 @@ pub async fn initiate_whats_app_call(
 
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_idempotency_key {
+        req_builder = req_builder.header("Idempotency-Key", param_value.to_string());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -460,7 +727,7 @@ pub async fn initiate_whats_app_call(
     }
 }
 
-/// Compact history listing for a single connected account. Results are scoped to the resolved SocialAccount; profile-scoped team members cannot read calls on sibling accounts.
+/// Compact history listing for a single connected account. Results are scoped to the resolved SocialAccount; profile-scoped team members cannot read calls on sibling accounts.  Cursor pagination: pass the returned `nextCursor` as `before` to fetch the next page (same scheme as `GET /v1/calls`). `since`/`until` remain as absolute range filters and combine with the cursor.
 pub async fn list_whats_app_calls(
     configuration: &configuration::Configuration,
     account_id: &str,
@@ -468,6 +735,7 @@ pub async fn list_whats_app_calls(
     direction: Option<&str>,
     since: Option<String>,
     until: Option<String>,
+    before: Option<String>,
     limit: Option<i32>,
 ) -> Result<models::ListWhatsAppCalls200Response, Error<ListWhatsAppCallsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -476,6 +744,7 @@ pub async fn list_whats_app_calls(
     let p_query_direction = direction;
     let p_query_since = since;
     let p_query_until = until;
+    let p_query_before = before;
     let p_query_limit = limit;
 
     let uri_str = format!("{}/v1/whatsapp/calls", configuration.base_path);
@@ -493,6 +762,9 @@ pub async fn list_whats_app_calls(
     }
     if let Some(ref param_value) = p_query_until {
         req_builder = req_builder.query(&[("until", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_before {
+        req_builder = req_builder.query(&[("before", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
@@ -537,11 +809,57 @@ pub async fn list_whats_app_calls(
 pub async fn update_whats_app_calling(
     configuration: &configuration::Configuration,
     id: &str,
-    update_whats_app_calling_request: models::UpdateWhatsAppCallingRequest,
+    update_whats_app_calling_legacy_request: models::UpdateWhatsAppCallingLegacyRequest,
 ) -> Result<(), Error<UpdateWhatsAppCallingError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_body_update_whats_app_calling_request = update_whats_app_calling_request;
+    let p_body_update_whats_app_calling_legacy_request = update_whats_app_calling_legacy_request;
+
+    let uri_str = format!(
+        "{}/v1/phone-numbers/{id}/whatsapp/calling",
+        configuration.base_path,
+        id = crate::apis::urlencode(p_path_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::PATCH, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_whats_app_calling_legacy_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateWhatsAppCallingError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Deprecated alias of `/v1/phone-numbers/{id}/whatsapp/calling`; same contract. New integrations should use that path.  Update fields on an already-enabled number. Only fields present in the body are written; `undefined` leaves the stored value alone, explicit `null` clears a nullable field. No Meta side effect, this only changes local routing state consumed by the Telnyx webhook handler.
+#[deprecated]
+pub async fn update_whats_app_calling_legacy(
+    configuration: &configuration::Configuration,
+    id: &str,
+    update_whats_app_calling_legacy_request: models::UpdateWhatsAppCallingLegacyRequest,
+) -> Result<(), Error<UpdateWhatsAppCallingLegacyError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_body_update_whats_app_calling_legacy_request = update_whats_app_calling_legacy_request;
 
     let uri_str = format!(
         "{}/v1/whatsapp/phone-numbers/{id}/calling",
@@ -558,7 +876,7 @@ pub async fn update_whats_app_calling(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_update_whats_app_calling_request);
+    req_builder = req_builder.json(&p_body_update_whats_app_calling_legacy_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -569,7 +887,7 @@ pub async fn update_whats_app_calling(
         Ok(())
     } else {
         let content = resp.text().await?;
-        let entity: Option<UpdateWhatsAppCallingError> = serde_json::from_str(&content).ok();
+        let entity: Option<UpdateWhatsAppCallingLegacyError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

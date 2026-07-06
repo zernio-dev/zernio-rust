@@ -1,0 +1,23 @@
+# ListSmsRegistrations200ResponseRegistrationsInner
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | Option<**String**> |  | [optional]
+**registration_type** | Option<**RegistrationType**> |  (enum: standard_10dlc, sole_prop_10dlc, toll_free) | [optional]
+**display_name** | Option<**String**> |  | [optional]
+**status** | Option<**Status**> |  (enum: pending, approved, rejected) | [optional]
+**brand_status** | Option<**String**> | Carrier-registry brand status (e.g. VERIFIED). | [optional]
+**campaign_status** | Option<**String**> |  | [optional]
+**brand_id** | Option<**String**> | TCR brand id, useful when referencing the brand in carrier support threads. | [optional]
+**campaign_id** | Option<**String**> | TCR campaign id. | [optional]
+**decline_reason** | Option<**String**> |  | [optional]
+**phone_numbers** | Option<**Vec<String>**> |  | [optional]
+**awaiting_otp** | Option<**bool**> | Sole-prop 10DLC only; the OTP step is still pending. | [optional]
+**trust_score** | Option<**f64**> | Carrier-assigned brand trust score; drives throughput. | [optional]
+**throughput** | Option<[**models::ListSmsRegistrations200ResponseRegistrationsInnerThroughput**](ListSmsRegistrations200ResponseRegistrationsInnerThroughput.md)> |  | [optional]
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

@@ -15,22 +15,19 @@ use serde::{Deserialize, Serialize};
 pub struct SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf {
     #[serde(rename = "requirementId")]
     pub requirement_id: String,
-    #[serde(rename = "filename")]
-    pub filename: String,
-    #[serde(rename = "base64")]
-    pub base64: String,
+    /// Id from POST /v1/whatsapp/phone-numbers/kyc/upload-document.
+    #[serde(rename = "documentId")]
+    pub document_id: String,
 }
 
 impl SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf {
     pub fn new(
         requirement_id: String,
-        filename: String,
-        base64: String,
+        document_id: String,
     ) -> SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf {
         SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf {
             requirement_id,
-            filename,
-            base64,
+            document_id,
         }
     }
 }

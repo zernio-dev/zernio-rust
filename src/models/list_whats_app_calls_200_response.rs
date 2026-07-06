@@ -15,10 +15,21 @@ use serde::{Deserialize, Serialize};
 pub struct ListWhatsAppCalls200Response {
     #[serde(rename = "calls", skip_serializing_if = "Option::is_none")]
     pub calls: Option<Vec<models::ListWhatsAppCalls200ResponseCallsInner>>,
+    /// Pass as `before` for the next page; null on the last page.
+    #[serde(
+        rename = "nextCursor",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub next_cursor: Option<Option<String>>,
 }
 
 impl ListWhatsAppCalls200Response {
     pub fn new() -> ListWhatsAppCalls200Response {
-        ListWhatsAppCalls200Response { calls: None }
+        ListWhatsAppCalls200Response {
+            calls: None,
+            next_cursor: None,
+        }
     }
 }

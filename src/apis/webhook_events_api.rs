@@ -1367,7 +1367,7 @@ pub async fn on_whats_app_number_action_required(configuration: &configuration::
     }
 }
 
-/// Fired when a purchased WhatsApp number becomes active and usable — both the synchronous (Tier 1/2) path and the asynchronous regulated (Tier 3/4) path land here. Lets integrators react without polling GET /v1/whatsapp/phone-numbers. 
+/// Fired when a purchased WhatsApp number becomes active and usable — both the synchronous (Tier 1/2) path and the asynchronous regulated (Tier 3/4) path land here. Lets integrators react without polling GET /v1/phone-numbers. 
 pub async fn on_whats_app_number_activated(configuration: &configuration::Configuration, on_whats_app_number_activated_request: models::OnWhatsAppNumberActivatedRequest) -> Result<(), Error<OnWhatsAppNumberActivatedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_on_whats_app_number_activated_request = on_whats_app_number_activated_request;
@@ -1427,7 +1427,7 @@ pub async fn on_whats_app_number_declined(configuration: &configuration::Configu
     }
 }
 
-/// Fired when an end customer completes a hosted KYC share link (POST /v1/whatsapp/phone-numbers/kyc/share). The number enters review (pending_regulatory) under your account; `whatsapp.number.activated` or `whatsapp.number.declined` follows once the provider rules on it. 
+/// Fired when an end customer completes a hosted KYC share link (POST /v1/phone-numbers/kyc/share). The number enters review (pending_regulatory) under your account; `whatsapp.number.activated` or `whatsapp.number.declined` follows once the provider rules on it. 
 pub async fn on_whats_app_number_kyc_submitted(configuration: &configuration::Configuration, on_whats_app_number_kyc_submitted_request: models::OnWhatsAppNumberKycSubmittedRequest) -> Result<(), Error<OnWhatsAppNumberKycSubmittedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_on_whats_app_number_kyc_submitted_request = on_whats_app_number_kyc_submitted_request;
