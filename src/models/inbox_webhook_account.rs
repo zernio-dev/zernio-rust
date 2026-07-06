@@ -20,6 +20,9 @@ pub struct InboxWebhookAccount {
     /// Social account ID (same value as id). Canonical field so consumers can filter every webhook event on one field (e.g. route staging vs production by account). id is kept for backward compatibility.
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
+    /// Zernio profile (workspace) ID this account belongs to. Use it to route or filter inbox webhooks by workspace. This is the profile ID only, not its name (resolve the name via the API with this ID). Optional; omitted on the shared WhatsApp sandbox account and when the account has no resolvable profile.
+    #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]
+    pub profile_id: Option<String>,
     #[serde(rename = "platform")]
     pub platform: String,
     #[serde(rename = "username")]
@@ -34,6 +37,7 @@ impl InboxWebhookAccount {
         InboxWebhookAccount {
             id,
             account_id: None,
+            profile_id: None,
             platform,
             username,
             display_name: None,
