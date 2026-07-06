@@ -26,11 +26,21 @@ pub struct ListInboxMentions200ResponseDataInner {
     #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
     pub content: Option<String>,
     /// URL to the source post on LinkedIn
-    #[serde(rename = "permalink", skip_serializing_if = "Option::is_none")]
-    pub permalink: Option<String>,
+    #[serde(
+        rename = "permalink",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub permalink: Option<Option<String>>,
     /// LinkedIn URN of the person who mentioned you
-    #[serde(rename = "authorUrn", skip_serializing_if = "Option::is_none")]
-    pub author_urn: Option<String>,
+    #[serde(
+        rename = "authorUrn",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub author_urn: Option<Option<String>>,
     /// URN of the organization that was mentioned
     #[serde(
         rename = "organizationalEntity",

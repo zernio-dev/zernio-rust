@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**enabled** | Option<**Enabled**> |  (enum: false) | [optional]
+**enabled** | Option<**bool**> | Always false after a successful disable. | [optional]
 **phone_number** | Option<**String**> |  | [optional]
 **disabled** | Option<**bool**> | False when SMS was already off. Legacy field; prefer `enabled`. | [optional]
 

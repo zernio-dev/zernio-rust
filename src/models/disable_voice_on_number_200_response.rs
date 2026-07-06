@@ -13,8 +13,9 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DisableVoiceOnNumber200Response {
+    /// Always false after a successful disable.
     #[serde(rename = "enabled", skip_serializing_if = "Option::is_none")]
-    pub enabled: Option<Enabled>,
+    pub enabled: Option<bool>,
     #[serde(rename = "phoneNumber", skip_serializing_if = "Option::is_none")]
     pub phone_number: Option<String>,
 }
@@ -25,17 +26,5 @@ impl DisableVoiceOnNumber200Response {
             enabled: None,
             phone_number: None,
         }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Enabled {
-    #[serde(rename = "false")]
-    False,
-}
-
-impl Default for Enabled {
-    fn default() -> Enabled {
-        Self::False
     }
 }

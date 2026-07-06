@@ -11,7 +11,6 @@ Name | Type | Description | Notes
 **record_override** | Option<**bool**> | Per-call recording toggle; defaults to the number's setting. | [optional]
 **transcribe_override** | Option<**bool**> | Per-call transcription toggle; defaults to the number's setting. | [optional]
 **transcription_language** | Option<**TranscriptionLanguage**> | 'auto' derives from the callee's country; 'en'/'es' force it. (enum: auto, en, es) | [optional]
-**idempotency_key** | Option<**String**> | A retry with the same key returns the original call instead of dialing again. | [optional]
 **amd** | Option<**bool**> | Answering-machine detection; defers the bridge until human vs machine is known. | [optional]
 **voicemail_drop_message** | Option<**String**> | Spoken to a detected machine, then hang up (implies `amd`). For outbound voicemail drops. | [optional]
 

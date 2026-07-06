@@ -1422,8 +1422,6 @@ pub mod list_inbox_mentions_200_response_data_inner;
 pub use self::list_inbox_mentions_200_response_data_inner::ListInboxMentions200ResponseDataInner;
 pub mod list_inbox_mentions_200_response_meta;
 pub use self::list_inbox_mentions_200_response_meta::ListInboxMentions200ResponseMeta;
-pub mod list_inbox_mentions_200_response_pagination;
-pub use self::list_inbox_mentions_200_response_pagination::ListInboxMentions200ResponsePagination;
 pub mod list_inbox_reviews_200_response;
 pub use self::list_inbox_reviews_200_response::ListInboxReviews200Response;
 pub mod list_inbox_reviews_200_response_data_inner;

@@ -37,9 +37,6 @@ pub struct CreateVoiceCallRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub transcription_language: Option<TranscriptionLanguage>,
-    /// A retry with the same key returns the original call instead of dialing again.
-    #[serde(rename = "idempotencyKey", skip_serializing_if = "Option::is_none")]
-    pub idempotency_key: Option<String>,
     /// Answering-machine detection; defers the bridge until human vs machine is known.
     #[serde(rename = "amd", skip_serializing_if = "Option::is_none")]
     pub amd: Option<bool>,
@@ -61,7 +58,6 @@ impl CreateVoiceCallRequest {
             record_override: None,
             transcribe_override: None,
             transcription_language: None,
-            idempotency_key: None,
             amd: None,
             voicemail_drop_message: None,
         }

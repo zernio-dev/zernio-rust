@@ -16,7 +16,7 @@ pub struct ListInboxMentions200Response {
     #[serde(rename = "data", skip_serializing_if = "Option::is_none")]
     pub data: Option<Vec<models::ListInboxMentions200ResponseDataInner>>,
     #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
-    pub pagination: Option<Box<models::ListInboxMentions200ResponsePagination>>,
+    pub pagination: Option<Box<models::GetInboxPostComments200ResponsePagination>>,
     #[serde(rename = "meta", skip_serializing_if = "Option::is_none")]
     pub meta: Option<Box<models::ListInboxMentions200ResponseMeta>>,
 }
