@@ -101,7 +101,7 @@ impl Default for TopicType {
         Self::Standard
     }
 }
-/// Type of commercial content disclosure
+/// Type of commercial content disclosure. Sufficient on its own: \"brand_organic\" (\"Your Brand\") implies isBrandOrganicPost and \"brand_content\" (\"Branded Content\", paid partnership) implies brandPartnerPromote, so you don't need to send the boolean flags separately. Branded content cannot be posted with privacyLevel SELF_ONLY.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum CommercialContentType {
     #[serde(rename = "none")]

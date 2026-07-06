@@ -29,19 +29,19 @@ pub struct TikTokPlatformData {
     /// Allow stitches (required for video posts)
     #[serde(rename = "allowStitch", skip_serializing_if = "Option::is_none")]
     pub allow_stitch: Option<bool>,
-    /// Type of commercial content disclosure
+    /// Type of commercial content disclosure. Sufficient on its own: \"brand_organic\" (\"Your Brand\") implies isBrandOrganicPost and \"brand_content\" (\"Branded Content\", paid partnership) implies brandPartnerPromote, so you don't need to send the boolean flags separately. Branded content cannot be posted with privacyLevel SELF_ONLY.
     #[serde(
         rename = "commercialContentType",
         skip_serializing_if = "Option::is_none"
     )]
     pub commercial_content_type: Option<CommercialContentType>,
-    /// Whether the post promotes a brand partner
+    /// Whether the post promotes a brand partner (branded content / paid partnership). Only needed to disclose BOTH types at once (set it alongside commercialContentType \"brand_organic\"), or to override the value implied by commercialContentType.
     #[serde(
         rename = "brandPartnerPromote",
         skip_serializing_if = "Option::is_none"
     )]
     pub brand_partner_promote: Option<bool>,
-    /// Whether the post is a brand organic post
+    /// Whether the post promotes the creator's own brand (brand organic). Only needed to disclose BOTH types at once (set it alongside commercialContentType \"brand_content\"), or to override the value implied by commercialContentType.
     #[serde(rename = "isBrandOrganicPost", skip_serializing_if = "Option::is_none")]
     pub is_brand_organic_post: Option<bool>,
     /// User has confirmed they previewed the content
@@ -106,7 +106,7 @@ impl TikTokPlatformData {
         }
     }
 }
-/// Type of commercial content disclosure
+/// Type of commercial content disclosure. Sufficient on its own: \"brand_organic\" (\"Your Brand\") implies isBrandOrganicPost and \"brand_content\" (\"Branded Content\", paid partnership) implies brandPartnerPromote, so you don't need to send the boolean flags separately. Branded content cannot be posted with privacyLevel SELF_ONLY.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum CommercialContentType {
     #[serde(rename = "none")]
