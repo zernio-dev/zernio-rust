@@ -15,6 +15,9 @@ use serde::{Deserialize, Serialize};
 pub struct GetAdTree200Response {
     #[serde(rename = "campaigns", skip_serializing_if = "Option::is_none")]
     pub campaigns: Option<Vec<models::AdTreeCampaign>>,
+    /// Present and true only on `202` responses: part of the requested date range is still being backfilled from the platform in the background. Retry the same request shortly; it returns 200 once the range is fully ingested.
+    #[serde(rename = "backfillPending", skip_serializing_if = "Option::is_none")]
+    pub backfill_pending: Option<bool>,
     #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
     pub pagination: Option<Box<models::Pagination>>,
 }
@@ -23,6 +26,7 @@ impl GetAdTree200Response {
     pub fn new() -> GetAdTree200Response {
         GetAdTree200Response {
             campaigns: None,
+            backfill_pending: None,
             pagination: None,
         }
     }

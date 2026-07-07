@@ -15,10 +15,16 @@ use serde::{Deserialize, Serialize};
 pub struct GetAdsTimeline200Response {
     #[serde(rename = "rows", skip_serializing_if = "Option::is_none")]
     pub rows: Option<Vec<models::GetAdsTimeline200ResponseRowsInner>>,
+    /// Present and true only on `202` responses: part of the requested date range is still being backfilled from the platform in the background. Retry the same request shortly; it returns 200 once the range is fully ingested.
+    #[serde(rename = "backfillPending", skip_serializing_if = "Option::is_none")]
+    pub backfill_pending: Option<bool>,
 }
 
 impl GetAdsTimeline200Response {
     pub fn new() -> GetAdsTimeline200Response {
-        GetAdsTimeline200Response { rows: None }
+        GetAdsTimeline200Response {
+            rows: None,
+            backfill_pending: None,
+        }
     }
 }

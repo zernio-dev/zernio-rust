@@ -15,6 +15,9 @@ use serde::{Deserialize, Serialize};
 pub struct GetCampaignAnalytics200Response {
     #[serde(rename = "campaign", skip_serializing_if = "Option::is_none")]
     pub campaign: Option<Box<models::GetCampaignAnalytics200ResponseCampaign>>,
+    /// Present and true only on `202` responses: part of the requested date range is still being backfilled from the platform in the background. Retry the same request shortly; it returns 200 once the range is fully ingested.
+    #[serde(rename = "backfillPending", skip_serializing_if = "Option::is_none")]
+    pub backfill_pending: Option<bool>,
     #[serde(rename = "analytics", skip_serializing_if = "Option::is_none")]
     pub analytics: Option<Box<models::GetCampaignAnalytics200ResponseAnalytics>>,
 }
@@ -23,6 +26,7 @@ impl GetCampaignAnalytics200Response {
     pub fn new() -> GetCampaignAnalytics200Response {
         GetCampaignAnalytics200Response {
             campaign: None,
+            backfill_pending: None,
             analytics: None,
         }
     }
