@@ -41,6 +41,30 @@ pub struct ListInboxMentions200ResponseDataInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub author_urn: Option<Option<String>>,
+    /// Display name of the author, resolved from authorUrn. Null when LinkedIn does not allow resolving the profile.
+    #[serde(
+        rename = "authorName",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub author_name: Option<Option<String>>,
+    /// LinkedIn vanity name of the author (the slug in their profile URL)
+    #[serde(
+        rename = "authorUsername",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub author_username: Option<Option<String>>,
+    /// Profile picture URL of the author. LinkedIn CDN URLs expire after some time, so fetch promptly rather than storing long-term.
+    #[serde(
+        rename = "authorPicture",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub author_picture: Option<Option<String>>,
     /// URN of the organization that was mentioned
     #[serde(
         rename = "organizationalEntity",
@@ -63,6 +87,9 @@ impl ListInboxMentions200ResponseDataInner {
             content: None,
             permalink: None,
             author_urn: None,
+            author_name: None,
+            author_username: None,
+            author_picture: None,
             organizational_entity: None,
             published_at: None,
             created_at: None,
