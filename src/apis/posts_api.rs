@@ -31,7 +31,7 @@ pub enum BulkUploadPostsError {
 pub enum CreatePostError {
     Status400(models::GetYouTubeDailyViews400Response),
     Status401(models::InlineObject),
-    Status403(models::GetYouTubeDailyViews400Response),
+    Status403(models::CreatePost403Response),
     Status409(models::CreatePost409Response),
     Status429(models::CreatePost429Response),
     UnknownValue(serde_json::Value),
