@@ -11,6 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// SendInboxMessageRequestInteractiveBody : Required for every type except `product`, where it is optional.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SendInboxMessageRequestInteractiveBody {
     /// Main body text.
@@ -19,6 +20,7 @@ pub struct SendInboxMessageRequestInteractiveBody {
 }
 
 impl SendInboxMessageRequestInteractiveBody {
+    /// Required for every type except `product`, where it is optional.
     pub fn new(text: String) -> SendInboxMessageRequestInteractiveBody {
         SendInboxMessageRequestInteractiveBody { text }
     }

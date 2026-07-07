@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// SendInboxMessageRequestInteractiveHeader : Optional header shown above the body.
+/// SendInboxMessageRequestInteractiveHeader : Optional header shown above the body. Required with `type: \"text\"` for `product_list`; not allowed for `product` or `carousel`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SendInboxMessageRequestInteractiveHeader {
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -28,7 +28,7 @@ pub struct SendInboxMessageRequestInteractiveHeader {
 }
 
 impl SendInboxMessageRequestInteractiveHeader {
-    /// Optional header shown above the body.
+    /// Optional header shown above the body. Required with `type: \"text\"` for `product_list`; not allowed for `product` or `carousel`.
     pub fn new() -> SendInboxMessageRequestInteractiveHeader {
         SendInboxMessageRequestInteractiveHeader {
             r#type: None,
