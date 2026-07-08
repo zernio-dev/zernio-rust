@@ -30,6 +30,9 @@ pub struct PostAnalytics {
     pub clicks: Option<i32>,
     #[serde(rename = "views", skip_serializing_if = "Option::is_none")]
     pub views: Option<i32>,
+    /// Instagram feed posts and stories only: organic accounts that started following from this post. 0 for reels and other platforms.
+    #[serde(rename = "follows", skip_serializing_if = "Option::is_none")]
+    pub follows: Option<i32>,
     /// Instagram Reels only: average watch time per play, in milliseconds. 0 for non-Reels media and other platforms.
     #[serde(
         rename = "igReelsAvgWatchTime",
@@ -59,6 +62,7 @@ impl PostAnalytics {
             saves: None,
             clicks: None,
             views: None,
+            follows: None,
             ig_reels_avg_watch_time: None,
             ig_reels_video_view_total_time: None,
             engagement_rate: None,

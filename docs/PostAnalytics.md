@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **saves** | Option<**i32**> | Number of saves/bookmarks (Instagram, Pinterest) | [optional]
 **clicks** | Option<**i32**> |  | [optional]
 **views** | Option<**i32**> |  | [optional]
+**follows** | Option<**i32**> | Instagram feed posts and stories only: organic accounts that started following from this post. 0 for reels and other platforms. | [optional]
 **ig_reels_avg_watch_time** | Option<**i32**> | Instagram Reels only: average watch time per play, in milliseconds. 0 for non-Reels media and other platforms. | [optional]
 **ig_reels_video_view_total_time** | Option<**i32**> | Instagram Reels only: total watch time including replays, in milliseconds. 0 for non-Reels media and other platforms. | [optional]
 **engagement_rate** | Option<**f64**> |  | [optional]
