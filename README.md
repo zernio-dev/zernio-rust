@@ -66,6 +66,7 @@ Class | Method | HTTP request | Description
 *AdAudiencesApi* | [**delete_ad_audience**](docs/AdAudiencesApi.md#delete_ad_audience) | **DELETE** /v1/ads/audiences/{audienceId} | Delete custom audience
 *AdAudiencesApi* | [**get_ad_audience**](docs/AdAudiencesApi.md#get_ad_audience) | **GET** /v1/ads/audiences/{audienceId} | Get audience details
 *AdAudiencesApi* | [**list_ad_audiences**](docs/AdAudiencesApi.md#list_ad_audiences) | **GET** /v1/ads/audiences | List custom audiences
+*AdAudiencesApi* | [**update_ad_audience**](docs/AdAudiencesApi.md#update_ad_audience) | **PUT** /v1/ads/audiences/{audienceId} | Update saved targeting audience
 *AdCampaignsApi* | [**bulk_update_ad_campaign_status**](docs/AdCampaignsApi.md#bulk_update_ad_campaign_status) | **POST** /v1/ads/campaigns/bulk-status | Pause or resume many campaigns
 *AdCampaignsApi* | [**delete_ad_campaign**](docs/AdCampaignsApi.md#delete_ad_campaign) | **DELETE** /v1/ads/campaigns/{campaignId} | Delete a campaign
 *AdCampaignsApi* | [**duplicate_ad_campaign**](docs/AdCampaignsApi.md#duplicate_ad_campaign) | **POST** /v1/ads/campaigns/{campaignId}/duplicate | Duplicate a campaign
@@ -1546,6 +1547,7 @@ Class | Method | HTTP request | Description
  - [UpdateAccountRequest](docs/UpdateAccountRequest.md)
  - [UpdateAccountRequestXCapabilities](docs/UpdateAccountRequestXCapabilities.md)
  - [UpdateAd200Response](docs/UpdateAd200Response.md)
+ - [UpdateAdAudienceRequest](docs/UpdateAdAudienceRequest.md)
  - [UpdateAdCampaign200Response](docs/UpdateAdCampaign200Response.md)
  - [UpdateAdCampaignRequest](docs/UpdateAdCampaignRequest.md)
  - [UpdateAdCampaignRequestBudget](docs/UpdateAdCampaignRequestBudget.md)

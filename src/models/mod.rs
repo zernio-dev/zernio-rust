@@ -2110,6 +2110,8 @@ pub mod update_account_request_x_capabilities;
 pub use self::update_account_request_x_capabilities::UpdateAccountRequestXCapabilities;
 pub mod update_ad_200_response;
 pub use self::update_ad_200_response::UpdateAd200Response;
+pub mod update_ad_audience_request;
+pub use self::update_ad_audience_request::UpdateAdAudienceRequest;
 pub mod update_ad_campaign_200_response;
 pub use self::update_ad_campaign_200_response::UpdateAdCampaign200Response;
 pub mod update_ad_campaign_request;

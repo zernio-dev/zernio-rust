@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**delete_ad_audience**](AdAudiencesApi.md#delete_ad_audience) | **DELETE** /v1/ads/audiences/{audienceId} | Delete custom audience
 [**get_ad_audience**](AdAudiencesApi.md#get_ad_audience) | **GET** /v1/ads/audiences/{audienceId} | Get audience details
 [**list_ad_audiences**](AdAudiencesApi.md#list_ad_audiences) | **GET** /v1/ads/audiences | List custom audiences
+[**update_ad_audience**](AdAudiencesApi.md#update_ad_audience) | **PUT** /v1/ads/audiences/{audienceId} | Update saved targeting audience
 
 
 
@@ -78,7 +79,7 @@ Name | Type | Description  | Required | Notes
 > models::DeleteAccountGroup200Response delete_ad_audience(audience_id)
 Delete custom audience
 
-Deletes the audience from both Meta and the local database.
+Deletes the audience from both the platform and the local database. `saved_targeting` audiences exist only on Zernio, so only the local record is removed.
 
 ### Parameters
 
@@ -161,6 +162,37 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_ad_audience
+
+> models::CreateAdAudience201Response update_ad_audience(audience_id, update_ad_audience_request)
+Update saved targeting audience
+
+Update a `saved_targeting` audience's name, description, or spec. Only `saved_targeting` audiences are updatable (they exist only on Zernio); uploaded/derived audiences return 422, delete and recreate those instead. `spec` replaces the stored spec wholesale (no merge). Ads already created from this audience are unaffected, they snapshot the targeting at creation. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**audience_id** | **String** |  | [required] |
+**update_ad_audience_request** | [**UpdateAdAudienceRequest**](UpdateAdAudienceRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateAdAudience201Response**](createAdAudience_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

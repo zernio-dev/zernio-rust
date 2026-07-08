@@ -20,6 +20,9 @@ pub struct ListAdAudiences200ResponseAudiencesInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub id: Option<Option<String>>,
+    /// Social account the audience was created against. Returned for saved_targeting items.
+    #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
+    pub account_id: Option<String>,
     #[serde(rename = "platformAudienceId", skip_serializing_if = "Option::is_none")]
     pub platform_audience_id: Option<String>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
@@ -47,6 +50,7 @@ impl ListAdAudiences200ResponseAudiencesInner {
     pub fn new() -> ListAdAudiences200ResponseAudiencesInner {
         ListAdAudiences200ResponseAudiencesInner {
             id: None,
+            account_id: None,
             platform_audience_id: None,
             name: None,
             description: None,
