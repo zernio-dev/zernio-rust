@@ -158,6 +158,7 @@ pub enum GetAdError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetAdAnalyticsError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status403(),
     Status404(models::InlineObject1),
@@ -190,6 +191,7 @@ pub enum GetAdTrackingTagsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetCampaignAnalyticsError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status403(),
     Status404(models::InlineObject1),
