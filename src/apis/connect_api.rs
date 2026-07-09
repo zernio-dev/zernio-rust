@@ -155,6 +155,17 @@ pub enum GetRedditSubredditsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_subreddit_rules`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetSubredditRulesError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_telegram_connect_status`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -317,6 +328,17 @@ pub enum SelectSnapchatProfileError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`set_reddit_post_flair`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SetRedditPostFlairError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`update_facebook_page`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -374,6 +396,17 @@ pub enum UpdateYoutubeDefaultPlaylistError {
     Status400(),
     Status401(models::InlineObject),
     Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`vote_reddit_thing`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum VoteRedditThingError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
@@ -1171,6 +1204,60 @@ pub async fn get_reddit_subreddits(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetRedditSubredditsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns a subreddit's posting rules plus Reddit's site-wide rules, so you can check them before submitting and avoid a removal.  Use this alongside `POST /v1/tools/validate/subreddit`, which only confirms that a subreddit exists and reports its basic posting settings.
+pub async fn get_subreddit_rules(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    subreddit: &str,
+) -> Result<models::GetSubredditRules200Response, Error<GetSubredditRulesError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_path_subreddit = subreddit;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/reddit-subreddits/{subreddit}/rules",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id),
+        subreddit = crate::apis::urlencode(p_path_subreddit)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetSubredditRules200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetSubredditRules200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetSubredditRulesError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -2035,6 +2122,62 @@ pub async fn select_snapchat_profile(
     }
 }
 
+/// Applies a flair to a post the connected account already published. Use the GET on this path to list the available `flairTemplateId` values for the subreddit.  Flair can also be set at submit time by passing `flairId` in `platformSpecificData` when creating the post. This endpoint is for changing it afterwards.  The subreddit must allow users to select their own post flair. Setting flair on another user's post requires moderator permissions, which Zernio does not request.
+pub async fn set_reddit_post_flair(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    set_reddit_post_flair_request: models::SetRedditPostFlairRequest,
+) -> Result<models::UpdateYoutubeDefaultPlaylist200Response, Error<SetRedditPostFlairError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_body_set_reddit_post_flair_request = set_reddit_post_flair_request;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/reddit-flairs",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_set_reddit_post_flair_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<SetRedditPostFlairError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Switch which Facebook Page is active for a connected account.
 pub async fn update_facebook_page(
     configuration: &configuration::Configuration,
@@ -2352,6 +2495,62 @@ pub async fn update_youtube_default_playlist(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateYoutubeDefaultPlaylistError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Cast, change, or clear the connected account's vote on a Reddit post or comment.  **Reddit requires that votes be cast by humans.** Reddit's API terms permit a client to proxy a human's action one-for-one, and prohibit a bot from deciding how to vote or from amplifying a human's vote. Call this endpoint only in direct response to an explicit action by the account owner. Automated or agent-decided voting is vote manipulation and puts API access at risk.
+pub async fn vote_reddit_thing(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    vote_reddit_thing_request: models::VoteRedditThingRequest,
+) -> Result<models::UpdateYoutubeDefaultPlaylist200Response, Error<VoteRedditThingError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_body_vote_reddit_thing_request = vote_reddit_thing_request;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/reddit-vote",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_vote_reddit_thing_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<VoteRedditThingError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

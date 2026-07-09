@@ -12,35 +12,36 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct EditPostRequest {
-    /// The platform to edit the post on.
+pub struct EditInboxCommentRequest {
+    /// The social account ID
+    #[serde(rename = "accountId")]
+    pub account_id: String,
+    /// Only Reddit supports editing a comment
     #[serde(rename = "platform")]
     pub platform: Platform,
-    /// The new post text content
+    /// The new comment body
     #[serde(rename = "content")]
     pub content: String,
 }
 
-impl EditPostRequest {
-    pub fn new(platform: Platform, content: String) -> EditPostRequest {
-        EditPostRequest { platform, content }
+impl EditInboxCommentRequest {
+    pub fn new(account_id: String, platform: Platform, content: String) -> EditInboxCommentRequest {
+        EditInboxCommentRequest {
+            account_id,
+            platform,
+            content,
+        }
     }
 }
-/// The platform to edit the post on.
+/// Only Reddit supports editing a comment
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Platform {
-    #[serde(rename = "twitter")]
-    Twitter,
-    #[serde(rename = "discord")]
-    Discord,
-    #[serde(rename = "facebook")]
-    Facebook,
     #[serde(rename = "reddit")]
     Reddit,
 }
 
 impl Default for Platform {
     fn default() -> Platform {
-        Self::Twitter
+        Self::Reddit
     }
 }

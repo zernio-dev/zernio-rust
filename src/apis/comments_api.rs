@@ -23,6 +23,18 @@ pub enum DeleteInboxCommentError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`edit_inbox_comment`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum EditInboxCommentError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_inbox_post_comments`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -79,6 +91,18 @@ pub enum SendPrivateReplyToCommentError {
     Status401(models::InlineObject),
     Status403(),
     Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`set_comment_moderation`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SetCommentModerationError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
@@ -153,6 +177,65 @@ pub async fn delete_inbox_comment(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteInboxCommentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Edit the body of a comment the connected account posted. Supported on Reddit only.  Reddit keeps the same comment id after an edit. Reddit exposes no API to edit a post title, and a link post has no editable body. To edit a published post's body, use `POST /v1/posts/{postId}/edit`.
+pub async fn edit_inbox_comment(
+    configuration: &configuration::Configuration,
+    post_id: &str,
+    comment_id: &str,
+    edit_inbox_comment_request: models::EditInboxCommentRequest,
+) -> Result<models::EditInboxComment200Response, Error<EditInboxCommentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_post_id = post_id;
+    let p_path_comment_id = comment_id;
+    let p_body_edit_inbox_comment_request = edit_inbox_comment_request;
+
+    let uri_str = format!(
+        "{}/v1/inbox/comments/{postId}/{commentId}",
+        configuration.base_path,
+        postId = crate::apis::urlencode(p_path_post_id),
+        commentId = crate::apis::urlencode(p_path_comment_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::PATCH, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_edit_inbox_comment_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::EditInboxComment200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::EditInboxComment200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<EditInboxCommentError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -550,6 +633,65 @@ pub async fn send_private_reply_to_comment(
     } else {
         let content = resp.text().await?;
         let entity: Option<SendPrivateReplyToCommentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Set a comment's moderation status. Supported on YouTube only.  Use this to work a moderation queue: approve a held comment (`published`), reject it (`rejected`), or send it back for review (`heldForReview`).  The request must be authorized by the owner of the channel or video the comment belongs to. You cannot moderate comments on videos you do not own.  This is distinct from `POST /v1/inbox/comments/{postId}/{commentId}/hide`, which covers Facebook, Instagram, Threads, and X/Twitter and does not apply to YouTube.
+pub async fn set_comment_moderation(
+    configuration: &configuration::Configuration,
+    post_id: &str,
+    comment_id: &str,
+    set_comment_moderation_request: models::SetCommentModerationRequest,
+) -> Result<models::UpdateYoutubeDefaultPlaylist200Response, Error<SetCommentModerationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_post_id = post_id;
+    let p_path_comment_id = comment_id;
+    let p_body_set_comment_moderation_request = set_comment_moderation_request;
+
+    let uri_str = format!(
+        "{}/v1/inbox/comments/{postId}/{commentId}/moderation",
+        configuration.base_path,
+        postId = crate::apis::urlencode(p_path_post_id),
+        commentId = crate::apis::urlencode(p_path_comment_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_set_comment_moderation_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<SetCommentModerationError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

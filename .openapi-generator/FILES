@@ -167,12 +167,17 @@ docs/CreateCtwaAdRequestVideo.md
 docs/CreateCtwaAdRequestZipsInner.md
 docs/CreateCustomField200Response.md
 docs/CreateCustomFieldRequest.md
+docs/CreateDiscordGuildRole201Response.md
+docs/CreateDiscordGuildRoleRequest.md
 docs/CreateDiscordScheduledEvent200Response.md
 docs/CreateDiscordScheduledEventRequest.md
 docs/CreateDiscordScheduledEventRequestEntity.md
 docs/CreateDiscordScheduledEventRequestEntityOneOf.md
 docs/CreateDiscordScheduledEventRequestEntityOneOf1.md
 docs/CreateDiscordScheduledEventRequestEntityOneOf2.md
+docs/CreateDiscordThread200Response.md
+docs/CreateDiscordThread200ResponseData.md
+docs/CreateDiscordThreadRequest.md
 docs/CreateGoogleBusinessMedia200Response.md
 docs/CreateGoogleBusinessMediaRequest.md
 docs/CreateGoogleBusinessPlaceAction200Response.md
@@ -261,6 +266,7 @@ docs/CreateWhatsAppTemplateRequestLibraryTemplateButtonInputsInnerUrl.md
 docs/CreateWorkflow200Response.md
 docs/CreateWorkflow200ResponseWorkflow.md
 docs/CreateWorkflowRequest.md
+docs/CrosspostDiscordMessage200Response.md
 docs/CtwaMultiResponse.md
 docs/CtwaSingleResponse.md
 docs/CustomFieldsApi.md
@@ -290,6 +296,7 @@ docs/DiscordPlatformDataPollAnswersInner.md
 docs/DiscordPlatformDataPollAnswersInnerPollMedia.md
 docs/DiscordPlatformDataPollQuestion.md
 docs/DiscordPlatformDataThreadFromMessage.md
+docs/DiscordRole.md
 docs/DiscordScheduledEvent.md
 docs/DiscordScheduledEventEntityMetadata.md
 docs/DmButton.md
@@ -297,6 +304,9 @@ docs/DuplicateAdCampaign200Response.md
 docs/DuplicateAdCampaignRequest.md
 docs/DuplicateWorkflow201Response.md
 docs/DuplicateWorkflow201ResponseWorkflow.md
+docs/EditDiscordGuildRoleRequest.md
+docs/EditInboxComment200Response.md
+docs/EditInboxCommentRequest.md
 docs/EditInboxMessage200Response.md
 docs/EditInboxMessage200ResponseData.md
 docs/EditInboxMessageRequest.md
@@ -406,6 +416,8 @@ docs/GetDiscordSettings200Response.md
 docs/GetDiscordSettings200ResponseAccount.md
 docs/GetFacebookPages200Response.md
 docs/GetFacebookPages200ResponsePagesInner.md
+docs/GetFacebookPostReactions200Response.md
+docs/GetFacebookPostReactions200ResponseBreakdown.md
 docs/GetFollowerStats403Response.md
 docs/GetGmbAttributeMetadata200Response.md
 docs/GetGmbAttributeMetadata200ResponseAttributeMetadataInner.md
@@ -492,6 +504,7 @@ docs/GetInboxVolume200ResponseSummary.md
 docs/GetInboxVolume200ResponseTimeseriesInner.md
 docs/GetInboxVolume400Response.md
 docs/GetInstagramAccountInsights404Response.md
+docs/GetInstagramPublishingLimit200Response.md
 docs/GetInstagramStoryInsights200Response.md
 docs/GetInstagramStoryInsights200ResponseData.md
 docs/GetInstagramStoryInsights200ResponseDataMetrics.md
@@ -546,6 +559,8 @@ docs/GetSmsRegistration200Response.md
 docs/GetSmsUsage200Response.md
 docs/GetSmsUsage200ResponseGroupsInner.md
 docs/GetSmsUsage200ResponseTotals.md
+docs/GetSubredditRules200Response.md
+docs/GetSubredditRules200ResponseRulesInner.md
 docs/GetTelegramCommands200Response.md
 docs/GetTelegramCommands200ResponseDataInner.md
 docs/GetTelegramConnectStatus200Response.md
@@ -907,6 +922,8 @@ docs/ReplyToInboxPost200ResponseData.md
 docs/ReplyToInboxPostRequest.md
 docs/ReplyToInboxReview200Response.md
 docs/ReplyToInboxReviewRequest.md
+docs/ReplyToMention200Response.md
+docs/ReplyToMentionRequest.md
 docs/RestoreWorkflowVersion200Response.md
 docs/RestoreWorkflowVersion200ResponseWorkflow.md
 docs/RetweetPost200Response.md
@@ -1026,10 +1043,12 @@ docs/SendWhatsAppFlowMessageRequest.md
 docs/SendWhatsAppFlowMessageRequestFlowActionPayload.md
 docs/SendWhatsAppFlowMessageRequestHeader.md
 docs/SequencesApi.md
+docs/SetCommentModerationRequest.md
 docs/SetContactFieldValueRequest.md
 docs/SetInstagramIceBreakersRequest.md
 docs/SetInstagramIceBreakersRequestIceBreakersInner.md
 docs/SetMessengerMenuRequest.md
+docs/SetRedditPostFlairRequest.md
 docs/SetTelegramCommandsRequest.md
 docs/SetTelegramCommandsRequestCommandsInner.md
 docs/SetWhatsappBusinessUsername200Response.md
@@ -1249,6 +1268,7 @@ docs/ValidateSubreddit200ResponseOneOfSubreddit.md
 docs/VerifySmsRegistrationOtp200Response.md
 docs/VerifySmsRegistrationOtpRequest.md
 docs/VoiceApi.md
+docs/VoteRedditThingRequest.md
 docs/Webhook.md
 docs/WebhookEventsApi.md
 docs/WebhookLog.md
@@ -1570,12 +1590,17 @@ src/models/create_ctwa_ad_request_video.rs
 src/models/create_ctwa_ad_request_zips_inner.rs
 src/models/create_custom_field_200_response.rs
 src/models/create_custom_field_request.rs
+src/models/create_discord_guild_role_201_response.rs
+src/models/create_discord_guild_role_request.rs
 src/models/create_discord_scheduled_event_200_response.rs
 src/models/create_discord_scheduled_event_request.rs
 src/models/create_discord_scheduled_event_request_entity.rs
 src/models/create_discord_scheduled_event_request_entity_one_of.rs
 src/models/create_discord_scheduled_event_request_entity_one_of_1.rs
 src/models/create_discord_scheduled_event_request_entity_one_of_2.rs
+src/models/create_discord_thread_200_response.rs
+src/models/create_discord_thread_200_response_data.rs
+src/models/create_discord_thread_request.rs
 src/models/create_google_business_media_200_response.rs
 src/models/create_google_business_media_request.rs
 src/models/create_google_business_place_action_200_response.rs
@@ -1664,6 +1689,7 @@ src/models/create_whats_app_template_request_library_template_button_inputs_inne
 src/models/create_workflow_200_response.rs
 src/models/create_workflow_200_response_workflow.rs
 src/models/create_workflow_request.rs
+src/models/crosspost_discord_message_200_response.rs
 src/models/ctwa_multi_response.rs
 src/models/ctwa_single_response.rs
 src/models/delete_account_group_200_response.rs
@@ -1691,6 +1717,7 @@ src/models/discord_platform_data_poll_answers_inner.rs
 src/models/discord_platform_data_poll_answers_inner_poll_media.rs
 src/models/discord_platform_data_poll_question.rs
 src/models/discord_platform_data_thread_from_message.rs
+src/models/discord_role.rs
 src/models/discord_scheduled_event.rs
 src/models/discord_scheduled_event_entity_metadata.rs
 src/models/dm_button.rs
@@ -1698,6 +1725,9 @@ src/models/duplicate_ad_campaign_200_response.rs
 src/models/duplicate_ad_campaign_request.rs
 src/models/duplicate_workflow_201_response.rs
 src/models/duplicate_workflow_201_response_workflow.rs
+src/models/edit_discord_guild_role_request.rs
+src/models/edit_inbox_comment_200_response.rs
+src/models/edit_inbox_comment_request.rs
 src/models/edit_inbox_message_200_response.rs
 src/models/edit_inbox_message_200_response_data.rs
 src/models/edit_inbox_message_request.rs
@@ -1807,6 +1837,8 @@ src/models/get_discord_settings_200_response.rs
 src/models/get_discord_settings_200_response_account.rs
 src/models/get_facebook_pages_200_response.rs
 src/models/get_facebook_pages_200_response_pages_inner.rs
+src/models/get_facebook_post_reactions_200_response.rs
+src/models/get_facebook_post_reactions_200_response_breakdown.rs
 src/models/get_follower_stats_403_response.rs
 src/models/get_gmb_attribute_metadata_200_response.rs
 src/models/get_gmb_attribute_metadata_200_response_attribute_metadata_inner.rs
@@ -1893,6 +1925,7 @@ src/models/get_inbox_volume_200_response_summary.rs
 src/models/get_inbox_volume_200_response_timeseries_inner.rs
 src/models/get_inbox_volume_400_response.rs
 src/models/get_instagram_account_insights_404_response.rs
+src/models/get_instagram_publishing_limit_200_response.rs
 src/models/get_instagram_story_insights_200_response.rs
 src/models/get_instagram_story_insights_200_response_data.rs
 src/models/get_instagram_story_insights_200_response_data_metrics.rs
@@ -1947,6 +1980,8 @@ src/models/get_sms_registration_200_response.rs
 src/models/get_sms_usage_200_response.rs
 src/models/get_sms_usage_200_response_groups_inner.rs
 src/models/get_sms_usage_200_response_totals.rs
+src/models/get_subreddit_rules_200_response.rs
+src/models/get_subreddit_rules_200_response_rules_inner.rs
 src/models/get_telegram_commands_200_response.rs
 src/models/get_telegram_commands_200_response_data_inner.rs
 src/models/get_telegram_connect_status_200_response.rs
@@ -2288,6 +2323,8 @@ src/models/reply_to_inbox_post_200_response_data.rs
 src/models/reply_to_inbox_post_request.rs
 src/models/reply_to_inbox_review_200_response.rs
 src/models/reply_to_inbox_review_request.rs
+src/models/reply_to_mention_200_response.rs
+src/models/reply_to_mention_request.rs
 src/models/restore_workflow_version_200_response.rs
 src/models/restore_workflow_version_200_response_workflow.rs
 src/models/retweet_post_200_response.rs
@@ -2405,10 +2442,12 @@ src/models/send_whats_app_flow_message_200_response.rs
 src/models/send_whats_app_flow_message_request.rs
 src/models/send_whats_app_flow_message_request_flow_action_payload.rs
 src/models/send_whats_app_flow_message_request_header.rs
+src/models/set_comment_moderation_request.rs
 src/models/set_contact_field_value_request.rs
 src/models/set_instagram_ice_breakers_request.rs
 src/models/set_instagram_ice_breakers_request_ice_breakers_inner.rs
 src/models/set_messenger_menu_request.rs
+src/models/set_reddit_post_flair_request.rs
 src/models/set_telegram_commands_request.rs
 src/models/set_telegram_commands_request_commands_inner.rs
 src/models/set_whatsapp_business_username_200_response.rs
@@ -2621,6 +2660,7 @@ src/models/validate_subreddit_200_response_one_of_1.rs
 src/models/validate_subreddit_200_response_one_of_subreddit.rs
 src/models/verify_sms_registration_otp_200_response.rs
 src/models/verify_sms_registration_otp_request.rs
+src/models/vote_reddit_thing_request.rs
 src/models/webhook.rs
 src/models/webhook_log.rs
 src/models/webhook_payload_account_ads_initial_sync_completed.rs

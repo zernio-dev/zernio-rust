@@ -12,26 +12,19 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct EditPost200Response {
+pub struct ReplyToMention200Response {
     #[serde(rename = "success", skip_serializing_if = "Option::is_none")]
     pub success: Option<bool>,
-    /// The platform post ID after the edit. X assigns a new ID; Discord, Facebook, and Reddit return the original ID unchanged.
+    /// ID of the created reply or comment
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
-    /// URL of the edited post
-    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
-    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
-    pub message: Option<String>,
 }
 
-impl EditPost200Response {
-    pub fn new() -> EditPost200Response {
-        EditPost200Response {
+impl ReplyToMention200Response {
+    pub fn new() -> ReplyToMention200Response {
+        ReplyToMention200Response {
             success: None,
             id: None,
-            url: None,
-            message: None,
         }
     }
 }

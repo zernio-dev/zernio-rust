@@ -13,6 +13,17 @@ use crate::{apis::ResponseContent, models};
 use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
 
+/// struct for typed errors of method [`get_instagram_publishing_limit`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetInstagramPublishingLimitError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_instagram_story_insights`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -31,6 +42,58 @@ pub enum ListInstagramStoriesError {
     Status401(models::InlineObject),
     Status404(),
     UnknownValue(serde_json::Value),
+}
+
+/// Returns the account's remaining content-publishing quota for Instagram's rolling 24-hour window, so you can pace publishing and warn before the cap is reached.  `quotaUsage` counts containers published since the start of the window. Always compare against the returned `quotaTotal` rather than hardcoding a number: Meta's prose documentation and the live API disagree on the value, and the live value is authoritative.
+pub async fn get_instagram_publishing_limit(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+) -> Result<models::GetInstagramPublishingLimit200Response, Error<GetInstagramPublishingLimitError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/instagram/publishing-limit",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetInstagramPublishingLimit200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetInstagramPublishingLimit200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetInstagramPublishingLimitError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
 }
 
 /// Returns metrics for a single story. The `source` field discriminates between three states:  - `live` — fetched from Meta in real time (story is still active) - `cached` — fetched from a persisted `story_insights` webhook payload   (story has expired but we received its final-state metrics from Meta) - `unavailable` — story has expired and we never received its webhook   payload (for example, the account connected after the story expired)  Field semantics follow Meta's API. Counts below 5 may be returned as 0 due to Meta's privacy floor on small audiences. The `navigation` field is the sum of `tapsForward + tapsBack + exits + swipesForward`.

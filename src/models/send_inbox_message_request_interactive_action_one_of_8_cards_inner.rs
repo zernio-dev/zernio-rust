@@ -19,7 +19,7 @@ pub struct SendInboxMessageRequestInteractiveActionOneOf8CardsInner {
     /// `product` for a product card; media cards use `cta_url` or a quick-reply type.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<String>,
-    /// Media cards only
+    /// Media cards only, required. Carries the card's image or video.
     #[serde(rename = "header", skip_serializing_if = "Option::is_none")]
     pub header: Option<serde_json::Value>,
     /// Optional card body text.

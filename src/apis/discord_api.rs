@@ -20,6 +20,19 @@ pub enum AddDiscordMemberRoleError {
     Status400(),
     Status401(models::InlineObject),
     Status404(),
+    Status403(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_discord_guild_role`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateDiscordGuildRoleError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status403(),
     Status502(),
     UnknownValue(serde_json::Value),
 }
@@ -35,12 +48,72 @@ pub enum CreateDiscordScheduledEventError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`create_discord_thread`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateDiscordThreadError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status403(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`crosspost_discord_message`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CrosspostDiscordMessageError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status403(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`delete_discord_guild_role`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteDiscordGuildRoleError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status403(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`delete_discord_message`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteDiscordMessageError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status403(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`delete_discord_scheduled_event`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteDiscordScheduledEventError {
     Status401(models::InlineObject),
     Status404(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`edit_discord_guild_role`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum EditDiscordGuildRoleError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status403(),
     Status502(),
     UnknownValue(serde_json::Value),
 }
@@ -91,6 +164,7 @@ pub enum ListDiscordGuildRolesError {
     Status400(),
     Status401(models::InlineObject),
     Status404(),
+    Status403(),
     Status502(),
     UnknownValue(serde_json::Value),
 }
@@ -135,6 +209,7 @@ pub enum RemoveDiscordMemberRoleError {
     Status400(),
     Status401(models::InlineObject),
     Status404(),
+    Status403(),
     Status502(),
     UnknownValue(serde_json::Value),
 }
@@ -146,6 +221,7 @@ pub enum SendDiscordDirectMessageError {
     Status400(),
     Status401(models::InlineObject),
     Status404(),
+    Status403(),
     Status502(),
     UnknownValue(serde_json::Value),
 }
@@ -167,6 +243,7 @@ pub enum UnpinDiscordMessageError {
 pub enum UpdateDiscordScheduledEventError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -242,6 +319,65 @@ pub async fn add_discord_member_role(
     }
 }
 
+/// Creates a new role in the guild.  Requires the bot to hold the Manage Roles permission. Guilds that added the Zernio bot before role management shipped must re-invite it, because Discord applies the permission set at invite time.  Discord's role hierarchy applies: the bot cannot create a role positioned at or above its own highest role, and cannot grant permissions it does not itself hold. Either attempt returns a 403 carrying Discord's own error.
+pub async fn create_discord_guild_role(
+    configuration: &configuration::Configuration,
+    guild_id: &str,
+    account_id: &str,
+    create_discord_guild_role_request: models::CreateDiscordGuildRoleRequest,
+) -> Result<models::CreateDiscordGuildRole201Response, Error<CreateDiscordGuildRoleError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_guild_id = guild_id;
+    let p_query_account_id = account_id;
+    let p_body_create_discord_guild_role_request = create_discord_guild_role_request;
+
+    let uri_str = format!(
+        "{}/v1/discord/guilds/{guildId}/roles",
+        configuration.base_path,
+        guildId = crate::apis::urlencode(p_path_guild_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_discord_guild_role_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateDiscordGuildRole201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateDiscordGuildRole201Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateDiscordGuildRoleError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Create a guild scheduled event. Three event types, selected via the discriminator on `entity.type`:    - `external` — off-platform (Zoom, in-person, livestream). Requires     both `location` and `endsAt`. Most common type for scheduler     integrations.   - `voice` — hosted in a Discord voice channel. Requires `channelId`.   - `stage` — hosted in a Discord stage channel. Requires `channelId`.  Bot needs MANAGE_EVENTS in the guild. Existing installs (pre-events PR) need a re-invite OR a server admin manually granting the permission — see route header for details.
 pub async fn create_discord_scheduled_event(
     configuration: &configuration::Configuration,
@@ -291,6 +427,242 @@ pub async fn create_discord_scheduled_event(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateDiscordScheduledEventError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Creates a public thread in a channel. Pass `messageId` to start the thread from an existing message, or omit it to create a standalone thread.  Threads created here are always public. Requires the bot to hold Create Public Threads, which the Zernio bot requests at install time.
+pub async fn create_discord_thread(
+    configuration: &configuration::Configuration,
+    channel_id: &str,
+    account_id: &str,
+    create_discord_thread_request: models::CreateDiscordThreadRequest,
+) -> Result<models::CreateDiscordThread200Response, Error<CreateDiscordThreadError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_channel_id = channel_id;
+    let p_query_account_id = account_id;
+    let p_body_create_discord_thread_request = create_discord_thread_request;
+
+    let uri_str = format!(
+        "{}/v1/discord/channels/{channelId}/threads",
+        configuration.base_path,
+        channelId = crate::apis::urlencode(p_path_channel_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_discord_thread_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateDiscordThread200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateDiscordThread200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateDiscordThreadError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Publishes a message from an announcement channel so it propagates to every server following that channel.  The source channel must be an announcement channel. Calling this on a regular text channel returns a 400 before Discord is contacted, because Discord's own error for this case is opaque.
+pub async fn crosspost_discord_message(
+    configuration: &configuration::Configuration,
+    channel_id: &str,
+    message_id: &str,
+    account_id: &str,
+) -> Result<models::CrosspostDiscordMessage200Response, Error<CrosspostDiscordMessageError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_channel_id = channel_id;
+    let p_path_message_id = message_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/discord/channels/{channelId}/messages/{messageId}/crosspost",
+        configuration.base_path,
+        channelId = crate::apis::urlencode(p_path_channel_id),
+        messageId = crate::apis::urlencode(p_path_message_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CrosspostDiscordMessage200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CrosspostDiscordMessage200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CrosspostDiscordMessageError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Permanently deletes a role from the guild and removes it from every member. This cannot be undone.  Requires the bot to hold Manage Roles, and the target role must sit below the bot's highest role.
+pub async fn delete_discord_guild_role(
+    configuration: &configuration::Configuration,
+    guild_id: &str,
+    role_id: &str,
+    account_id: &str,
+) -> Result<models::UpdateYoutubeDefaultPlaylist200Response, Error<DeleteDiscordGuildRoleError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_guild_id = guild_id;
+    let p_path_role_id = role_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/discord/guilds/{guildId}/roles/{roleId}",
+        configuration.base_path,
+        guildId = crate::apis::urlencode(p_path_guild_id),
+        roleId = crate::apis::urlencode(p_path_role_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteDiscordGuildRoleError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Deletes a message from a channel, for moderation and cleanup. This cannot be undone.  Deleting a message the bot did not send requires the bot to hold the Manage Messages permission, which the Zernio bot requests at install time. Deleting the bot's own message needs no extra permission.  Ownership is verified by resolving the channel's guild and confirming the caller owns a Discord account bound to it.
+pub async fn delete_discord_message(
+    configuration: &configuration::Configuration,
+    channel_id: &str,
+    message_id: &str,
+    account_id: &str,
+) -> Result<models::UpdateYoutubeDefaultPlaylist200Response, Error<DeleteDiscordMessageError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_channel_id = channel_id;
+    let p_path_message_id = message_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/discord/channels/{channelId}/messages/{messageId}",
+        configuration.base_path,
+        channelId = crate::apis::urlencode(p_path_channel_id),
+        messageId = crate::apis::urlencode(p_path_message_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateYoutubeDefaultPlaylist200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteDiscordMessageError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -351,6 +723,68 @@ pub async fn delete_discord_scheduled_event(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteDiscordScheduledEventError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Updates a role's name, color, hoist, mentionable flag, or permission bitfield. At least one field must be supplied. Omitted fields are left unchanged.  Requires the bot to hold Manage Roles, and the target role must sit below the bot's highest role. See the create-role operation for the re-invite requirement.
+pub async fn edit_discord_guild_role(
+    configuration: &configuration::Configuration,
+    guild_id: &str,
+    role_id: &str,
+    account_id: &str,
+    edit_discord_guild_role_request: models::EditDiscordGuildRoleRequest,
+) -> Result<models::CreateDiscordGuildRole201Response, Error<EditDiscordGuildRoleError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_guild_id = guild_id;
+    let p_path_role_id = role_id;
+    let p_query_account_id = account_id;
+    let p_body_edit_discord_guild_role_request = edit_discord_guild_role_request;
+
+    let uri_str = format!(
+        "{}/v1/discord/guilds/{guildId}/roles/{roleId}",
+        configuration.base_path,
+        guildId = crate::apis::urlencode(p_path_guild_id),
+        roleId = crate::apis::urlencode(p_path_role_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::PATCH, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_edit_discord_guild_role_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateDiscordGuildRole201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateDiscordGuildRole201Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<EditDiscordGuildRoleError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
