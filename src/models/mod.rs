@@ -2370,6 +2370,8 @@ pub mod upload_whats_app_flow_json_request;
 pub use self::upload_whats_app_flow_json_request::UploadWhatsAppFlowJsonRequest;
 pub mod upload_whats_app_flow_json_request_flow_json;
 pub use self::upload_whats_app_flow_json_request_flow_json::UploadWhatsAppFlowJsonRequestFlowJson;
+pub mod upload_whats_app_profile_photo_request_1;
+pub use self::upload_whats_app_profile_photo_request_1::UploadWhatsAppProfilePhotoRequest1;
 pub mod uploaded_file;
 pub use self::uploaded_file::UploadedFile;
 pub mod uploaded_or_derived_audience;

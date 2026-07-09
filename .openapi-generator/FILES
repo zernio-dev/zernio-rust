@@ -1230,6 +1230,7 @@ docs/UploadWhatsAppFlowJson200Response.md
 docs/UploadWhatsAppFlowJson200ResponseValidationErrorsInner.md
 docs/UploadWhatsAppFlowJsonRequest.md
 docs/UploadWhatsAppFlowJsonRequestFlowJson.md
+docs/UploadWhatsAppProfilePhotoRequest1.md
 docs/UploadedFile.md
 docs/UploadedOrDerivedAudience.md
 docs/UsageApi.md
@@ -2626,6 +2627,7 @@ src/models/upload_whats_app_flow_json_200_response.rs
 src/models/upload_whats_app_flow_json_200_response_validation_errors_inner.rs
 src/models/upload_whats_app_flow_json_request.rs
 src/models/upload_whats_app_flow_json_request_flow_json.rs
+src/models/upload_whats_app_profile_photo_request_1.rs
 src/models/uploaded_file.rs
 src/models/uploaded_or_derived_audience.rs
 src/models/usage_stats.rs

@@ -315,6 +315,7 @@ pub enum UploadWhatsAppProfilePhotoError {
     Status400(),
     Status401(models::InlineObject),
     Status404(),
+    Status422(),
     UnknownValue(serde_json::Value),
 }
 
@@ -2053,7 +2054,7 @@ pub async fn update_whats_app_template(
     }
 }
 
-/// Upload a new profile picture for the WhatsApp Business Profile. Uses Meta's resumable upload API under the hood: creates an upload session, uploads the image bytes, then updates the business profile with the resulting handle.
+/// Upload a new profile picture for the WhatsApp Business Profile. Uses Meta's resumable upload API under the hood: creates an upload session, uploads the image bytes, then updates the business profile with the resulting handle.  Provide the image either as a binary upload (`multipart/form-data` with `file`) or as a download URL (`application/json` with `url`) — with a URL we fetch the image server-side and upload the bytes for you. Meta's profile-photo API is bytes-only, so there is no direct URL passthrough. JPEG/PNG, max 5MB either way.
 pub async fn upload_whats_app_profile_photo(
     configuration: &configuration::Configuration,
     account_id: &str,
