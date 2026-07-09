@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**create_discord_guild_role**](DiscordApi.md#create_discord_guild_role) | **POST** /v1/discord/guilds/{guildId}/roles | Create a Discord guild role
 [**create_discord_scheduled_event**](DiscordApi.md#create_discord_scheduled_event) | **POST** /v1/discord/guilds/{guildId}/events | Create a Discord scheduled event
 [**create_discord_thread**](DiscordApi.md#create_discord_thread) | **POST** /v1/discord/channels/{channelId}/threads | Create a Discord public thread
-[**crosspost_discord_message**](DiscordApi.md#crosspost_discord_message) | **POST** /v1/discord/channels/{channelId}/messages/{messageId}/crosspost | Crosspost a Discord announcement message
+[**crosspost_discord_message**](DiscordApi.md#crosspost_discord_message) | **POST** /v1/discord/channels/{channelId}/messages/{messageId}/crosspost | Crosspost Discord message
 [**delete_discord_guild_role**](DiscordApi.md#delete_discord_guild_role) | **DELETE** /v1/discord/guilds/{guildId}/roles/{roleId} | Delete a Discord guild role
 [**delete_discord_message**](DiscordApi.md#delete_discord_message) | **DELETE** /v1/discord/channels/{channelId}/messages/{messageId} | Delete a Discord channel message
 [**delete_discord_scheduled_event**](DiscordApi.md#delete_discord_scheduled_event) | **DELETE** /v1/discord/guilds/{guildId}/events/{eventId} | Delete a Discord scheduled event
@@ -160,7 +160,7 @@ Name | Type | Description  | Required | Notes
 ## crosspost_discord_message
 
 > models::CrosspostDiscordMessage200Response crosspost_discord_message(channel_id, message_id, account_id)
-Crosspost a Discord announcement message
+Crosspost Discord message
 
 Publishes a message from an announcement channel so it propagates to every server following that channel.  The source channel must be an announcement channel. Calling this on a regular text channel returns a 400 before Discord is contacted, because Discord's own error for this case is opaque. 
 
