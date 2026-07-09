@@ -14,9 +14,6 @@ use serde::{Deserialize, Serialize};
 /// GoogleBusinessPlatformDataOffer : Offer details. Required when topicType is OFFER. All fields are optional per Google's API, but at least one is recommended.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GoogleBusinessPlatformDataOffer {
-    /// Type of offer
-    #[serde(rename = "offerType", skip_serializing_if = "Option::is_none")]
-    pub offer_type: Option<OfferType>,
     /// URL where the offer can be redeemed online
     #[serde(rename = "redeemOnlineUrl", skip_serializing_if = "Option::is_none")]
     pub redeem_online_url: Option<String>,
@@ -32,24 +29,9 @@ impl GoogleBusinessPlatformDataOffer {
     /// Offer details. Required when topicType is OFFER. All fields are optional per Google's API, but at least one is recommended.
     pub fn new() -> GoogleBusinessPlatformDataOffer {
         GoogleBusinessPlatformDataOffer {
-            offer_type: None,
             redeem_online_url: None,
             terms_conditions: None,
             coupon_code: None,
         }
-    }
-}
-/// Type of offer
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum OfferType {
-    #[serde(rename = "OFFER")]
-    Offer,
-    #[serde(rename = "BUY_ONE_GET_ONE")]
-    BuyOneGetOne,
-}
-
-impl Default for OfferType {
-    fn default() -> OfferType {
-        Self::Offer
     }
 }
