@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// StartSmsRegistrationRequestCampaign : Required for 10DLC. What you'll send and how recipients opt in/out.
+/// StartSmsRegistrationRequestCampaign : Required for 10DLC. What you'll send and how recipients opt in/out. Opt-in/opt-out/help auto-responses must name the registered brand and carry the carrier-required disclosures; submissions that don't (or that are blank) are automatically rewritten to a compliant, brand-named template before the campaign is filed.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct StartSmsRegistrationRequestCampaign {
     #[serde(rename = "usecase")]
@@ -23,8 +23,9 @@ pub struct StartSmsRegistrationRequestCampaign {
     pub message_flow: String,
     #[serde(rename = "sample1")]
     pub sample1: String,
-    #[serde(rename = "sample2", skip_serializing_if = "Option::is_none")]
-    pub sample2: Option<String>,
+    /// Second example message; carriers require two distinct samples
+    #[serde(rename = "sample2")]
+    pub sample2: String,
     #[serde(rename = "helpMessage")]
     pub help_message: String,
     #[serde(rename = "optinKeywords")]
@@ -50,12 +51,13 @@ pub struct StartSmsRegistrationRequestCampaign {
 }
 
 impl StartSmsRegistrationRequestCampaign {
-    /// Required for 10DLC. What you'll send and how recipients opt in/out.
+    /// Required for 10DLC. What you'll send and how recipients opt in/out. Opt-in/opt-out/help auto-responses must name the registered brand and carry the carrier-required disclosures; submissions that don't (or that are blank) are automatically rewritten to a compliant, brand-named template before the campaign is filed.
     pub fn new(
         usecase: String,
         description: String,
         message_flow: String,
         sample1: String,
+        sample2: String,
         help_message: String,
         optin_keywords: String,
         optin_message: String,
@@ -68,7 +70,7 @@ impl StartSmsRegistrationRequestCampaign {
             description,
             message_flow,
             sample1,
-            sample2: None,
+            sample2,
             help_message,
             optin_keywords,
             optin_message,

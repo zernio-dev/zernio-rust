@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **description** | **String** |  | 
 **message_flow** | **String** | How a recipient ends up receiving your messages (the opt-in flow). | 
 **sample1** | **String** |  | 
-**sample2** | Option<**String**> |  | [optional]
+**sample2** | **String** | Second example message; carriers require two distinct samples | 
 **help_message** | **String** |  | 
 **optin_keywords** | **String** |  | 
 **optin_message** | **String** |  | 

@@ -24,26 +24,28 @@ pub struct StartSmsRegistrationRequestBrand {
     /// Required for every entityType except SOLE_PROPRIETOR.
     #[serde(rename = "ein", skip_serializing_if = "Option::is_none")]
     pub ein: Option<String>,
+    /// Business contact phone. Required for every entityType except SOLE_PROPRIETOR.
     #[serde(rename = "phone", skip_serializing_if = "Option::is_none")]
     pub phone: Option<String>,
     /// Required for SOLE_PROPRIETOR; the verification OTP is texted there (US/CA mobile).
     #[serde(rename = "mobilePhone", skip_serializing_if = "Option::is_none")]
     pub mobile_phone: Option<String>,
-    #[serde(rename = "street", skip_serializing_if = "Option::is_none")]
-    pub street: Option<String>,
-    #[serde(rename = "city", skip_serializing_if = "Option::is_none")]
-    pub city: Option<String>,
-    #[serde(rename = "state", skip_serializing_if = "Option::is_none")]
-    pub state: Option<String>,
-    #[serde(rename = "postalCode", skip_serializing_if = "Option::is_none")]
-    pub postal_code: Option<String>,
+    #[serde(rename = "street")]
+    pub street: String,
+    #[serde(rename = "city")]
+    pub city: String,
+    #[serde(rename = "state")]
+    pub state: String,
+    #[serde(rename = "postalCode")]
+    pub postal_code: String,
     #[serde(rename = "country")]
     pub country: Country,
     /// Brand contact email; defaults to your account email when omitted.
     #[serde(rename = "email", skip_serializing_if = "Option::is_none")]
     pub email: Option<String>,
-    #[serde(rename = "website", skip_serializing_if = "Option::is_none")]
-    pub website: Option<String>,
+    /// The brand's website (sole proprietors may use a social profile such as LinkedIn or a business Facebook page). Carriers verify the brand against it; a bare domain is normalized to https://.
+    #[serde(rename = "website")]
+    pub website: String,
     #[serde(rename = "vertical")]
     pub vertical: Vertical,
     #[serde(rename = "stockSymbol", skip_serializing_if = "Option::is_none")]
@@ -55,7 +57,12 @@ impl StartSmsRegistrationRequestBrand {
     pub fn new(
         entity_type: EntityType,
         display_name: String,
+        street: String,
+        city: String,
+        state: String,
+        postal_code: String,
         country: Country,
+        website: String,
         vertical: Vertical,
     ) -> StartSmsRegistrationRequestBrand {
         StartSmsRegistrationRequestBrand {
@@ -65,13 +72,13 @@ impl StartSmsRegistrationRequestBrand {
             ein: None,
             phone: None,
             mobile_phone: None,
-            street: None,
-            city: None,
-            state: None,
-            postal_code: None,
+            street,
+            city,
+            state,
+            postal_code,
             country,
             email: None,
-            website: None,
+            website,
             vertical,
             stock_symbol: None,
         }
