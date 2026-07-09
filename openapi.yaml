@@ -10537,7 +10537,7 @@ paths:
     get:
       operationId: getCallsUsage
       tags: [Usage]
-      summary: Calling usage (volumes + billable cost)
+      summary: Calling usage and cost
       description: |
         Aggregated calling usage across your numbers, both channels
         (WhatsApp Business Calling + regular phone/PSTN): call counts,
@@ -12989,7 +12989,7 @@ paths:
         - name: redirect_url
           in: query
           schema: { type: string, format: uri }
-          description: Your custom redirect URL after connection completes. Standard mode appends ?connected={platform}&profileId=X&accountId=Y&username=Z. Headless mode appends OAuth data params for platforms requiring selection (e.g. LinkedIn orgs, Facebook pages). If no selection is needed, the account is created directly and the redirect includes accountId.
+          description: Your custom redirect URL after connection completes. Accepts an http(s) URL, a custom app scheme for mobile deeplinks (e.g. myapp://callback), or a relative path. Result params are appended with the URL API, so an existing query string is preserved. Standard mode appends connected={platform}&profileId=X&accountId=Y&username=Z. Headless mode appends OAuth data params for platforms requiring selection (e.g. LinkedIn orgs, Facebook pages). If no selection is needed, the account is created directly and the redirect includes accountId.
         - name: headless
           in: query
           schema: { type: boolean, default: false }
@@ -13091,7 +13091,7 @@ paths:
         - name: redirect_url
           in: query
           schema: { type: string, format: uri }
-          description: Custom redirect URL after OAuth completes (same-token platforms only)
+          description: Custom redirect URL after OAuth completes (same-token platforms only). Accepts an http(s) URL, a custom app scheme for mobile deeplinks (e.g. myapp://callback), or a relative path.
         - name: headless
           in: query
           schema: { type: boolean, default: false }
@@ -23996,7 +23996,7 @@ paths:
     get:
       operationId: getCallRecording
       tags: [Calls]
-      summary: Get a call recording (any channel)
+      summary: Get a call recording
       description: |
         Channel-agnostic recording fetch: resolves a fresh, playable MP3 URL
         for any call regardless of channel (provider-signed URLs expire ~10
@@ -27636,7 +27636,7 @@ paths:
     post:
       operationId: reuseSmsRegistrationForNumber
       tags: [SMS]
-      summary: Add a number to an existing registration
+      summary: Add number to SMS registration
       description: |
         Attaches this number to your existing approved 10DLC campaign instead
         of running a fresh registration: the number inherits the campaign's
