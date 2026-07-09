@@ -25,6 +25,9 @@ pub struct WebhookPayloadPostPost {
     pub published_at: Option<String>,
     #[serde(rename = "platforms")]
     pub platforms: Vec<models::WebhookPayloadPostPostPlatformsInner>,
+    /// The free-form `metadata` object supplied when the post was created, echoed back so you can map events onto your own records. Omitted when the post was created without it.
+    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<std::collections::HashMap<String, serde_json::Value>>,
 }
 
 impl WebhookPayloadPostPost {
@@ -42,6 +45,7 @@ impl WebhookPayloadPostPost {
             scheduled_for,
             published_at: None,
             platforms,
+            metadata: None,
         }
     }
 }
