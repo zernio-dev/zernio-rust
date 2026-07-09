@@ -1,0 +1,12 @@
+# UsageMeteringCallUsage
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**whatsapp** | Option<[**models::UsageMeteringCallUsageWhatsapp**](UsageMeteringCallUsageWhatsapp.md)> |  | [optional]
+**pstn** | Option<[**models::UsageMeteringCallUsageWhatsapp**](UsageMeteringCallUsageWhatsapp.md)> |  | [optional]
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

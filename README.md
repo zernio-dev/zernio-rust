@@ -380,10 +380,11 @@ Class | Method | HTTP request | Description
 *TwitterEngagementApi* | [**retweet_post**](docs/TwitterEngagementApi.md#retweet_post) | **POST** /v1/twitter/retweet | Retweet a post
 *TwitterEngagementApi* | [**undo_retweet**](docs/TwitterEngagementApi.md#undo_retweet) | **DELETE** /v1/twitter/retweet | Undo retweet
 *TwitterEngagementApi* | [**unfollow_user**](docs/TwitterEngagementApi.md#unfollow_user) | **DELETE** /v1/twitter/follow | Unfollow a user
+*UsageApi* | [**get_billing**](docs/UsageApi.md#get_billing) | **GET** /v1/billing | Account billing snapshot (plan, cycle, balance, caps, status)
 *UsageApi* | [**get_calls_usage**](docs/UsageApi.md#get_calls_usage) | **GET** /v1/usage/calls | Calling usage and cost
 *UsageApi* | [**get_sms_usage**](docs/UsageApi.md#get_sms_usage) | **GET** /v1/usage/sms | SMS usage (volumes)
-*UsageApi* | [**get_usage**](docs/UsageApi.md#get_usage) | **GET** /v1/usage | Get plan and usage snapshot
-*UsageApi* | [**get_usage_stats**](docs/UsageApi.md#get_usage_stats) | **GET** /v1/usage-stats | Get plan and usage stats
+*UsageApi* | [**get_usage**](docs/UsageApi.md#get_usage) | **GET** /v1/usage | Usage snapshot (default) or billed-spend metering (with params)
+*UsageApi* | [**get_usage_stats**](docs/UsageApi.md#get_usage_stats) | **GET** /v1/usage-stats | Get plan and usage snapshot (plan, limits, payment status)
 *UsageApi* | [**get_x_api_pricing**](docs/UsageApi.md#get_x_api_pricing) | **GET** /v1/billing/x-pricing | Get X/Twitter API pricing table
 *UsersApi* | [**get_user**](docs/UsersApi.md#get_user) | **GET** /v1/users/{userId} | Get user
 *UsersApi* | [**list_users**](docs/UsersApi.md#list_users) | **GET** /v1/users | List users
@@ -564,6 +565,14 @@ Class | Method | HTTP request | Description
  - [BatchGetGoogleBusinessReviews200ResponseLocationReviewsInner](docs/BatchGetGoogleBusinessReviews200ResponseLocationReviewsInner.md)
  - [BatchGetGoogleBusinessReviewsRequest](docs/BatchGetGoogleBusinessReviewsRequest.md)
  - [BidStrategy](docs/BidStrategy.md)
+ - [BillingSnapshot](docs/BillingSnapshot.md)
+ - [BillingSnapshotBalance](docs/BillingSnapshotBalance.md)
+ - [BillingSnapshotCaps](docs/BillingSnapshotCaps.md)
+ - [BillingSnapshotLegacy](docs/BillingSnapshotLegacy.md)
+ - [BillingSnapshotLegacyLimits](docs/BillingSnapshotLegacyLimits.md)
+ - [BillingSnapshotPeriod](docs/BillingSnapshotPeriod.md)
+ - [BillingSnapshotPlan](docs/BillingSnapshotPlan.md)
+ - [BillingSnapshotStatus](docs/BillingSnapshotStatus.md)
  - [BlockWhatsAppUsers200Response](docs/BlockWhatsAppUsers200Response.md)
  - [BlockWhatsAppUsers200ResponseBlockedInner](docs/BlockWhatsAppUsers200ResponseBlockedInner.md)
  - [BlockWhatsAppUsers200ResponseFailedInner](docs/BlockWhatsAppUsers200ResponseFailedInner.md)
@@ -1058,6 +1067,7 @@ Class | Method | HTTP request | Description
  - [GetTikTokCreatorInfo200ResponsePrivacyLevelsInner](docs/GetTikTokCreatorInfo200ResponsePrivacyLevelsInner.md)
  - [GetTrackingTagStats200Response](docs/GetTrackingTagStats200Response.md)
  - [GetTrackingTagStats200ResponseStats](docs/GetTrackingTagStats200ResponseStats.md)
+ - [GetUsage200Response](docs/GetUsage200Response.md)
  - [GetUser200Response](docs/GetUser200Response.md)
  - [GetUser200ResponseUser](docs/GetUser200ResponseUser.md)
  - [GetVoiceCall200Response](docs/GetVoiceCall200Response.md)
@@ -1694,6 +1704,14 @@ Class | Method | HTTP request | Description
  - [UploadWhatsAppProfilePhotoRequest1](docs/UploadWhatsAppProfilePhotoRequest1.md)
  - [UploadedFile](docs/UploadedFile.md)
  - [UploadedOrDerivedAudience](docs/UploadedOrDerivedAudience.md)
+ - [UsageMetering](docs/UsageMetering.md)
+ - [UsageMeteringCallUsage](docs/UsageMeteringCallUsage.md)
+ - [UsageMeteringCallUsageWhatsapp](docs/UsageMeteringCallUsageWhatsapp.md)
+ - [UsageMeteringDaysInner](docs/UsageMeteringDaysInner.md)
+ - [UsageMeteringLineItemsInner](docs/UsageMeteringLineItemsInner.md)
+ - [UsageMeteringPeaks](docs/UsageMeteringPeaks.md)
+ - [UsageMeteringPeriod](docs/UsageMeteringPeriod.md)
+ - [UsageMeteringTotals](docs/UsageMeteringTotals.md)
  - [UsageStats](docs/UsageStats.md)
  - [UsageStatsLimits](docs/UsageStatsLimits.md)
  - [UsageStatsSpend](docs/UsageStatsSpend.md)
