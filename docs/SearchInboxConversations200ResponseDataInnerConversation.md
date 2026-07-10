@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **participant_username** | Option<**String**> |  | [optional]
 **participant_picture** | Option<**String**> |  | [optional]
 **status** | Option<**Status**> |  (enum: active, archived) | [optional]
+**last_message** | Option<**String**> | The conversation's most recent message preview | [optional]
 **last_message_at** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

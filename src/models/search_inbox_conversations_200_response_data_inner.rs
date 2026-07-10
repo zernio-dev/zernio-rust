@@ -15,10 +15,10 @@ use serde::{Deserialize, Serialize};
 pub struct SearchInboxConversations200ResponseDataInner {
     #[serde(rename = "conversation", skip_serializing_if = "Option::is_none")]
     pub conversation: Option<Box<models::SearchInboxConversations200ResponseDataInnerConversation>>,
-    /// Total number of matching messages in this conversation
+    /// Number of matching messages in this conversation. 0 when the conversation matched only on contact identity (name, username, or phone number), not on message text.
     #[serde(rename = "matchCount", skip_serializing_if = "Option::is_none")]
     pub match_count: Option<i32>,
-    /// Up to 3 most-recent matching messages
+    /// Up to 3 most-recent matching messages (empty for an identity-only match)
     #[serde(rename = "matches", skip_serializing_if = "Option::is_none")]
     pub matches: Option<Vec<models::SearchInboxConversations200ResponseDataInnerMatchesInner>>,
 }

@@ -43,6 +43,14 @@ pub struct SearchInboxConversations200ResponseDataInnerConversation {
     pub participant_picture: Option<Option<String>>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
+    /// The conversation's most recent message preview
+    #[serde(
+        rename = "lastMessage",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_message: Option<Option<String>>,
     #[serde(
         rename = "lastMessageAt",
         default,
@@ -62,6 +70,7 @@ impl SearchInboxConversations200ResponseDataInnerConversation {
             participant_username: None,
             participant_picture: None,
             status: None,
+            last_message: None,
             last_message_at: None,
         }
     }

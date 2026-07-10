@@ -316,15 +316,15 @@ Name | Type | Description  | Required | Notes
 > models::SearchInboxConversations200Response search_inbox_conversations(query, direction, profile_id, platform, account_id, limit, cursor)
 Search conversations
 
-Search message text across your conversations and get back the conversations that contain the query, each with up to 3 most-recent matching messages. Useful for finding threads about a topic, or (with direction=outgoing) collecting examples of how you write to customers, for example to teach an AI agent your tone of voice.  Only platforms whose messages are stored by Zernio are searchable: WhatsApp, SMS, Telegram, Facebook and Instagram. Twitter/X, Bluesky and Reddit conversations are fetched live from the platforms and cannot be searched; those accounts are listed in meta.accountsSkipped.  Matching is word-based: case-insensitive and accent-insensitive, exact tokens only (no substrings, no stemming). Quote a phrase to match it exactly. 
+Search your conversations two ways at once, and get back the matching conversations, most-recent match first:  - Message text: matches words inside message bodies. Case-insensitive and accent-insensitive, exact tokens only (no substrings, no stemming). Each hit carries up to 3 most-recent matching messages. With direction=outgoing you can collect examples of how you write to customers, for example to teach an AI agent your tone of voice. - Contact identity: matches the participant's name, username, or phone number as a case-insensitive substring. These hits have matchCount 0 and an empty matches array.  A conversation that matches both ways is returned once, carrying its message matches.  Only platforms whose messages are stored by Zernio are searchable: WhatsApp, SMS, Telegram, Facebook, Instagram, Twitter/X and Reddit. Bluesky conversations are fetched live from the platform and cannot be searched; those accounts are listed in meta.accountsSkipped. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**query** | **String** | Text to search for in message content | [required] |
-**direction** | Option<**String**> | Only match messages sent to you (incoming) or by you (outgoing) |  |
+**query** | **String** | Text to search for, in message content and in the contact's name, username, or phone number | [required] |
+**direction** | Option<**String**> | Only match messages sent to you (incoming) or by you (outgoing). Contact-identity matching is not applied when this is set. |  |
 **profile_id** | Option<**String**> | Filter by profile ID |  |
 **platform** | Option<**String**> | Filter by platform (searchable platforms only) |  |
 **account_id** | Option<**String**> | Filter by specific social account ID |  |
