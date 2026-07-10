@@ -8,10 +8,10 @@ Method | HTTP request | Description
 [**disable_whats_app_calling_legacy**](WhatsAppCallingApi.md#disable_whats_app_calling_legacy) | **DELETE** /v1/whatsapp/phone-numbers/{id}/calling | Disable calling on a number
 [**enable_whats_app_calling**](WhatsAppCallingApi.md#enable_whats_app_calling) | **POST** /v1/phone-numbers/{id}/whatsapp/calling | Enable calling on a number
 [**enable_whats_app_calling_legacy**](WhatsAppCallingApi.md#enable_whats_app_calling_legacy) | **POST** /v1/whatsapp/phone-numbers/{id}/calling | Enable calling on a number
-[**get_whats_app_call**](WhatsAppCallingApi.md#get_whats_app_call) | **GET** /v1/whatsapp/calls/{callId} | Get a single call
+[**get_whats_app_call**](WhatsAppCallingApi.md#get_whats_app_call) | **GET** /v1/whatsapp/calls/{id} | Get a single call
 [**get_whats_app_call_estimate**](WhatsAppCallingApi.md#get_whats_app_call_estimate) | **GET** /v1/whatsapp/calls/estimate | Estimate per-minute cost
 [**get_whats_app_call_permissions**](WhatsAppCallingApi.md#get_whats_app_call_permissions) | **GET** /v1/whatsapp/call-permissions | Check call permission
-[**get_whats_app_call_recording**](WhatsAppCallingApi.md#get_whats_app_call_recording) | **GET** /v1/whatsapp/calls/{callId}/recording | Get a call recording
+[**get_whats_app_call_recording**](WhatsAppCallingApi.md#get_whats_app_call_recording) | **GET** /v1/whatsapp/calls/{id}/recording | Get a call recording
 [**get_whats_app_calling**](WhatsAppCallingApi.md#get_whats_app_calling) | **GET** /v1/phone-numbers/{id}/whatsapp/calling | Get calling config for a number
 [**get_whats_app_calling_config**](WhatsAppCallingApi.md#get_whats_app_calling_config) | **GET** /v1/whatsapp/calling | Get calling config for an account
 [**initiate_whats_app_call**](WhatsAppCallingApi.md#initiate_whats_app_call) | **POST** /v1/whatsapp/calls | Initiate outbound call
@@ -147,7 +147,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_whats_app_call
 
-> models::GetWhatsAppCall200Response get_whats_app_call(call_id, account_id)
+> models::GetWhatsAppCall200Response get_whats_app_call(id, account_id)
 Get a single call
 
 ### Parameters
@@ -155,7 +155,7 @@ Get a single call
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**call_id** | **String** |  | [required] |
+**id** | **String** |  | [required] |
 **account_id** | **String** |  | [required] |
 
 ### Return type
@@ -240,7 +240,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_whats_app_call_recording
 
-> models::GetWhatsAppCallRecording200Response get_whats_app_call_recording(call_id, account_id, r#as)
+> models::GetWhatsAppCallRecording200Response get_whats_app_call_recording(id, account_id, r#as)
 Get a call recording
 
 Resolves a fresh, playable MP3 URL for the call's recording. Provider-signed recording URLs expire ~10 minutes after signing, so the `recordingUrl` stored on the call is usually stale by the time it is played; this endpoint re-signs on demand. Default responds `302 Found` redirecting to the fresh URL (point an `<audio>` element or a link straight at this endpoint); pass `as=json` to receive `{ url }` instead. 
@@ -250,7 +250,7 @@ Resolves a fresh, playable MP3 URL for the call's recording. Provider-signed rec
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**call_id** | **String** |  | [required] |
+**id** | **String** |  | [required] |
 **account_id** | **String** |  | [required] |
 **r#as** | Option<**String**> | `json` returns `{ url }` instead of a 302 redirect. |  |
 

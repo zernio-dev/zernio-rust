@@ -351,17 +351,17 @@ pub async fn enable_whats_app_calling_legacy(
 
 pub async fn get_whats_app_call(
     configuration: &configuration::Configuration,
-    call_id: &str,
+    id: &str,
     account_id: &str,
 ) -> Result<models::GetWhatsAppCall200Response, Error<GetWhatsAppCallError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_call_id = call_id;
+    let p_path_id = id;
     let p_query_account_id = account_id;
 
     let uri_str = format!(
-        "{}/v1/whatsapp/calls/{callId}",
+        "{}/v1/whatsapp/calls/{id}",
         configuration.base_path,
-        callId = crate::apis::urlencode(p_path_call_id)
+        id = crate::apis::urlencode(p_path_id)
     );
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
@@ -517,19 +517,19 @@ pub async fn get_whats_app_call_permissions(
 /// Resolves a fresh, playable MP3 URL for the call's recording. Provider-signed recording URLs expire ~10 minutes after signing, so the `recordingUrl` stored on the call is usually stale by the time it is played; this endpoint re-signs on demand. Default responds `302 Found` redirecting to the fresh URL (point an `<audio>` element or a link straight at this endpoint); pass `as=json` to receive `{ url }` instead.
 pub async fn get_whats_app_call_recording(
     configuration: &configuration::Configuration,
-    call_id: &str,
+    id: &str,
     account_id: &str,
     r#as: Option<&str>,
 ) -> Result<models::GetWhatsAppCallRecording200Response, Error<GetWhatsAppCallRecordingError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_call_id = call_id;
+    let p_path_id = id;
     let p_query_account_id = account_id;
     let p_query_as = r#as;
 
     let uri_str = format!(
-        "{}/v1/whatsapp/calls/{callId}/recording",
+        "{}/v1/whatsapp/calls/{id}/recording",
         configuration.base_path,
-        callId = crate::apis::urlencode(p_path_call_id)
+        id = crate::apis::urlencode(p_path_id)
     );
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 

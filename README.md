@@ -446,10 +446,10 @@ Class | Method | HTTP request | Description
 *WhatsAppCallingApi* | [**disable_whats_app_calling_legacy**](docs/WhatsAppCallingApi.md#disable_whats_app_calling_legacy) | **DELETE** /v1/whatsapp/phone-numbers/{id}/calling | Disable calling on a number
 *WhatsAppCallingApi* | [**enable_whats_app_calling**](docs/WhatsAppCallingApi.md#enable_whats_app_calling) | **POST** /v1/phone-numbers/{id}/whatsapp/calling | Enable calling on a number
 *WhatsAppCallingApi* | [**enable_whats_app_calling_legacy**](docs/WhatsAppCallingApi.md#enable_whats_app_calling_legacy) | **POST** /v1/whatsapp/phone-numbers/{id}/calling | Enable calling on a number
-*WhatsAppCallingApi* | [**get_whats_app_call**](docs/WhatsAppCallingApi.md#get_whats_app_call) | **GET** /v1/whatsapp/calls/{callId} | Get a single call
+*WhatsAppCallingApi* | [**get_whats_app_call**](docs/WhatsAppCallingApi.md#get_whats_app_call) | **GET** /v1/whatsapp/calls/{id} | Get a single call
 *WhatsAppCallingApi* | [**get_whats_app_call_estimate**](docs/WhatsAppCallingApi.md#get_whats_app_call_estimate) | **GET** /v1/whatsapp/calls/estimate | Estimate per-minute cost
 *WhatsAppCallingApi* | [**get_whats_app_call_permissions**](docs/WhatsAppCallingApi.md#get_whats_app_call_permissions) | **GET** /v1/whatsapp/call-permissions | Check call permission
-*WhatsAppCallingApi* | [**get_whats_app_call_recording**](docs/WhatsAppCallingApi.md#get_whats_app_call_recording) | **GET** /v1/whatsapp/calls/{callId}/recording | Get a call recording
+*WhatsAppCallingApi* | [**get_whats_app_call_recording**](docs/WhatsAppCallingApi.md#get_whats_app_call_recording) | **GET** /v1/whatsapp/calls/{id}/recording | Get a call recording
 *WhatsAppCallingApi* | [**get_whats_app_calling**](docs/WhatsAppCallingApi.md#get_whats_app_calling) | **GET** /v1/phone-numbers/{id}/whatsapp/calling | Get calling config for a number
 *WhatsAppCallingApi* | [**get_whats_app_calling_config**](docs/WhatsAppCallingApi.md#get_whats_app_calling_config) | **GET** /v1/whatsapp/calling | Get calling config for an account
 *WhatsAppCallingApi* | [**initiate_whats_app_call**](docs/WhatsAppCallingApi.md#initiate_whats_app_call) | **POST** /v1/whatsapp/calls | Initiate outbound call

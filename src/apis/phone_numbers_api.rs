@@ -744,7 +744,7 @@ pub async fn list_phone_numbers(
     }
 }
 
-/// Initiate purchasing a phone number. Payment-first flow: the user does not pick a specific number. The system either creates a Stripe Checkout Session (first number) or increments the existing subscription quantity and provisions inline (subsequent numbers).  Requires a paid plan. The maximum number of phone numbers is determined by the user's plan.
+/// Payment-first: you do not pick a specific number, the system provisions one and auto-assigns it. With usage-based billing active and a payment method on file, the number provisions inline and bills per month on your usage-based invoice (there is no checkout redirect). No payment method on file returns `402 PAYMENT_REQUIRED`; a regulated country returns `202` with `status: \"kyc_required\"` and a `kycUrl`.  Requires usage-based billing (the Usage plan). The maximum number of phone numbers is determined by the user's plan.
 pub async fn purchase_phone_number(
     configuration: &configuration::Configuration,
     purchase_phone_number_request: models::PurchasePhoneNumberRequest,
