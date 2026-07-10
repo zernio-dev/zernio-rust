@@ -125,7 +125,7 @@ pub enum VerifySmsRegistrationOtpError {
     UnknownValue(serde_json::Value),
 }
 
-/// Appeals a rejected 10DLC campaign with the carrier registry. Only a registration that reached campaign creation can be appealed; a brand-level rejection should be fixed and re-verified instead. On success the registration returns to `pending`.
+/// Appeals a rejected 10DLC campaign with the carrier registry. Only a registration that reached campaign creation can be appealed; a brand-level rejection should be fixed and re-verified instead. On success the registration returns to `pending`.  Content rejections (e.g. an opt-in flow without a verifiable form link, or unrealistic samples) should be FIXED in the same call: pass the corrected `messageFlow` / `sample1` / `sample2` and the campaign is updated before the appeal is filed, so the reviewer sees the new content. The current content is on `GET /v1/sms/registrations/{id}` (`campaignContent`).
 pub async fn appeal_sms_registration(
     configuration: &configuration::Configuration,
     id: &str,

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **decline_reason** | Option<**String**> |  | [optional]
 **phone_numbers** | Option<**Vec<String>**> |  | [optional]
 **awaiting_otp** | Option<**bool**> |  | [optional]
+**campaign_content** | Option<[**models::GetSmsRegistration200ResponseCampaignContent**](GetSmsRegistration200ResponseCampaignContent.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

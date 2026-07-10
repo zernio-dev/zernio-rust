@@ -1,11 +1,10 @@
-# AppealSmsRegistrationRequest
+# GetSmsRegistration200ResponseCampaignContent
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**appeal_reason** | **String** | Goes verbatim to the carrier reviewer — address the decline reason directly. | 
-**message_flow** | Option<**String**> | Corrected opt-in flow; include a link to the opt-in page/form. | [optional]
+**message_flow** | Option<**String**> |  | [optional]
 **sample1** | Option<**String**> |  | [optional]
 **sample2** | Option<**String**> |  | [optional]
 

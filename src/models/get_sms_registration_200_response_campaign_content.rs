@@ -11,12 +11,9 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// GetSmsRegistration200ResponseCampaignContent : The submitted campaign content, present only for rejected registrations with a campaign. Edit and resubmit it via the appeal endpoint's optional content fields.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct AppealSmsRegistrationRequest {
-    /// Goes verbatim to the carrier reviewer — address the decline reason directly.
-    #[serde(rename = "appealReason")]
-    pub appeal_reason: String,
-    /// Corrected opt-in flow; include a link to the opt-in page/form.
+pub struct GetSmsRegistration200ResponseCampaignContent {
     #[serde(rename = "messageFlow", skip_serializing_if = "Option::is_none")]
     pub message_flow: Option<String>,
     #[serde(rename = "sample1", skip_serializing_if = "Option::is_none")]
@@ -25,10 +22,10 @@ pub struct AppealSmsRegistrationRequest {
     pub sample2: Option<String>,
 }
 
-impl AppealSmsRegistrationRequest {
-    pub fn new(appeal_reason: String) -> AppealSmsRegistrationRequest {
-        AppealSmsRegistrationRequest {
-            appeal_reason,
+impl GetSmsRegistration200ResponseCampaignContent {
+    /// The submitted campaign content, present only for rejected registrations with a campaign. Edit and resubmit it via the appeal endpoint's optional content fields.
+    pub fn new() -> GetSmsRegistration200ResponseCampaignContent {
+        GetSmsRegistration200ResponseCampaignContent {
             message_flow: None,
             sample1: None,
             sample2: None,

@@ -80,6 +80,16 @@ pub enum Events {
     AccountAdsInitialSyncCompleted,
     #[serde(rename = "message.received")]
     MessageReceived,
+    #[serde(rename = "conversation.started")]
+    ConversationStarted,
+    #[serde(rename = "call.received")]
+    CallReceived,
+    #[serde(rename = "call.ended")]
+    CallEnded,
+    #[serde(rename = "call.failed")]
+    CallFailed,
+    #[serde(rename = "call.permission_request")]
+    CallPermissionRequest,
     #[serde(rename = "message.sent")]
     MessageSent,
     #[serde(rename = "message.edited")]
@@ -100,10 +110,14 @@ pub enum Events {
     ReviewNew,
     #[serde(rename = "review.updated")]
     ReviewUpdated,
+    #[serde(rename = "lead.received")]
+    LeadReceived,
     #[serde(rename = "ad.status_changed")]
     AdStatusChanged,
     #[serde(rename = "whatsapp.template.status_updated")]
     WhatsappTemplateStatusUpdated,
+    #[serde(rename = "whatsapp.automatic_event")]
+    WhatsappAutomaticEvent,
     #[serde(rename = "whatsapp.number.activated")]
     WhatsappNumberActivated,
     #[serde(rename = "whatsapp.number.declined")]

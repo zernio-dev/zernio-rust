@@ -253,6 +253,13 @@ pub enum OnWebhookTestError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`on_whats_app_automatic_event`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnWhatsAppAutomaticEventError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`on_whats_app_number_action_required`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -1333,6 +1340,36 @@ pub async fn on_webhook_test(configuration: &configuration::Configuration, webho
     } else {
         let content = resp.text().await?;
         let entity: Option<OnWebhookTestError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when Meta's automatic event identification (opt-in during Embedded Signup; not available for EU/UK/JP businesses) detects a lead or purchase in a Click-to-WhatsApp conversation. Branch on `eventName` (`LeadSubmitted` | `Purchase`). Carries the `ctwa_clid` even on coexistence numbers where the inbound referral omits it (this webhook is the only surface that delivers it there); the clid is also written back onto the conversation, so POST /v1/whatsapp/conversions becomes usable for the thread. 
+pub async fn on_whats_app_automatic_event(configuration: &configuration::Configuration, on_whats_app_automatic_event_request: models::OnWhatsAppAutomaticEventRequest) -> Result<(), Error<OnWhatsAppAutomaticEventError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_on_whats_app_automatic_event_request = on_whats_app_automatic_event_request;
+
+    let uri_str = format!("{}/whatsapp.automatic_event", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_on_whats_app_automatic_event_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnWhatsAppAutomaticEventError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

@@ -564,6 +564,7 @@ docs/GetSequence200ResponseSequence.md
 docs/GetSequence200ResponseSequenceStepsInner.md
 docs/GetSequence200ResponseSequenceStepsInnerTemplate.md
 docs/GetSmsRegistration200Response.md
+docs/GetSmsRegistration200ResponseCampaignContent.md
 docs/GetSmsUsage200Response.md
 docs/GetSmsUsage200ResponseGroupsInner.md
 docs/GetSmsUsage200ResponseTotals.md
@@ -853,6 +854,8 @@ docs/MessagesApi.md
 docs/Money.md
 docs/MoveAccountToProfile200Response.md
 docs/MoveAccountToProfileRequest.md
+docs/OnWhatsAppAutomaticEventRequest.md
+docs/OnWhatsAppAutomaticEventRequestCustomData.md
 docs/OnWhatsAppNumberActionRequiredRequest.md
 docs/OnWhatsAppNumberActivatedRequest.md
 docs/OnWhatsAppNumberActivatedRequestNumber.md
@@ -2003,6 +2006,7 @@ src/models/get_sequence_200_response_sequence.rs
 src/models/get_sequence_200_response_sequence_steps_inner.rs
 src/models/get_sequence_200_response_sequence_steps_inner_template.rs
 src/models/get_sms_registration_200_response.rs
+src/models/get_sms_registration_200_response_campaign_content.rs
 src/models/get_sms_usage_200_response.rs
 src/models/get_sms_usage_200_response_groups_inner.rs
 src/models/get_sms_usage_200_response_totals.rs
@@ -2277,6 +2281,8 @@ src/models/mod.rs
 src/models/money.rs
 src/models/move_account_to_profile_200_response.rs
 src/models/move_account_to_profile_request.rs
+src/models/on_whats_app_automatic_event_request.rs
+src/models/on_whats_app_automatic_event_request_custom_data.rs
 src/models/on_whats_app_number_action_required_request.rs
 src/models/on_whats_app_number_activated_request.rs
 src/models/on_whats_app_number_activated_request_number.rs

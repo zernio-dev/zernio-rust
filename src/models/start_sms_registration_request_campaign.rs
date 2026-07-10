@@ -16,9 +16,12 @@ use serde::{Deserialize, Serialize};
 pub struct StartSmsRegistrationRequestCampaign {
     #[serde(rename = "usecase")]
     pub usecase: String,
+    /// The concrete kinds of messages a MIXED campaign sends (the carrier registry requires 2-5, and reviewers match them against the sample messages). Omitted: a default pair is applied for MIXED.
+    #[serde(rename = "subUsecases", skip_serializing_if = "Option::is_none")]
+    pub sub_usecases: Option<Vec<SubUsecases>>,
     #[serde(rename = "description")]
     pub description: String,
-    /// How a recipient ends up receiving your messages (the opt-in flow).
+    /// How a recipient ends up receiving your messages (the opt-in flow). Include a link to the page or form where they opt in — carrier reviewers reject campaigns whose consent they can't verify.
     #[serde(rename = "messageFlow")]
     pub message_flow: String,
     #[serde(rename = "sample1")]
@@ -67,6 +70,7 @@ impl StartSmsRegistrationRequestCampaign {
     ) -> StartSmsRegistrationRequestCampaign {
         StartSmsRegistrationRequestCampaign {
             usecase,
+            sub_usecases: None,
             description,
             message_flow,
             sample1,
@@ -83,5 +87,35 @@ impl StartSmsRegistrationRequestCampaign {
             age_gated: None,
             direct_lending: None,
         }
+    }
+}
+/// The concrete kinds of messages a MIXED campaign sends (the carrier registry requires 2-5, and reviewers match them against the sample messages). Omitted: a default pair is applied for MIXED.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum SubUsecases {
+    #[serde(rename = "2FA")]
+    Variant2Fa,
+    #[serde(rename = "ACCOUNT_NOTIFICATION")]
+    AccountNotification,
+    #[serde(rename = "CUSTOMER_CARE")]
+    CustomerCare,
+    #[serde(rename = "DELIVERY_NOTIFICATION")]
+    DeliveryNotification,
+    #[serde(rename = "FRAUD_ALERT")]
+    FraudAlert,
+    #[serde(rename = "HIGHER_EDUCATION")]
+    HigherEducation,
+    #[serde(rename = "MARKETING")]
+    Marketing,
+    #[serde(rename = "POLLING_VOTING")]
+    PollingVoting,
+    #[serde(rename = "PUBLIC_SERVICE_ANNOUNCEMENT")]
+    PublicServiceAnnouncement,
+    #[serde(rename = "SECURITY_ALERT")]
+    SecurityAlert,
+}
+
+impl Default for SubUsecases {
+    fn default() -> SubUsecases {
+        Self::Variant2Fa
     }
 }

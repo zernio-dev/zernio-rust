@@ -34,6 +34,8 @@ pub struct GetSmsRegistration200Response {
     pub phone_numbers: Option<Vec<String>>,
     #[serde(rename = "awaitingOtp", skip_serializing_if = "Option::is_none")]
     pub awaiting_otp: Option<bool>,
+    #[serde(rename = "campaignContent", skip_serializing_if = "Option::is_none")]
+    pub campaign_content: Option<Box<models::GetSmsRegistration200ResponseCampaignContent>>,
 }
 
 impl GetSmsRegistration200Response {
@@ -47,6 +49,7 @@ impl GetSmsRegistration200Response {
             decline_reason: None,
             phone_numbers: None,
             awaiting_otp: None,
+            campaign_content: None,
         }
     }
 }
