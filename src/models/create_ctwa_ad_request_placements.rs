@@ -65,6 +65,8 @@ pub enum PublisherPlatforms {
     Messenger,
     #[serde(rename = "audience_network")]
     AudienceNetwork,
+    #[serde(rename = "whatsapp")]
+    Whatsapp,
 }
 
 impl Default for PublisherPlatforms {

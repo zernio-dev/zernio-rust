@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**publisher_platforms** | Option<**Vec<PublisherPlatforms>**> |  (enum: facebook, instagram, threads, messenger, audience_network) | [optional]
+**publisher_platforms** | Option<**Vec<PublisherPlatforms>**> |  (enum: facebook, instagram, threads, messenger, audience_network, whatsapp) | [optional]
 **facebook_positions** | Option<**Vec<FacebookPositions>**> |  (enum: feed, right_hand_column, marketplace, video_feeds, story, search, instream_video, facebook_reels, facebook_reels_overlay, profile_feed, notification) | [optional]
 **instagram_positions** | Option<**Vec<InstagramPositions>**> |  (enum: stream, story, explore, explore_home, reels, profile_feed, ig_search, profile_reels) | [optional]
 **messenger_positions** | Option<**Vec<MessengerPositions>**> |  (enum: messenger_home, sponsored_messages, story) | [optional]
