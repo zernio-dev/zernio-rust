@@ -75,6 +75,8 @@ pub struct CreateCtwaAdRequest {
     /// Custom audience ID to target.
     #[serde(rename = "audienceId", skip_serializing_if = "Option::is_none")]
     pub audience_id: Option<String>,
+    #[serde(rename = "placements", skip_serializing_if = "Option::is_none")]
+    pub placements: Option<Box<models::CreateCtwaAdRequestPlacements>>,
     /// Meta's Advantage+ audience expansion. `0` (default) keeps targeting strict; `1` lets Meta expand beyond the supplied targeting when its delivery system finds better matches. Always sent on CREATE (Meta requires it).
     #[serde(rename = "advantageAudience", skip_serializing_if = "Option::is_none")]
     pub advantage_audience: Option<AdvantageAudience>,
@@ -130,6 +132,7 @@ impl CreateCtwaAdRequest {
             age_max: None,
             interests: None,
             audience_id: None,
+            placements: None,
             advantage_audience: None,
             objective: None,
             bid_strategy: None,

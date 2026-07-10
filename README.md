@@ -660,6 +660,7 @@ Class | Method | HTTP request | Description
  - [CreateCtwaAdRequestCitiesInner](docs/CreateCtwaAdRequestCitiesInner.md)
  - [CreateCtwaAdRequestCreativesInner](docs/CreateCtwaAdRequestCreativesInner.md)
  - [CreateCtwaAdRequestCreativesInnerVideo](docs/CreateCtwaAdRequestCreativesInnerVideo.md)
+ - [CreateCtwaAdRequestPlacements](docs/CreateCtwaAdRequestPlacements.md)
  - [CreateCtwaAdRequestRegionsInner](docs/CreateCtwaAdRequestRegionsInner.md)
  - [CreateCtwaAdRequestVideo](docs/CreateCtwaAdRequestVideo.md)
  - [CreateCtwaAdRequestZipsInner](docs/CreateCtwaAdRequestZipsInner.md)

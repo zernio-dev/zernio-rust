@@ -306,6 +306,8 @@ pub mod create_ctwa_ad_request_creatives_inner;
 pub use self::create_ctwa_ad_request_creatives_inner::CreateCtwaAdRequestCreativesInner;
 pub mod create_ctwa_ad_request_creatives_inner_video;
 pub use self::create_ctwa_ad_request_creatives_inner_video::CreateCtwaAdRequestCreativesInnerVideo;
+pub mod create_ctwa_ad_request_placements;
+pub use self::create_ctwa_ad_request_placements::CreateCtwaAdRequestPlacements;
 pub mod create_ctwa_ad_request_regions_inner;
 pub use self::create_ctwa_ad_request_regions_inner::CreateCtwaAdRequestRegionsInner;
 pub mod create_ctwa_ad_request_video;

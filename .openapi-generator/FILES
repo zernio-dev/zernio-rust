@@ -170,6 +170,7 @@ docs/CreateCtwaAdRequest.md
 docs/CreateCtwaAdRequestCitiesInner.md
 docs/CreateCtwaAdRequestCreativesInner.md
 docs/CreateCtwaAdRequestCreativesInnerVideo.md
+docs/CreateCtwaAdRequestPlacements.md
 docs/CreateCtwaAdRequestRegionsInner.md
 docs/CreateCtwaAdRequestVideo.md
 docs/CreateCtwaAdRequestZipsInner.md
@@ -1615,6 +1616,7 @@ src/models/create_ctwa_ad_request.rs
 src/models/create_ctwa_ad_request_cities_inner.rs
 src/models/create_ctwa_ad_request_creatives_inner.rs
 src/models/create_ctwa_ad_request_creatives_inner_video.rs
+src/models/create_ctwa_ad_request_placements.rs
 src/models/create_ctwa_ad_request_regions_inner.rs
 src/models/create_ctwa_ad_request_video.rs
 src/models/create_ctwa_ad_request_zips_inner.rs

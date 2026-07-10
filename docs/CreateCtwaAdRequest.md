@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **age_max** | Option<**i32**> |  | [optional]
 **interests** | Option<[**Vec<models::CreateStandaloneAdRequestBehaviorsInner>**](CreateStandaloneAdRequestBehaviorsInner.md)> |  | [optional]
 **audience_id** | Option<**String**> | Custom audience ID to target. | [optional]
+**placements** | Option<[**models::CreateCtwaAdRequestPlacements**](CreateCtwaAdRequestPlacements.md)> |  | [optional]
 **advantage_audience** | Option<**AdvantageAudience**> | Meta's Advantage+ audience expansion. `0` (default) keeps targeting strict; `1` lets Meta expand beyond the supplied targeting when its delivery system finds better matches. Always sent on CREATE (Meta requires it).  (enum: 0, 1) | [optional]
 **objective** | Option<**Objective**> | Defaults to `OUTCOME_ENGAGEMENT` (the broadly-supported CTWA objective). `OUTCOME_SALES` and `OUTCOME_LEADS` require additional account configuration (Dataset linked to the WABA for sales) and may be rejected by Meta if missing.  (enum: OUTCOME_ENGAGEMENT, OUTCOME_SALES, OUTCOME_LEADS) | [optional]
 **bid_strategy** | Option<**BidStrategy**> | Meta bid strategy applied to the shared ad set. Defaults to `LOWEST_COST_WITHOUT_CAP` (auto-bid) when omitted. `LOWEST_COST_WITH_BID_CAP` and `COST_CAP` require `bidAmount`. `LOWEST_COST_WITH_MIN_ROAS` requires `roasAverageFloor`. CTWA's `optimization_goal` is fixed to `CONVERSATIONS`, but the bid strategy is independent.  (enum: LOWEST_COST_WITHOUT_CAP, LOWEST_COST_WITH_BID_CAP, COST_CAP, LOWEST_COST_WITH_MIN_ROAS) | [optional]
