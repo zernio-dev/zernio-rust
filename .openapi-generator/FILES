@@ -1253,6 +1253,7 @@ docs/UsageMeteringDaysInner.md
 docs/UsageMeteringLineItemsInner.md
 docs/UsageMeteringPeaks.md
 docs/UsageMeteringPeriod.md
+docs/UsageMeteringTax.md
 docs/UsageMeteringTotals.md
 docs/UsageStats.md
 docs/UsageStatsLimits.md
@@ -2669,6 +2670,7 @@ src/models/usage_metering_days_inner.rs
 src/models/usage_metering_line_items_inner.rs
 src/models/usage_metering_peaks.rs
 src/models/usage_metering_period.rs
+src/models/usage_metering_tax.rs
 src/models/usage_metering_totals.rs
 src/models/usage_stats.rs
 src/models/usage_stats_limits.rs

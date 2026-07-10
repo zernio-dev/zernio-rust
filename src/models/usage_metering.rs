@@ -33,6 +33,8 @@ pub struct UsageMetering {
     pub call_usage: Option<Box<models::UsageMeteringCallUsage>>,
     #[serde(rename = "period", skip_serializing_if = "Option::is_none")]
     pub period: Option<Box<models::UsageMeteringPeriod>>,
+    #[serde(rename = "tax", skip_serializing_if = "Option::is_none")]
+    pub tax: Option<Box<models::UsageMeteringTax>>,
 }
 
 impl UsageMetering {
@@ -47,6 +49,7 @@ impl UsageMetering {
             peaks: None,
             call_usage: None,
             period: None,
+            tax: None,
         }
     }
 }

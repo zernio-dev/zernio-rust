@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **peaks** | Option<[**models::UsageMeteringPeaks**](UsageMeteringPeaks.md)> |  | [optional]
 **call_usage** | Option<[**models::UsageMeteringCallUsage**](UsageMeteringCallUsage.md)> |  | [optional]
 **period** | Option<[**models::UsageMeteringPeriod**](UsageMeteringPeriod.md)> |  | [optional]
+**tax** | Option<[**models::UsageMeteringTax**](UsageMeteringTax.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

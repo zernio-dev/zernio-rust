@@ -2414,6 +2414,8 @@ pub mod usage_metering_peaks;
 pub use self::usage_metering_peaks::UsageMeteringPeaks;
 pub mod usage_metering_period;
 pub use self::usage_metering_period::UsageMeteringPeriod;
+pub mod usage_metering_tax;
+pub use self::usage_metering_tax::UsageMeteringTax;
 pub mod usage_metering_totals;
 pub use self::usage_metering_totals::UsageMeteringTotals;
 pub mod usage_stats;
