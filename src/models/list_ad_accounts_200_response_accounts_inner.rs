@@ -31,6 +31,12 @@ pub struct ListAdAccounts200ResponseAccountsInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub timezone_offset_hours_utc: Option<f64>,
+    /// Meta only. Whether the account can create/run ads now. Absent (treat as true) on non-Meta platforms.
+    #[serde(rename = "selectable", skip_serializing_if = "Option::is_none")]
+    pub selectable: Option<bool>,
+    /// Meta only. Human-readable reason when selectable is false; null when selectable.
+    #[serde(rename = "unusableReason", skip_serializing_if = "Option::is_none")]
+    pub unusable_reason: Option<String>,
 }
 
 impl ListAdAccounts200ResponseAccountsInner {
@@ -42,6 +48,8 @@ impl ListAdAccounts200ResponseAccountsInner {
             status: None,
             timezone_name: None,
             timezone_offset_hours_utc: None,
+            selectable: None,
+            unusable_reason: None,
         }
     }
 }
