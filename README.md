@@ -115,6 +115,7 @@ Class | Method | HTTP request | Description
 *AdsApi* | [**send_conversions**](docs/AdsApi.md#send_conversions) | **POST** /v1/ads/conversions | Send conversion events
 *AdsApi* | [**send_whats_app_conversion**](docs/AdsApi.md#send_whats_app_conversion) | **POST** /v1/whatsapp/conversions | Send WhatsApp conversion event
 *AdsApi* | [**update_ad**](docs/AdsApi.md#update_ad) | **PUT** /v1/ads/{adId} | Update ad
+*AdsApi* | [**update_ad_status**](docs/AdsApi.md#update_ad_status) | **PUT** /v1/ads/{adId}/status | Pause or resume a single ad
 *AdsApi* | [**update_ad_tracking_tags**](docs/AdsApi.md#update_ad_tracking_tags) | **PATCH** /v1/ads/{adId}/tracking-tags | Set ad tracking tags
 *AdsApi* | [**update_conversion_destination**](docs/AdsApi.md#update_conversion_destination) | **PATCH** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Update a conversion destination
 *AnalyticsApi* | [**get_analytics**](docs/AnalyticsApi.md#get_analytics) | **GET** /v1/analytics | Get post analytics
@@ -1610,6 +1611,8 @@ Class | Method | HTTP request | Description
  - [UpdateAdSetRequest](docs/UpdateAdSetRequest.md)
  - [UpdateAdSetRequestBudget](docs/UpdateAdSetRequestBudget.md)
  - [UpdateAdSetStatus200Response](docs/UpdateAdSetStatus200Response.md)
+ - [UpdateAdStatus200Response](docs/UpdateAdStatus200Response.md)
+ - [UpdateAdStatusRequest](docs/UpdateAdStatusRequest.md)
  - [UpdateAdTrackingTagsRequest](docs/UpdateAdTrackingTagsRequest.md)
  - [UpdateAdTrackingTagsRequestCreative](docs/UpdateAdTrackingTagsRequestCreative.md)
  - [UpdateAdTrackingTagsRequestUrlTagsInner](docs/UpdateAdTrackingTagsRequestUrlTagsInner.md)

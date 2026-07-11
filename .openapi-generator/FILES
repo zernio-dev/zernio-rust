@@ -1148,6 +1148,8 @@ docs/UpdateAdSet200Response.md
 docs/UpdateAdSetRequest.md
 docs/UpdateAdSetRequestBudget.md
 docs/UpdateAdSetStatus200Response.md
+docs/UpdateAdStatus200Response.md
+docs/UpdateAdStatusRequest.md
 docs/UpdateAdTrackingTagsRequest.md
 docs/UpdateAdTrackingTagsRequestCreative.md
 docs/UpdateAdTrackingTagsRequestUrlTagsInner.md
@@ -2568,6 +2570,8 @@ src/models/update_ad_set_200_response.rs
 src/models/update_ad_set_request.rs
 src/models/update_ad_set_request_budget.rs
 src/models/update_ad_set_status_200_response.rs
+src/models/update_ad_status_200_response.rs
+src/models/update_ad_status_request.rs
 src/models/update_ad_tracking_tags_request.rs
 src/models/update_ad_tracking_tags_request_creative.rs
 src/models/update_ad_tracking_tags_request_url_tags_inner.rs

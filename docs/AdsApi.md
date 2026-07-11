@@ -42,6 +42,7 @@ Method | HTTP request | Description
 [**send_conversions**](AdsApi.md#send_conversions) | **POST** /v1/ads/conversions | Send conversion events
 [**send_whats_app_conversion**](AdsApi.md#send_whats_app_conversion) | **POST** /v1/whatsapp/conversions | Send WhatsApp conversion event
 [**update_ad**](AdsApi.md#update_ad) | **PUT** /v1/ads/{adId} | Update ad
+[**update_ad_status**](AdsApi.md#update_ad_status) | **PUT** /v1/ads/{adId}/status | Pause or resume a single ad
 [**update_ad_tracking_tags**](AdsApi.md#update_ad_tracking_tags) | **PATCH** /v1/ads/{adId}/tracking-tags | Set ad tracking tags
 [**update_conversion_destination**](AdsApi.md#update_conversion_destination) | **PATCH** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Update a conversion destination
 
@@ -1239,6 +1240,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UpdateAd200Response**](updateAd_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_ad_status
+
+> models::UpdateAdStatus200Response update_ad_status(ad_id, update_ad_status_request)
+Pause or resume a single ad
+
+Ad-scoped pause/resume — touches ONLY this ad, never its parent ad set or campaign (so sibling ads keep running). Thin wrapper over the `status` field of PUT /v1/ads/{adId}, for callers that want a URL symmetric to /v1/ads/campaigns/{campaignId}/status and /v1/ads/ad-sets/{adSetId}/status.  `{adId}` accepts the same identifier dialects as GET/PUT /v1/ads/{adId} (Zernio hex `_id`, Meta numeric `platformAdId`, or the creative's effective story/media IDs). `platform` is inferred from the ad, so it's not required in the body. Ads in terminal statuses (rejected, completed, cancelled) and no-op flips (already in the target state) are skipped. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**ad_id** | **String** | Zernio `_id` (hex), Meta `platformAdId` (numeric), or one of the creative's effective story/media IDs. | [required] |
+**update_ad_status_request** | [**UpdateAdStatusRequest**](UpdateAdStatusRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateAdStatus200Response**](updateAdStatus_200_response.md)
 
 ### Authorization
 
