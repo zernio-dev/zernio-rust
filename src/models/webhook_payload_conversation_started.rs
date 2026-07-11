@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookPayloadConversationStarted : Fired once when a new conversation begins, in either direction. A conversation starts the first time an account and a contact exchange a message on any DM platform (Instagram, Messenger/Facebook, Telegram, WhatsApp, Twitter, Reddit, Bluesky). Platform-agnostic — one subscription covers every DM platform.
+/// WebhookPayloadConversationStarted : Fired once when a new conversation begins, in either direction. A conversation starts the first time an account and a contact exchange a message on any DM platform (Instagram, Messenger/Facebook, Telegram, WhatsApp, Twitter, Reddit, Bluesky, SMS). Platform-agnostic — one subscription covers every DM platform.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadConversationStarted {
     /// Stable webhook event ID
@@ -31,7 +31,7 @@ pub struct WebhookPayloadConversationStarted {
 }
 
 impl WebhookPayloadConversationStarted {
-    /// Fired once when a new conversation begins, in either direction. A conversation starts the first time an account and a contact exchange a message on any DM platform (Instagram, Messenger/Facebook, Telegram, WhatsApp, Twitter, Reddit, Bluesky). Platform-agnostic — one subscription covers every DM platform.
+    /// Fired once when a new conversation begins, in either direction. A conversation starts the first time an account and a contact exchange a message on any DM platform (Instagram, Messenger/Facebook, Telegram, WhatsApp, Twitter, Reddit, Bluesky, SMS). Platform-agnostic — one subscription covers every DM platform.
     pub fn new(
         id: String,
         event: Event,

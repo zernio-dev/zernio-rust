@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | Internal conversation ID | 
-**platform** | **Platform** |  (enum: instagram, facebook, telegram, whatsapp, twitter, reddit, bluesky) | 
+**platform** | **Platform** |  (enum: instagram, facebook, telegram, whatsapp, twitter, reddit, bluesky, sms) | 
 **platform_conversation_id** | **String** |  | 
 **participant_id** | Option<**String**> | Contact's platform identifier (IGSID, PSID, wa_id, etc.) | [optional]
 **participant_name** | **String** |  | 

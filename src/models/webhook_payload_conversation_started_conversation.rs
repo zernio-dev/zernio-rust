@@ -78,6 +78,8 @@ pub enum Platform {
     Reddit,
     #[serde(rename = "bluesky")]
     Bluesky,
+    #[serde(rename = "sms")]
+    Sms,
 }
 
 impl Default for Platform {
