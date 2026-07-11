@@ -196,6 +196,7 @@ docs/CreateInboxConversation201ResponseData.md
 docs/CreateInboxConversation400Response.md
 docs/CreateInboxConversation422Response.md
 docs/CreateInboxConversationRequest.md
+docs/CreateInboxConversationRequestHeaderMedia.md
 docs/CreateInviteToken201Response.md
 docs/CreateInviteTokenRequest.md
 docs/CreateLeadForm200Response.md
@@ -1642,6 +1643,7 @@ src/models/create_inbox_conversation_201_response_data.rs
 src/models/create_inbox_conversation_400_response.rs
 src/models/create_inbox_conversation_422_response.rs
 src/models/create_inbox_conversation_request.rs
+src/models/create_inbox_conversation_request_header_media.rs
 src/models/create_invite_token_201_response.rs
 src/models/create_invite_token_request.rs
 src/models/create_lead_form_200_response.rs

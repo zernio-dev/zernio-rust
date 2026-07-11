@@ -358,6 +358,8 @@ pub mod create_inbox_conversation_422_response;
 pub use self::create_inbox_conversation_422_response::CreateInboxConversation422Response;
 pub mod create_inbox_conversation_request;
 pub use self::create_inbox_conversation_request::CreateInboxConversationRequest;
+pub mod create_inbox_conversation_request_header_media;
+pub use self::create_inbox_conversation_request_header_media::CreateInboxConversationRequestHeaderMedia;
 pub mod create_invite_token_201_response;
 pub use self::create_invite_token_201_response::CreateInviteToken201Response;
 pub mod create_invite_token_request;
