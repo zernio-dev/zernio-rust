@@ -24,7 +24,7 @@ pub struct CreatePhoneNumberPortInRequest {
     /// Document id from POST /v1/phone-numbers/port-in/documents (kind=invoice).
     #[serde(rename = "invoiceDocumentId")]
     pub invoice_document_id: String,
-    /// Requested port date; the carrier confirms the actual FOC later.
+    /// Requested port date; the carrier confirms the actual FOC later. Defaults to one week out (shifted off weekends) when omitted.
     #[serde(
         rename = "focDatetimeRequested",
         skip_serializing_if = "Option::is_none"
@@ -32,6 +32,9 @@ pub struct CreatePhoneNumberPortInRequest {
     pub foc_datetime_requested: Option<String>,
     #[serde(rename = "customerReference", skip_serializing_if = "Option::is_none")]
     pub customer_reference: Option<String>,
+    /// Whether the losing account ports all its numbers (full) or keeps some (partial).
+    #[serde(rename = "portType", skip_serializing_if = "Option::is_none")]
+    pub port_type: Option<PortType>,
 }
 
 impl CreatePhoneNumberPortInRequest {
@@ -48,6 +51,21 @@ impl CreatePhoneNumberPortInRequest {
             invoice_document_id,
             foc_datetime_requested: None,
             customer_reference: None,
+            port_type: None,
         }
+    }
+}
+/// Whether the losing account ports all its numbers (full) or keeps some (partial).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum PortType {
+    #[serde(rename = "full")]
+    Full,
+    #[serde(rename = "partial")]
+    Partial,
+}
+
+impl Default for PortType {
+    fn default() -> PortType {
+        Self::Full
     }
 }

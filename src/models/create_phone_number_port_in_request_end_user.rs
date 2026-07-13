@@ -18,6 +18,7 @@ pub struct CreatePhoneNumberPortInRequestEndUser {
     pub entity_name: String,
     #[serde(rename = "authPersonName")]
     pub auth_person_name: String,
+    /// Phone number on the losing carrier's bill. Defaults to the ported number itself on single-number orders.
     #[serde(rename = "billingPhoneNumber", skip_serializing_if = "Option::is_none")]
     pub billing_phone_number: Option<String>,
     #[serde(rename = "accountNumber", skip_serializing_if = "Option::is_none")]
