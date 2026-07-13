@@ -38,8 +38,9 @@ pub struct StartSmsRegistrationRequestBrand {
     pub state: String,
     #[serde(rename = "postalCode")]
     pub postal_code: String,
+    /// ISO 3166-1 alpha-2 country where the company is registered. Companies worldwide can register standard 10DLC (non-US companies use their local tax ID in `ein`; carrier vetting may take longer). SOLE_PROPRIETOR is US/CA only.
     #[serde(rename = "country")]
-    pub country: Country,
+    pub country: String,
     /// Brand contact email; defaults to your account email when omitted.
     #[serde(rename = "email", skip_serializing_if = "Option::is_none")]
     pub email: Option<String>,
@@ -61,7 +62,7 @@ impl StartSmsRegistrationRequestBrand {
         city: String,
         state: String,
         postal_code: String,
-        country: Country,
+        country: String,
         website: String,
         vertical: Vertical,
     ) -> StartSmsRegistrationRequestBrand {
@@ -102,20 +103,6 @@ pub enum EntityType {
 impl Default for EntityType {
     fn default() -> EntityType {
         Self::PrivateProfit
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Country {
-    #[serde(rename = "US")]
-    Us,
-    #[serde(rename = "CA")]
-    Ca,
-}
-
-impl Default for Country {
-    fn default() -> Country {
-        Self::Us
     }
 }
 ///

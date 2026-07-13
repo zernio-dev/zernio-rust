@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **city** | **String** |  | 
 **state** | **String** |  | 
 **postal_code** | **String** |  | 
-**country** | **Country** |  (enum: US, CA) | 
+**country** | **String** | ISO 3166-1 alpha-2 country where the company is registered. Companies worldwide can register standard 10DLC (non-US companies use their local tax ID in `ein`; carrier vetting may take longer). SOLE_PROPRIETOR is US/CA only. | 
 **email** | Option<**String**> | Brand contact email; defaults to your account email when omitted. | [optional]
 **website** | **String** | The brand's website (sole proprietors may use a social profile such as LinkedIn or a business Facebook page). Carriers verify the brand against it; a bare domain is normalized to https://. | 
 **vertical** | **Vertical** |  (enum: AGRICULTURE, COMMUNICATION, CONSTRUCTION, EDUCATION, ENERGY, ENTERTAINMENT, FINANCIAL, GAMBLING, GOVERNMENT, HEALTHCARE, HOSPITALITY, HUMAN_RESOURCES, INSURANCE, LEGAL, MANUFACTURING, NGO, POLITICAL, POSTAL, PROFESSIONAL, REAL_ESTATE, RETAIL, TECHNOLOGY, TRANSPORTATION) | 
