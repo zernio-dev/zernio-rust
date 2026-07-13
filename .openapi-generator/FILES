@@ -424,6 +424,7 @@ docs/GetDiscordChannels200Response.md
 docs/GetDiscordChannels200ResponseChannelsInner.md
 docs/GetDiscordSettings200Response.md
 docs/GetDiscordSettings200ResponseAccount.md
+docs/GetDsaRecommendations200Response.md
 docs/GetFacebookPages200Response.md
 docs/GetFacebookPages200ResponsePagesInner.md
 docs/GetFacebookPostReactions200Response.md
@@ -1133,6 +1134,9 @@ docs/UpdateAccountGroupRequest.md
 docs/UpdateAccountRequest.md
 docs/UpdateAccountRequestXCapabilities.md
 docs/UpdateAd200Response.md
+docs/UpdateAdAccount200Response.md
+docs/UpdateAdAccount200ResponseDsaDefaults.md
+docs/UpdateAdAccountRequest.md
 docs/UpdateAdAudienceRequest.md
 docs/UpdateAdCampaign200Response.md
 docs/UpdateAdCampaignRequest.md
@@ -1871,6 +1875,7 @@ src/models/get_discord_channels_200_response.rs
 src/models/get_discord_channels_200_response_channels_inner.rs
 src/models/get_discord_settings_200_response.rs
 src/models/get_discord_settings_200_response_account.rs
+src/models/get_dsa_recommendations_200_response.rs
 src/models/get_facebook_pages_200_response.rs
 src/models/get_facebook_pages_200_response_pages_inner.rs
 src/models/get_facebook_post_reactions_200_response.rs
@@ -2555,6 +2560,9 @@ src/models/update_account_group_request.rs
 src/models/update_account_request.rs
 src/models/update_account_request_x_capabilities.rs
 src/models/update_ad_200_response.rs
+src/models/update_ad_account_200_response.rs
+src/models/update_ad_account_200_response_dsa_defaults.rs
+src/models/update_ad_account_request.rs
 src/models/update_ad_audience_request.rs
 src/models/update_ad_campaign_200_response.rs
 src/models/update_ad_campaign_request.rs
