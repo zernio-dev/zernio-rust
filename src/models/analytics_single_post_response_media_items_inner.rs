@@ -21,6 +21,9 @@ pub struct AnalyticsSinglePostResponseMediaItemsInner {
     /// Thumbnail URL (same as url for images)
     #[serde(rename = "thumbnail", skip_serializing_if = "Option::is_none")]
     pub thumbnail: Option<String>,
+    /// Accessibility alt text set on the media, when present.
+    #[serde(rename = "altText", skip_serializing_if = "Option::is_none")]
+    pub alt_text: Option<String>,
 }
 
 impl AnalyticsSinglePostResponseMediaItemsInner {
@@ -29,6 +32,7 @@ impl AnalyticsSinglePostResponseMediaItemsInner {
             r#type: None,
             url: None,
             thumbnail: None,
+            alt_text: None,
         }
     }
 }
