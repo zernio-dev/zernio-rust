@@ -31,6 +31,12 @@ pub struct ListInboxReviews200ResponseDataInner {
     pub created: Option<String>,
     #[serde(rename = "hasReply", skip_serializing_if = "Option::is_none")]
     pub has_reply: Option<bool>,
+    /// Whether the review has at least one photo. Google Business only; always false for other platforms.
+    #[serde(rename = "hasPhotos", skip_serializing_if = "Option::is_none")]
+    pub has_photos: Option<bool>,
+    /// Number of photos attached to the review (photos only; videos are not counted). Google Business only; 0 for other platforms.
+    #[serde(rename = "photoCount", skip_serializing_if = "Option::is_none")]
+    pub photo_count: Option<i32>,
     #[serde(rename = "reply", skip_serializing_if = "Option::is_none")]
     pub reply: Option<Box<models::ListInboxReviews200ResponseDataInnerReply>>,
     #[serde(
@@ -54,6 +60,8 @@ impl ListInboxReviews200ResponseDataInner {
             text: None,
             created: None,
             has_reply: None,
+            has_photos: None,
+            photo_count: None,
             reply: None,
             review_url: None,
         }

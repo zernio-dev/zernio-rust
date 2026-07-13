@@ -31,6 +31,9 @@ pub struct ListAdAccounts200ResponseAccountsInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub timezone_offset_hours_utc: Option<f64>,
+    /// Meta only. Minimum daily budget for the account, in the account currency's major units. This is the impressions-billed minimum; other billing events have higher minimums. Absent when the connected token cannot read it.
+    #[serde(rename = "minimumDailyBudget", skip_serializing_if = "Option::is_none")]
+    pub minimum_daily_budget: Option<f64>,
     /// Meta only. Whether the account can create/run ads now. Absent (treat as true) on non-Meta platforms.
     #[serde(rename = "selectable", skip_serializing_if = "Option::is_none")]
     pub selectable: Option<bool>,
@@ -48,6 +51,7 @@ impl ListAdAccounts200ResponseAccountsInner {
             status: None,
             timezone_name: None,
             timezone_offset_hours_utc: None,
+            minimum_daily_budget: None,
             selectable: None,
             unusable_reason: None,
         }
