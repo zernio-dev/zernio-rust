@@ -29,13 +29,7 @@ pub struct InlineObject2Details {
     /// Whether the team currently has a card on file in Stripe. Set when reason=free_tier_exceeded or reason=twitter_passthrough.
     #[serde(rename = "has_payment_method", skip_serializing_if = "Option::is_none")]
     pub has_payment_method: Option<bool>,
-    /// Public pricing ceiling (the published cap beyond which an enterprise contract is required). Only set when reason=enterprise_required.
-    #[serde(
-        rename = "public_account_limit",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub public_account_limit: Option<i32>,
-    /// The cap actually applied to this team. Equals `public_account_limit` for organic teams; for teams with a per-customer override (grandfathered legacy customers, signed enterprise contracts) this can be higher. Only set when reason=enterprise_required.
+    /// The negotiated connected-account cap from the team's enterprise contract. Self-service teams have no cap and never receive this reason. Only set when reason=enterprise_required.
     #[serde(
         rename = "effective_account_limit",
         skip_serializing_if = "Option::is_none"
@@ -50,7 +44,6 @@ impl InlineObject2Details {
             free_tier_account_limit: None,
             current_account_count: None,
             has_payment_method: None,
-            public_account_limit: None,
             effective_account_limit: None,
         }
     }
