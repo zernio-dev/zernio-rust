@@ -1332,6 +1332,8 @@ pub mod like_inbox_comment_200_response;
 pub use self::like_inbox_comment_200_response::LikeInboxComment200Response;
 pub mod like_inbox_comment_request;
 pub use self::like_inbox_comment_request::LikeInboxCommentRequest;
+pub mod linked_in_ads_platform_data;
+pub use self::linked_in_ads_platform_data::LinkedInAdsPlatformData;
 pub mod linked_in_aggregate_analytics_daily_response;
 pub use self::linked_in_aggregate_analytics_daily_response::LinkedInAggregateAnalyticsDailyResponse;
 pub mod linked_in_aggregate_analytics_daily_response_analytics;

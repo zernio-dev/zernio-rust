@@ -696,6 +696,7 @@ docs/InstagramPlatformDataUserTagsInner.md
 docs/InvitesApi.md
 docs/LikeInboxComment200Response.md
 docs/LikeInboxCommentRequest.md
+docs/LinkedInAdsPlatformData.md
 docs/LinkedInAggregateAnalyticsDailyResponse.md
 docs/LinkedInAggregateAnalyticsDailyResponseAnalytics.md
 docs/LinkedInAggregateAnalyticsDailyResponseAnalyticsImpressionsInner.md
@@ -2136,6 +2137,7 @@ src/models/instagram_platform_data_trial_params.rs
 src/models/instagram_platform_data_user_tags_inner.rs
 src/models/like_inbox_comment_200_response.rs
 src/models/like_inbox_comment_request.rs
+src/models/linked_in_ads_platform_data.rs
 src/models/linked_in_aggregate_analytics_daily_response.rs
 src/models/linked_in_aggregate_analytics_daily_response_analytics.rs
 src/models/linked_in_aggregate_analytics_daily_response_analytics_impressions_inner.rs

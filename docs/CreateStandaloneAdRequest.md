@@ -67,6 +67,7 @@ Name | Type | Description | Notes
 **bid_strategy** | Option<[**models::BidStrategy**](BidStrategy.md)> | Meta bid strategy applied to the ad set. | [optional]
 **bid_amount** | Option<**f64**> | Bid cap in WHOLE currency units (USD: 5 = $5.00; JPY: 100 = ¥100). Required when `bidStrategy` is `LOWEST_COST_WITH_BID_CAP` or `COST_CAP`.  | [optional]
 **roas_average_floor** | Option<**f64**> | Minimum ROAS as a decimal multiplier (e.g. 2.0 = 2.0x ROAS). Required when `bidStrategy` is `LOWEST_COST_WITH_MIN_ROAS`. Sent to Meta as `bid_constraints.roas_average_floor` × 10000.  | [optional]
+**platform_specific_data** | Option<[**models::LinkedInAdsPlatformData**](LinkedInAdsPlatformData.md)> |  | [optional]
 **dsa_beneficiary** | Option<**String**> | Legal entity that benefits from the ad. Required when targeting EU users (EU DSA, Article 26). Optional if the ad account has a default beneficiary: set it once via `PATCH /v1/ads/accounts` or in Meta Ads Manager, and Meta fills it in whenever the field is omitted.  | [optional]
 **dsa_payor** | Option<**String**> | Legal entity that pays for the ad. Can differ from `dsaBeneficiary` (for example, an agency paying for a client's ads). Same rules as `dsaBeneficiary`: required for EU targeting unless the ad account has a default payor.  | [optional]
 **brand_identity** | Option<[**models::CreateStandaloneAdRequestBrandIdentity**](CreateStandaloneAdRequestBrandIdentity.md)> |  | [optional]

@@ -47,6 +47,11 @@ pub struct BoostPostRequest {
     /// Minimum ROAS as a decimal multiplier (e.g. 2.0 = 2.0x ROAS). Required when `bidStrategy` is `LOWEST_COST_WITH_MIN_ROAS`. Sent to Meta as `bid_constraints.roas_average_floor` × 10000 (Meta uses fixed-point integers).
     #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
     pub roas_average_floor: Option<f64>,
+    #[serde(
+        rename = "platformSpecificData",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub platform_specific_data: Option<Box<models::LinkedInAdsPlatformData>>,
     #[serde(rename = "tracking", skip_serializing_if = "Option::is_none")]
     pub tracking: Option<Box<models::BoostPostRequestTracking>>,
     /// Meta only. Required for housing, employment, credit, or political ads.
@@ -94,6 +99,7 @@ impl BoostPostRequest {
             bid_strategy: None,
             bid_amount: None,
             roas_average_floor: None,
+            platform_specific_data: None,
             tracking: None,
             special_ad_categories: None,
             link_url: None,

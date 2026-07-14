@@ -199,6 +199,11 @@ pub struct CreateStandaloneAdRequest {
     /// Minimum ROAS as a decimal multiplier (e.g. 2.0 = 2.0x ROAS). Required when `bidStrategy` is `LOWEST_COST_WITH_MIN_ROAS`. Sent to Meta as `bid_constraints.roas_average_floor` × 10000.
     #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
     pub roas_average_floor: Option<f64>,
+    #[serde(
+        rename = "platformSpecificData",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub platform_specific_data: Option<Box<models::LinkedInAdsPlatformData>>,
     /// Legal entity that benefits from the ad. Required when targeting EU users (EU DSA, Article 26). Optional if the ad account has a default beneficiary: set it once via `PATCH /v1/ads/accounts` or in Meta Ads Manager, and Meta fills it in whenever the field is omitted.
     #[serde(rename = "dsaBeneficiary", skip_serializing_if = "Option::is_none")]
     pub dsa_beneficiary: Option<String>,
@@ -284,6 +289,7 @@ impl CreateStandaloneAdRequest {
             bid_strategy: None,
             bid_amount: None,
             roas_average_floor: None,
+            platform_specific_data: None,
             dsa_beneficiary: None,
             dsa_payor: None,
             brand_identity: None,
