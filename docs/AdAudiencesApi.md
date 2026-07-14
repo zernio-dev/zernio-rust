@@ -149,7 +149,7 @@ Name | Type | Description  | Required | Notes
 **account_id** | **String** | Social account ID | [required] |
 **ad_account_id** | **String** | Platform ad account ID | [required] |
 **platform** | Option<**String**> |  |  |
-**r#type** | Option<**String**> | Filter to one audience type. `saved_targeting` returns stored TargetingSpec audiences (each item carries a `spec`); the other types return uploaded/derived audiences. |  |
+**r#type** | Option<**String**> | Filter to one audience type. `saved_targeting` returns stored TargetingSpec audiences; the other types return uploaded/derived audiences. |  |
 
 ### Return type
 

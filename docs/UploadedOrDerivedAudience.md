@@ -8,7 +8,12 @@ Name | Type | Description | Notes
 **ad_account_id** | **String** | Platform ad account ID. Must start with act_ for Meta; bare platform id for others (Google customer id, X/TikTok/LinkedIn/Pinterest account id). | 
 **name** | **String** |  | 
 **description** | Option<**String**> |  | [optional]
-**r#type** | **Type** |  (enum: customer_list, website, lookalike) | 
+**r#type** | **Type** |  (enum: customer_list, company_list, engagement, website, lookalike) | 
+**source_type** | Option<**SourceType**> | Required for engagement audiences (LinkedIn only): what members engaged with — a video/leadgen/single-image ad campaign, a Company Page or an Event page.  (enum: VIDEO_ADS, LEAD_GEN_FORMS, ORGANIZATION_PAGES, EVENT_PAGES, SINGLE_IMAGE_ADS) | [optional]
+**trigger** | Option<**String**> | Required for engagement audiences. The action, validated by LinkedIn against `sourceType`. Common values: VIDEO_ADS FIRST_QUARTILE / MIDPOINT / THIRD_QUARTILE / FULL_COMPLETE; LEAD_GEN_FORMS VIEW_FORM / LEAD_FORM_SUBMIT; ORGANIZATION_PAGES VIEW / CTA_CLICK; EVENT_PAGES RSVPED / VIDEO_VIEWED / ENGAGEMENT / CLICK.  | [optional]
+**lookback_days** | Option<**LookbackDays**> | Required for engagement audiences. Rolling window. (enum: 30, 60, 90, 180, 365) | [optional]
+**engagement_sources** | Option<**Vec<String>**> | Required for engagement audiences. Campaign URNs for the ad source types, organization URNs for pages and events. LinkedIn creates one rule per source, all sharing the same trigger and lookbackDays.  | [optional]
+**companies** | Option<[**Vec<models::UploadedOrDerivedAudienceCompaniesInner>**](UploadedOrDerivedAudienceCompaniesInner.md)> | Required for company_list audiences (LinkedIn only): plain-text company rows for account targeting. Each row needs at least one identifier. LinkedIn recommends 1,000+ companies for a usable match rate and takes up to 48h to process the list.  | [optional]
 **pixel_id** | Option<**String**> | Required for website audiences | [optional]
 **retention_days** | Option<**i32**> | Required for website audiences | [optional]
 **source_audience_id** | Option<**String**> | Required for lookalike audiences | [optional]

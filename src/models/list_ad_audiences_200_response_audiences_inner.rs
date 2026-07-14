@@ -67,6 +67,10 @@ impl ListAdAudiences200ResponseAudiencesInner {
 pub enum Type {
     #[serde(rename = "customer_list")]
     CustomerList,
+    #[serde(rename = "company_list")]
+    CompanyList,
+    #[serde(rename = "engagement")]
+    Engagement,
     #[serde(rename = "website")]
     Website,
     #[serde(rename = "lookalike")]

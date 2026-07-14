@@ -28,6 +28,10 @@ impl Default for CreateAdAudienceRequest {
 pub enum Type {
     #[serde(rename = "customer_list")]
     CustomerList,
+    #[serde(rename = "company_list")]
+    CompanyList,
+    #[serde(rename = "engagement")]
+    Engagement,
     #[serde(rename = "website")]
     Website,
     #[serde(rename = "lookalike")]
@@ -39,5 +43,45 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::CustomerList
+    }
+}
+/// Required for engagement audiences (LinkedIn only): what members engaged with — a video/leadgen/single-image ad campaign, a Company Page or an Event page.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum SourceType {
+    #[serde(rename = "VIDEO_ADS")]
+    VideoAds,
+    #[serde(rename = "LEAD_GEN_FORMS")]
+    LeadGenForms,
+    #[serde(rename = "ORGANIZATION_PAGES")]
+    OrganizationPages,
+    #[serde(rename = "EVENT_PAGES")]
+    EventPages,
+    #[serde(rename = "SINGLE_IMAGE_ADS")]
+    SingleImageAds,
+}
+
+impl Default for SourceType {
+    fn default() -> SourceType {
+        Self::VideoAds
+    }
+}
+/// Required for engagement audiences. Rolling window.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum LookbackDays {
+    #[serde(rename = "30")]
+    Variant30,
+    #[serde(rename = "60")]
+    Variant60,
+    #[serde(rename = "90")]
+    Variant90,
+    #[serde(rename = "180")]
+    Variant180,
+    #[serde(rename = "365")]
+    Variant365,
+}
+
+impl Default for LookbackDays {
+    fn default() -> LookbackDays {
+        Self::Variant30
     }
 }

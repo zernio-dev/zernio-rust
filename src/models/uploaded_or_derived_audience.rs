@@ -25,6 +25,21 @@ pub struct UploadedOrDerivedAudience {
     pub description: Option<String>,
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// Required for engagement audiences (LinkedIn only): what members engaged with — a video/leadgen/single-image ad campaign, a Company Page or an Event page.
+    #[serde(rename = "sourceType", skip_serializing_if = "Option::is_none")]
+    pub source_type: Option<SourceType>,
+    /// Required for engagement audiences. The action, validated by LinkedIn against `sourceType`. Common values: VIDEO_ADS FIRST_QUARTILE / MIDPOINT / THIRD_QUARTILE / FULL_COMPLETE; LEAD_GEN_FORMS VIEW_FORM / LEAD_FORM_SUBMIT; ORGANIZATION_PAGES VIEW / CTA_CLICK; EVENT_PAGES RSVPED / VIDEO_VIEWED / ENGAGEMENT / CLICK.
+    #[serde(rename = "trigger", skip_serializing_if = "Option::is_none")]
+    pub trigger: Option<String>,
+    /// Required for engagement audiences. Rolling window.
+    #[serde(rename = "lookbackDays", skip_serializing_if = "Option::is_none")]
+    pub lookback_days: Option<LookbackDays>,
+    /// Required for engagement audiences. Campaign URNs for the ad source types, organization URNs for pages and events. LinkedIn creates one rule per source, all sharing the same trigger and lookbackDays.
+    #[serde(rename = "engagementSources", skip_serializing_if = "Option::is_none")]
+    pub engagement_sources: Option<Vec<String>>,
+    /// Required for company_list audiences (LinkedIn only): plain-text company rows for account targeting. Each row needs at least one identifier. LinkedIn recommends 1,000+ companies for a usable match rate and takes up to 48h to process the list.
+    #[serde(rename = "companies", skip_serializing_if = "Option::is_none")]
+    pub companies: Option<Vec<models::UploadedOrDerivedAudienceCompaniesInner>>,
     /// Required for website audiences
     #[serde(rename = "pixelId", skip_serializing_if = "Option::is_none")]
     pub pixel_id: Option<String>,
@@ -62,6 +77,11 @@ impl UploadedOrDerivedAudience {
             name,
             description: None,
             r#type,
+            source_type: None,
+            trigger: None,
+            lookback_days: None,
+            engagement_sources: None,
+            companies: None,
             pixel_id: None,
             retention_days: None,
             source_audience_id: None,
@@ -77,6 +97,10 @@ impl UploadedOrDerivedAudience {
 pub enum Type {
     #[serde(rename = "customer_list")]
     CustomerList,
+    #[serde(rename = "company_list")]
+    CompanyList,
+    #[serde(rename = "engagement")]
+    Engagement,
     #[serde(rename = "website")]
     Website,
     #[serde(rename = "lookalike")]
@@ -86,5 +110,45 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::CustomerList
+    }
+}
+/// Required for engagement audiences (LinkedIn only): what members engaged with — a video/leadgen/single-image ad campaign, a Company Page or an Event page.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum SourceType {
+    #[serde(rename = "VIDEO_ADS")]
+    VideoAds,
+    #[serde(rename = "LEAD_GEN_FORMS")]
+    LeadGenForms,
+    #[serde(rename = "ORGANIZATION_PAGES")]
+    OrganizationPages,
+    #[serde(rename = "EVENT_PAGES")]
+    EventPages,
+    #[serde(rename = "SINGLE_IMAGE_ADS")]
+    SingleImageAds,
+}
+
+impl Default for SourceType {
+    fn default() -> SourceType {
+        Self::VideoAds
+    }
+}
+/// Required for engagement audiences. Rolling window.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum LookbackDays {
+    #[serde(rename = "30")]
+    Variant30,
+    #[serde(rename = "60")]
+    Variant60,
+    #[serde(rename = "90")]
+    Variant90,
+    #[serde(rename = "180")]
+    Variant180,
+    #[serde(rename = "365")]
+    Variant365,
+}
+
+impl Default for LookbackDays {
+    fn default() -> LookbackDays {
+        Self::Variant30
     }
 }
