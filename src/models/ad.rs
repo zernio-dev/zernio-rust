@@ -219,6 +219,8 @@ pub enum Goal {
     AppPromotion,
     #[serde(rename = "catalog_sales")]
     CatalogSales,
+    #[serde(rename = "job_applicants")]
+    JobApplicants,
 }
 
 impl Default for Goal {

@@ -15,7 +15,9 @@ Name | Type | Description | Notes
 **document** | Option<[**models::LinkedInAdsPlatformDataDocument**](LinkedInAdsPlatformDataDocument.md)> |  | [optional]
 **spotlight** | Option<[**models::LinkedInAdsPlatformDataSpotlight**](LinkedInAdsPlatformDataSpotlight.md)> |  | [optional]
 **follower** | Option<[**models::LinkedInAdsPlatformDataFollower**](LinkedInAdsPlatformDataFollower.md)> |  | [optional]
+**jobs** | Option<[**models::LinkedInAdsPlatformDataJobs**](LinkedInAdsPlatformDataJobs.md)> |  | [optional]
 **text_ad** | Option<[**models::LinkedInAdsPlatformDataTextAd**](LinkedInAdsPlatformDataTextAd.md)> |  | [optional]
+**conversation** | Option<[**models::LinkedInAdsPlatformDataConversation**](LinkedInAdsPlatformDataConversation.md)> |  | [optional]
 **event** | Option<[**models::LinkedInAdsPlatformDataEvent**](LinkedInAdsPlatformDataEvent.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

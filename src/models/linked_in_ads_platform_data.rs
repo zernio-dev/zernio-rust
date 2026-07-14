@@ -55,8 +55,12 @@ pub struct LinkedInAdsPlatformData {
     pub spotlight: Option<Box<models::LinkedInAdsPlatformDataSpotlight>>,
     #[serde(rename = "follower", skip_serializing_if = "Option::is_none")]
     pub follower: Option<Box<models::LinkedInAdsPlatformDataFollower>>,
+    #[serde(rename = "jobs", skip_serializing_if = "Option::is_none")]
+    pub jobs: Option<Box<models::LinkedInAdsPlatformDataJobs>>,
     #[serde(rename = "textAd", skip_serializing_if = "Option::is_none")]
     pub text_ad: Option<Box<models::LinkedInAdsPlatformDataTextAd>>,
+    #[serde(rename = "conversation", skip_serializing_if = "Option::is_none")]
+    pub conversation: Option<Box<models::LinkedInAdsPlatformDataConversation>>,
     #[serde(rename = "event", skip_serializing_if = "Option::is_none")]
     pub event: Option<Box<models::LinkedInAdsPlatformDataEvent>>,
 }
@@ -76,7 +80,9 @@ impl LinkedInAdsPlatformData {
             document: None,
             spotlight: None,
             follower: None,
+            jobs: None,
             text_ad: None,
+            conversation: None,
             event: None,
         }
     }
