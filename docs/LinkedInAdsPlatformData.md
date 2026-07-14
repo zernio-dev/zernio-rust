@@ -11,6 +11,12 @@ Name | Type | Description | Notes
 **audience_expansion_enabled** | Option<**bool**> | Enable LinkedIn audience expansion. Defaults to false. | [optional]
 **offsite_delivery_enabled** | Option<**bool**> | Deliver on the LinkedIn Audience Network. Defaults to false. | [optional]
 **connected_television_only** | Option<**bool**> | Restrict delivery to Connected TV inventory. | [optional]
+**carousel** | Option<[**models::LinkedInAdsPlatformDataCarousel**](LinkedInAdsPlatformDataCarousel.md)> |  | [optional]
+**document** | Option<[**models::LinkedInAdsPlatformDataDocument**](LinkedInAdsPlatformDataDocument.md)> |  | [optional]
+**spotlight** | Option<[**models::LinkedInAdsPlatformDataSpotlight**](LinkedInAdsPlatformDataSpotlight.md)> |  | [optional]
+**follower** | Option<[**models::LinkedInAdsPlatformDataFollower**](LinkedInAdsPlatformDataFollower.md)> |  | [optional]
+**text_ad** | Option<[**models::LinkedInAdsPlatformDataTextAd**](LinkedInAdsPlatformDataTextAd.md)> |  | [optional]
+**event** | Option<[**models::LinkedInAdsPlatformDataEvent**](LinkedInAdsPlatformDataEvent.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

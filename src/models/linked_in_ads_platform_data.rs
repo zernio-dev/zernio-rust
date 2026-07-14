@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// LinkedInAdsPlatformData : LinkedIn campaign bidding and delivery controls for POST /v1/ads/boost and POST /v1/ads/create. Unknown keys are rejected.
+/// LinkedInAdsPlatformData : LinkedIn-specific options for POST /v1/ads/boost and POST /v1/ads/create: campaign bidding and delivery controls, plus the LinkedIn-only creative formats on /v1/ads/create. Unknown keys are rejected.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LinkedInAdsPlatformData {
     /// Campaign cost model (billing event). Defaults to `CPM`. Required when `unitCost` is set so the manual bid applies to an explicit cost model.
@@ -47,10 +47,22 @@ pub struct LinkedInAdsPlatformData {
         skip_serializing_if = "Option::is_none"
     )]
     pub connected_television_only: Option<bool>,
+    #[serde(rename = "carousel", skip_serializing_if = "Option::is_none")]
+    pub carousel: Option<Box<models::LinkedInAdsPlatformDataCarousel>>,
+    #[serde(rename = "document", skip_serializing_if = "Option::is_none")]
+    pub document: Option<Box<models::LinkedInAdsPlatformDataDocument>>,
+    #[serde(rename = "spotlight", skip_serializing_if = "Option::is_none")]
+    pub spotlight: Option<Box<models::LinkedInAdsPlatformDataSpotlight>>,
+    #[serde(rename = "follower", skip_serializing_if = "Option::is_none")]
+    pub follower: Option<Box<models::LinkedInAdsPlatformDataFollower>>,
+    #[serde(rename = "textAd", skip_serializing_if = "Option::is_none")]
+    pub text_ad: Option<Box<models::LinkedInAdsPlatformDataTextAd>>,
+    #[serde(rename = "event", skip_serializing_if = "Option::is_none")]
+    pub event: Option<Box<models::LinkedInAdsPlatformDataEvent>>,
 }
 
 impl LinkedInAdsPlatformData {
-    /// LinkedIn campaign bidding and delivery controls for POST /v1/ads/boost and POST /v1/ads/create. Unknown keys are rejected.
+    /// LinkedIn-specific options for POST /v1/ads/boost and POST /v1/ads/create: campaign bidding and delivery controls, plus the LinkedIn-only creative formats on /v1/ads/create. Unknown keys are rejected.
     pub fn new() -> LinkedInAdsPlatformData {
         LinkedInAdsPlatformData {
             cost_type: None,
@@ -60,6 +72,12 @@ impl LinkedInAdsPlatformData {
             audience_expansion_enabled: None,
             offsite_delivery_enabled: None,
             connected_television_only: None,
+            carousel: None,
+            document: None,
+            spotlight: None,
+            follower: None,
+            text_ad: None,
+            event: None,
         }
     }
 }
