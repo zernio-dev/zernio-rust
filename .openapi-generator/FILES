@@ -940,6 +940,7 @@ docs/ReplyToInboxReview200Response.md
 docs/ReplyToInboxReviewRequest.md
 docs/ReplyToMention200Response.md
 docs/ReplyToMentionRequest.md
+docs/ResendSmsRegistrationOtp200Response.md
 docs/RestoreWorkflowVersion200Response.md
 docs/RestoreWorkflowVersion200ResponseWorkflow.md
 docs/RetweetPost200Response.md
@@ -2372,6 +2373,7 @@ src/models/reply_to_inbox_review_200_response.rs
 src/models/reply_to_inbox_review_request.rs
 src/models/reply_to_mention_200_response.rs
 src/models/reply_to_mention_request.rs
+src/models/resend_sms_registration_otp_200_response.rs
 src/models/restore_workflow_version_200_response.rs
 src/models/restore_workflow_version_200_response_workflow.rs
 src/models/retweet_post_200_response.rs

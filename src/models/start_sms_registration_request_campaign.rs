@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// StartSmsRegistrationRequestCampaign : Required for 10DLC. What you'll send and how recipients opt in/out. Opt-in/opt-out/help auto-responses must name the registered brand and carry the carrier-required disclosures; submissions that don't (or that are blank) are automatically rewritten to a compliant, brand-named template before the campaign is filed.
+/// StartSmsRegistrationRequestCampaign : Required for 10DLC. What you'll send and how recipients opt in/out. The opt-in/opt-out/help auto-responses (`optinMessage`, `optoutMessage`, `helpMessage`) are optional: when omitted, a compliant, brand-named template with the carrier-required disclosures is generated for you. If you do send them, they must name the registered brand and carry the disclosures — submissions that don't are rewritten to the compliant template before the campaign is filed.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct StartSmsRegistrationRequestCampaign {
     #[serde(rename = "usecase")]
@@ -29,16 +29,16 @@ pub struct StartSmsRegistrationRequestCampaign {
     /// Second example message; carriers require two distinct samples
     #[serde(rename = "sample2")]
     pub sample2: String,
-    #[serde(rename = "helpMessage")]
-    pub help_message: String,
+    #[serde(rename = "helpMessage", skip_serializing_if = "Option::is_none")]
+    pub help_message: Option<String>,
     #[serde(rename = "optinKeywords")]
     pub optin_keywords: String,
-    #[serde(rename = "optinMessage")]
-    pub optin_message: String,
+    #[serde(rename = "optinMessage", skip_serializing_if = "Option::is_none")]
+    pub optin_message: Option<String>,
     #[serde(rename = "optoutKeywords")]
     pub optout_keywords: String,
-    #[serde(rename = "optoutMessage")]
-    pub optout_message: String,
+    #[serde(rename = "optoutMessage", skip_serializing_if = "Option::is_none")]
+    pub optout_message: Option<String>,
     #[serde(rename = "helpKeywords")]
     pub help_keywords: String,
     #[serde(rename = "embeddedLink", skip_serializing_if = "Option::is_none")]
@@ -54,18 +54,15 @@ pub struct StartSmsRegistrationRequestCampaign {
 }
 
 impl StartSmsRegistrationRequestCampaign {
-    /// Required for 10DLC. What you'll send and how recipients opt in/out. Opt-in/opt-out/help auto-responses must name the registered brand and carry the carrier-required disclosures; submissions that don't (or that are blank) are automatically rewritten to a compliant, brand-named template before the campaign is filed.
+    /// Required for 10DLC. What you'll send and how recipients opt in/out. The opt-in/opt-out/help auto-responses (`optinMessage`, `optoutMessage`, `helpMessage`) are optional: when omitted, a compliant, brand-named template with the carrier-required disclosures is generated for you. If you do send them, they must name the registered brand and carry the disclosures — submissions that don't are rewritten to the compliant template before the campaign is filed.
     pub fn new(
         usecase: String,
         description: String,
         message_flow: String,
         sample1: String,
         sample2: String,
-        help_message: String,
         optin_keywords: String,
-        optin_message: String,
         optout_keywords: String,
-        optout_message: String,
         help_keywords: String,
     ) -> StartSmsRegistrationRequestCampaign {
         StartSmsRegistrationRequestCampaign {
@@ -75,11 +72,11 @@ impl StartSmsRegistrationRequestCampaign {
             message_flow,
             sample1,
             sample2,
-            help_message,
+            help_message: None,
             optin_keywords,
-            optin_message,
+            optin_message: None,
             optout_keywords,
-            optout_message,
+            optout_message: None,
             help_keywords,
             embedded_link: None,
             embedded_phone: None,

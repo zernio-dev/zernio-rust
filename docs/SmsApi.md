@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**list_sms_opt_outs**](SmsApi.md#list_sms_opt_outs) | **GET** /v1/sms/opt-outs | List SMS opt-outs
 [**list_sms_registrations**](SmsApi.md#list_sms_registrations) | **GET** /v1/sms/registrations | List carrier registrations
 [**lookup_sms_number**](SmsApi.md#lookup_sms_number) | **GET** /v1/sms/lookup | Look up carrier + line type
+[**resend_sms_registration_otp**](SmsApi.md#resend_sms_registration_otp) | **POST** /v1/sms/registrations/{id}/resend-otp | Re-send the sole-prop OTP
 [**reuse_sms_registration_for_number**](SmsApi.md#reuse_sms_registration_for_number) | **POST** /v1/phone-numbers/{id}/sms/reuse-registration | Add number to SMS registration
 [**send_sms**](SmsApi.md#send_sms) | **POST** /v1/sms/messages | Send an SMS/MMS
 [**share_sms_registration**](SmsApi.md#share_sms_registration) | **POST** /v1/sms/registrations/share | Create a registration share link
@@ -213,6 +214,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::LookupSmsNumber200Response**](lookupSmsNumber_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## resend_sms_registration_otp
+
+> models::ResendSmsRegistrationOtp200Response resend_sms_registration_otp(id)
+Re-send the sole-prop OTP
+
+Re-sends the sole-proprietor verification PIN to the brand's mobile number — use it when the original code expired or never arrived. Only valid while the registration is pending and awaiting its OTP; rate limited to one send per minute. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+[**models::ResendSmsRegistrationOtp200Response**](resendSmsRegistrationOtp_200_response.md)
 
 ### Authorization
 

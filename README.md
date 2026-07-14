@@ -355,6 +355,7 @@ Class | Method | HTTP request | Description
 *SmsApi* | [**list_sms_opt_outs**](docs/SmsApi.md#list_sms_opt_outs) | **GET** /v1/sms/opt-outs | List SMS opt-outs
 *SmsApi* | [**list_sms_registrations**](docs/SmsApi.md#list_sms_registrations) | **GET** /v1/sms/registrations | List carrier registrations
 *SmsApi* | [**lookup_sms_number**](docs/SmsApi.md#lookup_sms_number) | **GET** /v1/sms/lookup | Look up carrier + line type
+*SmsApi* | [**resend_sms_registration_otp**](docs/SmsApi.md#resend_sms_registration_otp) | **POST** /v1/sms/registrations/{id}/resend-otp | Re-send the sole-prop OTP
 *SmsApi* | [**reuse_sms_registration_for_number**](docs/SmsApi.md#reuse_sms_registration_for_number) | **POST** /v1/phone-numbers/{id}/sms/reuse-registration | Add number to SMS registration
 *SmsApi* | [**send_sms**](docs/SmsApi.md#send_sms) | **POST** /v1/sms/messages | Send an SMS/MMS
 *SmsApi* | [**share_sms_registration**](docs/SmsApi.md#share_sms_registration) | **POST** /v1/sms/registrations/share | Create a registration share link
@@ -1411,6 +1412,7 @@ Class | Method | HTTP request | Description
  - [ReplyToInboxReviewRequest](docs/ReplyToInboxReviewRequest.md)
  - [ReplyToMention200Response](docs/ReplyToMention200Response.md)
  - [ReplyToMentionRequest](docs/ReplyToMentionRequest.md)
+ - [ResendSmsRegistrationOtp200Response](docs/ResendSmsRegistrationOtp200Response.md)
  - [RestoreWorkflowVersion200Response](docs/RestoreWorkflowVersion200Response.md)
  - [RestoreWorkflowVersion200ResponseWorkflow](docs/RestoreWorkflowVersion200ResponseWorkflow.md)
  - [RetweetPost200Response](docs/RetweetPost200Response.md)

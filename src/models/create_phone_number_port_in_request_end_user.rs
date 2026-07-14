@@ -11,19 +11,22 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreatePhoneNumberPortInRequestEndUser : End-user / current-carrier account info that authorizes the port.
+/// CreatePhoneNumberPortInRequestEndUser : End-user / current-carrier account info that authorizes the port. The losing carrier matches every field against its records and rejects the whole port on a mismatch — enter values exactly as they appear on the carrier bill.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreatePhoneNumberPortInRequestEndUser {
+    /// Account holder / business name, as on the carrier account.
     #[serde(rename = "entityName")]
     pub entity_name: String,
+    /// Full name (first + last) of the person authorizing the port — must match the LOA signature.
     #[serde(rename = "authPersonName")]
     pub auth_person_name: String,
-    /// Phone number on the losing carrier's bill. Defaults to the ported number itself on single-number orders.
+    /// Phone number on the losing carrier's bill. Defaults to the ported number itself on single-number orders. Validated as a real phone number when present.
     #[serde(rename = "billingPhoneNumber", skip_serializing_if = "Option::is_none")]
     pub billing_phone_number: Option<String>,
-    #[serde(rename = "accountNumber", skip_serializing_if = "Option::is_none")]
-    pub account_number: Option<String>,
-    /// Transfer PIN. Forwarded to the carrier, never stored.
+    /// Account number with the losing carrier — required (carriers reject ports without it; on prepaid mobile plans it is often the phone number itself).
+    #[serde(rename = "accountNumber")]
+    pub account_number: String,
+    /// Transfer PIN. Required for mobile numbers (wireless carriers reject PIN-less ports). Forwarded to the carrier, never stored.
     #[serde(rename = "pinPasscode", skip_serializing_if = "Option::is_none")]
     pub pin_passcode: Option<String>,
     #[serde(rename = "streetAddress")]
@@ -32,30 +35,33 @@ pub struct CreatePhoneNumberPortInRequestEndUser {
     pub extended_address: Option<String>,
     #[serde(rename = "locality")]
     pub locality: String,
+    /// 2-letter US state / CA province code (full names are accepted and normalized).
     #[serde(rename = "administrativeArea")]
     pub administrative_area: String,
+    /// US ZIP (5 digits) or Canadian postal code, matching countryCode.
     #[serde(rename = "postalCode")]
     pub postal_code: String,
     #[serde(rename = "countryCode")]
-    pub country_code: String,
+    pub country_code: CountryCode,
 }
 
 impl CreatePhoneNumberPortInRequestEndUser {
-    /// End-user / current-carrier account info that authorizes the port.
+    /// End-user / current-carrier account info that authorizes the port. The losing carrier matches every field against its records and rejects the whole port on a mismatch — enter values exactly as they appear on the carrier bill.
     pub fn new(
         entity_name: String,
         auth_person_name: String,
+        account_number: String,
         street_address: String,
         locality: String,
         administrative_area: String,
         postal_code: String,
-        country_code: String,
+        country_code: CountryCode,
     ) -> CreatePhoneNumberPortInRequestEndUser {
         CreatePhoneNumberPortInRequestEndUser {
             entity_name,
             auth_person_name,
             billing_phone_number: None,
-            account_number: None,
+            account_number,
             pin_passcode: None,
             street_address,
             extended_address: None,
@@ -64,5 +70,19 @@ impl CreatePhoneNumberPortInRequestEndUser {
             postal_code,
             country_code,
         }
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum CountryCode {
+    #[serde(rename = "US")]
+    Us,
+    #[serde(rename = "CA")]
+    Ca,
+}
+
+impl Default for CountryCode {
+    fn default() -> CountryCode {
+        Self::Us
     }
 }

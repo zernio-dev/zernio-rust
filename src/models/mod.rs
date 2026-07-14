@@ -1800,6 +1800,8 @@ pub mod reply_to_mention_200_response;
 pub use self::reply_to_mention_200_response::ReplyToMention200Response;
 pub mod reply_to_mention_request;
 pub use self::reply_to_mention_request::ReplyToMentionRequest;
+pub mod resend_sms_registration_otp_200_response;
+pub use self::resend_sms_registration_otp_200_response::ResendSmsRegistrationOtp200Response;
 pub mod restore_workflow_version_200_response;
 pub use self::restore_workflow_version_200_response::RestoreWorkflowVersion200Response;
 pub mod restore_workflow_version_200_response_workflow;
