@@ -464,7 +464,7 @@ Name | Type | Description  | Required | Notes
 **ad_id** | **String** |  | [required] |
 **from_date** | Option<**String**> | Start of date range (YYYY-MM-DD). Defaults to 90 days ago. |  |
 **to_date** | Option<**String**> | End of date range (YYYY-MM-DD). Defaults to today. Max 730-day range. |  |
-**breakdowns** | Option<**String**> | Comma-separated breakdown dimensions. Meta: age, gender, country, publisher_platform, device_platform, region. TikTok: gender, age, country_code, platform, ac, language. |  |
+**breakdowns** | Option<**String**> | Comma-separated breakdown dimensions.  **Meta**: age, gender, country, publisher_platform, device_platform, region.  **TikTok**: gender, age, country_code, platform, ac, language.  **LinkedIn** (firmographics): job_title, job_function, seniority, industry, company, company_size, country, region. Rows carry the raw pivot `value` plus a resolved `name`. LinkedIn serves these aggregated over the whole range, delays the data 12-24h, and omits segments with fewer than 3 events.  |  |
 
 ### Return type
 
@@ -561,7 +561,7 @@ Name | Type | Description  | Required | Notes
 **platform** | Option<**String**> | Disambiguate when the campaign id exists across platforms (e.g. facebook, instagram). |  |
 **from_date** | Option<**String**> | Start of date range (YYYY-MM-DD). Defaults to 90 days ago. |  |
 **to_date** | Option<**String**> | End of date range (YYYY-MM-DD). Defaults to today. Max 730-day range. |  |
-**breakdowns** | Option<**String**> | Comma-separated breakdown dimensions (Meta only): age, gender, country, publisher_platform, device_platform, region, platform_position, impression_device, video_asset, image_asset, body_asset, title_asset. |  |
+**breakdowns** | Option<**String**> | Comma-separated breakdown dimensions.  **Meta**: age, gender, country, publisher_platform, device_platform, region, platform_position, impression_device, video_asset, image_asset, body_asset, title_asset.  **LinkedIn** (firmographics): job_title, job_function, seniority, industry, company, company_size, country, region. Rows carry the raw pivot `value` plus a resolved `name`. LinkedIn serves these aggregated over the whole range, delays the data 12-24h, and omits segments with fewer than 3 events.  |  |
 
 ### Return type
 
