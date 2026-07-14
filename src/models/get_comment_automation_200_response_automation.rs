@@ -40,6 +40,18 @@ pub struct GetCommentAutomation200ResponseAutomation {
     pub buttons: Option<Vec<models::DmButton>>,
     #[serde(rename = "commentReply", skip_serializing_if = "Option::is_none")]
     pub comment_reply: Option<String>,
+    /// Alternate DM texts rotated at random with dmMessage. Omitted when none.
+    #[serde(
+        rename = "dmMessageVariations",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub dm_message_variations: Option<Vec<String>>,
+    /// Alternate public replies rotated at random with commentReply. Omitted when none.
+    #[serde(
+        rename = "commentReplyVariations",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub comment_reply_variations: Option<Vec<String>>,
     #[serde(rename = "linkTracking", skip_serializing_if = "Option::is_none")]
     pub link_tracking: Option<bool>,
     #[serde(rename = "clickTag", skip_serializing_if = "Option::is_none")]
@@ -70,6 +82,8 @@ impl GetCommentAutomation200ResponseAutomation {
             dm_message: None,
             buttons: None,
             comment_reply: None,
+            dm_message_variations: None,
+            comment_reply_variations: None,
             link_tracking: None,
             click_tag: None,
             is_active: None,

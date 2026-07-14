@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **dm_message** | Option<**String**> |  | [optional]
 **buttons** | Option<[**Vec<models::DmButton>**](DmButton.md)> | Inline DM buttons (up to 3). Omitted when none are set. | [optional]
 **comment_reply** | Option<**String**> |  | [optional]
+**dm_message_variations** | Option<**Vec<String>**> | Alternate DM texts rotated at random with dmMessage. Omitted when none. | [optional]
+**comment_reply_variations** | Option<**Vec<String>**> | Alternate public replies rotated at random with commentReply. Omitted when none. | [optional]
 **link_tracking** | Option<**bool**> | Whether link buttons in the DM are wrapped in a tracked redirect to count clicks. | [optional]
 **click_tag** | Option<**String**> | Tag applied to a contact when they click a tracked link. | [optional]
 **is_active** | Option<**bool**> |  | [optional]

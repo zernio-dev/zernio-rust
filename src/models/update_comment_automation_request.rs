@@ -26,6 +26,18 @@ pub struct UpdateCommentAutomationRequest {
     pub buttons: Option<Vec<models::DmButton>>,
     #[serde(rename = "commentReply", skip_serializing_if = "Option::is_none")]
     pub comment_reply: Option<String>,
+    /// Alternate DM texts for random rotation (see create). Pass [] to clear.
+    #[serde(
+        rename = "dmMessageVariations",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub dm_message_variations: Option<Vec<String>>,
+    /// Alternate public replies for random rotation. Pass [] to clear.
+    #[serde(
+        rename = "commentReplyVariations",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub comment_reply_variations: Option<Vec<String>>,
     /// Wrap link buttons in a tracked redirect to count clicks. Pass false to send links untouched.
     #[serde(rename = "linkTracking", skip_serializing_if = "Option::is_none")]
     pub link_tracking: Option<bool>,
@@ -45,6 +57,8 @@ impl UpdateCommentAutomationRequest {
             dm_message: None,
             buttons: None,
             comment_reply: None,
+            dm_message_variations: None,
+            comment_reply_variations: None,
             link_tracking: None,
             click_tag: None,
             is_active: None,

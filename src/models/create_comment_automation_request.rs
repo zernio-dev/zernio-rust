@@ -47,6 +47,18 @@ pub struct CreateCommentAutomationRequest {
     /// Optional public reply to the comment
     #[serde(rename = "commentReply", skip_serializing_if = "Option::is_none")]
     pub comment_reply: Option<String>,
+    /// Optional alternate DM texts for random rotation. When set, each triggered comment sends one picked at random from [dmMessage, ...dmMessageVariations], so repeat commenters get slightly different DMs (helps avoid identical-message patterns). Up to 5. Buttons are attached to whichever text is picked, not varied.
+    #[serde(
+        rename = "dmMessageVariations",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub dm_message_variations: Option<Vec<String>>,
+    /// Optional alternate public replies, rotated at random alongside commentReply (picked independently of the DM). Up to 5.
+    #[serde(
+        rename = "commentReplyVariations",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub comment_reply_variations: Option<Vec<String>>,
     /// Wrap link buttons in the DM in a tracked redirect so clicks are counted (Link Clicks / CTR). Pass false to send links exactly as written. Defaults to on.
     #[serde(rename = "linkTracking", skip_serializing_if = "Option::is_none")]
     pub link_tracking: Option<bool>,
@@ -75,6 +87,8 @@ impl CreateCommentAutomationRequest {
             dm_message,
             buttons: None,
             comment_reply: None,
+            dm_message_variations: None,
+            comment_reply_variations: None,
             link_tracking: None,
             click_tag: None,
         }

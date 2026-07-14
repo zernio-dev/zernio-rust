@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **dm_message** | Option<**String**> |  | [optional]
 **buttons** | Option<[**Vec<models::DmButton>**](DmButton.md)> | Inline DM buttons (1-3). Pass [] to clear all buttons. | [optional]
 **comment_reply** | Option<**String**> |  | [optional]
+**dm_message_variations** | Option<**Vec<String>**> | Alternate DM texts for random rotation (see create). Pass [] to clear. | [optional]
+**comment_reply_variations** | Option<**Vec<String>**> | Alternate public replies for random rotation. Pass [] to clear. | [optional]
 **link_tracking** | Option<**bool**> | Wrap link buttons in a tracked redirect to count clicks. Pass false to send links untouched. | [optional]
 **click_tag** | Option<**String**> | Tag applied to a contact when they click a tracked link (requires linkTracking). Empty string clears it. | [optional]
 **is_active** | Option<**bool**> |  | [optional]
