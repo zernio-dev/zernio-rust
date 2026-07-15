@@ -41,8 +41,10 @@ pub struct StartSmsRegistrationRequestCampaign {
     pub optout_message: Option<String>,
     #[serde(rename = "helpKeywords")]
     pub help_keywords: String,
+    /// Whether messages carry links. Auto-derived from the samples when omitted, so the declaration matches what the reviewer reads.
     #[serde(rename = "embeddedLink", skip_serializing_if = "Option::is_none")]
     pub embedded_link: Option<bool>,
+    /// Whether messages carry phone numbers. Auto-derived from the samples when omitted.
     #[serde(rename = "embeddedPhone", skip_serializing_if = "Option::is_none")]
     pub embedded_phone: Option<bool>,
     #[serde(rename = "numberPool", skip_serializing_if = "Option::is_none")]
@@ -51,6 +53,15 @@ pub struct StartSmsRegistrationRequestCampaign {
     pub age_gated: Option<bool>,
     #[serde(rename = "directLending", skip_serializing_if = "Option::is_none")]
     pub direct_lending: Option<bool>,
+    /// Link to your privacy policy. Recommended: reviewers check that it says mobile information is not sold or shared with third parties for promotional purposes. A bare domain is normalized to https://.
+    #[serde(rename = "privacyPolicyLink", skip_serializing_if = "Option::is_none")]
+    pub privacy_policy_link: Option<String>,
+    /// Link to your terms & conditions. A bare domain is normalized to https://.
+    #[serde(
+        rename = "termsAndConditionsLink",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub terms_and_conditions_link: Option<String>,
 }
 
 impl StartSmsRegistrationRequestCampaign {
@@ -83,6 +94,8 @@ impl StartSmsRegistrationRequestCampaign {
             number_pool: None,
             age_gated: None,
             direct_lending: None,
+            privacy_policy_link: None,
+            terms_and_conditions_link: None,
         }
     }
 }
