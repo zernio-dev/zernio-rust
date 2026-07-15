@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**share_sms_registration**](SmsApi.md#share_sms_registration) | **POST** /v1/sms/registrations/share | Create a registration share link
 [**start_sms_registration**](SmsApi.md#start_sms_registration) | **POST** /v1/sms/registrations | Start a carrier registration
 [**upload_sms_opt_in_proof**](SmsApi.md#upload_sms_opt_in_proof) | **POST** /v1/sms/registrations/{id}/opt-in-proof | Upload opt-in form proof for an appeal
+[**upload_sms_opt_in_proof_file**](SmsApi.md#upload_sms_opt_in_proof_file) | **POST** /v1/sms/opt-in-proof | Upload opt-in form proof
 [**verify_sms_registration_otp**](SmsApi.md#verify_sms_registration_otp) | **POST** /v1/sms/registrations/{id}/verify-otp | Submit the sole-prop OTP
 
 
@@ -381,7 +382,7 @@ Name | Type | Description  | Required | Notes
 
 ## upload_sms_opt_in_proof
 
-> models::UploadSmsOptInProof200Response upload_sms_opt_in_proof(id, file)
+> models::UploadSmsOptInProofFile200Response upload_sms_opt_in_proof(id, file)
 Upload opt-in form proof for an appeal
 
 Hosts a screenshot (or PDF) of your SMS opt-in form and returns its public URL. Carrier reviewers reject campaigns whose consent can't be verified and ask for a \"link/screenshot of the opt-in form\" — the registry has no attachment field, so include the returned URL inside the `messageFlow` you submit with the appeal (`POST /v1/sms/registrations/{id}/appeal`). 
@@ -396,7 +397,37 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::UploadSmsOptInProof200Response**](uploadSmsOptInProof_200_response.md)
+[**models::UploadSmsOptInProofFile200Response**](uploadSmsOptInProofFile_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## upload_sms_opt_in_proof_file
+
+> models::UploadSmsOptInProofFile200Response upload_sms_opt_in_proof_file(file)
+Upload opt-in form proof
+
+Hosts a screenshot (or PDF) of your SMS opt-in form and returns its public URL. Include that URL in the campaign's `messageFlow` (the opt-in workflow text) — the carrier registry has no attachment field, so reviewers verify consent by opening links in that answer. Works before a registration exists (use it when registering) and for appeals. `/v1/sms/registrations/{id}/opt-in-proof` is an alias. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**file** | **std::path::PathBuf** | PNG, JPG, WebP, GIF or PDF, max 4MB. | [required] |
+
+### Return type
+
+[**models::UploadSmsOptInProofFile200Response**](uploadSmsOptInProofFile_200_response.md)
 
 ### Authorization
 
