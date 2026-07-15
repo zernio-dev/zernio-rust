@@ -35,7 +35,7 @@ pub struct GetAdsTimeline200ResponseRowsInner {
     /// Cost per 1000 impressions in native currency.
     #[serde(rename = "cpm", skip_serializing_if = "Option::is_none")]
     pub cpm: Option<f64>,
-    /// Sum of conversion events matching the campaign optimization goal. Meta-only at time of writing.
+    /// Sum of conversion events over the range. Meta: events matching the campaign optimization goal. Google: tracked conversions. X / LinkedIn: reported website/lead conversions (added 2026-07).
     #[serde(rename = "conversions", skip_serializing_if = "Option::is_none")]
     pub conversions: Option<i32>,
     #[serde(rename = "costPerConversion", skip_serializing_if = "Option::is_none")]

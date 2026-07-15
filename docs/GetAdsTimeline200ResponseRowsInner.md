@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **ctr** | Option<**f64**> | Click-through rate as a percentage (0–100). | [optional]
 **cpc** | Option<**f64**> | Cost per click in native currency. | [optional]
 **cpm** | Option<**f64**> | Cost per 1000 impressions in native currency. | [optional]
-**conversions** | Option<**i32**> | Sum of conversion events matching the campaign optimization goal. Meta-only at time of writing. | [optional]
+**conversions** | Option<**i32**> | Sum of conversion events over the range. Meta: events matching the campaign optimization goal. Google: tracked conversions. X / LinkedIn: reported website/lead conversions (added 2026-07). | [optional]
 **cost_per_conversion** | Option<**f64**> |  | [optional]
 **actions** | Option<**std::collections::HashMap<String, f64>**> | Per-action-type counts merged across all ads on this day. Keys are platform-native action types. | [optional]
 **action_values** | Option<**std::collections::HashMap<String, f64>**> | Monetary mirror of `actions` in native currency. | [optional]
