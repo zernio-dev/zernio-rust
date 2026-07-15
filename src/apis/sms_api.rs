@@ -489,10 +489,17 @@ pub async fn list_sms_opt_outs(
 
 pub async fn list_sms_registrations(
     configuration: &configuration::Configuration,
+    include_deactivated: Option<bool>,
 ) -> Result<models::ListSmsRegistrations200Response, Error<ListSmsRegistrationsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_include_deactivated = include_deactivated;
+
     let uri_str = format!("{}/v1/sms/registrations", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+    if let Some(ref param_value) = p_query_include_deactivated {
+        req_builder = req_builder.query(&[("includeDeactivated", &param_value.to_string())]);
+    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }

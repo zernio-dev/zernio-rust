@@ -207,12 +207,15 @@ Name | Type | Description  | Required | Notes
 
 ## list_sms_registrations
 
-> models::ListSmsRegistrations200Response list_sms_registrations()
+> models::ListSmsRegistrations200Response list_sms_registrations(include_deactivated)
 List carrier registrations
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**include_deactivated** | Option<**bool**> | Deactivated (terminated) registrations are hidden by default — pass true to include them. |  |
 
 ### Return type
 
