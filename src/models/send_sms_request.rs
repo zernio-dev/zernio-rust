@@ -25,6 +25,9 @@ pub struct SendSmsRequest {
     /// Public media URLs to attach (sends as MMS). Max 10.
     #[serde(rename = "mediaUrls", skip_serializing_if = "Option::is_none")]
     pub media_urls: Option<Vec<String>>,
+    /// Optional. Schedule the send for a future time (ISO 8601 with offset, e.g. `2026-08-01T12:00:00Z`). Must be in the future. The message is queued and the `message.delivered` webhook fires when it actually sends.
+    #[serde(rename = "sendAt", skip_serializing_if = "Option::is_none")]
+    pub send_at: Option<String>,
 }
 
 impl SendSmsRequest {
@@ -34,6 +37,7 @@ impl SendSmsRequest {
             to,
             text: None,
             media_urls: None,
+            send_at: None,
         }
     }
 }
