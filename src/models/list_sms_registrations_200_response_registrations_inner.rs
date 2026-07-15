@@ -24,6 +24,7 @@ pub struct ListSmsRegistrations200ResponseRegistrationsInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub display_name: Option<Option<String>>,
+    /// requested/changes_requested = pre-submission review states; customers see them as pending / needs changes.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
     /// Carrier-registry brand status (e.g. VERIFIED).
@@ -107,7 +108,7 @@ impl Default for RegistrationType {
         Self::Standard10dlc
     }
 }
-///
+/// requested/changes_requested = pre-submission review states; customers see them as pending / needs changes.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
     #[serde(rename = "pending")]
@@ -116,6 +117,12 @@ pub enum Status {
     Approved,
     #[serde(rename = "rejected")]
     Rejected,
+    #[serde(rename = "requested")]
+    Requested,
+    #[serde(rename = "changes_requested")]
+    ChangesRequested,
+    #[serde(rename = "deactivated")]
+    Deactivated,
 }
 
 impl Default for Status {

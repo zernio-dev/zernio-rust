@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **id** | Option<**String**> |  | [optional]
 **registration_type** | Option<**RegistrationType**> |  (enum: standard_10dlc, sole_prop_10dlc, toll_free) | [optional]
 **display_name** | Option<**String**> |  | [optional]
-**status** | Option<**Status**> |  (enum: pending, approved, rejected) | [optional]
+**status** | Option<**Status**> | requested/changes_requested = pre-submission review states; customers see them as pending / needs changes. (enum: pending, approved, rejected, requested, changes_requested, deactivated) | [optional]
 **brand_status** | Option<**String**> | Carrier-registry brand status (e.g. VERIFIED). | [optional]
 **campaign_status** | Option<**String**> |  | [optional]
 **brand_id** | Option<**String**> | TCR brand id, useful when referencing the brand in carrier support threads. | [optional]

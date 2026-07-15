@@ -15,6 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct ReuseSmsRegistrationForNumber200Response {
     #[serde(rename = "registrationId", skip_serializing_if = "Option::is_none")]
     pub registration_id: Option<String>,
+    /// requested/changes_requested = pre-submission review states; customers see them as pending / needs changes.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
 }
@@ -27,7 +28,7 @@ impl ReuseSmsRegistrationForNumber200Response {
         }
     }
 }
-///
+/// requested/changes_requested = pre-submission review states; customers see them as pending / needs changes.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
     #[serde(rename = "pending")]
@@ -36,6 +37,12 @@ pub enum Status {
     Approved,
     #[serde(rename = "rejected")]
     Rejected,
+    #[serde(rename = "requested")]
+    Requested,
+    #[serde(rename = "changes_requested")]
+    ChangesRequested,
+    #[serde(rename = "deactivated")]
+    Deactivated,
 }
 
 impl Default for Status {
