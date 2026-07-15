@@ -1264,6 +1264,7 @@ docs/UpdateYoutubeDefaultPlaylistRequest.md
 docs/UploadMediaDirect200Response.md
 docs/UploadPhoneNumberKycDocument200Response.md
 docs/UploadPhoneNumberPortInDocument200Response.md
+docs/UploadSmsOptInProof200Response.md
 docs/UploadTokenResponse.md
 docs/UploadTokenStatusResponse.md
 docs/UploadWhatsAppFlowJson200Response.md
@@ -2712,6 +2713,7 @@ src/models/update_youtube_default_playlist_request.rs
 src/models/upload_media_direct_200_response.rs
 src/models/upload_phone_number_kyc_document_200_response.rs
 src/models/upload_phone_number_port_in_document_200_response.rs
+src/models/upload_sms_opt_in_proof_200_response.rs
 src/models/upload_token_response.rs
 src/models/upload_token_status_response.rs
 src/models/upload_whats_app_flow_json_200_response.rs
