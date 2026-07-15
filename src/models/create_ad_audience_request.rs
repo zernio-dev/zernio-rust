@@ -34,6 +34,8 @@ pub enum Type {
     Engagement,
     #[serde(rename = "website")]
     Website,
+    #[serde(rename = "website_retargeting")]
+    WebsiteRetargeting,
     #[serde(rename = "lookalike")]
     Lookalike,
     #[serde(rename = "saved_targeting")]

@@ -25,6 +25,9 @@ pub struct UploadedOrDerivedAudience {
     pub description: Option<String>,
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// Required for website_retargeting audiences (LinkedIn only). Each rule is a URL pattern; a member who visits any matching page enters the segment. Needs the LinkedIn Insight Tag installed on the customer's site — the segment only starts filling once the tag reports visits.
+    #[serde(rename = "matchRules", skip_serializing_if = "Option::is_none")]
+    pub match_rules: Option<Vec<models::UploadedOrDerivedAudienceMatchRulesInner>>,
     /// Required for engagement audiences (LinkedIn only): what members engaged with — a video/leadgen/single-image ad campaign, a Company Page or an Event page.
     #[serde(rename = "sourceType", skip_serializing_if = "Option::is_none")]
     pub source_type: Option<SourceType>,
@@ -77,6 +80,7 @@ impl UploadedOrDerivedAudience {
             name,
             description: None,
             r#type,
+            match_rules: None,
             source_type: None,
             trigger: None,
             lookback_days: None,
@@ -103,6 +107,8 @@ pub enum Type {
     Engagement,
     #[serde(rename = "website")]
     Website,
+    #[serde(rename = "website_retargeting")]
+    WebsiteRetargeting,
     #[serde(rename = "lookalike")]
     Lookalike,
 }

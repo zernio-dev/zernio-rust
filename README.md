@@ -1738,6 +1738,7 @@ Class | Method | HTTP request | Description
  - [UploadedFile](docs/UploadedFile.md)
  - [UploadedOrDerivedAudience](docs/UploadedOrDerivedAudience.md)
  - [UploadedOrDerivedAudienceCompaniesInner](docs/UploadedOrDerivedAudienceCompaniesInner.md)
+ - [UploadedOrDerivedAudienceMatchRulesInner](docs/UploadedOrDerivedAudienceMatchRulesInner.md)
  - [UsageMetering](docs/UsageMetering.md)
  - [UsageMeteringCallUsage](docs/UsageMeteringCallUsage.md)
  - [UsageMeteringCallUsageWhatsapp](docs/UsageMeteringCallUsageWhatsapp.md)

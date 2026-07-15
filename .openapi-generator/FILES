@@ -1271,6 +1271,7 @@ docs/UploadWhatsAppProfilePhotoRequest1.md
 docs/UploadedFile.md
 docs/UploadedOrDerivedAudience.md
 docs/UploadedOrDerivedAudienceCompaniesInner.md
+docs/UploadedOrDerivedAudienceMatchRulesInner.md
 docs/UsageApi.md
 docs/UsageMetering.md
 docs/UsageMeteringCallUsage.md
@@ -2715,6 +2716,7 @@ src/models/upload_whats_app_profile_photo_request_1.rs
 src/models/uploaded_file.rs
 src/models/uploaded_or_derived_audience.rs
 src/models/uploaded_or_derived_audience_companies_inner.rs
+src/models/uploaded_or_derived_audience_match_rules_inner.rs
 src/models/usage_metering.rs
 src/models/usage_metering_call_usage.rs
 src/models/usage_metering_call_usage_whatsapp.rs

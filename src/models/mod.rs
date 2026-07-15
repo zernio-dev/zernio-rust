@@ -2452,6 +2452,8 @@ pub mod uploaded_or_derived_audience;
 pub use self::uploaded_or_derived_audience::UploadedOrDerivedAudience;
 pub mod uploaded_or_derived_audience_companies_inner;
 pub use self::uploaded_or_derived_audience_companies_inner::UploadedOrDerivedAudienceCompaniesInner;
+pub mod uploaded_or_derived_audience_match_rules_inner;
+pub use self::uploaded_or_derived_audience_match_rules_inner::UploadedOrDerivedAudienceMatchRulesInner;
 pub mod usage_metering;
 pub use self::usage_metering::UsageMetering;
 pub mod usage_metering_call_usage;
