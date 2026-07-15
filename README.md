@@ -100,6 +100,8 @@ Class | Method | HTTP request | Description
 *AdsApi* | [**get_dsa_defaults**](docs/AdsApi.md#get_dsa_defaults) | **GET** /v1/ads/dsa-defaults | Get ad account DSA defaults
 *AdsApi* | [**get_dsa_recommendations**](docs/AdsApi.md#get_dsa_recommendations) | **GET** /v1/ads/dsa-recommendations | List DSA beneficiary/payor suggestions
 *AdsApi* | [**get_lead_form**](docs/AdsApi.md#get_lead_form) | **GET** /v1/ads/lead-forms/{formId} | Get a lead form
+*AdsApi* | [**get_linked_in_bid_pricing**](docs/AdsApi.md#get_linked_in_bid_pricing) | **POST** /v1/ads/targeting/bid-pricing | Suggested bid and budget bounds (LinkedIn)
+*AdsApi* | [**get_linked_in_supply_forecast**](docs/AdsApi.md#get_linked_in_supply_forecast) | **POST** /v1/ads/targeting/supply-forecast | Impressions, clicks and spend forecast (LinkedIn)
 *AdsApi* | [**list_ad_accounts**](docs/AdsApi.md#list_ad_accounts) | **GET** /v1/ads/accounts | List ad accounts
 *AdsApi* | [**list_ad_catalog_product_sets**](docs/AdsApi.md#list_ad_catalog_product_sets) | **GET** /v1/ads/catalogs/{catalogId}/product-sets | List a catalog's product sets
 *AdsApi* | [**list_ad_catalogs**](docs/AdsApi.md#list_ad_catalogs) | **GET** /v1/ads/catalogs | List Meta product catalogs
@@ -1023,6 +1025,11 @@ Class | Method | HTTP request | Description
  - [GetLinkedInAggregateAnalytics400Response](docs/GetLinkedInAggregateAnalytics400Response.md)
  - [GetLinkedInAggregateAnalytics402Response](docs/GetLinkedInAggregateAnalytics402Response.md)
  - [GetLinkedInAggregateAnalytics403Response](docs/GetLinkedInAggregateAnalytics403Response.md)
+ - [GetLinkedInBidPricing200Response](docs/GetLinkedInBidPricing200Response.md)
+ - [GetLinkedInBidPricing200ResponsePricing](docs/GetLinkedInBidPricing200ResponsePricing.md)
+ - [GetLinkedInBidPricing200ResponsePricingBidLimits](docs/GetLinkedInBidPricing200ResponsePricingBidLimits.md)
+ - [GetLinkedInBidPricing200ResponsePricingSuggestedBid](docs/GetLinkedInBidPricing200ResponsePricingSuggestedBid.md)
+ - [GetLinkedInBidPricingRequest](docs/GetLinkedInBidPricingRequest.md)
  - [GetLinkedInMentions200Response](docs/GetLinkedInMentions200Response.md)
  - [GetLinkedInOrganizations200Response](docs/GetLinkedInOrganizations200Response.md)
  - [GetLinkedInOrganizations200ResponseOrganizationsInner](docs/GetLinkedInOrganizations200ResponseOrganizationsInner.md)
@@ -1035,6 +1042,12 @@ Class | Method | HTTP request | Description
  - [GetLinkedInPostReactions200ResponseReactionsInner](docs/GetLinkedInPostReactions200ResponseReactionsInner.md)
  - [GetLinkedInPostReactions200ResponseReactionsInnerFrom](docs/GetLinkedInPostReactions200ResponseReactionsInnerFrom.md)
  - [GetLinkedInPostReactions400Response](docs/GetLinkedInPostReactions400Response.md)
+ - [GetLinkedInSupplyForecast200Response](docs/GetLinkedInSupplyForecast200Response.md)
+ - [GetLinkedInSupplyForecast200ResponseForecastInner](docs/GetLinkedInSupplyForecast200ResponseForecastInner.md)
+ - [GetLinkedInSupplyForecast200ResponseForecastInnerTimeSeriesInner](docs/GetLinkedInSupplyForecast200ResponseForecastInnerTimeSeriesInner.md)
+ - [GetLinkedInSupplyForecast200ResponseForecastInnerTimeSeriesInnerAdForecastRange](docs/GetLinkedInSupplyForecast200ResponseForecastInnerTimeSeriesInnerAdForecastRange.md)
+ - [GetLinkedInSupplyForecastRequest](docs/GetLinkedInSupplyForecastRequest.md)
+ - [GetLinkedInSupplyForecastRequestCompetingBid](docs/GetLinkedInSupplyForecastRequestCompetingBid.md)
  - [GetMediaPresignedUrl200Response](docs/GetMediaPresignedUrl200Response.md)
  - [GetMediaPresignedUrlRequest](docs/GetMediaPresignedUrlRequest.md)
  - [GetMessengerMenu200Response](docs/GetMessengerMenu200Response.md)
@@ -1354,6 +1367,7 @@ Class | Method | HTTP request | Description
  - [MediaItem](docs/MediaItem.md)
  - [MediaUploadResponse](docs/MediaUploadResponse.md)
  - [Money](docs/Money.md)
+ - [MoneyAmount](docs/MoneyAmount.md)
  - [MoveAccountToProfile200Response](docs/MoveAccountToProfile200Response.md)
  - [MoveAccountToProfileRequest](docs/MoveAccountToProfileRequest.md)
  - [OnWhatsAppAutomaticEventRequest](docs/OnWhatsAppAutomaticEventRequest.md)

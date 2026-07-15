@@ -261,6 +261,28 @@ pub enum GetLeadFormError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_linked_in_bid_pricing`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetLinkedInBidPricingError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(models::InlineObject1),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_linked_in_supply_forecast`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetLinkedInSupplyForecastError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(models::InlineObject1),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_ad_accounts`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -1747,6 +1769,109 @@ pub async fn get_lead_form(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetLeadFormError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// LinkedIn-only. Returns the suggested bid and bid limits for a targeting spec, plus the daily-budget bounds LinkedIn will accept. Use it before creating a campaign to pick a bid inside the allowed range and warn the user if their daily budget is below the minimum. Wraps LinkedIn's `adBudgetPricing` finder.  Non-LinkedIn accounts return `available: false` so clients can hide the pricing UI without treating it as a failure.
+pub async fn get_linked_in_bid_pricing(
+    configuration: &configuration::Configuration,
+    get_linked_in_bid_pricing_request: models::GetLinkedInBidPricingRequest,
+) -> Result<models::GetLinkedInBidPricing200Response, Error<GetLinkedInBidPricingError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_get_linked_in_bid_pricing_request = get_linked_in_bid_pricing_request;
+
+    let uri_str = format!("{}/v1/ads/targeting/bid-pricing", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_get_linked_in_bid_pricing_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetLinkedInBidPricing200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetLinkedInBidPricing200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetLinkedInBidPricingError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// LinkedIn-only. Forecasted impressions, clicks, spend and ~20 other metrics for a targeting spec over a time range. Wraps LinkedIn's `adSupplyForecasts` finder.  Each returned series carries a `metricType` (IMPRESSION, CLICK, SPENDING, MAX_POTENTIAL_BUDGET, COST_PER_MILLION_IMPRESSIONS, ...) and a `granularity` (DAILY, SEVEN_DAY, THIRTY_DAY, CUSTOM). LinkedIn caps the daily spending forecast at 1.2x the daily budget and returns 0 once the total budget is exhausted.  Non-LinkedIn accounts return `available: false`.
+pub async fn get_linked_in_supply_forecast(
+    configuration: &configuration::Configuration,
+    get_linked_in_supply_forecast_request: models::GetLinkedInSupplyForecastRequest,
+) -> Result<models::GetLinkedInSupplyForecast200Response, Error<GetLinkedInSupplyForecastError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_get_linked_in_supply_forecast_request = get_linked_in_supply_forecast_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/targeting/supply-forecast",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_get_linked_in_supply_forecast_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetLinkedInSupplyForecast200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetLinkedInSupplyForecast200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetLinkedInSupplyForecastError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

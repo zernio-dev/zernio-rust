@@ -527,6 +527,11 @@ docs/GetLinkedInAggregateAnalytics200Response.md
 docs/GetLinkedInAggregateAnalytics400Response.md
 docs/GetLinkedInAggregateAnalytics402Response.md
 docs/GetLinkedInAggregateAnalytics403Response.md
+docs/GetLinkedInBidPricing200Response.md
+docs/GetLinkedInBidPricing200ResponsePricing.md
+docs/GetLinkedInBidPricing200ResponsePricingBidLimits.md
+docs/GetLinkedInBidPricing200ResponsePricingSuggestedBid.md
+docs/GetLinkedInBidPricingRequest.md
 docs/GetLinkedInMentions200Response.md
 docs/GetLinkedInOrganizations200Response.md
 docs/GetLinkedInOrganizations200ResponseOrganizationsInner.md
@@ -539,6 +544,12 @@ docs/GetLinkedInPostReactions200ResponsePagination.md
 docs/GetLinkedInPostReactions200ResponseReactionsInner.md
 docs/GetLinkedInPostReactions200ResponseReactionsInnerFrom.md
 docs/GetLinkedInPostReactions400Response.md
+docs/GetLinkedInSupplyForecast200Response.md
+docs/GetLinkedInSupplyForecast200ResponseForecastInner.md
+docs/GetLinkedInSupplyForecast200ResponseForecastInnerTimeSeriesInner.md
+docs/GetLinkedInSupplyForecast200ResponseForecastInnerTimeSeriesInnerAdForecastRange.md
+docs/GetLinkedInSupplyForecastRequest.md
+docs/GetLinkedInSupplyForecastRequestCompetingBid.md
 docs/GetMediaPresignedUrl200Response.md
 docs/GetMediaPresignedUrlRequest.md
 docs/GetMessengerMenu200Response.md
@@ -874,6 +885,7 @@ docs/MediaUploadResponse.md
 docs/MentionsApi.md
 docs/MessagesApi.md
 docs/Money.md
+docs/MoneyAmount.md
 docs/MoveAccountToProfile200Response.md
 docs/MoveAccountToProfileRequest.md
 docs/OnWhatsAppAutomaticEventRequest.md
@@ -2001,6 +2013,11 @@ src/models/get_linked_in_aggregate_analytics_200_response.rs
 src/models/get_linked_in_aggregate_analytics_400_response.rs
 src/models/get_linked_in_aggregate_analytics_402_response.rs
 src/models/get_linked_in_aggregate_analytics_403_response.rs
+src/models/get_linked_in_bid_pricing_200_response.rs
+src/models/get_linked_in_bid_pricing_200_response_pricing.rs
+src/models/get_linked_in_bid_pricing_200_response_pricing_bid_limits.rs
+src/models/get_linked_in_bid_pricing_200_response_pricing_suggested_bid.rs
+src/models/get_linked_in_bid_pricing_request.rs
 src/models/get_linked_in_mentions_200_response.rs
 src/models/get_linked_in_organizations_200_response.rs
 src/models/get_linked_in_organizations_200_response_organizations_inner.rs
@@ -2013,6 +2030,12 @@ src/models/get_linked_in_post_reactions_200_response_pagination.rs
 src/models/get_linked_in_post_reactions_200_response_reactions_inner.rs
 src/models/get_linked_in_post_reactions_200_response_reactions_inner_from.rs
 src/models/get_linked_in_post_reactions_400_response.rs
+src/models/get_linked_in_supply_forecast_200_response.rs
+src/models/get_linked_in_supply_forecast_200_response_forecast_inner.rs
+src/models/get_linked_in_supply_forecast_200_response_forecast_inner_time_series_inner.rs
+src/models/get_linked_in_supply_forecast_200_response_forecast_inner_time_series_inner_ad_forecast_range.rs
+src/models/get_linked_in_supply_forecast_request.rs
+src/models/get_linked_in_supply_forecast_request_competing_bid.rs
 src/models/get_media_presigned_url_200_response.rs
 src/models/get_media_presigned_url_request.rs
 src/models/get_messenger_menu_200_response.rs
@@ -2333,6 +2356,7 @@ src/models/media_item.rs
 src/models/media_upload_response.rs
 src/models/mod.rs
 src/models/money.rs
+src/models/money_amount.rs
 src/models/move_account_to_profile_200_response.rs
 src/models/move_account_to_profile_request.rs
 src/models/on_whats_app_automatic_event_request.rs
