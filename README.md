@@ -1213,6 +1213,7 @@ Class | Method | HTTP request | Description
  - [LinkedInAdsPlatformDataJobsHeadline](docs/LinkedInAdsPlatformDataJobsHeadline.md)
  - [LinkedInAdsPlatformDataSpotlight](docs/LinkedInAdsPlatformDataSpotlight.md)
  - [LinkedInAdsPlatformDataTextAd](docs/LinkedInAdsPlatformDataTextAd.md)
+ - [LinkedInAdsPlatformDataThoughtLeader](docs/LinkedInAdsPlatformDataThoughtLeader.md)
  - [LinkedInAggregateAnalyticsDailyResponse](docs/LinkedInAggregateAnalyticsDailyResponse.md)
  - [LinkedInAggregateAnalyticsDailyResponseAnalytics](docs/LinkedInAggregateAnalyticsDailyResponseAnalytics.md)
  - [LinkedInAggregateAnalyticsDailyResponseAnalyticsImpressionsInner](docs/LinkedInAggregateAnalyticsDailyResponseAnalyticsImpressionsInner.md)

@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **text_ad** | Option<[**models::LinkedInAdsPlatformDataTextAd**](LinkedInAdsPlatformDataTextAd.md)> |  | [optional]
 **conversation** | Option<[**models::LinkedInAdsPlatformDataConversation**](LinkedInAdsPlatformDataConversation.md)> |  | [optional]
 **event** | Option<[**models::LinkedInAdsPlatformDataEvent**](LinkedInAdsPlatformDataEvent.md)> |  | [optional]
+**thought_leader** | Option<[**models::LinkedInAdsPlatformDataThoughtLeader**](LinkedInAdsPlatformDataThoughtLeader.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

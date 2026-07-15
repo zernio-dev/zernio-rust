@@ -63,6 +63,8 @@ pub struct LinkedInAdsPlatformData {
     pub conversation: Option<Box<models::LinkedInAdsPlatformDataConversation>>,
     #[serde(rename = "event", skip_serializing_if = "Option::is_none")]
     pub event: Option<Box<models::LinkedInAdsPlatformDataEvent>>,
+    #[serde(rename = "thoughtLeader", skip_serializing_if = "Option::is_none")]
+    pub thought_leader: Option<Box<models::LinkedInAdsPlatformDataThoughtLeader>>,
 }
 
 impl LinkedInAdsPlatformData {
@@ -84,6 +86,7 @@ impl LinkedInAdsPlatformData {
             text_ad: None,
             conversation: None,
             event: None,
+            thought_leader: None,
         }
     }
 }

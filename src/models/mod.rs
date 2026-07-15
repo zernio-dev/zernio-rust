@@ -1392,6 +1392,8 @@ pub mod linked_in_ads_platform_data_spotlight;
 pub use self::linked_in_ads_platform_data_spotlight::LinkedInAdsPlatformDataSpotlight;
 pub mod linked_in_ads_platform_data_text_ad;
 pub use self::linked_in_ads_platform_data_text_ad::LinkedInAdsPlatformDataTextAd;
+pub mod linked_in_ads_platform_data_thought_leader;
+pub use self::linked_in_ads_platform_data_thought_leader::LinkedInAdsPlatformDataThoughtLeader;
 pub mod linked_in_aggregate_analytics_daily_response;
 pub use self::linked_in_aggregate_analytics_daily_response::LinkedInAggregateAnalyticsDailyResponse;
 pub mod linked_in_aggregate_analytics_daily_response_analytics;
