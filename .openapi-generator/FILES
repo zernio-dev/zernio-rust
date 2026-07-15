@@ -283,6 +283,7 @@ docs/CrosspostDiscordMessage200Response.md
 docs/CtwaMultiResponse.md
 docs/CtwaSingleResponse.md
 docs/CustomFieldsApi.md
+docs/DeactivateSmsRegistration200Response.md
 docs/DeleteAccountGroup200Response.md
 docs/DeleteAdCampaign200Response.md
 docs/DeleteAdCampaignRequest.md
@@ -1771,6 +1772,7 @@ src/models/create_workflow_request.rs
 src/models/crosspost_discord_message_200_response.rs
 src/models/ctwa_multi_response.rs
 src/models/ctwa_single_response.rs
+src/models/deactivate_sms_registration_200_response.rs
 src/models/delete_account_group_200_response.rs
 src/models/delete_ad_campaign_200_response.rs
 src/models/delete_ad_campaign_request.rs

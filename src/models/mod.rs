@@ -530,6 +530,8 @@ pub mod ctwa_multi_response;
 pub use self::ctwa_multi_response::CtwaMultiResponse;
 pub mod ctwa_single_response;
 pub use self::ctwa_single_response::CtwaSingleResponse;
+pub mod deactivate_sms_registration_200_response;
+pub use self::deactivate_sms_registration_200_response::DeactivateSmsRegistration200Response;
 pub mod delete_account_group_200_response;
 pub use self::delete_account_group_200_response::DeleteAccountGroup200Response;
 pub mod delete_ad_campaign_200_response;
