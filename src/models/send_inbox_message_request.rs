@@ -34,7 +34,7 @@ pub struct SendInboxMessageRequest {
     /// Quick reply buttons. Mutually exclusive with buttons. Max 13 items.
     #[serde(rename = "quickReplies", skip_serializing_if = "Option::is_none")]
     pub quick_replies: Option<Vec<models::SendInboxMessageRequestQuickRepliesInner>>,
-    /// Action buttons. Mutually exclusive with quickReplies. Max 3 items.
+    /// Action buttons. Mutually exclusive with quickReplies. Max 3 items.  WhatsApp: buttons always render as interactive reply buttons. Only `title` and `payload` are used — `type`, `url`, and `phone` are ignored (WhatsApp has no URL/phone button in this field; use the `interactive` field with `type: cta_url` for a link button). `payload` becomes the button reply ID delivered on the `message.received` webhook when the user taps. To send a simple reply-button message, provide `title` + `payload` and set `type: postback`, e.g. `{ \"type\": \"postback\", \"title\": \"Yes\", \"payload\": \"yes\" }`.
     #[serde(rename = "buttons", skip_serializing_if = "Option::is_none")]
     pub buttons: Option<Vec<models::SendInboxMessageRequestButtonsInner>>,
     #[serde(rename = "template", skip_serializing_if = "Option::is_none")]

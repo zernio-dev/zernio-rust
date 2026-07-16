@@ -13,16 +13,16 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SendInboxMessageRequestButtonsInner {
-    /// Button type. phone is Facebook only.
+    /// Button type. phone is Facebook only. Ignored on WhatsApp (buttons always render as reply buttons).
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Button label (max 20 chars)
     #[serde(rename = "title")]
     pub title: String,
-    /// URL for url-type buttons
+    /// URL for url-type buttons (Facebook/Instagram only)
     #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
-    /// Payload for postback-type buttons
+    /// Payload for postback-type buttons. On WhatsApp, this is the reply ID returned on the message.received webhook when the button is tapped.
     #[serde(rename = "payload", skip_serializing_if = "Option::is_none")]
     pub payload: Option<String>,
     /// Phone number for phone-type buttons (Facebook only)
@@ -41,7 +41,7 @@ impl SendInboxMessageRequestButtonsInner {
         }
     }
 }
-/// Button type. phone is Facebook only.
+/// Button type. phone is Facebook only. Ignored on WhatsApp (buttons always render as reply buttons).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "url")]
