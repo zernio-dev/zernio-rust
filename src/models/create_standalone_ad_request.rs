@@ -102,7 +102,10 @@ pub struct CreateStandaloneAdRequest {
     /// LinkedIn only. The Company Page that authors the Direct Sponsored Content (\"dark\") post backing the ad — accepts a numeric organization ID or a full `urn:li:organization:N` URN. Required unless the resolved `accountId` is a connected LinkedIn Company-Page account (defaults to that page) or the LinkedIn ad account is org-owned (defaults to the account's owning organization). The authenticated member must be an ADMINISTRATOR or DIRECT_SPONSORED_CONTENT_POSTER of this page (and the page must be associated with the ad account), or LinkedIn returns 403. Ignored by every other platform.
     #[serde(rename = "organizationId", skip_serializing_if = "Option::is_none")]
     pub organization_id: Option<String>,
-    /// ISO 3166-1 alpha-2 country codes (e.g. ['NL']). Defaults to ['US'] when no `cities` or `regions` are provided. (LinkedIn currently honours country-level targeting only.)
+    /// Nested targeting object — the same TargetingSpec shape as `POST /v1/ads/boost`, `POST /v1/ads/targeting/reach-estimate`, and `saved_targeting` audiences. Merged UNDER the flat inline targeting fields below: `savedTargetingId` < `targeting` < flat fields (a flat field present on the body replaces the nested value entirely). Both forms are equivalent; use whichever your integration already builds.
+    #[serde(rename = "targeting", skip_serializing_if = "Option::is_none")]
+    pub targeting: Option<Box<models::TargetingSpec>>,
+    /// ISO 3166-1 alpha-2 country codes (e.g. ['NL']). Defaults to ['US'] when no other geo targeting (flat or nested `targeting`) is provided. (LinkedIn currently honours country-level targeting only.)
     #[serde(rename = "countries", skip_serializing_if = "Option::is_none")]
     pub countries: Option<Vec<String>>,
     /// Meta-only. City-level geo targeting. Each city is targeted by Meta's opaque `key` (the city ID) which can be looked up via `GET /v1/ads/targeting/search?type=city&q=<name>&country_code=<ISO>`. Optional `radius` + `distance_unit` extend the targeting beyond the city limits (e.g. radius 25 km around the city center). Both must be set together, or both omitted (Meta defaults to ~16 km when omitted).  Cannot overlap with the same country in `countries` (Meta returns a \"locations overlap\" error). Either drop the country or scope it to a different country.
@@ -261,6 +264,7 @@ impl CreateStandaloneAdRequest {
             business_name: None,
             board_id: None,
             organization_id: None,
+            targeting: None,
             countries: None,
             cities: None,
             regions: None,

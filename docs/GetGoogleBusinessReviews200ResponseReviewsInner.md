@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **create_time** | Option<**String**> |  | [optional]
 **update_time** | Option<**String**> |  | [optional]
 **review_reply** | Option<[**models::GetGoogleBusinessReviews200ResponseReviewsInnerReviewReply**](GetGoogleBusinessReviews200ResponseReviewsInnerReviewReply.md)> |  | [optional]
+**photo_count** | Option<**i32**> | Number of photos attached to the review (photos only, videos are not counted) | [optional]
+**photos** | Option<[**Vec<models::GetGoogleBusinessReviews200ResponseReviewsInnerPhotosInner>**](GetGoogleBusinessReviews200ResponseReviewsInnerPhotosInner.md)> | Photos attached to the review by the reviewer | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

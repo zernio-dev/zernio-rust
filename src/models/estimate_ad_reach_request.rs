@@ -20,8 +20,8 @@ pub struct EstimateAdReachRequest {
     #[serde(rename = "adAccountId")]
     pub ad_account_id: String,
     /// The targeting spec to estimate. Same shape used by POST /v1/ads/create.
-    #[serde(rename = "spec")]
-    pub spec: Box<models::TargetingSpec>,
+    #[serde(rename = "spec", deserialize_with = "Option::deserialize")]
+    pub spec: Option<Box<models::TargetingSpec>>,
     /// Optional. The optimization goal the estimate should assume (platform's own vocabulary, e.g. Meta `REACH`, `LINK_CLICKS`, `OFFSITE_CONVERSIONS`). Some platforms vary the estimate by goal; omit to use the platform default.
     #[serde(rename = "optimizationGoal", skip_serializing_if = "Option::is_none")]
     pub optimization_goal: Option<String>,
@@ -31,12 +31,16 @@ impl EstimateAdReachRequest {
     pub fn new(
         account_id: String,
         ad_account_id: String,
-        spec: models::TargetingSpec,
+        spec: Option<models::TargetingSpec>,
     ) -> EstimateAdReachRequest {
         EstimateAdReachRequest {
             account_id,
             ad_account_id,
-            spec: Box::new(spec),
+            spec: if let Some(x) = spec {
+                Some(Box::new(x))
+            } else {
+                None
+            },
             optimization_goal: None,
         }
     }

@@ -37,6 +37,12 @@ pub struct GetGoogleBusinessReviews200ResponseReviewsInner {
     #[serde(rename = "reviewReply", skip_serializing_if = "Option::is_none")]
     pub review_reply:
         Option<Box<models::GetGoogleBusinessReviews200ResponseReviewsInnerReviewReply>>,
+    /// Number of photos attached to the review (photos only, videos are not counted)
+    #[serde(rename = "photoCount", skip_serializing_if = "Option::is_none")]
+    pub photo_count: Option<i32>,
+    /// Photos attached to the review by the reviewer
+    #[serde(rename = "photos", skip_serializing_if = "Option::is_none")]
+    pub photos: Option<Vec<models::GetGoogleBusinessReviews200ResponseReviewsInnerPhotosInner>>,
 }
 
 impl GetGoogleBusinessReviews200ResponseReviewsInner {
@@ -51,6 +57,8 @@ impl GetGoogleBusinessReviews200ResponseReviewsInner {
             create_time: None,
             update_time: None,
             review_reply: None,
+            photo_count: None,
+            photos: None,
         }
     }
 }

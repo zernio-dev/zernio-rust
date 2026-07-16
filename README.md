@@ -969,6 +969,7 @@ Class | Method | HTTP request | Description
  - [GetGoogleBusinessPerformance400Response](docs/GetGoogleBusinessPerformance400Response.md)
  - [GetGoogleBusinessReviews200Response](docs/GetGoogleBusinessReviews200Response.md)
  - [GetGoogleBusinessReviews200ResponseReviewsInner](docs/GetGoogleBusinessReviews200ResponseReviewsInner.md)
+ - [GetGoogleBusinessReviews200ResponseReviewsInnerPhotosInner](docs/GetGoogleBusinessReviews200ResponseReviewsInnerPhotosInner.md)
  - [GetGoogleBusinessReviews200ResponseReviewsInnerReviewReply](docs/GetGoogleBusinessReviews200ResponseReviewsInnerReviewReply.md)
  - [GetGoogleBusinessReviews200ResponseReviewsInnerReviewer](docs/GetGoogleBusinessReviews200ResponseReviewsInnerReviewer.md)
  - [GetGoogleBusinessSearchKeywords200Response](docs/GetGoogleBusinessSearchKeywords200Response.md)
