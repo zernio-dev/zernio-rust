@@ -597,6 +597,7 @@ pub async fn connect_ads(
     account_id: Option<&str>,
     redirect_url: Option<&str>,
     headless: Option<bool>,
+    force: Option<bool>,
     ad_account_id: Option<&str>,
     ad_account_ids: Option<Vec<String>>,
 ) -> Result<models::ConnectAds200Response, Error<ConnectAdsError>> {
@@ -606,6 +607,7 @@ pub async fn connect_ads(
     let p_query_account_id = account_id;
     let p_query_redirect_url = redirect_url;
     let p_query_headless = headless;
+    let p_query_force = force;
     let p_query_ad_account_id = ad_account_id;
     let p_query_ad_account_ids = ad_account_ids;
 
@@ -625,6 +627,9 @@ pub async fn connect_ads(
     }
     if let Some(ref param_value) = p_query_headless {
         req_builder = req_builder.query(&[("headless", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_force {
+        req_builder = req_builder.query(&[("force", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_ad_account_id {
         req_builder = req_builder.query(&[("adAccountId", &param_value.to_string())]);

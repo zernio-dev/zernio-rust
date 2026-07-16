@@ -117,10 +117,10 @@ pub struct CreateStandaloneAdRequest {
     pub interests: Option<Vec<models::UpdateAdRequestTargetingInterestsInner>>,
     /// Postal/ZIP geo targeting. `key` is the platform's postal location ID from /v1/ads/targeting/search?dimension=geo&geoType=zip. Supported on Meta, Google, TikTok, Pinterest, X.
     #[serde(rename = "zips", skip_serializing_if = "Option::is_none")]
-    pub zips: Option<Vec<models::CreateStandaloneAdRequestZipsInner>>,
+    pub zips: Option<Vec<models::BoostPostRequestTargetingRegionsInner>>,
     /// DMA / metro-area geo targeting. `key` is the platform's metro ID from /v1/ads/targeting/search?dimension=geo&geoType=metro.
     #[serde(rename = "metros", skip_serializing_if = "Option::is_none")]
-    pub metros: Option<Vec<models::CreateStandaloneAdRequestZipsInner>>,
+    pub metros: Option<Vec<models::BoostPostRequestTargetingRegionsInner>>,
     /// Point-radius (lat/lng) geo targeting. Meta only (custom_locations). Rejected on platforms without radius support.
     #[serde(rename = "customLocations", skip_serializing_if = "Option::is_none")]
     pub custom_locations: Option<Vec<models::CreateStandaloneAdRequestCustomLocationsInner>>,

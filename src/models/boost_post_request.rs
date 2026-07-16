@@ -38,6 +38,9 @@ pub struct BoostPostRequest {
     pub schedule: Option<Box<models::BoostPostRequestSchedule>>,
     #[serde(rename = "targeting", skip_serializing_if = "Option::is_none")]
     pub targeting: Option<Box<models::BoostPostRequestTargeting>>,
+    /// Meta only. A verbatim Meta-native targeting spec (e.g. `{ \"geo_locations\": { \"cities\": [{ \"key\": \"...\", \"radius\": 15, \"distance_unit\": \"kilometer\" }] } }`), forwarded unchanged. Mutually exclusive with `targeting` (sending both is a 400). Use for advanced fields the structured object does not expose (flexible_spec, excluded audiences, business places).
+    #[serde(rename = "rawTargeting", skip_serializing_if = "Option::is_none")]
+    pub raw_targeting: Option<std::collections::HashMap<String, serde_json::Value>>,
     /// Meta bid strategy applied to the ad set. On TikTok, mapped to `bid_type` / `bid_price` / `deep_bid_type` automatically.
     #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
     pub bid_strategy: Option<models::BidStrategy>,
@@ -96,6 +99,7 @@ impl BoostPostRequest {
             currency: None,
             schedule: None,
             targeting: None,
+            raw_targeting: None,
             bid_strategy: None,
             bid_amount: None,
             roas_average_floor: None,

@@ -88,6 +88,9 @@ docs/BoostPostRequest.md
 docs/BoostPostRequestBudget.md
 docs/BoostPostRequestSchedule.md
 docs/BoostPostRequestTargeting.md
+docs/BoostPostRequestTargetingCitiesInner.md
+docs/BoostPostRequestTargetingCustomLocationsInner.md
+docs/BoostPostRequestTargetingRegionsInner.md
 docs/BoostPostRequestTracking.md
 docs/BroadcastsApi.md
 docs/BulkCreateContacts200Response.md
@@ -250,7 +253,6 @@ docs/CreateStandaloneAdRequestPromotedObject.md
 docs/CreateStandaloneAdRequestRegionsInner.md
 docs/CreateStandaloneAdRequestTracking.md
 docs/CreateStandaloneAdRequestVideo.md
-docs/CreateStandaloneAdRequestZipsInner.md
 docs/CreateTestLead200Response.md
 docs/CreateTestLead200ResponseTestLead.md
 docs/CreateTestLeadRequest.md
@@ -1584,6 +1586,9 @@ src/models/boost_post_request.rs
 src/models/boost_post_request_budget.rs
 src/models/boost_post_request_schedule.rs
 src/models/boost_post_request_targeting.rs
+src/models/boost_post_request_targeting_cities_inner.rs
+src/models/boost_post_request_targeting_custom_locations_inner.rs
+src/models/boost_post_request_targeting_regions_inner.rs
 src/models/boost_post_request_tracking.rs
 src/models/bulk_create_contacts_200_response.rs
 src/models/bulk_create_contacts_request.rs
@@ -1740,7 +1745,6 @@ src/models/create_standalone_ad_request_promoted_object.rs
 src/models/create_standalone_ad_request_regions_inner.rs
 src/models/create_standalone_ad_request_tracking.rs
 src/models/create_standalone_ad_request_video.rs
-src/models/create_standalone_ad_request_zips_inner.rs
 src/models/create_test_lead_200_response.rs
 src/models/create_test_lead_200_response_test_lead.rs
 src/models/create_test_lead_request.rs

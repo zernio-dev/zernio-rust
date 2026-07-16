@@ -17,12 +17,12 @@ pub struct TargetingSpecExcludedLocations {
     #[serde(rename = "countries", skip_serializing_if = "Option::is_none")]
     pub countries: Option<Vec<String>>,
     #[serde(rename = "regions", skip_serializing_if = "Option::is_none")]
-    pub regions: Option<Vec<models::CreateStandaloneAdRequestZipsInner>>,
+    pub regions: Option<Vec<models::BoostPostRequestTargetingRegionsInner>>,
     /// Cities to exclude. Optional `radius` + `distance_unit` exclude a catchment around the city (both must be set together or both omitted); Meta honours the radius on excluded cities.
     #[serde(rename = "cities", skip_serializing_if = "Option::is_none")]
     pub cities: Option<Vec<models::TargetingSpecExcludedLocationsCitiesInner>>,
     #[serde(rename = "zips", skip_serializing_if = "Option::is_none")]
-    pub zips: Option<Vec<models::CreateStandaloneAdRequestZipsInner>>,
+    pub zips: Option<Vec<models::BoostPostRequestTargetingRegionsInner>>,
     /// Named points of interest to exclude. `key` from /v1/ads/targeting/search.
     #[serde(rename = "places", skip_serializing_if = "Option::is_none")]
     pub places: Option<Vec<models::TargetingSpecExcludedLocationsPlacesInner>>,

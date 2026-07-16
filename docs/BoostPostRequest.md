@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **currency** | Option<**String**> |  | [optional]
 **schedule** | Option<[**models::BoostPostRequestSchedule**](BoostPostRequestSchedule.md)> |  | [optional]
 **targeting** | Option<[**models::BoostPostRequestTargeting**](BoostPostRequestTargeting.md)> |  | [optional]
+**raw_targeting** | Option<**std::collections::HashMap<String, serde_json::Value>**> | Meta only. A verbatim Meta-native targeting spec (e.g. `{ \"geo_locations\": { \"cities\": [{ \"key\": \"...\", \"radius\": 15, \"distance_unit\": \"kilometer\" }] } }`), forwarded unchanged. Mutually exclusive with `targeting` (sending both is a 400). Use for advanced fields the structured object does not expose (flexible_spec, excluded audiences, business places).  | [optional]
 **bid_strategy** | Option<[**models::BidStrategy**](BidStrategy.md)> | Meta bid strategy applied to the ad set. On TikTok, mapped to `bid_type` / `bid_price` / `deep_bid_type` automatically.  | [optional]
 **bid_amount** | Option<**f64**> | Bid cap in WHOLE currency units (USD: 5 = $5.00; JPY: 100 = ¥100). Required when `bidStrategy` is `LOWEST_COST_WITH_BID_CAP` or `COST_CAP`. Backward-compat: providing `bidAmount` without `bidStrategy` is treated as `LOWEST_COST_WITH_BID_CAP`.  | [optional]
 **roas_average_floor** | Option<**f64**> | Minimum ROAS as a decimal multiplier (e.g. 2.0 = 2.0x ROAS). Required when `bidStrategy` is `LOWEST_COST_WITH_MIN_ROAS`. Sent to Meta as `bid_constraints.roas_average_floor` × 10000 (Meta uses fixed-point integers).  | [optional]

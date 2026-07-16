@@ -11,15 +11,37 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// BoostPostRequestTargeting : Same geo/demographic fields as the `TargetingSpec` used by /v1/ads/create. Geo keys (`regions`/`cities`/`zips`/`metros`) resolve via GET /v1/ads/targeting/search?dimension=geo. City radius and lat/lng `customLocations` are Meta-only and preserve the boosted post's social proof (the ad references the existing post).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BoostPostRequestTargeting {
     #[serde(rename = "ageMin", skip_serializing_if = "Option::is_none")]
     pub age_min: Option<i32>,
     #[serde(rename = "ageMax", skip_serializing_if = "Option::is_none")]
     pub age_max: Option<i32>,
+    /// Meta only.
+    #[serde(rename = "gender", skip_serializing_if = "Option::is_none")]
+    pub gender: Option<Gender>,
+    /// Meta locale ids (numeric), passed through as given.
+    #[serde(rename = "languages", skip_serializing_if = "Option::is_none")]
+    pub languages: Option<Vec<String>>,
     /// ISO country codes. Required for TikTok boosts (TikTok's ad group requires location_ids); optional on other platforms.
     #[serde(rename = "countries", skip_serializing_if = "Option::is_none")]
     pub countries: Option<Vec<String>>,
+    /// Region/state targeting. `key` from /v1/ads/targeting/search?dimension=geo&geoType=region.
+    #[serde(rename = "regions", skip_serializing_if = "Option::is_none")]
+    pub regions: Option<Vec<models::BoostPostRequestTargetingRegionsInner>>,
+    /// City targeting. Optional `radius` + `distance_unit` extend beyond the city limits (both set together, Meta only).
+    #[serde(rename = "cities", skip_serializing_if = "Option::is_none")]
+    pub cities: Option<Vec<models::BoostPostRequestTargetingCitiesInner>>,
+    /// Postal/ZIP targeting. `key` is the platform's postal location ID (e.g. Meta `US:94304`).
+    #[serde(rename = "zips", skip_serializing_if = "Option::is_none")]
+    pub zips: Option<Vec<models::BoostPostRequestTargetingRegionsInner>>,
+    /// DMA / metro-area targeting. `key` is the platform's metro ID (e.g. Meta `DMA:807`).
+    #[serde(rename = "metros", skip_serializing_if = "Option::is_none")]
+    pub metros: Option<Vec<models::BoostPostRequestTargetingRegionsInner>>,
+    /// Point-radius (lat/lng) targeting (Meta custom_locations). No geo `key` lookup needed.
+    #[serde(rename = "customLocations", skip_serializing_if = "Option::is_none")]
+    pub custom_locations: Option<Vec<models::BoostPostRequestTargetingCustomLocationsInner>>,
     /// Interest objects from /v1/ads/interests. Each must include id and name.
     #[serde(rename = "interests", skip_serializing_if = "Option::is_none")]
     pub interests: Option<Vec<models::UpdateAdRequestTargetingInterestsInner>>,
@@ -29,14 +51,38 @@ pub struct BoostPostRequestTargeting {
 }
 
 impl BoostPostRequestTargeting {
+    /// Same geo/demographic fields as the `TargetingSpec` used by /v1/ads/create. Geo keys (`regions`/`cities`/`zips`/`metros`) resolve via GET /v1/ads/targeting/search?dimension=geo. City radius and lat/lng `customLocations` are Meta-only and preserve the boosted post's social proof (the ad references the existing post).
     pub fn new() -> BoostPostRequestTargeting {
         BoostPostRequestTargeting {
             age_min: None,
             age_max: None,
+            gender: None,
+            languages: None,
             countries: None,
+            regions: None,
+            cities: None,
+            zips: None,
+            metros: None,
+            custom_locations: None,
             interests: None,
             advantage_audience: None,
         }
+    }
+}
+/// Meta only.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Gender {
+    #[serde(rename = "all")]
+    All,
+    #[serde(rename = "male")]
+    Male,
+    #[serde(rename = "female")]
+    Female,
+}
+
+impl Default for Gender {
+    fn default() -> Gender {
+        Self::All
     }
 }
 /// Meta only. 0 = disabled (default), 1 = enabled.
