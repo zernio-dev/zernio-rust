@@ -1178,6 +1178,7 @@ docs/UpdateAdAudienceRequest.md
 docs/UpdateAdCampaign200Response.md
 docs/UpdateAdCampaignRequest.md
 docs/UpdateAdCampaignRequestBudget.md
+docs/UpdateAdCampaignRequestPlatformSpecificData.md
 docs/UpdateAdCampaignStatus200Response.md
 docs/UpdateAdCampaignStatusRequest.md
 docs/UpdateAdRequest.md
@@ -1188,6 +1189,8 @@ docs/UpdateAdRequestTargetingInterestsInner.md
 docs/UpdateAdSet200Response.md
 docs/UpdateAdSetRequest.md
 docs/UpdateAdSetRequestBudget.md
+docs/UpdateAdSetRequestPlatformSpecificData.md
+docs/UpdateAdSetRequestPlatformSpecificDataPromotedObject.md
 docs/UpdateAdSetStatus200Response.md
 docs/UpdateAdStatus200Response.md
 docs/UpdateAdStatusRequest.md
@@ -2644,6 +2647,7 @@ src/models/update_ad_audience_request.rs
 src/models/update_ad_campaign_200_response.rs
 src/models/update_ad_campaign_request.rs
 src/models/update_ad_campaign_request_budget.rs
+src/models/update_ad_campaign_request_platform_specific_data.rs
 src/models/update_ad_campaign_status_200_response.rs
 src/models/update_ad_campaign_status_request.rs
 src/models/update_ad_request.rs
@@ -2654,6 +2658,8 @@ src/models/update_ad_request_targeting_interests_inner.rs
 src/models/update_ad_set_200_response.rs
 src/models/update_ad_set_request.rs
 src/models/update_ad_set_request_budget.rs
+src/models/update_ad_set_request_platform_specific_data.rs
+src/models/update_ad_set_request_platform_specific_data_promoted_object.rs
 src/models/update_ad_set_status_200_response.rs
 src/models/update_ad_status_200_response.rs
 src/models/update_ad_status_request.rs

@@ -21,6 +21,11 @@ pub struct UpdateAdCampaign200Response {
     pub budget_level: Option<BudgetLevel>,
     #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
     pub bid_strategy: Option<models::BidStrategy>,
+    #[serde(
+        rename = "platformSpecificData",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub platform_specific_data: Option<serde_json::Value>,
 }
 
 impl UpdateAdCampaign200Response {
@@ -30,6 +35,7 @@ impl UpdateAdCampaign200Response {
             budget: None,
             budget_level: None,
             bid_strategy: None,
+            platform_specific_data: None,
         }
     }
 }

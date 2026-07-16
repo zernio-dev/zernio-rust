@@ -36,6 +36,9 @@ pub struct CreateStandaloneAdRequest {
     /// Meta only. Explicit ad-set `optimization_goal` (e.g. `LANDING_PAGE_VIEWS`, `LINK_CLICKS`, `REACH`, `IMPRESSIONS`, `OFFSITE_CONVERSIONS`, `THRUPLAY`, `LEAD_GENERATION`). Overrides the default derived from `goal` (e.g. `traffic` defaults to `LINK_CLICKS`). Forwarded verbatim to Meta, which validates compatibility with the campaign objective and rejects incompatible combinations.
     #[serde(rename = "optimizationGoal", skip_serializing_if = "Option::is_none")]
     pub optimization_goal: Option<String>,
+    /// Meta only. Explicit ad-set `billing_event`. Defaults to `IMPRESSIONS`. Forwarded verbatim to Meta, which validates compatibility with the optimization goal.
+    #[serde(rename = "billingEvent", skip_serializing_if = "Option::is_none")]
+    pub billing_event: Option<String>,
     /// Required on legacy + multi-creative shapes. Inherited on attach.
     #[serde(rename = "budgetAmount", skip_serializing_if = "Option::is_none")]
     pub budget_amount: Option<f64>,
@@ -235,6 +238,7 @@ impl CreateStandaloneAdRequest {
             tracking: None,
             goal: None,
             optimization_goal: None,
+            billing_event: None,
             budget_amount: None,
             budget_type: None,
             status: None,

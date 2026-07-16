@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **budget** | Option<[**models::AdBudget**](AdBudget.md)> |  | [optional]
 **budget_level** | Option<**BudgetLevel**> |  (enum: campaign) | [optional]
 **bid_strategy** | Option<[**models::BidStrategy**](BidStrategy.md)> |  | [optional]
+**platform_specific_data** | Option<**serde_json::Value**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

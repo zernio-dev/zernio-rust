@@ -39,6 +39,11 @@ pub struct UpdateAdSet200Response {
         skip_serializing_if = "Option::is_none"
     )]
     pub roas_average_floor: Option<Option<f64>>,
+    #[serde(
+        rename = "platformSpecificData",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub platform_specific_data: Option<serde_json::Value>,
 }
 
 impl UpdateAdSet200Response {
@@ -52,6 +57,7 @@ impl UpdateAdSet200Response {
             bid_strategy: None,
             bid_amount: None,
             roas_average_floor: None,
+            platform_specific_data: None,
         }
     }
 }
