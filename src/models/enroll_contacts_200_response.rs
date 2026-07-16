@@ -18,9 +18,12 @@ pub struct EnrollContacts200Response {
     /// Number of contacts successfully enrolled
     #[serde(rename = "enrolled", skip_serializing_if = "Option::is_none")]
     pub enrolled: Option<i32>,
-    /// Number skipped (already enrolled or missing channel)
-    #[serde(rename = "skipped", skip_serializing_if = "Option::is_none")]
-    pub skipped: Option<i32>,
+    /// Number that failed (already enrolled, or no subscribed channel on the sequence platform)
+    #[serde(rename = "failed", skip_serializing_if = "Option::is_none")]
+    pub failed: Option<i32>,
+    /// Per-contact outcome
+    #[serde(rename = "results", skip_serializing_if = "Option::is_none")]
+    pub results: Option<Vec<models::EnrollContacts200ResponseResultsInner>>,
 }
 
 impl EnrollContacts200Response {
@@ -28,7 +31,8 @@ impl EnrollContacts200Response {
         EnrollContacts200Response {
             success: None,
             enrolled: None,
-            skipped: None,
+            failed: None,
+            results: None,
         }
     }
 }

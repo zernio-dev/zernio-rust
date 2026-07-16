@@ -29,6 +29,7 @@ pub enum CreateQueueSlotError {
 pub enum DeleteQueueSlotError {
     Status400(),
     Status401(models::InlineObject),
+    Status404(),
     UnknownValue(serde_json::Value),
 }
 
@@ -122,11 +123,11 @@ pub async fn create_queue_slot(
     }
 }
 
-/// Delete a queue from a profile. Requires queueId to specify which queue to delete. If deleting the default queue, another queue will be promoted to default.
+/// Delete a queue from a profile. Pass queueId to delete a specific queue; omit it to delete all queues for the profile. If deleting the default queue, another queue will be promoted to default.
 pub async fn delete_queue_slot(
     configuration: &configuration::Configuration,
     profile_id: &str,
-    queue_id: &str,
+    queue_id: Option<&str>,
 ) -> Result<models::QueueDeleteResponse, Error<DeleteQueueSlotError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_profile_id = profile_id;
@@ -138,7 +139,9 @@ pub async fn delete_queue_slot(
         .request(reqwest::Method::DELETE, &uri_str);
 
     req_builder = req_builder.query(&[("profileId", &p_query_profile_id.to_string())]);
-    req_builder = req_builder.query(&[("queueId", &p_query_queue_id.to_string())]);
+    if let Some(ref param_value) = p_query_queue_id {
+        req_builder = req_builder.query(&[("queueId", &param_value.to_string())]);
+    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }

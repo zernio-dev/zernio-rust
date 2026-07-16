@@ -342,6 +342,7 @@ docs/EnableWhatsAppCallingLegacy200Response.md
 docs/EnableWhatsAppCallingLegacyRequest.md
 docs/EndVoiceCall200Response.md
 docs/EnrollContacts200Response.md
+docs/EnrollContacts200ResponseResultsInner.md
 docs/EnrollContactsRequest.md
 docs/ErrorResponse.md
 docs/EstimateAdReach200Response.md
@@ -1832,6 +1833,7 @@ src/models/enable_whats_app_calling_legacy_200_response.rs
 src/models/enable_whats_app_calling_legacy_request.rs
 src/models/end_voice_call_200_response.rs
 src/models/enroll_contacts_200_response.rs
+src/models/enroll_contacts_200_response_results_inner.rs
 src/models/enroll_contacts_request.rs
 src/models/error_response.rs
 src/models/estimate_ad_reach_200_response.rs

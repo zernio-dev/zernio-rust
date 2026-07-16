@@ -646,6 +646,8 @@ pub mod end_voice_call_200_response;
 pub use self::end_voice_call_200_response::EndVoiceCall200Response;
 pub mod enroll_contacts_200_response;
 pub use self::enroll_contacts_200_response::EnrollContacts200Response;
+pub mod enroll_contacts_200_response_results_inner;
+pub use self::enroll_contacts_200_response_results_inner::EnrollContacts200ResponseResultsInner;
 pub mod enroll_contacts_request;
 pub use self::enroll_contacts_request::EnrollContactsRequest;
 pub mod error_response;

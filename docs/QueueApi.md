@@ -48,7 +48,7 @@ Name | Type | Description  | Required | Notes
 > models::QueueDeleteResponse delete_queue_slot(profile_id, queue_id)
 Delete schedule
 
-Delete a queue from a profile. Requires queueId to specify which queue to delete. If deleting the default queue, another queue will be promoted to default. 
+Delete a queue from a profile. Pass queueId to delete a specific queue; omit it to delete all queues for the profile. If deleting the default queue, another queue will be promoted to default. 
 
 ### Parameters
 
@@ -56,7 +56,7 @@ Delete a queue from a profile. Requires queueId to specify which queue to delete
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **profile_id** | **String** |  | [required] |
-**queue_id** | **String** | Queue ID to delete | [required] |
+**queue_id** | Option<**String**> | Queue ID to delete. Omit to delete all queues for the profile |  |
 
 ### Return type
 

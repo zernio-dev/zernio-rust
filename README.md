@@ -841,6 +841,7 @@ Class | Method | HTTP request | Description
  - [EnableWhatsAppCallingLegacyRequest](docs/EnableWhatsAppCallingLegacyRequest.md)
  - [EndVoiceCall200Response](docs/EndVoiceCall200Response.md)
  - [EnrollContacts200Response](docs/EnrollContacts200Response.md)
+ - [EnrollContacts200ResponseResultsInner](docs/EnrollContacts200ResponseResultsInner.md)
  - [EnrollContactsRequest](docs/EnrollContactsRequest.md)
  - [ErrorResponse](docs/ErrorResponse.md)
  - [EstimateAdReach200Response](docs/EstimateAdReach200Response.md)
