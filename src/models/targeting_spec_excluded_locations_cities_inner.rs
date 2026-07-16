@@ -15,11 +15,11 @@ use serde::{Deserialize, Serialize};
 pub struct TargetingSpecExcludedLocationsCitiesInner {
     #[serde(rename = "key")]
     pub key: String,
-    /// Radius around the excluded city. Requires distance_unit.
+    /// Radius around the excluded city. Requires distanceUnit.
     #[serde(rename = "radius", skip_serializing_if = "Option::is_none")]
     pub radius: Option<f64>,
     /// Required if radius is set.
-    #[serde(rename = "distance_unit", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "distanceUnit", skip_serializing_if = "Option::is_none")]
     pub distance_unit: Option<DistanceUnit>,
 }
 

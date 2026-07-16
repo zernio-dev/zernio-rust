@@ -20,6 +20,25 @@ pub struct YouTubeDemographicsResponse {
     pub account_id: Option<String>,
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<String>,
+    /// Present only when demographics are scoped to a single video
+    #[serde(rename = "videoId", skip_serializing_if = "Option::is_none")]
+    pub video_id: Option<String>,
+    /// Video title (video mode only)
+    #[serde(
+        rename = "title",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub title: Option<Option<String>>,
+    /// Video publish date (video mode only)
+    #[serde(
+        rename = "publishedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub published_at: Option<Option<String>>,
     /// Object keyed by breakdown dimension (age, gender, country)
     #[serde(rename = "demographics", skip_serializing_if = "Option::is_none")]
     pub demographics: Option<
@@ -40,6 +59,9 @@ impl YouTubeDemographicsResponse {
             success: None,
             account_id: None,
             platform: None,
+            video_id: None,
+            title: None,
+            published_at: None,
             demographics: None,
             date_range: None,
             note: None,

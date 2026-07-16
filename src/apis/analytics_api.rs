@@ -1729,16 +1729,18 @@ pub async fn get_you_tube_daily_views(
     }
 }
 
-/// Returns audience demographic insights for a YouTube channel, broken down by age, gender, and/or country. Age and gender values are viewer percentages (0-100). Country values are view counts. Data is based on signed-in viewers only, with a 2-3 day delay. Requires the Analytics add-on.
+/// Returns audience demographic insights for a YouTube channel, broken down by age, gender, and/or country. Pass videoId to get the audience profile of a single video instead of the whole channel. Age and gender values are viewer percentages (0-100). Country values are view counts. Data is based on signed-in viewers only, with a 2-3 day delay. YouTube suppresses demographics for videos with too few signed-in views, so low-traffic videos can return empty breakdowns. Requires the Analytics add-on.
 pub async fn get_you_tube_demographics(
     configuration: &configuration::Configuration,
     account_id: &str,
+    video_id: Option<&str>,
     breakdown: Option<&str>,
     start_date: Option<String>,
     end_date: Option<String>,
 ) -> Result<models::YouTubeDemographicsResponse, Error<GetYouTubeDemographicsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_account_id = account_id;
+    let p_query_video_id = video_id;
     let p_query_breakdown = breakdown;
     let p_query_start_date = start_date;
     let p_query_end_date = end_date;
@@ -1750,6 +1752,9 @@ pub async fn get_you_tube_demographics(
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_video_id {
+        req_builder = req_builder.query(&[("videoId", &param_value.to_string())]);
+    }
     if let Some(ref param_value) = p_query_breakdown {
         req_builder = req_builder.query(&[("breakdown", &param_value.to_string())]);
     }

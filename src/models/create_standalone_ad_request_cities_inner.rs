@@ -16,7 +16,7 @@ pub struct CreateStandaloneAdRequestCitiesInner {
     /// Meta city ID, from /v1/ads/targeting/search results.
     #[serde(rename = "key")]
     pub key: String,
-    /// Optional radius around the city. Must be set together with distance_unit.
+    /// Optional radius around the city. Must be set together with distance_unit. Meta enforces a minimum city radius (~17 km / 10 mi); smaller values resolve to a 0-size audience and the ad fails at launch. For a tighter catchment use customLocations (lat/lng).
     #[serde(rename = "radius", skip_serializing_if = "Option::is_none")]
     pub radius: Option<f64>,
     /// Unit for radius. Required if radius is set.

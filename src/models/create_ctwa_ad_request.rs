@@ -51,7 +51,7 @@ pub struct CreateCtwaAdRequest {
     /// ISO 3166-1 alpha-2 country codes. Defaults to `[\"US\"]` only when no other geo (`cities`, `regions`, `zips`, `metros`, `customLocations`) is supplied.
     #[serde(rename = "countries", skip_serializing_if = "Option::is_none")]
     pub countries: Option<Vec<String>>,
-    /// City-level geo targeting for local CTWA campaigns (e.g. 25km radius around Milan). Each entry maps to Meta's TargetingGeoLocationCity. `key` is Meta's city ID (lookupable via GET /v1/ads/targeting/search). `radius` and `distance_unit` are coupled: set both or neither.
+    /// City-level geo targeting for local CTWA campaigns (e.g. 25km radius around Milan). Each entry maps to Meta's TargetingGeoLocationCity. `key` is Meta's city ID (lookupable via GET /v1/ads/targeting/search). `radius` and `distance_unit` are coupled: set both or neither. Meta enforces a minimum city radius (~17 km / 10 mi); smaller values resolve to a 0-size audience and the ad fails at launch. For a tighter catchment use customLocations (lat/lng).
     #[serde(rename = "cities", skip_serializing_if = "Option::is_none")]
     pub cities: Option<Vec<models::CreateCtwaAdRequestCitiesInner>>,
     /// Region / state-level geo targeting. `key` is Meta's region ID (lookupable via GET /v1/ads/targeting/search?type=region).

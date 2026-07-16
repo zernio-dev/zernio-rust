@@ -17,11 +17,11 @@ pub struct TargetingSpecCitiesInner {
     pub key: String,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Radius around the city. Requires distance_unit.
+    /// Radius around the city. Requires distanceUnit. Meta enforces a minimum city radius (~17 km / 10 mi); smaller values resolve to a 0-size audience and the ad fails at launch. For a tighter catchment use customLocations (lat/lng), which allows a smaller radius.
     #[serde(rename = "radius", skip_serializing_if = "Option::is_none")]
     pub radius: Option<f64>,
     /// Required if radius is set.
-    #[serde(rename = "distance_unit", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "distanceUnit", skip_serializing_if = "Option::is_none")]
     pub distance_unit: Option<DistanceUnit>,
 }
 
