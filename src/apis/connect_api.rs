@@ -113,6 +113,7 @@ pub enum GetFacebookPagesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetGmbLocationsError {
+    Status400(),
     Status401(models::InlineObject),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -968,17 +969,19 @@ pub async fn get_facebook_pages(
     }
 }
 
-/// Returns Google Business Profile locations the connected account can access, plus the currently selected location. The list is bounded (see hasMore); for accounts that own many locations, use the search or filter query params to find a specific one instead of loading them all.
+/// Returns Google Business Profile locations the connected account can access, plus the currently selected location. The list is bounded (see hasMore); for accounts that own many locations, use the search or filter query params to find a specific one instead of loading them all, or raise limit to enumerate an account with more than 100 locations.
 pub async fn get_gmb_locations(
     configuration: &configuration::Configuration,
     account_id: &str,
     search: Option<&str>,
     filter: Option<&str>,
+    limit: Option<i32>,
 ) -> Result<models::GetGmbLocations200Response, Error<GetGmbLocationsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_account_id = account_id;
     let p_query_search = search;
     let p_query_filter = filter;
+    let p_query_limit = limit;
 
     let uri_str = format!(
         "{}/v1/accounts/{accountId}/gmb-locations",
@@ -992,6 +995,9 @@ pub async fn get_gmb_locations(
     }
     if let Some(ref param_value) = p_query_filter {
         req_builder = req_builder.query(&[("filter", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());

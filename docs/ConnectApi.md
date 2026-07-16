@@ -331,10 +331,10 @@ Name | Type | Description  | Required | Notes
 
 ## get_gmb_locations
 
-> models::GetGmbLocations200Response get_gmb_locations(account_id, search, filter)
+> models::GetGmbLocations200Response get_gmb_locations(account_id, search, filter, limit)
 List GBP locations
 
-Returns Google Business Profile locations the connected account can access, plus the currently selected location. The list is bounded (see hasMore); for accounts that own many locations, use the search or filter query params to find a specific one instead of loading them all. 
+Returns Google Business Profile locations the connected account can access, plus the currently selected location. The list is bounded (see hasMore); for accounts that own many locations, use the search or filter query params to find a specific one instead of loading them all, or raise limit to enumerate an account with more than 100 locations. 
 
 ### Parameters
 
@@ -344,6 +344,7 @@ Name | Type | Description  | Required | Notes
 **account_id** | **String** |  | [required] |
 **search** | Option<**String**> | Free-text search on the business name, applied server-side by Google. Use for accounts with many locations. |  |
 **filter** | Option<**String**> | Raw Google Business Information API filter expression (advanced; takes precedence over search), e.g. storeCode=\"LH279411\". |  |
+**limit** | Option<**i32**> | Max locations to return (default 100, max 500). Raise it to enumerate an account with more than 100 locations; for accounts with thousands, use search/filter instead. |  |[default to 100]
 
 ### Return type
 

@@ -44,7 +44,7 @@ pub struct TargetingSpec {
     /// Normalized household-income tier (ZIP/percentile based). Meta and TikTok express all four. Google maps only `top_10` (its INCOME_RANGE_90_UP); other tiers on Google, and any income tier on LinkedIn / X / Pinterest, are rejected. On Meta, income/zip targeting requires the relevant `specialAdCategories` to be unset (housing/employment/credit ads cannot use it).
     #[serde(rename = "incomeTier", skip_serializing_if = "Option::is_none")]
     pub income_tier: Option<IncomeTier>,
-    /// Language codes (e.g. ['en']).
+    /// Language codes restricting the audience by language. On Meta, ISO 639-1 codes (e.g. ['en']); a bare code targets all regional variants (\"en\" = all English), or use a region-qualified code (\"en_GB\", \"pt_BR\") for a specific one. Unknown codes are rejected.
     #[serde(rename = "languages", skip_serializing_if = "Option::is_none")]
     pub languages: Option<Vec<String>>,
     /// Interest entities from /v1/ads/targeting/search?dimension=interest. Each carries the platform's opaque id.
