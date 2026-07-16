@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**platform** | **Platform** |  (enum: facebook, instagram, tiktok) | 
+**platform** | **Platform** |  (enum: facebook, instagram, tiktok, linkedin) | 
 **deep_copy** | Option<**bool**> | Copy child ad sets + ads + creatives + targeting | [optional][default to true]
-**status_option** | Option<**StatusOption**> |  (enum: ACTIVE, PAUSED, INHERITED_FROM_SOURCE) | [optional][default to Paused]
+**status_option** | Option<**StatusOption**> | ACTIVE = launch the clone immediately (spends the moment LinkedIn approves it). PAUSED = clone stays DRAFT, safe default. INHERITED_FROM_SOURCE = mirror each entity's source status per-entity. Duplicating an ACTIVE campaign this way starts a second front of spend.  (enum: ACTIVE, PAUSED, INHERITED_FROM_SOURCE) | [optional][default to Paused]
 **start_time** | Option<**String**> | Reschedule the copied hierarchy's start time | [optional]
 **end_time** | Option<**String**> |  | [optional]
 **rename_strategy** | Option<**RenameStrategy**> |  (enum: DEEP_RENAME, ONLY_TOP_LEVEL_RENAME, NO_RENAME) | [optional]

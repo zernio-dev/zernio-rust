@@ -18,6 +18,7 @@ pub struct DuplicateAdCampaignRequest {
     /// Copy child ad sets + ads + creatives + targeting
     #[serde(rename = "deepCopy", skip_serializing_if = "Option::is_none")]
     pub deep_copy: Option<bool>,
+    /// ACTIVE = launch the clone immediately (spends the moment LinkedIn approves it). PAUSED = clone stays DRAFT, safe default. INHERITED_FROM_SOURCE = mirror each entity's source status per-entity. Duplicating an ACTIVE campaign this way starts a second front of spend.
     #[serde(rename = "statusOption", skip_serializing_if = "Option::is_none")]
     pub status_option: Option<StatusOption>,
     /// Reschedule the copied hierarchy's start time
@@ -60,6 +61,8 @@ pub enum Platform {
     Instagram,
     #[serde(rename = "tiktok")]
     Tiktok,
+    #[serde(rename = "linkedin")]
+    Linkedin,
 }
 
 impl Default for Platform {
@@ -67,7 +70,7 @@ impl Default for Platform {
         Self::Facebook
     }
 }
-///
+/// ACTIVE = launch the clone immediately (spends the moment LinkedIn approves it). PAUSED = clone stays DRAFT, safe default. INHERITED_FROM_SOURCE = mirror each entity's source status per-entity. Duplicating an ACTIVE campaign this way starts a second front of spend.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum StatusOption {
     #[serde(rename = "ACTIVE")]
