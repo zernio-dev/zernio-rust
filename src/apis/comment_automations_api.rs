@@ -54,6 +54,7 @@ pub enum ListCommentAutomationLogsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListCommentAutomationsError {
+    Status400(),
     Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }

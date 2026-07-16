@@ -16,8 +16,13 @@ pub struct BillingSnapshotCaps {
     #[serde(rename = "xSpendUsedCents", skip_serializing_if = "Option::is_none")]
     pub x_spend_used_cents: Option<i32>,
     /// Monthly X-API spend cap; null = unlimited.
-    #[serde(rename = "xSpendLimitCents", skip_serializing_if = "Option::is_none")]
-    pub x_spend_limit_cents: Option<i32>,
+    #[serde(
+        rename = "xSpendLimitCents",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub x_spend_limit_cents: Option<Option<i32>>,
 }
 
 impl BillingSnapshotCaps {

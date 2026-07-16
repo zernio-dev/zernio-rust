@@ -27,6 +27,7 @@ pub enum CreateAccountGroupError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteAccountGroupError {
+    Status400(),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
@@ -44,6 +45,7 @@ pub enum ListAccountGroupsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateAccountGroupError {
+    Status400(),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
     Status409(),

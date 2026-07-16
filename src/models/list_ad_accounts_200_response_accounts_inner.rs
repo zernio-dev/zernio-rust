@@ -38,8 +38,13 @@ pub struct ListAdAccounts200ResponseAccountsInner {
     #[serde(rename = "selectable", skip_serializing_if = "Option::is_none")]
     pub selectable: Option<bool>,
     /// Meta only. Human-readable reason when selectable is false; null when selectable.
-    #[serde(rename = "unusableReason", skip_serializing_if = "Option::is_none")]
-    pub unusable_reason: Option<String>,
+    #[serde(
+        rename = "unusableReason",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub unusable_reason: Option<Option<String>>,
 }
 
 impl ListAdAccounts200ResponseAccountsInner {

@@ -14,10 +14,20 @@ use serde::{Deserialize, Serialize};
 /// BillingSnapshotPeriod : Current billing cycle. `start`/`end` are resolved for usage-based accounts only.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BillingSnapshotPeriod {
-    #[serde(rename = "start", skip_serializing_if = "Option::is_none")]
-    pub start: Option<String>,
-    #[serde(rename = "end", skip_serializing_if = "Option::is_none")]
-    pub end: Option<String>,
+    #[serde(
+        rename = "start",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub start: Option<Option<String>>,
+    #[serde(
+        rename = "end",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub end: Option<Option<String>>,
     /// Day-of-month the cycle resets.
     #[serde(rename = "anchorDay", skip_serializing_if = "Option::is_none")]
     pub anchor_day: Option<i32>,

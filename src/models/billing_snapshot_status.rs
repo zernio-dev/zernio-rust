@@ -17,15 +17,35 @@ pub struct BillingSnapshotStatus {
     pub has_access: Option<bool>,
     #[serde(rename = "suspended", skip_serializing_if = "Option::is_none")]
     pub suspended: Option<bool>,
-    #[serde(rename = "suspendedAt", skip_serializing_if = "Option::is_none")]
-    pub suspended_at: Option<String>,
-    #[serde(rename = "suspensionReason", skip_serializing_if = "Option::is_none")]
-    pub suspension_reason: Option<String>,
+    #[serde(
+        rename = "suspendedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub suspended_at: Option<Option<String>>,
+    #[serde(
+        rename = "suspensionReason",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub suspension_reason: Option<Option<String>>,
     /// Hosted invoice URL for dunning (Stripe).
-    #[serde(rename = "openInvoiceUrl", skip_serializing_if = "Option::is_none")]
-    pub open_invoice_url: Option<String>,
-    #[serde(rename = "declineReason", skip_serializing_if = "Option::is_none")]
-    pub decline_reason: Option<String>,
+    #[serde(
+        rename = "openInvoiceUrl",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub open_invoice_url: Option<Option<String>>,
+    #[serde(
+        rename = "declineReason",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub decline_reason: Option<Option<String>>,
     #[serde(rename = "autoUpgradeEnabled", skip_serializing_if = "Option::is_none")]
     pub auto_upgrade_enabled: Option<bool>,
 }

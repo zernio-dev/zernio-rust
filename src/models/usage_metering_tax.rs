@@ -14,10 +14,10 @@ use serde::{Deserialize, Serialize};
 /// UsageMeteringTax : Estimated tax on the window's net `totals.total`, computed with Stripe Tax against the billing address (the same engine the real invoice uses; invoices apply exclusive tax, so the card is charged total + tax). Null when the account has no billing address on file, the total is zero or negative, or the estimate failed.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UsageMeteringTax {
-    /// Estimated tax in USD
+    /// Estimated tax in USD, added on top of `totals.total`.
     #[serde(rename = "taxUsd", skip_serializing_if = "Option::is_none")]
     pub tax_usd: Option<f64>,
-    /// Combined rate percentage
+    /// Combined rate percentage, e.g. 21.
     #[serde(
         rename = "ratePercent",
         default,
@@ -25,7 +25,7 @@ pub struct UsageMeteringTax {
         skip_serializing_if = "Option::is_none"
     )]
     pub rate_percent: Option<Option<f64>>,
-    /// Human jurisdiction label
+    /// Human jurisdiction label, e.g. \"ES VAT\" or \"WA sales tax\".
     #[serde(
         rename = "jurisdictionLabel",
         default,

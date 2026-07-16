@@ -26,7 +26,7 @@ pub struct StartSmsRegistrationRequestCampaign {
     pub message_flow: String,
     #[serde(rename = "sample1")]
     pub sample1: String,
-    /// Second example message; carriers require two distinct samples
+    /// Second example message; carriers require two distinct samples, so it must differ from sample1.
     #[serde(rename = "sample2")]
     pub sample2: String,
     #[serde(rename = "helpMessage", skip_serializing_if = "Option::is_none")]

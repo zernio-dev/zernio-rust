@@ -17,6 +17,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AddBroadcastRecipientsError {
+    Status400(),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
@@ -36,6 +37,7 @@ pub enum CancelBroadcastError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateBroadcastError {
+    Status400(),
     Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }
@@ -62,6 +64,7 @@ pub enum GetBroadcastError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListBroadcastRecipientsError {
+    Status400(),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
@@ -71,6 +74,7 @@ pub enum ListBroadcastRecipientsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListBroadcastsError {
+    Status400(),
     Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }
