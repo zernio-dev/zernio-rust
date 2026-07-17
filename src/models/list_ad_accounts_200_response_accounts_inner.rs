@@ -34,10 +34,10 @@ pub struct ListAdAccounts200ResponseAccountsInner {
     /// Meta only. Minimum daily budget for the account, in the account currency's major units. This is the impressions-billed minimum; other billing events have higher minimums. Absent when the connected token cannot read it.
     #[serde(rename = "minimumDailyBudget", skip_serializing_if = "Option::is_none")]
     pub minimum_daily_budget: Option<f64>,
-    /// Meta only. Whether the account can create/run ads now. Absent (treat as true) on non-Meta platforms.
+    /// Meta and X only. Whether the account can create/run ads now. Absent (treat as true) on other platforms.
     #[serde(rename = "selectable", skip_serializing_if = "Option::is_none")]
     pub selectable: Option<bool>,
-    /// Meta only. Human-readable reason when selectable is false; null when selectable.
+    /// Meta and X only. Human-readable reason when selectable is false; null when selectable.
     #[serde(
         rename = "unusableReason",
         default,
