@@ -19,6 +19,9 @@ pub struct PurchasePhoneNumberRequest {
     /// ISO 3166-1 alpha-2 country for the number (default US). International numbers require usage-based billing. Tier 3/4 countries return 202 { status: \"kyc_required\", kycUrl } — the customer must complete KYC at that URL before the number is ordered. See GET /v1/phone-numbers/countries.
     #[serde(rename = "country", skip_serializing_if = "Option::is_none")]
     pub country: Option<String>,
+    /// Which of the country's offered number types to order (see `types[]` on GET /v1/phone-numbers/countries). Omitted = the country's default type, which is always the WhatsApp-safe choice. Capabilities, price, and KYC requirements are per (country, type): toll_free can never connect WhatsApp (400 when combined with connectWhatsapp:true), and wantsSms:true requires an SMS-capable type.
+    #[serde(rename = "numberType", skip_serializing_if = "Option::is_none")]
+    pub number_type: Option<NumberType>,
     /// A phone number is the unit; WhatsApp is one optional feature. Pass false to buy a STANDALONE number (Calls/SMS only): provisioning skips the Meta pre-verify/OTP steps and the number activates immediately. Omitted defaults to the WhatsApp provisioning path. WhatsApp can be connected to a standalone number later from the connect flow.
     #[serde(rename = "connectWhatsapp", skip_serializing_if = "Option::is_none")]
     pub connect_whatsapp: Option<bool>,
@@ -38,10 +41,29 @@ impl PurchasePhoneNumberRequest {
         PurchasePhoneNumberRequest {
             profile_id,
             country: None,
+            number_type: None,
             connect_whatsapp: None,
             wants_sms: None,
             purchase_intent_id: None,
             allow_multiple: None,
         }
+    }
+}
+/// Which of the country's offered number types to order (see `types[]` on GET /v1/phone-numbers/countries). Omitted = the country's default type, which is always the WhatsApp-safe choice. Capabilities, price, and KYC requirements are per (country, type): toll_free can never connect WhatsApp (400 when combined with connectWhatsapp:true), and wantsSms:true requires an SMS-capable type.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum NumberType {
+    #[serde(rename = "local")]
+    Local,
+    #[serde(rename = "mobile")]
+    Mobile,
+    #[serde(rename = "national")]
+    National,
+    #[serde(rename = "toll_free")]
+    TollFree,
+}
+
+impl Default for NumberType {
+    fn default() -> NumberType {
+        Self::Local
     }
 }

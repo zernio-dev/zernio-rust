@@ -177,6 +177,7 @@ Class | Method | HTTP request | Description
 *CommentsApi* | [**set_comment_moderation**](docs/CommentsApi.md#set_comment_moderation) | **POST** /v1/inbox/comments/{postId}/{commentId}/moderation | Set comment moderation status
 *CommentsApi* | [**unhide_inbox_comment**](docs/CommentsApi.md#unhide_inbox_comment) | **DELETE** /v1/inbox/comments/{postId}/{commentId}/hide | Unhide comment
 *CommentsApi* | [**unlike_inbox_comment**](docs/CommentsApi.md#unlike_inbox_comment) | **DELETE** /v1/inbox/comments/{postId}/{commentId}/like | Unlike comment
+*ConnectApi* | [**assign_google_business_location**](docs/ConnectApi.md#assign_google_business_location) | **POST** /v1/accounts/{accountId}/gmb-locations/assign | Assign GBP location to another profile
 *ConnectApi* | [**complete_telegram_connect**](docs/ConnectApi.md#complete_telegram_connect) | **PATCH** /v1/connect/telegram | Check Telegram status
 *ConnectApi* | [**complete_whats_app_phone_selection**](docs/ConnectApi.md#complete_whats_app_phone_selection) | **POST** /v1/connect/whatsapp/select-phone-number | Complete number selection
 *ConnectApi* | [**configure_tik_tok_ads_brand_identity**](docs/ConnectApi.md#configure_tik_tok_ads_brand_identity) | **PATCH** /v1/connect/tiktok-ads | Set TikTok brand identity
@@ -572,6 +573,9 @@ Class | Method | HTTP request | Description
  - [AppealSmsRegistrationRequest](docs/AppealSmsRegistrationRequest.md)
  - [ApproveWhatsAppGroupJoinRequestsRequest](docs/ApproveWhatsAppGroupJoinRequestsRequest.md)
  - [ArchiveLeadForm200Response](docs/ArchiveLeadForm200Response.md)
+ - [AssignGoogleBusinessLocation200Response](docs/AssignGoogleBusinessLocation200Response.md)
+ - [AssignGoogleBusinessLocation200ResponseAccount](docs/AssignGoogleBusinessLocation200ResponseAccount.md)
+ - [AssignGoogleBusinessLocationRequest](docs/AssignGoogleBusinessLocationRequest.md)
  - [BatchGetGoogleBusinessReviews200Response](docs/BatchGetGoogleBusinessReviews200Response.md)
  - [BatchGetGoogleBusinessReviews200ResponseLocationReviewsInner](docs/BatchGetGoogleBusinessReviews200ResponseLocationReviewsInner.md)
  - [BatchGetGoogleBusinessReviewsRequest](docs/BatchGetGoogleBusinessReviewsRequest.md)
@@ -1311,6 +1315,7 @@ Class | Method | HTTP request | Description
  - [ListLogs200ResponsePagination](docs/ListLogs200ResponsePagination.md)
  - [ListPhoneNumberCountries200Response](docs/ListPhoneNumberCountries200Response.md)
  - [ListPhoneNumberCountries200ResponseCountriesInner](docs/ListPhoneNumberCountries200ResponseCountriesInner.md)
+ - [ListPhoneNumberCountries200ResponseCountriesInnerTypesInner](docs/ListPhoneNumberCountries200ResponseCountriesInnerTypesInner.md)
  - [ListPhoneNumberPortIns200Response](docs/ListPhoneNumberPortIns200Response.md)
  - [ListPhoneNumberPortIns200ResponseOrdersInner](docs/ListPhoneNumberPortIns200ResponseOrdersInner.md)
  - [ListPhoneNumbers200Response](docs/ListPhoneNumbers200Response.md)
@@ -1488,6 +1493,7 @@ Class | Method | HTTP request | Description
  - [SearchReddit200Response](docs/SearchReddit200Response.md)
  - [SelectFacebookPage200Response](docs/SelectFacebookPage200Response.md)
  - [SelectFacebookPage200ResponseAccount](docs/SelectFacebookPage200ResponseAccount.md)
+ - [SelectFacebookPage409Response](docs/SelectFacebookPage409Response.md)
  - [SelectFacebookPageRequest](docs/SelectFacebookPageRequest.md)
  - [SelectFacebookPageRequestUserProfile](docs/SelectFacebookPageRequestUserProfile.md)
  - [SelectGoogleBusinessLocation200Response](docs/SelectGoogleBusinessLocation200Response.md)

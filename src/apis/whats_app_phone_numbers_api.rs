@@ -162,12 +162,14 @@ pub enum ValidateWhatsAppNumberKycAddressError {
 pub async fn check_whats_app_number_availability(
     configuration: &configuration::Configuration,
     country: &str,
+    number_type: Option<&str>,
 ) -> Result<
     models::CheckPhoneNumberAvailability200Response,
     Error<CheckWhatsAppNumberAvailabilityError>,
 > {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_country = country;
+    let p_query_number_type = number_type;
 
     let uri_str = format!(
         "{}/v1/whatsapp/phone-numbers/availability",
@@ -176,6 +178,9 @@ pub async fn check_whats_app_number_availability(
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("country", &p_query_country.to_string())]);
+    if let Some(ref param_value) = p_query_number_type {
+        req_builder = req_builder.query(&[("numberType", &param_value.to_string())]);
+    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }

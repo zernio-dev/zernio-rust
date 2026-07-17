@@ -59,7 +59,7 @@ Name | Type | Description  | Required | Notes
 
 ## check_phone_number_availability
 
-> models::CheckPhoneNumberAvailability200Response check_phone_number_availability(country)
+> models::CheckPhoneNumberAvailability200Response check_phone_number_availability(country, number_type)
 Check country availability
 
 Pre-purchase check, so you can warn BEFORE a customer invests in KYC (regulated review is async, 1-3 days). Tells you whether we have deliverable inventory, and what address the customer needs:   - `addressConstraint: geo`  → the registered address MUST be in one of     the returned `areas` (the only place we have stock). A different-area     address passes pre-approval but the number can never be assigned.   - `addressConstraint: country` → any in-country address works.   - `addressConstraint: none` → field-only / instant country, no address. Call this before starting the KYC form for regulated countries. 
@@ -70,6 +70,7 @@ Pre-purchase check, so you can warn BEFORE a customer invests in KYC (regulated 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **country** | **String** | ISO-2 country code. | [required] |
+**number_type** | Option<**String**> | Check a specific offered type (stock and address constraints are per type). Omitted = the country's default type. |  |
 
 ### Return type
 
@@ -209,7 +210,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_phone_number_kyc_form
 
-> models::GetPhoneNumberKycForm200Response get_phone_number_kyc_form(country)
+> models::GetPhoneNumberKycForm200Response get_phone_number_kyc_form(country, number_type)
 Get KYC form spec
 
 For a Tier 3/4 country, the fields the end customer must provide (Telnyx regulatory requirements) before a number can be ordered: text, date, address, or file (document) per requirement. 
@@ -220,6 +221,7 @@ For a Tier 3/4 country, the fields the end customer must provide (Telnyx regulat
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **country** | **String** |  | [required] |
+**number_type** | Option<**String**> | Requirements and reuse eligibility are per (country, type). Omitted = the country's default type. Pass the same value on the POST. |  |
 
 ### Return type
 

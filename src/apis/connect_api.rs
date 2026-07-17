@@ -13,6 +13,18 @@ use crate::{apis::ResponseContent, models};
 use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
 
+/// struct for typed errors of method [`assign_google_business_location`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AssignGoogleBusinessLocationError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    Status409(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`complete_telegram_connect`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -292,6 +304,7 @@ pub enum SelectFacebookPageError {
     Status401(models::InlineObject),
     Status403(),
     Status404(),
+    Status409(models::SelectFacebookPage409Response),
     Status500(),
     UnknownValue(serde_json::Value),
 }
@@ -420,6 +433,63 @@ pub enum VoteRedditThingError {
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
+}
+
+/// Connect a Google Business location onto a DIFFERENT profile by reusing the OAuth grant from an already-connected GBP account — no browser, no re-authorization. Built for agencies whose single Google account has manager access to many client locations and who run one profile per client: connect one location the normal way (browser OAuth), then bulk-assign the rest onto each client's profile via this endpoint. The path `accountId` is a SOURCE connected GBP account (the token holder); the body `profileId` is the TARGET profile. Returns 409 if the target profile already has a Google Business connection (switch its location with PUT gmb-locations instead).
+pub async fn assign_google_business_location(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    assign_google_business_location_request: models::AssignGoogleBusinessLocationRequest,
+) -> Result<models::AssignGoogleBusinessLocation200Response, Error<AssignGoogleBusinessLocationError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_body_assign_google_business_location_request = assign_google_business_location_request;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/gmb-locations/assign",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_assign_google_business_location_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AssignGoogleBusinessLocation200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AssignGoogleBusinessLocation200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AssignGoogleBusinessLocationError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
 }
 
 /// Poll this endpoint to check if a Telegram access code has been used to connect a channel/group. Recommended polling interval: 3 seconds. Status values: pending (waiting for user), connected (channel/group linked), expired (generate a new code).

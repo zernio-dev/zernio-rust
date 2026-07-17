@@ -65,6 +65,9 @@ docs/AppealSmsRegistration200Response.md
 docs/AppealSmsRegistrationRequest.md
 docs/ApproveWhatsAppGroupJoinRequestsRequest.md
 docs/ArchiveLeadForm200Response.md
+docs/AssignGoogleBusinessLocation200Response.md
+docs/AssignGoogleBusinessLocation200ResponseAccount.md
+docs/AssignGoogleBusinessLocationRequest.md
 docs/BatchGetGoogleBusinessReviews200Response.md
 docs/BatchGetGoogleBusinessReviews200ResponseLocationReviewsInner.md
 docs/BatchGetGoogleBusinessReviewsRequest.md
@@ -824,6 +827,7 @@ docs/ListLogs200ResponseLogsInner.md
 docs/ListLogs200ResponsePagination.md
 docs/ListPhoneNumberCountries200Response.md
 docs/ListPhoneNumberCountries200ResponseCountriesInner.md
+docs/ListPhoneNumberCountries200ResponseCountriesInnerTypesInner.md
 docs/ListPhoneNumberPortIns200Response.md
 docs/ListPhoneNumberPortIns200ResponseOrdersInner.md
 docs/ListPhoneNumbers200Response.md
@@ -1011,6 +1015,7 @@ docs/SearchInboxConversations200ResponseMetaFailedAccountsInner.md
 docs/SearchReddit200Response.md
 docs/SelectFacebookPage200Response.md
 docs/SelectFacebookPage200ResponseAccount.md
+docs/SelectFacebookPage409Response.md
 docs/SelectFacebookPageRequest.md
 docs/SelectFacebookPageRequestUserProfile.md
 docs/SelectGoogleBusinessLocation200Response.md
@@ -1568,6 +1573,9 @@ src/models/appeal_sms_registration_200_response.rs
 src/models/appeal_sms_registration_request.rs
 src/models/approve_whats_app_group_join_requests_request.rs
 src/models/archive_lead_form_200_response.rs
+src/models/assign_google_business_location_200_response.rs
+src/models/assign_google_business_location_200_response_account.rs
+src/models/assign_google_business_location_request.rs
 src/models/batch_get_google_business_reviews_200_response.rs
 src/models/batch_get_google_business_reviews_200_response_location_reviews_inner.rs
 src/models/batch_get_google_business_reviews_request.rs
@@ -2307,6 +2315,7 @@ src/models/list_logs_200_response_logs_inner.rs
 src/models/list_logs_200_response_pagination.rs
 src/models/list_phone_number_countries_200_response.rs
 src/models/list_phone_number_countries_200_response_countries_inner.rs
+src/models/list_phone_number_countries_200_response_countries_inner_types_inner.rs
 src/models/list_phone_number_port_ins_200_response.rs
 src/models/list_phone_number_port_ins_200_response_orders_inner.rs
 src/models/list_phone_numbers_200_response.rs
@@ -2485,6 +2494,7 @@ src/models/search_inbox_conversations_200_response_meta_failed_accounts_inner.rs
 src/models/search_reddit_200_response.rs
 src/models/select_facebook_page_200_response.rs
 src/models/select_facebook_page_200_response_account.rs
+src/models/select_facebook_page_409_response.rs
 src/models/select_facebook_page_request.rs
 src/models/select_facebook_page_request_user_profile.rs
 src/models/select_google_business_location_200_response.rs

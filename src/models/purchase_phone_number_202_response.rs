@@ -17,6 +17,9 @@ pub struct PurchasePhoneNumber202Response {
     pub status: Option<Status>,
     #[serde(rename = "country", skip_serializing_if = "Option::is_none")]
     pub country: Option<String>,
+    /// The type that will be ordered after KYC approval.
+    #[serde(rename = "numberType", skip_serializing_if = "Option::is_none")]
+    pub number_type: Option<String>,
     #[serde(rename = "kycUrl", skip_serializing_if = "Option::is_none")]
     pub kyc_url: Option<String>,
 }
@@ -26,6 +29,7 @@ impl PurchasePhoneNumber202Response {
         PurchasePhoneNumber202Response {
             status: None,
             country: None,
+            number_type: None,
             kyc_url: None,
         }
     }

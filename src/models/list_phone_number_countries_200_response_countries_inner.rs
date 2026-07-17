@@ -37,6 +37,12 @@ pub struct ListPhoneNumberCountries200ResponseCountriesInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub outbound_calling_available: Option<bool>,
+    /// Live carrier-stock snapshot (refreshed every 6h + on availability checks): false when NO offered type currently has deliverable inventory, so a purchase would fail. Treat as advisory; the purchase itself re-checks.
+    #[serde(rename = "inStock", skip_serializing_if = "Option::is_none")]
+    pub in_stock: Option<bool>,
+    /// Every number type offered in this country (default first). Capabilities, KYC tier, monthly price, and stock are per type. The country-level fields above mirror the first (default) entry. Pass the chosen `numberType` to POST /v1/phone-numbers/purchase.
+    #[serde(rename = "types", skip_serializing_if = "Option::is_none")]
+    pub types: Option<Vec<models::ListPhoneNumberCountries200ResponseCountriesInnerTypesInner>>,
 }
 
 impl ListPhoneNumberCountries200ResponseCountriesInner {
@@ -50,6 +56,8 @@ impl ListPhoneNumberCountries200ResponseCountriesInner {
             whatsapp_available: None,
             sms_available: None,
             outbound_calling_available: None,
+            in_stock: None,
+            types: None,
         }
     }
 }
