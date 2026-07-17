@@ -17,6 +17,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DisableWhatsAppCallingError {
+    Status400(),
     Status401(models::InlineObject),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -26,6 +27,7 @@ pub enum DisableWhatsAppCallingError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DisableWhatsAppCallingLegacyError {
+    Status400(),
     Status401(models::InlineObject),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -35,6 +37,7 @@ pub enum DisableWhatsAppCallingLegacyError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum EnableWhatsAppCallingError {
+    Status400(),
     Status401(models::InlineObject),
     Status404(),
     Status422(),
@@ -45,6 +48,7 @@ pub enum EnableWhatsAppCallingError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum EnableWhatsAppCallingLegacyError {
+    Status400(),
     Status401(models::InlineObject),
     Status404(),
     Status422(),
@@ -91,6 +95,7 @@ pub enum GetWhatsAppCallRecordingError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetWhatsAppCallingError {
+    Status400(),
     Status401(models::InlineObject),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -128,6 +133,7 @@ pub enum ListWhatsAppCallsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateWhatsAppCallingError {
+    Status400(),
     Status401(models::InlineObject),
     Status404(),
     Status422(),
@@ -138,6 +144,7 @@ pub enum UpdateWhatsAppCallingError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateWhatsAppCallingLegacyError {
+    Status400(),
     Status401(models::InlineObject),
     Status404(),
     Status422(),

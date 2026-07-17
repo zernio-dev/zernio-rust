@@ -26,6 +26,7 @@ pub enum ClearContactFieldValueError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateCustomFieldError {
+    Status400(),
     Status401(models::InlineObject),
     Status409(),
     UnknownValue(serde_json::Value),
@@ -35,6 +36,7 @@ pub enum CreateCustomFieldError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteCustomFieldError {
+    Status400(),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
@@ -44,6 +46,7 @@ pub enum DeleteCustomFieldError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListCustomFieldsError {
+    Status400(),
     Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }
@@ -61,6 +64,7 @@ pub enum SetContactFieldValueError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateCustomFieldError {
+    Status400(),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
@@ -303,7 +307,7 @@ pub async fn set_contact_field_value(
 pub async fn update_custom_field(
     configuration: &configuration::Configuration,
     field_id: &str,
-    update_custom_field_request: Option<models::UpdateCustomFieldRequest>,
+    update_custom_field_request: models::UpdateCustomFieldRequest,
 ) -> Result<models::UpdateCustomField200Response, Error<UpdateCustomFieldError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_field_id = field_id;

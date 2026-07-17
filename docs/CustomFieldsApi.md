@@ -179,7 +179,7 @@ Update a custom field definition. The field type cannot be changed after creatio
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **field_id** | **String** |  | [required] |
-**update_custom_field_request** | Option<[**UpdateCustomFieldRequest**](UpdateCustomFieldRequest.md)> |  |  |
+**update_custom_field_request** | [**UpdateCustomFieldRequest**](UpdateCustomFieldRequest.md) |  | [required] |
 
 ### Return type
 

@@ -81,6 +81,7 @@ pub enum ListWorkflowExecutionEventsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListWorkflowExecutionsError {
+    Status400(),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),

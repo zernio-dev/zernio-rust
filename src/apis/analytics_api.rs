@@ -39,6 +39,7 @@ pub enum GetBestTimeToPostError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetContentDecayError {
+    Status400(),
     Status401(models::InlineObject),
     Status403(models::GetBestTimeToPost403Response),
     UnknownValue(serde_json::Value),
