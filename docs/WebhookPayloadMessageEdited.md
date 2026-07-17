@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **id** | **String** |  | 
 **event** | **Event** |  (enum: message.edited) | 
 **message** | [**models::InboxWebhookMessage**](InboxWebhookMessage.md) |  | 
-**edit_history** | [**Vec<models::WebhookPayloadMessageEditedEditHistoryInner>**](WebhookPayloadMessageEditedEditHistoryInner.md) | Prior versions of the message, oldest first. | 
+**edit_history** | [**Vec<models::InboxMessageEditHistoryEntry>**](InboxMessageEditHistoryEntry.md) | Prior versions of the message, oldest first. | 
 **edit_count** | **i32** | Total number of edits applied to this message. | 
 **edited_at** | **String** | When the most recent edit happened. | 
 **conversation** | [**models::InboxWebhookConversation**](InboxWebhookConversation.md) |  | 

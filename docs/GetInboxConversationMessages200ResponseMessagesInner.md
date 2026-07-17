@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **is_edited** | Option<**bool**> | True if the sender has edited this message at least once. | [optional]
 **edited_at** | Option<**String**> | When the most recent edit happened. | [optional]
 **edit_count** | Option<**i32**> | Total number of edits applied. | [optional]
-**edit_history** | Option<[**Vec<models::GetInboxConversationMessages200ResponseMessagesInnerEditHistoryInner>**](GetInboxConversationMessages200ResponseMessagesInnerEditHistoryInner.md)> | Every prior version of the message, oldest first. | [optional]
+**edit_history** | Option<[**Vec<models::InboxMessageEditHistoryEntry>**](InboxMessageEditHistoryEntry.md)> | Every prior version of the message, oldest first. | [optional]
 **is_deleted** | Option<**bool**> | True if the sender has deleted (unsent) this message. The original message and attachments fields remain populated. | [optional]
 **deleted_at** | Option<**String**> |  | [optional]
 **delivery_status** | Option<**DeliveryStatus**> | Lifecycle status for outgoing messages. Not all platforms emit every state (see webhook support matrix). (enum: sent, delivered, read, failed, deleted) | [optional]

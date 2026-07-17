@@ -505,8 +505,6 @@ docs/GetInboxConversationMessages200Response.md
 docs/GetInboxConversationMessages200ResponseMessagesInner.md
 docs/GetInboxConversationMessages200ResponseMessagesInnerAttachmentsInner.md
 docs/GetInboxConversationMessages200ResponseMessagesInnerDeliveryError.md
-docs/GetInboxConversationMessages200ResponseMessagesInnerEditHistoryInner.md
-docs/GetInboxConversationMessages200ResponseMessagesInnerEditHistoryInnerAttachmentsInner.md
 docs/GetInboxConversationMessages200ResponseMessagesInnerReactionsInner.md
 docs/GetInboxConversationMessages200ResponsePagination.md
 docs/GetInboxHeatmap200Response.md
@@ -695,6 +693,8 @@ docs/HandleOAuthCallbackRequest.md
 docs/HideInboxComment200Response.md
 docs/HideInboxCommentRequest.md
 docs/InboxAnalyticsApi.md
+docs/InboxMessageEditAttachment.md
+docs/InboxMessageEditHistoryEntry.md
 docs/InboxWebhookAccount.md
 docs/InboxWebhookConversation.md
 docs/InboxWebhookMessage.md
@@ -1398,7 +1398,6 @@ docs/WebhookPayloadMessageDeleted.md
 docs/WebhookPayloadMessageDeliveryStatus.md
 docs/WebhookPayloadMessageDeliveryStatusError.md
 docs/WebhookPayloadMessageEdited.md
-docs/WebhookPayloadMessageEditedEditHistoryInner.md
 docs/WebhookPayloadMessageMessage.md
 docs/WebhookPayloadMessageMessageSender.md
 docs/WebhookPayloadMessageMessageSenderInstagramProfile.md
@@ -2013,8 +2012,6 @@ src/models/get_inbox_conversation_messages_200_response.rs
 src/models/get_inbox_conversation_messages_200_response_messages_inner.rs
 src/models/get_inbox_conversation_messages_200_response_messages_inner_attachments_inner.rs
 src/models/get_inbox_conversation_messages_200_response_messages_inner_delivery_error.rs
-src/models/get_inbox_conversation_messages_200_response_messages_inner_edit_history_inner.rs
-src/models/get_inbox_conversation_messages_200_response_messages_inner_edit_history_inner_attachments_inner.rs
 src/models/get_inbox_conversation_messages_200_response_messages_inner_reactions_inner.rs
 src/models/get_inbox_conversation_messages_200_response_pagination.rs
 src/models/get_inbox_heatmap_200_response.rs
@@ -2194,6 +2191,8 @@ src/models/google_business_platform_data_offer.rs
 src/models/handle_o_auth_callback_request.rs
 src/models/hide_inbox_comment_200_response.rs
 src/models/hide_inbox_comment_request.rs
+src/models/inbox_message_edit_attachment.rs
+src/models/inbox_message_edit_history_entry.rs
 src/models/inbox_webhook_account.rs
 src/models/inbox_webhook_conversation.rs
 src/models/inbox_webhook_message.rs
@@ -2876,7 +2875,6 @@ src/models/webhook_payload_message_deleted.rs
 src/models/webhook_payload_message_delivery_status.rs
 src/models/webhook_payload_message_delivery_status_error.rs
 src/models/webhook_payload_message_edited.rs
-src/models/webhook_payload_message_edited_edit_history_inner.rs
 src/models/webhook_payload_message_message.rs
 src/models/webhook_payload_message_message_sender.rs
 src/models/webhook_payload_message_message_sender_instagram_profile.rs

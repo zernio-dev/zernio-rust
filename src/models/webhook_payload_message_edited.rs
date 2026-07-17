@@ -22,7 +22,7 @@ pub struct WebhookPayloadMessageEdited {
     pub message: Box<models::InboxWebhookMessage>,
     /// Prior versions of the message, oldest first.
     #[serde(rename = "editHistory")]
-    pub edit_history: Vec<models::WebhookPayloadMessageEditedEditHistoryInner>,
+    pub edit_history: Vec<models::InboxMessageEditHistoryEntry>,
     /// Total number of edits applied to this message.
     #[serde(rename = "editCount")]
     pub edit_count: i32,
@@ -43,7 +43,7 @@ impl WebhookPayloadMessageEdited {
         id: String,
         event: Event,
         message: models::InboxWebhookMessage,
-        edit_history: Vec<models::WebhookPayloadMessageEditedEditHistoryInner>,
+        edit_history: Vec<models::InboxMessageEditHistoryEntry>,
         edit_count: i32,
         edited_at: String,
         conversation: models::InboxWebhookConversation,

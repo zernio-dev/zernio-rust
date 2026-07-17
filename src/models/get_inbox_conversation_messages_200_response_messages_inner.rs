@@ -87,8 +87,7 @@ pub struct GetInboxConversationMessages200ResponseMessagesInner {
     pub edit_count: Option<i32>,
     /// Every prior version of the message, oldest first.
     #[serde(rename = "editHistory", skip_serializing_if = "Option::is_none")]
-    pub edit_history:
-        Option<Vec<models::GetInboxConversationMessages200ResponseMessagesInnerEditHistoryInner>>,
+    pub edit_history: Option<Vec<models::InboxMessageEditHistoryEntry>>,
     /// True if the sender has deleted (unsent) this message. The original message and attachments fields remain populated.
     #[serde(rename = "isDeleted", skip_serializing_if = "Option::is_none")]
     pub is_deleted: Option<bool>,
