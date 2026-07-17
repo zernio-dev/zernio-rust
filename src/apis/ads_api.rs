@@ -57,6 +57,17 @@ pub enum BoostPostError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`create_ad_insights_report`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateAdInsightsReportError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`create_conversion_destination`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -174,6 +185,17 @@ pub enum GetAdCommentsError {
     Status403(),
     Status404(models::InlineObject1),
     Status422(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_ad_insights_report`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAdInsightsReportError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status429(),
+    Status501(),
     UnknownValue(serde_json::Value),
 }
 
@@ -386,6 +408,17 @@ pub enum ListLeadsError {
 pub enum ListWhatsAppConversionsError {
     Status401(models::InlineObject),
     Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`query_ad_insights`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum QueryAdInsightsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status429(),
+    Status501(),
     UnknownValue(serde_json::Value),
 }
 
@@ -707,6 +740,56 @@ pub async fn boost_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<BoostPostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Submits an asynchronous Meta insights report. Same query surface as GET /v1/ads/insights, but in the JSON body; Meta processes the report server-side, which is the right choice for long ranges or large accounts where the sync query is slow or rate-limited. Returns a `reportRunId` to poll via GET /v1/ads/insights/reports/{reportRunId}. Meta only.
+pub async fn create_ad_insights_report(
+    configuration: &configuration::Configuration,
+    create_ad_insights_report_request: models::CreateAdInsightsReportRequest,
+) -> Result<models::CreateAdInsightsReport202Response, Error<CreateAdInsightsReportError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_ad_insights_report_request = create_ad_insights_report_request;
+
+    let uri_str = format!("{}/v1/ads/insights/reports", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_ad_insights_report_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateAdInsightsReport202Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateAdInsightsReport202Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateAdInsightsReportError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1314,6 +1397,70 @@ pub async fn get_ad_comments(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetAdCommentsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Status and results for a report run created via POST /v1/ads/insights/reports. While the job runs, returns `status` and `percentCompletion`. Once `status` is \"Job Completed\" the response also carries a `data` page, cursor-paginated via `limit` / `after`.
+pub async fn get_ad_insights_report(
+    configuration: &configuration::Configuration,
+    report_run_id: &str,
+    account_id: &str,
+    limit: Option<i32>,
+    after: Option<&str>,
+) -> Result<models::GetAdInsightsReport200Response, Error<GetAdInsightsReportError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_report_run_id = report_run_id;
+    let p_query_account_id = account_id;
+    let p_query_limit = limit;
+    let p_query_after = after;
+
+    let uri_str = format!(
+        "{}/v1/ads/insights/reports/{reportRunId}",
+        configuration.base_path,
+        reportRunId = crate::apis::urlencode(p_path_report_run_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetAdInsightsReport200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetAdInsightsReport200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAdInsightsReportError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -2556,6 +2703,107 @@ pub async fn list_whats_app_conversions(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListWhatsAppConversionsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Live, flexible insights query against Meta's Graph API. Unlike GET /v1/ads/{adId}/analytics (fixed metric set, cached), this forwards caller-chosen `fields`, `breakdowns` and `filtering` to any Meta insights node and returns Meta's rows verbatim.  `objectId` selects the node: an ad account, campaign, ad set or ad platform id. `level` sets row granularity independently of the node.  Semantic validation is Meta's: an unknown field or invalid breakdown combination returns a 400 carrying Meta's message. For long ranges or agency-scale accounts prefer the async variant (POST /v1/ads/insights/reports). Meta only.
+pub async fn query_ad_insights(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    object_id: &str,
+    level: Option<&str>,
+    fields: Option<&str>,
+    breakdowns: Option<&str>,
+    filtering: Option<&str>,
+    date_preset: Option<&str>,
+    from_date: Option<String>,
+    to_date: Option<String>,
+    time_increment: Option<&str>,
+    limit: Option<i32>,
+    after: Option<&str>,
+) -> Result<models::QueryAdInsights200Response, Error<QueryAdInsightsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_object_id = object_id;
+    let p_query_level = level;
+    let p_query_fields = fields;
+    let p_query_breakdowns = breakdowns;
+    let p_query_filtering = filtering;
+    let p_query_date_preset = date_preset;
+    let p_query_from_date = from_date;
+    let p_query_to_date = to_date;
+    let p_query_time_increment = time_increment;
+    let p_query_limit = limit;
+    let p_query_after = after;
+
+    let uri_str = format!("{}/v1/ads/insights", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    req_builder = req_builder.query(&[("objectId", &p_query_object_id.to_string())]);
+    if let Some(ref param_value) = p_query_level {
+        req_builder = req_builder.query(&[("level", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_fields {
+        req_builder = req_builder.query(&[("fields", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_breakdowns {
+        req_builder = req_builder.query(&[("breakdowns", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_filtering {
+        req_builder = req_builder.query(&[("filtering", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_date_preset {
+        req_builder = req_builder.query(&[("datePreset", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_from_date {
+        req_builder = req_builder.query(&[("fromDate", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_to_date {
+        req_builder = req_builder.query(&[("toDate", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_time_increment {
+        req_builder = req_builder.query(&[("timeIncrement", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::QueryAdInsights200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::QueryAdInsights200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<QueryAdInsightsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
