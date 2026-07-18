@@ -40,7 +40,7 @@ pub enum ListGoogleBusinessMediaError {
     UnknownValue(serde_json::Value),
 }
 
-/// Creates a media item (photo) for a location from a publicly accessible URL.  Categories determine where the photo appears: COVER, PROFILE, LOGO, EXTERIOR, INTERIOR, FOOD_AND_DRINK, MENU, PRODUCT, TEAMS, ADDITIONAL.
+/// Creates a media item (photo) for a location from a publicly accessible URL.  Categories determine where the photo appears: CATEGORY_UNSPECIFIED, COVER, PROFILE, LOGO, EXTERIOR, INTERIOR, PRODUCT, FOOD_AND_DRINK, MENU, COMMON_AREA, ROOMS, TEAMS, AT_WORK, ADDITIONAL.
 pub async fn create_google_business_media(
     configuration: &configuration::Configuration,
     account_id: &str,

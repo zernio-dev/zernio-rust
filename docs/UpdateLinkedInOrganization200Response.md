@@ -1,11 +1,12 @@
-# FoodMenuItemOptionsInner
+# UpdateLinkedInOrganization200Response
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**labels** | [**Vec<models::FoodMenuLabel>**](FoodMenuLabel.md) |  | 
-**attributes** | [**models::FoodMenuItemAttributes**](FoodMenuItemAttributes.md) |  | 
+**message** | Option<**String**> |  | [optional]
+**account_type** | Option<**AccountType**> |  (enum: personal, organization) | [optional]
+**account_name** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

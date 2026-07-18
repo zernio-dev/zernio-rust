@@ -1,11 +1,12 @@
-# FoodMenuItemOptionsInner
+# UpdateGoogleBusinessServicesRequestServiceItemsInnerPrice
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**labels** | [**Vec<models::FoodMenuLabel>**](FoodMenuLabel.md) |  | 
-**attributes** | [**models::FoodMenuItemAttributes**](FoodMenuItemAttributes.md) |  | 
+**currency_code** | Option<**String**> |  | [optional]
+**units** | Option<**String**> |  | [optional]
+**nanos** | Option<**i32**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

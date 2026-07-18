@@ -25,7 +25,8 @@ pub struct SelectLinkedInOrganizationRequest {
         rename = "selectedOrganization",
         skip_serializing_if = "Option::is_none"
     )]
-    pub selected_organization: Option<serde_json::Value>,
+    pub selected_organization:
+        Option<Box<models::SelectLinkedInOrganizationRequestSelectedOrganization>>,
     #[serde(rename = "redirect_url", skip_serializing_if = "Option::is_none")]
     pub redirect_url: Option<String>,
 }

@@ -13,12 +13,22 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateGoogleBusinessServicesRequestServiceItemsInner {
-    #[serde(rename = "structuredServiceItem", skip_serializing_if = "Option::is_none")]
-    pub structured_service_item: Option<Box<models::GetGoogleBusinessLocationDetails200ResponseServiceItemsInnerStructuredServiceItem>>,
-    #[serde(rename = "freeFormServiceItem", skip_serializing_if = "Option::is_none")]
-    pub free_form_service_item: Option<Box<models::GetGoogleBusinessServices200ResponseServicesInnerFreeFormServiceItem>>,
+    #[serde(
+        rename = "structuredServiceItem",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub structured_service_item: Option<
+        Box<models::UpdateGoogleBusinessServicesRequestServiceItemsInnerStructuredServiceItem>,
+    >,
+    #[serde(
+        rename = "freeFormServiceItem",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub free_form_service_item: Option<
+        Box<models::UpdateGoogleBusinessServicesRequestServiceItemsInnerFreeFormServiceItem>,
+    >,
     #[serde(rename = "price", skip_serializing_if = "Option::is_none")]
-    pub price: Option<Box<models::GetGoogleBusinessLocationDetails200ResponseServiceItemsInnerPrice>>,
+    pub price: Option<Box<models::UpdateGoogleBusinessServicesRequestServiceItemsInnerPrice>>,
 }
 
 impl UpdateGoogleBusinessServicesRequestServiceItemsInner {

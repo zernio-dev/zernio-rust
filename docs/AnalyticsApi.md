@@ -553,7 +553,7 @@ Name | Type | Description  | Required | Notes
 **account_id** | **String** | The ID of the LinkedIn organization account | [required] |
 **urn** | **String** | The LinkedIn post URN | [required] |
 **limit** | Option<**i32**> | Maximum number of reactions to return per page |  |[default to 25]
-**cursor** | Option<**String**> | Offset-based pagination start index |  |
+**cursor** | Option<**i32**> | Offset-based pagination start index |  |[default to 0]
 
 ### Return type
 

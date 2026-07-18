@@ -53,6 +53,8 @@ impl Default for MediaFormat {
 /// Where the photo appears on the listing
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Category {
+    #[serde(rename = "CATEGORY_UNSPECIFIED")]
+    CategoryUnspecified,
     #[serde(rename = "COVER")]
     Cover,
     #[serde(rename = "PROFILE")]
@@ -63,20 +65,26 @@ pub enum Category {
     Exterior,
     #[serde(rename = "INTERIOR")]
     Interior,
+    #[serde(rename = "PRODUCT")]
+    Product,
     #[serde(rename = "FOOD_AND_DRINK")]
     FoodAndDrink,
     #[serde(rename = "MENU")]
     Menu,
-    #[serde(rename = "PRODUCT")]
-    Product,
+    #[serde(rename = "COMMON_AREA")]
+    CommonArea,
+    #[serde(rename = "ROOMS")]
+    Rooms,
     #[serde(rename = "TEAMS")]
     Teams,
+    #[serde(rename = "AT_WORK")]
+    AtWork,
     #[serde(rename = "ADDITIONAL")]
     Additional,
 }
 
 impl Default for Category {
     fn default() -> Category {
-        Self::Cover
+        Self::CategoryUnspecified
     }
 }

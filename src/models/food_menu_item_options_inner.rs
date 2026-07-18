@@ -13,17 +13,20 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FoodMenuItemOptionsInner {
-    #[serde(rename = "labels", skip_serializing_if = "Option::is_none")]
-    pub labels: Option<Vec<models::FoodMenuLabel>>,
-    #[serde(rename = "attributes", skip_serializing_if = "Option::is_none")]
-    pub attributes: Option<Box<models::FoodMenuItemAttributes>>,
+    #[serde(rename = "labels")]
+    pub labels: Vec<models::FoodMenuLabel>,
+    #[serde(rename = "attributes")]
+    pub attributes: Box<models::FoodMenuItemAttributes>,
 }
 
 impl FoodMenuItemOptionsInner {
-    pub fn new() -> FoodMenuItemOptionsInner {
+    pub fn new(
+        labels: Vec<models::FoodMenuLabel>,
+        attributes: models::FoodMenuItemAttributes,
+    ) -> FoodMenuItemOptionsInner {
         FoodMenuItemOptionsInner {
-            labels: None,
-            attributes: None,
+            labels,
+            attributes: Box::new(attributes),
         }
     }
 }

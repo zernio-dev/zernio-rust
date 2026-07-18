@@ -17,7 +17,7 @@ pub struct FoodMenuItemAttributes {
     pub price: Option<Box<models::Money>>,
     /// Spiciness level (e.g. MILD, MEDIUM, HOT)
     #[serde(rename = "spiciness", skip_serializing_if = "Option::is_none")]
-    pub spiciness: Option<String>,
+    pub spiciness: Option<Spiciness>,
     /// Allergens (e.g. DAIRY, GLUTEN, SHELLFISH)
     #[serde(rename = "allergen", skip_serializing_if = "Option::is_none")]
     pub allergen: Option<Vec<String>>,
@@ -46,5 +46,23 @@ impl FoodMenuItemAttributes {
             preparation_methods: None,
             media_keys: None,
         }
+    }
+}
+/// Spiciness level (e.g. MILD, MEDIUM, HOT)
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Spiciness {
+    #[serde(rename = "SPICINESS_UNSPECIFIED")]
+    SpicinessUnspecified,
+    #[serde(rename = "MILD")]
+    Mild,
+    #[serde(rename = "MEDIUM")]
+    Medium,
+    #[serde(rename = "HOT")]
+    Hot,
+}
+
+impl Default for Spiciness {
+    fn default() -> Spiciness {
+        Self::SpicinessUnspecified
     }
 }

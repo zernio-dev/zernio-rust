@@ -1,11 +1,11 @@
-# FoodMenuItemOptionsInner
+# UpdateGoogleBusinessServicesRequestServiceItemsInnerStructuredServiceItem
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**labels** | [**Vec<models::FoodMenuLabel>**](FoodMenuLabel.md) |  | 
-**attributes** | [**models::FoodMenuItemAttributes**](FoodMenuItemAttributes.md) |  | 
+**service_type_id** | **String** |  | 
+**description** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

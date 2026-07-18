@@ -121,7 +121,7 @@ Updates a place action link (change URL or action type). Only the fields include
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** |  | [required] |
-**update_google_business_place_action_request** | [**UpdateGoogleBusinessPlaceActionRequest**](UpdateGoogleBusinessPlaceActionRequest.md) |  | [required] |
+**update_google_business_place_action_request** | Option<[**UpdateGoogleBusinessPlaceActionRequest**](UpdateGoogleBusinessPlaceActionRequest.md)> |  | [required] |
 **location_id** | Option<**String**> | Override which location to target. If omitted, uses the account's selected location. |  |
 
 ### Return type

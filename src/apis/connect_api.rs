@@ -2439,7 +2439,7 @@ pub async fn update_linked_in_organization(
     configuration: &configuration::Configuration,
     account_id: &str,
     update_linked_in_organization_request: models::UpdateLinkedInOrganizationRequest,
-) -> Result<models::ConnectBlueskyCredentials200Response, Error<UpdateLinkedInOrganizationError>> {
+) -> Result<models::UpdateLinkedInOrganization200Response, Error<UpdateLinkedInOrganizationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_account_id = account_id;
     let p_body_update_linked_in_organization_request = update_linked_in_organization_request;
@@ -2474,8 +2474,8 @@ pub async fn update_linked_in_organization(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ConnectBlueskyCredentials200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ConnectBlueskyCredentials200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateLinkedInOrganization200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateLinkedInOrganization200Response`")))),
         }
     } else {
         let content = resp.text().await?;

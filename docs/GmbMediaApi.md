@@ -15,7 +15,7 @@ Method | HTTP request | Description
 > models::CreateGoogleBusinessMedia200Response create_google_business_media(account_id, create_google_business_media_request, location_id)
 Upload photo
 
-Creates a media item (photo) for a location from a publicly accessible URL.  Categories determine where the photo appears: COVER, PROFILE, LOGO, EXTERIOR, INTERIOR, FOOD_AND_DRINK, MENU, PRODUCT, TEAMS, ADDITIONAL. 
+Creates a media item (photo) for a location from a publicly accessible URL.  Categories determine where the photo appears: CATEGORY_UNSPECIFIED, COVER, PROFILE, LOGO, EXTERIOR, INTERIOR, PRODUCT, FOOD_AND_DRINK, MENU, COMMON_AREA, ROOMS, TEAMS, AT_WORK, ADDITIONAL. 
 
 ### Parameters
 

@@ -254,7 +254,9 @@ pub async fn list_google_business_place_actions(
 pub async fn update_google_business_place_action(
     configuration: &configuration::Configuration,
     account_id: &str,
-    update_google_business_place_action_request: models::UpdateGoogleBusinessPlaceActionRequest,
+    update_google_business_place_action_request: Option<
+        models::UpdateGoogleBusinessPlaceActionRequest,
+    >,
     location_id: Option<&str>,
 ) -> Result<
     models::UpdateGoogleBusinessPlaceAction200Response,

@@ -1135,7 +1135,7 @@ Name | Type | Description  | Required | Notes
 
 ## update_linked_in_organization
 
-> models::ConnectBlueskyCredentials200Response update_linked_in_organization(account_id, update_linked_in_organization_request)
+> models::UpdateLinkedInOrganization200Response update_linked_in_organization(account_id, update_linked_in_organization_request)
 Switch LinkedIn account type
 
 Switch a LinkedIn account between personal profile and organization (company page) posting.
@@ -1150,7 +1150,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::ConnectBlueskyCredentials200Response**](connectBlueskyCredentials_200_response.md)
+[**models::UpdateLinkedInOrganization200Response**](updateLinkedInOrganization_200_response.md)
 
 ### Authorization
 

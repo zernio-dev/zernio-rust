@@ -13,21 +13,48 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateGoogleBusinessAttributesRequestAttributesInner {
-    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+    #[serde(rename = "name")]
+    pub name: String,
+    #[serde(rename = "valueType", skip_serializing_if = "Option::is_none")]
+    pub value_type: Option<ValueType>,
     #[serde(rename = "values", skip_serializing_if = "Option::is_none")]
     pub values: Option<Vec<serde_json::Value>>,
     #[serde(rename = "repeatedEnumValue", skip_serializing_if = "Option::is_none")]
     pub repeated_enum_value:
         Option<Box<models::GetGoogleBusinessAttributes200ResponseAttributesInnerRepeatedEnumValue>>,
+    #[serde(rename = "uriValues", skip_serializing_if = "Option::is_none")]
+    pub uri_values:
+        Option<Vec<models::UpdateGoogleBusinessAttributesRequestAttributesInnerUriValuesInner>>,
 }
 
 impl UpdateGoogleBusinessAttributesRequestAttributesInner {
-    pub fn new() -> UpdateGoogleBusinessAttributesRequestAttributesInner {
+    pub fn new(name: String) -> UpdateGoogleBusinessAttributesRequestAttributesInner {
         UpdateGoogleBusinessAttributesRequestAttributesInner {
-            name: None,
+            name,
+            value_type: None,
             values: None,
             repeated_enum_value: None,
+            uri_values: None,
         }
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum ValueType {
+    #[serde(rename = "ATTRIBUTE_VALUE_TYPE_UNSPECIFIED")]
+    AttributeValueTypeUnspecified,
+    #[serde(rename = "BOOL")]
+    Bool,
+    #[serde(rename = "ENUM")]
+    Enum,
+    #[serde(rename = "URL")]
+    Url,
+    #[serde(rename = "REPEATED_ENUM")]
+    RepeatedEnum,
+}
+
+impl Default for ValueType {
+    fn default() -> ValueType {
+        Self::AttributeValueTypeUnspecified
     }
 }

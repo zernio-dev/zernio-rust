@@ -183,7 +183,7 @@ pub enum GetLinkedInPostAnalyticsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetLinkedInPostReactionsError {
-    Status400(models::GetLinkedInPostReactions400Response),
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status402(),
     Status403(),
@@ -1343,7 +1343,7 @@ pub async fn get_linked_in_post_reactions(
     account_id: &str,
     urn: &str,
     limit: Option<i32>,
-    cursor: Option<&str>,
+    cursor: Option<i32>,
 ) -> Result<models::GetLinkedInPostReactions200Response, Error<GetLinkedInPostReactionsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_account_id = account_id;

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **price** | Option<[**models::Money**](Money.md)> |  | [optional]
-**spiciness** | Option<**String**> | Spiciness level (e.g. MILD, MEDIUM, HOT) | [optional]
+**spiciness** | Option<**Spiciness**> | Spiciness level (e.g. MILD, MEDIUM, HOT) (enum: SPICINESS_UNSPECIFIED, MILD, MEDIUM, HOT) | [optional]
 **allergen** | Option<**Vec<String>**> | Allergens (e.g. DAIRY, GLUTEN, SHELLFISH) | [optional]
 **dietary_restriction** | Option<**Vec<String>**> | Dietary labels (e.g. VEGETARIAN, VEGAN, GLUTEN_FREE) | [optional]
 **serves_num_people** | Option<**i32**> | Number of people the item serves | [optional]

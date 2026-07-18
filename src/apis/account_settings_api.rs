@@ -17,6 +17,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteInstagramIceBreakersError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }
@@ -25,6 +26,7 @@ pub enum DeleteInstagramIceBreakersError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteMessengerMenuError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }
@@ -33,6 +35,7 @@ pub enum DeleteMessengerMenuError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteTelegramCommandsError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }
