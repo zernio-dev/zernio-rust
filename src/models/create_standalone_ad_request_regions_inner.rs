@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateStandaloneAdRequestRegionsInner {
-    /// Meta region ID, from /v1/ads/targeting/search results.
+    /// Platform region ID, from /v1/ads/targeting/search results.
     #[serde(rename = "key")]
     pub key: String,
 }
