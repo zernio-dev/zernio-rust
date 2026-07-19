@@ -16,7 +16,7 @@ pub struct UpdateGoogleBusinessPlaceActionRequest {
     /// Resource name of the place action link (e.g. locations/123/placeActionLinks/456)
     #[serde(rename = "name")]
     pub name: String,
-    /// New action URL
+    /// New action URL. At least one of uri or placeActionType is required (enforced server-side; not modeled as anyOf because required-only anyOf branches break SDK generators).
     #[serde(rename = "uri", skip_serializing_if = "Option::is_none")]
     pub uri: Option<String>,
     /// New action type

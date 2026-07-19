@@ -11,6 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// UpdateGoogleBusinessServicesRequestServiceItemsInnerStructuredServiceItem : Exactly one of structuredServiceItem or freeFormServiceItem is required per item (enforced server-side; not modeled as oneOf because required-only oneOf branches break SDK generators).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateGoogleBusinessServicesRequestServiceItemsInnerStructuredServiceItem {
     #[serde(rename = "serviceTypeId")]
@@ -20,6 +21,7 @@ pub struct UpdateGoogleBusinessServicesRequestServiceItemsInnerStructuredService
 }
 
 impl UpdateGoogleBusinessServicesRequestServiceItemsInnerStructuredServiceItem {
+    /// Exactly one of structuredServiceItem or freeFormServiceItem is required per item (enforced server-side; not modeled as oneOf because required-only oneOf branches break SDK generators).
     pub fn new(
         service_type_id: String,
     ) -> UpdateGoogleBusinessServicesRequestServiceItemsInnerStructuredServiceItem {
