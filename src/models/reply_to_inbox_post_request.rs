@@ -17,6 +17,9 @@ pub struct ReplyToInboxPostRequest {
     pub account_id: String,
     #[serde(rename = "message")]
     pub message: String,
+    /// (Facebook only) URL of an image to attach, publishing a photo comment alongside the text. The URL must be publicly accessible so Meta can fetch it. Returns 400 for other platforms.
+    #[serde(rename = "attachmentUrl", skip_serializing_if = "Option::is_none")]
+    pub attachment_url: Option<String>,
     /// Reply to specific comment (optional)
     #[serde(rename = "commentId", skip_serializing_if = "Option::is_none")]
     pub comment_id: Option<String>,
@@ -36,6 +39,7 @@ impl ReplyToInboxPostRequest {
         ReplyToInboxPostRequest {
             account_id,
             message,
+            attachment_url: None,
             comment_id: None,
             parent_cid: None,
             root_uri: None,

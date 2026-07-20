@@ -78,6 +78,7 @@ pub enum ListInboxCommentsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ReplyToInboxPostError {
+    Status400(),
     Status401(models::InlineObject),
     Status403(),
     UnknownValue(serde_json::Value),
