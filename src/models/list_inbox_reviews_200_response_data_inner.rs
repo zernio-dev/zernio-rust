@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ListInboxReviews200ResponseDataInner {
+    /// Review identifier. For Google Business this is the full review resource name (accounts/{accountId}/locations/{locationId}/reviews/{reviewId}), so it also encodes the location.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
@@ -21,6 +22,17 @@ pub struct ListInboxReviews200ResponseDataInner {
     pub account_id: Option<String>,
     #[serde(rename = "accountUsername", skip_serializing_if = "Option::is_none")]
     pub account_username: Option<String>,
+    /// Bare GBP location id the review belongs to. Google Business only; absent for other platforms.
+    #[serde(rename = "locationId", skip_serializing_if = "Option::is_none")]
+    pub location_id: Option<String>,
+    /// Human-readable GBP location display name. Google Business only; absent for other platforms.
+    #[serde(
+        rename = "locationName",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub location_name: Option<Option<String>>,
     #[serde(rename = "reviewer", skip_serializing_if = "Option::is_none")]
     pub reviewer: Option<Box<models::ListInboxReviews200ResponseDataInnerReviewer>>,
     #[serde(rename = "rating", skip_serializing_if = "Option::is_none")]
@@ -58,6 +70,8 @@ impl ListInboxReviews200ResponseDataInner {
             platform: None,
             account_id: None,
             account_username: None,
+            location_id: None,
+            location_name: None,
             reviewer: None,
             rating: None,
             text: None,

@@ -4,10 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | Option<**String**> |  | [optional]
+**id** | Option<**String**> | Review identifier. For Google Business this is the full review resource name (accounts/{accountId}/locations/{locationId}/reviews/{reviewId}), so it also encodes the location. | [optional]
 **platform** | Option<**String**> |  | [optional]
 **account_id** | Option<**String**> |  | [optional]
 **account_username** | Option<**String**> |  | [optional]
+**location_id** | Option<**String**> | Bare GBP location id the review belongs to. Google Business only; absent for other platforms. | [optional]
+**location_name** | Option<**String**> | Human-readable GBP location display name. Google Business only; absent for other platforms. | [optional]
 **reviewer** | Option<[**models::ListInboxReviews200ResponseDataInnerReviewer**](ListInboxReviews200ResponseDataInnerReviewer.md)> |  | [optional]
 **rating** | Option<**i32**> |  | [optional]
 **text** | Option<**String**> |  | [optional]

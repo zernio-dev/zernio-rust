@@ -13,10 +13,10 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BatchGetGoogleBusinessReviews200ResponseLocationReviewsInner {
-    /// Full review resource name (accounts/_*_/locations/_*_/reviews/_*)
+    /// LOCATION resource name the review belongs to (accounts/{accountId}/locations/{locationId}) - NOT the review resource name. Use it to attribute the review to a location; the review identity is review.reviewId (full review resource name at review.name).
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// The review object (reviewId, starRating, comment, reviewer, createTime, updateTime, reviewReply)
+    /// The review object: reviewId (the review's identity), name (full review resource name, accounts/_*_/locations/_*_/reviews/_*), starRating, comment, reviewer, createTime, updateTime, reviewReply, and reviewMediaItems (review photos/videos; photo items carry thumbnailUrl, video items carry videoUrl)
     #[serde(rename = "review", skip_serializing_if = "Option::is_none")]
     pub review: Option<serde_json::Value>,
 }

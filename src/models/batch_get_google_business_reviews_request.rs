@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BatchGetGoogleBusinessReviewsRequest {
-    /// Array of full location resource names (e.g. ['accounts/123/locations/456'])
+    /// Array of full location resource names (e.g. ['accounts/123/locations/456']). Max 50 per request (Google's batchGetReviews cap); chunk larger sets into multiple requests.
     #[serde(rename = "locationNames")]
     pub location_names: Vec<String>,
     /// Number of reviews per page (max 50)
@@ -22,6 +22,9 @@ pub struct BatchGetGoogleBusinessReviewsRequest {
     /// Pagination token from previous response
     #[serde(rename = "pageToken", skip_serializing_if = "Option::is_none")]
     pub page_token: Option<String>,
+    /// Sort order requested from Google. Defaults to 'updateTime desc' (newest first), which allows early-stopping pagination once results cross your date window.
+    #[serde(rename = "orderBy", skip_serializing_if = "Option::is_none")]
+    pub order_by: Option<OrderBy>,
 }
 
 impl BatchGetGoogleBusinessReviewsRequest {
@@ -30,6 +33,23 @@ impl BatchGetGoogleBusinessReviewsRequest {
             location_names,
             page_size: None,
             page_token: None,
+            order_by: None,
         }
+    }
+}
+/// Sort order requested from Google. Defaults to 'updateTime desc' (newest first), which allows early-stopping pagination once results cross your date window.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum OrderBy {
+    #[serde(rename = "updateTime desc")]
+    UpdateTimeDesc,
+    #[serde(rename = "rating")]
+    Rating,
+    #[serde(rename = "rating desc")]
+    RatingDesc,
+}
+
+impl Default for OrderBy {
+    fn default() -> OrderBy {
+        Self::UpdateTimeDesc
     }
 }

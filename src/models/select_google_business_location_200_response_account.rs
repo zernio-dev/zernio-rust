@@ -24,11 +24,13 @@ pub struct SelectGoogleBusinessLocation200ResponseAccount {
     pub display_name: Option<String>,
     #[serde(rename = "isActive", skip_serializing_if = "Option::is_none")]
     pub is_active: Option<bool>,
+    /// Human-readable location display name, NOT a resource name. Do not use it to build API paths.
     #[serde(
         rename = "selectedLocationName",
         skip_serializing_if = "Option::is_none"
     )]
     pub selected_location_name: Option<String>,
+    /// Bare GBP location id. Combine with the GBP account id as accounts/{gbpAccountId}/locations/{selectedLocationId} to form the location resource names that gmb-reviews/batch expects in locationNames.
     #[serde(rename = "selectedLocationId", skip_serializing_if = "Option::is_none")]
     pub selected_location_id: Option<String>,
 }

@@ -21,8 +21,10 @@ pub struct ListInboxComments200ResponseDataInner {
     pub account_id: Option<String>,
     #[serde(rename = "accountUsername", skip_serializing_if = "Option::is_none")]
     pub account_username: Option<String>,
+    /// The post text/caption. On ad rows (isAd: true) this is the AD NAME, not the underlying post's caption — the creative text isn't exposed here.
     #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
     pub content: Option<String>,
+    /// Post media thumbnail. On ad rows this is the ad creative thumbnail.
     #[serde(
         rename = "picture",
         default,
@@ -30,6 +32,7 @@ pub struct ListInboxComments200ResponseDataInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub picture: Option<Option<String>>,
+    /// Public URL of the post. On ad rows: the Facebook dark-post URL (facebook placement) or the IG media permalink (instagram placement); may be null when unknown.
     #[serde(
         rename = "permalink",
         default,
@@ -41,6 +44,7 @@ pub struct ListInboxComments200ResponseDataInner {
     pub created_time: Option<String>,
     #[serde(rename = "commentCount", skip_serializing_if = "Option::is_none")]
     pub comment_count: Option<i32>,
+    /// Not fetched for ad rows (always 0 there).
     #[serde(rename = "likeCount", skip_serializing_if = "Option::is_none")]
     pub like_count: Option<i32>,
     /// Bluesky content identifier
