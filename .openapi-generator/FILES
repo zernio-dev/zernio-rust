@@ -164,6 +164,7 @@ docs/CreateBroadcastRequestMessageAttachmentsInner.md
 docs/CreateBroadcastRequestSegmentFilters.md
 docs/CreateBroadcastRequestTemplate.md
 docs/CreateBroadcastRequestTemplateVariableMappingValue.md
+docs/CreateCallAdRequest.md
 docs/CreateCommentAutomation200Response.md
 docs/CreateCommentAutomation200ResponseAutomation.md
 docs/CreateCommentAutomation200ResponseAutomationStats.md
@@ -176,14 +177,6 @@ docs/CreateConversionDestination201Response.md
 docs/CreateConversionDestinationRequest.md
 docs/CreateConversionDestinationRequestValue.md
 docs/CreateCtwaAd201Response.md
-docs/CreateCtwaAdRequest.md
-docs/CreateCtwaAdRequestCitiesInner.md
-docs/CreateCtwaAdRequestCreativesInner.md
-docs/CreateCtwaAdRequestCreativesInnerVideo.md
-docs/CreateCtwaAdRequestPlacements.md
-docs/CreateCtwaAdRequestRegionsInner.md
-docs/CreateCtwaAdRequestVideo.md
-docs/CreateCtwaAdRequestZipsInner.md
 docs/CreateCustomField200Response.md
 docs/CreateCustomFieldRequest.md
 docs/CreateDiscordGuildRole201Response.md
@@ -213,6 +206,7 @@ docs/CreateLeadForm200Response.md
 docs/CreateLeadFormRequest.md
 docs/CreateLeadFormRequestQuestionsInner.md
 docs/CreateLeadFormRequestQuestionsInnerOptionsInner.md
+docs/CreateMessagingAdRequest.md
 docs/CreatePhoneNumberKycLink200Response.md
 docs/CreatePhoneNumberKycLinkRequest.md
 docs/CreatePhoneNumberKycLinkRequestBranding.md
@@ -290,6 +284,14 @@ docs/CreateWorkflow200Response.md
 docs/CreateWorkflow200ResponseWorkflow.md
 docs/CreateWorkflowRequest.md
 docs/CrosspostDiscordMessage200Response.md
+docs/CtwaAdRequestBody.md
+docs/CtwaAdRequestBodyCitiesInner.md
+docs/CtwaAdRequestBodyCreativesInner.md
+docs/CtwaAdRequestBodyCreativesInnerVideo.md
+docs/CtwaAdRequestBodyPlacements.md
+docs/CtwaAdRequestBodyRegionsInner.md
+docs/CtwaAdRequestBodyVideo.md
+docs/CtwaAdRequestBodyZipsInner.md
 docs/CtwaMultiResponse.md
 docs/CtwaSingleResponse.md
 docs/CustomFieldsApi.md
@@ -376,6 +378,9 @@ docs/FoodMenuItemAttributes.md
 docs/FoodMenuItemOptionsInner.md
 docs/FoodMenuLabel.md
 docs/FoodMenuSection.md
+docs/GenerateAdPreviews200Response.md
+docs/GenerateAdPreviews200ResponsePreviewsInner.md
+docs/GenerateAdPreviewsRequest.md
 docs/GeoRestriction.md
 docs/GetAccountHealth200Response.md
 docs/GetAccountHealth200ResponsePermissions.md
@@ -390,6 +395,7 @@ docs/GetAdComments200ResponseMeta.md
 docs/GetAdComments200ResponsePagination.md
 docs/GetAdInsightsReport200Response.md
 docs/GetAdInsightsReport200ResponsePaging.md
+docs/GetAdPreviews200Response.md
 docs/GetAdTrackingTags200Response.md
 docs/GetAdTree200Response.md
 docs/GetAdsTimeline200Response.md
@@ -1680,6 +1686,7 @@ src/models/create_broadcast_request_message_attachments_inner.rs
 src/models/create_broadcast_request_segment_filters.rs
 src/models/create_broadcast_request_template.rs
 src/models/create_broadcast_request_template_variable_mapping_value.rs
+src/models/create_call_ad_request.rs
 src/models/create_comment_automation_200_response.rs
 src/models/create_comment_automation_200_response_automation.rs
 src/models/create_comment_automation_200_response_automation_stats.rs
@@ -1692,14 +1699,6 @@ src/models/create_conversion_destination_201_response.rs
 src/models/create_conversion_destination_request.rs
 src/models/create_conversion_destination_request_value.rs
 src/models/create_ctwa_ad_201_response.rs
-src/models/create_ctwa_ad_request.rs
-src/models/create_ctwa_ad_request_cities_inner.rs
-src/models/create_ctwa_ad_request_creatives_inner.rs
-src/models/create_ctwa_ad_request_creatives_inner_video.rs
-src/models/create_ctwa_ad_request_placements.rs
-src/models/create_ctwa_ad_request_regions_inner.rs
-src/models/create_ctwa_ad_request_video.rs
-src/models/create_ctwa_ad_request_zips_inner.rs
 src/models/create_custom_field_200_response.rs
 src/models/create_custom_field_request.rs
 src/models/create_discord_guild_role_201_response.rs
@@ -1729,6 +1728,7 @@ src/models/create_lead_form_200_response.rs
 src/models/create_lead_form_request.rs
 src/models/create_lead_form_request_questions_inner.rs
 src/models/create_lead_form_request_questions_inner_options_inner.rs
+src/models/create_messaging_ad_request.rs
 src/models/create_phone_number_kyc_link_200_response.rs
 src/models/create_phone_number_kyc_link_request.rs
 src/models/create_phone_number_kyc_link_request_branding.rs
@@ -1806,6 +1806,14 @@ src/models/create_workflow_200_response.rs
 src/models/create_workflow_200_response_workflow.rs
 src/models/create_workflow_request.rs
 src/models/crosspost_discord_message_200_response.rs
+src/models/ctwa_ad_request_body.rs
+src/models/ctwa_ad_request_body_cities_inner.rs
+src/models/ctwa_ad_request_body_creatives_inner.rs
+src/models/ctwa_ad_request_body_creatives_inner_video.rs
+src/models/ctwa_ad_request_body_placements.rs
+src/models/ctwa_ad_request_body_regions_inner.rs
+src/models/ctwa_ad_request_body_video.rs
+src/models/ctwa_ad_request_body_zips_inner.rs
 src/models/ctwa_multi_response.rs
 src/models/ctwa_single_response.rs
 src/models/deactivate_sms_registration_200_response.rs
@@ -1890,6 +1898,9 @@ src/models/food_menu_item_attributes.rs
 src/models/food_menu_item_options_inner.rs
 src/models/food_menu_label.rs
 src/models/food_menu_section.rs
+src/models/generate_ad_previews_200_response.rs
+src/models/generate_ad_previews_200_response_previews_inner.rs
+src/models/generate_ad_previews_request.rs
 src/models/geo_restriction.rs
 src/models/get_account_health_200_response.rs
 src/models/get_account_health_200_response_permissions.rs
@@ -1904,6 +1915,7 @@ src/models/get_ad_comments_200_response_meta.rs
 src/models/get_ad_comments_200_response_pagination.rs
 src/models/get_ad_insights_report_200_response.rs
 src/models/get_ad_insights_report_200_response_paging.rs
+src/models/get_ad_previews_200_response.rs
 src/models/get_ad_tracking_tags_200_response.rs
 src/models/get_ad_tree_200_response.rs
 src/models/get_ads_timeline_200_response.rs

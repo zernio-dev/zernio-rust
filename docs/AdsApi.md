@@ -9,18 +9,22 @@ Method | HTTP request | Description
 [**archive_lead_form**](AdsApi.md#archive_lead_form) | **DELETE** /v1/ads/lead-forms/{formId} | Archive a lead form
 [**boost_post**](AdsApi.md#boost_post) | **POST** /v1/ads/boost | Boost post as ad
 [**create_ad_insights_report**](AdsApi.md#create_ad_insights_report) | **POST** /v1/ads/insights/reports | Submit an async insights report run (Meta)
+[**create_call_ad**](AdsApi.md#create_call_ad) | **POST** /v1/ads/call | Create Click-to-Call ad
 [**create_conversion_destination**](AdsApi.md#create_conversion_destination) | **POST** /v1/accounts/{accountId}/conversion-destinations | Create a conversion destination
-[**create_ctwa_ad**](AdsApi.md#create_ctwa_ad) | **POST** /v1/ads/ctwa | Create Click-to-WhatsApp ad
+[**create_ctwa_ad**](AdsApi.md#create_ctwa_ad) | **POST** /v1/ads/ctwa | Create Click-to-WhatsApp ad (deprecated)
 [**create_lead_form**](AdsApi.md#create_lead_form) | **POST** /v1/ads/lead-forms | Create a lead form
+[**create_messaging_ad**](AdsApi.md#create_messaging_ad) | **POST** /v1/ads/messaging | Create click-to-message ad (WhatsApp / Messenger / Instagram Direct)
 [**create_standalone_ad**](AdsApi.md#create_standalone_ad) | **POST** /v1/ads/create | Create standalone ad
 [**create_test_lead**](AdsApi.md#create_test_lead) | **POST** /v1/ads/lead-forms/{formId}/test-leads | Create a test lead
 [**delete_ad**](AdsApi.md#delete_ad) | **DELETE** /v1/ads/{adId} | Cancel an ad
 [**delete_conversion_destination**](AdsApi.md#delete_conversion_destination) | **DELETE** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Delete a conversion destination
 [**estimate_ad_reach**](AdsApi.md#estimate_ad_reach) | **POST** /v1/ads/targeting/reach-estimate | Estimate audience reach
+[**generate_ad_previews**](AdsApi.md#generate_ad_previews) | **POST** /v1/ads/preview | Render pre-create ad previews (Meta)
 [**get_ad**](AdsApi.md#get_ad) | **GET** /v1/ads/{adId} | Get ad details
 [**get_ad_analytics**](AdsApi.md#get_ad_analytics) | **GET** /v1/ads/{adId}/analytics | Get ad analytics
 [**get_ad_comments**](AdsApi.md#get_ad_comments) | **GET** /v1/ads/{adId}/comments | List comments on an ad
 [**get_ad_insights_report**](AdsApi.md#get_ad_insights_report) | **GET** /v1/ads/insights/reports/{reportRunId} | Poll an async insights report run (Meta)
+[**get_ad_previews**](AdsApi.md#get_ad_previews) | **GET** /v1/ads/{adId}/preview | Render previews of an existing ad (Meta)
 [**get_ad_tracking_tags**](AdsApi.md#get_ad_tracking_tags) | **GET** /v1/ads/{adId}/tracking-tags | Get ad tracking tags
 [**get_campaign_analytics**](AdsApi.md#get_campaign_analytics) | **GET** /v1/ads/campaigns/{campaignId}/analytics | Get campaign analytics
 [**get_conversion_destination**](AdsApi.md#get_conversion_destination) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Get a conversion destination
@@ -209,6 +213,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## create_call_ad
+
+> create_call_ad(create_call_ad_request)
+Create Click-to-Call ad
+
+Same shape and flow as POST /v1/ads/ctwa, but the CTA is CALL_NOW dialing `phoneNumber` via a tel: link. The ad set is destination_type PHONE_CALL optimizing QUALITY_CALL and the campaign objective defaults to OUTCOME_LEADS. Supports the same single-creative and multi-creative shapes as CTWA.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_call_ad_request** | [**CreateCallAdRequest**](CreateCallAdRequest.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## create_conversion_destination
 
 > models::CreateConversionDestination201Response create_conversion_destination(account_id, create_conversion_destination_request)
@@ -242,17 +276,17 @@ Name | Type | Description  | Required | Notes
 
 ## create_ctwa_ad
 
-> models::CreateCtwaAd201Response create_ctwa_ad(create_ctwa_ad_request)
-Create Click-to-WhatsApp ad
+> models::CreateCtwaAd201Response create_ctwa_ad(ctwa_ad_request_body)
+Create Click-to-WhatsApp ad (deprecated)
 
-Creates one or more Click-to-WhatsApp (CTWA) ads on Meta under a single campaign and ad set. When tapped, each ad opens a WhatsApp conversation with the business attached to the supplied Facebook Page. The full hierarchy (campaign, ad set, creative(s), ad(s)) is created and activated in one call. The CTA is locked to WHATSAPP_MESSAGE and the destination is hard-coded to api.whatsapp.com/send; Meta resolves the actual WhatsApp number from the Page-to-WA pairing configured in Page settings or Business Manager.  Supports two mutually-exclusive shapes:  - **Single-creative**: supply top-level `headline`, `body`, and one of `imageUrl` / `video`. Creates 1 campaign + 1 ad set + 1 ad.  - **Multi-creative**: supply a `creatives[]` array with N entries (each carrying its own headline, body, and image/video). Creates 1 campaign + 1 ad set + N ads sharing budget and targeting so Meta A/Bs the creatives inside a single auction instead of fragmenting budget across N parallel campaigns. Recommended when launching multiple creative variants for the same campaign.  Prerequisites enforced by Meta (surfaced as platform_error on failure): the Facebook Page must be paired with a verified WhatsApp Business number, the WhatsApp Business Account must be business-verified, and the Meta access token must carry ads_management.
+Deprecated: use POST /v1/ads/messaging with `destination: whatsapp`. This endpoint stays available for back-compat; no removal planned.  Creates one or more Click-to-WhatsApp (CTWA) ads on Meta under a single campaign and ad set. When tapped, each ad opens a WhatsApp conversation with the business attached to the supplied Facebook Page. The full hierarchy (campaign, ad set, creative(s), ad(s)) is created and activated in one call. The CTA is locked to WHATSAPP_MESSAGE and the destination is hard-coded to api.whatsapp.com/send; Meta resolves the actual WhatsApp number from the Page-to-WA pairing configured in Page settings or Business Manager.  Supports two mutually-exclusive shapes:  - **Single-creative**: supply top-level `headline`, `body`, and one of `imageUrl` / `video`. Creates 1 campaign + 1 ad set + 1 ad.  - **Multi-creative**: supply a `creatives[]` array with N entries (each carrying its own headline, body, and image/video). Creates 1 campaign + 1 ad set + N ads sharing budget and targeting so Meta A/Bs the creatives inside a single auction instead of fragmenting budget across N parallel campaigns. Recommended when launching multiple creative variants for the same campaign.  Prerequisites enforced by Meta (surfaced as platform_error on failure): the Facebook Page must be paired with a verified WhatsApp Business number, the WhatsApp Business Account must be business-verified, and the Meta access token must carry ads_management.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**create_ctwa_ad_request** | [**CreateCtwaAdRequest**](CreateCtwaAdRequest.md) |  | [required] |
+**ctwa_ad_request_body** | [**CtwaAdRequestBody**](CtwaAdRequestBody.md) |  | [required] |
 
 ### Return type
 
@@ -287,6 +321,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::CreateLeadForm200Response**](createLeadForm_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_messaging_ad
+
+> create_messaging_ad(create_messaging_ad_request)
+Create click-to-message ad (WhatsApp / Messenger / Instagram Direct)
+
+Creates a click-to-message ad; `destination` selects where the tapped ad opens a conversation: WhatsApp, the Page's Messenger inbox or the linked Instagram account's Direct inbox. The ad set is created with the matching destination_type and CONVERSATIONS optimization; the campaign objective defaults to OUTCOME_ENGAGEMENT. Supports single-creative and multi-creative shapes. Supersedes POST /v1/ads/ctwa (deprecated, equivalent to `destination: whatsapp`).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_messaging_ad_request** | [**CreateMessagingAdRequest**](CreateMessagingAdRequest.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
 
 ### Authorization
 
@@ -454,6 +518,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## generate_ad_previews
+
+> models::GenerateAdPreviews200Response generate_ad_previews(generate_ad_previews_request)
+Render pre-create ad previews (Meta)
+
+Renders how a creative would look per placement BEFORE any ad exists, via Meta's `/generatepreviews`. Provide exactly one creative source: `existingCreativeId` or `creativeSpec`. Each preview is an HTML `<iframe>` snippet embeddable directly. Unknown `formats` values return Meta's 400 verbatim. Meta only. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**generate_ad_previews_request** | [**GenerateAdPreviewsRequest**](GenerateAdPreviewsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::GenerateAdPreviews200Response**](generateAdPreviews_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_ad
 
 > models::GetAd200Response get_ad(ad_id)
@@ -570,6 +664,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetAdInsightsReport200Response**](getAdInsightsReport_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_ad_previews
+
+> models::GetAdPreviews200Response get_ad_previews(ad_id, formats)
+Render previews of an existing ad (Meta)
+
+Renders an EXISTING ad per placement via Meta's `/{ad_id}/previews`. Each preview is an HTML `<iframe>` snippet embeddable directly. Unknown `formats` values return Meta's 400 verbatim. Meta only. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**ad_id** | **String** | Zernio ad id (24-char hex). | [required] |
+**formats** | Option<**String**> | Comma-separated Meta ad_format values (max 10), one preview per format. Defaults to DESKTOP_FEED_STANDARD. |  |
+
+### Return type
+
+[**models::GetAdPreviews200Response**](getAdPreviews_200_response.md)
 
 ### Authorization
 

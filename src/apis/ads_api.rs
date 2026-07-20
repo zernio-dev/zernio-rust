@@ -68,6 +68,17 @@ pub enum CreateAdInsightsReportError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`create_call_ad`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateCallAdError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status422(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`create_conversion_destination`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -101,6 +112,17 @@ pub enum CreateCtwaAdError {
 pub enum CreateLeadFormError {
     Status401(models::InlineObject),
     Status403(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_messaging_ad`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateMessagingAdError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status422(),
     UnknownValue(serde_json::Value),
 }
 
@@ -156,6 +178,17 @@ pub enum EstimateAdReachError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`generate_ad_previews`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GenerateAdPreviewsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_ad`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -194,6 +227,18 @@ pub enum GetAdCommentsError {
 pub enum GetAdInsightsReportError {
     Status400(),
     Status401(models::InlineObject),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_ad_previews`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAdPreviewsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -798,6 +843,45 @@ pub async fn create_ad_insights_report(
     }
 }
 
+/// Same shape and flow as POST /v1/ads/ctwa, but the CTA is CALL_NOW dialing `phoneNumber` via a tel: link. The ad set is destination_type PHONE_CALL optimizing QUALITY_CALL and the campaign objective defaults to OUTCOME_LEADS. Supports the same single-creative and multi-creative shapes as CTWA.
+pub async fn create_call_ad(
+    configuration: &configuration::Configuration,
+    create_call_ad_request: models::CreateCallAdRequest,
+) -> Result<(), Error<CreateCallAdError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_call_ad_request = create_call_ad_request;
+
+    let uri_str = format!("{}/v1/ads/call", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_call_ad_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateCallAdError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Create a new conversion destination on the platform. Supported for LinkedIn (conversion rule) and Google Ads (conversion action). Meta manages destinations in its own UI and returns 405.  **LinkedIn:** creation is NOT idempotent. A retry creates a second destination. Deduplicate before retrying.  **Google Ads:** calling with a name that already exists reuses the existing conversion action transparently (the response is identical to a fresh create). Calling with the same name but a different category returns a typed `IDEMPOTENCY_CONFLICT` (409) rather than silently returning the mismatched action.  **LinkedIn:** the rule is created with `conversionMethod=CONVERSIONS_API` and (by default) auto-associated with all of the ad account's campaigns via `autoAssociationType=ALL_CAMPAIGNS`. Pass `autoAssociationType: NONE` to opt out and manage associations explicitly via the associations endpoints below.  365-day attribution windows are only valid for `SUBMIT_APPLICATION`, `PURCHASE`, `ADD_TO_CART`, `QUALIFIED_LEAD`, and `LEAD` rule types; the API rejects other combinations locally.  **Google Ads:** the conversion action is created with `type=UPLOAD_CLICKS` (required for API-uploaded offline conversions, immutable after creation). The `type` field carries the Google `ConversionActionCategory` enum value, e.g. `PURCHASE`, `SUBSCRIBE_PAID`, `SIGNUP`, `IMPORTED_LEAD`, `BOOK_APPOINTMENT`. Unified standard event names (e.g. `Purchase`, `Subscribe`, `CompleteRegistration`, `Lead`, `Schedule`) are resolved to their Google category equivalents automatically. The action defaults to secondary (non-primary) to avoid immediately steering Smart Bidding; pass `primaryForGoal: true` to opt in.
 pub async fn create_conversion_destination(
     configuration: &configuration::Configuration,
@@ -855,13 +939,14 @@ pub async fn create_conversion_destination(
     }
 }
 
-/// Creates one or more Click-to-WhatsApp (CTWA) ads on Meta under a single campaign and ad set. When tapped, each ad opens a WhatsApp conversation with the business attached to the supplied Facebook Page. The full hierarchy (campaign, ad set, creative(s), ad(s)) is created and activated in one call. The CTA is locked to WHATSAPP_MESSAGE and the destination is hard-coded to api.whatsapp.com/send; Meta resolves the actual WhatsApp number from the Page-to-WA pairing configured in Page settings or Business Manager.  Supports two mutually-exclusive shapes:  - **Single-creative**: supply top-level `headline`, `body`, and one of `imageUrl` / `video`. Creates 1 campaign + 1 ad set + 1 ad.  - **Multi-creative**: supply a `creatives[]` array with N entries (each carrying its own headline, body, and image/video). Creates 1 campaign + 1 ad set + N ads sharing budget and targeting so Meta A/Bs the creatives inside a single auction instead of fragmenting budget across N parallel campaigns. Recommended when launching multiple creative variants for the same campaign.  Prerequisites enforced by Meta (surfaced as platform_error on failure): the Facebook Page must be paired with a verified WhatsApp Business number, the WhatsApp Business Account must be business-verified, and the Meta access token must carry ads_management.
+/// Deprecated: use POST /v1/ads/messaging with `destination: whatsapp`. This endpoint stays available for back-compat; no removal planned.  Creates one or more Click-to-WhatsApp (CTWA) ads on Meta under a single campaign and ad set. When tapped, each ad opens a WhatsApp conversation with the business attached to the supplied Facebook Page. The full hierarchy (campaign, ad set, creative(s), ad(s)) is created and activated in one call. The CTA is locked to WHATSAPP_MESSAGE and the destination is hard-coded to api.whatsapp.com/send; Meta resolves the actual WhatsApp number from the Page-to-WA pairing configured in Page settings or Business Manager.  Supports two mutually-exclusive shapes:  - **Single-creative**: supply top-level `headline`, `body`, and one of `imageUrl` / `video`. Creates 1 campaign + 1 ad set + 1 ad.  - **Multi-creative**: supply a `creatives[]` array with N entries (each carrying its own headline, body, and image/video). Creates 1 campaign + 1 ad set + N ads sharing budget and targeting so Meta A/Bs the creatives inside a single auction instead of fragmenting budget across N parallel campaigns. Recommended when launching multiple creative variants for the same campaign.  Prerequisites enforced by Meta (surfaced as platform_error on failure): the Facebook Page must be paired with a verified WhatsApp Business number, the WhatsApp Business Account must be business-verified, and the Meta access token must carry ads_management.
+#[deprecated]
 pub async fn create_ctwa_ad(
     configuration: &configuration::Configuration,
-    create_ctwa_ad_request: models::CreateCtwaAdRequest,
+    ctwa_ad_request_body: models::CtwaAdRequestBody,
 ) -> Result<models::CreateCtwaAd201Response, Error<CreateCtwaAdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_create_ctwa_ad_request = create_ctwa_ad_request;
+    let p_body_ctwa_ad_request_body = ctwa_ad_request_body;
 
     let uri_str = format!("{}/v1/ads/ctwa", configuration.base_path);
     let mut req_builder = configuration
@@ -874,7 +959,7 @@ pub async fn create_ctwa_ad(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_create_ctwa_ad_request);
+    req_builder = req_builder.json(&p_body_ctwa_ad_request_body);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -947,6 +1032,45 @@ pub async fn create_lead_form(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateLeadFormError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Creates a click-to-message ad; `destination` selects where the tapped ad opens a conversation: WhatsApp, the Page's Messenger inbox or the linked Instagram account's Direct inbox. The ad set is created with the matching destination_type and CONVERSATIONS optimization; the campaign objective defaults to OUTCOME_ENGAGEMENT. Supports single-creative and multi-creative shapes. Supersedes POST /v1/ads/ctwa (deprecated, equivalent to `destination: whatsapp`).
+pub async fn create_messaging_ad(
+    configuration: &configuration::Configuration,
+    create_messaging_ad_request: models::CreateMessagingAdRequest,
+) -> Result<(), Error<CreateMessagingAdError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_messaging_ad_request = create_messaging_ad_request;
+
+    let uri_str = format!("{}/v1/ads/messaging", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_messaging_ad_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateMessagingAdError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1222,6 +1346,56 @@ pub async fn estimate_ad_reach(
     }
 }
 
+/// Renders how a creative would look per placement BEFORE any ad exists, via Meta's `/generatepreviews`. Provide exactly one creative source: `existingCreativeId` or `creativeSpec`. Each preview is an HTML `<iframe>` snippet embeddable directly. Unknown `formats` values return Meta's 400 verbatim. Meta only.
+pub async fn generate_ad_previews(
+    configuration: &configuration::Configuration,
+    generate_ad_previews_request: models::GenerateAdPreviewsRequest,
+) -> Result<models::GenerateAdPreviews200Response, Error<GenerateAdPreviewsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_generate_ad_previews_request = generate_ad_previews_request;
+
+    let uri_str = format!("{}/v1/ads/preview", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_generate_ad_previews_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GenerateAdPreviews200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GenerateAdPreviews200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GenerateAdPreviewsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Returns an ad with its creative, targeting, status, and performance metrics.  The `{adId}` path segment accepts any identifier dialect Zernio indexes for the ad: - the Zernio internal `_id` (24-char hex) - Meta's numeric `platformAdId` (the value shipped in `comment.received` webhooks as `comment.ad.id`) - the creative's `effective_object_story_id` (`{pageId}_{postId}` shape, Facebook side) - the creative's `effective_instagram_media_id` (Instagram side)  Any of the four resolve to the same ad. Caller doesn't need a translation step.
 pub async fn get_ad(
     configuration: &configuration::Configuration,
@@ -1461,6 +1635,62 @@ pub async fn get_ad_insights_report(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetAdInsightsReportError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Renders an EXISTING ad per placement via Meta's `/{ad_id}/previews`. Each preview is an HTML `<iframe>` snippet embeddable directly. Unknown `formats` values return Meta's 400 verbatim. Meta only.
+pub async fn get_ad_previews(
+    configuration: &configuration::Configuration,
+    ad_id: &str,
+    formats: Option<&str>,
+) -> Result<models::GetAdPreviews200Response, Error<GetAdPreviewsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_ad_id = ad_id;
+    let p_query_formats = formats;
+
+    let uri_str = format!(
+        "{}/v1/ads/{adId}/preview",
+        configuration.base_path,
+        adId = crate::apis::urlencode(p_path_ad_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_formats {
+        req_builder = req_builder.query(&[("formats", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetAdPreviews200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetAdPreviews200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAdPreviewsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
