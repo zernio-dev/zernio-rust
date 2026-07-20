@@ -246,6 +246,7 @@ docs/CreateStandaloneAdRequest.md
 docs/CreateStandaloneAdRequestAttributionSpecInner.md
 docs/CreateStandaloneAdRequestBehaviorsInner.md
 docs/CreateStandaloneAdRequestBrandIdentity.md
+docs/CreateStandaloneAdRequestCarouselCardsInner.md
 docs/CreateStandaloneAdRequestCitiesInner.md
 docs/CreateStandaloneAdRequestCreativesInner.md
 docs/CreateStandaloneAdRequestCreativesInnerVideo.md
@@ -1761,6 +1762,7 @@ src/models/create_standalone_ad_request.rs
 src/models/create_standalone_ad_request_attribution_spec_inner.rs
 src/models/create_standalone_ad_request_behaviors_inner.rs
 src/models/create_standalone_ad_request_brand_identity.rs
+src/models/create_standalone_ad_request_carousel_cards_inner.rs
 src/models/create_standalone_ad_request_cities_inner.rs
 src/models/create_standalone_ad_request_creatives_inner.rs
 src/models/create_standalone_ad_request_creatives_inner_video.rs

@@ -458,6 +458,8 @@ pub mod create_standalone_ad_request_behaviors_inner;
 pub use self::create_standalone_ad_request_behaviors_inner::CreateStandaloneAdRequestBehaviorsInner;
 pub mod create_standalone_ad_request_brand_identity;
 pub use self::create_standalone_ad_request_brand_identity::CreateStandaloneAdRequestBrandIdentity;
+pub mod create_standalone_ad_request_carousel_cards_inner;
+pub use self::create_standalone_ad_request_carousel_cards_inner::CreateStandaloneAdRequestCarouselCardsInner;
 pub mod create_standalone_ad_request_cities_inner;
 pub use self::create_standalone_ad_request_cities_inner::CreateStandaloneAdRequestCitiesInner;
 pub mod create_standalone_ad_request_creatives_inner;

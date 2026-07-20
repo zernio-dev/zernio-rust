@@ -1258,7 +1258,7 @@ Name | Type | Description  | Required | Notes
 
 ## query_ad_insights
 
-> models::QueryAdInsights200Response query_ad_insights(account_id, object_id, level, fields, breakdowns, filtering, date_preset, from_date, to_date, time_increment, limit, after)
+> models::QueryAdInsights200Response query_ad_insights(account_id, object_id, level, fields, breakdowns, action_breakdowns, action_attribution_windows, action_report_time, use_unified_attribution_setting, filtering, date_preset, from_date, to_date, time_increment, limit, after)
 Flexible live insights query (Meta)
 
 Live, flexible insights query against Meta's Graph API. Unlike GET /v1/ads/{adId}/analytics (fixed metric set, cached), this forwards caller-chosen `fields`, `breakdowns` and `filtering` to any Meta insights node and returns Meta's rows verbatim.  `objectId` selects the node: an ad account, campaign, ad set or ad platform id. `level` sets row granularity independently of the node.  Semantic validation is Meta's: an unknown field or invalid breakdown combination returns a 400 carrying Meta's message. For long ranges or agency-scale accounts prefer the async variant (POST /v1/ads/insights/reports). Meta only. 
@@ -1273,6 +1273,10 @@ Name | Type | Description  | Required | Notes
 **level** | Option<**String**> | Row granularity |  |
 **fields** | Option<**String**> | Comma-separated Graph insights fields (e.g. spend,impressions,frequency,website_purchase_roas). Omitted = Meta's default set. |  |
 **breakdowns** | Option<**String**> | Comma-separated Graph breakdowns (e.g. age,gender or publisher_platform). |  |
+**action_breakdowns** | Option<**String**> | Comma-separated Graph action breakdowns. Segments the actions[] arrays in each row. |  |
+**action_attribution_windows** | Option<**String**> | Comma-separated Meta attribution windows. Action values are returned keyed per window. |  |
+**action_report_time** | Option<**String**> | When actions are counted: impression, conversion or mixed. |  |
+**use_unified_attribution_setting** | Option<**bool**> | Use the ad sets' own attribution settings for action counting. |  |
 **filtering** | Option<**String**> | JSON array of Meta filter objects: [{\"field\", \"operator\", \"value\"}]. Applied server-side by Meta. |  |
 **date_preset** | Option<**String**> | Meta date_preset (e.g. last_7d, last_30d, this_month). Mutually exclusive with fromDate/toDate. |  |
 **from_date** | Option<**String**> | Start of range (YYYY-MM-DD); requires toDate. |  |

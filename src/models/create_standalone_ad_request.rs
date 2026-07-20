@@ -164,6 +164,9 @@ pub struct CreateStandaloneAdRequest {
     pub instagram_account_id: Option<String>,
     #[serde(rename = "dynamicCreative", skip_serializing_if = "Option::is_none")]
     pub dynamic_creative: Option<Box<models::CreateStandaloneAdRequestDynamicCreative>>,
+    /// Meta only. Hand-built carousel: 2-10 authored cards in DETERMINISTIC order, mapped to the creative's `link_data.child_attachments`. Unlike `dynamicCreative`, you control the card order and per-card copy/link. Requires top-level `body`, `linkUrl` and `callToAction`. Mutually exclusive with `imageUrl`/`video`, `creatives[]`, `dynamicCreative`, `placementAssets`, `existingCreativeId`, `adSetId`, `leadGenFormId` and goal `catalog_sales`.
+    #[serde(rename = "carouselCards", skip_serializing_if = "Option::is_none")]
+    pub carousel_cards: Option<Vec<models::CreateStandaloneAdRequestCarouselCardsInner>>,
     #[serde(rename = "placementAssets", skip_serializing_if = "Option::is_none")]
     pub placement_assets: Option<Box<models::CreateStandaloneAdRequestPlacementAssets>>,
     /// Custom audience ID for targeting
@@ -285,6 +288,7 @@ impl CreateStandaloneAdRequest {
             start_date: None,
             instagram_account_id: None,
             dynamic_creative: None,
+            carousel_cards: None,
             placement_assets: None,
             audience_id: None,
             campaign_type: None,

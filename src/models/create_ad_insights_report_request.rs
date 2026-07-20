@@ -27,6 +27,24 @@ pub struct CreateAdInsightsReportRequest {
     /// Comma-separated Graph breakdowns.
     #[serde(rename = "breakdowns", skip_serializing_if = "Option::is_none")]
     pub breakdowns: Option<String>,
+    /// Comma-separated Graph action breakdowns (e.g. action_type,action_destination).
+    #[serde(rename = "actionBreakdowns", skip_serializing_if = "Option::is_none")]
+    pub action_breakdowns: Option<String>,
+    /// Meta attribution windows (e.g. [\"7d_click\", \"1d_view\"]). Action values are returned keyed per window.
+    #[serde(
+        rename = "actionAttributionWindows",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub action_attribution_windows: Option<Vec<String>>,
+    /// When actions are counted: impression, conversion or mixed.
+    #[serde(rename = "actionReportTime", skip_serializing_if = "Option::is_none")]
+    pub action_report_time: Option<String>,
+    /// Use the ad sets' own attribution settings for action counting.
+    #[serde(
+        rename = "useUnifiedAttributionSetting",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub use_unified_attribution_setting: Option<bool>,
     /// Meta filter objects, applied server-side.
     #[serde(rename = "filtering", skip_serializing_if = "Option::is_none")]
     pub filtering: Option<Vec<models::CreateAdInsightsReportRequestFilteringInner>>,
@@ -49,6 +67,10 @@ impl CreateAdInsightsReportRequest {
             level: None,
             fields: None,
             breakdowns: None,
+            action_breakdowns: None,
+            action_attribution_windows: None,
+            action_report_time: None,
+            use_unified_attribution_setting: None,
             filtering: None,
             date_preset: None,
             from_date: None,

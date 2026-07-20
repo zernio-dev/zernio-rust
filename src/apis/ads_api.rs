@@ -2719,6 +2719,10 @@ pub async fn query_ad_insights(
     level: Option<&str>,
     fields: Option<&str>,
     breakdowns: Option<&str>,
+    action_breakdowns: Option<&str>,
+    action_attribution_windows: Option<&str>,
+    action_report_time: Option<&str>,
+    use_unified_attribution_setting: Option<bool>,
     filtering: Option<&str>,
     date_preset: Option<&str>,
     from_date: Option<String>,
@@ -2733,6 +2737,10 @@ pub async fn query_ad_insights(
     let p_query_level = level;
     let p_query_fields = fields;
     let p_query_breakdowns = breakdowns;
+    let p_query_action_breakdowns = action_breakdowns;
+    let p_query_action_attribution_windows = action_attribution_windows;
+    let p_query_action_report_time = action_report_time;
+    let p_query_use_unified_attribution_setting = use_unified_attribution_setting;
     let p_query_filtering = filtering;
     let p_query_date_preset = date_preset;
     let p_query_from_date = from_date;
@@ -2754,6 +2762,19 @@ pub async fn query_ad_insights(
     }
     if let Some(ref param_value) = p_query_breakdowns {
         req_builder = req_builder.query(&[("breakdowns", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_action_breakdowns {
+        req_builder = req_builder.query(&[("actionBreakdowns", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_action_attribution_windows {
+        req_builder = req_builder.query(&[("actionAttributionWindows", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_action_report_time {
+        req_builder = req_builder.query(&[("actionReportTime", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_use_unified_attribution_setting {
+        req_builder =
+            req_builder.query(&[("useUnifiedAttributionSetting", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_filtering {
         req_builder = req_builder.query(&[("filtering", &param_value.to_string())]);
