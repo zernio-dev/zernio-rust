@@ -111,7 +111,7 @@ pub enum GetGoogleBusinessSearchKeywordsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetInstagramAccountInsightsError {
-    Status400(models::GetYouTubeDailyViews400Response),
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status402(models::GetAnalytics402Response),
     Status403(models::GetYouTubeDailyViews403Response),
