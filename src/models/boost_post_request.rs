@@ -147,8 +147,12 @@ pub enum SpecialAdCategories {
     Employment,
     #[serde(rename = "CREDIT")]
     Credit,
+    #[serde(rename = "FINANCIAL_PRODUCTS_SERVICES")]
+    FinancialProductsServices,
     #[serde(rename = "ISSUES_ELECTIONS_POLITICS")]
     IssuesElectionsPolitics,
+    #[serde(rename = "ONLINE_GAMBLING_AND_GAMING")]
+    OnlineGamblingAndGaming,
 }
 
 impl Default for SpecialAdCategories {

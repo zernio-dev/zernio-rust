@@ -74,6 +74,38 @@ pub enum CallToActionTypes {
     Subscribe,
     #[serde(rename = "WATCH_MORE")]
     WatchMore,
+    #[serde(rename = "ADD_TO_CART")]
+    AddToCart,
+    #[serde(rename = "APPLY_NOW")]
+    ApplyNow,
+    #[serde(rename = "BOOK_NOW")]
+    BookNow,
+    #[serde(rename = "BUY_TICKETS")]
+    BuyTickets,
+    #[serde(rename = "DONATE")]
+    Donate,
+    #[serde(rename = "DONATE_NOW")]
+    DonateNow,
+    #[serde(rename = "GET_DIRECTIONS")]
+    GetDirections,
+    #[serde(rename = "GET_SHOWTIMES")]
+    GetShowtimes,
+    #[serde(rename = "LISTEN_NOW")]
+    ListenNow,
+    #[serde(rename = "ORDER_NOW")]
+    OrderNow,
+    #[serde(rename = "PLAY_GAME")]
+    PlayGame,
+    #[serde(rename = "REQUEST_TIME")]
+    RequestTime,
+    #[serde(rename = "SEE_MENU")]
+    SeeMenu,
+    #[serde(rename = "START_ORDER")]
+    StartOrder,
+    #[serde(rename = "INSTALL_MOBILE_APP")]
+    InstallMobileApp,
+    #[serde(rename = "USE_APP")]
+    UseApp,
     #[serde(rename = "REGISTER")]
     Register,
     #[serde(rename = "JOIN")]

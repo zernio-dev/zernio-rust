@@ -387,6 +387,8 @@ docs/GetAccountHealth200ResponsePermissions.md
 docs/GetAccountHealth200ResponsePermissionsPostingInner.md
 docs/GetAccountHealth200ResponseTokenStatus.md
 docs/GetAd200Response.md
+docs/GetAdAccountFinance200Response.md
+docs/GetAdAccountFinance200ResponseFundingSource.md
 docs/GetAdAnalytics200Response.md
 docs/GetAdAnalytics200ResponseAd.md
 docs/GetAdAudience200Response.md
@@ -396,8 +398,10 @@ docs/GetAdComments200ResponsePagination.md
 docs/GetAdInsightsReport200Response.md
 docs/GetAdInsightsReport200ResponsePaging.md
 docs/GetAdPreviews200Response.md
+docs/GetAdSetDetails200Response.md
 docs/GetAdTrackingTags200Response.md
 docs/GetAdTree200Response.md
+docs/GetAdsActivityLog200Response.md
 docs/GetAdsTimeline200Response.md
 docs/GetAdsTimeline200ResponseRowsInner.md
 docs/GetAllAccountsHealth200Response.md
@@ -765,6 +769,7 @@ docs/ListAdCatalogProductSets200Response.md
 docs/ListAdCatalogProductSets200ResponseProductSetsInner.md
 docs/ListAdCatalogs200Response.md
 docs/ListAdCatalogs200ResponseCatalogsInner.md
+docs/ListAdStudies200Response.md
 docs/ListAds200Response.md
 docs/ListAdsBusinessCenters200Response.md
 docs/ListApiKeys200Response.md
@@ -1308,6 +1313,9 @@ docs/UpdateWorkflow200ResponseWorkflow.md
 docs/UpdateWorkflowRequest.md
 docs/UpdateYoutubeDefaultPlaylist200Response.md
 docs/UpdateYoutubeDefaultPlaylistRequest.md
+docs/UploadAdImage201Response.md
+docs/UploadAdImage201ResponseImage.md
+docs/UploadAdImageRequest.md
 docs/UploadMediaDirect200Response.md
 docs/UploadPhoneNumberKycDocument200Response.md
 docs/UploadPhoneNumberPortInDocument200Response.md
@@ -1907,6 +1915,8 @@ src/models/get_account_health_200_response_permissions.rs
 src/models/get_account_health_200_response_permissions_posting_inner.rs
 src/models/get_account_health_200_response_token_status.rs
 src/models/get_ad_200_response.rs
+src/models/get_ad_account_finance_200_response.rs
+src/models/get_ad_account_finance_200_response_funding_source.rs
 src/models/get_ad_analytics_200_response.rs
 src/models/get_ad_analytics_200_response_ad.rs
 src/models/get_ad_audience_200_response.rs
@@ -1916,8 +1926,10 @@ src/models/get_ad_comments_200_response_pagination.rs
 src/models/get_ad_insights_report_200_response.rs
 src/models/get_ad_insights_report_200_response_paging.rs
 src/models/get_ad_previews_200_response.rs
+src/models/get_ad_set_details_200_response.rs
 src/models/get_ad_tracking_tags_200_response.rs
 src/models/get_ad_tree_200_response.rs
+src/models/get_ads_activity_log_200_response.rs
 src/models/get_ads_timeline_200_response.rs
 src/models/get_ads_timeline_200_response_rows_inner.rs
 src/models/get_all_accounts_health_200_response.rs
@@ -2273,6 +2285,7 @@ src/models/list_ad_catalog_product_sets_200_response.rs
 src/models/list_ad_catalog_product_sets_200_response_product_sets_inner.rs
 src/models/list_ad_catalogs_200_response.rs
 src/models/list_ad_catalogs_200_response_catalogs_inner.rs
+src/models/list_ad_studies_200_response.rs
 src/models/list_ads_200_response.rs
 src/models/list_ads_business_centers_200_response.rs
 src/models/list_api_keys_200_response.rs
@@ -2803,6 +2816,9 @@ src/models/update_workflow_200_response_workflow.rs
 src/models/update_workflow_request.rs
 src/models/update_youtube_default_playlist_200_response.rs
 src/models/update_youtube_default_playlist_request.rs
+src/models/upload_ad_image_201_response.rs
+src/models/upload_ad_image_201_response_image.rs
+src/models/upload_ad_image_request.rs
 src/models/upload_media_direct_200_response.rs
 src/models/upload_phone_number_kyc_document_200_response.rs
 src/models/upload_phone_number_port_in_document_200_response.rs

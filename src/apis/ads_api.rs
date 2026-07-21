@@ -198,6 +198,16 @@ pub enum GetAdError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_ad_account_finance`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAdAccountFinanceError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_ad_analytics`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -251,6 +261,16 @@ pub enum GetAdTrackingTagsError {
     Status401(models::InlineObject),
     Status404(),
     Status405(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_ads_activity_log`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAdsActivityLogError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status501(),
     UnknownValue(serde_json::Value),
 }
 
@@ -374,6 +394,16 @@ pub enum ListAdCatalogProductSetsError {
 pub enum ListAdCatalogsError {
     Status401(models::InlineObject),
     Status403(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_ad_studies`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListAdStudiesError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status501(),
     UnknownValue(serde_json::Value),
 }
 
@@ -575,6 +605,16 @@ pub enum UpdateConversionDestinationError {
     Status404(),
     Status405(),
     Status429(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`upload_ad_image`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UploadAdImageError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status501(),
     UnknownValue(serde_json::Value),
 }
 
@@ -1447,6 +1487,57 @@ pub async fn get_ad(
     }
 }
 
+/// Finances of one Meta ad account: prepaid `balance`, lifetime `amountSpent`, account `spendCap` (null = no cap) and the `fundingSource`. Money values are converted from Meta's minor units to whole units of `currency`. Meta only.
+pub async fn get_ad_account_finance(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    ad_account_id: &str,
+) -> Result<models::GetAdAccountFinance200Response, Error<GetAdAccountFinanceError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_ad_account_id = ad_account_id;
+
+    let uri_str = format!("{}/v1/ads/accounts/finance", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    req_builder = req_builder.query(&[("adAccountId", &p_query_ad_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetAdAccountFinance200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetAdAccountFinance200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAdAccountFinanceError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Returns detailed performance analytics for an ad. Includes summary metrics, a daily timeline over the requested date range, and optional demographic breakdowns (Meta and TikTok only). If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max.
 pub async fn get_ad_analytics(
     configuration: &configuration::Configuration,
@@ -1742,6 +1833,82 @@ pub async fn get_ad_tracking_tags(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetAdTrackingTagsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Account-level audit log from Meta's `/act_X/activities`: who changed what and when (creates, edits, status flips, budget changes...) with Meta's translated event names and the structured before/after in `extra_data`. Rows are returned verbatim. Meta has no server-side per-object filter on this edge, so `objectId` filters the returned page client-side (combine with paging to walk history for one campaign/ad set/ad). Meta only.
+pub async fn get_ads_activity_log(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    ad_account_id: &str,
+    since: Option<String>,
+    until: Option<String>,
+    object_id: Option<&str>,
+    limit: Option<i32>,
+    after: Option<&str>,
+) -> Result<models::GetAdsActivityLog200Response, Error<GetAdsActivityLogError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_ad_account_id = ad_account_id;
+    let p_query_since = since;
+    let p_query_until = until;
+    let p_query_object_id = object_id;
+    let p_query_limit = limit;
+    let p_query_after = after;
+
+    let uri_str = format!("{}/v1/ads/activity", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    req_builder = req_builder.query(&[("adAccountId", &p_query_ad_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_since {
+        req_builder = req_builder.query(&[("since", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_until {
+        req_builder = req_builder.query(&[("until", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_object_id {
+        req_builder = req_builder.query(&[("objectId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetAdsActivityLog200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetAdsActivityLog200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAdsActivityLogError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -2412,6 +2579,72 @@ pub async fn list_ad_catalogs(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListAdCatalogsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Lists the ad account's A/B tests and lift studies (Meta's `/act_X/ad_studies`), rows returned verbatim. The default projection covers id, name, type, timing and cells with split percentages; `fields` is a raw-passthrough override. Meta only.
+pub async fn list_ad_studies(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    ad_account_id: &str,
+    fields: Option<&str>,
+    limit: Option<i32>,
+    after: Option<&str>,
+) -> Result<models::ListAdStudies200Response, Error<ListAdStudiesError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_ad_account_id = ad_account_id;
+    let p_query_fields = fields;
+    let p_query_limit = limit;
+    let p_query_after = after;
+
+    let uri_str = format!("{}/v1/ads/studies", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    req_builder = req_builder.query(&[("adAccountId", &p_query_ad_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_fields {
+        req_builder = req_builder.query(&[("fields", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListAdStudies200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListAdStudies200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListAdStudiesError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -3603,6 +3836,56 @@ pub async fn update_conversion_destination(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateConversionDestinationError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Uploads raw image bytes to the Meta ad account's image library — for callers whose creatives aren't hosted at a public URL. Returns the image `hash` (Meta's identifier for the asset) and the Meta-hosted `url`, which can be used directly as `imageUrl` on the create endpoints. Max 30 MB decoded. Meta only.
+pub async fn upload_ad_image(
+    configuration: &configuration::Configuration,
+    upload_ad_image_request: models::UploadAdImageRequest,
+) -> Result<models::UploadAdImage201Response, Error<UploadAdImageError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_upload_ad_image_request = upload_ad_image_request;
+
+    let uri_str = format!("{}/v1/ads/images", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_upload_ad_image_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UploadAdImage201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UploadAdImage201Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UploadAdImageError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
