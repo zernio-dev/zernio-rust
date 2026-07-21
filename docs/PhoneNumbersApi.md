@@ -11,6 +11,8 @@ Method | HTTP request | Description
 [**create_phone_number_port_in**](PhoneNumbersApi.md#create_phone_number_port_in) | **POST** /v1/phone-numbers/port-in | Port numbers in
 [**get_phone_number**](PhoneNumbersApi.md#get_phone_number) | **GET** /v1/phone-numbers/{id} | Get phone number
 [**get_phone_number_kyc_form**](PhoneNumbersApi.md#get_phone_number_kyc_form) | **GET** /v1/phone-numbers/kyc | Get KYC form spec
+[**get_phone_number_port_in_order_requirements**](PhoneNumbersApi.md#get_phone_number_port_in_order_requirements) | **GET** /v1/phone-numbers/port-in/{id}/requirements | A port-in order's pending requirements
+[**get_phone_number_port_in_requirements**](PhoneNumbersApi.md#get_phone_number_port_in_requirements) | **GET** /v1/phone-numbers/port-in/requirements | Country porting requirements
 [**get_phone_number_remediation**](PhoneNumbersApi.md#get_phone_number_remediation) | **GET** /v1/phone-numbers/{id}/remediate | Get declined requirements
 [**list_phone_number_countries**](PhoneNumbersApi.md#list_phone_number_countries) | **GET** /v1/phone-numbers/countries | List offerable number countries
 [**list_phone_number_port_ins**](PhoneNumbersApi.md#list_phone_number_port_ins) | **GET** /v1/phone-numbers/port-in | List port-in orders
@@ -153,7 +155,7 @@ Name | Type | Description  | Required | Notes
 > models::CreatePhoneNumberPortIn201Response create_phone_number_port_in(create_phone_number_port_in_request)
 Port numbers in
 
-Submit a port-in for one or more existing numbers from another carrier. Creates the carrier order(s), attaches the end-user (current account) info plus the LOA and invoice documents, and submits to the losing carrier. The transfer PIN is forwarded to the carrier and never stored. Ported numbers arrive voice-ready (and SMS-ready where the order supports messaging).  Run the portability check (POST /v1/phone-numbers/port-in/check) and upload the two documents (POST /v1/phone-numbers/port-in/documents) first. The carrier may split the numbers into several orders (by country, number type, losing carrier); `orders` carries per-order results, and a partial failure still returns 201 with the failed orders' `error` set (they stay as cancellable drafts). 
+Submit a port-in for one or more existing numbers from another carrier. Creates the carrier order(s), attaches the end-user (current account) info plus the LOA and invoice documents, and submits to the losing carrier. The transfer PIN is forwarded to the carrier and never stored. Ported numbers arrive voice-ready (and SMS-ready where the order supports messaging).  Run the portability check (POST /v1/phone-numbers/port-in/check) and upload the two documents (POST /v1/phone-numbers/port-in/documents) first — uploaded documents must be attached to an order within 30 minutes or the carrier deletes them, so upload right before this call. The carrier may split the numbers into several orders (by country, number type, losing carrier); `orders` carries per-order results, and a partial failure still returns 201 with the failed orders' `error` set (they stay as cancellable drafts).  Non-US/CA numbers additionally need the country-specific values from GET /v1/phone-numbers/port-in/requirements, passed via `requirements`, and must be submitted one country per request. When required information is still missing after submission, the order is kept as a resumable draft whose `error` / `declineReason` names the gaps. 
 
 ### Parameters
 
@@ -226,6 +228,67 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetPhoneNumberKycForm200Response**](getPhoneNumberKycForm_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_phone_number_port_in_order_requirements
+
+> models::GetPhoneNumberPortInOrderRequirements200Response get_phone_number_port_in_order_requirements(id)
+A port-in order's pending requirements
+
+The live requirements on an EXISTING porting order: which are filled, which are still pending, and which bounced on review (`requirement-info-exception`). Use it to fix and resubmit a rejected international port. Same field shape as the country-level requirements endpoint, plus per-requirement status. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | Porting order ID (from the port-in list). | [required] |
+
+### Return type
+
+[**models::GetPhoneNumberPortInOrderRequirements200Response**](getPhoneNumberPortInOrderRequirements_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_phone_number_port_in_requirements
+
+> models::GetPhoneNumberPortInRequirements200Response get_phone_number_port_in_requirements(country, number_type)
+Country porting requirements
+
+The country-specific information a port-in needs BEYOND the LOA, invoice, and account/address details — e.g. an ID copy, proof of address, a tax id, or a porting code. Call it after the portability check (which returns each number's `countryCode` and `phoneNumberType`), render the fields, and pass the collected values as the create request's `requirements`. US/CA return an empty list. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**country** | **String** | ISO country of the numbers being ported (a supported port-in country). | [required] |
+**number_type** | Option<**String**> | The portability check's phoneNumberType — requirements differ by type. |  |[default to local]
+
+### Return type
+
+[**models::GetPhoneNumberPortInRequirements200Response**](getPhoneNumberPortInRequirements_200_response.md)
 
 ### Authorization
 
@@ -577,7 +640,7 @@ Name | Type | Description  | Required | Notes
 > models::UploadPhoneNumberPortInDocument200Response upload_phone_number_port_in_document(file, kind)
 Upload a porting document
 
-Upload ONE porting document (the signed LOA or a recent carrier invoice) and get back its `documentId`, which the port-in create request takes as `loaDocumentId` / `invoiceDocumentId`. PDF, JPEG, or PNG, 10MB max. 
+Upload ONE porting document and get back its `documentId`. For the signed LOA / carrier invoice the id goes to `loaDocumentId` / `invoiceDocumentId`; for a country-specific document requirement (international ports) it becomes that requirement's `fieldValue`. Requirement documents are normalized to PDF automatically (regulators reject raw images). PDF, JPEG, or PNG, 10MB max. Uploads must be attached to an order within 30 minutes or the carrier deletes them. 
 
 ### Parameters
 
@@ -585,7 +648,7 @@ Upload ONE porting document (the signed LOA or a recent carrier invoice) and get
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **file** | **std::path::PathBuf** | The document (PDF/JPEG/PNG, 10MB max). | [required] |
-**kind** | Option<**String**> | Informational; used for the stored filename. |  |
+**kind** | Option<**String**> | 'loa', 'invoice', or any short slug for requirement documents. Informational; used for the stored filename. |  |
 
 ### Return type
 

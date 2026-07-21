@@ -20,7 +20,7 @@ pub struct CheckPhoneNumberPortability200ResponseResultsInner {
     /// Qualifies for the carrier's accelerated FastPort lane.
     #[serde(rename = "fastPortable", skip_serializing_if = "Option::is_none")]
     pub fast_portable: Option<bool>,
-    /// Line type when known (mobile, landline, voip…). A mobile number requires the transfer PIN at submit.
+    /// Line type when known (mobile, landline, voip…). A US/CA mobile number requires the transfer PIN at submit.
     #[serde(
         rename = "lineType",
         default,
@@ -28,6 +28,22 @@ pub struct CheckPhoneNumberPortability200ResponseResultsInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub line_type: Option<Option<String>>,
+    /// ISO country of the number — pass it to GET /v1/phone-numbers/port-in/requirements for international numbers.
+    #[serde(
+        rename = "countryCode",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub country_code: Option<Option<String>>,
+    /// Carrier number-type classification (local, mobile, national, toll_free…) — the numberType for the requirements endpoint.
+    #[serde(
+        rename = "phoneNumberType",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub phone_number_type: Option<Option<String>>,
     /// Carrier reason when not portable; null when portable.
     #[serde(
         rename = "notPortableReason",
@@ -45,6 +61,8 @@ impl CheckPhoneNumberPortability200ResponseResultsInner {
             portable: None,
             fast_portable: None,
             line_type: None,
+            country_code: None,
+            phone_number_type: None,
             not_portable_reason: None,
         }
     }

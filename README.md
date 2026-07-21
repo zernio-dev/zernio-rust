@@ -329,6 +329,8 @@ Class | Method | HTTP request | Description
 *PhoneNumbersApi* | [**create_phone_number_port_in**](docs/PhoneNumbersApi.md#create_phone_number_port_in) | **POST** /v1/phone-numbers/port-in | Port numbers in
 *PhoneNumbersApi* | [**get_phone_number**](docs/PhoneNumbersApi.md#get_phone_number) | **GET** /v1/phone-numbers/{id} | Get phone number
 *PhoneNumbersApi* | [**get_phone_number_kyc_form**](docs/PhoneNumbersApi.md#get_phone_number_kyc_form) | **GET** /v1/phone-numbers/kyc | Get KYC form spec
+*PhoneNumbersApi* | [**get_phone_number_port_in_order_requirements**](docs/PhoneNumbersApi.md#get_phone_number_port_in_order_requirements) | **GET** /v1/phone-numbers/port-in/{id}/requirements | A port-in order's pending requirements
+*PhoneNumbersApi* | [**get_phone_number_port_in_requirements**](docs/PhoneNumbersApi.md#get_phone_number_port_in_requirements) | **GET** /v1/phone-numbers/port-in/requirements | Country porting requirements
 *PhoneNumbersApi* | [**get_phone_number_remediation**](docs/PhoneNumbersApi.md#get_phone_number_remediation) | **GET** /v1/phone-numbers/{id}/remediate | Get declined requirements
 *PhoneNumbersApi* | [**list_phone_number_countries**](docs/PhoneNumbersApi.md#list_phone_number_countries) | **GET** /v1/phone-numbers/countries | List offerable number countries
 *PhoneNumbersApi* | [**list_phone_number_port_ins**](docs/PhoneNumbersApi.md#list_phone_number_port_ins) | **GET** /v1/phone-numbers/port-in | List port-in orders
@@ -732,6 +734,7 @@ Class | Method | HTTP request | Description
  - [CreatePhoneNumberPortIn201ResponseOrdersInner](docs/CreatePhoneNumberPortIn201ResponseOrdersInner.md)
  - [CreatePhoneNumberPortInRequest](docs/CreatePhoneNumberPortInRequest.md)
  - [CreatePhoneNumberPortInRequestEndUser](docs/CreatePhoneNumberPortInRequestEndUser.md)
+ - [CreatePhoneNumberPortInRequestRequirementsInner](docs/CreatePhoneNumberPortInRequestRequirementsInner.md)
  - [CreatePinterestBoard201Response](docs/CreatePinterestBoard201Response.md)
  - [CreatePinterestBoard201ResponseBoard](docs/CreatePinterestBoard201ResponseBoard.md)
  - [CreatePinterestBoardRequest](docs/CreatePinterestBoardRequest.md)
@@ -1102,6 +1105,10 @@ Class | Method | HTTP request | Description
  - [GetPhoneNumberKycForm200ResponseReusable](docs/GetPhoneNumberKycForm200ResponseReusable.md)
  - [GetPhoneNumberKycForm200ResponseReusableDetailsInner](docs/GetPhoneNumberKycForm200ResponseReusableDetailsInner.md)
  - [GetPhoneNumberKycForm200ResponseReusableOptionsInner](docs/GetPhoneNumberKycForm200ResponseReusableOptionsInner.md)
+ - [GetPhoneNumberPortInOrderRequirements200Response](docs/GetPhoneNumberPortInOrderRequirements200Response.md)
+ - [GetPhoneNumberPortInOrderRequirements200ResponseRequirementsInner](docs/GetPhoneNumberPortInOrderRequirements200ResponseRequirementsInner.md)
+ - [GetPhoneNumberPortInRequirements200Response](docs/GetPhoneNumberPortInRequirements200Response.md)
+ - [GetPhoneNumberPortInRequirements200ResponseFieldsInner](docs/GetPhoneNumberPortInRequirements200ResponseFieldsInner.md)
  - [GetPhoneNumberRemediation200Response](docs/GetPhoneNumberRemediation200Response.md)
  - [GetPinterestBoards200Response](docs/GetPinterestBoards200Response.md)
  - [GetPinterestBoards200ResponseBoardsInner](docs/GetPinterestBoards200ResponseBoardsInner.md)

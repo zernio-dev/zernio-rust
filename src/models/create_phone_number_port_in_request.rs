@@ -24,7 +24,7 @@ pub struct CreatePhoneNumberPortInRequest {
     /// Document id from POST /v1/phone-numbers/port-in/documents (kind=invoice).
     #[serde(rename = "invoiceDocumentId")]
     pub invoice_document_id: String,
-    /// Requested port date; the carrier confirms the actual FOC later. Defaults to one week out (shifted off weekends) when omitted.
+    /// Requested port date; the carrier confirms the actual FOC later. US/CA default is one week out (shifted off weekends); international orders are scheduled into the carrier's next allowed porting window at or after this date.
     #[serde(
         rename = "focDatetimeRequested",
         skip_serializing_if = "Option::is_none"
@@ -35,6 +35,9 @@ pub struct CreatePhoneNumberPortInRequest {
     /// Whether the losing account ports all its numbers (full) or keeps some (partial).
     #[serde(rename = "portType", skip_serializing_if = "Option::is_none")]
     pub port_type: Option<PortType>,
+    /// Country-specific requirement values for international ports (from GET /v1/phone-numbers/port-in/requirements). Not needed for US/CA. The LOA and invoice requirements are satisfied automatically by loaDocumentId/invoiceDocumentId, and address-type requirements by the endUser service address.
+    #[serde(rename = "requirements", skip_serializing_if = "Option::is_none")]
+    pub requirements: Option<Vec<models::CreatePhoneNumberPortInRequestRequirementsInner>>,
 }
 
 impl CreatePhoneNumberPortInRequest {
@@ -52,6 +55,7 @@ impl CreatePhoneNumberPortInRequest {
             foc_datetime_requested: None,
             customer_reference: None,
             port_type: None,
+            requirements: None,
         }
     }
 }

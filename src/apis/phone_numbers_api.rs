@@ -55,6 +55,7 @@ pub enum CreatePhoneNumberKycLinkError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreatePhoneNumberPortInError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status409(),
     Status422(),
@@ -76,6 +77,26 @@ pub enum GetPhoneNumberError {
 pub enum GetPhoneNumberKycFormError {
     Status400(),
     Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_phone_number_port_in_order_requirements`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetPhoneNumberPortInOrderRequirementsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_phone_number_port_in_requirements`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetPhoneNumberPortInRequirementsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status422(),
     UnknownValue(serde_json::Value),
 }
 
@@ -408,7 +429,7 @@ pub async fn create_phone_number_kyc_link(
     }
 }
 
-/// Submit a port-in for one or more existing numbers from another carrier. Creates the carrier order(s), attaches the end-user (current account) info plus the LOA and invoice documents, and submits to the losing carrier. The transfer PIN is forwarded to the carrier and never stored. Ported numbers arrive voice-ready (and SMS-ready where the order supports messaging).  Run the portability check (POST /v1/phone-numbers/port-in/check) and upload the two documents (POST /v1/phone-numbers/port-in/documents) first. The carrier may split the numbers into several orders (by country, number type, losing carrier); `orders` carries per-order results, and a partial failure still returns 201 with the failed orders' `error` set (they stay as cancellable drafts).
+/// Submit a port-in for one or more existing numbers from another carrier. Creates the carrier order(s), attaches the end-user (current account) info plus the LOA and invoice documents, and submits to the losing carrier. The transfer PIN is forwarded to the carrier and never stored. Ported numbers arrive voice-ready (and SMS-ready where the order supports messaging).  Run the portability check (POST /v1/phone-numbers/port-in/check) and upload the two documents (POST /v1/phone-numbers/port-in/documents) first — uploaded documents must be attached to an order within 30 minutes or the carrier deletes them, so upload right before this call. The carrier may split the numbers into several orders (by country, number type, losing carrier); `orders` carries per-order results, and a partial failure still returns 201 with the failed orders' `error` set (they stay as cancellable drafts).  Non-US/CA numbers additionally need the country-specific values from GET /v1/phone-numbers/port-in/requirements, passed via `requirements`, and must be submitted one country per request. When required information is still missing after submission, the order is kept as a resumable draft whose `error` / `declineReason` names the gaps.
 pub async fn create_phone_number_port_in(
     configuration: &configuration::Configuration,
     create_phone_number_port_in_request: models::CreatePhoneNumberPortInRequest,
@@ -554,6 +575,121 @@ pub async fn get_phone_number_kyc_form(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetPhoneNumberKycFormError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// The live requirements on an EXISTING porting order: which are filled, which are still pending, and which bounced on review (`requirement-info-exception`). Use it to fix and resubmit a rejected international port. Same field shape as the country-level requirements endpoint, plus per-requirement status.
+pub async fn get_phone_number_port_in_order_requirements(
+    configuration: &configuration::Configuration,
+    id: &str,
+) -> Result<
+    models::GetPhoneNumberPortInOrderRequirements200Response,
+    Error<GetPhoneNumberPortInOrderRequirementsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+
+    let uri_str = format!(
+        "{}/v1/phone-numbers/port-in/{id}/requirements",
+        configuration.base_path,
+        id = crate::apis::urlencode(p_path_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetPhoneNumberPortInOrderRequirements200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetPhoneNumberPortInOrderRequirements200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetPhoneNumberPortInOrderRequirementsError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// The country-specific information a port-in needs BEYOND the LOA, invoice, and account/address details — e.g. an ID copy, proof of address, a tax id, or a porting code. Call it after the portability check (which returns each number's `countryCode` and `phoneNumberType`), render the fields, and pass the collected values as the create request's `requirements`. US/CA return an empty list.
+pub async fn get_phone_number_port_in_requirements(
+    configuration: &configuration::Configuration,
+    country: &str,
+    number_type: Option<&str>,
+) -> Result<
+    models::GetPhoneNumberPortInRequirements200Response,
+    Error<GetPhoneNumberPortInRequirementsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_country = country;
+    let p_query_number_type = number_type;
+
+    let uri_str = format!(
+        "{}/v1/phone-numbers/port-in/requirements",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("country", &p_query_country.to_string())]);
+    if let Some(ref param_value) = p_query_number_type {
+        req_builder = req_builder.query(&[("numberType", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetPhoneNumberPortInRequirements200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetPhoneNumberPortInRequirements200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetPhoneNumberPortInRequirementsError> =
+            serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1156,7 +1292,7 @@ pub async fn upload_phone_number_kyc_document(
     }
 }
 
-/// Upload ONE porting document (the signed LOA or a recent carrier invoice) and get back its `documentId`, which the port-in create request takes as `loaDocumentId` / `invoiceDocumentId`. PDF, JPEG, or PNG, 10MB max.
+/// Upload ONE porting document and get back its `documentId`. For the signed LOA / carrier invoice the id goes to `loaDocumentId` / `invoiceDocumentId`; for a country-specific document requirement (international ports) it becomes that requirement's `fieldValue`. Requirement documents are normalized to PDF automatically (regulators reject raw images). PDF, JPEG, or PNG, 10MB max. Uploads must be attached to an order within 30 minutes or the carrier deletes them.
 pub async fn upload_phone_number_port_in_document(
     configuration: &configuration::Configuration,
     file: std::path::PathBuf,

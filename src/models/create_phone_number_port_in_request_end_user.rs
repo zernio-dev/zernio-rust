@@ -26,21 +26,28 @@ pub struct CreatePhoneNumberPortInRequestEndUser {
     /// Account number with the losing carrier — required (carriers reject ports without it; on prepaid mobile plans it is often the phone number itself).
     #[serde(rename = "accountNumber")]
     pub account_number: String,
-    /// Transfer PIN. Required for mobile numbers (wireless carriers reject PIN-less ports). Forwarded to the carrier, never stored.
+    /// Transfer PIN. Required for US/CA mobile numbers (wireless carriers reject PIN-less ports). Forwarded to the carrier, never stored. International porting codes (e.g. the UK PAC) go through `requirements` instead.
     #[serde(rename = "pinPasscode", skip_serializing_if = "Option::is_none")]
     pub pin_passcode: Option<String>,
+    /// Company tax id on the carrier account (EU ports, e.g. Spanish CIF).
+    #[serde(rename = "taxIdentifier", skip_serializing_if = "Option::is_none")]
+    pub tax_identifier: Option<String>,
+    /// Business registration id on the carrier account (EU ports).
+    #[serde(rename = "businessIdentifier", skip_serializing_if = "Option::is_none")]
+    pub business_identifier: Option<String>,
     #[serde(rename = "streetAddress")]
     pub street_address: String,
     #[serde(rename = "extendedAddress", skip_serializing_if = "Option::is_none")]
     pub extended_address: Option<String>,
     #[serde(rename = "locality")]
     pub locality: String,
-    /// 2-letter US state / CA province code (full names are accepted and normalized).
-    #[serde(rename = "administrativeArea")]
-    pub administrative_area: String,
-    /// US ZIP (5 digits) or Canadian postal code, matching countryCode.
+    /// Region. Required for US/CA as the 2-letter state/province code (full names are accepted and normalized); optional elsewhere.
+    #[serde(rename = "administrativeArea", skip_serializing_if = "Option::is_none")]
+    pub administrative_area: Option<String>,
+    /// Postal code. Validated as a US ZIP / Canadian postal code for US/CA; free-form elsewhere.
     #[serde(rename = "postalCode")]
     pub postal_code: String,
+    /// Service-address country (a supported port-in country).
     #[serde(rename = "countryCode")]
     pub country_code: CountryCode,
 }
@@ -53,7 +60,6 @@ impl CreatePhoneNumberPortInRequestEndUser {
         account_number: String,
         street_address: String,
         locality: String,
-        administrative_area: String,
         postal_code: String,
         country_code: CountryCode,
     ) -> CreatePhoneNumberPortInRequestEndUser {
@@ -63,22 +69,36 @@ impl CreatePhoneNumberPortInRequestEndUser {
             billing_phone_number: None,
             account_number,
             pin_passcode: None,
+            tax_identifier: None,
+            business_identifier: None,
             street_address,
             extended_address: None,
             locality,
-            administrative_area,
+            administrative_area: None,
             postal_code,
             country_code,
         }
     }
 }
-///
+/// Service-address country (a supported port-in country).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum CountryCode {
     #[serde(rename = "US")]
     Us,
     #[serde(rename = "CA")]
     Ca,
+    #[serde(rename = "GB")]
+    Gb,
+    #[serde(rename = "ES")]
+    Es,
+    #[serde(rename = "DE")]
+    De,
+    #[serde(rename = "FR")]
+    Fr,
+    #[serde(rename = "NL")]
+    Nl,
+    #[serde(rename = "AU")]
+    Au,
 }
 
 impl Default for CountryCode {
