@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SendSmsRequest {
-    /// One of your SMS-enabled numbers (E.164; formatting is normalized).
+    /// One of your SMS-enabled numbers (E.164; formatting is normalized), or an approved alphanumeric sender ID (3-11 letters/digits/spaces, created via `/v1/sms/sender-ids`).
     #[serde(rename = "from")]
     pub from: String,
     /// Recipient number (E.164).

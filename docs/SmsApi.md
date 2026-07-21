@@ -5,13 +5,17 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**appeal_sms_registration**](SmsApi.md#appeal_sms_registration) | **POST** /v1/sms/registrations/{id}/appeal | Appeal a rejected campaign
+[**create_sms_sender_id**](SmsApi.md#create_sms_sender_id) | **POST** /v1/sms/sender-ids | Create an alphanumeric sender ID
 [**deactivate_sms_registration**](SmsApi.md#deactivate_sms_registration) | **DELETE** /v1/sms/registrations/{id} | Deactivate a brand/campaign registration
+[**delete_sms_sender_id**](SmsApi.md#delete_sms_sender_id) | **DELETE** /v1/sms/sender-ids/{id} | Delete an alphanumeric sender ID
 [**disable_sms_on_number**](SmsApi.md#disable_sms_on_number) | **DELETE** /v1/phone-numbers/{id}/sms | Disable SMS on a number
 [**enable_sms_on_number**](SmsApi.md#enable_sms_on_number) | **POST** /v1/phone-numbers/{id}/sms | Enable SMS on a number
 [**get_sms_registration**](SmsApi.md#get_sms_registration) | **GET** /v1/sms/registrations/{id} | Get a carrier registration
 [**list_sms_opt_outs**](SmsApi.md#list_sms_opt_outs) | **GET** /v1/sms/opt-outs | List SMS opt-outs
 [**list_sms_registrations**](SmsApi.md#list_sms_registrations) | **GET** /v1/sms/registrations | List carrier registrations
+[**list_sms_sender_ids**](SmsApi.md#list_sms_sender_ids) | **GET** /v1/sms/sender-ids | List alphanumeric sender IDs
 [**lookup_sms_number**](SmsApi.md#lookup_sms_number) | **GET** /v1/sms/lookup | Look up carrier + line type
+[**request_sms_sender_id_limit_increase**](SmsApi.md#request_sms_sender_id_limit_increase) | **POST** /v1/sms/sender-ids/limit-request | Request a higher sender ID daily limit
 [**resend_sms_registration_otp**](SmsApi.md#resend_sms_registration_otp) | **POST** /v1/sms/registrations/{id}/resend-otp | Re-send the sole-prop OTP
 [**reuse_sms_registration_for_number**](SmsApi.md#reuse_sms_registration_for_number) | **POST** /v1/phone-numbers/{id}/sms/reuse-registration | Add number to SMS registration
 [**send_sms**](SmsApi.md#send_sms) | **POST** /v1/sms/messages | Send an SMS/MMS
@@ -54,6 +58,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## create_sms_sender_id
+
+> models::CreateSmsSenderId200Response create_sms_sender_id(create_sms_sender_id_request)
+Create an alphanumeric sender ID
+
+Registers an alphanumeric sender ID (e.g. `ZERNIO`) — a branded `from` for one-way international SMS. No phone number purchase or carrier registration is needed; once created, pass it as `from` on `POST /v1/sms/messages`.  Constraints: 3-11 characters (letters, digits, spaces; at least one letter). Sends cannot reach the US, Canada, or Puerto Rico, are text-only, and recipients cannot reply. Sender IDs that impersonate well-known brands or institutions are rejected, and an ID already registered by another workspace returns 409 (active sender IDs are globally unique, first-come-first-served). Creating the same sender ID again is a no-op (re-activates it after a delete). 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_sms_sender_id_request** | [**CreateSmsSenderIdRequest**](CreateSmsSenderIdRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateSmsSenderId200Response**](createSmsSenderId_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## deactivate_sms_registration
 
 > models::DeactivateSmsRegistration200Response deactivate_sms_registration(id)
@@ -71,6 +105,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::DeactivateSmsRegistration200Response**](deactivateSmsRegistration_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_sms_sender_id
+
+> models::DeleteSmsSenderId200Response delete_sms_sender_id(id)
+Delete an alphanumeric sender ID
+
+Deactivates the sender ID so it can no longer send. Re-creating the same sender ID via `POST /v1/sms/sender-ids` re-activates it. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | Sender ID resource id. | [required] |
+
+### Return type
+
+[**models::DeleteSmsSenderId200Response**](deleteSmsSenderId_200_response.md)
 
 ### Authorization
 
@@ -233,6 +297,31 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_sms_sender_ids
+
+> models::ListSmsSenderIds200Response list_sms_sender_ids()
+List alphanumeric sender IDs
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::ListSmsSenderIds200Response**](listSmsSenderIds_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## lookup_sms_number
 
 > models::LookupSmsNumber200Response lookup_sms_number(number)
@@ -258,6 +347,36 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## request_sms_sender_id_limit_increase
+
+> models::RequestSmsSenderIdLimitIncrease200Response request_sms_sender_id_limit_increase(request_sms_sender_id_limit_increase_request)
+Request a higher sender ID daily limit
+
+Asks support to raise the workspace's daily sender-ID message cap. There is no self-serve raise: the request (desired cap + use case) is reviewed manually, usually within a business day. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**request_sms_sender_id_limit_increase_request** | [**RequestSmsSenderIdLimitIncreaseRequest**](RequestSmsSenderIdLimitIncreaseRequest.md) |  | [required] |
+
+### Return type
+
+[**models::RequestSmsSenderIdLimitIncrease200Response**](requestSmsSenderIdLimitIncrease_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -328,7 +447,7 @@ Name | Type | Description  | Required | Notes
 > models::SendSms200Response send_sms(send_sms_request, idempotency_key)
 Send an SMS/MMS
 
-Sends an SMS (or MMS when `mediaUrls` is set) from one of your SMS-enabled numbers. At least one of `text` / `mediaUrls` is required. Both numbers are normalized to E.164, so `from` matches regardless of formatting and replies thread into the same inbox conversation.  US numbers must have an approved carrier registration (`/v1/sms/registrations`) before messages deliver.  **Idempotency:** send an `Idempotency-Key` header to make retries safe: same key + same body replays the original response instead of sending a second message; same key + different body returns 422; a key still in flight returns 409. 
+Sends an SMS (or MMS when `mediaUrls` is set) from one of your SMS-enabled numbers, or from an approved alphanumeric sender ID (`/v1/sms/sender-ids`). At least one of `text` / `mediaUrls` is required. Numbers are normalized to E.164, so `from` matches regardless of formatting and replies thread into the same inbox conversation.  US numbers must have an approved carrier registration (`/v1/sms/registrations`) before messages deliver.  **Alphanumeric sender IDs** are one-way and international only: they cannot reach the US, Canada, or Puerto Rico (403), are text-only (no MMS), and recipients cannot reply. Some destination countries substitute a numeric sender to ensure delivery.  **Idempotency:** send an `Idempotency-Key` header to make retries safe: same key + same body replays the original response instead of sending a second message; same key + different body returns 422; a key still in flight returns 409. 
 
 ### Parameters
 

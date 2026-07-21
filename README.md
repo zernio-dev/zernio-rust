@@ -371,13 +371,17 @@ Class | Method | HTTP request | Description
 *ReviewsApi* | [**list_inbox_reviews**](docs/ReviewsApi.md#list_inbox_reviews) | **GET** /v1/inbox/reviews | List reviews
 *ReviewsApi* | [**reply_to_inbox_review**](docs/ReviewsApi.md#reply_to_inbox_review) | **POST** /v1/inbox/reviews/{reviewId}/reply | Reply to review
 *SmsApi* | [**appeal_sms_registration**](docs/SmsApi.md#appeal_sms_registration) | **POST** /v1/sms/registrations/{id}/appeal | Appeal a rejected campaign
+*SmsApi* | [**create_sms_sender_id**](docs/SmsApi.md#create_sms_sender_id) | **POST** /v1/sms/sender-ids | Create an alphanumeric sender ID
 *SmsApi* | [**deactivate_sms_registration**](docs/SmsApi.md#deactivate_sms_registration) | **DELETE** /v1/sms/registrations/{id} | Deactivate a brand/campaign registration
+*SmsApi* | [**delete_sms_sender_id**](docs/SmsApi.md#delete_sms_sender_id) | **DELETE** /v1/sms/sender-ids/{id} | Delete an alphanumeric sender ID
 *SmsApi* | [**disable_sms_on_number**](docs/SmsApi.md#disable_sms_on_number) | **DELETE** /v1/phone-numbers/{id}/sms | Disable SMS on a number
 *SmsApi* | [**enable_sms_on_number**](docs/SmsApi.md#enable_sms_on_number) | **POST** /v1/phone-numbers/{id}/sms | Enable SMS on a number
 *SmsApi* | [**get_sms_registration**](docs/SmsApi.md#get_sms_registration) | **GET** /v1/sms/registrations/{id} | Get a carrier registration
 *SmsApi* | [**list_sms_opt_outs**](docs/SmsApi.md#list_sms_opt_outs) | **GET** /v1/sms/opt-outs | List SMS opt-outs
 *SmsApi* | [**list_sms_registrations**](docs/SmsApi.md#list_sms_registrations) | **GET** /v1/sms/registrations | List carrier registrations
+*SmsApi* | [**list_sms_sender_ids**](docs/SmsApi.md#list_sms_sender_ids) | **GET** /v1/sms/sender-ids | List alphanumeric sender IDs
 *SmsApi* | [**lookup_sms_number**](docs/SmsApi.md#lookup_sms_number) | **GET** /v1/sms/lookup | Look up carrier + line type
+*SmsApi* | [**request_sms_sender_id_limit_increase**](docs/SmsApi.md#request_sms_sender_id_limit_increase) | **POST** /v1/sms/sender-ids/limit-request | Request a higher sender ID daily limit
 *SmsApi* | [**resend_sms_registration_otp**](docs/SmsApi.md#resend_sms_registration_otp) | **POST** /v1/sms/registrations/{id}/resend-otp | Re-send the sole-prop OTP
 *SmsApi* | [**reuse_sms_registration_for_number**](docs/SmsApi.md#reuse_sms_registration_for_number) | **POST** /v1/phone-numbers/{id}/sms/reuse-registration | Add number to SMS registration
 *SmsApi* | [**send_sms**](docs/SmsApi.md#send_sms) | **POST** /v1/sms/messages | Send an SMS/MMS
@@ -756,6 +760,8 @@ Class | Method | HTTP request | Description
  - [CreateSequenceRequestStepsInner](docs/CreateSequenceRequestStepsInner.md)
  - [CreateSequenceRequestStepsInnerTemplate](docs/CreateSequenceRequestStepsInnerTemplate.md)
  - [CreateSequenceRequestStepsInnerTemplateVariableMappingValue](docs/CreateSequenceRequestStepsInnerTemplateVariableMappingValue.md)
+ - [CreateSmsSenderId200Response](docs/CreateSmsSenderId200Response.md)
+ - [CreateSmsSenderIdRequest](docs/CreateSmsSenderIdRequest.md)
  - [CreateStandaloneAd201Response](docs/CreateStandaloneAd201Response.md)
  - [CreateStandaloneAd201ResponseOneOf](docs/CreateStandaloneAd201ResponseOneOf.md)
  - [CreateStandaloneAd201ResponseOneOf1](docs/CreateStandaloneAd201ResponseOneOf1.md)
@@ -828,6 +834,7 @@ Class | Method | HTTP request | Description
  - [DeleteInboxComment200Response](docs/DeleteInboxComment200Response.md)
  - [DeleteInboxReviewReply200Response](docs/DeleteInboxReviewReply200Response.md)
  - [DeleteInboxReviewReplyRequest](docs/DeleteInboxReviewReplyRequest.md)
+ - [DeleteSmsSenderId200Response](docs/DeleteSmsSenderId200Response.md)
  - [DeleteWhatsappBusinessUsernameRequest](docs/DeleteWhatsappBusinessUsernameRequest.md)
  - [DialVoiceWebCall200Response](docs/DialVoiceWebCall200Response.md)
  - [DialVoiceWebCallRequest](docs/DialVoiceWebCallRequest.md)
@@ -1378,6 +1385,10 @@ Class | Method | HTTP request | Description
  - [ListSmsRegistrations200Response](docs/ListSmsRegistrations200Response.md)
  - [ListSmsRegistrations200ResponseRegistrationsInner](docs/ListSmsRegistrations200ResponseRegistrationsInner.md)
  - [ListSmsRegistrations200ResponseRegistrationsInnerThroughput](docs/ListSmsRegistrations200ResponseRegistrationsInnerThroughput.md)
+ - [ListSmsSenderIds200Response](docs/ListSmsSenderIds200Response.md)
+ - [ListSmsSenderIds200ResponseBudget](docs/ListSmsSenderIds200ResponseBudget.md)
+ - [ListSmsSenderIds200ResponseBudgetPendingRequest](docs/ListSmsSenderIds200ResponseBudgetPendingRequest.md)
+ - [ListSmsSenderIds200ResponseSenderIdsInner](docs/ListSmsSenderIds200ResponseSenderIdsInner.md)
  - [ListSnapchatProfiles200Response](docs/ListSnapchatProfiles200Response.md)
  - [ListSnapchatProfiles200ResponsePublicProfilesInner](docs/ListSnapchatProfiles200ResponsePublicProfilesInner.md)
  - [ListTrackingTagSharedAccounts200Response](docs/ListTrackingTagSharedAccounts200Response.md)
@@ -1503,6 +1514,8 @@ Class | Method | HTTP request | Description
  - [ReplyToInboxReviewRequest](docs/ReplyToInboxReviewRequest.md)
  - [ReplyToMention200Response](docs/ReplyToMention200Response.md)
  - [ReplyToMentionRequest](docs/ReplyToMentionRequest.md)
+ - [RequestSmsSenderIdLimitIncrease200Response](docs/RequestSmsSenderIdLimitIncrease200Response.md)
+ - [RequestSmsSenderIdLimitIncreaseRequest](docs/RequestSmsSenderIdLimitIncreaseRequest.md)
  - [ResendSmsRegistrationOtp200Response](docs/ResendSmsRegistrationOtp200Response.md)
  - [ReserveRfPrediction201Response](docs/ReserveRfPrediction201Response.md)
  - [ReserveRfPredictionRequest](docs/ReserveRfPredictionRequest.md)
