@@ -8,12 +8,14 @@ Method | HTTP request | Description
 [**adjust_conversions**](AdsApi.md#adjust_conversions) | **POST** /v1/ads/conversions/adjustments | Adjust uploaded conversions
 [**archive_lead_form**](AdsApi.md#archive_lead_form) | **DELETE** /v1/ads/lead-forms/{formId} | Archive a lead form
 [**boost_post**](AdsApi.md#boost_post) | **POST** /v1/ads/boost | Boost post as ad
+[**cancel_rf_reservation**](AdsApi.md#cancel_rf_reservation) | **DELETE** /v1/ads/rf-predictions/{predictionId} | Cancel a Reach & Frequency reservation (Meta)
 [**create_ad_insights_report**](AdsApi.md#create_ad_insights_report) | **POST** /v1/ads/insights/reports | Submit an async insights report run (Meta)
 [**create_call_ad**](AdsApi.md#create_call_ad) | **POST** /v1/ads/call | Create Click-to-Call ad
 [**create_conversion_destination**](AdsApi.md#create_conversion_destination) | **POST** /v1/accounts/{accountId}/conversion-destinations | Create a conversion destination
 [**create_ctwa_ad**](AdsApi.md#create_ctwa_ad) | **POST** /v1/ads/ctwa | Create Click-to-WhatsApp ad (deprecated)
 [**create_lead_form**](AdsApi.md#create_lead_form) | **POST** /v1/ads/lead-forms | Create a lead form
 [**create_messaging_ad**](AdsApi.md#create_messaging_ad) | **POST** /v1/ads/messaging | Create click-to-message ad (WhatsApp / Messenger / Instagram Direct)
+[**create_rf_prediction**](AdsApi.md#create_rf_prediction) | **POST** /v1/ads/rf-predictions | Create a Reach & Frequency prediction (Meta)
 [**create_standalone_ad**](AdsApi.md#create_standalone_ad) | **POST** /v1/ads/create | Create standalone ad
 [**create_test_lead**](AdsApi.md#create_test_lead) | **POST** /v1/ads/lead-forms/{formId}/test-leads | Create a test lead
 [**delete_ad**](AdsApi.md#delete_ad) | **DELETE** /v1/ads/{adId} | Cancel an ad
@@ -37,6 +39,7 @@ Method | HTTP request | Description
 [**get_lead_form**](AdsApi.md#get_lead_form) | **GET** /v1/ads/lead-forms/{formId} | Get a lead form
 [**get_linked_in_bid_pricing**](AdsApi.md#get_linked_in_bid_pricing) | **POST** /v1/ads/targeting/bid-pricing | Suggested bid and budget bounds (LinkedIn)
 [**get_linked_in_supply_forecast**](AdsApi.md#get_linked_in_supply_forecast) | **POST** /v1/ads/targeting/supply-forecast | Impressions, clicks and spend forecast (LinkedIn)
+[**get_rf_prediction**](AdsApi.md#get_rf_prediction) | **GET** /v1/ads/rf-predictions/{predictionId} | Read a Reach & Frequency prediction (Meta)
 [**list_ad_accounts**](AdsApi.md#list_ad_accounts) | **GET** /v1/ads/accounts | List ad accounts
 [**list_ad_catalog_product_sets**](AdsApi.md#list_ad_catalog_product_sets) | **GET** /v1/ads/catalogs/{catalogId}/product-sets | List a catalog's product sets
 [**list_ad_catalogs**](AdsApi.md#list_ad_catalogs) | **GET** /v1/ads/catalogs | List Meta product catalogs
@@ -51,6 +54,7 @@ Method | HTTP request | Description
 [**list_whats_app_conversions**](AdsApi.md#list_whats_app_conversions) | **GET** /v1/whatsapp/conversions | List conversion events
 [**query_ad_insights**](AdsApi.md#query_ad_insights) | **GET** /v1/ads/insights | Flexible live insights query (Meta)
 [**remove_conversion_associations**](AdsApi.md#remove_conversion_associations) | **DELETE** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | Remove associated campaigns
+[**reserve_rf_prediction**](AdsApi.md#reserve_rf_prediction) | **POST** /v1/ads/rf-predictions/{predictionId}/reserve | Reserve a Reach & Frequency prediction (Meta)
 [**search_ad_interests**](AdsApi.md#search_ad_interests) | **GET** /v1/ads/interests | Search targeting interests
 [**search_ad_targeting**](AdsApi.md#search_ad_targeting) | **GET** /v1/ads/targeting/search | Search targeting options
 [**send_conversions**](AdsApi.md#send_conversions) | **POST** /v1/ads/conversions | Send conversion events
@@ -182,6 +186,38 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## cancel_rf_reservation
+
+> cancel_rf_reservation(prediction_id, account_id, ad_account_id)
+Cancel a Reach & Frequency reservation (Meta)
+
+Releases a RESERVATION's locked price and inventory. Unreserved predictions expire on their own.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**prediction_id** | **String** |  | [required] |
+**account_id** | **String** |  | [required] |
+**ad_account_id** | **String** |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -355,6 +391,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
  (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_rf_prediction
+
+> models::CreateRfPrediction201Response create_rf_prediction(create_rf_prediction_request)
+Create a Reach & Frequency prediction (Meta)
+
+Creates an R&F prediction — a QUOTE, nothing is bought and no ad entities are created. Provide a date range plus exactly one of `budgetAmount` (Meta predicts reach) or `reach` (Meta predicts the budget). The response carries the estimate and its allowed bounds (min/max budget and reach). Predictions expire on their own; to buy, reserve one via POST /v1/ads/rf-predictions/{predictionId}/reserve and pass the RESERVED id to POST /v1/ads/create with `buyingType: \"RESERVED\"`.  Reservation campaigns reject automatic placements, so omitted `placements` default to Facebook feed (+ Instagram stream when a linked IG professional account resolves); Instagram placements require that IG account. Meta only.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_rf_prediction_request** | [**CreateRfPredictionRequest**](CreateRfPredictionRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateRfPrediction201Response**](createRfPrediction_201_response.md)
 
 ### Authorization
 
@@ -1092,6 +1158,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_rf_prediction
+
+> models::CreateRfPrediction201Response get_rf_prediction(prediction_id, account_id, ad_account_id)
+Read a Reach & Frequency prediction (Meta)
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**prediction_id** | **String** |  | [required] |
+**account_id** | **String** |  | [required] |
+**ad_account_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::CreateRfPrediction201Response**](createRfPrediction_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_ad_accounts
 
 > models::ListAdAccounts200Response list_ad_accounts(account_id, ad_account_id, limit)
@@ -1559,6 +1655,37 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## reserve_rf_prediction
+
+> models::ReserveRfPrediction201Response reserve_rf_prediction(prediction_id, reserve_rf_prediction_request)
+Reserve a Reach & Frequency prediction (Meta)
+
+Locks the quoted price + inventory until the returned `expiresAt` and mints a NEW prediction id — pass that RESERVED id (not the original) as `rfPredictionId` on POST /v1/ads/create. Release an unused reservation via DELETE. Meta only.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**prediction_id** | **String** |  | [required] |
+**reserve_rf_prediction_request** | [**ReserveRfPredictionRequest**](ReserveRfPredictionRequest.md) |  | [required] |
+
+### Return type
+
+[**models::ReserveRfPrediction201Response**](reserveRfPrediction_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

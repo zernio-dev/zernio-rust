@@ -57,6 +57,16 @@ pub enum BoostPostError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`cancel_rf_reservation`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CancelRfReservationError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`create_ad_insights_report`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -123,6 +133,17 @@ pub enum CreateMessagingAdError {
     Status401(models::InlineObject),
     Status404(),
     Status422(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_rf_prediction`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateRfPredictionError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status422(),
+    Status501(),
     UnknownValue(serde_json::Value),
 }
 
@@ -370,6 +391,16 @@ pub enum GetLinkedInSupplyForecastError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_rf_prediction`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetRfPredictionError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_ad_accounts`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -507,6 +538,16 @@ pub enum RemoveConversionAssociationsError {
     Status404(),
     Status405(),
     Status429(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`reserve_rf_prediction`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ReserveRfPredictionError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status501(),
     UnknownValue(serde_json::Value),
 }
 
@@ -833,6 +874,54 @@ pub async fn boost_post(
     }
 }
 
+/// Releases a RESERVATION's locked price and inventory. Unreserved predictions expire on their own.
+pub async fn cancel_rf_reservation(
+    configuration: &configuration::Configuration,
+    prediction_id: &str,
+    account_id: &str,
+    ad_account_id: &str,
+) -> Result<(), Error<CancelRfReservationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_prediction_id = prediction_id;
+    let p_query_account_id = account_id;
+    let p_query_ad_account_id = ad_account_id;
+
+    let uri_str = format!(
+        "{}/v1/ads/rf-predictions/{predictionId}",
+        configuration.base_path,
+        predictionId = crate::apis::urlencode(p_path_prediction_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    req_builder = req_builder.query(&[("adAccountId", &p_query_ad_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CancelRfReservationError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Submits an asynchronous Meta insights report. Same query surface as GET /v1/ads/insights, but in the JSON body; Meta processes the report server-side, which is the right choice for long ranges or large accounts where the sync query is slow or rate-limited. Returns a `reportRunId` to poll via GET /v1/ads/insights/reports/{reportRunId}. Meta only.
 pub async fn create_ad_insights_report(
     configuration: &configuration::Configuration,
@@ -1111,6 +1200,56 @@ pub async fn create_messaging_ad(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateMessagingAdError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Creates an R&F prediction — a QUOTE, nothing is bought and no ad entities are created. Provide a date range plus exactly one of `budgetAmount` (Meta predicts reach) or `reach` (Meta predicts the budget). The response carries the estimate and its allowed bounds (min/max budget and reach). Predictions expire on their own; to buy, reserve one via POST /v1/ads/rf-predictions/{predictionId}/reserve and pass the RESERVED id to POST /v1/ads/create with `buyingType: \"RESERVED\"`.  Reservation campaigns reject automatic placements, so omitted `placements` default to Facebook feed (+ Instagram stream when a linked IG professional account resolves); Instagram placements require that IG account. Meta only.
+pub async fn create_rf_prediction(
+    configuration: &configuration::Configuration,
+    create_rf_prediction_request: models::CreateRfPredictionRequest,
+) -> Result<models::CreateRfPrediction201Response, Error<CreateRfPredictionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_rf_prediction_request = create_rf_prediction_request;
+
+    let uri_str = format!("{}/v1/ads/rf-predictions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_rf_prediction_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateRfPrediction201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateRfPrediction201Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateRfPredictionError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -2424,6 +2563,62 @@ pub async fn get_linked_in_supply_forecast(
     }
 }
 
+pub async fn get_rf_prediction(
+    configuration: &configuration::Configuration,
+    prediction_id: &str,
+    account_id: &str,
+    ad_account_id: &str,
+) -> Result<models::CreateRfPrediction201Response, Error<GetRfPredictionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_prediction_id = prediction_id;
+    let p_query_account_id = account_id;
+    let p_query_ad_account_id = ad_account_id;
+
+    let uri_str = format!(
+        "{}/v1/ads/rf-predictions/{predictionId}",
+        configuration.base_path,
+        predictionId = crate::apis::urlencode(p_path_prediction_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    req_builder = req_builder.query(&[("adAccountId", &p_query_ad_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateRfPrediction201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateRfPrediction201Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetRfPredictionError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Returns the platform ad accounts available for the given social account (e.g. Meta ad accounts, TikTok advertiser IDs, Google Ads customer IDs).  For TikTok agencies: enumerates every advertiser under every Business Center the token can read (paginated server-side), then chunks the lookup against TikTok's `/advertiser/info/` endpoint (which has a per-call cap of ≤100 IDs). Solo advertisers without a BC fall back to the OAuth-time `advertiser_ids` list. Cached for 1h on the SocialAccount; lazy-refreshed on first call after expiry.
 pub async fn list_ad_accounts(
     configuration: &configuration::Configuration,
@@ -3351,6 +3546,62 @@ pub async fn remove_conversion_associations(
     } else {
         let content = resp.text().await?;
         let entity: Option<RemoveConversionAssociationsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Locks the quoted price + inventory until the returned `expiresAt` and mints a NEW prediction id — pass that RESERVED id (not the original) as `rfPredictionId` on POST /v1/ads/create. Release an unused reservation via DELETE. Meta only.
+pub async fn reserve_rf_prediction(
+    configuration: &configuration::Configuration,
+    prediction_id: &str,
+    reserve_rf_prediction_request: models::ReserveRfPredictionRequest,
+) -> Result<models::ReserveRfPrediction201Response, Error<ReserveRfPredictionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_prediction_id = prediction_id;
+    let p_body_reserve_rf_prediction_request = reserve_rf_prediction_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/rf-predictions/{predictionId}/reserve",
+        configuration.base_path,
+        predictionId = crate::apis::urlencode(p_path_prediction_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_reserve_rf_prediction_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ReserveRfPrediction201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ReserveRfPrediction201Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ReserveRfPredictionError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

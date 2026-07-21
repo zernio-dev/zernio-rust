@@ -39,6 +39,12 @@ pub struct CreateStandaloneAdRequest {
     /// Meta only. Explicit ad-set `billing_event`. Defaults to `IMPRESSIONS`. Forwarded verbatim to Meta, which validates compatibility with the optimization goal.
     #[serde(rename = "billingEvent", skip_serializing_if = "Option::is_none")]
     pub billing_event: Option<String>,
+    /// Meta only. RESERVED = Reach & Frequency: requires `rfPredictionId` (a RESERVED prediction from /v1/ads/rf-predictions + /reserve). Budget, schedule and pricing come from the reservation, so budgetAmount/budgetType are not required and bid fields are ignored. Only the plain single-ad shape (no creatives[], adSetId, existingCampaignId or dynamicCreative).
+    #[serde(rename = "buyingType", skip_serializing_if = "Option::is_none")]
+    pub buying_type: Option<BuyingType>,
+    /// Meta only. The RESERVED prediction id the R&F ad set runs on (reserving mints a new id — pass that one). Requires buyingType RESERVED.
+    #[serde(rename = "rfPredictionId", skip_serializing_if = "Option::is_none")]
+    pub rf_prediction_id: Option<String>,
     /// Required on legacy + multi-creative shapes. Inherited on attach.
     #[serde(rename = "budgetAmount", skip_serializing_if = "Option::is_none")]
     pub budget_amount: Option<f64>,
@@ -245,6 +251,8 @@ impl CreateStandaloneAdRequest {
             goal: None,
             optimization_goal: None,
             billing_event: None,
+            buying_type: None,
+            rf_prediction_id: None,
             budget_amount: None,
             budget_type: None,
             status: None,
@@ -338,6 +346,20 @@ pub enum Goal {
 impl Default for Goal {
     fn default() -> Goal {
         Self::Engagement
+    }
+}
+/// Meta only. RESERVED = Reach & Frequency: requires `rfPredictionId` (a RESERVED prediction from /v1/ads/rf-predictions + /reserve). Budget, schedule and pricing come from the reservation, so budgetAmount/budgetType are not required and bid fields are ignored. Only the plain single-ad shape (no creatives[], adSetId, existingCampaignId or dynamicCreative).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum BuyingType {
+    #[serde(rename = "AUCTION")]
+    Auction,
+    #[serde(rename = "RESERVED")]
+    Reserved,
+}
+
+impl Default for BuyingType {
+    fn default() -> BuyingType {
+        Self::Auction
     }
 }
 /// Required on legacy + multi-creative shapes. Inherited on attach.

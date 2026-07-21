@@ -227,6 +227,8 @@ docs/CreatePostRequestPlatformsInnerPlatformSpecificData.md
 docs/CreateProfileRequest.md
 docs/CreateQueueSlot201Response.md
 docs/CreateQueueSlotRequest.md
+docs/CreateRfPrediction201Response.md
+docs/CreateRfPredictionRequest.md
 docs/CreateSequence200Response.md
 docs/CreateSequence200ResponseSequence.md
 docs/CreateSequenceRequest.md
@@ -1000,6 +1002,8 @@ docs/ReplyToInboxReviewRequest.md
 docs/ReplyToMention200Response.md
 docs/ReplyToMentionRequest.md
 docs/ResendSmsRegistrationOtp200Response.md
+docs/ReserveRfPrediction201Response.md
+docs/ReserveRfPredictionRequest.md
 docs/RestoreWorkflowVersion200Response.md
 docs/RestoreWorkflowVersion200ResponseWorkflow.md
 docs/RetweetPost200Response.md
@@ -1012,6 +1016,7 @@ docs/ReviewWebhookReview.md
 docs/ReviewWebhookReviewReply.md
 docs/ReviewWebhookReviewReviewer.md
 docs/ReviewsApi.md
+docs/RfPrediction.md
 docs/SavedTargetingAudience.md
 docs/ScheduleBroadcast200Response.md
 docs/ScheduleBroadcast200ResponseBroadcast.md
@@ -1757,6 +1762,8 @@ src/models/create_post_request_platforms_inner_platform_specific_data.rs
 src/models/create_profile_request.rs
 src/models/create_queue_slot_201_response.rs
 src/models/create_queue_slot_request.rs
+src/models/create_rf_prediction_201_response.rs
+src/models/create_rf_prediction_request.rs
 src/models/create_sequence_200_response.rs
 src/models/create_sequence_200_response_sequence.rs
 src/models/create_sequence_request.rs
@@ -2508,6 +2515,8 @@ src/models/reply_to_inbox_review_request.rs
 src/models/reply_to_mention_200_response.rs
 src/models/reply_to_mention_request.rs
 src/models/resend_sms_registration_otp_200_response.rs
+src/models/reserve_rf_prediction_201_response.rs
+src/models/reserve_rf_prediction_request.rs
 src/models/restore_workflow_version_200_response.rs
 src/models/restore_workflow_version_200_response_workflow.rs
 src/models/retweet_post_200_response.rs
@@ -2519,6 +2528,7 @@ src/models/review_phone_number_kyc_packet_request.rs
 src/models/review_webhook_review.rs
 src/models/review_webhook_review_reply.rs
 src/models/review_webhook_review_reviewer.rs
+src/models/rf_prediction.rs
 src/models/saved_targeting_audience.rs
 src/models/schedule_broadcast_200_response.rs
 src/models/schedule_broadcast_200_response_broadcast.rs
