@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **brand_id** | Option<**String**> | TCR brand id, useful when referencing the brand in carrier support threads. | [optional]
 **campaign_id** | Option<**String**> | TCR campaign id. | [optional]
 **decline_reason** | Option<**String**> |  | [optional]
+**tf_action_required_at** | Option<**String**> | Toll-free only: when the carrier requested changes (\"Waiting For Customer\"). The request must be resubmitted within 7 days of this timestamp or it expires. | [optional]
 **phone_numbers** | Option<**Vec<String>**> |  | [optional]
 **awaiting_otp** | Option<**bool**> | Sole-prop 10DLC only; the OTP step is still pending. | [optional]
 **trust_score** | Option<**f64**> | Carrier-assigned brand trust score; drives throughput. | [optional]

@@ -55,6 +55,14 @@ pub struct ListSmsRegistrations200ResponseRegistrationsInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub decline_reason: Option<Option<String>>,
+    /// Toll-free only: when the carrier requested changes (\"Waiting For Customer\"). The request must be resubmitted within 7 days of this timestamp or it expires.
+    #[serde(
+        rename = "tfActionRequiredAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub tf_action_required_at: Option<Option<String>>,
     #[serde(rename = "phoneNumbers", skip_serializing_if = "Option::is_none")]
     pub phone_numbers: Option<Vec<String>>,
     /// Sole-prop 10DLC only; the OTP step is still pending.
@@ -85,6 +93,7 @@ impl ListSmsRegistrations200ResponseRegistrationsInner {
             brand_id: None,
             campaign_id: None,
             decline_reason: None,
+            tf_action_required_at: None,
             phone_numbers: None,
             awaiting_otp: None,
             trust_score: None,
