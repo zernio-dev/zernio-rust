@@ -12,18 +12,18 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ListDiscordGuildMembers200Response {
+pub struct ListMetaBusinesses200Response {
     #[serde(rename = "data", skip_serializing_if = "Option::is_none")]
-    pub data: Option<Vec<models::DiscordGuildMember>>,
-    #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
-    pub pagination: Option<Box<models::ListDiscordGuildMembers200ResponsePagination>>,
+    pub data: Option<Vec<serde_json::Value>>,
+    #[serde(rename = "paging", skip_serializing_if = "Option::is_none")]
+    pub paging: Option<Box<models::QueryAdInsights200ResponsePaging>>,
 }
 
-impl ListDiscordGuildMembers200Response {
-    pub fn new() -> ListDiscordGuildMembers200Response {
-        ListDiscordGuildMembers200Response {
+impl ListMetaBusinesses200Response {
+    pub fn new() -> ListMetaBusinesses200Response {
+        ListMetaBusinesses200Response {
             data: None,
-            pagination: None,
+            paging: None,
         }
     }
 }

@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **image_hash** | Option<**String**> | Existing library image hash (POST /v1/ads/images or GET /v1/ads/images). | [optional]
 **carousel_cards** | Option<[**Vec<models::CreateAdCreativeRequestCarouselCardsInner>**](CreateAdCreativeRequestCarouselCardsInner.md)> |  | [optional]
 **url_tags** | Option<**String**> | Appended to every outbound URL (e.g. utm_source=fb). | [optional]
+**creative_features** | Option<**std::collections::HashMap<String, Inner>**> | Advantage+ creative enhancements: partial map of Meta creative feature keys (snake_case) to enroll status, forwarded as degrees_of_freedom_spec.creative_features_spec. Unspecified features default to OPT_OUT. (enum: OPT_IN, OPT_OUT) | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

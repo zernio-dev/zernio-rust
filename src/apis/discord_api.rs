@@ -128,6 +128,16 @@ pub enum GetDiscordChannelsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_discord_guild_member`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetDiscordGuildMemberError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_discord_scheduled_event`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -153,6 +163,7 @@ pub enum GetDiscordSettingsError {
 pub enum ListDiscordGuildMembersError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -211,6 +222,16 @@ pub enum RemoveDiscordMemberRoleError {
     Status404(),
     Status403(),
     Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`search_discord_guild_members`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SearchDiscordGuildMembersError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
     UnknownValue(serde_json::Value),
 }
 
@@ -844,6 +865,63 @@ pub async fn get_discord_channels(
     }
 }
 
+/// Fetch a single guild member by Discord user id.  Does not require the privileged Server Members Intent, so this works even where the full member listing returns 403.
+pub async fn get_discord_guild_member(
+    configuration: &configuration::Configuration,
+    guild_id: &str,
+    user_id: &str,
+    account_id: &str,
+) -> Result<models::GetDiscordGuildMember200Response, Error<GetDiscordGuildMemberError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_guild_id = guild_id;
+    let p_path_user_id = user_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/discord/guilds/{guildId}/members/{userId}",
+        configuration.base_path,
+        guildId = crate::apis::urlencode(p_path_guild_id),
+        userId = crate::apis::urlencode(p_path_user_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetDiscordGuildMember200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetDiscordGuildMember200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetDiscordGuildMemberError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 pub async fn get_discord_scheduled_event(
     configuration: &configuration::Configuration,
     guild_id: &str,
@@ -951,7 +1029,7 @@ pub async fn get_discord_settings(
     }
 }
 
-/// Cursor-paginated list of guild members. Returns Discord's raw member objects so callers can build community-ops automation (e.g. \"add role to all members joined in the last 7 days\") on the actual platform shape.  **Important:** this endpoint requires the privileged \"Server Members Intent\" enabled on the Discord app (Developer Portal → Bot tab → toggle \"Server Members Intent\" ON, then Save). Without it, Discord returns an empty array with no error. Verify the intent is enabled before relying on this endpoint.  Pagination: pass `after` = the last `user.id` from the previous page. Omit on the first call. Response includes a `nextCursor` and `hasMore` flag so callers don't need to know Discord's pagination shape.
+/// Cursor-paginated list of guild members. Returns Discord's raw member objects so callers can build community-ops automation (e.g. \"add role to all members joined in the last 7 days\") on the actual platform shape.  **Important:** this endpoint requires the privileged \"Server Members Intent\" on the Discord application. If the intent is not enabled, Discord rejects the call and this endpoint returns **403**. Single member lookup and prefix search (see the sibling endpoints) do not need the intent.  Pagination: pass `after` = the last `user.id` from the previous page. Omit on the first call. Response includes a `nextCursor` and `hasMore` flag so callers don't need to know Discord's pagination shape.
 pub async fn list_discord_guild_members(
     configuration: &configuration::Configuration,
     guild_id: &str,
@@ -1293,6 +1371,68 @@ pub async fn remove_discord_member_role(
     } else {
         let content = resp.text().await?;
         let entity: Option<RemoveDiscordMemberRoleError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Search guild members whose username or nickname **starts with** the query (Discord matches prefixes only, not substrings).  Does not require the privileged Server Members Intent, so this works even where the full member listing returns 403.
+pub async fn search_discord_guild_members(
+    configuration: &configuration::Configuration,
+    guild_id: &str,
+    account_id: &str,
+    query: &str,
+    limit: Option<i32>,
+) -> Result<models::SearchDiscordGuildMembers200Response, Error<SearchDiscordGuildMembersError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_guild_id = guild_id;
+    let p_query_account_id = account_id;
+    let p_query_query = query;
+    let p_query_limit = limit;
+
+    let uri_str = format!(
+        "{}/v1/discord/guilds/{guildId}/members/search",
+        configuration.base_path,
+        guildId = crate::apis::urlencode(p_path_guild_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    req_builder = req_builder.query(&[("query", &p_query_query.to_string())]);
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SearchDiscordGuildMembers200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SearchDiscordGuildMembers200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<SearchDiscordGuildMembersError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

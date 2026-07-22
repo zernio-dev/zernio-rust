@@ -43,6 +43,9 @@ pub struct CreateAdCreativeRequest {
     /// Appended to every outbound URL (e.g. utm_source=fb).
     #[serde(rename = "urlTags", skip_serializing_if = "Option::is_none")]
     pub url_tags: Option<String>,
+    /// Advantage+ creative enhancements: partial map of Meta creative feature keys (snake_case) to enroll status, forwarded as degrees_of_freedom_spec.creative_features_spec. Unspecified features default to OPT_OUT.
+    #[serde(rename = "creativeFeatures", skip_serializing_if = "Option::is_none")]
+    pub creative_features: Option<CreativeFeatures>,
 }
 
 impl CreateAdCreativeRequest {
@@ -65,6 +68,21 @@ impl CreateAdCreativeRequest {
             image_hash: None,
             carousel_cards: None,
             url_tags: None,
+            creative_features: None,
         }
+    }
+}
+/// Advantage+ creative enhancements: partial map of Meta creative feature keys (snake_case) to enroll status, forwarded as degrees_of_freedom_spec.creative_features_spec. Unspecified features default to OPT_OUT.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum CreativeFeatures {
+    #[serde(rename = "OPT_IN")]
+    OptIn,
+    #[serde(rename = "OPT_OUT")]
+    OptOut,
+}
+
+impl Default for CreativeFeatures {
+    fn default() -> CreativeFeatures {
+        Self::OptIn
     }
 }

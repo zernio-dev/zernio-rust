@@ -22,6 +22,16 @@ pub enum BulkUpdateAdCampaignStatusError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`create_ad_campaign`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateAdCampaignError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`delete_ad_campaign`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -36,6 +46,17 @@ pub enum DeleteAdCampaignError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DuplicateAdCampaignError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`duplicate_ad_set`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DuplicateAdSetError {
     Status400(),
     Status401(models::InlineObject),
     Status404(),
@@ -174,6 +195,56 @@ pub async fn bulk_update_ad_campaign_status(
     }
 }
 
+/// Creates a campaign WITHOUT its first ad set / ad (the ODAX shell only). Ad sets join it later via `existingCampaignId` on the create endpoints. A budget here is campaign-level (CBO) by definition; omit it for ABO (each ad set carries its own budget). Created `PAUSED` unless `status: ACTIVE`. The campaign materializes in `/v1/ads/tree` via the next sync discovery pass. Meta only.
+pub async fn create_ad_campaign(
+    configuration: &configuration::Configuration,
+    create_ad_campaign_request: models::CreateAdCampaignRequest,
+) -> Result<models::CreateAdCampaign201Response, Error<CreateAdCampaignError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_ad_campaign_request = create_ad_campaign_request;
+
+    let uri_str = format!("{}/v1/ads/campaigns", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_ad_campaign_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateAdCampaign201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateAdCampaign201Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateAdCampaignError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Deletes the whole campaign on the platform, cascading to its ad sets and ads. Locally, all Ad documents for this campaign are marked `status: cancelled`.  Meta-only for now. Other platforms return 501 Not Implemented — fall back to DELETE /v1/ads/{adId} per ad in the meantime.
 pub async fn delete_ad_campaign(
     configuration: &configuration::Configuration,
@@ -278,6 +349,62 @@ pub async fn duplicate_ad_campaign(
     } else {
         let content = resp.text().await?;
         let entity: Option<DuplicateAdCampaignError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Duplicates an ad set, including its ads and creatives by default (`deepCopy: true`), via Meta's native `POST /{adset-id}/copies`. The copy is created paused so callers can review before launching. `campaignId` retargets the copy into another campaign; omitted = the source's own campaign. The new hierarchy materializes asynchronously — sync discovery is triggered automatically (`syncAfter: false` to skip). Meta only.
+pub async fn duplicate_ad_set(
+    configuration: &configuration::Configuration,
+    ad_set_id: &str,
+    duplicate_ad_set_request: models::DuplicateAdSetRequest,
+) -> Result<models::DuplicateAdSet200Response, Error<DuplicateAdSetError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_ad_set_id = ad_set_id;
+    let p_body_duplicate_ad_set_request = duplicate_ad_set_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/ad-sets/{adSetId}/duplicate",
+        configuration.base_path,
+        adSetId = crate::apis::urlencode(p_path_ad_set_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_duplicate_ad_set_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DuplicateAdSet200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DuplicateAdSet200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DuplicateAdSetError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

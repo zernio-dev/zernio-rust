@@ -45,6 +45,12 @@ pub struct CreateStandaloneAdRequest {
     /// Meta only. The RESERVED prediction id the R&F ad set runs on (reserving mints a new id — pass that one). Requires buyingType RESERVED.
     #[serde(rename = "rfPredictionId", skip_serializing_if = "Option::is_none")]
     pub rf_prediction_id: Option<String>,
+    /// Meta only. Advantage+ creative enhancements: a partial map of Meta creative feature keys (snake_case, e.g. enhance_cta, image_brightness_and_contrast, text_optimizations) to enroll status, forwarded as degrees_of_freedom_spec.creative_features_spec. Meta validates the keys; unspecified features default to OPT_OUT. The legacy standard_enhancements bundle is deprecated by Meta and rejected.
+    #[serde(rename = "creativeFeatures", skip_serializing_if = "Option::is_none")]
+    pub creative_features: Option<CreativeFeatures>,
+    /// Meta only, single standalone shape only (no creatives[], adSetId, or RESERVED). Dry-run: each node runs Meta's execution_options validate_only and NOTHING is created or persisted. Children need real parents, so a fresh tree validates the campaign + creative (the ad set needs its campaign to exist — pass existingCampaignId to validate it too; the ad itself is never validatable pre-create). A Meta validation failure returns the 400 verbatim; success returns 200 with per-node results instead of an ad.
+    #[serde(rename = "validateOnly", skip_serializing_if = "Option::is_none")]
+    pub validate_only: Option<bool>,
     /// Required on legacy + multi-creative shapes. Inherited on attach.
     #[serde(rename = "budgetAmount", skip_serializing_if = "Option::is_none")]
     pub budget_amount: Option<f64>,
@@ -253,6 +259,8 @@ impl CreateStandaloneAdRequest {
             billing_event: None,
             buying_type: None,
             rf_prediction_id: None,
+            creative_features: None,
+            validate_only: None,
             budget_amount: None,
             budget_type: None,
             status: None,
@@ -360,6 +368,20 @@ pub enum BuyingType {
 impl Default for BuyingType {
     fn default() -> BuyingType {
         Self::Auction
+    }
+}
+/// Meta only. Advantage+ creative enhancements: a partial map of Meta creative feature keys (snake_case, e.g. enhance_cta, image_brightness_and_contrast, text_optimizations) to enroll status, forwarded as degrees_of_freedom_spec.creative_features_spec. Meta validates the keys; unspecified features default to OPT_OUT. The legacy standard_enhancements bundle is deprecated by Meta and rejected.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum CreativeFeatures {
+    #[serde(rename = "OPT_IN")]
+    OptIn,
+    #[serde(rename = "OPT_OUT")]
+    OptOut,
+}
+
+impl Default for CreativeFeatures {
+    fn default() -> CreativeFeatures {
+        Self::OptIn
     }
 }
 /// Required on legacy + multi-creative shapes. Inherited on attach.
