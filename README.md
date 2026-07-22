@@ -292,7 +292,6 @@ Class | Method | HTTP request | Description
 *GmbVerificationsApi* | [**fetch_google_business_verification_options**](docs/GmbVerificationsApi.md#fetch_google_business_verification_options) | **POST** /v1/accounts/{accountId}/gmb-verifications/options | Fetch verification options
 *GmbVerificationsApi* | [**get_google_business_verifications**](docs/GmbVerificationsApi.md#get_google_business_verifications) | **GET** /v1/accounts/{accountId}/gmb-verifications | Get verification state
 *GmbVerificationsApi* | [**start_google_business_verification**](docs/GmbVerificationsApi.md#start_google_business_verification) | **POST** /v1/accounts/{accountId}/gmb-verifications | Start a verification
-*InboxApi* | [**get_whats_app_media**](docs/InboxApi.md#get_whats_app_media) | **GET** /v1/whatsapp/media/{mediaId} | Download WhatsApp media
 *InboxAnalyticsApi* | [**get_inbox_conversation_analytics**](docs/InboxAnalyticsApi.md#get_inbox_conversation_analytics) | **GET** /v1/analytics/inbox/conversations/{conversationId} | Get conversation analytics
 *InboxAnalyticsApi* | [**get_inbox_heatmap**](docs/InboxAnalyticsApi.md#get_inbox_heatmap) | **GET** /v1/analytics/inbox/heatmap | Get day × hour heatmap
 *InboxAnalyticsApi* | [**get_inbox_response_time**](docs/InboxAnalyticsApi.md#get_inbox_response_time) | **GET** /v1/analytics/inbox/response-time | Get inbox response-time stats
@@ -459,6 +458,7 @@ Class | Method | HTTP request | Description
 *WhatsAppApi* | [**get_whats_app_dataset**](docs/WhatsAppApi.md#get_whats_app_dataset) | **GET** /v1/whatsapp/dataset | Get CTWA conversions dataset
 *WhatsAppApi* | [**get_whats_app_display_name**](docs/WhatsAppApi.md#get_whats_app_display_name) | **GET** /v1/whatsapp/business-profile/display-name | Get display name status
 *WhatsAppApi* | [**get_whats_app_group_chat**](docs/WhatsAppApi.md#get_whats_app_group_chat) | **GET** /v1/whatsapp/wa-groups/{groupId} | Get group info
+*WhatsAppApi* | [**get_whats_app_media**](docs/WhatsAppApi.md#get_whats_app_media) | **GET** /v1/whatsapp/media/{mediaId} | Download WhatsApp media
 *WhatsAppApi* | [**get_whats_app_template**](docs/WhatsAppApi.md#get_whats_app_template) | **GET** /v1/whatsapp/templates/{templateName} | Get template
 *WhatsAppApi* | [**get_whats_app_templates**](docs/WhatsAppApi.md#get_whats_app_templates) | **GET** /v1/whatsapp/templates | List templates
 *WhatsAppApi* | [**get_whatsapp_business_username**](docs/WhatsAppApi.md#get_whatsapp_business_username) | **GET** /v1/whatsapp/business-profile/username | Get business username
