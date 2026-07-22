@@ -71,6 +71,8 @@ pub enum Type {
     CompanyList,
     #[serde(rename = "engagement")]
     Engagement,
+    #[serde(rename = "meta_engagement")]
+    MetaEngagement,
     #[serde(rename = "website")]
     Website,
     #[serde(rename = "website_retargeting")]

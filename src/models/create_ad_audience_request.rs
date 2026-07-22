@@ -32,6 +32,8 @@ pub enum Type {
     CompanyList,
     #[serde(rename = "engagement")]
     Engagement,
+    #[serde(rename = "meta_engagement")]
+    MetaEngagement,
     #[serde(rename = "website")]
     Website,
     #[serde(rename = "website_retargeting")]
@@ -85,5 +87,21 @@ pub enum LookbackDays {
 impl Default for LookbackDays {
     fn default() -> LookbackDays {
         Self::Variant30
+    }
+}
+/// Required for meta_engagement audiences (Meta only): what people engaged with. `page` = a Facebook Page, `instagram` = an IG professional account, `video` = a video. The source object must be eligible for engagement audiences or Meta rejects with subcode 1713151 (\"Invalid Event Name\"), surfaced verbatim.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum EngagementSource {
+    #[serde(rename = "page")]
+    Page,
+    #[serde(rename = "instagram")]
+    Instagram,
+    #[serde(rename = "video")]
+    Video,
+}
+
+impl Default for EngagementSource {
+    fn default() -> EngagementSource {
+        Self::Page
     }
 }

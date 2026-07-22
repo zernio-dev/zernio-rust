@@ -46,9 +46,18 @@ pub struct UploadedOrDerivedAudience {
     /// Required for website audiences
     #[serde(rename = "pixelId", skip_serializing_if = "Option::is_none")]
     pub pixel_id: Option<String>,
-    /// Required for website audiences
+    /// Required for website (max 180) and meta_engagement (max 365) audiences.
     #[serde(rename = "retentionDays", skip_serializing_if = "Option::is_none")]
     pub retention_days: Option<i32>,
+    /// Required for meta_engagement audiences (Meta only): what people engaged with. `page` = a Facebook Page, `instagram` = an IG professional account, `video` = a video. The source object must be eligible for engagement audiences or Meta rejects with subcode 1713151 (\"Invalid Event Name\"), surfaced verbatim.
+    #[serde(rename = "engagementSource", skip_serializing_if = "Option::is_none")]
+    pub engagement_source: Option<EngagementSource>,
+    /// Required for meta_engagement: the Page / IG account / video id.
+    #[serde(rename = "sourceId", skip_serializing_if = "Option::is_none")]
+    pub source_id: Option<String>,
+    /// meta_engagement only. The engagement event; defaults per source (page → page_engaged, instagram → ig_business_profile_all, video → video_watched). Ignored when `rule` is provided.
+    #[serde(rename = "event", skip_serializing_if = "Option::is_none")]
+    pub event: Option<String>,
     /// Required for lookalike audiences
     #[serde(rename = "sourceAudienceId", skip_serializing_if = "Option::is_none")]
     pub source_audience_id: Option<String>,
@@ -58,7 +67,7 @@ pub struct UploadedOrDerivedAudience {
     /// Required for lookalike audiences
     #[serde(rename = "ratio", skip_serializing_if = "Option::is_none")]
     pub ratio: Option<f64>,
-    /// Pixel event rule for website audiences (optional)
+    /// Optional raw Meta rule, forwarded verbatim: pixel event rule for website audiences, or the engagement rule for meta_engagement (overrides the built rule, e.g. for event/canvas/lead-form sources).
     #[serde(rename = "rule", skip_serializing_if = "Option::is_none")]
     pub rule: Option<serde_json::Value>,
     /// Data source declaration for GDPR compliance (customer_list only)
@@ -88,6 +97,9 @@ impl UploadedOrDerivedAudience {
             companies: None,
             pixel_id: None,
             retention_days: None,
+            engagement_source: None,
+            source_id: None,
+            event: None,
             source_audience_id: None,
             country: None,
             ratio: None,
@@ -105,6 +117,8 @@ pub enum Type {
     CompanyList,
     #[serde(rename = "engagement")]
     Engagement,
+    #[serde(rename = "meta_engagement")]
+    MetaEngagement,
     #[serde(rename = "website")]
     Website,
     #[serde(rename = "website_retargeting")]
@@ -156,5 +170,21 @@ pub enum LookbackDays {
 impl Default for LookbackDays {
     fn default() -> LookbackDays {
         Self::Variant30
+    }
+}
+/// Required for meta_engagement audiences (Meta only): what people engaged with. `page` = a Facebook Page, `instagram` = an IG professional account, `video` = a video. The source object must be eligible for engagement audiences or Meta rejects with subcode 1713151 (\"Invalid Event Name\"), surfaced verbatim.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum EngagementSource {
+    #[serde(rename = "page")]
+    Page,
+    #[serde(rename = "instagram")]
+    Instagram,
+    #[serde(rename = "video")]
+    Video,
+}
+
+impl Default for EngagementSource {
+    fn default() -> EngagementSource {
+        Self::Page
     }
 }

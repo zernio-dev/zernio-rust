@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UpdateAdSetRequestPlatformSpecificDataPromotedObject : Meta ad-set promoted_object, forwarded verbatim (same shape as /v1/ads/create).
+/// UpdateAdSetRequestPlatformSpecificDataPromotedObject : Meta ad-set promoted_object, forwarded verbatim (same shape as /v1/ads/create). Unknown keys are rejected with 400.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAdSetRequestPlatformSpecificDataPromotedObject {
     #[serde(rename = "pixelId", skip_serializing_if = "Option::is_none")]
@@ -30,10 +30,20 @@ pub struct UpdateAdSetRequestPlatformSpecificDataPromotedObject {
     pub product_catalog_id: Option<String>,
     #[serde(rename = "productSetId", skip_serializing_if = "Option::is_none")]
     pub product_set_id: Option<String>,
+    #[serde(
+        rename = "offlineConversionDataSetId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub offline_conversion_data_set_id: Option<String>,
+    #[serde(
+        rename = "whatsappPhoneNumber",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub whatsapp_phone_number: Option<String>,
 }
 
 impl UpdateAdSetRequestPlatformSpecificDataPromotedObject {
-    /// Meta ad-set promoted_object, forwarded verbatim (same shape as /v1/ads/create).
+    /// Meta ad-set promoted_object, forwarded verbatim (same shape as /v1/ads/create). Unknown keys are rejected with 400.
     pub fn new() -> UpdateAdSetRequestPlatformSpecificDataPromotedObject {
         UpdateAdSetRequestPlatformSpecificDataPromotedObject {
             pixel_id: None,
@@ -44,6 +54,8 @@ impl UpdateAdSetRequestPlatformSpecificDataPromotedObject {
             custom_conversion_id: None,
             product_catalog_id: None,
             product_set_id: None,
+            offline_conversion_data_set_id: None,
+            whatsapp_phone_number: None,
         }
     }
 }

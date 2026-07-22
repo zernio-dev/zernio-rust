@@ -63,6 +63,12 @@ pub struct BoostPostRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub special_ad_categories: Option<Vec<SpecialAdCategories>>,
+    /// Meta (metaads) only. 2-letter ISO country codes the special ad category applies to. Requires specialAdCategories to be set (400 otherwise).
+    #[serde(
+        rename = "specialAdCategoryCountry",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub special_ad_category_country: Option<Vec<String>>,
     /// TikTok-only. Custom destination URL for the Spark Ad. Without this, TikTok Spark Ads have no clickable destination — required for traffic / conversion objectives. Maps to `landing_page_url` on the creative entry of /v2/ad/create/ (TikTok SDK `AdcreateCreatives.landing_page_url`). Ignored on Meta / LinkedIn / Pinterest / X / Google (those infer the destination from the boosted post).
     #[serde(rename = "linkUrl", skip_serializing_if = "Option::is_none")]
     pub link_url: Option<String>,
@@ -106,6 +112,7 @@ impl BoostPostRequest {
             platform_specific_data: None,
             tracking: None,
             special_ad_categories: None,
+            special_ad_category_country: None,
             link_url: None,
             call_to_action: None,
             spark_auth_code: None,

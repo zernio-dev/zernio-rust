@@ -38,6 +38,18 @@ pub struct CreateStandaloneAdRequestPromotedObject {
     /// Product Set ID inside the catalog.
     #[serde(rename = "productSetId", skip_serializing_if = "Option::is_none")]
     pub product_set_id: Option<String>,
+    /// Meta only. Offline event set (dataset) to optimise toward. Post-merger these are datasets: the id is the dataset id (for pixel-backed datasets, the pixel id).
+    #[serde(
+        rename = "offlineConversionDataSetId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub offline_conversion_data_set_id: Option<String>,
+    /// Meta only. WhatsApp number on messaging-destination ad sets.
+    #[serde(
+        rename = "whatsappPhoneNumber",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub whatsapp_phone_number: Option<String>,
 }
 
 impl CreateStandaloneAdRequestPromotedObject {
@@ -52,6 +64,8 @@ impl CreateStandaloneAdRequestPromotedObject {
             custom_conversion_id: None,
             product_catalog_id: None,
             product_set_id: None,
+            offline_conversion_data_set_id: None,
+            whatsapp_phone_number: None,
         }
     }
 }

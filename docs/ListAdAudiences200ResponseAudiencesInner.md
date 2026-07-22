@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **platform_audience_id** | Option<**String**> |  | [optional]
 **name** | Option<**String**> |  | [optional]
 **description** | Option<**String**> |  | [optional]
-**r#type** | Option<**Type**> |  (enum: customer_list, company_list, engagement, website, website_retargeting, lookalike, saved_targeting) | [optional]
+**r#type** | Option<**Type**> |  (enum: customer_list, company_list, engagement, meta_engagement, website, website_retargeting, lookalike, saved_targeting) | [optional]
 **spec** | Option<[**models::TargetingSpec**](TargetingSpec.md)> |  | [optional]
 **platform** | Option<**String**> |  | [optional]
 **size** | Option<**i32**> |  | [optional]

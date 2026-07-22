@@ -165,6 +165,12 @@ pub struct CreateStandaloneAdRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub special_ad_categories: Option<Vec<SpecialAdCategories>>,
+    /// Meta (metaads) only. 2-letter ISO country codes the special ad category applies to. Requires specialAdCategories to be set (400 otherwise). Ignored when joining an existing campaign via existingCampaignId (the existing campaign's category/country already governs it).
+    #[serde(
+        rename = "specialAdCategoryCountry",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub special_ad_category_country: Option<Vec<String>>,
     /// Required for lifetime budgets
     #[serde(rename = "endDate", skip_serializing_if = "Option::is_none")]
     pub end_date: Option<String>,
@@ -300,6 +306,7 @@ impl CreateStandaloneAdRequest {
             saved_targeting_id: None,
             raw_targeting: None,
             special_ad_categories: None,
+            special_ad_category_country: None,
             end_date: None,
             start_date: None,
             instagram_account_id: None,
