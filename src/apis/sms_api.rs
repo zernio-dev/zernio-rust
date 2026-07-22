@@ -25,32 +25,10 @@ pub enum AppealSmsRegistrationError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`create_sms_sender_id`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum CreateSmsSenderIdError {
-    Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
-    Status403(),
-    Status409(),
-    Status422(),
-    UnknownValue(serde_json::Value),
-}
-
 /// struct for typed errors of method [`deactivate_sms_registration`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeactivateSmsRegistrationError {
-    Status401(models::InlineObject),
-    Status404(),
-    UnknownValue(serde_json::Value),
-}
-
-/// struct for typed errors of method [`delete_sms_sender_id`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum DeleteSmsSenderIdError {
-    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -100,31 +78,12 @@ pub enum ListSmsRegistrationsError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`list_sms_sender_ids`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum ListSmsSenderIdsError {
-    Status401(models::InlineObject),
-    UnknownValue(serde_json::Value),
-}
-
 /// struct for typed errors of method [`lookup_sms_number`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum LookupSmsNumberError {
     Status401(models::InlineObject),
     Status502(),
-    UnknownValue(serde_json::Value),
-}
-
-/// struct for typed errors of method [`request_sms_sender_id_limit_increase`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum RequestSmsSenderIdLimitIncreaseError {
-    Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
-    Status409(),
-    Status503(),
     UnknownValue(serde_json::Value),
 }
 
@@ -153,13 +112,10 @@ pub enum ReuseSmsRegistrationForNumberError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SendSmsError {
-    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
-    Status403(),
     Status404(),
     Status409(),
     Status422(),
-    Status429(),
     Status502(),
     UnknownValue(serde_json::Value),
 }
@@ -266,56 +222,6 @@ pub async fn appeal_sms_registration(
     }
 }
 
-/// Registers an alphanumeric sender ID (e.g. `ZERNIO`) — a branded `from` for one-way international SMS. No phone number purchase or carrier registration is needed; once created, pass it as `from` on `POST /v1/sms/messages`.  Constraints: 3-11 characters (letters, digits, spaces; at least one letter). Sends cannot reach the US, Canada, or Puerto Rico, are text-only, and recipients cannot reply. Sender IDs that impersonate well-known brands or institutions are rejected, and an ID already registered by another workspace returns 409 (active sender IDs are globally unique, first-come-first-served). Creating the same sender ID again is a no-op (re-activates it after a delete).
-pub async fn create_sms_sender_id(
-    configuration: &configuration::Configuration,
-    create_sms_sender_id_request: models::CreateSmsSenderIdRequest,
-) -> Result<models::CreateSmsSenderId200Response, Error<CreateSmsSenderIdError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_create_sms_sender_id_request = create_sms_sender_id_request;
-
-    let uri_str = format!("{}/v1/sms/sender-ids", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_create_sms_sender_id_request);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateSmsSenderId200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateSmsSenderId200Response`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<CreateSmsSenderIdError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
 /// Terminates the campaign with the carrier registry so the recurring monthly campaign fee stops (carriers bill the first 3 months of a campaign regardless). Numbers covered by it can no longer SEND texts — receiving is unaffected — until they're registered under a new brand. Irreversible: a deactivated campaign cannot be restored; texting again later requires a new registration (new one-time and review fees). Idempotent.
 pub async fn deactivate_sms_registration(
     configuration: &configuration::Configuration,
@@ -361,59 +267,6 @@ pub async fn deactivate_sms_registration(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeactivateSmsRegistrationError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
-/// Deactivates the sender ID so it can no longer send. Re-creating the same sender ID via `POST /v1/sms/sender-ids` re-activates it.
-pub async fn delete_sms_sender_id(
-    configuration: &configuration::Configuration,
-    id: &str,
-) -> Result<models::DeleteSmsSenderId200Response, Error<DeleteSmsSenderIdError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_id = id;
-
-    let uri_str = format!(
-        "{}/v1/sms/sender-ids/{id}",
-        configuration.base_path,
-        id = crate::apis::urlencode(p_path_id)
-    );
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::DELETE, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteSmsSenderId200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteSmsSenderId200Response`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<DeleteSmsSenderIdError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -683,48 +536,6 @@ pub async fn list_sms_registrations(
     }
 }
 
-pub async fn list_sms_sender_ids(
-    configuration: &configuration::Configuration,
-) -> Result<models::ListSmsSenderIds200Response, Error<ListSmsSenderIdsError>> {
-    let uri_str = format!("{}/v1/sms/sender-ids", configuration.base_path);
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListSmsSenderIds200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListSmsSenderIds200Response`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<ListSmsSenderIdsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
 /// Carrier name and line type (mobile / landline / voip / toll-free) for a number, plus `smsReachable` (landlines can't receive SMS). Use it to validate recipients before sending. Each lookup is billed by the carrier-data provider, so call it explicitly (e.g. pre-validating an opt-in list), not on every send.
 pub async fn lookup_sms_number(
     configuration: &configuration::Configuration,
@@ -765,64 +576,6 @@ pub async fn lookup_sms_number(
     } else {
         let content = resp.text().await?;
         let entity: Option<LookupSmsNumberError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
-/// Asks support to raise the workspace's daily sender-ID message cap. There is no self-serve raise: the request (desired cap + use case) is reviewed manually, usually within a business day.
-pub async fn request_sms_sender_id_limit_increase(
-    configuration: &configuration::Configuration,
-    request_sms_sender_id_limit_increase_request: models::RequestSmsSenderIdLimitIncreaseRequest,
-) -> Result<
-    models::RequestSmsSenderIdLimitIncrease200Response,
-    Error<RequestSmsSenderIdLimitIncreaseError>,
-> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_request_sms_sender_id_limit_increase_request =
-        request_sms_sender_id_limit_increase_request;
-
-    let uri_str = format!(
-        "{}/v1/sms/sender-ids/limit-request",
-        configuration.base_path
-    );
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_request_sms_sender_id_limit_increase_request);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::RequestSmsSenderIdLimitIncrease200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::RequestSmsSenderIdLimitIncrease200Response`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<RequestSmsSenderIdLimitIncreaseError> =
-            serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -941,7 +694,7 @@ pub async fn reuse_sms_registration_for_number(
     }
 }
 
-/// Sends an SMS (or MMS when `mediaUrls` is set) from one of your SMS-enabled numbers, or from an approved alphanumeric sender ID (`/v1/sms/sender-ids`). At least one of `text` / `mediaUrls` is required. Numbers are normalized to E.164, so `from` matches regardless of formatting and replies thread into the same inbox conversation.  US numbers must have an approved carrier registration (`/v1/sms/registrations`) before messages deliver.  **Alphanumeric sender IDs** are one-way and international only: they cannot reach the US, Canada, or Puerto Rico (403), are text-only (no MMS), and recipients cannot reply. Some destination countries substitute a numeric sender to ensure delivery.  **Idempotency:** send an `Idempotency-Key` header to make retries safe: same key + same body replays the original response instead of sending a second message; same key + different body returns 422; a key still in flight returns 409.
+/// Sends an SMS (or MMS when `mediaUrls` is set) from one of your SMS-enabled numbers. At least one of `text` / `mediaUrls` is required. Both numbers are normalized to E.164, so `from` matches regardless of formatting and replies thread into the same inbox conversation.  US numbers must have an approved carrier registration (`/v1/sms/registrations`) before messages deliver.  **Idempotency:** send an `Idempotency-Key` header to make retries safe: same key + same body replays the original response instead of sending a second message; same key + different body returns 422; a key still in flight returns 409.
 pub async fn send_sms(
     configuration: &configuration::Configuration,
     send_sms_request: models::SendSmsRequest,

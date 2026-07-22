@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**from** | **String** | One of your SMS-enabled numbers (E.164; formatting is normalized), or an approved alphanumeric sender ID (3-11 letters/digits/spaces, created via `/v1/sms/sender-ids`). | 
+**from** | **String** | One of your SMS-enabled numbers (E.164; formatting is normalized). | 
 **to** | **String** | Recipient number (E.164). | 
 **text** | Option<**String**> | Message body. Required unless `mediaUrls` is set. Max 10 SMS segments (1530 GSM-7 or 670 unicode characters). | [optional]
 **media_urls** | Option<**Vec<String>**> | Public media URLs to attach (sends as MMS). Max 10. | [optional]

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **platform_message_id** | **String** | Platform's message ID | 
 **direction** | **Direction** |  (enum: incoming, outgoing) | 
 **text** | Option<**String**> | Message text content | 
-**attachments** | [**Vec<models::InboxWebhookMessageAttachmentsInner>**](InboxWebhookMessageAttachmentsInner.md) |  | 
+**attachments** | [**Vec<models::WebhookPayloadMessageSentMessageAttachmentsInner>**](WebhookPayloadMessageSentMessageAttachmentsInner.md) |  | 
 **sender** | [**models::WebhookPayloadMessageSentMessageSender**](WebhookPayloadMessageSentMessageSender.md) |  | 
 **sent_at** | **String** |  | 
 **is_read** | **bool** |  | 

@@ -12,11 +12,11 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct InboxWebhookMessageAttachmentsInner {
+pub struct WebhookPayloadMessageSentMessageAttachmentsInner {
     /// Attachment type (image, video, file, sticker, audio)
     #[serde(rename = "type")]
     pub r#type: String,
-    /// Where to fetch the attachment. The contract depends on direction and platform: inbound WhatsApp media points at the authenticated `GET /v1/whatsapp/media/{mediaId}` and requires `Authorization: Bearer <your API key>`, while outgoing media carries the URL originally supplied and Instagram / Facebook / Telegram carry direct platform CDN links that need no authentication.
+    /// Where to fetch the attachment. For outgoing messages this is the media URL as sent, so for WhatsApp it is the URL you supplied when publishing (WhatsApp sends media by link), not a Zernio endpoint, and it needs no Zernio credentials. Contrast the inbound direction: `message.received` attachment URLs on WhatsApp point at the authenticated `GET /v1/whatsapp/media/{mediaId}`.
     #[serde(rename = "url")]
     pub url: String,
     /// Additional attachment metadata
@@ -24,9 +24,9 @@ pub struct InboxWebhookMessageAttachmentsInner {
     pub payload: Option<serde_json::Value>,
 }
 
-impl InboxWebhookMessageAttachmentsInner {
-    pub fn new(r#type: String, url: String) -> InboxWebhookMessageAttachmentsInner {
-        InboxWebhookMessageAttachmentsInner {
+impl WebhookPayloadMessageSentMessageAttachmentsInner {
+    pub fn new(r#type: String, url: String) -> WebhookPayloadMessageSentMessageAttachmentsInner {
+        WebhookPayloadMessageSentMessageAttachmentsInner {
             r#type,
             url,
             payload: None,

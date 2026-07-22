@@ -30,7 +30,7 @@ pub struct WebhookPayloadMessageMessage {
     #[serde(rename = "text", deserialize_with = "Option::deserialize")]
     pub text: Option<String>,
     #[serde(rename = "attachments")]
-    pub attachments: Vec<models::InboxWebhookMessageAttachmentsInner>,
+    pub attachments: Vec<models::WebhookPayloadMessageMessageAttachmentsInner>,
     #[serde(rename = "sender")]
     pub sender: Box<models::WebhookPayloadMessageMessageSender>,
     #[serde(rename = "sentAt")]
@@ -47,7 +47,7 @@ impl WebhookPayloadMessageMessage {
         platform_message_id: String,
         direction: Direction,
         text: Option<String>,
-        attachments: Vec<models::InboxWebhookMessageAttachmentsInner>,
+        attachments: Vec<models::WebhookPayloadMessageMessageAttachmentsInner>,
         sender: models::WebhookPayloadMessageMessageSender,
         sent_at: String,
         is_read: bool,
