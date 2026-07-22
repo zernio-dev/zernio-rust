@@ -13,22 +13,16 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-pub enum WhatsAppTemplateComponent {
+pub enum WhatsAppCarouselCardComponent {
     #[serde(rename = "header")]
     Header(Box<models::WhatsAppHeaderComponent>),
     #[serde(rename = "body")]
     Body(Box<models::WhatsAppBodyComponent>),
-    #[serde(rename = "footer")]
-    Footer(Box<models::WhatsAppFooterComponent>),
     #[serde(rename = "buttons")]
     Buttons(Box<models::WhatsAppButtonsComponent>),
-    #[serde(rename = "carousel")]
-    Carousel(Box<models::WhatsAppCarouselComponent>),
-    #[serde(rename = "limited_time_offer")]
-    LimitedTimeOffer(Box<models::WhatsAppLimitedTimeOfferComponent>),
 }
 
-impl Default for WhatsAppTemplateComponent {
+impl Default for WhatsAppCarouselCardComponent {
     fn default() -> Self {
         Self::Header(Default::default())
     }

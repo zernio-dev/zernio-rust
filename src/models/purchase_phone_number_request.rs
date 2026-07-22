@@ -28,6 +28,9 @@ pub struct PurchasePhoneNumberRequest {
     /// SMS capability is per-number, not per-country. Pass true to provision from the SMS-capable inventory pool so the number can actually text (see also GET /v1/phone-numbers/available with sms=true, and smsAvailable on GET /v1/phone-numbers/countries).
     #[serde(rename = "wantsSms", skip_serializing_if = "Option::is_none")]
     pub wants_sms: Option<bool>,
+    /// Declare WhatsApp intent on a STANDALONE purchase (connectWhatsapp:false). The number still activates and bills immediately, but if WhatsApp's buy-time check rejects the assigned number, it is automatically swapped for a WhatsApp-eligible one during the purchase instead of being delivered with WhatsApp unavailable. Ignored on the WhatsApp provisioning path (connectWhatsapp omitted or true), which always delivers a WhatsApp-verified number.
+    #[serde(rename = "wantsWhatsapp", skip_serializing_if = "Option::is_none")]
+    pub wants_whatsapp: Option<bool>,
     /// Optional idempotency key. Send the same value when retrying a purchase: if a number was already bought under this key, the API returns { status: \"already_purchased\", numberId, phoneNumber } instead of provisioning a second number. Generate a fresh key for each genuinely new purchase.
     #[serde(rename = "purchaseIntentId", skip_serializing_if = "Option::is_none")]
     pub purchase_intent_id: Option<String>,
@@ -44,6 +47,7 @@ impl PurchasePhoneNumberRequest {
             number_type: None,
             connect_whatsapp: None,
             wants_sms: None,
+            wants_whatsapp: None,
             purchase_intent_id: None,
             allow_multiple: None,
         }
