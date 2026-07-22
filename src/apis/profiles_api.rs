@@ -21,6 +21,7 @@ pub enum CreateProfileError {
     Status401(models::InlineObject),
     Status402(models::InlineObject2),
     Status403(),
+    Status409(),
     UnknownValue(serde_json::Value),
 }
 
@@ -59,6 +60,7 @@ pub enum UpdateProfileError {
     Status400(),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
+    Status409(),
     UnknownValue(serde_json::Value),
 }
 

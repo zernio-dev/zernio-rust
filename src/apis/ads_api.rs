@@ -378,6 +378,7 @@ pub enum GetConversionMetricsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetConversionsQualityError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status405(),
     UnknownValue(serde_json::Value),
@@ -456,6 +457,7 @@ pub enum ListAdAccountsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdCatalogProductSetsError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status403(),
     UnknownValue(serde_json::Value),
@@ -465,6 +467,7 @@ pub enum ListAdCatalogProductSetsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdCatalogsError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status403(),
     UnknownValue(serde_json::Value),
@@ -514,6 +517,7 @@ pub enum ListAdStudiesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdsError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status403(),
     UnknownValue(serde_json::Value),
