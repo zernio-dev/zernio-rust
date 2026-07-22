@@ -150,6 +150,11 @@ docs/CreateAccountGroup201ResponseGroup.md
 docs/CreateAccountGroupRequest.md
 docs/CreateAdAudience201Response.md
 docs/CreateAdAudienceRequest.md
+docs/CreateAdCampaign201Response.md
+docs/CreateAdCampaignRequest.md
+docs/CreateAdCreative201Response.md
+docs/CreateAdCreativeRequest.md
+docs/CreateAdCreativeRequestCarouselCardsInner.md
 docs/CreateAdInsightsReport202Response.md
 docs/CreateAdInsightsReportRequest.md
 docs/CreateAdInsightsReportRequestFilteringInner.md
@@ -304,6 +309,7 @@ docs/DeactivateSmsRegistration200Response.md
 docs/DeleteAccountGroup200Response.md
 docs/DeleteAdCampaign200Response.md
 docs/DeleteAdCampaignRequest.md
+docs/DeleteAdCreative200Response.md
 docs/DeleteDiscordScheduledEvent200Response.md
 docs/DeleteGoogleBusinessMedia200Response.md
 docs/DeleteGoogleBusinessPlaceAction200Response.md
@@ -332,8 +338,12 @@ docs/DiscordRole.md
 docs/DiscordScheduledEvent.md
 docs/DiscordScheduledEventEntityMetadata.md
 docs/DmButton.md
+docs/DuplicateAd200Response.md
 docs/DuplicateAdCampaign200Response.md
 docs/DuplicateAdCampaignRequest.md
+docs/DuplicateAdRequest.md
+docs/DuplicateAdSet200Response.md
+docs/DuplicateAdSetRequest.md
 docs/DuplicateWorkflow201Response.md
 docs/DuplicateWorkflow201ResponseWorkflow.md
 docs/EditDiscordGuildRoleRequest.md
@@ -401,6 +411,7 @@ docs/GetAdAudience200Response.md
 docs/GetAdComments200Response.md
 docs/GetAdComments200ResponseMeta.md
 docs/GetAdComments200ResponsePagination.md
+docs/GetAdCreative200Response.md
 docs/GetAdInsightsReport200Response.md
 docs/GetAdInsightsReport200ResponsePaging.md
 docs/GetAdPreviews200Response.md
@@ -779,6 +790,9 @@ docs/ListAdCatalogProductSets200Response.md
 docs/ListAdCatalogProductSets200ResponseProductSetsInner.md
 docs/ListAdCatalogs200Response.md
 docs/ListAdCatalogs200ResponseCatalogsInner.md
+docs/ListAdCreatives200Response.md
+docs/ListAdImages200Response.md
+docs/ListAdLabels200Response.md
 docs/ListAdStudies200Response.md
 docs/ListAds200Response.md
 docs/ListAdsBusinessCenters200Response.md
@@ -823,6 +837,7 @@ docs/ListGoogleBusinessMedia200ResponseMediaItemsInner.md
 docs/ListGoogleBusinessMedia200ResponseMediaItemsInnerLocationAssociation.md
 docs/ListGoogleBusinessPlaceActions200Response.md
 docs/ListGoogleBusinessPlaceActions200ResponsePlaceActionLinksInner.md
+docs/ListHighDemandPeriods200Response.md
 docs/ListInboxComments200Response.md
 docs/ListInboxComments200ResponseDataInner.md
 docs/ListInboxConversationAnalytics200Response.md
@@ -1226,6 +1241,8 @@ docs/UpdateAdCampaignRequestBudget.md
 docs/UpdateAdCampaignRequestPlatformSpecificData.md
 docs/UpdateAdCampaignStatus200Response.md
 docs/UpdateAdCampaignStatusRequest.md
+docs/UpdateAdCreative200Response.md
+docs/UpdateAdCreativeRequest.md
 docs/UpdateAdRequest.md
 docs/UpdateAdRequestBudget.md
 docs/UpdateAdRequestCreative.md
@@ -1699,6 +1716,11 @@ src/models/create_account_group_201_response_group.rs
 src/models/create_account_group_request.rs
 src/models/create_ad_audience_201_response.rs
 src/models/create_ad_audience_request.rs
+src/models/create_ad_campaign_201_response.rs
+src/models/create_ad_campaign_request.rs
+src/models/create_ad_creative_201_response.rs
+src/models/create_ad_creative_request.rs
+src/models/create_ad_creative_request_carousel_cards_inner.rs
 src/models/create_ad_insights_report_202_response.rs
 src/models/create_ad_insights_report_request.rs
 src/models/create_ad_insights_report_request_filtering_inner.rs
@@ -1852,6 +1874,7 @@ src/models/deactivate_sms_registration_200_response.rs
 src/models/delete_account_group_200_response.rs
 src/models/delete_ad_campaign_200_response.rs
 src/models/delete_ad_campaign_request.rs
+src/models/delete_ad_creative_200_response.rs
 src/models/delete_discord_scheduled_event_200_response.rs
 src/models/delete_google_business_media_200_response.rs
 src/models/delete_google_business_place_action_200_response.rs
@@ -1879,8 +1902,12 @@ src/models/discord_role.rs
 src/models/discord_scheduled_event.rs
 src/models/discord_scheduled_event_entity_metadata.rs
 src/models/dm_button.rs
+src/models/duplicate_ad_200_response.rs
 src/models/duplicate_ad_campaign_200_response.rs
 src/models/duplicate_ad_campaign_request.rs
+src/models/duplicate_ad_request.rs
+src/models/duplicate_ad_set_200_response.rs
+src/models/duplicate_ad_set_request.rs
 src/models/duplicate_workflow_201_response.rs
 src/models/duplicate_workflow_201_response_workflow.rs
 src/models/edit_discord_guild_role_request.rs
@@ -1948,6 +1975,7 @@ src/models/get_ad_audience_200_response.rs
 src/models/get_ad_comments_200_response.rs
 src/models/get_ad_comments_200_response_meta.rs
 src/models/get_ad_comments_200_response_pagination.rs
+src/models/get_ad_creative_200_response.rs
 src/models/get_ad_insights_report_200_response.rs
 src/models/get_ad_insights_report_200_response_paging.rs
 src/models/get_ad_previews_200_response.rs
@@ -2314,6 +2342,9 @@ src/models/list_ad_catalog_product_sets_200_response.rs
 src/models/list_ad_catalog_product_sets_200_response_product_sets_inner.rs
 src/models/list_ad_catalogs_200_response.rs
 src/models/list_ad_catalogs_200_response_catalogs_inner.rs
+src/models/list_ad_creatives_200_response.rs
+src/models/list_ad_images_200_response.rs
+src/models/list_ad_labels_200_response.rs
 src/models/list_ad_studies_200_response.rs
 src/models/list_ads_200_response.rs
 src/models/list_ads_business_centers_200_response.rs
@@ -2358,6 +2389,7 @@ src/models/list_google_business_media_200_response_media_items_inner.rs
 src/models/list_google_business_media_200_response_media_items_inner_location_association.rs
 src/models/list_google_business_place_actions_200_response.rs
 src/models/list_google_business_place_actions_200_response_place_action_links_inner.rs
+src/models/list_high_demand_periods_200_response.rs
 src/models/list_inbox_comments_200_response.rs
 src/models/list_inbox_comments_200_response_data_inner.rs
 src/models/list_inbox_conversation_analytics_200_response.rs
@@ -2748,6 +2780,8 @@ src/models/update_ad_campaign_request_budget.rs
 src/models/update_ad_campaign_request_platform_specific_data.rs
 src/models/update_ad_campaign_status_200_response.rs
 src/models/update_ad_campaign_status_request.rs
+src/models/update_ad_creative_200_response.rs
+src/models/update_ad_creative_request.rs
 src/models/update_ad_request.rs
 src/models/update_ad_request_budget.rs
 src/models/update_ad_request_creative.rs

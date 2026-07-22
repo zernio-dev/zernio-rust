@@ -67,6 +67,17 @@ pub enum CancelRfReservationError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`create_ad_creative`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateAdCreativeError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status422(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`create_ad_insights_report`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -175,6 +186,16 @@ pub enum DeleteAdError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`delete_ad_creative`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteAdCreativeError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`delete_conversion_destination`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -185,6 +206,17 @@ pub enum DeleteConversionDestinationError {
     Status404(),
     Status405(),
     Status429(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`duplicate_ad`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DuplicateAdError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status501(),
     UnknownValue(serde_json::Value),
 }
 
@@ -249,6 +281,16 @@ pub enum GetAdCommentsError {
     Status403(),
     Status404(models::InlineObject1),
     Status422(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_ad_creative`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAdCreativeError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status501(),
     UnknownValue(serde_json::Value),
 }
 
@@ -428,6 +470,36 @@ pub enum ListAdCatalogsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_ad_creatives`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListAdCreativesError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_ad_images`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListAdImagesError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_ad_labels`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListAdLabelsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_ad_studies`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -487,6 +559,16 @@ pub enum ListConversionDestinationsError {
 #[serde(untagged)]
 pub enum ListFormLeadsError {
     Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_high_demand_periods`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListHighDemandPeriodsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status501(),
     UnknownValue(serde_json::Value),
 }
 
@@ -612,6 +694,16 @@ pub enum UpdateAdAccountError {
     Status400(),
     Status401(models::InlineObject),
     Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_ad_creative`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateAdCreativeError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status501(),
     UnknownValue(serde_json::Value),
 }
 
@@ -914,6 +1006,56 @@ pub async fn cancel_rf_reservation(
     } else {
         let content = resp.text().await?;
         let entity: Option<CancelRfReservationError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Creates a creative in the library WITHOUT an ad, reusable on the create endpoints via `existingCreativeId`. Provide exactly one of `imageUrl` (uploaded server-side), `imageHash` (from POST /v1/ads/images or the library list), or `carouselCards` (2-10 hand-built cards). The Page (and linked Instagram account, when present) is resolved from `accountId` as the story actor. Meta only.
+pub async fn create_ad_creative(
+    configuration: &configuration::Configuration,
+    create_ad_creative_request: models::CreateAdCreativeRequest,
+) -> Result<models::CreateAdCreative201Response, Error<CreateAdCreativeError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_ad_creative_request = create_ad_creative_request;
+
+    let uri_str = format!("{}/v1/ads/creatives", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_ad_creative_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateAdCreative201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateAdCreative201Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateAdCreativeError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1422,6 +1564,62 @@ pub async fn delete_ad(
     }
 }
 
+/// Deletes a creative from the library. Meta only allows deleting creatives not referenced by any ad — otherwise its 400 surfaces verbatim.
+pub async fn delete_ad_creative(
+    configuration: &configuration::Configuration,
+    creative_id: &str,
+    account_id: &str,
+) -> Result<models::DeleteAdCreative200Response, Error<DeleteAdCreativeError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_creative_id = creative_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/ads/creatives/{creativeId}",
+        configuration.base_path,
+        creativeId = crate::apis::urlencode(p_path_creative_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteAdCreative200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteAdCreative200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteAdCreativeError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// LinkedIn-only today. LinkedIn does not expose hard-delete on conversion rules — what their UI calls \"delete\" is the same `enabled: false` flip we apply here. The rule remains fetchable via GET with `status: 'inactive'`; the unified discovery endpoint hides it by default.  `adAccountId` may be passed as a query parameter (recommended) or as a JSON body field for clients that can send DELETE bodies.
 pub async fn delete_conversion_destination(
     configuration: &configuration::Configuration,
@@ -1464,6 +1662,62 @@ pub async fn delete_conversion_destination(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteConversionDestinationError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Duplicates a single ad via Meta's native `POST /{ad-id}/copies`. The copy is created paused. `adSetId` retargets the copy into another ad set; omitted = the source's own ad set. Accepts the Zernio ad id or the platform ad id. Sync discovery is triggered automatically (`syncAfter: false` to skip). Meta only.
+pub async fn duplicate_ad(
+    configuration: &configuration::Configuration,
+    ad_id: &str,
+    duplicate_ad_request: Option<models::DuplicateAdRequest>,
+) -> Result<models::DuplicateAd200Response, Error<DuplicateAdError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_ad_id = ad_id;
+    let p_body_duplicate_ad_request = duplicate_ad_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/{adId}/duplicate",
+        configuration.base_path,
+        adId = crate::apis::urlencode(p_path_ad_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_duplicate_ad_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DuplicateAd200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DuplicateAd200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DuplicateAdError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1801,6 +2055,65 @@ pub async fn get_ad_comments(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetAdCommentsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// One creative's details, verbatim from Meta. `fields` is a raw-passthrough override of the default projection. Meta only.
+pub async fn get_ad_creative(
+    configuration: &configuration::Configuration,
+    creative_id: &str,
+    account_id: &str,
+    fields: Option<&str>,
+) -> Result<models::GetAdCreative200Response, Error<GetAdCreativeError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_creative_id = creative_id;
+    let p_query_account_id = account_id;
+    let p_query_fields = fields;
+
+    let uri_str = format!(
+        "{}/v1/ads/creatives/{creativeId}",
+        configuration.base_path,
+        creativeId = crate::apis::urlencode(p_path_creative_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_fields {
+        req_builder = req_builder.query(&[("fields", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetAdCreative200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetAdCreative200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAdCreativeError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -2782,6 +3095,199 @@ pub async fn list_ad_catalogs(
     }
 }
 
+/// Lists the ad account's creative library (Meta's `/act_X/adcreatives`), rows returned verbatim. The default projection covers id, name, status, object type, thumbnail, object_story_spec / asset_feed_spec and url_tags; `fields` is a raw-passthrough override. Any creative id here is reusable on the create endpoints via `existingCreativeId`. Meta only.
+pub async fn list_ad_creatives(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    ad_account_id: &str,
+    fields: Option<&str>,
+    limit: Option<i32>,
+    after: Option<&str>,
+) -> Result<models::ListAdCreatives200Response, Error<ListAdCreativesError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_ad_account_id = ad_account_id;
+    let p_query_fields = fields;
+    let p_query_limit = limit;
+    let p_query_after = after;
+
+    let uri_str = format!("{}/v1/ads/creatives", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    req_builder = req_builder.query(&[("adAccountId", &p_query_ad_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_fields {
+        req_builder = req_builder.query(&[("fields", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListAdCreatives200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListAdCreatives200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListAdCreativesError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Lists the ad account's image library (Meta's `/act_X/adimages`), rows returned verbatim. The default projection covers hash, url, name, dimensions and status; `fields` is a raw-passthrough override. Any `hash` here is reusable wherever Meta accepts `image_hash` (e.g. `imageHash` on POST /v1/ads/creatives). Meta only.
+pub async fn list_ad_images(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    ad_account_id: &str,
+    fields: Option<&str>,
+    limit: Option<i32>,
+    after: Option<&str>,
+) -> Result<models::ListAdImages200Response, Error<ListAdImagesError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_ad_account_id = ad_account_id;
+    let p_query_fields = fields;
+    let p_query_limit = limit;
+    let p_query_after = after;
+
+    let uri_str = format!("{}/v1/ads/images", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    req_builder = req_builder.query(&[("adAccountId", &p_query_ad_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_fields {
+        req_builder = req_builder.query(&[("fields", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListAdImages200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListAdImages200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListAdImagesError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Lists the ad account's organizational labels (Meta's `/act_X/adlabels`), rows returned verbatim (id, name, created/updated time). Meta only.
+pub async fn list_ad_labels(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    ad_account_id: &str,
+    limit: Option<i32>,
+    after: Option<&str>,
+) -> Result<models::ListAdLabels200Response, Error<ListAdLabelsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_ad_account_id = ad_account_id;
+    let p_query_limit = limit;
+    let p_query_after = after;
+
+    let uri_str = format!("{}/v1/ads/labels", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    req_builder = req_builder.query(&[("adAccountId", &p_query_ad_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListAdLabels200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListAdLabels200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListAdLabelsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Lists the ad account's A/B tests and lift studies (Meta's `/act_X/ad_studies`), rows returned verbatim. The default projection covers id, name, type, timing and cells with split percentages; `fields` is a raw-passthrough override. Meta only.
 pub async fn list_ad_studies(
     configuration: &configuration::Configuration,
@@ -3180,6 +3686,74 @@ pub async fn list_form_leads(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListFormLeadsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Scheduled budget increases (Meta's budget-scheduling API). The Graph edge lives on the campaign and ad-set nodes only, so exactly one of `campaignId` / `adSetId` (platform ids) is required. Rows returned verbatim (budget_value, budget_value_type, time window, recurrence). Meta only.
+pub async fn list_high_demand_periods(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    campaign_id: Option<&str>,
+    ad_set_id: Option<&str>,
+    limit: Option<i32>,
+    after: Option<&str>,
+) -> Result<models::ListHighDemandPeriods200Response, Error<ListHighDemandPeriodsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_campaign_id = campaign_id;
+    let p_query_ad_set_id = ad_set_id;
+    let p_query_limit = limit;
+    let p_query_after = after;
+
+    let uri_str = format!("{}/v1/ads/high-demand-periods", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_campaign_id {
+        req_builder = req_builder.query(&[("campaignId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_ad_set_id {
+        req_builder = req_builder.query(&[("adSetId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListHighDemandPeriods200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListHighDemandPeriods200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListHighDemandPeriodsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -3929,6 +4503,60 @@ pub async fn update_ad_account(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateAdAccountError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Renames a creative. Creatives are immutable on Meta beyond `name` — for content changes create a new creative (POST /v1/ads/creatives) and swap it onto the ad (PUT /v1/ads/{adId} with `creative`). Meta only.
+pub async fn update_ad_creative(
+    configuration: &configuration::Configuration,
+    creative_id: &str,
+    update_ad_creative_request: models::UpdateAdCreativeRequest,
+) -> Result<models::UpdateAdCreative200Response, Error<UpdateAdCreativeError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_creative_id = creative_id;
+    let p_body_update_ad_creative_request = update_ad_creative_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/creatives/{creativeId}",
+        configuration.base_path,
+        creativeId = crate::apis::urlencode(p_path_creative_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_ad_creative_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateAdCreative200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateAdCreative200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateAdCreativeError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

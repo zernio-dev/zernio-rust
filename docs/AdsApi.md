@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**archive_lead_form**](AdsApi.md#archive_lead_form) | **DELETE** /v1/ads/lead-forms/{formId} | Archive a lead form
 [**boost_post**](AdsApi.md#boost_post) | **POST** /v1/ads/boost | Boost post as ad
 [**cancel_rf_reservation**](AdsApi.md#cancel_rf_reservation) | **DELETE** /v1/ads/rf-predictions/{predictionId} | Cancel a Reach & Frequency reservation (Meta)
+[**create_ad_creative**](AdsApi.md#create_ad_creative) | **POST** /v1/ads/creatives | Create a standalone creative (Meta)
 [**create_ad_insights_report**](AdsApi.md#create_ad_insights_report) | **POST** /v1/ads/insights/reports | Submit an async insights report run (Meta)
 [**create_call_ad**](AdsApi.md#create_call_ad) | **POST** /v1/ads/call | Create Click-to-Call ad
 [**create_conversion_destination**](AdsApi.md#create_conversion_destination) | **POST** /v1/accounts/{accountId}/conversion-destinations | Create a conversion destination
@@ -19,13 +20,16 @@ Method | HTTP request | Description
 [**create_standalone_ad**](AdsApi.md#create_standalone_ad) | **POST** /v1/ads/create | Create standalone ad
 [**create_test_lead**](AdsApi.md#create_test_lead) | **POST** /v1/ads/lead-forms/{formId}/test-leads | Create a test lead
 [**delete_ad**](AdsApi.md#delete_ad) | **DELETE** /v1/ads/{adId} | Cancel an ad
+[**delete_ad_creative**](AdsApi.md#delete_ad_creative) | **DELETE** /v1/ads/creatives/{creativeId} | Delete a creative (Meta)
 [**delete_conversion_destination**](AdsApi.md#delete_conversion_destination) | **DELETE** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Delete a conversion destination
+[**duplicate_ad**](AdsApi.md#duplicate_ad) | **POST** /v1/ads/{adId}/duplicate | Duplicate an ad (Meta)
 [**estimate_ad_reach**](AdsApi.md#estimate_ad_reach) | **POST** /v1/ads/targeting/reach-estimate | Estimate audience reach
 [**generate_ad_previews**](AdsApi.md#generate_ad_previews) | **POST** /v1/ads/preview | Render pre-create ad previews (Meta)
 [**get_ad**](AdsApi.md#get_ad) | **GET** /v1/ads/{adId} | Get ad details
 [**get_ad_account_finance**](AdsApi.md#get_ad_account_finance) | **GET** /v1/ads/accounts/finance | Ad account finances (Meta)
 [**get_ad_analytics**](AdsApi.md#get_ad_analytics) | **GET** /v1/ads/{adId}/analytics | Get ad analytics
 [**get_ad_comments**](AdsApi.md#get_ad_comments) | **GET** /v1/ads/{adId}/comments | List comments on an ad
+[**get_ad_creative**](AdsApi.md#get_ad_creative) | **GET** /v1/ads/creatives/{creativeId} | Creative details (Meta)
 [**get_ad_insights_report**](AdsApi.md#get_ad_insights_report) | **GET** /v1/ads/insights/reports/{reportRunId} | Poll an async insights report run (Meta)
 [**get_ad_previews**](AdsApi.md#get_ad_previews) | **GET** /v1/ads/{adId}/preview | Render previews of an existing ad (Meta)
 [**get_ad_tracking_tags**](AdsApi.md#get_ad_tracking_tags) | **GET** /v1/ads/{adId}/tracking-tags | Get ad tracking tags
@@ -43,12 +47,16 @@ Method | HTTP request | Description
 [**list_ad_accounts**](AdsApi.md#list_ad_accounts) | **GET** /v1/ads/accounts | List ad accounts
 [**list_ad_catalog_product_sets**](AdsApi.md#list_ad_catalog_product_sets) | **GET** /v1/ads/catalogs/{catalogId}/product-sets | List a catalog's product sets
 [**list_ad_catalogs**](AdsApi.md#list_ad_catalogs) | **GET** /v1/ads/catalogs | List Meta product catalogs
+[**list_ad_creatives**](AdsApi.md#list_ad_creatives) | **GET** /v1/ads/creatives | Creative library (Meta)
+[**list_ad_images**](AdsApi.md#list_ad_images) | **GET** /v1/ads/images | Ad image library (Meta)
+[**list_ad_labels**](AdsApi.md#list_ad_labels) | **GET** /v1/ads/labels | Ad labels (Meta)
 [**list_ad_studies**](AdsApi.md#list_ad_studies) | **GET** /v1/ads/studies | A/B tests and lift studies (Meta)
 [**list_ads**](AdsApi.md#list_ads) | **GET** /v1/ads | List ads
 [**list_ads_business_centers**](AdsApi.md#list_ads_business_centers) | **GET** /v1/ads/business-centers | List TikTok Business Centers
 [**list_conversion_associations**](AdsApi.md#list_conversion_associations) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | List associated campaigns
 [**list_conversion_destinations**](AdsApi.md#list_conversion_destinations) | **GET** /v1/accounts/{accountId}/conversion-destinations | List conversion destinations
 [**list_form_leads**](AdsApi.md#list_form_leads) | **GET** /v1/ads/lead-forms/{formId}/leads | List leads for a single form
+[**list_high_demand_periods**](AdsApi.md#list_high_demand_periods) | **GET** /v1/ads/high-demand-periods | High demand periods / budget schedules (Meta)
 [**list_lead_forms**](AdsApi.md#list_lead_forms) | **GET** /v1/ads/lead-forms | List lead forms
 [**list_leads**](AdsApi.md#list_leads) | **GET** /v1/ads/leads | List submitted leads
 [**list_whats_app_conversions**](AdsApi.md#list_whats_app_conversions) | **GET** /v1/whatsapp/conversions | List conversion events
@@ -61,6 +69,7 @@ Method | HTTP request | Description
 [**send_whats_app_conversion**](AdsApi.md#send_whats_app_conversion) | **POST** /v1/whatsapp/conversions | Send WhatsApp conversion event
 [**update_ad**](AdsApi.md#update_ad) | **PUT** /v1/ads/{adId} | Update ad
 [**update_ad_account**](AdsApi.md#update_ad_account) | **PATCH** /v1/ads/accounts | Update ad account settings
+[**update_ad_creative**](AdsApi.md#update_ad_creative) | **PUT** /v1/ads/creatives/{creativeId} | Rename a creative (Meta)
 [**update_ad_status**](AdsApi.md#update_ad_status) | **PUT** /v1/ads/{adId}/status | Pause or resume a single ad
 [**update_ad_tracking_tags**](AdsApi.md#update_ad_tracking_tags) | **PATCH** /v1/ads/{adId}/tracking-tags | Set ad tracking tags
 [**update_conversion_destination**](AdsApi.md#update_conversion_destination) | **PATCH** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Update a conversion destination
@@ -218,6 +227,36 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_ad_creative
+
+> models::CreateAdCreative201Response create_ad_creative(create_ad_creative_request)
+Create a standalone creative (Meta)
+
+Creates a creative in the library WITHOUT an ad, reusable on the create endpoints via `existingCreativeId`. Provide exactly one of `imageUrl` (uploaded server-side), `imageHash` (from POST /v1/ads/images or the library list), or `carouselCards` (2-10 hand-built cards). The Page (and linked Instagram account, when present) is resolved from `accountId` as the story actor. Meta only.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_ad_creative_request** | [**CreateAdCreativeRequest**](CreateAdCreativeRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateAdCreative201Response**](createAdCreative_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -526,6 +565,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## delete_ad_creative
+
+> models::DeleteAdCreative200Response delete_ad_creative(creative_id, account_id)
+Delete a creative (Meta)
+
+Deletes a creative from the library. Meta only allows deleting creatives not referenced by any ad — otherwise its 400 surfaces verbatim.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**creative_id** | **String** | Platform creative id | [required] |
+**account_id** | **String** | Zernio SocialAccount id (posting or ads variant) used to resolve the Meta token. | [required] |
+
+### Return type
+
+[**models::DeleteAdCreative200Response**](deleteAdCreative_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## delete_conversion_destination
 
 > delete_conversion_destination(account_id, destination_id, ad_account_id)
@@ -553,6 +623,37 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## duplicate_ad
+
+> models::DuplicateAd200Response duplicate_ad(ad_id, duplicate_ad_request)
+Duplicate an ad (Meta)
+
+Duplicates a single ad via Meta's native `POST /{ad-id}/copies`. The copy is created paused. `adSetId` retargets the copy into another ad set; omitted = the source's own ad set. Accepts the Zernio ad id or the platform ad id. Sync discovery is triggered automatically (`syncAfter: false` to skip). Meta only.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**ad_id** | **String** | Zernio ad ID or platform ad ID | [required] |
+**duplicate_ad_request** | Option<[**DuplicateAdRequest**](DuplicateAdRequest.md)> |  |  |
+
+### Return type
+
+[**models::DuplicateAd200Response**](duplicateAd_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -732,6 +833,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetAdComments200Response**](getAdComments_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_ad_creative
+
+> models::GetAdCreative200Response get_ad_creative(creative_id, account_id, fields)
+Creative details (Meta)
+
+One creative's details, verbatim from Meta. `fields` is a raw-passthrough override of the default projection. Meta only.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**creative_id** | **String** | Platform creative id | [required] |
+**account_id** | **String** | Zernio SocialAccount id (posting or ads variant) used to resolve the Meta token. | [required] |
+**fields** | Option<**String**> | Comma-separated Graph field override (supports nested {} projections). |  |
+
+### Return type
+
+[**models::GetAdCreative200Response**](getAdCreative_200_response.md)
 
 ### Authorization
 
@@ -1282,6 +1415,107 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_ad_creatives
+
+> models::ListAdCreatives200Response list_ad_creatives(account_id, ad_account_id, fields, limit, after)
+Creative library (Meta)
+
+Lists the ad account's creative library (Meta's `/act_X/adcreatives`), rows returned verbatim. The default projection covers id, name, status, object type, thumbnail, object_story_spec / asset_feed_spec and url_tags; `fields` is a raw-passthrough override. Any creative id here is reusable on the create endpoints via `existingCreativeId`. Meta only.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Zernio SocialAccount id (posting or ads variant) used to resolve the Meta token. | [required] |
+**ad_account_id** | **String** | Meta ad account id (act_<n>). | [required] |
+**fields** | Option<**String**> | Comma-separated Graph field override (supports nested {} projections). |  |
+**limit** | Option<**i32**> | Rows per page |  |[default to 25]
+**after** | Option<**String**> | Cursor from paging.after of the previous page. |  |
+
+### Return type
+
+[**models::ListAdCreatives200Response**](listAdCreatives_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_ad_images
+
+> models::ListAdImages200Response list_ad_images(account_id, ad_account_id, fields, limit, after)
+Ad image library (Meta)
+
+Lists the ad account's image library (Meta's `/act_X/adimages`), rows returned verbatim. The default projection covers hash, url, name, dimensions and status; `fields` is a raw-passthrough override. Any `hash` here is reusable wherever Meta accepts `image_hash` (e.g. `imageHash` on POST /v1/ads/creatives). Meta only.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Zernio SocialAccount id (posting or ads variant) used to resolve the Meta token. | [required] |
+**ad_account_id** | **String** | Meta ad account id (act_<n>). | [required] |
+**fields** | Option<**String**> | Comma-separated Graph field override (supports nested {} projections). |  |
+**limit** | Option<**i32**> | Rows per page |  |[default to 25]
+**after** | Option<**String**> | Cursor from paging.after of the previous page. |  |
+
+### Return type
+
+[**models::ListAdImages200Response**](listAdImages_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_ad_labels
+
+> models::ListAdLabels200Response list_ad_labels(account_id, ad_account_id, limit, after)
+Ad labels (Meta)
+
+Lists the ad account's organizational labels (Meta's `/act_X/adlabels`), rows returned verbatim (id, name, created/updated time). Meta only.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Zernio SocialAccount id (posting or ads variant) used to resolve the Meta token. | [required] |
+**ad_account_id** | **String** | Meta ad account id (act_<n>). | [required] |
+**limit** | Option<**i32**> | Rows per page |  |[default to 25]
+**after** | Option<**String**> | Cursor from paging.after of the previous page. |  |
+
+### Return type
+
+[**models::ListAdLabels200Response**](listAdLabels_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_ad_studies
 
 > models::ListAdStudies200Response list_ad_studies(account_id, ad_account_id, fields, limit, after)
@@ -1472,6 +1706,40 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListFormLeads200Response**](listFormLeads_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_high_demand_periods
+
+> models::ListHighDemandPeriods200Response list_high_demand_periods(account_id, campaign_id, ad_set_id, limit, after)
+High demand periods / budget schedules (Meta)
+
+Scheduled budget increases (Meta's budget-scheduling API). The Graph edge lives on the campaign and ad-set nodes only, so exactly one of `campaignId` / `adSetId` (platform ids) is required. Rows returned verbatim (budget_value, budget_value_type, time window, recurrence). Meta only.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Zernio SocialAccount id (posting or ads variant) used to resolve the Meta token. | [required] |
+**campaign_id** | Option<**String**> | Platform campaign id. Exactly one of campaignId / adSetId. |  |
+**ad_set_id** | Option<**String**> | Platform ad set id. Exactly one of campaignId / adSetId. |  |
+**limit** | Option<**i32**> | Rows per page |  |[default to 25]
+**after** | Option<**String**> | Cursor from paging.after of the previous page. |  |
+
+### Return type
+
+[**models::ListHighDemandPeriods200Response**](listHighDemandPeriods_200_response.md)
 
 ### Authorization
 
@@ -1865,6 +2133,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UpdateAdAccount200Response**](updateAdAccount_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_ad_creative
+
+> models::UpdateAdCreative200Response update_ad_creative(creative_id, update_ad_creative_request)
+Rename a creative (Meta)
+
+Renames a creative. Creatives are immutable on Meta beyond `name` — for content changes create a new creative (POST /v1/ads/creatives) and swap it onto the ad (PUT /v1/ads/{adId} with `creative`). Meta only.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**creative_id** | **String** | Platform creative id | [required] |
+**update_ad_creative_request** | [**UpdateAdCreativeRequest**](UpdateAdCreativeRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateAdCreative200Response**](updateAdCreative_200_response.md)
 
 ### Authorization
 
