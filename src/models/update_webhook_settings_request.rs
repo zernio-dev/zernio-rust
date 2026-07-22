@@ -138,6 +138,10 @@ pub enum Events {
     WhatsappNumberReleased,
     #[serde(rename = "whatsapp.number.kyc_submitted")]
     WhatsappNumberKycSubmitted,
+    #[serde(rename = "verification.approved")]
+    VerificationApproved,
+    #[serde(rename = "verification.failed")]
+    VerificationFailed,
 }
 
 impl Default for Events {

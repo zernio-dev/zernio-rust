@@ -158,6 +158,7 @@ pub mod twitter_engagement_api;
 pub mod usage_api;
 pub mod users_api;
 pub mod validate_api;
+pub mod verify_api;
 pub mod voice_api;
 pub mod webhooks_api;
 pub mod whats_app_api;

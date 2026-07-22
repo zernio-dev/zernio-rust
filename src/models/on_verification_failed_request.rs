@@ -12,40 +12,51 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct OnWhatsAppNumberKycSubmittedRequest {
+pub struct OnVerificationFailedRequest {
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[serde(rename = "event", skip_serializing_if = "Option::is_none")]
     pub event: Option<Event>,
     #[serde(rename = "timestamp", skip_serializing_if = "Option::is_none")]
     pub timestamp: Option<String>,
-    #[serde(rename = "number", skip_serializing_if = "Option::is_none")]
-    pub number: Option<Box<models::OnWhatsAppNumberDeclinedRequestNumber>>,
+    #[serde(rename = "verification", skip_serializing_if = "Option::is_none")]
+    pub verification: Option<Box<models::OnVerificationFailedRequestVerification>>,
+    #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
+    pub reason: Option<Reason>,
 }
 
-impl OnWhatsAppNumberKycSubmittedRequest {
-    pub fn new() -> OnWhatsAppNumberKycSubmittedRequest {
-        OnWhatsAppNumberKycSubmittedRequest {
+impl OnVerificationFailedRequest {
+    pub fn new() -> OnVerificationFailedRequest {
+        OnVerificationFailedRequest {
             id: None,
             event: None,
             timestamp: None,
-            number: None,
+            verification: None,
+            reason: None,
         }
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Event {
-    #[serde(rename = "whatsapp.number.kyc_submitted")]
-    WhatsappNumberKycSubmitted,
-    #[serde(rename = "verification.approved")]
-    VerificationApproved,
     #[serde(rename = "verification.failed")]
     VerificationFailed,
 }
 
 impl Default for Event {
     fn default() -> Event {
-        Self::WhatsappNumberKycSubmitted
+        Self::VerificationFailed
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Reason {
+    #[serde(rename = "max_attempts_reached")]
+    MaxAttemptsReached,
+}
+
+impl Default for Reason {
+    fn default() -> Reason {
+        Self::MaxAttemptsReached
     }
 }

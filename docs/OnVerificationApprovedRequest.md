@@ -1,13 +1,13 @@
-# OnWhatsAppNumberKycSubmittedRequest
+# OnVerificationApprovedRequest
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**String**> |  | [optional]
-**event** | Option<**Event**> |  (enum: whatsapp.number.kyc_submitted, verification.approved, verification.failed) | [optional]
+**event** | Option<**Event**> |  (enum: verification.approved) | [optional]
 **timestamp** | Option<**String**> |  | [optional]
-**number** | Option<[**models::OnWhatsAppNumberDeclinedRequestNumber**](OnWhatsAppNumberDeclinedRequestNumber.md)> |  | [optional]
+**verification** | Option<[**models::OnVerificationApprovedRequestVerification**](OnVerificationApprovedRequestVerification.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -119,6 +119,8 @@ docs/CheckPhoneNumberAvailability200Response.md
 docs/CheckPhoneNumberPortability200Response.md
 docs/CheckPhoneNumberPortability200ResponseResultsInner.md
 docs/CheckPhoneNumberPortabilityRequest.md
+docs/CheckVerification200Response.md
+docs/CheckVerificationRequest.md
 docs/CommentAutomationsApi.md
 docs/CommentsApi.md
 docs/CompleteGoogleBusinessVerificationRequest.md
@@ -271,6 +273,7 @@ docs/CreateTestLeadRequest.md
 docs/CreateTestLeadRequestFieldDataInner.md
 docs/CreateTrackingTag201Response.md
 docs/CreateTrackingTagRequest.md
+docs/CreateVerificationRequest.md
 docs/CreateVoiceCall200Response.md
 docs/CreateVoiceCallRequest.md
 docs/CreateVoiceWebSession200Response.md
@@ -944,6 +947,10 @@ docs/Money.md
 docs/MoneyAmount.md
 docs/MoveAccountToProfile200Response.md
 docs/MoveAccountToProfileRequest.md
+docs/OnVerificationApprovedRequest.md
+docs/OnVerificationApprovedRequestVerification.md
+docs/OnVerificationFailedRequest.md
+docs/OnVerificationFailedRequestVerification.md
 docs/OnWhatsAppAutomaticEventRequest.md
 docs/OnWhatsAppAutomaticEventRequestCustomData.md
 docs/OnWhatsAppNumberActionRequiredRequest.md
@@ -1409,6 +1416,8 @@ docs/ValidateSubreddit200Response.md
 docs/ValidateSubreddit200ResponseOneOf.md
 docs/ValidateSubreddit200ResponseOneOf1.md
 docs/ValidateSubreddit200ResponseOneOfSubreddit.md
+docs/Verification.md
+docs/VerifyApi.md
 docs/VerifySmsRegistrationOtp200Response.md
 docs/VerifySmsRegistrationOtpRequest.md
 docs/VoiceApi.md
@@ -1571,6 +1580,7 @@ src/apis/twitter_engagement_api.rs
 src/apis/usage_api.rs
 src/apis/users_api.rs
 src/apis/validate_api.rs
+src/apis/verify_api.rs
 src/apis/voice_api.rs
 src/apis/webhook_events_api.rs
 src/apis/webhooks_api.rs
@@ -1689,6 +1699,8 @@ src/models/check_phone_number_availability_200_response.rs
 src/models/check_phone_number_portability_200_response.rs
 src/models/check_phone_number_portability_200_response_results_inner.rs
 src/models/check_phone_number_portability_request.rs
+src/models/check_verification_200_response.rs
+src/models/check_verification_request.rs
 src/models/complete_google_business_verification_request.rs
 src/models/complete_telegram_connect_200_response.rs
 src/models/complete_whats_app_phone_selection_200_response.rs
@@ -1837,6 +1849,7 @@ src/models/create_test_lead_request.rs
 src/models/create_test_lead_request_field_data_inner.rs
 src/models/create_tracking_tag_201_response.rs
 src/models/create_tracking_tag_request.rs
+src/models/create_verification_request.rs
 src/models/create_voice_call_200_response.rs
 src/models/create_voice_call_request.rs
 src/models/create_voice_web_session_200_response.rs
@@ -2493,6 +2506,10 @@ src/models/money.rs
 src/models/money_amount.rs
 src/models/move_account_to_profile_200_response.rs
 src/models/move_account_to_profile_request.rs
+src/models/on_verification_approved_request.rs
+src/models/on_verification_approved_request_verification.rs
+src/models/on_verification_failed_request.rs
+src/models/on_verification_failed_request_verification.rs
 src/models/on_whats_app_automatic_event_request.rs
 src/models/on_whats_app_automatic_event_request_custom_data.rs
 src/models/on_whats_app_number_action_required_request.rs
@@ -2945,6 +2962,7 @@ src/models/validate_subreddit_200_response.rs
 src/models/validate_subreddit_200_response_one_of.rs
 src/models/validate_subreddit_200_response_one_of_1.rs
 src/models/validate_subreddit_200_response_one_of_subreddit.rs
+src/models/verification.rs
 src/models/verify_sms_registration_otp_200_response.rs
 src/models/verify_sms_registration_otp_request.rs
 src/models/vote_reddit_thing_request.rs
