@@ -181,6 +181,7 @@ Class | Method | HTTP request | Description
 *ConnectApi* | [**configure_tik_tok_ads_brand_identity**](docs/ConnectApi.md#configure_tik_tok_ads_brand_identity) | **PATCH** /v1/connect/tiktok-ads | Set TikTok brand identity
 *ConnectApi* | [**connect_ads**](docs/ConnectApi.md#connect_ads) | **GET** /v1/connect/{platform}/ads | Connect ads for a platform
 *ConnectApi* | [**connect_bluesky_credentials**](docs/ConnectApi.md#connect_bluesky_credentials) | **POST** /v1/connect/bluesky/credentials | Connect Bluesky account
+*ConnectApi* | [**connect_open_ai_ads_credentials**](docs/ConnectApi.md#connect_open_ai_ads_credentials) | **POST** /v1/connect/openai-ads/credentials | Connect an OpenAI Ads account
 *ConnectApi* | [**connect_whats_app_credentials**](docs/ConnectApi.md#connect_whats_app_credentials) | **POST** /v1/connect/whatsapp/credentials | Connect WhatsApp via credentials
 *ConnectApi* | [**create_pinterest_board**](docs/ConnectApi.md#create_pinterest_board) | **POST** /v1/accounts/{accountId}/pinterest-boards | Create Pinterest board
 *ConnectApi* | [**get_connect_url**](docs/ConnectApi.md#get_connect_url) | **GET** /v1/connect/{platform} | Get OAuth connect URL
@@ -678,6 +679,8 @@ Class | Method | HTTP request | Description
  - [ConnectAds200ResponseOneOf1](docs/ConnectAds200ResponseOneOf1.md)
  - [ConnectBlueskyCredentials200Response](docs/ConnectBlueskyCredentials200Response.md)
  - [ConnectBlueskyCredentialsRequest](docs/ConnectBlueskyCredentialsRequest.md)
+ - [ConnectOpenAiAdsCredentials200Response](docs/ConnectOpenAiAdsCredentials200Response.md)
+ - [ConnectOpenAiAdsCredentialsRequest](docs/ConnectOpenAiAdsCredentialsRequest.md)
  - [ConnectWhatsAppCredentials200Response](docs/ConnectWhatsAppCredentials200Response.md)
  - [ConnectWhatsAppCredentials200ResponseAccount](docs/ConnectWhatsAppCredentials200ResponseAccount.md)
  - [ConnectWhatsAppCredentialsRequest](docs/ConnectWhatsAppCredentialsRequest.md)
@@ -1184,6 +1187,7 @@ Class | Method | HTTP request | Description
  - [GetTikTokCreatorInfo200ResponseCreator](docs/GetTikTokCreatorInfo200ResponseCreator.md)
  - [GetTikTokCreatorInfo200ResponsePostingLimits](docs/GetTikTokCreatorInfo200ResponsePostingLimits.md)
  - [GetTikTokCreatorInfo200ResponsePrivacyLevelsInner](docs/GetTikTokCreatorInfo200ResponsePrivacyLevelsInner.md)
+ - [GetTrackingTag200Response](docs/GetTrackingTag200Response.md)
  - [GetTrackingTagStats200Response](docs/GetTrackingTagStats200Response.md)
  - [GetTrackingTagStats200ResponseStats](docs/GetTrackingTagStats200ResponseStats.md)
  - [GetUsage200Response](docs/GetUsage200Response.md)

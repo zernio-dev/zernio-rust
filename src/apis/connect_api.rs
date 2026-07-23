@@ -79,6 +79,16 @@ pub enum ConnectBlueskyCredentialsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`connect_open_ai_ads_credentials`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ConnectOpenAiAdsCredentialsError {
+    Status400(models::ErrorResponse),
+    Status401(),
+    Status403(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`connect_whats_app_credentials`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -802,6 +812,60 @@ pub async fn connect_bluesky_credentials(
     } else {
         let content = resp.text().await?;
         let entity: Option<ConnectBlueskyCredentialsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Connect an OpenAI Ads account using an API key from ChatGPT Ads Manager.  The key grants full campaign write access on OpenAI's side (OpenAI does not offer a read-only key scope). Zernio uses it to read ads and performance, and to create and manage campaigns you set up through Zernio (create, status, budget, and cancel). Campaigns created directly in ChatGPT Ads Manager can still be managed there.
+pub async fn connect_open_ai_ads_credentials(
+    configuration: &configuration::Configuration,
+    connect_open_ai_ads_credentials_request: models::ConnectOpenAiAdsCredentialsRequest,
+) -> Result<models::ConnectOpenAiAdsCredentials200Response, Error<ConnectOpenAiAdsCredentialsError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_connect_open_ai_ads_credentials_request = connect_open_ai_ads_credentials_request;
+
+    let uri_str = format!(
+        "{}/v1/connect/openai-ads/credentials",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_connect_open_ai_ads_credentials_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ConnectOpenAiAdsCredentials200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ConnectOpenAiAdsCredentials200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ConnectOpenAiAdsCredentialsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

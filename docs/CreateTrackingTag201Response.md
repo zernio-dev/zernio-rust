@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**platform** | Option<**Platform**> |  (enum: metaads) | [optional]
+**platform** | Option<**Platform**> |  (enum: metaads, openaiads) | [optional]
 **tag** | Option<[**models::TrackingTag**](TrackingTag.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -1,11 +1,12 @@
-# UpdateAdCampaignStatusRequest
+# ConnectOpenAiAdsCredentials200Response
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **Status** |  (enum: active, paused) | 
-**platform** | **Platform** |  (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter, openai) | 
+**account_id** | Option<**String**> |  | [optional]
+**ad_account_name** | Option<**String**> |  | [optional]
+**redirect_url** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

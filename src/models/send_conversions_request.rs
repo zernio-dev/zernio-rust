@@ -13,15 +13,15 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SendConversionsRequest {
-    /// SocialAccount ID (metaads, googleads, linkedinads, or tiktokads).
+    /// SocialAccount ID (metaads, googleads, linkedinads, tiktokads, or openaiads).
     #[serde(rename = "accountId")]
     pub account_id: String,
-    /// Platform destination identifier. For Meta, the pixel/dataset ID. For Google, the conversion action resource name. For LinkedIn, the conversion rule ID or full `urn:lla:llaPartnerConversion:{id}` URN.
+    /// Platform destination identifier. For Meta, the pixel/dataset ID. For Google, the conversion action resource name. For LinkedIn, the conversion rule ID or full `urn:lla:llaPartnerConversion:{id}` URN. For OpenAI Ads, the pixel wire id.
     #[serde(rename = "destinationId")]
     pub destination_id: String,
     #[serde(rename = "events")]
     pub events: Vec<models::ConversionEvent>,
-    /// Meta `test_event_code` passthrough. Ignored by Google and LinkedIn.
+    /// Meta `test_event_code` passthrough. Ignored by Google, LinkedIn, and OpenAI Ads.
     #[serde(rename = "testCode", skip_serializing_if = "Option::is_none")]
     pub test_code: Option<String>,
     #[serde(rename = "consent", skip_serializing_if = "Option::is_none")]

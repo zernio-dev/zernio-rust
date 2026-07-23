@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateTrackingTagRequest {
-    /// Meta ad account id, e.g. `act_123456789`.
+    /// Meta ad account id, e.g. `act_123456789`. Required by this endpoint but ignored for OpenAI Ads.
     #[serde(rename = "adAccountId")]
     pub ad_account_id: String,
     #[serde(rename = "name")]

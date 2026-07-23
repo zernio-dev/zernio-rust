@@ -146,6 +146,8 @@ pub enum Platform {
     Xads,
     #[serde(rename = "googleads")]
     Googleads,
+    #[serde(rename = "openaiads")]
+    Openaiads,
 }
 
 impl Default for Platform {

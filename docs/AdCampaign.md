@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **platform_campaign_id** | Option<**String**> |  | [optional]
-**platform** | Option<**Platform**> |  (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter) | [optional]
+**platform** | Option<**Platform**> |  (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter, openai) | [optional]
 **campaign_name** | Option<**String**> |  | [optional]
 **status** | Option<[**models::AdStatus**](AdStatus.md)> | Delivery status derived from child ad statuses. Distinct from `reviewStatus`. | [optional]
 **review_status** | Option<**ReviewStatus**> | Platform-side review state of the campaign. See AdTreeCampaign.reviewStatus for the full description. (enum: in_review, approved, rejected, with_issues) | [optional]

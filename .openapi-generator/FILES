@@ -140,6 +140,8 @@ docs/ConnectAds200ResponseOneOf1.md
 docs/ConnectApi.md
 docs/ConnectBlueskyCredentials200Response.md
 docs/ConnectBlueskyCredentialsRequest.md
+docs/ConnectOpenAiAdsCredentials200Response.md
+docs/ConnectOpenAiAdsCredentialsRequest.md
 docs/ConnectWhatsAppCredentials200Response.md
 docs/ConnectWhatsAppCredentials200ResponseAccount.md
 docs/ConnectWhatsAppCredentialsRequest.md
@@ -650,6 +652,7 @@ docs/GetTikTokCreatorInfo200ResponseCommercialContentTypesInner.md
 docs/GetTikTokCreatorInfo200ResponseCreator.md
 docs/GetTikTokCreatorInfo200ResponsePostingLimits.md
 docs/GetTikTokCreatorInfo200ResponsePrivacyLevelsInner.md
+docs/GetTrackingTag200Response.md
 docs/GetTrackingTagStats200Response.md
 docs/GetTrackingTagStats200ResponseStats.md
 docs/GetUsage200Response.md
@@ -1740,6 +1743,8 @@ src/models/connect_ads_200_response_one_of.rs
 src/models/connect_ads_200_response_one_of_1.rs
 src/models/connect_bluesky_credentials_200_response.rs
 src/models/connect_bluesky_credentials_request.rs
+src/models/connect_open_ai_ads_credentials_200_response.rs
+src/models/connect_open_ai_ads_credentials_request.rs
 src/models/connect_whats_app_credentials_200_response.rs
 src/models/connect_whats_app_credentials_200_response_account.rs
 src/models/connect_whats_app_credentials_request.rs
@@ -2246,6 +2251,7 @@ src/models/get_tik_tok_creator_info_200_response_commercial_content_types_inner.
 src/models/get_tik_tok_creator_info_200_response_creator.rs
 src/models/get_tik_tok_creator_info_200_response_posting_limits.rs
 src/models/get_tik_tok_creator_info_200_response_privacy_levels_inner.rs
+src/models/get_tracking_tag_200_response.rs
 src/models/get_tracking_tag_stats_200_response.rs
 src/models/get_tracking_tag_stats_200_response_stats.rs
 src/models/get_usage_200_response.rs

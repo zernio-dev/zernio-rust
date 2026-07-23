@@ -32,6 +32,8 @@ impl ListTrackingTags200Response {
 pub enum Platform {
     #[serde(rename = "metaads")]
     Metaads,
+    #[serde(rename = "openaiads")]
+    Openaiads,
 }
 
 impl Default for Platform {

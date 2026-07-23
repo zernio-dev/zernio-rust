@@ -1,11 +1,11 @@
-# UpdateAdCampaignStatusRequest
+# GetTrackingTag200Response
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **Status** |  (enum: active, paused) | 
-**platform** | **Platform** |  (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter, openai) | 
+**platform** | Option<**Platform**> |  (enum: metaads) | [optional]
+**tag** | Option<[**models::TrackingTag**](TrackingTag.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

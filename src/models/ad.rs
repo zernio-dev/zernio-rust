@@ -177,6 +177,8 @@ pub enum Platform {
     Google,
     #[serde(rename = "twitter")]
     Twitter,
+    #[serde(rename = "openai")]
+    Openai,
 }
 
 impl Default for Platform {

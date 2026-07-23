@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**platform** | **Platform** |  (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter) | 
+**platform** | **Platform** |  (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter, openai) | 
 **budget** | Option<[**models::UpdateAdSetRequestBudget**](UpdateAdSetRequestBudget.md)> |  | [optional]
 **status** | Option<**Status**> | Omit if not toggling delivery state (enum: active, paused) | [optional]
 **name** | Option<**String**> | Rename the ad set (Meta only; other platforms return 501). At least one of budget/status/bidStrategy/name is required. | [optional]

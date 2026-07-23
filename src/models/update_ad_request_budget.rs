@@ -16,6 +16,7 @@ pub struct UpdateAdRequestBudget {
     /// Minimum varies by platform: TikTok=$20, Pinterest=$5, others=$1
     #[serde(rename = "amount", skip_serializing_if = "Option::is_none")]
     pub amount: Option<f64>,
+    /// OpenAI Ads accepts lifetime only; sending daily returns 422.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
 }
@@ -28,7 +29,7 @@ impl UpdateAdRequestBudget {
         }
     }
 }
-///
+/// OpenAI Ads accepts lifetime only; sending daily returns 422.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "daily")]

@@ -12,18 +12,18 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ListConversionDestinations200Response {
+pub struct GetTrackingTag200Response {
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<Platform>,
-    #[serde(rename = "destinations", skip_serializing_if = "Option::is_none")]
-    pub destinations: Option<Vec<models::ListConversionDestinations200ResponseDestinationsInner>>,
+    #[serde(rename = "tag", skip_serializing_if = "Option::is_none")]
+    pub tag: Option<Box<models::TrackingTag>>,
 }
 
-impl ListConversionDestinations200Response {
-    pub fn new() -> ListConversionDestinations200Response {
-        ListConversionDestinations200Response {
+impl GetTrackingTag200Response {
+    pub fn new() -> GetTrackingTag200Response {
+        GetTrackingTag200Response {
             platform: None,
-            destinations: None,
+            tag: None,
         }
     }
 }
@@ -32,14 +32,6 @@ impl ListConversionDestinations200Response {
 pub enum Platform {
     #[serde(rename = "metaads")]
     Metaads,
-    #[serde(rename = "googleads")]
-    Googleads,
-    #[serde(rename = "linkedinads")]
-    Linkedinads,
-    #[serde(rename = "tiktokads")]
-    Tiktokads,
-    #[serde(rename = "openaiads")]
-    Openaiads,
 }
 
 impl Default for Platform {
