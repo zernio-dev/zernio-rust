@@ -13,8 +13,9 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateStandaloneAd200Response {
+    /// Always true in a validate-only response.
     #[serde(rename = "validateOnly", skip_serializing_if = "Option::is_none")]
-    pub validate_only: Option<ValidateOnly>,
+    pub validate_only: Option<bool>,
     #[serde(rename = "results", skip_serializing_if = "Option::is_none")]
     pub results: Option<Vec<models::CreateStandaloneAd200ResponseResultsInner>>,
     #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
@@ -28,17 +29,5 @@ impl CreateStandaloneAd200Response {
             results: None,
             message: None,
         }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum ValidateOnly {
-    #[serde(rename = "true")]
-    True,
-}
-
-impl Default for ValidateOnly {
-    fn default() -> ValidateOnly {
-        Self::True
     }
 }

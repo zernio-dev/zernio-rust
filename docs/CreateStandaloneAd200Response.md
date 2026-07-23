@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**validate_only** | Option<**ValidateOnly**> |  (enum: true) | [optional]
+**validate_only** | Option<**bool**> | Always true in a validate-only response. | [optional]
 **results** | Option<[**Vec<models::CreateStandaloneAd200ResponseResultsInner>**](CreateStandaloneAd200ResponseResultsInner.md)> |  | [optional]
 **message** | Option<**String**> |  | [optional]
 
