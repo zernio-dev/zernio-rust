@@ -16,8 +16,9 @@ use serde::{Deserialize, Serialize};
 pub struct BoostPostRequestTracking {
     #[serde(rename = "pixelId", skip_serializing_if = "Option::is_none")]
     pub pixel_id: Option<String>,
+    /// URL parameters appended to the ad link, rendered as `key=value` pairs joined with `&`.
     #[serde(rename = "urlTags", skip_serializing_if = "Option::is_none")]
-    pub url_tags: Option<String>,
+    pub url_tags: Option<Vec<models::BoostPostRequestTrackingUrlTagsInner>>,
 }
 
 impl BoostPostRequestTracking {

@@ -98,6 +98,7 @@ docs/BoostPostRequestTargetingCitiesInner.md
 docs/BoostPostRequestTargetingCustomLocationsInner.md
 docs/BoostPostRequestTargetingRegionsInner.md
 docs/BoostPostRequestTracking.md
+docs/BoostPostRequestTrackingUrlTagsInner.md
 docs/BroadcastsApi.md
 docs/BulkCreateContacts200Response.md
 docs/BulkCreateContactsRequest.md
@@ -216,7 +217,6 @@ docs/CreateInviteTokenRequest.md
 docs/CreateLeadForm200Response.md
 docs/CreateLeadFormRequest.md
 docs/CreateLeadFormRequestQuestionsInner.md
-docs/CreateLeadFormRequestQuestionsInnerOptionsInner.md
 docs/CreateMessagingAdRequest.md
 docs/CreatePhoneNumberKycLink200Response.md
 docs/CreatePhoneNumberKycLinkRequest.md
@@ -1703,6 +1703,7 @@ src/models/boost_post_request_targeting_cities_inner.rs
 src/models/boost_post_request_targeting_custom_locations_inner.rs
 src/models/boost_post_request_targeting_regions_inner.rs
 src/models/boost_post_request_tracking.rs
+src/models/boost_post_request_tracking_url_tags_inner.rs
 src/models/bulk_create_contacts_200_response.rs
 src/models/bulk_create_contacts_request.rs
 src/models/bulk_create_contacts_request_contacts_inner.rs
@@ -1814,7 +1815,6 @@ src/models/create_invite_token_request.rs
 src/models/create_lead_form_200_response.rs
 src/models/create_lead_form_request.rs
 src/models/create_lead_form_request_questions_inner.rs
-src/models/create_lead_form_request_questions_inner_options_inner.rs
 src/models/create_messaging_ad_request.rs
 src/models/create_phone_number_kyc_link_200_response.rs
 src/models/create_phone_number_kyc_link_request.rs

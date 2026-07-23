@@ -23,7 +23,7 @@ pub struct CreateLeadFormRequestQuestionsInner {
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
     #[serde(rename = "options", skip_serializing_if = "Option::is_none")]
-    pub options: Option<Vec<models::CreateLeadFormRequestQuestionsInnerOptionsInner>>,
+    pub options: Option<Vec<models::BoostPostRequestTrackingUrlTagsInner>>,
     #[serde(rename = "inline_context", skip_serializing_if = "Option::is_none")]
     pub inline_context: Option<String>,
 }
