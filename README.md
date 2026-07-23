@@ -345,6 +345,7 @@ Class | Method | HTTP request | Description
 *PhoneNumbersApi* | [**purchase_phone_number**](docs/PhoneNumbersApi.md#purchase_phone_number) | **POST** /v1/phone-numbers/purchase | Purchase phone number
 *PhoneNumbersApi* | [**release_phone_number**](docs/PhoneNumbersApi.md#release_phone_number) | **DELETE** /v1/phone-numbers/{id} | Release phone number
 *PhoneNumbersApi* | [**remediate_phone_number**](docs/PhoneNumbersApi.md#remediate_phone_number) | **POST** /v1/phone-numbers/{id}/remediate | Resubmit a declined number
+*PhoneNumbersApi* | [**reply_to_phone_number_reviewer**](docs/PhoneNumbersApi.md#reply_to_phone_number_reviewer) | **POST** /v1/phone-numbers/{id}/remediate/reply | Reply to the regulatory reviewer
 *PhoneNumbersApi* | [**review_phone_number_kyc_packet**](docs/PhoneNumbersApi.md#review_phone_number_kyc_packet) | **POST** /v1/phone-numbers/kyc/review-packet | Pre-review a KYC packet
 *PhoneNumbersApi* | [**search_available_phone_numbers**](docs/PhoneNumbersApi.md#search_available_phone_numbers) | **GET** /v1/phone-numbers/available | Search available numbers
 *PhoneNumbersApi* | [**submit_phone_number_kyc**](docs/PhoneNumbersApi.md#submit_phone_number_kyc) | **POST** /v1/phone-numbers/kyc | Submit KYC
@@ -1562,6 +1563,9 @@ Class | Method | HTTP request | Description
  - [ReplyToInboxReviewRequest](docs/ReplyToInboxReviewRequest.md)
  - [ReplyToMention200Response](docs/ReplyToMention200Response.md)
  - [ReplyToMentionRequest](docs/ReplyToMentionRequest.md)
+ - [ReplyToPhoneNumberReviewer200Response](docs/ReplyToPhoneNumberReviewer200Response.md)
+ - [ReplyToPhoneNumberReviewerRequest](docs/ReplyToPhoneNumberReviewerRequest.md)
+ - [ReplyToPhoneNumberReviewerRequestAttachmentsInner](docs/ReplyToPhoneNumberReviewerRequestAttachmentsInner.md)
  - [RequestSmsSenderIdLimitIncrease200Response](docs/RequestSmsSenderIdLimitIncrease200Response.md)
  - [RequestSmsSenderIdLimitIncreaseRequest](docs/RequestSmsSenderIdLimitIncreaseRequest.md)
  - [ResendSmsRegistrationOtp200Response](docs/ResendSmsRegistrationOtp200Response.md)

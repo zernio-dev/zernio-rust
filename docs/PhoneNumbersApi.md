@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**purchase_phone_number**](PhoneNumbersApi.md#purchase_phone_number) | **POST** /v1/phone-numbers/purchase | Purchase phone number
 [**release_phone_number**](PhoneNumbersApi.md#release_phone_number) | **DELETE** /v1/phone-numbers/{id} | Release phone number
 [**remediate_phone_number**](PhoneNumbersApi.md#remediate_phone_number) | **POST** /v1/phone-numbers/{id}/remediate | Resubmit a declined number
+[**reply_to_phone_number_reviewer**](PhoneNumbersApi.md#reply_to_phone_number_reviewer) | **POST** /v1/phone-numbers/{id}/remediate/reply | Reply to the regulatory reviewer
 [**review_phone_number_kyc_packet**](PhoneNumbersApi.md#review_phone_number_kyc_packet) | **POST** /v1/phone-numbers/kyc/review-packet | Pre-review a KYC packet
 [**search_available_phone_numbers**](PhoneNumbersApi.md#search_available_phone_numbers) | **GET** /v1/phone-numbers/available | Search available numbers
 [**submit_phone_number_kyc**](PhoneNumbersApi.md#submit_phone_number_kyc) | **POST** /v1/phone-numbers/kyc | Submit KYC
@@ -496,6 +497,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::RemediatePhoneNumber200Response**](remediatePhoneNumber_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## reply_to_phone_number_reviewer
+
+> models::ReplyToPhoneNumberReviewer200Response reply_to_phone_number_reviewer(id, reply_to_phone_number_reviewer_request)
+Reply to the regulatory reviewer
+
+Post a free-text reply (with optional file attachments) to the reviewer on a number awaiting remediation — for asks the structured form can't express (e.g. \"is this personal or business?\"). Attachments are stored by us and their links are added to the reviewer's comment thread (the carrier's number order takes no loose files). A reply to a comment-style ask moves the number back to \"in review\"; a reply on a formal decline is supplementary and you must still resubmit the fix. Requires text or at least one attachment. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+**reply_to_phone_number_reviewer_request** | [**ReplyToPhoneNumberReviewerRequest**](ReplyToPhoneNumberReviewerRequest.md) |  | [required] |
+
+### Return type
+
+[**models::ReplyToPhoneNumberReviewer200Response**](replyToPhoneNumberReviewer_200_response.md)
 
 ### Authorization
 

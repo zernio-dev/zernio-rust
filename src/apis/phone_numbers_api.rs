@@ -167,6 +167,17 @@ pub enum RemediatePhoneNumberError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`reply_to_phone_number_reviewer`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ReplyToPhoneNumberReviewerError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status404(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`review_phone_number_kyc_packet`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -1051,6 +1062,62 @@ pub async fn remediate_phone_number(
     } else {
         let content = resp.text().await?;
         let entity: Option<RemediatePhoneNumberError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Post a free-text reply (with optional file attachments) to the reviewer on a number awaiting remediation — for asks the structured form can't express (e.g. \"is this personal or business?\"). Attachments are stored by us and their links are added to the reviewer's comment thread (the carrier's number order takes no loose files). A reply to a comment-style ask moves the number back to \"in review\"; a reply on a formal decline is supplementary and you must still resubmit the fix. Requires text or at least one attachment.
+pub async fn reply_to_phone_number_reviewer(
+    configuration: &configuration::Configuration,
+    id: &str,
+    reply_to_phone_number_reviewer_request: models::ReplyToPhoneNumberReviewerRequest,
+) -> Result<models::ReplyToPhoneNumberReviewer200Response, Error<ReplyToPhoneNumberReviewerError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_body_reply_to_phone_number_reviewer_request = reply_to_phone_number_reviewer_request;
+
+    let uri_str = format!(
+        "{}/v1/phone-numbers/{id}/remediate/reply",
+        configuration.base_path,
+        id = crate::apis::urlencode(p_path_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_reply_to_phone_number_reviewer_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ReplyToPhoneNumberReviewer200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ReplyToPhoneNumberReviewer200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ReplyToPhoneNumberReviewerError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
