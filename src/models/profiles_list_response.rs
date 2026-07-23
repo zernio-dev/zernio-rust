@@ -15,10 +15,24 @@ use serde::{Deserialize, Serialize};
 pub struct ProfilesListResponse {
     #[serde(rename = "profiles", skip_serializing_if = "Option::is_none")]
     pub profiles: Option<Vec<models::Profile>>,
+    /// Total matching profiles across all pages. Present only when limit or skip was passed.
+    #[serde(rename = "total", skip_serializing_if = "Option::is_none")]
+    pub total: Option<i32>,
+    /// Offset applied. Present only when limit or skip was passed.
+    #[serde(rename = "skip", skip_serializing_if = "Option::is_none")]
+    pub skip: Option<i32>,
+    /// Echo of the limit query param. Present only when it was passed.
+    #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i32>,
 }
 
 impl ProfilesListResponse {
     pub fn new() -> ProfilesListResponse {
-        ProfilesListResponse { profiles: None }
+        ProfilesListResponse {
+            profiles: None,
+            total: None,
+            skip: None,
+            limit: None,
+        }
     }
 }

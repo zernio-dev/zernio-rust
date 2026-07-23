@@ -22,6 +22,7 @@ pub enum CreateProfileError {
     Status402(models::InlineObject2),
     Status403(),
     Status409(),
+    Status422(),
     UnknownValue(serde_json::Value),
 }
 
@@ -49,6 +50,7 @@ pub enum GetProfileError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListProfilesError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }
@@ -64,13 +66,15 @@ pub enum UpdateProfileError {
     UnknownValue(serde_json::Value),
 }
 
-/// Creates a new profile with a name, optional description, and color.
+/// Creates a new profile with a name, optional description, and color. Names are unique per workspace: a duplicate returns a 409 whose details.existingProfileId carries the id of the existing profile. Send an Idempotency-Key header to make retries safe: a retried create with the same key and body replays the original 201 (same _id) instead of conflicting.
 pub async fn create_profile(
     configuration: &configuration::Configuration,
     create_profile_request: models::CreateProfileRequest,
+    idempotency_key: Option<&str>,
 ) -> Result<models::ProfileCreateResponse, Error<CreateProfileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_profile_request = create_profile_request;
+    let p_header_idempotency_key = idempotency_key;
 
     let uri_str = format!("{}/v1/profiles", configuration.base_path);
     let mut req_builder = configuration
@@ -79,6 +83,9 @@ pub async fn create_profile(
 
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_idempotency_key {
+        req_builder = req_builder.header("Idempotency-Key", param_value.to_string());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -218,19 +225,34 @@ pub async fn get_profile(
     }
 }
 
-/// Returns profiles sorted by creation date. Use includeOverLimit=true to include profiles that exceed the plan limit.
+/// Returns profiles sorted default-first, then by creation date. Filter with name (exact match) and paginate with limit/skip; without those params the full list is returned unchanged. Use includeOverLimit=true to include profiles that exceed the plan limit.
 pub async fn list_profiles(
     configuration: &configuration::Configuration,
     include_over_limit: Option<bool>,
+    name: Option<&str>,
+    limit: Option<i32>,
+    skip: Option<i32>,
 ) -> Result<models::ProfilesListResponse, Error<ListProfilesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_include_over_limit = include_over_limit;
+    let p_query_name = name;
+    let p_query_limit = limit;
+    let p_query_skip = skip;
 
     let uri_str = format!("{}/v1/profiles", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref param_value) = p_query_include_over_limit {
         req_builder = req_builder.query(&[("includeOverLimit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_name {
+        req_builder = req_builder.query(&[("name", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_skip {
+        req_builder = req_builder.query(&[("skip", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
