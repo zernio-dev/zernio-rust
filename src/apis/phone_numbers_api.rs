@@ -221,6 +221,16 @@ pub enum ValidatePhoneNumberKycAddressError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`view_phone_number_kyc_document`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ViewPhoneNumberKycDocumentError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// Cancel an in-flight port (wrong number, staying with the old carrier). Only orders that haven't ported can be cancelled; a completed port is a normal number release instead. The carrier may report `cancel-pending` briefly while the losing carrier acknowledges; it settles to `cancelled`.
 pub async fn cancel_phone_number_port_in(
     configuration: &configuration::Configuration,
@@ -1414,6 +1424,46 @@ pub async fn validate_phone_number_kyc_address(
         let content = resp.text().await?;
         let entity: Option<ValidatePhoneNumberKycAddressError> =
             serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Stream a document backing a reusable verification (the `documentId` values from GET /v1/phone-numbers/kyc `reusable.options[].details[]`), so the account holder can see what's on file before reusing it. Returned inline as `application/pdf` (uploads are normalized to PDF). Auth-scoped: a document is viewable only when its id is referenced by one of the caller's own numbers — otherwise `404`.
+pub async fn view_phone_number_kyc_document(
+    configuration: &configuration::Configuration,
+    document_id: &str,
+) -> Result<reqwest::Response, Error<ViewPhoneNumberKycDocumentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_document_id = document_id;
+
+    let uri_str = format!(
+        "{}/v1/phone-numbers/kyc/document/{documentId}",
+        configuration.base_path,
+        documentId = crate::apis::urlencode(p_path_document_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(resp)
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ViewPhoneNumberKycDocumentError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

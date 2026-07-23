@@ -23,7 +23,8 @@ pub struct GetPhoneNumberKycForm200ResponseReusableOptionsInner {
     #[serde(rename = "instant", skip_serializing_if = "Option::is_none")]
     pub instant: Option<bool>,
     #[serde(rename = "details", skip_serializing_if = "Option::is_none")]
-    pub details: Option<Vec<models::GetPhoneNumberKycForm200ResponseReusableDetailsInner>>,
+    pub details:
+        Option<Vec<models::GetPhoneNumberKycForm200ResponseReusableOptionsInnerDetailsInner>>,
 }
 
 impl GetPhoneNumberKycForm200ResponseReusableOptionsInner {
