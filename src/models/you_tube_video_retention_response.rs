@@ -47,6 +47,9 @@ pub struct YouTubeVideoRetentionResponse {
     pub duration_seconds: Option<Option<i32>>,
     #[serde(rename = "dateRange", skip_serializing_if = "Option::is_none")]
     pub date_range: Option<Box<models::YouTubeDailyViewsResponseDateRange>>,
+    /// Present only when the range reaches into YouTube's ~3-day processing window: the first date whose numbers are provisional and may still be revised by YouTube.
+    #[serde(rename = "provisionalSince", skip_serializing_if = "Option::is_none")]
+    pub provisional_since: Option<String>,
     /// Up to 100 points covering the video timeline, aggregated over the date range. Empty for videos with very few views.
     #[serde(rename = "retentionCurve", skip_serializing_if = "Option::is_none")]
     pub retention_curve: Option<Vec<models::YouTubeVideoRetentionResponseRetentionCurveInner>>,
@@ -67,6 +70,7 @@ impl YouTubeVideoRetentionResponse {
             published_at: None,
             duration_seconds: None,
             date_range: None,
+            provisional_since: None,
             retention_curve: None,
             note: None,
             scope_status: None,

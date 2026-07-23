@@ -28,6 +28,9 @@ pub struct YouTubeDailyViewsResponse {
     pub duration_seconds: Option<Option<i32>>,
     #[serde(rename = "dateRange", skip_serializing_if = "Option::is_none")]
     pub date_range: Option<Box<models::YouTubeDailyViewsResponseDateRange>>,
+    /// Present only when the range reaches into YouTube's ~3-day processing window: the first date whose numbers are provisional and may still be revised by YouTube.
+    #[serde(rename = "provisionalSince", skip_serializing_if = "Option::is_none")]
+    pub provisional_since: Option<String>,
     /// Sum of views across all days in the range
     #[serde(rename = "totalViews", skip_serializing_if = "Option::is_none")]
     pub total_views: Option<i32>,
@@ -52,6 +55,7 @@ impl YouTubeDailyViewsResponse {
             video_id: None,
             duration_seconds: None,
             date_range: None,
+            provisional_since: None,
             total_views: None,
             daily_views: None,
             last_synced_at: None,

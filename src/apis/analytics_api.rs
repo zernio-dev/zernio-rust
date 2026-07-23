@@ -1666,7 +1666,7 @@ pub async fn get_you_tube_channel_insights(
     }
 }
 
-/// Returns daily view counts for a YouTube video including views, watch time, and subscriber changes. Requires yt-analytics.readonly scope (re-authorization may be needed). Data has a 2-3 day delay. Max 90 days, defaults to last 30 days.
+/// Returns daily view counts for a YouTube video including views, watch time, and subscriber changes. Requires yt-analytics.readonly scope (re-authorization may be needed). YouTube finalizes analytics with a ~3-day delay; by default only finalized days are returned, and an explicit endDate can reach into the delay window (see the endDate parameter). Max 90 days, defaults to last 30 days.
 pub async fn get_you_tube_daily_views(
     configuration: &configuration::Configuration,
     video_id: &str,

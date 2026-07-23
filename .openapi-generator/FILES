@@ -12,6 +12,7 @@ docs/ActivateSequence200Response.md
 docs/ActivateWorkflow200Response.md
 docs/ActivateWorkflow200ResponseWorkflow.md
 docs/Ad.md
+docs/AdAccountsApi.md
 docs/AdAudiencesApi.md
 docs/AdBudget.md
 docs/AdCampaign.md
@@ -19,11 +20,14 @@ docs/AdCampaignBudget.md
 docs/AdCampaignCampaignBudget.md
 docs/AdCampaignsApi.md
 docs/AdCreative.md
+docs/AdCreativesApi.md
 docs/AdDailyMetrics.md
+docs/AdInsightsApi.md
 docs/AdMetrics.md
 docs/AdPromotedObject.md
 docs/AdSchedule.md
 docs/AdStatus.md
+docs/AdTargetingApi.md
 docs/AdTreeAdSet.md
 docs/AdTreeAdSetAdSetBudget.md
 docs/AdTreeAdSetBudget.md
@@ -50,7 +54,6 @@ docs/AdjustConversions200ResponseFailuresInner.md
 docs/AdjustConversionsRequest.md
 docs/AdjustConversionsRequestAdjustmentsInner.md
 docs/AdjustConversionsRequestAdjustmentsInnerUser.md
-docs/AdsApi.md
 docs/AnalyticsApi.md
 docs/AnalyticsListResponse.md
 docs/AnalyticsListResponsePostsInner.md
@@ -147,6 +150,7 @@ docs/ConversionEvent.md
 docs/ConversionEventItemsInner.md
 docs/ConversionEventUser.md
 docs/ConversionEventUserClickIds.md
+docs/ConversionsApi.md
 docs/CreateAccountGroup201Response.md
 docs/CreateAccountGroup201ResponseGroup.md
 docs/CreateAccountGroupRequest.md
@@ -761,6 +765,7 @@ docs/InstagramPlatformData.md
 docs/InstagramPlatformDataTrialParams.md
 docs/InstagramPlatformDataUserTagsInner.md
 docs/InvitesApi.md
+docs/LeadGenApi.md
 docs/LikeInboxComment200Response.md
 docs/LikeInboxCommentRequest.md
 docs/LinkedInAdsPlatformData.md
@@ -947,6 +952,7 @@ docs/MediaItem.md
 docs/MediaUploadResponse.md
 docs/MentionsApi.md
 docs/MessagesApi.md
+docs/MessagingAdsApi.md
 docs/Money.md
 docs/MoneyAmount.md
 docs/MoveAccountToProfile200Response.md
@@ -1013,6 +1019,7 @@ docs/QueueSchedule.md
 docs/QueueSlot.md
 docs/QueueSlotsResponse.md
 docs/QueueUpdateResponse.md
+docs/ReachAndFrequencyApi.md
 docs/RecyclingConfig.md
 docs/RecyclingState.md
 docs/RedditPlatformData.md
@@ -1548,9 +1555,12 @@ git_push.sh
 src/apis/account_groups_api.rs
 src/apis/account_settings_api.rs
 src/apis/accounts_api.rs
+src/apis/ad_accounts_api.rs
 src/apis/ad_audiences_api.rs
 src/apis/ad_campaigns_api.rs
-src/apis/ads_api.rs
+src/apis/ad_creatives_api.rs
+src/apis/ad_insights_api.rs
+src/apis/ad_targeting_api.rs
 src/apis/analytics_api.rs
 src/apis/api_keys_api.rs
 src/apis/broadcasts_api.rs
@@ -1560,6 +1570,7 @@ src/apis/comments_api.rs
 src/apis/configuration.rs
 src/apis/connect_api.rs
 src/apis/contacts_api.rs
+src/apis/conversions_api.rs
 src/apis/custom_fields_api.rs
 src/apis/discord_api.rs
 src/apis/gmb_attributes_api.rs
@@ -1573,16 +1584,19 @@ src/apis/gmb_verifications_api.rs
 src/apis/inbox_analytics_api.rs
 src/apis/instagram_api.rs
 src/apis/invites_api.rs
+src/apis/lead_gen_api.rs
 src/apis/linked_in_mentions_api.rs
 src/apis/logs_api.rs
 src/apis/media_api.rs
 src/apis/mentions_api.rs
 src/apis/messages_api.rs
+src/apis/messaging_ads_api.rs
 src/apis/mod.rs
 src/apis/phone_numbers_api.rs
 src/apis/posts_api.rs
 src/apis/profiles_api.rs
 src/apis/queue_api.rs
+src/apis/reach_and_frequency_api.rs
 src/apis/reddit_search_api.rs
 src/apis/reviews_api.rs
 src/apis/sequences_api.rs

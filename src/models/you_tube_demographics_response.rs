@@ -49,6 +49,9 @@ pub struct YouTubeDemographicsResponse {
     >,
     #[serde(rename = "dateRange", skip_serializing_if = "Option::is_none")]
     pub date_range: Option<Box<models::YouTubeDemographicsResponseDateRange>>,
+    /// Present only when the range reaches into YouTube's ~3-day processing window: the first date whose numbers are provisional and may still be revised by YouTube.
+    #[serde(rename = "provisionalSince", skip_serializing_if = "Option::is_none")]
+    pub provisional_since: Option<String>,
     #[serde(rename = "note", skip_serializing_if = "Option::is_none")]
     pub note: Option<String>,
 }
@@ -64,6 +67,7 @@ impl YouTubeDemographicsResponse {
             published_at: None,
             demographics: None,
             date_range: None,
+            provisional_since: None,
             note: None,
         }
     }
