@@ -26,7 +26,10 @@ pub struct SubmitPhoneNumberKycRequest {
     /// Reuse a prior approved verification for this country (skips document/field collection; places the order immediately).
     #[serde(rename = "reuse", skip_serializing_if = "Option::is_none")]
     pub reuse: Option<bool>,
-    /// Which approved verification to reuse when several exist: the phone number it was originally approved for (GET reusable.options[].fromPhoneNumber). Omitted = newest. No match = 409.
+    /// Which reusable verification to use (GET reusable.options[].id). The unambiguous selection key. Omitted = the approved default. No match = 409.
+    #[serde(rename = "reuseOptionId", skip_serializing_if = "Option::is_none")]
+    pub reuse_option_id: Option<String>,
+    /// Legacy fallback for `reuseOptionId`: the source phone number (GET reusable.options[].fromPhoneNumber). Ambiguous when a number labels two verifications — prefer `reuseOptionId`. Omitted = the approved default. No match = 409.
     #[serde(rename = "reuseFrom", skip_serializing_if = "Option::is_none")]
     pub reuse_from: Option<String>,
     /// End user's legal first name. Required when the country has an action/ID-verification (Onfido) requirement.
@@ -53,6 +56,7 @@ impl SubmitPhoneNumberKycRequest {
             submission_id: None,
             quantity: None,
             reuse: None,
+            reuse_option_id: None,
             reuse_from: None,
             end_user_first_name: None,
             end_user_last_name: None,
