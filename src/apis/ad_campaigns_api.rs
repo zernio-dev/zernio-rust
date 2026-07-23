@@ -147,6 +147,7 @@ pub enum GetAdsTimelineError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdCampaignsError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status403(),
     UnknownValue(serde_json::Value),
