@@ -346,6 +346,7 @@ Class | Method | HTTP request | Description
 *PhoneNumbersApi* | [**release_phone_number**](docs/PhoneNumbersApi.md#release_phone_number) | **DELETE** /v1/phone-numbers/{id} | Release phone number
 *PhoneNumbersApi* | [**remediate_phone_number**](docs/PhoneNumbersApi.md#remediate_phone_number) | **POST** /v1/phone-numbers/{id}/remediate | Resubmit a declined number
 *PhoneNumbersApi* | [**reply_to_phone_number_reviewer**](docs/PhoneNumbersApi.md#reply_to_phone_number_reviewer) | **POST** /v1/phone-numbers/{id}/remediate/reply | Reply to the regulatory reviewer
+*PhoneNumbersApi* | [**respond_to_phone_number_reviewer**](docs/PhoneNumbersApi.md#respond_to_phone_number_reviewer) | **POST** /v1/phone-numbers/{id}/remediate/respond | Respond to the regulatory reviewer (message + corrections)
 *PhoneNumbersApi* | [**review_phone_number_kyc_packet**](docs/PhoneNumbersApi.md#review_phone_number_kyc_packet) | **POST** /v1/phone-numbers/kyc/review-packet | Pre-review a KYC packet
 *PhoneNumbersApi* | [**search_available_phone_numbers**](docs/PhoneNumbersApi.md#search_available_phone_numbers) | **GET** /v1/phone-numbers/available | Search available numbers
 *PhoneNumbersApi* | [**submit_phone_number_kyc**](docs/PhoneNumbersApi.md#submit_phone_number_kyc) | **POST** /v1/phone-numbers/kyc | Submit KYC
@@ -1571,6 +1572,9 @@ Class | Method | HTTP request | Description
  - [ResendSmsRegistrationOtp200Response](docs/ResendSmsRegistrationOtp200Response.md)
  - [ReserveRfPrediction201Response](docs/ReserveRfPrediction201Response.md)
  - [ReserveRfPredictionRequest](docs/ReserveRfPredictionRequest.md)
+ - [RespondToPhoneNumberReviewer200Response](docs/RespondToPhoneNumberReviewer200Response.md)
+ - [RespondToPhoneNumberReviewerRequest](docs/RespondToPhoneNumberReviewerRequest.md)
+ - [RespondToPhoneNumberReviewerRequestDocumentsInner](docs/RespondToPhoneNumberReviewerRequestDocumentsInner.md)
  - [RestoreWorkflowVersion200Response](docs/RestoreWorkflowVersion200Response.md)
  - [RestoreWorkflowVersion200ResponseWorkflow](docs/RestoreWorkflowVersion200ResponseWorkflow.md)
  - [RetweetPost200Response](docs/RetweetPost200Response.md)

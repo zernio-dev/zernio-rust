@@ -21,6 +21,7 @@ Method | HTTP request | Description
 [**release_phone_number**](PhoneNumbersApi.md#release_phone_number) | **DELETE** /v1/phone-numbers/{id} | Release phone number
 [**remediate_phone_number**](PhoneNumbersApi.md#remediate_phone_number) | **POST** /v1/phone-numbers/{id}/remediate | Resubmit a declined number
 [**reply_to_phone_number_reviewer**](PhoneNumbersApi.md#reply_to_phone_number_reviewer) | **POST** /v1/phone-numbers/{id}/remediate/reply | Reply to the regulatory reviewer
+[**respond_to_phone_number_reviewer**](PhoneNumbersApi.md#respond_to_phone_number_reviewer) | **POST** /v1/phone-numbers/{id}/remediate/respond | Respond to the regulatory reviewer (message + corrections)
 [**review_phone_number_kyc_packet**](PhoneNumbersApi.md#review_phone_number_kyc_packet) | **POST** /v1/phone-numbers/kyc/review-packet | Pre-review a KYC packet
 [**search_available_phone_numbers**](PhoneNumbersApi.md#search_available_phone_numbers) | **GET** /v1/phone-numbers/available | Search available numbers
 [**submit_phone_number_kyc**](PhoneNumbersApi.md#submit_phone_number_kyc) | **POST** /v1/phone-numbers/kyc | Submit KYC
@@ -528,6 +529,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ReplyToPhoneNumberReviewer200Response**](replyToPhoneNumberReviewer_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## respond_to_phone_number_reviewer
+
+> models::RespondToPhoneNumberReviewer200Response respond_to_phone_number_reviewer(id, respond_to_phone_number_reviewer_request)
+Respond to the regulatory reviewer (message + corrections)
+
+Send a single response to the reviewer on a number awaiting remediation: a free-text message and/or corrected requirement documents, in one call. If corrections are present they are PATCHed onto the requirement group and re-submitted (the number goes back to \"in review\"); if a message or file attachments are present they are posted to the reviewer's comment thread. When both are present, your message is the thread comment and the resubmit drives the state change. At least one of message, corrections, or attachments is required. `documents` correct requirement slots; `attachments` are loose files (their links are added to your message). 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+**respond_to_phone_number_reviewer_request** | [**RespondToPhoneNumberReviewerRequest**](RespondToPhoneNumberReviewerRequest.md) |  | [required] |
+
+### Return type
+
+[**models::RespondToPhoneNumberReviewer200Response**](respondToPhoneNumberReviewer_200_response.md)
 
 ### Authorization
 

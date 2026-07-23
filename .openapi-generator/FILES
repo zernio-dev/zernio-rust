@@ -1058,6 +1058,9 @@ docs/RequestSmsSenderIdLimitIncreaseRequest.md
 docs/ResendSmsRegistrationOtp200Response.md
 docs/ReserveRfPrediction201Response.md
 docs/ReserveRfPredictionRequest.md
+docs/RespondToPhoneNumberReviewer200Response.md
+docs/RespondToPhoneNumberReviewerRequest.md
+docs/RespondToPhoneNumberReviewerRequestDocumentsInner.md
 docs/RestoreWorkflowVersion200Response.md
 docs/RestoreWorkflowVersion200ResponseWorkflow.md
 docs/RetweetPost200Response.md
@@ -2638,6 +2641,9 @@ src/models/request_sms_sender_id_limit_increase_request.rs
 src/models/resend_sms_registration_otp_200_response.rs
 src/models/reserve_rf_prediction_201_response.rs
 src/models/reserve_rf_prediction_request.rs
+src/models/respond_to_phone_number_reviewer_200_response.rs
+src/models/respond_to_phone_number_reviewer_request.rs
+src/models/respond_to_phone_number_reviewer_request_documents_inner.rs
 src/models/restore_workflow_version_200_response.rs
 src/models/restore_workflow_version_200_response_workflow.rs
 src/models/retweet_post_200_response.rs
