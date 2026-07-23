@@ -146,6 +146,7 @@ pub enum GetWhatsAppDatasetError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetWhatsAppDisplayNameError {
+    Status400(),
     Status401(models::InlineObject),
     Status404(),
     UnknownValue(serde_json::Value),
