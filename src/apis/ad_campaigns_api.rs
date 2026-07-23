@@ -203,6 +203,7 @@ pub enum UpdateAdSetError {
     Status401(models::InlineObject),
     Status404(),
     Status409(),
+    Status422(),
     Status501(),
     UnknownValue(serde_json::Value),
 }
