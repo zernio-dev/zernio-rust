@@ -121,6 +121,7 @@ docs/CallsApi.md
 docs/CancelBroadcast200Response.md
 docs/CancelPhoneNumberPortIn200Response.md
 docs/CheckPhoneNumberAvailability200Response.md
+docs/CheckPhoneNumberAvailability200ResponseAreaOptionsInner.md
 docs/CheckPhoneNumberPortability200Response.md
 docs/CheckPhoneNumberPortability200ResponseResultsInner.md
 docs/CheckPhoneNumberPortabilityRequest.md
@@ -1735,6 +1736,7 @@ src/models/call_record_transcript_inner.rs
 src/models/cancel_broadcast_200_response.rs
 src/models/cancel_phone_number_port_in_200_response.rs
 src/models/check_phone_number_availability_200_response.rs
+src/models/check_phone_number_availability_200_response_area_options_inner.rs
 src/models/check_phone_number_portability_200_response.rs
 src/models/check_phone_number_portability_200_response_results_inner.rs
 src/models/check_phone_number_portability_request.rs

@@ -18,6 +18,9 @@ pub struct CreatePhoneNumberKycLinkRequest {
     /// ISO 3166-1 alpha-2 country code (must be a regulated/KYC country).
     #[serde(rename = "country")]
     pub country: String,
+    /// Area code (NDC) the eventual number must be in. Hard constraint carried by the link; the end customer filling the form makes no area choice. Options come from GET /v1/phone-numbers/availability (areaOptions).
+    #[serde(rename = "areaCode", skip_serializing_if = "Option::is_none")]
+    pub area_code: Option<String>,
     #[serde(rename = "branding", skip_serializing_if = "Option::is_none")]
     pub branding: Option<Box<models::CreatePhoneNumberKycLinkRequestBranding>>,
     /// Where to send the end customer's browser after a successful submit. On completion Zernio appends `kyc=submitted` and `country=<ISO-2>` as query params. When omitted, the hosted page shows a built-in confirmation screen instead.
@@ -30,6 +33,7 @@ impl CreatePhoneNumberKycLinkRequest {
         CreatePhoneNumberKycLinkRequest {
             profile_id,
             country,
+            area_code: None,
             branding: None,
             redirect_url: None,
         }

@@ -22,6 +22,9 @@ pub struct PurchasePhoneNumberRequest {
     /// Which of the country's offered number types to order (see `types[]` on GET /v1/phone-numbers/countries). Omitted = the country's default type, which is always the WhatsApp-safe choice. Capabilities, price, and KYC requirements are per (country, type): toll_free can never connect WhatsApp (400 when combined with connectWhatsapp:true), and wantsSms:true requires an SMS-capable type.
     #[serde(rename = "numberType", skip_serializing_if = "Option::is_none")]
     pub number_type: Option<NumberType>,
+    /// Area code (national destination code, e.g. 11 for Sao Paulo) the number must be in. Hard constraint: when the area has no deliverable inventory the purchase fails with 409 code AREA_CODE_UNAVAILABLE instead of assigning a number from another area, and later replacements stay in this area too. Omit for any area. Get live options from GET /v1/phone-numbers/availability (areaOptions).
+    #[serde(rename = "areaCode", skip_serializing_if = "Option::is_none")]
+    pub area_code: Option<String>,
     /// A phone number is the unit; WhatsApp is one optional feature. Pass false to buy a STANDALONE number (Calls/SMS only): provisioning skips the Meta pre-verify/OTP steps and the number activates immediately. Omitted defaults to the WhatsApp provisioning path. WhatsApp can be connected to a standalone number later from the connect flow.
     #[serde(rename = "connectWhatsapp", skip_serializing_if = "Option::is_none")]
     pub connect_whatsapp: Option<bool>,
@@ -45,6 +48,7 @@ impl PurchasePhoneNumberRequest {
             profile_id,
             country: None,
             number_type: None,
+            area_code: None,
             connect_whatsapp: None,
             wants_sms: None,
             wants_whatsapp: None,

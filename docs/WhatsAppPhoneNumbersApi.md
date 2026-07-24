@@ -24,7 +24,7 @@ Method | HTTP request | Description
 
 ## check_whats_app_number_availability
 
-> models::CheckPhoneNumberAvailability200Response check_whats_app_number_availability(country, number_type)
+> models::CheckPhoneNumberAvailability200Response check_whats_app_number_availability(country, number_type, sms)
 Check country availability
 
 Deprecated alias of `/v1/phone-numbers/availability`; same contract. New integrations should use that path.  Pre-purchase check, so you can warn BEFORE a customer invests in KYC (regulated review is async, 1-3 days). Tells you whether we have deliverable inventory, and what address the customer needs:   - `addressConstraint: geo`  → the registered address MUST be in one of     the returned `areas` (the only place we have stock). A different-area     address passes pre-approval but the number can never be assigned.   - `addressConstraint: country` → any in-country address works.   - `addressConstraint: none` → field-only / instant country, no address. Call this before starting the KYC form for regulated countries. 
@@ -36,6 +36,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **country** | **String** | ISO-2 country code. | [required] |
 **number_type** | Option<**String**> | Check a specific offered type (stock and address constraints are per type). Omitted = the country's default type. |  |
+**sms** | Option<**bool**> | Pass true when the buyer wants SMS: availability, areas, and areaOptions then describe the SMS-capable pool (an SMS purchase orders from it), not the wider voice-only pool. |  |
 
 ### Return type
 

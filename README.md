@@ -666,6 +666,7 @@ Class | Method | HTTP request | Description
  - [CancelBroadcast200Response](docs/CancelBroadcast200Response.md)
  - [CancelPhoneNumberPortIn200Response](docs/CancelPhoneNumberPortIn200Response.md)
  - [CheckPhoneNumberAvailability200Response](docs/CheckPhoneNumberAvailability200Response.md)
+ - [CheckPhoneNumberAvailability200ResponseAreaOptionsInner](docs/CheckPhoneNumberAvailability200ResponseAreaOptionsInner.md)
  - [CheckPhoneNumberPortability200Response](docs/CheckPhoneNumberPortability200Response.md)
  - [CheckPhoneNumberPortability200ResponseResultsInner](docs/CheckPhoneNumberPortability200ResponseResultsInner.md)
  - [CheckPhoneNumberPortabilityRequest](docs/CheckPhoneNumberPortabilityRequest.md)

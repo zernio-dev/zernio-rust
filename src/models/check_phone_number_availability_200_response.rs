@@ -25,6 +25,9 @@ pub struct CheckPhoneNumberAvailability200Response {
     /// For `geo` only — the area(s) the registered address must be in.
     #[serde(rename = "areas", skip_serializing_if = "Option::is_none")]
     pub areas: Option<Vec<String>>,
+    /// Live inventory grouped by area code, largest stock first. Empty when out of stock (or the area lookup failed). Pass a chosen `ndc` as `areaCode` on POST /v1/phone-numbers/purchase (or on the KYC submit for regulated countries) to require that area.
+    #[serde(rename = "areaOptions", skip_serializing_if = "Option::is_none")]
+    pub area_options: Option<Vec<models::CheckPhoneNumberAvailability200ResponseAreaOptionsInner>>,
 }
 
 impl CheckPhoneNumberAvailability200Response {
@@ -35,6 +38,7 @@ impl CheckPhoneNumberAvailability200Response {
             available: None,
             address_constraint: None,
             areas: None,
+            area_options: None,
         }
     }
 }

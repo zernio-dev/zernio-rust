@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **available** | Option<**bool**> | Whether deliverable voice inventory exists right now. | [optional]
 **address_constraint** | Option<**AddressConstraint**> |  (enum: geo, country, none) | [optional]
 **areas** | Option<**Vec<String>**> | For `geo` only — the area(s) the registered address must be in. | [optional]
+**area_options** | Option<[**Vec<models::CheckPhoneNumberAvailability200ResponseAreaOptionsInner>**](CheckPhoneNumberAvailability200ResponseAreaOptionsInner.md)> | Live inventory grouped by area code, largest stock first. Empty when out of stock (or the area lookup failed). Pass a chosen `ndc` as `areaCode` on POST /v1/phone-numbers/purchase (or on the KYC submit for regulated countries) to require that area.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

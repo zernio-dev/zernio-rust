@@ -32,6 +32,9 @@ pub struct SubmitPhoneNumberKycRequest {
     /// Legacy fallback for `reuseOptionId`: the source phone number (GET reusable.options[].fromPhoneNumber). Ambiguous when a number labels two verifications — prefer `reuseOptionId`. Omitted = the approved default. No match = 409.
     #[serde(rename = "reuseFrom", skip_serializing_if = "Option::is_none")]
     pub reuse_from: Option<String>,
+    /// Area code (NDC) the number must be in. Hard constraint: an empty area pool fails with 409 code AREA_CODE_UNAVAILABLE instead of ordering from another area. Omit for any area. Options come from GET /v1/phone-numbers/availability (areaOptions); the purchase 202 kycUrl echoes the areaCode picked at purchase time so it can be passed here.
+    #[serde(rename = "areaCode", skip_serializing_if = "Option::is_none")]
+    pub area_code: Option<String>,
     /// End user's legal first name. Required when the country has an action/ID-verification (Onfido) requirement.
     #[serde(rename = "endUserFirstName", skip_serializing_if = "Option::is_none")]
     pub end_user_first_name: Option<String>,
@@ -58,6 +61,7 @@ impl SubmitPhoneNumberKycRequest {
             reuse: None,
             reuse_option_id: None,
             reuse_from: None,
+            area_code: None,
             end_user_first_name: None,
             end_user_last_name: None,
             values: None,
