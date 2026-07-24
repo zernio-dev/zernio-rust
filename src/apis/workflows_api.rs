@@ -45,6 +45,7 @@ pub enum DeleteWorkflowError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DuplicateWorkflowError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
@@ -63,6 +64,7 @@ pub enum GetWorkflowError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetWorkflowVersionError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
@@ -72,6 +74,7 @@ pub enum GetWorkflowVersionError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListWorkflowExecutionEventsError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
@@ -91,6 +94,7 @@ pub enum ListWorkflowExecutionsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListWorkflowVersionsError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
@@ -108,6 +112,7 @@ pub enum ListWorkflowsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum PauseWorkflowError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
