@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **platform** | Option<**Platform**> |  (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter, openai) | [optional]
 **campaign_name** | Option<**String**> |  | [optional]
 **status** | Option<[**models::AdStatus**](AdStatus.md)> | Delivery status derived from child ad statuses. Distinct from `reviewStatus`, which reflects the platform-side review state. | [optional]
-**review_status** | Option<**ReviewStatus**> | Platform-side review state of the campaign. Independent of the children-derived delivery `status`: a campaign can have ads already active (status=active) while the campaign itself is still being reviewed by the platform (reviewStatus=in_review). For Meta, derived from `effective_status` + `issues_info` on the Campaign, plus ad-level PENDING_REVIEW rollup.  (enum: in_review, approved, rejected, with_issues) | [optional]
+**review_status** | Option<[**models::AdReviewStatus**](AdReviewStatus.md)> |  | [optional]
 **platform_campaign_status** | Option<**String**> | Raw platform-level campaign status (Meta `effective_status`: ACTIVE, PAUSED, DELETED, ARCHIVED, IN_PROCESS, WITH_ISSUES). Distinct from per-ad `platformStatus`. | [optional]
 **campaign_issues_info** | Option<**Vec<serde_json::Value>**> | Platform-reported campaign issues (Meta `issues_info[]`). Populated only when the platform has delivery issues to report; contains the specific error codes and messages. | [optional]
 **ad_count** | Option<**i32**> | Total ads across all ad sets | [optional]

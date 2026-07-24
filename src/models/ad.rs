@@ -19,8 +19,20 @@ pub struct Ad {
     pub name: Option<String>,
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<Platform>,
+    /// Delivery status. Derived from the platform `effective_status`, so it inherits ancestor pauses (an ACTIVE ad under a PAUSED campaign reads `paused`). For the ad's own on/off toggle use `configuredStatus`; for the review state use `reviewStatus`.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<models::AdStatus>,
+    /// The ad's own on/off toggle as configured on the platform (Meta `configured_status`: ACTIVE / PAUSED), unaffected by ancestor (ad set / campaign) pauses. Distinct from `status`, which is the ancestor-cascaded delivery status. Only present for Meta ads synced after this field was added.
+    #[serde(
+        rename = "configuredStatus",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub configured_status: Option<Option<String>>,
+    /// Platform review state of this ad, independent of delivery `status` / `configuredStatus`. Absent when the platform reports no review signal.
+    #[serde(rename = "reviewStatus", skip_serializing_if = "Option::is_none")]
+    pub review_status: Option<models::AdReviewStatus>,
     #[serde(rename = "adType", skip_serializing_if = "Option::is_none")]
     pub ad_type: Option<AdType>,
     /// Available goals vary by platform. Meta (Facebook/Instagram) supports all 9 (incl. `lead_conversion` = website pixel lead optimization and `catalog_sales` = Advantage+ catalog ads). TikTok supports the 7 non-`lead_conversion` goals. LinkedIn supports all except app_promotion / lead_conversion. Twitter/X supports engagement, traffic, awareness, video_views, app_promotion. Pinterest and Google Ads support only engagement, traffic, awareness, video_views.
@@ -132,6 +144,8 @@ impl Ad {
             name: None,
             platform: None,
             status: None,
+            configured_status: None,
+            review_status: None,
             ad_type: None,
             goal: None,
             is_external: None,

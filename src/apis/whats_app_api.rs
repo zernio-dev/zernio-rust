@@ -98,6 +98,7 @@ pub enum DeleteWhatsAppTemplateError {
     Status400(),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
@@ -185,6 +186,7 @@ pub enum GetWhatsAppTemplateError {
     Status400(),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
@@ -328,6 +330,7 @@ pub enum UpdateWhatsAppTemplateError {
     Status400(),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 

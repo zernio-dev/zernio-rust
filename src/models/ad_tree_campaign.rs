@@ -23,14 +23,13 @@ pub struct AdTreeCampaign {
     /// Delivery status derived from child ad statuses. Distinct from `reviewStatus`, which reflects the platform-side review state.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<models::AdStatus>,
-    /// Platform-side review state of the campaign. Independent of the children-derived delivery `status`: a campaign can have ads already active (status=active) while the campaign itself is still being reviewed by the platform (reviewStatus=in_review). For Meta, derived from `effective_status` + `issues_info` on the Campaign, plus ad-level PENDING_REVIEW rollup.
     #[serde(
         rename = "reviewStatus",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub review_status: Option<Option<ReviewStatus>>,
+    pub review_status: Option<Option<models::AdReviewStatus>>,
     /// Raw platform-level campaign status (Meta `effective_status`: ACTIVE, PAUSED, DELETED, ARCHIVED, IN_PROCESS, WITH_ISSUES). Distinct from per-ad `platformStatus`.
     #[serde(
         rename = "platformCampaignStatus",
@@ -212,24 +211,6 @@ pub enum Platform {
 impl Default for Platform {
     fn default() -> Platform {
         Self::Facebook
-    }
-}
-/// Platform-side review state of the campaign. Independent of the children-derived delivery `status`: a campaign can have ads already active (status=active) while the campaign itself is still being reviewed by the platform (reviewStatus=in_review). For Meta, derived from `effective_status` + `issues_info` on the Campaign, plus ad-level PENDING_REVIEW rollup.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum ReviewStatus {
-    #[serde(rename = "in_review")]
-    InReview,
-    #[serde(rename = "approved")]
-    Approved,
-    #[serde(rename = "rejected")]
-    Rejected,
-    #[serde(rename = "with_issues")]
-    WithIssues,
-}
-
-impl Default for ReviewStatus {
-    fn default() -> ReviewStatus {
-        Self::InReview
     }
 }
 /// Canonical CBO/ABO indicator. `campaign` = CBO (Advantage Campaign Budget, budget lives on the campaign). `adset` = ABO (budget lives on each ad set). Route budget updates to the matching Meta entity.

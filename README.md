@@ -575,6 +575,7 @@ Class | Method | HTTP request | Description
  - [AdDailyMetrics](docs/AdDailyMetrics.md)
  - [AdMetrics](docs/AdMetrics.md)
  - [AdPromotedObject](docs/AdPromotedObject.md)
+ - [AdReviewStatus](docs/AdReviewStatus.md)
  - [AdSchedule](docs/AdSchedule.md)
  - [AdStatus](docs/AdStatus.md)
  - [AdTreeAdSet](docs/AdTreeAdSet.md)

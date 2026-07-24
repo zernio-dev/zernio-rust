@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **platform** | Option<**Platform**> |  (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter, openai) | [optional]
 **campaign_name** | Option<**String**> |  | [optional]
 **status** | Option<[**models::AdStatus**](AdStatus.md)> | Delivery status derived from child ad statuses. Distinct from `reviewStatus`. | [optional]
-**review_status** | Option<**ReviewStatus**> | Platform-side review state of the campaign. See AdTreeCampaign.reviewStatus for the full description. (enum: in_review, approved, rejected, with_issues) | [optional]
+**review_status** | Option<[**models::AdReviewStatus**](AdReviewStatus.md)> |  | [optional]
 **platform_campaign_status** | Option<**String**> | Raw platform-level campaign status (Meta `effective_status`). | [optional]
 **campaign_issues_info** | Option<**Vec<serde_json::Value>**> | Platform-reported campaign issues (Meta `issues_info[]`). | [optional]
 **ad_count** | Option<**i32**> |  | [optional]

@@ -22,14 +22,13 @@ pub struct AdCampaign {
     /// Delivery status derived from child ad statuses. Distinct from `reviewStatus`.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<models::AdStatus>,
-    /// Platform-side review state of the campaign. See AdTreeCampaign.reviewStatus for the full description.
     #[serde(
         rename = "reviewStatus",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub review_status: Option<Option<ReviewStatus>>,
+    pub review_status: Option<Option<models::AdReviewStatus>>,
     /// Raw platform-level campaign status (Meta `effective_status`).
     #[serde(
         rename = "platformCampaignStatus",
@@ -205,24 +204,6 @@ pub enum Platform {
 impl Default for Platform {
     fn default() -> Platform {
         Self::Facebook
-    }
-}
-/// Platform-side review state of the campaign. See AdTreeCampaign.reviewStatus for the full description.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum ReviewStatus {
-    #[serde(rename = "in_review")]
-    InReview,
-    #[serde(rename = "approved")]
-    Approved,
-    #[serde(rename = "rejected")]
-    Rejected,
-    #[serde(rename = "with_issues")]
-    WithIssues,
-}
-
-impl Default for ReviewStatus {
-    fn default() -> ReviewStatus {
-        Self::InReview
     }
 }
 /// Canonical CBO/ABO indicator. See AdTreeCampaign.budgetLevel.

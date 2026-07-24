@@ -25,6 +25,7 @@ docs/AdDailyMetrics.md
 docs/AdInsightsApi.md
 docs/AdMetrics.md
 docs/AdPromotedObject.md
+docs/AdReviewStatus.md
 docs/AdSchedule.md
 docs/AdStatus.md
 docs/AdTargetingApi.md
@@ -1643,6 +1644,7 @@ src/models/ad_creative.rs
 src/models/ad_daily_metrics.rs
 src/models/ad_metrics.rs
 src/models/ad_promoted_object.rs
+src/models/ad_review_status.rs
 src/models/ad_schedule.rs
 src/models/ad_status.rs
 src/models/ad_tree_ad_set.rs

@@ -28,6 +28,8 @@ pub mod ad_metrics;
 pub use self::ad_metrics::AdMetrics;
 pub mod ad_promoted_object;
 pub use self::ad_promoted_object::AdPromotedObject;
+pub mod ad_review_status;
+pub use self::ad_review_status::AdReviewStatus;
 pub mod ad_schedule;
 pub use self::ad_schedule::AdSchedule;
 pub mod ad_status;
