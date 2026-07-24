@@ -37,6 +37,9 @@ pub struct WebhookPayloadMessageSentMessage {
     pub sent_at: String,
     #[serde(rename = "isRead")]
     pub is_read: bool,
+    /// WhatsApp send origin. whatsapp_business_app when sent from the WhatsApp Business phone app on a Coexistence number; cloud_api when sent through Zernio (dashboard, API, or broadcasts). Absent on non-WhatsApp platforms. This is not the inbox metadata.source lineage field.
+    #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
+    pub source: Option<Source>,
 }
 
 impl WebhookPayloadMessageSentMessage {
@@ -63,6 +66,7 @@ impl WebhookPayloadMessageSentMessage {
             sender: Box::new(sender),
             sent_at,
             is_read,
+            source: None,
         }
     }
 }
@@ -96,5 +100,19 @@ pub enum Direction {
 impl Default for Direction {
     fn default() -> Direction {
         Self::Incoming
+    }
+}
+/// WhatsApp send origin. whatsapp_business_app when sent from the WhatsApp Business phone app on a Coexistence number; cloud_api when sent through Zernio (dashboard, API, or broadcasts). Absent on non-WhatsApp platforms. This is not the inbox metadata.source lineage field.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Source {
+    #[serde(rename = "whatsapp_business_app")]
+    WhatsappBusinessApp,
+    #[serde(rename = "cloud_api")]
+    CloudApi,
+}
+
+impl Default for Source {
+    fn default() -> Source {
+        Self::WhatsappBusinessApp
     }
 }

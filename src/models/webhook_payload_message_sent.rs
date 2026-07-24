@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookPayloadMessageSent : Webhook payload for message sent events (fired when a message is sent via the API)
+/// WebhookPayloadMessageSent : Webhook payload for message sent events (fired when a message is sent via the API, or from the WhatsApp Business app on Coexistence numbers)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadMessageSent {
     /// Stable webhook event ID
@@ -30,7 +30,7 @@ pub struct WebhookPayloadMessageSent {
 }
 
 impl WebhookPayloadMessageSent {
-    /// Webhook payload for message sent events (fired when a message is sent via the API)
+    /// Webhook payload for message sent events (fired when a message is sent via the API, or from the WhatsApp Business app on Coexistence numbers)
     pub fn new(
         id: String,
         event: Event,
