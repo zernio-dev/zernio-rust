@@ -75,6 +75,7 @@ pub enum GetWhatsAppPhoneNumberError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetWhatsAppPhoneNumbersError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }

@@ -138,6 +138,7 @@ pub enum GetAdTreeError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetAdsTimelineError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status403(),
     UnknownValue(serde_json::Value),
