@@ -18,6 +18,7 @@ Method | HTTP request | Description
 [**get_ad_tree**](AdCampaignsApi.md#get_ad_tree) | **GET** /v1/ads/tree | Get campaign tree
 [**get_ads_timeline**](AdCampaignsApi.md#get_ads_timeline) | **GET** /v1/ads/timeline | Get daily account metrics
 [**list_ad_campaigns**](AdCampaignsApi.md#list_ad_campaigns) | **GET** /v1/ads/campaigns | List campaigns
+[**list_ad_keywords**](AdCampaignsApi.md#list_ad_keywords) | **GET** /v1/ads/keywords | List Search keywords
 [**list_ads**](AdCampaignsApi.md#list_ads) | **GET** /v1/ads | List ads
 [**update_ad**](AdCampaignsApi.md#update_ad) | **PUT** /v1/ads/{adId} | Update ad
 [**update_ad_campaign**](AdCampaignsApi.md#update_ad_campaign) | **PUT** /v1/ads/campaigns/{campaignId} | Update a campaign
@@ -468,6 +469,46 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListAdCampaigns200Response**](listAdCampaigns_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_ad_keywords
+
+> models::ListAdKeywords200Response list_ad_keywords(page, limit, account_id, ad_account_id, profile_id, campaign_id, ad_set_id, status, match_type, negative, search)
+List Search keywords
+
+Returns the Google Search keyword criteria (positive and negative) synced from connected Google Ads accounts, one row per ad-group keyword. Populated by the periodic ads discovery sweep (roughly every 3 hours per account), so keywords added on Google appear with that delay. Campaign-level negative keywords are not included; only ad-group-level criteria are. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**page** | Option<**i32**> | Page number (1-based) |  |[default to 1]
+**limit** | Option<**i32**> |  |  |[default to 50]
+**account_id** | Option<**String**> | Social account ID |  |
+**ad_account_id** | Option<**String**> | Platform ad account ID (Google customer ID). Mirrors the same filter on /v1/ads. |  |
+**profile_id** | Option<**String**> | Profile ID |  |
+**campaign_id** | Option<**String**> | Platform campaign ID |  |
+**ad_set_id** | Option<**String**> | Platform ad group ID (Google ad group) |  |
+**status** | Option<**String**> | Keyword criterion status |  |
+**match_type** | Option<**String**> |  |  |
+**negative** | Option<**bool**> | true = negative keywords only, false = positive only. Omit for both. |  |
+**search** | Option<**String**> | Case-insensitive substring match on the keyword text |  |
+
+### Return type
+
+[**models::ListAdKeywords200Response**](listAdKeywords_200_response.md)
 
 ### Authorization
 
