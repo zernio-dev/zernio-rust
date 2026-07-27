@@ -12,67 +12,60 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct CreateLeadFormRequest {
-    #[serde(rename = "accountId")]
-    pub account_id: String,
-    #[serde(rename = "name")]
-    pub name: String,
-    /// Deprecated (Meta legacy shape): use platformSpecificData.questions.
-    #[serde(rename = "questions", skip_serializing_if = "Option::is_none")]
-    pub questions: Option<Vec<models::CreateLeadFormRequestQuestionsInner>>,
-    #[serde(rename = "privacyPolicyUrl")]
-    pub privacy_policy_url: String,
-    /// Deprecated: use platformSpecificData.privacyPolicyLinkText.
+pub struct MetaLeadFormPlatformData {
+    #[serde(rename = "questions")]
+    pub questions: Vec<models::CreateLeadFormRequestQuestionsInner>,
     #[serde(
         rename = "privacyPolicyLinkText",
         skip_serializing_if = "Option::is_none"
     )]
     pub privacy_policy_link_text: Option<String>,
-    /// Deprecated: use platformSpecificData.followUpActionUrl.
     #[serde(rename = "followUpActionUrl", skip_serializing_if = "Option::is_none")]
     pub follow_up_action_url: Option<String>,
-    /// Deprecated: use platformSpecificData.locale.
     #[serde(rename = "locale", skip_serializing_if = "Option::is_none")]
     pub locale: Option<String>,
-    /// Deprecated: use platformSpecificData.thankYouTitle.
     #[serde(rename = "thankYouTitle", skip_serializing_if = "Option::is_none")]
     pub thank_you_title: Option<String>,
-    /// Deprecated: use platformSpecificData.thankYouBody.
     #[serde(rename = "thankYouBody", skip_serializing_if = "Option::is_none")]
     pub thank_you_body: Option<String>,
-    /// Deprecated: use platformSpecificData.thankYouButtonText.
     #[serde(rename = "thankYouButtonText", skip_serializing_if = "Option::is_none")]
     pub thank_you_button_text: Option<String>,
-    /// Deprecated: use platformSpecificData.thankYouButtonType.
     #[serde(rename = "thankYouButtonType", skip_serializing_if = "Option::is_none")]
     pub thank_you_button_type: Option<String>,
-    /// Deprecated: use platformSpecificData.thankYouWebsiteUrl.
     #[serde(rename = "thankYouWebsiteUrl", skip_serializing_if = "Option::is_none")]
     pub thank_you_website_url: Option<String>,
-    /// Deprecated: use platformSpecificData.isOptimizedForQuality.
     #[serde(
         rename = "isOptimizedForQuality",
         skip_serializing_if = "Option::is_none"
     )]
     pub is_optimized_for_quality: Option<bool>,
+    #[serde(rename = "formType", skip_serializing_if = "Option::is_none")]
+    pub form_type: Option<FormType>,
     #[serde(
-        rename = "platformSpecificData",
+        rename = "blockDisplayForNonTargetedViewer",
         skip_serializing_if = "Option::is_none"
     )]
-    pub platform_specific_data: Option<Box<models::CreateLeadFormRequestPlatformSpecificData>>,
+    pub block_display_for_non_targeted_viewer: Option<bool>,
+    #[serde(
+        rename = "allowOrganicLeadGen",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub allow_organic_lead_gen: Option<bool>,
+    #[serde(
+        rename = "questionPageCustomHeadline",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub question_page_custom_headline: Option<String>,
+    #[serde(rename = "contextCard", skip_serializing_if = "Option::is_none")]
+    pub context_card: Option<Box<models::MetaLeadFormPlatformDataContextCard>>,
 }
 
-impl CreateLeadFormRequest {
+impl MetaLeadFormPlatformData {
     pub fn new(
-        account_id: String,
-        name: String,
-        privacy_policy_url: String,
-    ) -> CreateLeadFormRequest {
-        CreateLeadFormRequest {
-            account_id,
-            name,
-            questions: None,
-            privacy_policy_url,
+        questions: Vec<models::CreateLeadFormRequestQuestionsInner>,
+    ) -> MetaLeadFormPlatformData {
+        MetaLeadFormPlatformData {
+            questions,
             privacy_policy_link_text: None,
             follow_up_action_url: None,
             locale: None,
@@ -82,7 +75,27 @@ impl CreateLeadFormRequest {
             thank_you_button_type: None,
             thank_you_website_url: None,
             is_optimized_for_quality: None,
-            platform_specific_data: None,
+            form_type: None,
+            block_display_for_non_targeted_viewer: None,
+            allow_organic_lead_gen: None,
+            question_page_custom_headline: None,
+            context_card: None,
         }
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum FormType {
+    #[serde(rename = "MORE_VOLUME")]
+    MoreVolume,
+    #[serde(rename = "HIGHER_INTENT")]
+    HigherIntent,
+    #[serde(rename = "RICH_CREATIVE")]
+    RichCreative,
+}
+
+impl Default for FormType {
+    fn default() -> FormType {
+        Self::MoreVolume
     }
 }

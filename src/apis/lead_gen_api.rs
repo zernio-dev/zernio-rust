@@ -72,7 +72,7 @@ pub enum ListLeadsError {
     UnknownValue(serde_json::Value),
 }
 
-/// Meta has no hard delete for forms; this archives the form (status=ARCHIVED).
+/// Neither platform hard-deletes a form; this archives it (Meta status=ARCHIVED; LinkedIn state=ARCHIVED via PARTIAL_UPDATE).
 pub async fn archive_lead_form(
     configuration: &configuration::Configuration,
     form_id: &str,
@@ -128,7 +128,7 @@ pub async fn archive_lead_form(
     }
 }
 
-/// Creates a Lead Gen form on the connected Facebook Page (POST /{page-id}/leadgen_forms). NOT idempotent — a retry creates a second form. Prefilled question types (EMAIL, PHONE, FULL_NAME, …) must omit label/key; CUSTOM questions require both. Requires the Ads add-on.
+/// Creates a Lead Gen form. The form content goes inside `platformSpecificData` for both platforms (the shape is selected by the accountId's platform). Meta: created on the connected Facebook Page (POST /{page-id}/leadgen_forms); the old top-level Meta fields (questions, thankYou*, contextCard, …) are DEPRECATED but still accepted while platformSpecificData is absent — mixing both shapes is a 400. LinkedIn: created on the ad account's Company Page. NOT idempotent — a retry creates a second form. Meta prefilled question types (EMAIL, PHONE, FULL_NAME, …) must omit label/key; CUSTOM questions require both. LinkedIn exposes only free-text and multiple-choice questions via API (prefilled-from-profile fields are Campaign Manager UI-only). Requires the Ads add-on.
 pub async fn create_lead_form(
     configuration: &configuration::Configuration,
     create_lead_form_request: models::CreateLeadFormRequest,
@@ -356,15 +356,17 @@ pub async fn list_form_leads(
     }
 }
 
-/// Lists the Lead Gen forms owned by the connected Facebook Page. Requires the Ads add-on.
+/// Lists the Lead Gen forms owned by the account. Meta: forms on the connected Facebook Page. LinkedIn: forms owned by the ad account's Company Page — pass `adAccountId` (LinkedIn forms are org-owned). Requires the Ads add-on.
 pub async fn list_lead_forms(
     configuration: &configuration::Configuration,
     account_id: &str,
+    ad_account_id: Option<&str>,
     limit: Option<i32>,
     cursor: Option<&str>,
 ) -> Result<models::ListLeadForms200Response, Error<ListLeadFormsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_account_id = account_id;
+    let p_query_ad_account_id = ad_account_id;
     let p_query_limit = limit;
     let p_query_cursor = cursor;
 
@@ -372,6 +374,9 @@ pub async fn list_lead_forms(
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_ad_account_id {
+        req_builder = req_builder.query(&[("adAccountId", &param_value.to_string())]);
+    }
     if let Some(ref param_value) = p_query_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }
@@ -414,11 +419,12 @@ pub async fn list_lead_forms(
     }
 }
 
-/// Returns persisted Meta Lead Gen leads for your team, newest-first, with keyset pagination on `cursor`. Leads are ingested in real time from the `leadgen` webhook. Requires the Ads add-on.
+/// Returns submitted Lead Gen leads for your team, newest-first, with keyset pagination on `cursor`. For Meta (default) leads are served from the persisted cache, ingested in real time from the `leadgen` webhook. When `accountId` is a LinkedIn ads account, leads are fetched live from LinkedIn's `leadFormResponses` (LinkedIn has no webhook and enforces 90-day retention, so nothing is persisted) and `adAccountId` is required. Reading LinkedIn responses needs the `r_marketing_leadgen_automation` permission; accounts connected before it was added must reconnect. Requires the Ads add-on.
 pub async fn list_leads(
     configuration: &configuration::Configuration,
     form_id: Option<&str>,
     account_id: Option<&str>,
+    ad_account_id: Option<&str>,
     limit: Option<i32>,
     since: Option<i32>,
     cursor: Option<&str>,
@@ -426,6 +432,7 @@ pub async fn list_leads(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_form_id = form_id;
     let p_query_account_id = account_id;
+    let p_query_ad_account_id = ad_account_id;
     let p_query_limit = limit;
     let p_query_since = since;
     let p_query_cursor = cursor;
@@ -438,6 +445,9 @@ pub async fn list_leads(
     }
     if let Some(ref param_value) = p_query_account_id {
         req_builder = req_builder.query(&[("accountId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_ad_account_id {
+        req_builder = req_builder.query(&[("adAccountId", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);

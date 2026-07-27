@@ -220,6 +220,7 @@ docs/CreateInviteToken201Response.md
 docs/CreateInviteTokenRequest.md
 docs/CreateLeadForm200Response.md
 docs/CreateLeadFormRequest.md
+docs/CreateLeadFormRequestPlatformSpecificData.md
 docs/CreateLeadFormRequestQuestionsInner.md
 docs/CreateMessagingAdRequest.md
 docs/CreatePhoneNumberKycLink200Response.md
@@ -796,6 +797,13 @@ docs/LinkedInAggregateAnalyticsDailyResponseAnalytics.md
 docs/LinkedInAggregateAnalyticsDailyResponseAnalyticsImpressionsInner.md
 docs/LinkedInAggregateAnalyticsTotalResponse.md
 docs/LinkedInAggregateAnalyticsTotalResponseAnalytics.md
+docs/LinkedInLeadFormPlatformData.md
+docs/LinkedInLeadFormPlatformDataConsentsInner.md
+docs/LinkedInLeadFormPlatformDataLocale.md
+docs/LinkedInLeadFormPlatformDataQuestionsInner.md
+docs/LinkedInLeadFormPlatformDataQuestionsInnerOneOf.md
+docs/LinkedInLeadFormPlatformDataQuestionsInnerOneOf1.md
+docs/LinkedInLeadFormPlatformDataQuestionsInnerOneOf1ChoicesInner.md
 docs/LinkedInMentionsApi.md
 docs/LinkedInPlatformData.md
 docs/ListAccountGroups200Response.md
@@ -961,6 +969,8 @@ docs/MediaUploadResponse.md
 docs/MentionsApi.md
 docs/MessagesApi.md
 docs/MessagingAdsApi.md
+docs/MetaLeadFormPlatformData.md
+docs/MetaLeadFormPlatformDataContextCard.md
 docs/Money.md
 docs/MoneyAmount.md
 docs/MoveAccountToProfile200Response.md
@@ -1832,6 +1842,7 @@ src/models/create_invite_token_201_response.rs
 src/models/create_invite_token_request.rs
 src/models/create_lead_form_200_response.rs
 src/models/create_lead_form_request.rs
+src/models/create_lead_form_request_platform_specific_data.rs
 src/models/create_lead_form_request_questions_inner.rs
 src/models/create_messaging_ad_request.rs
 src/models/create_phone_number_kyc_link_200_response.rs
@@ -2394,6 +2405,13 @@ src/models/linked_in_aggregate_analytics_daily_response_analytics.rs
 src/models/linked_in_aggregate_analytics_daily_response_analytics_impressions_inner.rs
 src/models/linked_in_aggregate_analytics_total_response.rs
 src/models/linked_in_aggregate_analytics_total_response_analytics.rs
+src/models/linked_in_lead_form_platform_data.rs
+src/models/linked_in_lead_form_platform_data_consents_inner.rs
+src/models/linked_in_lead_form_platform_data_locale.rs
+src/models/linked_in_lead_form_platform_data_questions_inner.rs
+src/models/linked_in_lead_form_platform_data_questions_inner_one_of.rs
+src/models/linked_in_lead_form_platform_data_questions_inner_one_of_1.rs
+src/models/linked_in_lead_form_platform_data_questions_inner_one_of_1_choices_inner.rs
 src/models/linked_in_platform_data.rs
 src/models/list_account_groups_200_response.rs
 src/models/list_account_groups_200_response_groups_inner.rs
@@ -2553,6 +2571,8 @@ src/models/lookup_sms_number_200_response.rs
 src/models/mark_conversation_read_200_response.rs
 src/models/media_item.rs
 src/models/media_upload_response.rs
+src/models/meta_lead_form_platform_data.rs
+src/models/meta_lead_form_platform_data_context_card.rs
 src/models/mod.rs
 src/models/money.rs
 src/models/money_amount.rs
