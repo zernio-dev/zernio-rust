@@ -71,6 +71,7 @@ pub enum GetDsaRecommendationsError {
 pub enum ListAdAccountsError {
     Status401(models::InlineObject),
     Status422(),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -429,7 +430,7 @@ pub async fn get_dsa_recommendations(
     }
 }
 
-/// Returns the platform ad accounts available for the given social account (e.g. Meta ad accounts, TikTok advertiser IDs, Google Ads customer IDs).  For TikTok agencies: enumerates every advertiser under every Business Center the token can read (paginated server-side), then chunks the lookup against TikTok's `/advertiser/info/` endpoint (which has a per-call cap of ≤100 IDs). Solo advertisers without a BC fall back to the OAuth-time `advertiser_ids` list. Cached for 1h on the SocialAccount; lazy-refreshed on first call after expiry.
+/// Returns the platform ad accounts available for the given social account (e.g. Meta ad accounts, TikTok advertiser IDs, Google Ads customer IDs).  For TikTok agencies: enumerates every advertiser under every Business Center the token can read (paginated server-side), then chunks the lookup against TikTok's `/advertiser/info/` endpoint (which has a per-call cap of ≤100 IDs). Solo advertisers without a BC fall back to the OAuth-time `advertiser_ids` list. Cached for 1h on the SocialAccount; lazy-refreshed on first call after expiry.  For Google Ads: responds `429` when Google's API quota is temporarily exhausted (instead of an empty list). Retry after a delay.
 pub async fn list_ad_accounts(
     configuration: &configuration::Configuration,
     account_id: &str,
