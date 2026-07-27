@@ -41,6 +41,7 @@ pub enum CreateSmsSenderIdError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeactivateSmsRegistrationError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -79,6 +80,7 @@ pub enum EnableSmsOnNumberError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetSmsRegistrationError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -96,6 +98,7 @@ pub enum ListSmsOptOutsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListSmsRegistrationsError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }
@@ -165,6 +168,7 @@ pub enum SendSmsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ShareSmsRegistrationError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -174,6 +178,7 @@ pub enum ShareSmsRegistrationError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum StartSmsRegistrationError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status422(),
     UnknownValue(serde_json::Value),
@@ -202,6 +207,7 @@ pub enum UploadSmsOptInProofFileError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum VerifySmsRegistrationOtpError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status404(),
     UnknownValue(serde_json::Value),
