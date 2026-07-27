@@ -64,6 +64,7 @@ pub enum GetTikTokCreatorInfoError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAccountsError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }
@@ -379,7 +380,7 @@ pub async fn get_tik_tok_creator_info(
     }
 }
 
-/// Returns connected social accounts. Only includes accounts within the plan limit by default. Follower data requires analytics add-on. Supports optional server-side pagination via page/limit params. When omitted, returns all accounts (backward-compatible).
+/// Returns connected social accounts. Only includes accounts within the plan limit by default. Follower data requires analytics add-on. Supports optional server-side pagination via page/limit params. When omitted, returns all accounts (backward-compatible). page and limit must be supplied together; out-of-range page/limit values are rejected with 400 rather than silently clamped.
 pub async fn list_accounts(
     configuration: &configuration::Configuration,
     profile_id: Option<&str>,

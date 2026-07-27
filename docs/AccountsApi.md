@@ -177,19 +177,19 @@ Name | Type | Description  | Required | Notes
 > models::AccountsListResponse list_accounts(profile_id, platform, status, include_over_limit, page, limit)
 List accounts
 
-Returns connected social accounts. Only includes accounts within the plan limit by default. Follower data requires analytics add-on. Supports optional server-side pagination via page/limit params. When omitted, returns all accounts (backward-compatible). 
+Returns connected social accounts. Only includes accounts within the plan limit by default. Follower data requires analytics add-on. Supports optional server-side pagination via page/limit params. When omitted, returns all accounts (backward-compatible). page and limit must be supplied together; out-of-range page/limit values are rejected with 400 rather than silently clamped. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**profile_id** | Option<**String**> | Filter accounts by profile ID |  |
+**profile_id** | Option<**String**> | Filter accounts by profile ID. Must be a valid ObjectId. |  |
 **platform** | Option<**String**> | Filter accounts by platform (e.g. \"instagram\", \"twitter\"). |  |
 **status** | Option<**String**> | Filter accounts by connection status. `connected` returns healthy accounts; `disconnected` returns accounts that need reconnection (per the same reconnection check surfaced in the dashboard). Omit to return accounts in any status. When combined with page/limit, pagination totals reflect the filtered result set.  |  |
 **include_over_limit** | Option<**bool**> | When true, includes accounts from over-limit profiles. |  |[default to false]
-**page** | Option<**i32**> | Page number (1-based). When provided with limit, enables server-side pagination. Omit for all accounts. |  |
-**limit** | Option<**i32**> | Page size. Required alongside page for pagination. |  |
+**page** | Option<**i32**> | Page number (1-based). Must be provided together with limit to enable server-side pagination; sending only one of the two returns 400. Omit both for all accounts.  |  |
+**limit** | Option<**i32**> | Page size. Must be provided together with page; sending only one of the two returns 400.  |  |
 
 ### Return type
 
