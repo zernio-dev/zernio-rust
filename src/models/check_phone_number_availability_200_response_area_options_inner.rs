@@ -16,7 +16,7 @@ pub struct CheckPhoneNumberAvailability200ResponseAreaOptionsInner {
     /// Area code (national destination code), e.g. \"11\".
     #[serde(rename = "ndc", skip_serializing_if = "Option::is_none")]
     pub ndc: Option<String>,
-    /// Area name: state/province for US/CA (e.g. \"Minnesota\"), city otherwise (e.g. \"Sao Paulo\").
+    /// Area name: \"City, ST\" for US/CA (e.g. \"Miami, FL\"), city otherwise (e.g. \"Sao Paulo\").
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     /// Numbers available in this area: country-wide count for US/CA, numbers seen on the latest inventory page otherwise.
