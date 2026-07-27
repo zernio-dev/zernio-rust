@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **platform** | **Platform** |  (enum: twitter, instagram, tiktok, youtube, facebook, linkedin, bluesky, threads, reddit, pinterest, telegram, snapchat, googlebusiness, discord) | 
+**account_id** | Option<**String**> | Account to validate against. For twitter, resolves X Premium status to apply the 25000 character limit instead of 280. | [optional]
 **custom_content** | Option<**String**> |  | [optional]
 **platform_specific_data** | Option<**serde_json::Value**> |  | [optional]
 **custom_media** | Option<[**Vec<models::MediaItem>**](MediaItem.md)> |  | [optional]

@@ -15,6 +15,9 @@ use serde::{Deserialize, Serialize};
 pub struct ValidatePostRequestPlatformsInner {
     #[serde(rename = "platform")]
     pub platform: Platform,
+    /// Account to validate against. For twitter, resolves X Premium status to apply the 25000 character limit instead of 280.
+    #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
+    pub account_id: Option<String>,
     #[serde(rename = "customContent", skip_serializing_if = "Option::is_none")]
     pub custom_content: Option<String>,
     #[serde(
@@ -30,6 +33,7 @@ impl ValidatePostRequestPlatformsInner {
     pub fn new(platform: Platform) -> ValidatePostRequestPlatformsInner {
         ValidatePostRequestPlatformsInner {
             platform,
+            account_id: None,
             custom_content: None,
             platform_specific_data: None,
             custom_media: None,
