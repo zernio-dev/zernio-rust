@@ -20,7 +20,7 @@ pub struct SubmitPhoneNumberKycRequest {
     /// Idempotency token for this submission attempt. A retry/double-submit with the same token returns the same number; omit and each call creates a new number.
     #[serde(rename = "submissionId", skip_serializing_if = "Option::is_none")]
     pub submission_id: Option<String>,
-    /// Provision several same-country numbers from one submission (1-5). The single verification covers all of them; each number is billed only when it activates. Numbers that fail to order are skipped (best-effort).
+    /// Provision several same-country numbers from one submission (1-5). The single verification covers all of them; each number is billed only when it activates. Numbers that fail to order are skipped (best-effort). With `areaCode`, a quantity above that area's live stock is rejected with a 400.
     #[serde(rename = "quantity", skip_serializing_if = "Option::is_none")]
     pub quantity: Option<i32>,
     /// Reuse a prior approved verification for this country (skips document/field collection; places the order immediately).
