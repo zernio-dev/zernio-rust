@@ -17,6 +17,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ArchiveLeadFormError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }
@@ -25,6 +26,7 @@ pub enum ArchiveLeadFormError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateLeadFormError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status403(),
     UnknownValue(serde_json::Value),
@@ -34,6 +36,7 @@ pub enum CreateLeadFormError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateTestLeadError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }
@@ -42,6 +45,7 @@ pub enum CreateTestLeadError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetLeadFormError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }
@@ -50,6 +54,7 @@ pub enum GetLeadFormError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListFormLeadsError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }
@@ -58,6 +63,7 @@ pub enum ListFormLeadsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListLeadFormsError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status403(),
     UnknownValue(serde_json::Value),
@@ -67,6 +73,7 @@ pub enum ListLeadFormsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListLeadsError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status403(),
     UnknownValue(serde_json::Value),

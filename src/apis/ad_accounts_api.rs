@@ -99,6 +99,7 @@ pub enum ListAdStudiesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdsBusinessCentersError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status404(),
     Status422(),
