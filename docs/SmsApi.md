@@ -15,8 +15,10 @@ Method | HTTP request | Description
 [**list_sms_registrations**](SmsApi.md#list_sms_registrations) | **GET** /v1/sms/registrations | List carrier registrations
 [**list_sms_sender_ids**](SmsApi.md#list_sms_sender_ids) | **GET** /v1/sms/sender-ids | List alphanumeric sender IDs
 [**lookup_sms_number**](SmsApi.md#lookup_sms_number) | **GET** /v1/sms/lookup | Look up carrier + line type
+[**preflight_sms_registration**](SmsApi.md#preflight_sms_registration) | **POST** /v1/sms/registrations/preflight | Pre-check a carrier registration
 [**request_sms_sender_id_limit_increase**](SmsApi.md#request_sms_sender_id_limit_increase) | **POST** /v1/sms/sender-ids/limit-request | Request a higher sender ID daily limit
 [**resend_sms_registration_otp**](SmsApi.md#resend_sms_registration_otp) | **POST** /v1/sms/registrations/{id}/resend-otp | Re-send the sole-prop OTP
+[**respond_to_sms_registration_review**](SmsApi.md#respond_to_sms_registration_review) | **POST** /v1/sms/registrations/{id}/respond | Reply to a change request
 [**reuse_sms_registration_for_number**](SmsApi.md#reuse_sms_registration_for_number) | **POST** /v1/phone-numbers/{id}/sms/reuse-registration | Add number to SMS registration
 [**send_sms**](SmsApi.md#send_sms) | **POST** /v1/sms/messages | Send an SMS/MMS
 [**share_sms_registration**](SmsApi.md#share_sms_registration) | **POST** /v1/sms/registrations/share | Create a registration share link
@@ -352,6 +354,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## preflight_sms_registration
+
+> models::PreflightSmsRegistration200Response preflight_sms_registration(preflight_sms_registration_request)
+Pre-check a carrier registration
+
+Dry-run of `POST /v1/sms/registrations` for 10DLC: validates and composes the exact brand/campaign payloads a submission would store (branding, disclosures, auto-replies), runs deterministic compliance lints plus an AI reviewer over them, and returns the findings WITHOUT creating anything. Use it to fix issues before submitting; `block` severity findings indicate a near-certain carrier rejection. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**preflight_sms_registration_request** | [**PreflightSmsRegistrationRequest**](PreflightSmsRegistrationRequest.md) |  | [required] |
+
+### Return type
+
+[**models::PreflightSmsRegistration200Response**](preflightSmsRegistration_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## request_sms_sender_id_limit_increase
 
 > models::RequestSmsSenderIdLimitIncrease200Response request_sms_sender_id_limit_increase(request_sms_sender_id_limit_increase_request)
@@ -407,6 +439,37 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## respond_to_sms_registration_review
+
+> models::RespondToSmsRegistrationReview200Response respond_to_sms_registration_review(id, respond_to_sms_registration_review_request)
+Reply to a change request
+
+Replies to a reviewer change request on a registration in `changes_requested` state: a note, hosted document URLs (from `POST /v1/sms/opt-in-proof`), or both, sent together. The registration returns to `requested` (back in review) — no need to resubmit the whole registration. To change the submitted brand/campaign fields themselves, resubmit via `POST /v1/sms/registrations` with `resubmitRequestId` instead. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+**respond_to_sms_registration_review_request** | [**RespondToSmsRegistrationReviewRequest**](RespondToSmsRegistrationReviewRequest.md) |  | [required] |
+
+### Return type
+
+[**models::RespondToSmsRegistrationReview200Response**](respondToSmsRegistrationReview_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

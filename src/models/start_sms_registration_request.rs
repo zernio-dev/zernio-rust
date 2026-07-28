@@ -22,6 +22,9 @@ pub struct StartSmsRegistrationRequest {
     pub brand: Option<Box<models::StartSmsRegistrationRequestBrand>>,
     #[serde(rename = "campaign", skip_serializing_if = "Option::is_none")]
     pub campaign: Option<Box<models::StartSmsRegistrationRequestCampaign>>,
+    /// DBA / trade name used to brand message content (samples and auto-replies) when it differs from the legal name, e.g. a sole proprietor texting under a business name. The legal `brand.displayName` is still what the carrier vets.
+    #[serde(rename = "messagingBrandName", skip_serializing_if = "Option::is_none")]
+    pub messaging_brand_name: Option<String>,
     /// Raw dashboard-wizard answers, stored only to prefill edit-and-resubmit. API integrators can omit.
     #[serde(rename = "wizardValues", skip_serializing_if = "Option::is_none")]
     pub wizard_values: Option<std::collections::HashMap<String, String>>,
@@ -42,6 +45,7 @@ impl StartSmsRegistrationRequest {
             phone_numbers,
             brand: None,
             campaign: None,
+            messaging_brand_name: None,
             wizard_values: None,
             resubmit_request_id: None,
             toll_free: None,

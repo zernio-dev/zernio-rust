@@ -120,6 +120,15 @@ pub enum LookupSmsNumberError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`preflight_sms_registration`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum PreflightSmsRegistrationError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`request_sms_sender_id_limit_increase`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -139,6 +148,17 @@ pub enum ResendSmsRegistrationOtpError {
     Status401(models::InlineObject),
     Status404(),
     Status429(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`respond_to_sms_registration_review`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RespondToSmsRegistrationReviewError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status404(),
+    Status409(),
     UnknownValue(serde_json::Value),
 }
 
@@ -776,6 +796,56 @@ pub async fn lookup_sms_number(
     }
 }
 
+/// Dry-run of `POST /v1/sms/registrations` for 10DLC: validates and composes the exact brand/campaign payloads a submission would store (branding, disclosures, auto-replies), runs deterministic compliance lints plus an AI reviewer over them, and returns the findings WITHOUT creating anything. Use it to fix issues before submitting; `block` severity findings indicate a near-certain carrier rejection.
+pub async fn preflight_sms_registration(
+    configuration: &configuration::Configuration,
+    preflight_sms_registration_request: models::PreflightSmsRegistrationRequest,
+) -> Result<models::PreflightSmsRegistration200Response, Error<PreflightSmsRegistrationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_preflight_sms_registration_request = preflight_sms_registration_request;
+
+    let uri_str = format!("{}/v1/sms/registrations/preflight", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_preflight_sms_registration_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PreflightSmsRegistration200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PreflightSmsRegistration200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<PreflightSmsRegistrationError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Asks support to raise the workspace's daily sender-ID message cap. There is no self-serve raise: the request (desired cap + use case) is reviewed manually, usually within a business day.
 pub async fn request_sms_sender_id_limit_increase(
     configuration: &configuration::Configuration,
@@ -879,6 +949,67 @@ pub async fn resend_sms_registration_otp(
     } else {
         let content = resp.text().await?;
         let entity: Option<ResendSmsRegistrationOtpError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Replies to a reviewer change request on a registration in `changes_requested` state: a note, hosted document URLs (from `POST /v1/sms/opt-in-proof`), or both, sent together. The registration returns to `requested` (back in review) — no need to resubmit the whole registration. To change the submitted brand/campaign fields themselves, resubmit via `POST /v1/sms/registrations` with `resubmitRequestId` instead.
+pub async fn respond_to_sms_registration_review(
+    configuration: &configuration::Configuration,
+    id: &str,
+    respond_to_sms_registration_review_request: models::RespondToSmsRegistrationReviewRequest,
+) -> Result<
+    models::RespondToSmsRegistrationReview200Response,
+    Error<RespondToSmsRegistrationReviewError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_body_respond_to_sms_registration_review_request =
+        respond_to_sms_registration_review_request;
+
+    let uri_str = format!(
+        "{}/v1/sms/registrations/{id}/respond",
+        configuration.base_path,
+        id = crate::apis::urlencode(p_path_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_respond_to_sms_registration_review_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::RespondToSmsRegistrationReview200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::RespondToSmsRegistrationReview200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RespondToSmsRegistrationReviewError> =
+            serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

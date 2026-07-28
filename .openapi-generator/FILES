@@ -1011,6 +1011,10 @@ docs/PostUpdateResponse.md
 docs/PostUserId.md
 docs/PostsApi.md
 docs/PostsListResponse.md
+docs/PreflightSmsRegistration200Response.md
+docs/PreflightSmsRegistration200ResponseAdvisoriesInner.md
+docs/PreflightSmsRegistration200ResponseComposed.md
+docs/PreflightSmsRegistrationRequest.md
 docs/Profile.md
 docs/ProfileCreateResponse.md
 docs/ProfileDeleteResponse.md
@@ -1075,6 +1079,8 @@ docs/ReserveRfPredictionRequest.md
 docs/RespondToPhoneNumberReviewer200Response.md
 docs/RespondToPhoneNumberReviewerRequest.md
 docs/RespondToPhoneNumberReviewerRequestDocumentsInner.md
+docs/RespondToSmsRegistrationReview200Response.md
+docs/RespondToSmsRegistrationReviewRequest.md
 docs/RestoreWorkflowVersion200Response.md
 docs/RestoreWorkflowVersion200ResponseWorkflow.md
 docs/RetweetPost200Response.md
@@ -2616,6 +2622,10 @@ src/models/post_retry_response.rs
 src/models/post_update_response.rs
 src/models/post_user_id.rs
 src/models/posts_list_response.rs
+src/models/preflight_sms_registration_200_response.rs
+src/models/preflight_sms_registration_200_response_advisories_inner.rs
+src/models/preflight_sms_registration_200_response_composed.rs
+src/models/preflight_sms_registration_request.rs
 src/models/profile.rs
 src/models/profile_create_response.rs
 src/models/profile_delete_response.rs
@@ -2676,6 +2686,8 @@ src/models/reserve_rf_prediction_request.rs
 src/models/respond_to_phone_number_reviewer_200_response.rs
 src/models/respond_to_phone_number_reviewer_request.rs
 src/models/respond_to_phone_number_reviewer_request_documents_inner.rs
+src/models/respond_to_sms_registration_review_200_response.rs
+src/models/respond_to_sms_registration_review_request.rs
 src/models/restore_workflow_version_200_response.rs
 src/models/restore_workflow_version_200_response_workflow.rs
 src/models/retweet_post_200_response.rs
