@@ -31,6 +31,7 @@ pub enum CancelPhoneNumberPortInError {
 pub enum CheckPhoneNumberAvailabilityError {
     Status400(),
     Status401(models::InlineObject),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 

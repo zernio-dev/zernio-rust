@@ -21,6 +21,7 @@ use tokio_util::codec::{BytesCodec, FramedRead};
 pub enum CheckWhatsAppNumberAvailabilityError {
     Status400(),
     Status401(models::InlineObject),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
