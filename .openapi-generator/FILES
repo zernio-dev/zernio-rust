@@ -1109,6 +1109,10 @@ docs/SearchInboxConversations200ResponseMeta.md
 docs/SearchInboxConversations200ResponseMetaAccountsSkippedInner.md
 docs/SearchInboxConversations200ResponseMetaFailedAccountsInner.md
 docs/SearchReddit200Response.md
+docs/SearchTweets200Response.md
+docs/SearchTweets200ResponseMeta.md
+docs/SearchTweets200ResponseTweetsInner.md
+docs/SearchTweets200ResponseTweetsInnerAuthor.md
 docs/SelectFacebookPage200Response.md
 docs/SelectFacebookPage200ResponseAccount.md
 docs/SelectFacebookPage409Response.md
@@ -2705,6 +2709,10 @@ src/models/search_inbox_conversations_200_response_meta.rs
 src/models/search_inbox_conversations_200_response_meta_accounts_skipped_inner.rs
 src/models/search_inbox_conversations_200_response_meta_failed_accounts_inner.rs
 src/models/search_reddit_200_response.rs
+src/models/search_tweets_200_response.rs
+src/models/search_tweets_200_response_meta.rs
+src/models/search_tweets_200_response_tweets_inner.rs
+src/models/search_tweets_200_response_tweets_inner_author.rs
 src/models/select_facebook_page_200_response.rs
 src/models/select_facebook_page_200_response_account.rs
 src/models/select_facebook_page_409_response.rs

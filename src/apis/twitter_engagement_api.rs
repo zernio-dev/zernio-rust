@@ -53,6 +53,19 @@ pub enum RetweetPostError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`search_tweets`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SearchTweetsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status402(),
+    Status403(),
+    Status404(),
+    Status429(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`undo_retweet`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -268,6 +281,92 @@ pub async fn retweet_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetweetPostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Search public tweets from the last 7 days matching an X search query, e.g. to discover tweets to reply to. The query string is passed through to X unchanged and supports X's search operators (`from:user`, `-is:retweet`, `is:reply`, `lang:en`, `\"exact phrase\"`, `conversation_id:123`, boolean `OR`, ...). Note that standalone operators like `is:` / `has:` / `lang:` must be combined with a keyword or `from:` clause.  To reply to a found tweet, pass its `id` as the twitter platform entry's `platformSpecificData.replyToTweetId` when creating a post.  Rate limit: 300 requests per 15-min window per connected account.
+pub async fn search_tweets(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    query: &str,
+    limit: Option<i32>,
+    since_id: Option<&str>,
+    until_id: Option<&str>,
+    start_time: Option<String>,
+    end_time: Option<String>,
+    cursor: Option<&str>,
+    sort_order: Option<&str>,
+) -> Result<models::SearchTweets200Response, Error<SearchTweetsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_query = query;
+    let p_query_limit = limit;
+    let p_query_since_id = since_id;
+    let p_query_until_id = until_id;
+    let p_query_start_time = start_time;
+    let p_query_end_time = end_time;
+    let p_query_cursor = cursor;
+    let p_query_sort_order = sort_order;
+
+    let uri_str = format!("{}/v1/twitter/search", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    req_builder = req_builder.query(&[("query", &p_query_query.to_string())]);
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_since_id {
+        req_builder = req_builder.query(&[("sinceId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_until_id {
+        req_builder = req_builder.query(&[("untilId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_start_time {
+        req_builder = req_builder.query(&[("startTime", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_end_time {
+        req_builder = req_builder.query(&[("endTime", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_cursor {
+        req_builder = req_builder.query(&[("cursor", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_sort_order {
+        req_builder = req_builder.query(&[("sortOrder", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SearchTweets200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SearchTweets200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<SearchTweetsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

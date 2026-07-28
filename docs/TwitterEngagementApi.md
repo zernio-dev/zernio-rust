@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**follow_user**](TwitterEngagementApi.md#follow_user) | **POST** /v1/twitter/follow | Follow a user
 [**remove_bookmark**](TwitterEngagementApi.md#remove_bookmark) | **DELETE** /v1/twitter/bookmark | Remove bookmark
 [**retweet_post**](TwitterEngagementApi.md#retweet_post) | **POST** /v1/twitter/retweet | Retweet a post
+[**search_tweets**](TwitterEngagementApi.md#search_tweets) | **GET** /v1/twitter/search | Search recent tweets
 [**undo_retweet**](TwitterEngagementApi.md#undo_retweet) | **DELETE** /v1/twitter/retweet | Undo retweet
 [**unfollow_user**](TwitterEngagementApi.md#unfollow_user) | **DELETE** /v1/twitter/follow | Unfollow a user
 
@@ -129,6 +130,44 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## search_tweets
+
+> models::SearchTweets200Response search_tweets(account_id, query, limit, since_id, until_id, start_time, end_time, cursor, sort_order)
+Search recent tweets
+
+Search public tweets from the last 7 days matching an X search query, e.g. to discover tweets to reply to. The query string is passed through to X unchanged and supports X's search operators (`from:user`, `-is:retweet`, `is:reply`, `lang:en`, `\"exact phrase\"`, `conversation_id:123`, boolean `OR`, ...). Note that standalone operators like `is:` / `has:` / `lang:` must be combined with a keyword or `from:` clause.  To reply to a found tweet, pass its `id` as the twitter platform entry's `platformSpecificData.replyToTweetId` when creating a post.  Rate limit: 300 requests per 15-min window per connected account. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The social account ID | [required] |
+**query** | **String** | X search query, max 512 characters. Operators are passed through unchanged; X rejects malformed queries with a 400. | [required] |
+**limit** | Option<**i32**> | Results per page. X requires a minimum of 10; values below 10 are rejected. |  |[default to 10]
+**since_id** | Option<**String**> | Only return tweets with an ID greater than (more recent than) this numeric tweet ID. Non-numeric values are rejected with 400. |  |
+**until_id** | Option<**String**> | Only return tweets with an ID less than (older than) this numeric tweet ID. Non-numeric values are rejected with 400. |  |
+**start_time** | Option<**String**> | Oldest UTC timestamp (ISO 8601, inclusive), within the last 7 days |  |
+**end_time** | Option<**String**> | Newest UTC timestamp (ISO 8601, exclusive), within the last 7 days |  |
+**cursor** | Option<**String**> | Pagination cursor from a previous response |  |
+**sort_order** | Option<**String**> |  |  |[default to recency]
+
+### Return type
+
+[**models::SearchTweets200Response**](searchTweets_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -429,6 +429,7 @@ Class | Method | HTTP request | Description
 *TwitterEngagementApi* | [**follow_user**](docs/TwitterEngagementApi.md#follow_user) | **POST** /v1/twitter/follow | Follow a user
 *TwitterEngagementApi* | [**remove_bookmark**](docs/TwitterEngagementApi.md#remove_bookmark) | **DELETE** /v1/twitter/bookmark | Remove bookmark
 *TwitterEngagementApi* | [**retweet_post**](docs/TwitterEngagementApi.md#retweet_post) | **POST** /v1/twitter/retweet | Retweet a post
+*TwitterEngagementApi* | [**search_tweets**](docs/TwitterEngagementApi.md#search_tweets) | **GET** /v1/twitter/search | Search recent tweets
 *TwitterEngagementApi* | [**undo_retweet**](docs/TwitterEngagementApi.md#undo_retweet) | **DELETE** /v1/twitter/retweet | Undo retweet
 *TwitterEngagementApi* | [**unfollow_user**](docs/TwitterEngagementApi.md#unfollow_user) | **DELETE** /v1/twitter/follow | Unfollow a user
 *UsageApi* | [**get_billing**](docs/UsageApi.md#get_billing) | **GET** /v1/billing | Account billing snapshot (plan, cycle, balance, caps, status)
@@ -1623,6 +1624,10 @@ Class | Method | HTTP request | Description
  - [SearchInboxConversations200ResponseMetaAccountsSkippedInner](docs/SearchInboxConversations200ResponseMetaAccountsSkippedInner.md)
  - [SearchInboxConversations200ResponseMetaFailedAccountsInner](docs/SearchInboxConversations200ResponseMetaFailedAccountsInner.md)
  - [SearchReddit200Response](docs/SearchReddit200Response.md)
+ - [SearchTweets200Response](docs/SearchTweets200Response.md)
+ - [SearchTweets200ResponseMeta](docs/SearchTweets200ResponseMeta.md)
+ - [SearchTweets200ResponseTweetsInner](docs/SearchTweets200ResponseTweetsInner.md)
+ - [SearchTweets200ResponseTweetsInnerAuthor](docs/SearchTweets200ResponseTweetsInnerAuthor.md)
  - [SelectFacebookPage200Response](docs/SelectFacebookPage200Response.md)
  - [SelectFacebookPage200ResponseAccount](docs/SelectFacebookPage200ResponseAccount.md)
  - [SelectFacebookPage409Response](docs/SelectFacebookPage409Response.md)
