@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **saves** | Option<**i32**> | Times the post was saved (personal accounts only; 0 for organization accounts) | [optional]
 **sends** | Option<**i32**> | Times the post was sent via LinkedIn messaging (personal accounts only; 0 for organization accounts) | [optional]
 **clicks** | Option<**i32**> | Clicks on the post (organization accounts only) | [optional]
-**views** | Option<**i32**> | Video views (video posts only). Organization accounts require the connected LinkedIn user to be an ADMINISTRATOR of the page; CONTENT_ADMINISTRATOR returns 0. | [optional]
+**views** | Option<**i32**> | Video views (video posts only) | [optional]
 **engagement_rate** | Option<**f64**> | Engagement rate as percentage | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

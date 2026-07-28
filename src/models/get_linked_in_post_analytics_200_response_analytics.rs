@@ -37,7 +37,7 @@ pub struct GetLinkedInPostAnalytics200ResponseAnalytics {
     /// Clicks on the post (organization accounts only)
     #[serde(rename = "clicks", skip_serializing_if = "Option::is_none")]
     pub clicks: Option<i32>,
-    /// Video views (video posts only). Organization accounts require the connected LinkedIn user to be an ADMINISTRATOR of the page; CONTENT_ADMINISTRATOR returns 0.
+    /// Video views (video posts only)
     #[serde(rename = "views", skip_serializing_if = "Option::is_none")]
     pub views: Option<i32>,
     /// Engagement rate as percentage
