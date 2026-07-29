@@ -24,6 +24,28 @@ pub enum CreateAdInsightsReportError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`generate_keyword_historical_metrics`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GenerateKeywordHistoricalMetricsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`generate_keyword_ideas`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GenerateKeywordIdeasError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_ad_analytics`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -110,6 +132,114 @@ pub async fn create_ad_insights_report(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateAdInsightsReportError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Google Ads only. Runs Keyword Planner's generateKeywordHistoricalMetrics for up to 1,000 exact keywords: historical search volume, competition and top-of-page bid ranges, plus averageCpcMicros when includeAverageCpc is set. Rows come back verbatim; counters are int64s encoded as strings, bid/CPC values are micros of the account currency.
+pub async fn generate_keyword_historical_metrics(
+    configuration: &configuration::Configuration,
+    generate_keyword_historical_metrics_request: models::GenerateKeywordHistoricalMetricsRequest,
+) -> Result<
+    models::GenerateKeywordHistoricalMetrics200Response,
+    Error<GenerateKeywordHistoricalMetricsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_generate_keyword_historical_metrics_request =
+        generate_keyword_historical_metrics_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/keywords/historical-metrics",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_generate_keyword_historical_metrics_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GenerateKeywordHistoricalMetrics200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GenerateKeywordHistoricalMetrics200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GenerateKeywordHistoricalMetricsError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Google Ads only. Runs Keyword Planner's generateKeywordIdeas from seed keywords, a seed URL, or both, returning idea rows verbatim (avgMonthlySearches, competition, competitionIndex, top-of-page bid micros, monthlySearchVolumes). Counters are int64s encoded as strings; bid values are micros of the account currency. Omitting `countries` targets worldwide.
+pub async fn generate_keyword_ideas(
+    configuration: &configuration::Configuration,
+    generate_keyword_ideas_request: models::GenerateKeywordIdeasRequest,
+) -> Result<models::GenerateKeywordIdeas200Response, Error<GenerateKeywordIdeasError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_generate_keyword_ideas_request = generate_keyword_ideas_request;
+
+    let uri_str = format!("{}/v1/ads/keywords/ideas", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_generate_keyword_ideas_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GenerateKeywordIdeas200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GenerateKeywordIdeas200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GenerateKeywordIdeasError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -319,11 +449,14 @@ pub async fn get_campaign_analytics(
     }
 }
 
-/// Live, flexible insights query against Meta's Graph API. Unlike GET /v1/ads/{adId}/analytics (fixed metric set, cached), this forwards caller-chosen `fields`, `breakdowns` and `filtering` to any Meta insights node and returns Meta's rows verbatim.  `objectId` selects the node: an ad account, campaign, ad set or ad platform id. `level` sets row granularity independently of the node.  Semantic validation is Meta's: an unknown field or invalid breakdown combination returns a 400 carrying Meta's message. For long ranges or agency-scale accounts prefer the async variant (POST /v1/ads/insights/reports).
+/// Live, flexible insights query. The account's platform picks the contract:  **Meta (facebook/instagram)**: forwards caller-chosen `fields`, `breakdowns` and `filtering` to any Meta insights node and returns Meta's rows verbatim. `objectId` (required) selects the node; `level` sets row granularity. Semantic validation is Meta's: an unknown field or invalid breakdown combination returns a 400 carrying Meta's message. For long ranges or agency-scale accounts prefer the async variant (POST /v1/ads/insights/reports).  **Google Ads (googleads)**: raw GAQL passthrough. Send any read-only GAQL SELECT via `query` (campaign/keyword/search-term/geo/demographic/asset/shopping resources, `change_event`, any `segments.*`) and rows come back verbatim (camelCase, counters as strings). Results are paged at a fixed 10,000 rows; follow `paging.nextPageToken` with `pageToken`. `customerId` is only needed when the connection has several Google Ads accounts. Semantic validation is Google's: an invalid query returns a 400 carrying Google's message (note: selecting `segments.date` requires a finite date filter).
 pub async fn query_ad_insights(
     configuration: &configuration::Configuration,
     account_id: &str,
-    object_id: &str,
+    object_id: Option<&str>,
+    query: Option<&str>,
+    customer_id: Option<&str>,
+    page_token: Option<&str>,
     level: Option<&str>,
     fields: Option<&str>,
     breakdowns: Option<&str>,
@@ -342,6 +475,9 @@ pub async fn query_ad_insights(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_account_id = account_id;
     let p_query_object_id = object_id;
+    let p_query_query = query;
+    let p_query_customer_id = customer_id;
+    let p_query_page_token = page_token;
     let p_query_level = level;
     let p_query_fields = fields;
     let p_query_breakdowns = breakdowns;
@@ -361,7 +497,18 @@ pub async fn query_ad_insights(
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
-    req_builder = req_builder.query(&[("objectId", &p_query_object_id.to_string())]);
+    if let Some(ref param_value) = p_query_object_id {
+        req_builder = req_builder.query(&[("objectId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_query {
+        req_builder = req_builder.query(&[("query", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_customer_id {
+        req_builder = req_builder.query(&[("customerId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page_token {
+        req_builder = req_builder.query(&[("pageToken", &param_value.to_string())]);
+    }
     if let Some(ref param_value) = p_query_level {
         req_builder = req_builder.query(&[("level", &param_value.to_string())]);
     }

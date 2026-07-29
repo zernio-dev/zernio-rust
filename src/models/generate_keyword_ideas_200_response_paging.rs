@@ -12,16 +12,8 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct QueryAdInsights200ResponsePaging {
-    /// Meta cursor for the next page; null when exhausted.
-    #[serde(
-        rename = "after",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub after: Option<Option<String>>,
-    /// Google cursor for the next page; null when exhausted.
+pub struct GenerateKeywordIdeas200ResponsePaging {
+    /// Cursor for the next page; null when exhausted.
     #[serde(
         rename = "nextPageToken",
         default,
@@ -31,10 +23,9 @@ pub struct QueryAdInsights200ResponsePaging {
     pub next_page_token: Option<Option<String>>,
 }
 
-impl QueryAdInsights200ResponsePaging {
-    pub fn new() -> QueryAdInsights200ResponsePaging {
-        QueryAdInsights200ResponsePaging {
-            after: None,
+impl GenerateKeywordIdeas200ResponsePaging {
+    pub fn new() -> GenerateKeywordIdeas200ResponsePaging {
+        GenerateKeywordIdeas200ResponsePaging {
             next_page_token: None,
         }
     }

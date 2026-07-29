@@ -1,12 +1,12 @@
-# GetAdsActivityLog200Response
+# GenerateKeywordHistoricalMetrics200Response
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ad_account_id** | Option<**String**> |  | [optional]
+**customer_id** | Option<**String**> | The customer the request ran against. | [optional]
 **data** | Option<**Vec<serde_json::Value>**> |  | [optional]
-**paging** | Option<[**models::GetAdsActivityLog200ResponsePaging**](GetAdsActivityLog200ResponsePaging.md)> |  | [optional]
+**aggregate_metric_results** | Option<**serde_json::Value**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

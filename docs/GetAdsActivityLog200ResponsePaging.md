@@ -1,12 +1,10 @@
-# GetAdsActivityLog200Response
+# GetAdsActivityLog200ResponsePaging
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ad_account_id** | Option<**String**> |  | [optional]
-**data** | Option<**Vec<serde_json::Value>**> |  | [optional]
-**paging** | Option<[**models::GetAdsActivityLog200ResponsePaging**](GetAdsActivityLog200ResponsePaging.md)> |  | [optional]
+**after** | Option<**String**> | Cursor for the next page; null when exhausted. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -12,34 +12,29 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct QueryAdInsights200Response {
-    /// Meta responses only.
-    #[serde(rename = "objectId", skip_serializing_if = "Option::is_none")]
-    pub object_id: Option<String>,
-    /// Google responses only: the customer the query ran against.
+pub struct GenerateKeywordIdeas200Response {
+    /// The customer the request ran against.
     #[serde(rename = "customerId", skip_serializing_if = "Option::is_none")]
     pub customer_id: Option<String>,
-    /// Google responses only: the selected fields echoed by Google.
+    #[serde(rename = "data", skip_serializing_if = "Option::is_none")]
+    pub data: Option<Vec<serde_json::Value>>,
     #[serde(
-        rename = "fieldMask",
+        rename = "aggregateMetricResults",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub field_mask: Option<Option<String>>,
-    #[serde(rename = "data", skip_serializing_if = "Option::is_none")]
-    pub data: Option<Vec<serde_json::Value>>,
+    pub aggregate_metric_results: Option<Option<serde_json::Value>>,
     #[serde(rename = "paging", skip_serializing_if = "Option::is_none")]
-    pub paging: Option<Box<models::QueryAdInsights200ResponsePaging>>,
+    pub paging: Option<Box<models::GenerateKeywordIdeas200ResponsePaging>>,
 }
 
-impl QueryAdInsights200Response {
-    pub fn new() -> QueryAdInsights200Response {
-        QueryAdInsights200Response {
-            object_id: None,
+impl GenerateKeywordIdeas200Response {
+    pub fn new() -> GenerateKeywordIdeas200Response {
+        GenerateKeywordIdeas200Response {
             customer_id: None,
-            field_mask: None,
             data: None,
+            aggregate_metric_results: None,
             paging: None,
         }
     }

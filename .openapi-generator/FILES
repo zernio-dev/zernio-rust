@@ -413,6 +413,11 @@ docs/FoodMenuSection.md
 docs/GenerateAdPreviews200Response.md
 docs/GenerateAdPreviews200ResponsePreviewsInner.md
 docs/GenerateAdPreviewsRequest.md
+docs/GenerateKeywordHistoricalMetrics200Response.md
+docs/GenerateKeywordHistoricalMetricsRequest.md
+docs/GenerateKeywordIdeas200Response.md
+docs/GenerateKeywordIdeas200ResponsePaging.md
+docs/GenerateKeywordIdeasRequest.md
 docs/GeoRestriction.md
 docs/GetAccountHealth200Response.md
 docs/GetAccountHealth200ResponsePermissions.md
@@ -435,6 +440,7 @@ docs/GetAdSetDetails200Response.md
 docs/GetAdTrackingTags200Response.md
 docs/GetAdTree200Response.md
 docs/GetAdsActivityLog200Response.md
+docs/GetAdsActivityLog200ResponsePaging.md
 docs/GetAdsTimeline200Response.md
 docs/GetAdsTimeline200ResponseRowsInner.md
 docs/GetAllAccountsHealth200Response.md
@@ -2043,6 +2049,11 @@ src/models/food_menu_section.rs
 src/models/generate_ad_previews_200_response.rs
 src/models/generate_ad_previews_200_response_previews_inner.rs
 src/models/generate_ad_previews_request.rs
+src/models/generate_keyword_historical_metrics_200_response.rs
+src/models/generate_keyword_historical_metrics_request.rs
+src/models/generate_keyword_ideas_200_response.rs
+src/models/generate_keyword_ideas_200_response_paging.rs
+src/models/generate_keyword_ideas_request.rs
 src/models/geo_restriction.rs
 src/models/get_account_health_200_response.rs
 src/models/get_account_health_200_response_permissions.rs
@@ -2065,6 +2076,7 @@ src/models/get_ad_set_details_200_response.rs
 src/models/get_ad_tracking_tags_200_response.rs
 src/models/get_ad_tree_200_response.rs
 src/models/get_ads_activity_log_200_response.rs
+src/models/get_ads_activity_log_200_response_paging.rs
 src/models/get_ads_timeline_200_response.rs
 src/models/get_ads_timeline_200_response_rows_inner.rs
 src/models/get_all_accounts_health_200_response.rs

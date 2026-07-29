@@ -4,7 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object_id** | Option<**String**> |  | [optional]
+**object_id** | Option<**String**> | Meta responses only. | [optional]
+**customer_id** | Option<**String**> | Google responses only: the customer the query ran against. | [optional]
+**field_mask** | Option<**String**> | Google responses only: the selected fields echoed by Google. | [optional]
 **data** | Option<**Vec<serde_json::Value>**> |  | [optional]
 **paging** | Option<[**models::QueryAdInsights200ResponsePaging**](QueryAdInsights200ResponsePaging.md)> |  | [optional]
 

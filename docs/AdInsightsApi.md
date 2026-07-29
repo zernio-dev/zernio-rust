@@ -5,6 +5,8 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_ad_insights_report**](AdInsightsApi.md#create_ad_insights_report) | **POST** /v1/ads/insights/reports | Submit an async insights report run
+[**generate_keyword_historical_metrics**](AdInsightsApi.md#generate_keyword_historical_metrics) | **POST** /v1/ads/keywords/historical-metrics | Historical keyword metrics (Google Keyword Planner)
+[**generate_keyword_ideas**](AdInsightsApi.md#generate_keyword_ideas) | **POST** /v1/ads/keywords/ideas | Generate keyword ideas (Google Keyword Planner)
 [**get_ad_analytics**](AdInsightsApi.md#get_ad_analytics) | **GET** /v1/ads/{adId}/analytics | Get ad analytics
 [**get_ad_insights_report**](AdInsightsApi.md#get_ad_insights_report) | **GET** /v1/ads/insights/reports/{reportRunId} | Poll an async insights report run
 [**get_campaign_analytics**](AdInsightsApi.md#get_campaign_analytics) | **GET** /v1/ads/campaigns/{campaignId}/analytics | Get campaign analytics
@@ -29,6 +31,66 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::CreateAdInsightsReport202Response**](createAdInsightsReport_202_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## generate_keyword_historical_metrics
+
+> models::GenerateKeywordHistoricalMetrics200Response generate_keyword_historical_metrics(generate_keyword_historical_metrics_request)
+Historical keyword metrics (Google Keyword Planner)
+
+Google Ads only. Runs Keyword Planner's generateKeywordHistoricalMetrics for up to 1,000 exact keywords: historical search volume, competition and top-of-page bid ranges, plus averageCpcMicros when includeAverageCpc is set. Rows come back verbatim; counters are int64s encoded as strings, bid/CPC values are micros of the account currency. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**generate_keyword_historical_metrics_request** | [**GenerateKeywordHistoricalMetricsRequest**](GenerateKeywordHistoricalMetricsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::GenerateKeywordHistoricalMetrics200Response**](generateKeywordHistoricalMetrics_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## generate_keyword_ideas
+
+> models::GenerateKeywordIdeas200Response generate_keyword_ideas(generate_keyword_ideas_request)
+Generate keyword ideas (Google Keyword Planner)
+
+Google Ads only. Runs Keyword Planner's generateKeywordIdeas from seed keywords, a seed URL, or both, returning idea rows verbatim (avgMonthlySearches, competition, competitionIndex, top-of-page bid micros, monthlySearchVolumes). Counters are int64s encoded as strings; bid values are micros of the account currency. Omitting `countries` targets worldwide. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**generate_keyword_ideas_request** | [**GenerateKeywordIdeasRequest**](GenerateKeywordIdeasRequest.md) |  | [required] |
+
+### Return type
+
+[**models::GenerateKeywordIdeas200Response**](generateKeywordIdeas_200_response.md)
 
 ### Authorization
 
@@ -144,18 +206,21 @@ Name | Type | Description  | Required | Notes
 
 ## query_ad_insights
 
-> models::QueryAdInsights200Response query_ad_insights(account_id, object_id, level, fields, breakdowns, action_breakdowns, action_attribution_windows, action_report_time, use_unified_attribution_setting, filtering, date_preset, from_date, to_date, time_increment, limit, after)
+> models::QueryAdInsights200Response query_ad_insights(account_id, object_id, query, customer_id, page_token, level, fields, breakdowns, action_breakdowns, action_attribution_windows, action_report_time, use_unified_attribution_setting, filtering, date_preset, from_date, to_date, time_increment, limit, after)
 Flexible live insights query
 
-Live, flexible insights query against Meta's Graph API. Unlike GET /v1/ads/{adId}/analytics (fixed metric set, cached), this forwards caller-chosen `fields`, `breakdowns` and `filtering` to any Meta insights node and returns Meta's rows verbatim.  `objectId` selects the node: an ad account, campaign, ad set or ad platform id. `level` sets row granularity independently of the node.  Semantic validation is Meta's: an unknown field or invalid breakdown combination returns a 400 carrying Meta's message. For long ranges or agency-scale accounts prefer the async variant (POST /v1/ads/insights/reports). 
+Live, flexible insights query. The account's platform picks the contract:  **Meta (facebook/instagram)**: forwards caller-chosen `fields`, `breakdowns` and `filtering` to any Meta insights node and returns Meta's rows verbatim. `objectId` (required) selects the node; `level` sets row granularity. Semantic validation is Meta's: an unknown field or invalid breakdown combination returns a 400 carrying Meta's message. For long ranges or agency-scale accounts prefer the async variant (POST /v1/ads/insights/reports).  **Google Ads (googleads)**: raw GAQL passthrough. Send any read-only GAQL SELECT via `query` (campaign/keyword/search-term/geo/demographic/asset/shopping resources, `change_event`, any `segments.*`) and rows come back verbatim (camelCase, counters as strings). Results are paged at a fixed 10,000 rows; follow `paging.nextPageToken` with `pageToken`. `customerId` is only needed when the connection has several Google Ads accounts. Semantic validation is Google's: an invalid query returns a 400 carrying Google's message (note: selecting `segments.date` requires a finite date filter). 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | Zernio SocialAccount id (posting or ads variant) used to resolve the Meta token. | [required] |
-**object_id** | **String** | Meta insights node: act_<n>, campaign id, ad set id or ad id. | [required] |
+**account_id** | **String** | Zernio SocialAccount id (posting or ads variant); its platform selects the Meta or Google contract. | [required] |
+**object_id** | Option<**String**> | Meta only (required there): insights node — act_<n>, campaign id, ad set id or ad id. |  |
+**query** | Option<**String**> | Google only (required there): the GAQL SELECT statement to run. |  |
+**customer_id** | Option<**String**> | Google only: numeric customer id (no dashes) when the connection has several Google Ads accounts. |  |
+**page_token** | Option<**String**> | Google only: cursor from paging.nextPageToken of the previous page. |  |
 **level** | Option<**String**> | Row granularity |  |
 **fields** | Option<**String**> | Comma-separated Graph insights fields (e.g. spend,impressions,frequency,website_purchase_roas). Omitted = Meta's default set. |  |
 **breakdowns** | Option<**String**> | Comma-separated Graph breakdowns (e.g. age,gender or publisher_platform). |  |

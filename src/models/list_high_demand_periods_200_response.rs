@@ -19,7 +19,7 @@ pub struct ListHighDemandPeriods200Response {
     #[serde(rename = "data", skip_serializing_if = "Option::is_none")]
     pub data: Option<Vec<serde_json::Value>>,
     #[serde(rename = "paging", skip_serializing_if = "Option::is_none")]
-    pub paging: Option<Box<models::QueryAdInsights200ResponsePaging>>,
+    pub paging: Option<Box<models::GetAdsActivityLog200ResponsePaging>>,
 }
 
 impl ListHighDemandPeriods200Response {
