@@ -17,6 +17,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetCallError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status403(),
     Status404(),
@@ -27,6 +28,7 @@ pub enum GetCallError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetCallRecordingError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status403(),
     Status404(),
