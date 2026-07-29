@@ -62,6 +62,20 @@ pub enum ContentType {
     VideoSlashXM4v,
     #[serde(rename = "application/pdf")]
     ApplicationSlashPdf,
+    #[serde(rename = "audio/mpeg")]
+    AudioSlashMpeg,
+    #[serde(rename = "audio/mp4")]
+    AudioSlashMp4,
+    #[serde(rename = "audio/aac")]
+    AudioSlashAac,
+    #[serde(rename = "audio/ogg")]
+    AudioSlashOgg,
+    #[serde(rename = "audio/wav")]
+    AudioSlashWav,
+    #[serde(rename = "audio/webm")]
+    AudioSlashWebm,
+    #[serde(rename = "audio/x-m4a")]
+    AudioSlashXM4a,
 }
 
 impl Default for ContentType {
