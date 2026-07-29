@@ -12,32 +12,26 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct SendInboxMessage400Response {
+pub struct SendPrivateReplyToComment400Response {
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
     pub error: Option<String>,
-    /// Stable machine-readable reason. PLATFORM_LIMITATION covers a capability the platform does not offer (e.g. Bluesky and Reddit DMs reject media); MISSING_PARTICIPANT means the stored conversation has no recipient to send to.
     #[serde(rename = "code", skip_serializing_if = "Option::is_none")]
     pub code: Option<Code>,
-    #[serde(rename = "platformError", skip_serializing_if = "Option::is_none")]
-    pub platform_error: Option<Box<models::SendInboxMessage400ResponsePlatformError>>,
 }
 
-impl SendInboxMessage400Response {
-    pub fn new() -> SendInboxMessage400Response {
-        SendInboxMessage400Response {
+impl SendPrivateReplyToComment400Response {
+    pub fn new() -> SendPrivateReplyToComment400Response {
+        SendPrivateReplyToComment400Response {
             error: None,
             code: None,
-            platform_error: None,
         }
     }
 }
-/// Stable machine-readable reason. PLATFORM_LIMITATION covers a capability the platform does not offer (e.g. Bluesky and Reddit DMs reject media); MISSING_PARTICIPANT means the stored conversation has no recipient to send to.
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Code {
     #[serde(rename = "PLATFORM_LIMITATION")]
     PlatformLimitation,
-    #[serde(rename = "MISSING_PARTICIPANT")]
-    MissingParticipant,
 }
 
 impl Default for Code {

@@ -88,7 +88,7 @@ pub enum ReplyToInboxPostError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SendPrivateReplyToCommentError {
-    Status400(models::SendInboxMessage400Response),
+    Status400(models::SendPrivateReplyToComment400Response),
     Status401(models::InlineObject),
     Status403(),
     Status404(),

@@ -1159,6 +1159,7 @@ docs/SendDiscordDirectMessageRequestAttachmentsInner.md
 docs/SendInboxMessage200Response.md
 docs/SendInboxMessage200ResponseData.md
 docs/SendInboxMessage400Response.md
+docs/SendInboxMessage400ResponsePlatformError.md
 docs/SendInboxMessageRequest.md
 docs/SendInboxMessageRequestButtonsInner.md
 docs/SendInboxMessageRequestContactsInner.md
@@ -1198,6 +1199,7 @@ docs/SendInboxMessageRequestTemplate.md
 docs/SendInboxMessageRequestTemplateElementsInner.md
 docs/SendInboxMessageRequestTemplateElementsInnerButtonsInner.md
 docs/SendPrivateReplyToComment200Response.md
+docs/SendPrivateReplyToComment400Response.md
 docs/SendPrivateReplyToCommentRequest.md
 docs/SendPrivateReplyToCommentRequestButtonsInner.md
 docs/SendPrivateReplyToCommentRequestButtonsInnerOneOf.md
@@ -2772,6 +2774,7 @@ src/models/send_discord_direct_message_request_attachments_inner.rs
 src/models/send_inbox_message_200_response.rs
 src/models/send_inbox_message_200_response_data.rs
 src/models/send_inbox_message_400_response.rs
+src/models/send_inbox_message_400_response_platform_error.rs
 src/models/send_inbox_message_request.rs
 src/models/send_inbox_message_request_buttons_inner.rs
 src/models/send_inbox_message_request_contacts_inner.rs
@@ -2811,6 +2814,7 @@ src/models/send_inbox_message_request_template.rs
 src/models/send_inbox_message_request_template_elements_inner.rs
 src/models/send_inbox_message_request_template_elements_inner_buttons_inner.rs
 src/models/send_private_reply_to_comment_200_response.rs
+src/models/send_private_reply_to_comment_400_response.rs
 src/models/send_private_reply_to_comment_request.rs
 src/models/send_private_reply_to_comment_request_buttons_inner.rs
 src/models/send_private_reply_to_comment_request_buttons_inner_one_of.rs
