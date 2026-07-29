@@ -28,7 +28,7 @@ pub struct InstagramPlatformData {
     pub first_comment: Option<String>,
     #[serde(rename = "trialParams", skip_serializing_if = "Option::is_none")]
     pub trial_params: Option<Box<models::InstagramPlatformDataTrialParams>>,
-    /// Tag Instagram users in photos by username and position. Not supported for stories or videos. For carousels, use mediaIndex to target specific slides (defaults to 0). Tags on video items are silently skipped.
+    /// Tag Instagram users by username. The tag shape depends on the media: photos require x/y coordinates, Reels and videos take username only (coordinates are ignored), stories accept optional coordinates. For carousels, use mediaIndex to target specific slides (defaults to 0); video slides take username-only tags. Photo tags without valid coordinates are skipped.
     #[serde(rename = "userTags", skip_serializing_if = "Option::is_none")]
     pub user_tags: Option<Vec<models::InstagramPlatformDataUserTagsInner>>,
     /// Custom name for original audio in Reels. Replaces the default \"Original Audio\" label. Can only be set once.

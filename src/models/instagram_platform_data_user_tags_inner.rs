@@ -16,23 +16,23 @@ pub struct InstagramPlatformDataUserTagsInner {
     /// Instagram username (@ symbol is optional and will be removed automatically)
     #[serde(rename = "username")]
     pub username: String,
-    /// X coordinate position from left edge (0.0 = left, 0.5 = center, 1.0 = right)
-    #[serde(rename = "x")]
-    pub x: f64,
-    /// Y coordinate position from top edge (0.0 = top, 0.5 = center, 1.0 = bottom)
-    #[serde(rename = "y")]
-    pub y: f64,
-    /// Zero-based index of the carousel item to tag. Defaults to 0. Tags on video items or out-of-range indices are ignored.
+    /// X coordinate position from left edge (0.0 = left, 0.5 = center, 1.0 = right). Required for photos, ignored for Reels/videos, optional for stories.
+    #[serde(rename = "x", skip_serializing_if = "Option::is_none")]
+    pub x: Option<f64>,
+    /// Y coordinate position from top edge (0.0 = top, 0.5 = center, 1.0 = bottom). Required for photos, ignored for Reels/videos, optional for stories.
+    #[serde(rename = "y", skip_serializing_if = "Option::is_none")]
+    pub y: Option<f64>,
+    /// Zero-based index of the carousel item to tag. Defaults to 0. Tags on out-of-range indices are ignored.
     #[serde(rename = "mediaIndex", skip_serializing_if = "Option::is_none")]
     pub media_index: Option<i32>,
 }
 
 impl InstagramPlatformDataUserTagsInner {
-    pub fn new(username: String, x: f64, y: f64) -> InstagramPlatformDataUserTagsInner {
+    pub fn new(username: String) -> InstagramPlatformDataUserTagsInner {
         InstagramPlatformDataUserTagsInner {
             username,
-            x,
-            y,
+            x: None,
+            y: None,
             media_index: None,
         }
     }
