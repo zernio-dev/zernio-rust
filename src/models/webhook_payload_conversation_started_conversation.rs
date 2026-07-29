@@ -80,6 +80,8 @@ pub enum Platform {
     Bluesky,
     #[serde(rename = "sms")]
     Sms,
+    #[serde(rename = "slack")]
+    Slack,
 }
 
 impl Default for Platform {
