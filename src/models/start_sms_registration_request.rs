@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 pub struct StartSmsRegistrationRequest {
     #[serde(rename = "registrationType")]
     pub registration_type: RegistrationType,
-    /// Your numbers this registration covers.
-    #[serde(rename = "phoneNumbers")]
-    pub phone_numbers: Vec<String>,
+    /// Your numbers this registration covers. When omitted or empty on a 10DLC registration, defaults to your active SMS-enabled US local numbers not already covered by another registration.
+    #[serde(rename = "phoneNumbers", skip_serializing_if = "Option::is_none")]
+    pub phone_numbers: Option<Vec<String>>,
     #[serde(rename = "brand", skip_serializing_if = "Option::is_none")]
     pub brand: Option<Box<models::StartSmsRegistrationRequestBrand>>,
     #[serde(rename = "campaign", skip_serializing_if = "Option::is_none")]
@@ -36,13 +36,10 @@ pub struct StartSmsRegistrationRequest {
 }
 
 impl StartSmsRegistrationRequest {
-    pub fn new(
-        registration_type: RegistrationType,
-        phone_numbers: Vec<String>,
-    ) -> StartSmsRegistrationRequest {
+    pub fn new(registration_type: RegistrationType) -> StartSmsRegistrationRequest {
         StartSmsRegistrationRequest {
             registration_type,
-            phone_numbers,
+            phone_numbers: None,
             brand: None,
             campaign: None,
             messaging_brand_name: None,

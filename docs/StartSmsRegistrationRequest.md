@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **registration_type** | **RegistrationType** |  (enum: standard_10dlc, sole_prop_10dlc, toll_free) | 
-**phone_numbers** | **Vec<String>** | Your numbers this registration covers. | 
+**phone_numbers** | Option<**Vec<String>**> | Your numbers this registration covers. When omitted or empty on a 10DLC registration, defaults to your active SMS-enabled US local numbers not already covered by another registration. | [optional]
 **brand** | Option<[**models::StartSmsRegistrationRequestBrand**](StartSmsRegistrationRequestBrand.md)> |  | [optional]
 **campaign** | Option<[**models::StartSmsRegistrationRequestCampaign**](StartSmsRegistrationRequestCampaign.md)> |  | [optional]
 **messaging_brand_name** | Option<**String**> | DBA / trade name used to brand message content (samples and auto-replies) when it differs from the legal name, e.g. a sole proprietor texting under a business name. The legal `brand.displayName` is still what the carrier vets. | [optional]
