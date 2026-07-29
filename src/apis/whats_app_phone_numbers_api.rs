@@ -593,7 +593,8 @@ pub async fn list_whats_app_number_countries(
 pub async fn purchase_whats_app_phone_number(
     configuration: &configuration::Configuration,
     purchase_whats_app_phone_number_request: models::PurchaseWhatsAppPhoneNumberRequest,
-) -> Result<models::PurchasePhoneNumber200Response, Error<PurchaseWhatsAppPhoneNumberError>> {
+) -> Result<models::PurchaseWhatsAppPhoneNumber200Response, Error<PurchaseWhatsAppPhoneNumberError>>
+{
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_purchase_whats_app_phone_number_request = purchase_whats_app_phone_number_request;
 
@@ -628,8 +629,8 @@ pub async fn purchase_whats_app_phone_number(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PurchasePhoneNumber200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PurchasePhoneNumber200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PurchaseWhatsAppPhoneNumber200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PurchaseWhatsAppPhoneNumber200Response`")))),
         }
     } else {
         let content = resp.text().await?;

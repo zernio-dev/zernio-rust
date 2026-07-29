@@ -11,21 +11,21 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// PurchaseWhatsAppPhoneNumber200ResponseOneOf : Checkout session created (first number)
+/// PurchaseWhatsAppPhoneNumber200ResponseOneOf : Phone number provisioned inline (subsequent numbers)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct PurchaseWhatsAppPhoneNumber200ResponseOneOf {
     #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
-    #[serde(rename = "checkoutUrl", skip_serializing_if = "Option::is_none")]
-    pub checkout_url: Option<String>,
+    #[serde(rename = "phoneNumber", skip_serializing_if = "Option::is_none")]
+    pub phone_number: Option<Box<models::PurchaseWhatsAppPhoneNumber200ResponseOneOfPhoneNumber>>,
 }
 
 impl PurchaseWhatsAppPhoneNumber200ResponseOneOf {
-    /// Checkout session created (first number)
+    /// Phone number provisioned inline (subsequent numbers)
     pub fn new() -> PurchaseWhatsAppPhoneNumber200ResponseOneOf {
         PurchaseWhatsAppPhoneNumber200ResponseOneOf {
             message: None,
-            checkout_url: None,
+            phone_number: None,
         }
     }
 }

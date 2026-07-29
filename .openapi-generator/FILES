@@ -1038,6 +1038,10 @@ docs/PurchasePhoneNumber200ResponseOneOf2.md
 docs/PurchasePhoneNumber202Response.md
 docs/PurchasePhoneNumber409Response.md
 docs/PurchasePhoneNumberRequest.md
+docs/PurchaseWhatsAppPhoneNumber200Response.md
+docs/PurchaseWhatsAppPhoneNumber200ResponseOneOf.md
+docs/PurchaseWhatsAppPhoneNumber200ResponseOneOf1.md
+docs/PurchaseWhatsAppPhoneNumber200ResponseOneOfPhoneNumber.md
 docs/PurchaseWhatsAppPhoneNumberRequest.md
 docs/QueryAdInsights200Response.md
 docs/QueryAdInsights200ResponsePaging.md
@@ -2661,6 +2665,10 @@ src/models/purchase_phone_number_200_response_one_of_2.rs
 src/models/purchase_phone_number_202_response.rs
 src/models/purchase_phone_number_409_response.rs
 src/models/purchase_phone_number_request.rs
+src/models/purchase_whats_app_phone_number_200_response.rs
+src/models/purchase_whats_app_phone_number_200_response_one_of.rs
+src/models/purchase_whats_app_phone_number_200_response_one_of_1.rs
+src/models/purchase_whats_app_phone_number_200_response_one_of_phone_number.rs
 src/models/purchase_whats_app_phone_number_request.rs
 src/models/query_ad_insights_200_response.rs
 src/models/query_ad_insights_200_response_paging.rs

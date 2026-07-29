@@ -1,4 +1,4 @@
-# PurchasePhoneNumber200ResponseOneOf1PhoneNumber
+# PurchaseWhatsAppPhoneNumber200ResponseOneOfPhoneNumber
 
 ## Properties
 
@@ -11,7 +11,6 @@ Name | Type | Description | Notes
 **provisioned_at** | Option<**String**> |  | [optional]
 **meta_preverified_id** | Option<**String**> |  | [optional]
 **meta_verification_status** | Option<**String**> |  | [optional]
-**profile_id** | Option<**String**> | The profile the number was actually assigned to. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct PurchasePhoneNumber200ResponseOneOf1PhoneNumber {
+pub struct PurchaseWhatsAppPhoneNumber200ResponseOneOfPhoneNumber {
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[serde(rename = "phoneNumber", skip_serializing_if = "Option::is_none")]
@@ -30,14 +30,11 @@ pub struct PurchasePhoneNumber200ResponseOneOf1PhoneNumber {
         skip_serializing_if = "Option::is_none"
     )]
     pub meta_verification_status: Option<String>,
-    /// The profile the number was actually assigned to.
-    #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]
-    pub profile_id: Option<String>,
 }
 
-impl PurchasePhoneNumber200ResponseOneOf1PhoneNumber {
-    pub fn new() -> PurchasePhoneNumber200ResponseOneOf1PhoneNumber {
-        PurchasePhoneNumber200ResponseOneOf1PhoneNumber {
+impl PurchaseWhatsAppPhoneNumber200ResponseOneOfPhoneNumber {
+    pub fn new() -> PurchaseWhatsAppPhoneNumber200ResponseOneOfPhoneNumber {
+        PurchaseWhatsAppPhoneNumber200ResponseOneOfPhoneNumber {
             id: None,
             phone_number: None,
             status: None,
@@ -45,7 +42,6 @@ impl PurchasePhoneNumber200ResponseOneOf1PhoneNumber {
             provisioned_at: None,
             meta_preverified_id: None,
             meta_verification_status: None,
-            profile_id: None,
         }
     }
 }

@@ -14,20 +14,18 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum PurchaseWhatsAppPhoneNumber200Response {
+    PurchasePhoneNumber200ResponseOneOf(Box<models::PurchasePhoneNumber200ResponseOneOf>),
     PurchaseWhatsAppPhoneNumber200ResponseOneOf(
         Box<models::PurchaseWhatsAppPhoneNumber200ResponseOneOf>,
     ),
     PurchaseWhatsAppPhoneNumber200ResponseOneOf1(
         Box<models::PurchaseWhatsAppPhoneNumber200ResponseOneOf1>,
     ),
-    PurchaseWhatsAppPhoneNumber200ResponseOneOf2(
-        Box<models::PurchaseWhatsAppPhoneNumber200ResponseOneOf2>,
-    ),
 }
 
 impl Default for PurchaseWhatsAppPhoneNumber200Response {
     fn default() -> Self {
-        Self::PurchaseWhatsAppPhoneNumber200ResponseOneOf(Default::default())
+        Self::PurchasePhoneNumber200ResponseOneOf(Default::default())
     }
 }
 ///

@@ -20,6 +20,9 @@ pub struct PurchasePhoneNumber200ResponseOneOf2 {
     pub number_id: Option<String>,
     #[serde(rename = "phoneNumber", skip_serializing_if = "Option::is_none")]
     pub phone_number: Option<String>,
+    /// The profile the number was actually assigned to.
+    #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]
+    pub profile_id: Option<String>,
 }
 
 impl PurchasePhoneNumber200ResponseOneOf2 {
@@ -29,6 +32,7 @@ impl PurchasePhoneNumber200ResponseOneOf2 {
             status: None,
             number_id: None,
             phone_number: None,
+            profile_id: None,
         }
     }
 }
