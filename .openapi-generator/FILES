@@ -1125,6 +1125,7 @@ docs/SearchInboxConversations200ResponseMetaFailedAccountsInner.md
 docs/SearchReddit200Response.md
 docs/SearchTweets200Response.md
 docs/SearchTweets200ResponseMeta.md
+docs/SearchTweets200ResponsePagination.md
 docs/SearchTweets200ResponseTweetsInner.md
 docs/SearchTweets200ResponseTweetsInnerAuthor.md
 docs/SelectFacebookPage200Response.md
@@ -2743,6 +2744,7 @@ src/models/search_inbox_conversations_200_response_meta_failed_accounts_inner.rs
 src/models/search_reddit_200_response.rs
 src/models/search_tweets_200_response.rs
 src/models/search_tweets_200_response_meta.rs
+src/models/search_tweets_200_response_pagination.rs
 src/models/search_tweets_200_response_tweets_inner.rs
 src/models/search_tweets_200_response_tweets_inner_author.rs
 src/models/select_facebook_page_200_response.rs

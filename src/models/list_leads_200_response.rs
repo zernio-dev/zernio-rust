@@ -18,7 +18,7 @@ pub struct ListLeads200Response {
     #[serde(rename = "leads", skip_serializing_if = "Option::is_none")]
     pub leads: Option<Vec<models::ListLeads200ResponseLeadsInner>>,
     #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
-    pub pagination: Option<Box<models::GetInboxPostComments200ResponsePagination>>,
+    pub pagination: Option<Box<models::SearchTweets200ResponsePagination>>,
 }
 
 impl ListLeads200Response {

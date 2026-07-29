@@ -1646,6 +1646,7 @@ Class | Method | HTTP request | Description
  - [SearchReddit200Response](docs/SearchReddit200Response.md)
  - [SearchTweets200Response](docs/SearchTweets200Response.md)
  - [SearchTweets200ResponseMeta](docs/SearchTweets200ResponseMeta.md)
+ - [SearchTweets200ResponsePagination](docs/SearchTweets200ResponsePagination.md)
  - [SearchTweets200ResponseTweetsInner](docs/SearchTweets200ResponseTweetsInner.md)
  - [SearchTweets200ResponseTweetsInnerAuthor](docs/SearchTweets200ResponseTweetsInnerAuthor.md)
  - [SelectFacebookPage200Response](docs/SelectFacebookPage200Response.md)

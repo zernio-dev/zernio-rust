@@ -1,11 +1,11 @@
-# GetInboxPostComments200ResponsePagination
+# SearchTweets200ResponsePagination
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **has_more** | Option<**bool**> |  | [optional]
-**cursor** | Option<**String**> | Only present when hasMore is true. Absent on the last page, so treat its absence as the end of the thread. | [optional]
+**cursor** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

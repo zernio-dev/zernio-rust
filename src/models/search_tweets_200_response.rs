@@ -18,7 +18,7 @@ pub struct SearchTweets200Response {
     #[serde(rename = "tweets", skip_serializing_if = "Option::is_none")]
     pub tweets: Option<Vec<models::SearchTweets200ResponseTweetsInner>>,
     #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
-    pub pagination: Option<Box<models::GetInboxPostComments200ResponsePagination>>,
+    pub pagination: Option<Box<models::SearchTweets200ResponsePagination>>,
     #[serde(rename = "meta", skip_serializing_if = "Option::is_none")]
     pub meta: Option<Box<models::SearchTweets200ResponseMeta>>,
 }

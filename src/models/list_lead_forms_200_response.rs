@@ -18,7 +18,7 @@ pub struct ListLeadForms200Response {
     #[serde(rename = "forms", skip_serializing_if = "Option::is_none")]
     pub forms: Option<Vec<serde_json::Value>>,
     #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
-    pub pagination: Option<Box<models::GetInboxPostComments200ResponsePagination>>,
+    pub pagination: Option<Box<models::SearchTweets200ResponsePagination>>,
 }
 
 impl ListLeadForms200Response {

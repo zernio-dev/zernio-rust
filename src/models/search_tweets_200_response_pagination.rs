@@ -12,10 +12,9 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetInboxPostComments200ResponsePagination {
+pub struct SearchTweets200ResponsePagination {
     #[serde(rename = "hasMore", skip_serializing_if = "Option::is_none")]
     pub has_more: Option<bool>,
-    /// Only present when hasMore is true. Absent on the last page, so treat its absence as the end of the thread.
     #[serde(
         rename = "cursor",
         default,
@@ -25,9 +24,9 @@ pub struct GetInboxPostComments200ResponsePagination {
     pub cursor: Option<Option<String>>,
 }
 
-impl GetInboxPostComments200ResponsePagination {
-    pub fn new() -> GetInboxPostComments200ResponsePagination {
-        GetInboxPostComments200ResponsePagination {
+impl SearchTweets200ResponsePagination {
+    pub fn new() -> SearchTweets200ResponsePagination {
+        SearchTweets200ResponsePagination {
             has_more: None,
             cursor: None,
         }

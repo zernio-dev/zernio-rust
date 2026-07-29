@@ -2154,6 +2154,8 @@ pub mod search_tweets_200_response;
 pub use self::search_tweets_200_response::SearchTweets200Response;
 pub mod search_tweets_200_response_meta;
 pub use self::search_tweets_200_response_meta::SearchTweets200ResponseMeta;
+pub mod search_tweets_200_response_pagination;
+pub use self::search_tweets_200_response_pagination::SearchTweets200ResponsePagination;
 pub mod search_tweets_200_response_tweets_inner;
 pub use self::search_tweets_200_response_tweets_inner::SearchTweets200ResponseTweetsInner;
 pub mod search_tweets_200_response_tweets_inner_author;
