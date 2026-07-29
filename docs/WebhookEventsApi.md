@@ -28,6 +28,7 @@ Method | HTTP request | Description
 [**on_post_external_updated**](WebhookEventsApi.md#on_post_external_updated) | **POST** /post.external.updated | External post updated event
 [**on_post_failed**](WebhookEventsApi.md#on_post_failed) | **POST** /post.failed | Post failed event
 [**on_post_partial**](WebhookEventsApi.md#on_post_partial) | **POST** /post.partial | Post partial event
+[**on_post_platform_deleted**](WebhookEventsApi.md#on_post_platform_deleted) | **POST** /post.platform.deleted | Post platform deleted event
 [**on_post_platform_failed**](WebhookEventsApi.md#on_post_platform_failed) | **POST** /post.platform.failed | Post platform failed event
 [**on_post_platform_published**](WebhookEventsApi.md#on_post_platform_published) | **POST** /post.platform.published | Post platform published event
 [**on_post_published**](WebhookEventsApi.md#on_post_published) | **POST** /post.published | Post published event
@@ -756,6 +757,36 @@ Fired when a post publishes on some platforms and fails on others.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_post** | [**WebhookPayloadPost**](WebhookPayloadPost.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_post_platform_deleted
+
+> on_post_platform_deleted(webhook_payload_post_platform)
+Post platform deleted event
+
+Fired when Zernio's background sync detects that a platform target published through Zernio was later deleted on the platform (e.g. the user deleted the Instagram post natively). Detection is poll-driven (~hourly), not real-time, and fires once per platform target. `platform.deletedAt` carries the detection time. Detection is listing-based: a false positive self-heals in Zernio's data when the post reappears, but the event is not retracted. Coverage is bounded to the posts the platform listing returns. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_post_platform** | [**WebhookPayloadPostPlatform**](WebhookPayloadPostPlatform.md) |  | [required] |
 
 ### Return type
 

@@ -20,15 +20,18 @@ pub struct WebhookPayloadPostPlatformPlatform {
     /// Terminal status this event fires on. Matches the event suffix.
     #[serde(rename = "status")]
     pub status: Status,
-    /// Platform-native post id. Present on `published`, absent on `failed`.
+    /// Platform-native post id. Present on `published` and `deleted`, absent on `failed`.
     #[serde(rename = "platformPostId", skip_serializing_if = "Option::is_none")]
     pub platform_post_id: Option<String>,
-    /// Public URL to the platform-side post. Present on `published` (when the platform exposes one and it is not a draft).
+    /// Public URL to the platform-side post. Present on `published` (when the platform exposes one and it is not a draft) and on `deleted` (when one was recorded at publish time).
     #[serde(rename = "publishedUrl", skip_serializing_if = "Option::is_none")]
     pub published_url: Option<String>,
-    /// Error message from the platform. Present on `failed`, absent on `published`.
+    /// Error message from the platform. Present on `failed` only.
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
     pub error: Option<String>,
+    /// When the platform-side deletion was detected by Zernio sync (ISO 8601). Present only on `post.platform.deleted`.
+    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
+    pub deleted_at: Option<String>,
 }
 
 impl WebhookPayloadPostPlatformPlatform {
@@ -40,6 +43,7 @@ impl WebhookPayloadPostPlatformPlatform {
             platform_post_id: None,
             published_url: None,
             error: None,
+            deleted_at: None,
         }
     }
 }
@@ -50,6 +54,8 @@ pub enum Status {
     Published,
     #[serde(rename = "failed")]
     Failed,
+    #[serde(rename = "deleted")]
+    Deleted,
 }
 
 impl Default for Status {

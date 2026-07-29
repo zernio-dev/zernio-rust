@@ -183,6 +183,13 @@ pub enum OnPostPartialError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`on_post_platform_deleted`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnPostPlatformDeletedError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`on_post_platform_failed`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -1054,6 +1061,36 @@ pub async fn on_post_partial(configuration: &configuration::Configuration, webho
     } else {
         let content = resp.text().await?;
         let entity: Option<OnPostPartialError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when Zernio's background sync detects that a platform target published through Zernio was later deleted on the platform (e.g. the user deleted the Instagram post natively). Detection is poll-driven (~hourly), not real-time, and fires once per platform target. `platform.deletedAt` carries the detection time. Detection is listing-based: a false positive self-heals in Zernio's data when the post reappears, but the event is not retracted. Coverage is bounded to the posts the platform listing returns. 
+pub async fn on_post_platform_deleted(configuration: &configuration::Configuration, webhook_payload_post_platform: models::WebhookPayloadPostPlatform) -> Result<(), Error<OnPostPlatformDeletedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_payload_post_platform = webhook_payload_post_platform;
+
+    let uri_str = format!("{}/post.platform.deleted", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_payload_post_platform);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnPostPlatformDeletedError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
