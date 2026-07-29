@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct WhatsAppTemplateButton {
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// Visible button label. Required for all types except copy_code (whose label is fixed by WhatsApp).
+    /// Visible button label. Required for all types except copy_code (whose label is fixed by WhatsApp) and otp (omit it and WhatsApp supplies its own label, localized to the template language; an English label on a non-English template is rejected).
     #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
     pub text: Option<String>,
     /// Required when type is URL

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **Type** |  (enum: quick_reply, url, phone_number, otp, copy_code, flow, mpm, catalog) | 
-**text** | Option<**String**> | Visible button label. Required for all types except copy_code (whose label is fixed by WhatsApp). | [optional]
+**text** | Option<**String**> | Visible button label. Required for all types except copy_code (whose label is fixed by WhatsApp) and otp (omit it and WhatsApp supplies its own label, localized to the template language; an English label on a non-English template is rejected). | [optional]
 **url** | Option<**String**> | Required when type is URL | [optional]
 **example** | Option<**serde_json::Value**> |  | [optional]
 **phone_number** | Option<**String**> | Required when type is phone_number | [optional]
