@@ -8,10 +8,12 @@ Method | HTTP request | Description
 [**get_account_health**](AccountsApi.md#get_account_health) | **GET** /v1/accounts/{accountId}/health | Check account health
 [**get_all_accounts_health**](AccountsApi.md#get_all_accounts_health) | **GET** /v1/accounts/health | Check accounts health
 [**get_follower_stats**](AccountsApi.md#get_follower_stats) | **GET** /v1/accounts/follower-stats | Get follower stats
+[**get_slack_settings**](AccountsApi.md#get_slack_settings) | **GET** /v1/accounts/{accountId}/slack-settings | Get Slack account settings
 [**get_tik_tok_creator_info**](AccountsApi.md#get_tik_tok_creator_info) | **GET** /v1/accounts/{accountId}/tiktok/creator-info | Get TikTok creator info
 [**list_accounts**](AccountsApi.md#list_accounts) | **GET** /v1/accounts | List accounts
 [**move_account_to_profile**](AccountsApi.md#move_account_to_profile) | **PATCH** /v1/accounts/{accountId} | Move account to another profile
 [**update_account**](AccountsApi.md#update_account) | **PUT** /v1/accounts/{accountId} | Update account
+[**update_slack_settings**](AccountsApi.md#update_slack_settings) | **PATCH** /v1/accounts/{accountId}/slack-settings | Update Slack account settings
 
 
 
@@ -141,6 +143,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_slack_settings
+
+> models::GetSlackSettings200Response get_slack_settings(account_id)
+Get Slack account settings
+
+Returns the connected Slack channel details and the default message identity (name and avatar shown as the author on every post, with Slack's APP badge). The identity applies to messages only; the app's own Slack profile is global and cannot be changed per workspace.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::GetSlackSettings200Response**](getSlackSettings_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_tik_tok_creator_info
 
 > models::GetTikTokCreatorInfo200Response get_tik_tok_creator_info(account_id, media_type)
@@ -256,6 +288,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UpdateAccount200Response**](updateAccount_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_slack_settings
+
+> update_slack_settings(account_id, update_slack_settings_request)
+Update Slack account settings
+
+Set or clear the default message identity for this channel. Empty string clears a field; per-post platformSpecificData.username/iconUrl still override these defaults.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** |  | [required] |
+**update_slack_settings_request** | [**UpdateSlackSettingsRequest**](UpdateSlackSettingsRequest.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
 
 ### Authorization
 

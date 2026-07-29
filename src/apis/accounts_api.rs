@@ -49,6 +49,16 @@ pub enum GetFollowerStatsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_slack_settings`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetSlackSettingsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_tik_tok_creator_info`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -87,6 +97,16 @@ pub enum UpdateAccountError {
     Status400(),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_slack_settings`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateSlackSettingsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status404(),
     UnknownValue(serde_json::Value),
 }
 
@@ -316,6 +336,57 @@ pub async fn get_follower_stats(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetFollowerStatsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns the connected Slack channel details and the default message identity (name and avatar shown as the author on every post, with Slack's APP badge). The identity applies to messages only; the app's own Slack profile is global and cannot be changed per workspace.
+pub async fn get_slack_settings(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+) -> Result<models::GetSlackSettings200Response, Error<GetSlackSettingsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/slack-settings",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetSlackSettings200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetSlackSettings200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetSlackSettingsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -557,6 +628,51 @@ pub async fn update_account(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateAccountError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Set or clear the default message identity for this channel. Empty string clears a field; per-post platformSpecificData.username/iconUrl still override these defaults.
+pub async fn update_slack_settings(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    update_slack_settings_request: models::UpdateSlackSettingsRequest,
+) -> Result<(), Error<UpdateSlackSettingsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_body_update_slack_settings_request = update_slack_settings_request;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/slack-settings",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::PATCH, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_slack_settings_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateSlackSettingsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

@@ -647,6 +647,8 @@ docs/GetSequence200Response.md
 docs/GetSequence200ResponseSequence.md
 docs/GetSequence200ResponseSequenceStepsInner.md
 docs/GetSequence200ResponseSequenceStepsInnerTemplate.md
+docs/GetSlackSettings200Response.md
+docs/GetSlackSettings200ResponseAccount.md
 docs/GetSmsRegistration200Response.md
 docs/GetSmsRegistration200ResponseCampaignContent.md
 docs/GetSmsUsage200Response.md
@@ -1393,6 +1395,7 @@ docs/UpdateSequence200ResponseSequence.md
 docs/UpdateSequenceRequest.md
 docs/UpdateSequenceRequestStepsInner.md
 docs/UpdateSequenceRequestStepsInnerTemplate.md
+docs/UpdateSlackSettingsRequest.md
 docs/UpdateTrackingTagRequest.md
 docs/UpdateWebhookSettings200Response.md
 docs/UpdateWebhookSettingsRequest.md
@@ -2286,6 +2289,8 @@ src/models/get_sequence_200_response.rs
 src/models/get_sequence_200_response_sequence.rs
 src/models/get_sequence_200_response_sequence_steps_inner.rs
 src/models/get_sequence_200_response_sequence_steps_inner_template.rs
+src/models/get_slack_settings_200_response.rs
+src/models/get_slack_settings_200_response_account.rs
 src/models/get_sms_registration_200_response.rs
 src/models/get_sms_registration_200_response_campaign_content.rs
 src/models/get_sms_usage_200_response.rs
@@ -3004,6 +3009,7 @@ src/models/update_sequence_200_response_sequence.rs
 src/models/update_sequence_request.rs
 src/models/update_sequence_request_steps_inner.rs
 src/models/update_sequence_request_steps_inner_template.rs
+src/models/update_slack_settings_request.rs
 src/models/update_tracking_tag_request.rs
 src/models/update_webhook_settings_200_response.rs
 src/models/update_webhook_settings_request.rs

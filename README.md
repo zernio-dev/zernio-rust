@@ -57,10 +57,12 @@ Class | Method | HTTP request | Description
 *AccountsApi* | [**get_account_health**](docs/AccountsApi.md#get_account_health) | **GET** /v1/accounts/{accountId}/health | Check account health
 *AccountsApi* | [**get_all_accounts_health**](docs/AccountsApi.md#get_all_accounts_health) | **GET** /v1/accounts/health | Check accounts health
 *AccountsApi* | [**get_follower_stats**](docs/AccountsApi.md#get_follower_stats) | **GET** /v1/accounts/follower-stats | Get follower stats
+*AccountsApi* | [**get_slack_settings**](docs/AccountsApi.md#get_slack_settings) | **GET** /v1/accounts/{accountId}/slack-settings | Get Slack account settings
 *AccountsApi* | [**get_tik_tok_creator_info**](docs/AccountsApi.md#get_tik_tok_creator_info) | **GET** /v1/accounts/{accountId}/tiktok/creator-info | Get TikTok creator info
 *AccountsApi* | [**list_accounts**](docs/AccountsApi.md#list_accounts) | **GET** /v1/accounts | List accounts
 *AccountsApi* | [**move_account_to_profile**](docs/AccountsApi.md#move_account_to_profile) | **PATCH** /v1/accounts/{accountId} | Move account to another profile
 *AccountsApi* | [**update_account**](docs/AccountsApi.md#update_account) | **PUT** /v1/accounts/{accountId} | Update account
+*AccountsApi* | [**update_slack_settings**](docs/AccountsApi.md#update_slack_settings) | **PATCH** /v1/accounts/{accountId}/slack-settings | Update Slack account settings
 *AdAccountsApi* | [**get_ad_account_finance**](docs/AdAccountsApi.md#get_ad_account_finance) | **GET** /v1/ads/accounts/finance | Ad account finances
 *AdAccountsApi* | [**get_ad_comments**](docs/AdAccountsApi.md#get_ad_comments) | **GET** /v1/ads/{adId}/comments | List comments on an ad
 *AdAccountsApi* | [**get_ads_activity_log**](docs/AdAccountsApi.md#get_ads_activity_log) | **GET** /v1/ads/activity | Ad account change / audit log
@@ -1191,6 +1193,8 @@ Class | Method | HTTP request | Description
  - [GetSequence200ResponseSequence](docs/GetSequence200ResponseSequence.md)
  - [GetSequence200ResponseSequenceStepsInner](docs/GetSequence200ResponseSequenceStepsInner.md)
  - [GetSequence200ResponseSequenceStepsInnerTemplate](docs/GetSequence200ResponseSequenceStepsInnerTemplate.md)
+ - [GetSlackSettings200Response](docs/GetSlackSettings200Response.md)
+ - [GetSlackSettings200ResponseAccount](docs/GetSlackSettings200ResponseAccount.md)
  - [GetSmsRegistration200Response](docs/GetSmsRegistration200Response.md)
  - [GetSmsRegistration200ResponseCampaignContent](docs/GetSmsRegistration200ResponseCampaignContent.md)
  - [GetSmsUsage200Response](docs/GetSmsUsage200Response.md)
@@ -1908,6 +1912,7 @@ Class | Method | HTTP request | Description
  - [UpdateSequenceRequest](docs/UpdateSequenceRequest.md)
  - [UpdateSequenceRequestStepsInner](docs/UpdateSequenceRequestStepsInner.md)
  - [UpdateSequenceRequestStepsInnerTemplate](docs/UpdateSequenceRequestStepsInnerTemplate.md)
+ - [UpdateSlackSettingsRequest](docs/UpdateSlackSettingsRequest.md)
  - [UpdateTrackingTagRequest](docs/UpdateTrackingTagRequest.md)
  - [UpdateWebhookSettings200Response](docs/UpdateWebhookSettings200Response.md)
  - [UpdateWebhookSettingsRequest](docs/UpdateWebhookSettingsRequest.md)
