@@ -37,7 +37,7 @@ pub struct ConversionEvent {
     /// URL where the conversion originated (used by Meta).
     #[serde(rename = "sourceUrl", skip_serializing_if = "Option::is_none")]
     pub source_url: Option<String>,
-    /// Where the conversion happened. Used by Meta; Google ignores.
+    /// Where the conversion happened. Used by Meta. Google also requires an event source internally; omitting this field sends OTHER to Google. Send an explicit value for accurate origin reporting.
     #[serde(rename = "actionSource", skip_serializing_if = "Option::is_none")]
     pub action_source: Option<ActionSource>,
     /// Escape hatch for platform-specific fields we haven't normalized. Forwarded as-is.
@@ -67,7 +67,7 @@ impl ConversionEvent {
         }
     }
 }
-/// Where the conversion happened. Used by Meta; Google ignores.
+/// Where the conversion happened. Used by Meta. Google also requires an event source internally; omitting this field sends OTHER to Google. Send an explicit value for accurate origin reporting.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ActionSource {
     #[serde(rename = "web")]
