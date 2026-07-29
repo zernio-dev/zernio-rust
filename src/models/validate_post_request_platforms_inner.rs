@@ -71,6 +71,8 @@ pub enum Platform {
     Googlebusiness,
     #[serde(rename = "discord")]
     Discord,
+    #[serde(rename = "slack")]
+    Slack,
 }
 
 impl Default for Platform {

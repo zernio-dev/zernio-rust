@@ -12,6 +12,7 @@
 | LinkedInPlatformData | Platform-specific overrides and options. |
 | PinterestPlatformData | Platform-specific overrides and options. |
 | RedditPlatformData | Platform-specific overrides and options. |
+| SlackPlatformData | Platform-specific overrides and options. |
 | SnapchatPlatformData | Platform-specific overrides and options. |
 | TelegramPlatformData | Platform-specific overrides and options. |
 | ThreadsPlatformData | Platform-specific overrides and options. |

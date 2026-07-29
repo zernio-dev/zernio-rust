@@ -2356,6 +2356,8 @@ pub mod share_sms_registration_request;
 pub use self::share_sms_registration_request::ShareSmsRegistrationRequest;
 pub mod shared_ad_account;
 pub use self::shared_ad_account::SharedAdAccount;
+pub mod slack_platform_data;
+pub use self::slack_platform_data::SlackPlatformData;
 pub mod snapchat_platform_data;
 pub use self::snapchat_platform_data::SnapchatPlatformData;
 pub mod social_account;

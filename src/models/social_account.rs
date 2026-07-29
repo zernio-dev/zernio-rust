@@ -120,6 +120,8 @@ pub enum Platform {
     Snapchat,
     #[serde(rename = "discord")]
     Discord,
+    #[serde(rename = "slack")]
+    Slack,
     #[serde(rename = "whatsapp")]
     Whatsapp,
     #[serde(rename = "linkedinads")]

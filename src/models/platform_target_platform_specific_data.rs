@@ -30,6 +30,7 @@ pub enum PlatformTargetPlatformSpecificData {
     RedditPlatformData(Box<models::RedditPlatformData>),
     BlueskyPlatformData(Box<models::BlueskyPlatformData>),
     DiscordPlatformData(Box<models::DiscordPlatformData>),
+    SlackPlatformData(Box<models::SlackPlatformData>),
 }
 
 impl Default for PlatformTargetPlatformSpecificData {
