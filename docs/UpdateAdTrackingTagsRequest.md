@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**url_tags** | Option<[**Vec<models::UpdateAdTrackingTagsRequestUrlTagsInner>**](UpdateAdTrackingTagsRequestUrlTagsInner.md)> | Meta only. Click-URL params appended to a freshly-rebuilt creative. | [optional]
+**url_tags** | Option<[**Vec<models::UpdateAdTrackingTagsRequestUrlTagsInner>**](UpdateAdTrackingTagsRequestUrlTagsInner.md)> | Meta only. Click-URL params appended to a freshly-rebuilt creative. Meta dynamic macros ({{ad.id}}, {{campaign.id}}, {{placement}}, ...) are sent through unescaped so Meta expands them; every other character is percent-encoded. | [optional]
 **creative** | Option<[**models::UpdateAdTrackingTagsRequestCreative**](UpdateAdTrackingTagsRequestCreative.md)> |  | [optional]
 **tracking_url_template** | Option<**String**> | Google only. Full tracking template (must contain {lpurl}). | [optional]
 **final_url_suffix** | Option<**String**> | Google only. Parse-only key=value params. | [optional]

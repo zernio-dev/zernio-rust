@@ -17,7 +17,7 @@ pub struct CreateStandaloneAdRequestTracking {
     /// Meta Pixel ID to attach for offsite-conversion measurement.
     #[serde(rename = "pixelId", skip_serializing_if = "Option::is_none")]
     pub pixel_id: Option<String>,
-    /// Click-URL params appended to the ad's destination as `url_tags` (e.g. utm_source).
+    /// Click-URL params appended to the ad's destination as `url_tags` (e.g. utm_source). Meta dynamic macros ({{ad.id}}, {{campaign.id}}, {{placement}}, ...) are sent through unescaped so Meta expands them; every other character is percent-encoded.
     #[serde(rename = "urlTags", skip_serializing_if = "Option::is_none")]
     pub url_tags: Option<Vec<models::UpdateAdTrackingTagsRequestUrlTagsInner>>,
 }

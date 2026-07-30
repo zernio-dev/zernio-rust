@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAdTrackingTagsRequest {
-    /// Meta only. Click-URL params appended to a freshly-rebuilt creative.
+    /// Meta only. Click-URL params appended to a freshly-rebuilt creative. Meta dynamic macros ({{ad.id}}, {{campaign.id}}, {{placement}}, ...) are sent through unescaped so Meta expands them; every other character is percent-encoded.
     #[serde(rename = "urlTags", skip_serializing_if = "Option::is_none")]
     pub url_tags: Option<Vec<models::UpdateAdTrackingTagsRequestUrlTagsInner>>,
     #[serde(rename = "creative", skip_serializing_if = "Option::is_none")]
