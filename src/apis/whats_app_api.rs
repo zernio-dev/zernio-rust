@@ -245,6 +245,17 @@ pub enum ListWhatsAppGroupJoinRequestsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`register_whats_app_number`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RegisterWhatsAppNumberError {
+    Status400(models::ErrorResponse),
+    Status401(),
+    Status404(),
+    Status422(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`reject_whats_app_group_join_requests`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -1619,6 +1630,62 @@ pub async fn list_whats_app_group_join_requests(
         let content = resp.text().await?;
         let entity: Option<ListWhatsAppGroupJoinRequestsError> =
             serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Re-runs Meta's Cloud API registration for a WhatsApp account that is already connected. Use it when the number has its own two-step verification PIN: the connect flows register with a default PIN, Meta rejects that with error 133005, and the number then fails every send with the misleading '(#200) You do not have the necessary permission to send messages' while the account still shows as connected. The PIN is used for this call only and is not stored.
+pub async fn register_whats_app_number(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    register_whats_app_number_request: Option<models::RegisterWhatsAppNumberRequest>,
+) -> Result<models::RegisterWhatsAppNumber200Response, Error<RegisterWhatsAppNumberError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_body_register_whats_app_number_request = register_whats_app_number_request;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/whatsapp/register",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_register_whats_app_number_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::RegisterWhatsAppNumber200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::RegisterWhatsAppNumber200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RegisterWhatsAppNumberError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

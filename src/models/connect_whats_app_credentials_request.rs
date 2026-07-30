@@ -25,6 +25,9 @@ pub struct ConnectWhatsAppCredentialsRequest {
     /// Phone Number ID from Meta WhatsApp Manager
     #[serde(rename = "phoneNumberId")]
     pub phone_number_id: String,
+    /// The 6-digit two-step verification PIN set on the number. Required if you enabled two-step verification for it, otherwise Meta rejects the Cloud API registration with error 133005 and the number cannot send messages.
+    #[serde(rename = "pin", skip_serializing_if = "Option::is_none")]
+    pub pin: Option<String>,
 }
 
 impl ConnectWhatsAppCredentialsRequest {
@@ -39,6 +42,7 @@ impl ConnectWhatsAppCredentialsRequest {
             access_token,
             waba_id,
             phone_number_id,
+            pin: None,
         }
     }
 }

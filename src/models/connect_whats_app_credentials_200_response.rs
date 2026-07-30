@@ -15,6 +15,12 @@ use serde::{Deserialize, Serialize};
 pub struct ConnectWhatsAppCredentials200Response {
     #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
+    /// Present when the account was created but Meta rejected the Cloud API registration. The number cannot send messages until this is resolved.
+    #[serde(
+        rename = "registrationWarning",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub registration_warning: Option<String>,
     #[serde(rename = "account", skip_serializing_if = "Option::is_none")]
     pub account: Option<Box<models::ConnectWhatsAppCredentials200ResponseAccount>>,
 }
@@ -23,6 +29,7 @@ impl ConnectWhatsAppCredentials200Response {
     pub fn new() -> ConnectWhatsAppCredentials200Response {
         ConnectWhatsAppCredentials200Response {
             message: None,
+            registration_warning: None,
             account: None,
         }
     }
