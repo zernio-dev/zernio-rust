@@ -16,8 +16,10 @@ Method | HTTP request | Description
 [**get_whats_app_calling_config**](WhatsAppCallingApi.md#get_whats_app_calling_config) | **GET** /v1/whatsapp/calling | Get calling config for an account
 [**initiate_whats_app_call**](WhatsAppCallingApi.md#initiate_whats_app_call) | **POST** /v1/whatsapp/calls | Initiate outbound call
 [**list_whats_app_calls**](WhatsAppCallingApi.md#list_whats_app_calls) | **GET** /v1/whatsapp/calls | List call history for an account
+[**start_whats_app_caller_id_verification**](WhatsAppCallingApi.md#start_whats_app_caller_id_verification) | **POST** /v1/phone-numbers/{id}/whatsapp/caller-id-verification | Start caller-ID verification for a customer-brought number
 [**update_whats_app_calling**](WhatsAppCallingApi.md#update_whats_app_calling) | **PATCH** /v1/phone-numbers/{id}/whatsapp/calling | Update calling config
 [**update_whats_app_calling_legacy**](WhatsAppCallingApi.md#update_whats_app_calling_legacy) | **PATCH** /v1/whatsapp/phone-numbers/{id}/calling | Update calling config
+[**verify_whats_app_caller_id**](WhatsAppCallingApi.md#verify_whats_app_caller_id) | **POST** /v1/phone-numbers/{id}/whatsapp/caller-id-verification/verify | Confirm the caller-ID verification code
 
 
 
@@ -397,6 +399,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## start_whats_app_caller_id_verification
+
+> models::StartWhatsAppCallerIdVerification200Response start_whats_app_caller_id_verification(id, start_whats_app_caller_id_verification_request)
+Start caller-ID verification for a customer-brought number
+
+Customer-brought (BYO) WhatsApp numbers cannot present themselves as caller ID on `tel:` call forwards until verified (carrier anti-spoofing); until then forwarded calls show a Zernio number (`callerIdMode: platform` on the calling config). This sends a one-time code to the number by SMS or voice call. Re-POST to resend. Zernio-purchased numbers never need this and get a 400. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | Phone number record ID (from GET /v1/phone-numbers). | [required] |
+**start_whats_app_caller_id_verification_request** | Option<[**StartWhatsAppCallerIdVerificationRequest**](StartWhatsAppCallerIdVerificationRequest.md)> |  |  |
+
+### Return type
+
+[**models::StartWhatsAppCallerIdVerification200Response**](startWhatsAppCallerIdVerification_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## update_whats_app_calling
 
 > update_whats_app_calling(id, update_whats_app_calling_legacy_request)
@@ -446,6 +479,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
  (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## verify_whats_app_caller_id
+
+> models::VerifySmsRegistrationOtp200Response verify_whats_app_caller_id(id, verify_whats_app_caller_id_request)
+Confirm the caller-ID verification code
+
+Submits the one-time code the number received. On success, `tel:` call forwards present the business number itself as caller ID (`callerIdMode: business`). 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | Phone number record ID (from GET /v1/phone-numbers). | [required] |
+**verify_whats_app_caller_id_request** | [**VerifyWhatsAppCallerIdRequest**](VerifyWhatsAppCallerIdRequest.md) |  | [required] |
+
+### Return type
+
+[**models::VerifySmsRegistrationOtp200Response**](verifySmsRegistrationOtp_200_response.md)
 
 ### Authorization
 

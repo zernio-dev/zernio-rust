@@ -129,6 +129,17 @@ pub enum ListWhatsAppCallsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`start_whats_app_caller_id_verification`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum StartWhatsAppCallerIdVerificationError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status404(),
+    Status429(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`update_whats_app_calling`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -148,6 +159,17 @@ pub enum UpdateWhatsAppCallingLegacyError {
     Status401(models::InlineObject),
     Status404(),
     Status422(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`verify_whats_app_caller_id`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum VerifyWhatsAppCallerIdError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status404(),
+    Status429(),
     UnknownValue(serde_json::Value),
 }
 
@@ -812,6 +834,69 @@ pub async fn list_whats_app_calls(
     }
 }
 
+/// Customer-brought (BYO) WhatsApp numbers cannot present themselves as caller ID on `tel:` call forwards until verified (carrier anti-spoofing); until then forwarded calls show a Zernio number (`callerIdMode: platform` on the calling config). This sends a one-time code to the number by SMS or voice call. Re-POST to resend. Zernio-purchased numbers never need this and get a 400.
+pub async fn start_whats_app_caller_id_verification(
+    configuration: &configuration::Configuration,
+    id: &str,
+    start_whats_app_caller_id_verification_request: Option<
+        models::StartWhatsAppCallerIdVerificationRequest,
+    >,
+) -> Result<
+    models::StartWhatsAppCallerIdVerification200Response,
+    Error<StartWhatsAppCallerIdVerificationError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_body_start_whats_app_caller_id_verification_request =
+        start_whats_app_caller_id_verification_request;
+
+    let uri_str = format!(
+        "{}/v1/phone-numbers/{id}/whatsapp/caller-id-verification",
+        configuration.base_path,
+        id = crate::apis::urlencode(p_path_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_start_whats_app_caller_id_verification_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::StartWhatsAppCallerIdVerification200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::StartWhatsAppCallerIdVerification200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<StartWhatsAppCallerIdVerificationError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Update fields on an already-enabled number. Only fields present in the body are written; `undefined` leaves the stored value alone, explicit `null` clears a nullable field. No Meta side effect, this only changes local routing state consumed by the Telnyx webhook handler.
 pub async fn update_whats_app_calling(
     configuration: &configuration::Configuration,
@@ -895,6 +980,62 @@ pub async fn update_whats_app_calling_legacy(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateWhatsAppCallingLegacyError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Submits the one-time code the number received. On success, `tel:` call forwards present the business number itself as caller ID (`callerIdMode: business`).
+pub async fn verify_whats_app_caller_id(
+    configuration: &configuration::Configuration,
+    id: &str,
+    verify_whats_app_caller_id_request: models::VerifyWhatsAppCallerIdRequest,
+) -> Result<models::VerifySmsRegistrationOtp200Response, Error<VerifyWhatsAppCallerIdError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_body_verify_whats_app_caller_id_request = verify_whats_app_caller_id_request;
+
+    let uri_str = format!(
+        "{}/v1/phone-numbers/{id}/whatsapp/caller-id-verification/verify",
+        configuration.base_path,
+        id = crate::apis::urlencode(p_path_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_verify_whats_app_caller_id_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VerifySmsRegistrationOtp200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VerifySmsRegistrationOtp200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<VerifyWhatsAppCallerIdError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

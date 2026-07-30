@@ -1253,6 +1253,8 @@ docs/StartSmsRegistrationRequest.md
 docs/StartSmsRegistrationRequestBrand.md
 docs/StartSmsRegistrationRequestCampaign.md
 docs/StartSmsRegistrationRequestTollFree.md
+docs/StartWhatsAppCallerIdVerification200Response.md
+docs/StartWhatsAppCallerIdVerificationRequest.md
 docs/SubmitPhoneNumberKyc200Response.md
 docs/SubmitPhoneNumberKyc200ResponseNumbersInner.md
 docs/SubmitPhoneNumberKyc200ResponsePhoneNumber.md
@@ -1487,6 +1489,7 @@ docs/Verification.md
 docs/VerifyApi.md
 docs/VerifySmsRegistrationOtp200Response.md
 docs/VerifySmsRegistrationOtpRequest.md
+docs/VerifyWhatsAppCallerIdRequest.md
 docs/VoiceApi.md
 docs/VoteRedditThingRequest.md
 docs/Webhook.md
@@ -2878,6 +2881,8 @@ src/models/start_sms_registration_request.rs
 src/models/start_sms_registration_request_brand.rs
 src/models/start_sms_registration_request_campaign.rs
 src/models/start_sms_registration_request_toll_free.rs
+src/models/start_whats_app_caller_id_verification_200_response.rs
+src/models/start_whats_app_caller_id_verification_request.rs
 src/models/submit_phone_number_kyc_200_response.rs
 src/models/submit_phone_number_kyc_200_response_numbers_inner.rs
 src/models/submit_phone_number_kyc_200_response_phone_number.rs
@@ -3106,6 +3111,7 @@ src/models/validate_subreddit_200_response_one_of_subreddit.rs
 src/models/verification.rs
 src/models/verify_sms_registration_otp_200_response.rs
 src/models/verify_sms_registration_otp_request.rs
+src/models/verify_whats_app_caller_id_request.rs
 src/models/vote_reddit_thing_request.rs
 src/models/webhook.rs
 src/models/webhook_log.rs

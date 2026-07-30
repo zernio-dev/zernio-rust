@@ -58,6 +58,12 @@ pub struct GetWhatsAppCallingConfig200Response {
         skip_serializing_if = "Option::is_none"
     )]
     pub call_icon_countries: Option<Option<Vec<String>>>,
+    /// Caller ID the forward-leg callee sees on tel: forwards. business = this WhatsApp number; platform = a Zernio number (customer-brought number without verified caller ID; verify via /v1/phone-numbers/{id}/whatsapp/caller-id-verification).
+    #[serde(rename = "callerIdMode", skip_serializing_if = "Option::is_none")]
+    pub caller_id_mode: Option<CallerIdMode>,
+    /// True once the number completed caller-ID verification.
+    #[serde(rename = "callerIdVerified", skip_serializing_if = "Option::is_none")]
+    pub caller_id_verified: Option<bool>,
 }
 
 impl GetWhatsAppCallingConfig200Response {
@@ -72,6 +78,22 @@ impl GetWhatsAppCallingConfig200Response {
             sip_auth_username: None,
             sip_auth_password_configured: None,
             call_icon_countries: None,
+            caller_id_mode: None,
+            caller_id_verified: None,
         }
+    }
+}
+/// Caller ID the forward-leg callee sees on tel: forwards. business = this WhatsApp number; platform = a Zernio number (customer-brought number without verified caller ID; verify via /v1/phone-numbers/{id}/whatsapp/caller-id-verification).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum CallerIdMode {
+    #[serde(rename = "business")]
+    Business,
+    #[serde(rename = "platform")]
+    Platform,
+}
+
+impl Default for CallerIdMode {
+    fn default() -> CallerIdMode {
+        Self::Business
     }
 }
