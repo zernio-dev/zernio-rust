@@ -19,8 +19,10 @@ use tokio_util::codec::{BytesCodec, FramedRead};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BulkUploadPostsError {
-    Status400(),
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
+    Status402(models::GetYouTubeDailyViews400Response),
+    Status404(models::ErrorResponse),
     Status429(models::GetInboxVolume400Response),
     UnknownValue(serde_json::Value),
 }
@@ -41,9 +43,9 @@ pub enum CreatePostError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeletePostError {
-    Status400(),
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
-    Status403(),
+    Status403(models::ErrorResponse),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
@@ -64,8 +66,9 @@ pub enum EditPostError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetPostError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
-    Status403(),
+    Status403(models::ErrorResponse),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
@@ -74,6 +77,7 @@ pub enum GetPostError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListPostsError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }
@@ -82,11 +86,12 @@ pub enum ListPostsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetryPostError {
-    Status400(),
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
-    Status403(),
+    Status402(models::GetYouTubeDailyViews400Response),
+    Status403(models::ErrorResponse),
     Status404(models::InlineObject1),
-    Status409(),
+    Status409(models::ErrorResponse),
     Status429(models::GetInboxVolume400Response),
     UnknownValue(serde_json::Value),
 }
@@ -95,9 +100,9 @@ pub enum RetryPostError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UnpublishPostError {
-    Status400(),
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
-    Status403(),
+    Status403(models::ErrorResponse),
     Status404(models::InlineObject1),
     Status500(),
     UnknownValue(serde_json::Value),
@@ -107,9 +112,9 @@ pub enum UnpublishPostError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdatePostError {
-    Status400(),
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
-    Status403(),
+    Status403(models::ErrorResponse),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
@@ -118,9 +123,9 @@ pub enum UpdatePostError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdatePostMetadataError {
-    Status400(),
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
-    Status403(),
+    Status403(models::ErrorResponse),
     Status404(models::InlineObject1),
     Status500(),
     UnknownValue(serde_json::Value),

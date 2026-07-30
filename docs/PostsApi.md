@@ -183,12 +183,12 @@ Returns a paginated list of posts. Published posts include platformPostUrl with 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **page** | Option<**i32**> | Page number (1-based) |  |[default to 1]
-**limit** | Option<**i32**> | Page size |  |[default to 10]
+**limit** | Option<**i32**> | Page size. Values above the maximum return 400 rather than being clamped. |  |[default to 10]
 **source** | Option<**String**> | Which collection to read. `zernio` (default) returns posts authored through Zernio. `external` returns posts synced from the platform (existing/historical posts that were published outside Zernio). Combine with `accountId` and paginate via `page`/`limit` to walk the full synced history (we keep up to the last ~12 months per account). |  |[default to zernio]
 **status** | Option<**String**> |  |  |
 **platform** | Option<**String**> |  |  |
 **profile_id** | Option<**String**> |  |  |
-**created_by** | Option<**String**> |  |  |
+**created_by** | Option<**String**> | Filter posts to those created by a specific team user (24-char hex ObjectId). |  |
 **date_from** | Option<**String**> |  |  |
 **date_to** | Option<**String**> |  |  |
 **include_hidden** | Option<**bool**> |  |  |[default to false]
