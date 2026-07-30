@@ -58,6 +58,12 @@ pub struct GetWhatsAppCalling200Response {
     /// True when the number's country blocks business-initiated (outbound) WhatsApp calling; inbound still works.
     #[serde(rename = "outboundDisabled", skip_serializing_if = "Option::is_none")]
     pub outbound_disabled: Option<bool>,
+    /// Caller ID the forward-leg callee sees on tel: forwards. business = this WhatsApp number; platform = a Zernio number (used when the number was brought by the customer and its caller ID is not verified for PSTN origination).
+    #[serde(rename = "callerIdMode", skip_serializing_if = "Option::is_none")]
+    pub caller_id_mode: Option<CallerIdMode>,
+    /// True once the number completed caller-ID verification, making tel: forwards display the business number itself.
+    #[serde(rename = "callerIdVerified", skip_serializing_if = "Option::is_none")]
+    pub caller_id_verified: Option<bool>,
 }
 
 impl GetWhatsAppCalling200Response {
@@ -72,6 +78,22 @@ impl GetWhatsAppCalling200Response {
             sip_auth_password_configured: None,
             call_icon_countries: None,
             outbound_disabled: None,
+            caller_id_mode: None,
+            caller_id_verified: None,
         }
+    }
+}
+/// Caller ID the forward-leg callee sees on tel: forwards. business = this WhatsApp number; platform = a Zernio number (used when the number was brought by the customer and its caller ID is not verified for PSTN origination).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum CallerIdMode {
+    #[serde(rename = "business")]
+    Business,
+    #[serde(rename = "platform")]
+    Platform,
+}
+
+impl Default for CallerIdMode {
+    fn default() -> CallerIdMode {
+        Self::Business
     }
 }

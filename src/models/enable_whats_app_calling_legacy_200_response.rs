@@ -21,6 +21,9 @@ pub struct EnableWhatsAppCallingLegacy200Response {
     pub sip_hostname: Option<String>,
     #[serde(rename = "forwardTo", skip_serializing_if = "Option::is_none")]
     pub forward_to: Option<String>,
+    /// Caller ID the forward-leg callee sees on tel: forwards. business = this WhatsApp number; platform = a Zernio number (customer-brought number without verified caller ID).
+    #[serde(rename = "callerIdMode", skip_serializing_if = "Option::is_none")]
+    pub caller_id_mode: Option<CallerIdMode>,
 }
 
 impl EnableWhatsAppCallingLegacy200Response {
@@ -30,6 +33,21 @@ impl EnableWhatsAppCallingLegacy200Response {
             calling_enabled: None,
             sip_hostname: None,
             forward_to: None,
+            caller_id_mode: None,
         }
+    }
+}
+/// Caller ID the forward-leg callee sees on tel: forwards. business = this WhatsApp number; platform = a Zernio number (customer-brought number without verified caller ID).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum CallerIdMode {
+    #[serde(rename = "business")]
+    Business,
+    #[serde(rename = "platform")]
+    Platform,
+}
+
+impl Default for CallerIdMode {
+    fn default() -> CallerIdMode {
+        Self::Business
     }
 }
