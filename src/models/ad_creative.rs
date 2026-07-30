@@ -55,6 +55,14 @@ pub struct AdCreative {
         skip_serializing_if = "Option::is_none"
     )]
     pub effective_object_story_id: Option<Option<String>>,
+    /// Facebook Page backing the creative (Meta only). What the `pageId` filter on /v1/ads, /v1/ads/campaigns and /v1/ads/tree matches against. Absent for non-Meta ads and rare Meta creatives with no page signal.
+    #[serde(
+        rename = "pageId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub page_id: Option<Option<String>>,
     /// Meta `effective_instagram_media_id` — the Instagram media ID of the boosted post the ad's engagement lives on. Pass to GET /v1/ads?effectiveInstagramMediaId= to map a Business-Manager-visible IG post back to this ad.
     #[serde(
         rename = "effectiveInstagramMediaId",
@@ -116,6 +124,7 @@ impl AdCreative {
             object_type: None,
             object_story_id: None,
             effective_object_story_id: None,
+            page_id: None,
             effective_instagram_media_id: None,
             instagram_user_id: None,
             instagram_permalink_url: None,

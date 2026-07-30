@@ -841,6 +841,7 @@ pub async fn get_ad_tree(
     platform: Option<&str>,
     status: Option<models::AdStatus>,
     ad_account_id: Option<&str>,
+    page_id: Option<&str>,
     account_id: Option<&str>,
     profile_id: Option<&str>,
     campaign_id: Option<&str>,
@@ -857,6 +858,7 @@ pub async fn get_ad_tree(
     let p_query_platform = platform;
     let p_query_status = status;
     let p_query_ad_account_id = ad_account_id;
+    let p_query_page_id = page_id;
     let p_query_account_id = account_id;
     let p_query_profile_id = profile_id;
     let p_query_campaign_id = campaign_id;
@@ -886,6 +888,9 @@ pub async fn get_ad_tree(
     }
     if let Some(ref param_value) = p_query_ad_account_id {
         req_builder = req_builder.query(&[("adAccountId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page_id {
+        req_builder = req_builder.query(&[("pageId", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_account_id {
         req_builder = req_builder.query(&[("accountId", &param_value.to_string())]);
@@ -1024,6 +1029,7 @@ pub async fn list_ad_campaigns(
     platform: Option<&str>,
     status: Option<models::AdStatus>,
     ad_account_id: Option<&str>,
+    page_id: Option<&str>,
     account_id: Option<&str>,
     profile_id: Option<&str>,
     from_date: Option<String>,
@@ -1036,6 +1042,7 @@ pub async fn list_ad_campaigns(
     let p_query_platform = platform;
     let p_query_status = status;
     let p_query_ad_account_id = ad_account_id;
+    let p_query_page_id = page_id;
     let p_query_account_id = account_id;
     let p_query_profile_id = profile_id;
     let p_query_from_date = from_date;
@@ -1061,6 +1068,9 @@ pub async fn list_ad_campaigns(
     }
     if let Some(ref param_value) = p_query_ad_account_id {
         req_builder = req_builder.query(&[("adAccountId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page_id {
+        req_builder = req_builder.query(&[("pageId", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_account_id {
         req_builder = req_builder.query(&[("accountId", &param_value.to_string())]);
@@ -1220,6 +1230,7 @@ pub async fn list_ads(
     platform: Option<&str>,
     account_id: Option<&str>,
     ad_account_id: Option<&str>,
+    page_id: Option<&str>,
     profile_id: Option<&str>,
     campaign_id: Option<&str>,
     platform_ad_id: Option<&str>,
@@ -1236,6 +1247,7 @@ pub async fn list_ads(
     let p_query_platform = platform;
     let p_query_account_id = account_id;
     let p_query_ad_account_id = ad_account_id;
+    let p_query_page_id = page_id;
     let p_query_profile_id = profile_id;
     let p_query_campaign_id = campaign_id;
     let p_query_platform_ad_id = platform_ad_id;
@@ -1267,6 +1279,9 @@ pub async fn list_ads(
     }
     if let Some(ref param_value) = p_query_ad_account_id {
         req_builder = req_builder.query(&[("adAccountId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page_id {
+        req_builder = req_builder.query(&[("pageId", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_profile_id {
         req_builder = req_builder.query(&[("profileId", &param_value.to_string())]);

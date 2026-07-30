@@ -368,7 +368,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_ad_tree
 
-> models::GetAdTree200Response get_ad_tree(page, limit, source, platform, status, ad_account_id, account_id, profile_id, campaign_id, from_date, to_date, sort, time_increment, daily_level)
+> models::GetAdTree200Response get_ad_tree(page, limit, source, platform, status, ad_account_id, page_id, account_id, profile_id, campaign_id, from_date, to_date, sort, time_increment, daily_level)
 Get campaign tree
 
 Returns a nested Campaign > Ad Set > Ad hierarchy with rolled-up metrics at each level. Uses a two-stage aggregation: ads are grouped into ad sets, then ad sets into campaigns. Metrics are computed over an optional date range, then rolled up from ad level to ad set and campaign levels. Pagination is at the campaign level. Ads without a campaign or ad set ID are grouped into synthetic \"Ungrouped\" buckets. If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max.  Pass `timeIncrement=1` to also get a daily breakdown: each node gains a `daily[]` array of per-day metrics (same fields as the aggregated `metrics`) in the same call. Use `dailyLevel` (`campaign` default, or `adset` / `ad`) to choose which levels carry the series. This replaces calling the tree once per day for per-campaign daily trends. 
@@ -384,6 +384,7 @@ Name | Type | Description  | Required | Notes
 **platform** | Option<**String**> |  |  |
 **status** | Option<[**AdStatus**](AdStatus.md)> | Filter by derived campaign status (post-aggregation) |  |
 **ad_account_id** | Option<**String**> | Platform ad account ID |  |
+**page_id** | Option<**String**> | Meta only: Facebook Page ID. Prunes the tree to ads whose creative is backed by this Page — campaigns and ad sets with no ad on the Page drop out, and rolled-up metrics cover only the Page's ads. Mirrors the same filter on /v1/ads and /v1/ads/campaigns. |  |
 **account_id** | Option<**String**> | Social account ID |  |
 **profile_id** | Option<**String**> | Profile ID |  |
 **campaign_id** | Option<**String**> | Restrict the tree to a single campaign by its platform campaign id (the id the platform assigns, e.g. Meta's numeric campaign id). Filters the campaign set itself, so it works regardless of account size and pagination — pass this when you already hold a campaign id instead of paging the tree to find it. Mirrors the `campaignId` filter on GET /v1/ads. |  |
@@ -445,7 +446,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_ad_campaigns
 
-> models::ListAdCampaigns200Response list_ad_campaigns(page, limit, source, platform, status, ad_account_id, account_id, profile_id, from_date, to_date)
+> models::ListAdCampaigns200Response list_ad_campaigns(page, limit, source, platform, status, ad_account_id, page_id, account_id, profile_id, from_date, to_date)
 List campaigns
 
 Returns campaigns as virtual aggregations over ad documents grouped by platform campaign ID. Metrics (spend, impressions, clicks, etc.) are summed across all ads in each campaign. Campaign status is derived from child ad statuses (active > pending_review > paused > error > completed > cancelled > rejected). 
@@ -461,6 +462,7 @@ Name | Type | Description  | Required | Notes
 **platform** | Option<**String**> |  |  |
 **status** | Option<[**AdStatus**](AdStatus.md)> | Filter by derived campaign status (post-aggregation) |  |
 **ad_account_id** | Option<**String**> | Platform ad account ID (e.g. act_123 for Meta) |  |
+**page_id** | Option<**String**> | Meta only: Facebook Page ID. Campaigns have no Page of their own, so this keeps campaigns having at least one ad backed by this Page, with adCount and metrics computed over those ads only. Mirrors the same filter on /v1/ads and /v1/ads/tree. |  |
 **account_id** | Option<**String**> | Social account ID |  |
 **profile_id** | Option<**String**> | Profile ID |  |
 **from_date** | Option<**String**> | Start of metrics date range (YYYY-MM-DD, inclusive). Defaults to 90 days ago when both date params are omitted. |  |
@@ -524,7 +526,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_ads
 
-> models::ListAds200Response list_ads(page, limit, source, status, platform, account_id, ad_account_id, profile_id, campaign_id, platform_ad_id, effective_object_story_id, effective_instagram_media_id, from_date, to_date)
+> models::ListAds200Response list_ads(page, limit, source, status, platform, account_id, ad_account_id, page_id, profile_id, campaign_id, platform_ad_id, effective_object_story_id, effective_instagram_media_id, from_date, to_date)
 List ads
 
 Returns a paginated list of ads with metrics computed over an optional date range. Use source=all to include externally-synced ads from platform ad managers. If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max.  To find the Zernio ad behind a comment you see in Meta Business Manager, filter by platformAdId (the Meta ad ID), effectiveObjectStoryId (Facebook), or effectiveInstagramMediaId (Instagram) — those are the post/media the ad's engagement lives on, and are also returned on each ad's `creative` object. Then call GET /v1/ads/{adId}/comments with the returned ad id. 
@@ -541,6 +543,7 @@ Name | Type | Description  | Required | Notes
 **platform** | Option<**String**> |  |  |
 **account_id** | Option<**String**> | Social account ID |  |
 **ad_account_id** | Option<**String**> | Platform ad account ID (e.g. act_123 for Meta). Mirrors the same filter on /v1/ads/campaigns and /v1/ads/tree. |  |
+**page_id** | Option<**String**> | Meta only: Facebook Page ID. Returns only ads whose creative is backed by this Page (a Meta ad account serves ads for every Page in the Business Manager). Matches each ad's `creative.pageId`; ads with no page signal (rare IG-only creatives) never match. Mirrors the same filter on /v1/ads/campaigns and /v1/ads/tree. |  |
 **profile_id** | Option<**String**> | Profile ID |  |
 **campaign_id** | Option<**String**> | Platform campaign ID (filter ads within a campaign) |  |
 **platform_ad_id** | Option<**String**> | Meta ad ID. Returns the ad with this platform-side ad ID. |  |
