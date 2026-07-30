@@ -16,13 +16,24 @@ pub struct InstagramAccountInsightsResponseMetricsValue {
     /// Sum or aggregate value for the metric
     #[serde(rename = "total", skip_serializing_if = "Option::is_none")]
     pub total: Option<f64>,
-    /// Daily values (only for time_series)
+    /// Daily values (for time_series, and always on monetary metrics)
     #[serde(rename = "values", skip_serializing_if = "Option::is_none")]
     pub values: Option<Vec<models::InstagramAccountInsightsResponseMetricsValueValuesInner>>,
     /// Breakdown values (only for total_value with breakdown)
     #[serde(rename = "breakdowns", skip_serializing_if = "Option::is_none")]
     pub breakdowns:
         Option<Vec<models::InstagramAccountInsightsResponseMetricsValueBreakdownsInner>>,
+    /// Present on monetary metrics only. The scale of \"total\" and of every \"values[].value\", exactly as the platform returned them.  \"micro_amount\": the platform returned an object shape carrying a micro amount, and the values are that integer, summed, unconverted. Zernio does not publish a divisor because Meta does not document one; divide by the scale you have verified against the Page's own Meta Business Suite export. On Facebook Page insights this is always content_monetization_earnings.  \"unspecified\": the platform returned a bare number with no unit metadata. It is passed through as-is; the platform does not state whether it is major or minor currency units. On Facebook Page insights this is always monetization_approximate_earnings.
+    #[serde(rename = "unit", skip_serializing_if = "Option::is_none")]
+    pub unit: Option<Unit>,
+    /// ISO 4217 currency of a monetary metric, or null when the platform omitted it. Always null on monetization_approximate_earnings, which Meta returns as a bare number with no currency; always present on content_monetization_earnings.
+    #[serde(
+        rename = "currency",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub currency: Option<Option<String>>,
 }
 
 impl InstagramAccountInsightsResponseMetricsValue {
@@ -31,6 +42,22 @@ impl InstagramAccountInsightsResponseMetricsValue {
             total: None,
             values: None,
             breakdowns: None,
+            unit: None,
+            currency: None,
         }
+    }
+}
+/// Present on monetary metrics only. The scale of \"total\" and of every \"values[].value\", exactly as the platform returned them.  \"micro_amount\": the platform returned an object shape carrying a micro amount, and the values are that integer, summed, unconverted. Zernio does not publish a divisor because Meta does not document one; divide by the scale you have verified against the Page's own Meta Business Suite export. On Facebook Page insights this is always content_monetization_earnings.  \"unspecified\": the platform returned a bare number with no unit metadata. It is passed through as-is; the platform does not state whether it is major or minor currency units. On Facebook Page insights this is always monetization_approximate_earnings.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Unit {
+    #[serde(rename = "micro_amount")]
+    MicroAmount,
+    #[serde(rename = "unspecified")]
+    Unspecified,
+}
+
+impl Default for Unit {
+    fn default() -> Unit {
+        Self::MicroAmount
     }
 }

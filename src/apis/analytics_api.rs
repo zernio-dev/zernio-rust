@@ -65,6 +65,17 @@ pub enum GetFacebookPageInsightsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_facebook_post_earnings`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetFacebookPostEarningsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status402(),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_facebook_post_reactions`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -658,6 +669,65 @@ pub async fn get_facebook_page_insights(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetFacebookPageInsightsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns lifetime monetization earnings for ONE Facebook post, read live from Meta on every request. Requires the Analytics add-on.  Earnings are CUMULATIVE since the post was published, not earnings within a date range, so this endpoint takes no since/until and the totals must not be summed across dates or across posts. Page-level daily earnings live on /v1/analytics/facebook/page-insights.  A post on a Page that is not enrolled in monetization, or that earned nothing, returns \"total\": 0 rather than an error: Meta does not distinguish the two. A metric Meta returned no bucket for at all is reported in \"unavailableMetrics\" and omitted from \"metrics\", never as a 0.  Amounts are the platform's raw numbers in the stated \"unit\" and are never rescaled by Zernio. Breakdown dimensions are not exposed and a \"breakdown\" param is rejected with 400. So are \"since\", \"until\", \"period\", and \"metricType\": scoping this endpoint to a window is not possible, and silently returning the lifetime total for one would let a caller sum a year of weekly requests into a figure ~52x the post's real earnings.
+pub async fn get_facebook_post_earnings(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    post_id: &str,
+    metrics: Option<&str>,
+) -> Result<models::FacebookPostEarningsResponse, Error<GetFacebookPostEarningsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_post_id = post_id;
+    let p_query_metrics = metrics;
+
+    let uri_str = format!(
+        "{}/v1/analytics/facebook/post-earnings",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    req_builder = req_builder.query(&[("postId", &p_query_post_id.to_string())]);
+    if let Some(ref param_value) = p_query_metrics {
+        req_builder = req_builder.query(&[("metrics", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::FacebookPostEarningsResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::FacebookPostEarningsResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetFacebookPostEarningsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
