@@ -19,8 +19,9 @@ pub struct BulkCreateContacts200Response {
     pub created: Option<i32>,
     #[serde(rename = "skipped", skip_serializing_if = "Option::is_none")]
     pub skipped: Option<i32>,
+    /// Per-contact failures, e.g. an identifier that is not a valid phone number
     #[serde(rename = "errors", skip_serializing_if = "Option::is_none")]
-    pub errors: Option<Vec<serde_json::Value>>,
+    pub errors: Option<Vec<String>>,
     #[serde(rename = "total", skip_serializing_if = "Option::is_none")]
     pub total: Option<i32>,
 }
