@@ -64,6 +64,16 @@ pub struct GetWhatsAppCallingConfig200Response {
     /// True once the number completed caller-ID verification.
     #[serde(rename = "callerIdVerified", skip_serializing_if = "Option::is_none")]
     pub caller_id_verified: Option<bool>,
+    /// Hard cap (seconds) on forwarded calls; null = no cap.
+    #[serde(
+        rename = "maxCallDurationSeconds",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub max_call_duration_seconds: Option<Option<i32>>,
+    #[serde(rename = "forwardCallerId", skip_serializing_if = "Option::is_none")]
+    pub forward_caller_id: Option<ForwardCallerId>,
 }
 
 impl GetWhatsAppCallingConfig200Response {
@@ -80,6 +90,8 @@ impl GetWhatsAppCallingConfig200Response {
             call_icon_countries: None,
             caller_id_mode: None,
             caller_id_verified: None,
+            max_call_duration_seconds: None,
+            forward_caller_id: None,
         }
     }
 }
@@ -94,6 +106,20 @@ pub enum CallerIdMode {
 
 impl Default for CallerIdMode {
     fn default() -> CallerIdMode {
+        Self::Business
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum ForwardCallerId {
+    #[serde(rename = "business")]
+    Business,
+    #[serde(rename = "caller")]
+    Caller,
+}
+
+impl Default for ForwardCallerId {
+    fn default() -> ForwardCallerId {
         Self::Business
     }
 }

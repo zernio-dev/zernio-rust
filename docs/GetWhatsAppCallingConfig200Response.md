@@ -15,6 +15,8 @@ Name | Type | Description | Notes
 **call_icon_countries** | Option<**Vec<String>**> |  | [optional]
 **caller_id_mode** | Option<**CallerIdMode**> | Caller ID the forward-leg callee sees on tel: forwards. business = this WhatsApp number; platform = a Zernio number (customer-brought number without verified caller ID; verify via /v1/phone-numbers/{id}/whatsapp/caller-id-verification). (enum: business, platform) | [optional]
 **caller_id_verified** | Option<**bool**> | True once the number completed caller-ID verification. | [optional]
+**max_call_duration_seconds** | Option<**i32**> | Hard cap (seconds) on forwarded calls; null = no cap. | [optional]
+**forward_caller_id** | Option<**ForwardCallerId**> |  (enum: business, caller) | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

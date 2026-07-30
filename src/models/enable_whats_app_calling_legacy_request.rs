@@ -27,6 +27,15 @@ pub struct EnableWhatsAppCallingLegacyRequest {
     pub recording_enabled: Option<bool>,
     #[serde(rename = "callIconCountries", skip_serializing_if = "Option::is_none")]
     pub call_icon_countries: Option<Vec<String>>,
+    /// Hard cap (seconds) on a forwarded call; the carrier hangs up both legs when it fires. Safety valve against dead-air billing when a destination hangs up but the signal is lost.
+    #[serde(
+        rename = "maxCallDurationSeconds",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub max_call_duration_seconds: Option<i32>,
+    /// Caller ID presented to the forward destination. caller = the WhatsApp user's number (sip: destinations only; ignored on tel: forwards). Fixes AI-agent trunks that reject seeing the business number call itself.
+    #[serde(rename = "forwardCallerId", skip_serializing_if = "Option::is_none")]
+    pub forward_caller_id: Option<ForwardCallerId>,
 }
 
 impl EnableWhatsAppCallingLegacyRequest {
@@ -38,6 +47,22 @@ impl EnableWhatsAppCallingLegacyRequest {
             sip_auth_password: None,
             recording_enabled: None,
             call_icon_countries: None,
+            max_call_duration_seconds: None,
+            forward_caller_id: None,
         }
+    }
+}
+/// Caller ID presented to the forward destination. caller = the WhatsApp user's number (sip: destinations only; ignored on tel: forwards). Fixes AI-agent trunks that reject seeing the business number call itself.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum ForwardCallerId {
+    #[serde(rename = "business")]
+    Business,
+    #[serde(rename = "caller")]
+    Caller,
+}
+
+impl Default for ForwardCallerId {
+    fn default() -> ForwardCallerId {
+        Self::Business
     }
 }

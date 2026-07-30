@@ -40,6 +40,17 @@ pub struct UpdateWhatsAppCallingLegacyRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub call_icon_countries: Option<Option<Vec<String>>>,
+    /// Hard cap (seconds) on forwarded calls; null clears the cap.
+    #[serde(
+        rename = "maxCallDurationSeconds",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub max_call_duration_seconds: Option<Option<i32>>,
+    /// caller = present the WhatsApp user's number to the forward destination (sip: only).
+    #[serde(rename = "forwardCallerId", skip_serializing_if = "Option::is_none")]
+    pub forward_caller_id: Option<ForwardCallerId>,
 }
 
 impl UpdateWhatsAppCallingLegacyRequest {
@@ -51,6 +62,22 @@ impl UpdateWhatsAppCallingLegacyRequest {
             sip_auth_password: None,
             recording_enabled: None,
             call_icon_countries: None,
+            max_call_duration_seconds: None,
+            forward_caller_id: None,
         }
+    }
+}
+/// caller = present the WhatsApp user's number to the forward destination (sip: only).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum ForwardCallerId {
+    #[serde(rename = "business")]
+    Business,
+    #[serde(rename = "caller")]
+    Caller,
+}
+
+impl Default for ForwardCallerId {
+    fn default() -> ForwardCallerId {
+        Self::Business
     }
 }
