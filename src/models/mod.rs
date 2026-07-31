@@ -514,6 +514,8 @@ pub mod create_standalone_ad_request_regions_inner;
 pub use self::create_standalone_ad_request_regions_inner::CreateStandaloneAdRequestRegionsInner;
 pub mod create_standalone_ad_request_tracking;
 pub use self::create_standalone_ad_request_tracking::CreateStandaloneAdRequestTracking;
+pub mod create_standalone_ad_request_translations_inner;
+pub use self::create_standalone_ad_request_translations_inner::CreateStandaloneAdRequestTranslationsInner;
 pub mod create_standalone_ad_request_video;
 pub use self::create_standalone_ad_request_video::CreateStandaloneAdRequestVideo;
 pub mod create_test_lead_200_response;

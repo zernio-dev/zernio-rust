@@ -36,6 +36,15 @@ pub struct CreateAdCampaignRequest {
     pub budget_type: Option<BudgetType>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
+    /// Campaign bid strategy. Meta puts `bid_strategy` where the budget lives, so this applies only alongside a campaign budget (CBO). Previously settable only via `PUT /v1/ads/campaigns/{campaignId}`.
+    #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
+    pub bid_strategy: Option<BidStrategy>,
+    /// Whole currency units (USD: 5 = $5.00). Required for LOWEST_COST_WITH_BID_CAP and COST_CAP; ignored otherwise.
+    #[serde(rename = "bidAmount", skip_serializing_if = "Option::is_none")]
+    pub bid_amount: Option<f64>,
+    /// Decimal ROAS multiplier (2.0 = 2.0x). Required for LOWEST_COST_WITH_MIN_ROAS.
+    #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
+    pub roas_average_floor: Option<f64>,
 }
 
 impl CreateAdCampaignRequest {
@@ -54,6 +63,9 @@ impl CreateAdCampaignRequest {
             budget_amount: None,
             budget_type: None,
             status: None,
+            bid_strategy: None,
+            bid_amount: None,
+            roas_average_floor: None,
         }
     }
 }
@@ -135,5 +147,23 @@ pub enum Status {
 impl Default for Status {
     fn default() -> Status {
         Self::Active
+    }
+}
+/// Campaign bid strategy. Meta puts `bid_strategy` where the budget lives, so this applies only alongside a campaign budget (CBO). Previously settable only via `PUT /v1/ads/campaigns/{campaignId}`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum BidStrategy {
+    #[serde(rename = "LOWEST_COST_WITHOUT_CAP")]
+    LowestCostWithoutCap,
+    #[serde(rename = "LOWEST_COST_WITH_BID_CAP")]
+    LowestCostWithBidCap,
+    #[serde(rename = "COST_CAP")]
+    CostCap,
+    #[serde(rename = "LOWEST_COST_WITH_MIN_ROAS")]
+    LowestCostWithMinRoas,
+}
+
+impl Default for BidStrategy {
+    fn default() -> BidStrategy {
+        Self::LowestCostWithoutCap
     }
 }

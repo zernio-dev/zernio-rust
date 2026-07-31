@@ -340,13 +340,15 @@ pub async fn bulk_update_ad_campaign_status(
     }
 }
 
-/// Creates a campaign WITHOUT its first ad set / ad (the ODAX shell only). Ad sets join it later via `existingCampaignId` on the create endpoints. A budget here is campaign-level (CBO) by definition; omit it for ABO (each ad set carries its own budget). Created `PAUSED` unless `status: ACTIVE`. The campaign materializes in `/v1/ads/tree` via the next sync discovery pass.
+/// Creates a campaign WITHOUT its first ad set / ad (the ODAX shell only). Ad sets join it later via `existingCampaignId` on the create endpoints. A budget here is campaign-level (CBO) by definition; omit it for ABO (each ad set carries its own budget). Created `PAUSED` unless `status: ACTIVE`. The campaign materializes in `/v1/ads/tree` via the next sync discovery pass.  **Idempotency:** send an `Idempotency-Key` header to make retries safe.
 pub async fn create_ad_campaign(
     configuration: &configuration::Configuration,
     create_ad_campaign_request: models::CreateAdCampaignRequest,
+    idempotency_key: Option<&str>,
 ) -> Result<models::CreateAdCampaign201Response, Error<CreateAdCampaignError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_ad_campaign_request = create_ad_campaign_request;
+    let p_header_idempotency_key = idempotency_key;
 
     let uri_str = format!("{}/v1/ads/campaigns", configuration.base_path);
     let mut req_builder = configuration
@@ -355,6 +357,9 @@ pub async fn create_ad_campaign(
 
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_idempotency_key {
+        req_builder = req_builder.header("Idempotency-Key", param_value.to_string());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -558,10 +563,12 @@ pub async fn delete_ad_campaign(
 pub async fn duplicate_ad(
     configuration: &configuration::Configuration,
     ad_id: &str,
+    idempotency_key: Option<&str>,
     duplicate_ad_request: Option<models::DuplicateAdRequest>,
 ) -> Result<models::DuplicateAd200Response, Error<DuplicateAdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_ad_id = ad_id;
+    let p_header_idempotency_key = idempotency_key;
     let p_body_duplicate_ad_request = duplicate_ad_request;
 
     let uri_str = format!(
@@ -575,6 +582,9 @@ pub async fn duplicate_ad(
 
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_idempotency_key {
+        req_builder = req_builder.header("Idempotency-Key", param_value.to_string());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -615,10 +625,12 @@ pub async fn duplicate_ad_campaign(
     configuration: &configuration::Configuration,
     campaign_id: &str,
     duplicate_ad_campaign_request: models::DuplicateAdCampaignRequest,
+    idempotency_key: Option<&str>,
 ) -> Result<models::DuplicateAdCampaign200Response, Error<DuplicateAdCampaignError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_campaign_id = campaign_id;
     let p_body_duplicate_ad_campaign_request = duplicate_ad_campaign_request;
+    let p_header_idempotency_key = idempotency_key;
 
     let uri_str = format!(
         "{}/v1/ads/campaigns/{campaignId}/duplicate",
@@ -631,6 +643,9 @@ pub async fn duplicate_ad_campaign(
 
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_idempotency_key {
+        req_builder = req_builder.header("Idempotency-Key", param_value.to_string());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -671,10 +686,12 @@ pub async fn duplicate_ad_set(
     configuration: &configuration::Configuration,
     ad_set_id: &str,
     duplicate_ad_set_request: models::DuplicateAdSetRequest,
+    idempotency_key: Option<&str>,
 ) -> Result<models::DuplicateAdSet200Response, Error<DuplicateAdSetError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_ad_set_id = ad_set_id;
     let p_body_duplicate_ad_set_request = duplicate_ad_set_request;
+    let p_header_idempotency_key = idempotency_key;
 
     let uri_str = format!(
         "{}/v1/ads/ad-sets/{adSetId}/duplicate",
@@ -687,6 +704,9 @@ pub async fn duplicate_ad_set(
 
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_idempotency_key {
+        req_builder = req_builder.header("Idempotency-Key", param_value.to_string());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());

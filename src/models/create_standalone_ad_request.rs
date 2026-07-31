@@ -185,6 +185,12 @@ pub struct CreateStandaloneAdRequest {
     /// Meta only. Hand-built carousel: 2-10 authored cards in DETERMINISTIC order, mapped to the creative's `link_data.child_attachments`. Unlike `dynamicCreative`, you control the card order and per-card copy/link. Requires top-level `body`, `linkUrl` and `callToAction`. Mutually exclusive with `imageUrl`/`video`, `creatives[]`, `dynamicCreative`, `placementAssets`, `existingCreativeId`, `adSetId`, `leadGenFormId` and goal `catalog_sales`.
     #[serde(rename = "carouselCards", skip_serializing_if = "Option::is_none")]
     pub carousel_cards: Option<Vec<models::CreateStandaloneAdRequestCarouselCardsInner>>,
+    /// Meta only. Language the top-level copy is written in (e.g. `en`, `pt_BR`), used by the `translations` default rule. Defaults to `en`. Meta rejects a language asset feed whose default rule carries no locales of its own.
+    #[serde(rename = "defaultLocale", skip_serializing_if = "Option::is_none")]
+    pub default_locale: Option<String>,
+    /// Meta only. Multi-language ads (Dynamic Language Optimization): ONE ad carrying per-locale copy and, optionally, per-locale media — the \"Languages\" toggle in Ads Manager. Keeps social proof (likes/comments/shares) on a SINGLE post instead of splitting it across one ad per language.  The ad's top-level copy and media are the DEFAULT every unlisted locale falls back to, and a variant inherits any field it omits, so send only what differs per language. Media shared across languages is uploaded once.  Mutually exclusive with `dynamicCreative`, `placementAssets`, `carouselCards` and `existingCreativeId` — Meta allows one `asset_feed_spec` shape per creative.
+    #[serde(rename = "translations", skip_serializing_if = "Option::is_none")]
+    pub translations: Option<Vec<models::CreateStandaloneAdRequestTranslationsInner>>,
     #[serde(rename = "placementAssets", skip_serializing_if = "Option::is_none")]
     pub placement_assets: Option<Box<models::CreateStandaloneAdRequestPlacementAssets>>,
     /// Custom audience ID for targeting
@@ -312,6 +318,8 @@ impl CreateStandaloneAdRequest {
             instagram_account_id: None,
             dynamic_creative: None,
             carousel_cards: None,
+            default_locale: None,
+            translations: None,
             placement_assets: None,
             audience_id: None,
             campaign_type: None,
