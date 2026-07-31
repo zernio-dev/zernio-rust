@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **excluded_locations** | Option<[**models::TargetingSpecExcludedLocations**](TargetingSpecExcludedLocations.md)> |  | [optional]
 **age_min** | Option<**i32**> |  | [optional]
 **age_max** | Option<**i32**> |  | [optional]
-**gender** | Option<**Gender**> | Restrict by gender. 'all' (default) targets everyone. (enum: all, male, female) | [optional]
+**gender** | Option<**Gender**> | Restrict by gender. 'all' (default) targets everyone. Applied on Meta, TikTok and Pinterest. Ignored on Google, LinkedIn and X. (enum: all, male, female) | [optional]
 **income_tier** | Option<**IncomeTier**> | Normalized household-income tier (ZIP/percentile based). Meta and TikTok express all four. Google maps only `top_10` (its INCOME_RANGE_90_UP); other tiers on Google, and any income tier on LinkedIn / X / Pinterest, are rejected. On Meta, income/zip targeting requires the relevant `specialAdCategories` to be unset (housing/employment/credit ads cannot use it).  (enum: top_5, top_10, top_10_25, top_25_50) | [optional]
 **languages** | Option<**Vec<String>**> | Language codes restricting the audience by language. On Meta, ISO 639-1 codes (e.g. ['en']); a bare code targets all regional variants (\"en\" = all English), or use a region-qualified code (\"en_GB\", \"pt_BR\") for a specific one. Unknown codes are rejected. | [optional]
 **interests** | Option<[**Vec<models::CreateStandaloneAdRequestBehaviorsInner>**](CreateStandaloneAdRequestBehaviorsInner.md)> | Interest entities from /v1/ads/targeting/search?dimension=interest. Each carries the platform's opaque id. | [optional]

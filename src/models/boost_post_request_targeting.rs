@@ -18,7 +18,7 @@ pub struct BoostPostRequestTargeting {
     pub age_min: Option<i32>,
     #[serde(rename = "ageMax", skip_serializing_if = "Option::is_none")]
     pub age_max: Option<i32>,
-    /// Meta only.
+    /// Applied on Meta, TikTok and Pinterest. Ignored on Google, LinkedIn and X.
     #[serde(rename = "gender", skip_serializing_if = "Option::is_none")]
     pub gender: Option<Gender>,
     /// Meta locale ids (numeric), passed through as given.
@@ -69,7 +69,7 @@ impl BoostPostRequestTargeting {
         }
     }
 }
-/// Meta only.
+/// Applied on Meta, TikTok and Pinterest. Ignored on Google, LinkedIn and X.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Gender {
     #[serde(rename = "all")]

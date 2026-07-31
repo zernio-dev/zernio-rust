@@ -38,7 +38,7 @@ pub struct TargetingSpec {
     pub age_min: Option<i32>,
     #[serde(rename = "ageMax", skip_serializing_if = "Option::is_none")]
     pub age_max: Option<i32>,
-    /// Restrict by gender. 'all' (default) targets everyone.
+    /// Restrict by gender. 'all' (default) targets everyone. Applied on Meta, TikTok and Pinterest. Ignored on Google, LinkedIn and X.
     #[serde(rename = "gender", skip_serializing_if = "Option::is_none")]
     pub gender: Option<Gender>,
     /// Normalized household-income tier (ZIP/percentile based). Meta and TikTok express all four. Google maps only `top_10` (its INCOME_RANGE_90_UP); other tiers on Google, and any income tier on LinkedIn / X / Pinterest, are rejected. On Meta, income/zip targeting requires the relevant `specialAdCategories` to be unset (housing/employment/credit ads cannot use it).
@@ -100,7 +100,7 @@ impl TargetingSpec {
         }
     }
 }
-/// Restrict by gender. 'all' (default) targets everyone.
+/// Restrict by gender. 'all' (default) targets everyone. Applied on Meta, TikTok and Pinterest. Ignored on Google, LinkedIn and X.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Gender {
     #[serde(rename = "all")]

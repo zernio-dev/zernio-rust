@@ -214,7 +214,7 @@ pub struct CreateStandaloneAdRequest {
     /// Meta only. Conversion attribution window for the ad set — maps 1:1 to Meta's ad-set `attribution_spec`. Only honored for conversion goals (`conversions`, `lead_generation`, `app_promotion`); ignored for awareness/traffic/engagement. Omit to use Meta's default (`7-day click` + `1-day view`). Meta enforces the valid combinations: `VIEW_THROUGH` only allows `windowDays: 1` (7d/28d view windows were removed Jan 2026); `ENGAGED_VIDEO_VIEW` only `1` and only alongside `VIEW_THROUGH: 1`; `CLICK_THROUGH: 28` only on certain objectives. Invalid combos surface as a Meta 400. Example: `[{ \"eventType\": \"CLICK_THROUGH\", \"windowDays\": 7 }, { \"eventType\": \"VIEW_THROUGH\", \"windowDays\": 1 }]`
     #[serde(rename = "attributionSpec", skip_serializing_if = "Option::is_none")]
     pub attribution_spec: Option<Vec<models::CreateStandaloneAdRequestAttributionSpecInner>>,
-    /// Meta only. Restrict the audience by gender. 'male' targets men only, 'female' targets women only, 'all' (default) targets everyone. Ignored by non-Meta platforms.
+    /// Restrict the audience by gender. 'male' targets men only, 'female' targets women only, 'all' (default) targets everyone. Applied on Meta, TikTok and Pinterest. Ignored on Google, LinkedIn and X.
     #[serde(rename = "gender", skip_serializing_if = "Option::is_none")]
     pub gender: Option<Gender>,
     /// Meta bid strategy applied to the ad set.
@@ -579,7 +579,7 @@ impl Default for AdvantageAudience {
         Self::Variant0
     }
 }
-/// Meta only. Restrict the audience by gender. 'male' targets men only, 'female' targets women only, 'all' (default) targets everyone. Ignored by non-Meta platforms.
+/// Restrict the audience by gender. 'male' targets men only, 'female' targets women only, 'all' (default) targets everyone. Applied on Meta, TikTok and Pinterest. Ignored on Google, LinkedIn and X.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Gender {
     #[serde(rename = "all")]
