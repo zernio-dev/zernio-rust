@@ -13,6 +13,9 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAdCampaignRequest {
+    /// Zernio SocialAccount id owning the ad account. Required only to update an EMPTY campaign (zero ads), which has no local Ad documents to resolve a token from.
+    #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
+    pub account_id: Option<String>,
     #[serde(rename = "platform")]
     pub platform: Platform,
     #[serde(rename = "budget", skip_serializing_if = "Option::is_none")]
@@ -33,6 +36,7 @@ pub struct UpdateAdCampaignRequest {
 impl UpdateAdCampaignRequest {
     pub fn new(platform: Platform) -> UpdateAdCampaignRequest {
         UpdateAdCampaignRequest {
+            account_id: None,
             platform,
             budget: None,
             bid_strategy: None,

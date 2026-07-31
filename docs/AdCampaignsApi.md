@@ -450,7 +450,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_ad_campaigns
 
-> models::ListAdCampaigns200Response list_ad_campaigns(page, limit, source, platform, status, ad_account_id, page_id, account_id, profile_id, from_date, to_date)
+> models::ListAdCampaigns200Response list_ad_campaigns(include_empty, page, limit, source, platform, status, ad_account_id, page_id, account_id, profile_id, from_date, to_date)
 List campaigns
 
 Returns campaigns as virtual aggregations over ad documents grouped by platform campaign ID. Metrics (spend, impressions, clicks, etc.) are summed across all ads in each campaign. Campaign status is derived from child ad statuses (active > pending_review > paused > error > completed > cancelled > rejected). 
@@ -460,6 +460,7 @@ Returns campaigns as virtual aggregations over ad documents grouped by platform 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
+**include_empty** | Option<**bool**> | Meta only. Campaign reads aggregate over ad documents, so a campaign with ZERO ads is normally invisible here — the state the two-step create (campaign, then ads via `existingCampaignId`) leaves behind whenever Meta rejects the ad step. Set true to list those too, with `adCount: 0` and zeroed metrics. Requires `accountId` and `adAccountId`, since an empty campaign has no ad row to resolve a token or ad account from. |  |
 **page** | Option<**i32**> | Page number (1-based) |  |[default to 1]
 **limit** | Option<**i32**> |  |  |[default to 20]
 **source** | Option<**String**> | `all` (default) returns both Zernio-created ads and those discovered from the platform's ad manager — matches the web UI's default view. Pass `zernio` to restrict to isExternal=false only. Status is NOT filtered by default — use the `status` param for that. |  |[default to all]
@@ -608,7 +609,7 @@ Name | Type | Description  | Required | Notes
 > models::UpdateAdCampaign200Response update_ad_campaign(campaign_id, update_ad_campaign_request)
 Update a campaign
 
-Campaign-level edits. At least one of `budget`, `bidStrategy`, `name` or `platformSpecificData` is required.  - `budget` updates the CBO (Campaign Budget Optimization) budget. For ABO campaigns   (where the budget lives on the ad set), use PUT /v1/ads/ad-sets/{adSetId} instead — this endpoint   will return 409 with code BUDGET_LEVEL_MISMATCH. - `bidStrategy` sets the campaign-level default bid strategy. Per Meta's spec, `bid_amount` and   `bid_constraints` do NOT exist at the campaign level — pass them via PUT /v1/ads/ad-sets/{adSetId}. - `platformSpecificData.spendCap` (Meta only) sets the campaign's lifetime spend cap, in the ad   account's currency.  Meta-only for now. Other platforms return 501 Not Implemented. 
+Campaign-level edits. At least one of `budget`, `bidStrategy`, `name` or `platformSpecificData` is required.  **Empty campaigns.** A campaign with zero ads has no local Ad documents to resolve, so this would 404 even though it exists on Meta. Send `accountId` in the body to skip the local lookup and forward the update to Meta. The response then carries `updated: 0`, since there are no local rows to mirror onto. `accountId` is ignored when the campaign does have ads.  - `budget` updates the CBO (Campaign Budget Optimization) budget. For ABO campaigns   (where the budget lives on the ad set), use PUT /v1/ads/ad-sets/{adSetId} instead — this endpoint   will return 409 with code BUDGET_LEVEL_MISMATCH. - `bidStrategy` sets the campaign-level default bid strategy. Per Meta's spec, `bid_amount` and   `bid_constraints` do NOT exist at the campaign level — pass them via PUT /v1/ads/ad-sets/{adSetId}. - `platformSpecificData.spendCap` (Meta only) sets the campaign's lifetime spend cap, in the ad   account's currency.  Meta-only for now. Other platforms return 501 Not Implemented. 
 
 ### Parameters
 

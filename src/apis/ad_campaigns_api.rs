@@ -1043,6 +1043,7 @@ pub async fn get_ads_timeline(
 /// Returns campaigns as virtual aggregations over ad documents grouped by platform campaign ID. Metrics (spend, impressions, clicks, etc.) are summed across all ads in each campaign. Campaign status is derived from child ad statuses (active > pending_review > paused > error > completed > cancelled > rejected).
 pub async fn list_ad_campaigns(
     configuration: &configuration::Configuration,
+    include_empty: Option<bool>,
     page: Option<i32>,
     limit: Option<i32>,
     source: Option<&str>,
@@ -1056,6 +1057,7 @@ pub async fn list_ad_campaigns(
     to_date: Option<String>,
 ) -> Result<models::ListAdCampaigns200Response, Error<ListAdCampaignsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_include_empty = include_empty;
     let p_query_page = page;
     let p_query_limit = limit;
     let p_query_source = source;
@@ -1071,6 +1073,9 @@ pub async fn list_ad_campaigns(
     let uri_str = format!("{}/v1/ads/campaigns", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+    if let Some(ref param_value) = p_query_include_empty {
+        req_builder = req_builder.query(&[("includeEmpty", &param_value.to_string())]);
+    }
     if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
@@ -1414,7 +1419,7 @@ pub async fn update_ad(
     }
 }
 
-/// Campaign-level edits. At least one of `budget`, `bidStrategy`, `name` or `platformSpecificData` is required.  - `budget` updates the CBO (Campaign Budget Optimization) budget. For ABO campaigns   (where the budget lives on the ad set), use PUT /v1/ads/ad-sets/{adSetId} instead — this endpoint   will return 409 with code BUDGET_LEVEL_MISMATCH. - `bidStrategy` sets the campaign-level default bid strategy. Per Meta's spec, `bid_amount` and   `bid_constraints` do NOT exist at the campaign level — pass them via PUT /v1/ads/ad-sets/{adSetId}. - `platformSpecificData.spendCap` (Meta only) sets the campaign's lifetime spend cap, in the ad   account's currency.  Meta-only for now. Other platforms return 501 Not Implemented.
+/// Campaign-level edits. At least one of `budget`, `bidStrategy`, `name` or `platformSpecificData` is required.  **Empty campaigns.** A campaign with zero ads has no local Ad documents to resolve, so this would 404 even though it exists on Meta. Send `accountId` in the body to skip the local lookup and forward the update to Meta. The response then carries `updated: 0`, since there are no local rows to mirror onto. `accountId` is ignored when the campaign does have ads.  - `budget` updates the CBO (Campaign Budget Optimization) budget. For ABO campaigns   (where the budget lives on the ad set), use PUT /v1/ads/ad-sets/{adSetId} instead — this endpoint   will return 409 with code BUDGET_LEVEL_MISMATCH. - `bidStrategy` sets the campaign-level default bid strategy. Per Meta's spec, `bid_amount` and   `bid_constraints` do NOT exist at the campaign level — pass them via PUT /v1/ads/ad-sets/{adSetId}. - `platformSpecificData.spendCap` (Meta only) sets the campaign's lifetime spend cap, in the ad   account's currency.  Meta-only for now. Other platforms return 501 Not Implemented.
 pub async fn update_ad_campaign(
     configuration: &configuration::Configuration,
     campaign_id: &str,
