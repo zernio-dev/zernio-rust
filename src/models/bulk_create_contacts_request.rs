@@ -15,10 +15,12 @@ use serde::{Deserialize, Serialize};
 pub struct BulkCreateContactsRequest {
     #[serde(rename = "profileId")]
     pub profile_id: String,
-    #[serde(rename = "accountId")]
-    pub account_id: String,
-    #[serde(rename = "platform")]
-    pub platform: String,
+    /// Required when contacts carry channel data (platformIdentifier or a row-level accountId). Omit for a plain CRM import with no channels.
+    #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
+    pub account_id: Option<String>,
+    /// Ignored when accountId is set: the platform is derived from the resolved account. Only relevant to disambiguate accountId lookup; a mismatch 404s.
+    #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
+    pub platform: Option<String>,
     #[serde(rename = "contacts")]
     pub contacts: Vec<models::BulkCreateContactsRequestContactsInner>,
 }
@@ -26,14 +28,12 @@ pub struct BulkCreateContactsRequest {
 impl BulkCreateContactsRequest {
     pub fn new(
         profile_id: String,
-        account_id: String,
-        platform: String,
         contacts: Vec<models::BulkCreateContactsRequestContactsInner>,
     ) -> BulkCreateContactsRequest {
         BulkCreateContactsRequest {
             profile_id,
-            account_id,
-            platform,
+            account_id: None,
+            platform: None,
             contacts,
         }
     }
