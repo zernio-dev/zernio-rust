@@ -398,10 +398,11 @@ docs/ExternalPostSummary.md
 docs/ExternalPostSummaryAnalytics.md
 docs/ExternalPostWebhookPost.md
 docs/FacebookPlatformData.md
-docs/FacebookPlatformDataCarouselCardsInner.md
 docs/FacebookPostEarningsResponse.md
 docs/FacebookPostEarningsResponseMetricsValue.md
 docs/FacebookPostEarningsResponseUnavailableMetricsInner.md
+docs/FacebookSettings.md
+docs/FacebookSettingsCarouselCardsInner.md
 docs/FetchGoogleBusinessVerificationOptions200Response.md
 docs/FetchGoogleBusinessVerificationOptions200ResponseOptionsInner.md
 docs/FetchGoogleBusinessVerificationOptionsRequest.md
@@ -2059,10 +2060,11 @@ src/models/external_post_summary.rs
 src/models/external_post_summary_analytics.rs
 src/models/external_post_webhook_post.rs
 src/models/facebook_platform_data.rs
-src/models/facebook_platform_data_carousel_cards_inner.rs
 src/models/facebook_post_earnings_response.rs
 src/models/facebook_post_earnings_response_metrics_value.rs
 src/models/facebook_post_earnings_response_unavailable_metrics_inner.rs
+src/models/facebook_settings.rs
+src/models/facebook_settings_carousel_cards_inner.rs
 src/models/fetch_google_business_verification_options_200_response.rs
 src/models/fetch_google_business_verification_options_200_response_options_inner.rs
 src/models/fetch_google_business_verification_options_request.rs

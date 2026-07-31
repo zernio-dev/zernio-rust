@@ -11,19 +11,16 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FacebookPlatformData : Feed posts support up to 10 images (no mixed video+image). Stories require single media (24h, no captions). Reels require single vertical video (9:16, 3-60s). Carousel posts (carouselCards) render a 2-5 card multi-link post, images only, mutually exclusive with story/reel. Geo-restriction is a hard visibility restriction: users outside the specified countries cannot see the post. Not supported for stories.
+/// FacebookPlatformData : Feed posts support up to 10 images (no mixed video+image). Stories require single media (24h, no captions). Reels require single vertical video (9:16, 3-60s). Geo-restriction is a hard visibility restriction: users outside the specified countries cannot see the post. Not supported for stories. Draft, carousel, and colored-background text options live under facebookSettings, see FacebookSettings.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FacebookPlatformData {
-    /// When true, creates the post as a draft in Facebook Publishing Tools instead of publishing immediately. Supported for feed posts (text, link, image, video) and reels. Not supported for stories. Drafts expire after ~30 days.
-    #[serde(rename = "draft", skip_serializing_if = "Option::is_none")]
-    pub draft: Option<bool>,
     /// Set to 'story' for Page Stories (24h ephemeral) or 'reel' for Reels (short vertical video). Defaults to feed post if omitted.
     #[serde(rename = "contentType", skip_serializing_if = "Option::is_none")]
     pub content_type: Option<ContentType>,
     /// Reel title (only for contentType=reel). Separate from the caption/content field.
     #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
-    /// Optional first comment to post immediately after publishing (feed posts and reels, not stories). Skipped when draft is true.
+    /// Optional first comment to post immediately after publishing (feed posts and reels, not stories). Skipped when facebookSettings.draft is true.
     #[serde(rename = "firstComment", skip_serializing_if = "Option::is_none")]
     pub first_comment: Option<String>,
     /// Target Facebook Page ID for multi-page posting. If omitted, uses the default page. Use GET /v1/accounts/{id}/facebook-page to list pages.
@@ -31,30 +28,20 @@ pub struct FacebookPlatformData {
     pub page_id: Option<String>,
     #[serde(rename = "geoRestriction", skip_serializing_if = "Option::is_none")]
     pub geo_restriction: Option<Box<models::GeoRestriction>>,
-    /// Renders the post as a multi-link carousel (organic Page post). When set, mediaItems must be provided with the same length and all items must be images (no videos). Each cards[i] adds the click-through link and headline for the image at mediaItems[i]. Mutually exclusive with contentType=story|reel. Facebook display truncates name at ~35 chars and description at ~30 chars; longer strings are accepted but get truncated on render.
-    #[serde(rename = "carouselCards", skip_serializing_if = "Option::is_none")]
-    pub carousel_cards: Option<Vec<models::FacebookPlatformDataCarouselCardsInner>>,
-    /// Optional top-level \"See more\" destination shown on the carousel end card. Defaults to the first card's link when omitted. Only used together with carouselCards.
-    #[serde(rename = "carouselLink", skip_serializing_if = "Option::is_none")]
-    pub carousel_link: Option<String>,
-    /// Facebook-defined preset ID that renders the post as large text on a colored background (Graph `text_format_preset_id`). Supply the raw numeric ID from Meta; we do not publish a catalog of presets and Facebook may change the available set. Pages only (ignored on personal profiles and groups) and text-only feed posts only: the request is rejected with 400 when mediaItems or carouselCards are present, when contentType is story or reel, or when content is empty. An attachment makes Facebook drop the background silently, so those are rejected up front. Length is NOT rejected: Facebook's composer stops offering a background at around 130 characters, but Meta documents no API limit, so longer content publishes and returns a warning instead. A URL detected in the content is NOT attached as a link preview while a preset is set, because a link attachment also makes Facebook drop the background.
-    #[serde(rename = "textFormatPresetId", skip_serializing_if = "Option::is_none")]
-    pub text_format_preset_id: Option<String>,
+    #[serde(rename = "facebookSettings", skip_serializing_if = "Option::is_none")]
+    pub facebook_settings: Option<Box<models::FacebookSettings>>,
 }
 
 impl FacebookPlatformData {
-    /// Feed posts support up to 10 images (no mixed video+image). Stories require single media (24h, no captions). Reels require single vertical video (9:16, 3-60s). Carousel posts (carouselCards) render a 2-5 card multi-link post, images only, mutually exclusive with story/reel. Geo-restriction is a hard visibility restriction: users outside the specified countries cannot see the post. Not supported for stories.
+    /// Feed posts support up to 10 images (no mixed video+image). Stories require single media (24h, no captions). Reels require single vertical video (9:16, 3-60s). Geo-restriction is a hard visibility restriction: users outside the specified countries cannot see the post. Not supported for stories. Draft, carousel, and colored-background text options live under facebookSettings, see FacebookSettings.
     pub fn new() -> FacebookPlatformData {
         FacebookPlatformData {
-            draft: None,
             content_type: None,
             title: None,
             first_comment: None,
             page_id: None,
             geo_restriction: None,
-            carousel_cards: None,
-            carousel_link: None,
-            text_format_preset_id: None,
+            facebook_settings: None,
         }
     }
 }

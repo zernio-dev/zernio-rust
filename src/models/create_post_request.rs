@@ -50,9 +50,9 @@ pub struct CreatePostRequest {
     /// Root-level TikTok settings applied to all TikTok platforms. Merged into each platform's platformSpecificData, with platform-specific settings taking precedence.
     #[serde(rename = "tiktokSettings", skip_serializing_if = "Option::is_none")]
     pub tiktok_settings: Option<Box<models::TikTokPlatformData>>,
-    /// Root-level Facebook settings applied to all Facebook platforms. Merged into each platform's platformSpecificData, with platform-specific settings taking precedence.
+    /// Root-level Facebook settings applied to all Facebook platforms. Merged into each platform's platformSpecificData.facebookSettings, with platform-specific settings taking precedence.
     #[serde(rename = "facebookSettings", skip_serializing_if = "Option::is_none")]
-    pub facebook_settings: Option<Box<models::FacebookPlatformData>>,
+    pub facebook_settings: Option<Box<models::FacebookSettings>>,
     #[serde(rename = "recycling", skip_serializing_if = "Option::is_none")]
     pub recycling: Option<Box<models::RecyclingConfig>>,
     /// Profile ID to schedule via queue. When provided without scheduledFor, the post is auto-assigned to the next available slot. Do not call /v1/queue/next-slot and use that time in scheduledFor, as that bypasses queue locking.

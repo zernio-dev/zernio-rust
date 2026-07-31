@@ -55,9 +55,9 @@ pub struct UpdatePostRequest {
     /// Root-level TikTok settings applied to all TikTok platforms. Merged into each platform's platformSpecificData, with platform-specific settings taking precedence.
     #[serde(rename = "tiktokSettings", skip_serializing_if = "Option::is_none")]
     pub tiktok_settings: Option<Box<models::TikTokPlatformData>>,
-    /// Root-level Facebook settings applied to all Facebook platforms. Merged into each platform's platformSpecificData, with platform-specific settings taking precedence.
+    /// Root-level Facebook settings applied to all Facebook platforms. Merged into each platform's platformSpecificData.facebookSettings, with platform-specific settings taking precedence.
     #[serde(rename = "facebookSettings", skip_serializing_if = "Option::is_none")]
-    pub facebook_settings: Option<Box<models::FacebookPlatformData>>,
+    pub facebook_settings: Option<Box<models::FacebookSettings>>,
     #[serde(rename = "recycling", skip_serializing_if = "Option::is_none")]
     pub recycling: Option<Box<models::RecyclingConfig>>,
 }
