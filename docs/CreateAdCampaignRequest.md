@@ -9,10 +9,10 @@ Name | Type | Description | Notes
 **name** | **String** |  | 
 **goal** | **Goal** | Mapped to the ODAX objective (same mapping as POST /v1/ads/create). (enum: engagement, traffic, awareness, video_views, lead_generation, lead_conversion, job_applicants, conversions, app_promotion, catalog_sales) | 
 **special_ad_categories** | Option<**Vec<SpecialAdCategories>**> |  (enum: HOUSING, EMPLOYMENT, CREDIT, ISSUES_ELECTIONS_POLITICS, FINANCIAL_PRODUCTS_SERVICES, ONLINE_GAMBLING_AND_GAMING) | [optional]
-**budget_amount** | Option<**f64**> | Campaign-level (CBO) budget in whole currency units. Requires budgetType. | [optional]
+**budget_amount** | Option<**f64**> | Campaign-level (CBO) budget in WHOLE currency units (USD: 50 = $50.00), NOT cents — Meta's own Marketing API takes this same number in minor units, so it is an easy and expensive mix-up. Requires budgetType. | [optional]
 **budget_type** | Option<**BudgetType**> |  (enum: daily, lifetime) | [optional]
 **status** | Option<**Status**> |  (enum: ACTIVE, PAUSED) | [optional][default to Paused]
-**bid_strategy** | Option<**BidStrategy**> | Campaign bid strategy. Meta puts `bid_strategy` where the budget lives, so this applies only alongside a campaign budget (CBO). Previously settable only via `PUT /v1/ads/campaigns/{campaignId}`. (enum: LOWEST_COST_WITHOUT_CAP, LOWEST_COST_WITH_BID_CAP, COST_CAP, LOWEST_COST_WITH_MIN_ROAS) | [optional]
+**bid_strategy** | Option<**BidStrategy**> | Campaign bid strategy. Meta stores `bid_strategy` alongside the budget, so this REQUIRES `budgetAmount` + `budgetType` on the same request; sending it without a campaign budget is a 400. A campaign carrying a strategy without its `bid_amount` makes every ad set created under it fail with an error that names the ad set (code 100, subcode 1815857), so the bad state is rejected up front rather than accepted. To bid at ad-set level, set the strategy there instead. (enum: LOWEST_COST_WITHOUT_CAP, LOWEST_COST_WITH_BID_CAP, COST_CAP, LOWEST_COST_WITH_MIN_ROAS) | [optional]
 **bid_amount** | Option<**f64**> | Whole currency units (USD: 5 = $5.00). Required for LOWEST_COST_WITH_BID_CAP and COST_CAP; ignored otherwise. | [optional]
 **roas_average_floor** | Option<**f64**> | Decimal ROAS multiplier (2.0 = 2.0x). Required for LOWEST_COST_WITH_MIN_ROAS. | [optional]
 

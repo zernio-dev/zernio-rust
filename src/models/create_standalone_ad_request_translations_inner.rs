@@ -16,15 +16,15 @@ pub struct CreateStandaloneAdRequestTranslationsInner {
     /// Language code, resolved to Meta's numeric locale id. Bare codes target the '(All)' umbrella (`es` = every Spanish variant); region-qualified codes target the variant (`pt_BR`, `en_GB`).
     #[serde(rename = "locale")]
     pub locale: String,
-    /// Headline for this language. Inherits the top-level `headline` when omitted.
-    #[serde(rename = "headline", skip_serializing_if = "Option::is_none")]
-    pub headline: Option<String>,
-    /// Primary text for this language. Inherits the top-level `body` when omitted.
-    #[serde(rename = "body", skip_serializing_if = "Option::is_none")]
-    pub body: Option<String>,
-    /// Link description for this language. Inherits the top-level `description` when omitted.
-    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
+    /// Headline for this language. REQUIRED, and must differ from every other locale and from the ad's top-level headline.
+    #[serde(rename = "headline")]
+    pub headline: String,
+    /// Primary text for this language. REQUIRED, and must differ from every other locale and from the ad's top-level body.
+    #[serde(rename = "body")]
+    pub body: String,
+    /// Link description for this language. REQUIRED, and must differ from every other locale and from the ad's top-level description.
+    #[serde(rename = "description")]
+    pub description: String,
     /// Image for this language. Inherits the ad's `imageUrl` when omitted. The feed is all-image OR all-video.
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
@@ -37,12 +37,17 @@ pub struct CreateStandaloneAdRequestTranslationsInner {
 }
 
 impl CreateStandaloneAdRequestTranslationsInner {
-    pub fn new(locale: String) -> CreateStandaloneAdRequestTranslationsInner {
+    pub fn new(
+        locale: String,
+        headline: String,
+        body: String,
+        description: String,
+    ) -> CreateStandaloneAdRequestTranslationsInner {
         CreateStandaloneAdRequestTranslationsInner {
             locale,
-            headline: None,
-            body: None,
-            description: None,
+            headline,
+            body,
+            description,
             image_url: None,
             video_url: None,
             thumbnail_url: None,

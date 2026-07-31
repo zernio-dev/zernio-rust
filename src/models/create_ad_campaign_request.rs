@@ -29,14 +29,14 @@ pub struct CreateAdCampaignRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub special_ad_categories: Option<Vec<SpecialAdCategories>>,
-    /// Campaign-level (CBO) budget in whole currency units. Requires budgetType.
+    /// Campaign-level (CBO) budget in WHOLE currency units (USD: 50 = $50.00), NOT cents — Meta's own Marketing API takes this same number in minor units, so it is an easy and expensive mix-up. Requires budgetType.
     #[serde(rename = "budgetAmount", skip_serializing_if = "Option::is_none")]
     pub budget_amount: Option<f64>,
     #[serde(rename = "budgetType", skip_serializing_if = "Option::is_none")]
     pub budget_type: Option<BudgetType>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
-    /// Campaign bid strategy. Meta puts `bid_strategy` where the budget lives, so this applies only alongside a campaign budget (CBO). Previously settable only via `PUT /v1/ads/campaigns/{campaignId}`.
+    /// Campaign bid strategy. Meta stores `bid_strategy` alongside the budget, so this REQUIRES `budgetAmount` + `budgetType` on the same request; sending it without a campaign budget is a 400. A campaign carrying a strategy without its `bid_amount` makes every ad set created under it fail with an error that names the ad set (code 100, subcode 1815857), so the bad state is rejected up front rather than accepted. To bid at ad-set level, set the strategy there instead.
     #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
     pub bid_strategy: Option<BidStrategy>,
     /// Whole currency units (USD: 5 = $5.00). Required for LOWEST_COST_WITH_BID_CAP and COST_CAP; ignored otherwise.
@@ -149,7 +149,7 @@ impl Default for Status {
         Self::Active
     }
 }
-/// Campaign bid strategy. Meta puts `bid_strategy` where the budget lives, so this applies only alongside a campaign budget (CBO). Previously settable only via `PUT /v1/ads/campaigns/{campaignId}`.
+/// Campaign bid strategy. Meta stores `bid_strategy` alongside the budget, so this REQUIRES `budgetAmount` + `budgetType` on the same request; sending it without a campaign budget is a 400. A campaign carrying a strategy without its `bid_amount` makes every ad set created under it fail with an error that names the ad set (code 100, subcode 1815857), so the bad state is rejected up front rather than accepted. To bid at ad-set level, set the strategy there instead.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum BidStrategy {
     #[serde(rename = "LOWEST_COST_WITHOUT_CAP")]

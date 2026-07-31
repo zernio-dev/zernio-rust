@@ -15,11 +15,17 @@ use serde::{Deserialize, Serialize};
 pub struct DeleteAdCampaignRequest {
     #[serde(rename = "platform")]
     pub platform: Platform,
+    /// Zernio SocialAccount id owning the ad account. Required only to delete an EMPTY campaign (zero ads), which has no local Ad documents to resolve a token from.
+    #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
+    pub account_id: Option<String>,
 }
 
 impl DeleteAdCampaignRequest {
     pub fn new(platform: Platform) -> DeleteAdCampaignRequest {
-        DeleteAdCampaignRequest { platform }
+        DeleteAdCampaignRequest {
+            platform,
+            account_id: None,
+        }
     }
 }
 ///
