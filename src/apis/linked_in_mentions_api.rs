@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 pub enum GetLinkedInMentionsError {
     Status400(models::GetYouTubeDailyViews400Response),
     Status401(models::InlineObject),
+    Status403(models::GetYouTubeDailyViews400Response),
     Status404(models::GetYouTubeDailyViews400Response),
     UnknownValue(serde_json::Value),
 }
