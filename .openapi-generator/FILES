@@ -149,6 +149,8 @@ docs/ConnectWhatsAppCredentials200ResponseAccount.md
 docs/ConnectWhatsAppCredentialsRequest.md
 docs/Connected.md
 docs/ConnectedAccount.md
+docs/ConnectedApp.md
+docs/ConnectedAppsApi.md
 docs/ContactsApi.md
 docs/ConversionDestination.md
 docs/ConversionEvent.md
@@ -848,6 +850,7 @@ docs/ListCommentAutomationLogs200Response.md
 docs/ListCommentAutomations200Response.md
 docs/ListCommentAutomations200ResponseAutomationsInner.md
 docs/ListCommentAutomations200ResponseAutomationsInnerStats.md
+docs/ListConnectedApps200Response.md
 docs/ListContacts200Response.md
 docs/ListContacts200ResponseContactsInner.md
 docs/ListContacts200ResponseFilters.md
@@ -1111,6 +1114,7 @@ docs/ReviewWebhookReview.md
 docs/ReviewWebhookReviewReply.md
 docs/ReviewWebhookReviewReviewer.md
 docs/ReviewsApi.md
+docs/RevokeConnectedApp200Response.md
 docs/RfPrediction.md
 docs/SavedTargetingAudience.md
 docs/ScheduleBroadcast200Response.md
@@ -1629,6 +1633,7 @@ src/apis/comment_automations_api.rs
 src/apis/comments_api.rs
 src/apis/configuration.rs
 src/apis/connect_api.rs
+src/apis/connected_apps_api.rs
 src/apis/contacts_api.rs
 src/apis/conversions_api.rs
 src/apis/custom_fields_api.rs
@@ -1809,6 +1814,7 @@ src/models/connect_whats_app_credentials_200_response_account.rs
 src/models/connect_whats_app_credentials_request.rs
 src/models/connected.rs
 src/models/connected_account.rs
+src/models/connected_app.rs
 src/models/conversion_destination.rs
 src/models/conversion_event.rs
 src/models/conversion_event_items_inner.rs
@@ -2491,6 +2497,7 @@ src/models/list_comment_automation_logs_200_response.rs
 src/models/list_comment_automations_200_response.rs
 src/models/list_comment_automations_200_response_automations_inner.rs
 src/models/list_comment_automations_200_response_automations_inner_stats.rs
+src/models/list_connected_apps_200_response.rs
 src/models/list_contacts_200_response.rs
 src/models/list_contacts_200_response_contacts_inner.rs
 src/models/list_contacts_200_response_filters.rs
@@ -2743,6 +2750,7 @@ src/models/review_phone_number_kyc_packet_request.rs
 src/models/review_webhook_review.rs
 src/models/review_webhook_review_reply.rs
 src/models/review_webhook_review_reviewer.rs
+src/models/revoke_connected_app_200_response.rs
 src/models/rf_prediction.rs
 src/models/saved_targeting_audience.rs
 src/models/schedule_broadcast_200_response.rs

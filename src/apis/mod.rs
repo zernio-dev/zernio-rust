@@ -129,6 +129,7 @@ pub mod calls_api;
 pub mod comment_automations_api;
 pub mod comments_api;
 pub mod connect_api;
+pub mod connected_apps_api;
 pub mod contacts_api;
 pub mod conversions_api;
 pub mod custom_fields_api;
