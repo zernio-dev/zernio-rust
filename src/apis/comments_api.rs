@@ -20,6 +20,8 @@ pub enum DeleteInboxCommentError {
     Status400(models::GetYouTubeDailyViews400Response),
     Status401(models::InlineObject),
     Status403(),
+    Status429(models::ErrorResponse),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
@@ -42,6 +44,8 @@ pub enum GetInboxPostCommentsError {
     Status400(),
     Status401(models::InlineObject),
     Status403(),
+    Status429(models::ErrorResponse),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
@@ -81,6 +85,8 @@ pub enum ReplyToInboxPostError {
     Status400(),
     Status401(models::InlineObject),
     Status403(),
+    Status429(models::ErrorResponse),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
