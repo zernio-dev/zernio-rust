@@ -15,8 +15,9 @@ use serde::{Deserialize, Serialize};
 pub struct BulkCreateContactsRequestContactsInner {
     #[serde(rename = "name")]
     pub name: String,
-    #[serde(rename = "platformIdentifier")]
-    pub platform_identifier: String,
+    /// Required when the top-level accountId is set (channel mode). A row missing it in that mode is rejected individually and reported in errors[], not a 400 for the whole import.
+    #[serde(rename = "platformIdentifier", skip_serializing_if = "Option::is_none")]
+    pub platform_identifier: Option<String>,
     #[serde(rename = "displayIdentifier", skip_serializing_if = "Option::is_none")]
     pub display_identifier: Option<String>,
     #[serde(rename = "email", skip_serializing_if = "Option::is_none")]
@@ -28,13 +29,10 @@ pub struct BulkCreateContactsRequestContactsInner {
 }
 
 impl BulkCreateContactsRequestContactsInner {
-    pub fn new(
-        name: String,
-        platform_identifier: String,
-    ) -> BulkCreateContactsRequestContactsInner {
+    pub fn new(name: String) -> BulkCreateContactsRequestContactsInner {
         BulkCreateContactsRequestContactsInner {
             name,
-            platform_identifier,
+            platform_identifier: None,
             display_identifier: None,
             email: None,
             company: None,
