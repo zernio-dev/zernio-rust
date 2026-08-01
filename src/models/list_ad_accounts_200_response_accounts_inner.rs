@@ -20,8 +20,22 @@ pub struct ListAdAccounts200ResponseAccountsInner {
     pub name: Option<String>,
     #[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
     pub currency: Option<String>,
+    /// LinkedIn only. LinkedIn's own ad account status. In practice always `ACTIVE`, because the LinkedIn query filters to active accounts. Meta, Google, TikTok and Pinterest report `accountStatus` instead; X reports `approvalStatus`.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
+    #[serde(
+        rename = "accountStatus",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub account_status: Option<Option<serde_json::Value>>,
+    /// X only. X's own ad account approval status. Observed values are `ACCEPTED`, `PENDING` and `REJECTED`, but X does not publish the full vocabulary, so treat an unrecognised value as not usable. Other platforms report `accountStatus` or `status` instead.
+    #[serde(rename = "approvalStatus", skip_serializing_if = "Option::is_none")]
+    pub approval_status: Option<String>,
+    /// Meta only. Meta's `disable_reason` code, forwarded unchanged. Present when `accountStatus` is `2` (DISABLED) and Meta gives a reason, which is what separates a policy action from a payment problem. Meta does not publish a stable list of values for this field, so none are enumerated here: resolve the code against Meta's own ad account reference. Absent when Meta reports no reason, or when the connected token cannot read the field.
+    #[serde(rename = "disableReason", skip_serializing_if = "Option::is_none")]
+    pub disable_reason: Option<i32>,
     /// IANA timezone of the ad account (Meta only). Drives daily-budget reset and Insights day boundaries.
     #[serde(rename = "timezoneName", skip_serializing_if = "Option::is_none")]
     pub timezone_name: Option<String>,
@@ -54,6 +68,9 @@ impl ListAdAccounts200ResponseAccountsInner {
             name: None,
             currency: None,
             status: None,
+            account_status: None,
+            approval_status: None,
+            disable_reason: None,
             timezone_name: None,
             timezone_offset_hours_utc: None,
             minimum_daily_budget: None,
