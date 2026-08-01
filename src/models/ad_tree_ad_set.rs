@@ -29,7 +29,7 @@ pub struct AdTreeAdSet {
     pub ad_set_budget: Option<Box<models::AdTreeAdSetAdSetBudget>>,
     #[serde(rename = "metrics", skip_serializing_if = "Option::is_none")]
     pub metrics: Option<Box<models::AdMetrics>>,
-    /// Meta ad set optimization goal (e.g. OFFSITE_CONVERSIONS, VALUE, LEAD_GENERATION)
+    /// What the delivery system optimizes for. Meta ad set optimization goal (e.g. OFFSITE_CONVERSIONS, VALUE, LEAD_GENERATION), or on LinkedIn the campaign's effective optimizationTargetType (NONE means manual bidding). See the `optimizationGoal` field on `Ad` for the full value spaces.
     #[serde(
         rename = "optimizationGoal",
         default,
@@ -44,7 +44,7 @@ pub struct AdTreeAdSet {
         skip_serializing_if = "Option::is_none"
     )]
     pub bid_strategy: Option<Option<models::BidStrategy>>,
-    /// Bid cap in whole currency units. Populated when bidStrategy is LOWEST_COST_WITH_BID_CAP or COST_CAP.
+    /// Bid amount in whole currency units. On Meta/TikTok populated when bidStrategy is LOWEST_COST_WITH_BID_CAP or COST_CAP; on LinkedIn it is the campaign's effective unitCost and pairs with `costType`, where 0 is a real, delivery-stopping value.
     #[serde(
         rename = "bidAmount",
         default,
@@ -60,6 +60,17 @@ pub struct AdTreeAdSet {
         skip_serializing_if = "Option::is_none"
     )]
     pub roas_average_floor: Option<Option<f64>>,
+    /// LinkedIn only. Effective cost model (billing event) of the LinkedIn campaign backing this ad set: CPM, CPC or CPV. Null for non-LinkedIn ad sets.
+    #[serde(
+        rename = "costType",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub cost_type: Option<Option<String>>,
+    /// LinkedIn only. Why the LinkedIn campaign backing this ad set is (or is not) delivering. A LinkedIn Campaign maps to this ad-set node, so this is the level where LinkedIn's holds actually apply. Empty means no serving data, [\"RUNNABLE\"] means eligible to serve, anything else is a hold. See the `servingStatuses` field on `Ad` for the known values.
+    #[serde(rename = "servingStatuses", skip_serializing_if = "Option::is_none")]
+    pub serving_statuses: Option<Vec<String>>,
     #[serde(rename = "promotedObject", skip_serializing_if = "Option::is_none")]
     pub promoted_object: Option<Box<models::AdTreeAdSetPromotedObject>>,
     /// Individual ads within this ad set (capped at 100). Returns a subset of Ad fields from the aggregation (core fields like _id, name, platform, status, budget, metrics, creative, goal are included; targeting and schedule may be absent). When `timeIncrement=1&dailyLevel=ad`, each entry also carries a `daily[]` array of `AdDailyMetrics`.
@@ -85,6 +96,8 @@ impl AdTreeAdSet {
             bid_strategy: None,
             bid_amount: None,
             roas_average_floor: None,
+            cost_type: None,
+            serving_statuses: None,
             promoted_object: None,
             ads: None,
             daily: None,

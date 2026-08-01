@@ -90,6 +90,17 @@ pub struct AdCreative {
     /// All media URLs for this ad (carousel images, multiple assets). Populated for Meta (carousel child_attachments), Google Ads (responsive display marketing_images), and LinkedIn (multi-image posts).
     #[serde(rename = "mediaUrls", skip_serializing_if = "Option::is_none")]
     pub media_urls: Option<Vec<String>>,
+    /// LinkedIn only. Whether LinkedIn is currently serving this specific creative. Complements the ad-level `servingStatuses`, which describes the parent campaign.
+    #[serde(
+        rename = "isServing",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_serving: Option<Option<bool>>,
+    /// LinkedIn only. Why this specific creative is not being served. Empty when it is serving. A superset of the ad-level `servingStatuses`: it repeats the inherited campaign, campaign group and account holds AND adds creative-only causes such as UNDER_REVIEW, REJECTED, PROCESSING, PROCESSING_FAILED, FORM_HOLD (lead-gen-form creatives), REFERRED_CONTENT_QUALITY_HOLD, JOB_POSTING_ON_HOLD and JOB_POSTING_INVALID (job ads). Some values are format-specific and will never appear on other ad formats. The list is open, so treat unrecognized values as holds rather than errors.
+    #[serde(rename = "servingHoldReasons", skip_serializing_if = "Option::is_none")]
+    pub serving_hold_reasons: Option<Vec<String>>,
     /// Ad copy/text
     #[serde(rename = "body", skip_serializing_if = "Option::is_none")]
     pub body: Option<String>,
@@ -129,6 +140,8 @@ impl AdCreative {
             instagram_user_id: None,
             instagram_permalink_url: None,
             media_urls: None,
+            is_serving: None,
+            serving_hold_reasons: None,
             body: None,
             google_headline: None,
             google_description: None,

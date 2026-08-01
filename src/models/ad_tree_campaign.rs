@@ -112,7 +112,7 @@ pub struct AdTreeCampaign {
         skip_serializing_if = "Option::is_none"
     )]
     pub platform_objective: Option<Option<String>>,
-    /// Meta optimization goal shared across ad sets, or comma-separated values when ad sets differ (e.g. OFFSITE_CONVERSIONS, VALUE, LEAD_GENERATION)
+    /// Optimization goal shared across ad sets, or comma-separated values when ad sets differ. Meta: e.g. OFFSITE_CONVERSIONS, VALUE, LEAD_GENERATION. LinkedIn: the campaign optimizationTargetType (e.g. MAX_CLICK, MAX_IMPRESSION, NONE); `NONE` with a manual costType is a campaign LinkedIn will not deliver.
     #[serde(
         rename = "optimizationGoal",
         default,
@@ -127,7 +127,7 @@ pub struct AdTreeCampaign {
         skip_serializing_if = "Option::is_none"
     )]
     pub bid_strategy: Option<Option<models::BidStrategy>>,
-    /// Representative bid cap for the campaign — bubbled up from the top-spending ad set's `bid_amount` (whole currency units). Populated when the ad-set bidStrategy is LOWEST_COST_WITH_BID_CAP or COST_CAP.
+    /// Representative bid for the campaign, bubbled up from the top-spending ad set (whole currency units). Meta: populated when the ad-set bidStrategy is LOWEST_COST_WITH_BID_CAP or COST_CAP. LinkedIn: the campaign unitCost, which has no bidStrategy gate and where 0 is a real, delivery-stopping value rather than unset.
     #[serde(
         rename = "bidAmount",
         default,
