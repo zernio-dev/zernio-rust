@@ -166,7 +166,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_contacts
 
-> models::ListContacts200Response list_contacts(profile_id, search, tag, platform, is_subscribed, limit, skip)
+> models::ListContacts200Response list_contacts(profile_id, search, tag, tags, platform, is_subscribed, limit, skip)
 List contacts
 
 List and search contacts for a profile. Supports filtering by tags, platform, subscription status, and full-text search.
@@ -179,6 +179,7 @@ Name | Type | Description  | Required | Notes
 **profile_id** | Option<**String**> | Filter by profile. Omit to list across all profiles |  |
 **search** | Option<**String**> |  |  |
 **tag** | Option<**String**> |  |  |
+**tags** | Option<**String**> | Comma-separated tags, matches contacts carrying any of them |  |
 **platform** | Option<**String**> |  |  |
 **is_subscribed** | Option<**String**> |  |  |
 **limit** | Option<**i32**> |  |  |[default to 50]

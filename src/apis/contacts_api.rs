@@ -331,6 +331,7 @@ pub async fn list_contacts(
     profile_id: Option<&str>,
     search: Option<&str>,
     tag: Option<&str>,
+    tags: Option<&str>,
     platform: Option<&str>,
     is_subscribed: Option<&str>,
     limit: Option<i32>,
@@ -340,6 +341,7 @@ pub async fn list_contacts(
     let p_query_profile_id = profile_id;
     let p_query_search = search;
     let p_query_tag = tag;
+    let p_query_tags = tags;
     let p_query_platform = platform;
     let p_query_is_subscribed = is_subscribed;
     let p_query_limit = limit;
@@ -356,6 +358,9 @@ pub async fn list_contacts(
     }
     if let Some(ref param_value) = p_query_tag {
         req_builder = req_builder.query(&[("tag", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_tags {
+        req_builder = req_builder.query(&[("tags", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_platform {
         req_builder = req_builder.query(&[("platform", &param_value.to_string())]);
