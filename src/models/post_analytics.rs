@@ -45,6 +45,14 @@ pub struct PostAnalytics {
         skip_serializing_if = "Option::is_none"
     )]
     pub ig_reels_video_view_total_time: Option<i32>,
+    /// Video length in seconds. Currently Instagram Reels only; combine with igReelsAvgWatchTime (ms) to estimate retention. Null when unknown (other platforms, non-video media, or when Instagram does not expose the media URL, e.g. reels with copyrighted audio).
+    #[serde(
+        rename = "videoDurationSeconds",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub video_duration_seconds: Option<Option<i32>>,
     #[serde(rename = "engagementRate", skip_serializing_if = "Option::is_none")]
     pub engagement_rate: Option<f64>,
     #[serde(rename = "lastUpdated", skip_serializing_if = "Option::is_none")]
@@ -65,6 +73,7 @@ impl PostAnalytics {
             follows: None,
             ig_reels_avg_watch_time: None,
             ig_reels_video_view_total_time: None,
+            video_duration_seconds: None,
             engagement_rate: None,
             last_updated: None,
         }
