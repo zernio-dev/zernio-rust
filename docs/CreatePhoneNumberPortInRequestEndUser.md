@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **locality** | **String** |  | 
 **administrative_area** | Option<**String**> | Region. Required for US/CA as the 2-letter state/province code (full names are accepted and normalized); optional elsewhere. | [optional]
 **postal_code** | **String** | Postal code. Validated as a US ZIP / Canadian postal code for US/CA; free-form elsewhere. | 
-**country_code** | **CountryCode** | Service-address country (a supported port-in country). (enum: US, CA, GB, ES, DE, FR, NL, AU) | 
+**country_code** | **CountryCode** | Service-address country (a supported port-in country). (enum: US, CA, GB, ES, DE, FR, NL, AU, BR) | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -99,6 +99,8 @@ pub enum CountryCode {
     Nl,
     #[serde(rename = "AU")]
     Au,
+    #[serde(rename = "BR")]
+    Br,
 }
 
 impl Default for CountryCode {
