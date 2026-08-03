@@ -20,7 +20,7 @@ pub struct LinkedInAdsPlatformData {
     /// Manual bid in WHOLE account-currency units (e.g. 2.5 = $2.50). Requires `costType`. Omit for LinkedIn's automated (max delivery) bidding. LinkedIn enforces its own per-audience min/max bid bounds.
     #[serde(rename = "unitCost", skip_serializing_if = "Option::is_none")]
     pub unit_cost: Option<f64>,
-    /// Campaign `optimizationTargetType` (e.g. `MAX_CLICK`, `TARGET_COST_PER_CLICK`, `MAX_IMPRESSION`). Forwarded verbatim — LinkedIn validates compatibility with the objective and `costType`. Omit for the objective-derived default.
+    /// Campaign `optimizationTargetType` (e.g. `MAX_CLICK`, `TARGET_COST_PER_CLICK`, `MAX_IMPRESSION`). Forwarded verbatim, LinkedIn validates compatibility with the objective and `costType`. Omit for the objective-derived default: `awareness` gets `MAX_IMPRESSION`, `video_views` gets `MAX_VIDEO_VIEW`, and every other goal gets `MAX_CLICK`. `lead_generation` and `conversions` also get `MAX_CLICK`, because `MAX_LEAD` and `MAX_CONVERSION` need a lead gen form or a conversion rule that neither creation flow attaches. The default applies only to `SPONSORED_UPDATES` campaigns (every boost, and the image, video and carousel standalone ads), never to the `TEXT_AD`, `DYNAMIC` and `SPONSORED_INMAILS` campaigns the other creative formats produce. It is also skipped when `unitCost` or a non-`CPM` `costType` is set, since those select manual bidding and the bid is then yours to choose.
     #[serde(
         rename = "optimizationTargetType",
         skip_serializing_if = "Option::is_none"

@@ -25,15 +25,18 @@ pub struct CreateInboxConversationRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub participant_username: Option<String>,
-    /// Text content of the message. At least one of message, attachment, or (for WhatsApp) templateName is required.
+    /// Text content of the message. At least one of message, attachment, or (for WhatsApp) templateName is required. Required when category is set (a Direct Send utility message is a text message).
     #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
     /// X/Twitter only. Skip the receives_your_dm eligibility check before sending. Use if you have already verified the recipient accepts DMs.
     #[serde(rename = "skipDmCheck", skip_serializing_if = "Option::is_none")]
     pub skip_dm_check: Option<bool>,
-    /// WhatsApp only. Name of the approved template to start the conversation with (required for WhatsApp).
+    /// WhatsApp only. Name of the approved template to start the conversation with. Required for WhatsApp unless category is used instead (Direct Send). Cannot be combined with category.
     #[serde(rename = "templateName", skip_serializing_if = "Option::is_none")]
     pub template_name: Option<String>,
+    /// WhatsApp only (Meta Direct Send). Combined with message and without templateName, starts the conversation with a business-initiated UTILITY message and no pre-approved template; Meta matches or auto-creates a template asynchronously. The WhatsApp Business Account must be eligible for Direct Send, otherwise the send fails with an error telling you to use an approved message template instead. Cannot be combined with templateName (templates are already categorized at creation). Utility messages only; marketing content is not allowed under this category. Accepted on the JSON body only, not on multipart requests.
+    #[serde(rename = "category", skip_serializing_if = "Option::is_none")]
+    pub category: Option<Category>,
     /// WhatsApp only. Template language code (e.g. en_US).
     #[serde(rename = "templateLanguage", skip_serializing_if = "Option::is_none")]
     pub template_language: Option<String>,
@@ -53,9 +56,22 @@ impl CreateInboxConversationRequest {
             message: None,
             skip_dm_check: None,
             template_name: None,
+            category: None,
             template_language: None,
             template_params: None,
             header_media: None,
         }
+    }
+}
+/// WhatsApp only (Meta Direct Send). Combined with message and without templateName, starts the conversation with a business-initiated UTILITY message and no pre-approved template; Meta matches or auto-creates a template asynchronously. The WhatsApp Business Account must be eligible for Direct Send, otherwise the send fails with an error telling you to use an approved message template instead. Cannot be combined with templateName (templates are already categorized at creation). Utility messages only; marketing content is not allowed under this category. Accepted on the JSON body only, not on multipart requests.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Category {
+    #[serde(rename = "utility")]
+    Utility,
+}
+
+impl Default for Category {
+    fn default() -> Category {
+        Self::Utility
     }
 }

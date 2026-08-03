@@ -22,6 +22,9 @@ pub struct SendInboxMessageRequest {
     /// URL of the attachment to send (image, video, audio, or file). The URL must be publicly accessible. For binary file uploads, use multipart/form-data instead.
     #[serde(rename = "attachmentUrl", skip_serializing_if = "Option::is_none")]
     pub attachment_url: Option<String>,
+    /// WhatsApp only (Meta Direct Send). Sends this message as a business-initiated UTILITY message without an approved template, for example outside the 24-hour customer service window; Meta matches or auto-creates a template asynchronously. The WhatsApp Business Account must be eligible for Direct Send, otherwise the send fails with an error telling you to use an approved message template instead. Supported only for text messages (link preview ok) and interactive messages (reply buttons, CTA URL buttons, voice-call button, header of text/image/video/document). Cannot be combined with template, attachments, location, or contacts. Utility messages only; marketing content is not allowed under this category. Accepted on the JSON body only, not on multipart requests.
+    #[serde(rename = "category", skip_serializing_if = "Option::is_none")]
+    pub category: Option<Category>,
     /// Type of attachment. Defaults to file if not specified.
     #[serde(rename = "attachmentType", skip_serializing_if = "Option::is_none")]
     pub attachment_type: Option<AttachmentType>,
@@ -65,6 +68,7 @@ impl SendInboxMessageRequest {
             account_id,
             message: None,
             attachment_url: None,
+            category: None,
             attachment_type: None,
             attachment_name: None,
             voice_note: None,
@@ -79,6 +83,18 @@ impl SendInboxMessageRequest {
             location: None,
             contacts: None,
         }
+    }
+}
+/// WhatsApp only (Meta Direct Send). Sends this message as a business-initiated UTILITY message without an approved template, for example outside the 24-hour customer service window; Meta matches or auto-creates a template asynchronously. The WhatsApp Business Account must be eligible for Direct Send, otherwise the send fails with an error telling you to use an approved message template instead. Supported only for text messages (link preview ok) and interactive messages (reply buttons, CTA URL buttons, voice-call button, header of text/image/video/document). Cannot be combined with template, attachments, location, or contacts. Utility messages only; marketing content is not allowed under this category. Accepted on the JSON body only, not on multipart requests.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Category {
+    #[serde(rename = "utility")]
+    Utility,
+}
+
+impl Default for Category {
+    fn default() -> Category {
+        Self::Utility
     }
 }
 /// Type of attachment. Defaults to file if not specified.
