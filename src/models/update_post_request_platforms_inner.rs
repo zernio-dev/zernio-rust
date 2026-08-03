@@ -25,6 +25,7 @@ pub struct UpdatePostRequestPlatformsInner {
     /// Optional per-platform scheduled time override.
     #[serde(rename = "scheduledFor", skip_serializing_if = "Option::is_none")]
     pub scheduled_for: Option<String>,
+    /// A <platform>Settings namespace (e.g. facebookSettings, tiktokSettings) omitted from the request is preserved from the stored post. Sending the key replaces the whole namespace; it is not deep-merged.
     #[serde(
         rename = "platformSpecificData",
         skip_serializing_if = "Option::is_none"
