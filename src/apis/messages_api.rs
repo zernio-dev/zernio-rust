@@ -126,6 +126,8 @@ pub enum SendInboxMessageError {
     Status400(models::SendInboxMessage400Response),
     Status401(models::InlineObject),
     Status403(),
+    Status409(),
+    Status422(),
     UnknownValue(serde_json::Value),
 }
 
@@ -783,15 +785,17 @@ pub async fn search_inbox_conversations(
     }
 }
 
-/// Send a message in a conversation. Supports text, attachments, quick replies, buttons, templates, and message tags. Attachment and interactive message support varies by platform.  WhatsApp template messages: to send an approved template into this conversation (required when the 24-hour customer-service window is closed), use the `template` field with a single element carrying the template reference: `{ \"elements\": [{ \"name\": ..., \"language\": ..., \"components\": [...] }] }`. See the `template` field below for the exact shape. To send a template to a phone number you have no conversation with yet, use the create-conversation endpoint (POST /v1/inbox/conversations) instead.  WhatsApp rich interactive messages (list, CTA URL, Flow, location request) are available via the `interactive` field. Tap events are delivered through the `message.received` webhook with WhatsApp-specific `metadata` fields (`interactiveType`, `interactiveId`, `flowResponseJson`, `flowResponseData`).
+/// Send a message in a conversation. Supports text, attachments, quick replies, buttons, templates, and message tags. Attachment and interactive message support varies by platform.  WhatsApp template messages: to send an approved template into this conversation (required when the 24-hour customer-service window is closed), use the `template` field with a single element carrying the template reference: `{ \"elements\": [{ \"name\": ..., \"language\": ..., \"components\": [...] }] }`. See the `template` field below for the exact shape. To send a template to a phone number you have no conversation with yet, use the create-conversation endpoint (POST /v1/inbox/conversations) instead.  WhatsApp rich interactive messages (list, CTA URL, Flow, location request) are available via the `interactive` field. Tap events are delivered through the `message.received` webhook with WhatsApp-specific `metadata` fields (`interactiveType`, `interactiveId`, `flowResponseJson`, `flowResponseData`).  **Idempotency:** send an `Idempotency-Key` header to make retries safe (e.g. after a client-side timeout where delivery is unknown): same key + same body replays the original response (with `Idempotent-Replayed: true`) instead of sending the message a second time; same key + different body returns 422; a key still in flight returns 409. Works for JSON and multipart (file upload) requests alike. Keys are retained for 24 hours.
 pub async fn send_inbox_message(
     configuration: &configuration::Configuration,
     conversation_id: &str,
     send_inbox_message_request: models::SendInboxMessageRequest,
+    idempotency_key: Option<&str>,
 ) -> Result<models::SendInboxMessage200Response, Error<SendInboxMessageError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_conversation_id = conversation_id;
     let p_body_send_inbox_message_request = send_inbox_message_request;
+    let p_header_idempotency_key = idempotency_key;
 
     let uri_str = format!(
         "{}/v1/inbox/conversations/{conversationId}/messages",
@@ -804,6 +808,9 @@ pub async fn send_inbox_message(
 
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_idempotency_key {
+        req_builder = req_builder.header("Idempotency-Key", param_value.to_string());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
