@@ -20,6 +20,7 @@ pub struct GetAdsTimeline200ResponseRowsInner {
     pub spend: Option<f64>,
     #[serde(rename = "impressions", skip_serializing_if = "Option::is_none")]
     pub impressions: Option<i32>,
+    /// Reach summed across the account's ads for this single day. A person seen by two ads the same day counts twice, and reach is de-duplicated per day only: do NOT sum it across days (people reached on multiple days would be double-counted).
     #[serde(rename = "reach", skip_serializing_if = "Option::is_none")]
     pub reach: Option<i32>,
     #[serde(rename = "clicks", skip_serializing_if = "Option::is_none")]

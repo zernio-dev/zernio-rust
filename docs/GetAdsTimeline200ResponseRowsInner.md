@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **date** | Option<[**String**](String.md)> |  | [optional]
 **spend** | Option<**f64**> | Native currency units (matches /ads/tree convention). | [optional]
 **impressions** | Option<**i32**> |  | [optional]
-**reach** | Option<**i32**> |  | [optional]
+**reach** | Option<**i32**> | Reach summed across the account's ads for this single day. A person seen by two ads the same day counts twice, and reach is de-duplicated per day only: do NOT sum it across days (people reached on multiple days would be double-counted). | [optional]
 **clicks** | Option<**i32**> |  | [optional]
 **engagement** | Option<**i32**> |  | [optional]
 **ctr** | Option<**f64**> | Click-through rate as a percentage (0–100). | [optional]

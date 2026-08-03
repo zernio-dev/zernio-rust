@@ -17,6 +17,7 @@ pub struct GetCampaignAnalytics200ResponseAnalyticsDailyInner {
     pub spend: Option<f64>,
     #[serde(rename = "impressions", skip_serializing_if = "Option::is_none")]
     pub impressions: Option<i32>,
+    /// Unique people reached in the requested date range. Meta (facebook/instagram): Meta's own de-duplicated reach for the exact range, fetched live and cached up to ~1 hour (may lag recent delivery; on a transient Meta error the value temporarily falls back to a sum of per-day reach, which overcounts people reached on multiple days or by multiple child ads). Because it is de-duplicated, Meta reach is NOT additive: neither daily values nor child nodes sum to the range total. TikTok: sum of per-day reach, so multi-day ranges overcount vs TikTok Ads Manager. Google, LinkedIn, X, Pinterest and OpenAI report 0 (reach not synced). Only derive frequency (impressions / reach) for Meta.
     #[serde(rename = "reach", skip_serializing_if = "Option::is_none")]
     pub reach: Option<i32>,
     #[serde(rename = "clicks", skip_serializing_if = "Option::is_none")]
