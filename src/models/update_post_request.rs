@@ -52,10 +52,10 @@ pub struct UpdatePostRequest {
     /// Specific queue ID to use when scheduling via queue.
     #[serde(rename = "queueId", skip_serializing_if = "Option::is_none")]
     pub queue_id: Option<String>,
-    /// Root-level TikTok settings applied to all TikTok platforms. Merged into each platform's platformSpecificData, with platform-specific settings taking precedence.
+    /// Root-level TikTok settings applied to the TikTok platforms sent in the same request. Merged into each platform's platformSpecificData, with platform-specific settings taking precedence. Returns 400 if sent without a platforms array.
     #[serde(rename = "tiktokSettings", skip_serializing_if = "Option::is_none")]
     pub tiktok_settings: Option<Box<models::TikTokPlatformData>>,
-    /// Root-level Facebook settings applied to all Facebook platforms. Merged into each platform's platformSpecificData.facebookSettings, with platform-specific settings taking precedence.
+    /// Root-level Facebook settings applied to the Facebook platforms sent in the same request. Merged into each platform's platformSpecificData.facebookSettings, with platform-specific settings taking precedence. Returns 400 if sent without a platforms array.
     #[serde(rename = "facebookSettings", skip_serializing_if = "Option::is_none")]
     pub facebook_settings: Option<Box<models::FacebookSettings>>,
     #[serde(rename = "recycling", skip_serializing_if = "Option::is_none")]

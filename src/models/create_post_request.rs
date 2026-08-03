@@ -47,10 +47,10 @@ pub struct CreatePostRequest {
     pub crossposting_enabled: Option<bool>,
     #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
     pub metadata: Option<std::collections::HashMap<String, serde_json::Value>>,
-    /// Root-level TikTok settings applied to all TikTok platforms. Merged into each platform's platformSpecificData, with platform-specific settings taking precedence.
+    /// Root-level TikTok settings applied to the TikTok platforms sent in the same request. Merged into each platform's platformSpecificData, with platform-specific settings taking precedence.
     #[serde(rename = "tiktokSettings", skip_serializing_if = "Option::is_none")]
     pub tiktok_settings: Option<Box<models::TikTokPlatformData>>,
-    /// Root-level Facebook settings applied to all Facebook platforms. Merged into each platform's platformSpecificData.facebookSettings, with platform-specific settings taking precedence.
+    /// Root-level Facebook settings applied to the Facebook platforms sent in the same request. Merged into each platform's platformSpecificData.facebookSettings, with platform-specific settings taking precedence.
     #[serde(rename = "facebookSettings", skip_serializing_if = "Option::is_none")]
     pub facebook_settings: Option<Box<models::FacebookSettings>>,
     #[serde(rename = "recycling", skip_serializing_if = "Option::is_none")]
