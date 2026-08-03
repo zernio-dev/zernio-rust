@@ -66,6 +66,8 @@ pub struct ListInboxConversations200ResponseDataInner {
     #[serde(rename = "instagramProfile", skip_serializing_if = "Option::is_none")]
     pub instagram_profile:
         Option<Box<models::ListInboxConversations200ResponseDataInnerInstagramProfile>>,
+    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<Box<models::ListInboxConversations200ResponseDataInnerMetadata>>,
 }
 
 impl ListInboxConversations200ResponseDataInner {
@@ -85,6 +87,7 @@ impl ListInboxConversations200ResponseDataInner {
             unread_count: None,
             url: None,
             instagram_profile: None,
+            metadata: None,
         }
     }
 }

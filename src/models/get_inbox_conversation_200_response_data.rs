@@ -46,6 +46,8 @@ pub struct GetInboxConversation200ResponseData {
     #[serde(rename = "instagramProfile", skip_serializing_if = "Option::is_none")]
     pub instagram_profile:
         Option<Box<models::ListInboxConversations200ResponseDataInnerInstagramProfile>>,
+    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<Box<models::GetInboxConversation200ResponseDataMetadata>>,
 }
 
 impl GetInboxConversation200ResponseData {
@@ -64,6 +66,7 @@ impl GetInboxConversation200ResponseData {
             updated_time: None,
             participants: None,
             instagram_profile: None,
+            metadata: None,
         }
     }
 }
