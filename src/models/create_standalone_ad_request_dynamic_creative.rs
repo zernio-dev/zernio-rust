@@ -11,12 +11,15 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateStandaloneAdRequestDynamicCreative : Meta only. Dynamic Creative: supply a POOL of assets and Meta auto-combines and optimises them into the best-performing variations within a single ad (mapped to the creative's `asset_feed_spec`). When set, the top-level single-creative fields (`imageUrl`, `headline`, `body`, `linkUrl`, `callToAction`) are ignored. Mutually exclusive with the `creatives[]` multi-creative shape. Meta limits: ≤10 images, ≤5 bodies / titles / descriptions.
+/// CreateStandaloneAdRequestDynamicCreative : Meta only. Dynamic Creative: supply a POOL of assets and Meta auto-combines and optimises them into the best-performing variations within a single ad (mapped to the creative's `asset_feed_spec`). When set, the top-level single-creative fields (`imageUrl`, `headline`, `body`, `linkUrl`, `callToAction`) are ignored. Mutually exclusive with the `creatives[]` multi-creative shape. Exactly ONE of `imageUrls` / `videoUrls` is required (Meta allows one ad format per asset feed; sending both → 400). Meta limits: ≤10 images or ≤10 videos, ≤5 bodies / titles / descriptions.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateStandaloneAdRequestDynamicCreative {
-    /// Pool of image URLs (1-10). Uploaded to the ad account and referenced by hash in the asset feed.
-    #[serde(rename = "imageUrls")]
-    pub image_urls: Vec<String>,
+    /// Pool of image URLs (1-10). Uploaded to the ad account and referenced by hash in the asset feed. Mutually exclusive with `videoUrls`.
+    #[serde(rename = "imageUrls", skip_serializing_if = "Option::is_none")]
+    pub image_urls: Option<Vec<String>>,
+    /// Pool of video URLs (1-10). Uploaded to the ad account and referenced by video id in the asset feed. No thumbnails are needed: Meta auto-generates a poster per video. Mutually exclusive with `imageUrls`; `adFormat` defaults to SINGLE_VIDEO.
+    #[serde(rename = "videoUrls", skip_serializing_if = "Option::is_none")]
+    pub video_urls: Option<Vec<String>>,
     /// Primary-text variations (the body copy).
     #[serde(rename = "bodies", skip_serializing_if = "Option::is_none")]
     pub bodies: Option<Vec<String>>,
@@ -32,16 +35,17 @@ pub struct CreateStandaloneAdRequestDynamicCreative {
     /// CTA-button variations. Required.
     #[serde(rename = "callToActionTypes", skip_serializing_if = "Option::is_none")]
     pub call_to_action_types: Option<Vec<CallToActionTypes>>,
-    /// Asset-feed ad format. Defaults to SINGLE_IMAGE.
+    /// Asset-feed ad format. Must match the pool: SINGLE_IMAGE / CAROUSEL_IMAGE require `imageUrls`, SINGLE_VIDEO requires `videoUrls` (400 otherwise). Defaults to SINGLE_IMAGE with `imageUrls`, SINGLE_VIDEO with `videoUrls`.
     #[serde(rename = "adFormat", skip_serializing_if = "Option::is_none")]
     pub ad_format: Option<AdFormat>,
 }
 
 impl CreateStandaloneAdRequestDynamicCreative {
-    /// Meta only. Dynamic Creative: supply a POOL of assets and Meta auto-combines and optimises them into the best-performing variations within a single ad (mapped to the creative's `asset_feed_spec`). When set, the top-level single-creative fields (`imageUrl`, `headline`, `body`, `linkUrl`, `callToAction`) are ignored. Mutually exclusive with the `creatives[]` multi-creative shape. Meta limits: ≤10 images, ≤5 bodies / titles / descriptions.
-    pub fn new(image_urls: Vec<String>) -> CreateStandaloneAdRequestDynamicCreative {
+    /// Meta only. Dynamic Creative: supply a POOL of assets and Meta auto-combines and optimises them into the best-performing variations within a single ad (mapped to the creative's `asset_feed_spec`). When set, the top-level single-creative fields (`imageUrl`, `headline`, `body`, `linkUrl`, `callToAction`) are ignored. Mutually exclusive with the `creatives[]` multi-creative shape. Exactly ONE of `imageUrls` / `videoUrls` is required (Meta allows one ad format per asset feed; sending both → 400). Meta limits: ≤10 images or ≤10 videos, ≤5 bodies / titles / descriptions.
+    pub fn new() -> CreateStandaloneAdRequestDynamicCreative {
         CreateStandaloneAdRequestDynamicCreative {
-            image_urls,
+            image_urls: None,
+            video_urls: None,
             bodies: None,
             titles: None,
             descriptions: None,
@@ -129,13 +133,15 @@ impl Default for CallToActionTypes {
         Self::LearnMore
     }
 }
-/// Asset-feed ad format. Defaults to SINGLE_IMAGE.
+/// Asset-feed ad format. Must match the pool: SINGLE_IMAGE / CAROUSEL_IMAGE require `imageUrls`, SINGLE_VIDEO requires `videoUrls` (400 otherwise). Defaults to SINGLE_IMAGE with `imageUrls`, SINGLE_VIDEO with `videoUrls`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum AdFormat {
     #[serde(rename = "SINGLE_IMAGE")]
     SingleImage,
     #[serde(rename = "CAROUSEL_IMAGE")]
     CarouselImage,
+    #[serde(rename = "SINGLE_VIDEO")]
+    SingleVideo,
 }
 
 impl Default for AdFormat {
