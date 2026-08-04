@@ -15,8 +15,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AdCreative {
     /// Primary thumbnail/image URL
-    #[serde(rename = "thumbnailUrl", skip_serializing_if = "Option::is_none")]
-    pub thumbnail_url: Option<String>,
+    #[serde(
+        rename = "thumbnailUrl",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub thumbnail_url: Option<Option<String>>,
     /// Alternative image URL
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
