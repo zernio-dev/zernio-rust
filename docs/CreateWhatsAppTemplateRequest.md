@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **name** | **String** | Template name (lowercase, letters/numbers/underscores, must start with a letter) | 
 **category** | **Category** | Template category (enum: AUTHENTICATION, MARKETING, UTILITY) | 
 **language** | **String** | Template language code (e.g., en_US) | 
+**parameter_format** | Option<**ParameterFormat**> | Variable style: POSITIONAL ({{1}}, the default) or NAMED ({{customer_name}}). Named templates provide examples via body_text_named_params / header_text_named_params. Inferred as NAMED when omitted but a named-params example is present. (enum: POSITIONAL, NAMED, positional, named) | [optional]
 **components** | Option<[**Vec<models::WhatsAppTemplateComponent>**](WhatsAppTemplateComponent.md)> | Template components (header, body, footer, buttons, carousel, limited_time_offer). Required for custom templates, omit when using library_template_name. | [optional]
 **library_template_name** | Option<**String**> | Name of a pre-built template from Meta's template library (e.g., \"appointment_reminder\", \"auto_pay_reminder_1\", \"address_update\"). When provided, the template is pre-approved by Meta with no review wait. Omit components when using this field.  | [optional]
 **library_template_body_inputs** | Option<**serde_json::Value**> | Optional body customizations for library templates. Available options depend on the template (e.g., add_contact_number, add_learn_more_link, add_security_recommendation, add_track_package_link, code_expiration_minutes).  | [optional]

@@ -25,6 +25,9 @@ pub struct CreateWhatsAppTemplateRequest {
     /// Template language code (e.g., en_US)
     #[serde(rename = "language")]
     pub language: String,
+    /// Variable style: POSITIONAL ({{1}}, the default) or NAMED ({{customer_name}}). Named templates provide examples via body_text_named_params / header_text_named_params. Inferred as NAMED when omitted but a named-params example is present.
+    #[serde(rename = "parameter_format", skip_serializing_if = "Option::is_none")]
+    pub parameter_format: Option<ParameterFormat>,
     /// Template components (header, body, footer, buttons, carousel, limited_time_offer). Required for custom templates, omit when using library_template_name.
     #[serde(rename = "components", skip_serializing_if = "Option::is_none")]
     pub components: Option<Vec<models::WhatsAppTemplateComponent>>,
@@ -61,6 +64,7 @@ impl CreateWhatsAppTemplateRequest {
             name,
             category,
             language,
+            parameter_format: None,
             components: None,
             library_template_name: None,
             library_template_body_inputs: None,
@@ -82,5 +86,23 @@ pub enum Category {
 impl Default for Category {
     fn default() -> Category {
         Self::Authentication
+    }
+}
+/// Variable style: POSITIONAL ({{1}}, the default) or NAMED ({{customer_name}}). Named templates provide examples via body_text_named_params / header_text_named_params. Inferred as NAMED when omitted but a named-params example is present.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum ParameterFormat {
+    #[serde(rename = "POSITIONAL")]
+    Positional,
+    #[serde(rename = "NAMED")]
+    Named,
+    #[serde(rename = "positional")]
+    Positional2,
+    #[serde(rename = "named")]
+    Named2,
+}
+
+impl Default for ParameterFormat {
+    fn default() -> ParameterFormat {
+        Self::Positional
     }
 }

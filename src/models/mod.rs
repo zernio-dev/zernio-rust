@@ -3058,6 +3058,8 @@ pub mod whats_app_limited_time_offer_component;
 pub use self::whats_app_limited_time_offer_component::WhatsAppLimitedTimeOfferComponent;
 pub mod whats_app_limited_time_offer_component_limited_time_offer;
 pub use self::whats_app_limited_time_offer_component_limited_time_offer::WhatsAppLimitedTimeOfferComponentLimitedTimeOffer;
+pub mod whats_app_named_param_example;
+pub use self::whats_app_named_param_example::WhatsAppNamedParamExample;
 pub mod whats_app_sandbox_session;
 pub use self::whats_app_sandbox_session::WhatsAppSandboxSession;
 pub mod whats_app_template_button;

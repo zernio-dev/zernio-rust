@@ -1592,6 +1592,7 @@ docs/WhatsAppHeaderComponent.md
 docs/WhatsAppHeaderComponentExample.md
 docs/WhatsAppLimitedTimeOfferComponent.md
 docs/WhatsAppLimitedTimeOfferComponentLimitedTimeOffer.md
+docs/WhatsAppNamedParamExample.md
 docs/WhatsAppPhoneNumbersApi.md
 docs/WhatsAppSandboxApi.md
 docs/WhatsAppSandboxSession.md
@@ -3218,6 +3219,7 @@ src/models/whats_app_header_component.rs
 src/models/whats_app_header_component_example.rs
 src/models/whats_app_limited_time_offer_component.rs
 src/models/whats_app_limited_time_offer_component_limited_time_offer.rs
+src/models/whats_app_named_param_example.rs
 src/models/whats_app_sandbox_session.rs
 src/models/whats_app_template_button.rs
 src/models/whats_app_template_component.rs

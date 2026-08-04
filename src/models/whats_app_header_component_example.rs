@@ -16,6 +16,12 @@ pub struct WhatsAppHeaderComponentExample {
     /// Sample values for header text variables
     #[serde(rename = "header_text", skip_serializing_if = "Option::is_none")]
     pub header_text: Option<Vec<String>>,
+    /// Sample values for NAMED header variables (templates using {{customer_name}}-style tokens with parameter_format: NAMED).
+    #[serde(
+        rename = "header_text_named_params",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub header_text_named_params: Option<Vec<models::WhatsAppNamedParamExample>>,
     /// When the header format is a media type (image, video, gif, document), provide a public URL here. Zernio will download and upload it to WhatsApp on your behalf, replacing it with the internal file handle before creating the template.
     #[serde(rename = "header_handle", skip_serializing_if = "Option::is_none")]
     pub header_handle: Option<Vec<String>>,
@@ -25,6 +31,7 @@ impl WhatsAppHeaderComponentExample {
     pub fn new() -> WhatsAppHeaderComponentExample {
         WhatsAppHeaderComponentExample {
             header_text: None,
+            header_text_named_params: None,
             header_handle: None,
         }
     }

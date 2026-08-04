@@ -16,10 +16,19 @@ pub struct WhatsAppBodyComponentExample {
     /// Sample values for body variables (array of arrays)
     #[serde(rename = "body_text", skip_serializing_if = "Option::is_none")]
     pub body_text: Option<Vec<Vec<String>>>,
+    /// Sample values for NAMED body variables (templates using {{customer_name}}-style tokens with parameter_format: NAMED).
+    #[serde(
+        rename = "body_text_named_params",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub body_text_named_params: Option<Vec<models::WhatsAppNamedParamExample>>,
 }
 
 impl WhatsAppBodyComponentExample {
     pub fn new() -> WhatsAppBodyComponentExample {
-        WhatsAppBodyComponentExample { body_text: None }
+        WhatsAppBodyComponentExample {
+            body_text: None,
+            body_text_named_params: None,
+        }
     }
 }
