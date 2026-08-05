@@ -938,6 +938,8 @@ docs/ListSequenceEnrollments200Response.md
 docs/ListSequenceEnrollments200ResponseEnrollmentsInner.md
 docs/ListSequences200Response.md
 docs/ListSequences200ResponseSequencesInner.md
+docs/ListSlackMembers200Response.md
+docs/ListSlackMembers200ResponseMembersInner.md
 docs/ListSmsOptOuts200Response.md
 docs/ListSmsOptOuts200ResponseOptOutsInner.md
 docs/ListSmsRegistrations200Response.md
@@ -1258,6 +1260,7 @@ docs/SetWhatsappBusinessUsernameRequest.md
 docs/ShareSmsRegistration200Response.md
 docs/ShareSmsRegistrationRequest.md
 docs/SharedAdAccount.md
+docs/SlackApi.md
 docs/SlackPlatformData.md
 docs/SmsApi.md
 docs/SnapchatPlatformData.md
@@ -1684,6 +1687,7 @@ src/apis/reach_and_frequency_api.rs
 src/apis/reddit_search_api.rs
 src/apis/reviews_api.rs
 src/apis/sequences_api.rs
+src/apis/slack_api.rs
 src/apis/sms_api.rs
 src/apis/tracking_tags_api.rs
 src/apis/twitter_engagement_api.rs
@@ -2604,6 +2608,8 @@ src/models/list_sequence_enrollments_200_response.rs
 src/models/list_sequence_enrollments_200_response_enrollments_inner.rs
 src/models/list_sequences_200_response.rs
 src/models/list_sequences_200_response_sequences_inner.rs
+src/models/list_slack_members_200_response.rs
+src/models/list_slack_members_200_response_members_inner.rs
 src/models/list_sms_opt_outs_200_response.rs
 src/models/list_sms_opt_outs_200_response_opt_outs_inner.rs
 src/models/list_sms_registrations_200_response.rs
