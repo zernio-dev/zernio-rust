@@ -329,6 +329,7 @@ pub async fn get_contact_channels(
 pub async fn list_contacts(
     configuration: &configuration::Configuration,
     profile_id: Option<&str>,
+    account_id: Option<&str>,
     search: Option<&str>,
     tag: Option<&str>,
     tags: Option<&str>,
@@ -339,6 +340,7 @@ pub async fn list_contacts(
 ) -> Result<models::ListContacts200Response, Error<ListContactsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_profile_id = profile_id;
+    let p_query_account_id = account_id;
     let p_query_search = search;
     let p_query_tag = tag;
     let p_query_tags = tags;
@@ -352,6 +354,9 @@ pub async fn list_contacts(
 
     if let Some(ref param_value) = p_query_profile_id {
         req_builder = req_builder.query(&[("profileId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_account_id {
+        req_builder = req_builder.query(&[("accountId", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_search {
         req_builder = req_builder.query(&[("search", &param_value.to_string())]);
