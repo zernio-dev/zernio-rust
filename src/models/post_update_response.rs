@@ -17,6 +17,8 @@ pub struct PostUpdateResponse {
     pub message: Option<String>,
     #[serde(rename = "post", skip_serializing_if = "Option::is_none")]
     pub post: Option<Box<models::Post>>,
+    #[serde(rename = "warnings", skip_serializing_if = "Option::is_none")]
+    pub warnings: Option<Vec<String>>,
 }
 
 impl PostUpdateResponse {
@@ -24,6 +26,7 @@ impl PostUpdateResponse {
         PostUpdateResponse {
             message: None,
             post: None,
+            warnings: None,
         }
     }
 }
