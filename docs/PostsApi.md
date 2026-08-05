@@ -189,8 +189,8 @@ Name | Type | Description  | Required | Notes
 **platform** | Option<**String**> |  |  |
 **profile_id** | Option<**String**> | Filter posts to a specific profile (24-char hex ObjectId). Omit it, or send `all` or an empty value, to list posts across every profile. |  |
 **created_by** | Option<**String**> | Filter posts to those created by a specific team user (24-char hex ObjectId). |  |
-**date_from** | Option<**String**> |  |  |
-**date_to** | Option<**String**> |  |  |
+**date_from** | Option<**String**> | Zero-padded YYYY-MM-DD, or a full ISO 8601 datetime. An empty value means no date filter; any other malformed value returns 400. |  |
+**date_to** | Option<**String**> | Zero-padded YYYY-MM-DD, or a full ISO 8601 datetime. An empty value means no date filter; any other malformed value returns 400. |  |
 **include_hidden** | Option<**bool**> |  |  |[default to false]
 **search** | Option<**String**> | Search posts by text content. |  |
 **sort_by** | Option<**String**> | Sort order for results. |  |[default to scheduled-desc]
