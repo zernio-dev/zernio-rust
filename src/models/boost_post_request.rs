@@ -84,6 +84,9 @@ pub struct BoostPostRequest {
     /// Legal entity that pays for the ad. Can differ from `dsaBeneficiary` (for example, an agency paying for a client's ads). Same rules as `dsaBeneficiary`: required for EU targeting unless the ad account has a default payor.
     #[serde(rename = "dsaPayor", skip_serializing_if = "Option::is_none")]
     pub dsa_payor: Option<String>,
+    /// Meta only. Explicit ad-set `optimization_goal` override. When omitted, defaults to the value derived from `goal`. The value must be compatible with the objective Meta derives from `goal`, not with the objective used by `POST /v1/ads/create` for the same `goal` name: boost maps `goal: \"engagement\"` to objective `OUTCOME_AWARENESS`, which accepts `REACH`, `IMPRESSIONS`, `AD_RECALL_LIFT`, or THRUPLAY-class values, and rejects `POST_ENGAGEMENT` (that value is only valid under `OUTCOME_ENGAGEMENT`, which create uses for the same goal name).
+    #[serde(rename = "optimizationGoal", skip_serializing_if = "Option::is_none")]
+    pub optimization_goal: Option<String>,
 }
 
 impl BoostPostRequest {
@@ -118,6 +121,7 @@ impl BoostPostRequest {
             spark_auth_code: None,
             dsa_beneficiary: None,
             dsa_payor: None,
+            optimization_goal: None,
         }
     }
 }
