@@ -187,7 +187,7 @@ Name | Type | Description  | Required | Notes
 **source** | Option<**String**> | Which collection to read. `zernio` (default) returns posts authored through Zernio. `external` returns posts synced from the platform (existing/historical posts that were published outside Zernio). Combine with `accountId` and paginate via `page`/`limit` to walk the full synced history (we keep up to the last ~12 months per account). |  |[default to zernio]
 **status** | Option<**String**> |  |  |
 **platform** | Option<**String**> |  |  |
-**profile_id** | Option<**String**> |  |  |
+**profile_id** | Option<**String**> | Filter posts to a specific profile (24-char hex ObjectId). Omit it, or send `all` or an empty value, to list posts across every profile. |  |
 **created_by** | Option<**String**> | Filter posts to those created by a specific team user (24-char hex ObjectId). |  |
 **date_from** | Option<**String**> |  |  |
 **date_to** | Option<**String**> |  |  |
