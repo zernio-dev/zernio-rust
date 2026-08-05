@@ -230,6 +230,7 @@ pub enum HandleOAuthCallbackError {
     Status401(models::InlineObject),
     Status403(),
     Status500(),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
