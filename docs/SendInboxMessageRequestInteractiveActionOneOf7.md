@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **Name** |  (enum: catalog_message) | 
-**parameters** | Option<[**models::SendInboxMessageRequestInteractiveActionOneOf7Parameters**](SendInboxMessageRequestInteractiveActionOneOf7Parameters.md)> |  | [optional]
+**catalog_id** | **String** | Meta catalog ID connected to the WhatsApp Business Account. | 
+**sections** | [**Vec<models::SendInboxMessageRequestInteractiveActionOneOf7SectionsInner>**](SendInboxMessageRequestInteractiveActionOneOf7SectionsInner.md) | 1-10 sections. Total products across all sections cannot exceed 30. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

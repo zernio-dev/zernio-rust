@@ -11,26 +11,26 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// SendInboxMessageRequestInteractiveActionOneOf6 : Multi-product action. `type` on the parent must be `product_list`. Requires a Meta catalog connected to the WhatsApp Business Account in Commerce Manager.
+/// SendInboxMessageRequestInteractiveActionOneOf6 : Single-product action. `type` on the parent must be `product`. Requires a Meta catalog connected to the WhatsApp Business Account in Commerce Manager.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SendInboxMessageRequestInteractiveActionOneOf6 {
     /// Meta catalog ID connected to the WhatsApp Business Account.
     #[serde(rename = "catalog_id")]
     pub catalog_id: String,
-    /// 1-10 sections. Total products across all sections cannot exceed 30.
-    #[serde(rename = "sections")]
-    pub sections: Vec<models::SendInboxMessageRequestInteractiveActionOneOf6SectionsInner>,
+    /// Retailer ID (SKU) of the product inside the catalog.
+    #[serde(rename = "product_retailer_id")]
+    pub product_retailer_id: String,
 }
 
 impl SendInboxMessageRequestInteractiveActionOneOf6 {
-    /// Multi-product action. `type` on the parent must be `product_list`. Requires a Meta catalog connected to the WhatsApp Business Account in Commerce Manager.
+    /// Single-product action. `type` on the parent must be `product`. Requires a Meta catalog connected to the WhatsApp Business Account in Commerce Manager.
     pub fn new(
         catalog_id: String,
-        sections: Vec<models::SendInboxMessageRequestInteractiveActionOneOf6SectionsInner>,
+        product_retailer_id: String,
     ) -> SendInboxMessageRequestInteractiveActionOneOf6 {
         SendInboxMessageRequestInteractiveActionOneOf6 {
             catalog_id,
-            sections,
+            product_retailer_id,
         }
     }
 }

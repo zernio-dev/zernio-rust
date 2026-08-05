@@ -11,26 +11,28 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// SendInboxMessageRequestInteractiveActionOneOf5 : Single-product action. `type` on the parent must be `product`. Requires a Meta catalog connected to the WhatsApp Business Account in Commerce Manager.
+/// SendInboxMessageRequestInteractiveActionOneOf5 : Contact-info request action. `type` on the parent must be `request_contact_info`. May be omitted entirely; it is defaulted.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SendInboxMessageRequestInteractiveActionOneOf5 {
-    /// Meta catalog ID connected to the WhatsApp Business Account.
-    #[serde(rename = "catalog_id")]
-    pub catalog_id: String,
-    /// Retailer ID (SKU) of the product inside the catalog.
-    #[serde(rename = "product_retailer_id")]
-    pub product_retailer_id: String,
+    #[serde(rename = "name")]
+    pub name: Name,
 }
 
 impl SendInboxMessageRequestInteractiveActionOneOf5 {
-    /// Single-product action. `type` on the parent must be `product`. Requires a Meta catalog connected to the WhatsApp Business Account in Commerce Manager.
-    pub fn new(
-        catalog_id: String,
-        product_retailer_id: String,
-    ) -> SendInboxMessageRequestInteractiveActionOneOf5 {
-        SendInboxMessageRequestInteractiveActionOneOf5 {
-            catalog_id,
-            product_retailer_id,
-        }
+    /// Contact-info request action. `type` on the parent must be `request_contact_info`. May be omitted entirely; it is defaulted.
+    pub fn new(name: Name) -> SendInboxMessageRequestInteractiveActionOneOf5 {
+        SendInboxMessageRequestInteractiveActionOneOf5 { name }
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Name {
+    #[serde(rename = "request_contact_info")]
+    RequestContactInfo,
+}
+
+impl Default for Name {
+    fn default() -> Name {
+        Self::RequestContactInfo
     }
 }

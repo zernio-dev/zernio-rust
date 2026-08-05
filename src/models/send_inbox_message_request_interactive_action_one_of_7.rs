@@ -11,33 +11,26 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// SendInboxMessageRequestInteractiveActionOneOf7 : Catalog-message action. `type` on the parent must be `catalog_message`. May be omitted entirely; it is defaulted to `{ \"name\": \"catalog_message\" }`. Requires a Meta catalog connected to the WhatsApp Business Account in Commerce Manager.
+/// SendInboxMessageRequestInteractiveActionOneOf7 : Multi-product action. `type` on the parent must be `product_list`. Requires a Meta catalog connected to the WhatsApp Business Account in Commerce Manager.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SendInboxMessageRequestInteractiveActionOneOf7 {
-    #[serde(rename = "name")]
-    pub name: Name,
-    #[serde(rename = "parameters", skip_serializing_if = "Option::is_none")]
-    pub parameters: Option<Box<models::SendInboxMessageRequestInteractiveActionOneOf7Parameters>>,
+    /// Meta catalog ID connected to the WhatsApp Business Account.
+    #[serde(rename = "catalog_id")]
+    pub catalog_id: String,
+    /// 1-10 sections. Total products across all sections cannot exceed 30.
+    #[serde(rename = "sections")]
+    pub sections: Vec<models::SendInboxMessageRequestInteractiveActionOneOf7SectionsInner>,
 }
 
 impl SendInboxMessageRequestInteractiveActionOneOf7 {
-    /// Catalog-message action. `type` on the parent must be `catalog_message`. May be omitted entirely; it is defaulted to `{ \"name\": \"catalog_message\" }`. Requires a Meta catalog connected to the WhatsApp Business Account in Commerce Manager.
-    pub fn new(name: Name) -> SendInboxMessageRequestInteractiveActionOneOf7 {
+    /// Multi-product action. `type` on the parent must be `product_list`. Requires a Meta catalog connected to the WhatsApp Business Account in Commerce Manager.
+    pub fn new(
+        catalog_id: String,
+        sections: Vec<models::SendInboxMessageRequestInteractiveActionOneOf7SectionsInner>,
+    ) -> SendInboxMessageRequestInteractiveActionOneOf7 {
         SendInboxMessageRequestInteractiveActionOneOf7 {
-            name,
-            parameters: None,
+            catalog_id,
+            sections,
         }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Name {
-    #[serde(rename = "catalog_message")]
-    CatalogMessage,
-}
-
-impl Default for Name {
-    fn default() -> Name {
-        Self::CatalogMessage
     }
 }

@@ -11,18 +11,33 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// SendInboxMessageRequestInteractiveActionOneOf8 : Carousel action. `type` on the parent must be `carousel`. Carries 2-10 cards, either all product cards (`type: \"product\"`, all referencing the same `catalog_id`) or media cards (any other `type`, e.g. `cta_url`, with a required image/video `header` on each card). `card_index` (0-9, non-repeating) is auto-filled sequentially when omitted. Product carousels require a Meta catalog connected to the WhatsApp Business Account in Commerce Manager; media carousels do not.
+/// SendInboxMessageRequestInteractiveActionOneOf8 : Catalog-message action. `type` on the parent must be `catalog_message`. May be omitted entirely; it is defaulted to `{ \"name\": \"catalog_message\" }`. Requires a Meta catalog connected to the WhatsApp Business Account in Commerce Manager.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SendInboxMessageRequestInteractiveActionOneOf8 {
-    #[serde(rename = "cards")]
-    pub cards: Vec<models::SendInboxMessageRequestInteractiveActionOneOf8CardsInner>,
+    #[serde(rename = "name")]
+    pub name: Name,
+    #[serde(rename = "parameters", skip_serializing_if = "Option::is_none")]
+    pub parameters: Option<Box<models::SendInboxMessageRequestInteractiveActionOneOf8Parameters>>,
 }
 
 impl SendInboxMessageRequestInteractiveActionOneOf8 {
-    /// Carousel action. `type` on the parent must be `carousel`. Carries 2-10 cards, either all product cards (`type: \"product\"`, all referencing the same `catalog_id`) or media cards (any other `type`, e.g. `cta_url`, with a required image/video `header` on each card). `card_index` (0-9, non-repeating) is auto-filled sequentially when omitted. Product carousels require a Meta catalog connected to the WhatsApp Business Account in Commerce Manager; media carousels do not.
-    pub fn new(
-        cards: Vec<models::SendInboxMessageRequestInteractiveActionOneOf8CardsInner>,
-    ) -> SendInboxMessageRequestInteractiveActionOneOf8 {
-        SendInboxMessageRequestInteractiveActionOneOf8 { cards }
+    /// Catalog-message action. `type` on the parent must be `catalog_message`. May be omitted entirely; it is defaulted to `{ \"name\": \"catalog_message\" }`. Requires a Meta catalog connected to the WhatsApp Business Account in Commerce Manager.
+    pub fn new(name: Name) -> SendInboxMessageRequestInteractiveActionOneOf8 {
+        SendInboxMessageRequestInteractiveActionOneOf8 {
+            name,
+            parameters: None,
+        }
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Name {
+    #[serde(rename = "catalog_message")]
+    CatalogMessage,
+}
+
+impl Default for Name {
+    fn default() -> Name {
+        Self::CatalogMessage
     }
 }
