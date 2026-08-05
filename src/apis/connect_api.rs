@@ -55,6 +55,7 @@ pub enum ConfigureTikTokAdsBrandIdentityError {
     Status401(models::InlineObject),
     Status404(),
     Status500(),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
