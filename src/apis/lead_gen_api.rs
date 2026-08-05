@@ -29,6 +29,7 @@ pub enum CreateLeadFormError {
     Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status403(),
+    Status422(),
     UnknownValue(serde_json::Value),
 }
 
