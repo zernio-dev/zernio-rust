@@ -232,6 +232,12 @@ pub struct CreateStandaloneAdRequest {
     /// Minimum ROAS as a decimal multiplier (e.g. 2.0 = 2.0x ROAS). Required when `bidStrategy` is `LOWEST_COST_WITH_MIN_ROAS`. Sent to Meta as `bid_constraints.roas_average_floor` × 10000.
     #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
     pub roas_average_floor: Option<f64>,
+    /// Meta only (facebook, instagram; other platforms return 400). Value rule set to attach to the new ad set, from `/v1/ads/value-rule-sets`. Attachment is driven by this id, so `valueRulesApplied` is optional alongside it.  Rejected with 400 in `adSetId` attach mode: that shape inherits the existing ad set's attachment, so the field would be silently ignored. Use `PUT /v1/ads/ad-sets/{adSetId}` there instead.  Ignored (stripped before the ad-set create) when `buyingType` is `RESERVED`: value rules only apply to auction ad sets on `LOWEST_COST_WITHOUT_CAP` or `COST_CAP`, and a Reach & Frequency reservation has no auction bid strategy.  Read back with `GET /v1/ads/ad-sets/{adSetId}?fields=value_rule_set_id`; the attachment is not mirrored onto Zernio's ad documents.
+    #[serde(rename = "valueRuleSetId", skip_serializing_if = "Option::is_none")]
+    pub value_rule_set_id: Option<String>,
+    /// Meta only (facebook, instagram; other platforms return 400). Optional when attaching, and requires `valueRuleSetId`. `false` is REJECTED here with 400: a newly created ad set has nothing to detach, so detaching lives on `PUT /v1/ads/ad-sets/{adSetId}`.
+    #[serde(rename = "valueRulesApplied", skip_serializing_if = "Option::is_none")]
+    pub value_rules_applied: Option<bool>,
     #[serde(
         rename = "platformSpecificData",
         skip_serializing_if = "Option::is_none"
@@ -332,6 +338,8 @@ impl CreateStandaloneAdRequest {
             bid_strategy: None,
             bid_amount: None,
             roas_average_floor: None,
+            value_rule_set_id: None,
+            value_rules_applied: None,
             platform_specific_data: None,
             dsa_beneficiary: None,
             dsa_payor: None,

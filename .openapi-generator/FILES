@@ -287,6 +287,8 @@ docs/CreateTestLeadRequest.md
 docs/CreateTestLeadRequestFieldDataInner.md
 docs/CreateTrackingTag201Response.md
 docs/CreateTrackingTagRequest.md
+docs/CreateValueRuleSet201Response.md
+docs/CreateValueRuleSetRequest.md
 docs/CreateVerificationRequest.md
 docs/CreateVoiceCall200Response.md
 docs/CreateVoiceCallRequest.md
@@ -335,6 +337,7 @@ docs/DeleteInboxComment200Response.md
 docs/DeleteInboxReviewReply200Response.md
 docs/DeleteInboxReviewReplyRequest.md
 docs/DeleteSmsSenderId200Response.md
+docs/DeleteValueRuleSet200Response.md
 docs/DeleteWhatsappBusinessUsernameRequest.md
 docs/DialVoiceWebCall200Response.md
 docs/DialVoiceWebCallRequest.md
@@ -680,6 +683,7 @@ docs/GetTweet200ResponseTweet.md
 docs/GetUsage200Response.md
 docs/GetUser200Response.md
 docs/GetUser200ResponseUser.md
+docs/GetValueRuleSet200Response.md
 docs/GetVoiceCall200Response.md
 docs/GetVoiceCallEstimate200Response.md
 docs/GetVoiceCallEstimate200ResponseBreakdown.md
@@ -949,6 +953,8 @@ docs/ListTrackingTagSharedAccounts200Response.md
 docs/ListTrackingTags200Response.md
 docs/ListUsers200Response.md
 docs/ListUsers200ResponseUsersInner.md
+docs/ListValueRuleSets200Response.md
+docs/ListValueRuleSets200ResponsePaging.md
 docs/ListVoiceCalls200Response.md
 docs/ListWhatsAppCalls200Response.md
 docs/ListWhatsAppCalls200ResponseCallsInner.md
@@ -1420,6 +1426,8 @@ docs/UpdateSequenceRequestStepsInner.md
 docs/UpdateSequenceRequestStepsInnerTemplate.md
 docs/UpdateSlackSettingsRequest.md
 docs/UpdateTrackingTagRequest.md
+docs/UpdateValueRuleSet200Response.md
+docs/UpdateValueRuleSetRequest.md
 docs/UpdateWebhookSettings200Response.md
 docs/UpdateWebhookSettingsRequest.md
 docs/UpdateWhatsAppBusinessProfileRequest.md
@@ -1497,6 +1505,9 @@ docs/ValidateSubreddit200Response.md
 docs/ValidateSubreddit200ResponseOneOf.md
 docs/ValidateSubreddit200ResponseOneOf1.md
 docs/ValidateSubreddit200ResponseOneOfSubreddit.md
+docs/ValueRule.md
+docs/ValueRuleCriterion.md
+docs/ValueRuleSet.md
 docs/Verification.md
 docs/VerifyApi.md
 docs/VerifySmsRegistrationOtp200Response.md
@@ -1956,6 +1967,8 @@ src/models/create_test_lead_request.rs
 src/models/create_test_lead_request_field_data_inner.rs
 src/models/create_tracking_tag_201_response.rs
 src/models/create_tracking_tag_request.rs
+src/models/create_value_rule_set_201_response.rs
+src/models/create_value_rule_set_request.rs
 src/models/create_verification_request.rs
 src/models/create_voice_call_200_response.rs
 src/models/create_voice_call_request.rs
@@ -2003,6 +2016,7 @@ src/models/delete_inbox_comment_200_response.rs
 src/models/delete_inbox_review_reply_200_response.rs
 src/models/delete_inbox_review_reply_request.rs
 src/models/delete_sms_sender_id_200_response.rs
+src/models/delete_value_rule_set_200_response.rs
 src/models/delete_whatsapp_business_username_request.rs
 src/models/dial_voice_web_call_200_response.rs
 src/models/dial_voice_web_call_request.rs
@@ -2347,6 +2361,7 @@ src/models/get_tweet_200_response_tweet.rs
 src/models/get_usage_200_response.rs
 src/models/get_user_200_response.rs
 src/models/get_user_200_response_user.rs
+src/models/get_value_rule_set_200_response.rs
 src/models/get_voice_call_200_response.rs
 src/models/get_voice_call_estimate_200_response.rs
 src/models/get_voice_call_estimate_200_response_breakdown.rs
@@ -2603,6 +2618,8 @@ src/models/list_tracking_tag_shared_accounts_200_response.rs
 src/models/list_tracking_tags_200_response.rs
 src/models/list_users_200_response.rs
 src/models/list_users_200_response_users_inner.rs
+src/models/list_value_rule_sets_200_response.rs
+src/models/list_value_rule_sets_200_response_paging.rs
 src/models/list_voice_calls_200_response.rs
 src/models/list_whats_app_calls_200_response.rs
 src/models/list_whats_app_calls_200_response_calls_inner.rs
@@ -3059,6 +3076,8 @@ src/models/update_sequence_request_steps_inner.rs
 src/models/update_sequence_request_steps_inner_template.rs
 src/models/update_slack_settings_request.rs
 src/models/update_tracking_tag_request.rs
+src/models/update_value_rule_set_200_response.rs
+src/models/update_value_rule_set_request.rs
 src/models/update_webhook_settings_200_response.rs
 src/models/update_webhook_settings_request.rs
 src/models/update_whats_app_business_profile_request.rs
@@ -3133,6 +3152,9 @@ src/models/validate_subreddit_200_response.rs
 src/models/validate_subreddit_200_response_one_of.rs
 src/models/validate_subreddit_200_response_one_of_1.rs
 src/models/validate_subreddit_200_response_one_of_subreddit.rs
+src/models/value_rule.rs
+src/models/value_rule_criterion.rs
+src/models/value_rule_set.rs
 src/models/verification.rs
 src/models/verify_sms_registration_otp_200_response.rs
 src/models/verify_sms_registration_otp_request.rs

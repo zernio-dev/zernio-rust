@@ -32,6 +32,12 @@ pub struct UpdateAdSetRequest {
     /// Minimum ROAS as a decimal multiplier (2.0 = 2.0x). Required when bidStrategy is LOWEST_COST_WITH_MIN_ROAS. Sent to Meta as `bid_constraints.roas_average_floor` × 10000. Not supported on OpenAI (422).
     #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
     pub roas_average_floor: Option<f64>,
+    /// Meta only (other platforms return 501). Value rule set to attach to this ad set, from `/v1/ads/value-rule-sets`. Sending a different id replaces the current association. To DETACH, send `valueRulesApplied: false` and omit this field.
+    #[serde(rename = "valueRuleSetId", skip_serializing_if = "Option::is_none")]
+    pub value_rule_set_id: Option<String>,
+    /// Meta only (other platforms return 501). `false` DETACHES the ad set's value rule set and must be sent WITHOUT `valueRuleSetId`; the combination returns 400. `true` is optional when attaching, since attachment is driven by `valueRuleSetId`, and requires it to be present.
+    #[serde(rename = "valueRulesApplied", skip_serializing_if = "Option::is_none")]
+    pub value_rules_applied: Option<bool>,
     #[serde(
         rename = "platformSpecificData",
         skip_serializing_if = "Option::is_none"
@@ -49,6 +55,8 @@ impl UpdateAdSetRequest {
             bid_strategy: None,
             bid_amount: None,
             roas_average_floor: None,
+            value_rule_set_id: None,
+            value_rules_applied: None,
             platform_specific_data: None,
         }
     }
