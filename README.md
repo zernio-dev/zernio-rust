@@ -40,6 +40,7 @@ Class | Method | HTTP request | Description
 *ApiKeysApi* | [**create_api_key**](docs/ApiKeysApi.md#create_api_key) | **POST** /v1/api-keys | Create key
 *ApiKeysApi* | [**delete_api_key**](docs/ApiKeysApi.md#delete_api_key) | **DELETE** /v1/api-keys/{keyId} | Delete key
 *ApiKeysApi* | [**list_api_keys**](docs/ApiKeysApi.md#list_api_keys) | **GET** /v1/api-keys | List keys
+*ApiKeysApi* | [**verify_credential**](docs/ApiKeysApi.md#verify_credential) | **GET** /v1/auth/verify | Verify credential
 *AccountGroupsApi* | [**create_account_group**](docs/AccountGroupsApi.md#create_account_group) | **POST** /v1/account-groups | Create group
 *AccountGroupsApi* | [**delete_account_group**](docs/AccountGroupsApi.md#delete_account_group) | **DELETE** /v1/account-groups/{groupId} | Delete group
 *AccountGroupsApi* | [**list_account_groups**](docs/AccountGroupsApi.md#list_account_groups) | **GET** /v1/account-groups | List groups
@@ -2034,6 +2035,7 @@ Class | Method | HTTP request | Description
  - [ValueRuleCriterion](docs/ValueRuleCriterion.md)
  - [ValueRuleSet](docs/ValueRuleSet.md)
  - [Verification](docs/Verification.md)
+ - [VerifyCredential200Response](docs/VerifyCredential200Response.md)
  - [VerifySmsRegistrationOtp200Response](docs/VerifySmsRegistrationOtp200Response.md)
  - [VerifySmsRegistrationOtpRequest](docs/VerifySmsRegistrationOtpRequest.md)
  - [VerifyWhatsAppCallerIdRequest](docs/VerifyWhatsAppCallerIdRequest.md)

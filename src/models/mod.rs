@@ -2906,6 +2906,8 @@ pub mod value_rule_set;
 pub use self::value_rule_set::ValueRuleSet;
 pub mod verification;
 pub use self::verification::Verification;
+pub mod verify_credential_200_response;
+pub use self::verify_credential_200_response::VerifyCredential200Response;
 pub mod verify_sms_registration_otp_200_response;
 pub use self::verify_sms_registration_otp_200_response::VerifySmsRegistrationOtp200Response;
 pub mod verify_sms_registration_otp_request;
