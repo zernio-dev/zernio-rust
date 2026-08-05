@@ -54,6 +54,7 @@ pub enum GetWebhookSettingsError {
 pub enum TestWebhookError {
     Status400(),
     Status401(models::InlineObject),
+    Status404(),
     Status500(models::UnpublishPost200Response),
     UnknownValue(serde_json::Value),
 }
