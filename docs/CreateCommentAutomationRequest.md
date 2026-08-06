@@ -12,7 +12,9 @@ Name | Type | Description | Notes
 **post_title** | Option<**String**> | Post content snippet for display | [optional]
 **name** | **String** | Automation label | 
 **keywords** | Option<**Vec<String>**> | Trigger keywords (empty = any comment triggers) | [optional]
-**match_mode** | Option<**MatchMode**> |  (enum: exact, contains) | [optional][default to Contains]
+**match_mode** | Option<**MatchMode**> | How a keyword is compared with the comment. 'contains' (default) matches anywhere, even inside another word (keyword 'app' fires on 'happy'). 'word' matches the keyword only as a standalone word. 'exact' requires the whole comment to be exactly the keyword. (enum: exact, contains, word) | [optional][default to Contains]
+**exclude_keywords** | Option<**Vec<String>**> | Comments containing one of these never trigger the automation, even when a trigger keyword also matches. Compared using the same matchMode. | [optional]
+**typo_tolerance** | Option<**bool**> | Only with matchMode=word: also fire on close misspellings of a keyword (one edit for 4-7 character keywords, two from 8 up). Keywords shorter than 4 characters are never fuzzy-matched. | [optional]
 **dm_message** | **String** | DM text to send to commenter. Max 640 chars when buttons are set, otherwise ~1000. | 
 **buttons** | Option<[**Vec<models::DmButton>**](DmButton.md)> | Optional inline DM buttons (1-3). Phone buttons are Facebook-only. Omit or pass [] for a plain-text DM. | [optional]
 **comment_reply** | Option<**String**> | Optional public reply to the comment | [optional]

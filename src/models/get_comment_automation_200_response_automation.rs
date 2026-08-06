@@ -31,8 +31,15 @@ pub struct GetCommentAutomation200ResponseAutomation {
     pub post_title: Option<String>,
     #[serde(rename = "keywords", skip_serializing_if = "Option::is_none")]
     pub keywords: Option<Vec<String>>,
+    /// How a keyword is compared with the comment. 'contains' (default) matches anywhere, even inside another word (keyword 'app' fires on 'happy'). 'word' matches the keyword only as a standalone word. 'exact' requires the whole comment to be exactly the keyword.
     #[serde(rename = "matchMode", skip_serializing_if = "Option::is_none")]
     pub match_mode: Option<MatchMode>,
+    /// Comments containing one of these never trigger the automation, even when a trigger keyword also matches. Compared using the same matchMode.
+    #[serde(rename = "excludeKeywords", skip_serializing_if = "Option::is_none")]
+    pub exclude_keywords: Option<Vec<String>>,
+    /// Only with matchMode=word: also fire on close misspellings of a keyword (one edit for 4-7 character keywords, two from 8 up). Keywords shorter than 4 characters are never fuzzy-matched.
+    #[serde(rename = "typoTolerance", skip_serializing_if = "Option::is_none")]
+    pub typo_tolerance: Option<bool>,
     #[serde(rename = "dmMessage", skip_serializing_if = "Option::is_none")]
     pub dm_message: Option<String>,
     /// Inline DM buttons (up to 3). Omitted when none are set.
@@ -79,6 +86,8 @@ impl GetCommentAutomation200ResponseAutomation {
             post_title: None,
             keywords: None,
             match_mode: None,
+            exclude_keywords: None,
+            typo_tolerance: None,
             dm_message: None,
             buttons: None,
             comment_reply: None,
@@ -107,13 +116,15 @@ impl Default for Trigger {
         Self::Comment
     }
 }
-///
+/// How a keyword is compared with the comment. 'contains' (default) matches anywhere, even inside another word (keyword 'app' fires on 'happy'). 'word' matches the keyword only as a standalone word. 'exact' requires the whole comment to be exactly the keyword.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum MatchMode {
     #[serde(rename = "exact")]
     Exact,
     #[serde(rename = "contains")]
     Contains,
+    #[serde(rename = "word")]
+    Word,
 }
 
 impl Default for MatchMode {
