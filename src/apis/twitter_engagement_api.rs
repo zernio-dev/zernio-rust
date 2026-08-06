@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 pub enum BookmarkPostError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -29,6 +30,7 @@ pub enum BookmarkPostError {
 pub enum FollowUserError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -52,6 +54,7 @@ pub enum GetTweetError {
 pub enum RemoveBookmarkError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -62,6 +65,7 @@ pub enum RemoveBookmarkError {
 pub enum RetweetPostError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -85,6 +89,7 @@ pub enum SearchTweetsError {
 pub enum UndoRetweetError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -95,6 +100,7 @@ pub enum UndoRetweetError {
 pub enum UnfollowUserError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
 }
