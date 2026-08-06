@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **last_fired_at** | Option<**String**> | Timestamp of last successful webhook delivery | [optional]
 **failure_count** | Option<**i32**> | Consecutive delivery failures (resets on success, webhook disabled at 10) | [optional]
 **custom_headers** | Option<**std::collections::HashMap<String, String>**> | Custom headers included in webhook requests | [optional]
+**disabled_resource_groups** | Option<**Vec<DisabledResourceGroups>**> | Resource groups this subscription does not receive (opt-out denylist, same vocabulary and same semantics as the field on API keys). Absent or empty means the subscription receives every event listed in `events`, which is how every subscription created before this field existed behaves. An event whose group is listed here is dropped before delivery even when it is still present in `events`, and the same check runs on every replay path (test fire, redelivery, dead-letter requeue). Editing the denylist applies to every event emitted afterwards; events already queued when the edit landed can still be delivered for up to five minutes after they were enqueued. (enum: publishing, engagement, messages, contacts, analytics, ads, telephony, accounts, billing, webhooks) | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -34,6 +34,12 @@ pub struct UpdateWebhookSettingsRequest {
     /// Custom headers to include in webhook requests
     #[serde(rename = "customHeaders", skip_serializing_if = "Option::is_none")]
     pub custom_headers: Option<std::collections::HashMap<String, String>>,
+    /// Replaces the subscription's denylist. Send an empty array to clear it and receive every event in `events` again. Omitting the field leaves the current denylist untouched. Applies to events emitted after the update; already-queued events can still deliver for up to five minutes after they were enqueued. When the caller is a restricted (zrk_) key, that key's own disabled groups are unioned back in either way, so a restricted key can neither clear nor widen a subscription past its own groups.
+    #[serde(
+        rename = "disabledResourceGroups",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub disabled_resource_groups: Option<Vec<DisabledResourceGroups>>,
 }
 
 impl UpdateWebhookSettingsRequest {
@@ -46,6 +52,7 @@ impl UpdateWebhookSettingsRequest {
             events: None,
             is_active: None,
             custom_headers: None,
+            disabled_resource_groups: None,
         }
     }
 }
@@ -149,5 +156,35 @@ pub enum Events {
 impl Default for Events {
     fn default() -> Events {
         Self::PostScheduled
+    }
+}
+/// Replaces the subscription's denylist. Send an empty array to clear it and receive every event in `events` again. Omitting the field leaves the current denylist untouched. Applies to events emitted after the update; already-queued events can still deliver for up to five minutes after they were enqueued. When the caller is a restricted (zrk_) key, that key's own disabled groups are unioned back in either way, so a restricted key can neither clear nor widen a subscription past its own groups.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum DisabledResourceGroups {
+    #[serde(rename = "publishing")]
+    Publishing,
+    #[serde(rename = "engagement")]
+    Engagement,
+    #[serde(rename = "messages")]
+    Messages,
+    #[serde(rename = "contacts")]
+    Contacts,
+    #[serde(rename = "analytics")]
+    Analytics,
+    #[serde(rename = "ads")]
+    Ads,
+    #[serde(rename = "telephony")]
+    Telephony,
+    #[serde(rename = "accounts")]
+    Accounts,
+    #[serde(rename = "billing")]
+    Billing,
+    #[serde(rename = "webhooks")]
+    Webhooks,
+}
+
+impl Default for DisabledResourceGroups {
+    fn default() -> DisabledResourceGroups {
+        Self::Publishing
     }
 }

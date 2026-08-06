@@ -31,6 +31,12 @@ pub struct CreateWebhookSettingsRequest {
     /// Custom headers to include in webhook requests
     #[serde(rename = "customHeaders", skip_serializing_if = "Option::is_none")]
     pub custom_headers: Option<std::collections::HashMap<String, String>>,
+    /// Resource groups this subscription does not receive (opt-out denylist). Omit or send an empty array to receive every event in `events`. Listing a group here drops its events before delivery and on every replay path. Set at creation it applies to everything this subscription ever receives; changed later via PUT it applies to events emitted after the change, with a five-minute tail for events already queued (see that operation). When the caller is a restricted (zrk_) key, that key's own disabled groups are unioned into whatever you send here, so a restricted key can never create a subscription wider than itself.
+    #[serde(
+        rename = "disabledResourceGroups",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub disabled_resource_groups: Option<Vec<DisabledResourceGroups>>,
 }
 
 impl CreateWebhookSettingsRequest {
@@ -42,6 +48,7 @@ impl CreateWebhookSettingsRequest {
             events,
             is_active: None,
             custom_headers: None,
+            disabled_resource_groups: None,
         }
     }
 }
@@ -145,5 +152,35 @@ pub enum Events {
 impl Default for Events {
     fn default() -> Events {
         Self::PostScheduled
+    }
+}
+/// Resource groups this subscription does not receive (opt-out denylist). Omit or send an empty array to receive every event in `events`. Listing a group here drops its events before delivery and on every replay path. Set at creation it applies to everything this subscription ever receives; changed later via PUT it applies to events emitted after the change, with a five-minute tail for events already queued (see that operation). When the caller is a restricted (zrk_) key, that key's own disabled groups are unioned into whatever you send here, so a restricted key can never create a subscription wider than itself.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum DisabledResourceGroups {
+    #[serde(rename = "publishing")]
+    Publishing,
+    #[serde(rename = "engagement")]
+    Engagement,
+    #[serde(rename = "messages")]
+    Messages,
+    #[serde(rename = "contacts")]
+    Contacts,
+    #[serde(rename = "analytics")]
+    Analytics,
+    #[serde(rename = "ads")]
+    Ads,
+    #[serde(rename = "telephony")]
+    Telephony,
+    #[serde(rename = "accounts")]
+    Accounts,
+    #[serde(rename = "billing")]
+    Billing,
+    #[serde(rename = "webhooks")]
+    Webhooks,
+}
+
+impl Default for DisabledResourceGroups {
+    fn default() -> DisabledResourceGroups {
+        Self::Publishing
     }
 }

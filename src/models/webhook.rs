@@ -41,6 +41,12 @@ pub struct Webhook {
     /// Custom headers included in webhook requests
     #[serde(rename = "customHeaders", skip_serializing_if = "Option::is_none")]
     pub custom_headers: Option<std::collections::HashMap<String, String>>,
+    /// Resource groups this subscription does not receive (opt-out denylist, same vocabulary and same semantics as the field on API keys). Absent or empty means the subscription receives every event listed in `events`, which is how every subscription created before this field existed behaves. An event whose group is listed here is dropped before delivery even when it is still present in `events`, and the same check runs on every replay path (test fire, redelivery, dead-letter requeue). Editing the denylist applies to every event emitted afterwards; events already queued when the edit landed can still be delivered for up to five minutes after they were enqueued.
+    #[serde(
+        rename = "disabledResourceGroups",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub disabled_resource_groups: Option<Vec<DisabledResourceGroups>>,
 }
 
 impl Webhook {
@@ -56,6 +62,7 @@ impl Webhook {
             last_fired_at: None,
             failure_count: None,
             custom_headers: None,
+            disabled_resource_groups: None,
         }
     }
 }
@@ -159,5 +166,35 @@ pub enum Events {
 impl Default for Events {
     fn default() -> Events {
         Self::PostScheduled
+    }
+}
+/// Resource groups this subscription does not receive (opt-out denylist, same vocabulary and same semantics as the field on API keys). Absent or empty means the subscription receives every event listed in `events`, which is how every subscription created before this field existed behaves. An event whose group is listed here is dropped before delivery even when it is still present in `events`, and the same check runs on every replay path (test fire, redelivery, dead-letter requeue). Editing the denylist applies to every event emitted afterwards; events already queued when the edit landed can still be delivered for up to five minutes after they were enqueued.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum DisabledResourceGroups {
+    #[serde(rename = "publishing")]
+    Publishing,
+    #[serde(rename = "engagement")]
+    Engagement,
+    #[serde(rename = "messages")]
+    Messages,
+    #[serde(rename = "contacts")]
+    Contacts,
+    #[serde(rename = "analytics")]
+    Analytics,
+    #[serde(rename = "ads")]
+    Ads,
+    #[serde(rename = "telephony")]
+    Telephony,
+    #[serde(rename = "accounts")]
+    Accounts,
+    #[serde(rename = "billing")]
+    Billing,
+    #[serde(rename = "webhooks")]
+    Webhooks,
+}
+
+impl Default for DisabledResourceGroups {
+    fn default() -> DisabledResourceGroups {
+        Self::Publishing
     }
 }

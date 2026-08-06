@@ -29,6 +29,7 @@ pub enum CreateWebhookSettingsError {
 pub enum DeleteWebhookSettingsError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -47,6 +48,7 @@ pub enum GetWebhookLogsError {
 #[serde(untagged)]
 pub enum GetWebhookSettingsError {
     Status401(models::InlineObject),
+    Status403(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -56,6 +58,7 @@ pub enum GetWebhookSettingsError {
 pub enum TestWebhookError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(models::InlineObject2),
     Status404(),
     Status500(models::UnpublishPost200Response),
     UnknownValue(serde_json::Value),
@@ -72,7 +75,7 @@ pub enum UpdateWebhookSettingsError {
     UnknownValue(serde_json::Value),
 }
 
-/// Create a new webhook configuration. Maximum 50 webhooks per user.  `name`, `url` and `events` are required. `url` must be a valid URL and `events` must contain at least one event. Whitespace is trimmed from `url` before validation.  Webhooks are automatically disabled after 10 consecutive delivery failures.  A restricted (zrk_) API key can only subscribe to events whose resource group the key holds; an event outside the key's groups is rejected with 403. Note that the KEY cannot access private messages; the ACCOUNT's pre-existing webhook subscriptions are a separate grant surface.
+/// Create a new webhook configuration. Maximum 50 webhooks per user.  `name`, `url` and `events` are required. `url` must be a valid URL and `events` must contain at least one event. Whitespace is trimmed from `url` before validation.  Webhooks are automatically disabled after 10 consecutive delivery failures.  A restricted (zrk_) API key can only subscribe to events whose resource group the key holds; an event outside the key's groups is rejected with 403, so a restricted key can never create a subscription broader than itself.  `disabledResourceGroups` restricts the subscription itself, independently of which key or session later reads it. Events in a disabled group are dropped before delivery to this endpoint, on live delivery and on every replay path (test fire, redelivery, dead-letter requeue), even if they are listed in `events`. Omit it to receive everything in `events`, which is how existing subscriptions behave. A restricted key's own disabled groups are always unioned in.
 pub async fn create_webhook_settings(
     configuration: &configuration::Configuration,
     create_webhook_settings_request: models::CreateWebhookSettingsRequest,
@@ -172,7 +175,7 @@ pub async fn delete_webhook_settings(
     }
 }
 
-/// Retrieve recorded webhook delivery attempts for the authenticated user, most recent first. Logs are retained for 30 days. Supports filtering by status, event type, webhook ID, and event ID, plus offset-based pagination.  For a restricted (zrk_) API key, rows for events outside the key's resource groups are omitted (`pagination.total` may over-count), and an `event` filter naming such an event is rejected with 403.
+/// Retrieve recorded webhook delivery attempts for the authenticated user, most recent first. Logs are retained for 30 days. Supports filtering by status, event type, webhook ID, and event ID, plus offset-based pagination.  For a restricted (zrk_) API key, rows for events outside the key's resource groups are omitted (`pagination.total` may over-count), and an `event` filter naming such an event is rejected with 403. Events blocked by a subscription's own `disabledResourceGroups` are dropped before delivery, so they produce no log rows for anyone; the exception is the five-minute tail after a denylist change, where an already-queued event can still be delivered and logged.
 pub async fn get_webhook_logs(
     configuration: &configuration::Configuration,
     limit: Option<i32>,
@@ -290,7 +293,7 @@ pub async fn get_webhook_settings(
     }
 }
 
-/// Send a test webhook to verify your endpoint is configured correctly. The test payload includes event: \"webhook.test\" to distinguish it from real events.
+/// Send a test webhook to verify your endpoint is configured correctly. The test payload includes event: \"webhook.test\" to distinguish it from real events.  `webhook.test` belongs to the `webhooks` resource group, so a key with that group disabled is rejected with 403, as is a test fire on a subscription that lists `webhooks` in its own `disabledResourceGroups` (a 403, not a reported delivery failure). Replays of real events (redelivery, dead-letter requeue) run the same checks as live delivery, against both the key's groups and the subscription's.
 pub async fn test_webhook(
     configuration: &configuration::Configuration,
     test_webhook_request: models::TestWebhookRequest,
@@ -340,7 +343,7 @@ pub async fn test_webhook(
     }
 }
 
-/// Update an existing webhook configuration. All fields except `_id` are optional; only provided fields will be updated.  When provided, `name` must be 1-50 characters, `url` must be a valid URL, and `events` must contain at least one event. Whitespace is trimmed from `url` before validation.  Webhooks are automatically disabled after 10 consecutive delivery failures.  A restricted (zrk_) API key can only set `events` to events whose resource group the key holds; an event outside the key's groups is rejected with 403.
+/// Update an existing webhook configuration. All fields except `_id` are optional; only provided fields will be updated.  When provided, `name` must be 1-50 characters, `url` must be a valid URL, and `events` must contain at least one event. Whitespace is trimmed from `url` before validation.  Webhooks are automatically disabled after 10 consecutive delivery failures.  A restricted (zrk_) API key can only set `events` to events whose resource group the key holds; an event outside the key's groups is rejected with 403. It also cannot widen an existing subscription past its own groups.  `disabledResourceGroups` replaces the subscription's own denylist, which applies to delivery regardless of which key or session created it. Send an empty array to clear it. A restricted key's own disabled groups are unioned into the stored value on every update, so repointing a legacy unrestricted subscription with a restricted key also narrows it.  Timing: the new denylist applies to every event emitted after the update. Events already queued for delivery when the update landed were filtered against the previous denylist and can still arrive at your endpoint for up to five minutes after they were enqueued, because the delivery worker trusts a five-minute enqueue-time snapshot before re-checking the subscription. Retries beyond that window, dead-letter replays, test fires, and redeliveries are all checked against the current denylist.
 pub async fn update_webhook_settings(
     configuration: &configuration::Configuration,
     update_webhook_settings_request: models::UpdateWebhookSettingsRequest,
