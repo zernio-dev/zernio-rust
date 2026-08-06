@@ -595,6 +595,8 @@ Class | Method | HTTP request | Description
  - [AdCampaignCampaignBudget](docs/AdCampaignCampaignBudget.md)
  - [AdCreative](docs/AdCreative.md)
  - [AdDailyMetrics](docs/AdDailyMetrics.md)
+ - [AdEngagementCounts](docs/AdEngagementCounts.md)
+ - [AdFunnelCounts](docs/AdFunnelCounts.md)
  - [AdMetrics](docs/AdMetrics.md)
  - [AdPromotedObject](docs/AdPromotedObject.md)
  - [AdReviewStatus](docs/AdReviewStatus.md)

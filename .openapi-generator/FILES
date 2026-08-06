@@ -22,6 +22,8 @@ docs/AdCampaignsApi.md
 docs/AdCreative.md
 docs/AdCreativesApi.md
 docs/AdDailyMetrics.md
+docs/AdEngagementCounts.md
+docs/AdFunnelCounts.md
 docs/AdInsightsApi.md
 docs/AdMetrics.md
 docs/AdPromotedObject.md
@@ -1721,6 +1723,8 @@ src/models/ad_campaign_budget.rs
 src/models/ad_campaign_campaign_budget.rs
 src/models/ad_creative.rs
 src/models/ad_daily_metrics.rs
+src/models/ad_engagement_counts.rs
+src/models/ad_funnel_counts.rs
 src/models/ad_metrics.rs
 src/models/ad_promoted_object.rs
 src/models/ad_review_status.rs

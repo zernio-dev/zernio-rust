@@ -102,6 +102,16 @@ pub struct GetCampaignAnalytics200ResponseAnalyticsDailyInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub video_avg_time_watched_actions: Option<f64>,
+    /// Derived `spend / videoThruplayWatchedActions`, in ad-account native currency. Rounded to 4 decimals rather than the usual 2 because a ThruPlay routinely costs well under a cent. 0 when the ad has no ThruPlays.
+    #[serde(rename = "costPerThruplay", skip_serializing_if = "Option::is_none")]
+    pub cost_per_thruplay: Option<f64>,
+    #[serde(rename = "funnel", skip_serializing_if = "Option::is_none")]
+    pub funnel: Option<Box<models::AdFunnelCounts>>,
+    #[serde(
+        rename = "engagementBreakdown",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub engagement_breakdown: Option<Box<models::AdEngagementCounts>>,
     /// Present on individual ads only, not on campaign aggregations
     #[serde(rename = "lastSyncedAt", skip_serializing_if = "Option::is_none")]
     pub last_synced_at: Option<String>,
@@ -135,6 +145,9 @@ impl GetCampaignAnalytics200ResponseAnalyticsDailyInner {
             video_p95_watched_actions: None,
             video_p100_watched_actions: None,
             video_avg_time_watched_actions: None,
+            cost_per_thruplay: None,
+            funnel: None,
+            engagement_breakdown: None,
             last_synced_at: None,
             date: None,
         }
