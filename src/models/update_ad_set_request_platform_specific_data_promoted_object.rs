@@ -18,6 +18,9 @@ pub struct UpdateAdSetRequestPlatformSpecificDataPromotedObject {
     pub pixel_id: Option<String>,
     #[serde(rename = "customEventType", skip_serializing_if = "Option::is_none")]
     pub custom_event_type: Option<String>,
+    /// Pixel custom-event name (custom_event_str); requires customEventType OTHER. Same pairing rules as /v1/ads/create.
+    #[serde(rename = "customEventStr", skip_serializing_if = "Option::is_none")]
+    pub custom_event_str: Option<String>,
     #[serde(rename = "pageId", skip_serializing_if = "Option::is_none")]
     pub page_id: Option<String>,
     #[serde(rename = "applicationId", skip_serializing_if = "Option::is_none")]
@@ -48,6 +51,7 @@ impl UpdateAdSetRequestPlatformSpecificDataPromotedObject {
         UpdateAdSetRequestPlatformSpecificDataPromotedObject {
             pixel_id: None,
             custom_event_type: None,
+            custom_event_str: None,
             page_id: None,
             application_id: None,
             object_store_url: None,
