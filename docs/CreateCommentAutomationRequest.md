@@ -22,6 +22,8 @@ Name | Type | Description | Notes
 **comment_reply_variations** | Option<**Vec<String>**> | Optional alternate public replies, rotated at random alongside commentReply (picked independently of the DM). Up to 5. | [optional]
 **link_tracking** | Option<**bool**> | Wrap link buttons in the DM in a tracked redirect so clicks are counted (Link Clicks / CTR). Pass false to send links exactly as written. Defaults to on. | [optional][default to true]
 **click_tag** | Option<**String**> | Optional tag applied to a contact when they click a tracked link (requires linkTracking). Lets you segment clickers for broadcasts/sequences. | [optional]
+**audience** | Option<[**models::CommentAutomationAudience**](CommentAutomationAudience.md)> |  | [optional]
+**follow_gate** | Option<[**models::CommentAutomationFollowGate**](CommentAutomationFollowGate.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

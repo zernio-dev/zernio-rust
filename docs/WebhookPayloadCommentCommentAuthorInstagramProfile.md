@@ -1,0 +1,14 @@
+# WebhookPayloadCommentCommentAuthorInstagramProfile
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**is_follower** | Option<**bool**> | The commenter follows this account. | [optional]
+**is_following** | Option<**bool**> | This account follows the commenter. | [optional]
+**follower_count** | Option<**i32**> |  | [optional]
+**is_verified** | Option<**bool**> |  | [optional]
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

@@ -15,6 +15,8 @@ Name | Type | Description | Notes
 **comment_reply** | Option<**String**> |  | [optional]
 **dm_message_variations** | Option<**Vec<String>**> | Alternate DM texts rotated at random with dmMessage. Omitted when none. | [optional]
 **comment_reply_variations** | Option<**Vec<String>**> | Alternate public replies rotated at random with commentReply. Omitted when none. | [optional]
+**audience** | Option<[**models::CommentAutomationAudience**](CommentAutomationAudience.md)> |  | [optional]
+**follow_gate** | Option<[**models::CommentAutomationFollowGate**](CommentAutomationFollowGate.md)> |  | [optional]
 **is_active** | Option<**bool**> |  | [optional]
 **updated_at** | Option<**String**> |  | [optional]
 

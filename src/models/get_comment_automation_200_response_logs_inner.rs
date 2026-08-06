@@ -23,9 +23,23 @@ pub struct GetCommentAutomation200ResponseLogsInner {
     pub commenter_name: Option<String>,
     #[serde(rename = "commentText", skip_serializing_if = "Option::is_none")]
     pub comment_text: Option<String>,
-    /// DM outcome
+    /// DM outcome. 'gated' = the follow-gate confirmation DM went out and we are waiting for the tap; it flips to 'sent' or 'skipped' when they tap.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
+    /// How the audience rule resolved. Absent on automations without one.
+    #[serde(rename = "audienceOutcome", skip_serializing_if = "Option::is_none")]
+    pub audience_outcome: Option<AudienceOutcome>,
+    /// Follow relationship at decision time. Absent when Instagram would not tell us (the commenter never messaged the account).
+    #[serde(
+        rename = "commenterIsFollower",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub commenter_is_follower: Option<bool>,
+    #[serde(
+        rename = "commenterFollowerCount",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub commenter_follower_count: Option<i32>,
     /// DM error message if status is failed
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
     pub error: Option<String>,
@@ -48,6 +62,9 @@ impl GetCommentAutomation200ResponseLogsInner {
             commenter_name: None,
             comment_text: None,
             status: None,
+            audience_outcome: None,
+            commenter_is_follower: None,
+            commenter_follower_count: None,
             error: None,
             comment_reply_status: None,
             comment_reply_error: None,
@@ -55,7 +72,7 @@ impl GetCommentAutomation200ResponseLogsInner {
         }
     }
 }
-/// DM outcome
+/// DM outcome. 'gated' = the follow-gate confirmation DM went out and we are waiting for the tap; it flips to 'sent' or 'skipped' when they tap.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
     #[serde(rename = "sent")]
@@ -64,11 +81,33 @@ pub enum Status {
     Failed,
     #[serde(rename = "skipped")]
     Skipped,
+    #[serde(rename = "gated")]
+    Gated,
 }
 
 impl Default for Status {
     fn default() -> Status {
         Self::Sent
+    }
+}
+/// How the audience rule resolved. Absent on automations without one.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum AudienceOutcome {
+    #[serde(rename = "passed")]
+    Passed,
+    #[serde(rename = "blocked")]
+    Blocked,
+    #[serde(rename = "gate_sent")]
+    GateSent,
+    #[serde(rename = "gate_passed")]
+    GatePassed,
+    #[serde(rename = "gate_failed")]
+    GateFailed,
+}
+
+impl Default for AudienceOutcome {
+    fn default() -> AudienceOutcome {
+        Self::Passed
     }
 }
 /// Outcome of the optional public reply on the triggering comment. 'skipped' if no commentReply was configured or if the DM failed (the public reply is not attempted in that case).

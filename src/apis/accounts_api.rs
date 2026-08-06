@@ -49,6 +49,16 @@ pub enum GetFollowerStatsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_instagram_follow_status`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetInstagramFollowStatusError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status404(models::InlineObject1),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_slack_settings`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -336,6 +346,65 @@ pub async fn get_follower_stats(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetFollowerStatsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Resolves the follow relationship between an Instagram user and the connected account, plus their public profile counters.  `userId` is the Instagram-scoped id (IGSID) Meta gives you on a webhook: `sender.id` on `message.received`, `comment.author.id` on `comment.received`.  **Meta only answers for people who have MESSAGED the account.** Commenting grants no consent, so a commenter who has never DMed you is unresolvable - that is a platform rule, not a limitation of this endpoint. When it cannot be resolved the response is still `200` with `isFollower: null` and an `unavailableReason`, because \"unknown\" is a normal state to branch on:    * `consent_required` - the user has never messaged this account.   * `dm_access_disabled` - the account owner turned off Instagram Direct API access.   * `not_messageable` - the id is not a messaging-scoped id.   * `error` - a transient Graph API failure.  To gate a comment automation on this, use the automation's `audience` rules instead of calling this per comment - they run the same lookup only on comments that actually match a keyword, and can ask the commenter to confirm with one tap.  Answers are cached briefly per (account, user). Pass `refresh=true` right after asking someone to follow, so a follow from a moment ago is visible.
+pub async fn get_instagram_follow_status(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    user_id: &str,
+    refresh: Option<bool>,
+) -> Result<models::GetInstagramFollowStatus200Response, Error<GetInstagramFollowStatusError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_path_user_id = user_id;
+    let p_query_refresh = refresh;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/follow-status/{userId}",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id),
+        userId = crate::apis::urlencode(p_path_user_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_refresh {
+        req_builder = req_builder.query(&[("refresh", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetInstagramFollowStatus200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetInstagramFollowStatus200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetInstagramFollowStatusError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

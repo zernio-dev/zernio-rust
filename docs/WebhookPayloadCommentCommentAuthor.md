@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **username** | Option<**String**> |  | [optional]
 **name** | Option<**String**> |  | [optional]
 **picture** | Option<**String**> |  | [optional]
+**instagram_profile** | Option<[**models::WebhookPayloadCommentCommentAuthorInstagramProfile**](WebhookPayloadCommentCommentAuthorInstagramProfile.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -129,6 +129,8 @@ docs/CheckPhoneNumberPortability200ResponseResultsInner.md
 docs/CheckPhoneNumberPortabilityRequest.md
 docs/CheckVerification200Response.md
 docs/CheckVerificationRequest.md
+docs/CommentAutomationAudience.md
+docs/CommentAutomationFollowGate.md
 docs/CommentAutomationsApi.md
 docs/CommentsApi.md
 docs/CompleteGoogleBusinessVerificationRequest.md
@@ -594,6 +596,7 @@ docs/GetInboxVolume200ResponseSummary.md
 docs/GetInboxVolume200ResponseTimeseriesInner.md
 docs/GetInboxVolume400Response.md
 docs/GetInstagramAccountInsights404Response.md
+docs/GetInstagramFollowStatus200Response.md
 docs/GetInstagramPublishingLimit200Response.md
 docs/GetInstagramStoryInsights200Response.md
 docs/GetInstagramStoryInsights200ResponseData.md
@@ -1555,6 +1558,7 @@ docs/WebhookPayloadCommentComment.md
 docs/WebhookPayloadCommentCommentAd.md
 docs/WebhookPayloadCommentCommentAttachment.md
 docs/WebhookPayloadCommentCommentAuthor.md
+docs/WebhookPayloadCommentCommentAuthorInstagramProfile.md
 docs/WebhookPayloadCommentPost.md
 docs/WebhookPayloadConversationStarted.md
 docs/WebhookPayloadConversationStartedConversation.md
@@ -1826,6 +1830,8 @@ src/models/check_phone_number_portability_200_response_results_inner.rs
 src/models/check_phone_number_portability_request.rs
 src/models/check_verification_200_response.rs
 src/models/check_verification_request.rs
+src/models/comment_automation_audience.rs
+src/models/comment_automation_follow_gate.rs
 src/models/complete_google_business_verification_request.rs
 src/models/complete_telegram_connect_200_response.rs
 src/models/complete_whats_app_phone_selection_200_response.rs
@@ -2283,6 +2289,7 @@ src/models/get_inbox_volume_200_response_summary.rs
 src/models/get_inbox_volume_200_response_timeseries_inner.rs
 src/models/get_inbox_volume_400_response.rs
 src/models/get_instagram_account_insights_404_response.rs
+src/models/get_instagram_follow_status_200_response.rs
 src/models/get_instagram_publishing_limit_200_response.rs
 src/models/get_instagram_story_insights_200_response.rs
 src/models/get_instagram_story_insights_200_response_data.rs
@@ -3209,6 +3216,7 @@ src/models/webhook_payload_comment_comment.rs
 src/models/webhook_payload_comment_comment_ad.rs
 src/models/webhook_payload_comment_comment_attachment.rs
 src/models/webhook_payload_comment_comment_author.rs
+src/models/webhook_payload_comment_comment_author_instagram_profile.rs
 src/models/webhook_payload_comment_post.rs
 src/models/webhook_payload_conversation_started.rs
 src/models/webhook_payload_conversation_started_conversation.rs

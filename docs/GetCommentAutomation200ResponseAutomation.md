@@ -23,6 +23,8 @@ Name | Type | Description | Notes
 **comment_reply_variations** | Option<**Vec<String>**> | Alternate public replies rotated at random with commentReply. Omitted when none. | [optional]
 **link_tracking** | Option<**bool**> |  | [optional]
 **click_tag** | Option<**String**> |  | [optional]
+**audience** | Option<[**models::CommentAutomationAudience**](CommentAutomationAudience.md)> |  | [optional]
+**follow_gate** | Option<[**models::CommentAutomationFollowGate**](CommentAutomationFollowGate.md)> |  | [optional]
 **is_active** | Option<**bool**> |  | [optional]
 **stats** | Option<[**models::CreateCommentAutomation200ResponseAutomationStats**](CreateCommentAutomation200ResponseAutomationStats.md)> |  | [optional]
 **created_at** | Option<**String**> |  | [optional]

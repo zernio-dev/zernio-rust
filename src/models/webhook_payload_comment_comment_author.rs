@@ -27,6 +27,8 @@ pub struct WebhookPayloadCommentCommentAuthor {
         skip_serializing_if = "Option::is_none"
     )]
     pub picture: Option<Option<String>>,
+    #[serde(rename = "instagramProfile", skip_serializing_if = "Option::is_none")]
+    pub instagram_profile: Option<Box<models::WebhookPayloadCommentCommentAuthorInstagramProfile>>,
 }
 
 impl WebhookPayloadCommentCommentAuthor {
@@ -36,6 +38,7 @@ impl WebhookPayloadCommentCommentAuthor {
             username: None,
             name: None,
             picture: None,
+            instagram_profile: None,
         }
     }
 }

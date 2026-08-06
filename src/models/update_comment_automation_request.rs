@@ -54,6 +54,10 @@ pub struct UpdateCommentAutomationRequest {
     /// Tag applied to a contact when they click a tracked link (requires linkTracking). Empty string clears it.
     #[serde(rename = "clickTag", skip_serializing_if = "Option::is_none")]
     pub click_tag: Option<String>,
+    #[serde(rename = "audience", skip_serializing_if = "Option::is_none")]
+    pub audience: Option<Box<models::CommentAutomationAudience>>,
+    #[serde(rename = "followGate", skip_serializing_if = "Option::is_none")]
+    pub follow_gate: Option<Box<models::CommentAutomationFollowGate>>,
     #[serde(rename = "isActive", skip_serializing_if = "Option::is_none")]
     pub is_active: Option<bool>,
 }
@@ -74,6 +78,8 @@ impl UpdateCommentAutomationRequest {
             comment_reply_variations: None,
             link_tracking: None,
             click_tag: None,
+            audience: None,
+            follow_gate: None,
             is_active: None,
         }
     }

@@ -47,6 +47,10 @@ pub struct UpdateCommentAutomation200ResponseAutomation {
         skip_serializing_if = "Option::is_none"
     )]
     pub comment_reply_variations: Option<Vec<String>>,
+    #[serde(rename = "audience", skip_serializing_if = "Option::is_none")]
+    pub audience: Option<Box<models::CommentAutomationAudience>>,
+    #[serde(rename = "followGate", skip_serializing_if = "Option::is_none")]
+    pub follow_gate: Option<Box<models::CommentAutomationFollowGate>>,
     #[serde(rename = "isActive", skip_serializing_if = "Option::is_none")]
     pub is_active: Option<bool>,
     #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
@@ -67,6 +71,8 @@ impl UpdateCommentAutomation200ResponseAutomation {
             comment_reply: None,
             dm_message_variations: None,
             comment_reply_variations: None,
+            audience: None,
+            follow_gate: None,
             is_active: None,
             updated_at: None,
         }
