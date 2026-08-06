@@ -11,9 +11,12 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookPayloadMessageMetadata : Interactive message metadata (present when message is a quick reply tap, postback button tap, or inline keyboard callback)
+/// WebhookPayloadMessageMetadata : Platform-specific message context (present when the message is a quick reply tap, postback button tap, inline keyboard callback, or a quote-reply to an earlier message)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadMessageMetadata {
+    /// platformMessageId of the message this one is a quote-reply to. WhatsApp (`context.id`), Instagram and Facebook Messenger (`reply_to.mid`). On `message.sent` echoes (operator replied from the native app) this is the only metadata field populated.
+    #[serde(rename = "quotedMessageId", skip_serializing_if = "Option::is_none")]
+    pub quoted_message_id: Option<String>,
     /// Payload from a quick reply tap (Facebook/Instagram Messenger).
     #[serde(rename = "quickReplyPayload", skip_serializing_if = "Option::is_none")]
     pub quick_reply_payload: Option<String>,
@@ -61,9 +64,10 @@ pub struct WebhookPayloadMessageMetadata {
 }
 
 impl WebhookPayloadMessageMetadata {
-    /// Interactive message metadata (present when message is a quick reply tap, postback button tap, or inline keyboard callback)
+    /// Platform-specific message context (present when the message is a quick reply tap, postback button tap, inline keyboard callback, or a quote-reply to an earlier message)
     pub fn new() -> WebhookPayloadMessageMetadata {
         WebhookPayloadMessageMetadata {
+            quoted_message_id: None,
             quick_reply_payload: None,
             postback_payload: None,
             postback_title: None,

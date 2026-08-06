@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**quoted_message_id** | Option<**String**> | platformMessageId of the message this one is a quote-reply to. WhatsApp (`context.id`), Instagram and Facebook Messenger (`reply_to.mid`). On `message.sent` echoes (operator replied from the native app) this is the only metadata field populated.  | [optional]
 **quick_reply_payload** | Option<**String**> | Payload from a quick reply tap (Facebook/Instagram Messenger). | [optional]
 **postback_payload** | Option<**String**> | Payload from a postback button tap (Facebook/Instagram Messenger). | [optional]
 **postback_title** | Option<**String**> | Title of the tapped postback button (Facebook/Instagram Messenger). | [optional]
