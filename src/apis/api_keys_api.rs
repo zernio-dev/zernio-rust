@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 pub enum CreateApiKeyError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -27,6 +28,7 @@ pub enum CreateApiKeyError {
 #[serde(untagged)]
 pub enum DeleteApiKeyError {
     Status401(models::InlineObject),
+    Status403(models::InlineObject2),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
@@ -36,6 +38,7 @@ pub enum DeleteApiKeyError {
 #[serde(untagged)]
 pub enum ListApiKeysError {
     Status401(models::InlineObject),
+    Status403(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 

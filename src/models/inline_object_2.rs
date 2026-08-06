@@ -13,62 +13,65 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct InlineObject2 {
-    /// Human-readable error message suitable for end-user display.
-    #[serde(rename = "error")]
-    pub error: String,
-    /// Machine-readable error code. Stable across versions.
-    #[serde(rename = "code")]
-    pub code: Code,
-    /// Discriminator for which gate fired.
-    #[serde(rename = "reason")]
-    pub reason: Reason,
-    /// Link to the relevant documentation page.
-    #[serde(rename = "documentation_url", skip_serializing_if = "Option::is_none")]
-    pub documentation_url: Option<String>,
-    /// Deep-link to send the end-user to. For `free_tier_exceeded` and `twitter_passthrough` this is the Zernio billing tab. For `enterprise_required` this is the Zernio enterprise contact page.
-    #[serde(rename = "dashboard_url", skip_serializing_if = "Option::is_none")]
-    pub dashboard_url: Option<String>,
-    #[serde(rename = "details", skip_serializing_if = "Option::is_none")]
-    pub details: Option<Box<models::InlineObject2Details>>,
+    #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
+    pub error: Option<String>,
+    #[serde(rename = "code", skip_serializing_if = "Option::is_none")]
+    pub code: Option<Code>,
+    /// The resource group the key needs for this operation. Absent on admin-plane and unclassified-path denials.
+    #[serde(rename = "required_group", skip_serializing_if = "Option::is_none")]
+    pub required_group: Option<RequiredGroup>,
 }
 
 impl InlineObject2 {
-    pub fn new(error: String, code: Code, reason: Reason) -> InlineObject2 {
+    pub fn new() -> InlineObject2 {
         InlineObject2 {
-            error,
-            code,
-            reason,
-            documentation_url: None,
-            dashboard_url: None,
-            details: None,
+            error: None,
+            code: None,
+            required_group: None,
         }
     }
 }
-/// Machine-readable error code. Stable across versions.
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Code {
-    #[serde(rename = "PAYMENT_REQUIRED")]
-    PaymentRequired,
+    #[serde(rename = "insufficient_permissions")]
+    InsufficientPermissions,
+    #[serde(rename = "unclassified_resource")]
+    UnclassifiedResource,
 }
 
 impl Default for Code {
     fn default() -> Code {
-        Self::PaymentRequired
+        Self::InsufficientPermissions
     }
 }
-/// Discriminator for which gate fired.
+/// The resource group the key needs for this operation. Absent on admin-plane and unclassified-path denials.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Reason {
-    #[serde(rename = "free_tier_exceeded")]
-    FreeTierExceeded,
-    #[serde(rename = "twitter_passthrough")]
-    TwitterPassthrough,
-    #[serde(rename = "enterprise_required")]
-    EnterpriseRequired,
+pub enum RequiredGroup {
+    #[serde(rename = "publishing")]
+    Publishing,
+    #[serde(rename = "engagement")]
+    Engagement,
+    #[serde(rename = "messages")]
+    Messages,
+    #[serde(rename = "contacts")]
+    Contacts,
+    #[serde(rename = "analytics")]
+    Analytics,
+    #[serde(rename = "ads")]
+    Ads,
+    #[serde(rename = "telephony")]
+    Telephony,
+    #[serde(rename = "accounts")]
+    Accounts,
+    #[serde(rename = "billing")]
+    Billing,
+    #[serde(rename = "webhooks")]
+    Webhooks,
 }
 
-impl Default for Reason {
-    fn default() -> Reason {
-        Self::FreeTierExceeded
+impl Default for RequiredGroup {
+    fn default() -> RequiredGroup {
+        Self::Publishing
     }
 }

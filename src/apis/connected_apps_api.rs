@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum ListConnectedAppsError {
     Status401(models::InlineObject),
-    Status403(models::ErrorResponse),
+    Status403(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -28,12 +28,12 @@ pub enum ListConnectedAppsError {
 pub enum RevokeConnectedAppError {
     Status400(models::ErrorResponse),
     Status401(models::InlineObject),
-    Status403(models::ErrorResponse),
+    Status403(models::InlineObject2),
     Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// Returns the OAuth clients (AI assistants and MCP connectors) the authenticated user has authorized and that still hold a live token.  Requires a session or a full-scope API key. A profile-scoped API key or an OAuth access token is rejected with 403: an app must not be able to enumerate its sibling authorizations.
+/// Returns the OAuth clients (AI assistants and MCP connectors) the authenticated user has authorized and that still hold a live token.  Requires a session or a full-access API key. A profile-scoped API key, a restricted (zrk_) API key, or an OAuth access token is rejected with 403: an app must not be able to enumerate its sibling authorizations, and connected-app management is admin-plane.
 pub async fn list_connected_apps(
     configuration: &configuration::Configuration,
 ) -> Result<models::ListConnectedApps200Response, Error<ListConnectedAppsError>> {
@@ -76,7 +76,7 @@ pub async fn list_connected_apps(
     }
 }
 
-/// Ends an app's access: invalidates the client's pending authorization codes and revokes every live token it holds for the authenticated user. Takes effect on the app's next request.  Idempotent while the authorization is still on record: revoking an app that was already revoked returns 200 with `revokedTokens: 0`.
+/// Ends an app's access: invalidates the client's pending authorization codes and revokes every live token it holds for the authenticated user. Takes effect on the app's next request.  Idempotent while the authorization is still on record: revoking an app that was already revoked returns 200 with `revokedTokens: 0`.  Requires a session or a full-access API key. A profile-scoped API key, a restricted (zrk_) API key, or an OAuth access token is rejected with 403.
 pub async fn revoke_connected_app(
     configuration: &configuration::Configuration,
     client_id: &str,

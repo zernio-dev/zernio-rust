@@ -27,6 +27,12 @@ pub struct CreateApiKeyRequest {
     /// 'read-write' allows all operations (default), 'read' restricts to GET requests only
     #[serde(rename = "permission", skip_serializing_if = "Option::is_none")]
     pub permission: Option<Permission>,
+    /// Resource groups to DISABLE on this key (opt-out denylist). Omit for a legacy full-access key. A key with any group disabled mints with the zrk_ prefix, gets 403 with code=insufficient_permissions and required_group on operations in disabled groups (each operation's group is published as x-resource-group), and can never manage API keys, invites, or member identity. With 'messages' disabled, the KEY cannot access private messages; the ACCOUNT's pre-existing webhook subscriptions are a separate grant surface.
+    #[serde(
+        rename = "disabledResourceGroups",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub disabled_resource_groups: Option<Vec<DisabledResourceGroups>>,
 }
 
 impl CreateApiKeyRequest {
@@ -37,6 +43,7 @@ impl CreateApiKeyRequest {
             scope: None,
             profile_ids: None,
             permission: None,
+            disabled_resource_groups: None,
         }
     }
 }
@@ -66,5 +73,35 @@ pub enum Permission {
 impl Default for Permission {
     fn default() -> Permission {
         Self::ReadWrite
+    }
+}
+/// Resource groups to DISABLE on this key (opt-out denylist). Omit for a legacy full-access key. A key with any group disabled mints with the zrk_ prefix, gets 403 with code=insufficient_permissions and required_group on operations in disabled groups (each operation's group is published as x-resource-group), and can never manage API keys, invites, or member identity. With 'messages' disabled, the KEY cannot access private messages; the ACCOUNT's pre-existing webhook subscriptions are a separate grant surface.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum DisabledResourceGroups {
+    #[serde(rename = "publishing")]
+    Publishing,
+    #[serde(rename = "engagement")]
+    Engagement,
+    #[serde(rename = "messages")]
+    Messages,
+    #[serde(rename = "contacts")]
+    Contacts,
+    #[serde(rename = "analytics")]
+    Analytics,
+    #[serde(rename = "ads")]
+    Ads,
+    #[serde(rename = "telephony")]
+    Telephony,
+    #[serde(rename = "accounts")]
+    Accounts,
+    #[serde(rename = "billing")]
+    Billing,
+    #[serde(rename = "webhooks")]
+    Webhooks,
+}
+
+impl Default for DisabledResourceGroups {
+    fn default() -> DisabledResourceGroups {
+        Self::Publishing
     }
 }

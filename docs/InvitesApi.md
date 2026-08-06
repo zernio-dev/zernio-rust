@@ -13,7 +13,7 @@ Method | HTTP request | Description
 > models::CreateInviteToken201Response create_invite_token(create_invite_token_request)
 Create invite token
 
-Generate a secure invite link to grant team members access to your profiles. Invites expire after 7 days and are single-use. 
+Generate a secure invite link to grant team members access to your profiles. Invites expire after 7 days and are single-use.  Returns 403 when a requested profile is not found or not owned, or when called with a restricted (zrk_) API key: invite management is admin-plane. 
 
 ### Parameters
 

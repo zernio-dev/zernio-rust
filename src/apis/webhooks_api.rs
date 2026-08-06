@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 pub enum CreateWebhookSettingsError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -37,6 +38,7 @@ pub enum DeleteWebhookSettingsError {
 pub enum GetWebhookLogsError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -65,11 +67,12 @@ pub enum TestWebhookError {
 pub enum UpdateWebhookSettingsError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(models::InlineObject2),
     Status404(),
     UnknownValue(serde_json::Value),
 }
 
-/// Create a new webhook configuration. Maximum 50 webhooks per user.  `name`, `url` and `events` are required. `url` must be a valid URL and `events` must contain at least one event. Whitespace is trimmed from `url` before validation.  Webhooks are automatically disabled after 10 consecutive delivery failures.
+/// Create a new webhook configuration. Maximum 50 webhooks per user.  `name`, `url` and `events` are required. `url` must be a valid URL and `events` must contain at least one event. Whitespace is trimmed from `url` before validation.  Webhooks are automatically disabled after 10 consecutive delivery failures.  A restricted (zrk_) API key can only subscribe to events whose resource group the key holds; an event outside the key's groups is rejected with 403. Note that the KEY cannot access private messages; the ACCOUNT's pre-existing webhook subscriptions are a separate grant surface.
 pub async fn create_webhook_settings(
     configuration: &configuration::Configuration,
     create_webhook_settings_request: models::CreateWebhookSettingsRequest,
@@ -169,7 +172,7 @@ pub async fn delete_webhook_settings(
     }
 }
 
-/// Retrieve recorded webhook delivery attempts for the authenticated user, most recent first. Logs are retained for 30 days. Supports filtering by status, event type, webhook ID, and event ID, plus offset-based pagination.
+/// Retrieve recorded webhook delivery attempts for the authenticated user, most recent first. Logs are retained for 30 days. Supports filtering by status, event type, webhook ID, and event ID, plus offset-based pagination.  For a restricted (zrk_) API key, rows for events outside the key's resource groups are omitted (`pagination.total` may over-count), and an `event` filter naming such an event is rejected with 403.
 pub async fn get_webhook_logs(
     configuration: &configuration::Configuration,
     limit: Option<i32>,
@@ -337,7 +340,7 @@ pub async fn test_webhook(
     }
 }
 
-/// Update an existing webhook configuration. All fields except `_id` are optional; only provided fields will be updated.  When provided, `name` must be 1-50 characters, `url` must be a valid URL, and `events` must contain at least one event. Whitespace is trimmed from `url` before validation.  Webhooks are automatically disabled after 10 consecutive delivery failures.
+/// Update an existing webhook configuration. All fields except `_id` are optional; only provided fields will be updated.  When provided, `name` must be 1-50 characters, `url` must be a valid URL, and `events` must contain at least one event. Whitespace is trimmed from `url` before validation.  Webhooks are automatically disabled after 10 consecutive delivery failures.  A restricted (zrk_) API key can only set `events` to events whose resource group the key holds; an event outside the key's groups is rejected with 403.
 pub async fn update_webhook_settings(
     configuration: &configuration::Configuration,
     update_webhook_settings_request: models::UpdateWebhookSettingsRequest,

@@ -781,7 +781,8 @@ docs/InitiateWhatsAppCallRequest.md
 docs/InlineObject.md
 docs/InlineObject1.md
 docs/InlineObject2.md
-docs/InlineObject2Details.md
+docs/InlineObject3.md
+docs/InlineObject3Details.md
 docs/InstagramAccountInsightsResponse.md
 docs/InstagramAccountInsightsResponseDateRange.md
 docs/InstagramAccountInsightsResponseMetricsValue.md
@@ -2456,7 +2457,8 @@ src/models/initiate_whats_app_call_request.rs
 src/models/inline_object.rs
 src/models/inline_object_1.rs
 src/models/inline_object_2.rs
-src/models/inline_object_2_details.rs
+src/models/inline_object_3.rs
+src/models/inline_object_3_details.rs
 src/models/instagram_account_insights_response.rs
 src/models/instagram_account_insights_response_date_range.rs
 src/models/instagram_account_insights_response_metrics_value.rs

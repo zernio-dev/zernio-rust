@@ -19,11 +19,11 @@ use serde::{de::Error as _, Deserialize, Serialize};
 pub enum CreateInviteTokenError {
     Status400(),
     Status401(models::InlineObject),
-    Status403(),
+    Status403(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
-/// Generate a secure invite link to grant team members access to your profiles. Invites expire after 7 days and are single-use.
+/// Generate a secure invite link to grant team members access to your profiles. Invites expire after 7 days and are single-use.  Returns 403 when a requested profile is not found or not owned, or when called with a restricted (zrk_) API key: invite management is admin-plane.
 pub async fn create_invite_token(
     configuration: &configuration::Configuration,
     create_invite_token_request: models::CreateInviteTokenRequest,
