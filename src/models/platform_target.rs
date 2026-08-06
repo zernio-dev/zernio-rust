@@ -43,6 +43,14 @@ pub struct PlatformTarget {
     /// Timestamp when the post was published to this platform
     #[serde(rename = "publishedAt", skip_serializing_if = "Option::is_none")]
     pub published_at: Option<String>,
+    /// Set when a post that was successfully published later disappears from the platform (deleted on-platform or taken down by the platform). status stays \"published\" (it reflects the publish outcome); poll this field to detect post-publish removals. Absent while the post is live, and cleared if the post reappears. Detection runs with the analytics sync, so expect up to a few hours of lag.
+    #[serde(
+        rename = "removedFromPlatformAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub removed_from_platform_at: Option<Option<String>>,
     /// Present and true only when this Instagram reel was launched as a Trial through Zernio (created with platformSpecificData.trialParams). Use it to segment trial reels in analytics. Note: Instagram's Graph API exposes no readable trial field, so this reflects creation-time intent only. It indicates the reel STARTED as a trial, not whether or when it graduated.
     #[serde(rename = "isTrialReel", skip_serializing_if = "Option::is_none")]
     pub is_trial_reel: Option<bool>,
@@ -76,6 +84,7 @@ impl PlatformTarget {
             platform_post_id: None,
             platform_post_url: None,
             published_at: None,
+            removed_from_platform_at: None,
             is_trial_reel: None,
             trial_graduation_strategy: None,
             error_message: None,
