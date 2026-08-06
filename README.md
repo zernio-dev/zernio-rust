@@ -1405,6 +1405,8 @@ Class | Method | HTTP request | Description
  - [ListCalls200Response](docs/ListCalls200Response.md)
  - [ListCalls200ResponseCallsInner](docs/ListCalls200ResponseCallsInner.md)
  - [ListCommentAutomationLogs200Response](docs/ListCommentAutomationLogs200Response.md)
+ - [ListCommentAutomationLogs200ResponseMisses](docs/ListCommentAutomationLogs200ResponseMisses.md)
+ - [ListCommentAutomationLogs200ResponseMissesSamplesInner](docs/ListCommentAutomationLogs200ResponseMissesSamplesInner.md)
  - [ListCommentAutomations200Response](docs/ListCommentAutomations200Response.md)
  - [ListCommentAutomations200ResponseAutomationsInner](docs/ListCommentAutomations200ResponseAutomationsInner.md)
  - [ListCommentAutomations200ResponseAutomationsInnerStats](docs/ListCommentAutomations200ResponseAutomationsInnerStats.md)

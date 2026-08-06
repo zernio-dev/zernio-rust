@@ -19,6 +19,8 @@ pub struct ListCommentAutomationLogs200Response {
     pub logs: Option<Vec<models::GetCommentAutomation200ResponseLogsInner>>,
     #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
     pub pagination: Option<Box<models::ListContacts200ResponsePagination>>,
+    #[serde(rename = "misses", skip_serializing_if = "Option::is_none")]
+    pub misses: Option<Box<models::ListCommentAutomationLogs200ResponseMisses>>,
 }
 
 impl ListCommentAutomationLogs200Response {
@@ -27,6 +29,7 @@ impl ListCommentAutomationLogs200Response {
             success: None,
             logs: None,
             pagination: None,
+            misses: None,
         }
     }
 }
