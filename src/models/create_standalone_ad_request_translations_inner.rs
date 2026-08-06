@@ -25,6 +25,9 @@ pub struct CreateStandaloneAdRequestTranslationsInner {
     /// Link description for this language. REQUIRED, and must differ from every other locale and from the ad's top-level description.
     #[serde(rename = "description")]
     pub description: String,
+    /// Destination URL for this language. Inherits the ad's top-level `linkUrl` when omitted, and requires it to be present (400 otherwise): the top-level URL is the destination for every locale you did not override. Unlike text, identical URLs across locales are fine (they share one asset).
+    #[serde(rename = "linkUrl", skip_serializing_if = "Option::is_none")]
+    pub link_url: Option<String>,
     /// Image for this language. Inherits the ad's `imageUrl` when omitted. The feed is all-image OR all-video.
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
@@ -48,6 +51,7 @@ impl CreateStandaloneAdRequestTranslationsInner {
             headline,
             body,
             description,
+            link_url: None,
             image_url: None,
             video_url: None,
             thumbnail_url: None,
