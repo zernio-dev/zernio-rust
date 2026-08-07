@@ -25,22 +25,6 @@ impl Default for CreateLeadFormRequestPlatformSpecificData {
         Self::MetaLeadFormPlatformData(Default::default())
     }
 }
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum FormType {
-    #[serde(rename = "MORE_VOLUME")]
-    MoreVolume,
-    #[serde(rename = "HIGHER_INTENT")]
-    HigherIntent,
-    #[serde(rename = "RICH_CREATIVE")]
-    RichCreative,
-}
-
-impl Default for FormType {
-    fn default() -> FormType {
-        Self::MoreVolume
-    }
-}
 /// Defaults to DRAFT.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum State {

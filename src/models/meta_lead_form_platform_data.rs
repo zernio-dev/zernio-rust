@@ -34,23 +34,17 @@ pub struct MetaLeadFormPlatformData {
     pub thank_you_button_type: Option<String>,
     #[serde(rename = "thankYouWebsiteUrl", skip_serializing_if = "Option::is_none")]
     pub thank_you_website_url: Option<String>,
+    /// Set true for a higher-intent form (adds a review step before submit).
     #[serde(
         rename = "isOptimizedForQuality",
         skip_serializing_if = "Option::is_none"
     )]
     pub is_optimized_for_quality: Option<bool>,
-    #[serde(rename = "formType", skip_serializing_if = "Option::is_none")]
-    pub form_type: Option<FormType>,
     #[serde(
         rename = "blockDisplayForNonTargetedViewer",
         skip_serializing_if = "Option::is_none"
     )]
     pub block_display_for_non_targeted_viewer: Option<bool>,
-    #[serde(
-        rename = "allowOrganicLeadGen",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub allow_organic_lead_gen: Option<bool>,
     #[serde(
         rename = "questionPageCustomHeadline",
         skip_serializing_if = "Option::is_none"
@@ -75,27 +69,9 @@ impl MetaLeadFormPlatformData {
             thank_you_button_type: None,
             thank_you_website_url: None,
             is_optimized_for_quality: None,
-            form_type: None,
             block_display_for_non_targeted_viewer: None,
-            allow_organic_lead_gen: None,
             question_page_custom_headline: None,
             context_card: None,
         }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum FormType {
-    #[serde(rename = "MORE_VOLUME")]
-    MoreVolume,
-    #[serde(rename = "HIGHER_INTENT")]
-    HigherIntent,
-    #[serde(rename = "RICH_CREATIVE")]
-    RichCreative,
-}
-
-impl Default for FormType {
-    fn default() -> FormType {
-        Self::MoreVolume
     }
 }
