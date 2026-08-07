@@ -44,6 +44,7 @@ pub enum CompleteWhatsAppPhoneSelectionError {
     Status401(models::InlineObject),
     Status403(),
     Status404(models::ErrorResponse),
+    Status409(),
     Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -98,6 +99,7 @@ pub enum ConnectWhatsAppCredentialsError {
     Status400(),
     Status401(),
     Status403(),
+    Status409(),
     UnknownValue(serde_json::Value),
 }
 

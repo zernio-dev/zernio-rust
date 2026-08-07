@@ -341,7 +341,7 @@ Initiate an OAuth connection flow. Returns an authUrl to redirect the user to. S
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **platform** | **String** | Social media platform to connect | [required] |
-**profile_id** | **String** | Your Zernio profile ID (get from /v1/profiles) | [required] |
+**profile_id** | **String** | Your Zernio profile ID (get from /v1/profiles). For WhatsApp, a Zernio-provisioned number can only be connected on the profile it was provisioned to; connecting from any other profile is rejected with a 409. | [required] |
 **redirect_url** | Option<**String**> | Your custom redirect URL after connection completes. Accepts an http(s) URL, a custom app scheme for mobile deeplinks (e.g. myapp://callback), or a relative path. Result params are appended with the URL API, so an existing query string is preserved. Standard mode appends connected={platform}&profileId=X&accountId=Y&username=Z. Headless mode appends OAuth data params for platforms requiring selection (e.g. LinkedIn orgs, Facebook pages). If no selection is needed, the account is created directly and the redirect includes accountId. |  |
 **headless** | Option<**bool**> | When true, the user is redirected to your redirect_url with raw OAuth data (code, state) instead of Zernio's default account selection UI. Use this to build a custom connect experience. |  |[default to false]
 
