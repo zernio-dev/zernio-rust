@@ -29,6 +29,7 @@ pub enum AssignGoogleBusinessLocationError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CompleteTelegramConnectError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status404(),
     Status500(),
