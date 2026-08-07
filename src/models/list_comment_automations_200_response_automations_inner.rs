@@ -43,6 +43,8 @@ pub struct ListCommentAutomations200ResponseAutomationsInner {
     /// Inline DM buttons (up to 3). Omitted when none are set.
     #[serde(rename = "buttons", skip_serializing_if = "Option::is_none")]
     pub buttons: Option<Vec<models::DmButton>>,
+    #[serde(rename = "template", skip_serializing_if = "Option::is_none")]
+    pub template: Option<Box<models::CommentAutomationTemplate>>,
     #[serde(rename = "commentReply", skip_serializing_if = "Option::is_none")]
     pub comment_reply: Option<String>,
     /// Alternate DM texts rotated at random with dmMessage. Omitted when none.
@@ -96,6 +98,7 @@ impl ListCommentAutomations200ResponseAutomationsInner {
             typo_tolerance: None,
             dm_message: None,
             buttons: None,
+            template: None,
             comment_reply: None,
             dm_message_variations: None,
             comment_reply_variations: None,

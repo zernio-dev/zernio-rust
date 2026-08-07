@@ -51,6 +51,14 @@ pub struct CreateCommentAutomationRequest {
     /// Optional inline DM buttons (1-3). Phone buttons are Facebook-only. Omit or pass [] for a plain-text DM.
     #[serde(rename = "buttons", skip_serializing_if = "Option::is_none")]
     pub buttons: Option<Vec<models::DmButton>>,
+    /// Optional product card sent INSTEAD of the plain dmMessage bubble. Mutually exclusive with buttons. dmMessage stays required: it is what gets sent the moment the card is cleared.
+    #[serde(
+        rename = "template",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub template: Option<Option<Box<models::CommentAutomationTemplate>>>,
     /// Optional public reply to the comment
     #[serde(rename = "commentReply", skip_serializing_if = "Option::is_none")]
     pub comment_reply: Option<String>,
@@ -108,6 +116,7 @@ impl CreateCommentAutomationRequest {
             typo_tolerance: None,
             dm_message,
             buttons: None,
+            template: None,
             comment_reply: None,
             dm_message_variations: None,
             comment_reply_variations: None,

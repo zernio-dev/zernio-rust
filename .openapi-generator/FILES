@@ -131,6 +131,9 @@ docs/CheckVerification200Response.md
 docs/CheckVerificationRequest.md
 docs/CommentAutomationAudience.md
 docs/CommentAutomationFollowGate.md
+docs/CommentAutomationTemplate.md
+docs/CommentAutomationTemplateElement.md
+docs/CommentAutomationTemplateElementButtonsInner.md
 docs/CommentAutomationsApi.md
 docs/CommentsApi.md
 docs/CompleteGoogleBusinessVerificationRequest.md
@@ -1832,6 +1835,9 @@ src/models/check_verification_200_response.rs
 src/models/check_verification_request.rs
 src/models/comment_automation_audience.rs
 src/models/comment_automation_follow_gate.rs
+src/models/comment_automation_template.rs
+src/models/comment_automation_template_element.rs
+src/models/comment_automation_template_element_buttons_inner.rs
 src/models/complete_google_business_verification_request.rs
 src/models/complete_telegram_connect_200_response.rs
 src/models/complete_whats_app_phone_selection_200_response.rs

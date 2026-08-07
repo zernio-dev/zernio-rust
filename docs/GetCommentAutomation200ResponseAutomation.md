@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **typo_tolerance** | Option<**bool**> | Only with matchMode=word: also fire on close misspellings of a keyword (one edit for 4-7 character keywords, two from 8 up). Keywords shorter than 4 characters are never fuzzy-matched. | [optional]
 **dm_message** | Option<**String**> |  | [optional]
 **buttons** | Option<[**Vec<models::DmButton>**](DmButton.md)> | Inline DM buttons (up to 3). Omitted when none are set. | [optional]
+**template** | Option<[**models::CommentAutomationTemplate**](CommentAutomationTemplate.md)> |  | [optional]
 **comment_reply** | Option<**String**> |  | [optional]
 **dm_message_variations** | Option<**Vec<String>**> | Alternate DM texts rotated at random with dmMessage. Omitted when none. | [optional]
 **comment_reply_variations** | Option<**Vec<String>**> | Alternate public replies rotated at random with commentReply. Omitted when none. | [optional]

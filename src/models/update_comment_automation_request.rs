@@ -34,6 +34,13 @@ pub struct UpdateCommentAutomationRequest {
     /// Inline DM buttons (1-3). Pass [] to clear all buttons.
     #[serde(rename = "buttons", skip_serializing_if = "Option::is_none")]
     pub buttons: Option<Vec<models::DmButton>>,
+    #[serde(
+        rename = "template",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub template: Option<Option<Box<models::CommentAutomationTemplate>>>,
     #[serde(rename = "commentReply", skip_serializing_if = "Option::is_none")]
     pub comment_reply: Option<String>,
     /// Alternate DM texts for random rotation (see create). Pass [] to clear.
@@ -82,6 +89,7 @@ impl UpdateCommentAutomationRequest {
             typo_tolerance: None,
             dm_message: None,
             buttons: None,
+            template: None,
             comment_reply: None,
             dm_message_variations: None,
             comment_reply_variations: None,
