@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookPayloadReaction : Webhook payload for reaction received events (WhatsApp, Telegram)
+/// WebhookPayloadReaction : Webhook payload for reaction received events (WhatsApp, Telegram, Slack, Instagram, Facebook Messenger)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadReaction {
     /// Stable webhook event ID
@@ -30,7 +30,7 @@ pub struct WebhookPayloadReaction {
 }
 
 impl WebhookPayloadReaction {
-    /// Webhook payload for reaction received events (WhatsApp, Telegram)
+    /// Webhook payload for reaction received events (WhatsApp, Telegram, Slack, Instagram, Facebook Messenger)
     pub fn new(
         id: String,
         event: Event,
