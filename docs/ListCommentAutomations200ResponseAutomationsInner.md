@@ -22,6 +22,8 @@ Name | Type | Description | Notes
 **comment_reply_variations** | Option<**Vec<String>**> | Alternate public replies rotated at random with commentReply. Omitted when none. | [optional]
 **link_tracking** | Option<**bool**> | Whether link buttons in the DM are wrapped in a tracked redirect to count clicks. | [optional]
 **click_tag** | Option<**String**> | Tag applied to a contact when they click a tracked link. | [optional]
+**dm_delay_seconds** | Option<**i32**> | Seconds waited after the trigger before the DM is sent. Absent when the DM goes out immediately. | [optional]
+**comment_reply_delay_seconds** | Option<**i32**> | Seconds waited before the public reply is posted. Absent when it follows the DM immediately. | [optional]
 **is_active** | Option<**bool**> |  | [optional]
 **stats** | Option<[**models::ListCommentAutomations200ResponseAutomationsInnerStats**](ListCommentAutomations200ResponseAutomationsInnerStats.md)> |  | [optional]
 **created_at** | Option<**String**> |  | [optional]

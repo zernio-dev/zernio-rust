@@ -53,6 +53,9 @@ pub struct ConversionEventUser {
     /// Meta advanced matching (ge). 'f' or 'm'; hashed server-side. Meta only.
     #[serde(rename = "gender", skip_serializing_if = "Option::is_none")]
     pub gender: Option<String>,
+    /// Meta lead ID from a Lead Ad submission, as a string. Required for Conversion Leads CRM events: send it with `actionSource: 'crm'` and `platformData: { event_source: 'crm', lead_event_source: '<CRM name>' }`. Forwarded unhashed to Meta's `user_data.lead_id`. Meta only.
+    #[serde(rename = "leadId", skip_serializing_if = "Option::is_none")]
+    pub lead_id: Option<String>,
     #[serde(rename = "clickIds", skip_serializing_if = "Option::is_none")]
     pub click_ids: Option<Box<models::ConversionEventUserClickIds>>,
 }
@@ -74,6 +77,7 @@ impl ConversionEventUser {
             zip: None,
             dob: None,
             gender: None,
+            lead_id: None,
             click_ids: None,
         }
     }

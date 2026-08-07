@@ -63,6 +63,15 @@ pub struct ListCommentAutomations200ResponseAutomationsInner {
     /// Tag applied to a contact when they click a tracked link.
     #[serde(rename = "clickTag", skip_serializing_if = "Option::is_none")]
     pub click_tag: Option<String>,
+    /// Seconds waited after the trigger before the DM is sent. Absent when the DM goes out immediately.
+    #[serde(rename = "dmDelaySeconds", skip_serializing_if = "Option::is_none")]
+    pub dm_delay_seconds: Option<i32>,
+    /// Seconds waited before the public reply is posted. Absent when it follows the DM immediately.
+    #[serde(
+        rename = "commentReplyDelaySeconds",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub comment_reply_delay_seconds: Option<i32>,
     #[serde(rename = "isActive", skip_serializing_if = "Option::is_none")]
     pub is_active: Option<bool>,
     #[serde(rename = "stats", skip_serializing_if = "Option::is_none")]
@@ -92,6 +101,8 @@ impl ListCommentAutomations200ResponseAutomationsInner {
             comment_reply_variations: None,
             link_tracking: None,
             click_tag: None,
+            dm_delay_seconds: None,
+            comment_reply_delay_seconds: None,
             is_active: None,
             stats: None,
             created_at: None,

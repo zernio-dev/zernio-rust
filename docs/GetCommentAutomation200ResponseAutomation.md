@@ -23,6 +23,8 @@ Name | Type | Description | Notes
 **comment_reply_variations** | Option<**Vec<String>**> | Alternate public replies rotated at random with commentReply. Omitted when none. | [optional]
 **link_tracking** | Option<**bool**> |  | [optional]
 **click_tag** | Option<**String**> |  | [optional]
+**dm_delay_seconds** | Option<**i32**> | Seconds waited after the trigger before the DM is sent. Absent when the DM goes out immediately. | [optional]
+**comment_reply_delay_seconds** | Option<**i32**> | Seconds waited before the public reply is posted. Absent when it follows the DM immediately. | [optional]
 **audience** | Option<[**models::CommentAutomationAudience**](CommentAutomationAudience.md)> |  | [optional]
 **follow_gate** | Option<[**models::CommentAutomationFollowGate**](CommentAutomationFollowGate.md)> |  | [optional]
 **is_active** | Option<**bool**> |  | [optional]

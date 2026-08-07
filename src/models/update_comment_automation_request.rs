@@ -54,6 +54,15 @@ pub struct UpdateCommentAutomationRequest {
     /// Tag applied to a contact when they click a tracked link (requires linkTracking). Empty string clears it.
     #[serde(rename = "clickTag", skip_serializing_if = "Option::is_none")]
     pub click_tag: Option<String>,
+    /// Seconds to wait after the trigger before sending the DM. Send 0 to clear the delay and reply immediately.
+    #[serde(rename = "dmDelaySeconds", skip_serializing_if = "Option::is_none")]
+    pub dm_delay_seconds: Option<i32>,
+    /// Seconds to wait before posting the public comment reply. Send 0 to clear it. The reply never goes out before the DM.
+    #[serde(
+        rename = "commentReplyDelaySeconds",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub comment_reply_delay_seconds: Option<i32>,
     #[serde(rename = "audience", skip_serializing_if = "Option::is_none")]
     pub audience: Option<Box<models::CommentAutomationAudience>>,
     #[serde(rename = "followGate", skip_serializing_if = "Option::is_none")]
@@ -78,6 +87,8 @@ impl UpdateCommentAutomationRequest {
             comment_reply_variations: None,
             link_tracking: None,
             click_tag: None,
+            dm_delay_seconds: None,
+            comment_reply_delay_seconds: None,
             audience: None,
             follow_gate: None,
             is_active: None,

@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **zip** | Option<**String**> | Meta advanced matching (zp). US uses first 5 digits; hashed server-side. Meta only. | [optional]
 **dob** | Option<**String**> | Meta advanced matching (db). YYYYMMDD; hashed server-side. Meta only. | [optional]
 **gender** | Option<**String**> | Meta advanced matching (ge). 'f' or 'm'; hashed server-side. Meta only. | [optional]
+**lead_id** | Option<**String**> | Meta lead ID from a Lead Ad submission, as a string. Required for Conversion Leads CRM events: send it with `actionSource: 'crm'` and `platformData: { event_source: 'crm', lead_event_source: '<CRM name>' }`. Forwarded unhashed to Meta's `user_data.lead_id`. Meta only.  | [optional]
 **click_ids** | Option<[**models::ConversionEventUserClickIds**](ConversionEventUserClickIds.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

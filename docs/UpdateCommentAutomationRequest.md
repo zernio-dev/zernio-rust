@@ -17,6 +17,8 @@ Name | Type | Description | Notes
 **comment_reply_variations** | Option<**Vec<String>**> | Alternate public replies for random rotation. Pass [] to clear. | [optional]
 **link_tracking** | Option<**bool**> | Wrap link buttons in a tracked redirect to count clicks. Pass false to send links untouched. | [optional]
 **click_tag** | Option<**String**> | Tag applied to a contact when they click a tracked link (requires linkTracking). Empty string clears it. | [optional]
+**dm_delay_seconds** | Option<**i32**> | Seconds to wait after the trigger before sending the DM. Send 0 to clear the delay and reply immediately. | [optional]
+**comment_reply_delay_seconds** | Option<**i32**> | Seconds to wait before posting the public comment reply. Send 0 to clear it. The reply never goes out before the DM. | [optional]
 **audience** | Option<[**models::CommentAutomationAudience**](CommentAutomationAudience.md)> |  | [optional]
 **follow_gate** | Option<[**models::CommentAutomationFollowGate**](CommentAutomationFollowGate.md)> |  | [optional]
 **is_active** | Option<**bool**> |  | [optional]

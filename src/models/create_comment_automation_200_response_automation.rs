@@ -57,6 +57,15 @@ pub struct CreateCommentAutomation200ResponseAutomation {
     pub link_tracking: Option<bool>,
     #[serde(rename = "clickTag", skip_serializing_if = "Option::is_none")]
     pub click_tag: Option<String>,
+    /// Seconds waited after the trigger before the DM is sent. Absent when the DM goes out immediately.
+    #[serde(rename = "dmDelaySeconds", skip_serializing_if = "Option::is_none")]
+    pub dm_delay_seconds: Option<i32>,
+    /// Seconds waited before the public reply is posted. Absent when it follows the DM immediately.
+    #[serde(
+        rename = "commentReplyDelaySeconds",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub comment_reply_delay_seconds: Option<i32>,
     #[serde(rename = "audience", skip_serializing_if = "Option::is_none")]
     pub audience: Option<Box<models::CommentAutomationAudience>>,
     #[serde(rename = "followGate", skip_serializing_if = "Option::is_none")]
@@ -88,6 +97,8 @@ impl CreateCommentAutomation200ResponseAutomation {
             comment_reply_variations: None,
             link_tracking: None,
             click_tag: None,
+            dm_delay_seconds: None,
+            comment_reply_delay_seconds: None,
             audience: None,
             follow_gate: None,
             is_active: None,

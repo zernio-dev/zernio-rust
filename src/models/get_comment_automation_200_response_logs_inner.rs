@@ -23,7 +23,7 @@ pub struct GetCommentAutomation200ResponseLogsInner {
     pub commenter_name: Option<String>,
     #[serde(rename = "commentText", skip_serializing_if = "Option::is_none")]
     pub comment_text: Option<String>,
-    /// DM outcome. 'gated' = the follow-gate confirmation DM went out and we are waiting for the tap; it flips to 'sent' or 'skipped' when they tap.
+    /// DM outcome. 'pending' = the automation has a dmDelaySeconds and the response is queued but not sent yet. 'gated' = the follow-gate confirmation DM went out and we are waiting for the tap; it flips to 'sent' or 'skipped' when they tap.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
     /// How the audience rule resolved. Absent on automations without one.
@@ -49,6 +49,9 @@ pub struct GetCommentAutomation200ResponseLogsInner {
     /// Public-reply error message if commentReplyStatus is failed
     #[serde(rename = "commentReplyError", skip_serializing_if = "Option::is_none")]
     pub comment_reply_error: Option<String>,
+    /// When the next queued send fires. Present only while something is still pending.
+    #[serde(rename = "nextDueAt", skip_serializing_if = "Option::is_none")]
+    pub next_due_at: Option<String>,
     #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
     pub created_at: Option<String>,
 }
@@ -68,13 +71,16 @@ impl GetCommentAutomation200ResponseLogsInner {
             error: None,
             comment_reply_status: None,
             comment_reply_error: None,
+            next_due_at: None,
             created_at: None,
         }
     }
 }
-/// DM outcome. 'gated' = the follow-gate confirmation DM went out and we are waiting for the tap; it flips to 'sent' or 'skipped' when they tap.
+/// DM outcome. 'pending' = the automation has a dmDelaySeconds and the response is queued but not sent yet. 'gated' = the follow-gate confirmation DM went out and we are waiting for the tap; it flips to 'sent' or 'skipped' when they tap.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
+    #[serde(rename = "pending")]
+    Pending,
     #[serde(rename = "sent")]
     Sent,
     #[serde(rename = "failed")]
@@ -87,7 +93,7 @@ pub enum Status {
 
 impl Default for Status {
     fn default() -> Status {
-        Self::Sent
+        Self::Pending
     }
 }
 /// How the audience rule resolved. Absent on automations without one.
