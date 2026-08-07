@@ -11,6 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// BoostPostRequestBudget : Required unless adSetId is set.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BoostPostRequestBudget {
     /// Minimum varies: TikTok=$20, Pinterest=$5, others=$1
@@ -21,6 +22,7 @@ pub struct BoostPostRequestBudget {
 }
 
 impl BoostPostRequestBudget {
+    /// Required unless adSetId is set.
     pub fn new(amount: f64, r#type: Type) -> BoostPostRequestBudget {
         BoostPostRequestBudget { amount, r#type }
     }

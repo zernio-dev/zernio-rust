@@ -30,8 +30,17 @@ pub struct BoostPostRequest {
     /// Available goals vary by platform. Meta (Facebook/Instagram) and TikTok support all 7. LinkedIn supports all except app_promotion. Twitter/X supports engagement, traffic, awareness, video_views, app_promotion. Pinterest and Google Ads support only engagement, traffic, awareness, video_views.
     #[serde(rename = "goal")]
     pub goal: Goal,
-    #[serde(rename = "budget")]
-    pub budget: Box<models::BoostPostRequestBudget>,
+    /// Meta only. Attach the boosted post to this existing ad set instead of creating a campaign. The ad set then owns budget, schedule and targeting; sending those too is a 400.
+    #[serde(rename = "adSetId", skip_serializing_if = "Option::is_none")]
+    pub ad_set_id: Option<String>,
+    #[serde(rename = "budget", skip_serializing_if = "Option::is_none")]
+    pub budget: Option<Box<models::BoostPostRequestBudget>>,
+    /// Meta only. Instagram identity the ad runs AS (creative.instagram_user_id), overriding the account linked to the Page. Live-verified against a Page-post creative.
+    #[serde(rename = "instagramAccountId", skip_serializing_if = "Option::is_none")]
+    pub instagram_account_id: Option<String>,
+    /// Meta only. Ad-set destination_type — where the click LANDS, as opposed to instagramAccountId which is who the ad runs as. Lead ads force ON_AD and ignore this.
+    #[serde(rename = "destinationType", skip_serializing_if = "Option::is_none")]
+    pub destination_type: Option<DestinationType>,
     #[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
     pub currency: Option<String>,
     #[serde(rename = "schedule", skip_serializing_if = "Option::is_none")]
@@ -69,10 +78,10 @@ pub struct BoostPostRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub special_ad_category_country: Option<Vec<String>>,
-    /// TikTok-only. Custom destination URL for the Spark Ad. Without this, TikTok Spark Ads have no clickable destination — required for traffic / conversion objectives. Maps to `landing_page_url` on the creative entry of /v2/ad/create/ (TikTok SDK `AdcreateCreatives.landing_page_url`). Ignored on Meta / LinkedIn / Pinterest / X / Google (those infer the destination from the boosted post).
+    /// Destination URL for the CTA button. Send it together with `callToAction`.  **Meta**: adds a top-level `call_to_action` to the post-reference creative. This is what gives a `traffic` boost a clickable destination without replacing the creative and losing the post's social proof. Ignored when `leadGenFormId` is set, which supplies its own destination. Live-verified against a Page-post creative.  **TikTok**: maps to `landing_page_url` on the Spark Ad creative (`AdcreateCreatives.landing_page_url`); Spark Ads have no clickable destination without it.  Ignored on LinkedIn / Pinterest / X / Google, which infer the destination from the boosted post.
     #[serde(rename = "linkUrl", skip_serializing_if = "Option::is_none")]
     pub link_url: Option<String>,
-    /// TikTok-only. Call-to-action button label on the Spark Ad creative (e.g. `LEARN_MORE`, `SHOP_NOW`, `DOWNLOAD_NOW`, `SIGN_UP`, `WATCH_NOW`). Maps to `call_to_action` on the creative entry of /v2/ad/create/. Pass-through — the platform validates the value. See TikTok's \"Enumeration - Call-to-Action\" reference for the full list.
+    /// CTA button label. Send it together with `linkUrl` — a CTA without a destination produces a button that goes nowhere, so sending one alone is a 400.  **Meta**: validated against the Meta CTA enum (same values as POST /v1/ads/create), e.g. `LEARN_MORE`, `SHOP_NOW`, `SIGN_UP`.  **TikTok**: pass-through to `call_to_action` on the Spark Ad creative; the platform validates the value. See TikTok's \"Enumeration - Call-to-Action\".
     #[serde(rename = "callToAction", skip_serializing_if = "Option::is_none")]
     pub call_to_action: Option<String>,
     /// TikTok-only. Spark Code (creator's `auth_code`) authorizing cross-creator Spark Ads — the advertiser can boost a video owned by a DIFFERENT TikTok account. Without this, boosts are limited to videos owned by the same account running the ads (same-BC creators only). The creator generates the code in their TikTok app's Promote settings and shares it with the advertiser. Maps to `auth_code` on the creative entry of /v2/ad/create/.
@@ -95,7 +104,6 @@ impl BoostPostRequest {
         ad_account_id: String,
         name: String,
         goal: Goal,
-        budget: models::BoostPostRequestBudget,
     ) -> BoostPostRequest {
         BoostPostRequest {
             post_id: None,
@@ -104,7 +112,10 @@ impl BoostPostRequest {
             ad_account_id,
             name,
             goal,
-            budget: Box::new(budget),
+            ad_set_id: None,
+            budget: None,
+            instagram_account_id: None,
+            destination_type: None,
             currency: None,
             schedule: None,
             targeting: None,
@@ -147,6 +158,26 @@ pub enum Goal {
 impl Default for Goal {
     fn default() -> Goal {
         Self::Engagement
+    }
+}
+/// Meta only. Ad-set destination_type — where the click LANDS, as opposed to instagramAccountId which is who the ad runs as. Lead ads force ON_AD and ignore this.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum DestinationType {
+    #[serde(rename = "INSTAGRAM_PROFILE")]
+    InstagramProfile,
+    #[serde(rename = "WEBSITE")]
+    Website,
+    #[serde(rename = "ON_AD")]
+    OnAd,
+    #[serde(rename = "MESSENGER")]
+    Messenger,
+    #[serde(rename = "WHATSAPP")]
+    Whatsapp,
+}
+
+impl Default for DestinationType {
+    fn default() -> DestinationType {
+        Self::InstagramProfile
     }
 }
 /// Meta only. Required for housing, employment, credit, or political ads.

@@ -12,8 +12,9 @@ Name | Type | Description | Notes
 **image_url** | Option<**String**> | Image asset for single-creative shape. Mutually exclusive with `video` and with `creatives[]`. Required on the single-creative shape if `video` is not supplied.  | [optional]
 **video** | Option<[**models::CtwaAdRequestBodyVideo**](CtwaAdRequestBodyVideo.md)> |  | [optional]
 **creatives** | Option<[**Vec<models::CtwaAdRequestBodyCreativesInner>**](CtwaAdRequestBodyCreativesInner.md)> | Multi-creative shape: N CTWA ads under one campaign + one ad set, sharing budget and targeting. Mutually exclusive with the top-level single-creative fields (`headline` / `body` / `imageUrl` / `video`). Each entry must supply its own headline, body, and exactly one of `imageUrl` / `video`.  | [optional]
-**budget_amount** | **f64** | Budget amount in the ad account's currency major units (e.g. dollars for USD, not cents). Must be > 0.  | 
-**budget_type** | **BudgetType** |  (enum: daily, lifetime) | 
+**ad_set_id** | Option<**String**> | Attach the creatives to this EXISTING messaging ad set instead of building a campaign, so the ad set keeps its learning phase. It then owns budget, targeting and schedule, so `budgetAmount`, `budgetType`, `endDate`, `objective`, `countries`, `interests` and `audienceId` are rejected with a 400 alongside it. Its `destination_type` must match the ad's destination.  | [optional]
+**budget_amount** | Option<**f64**> | Budget amount in the ad account's currency major units (e.g. dollars for USD, not cents). Must be > 0. Required unless `adSetId` is set, where the ad set owns it.  | [optional]
+**budget_type** | Option<**BudgetType**> | Required unless `adSetId` is set. (enum: daily, lifetime) | [optional]
 **currency** | Option<**String**> | ISO 4217 currency code matching the ad account's currency (e.g. `USD`). Optional; Meta infers from the ad account when omitted.  | [optional]
 **end_date** | Option<**String**> | ISO 8601 datetime. Required when `budgetType` is `lifetime`.  | [optional]
 **countries** | Option<**Vec<String>**> | ISO 3166-1 alpha-2 country codes. Defaults to `[\"US\"]` only when no other geo (`cities`, `regions`, `zips`, `metros`, `customLocations`) is supplied.  | [optional]

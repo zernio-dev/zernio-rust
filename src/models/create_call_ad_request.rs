@@ -36,11 +36,15 @@ pub struct CreateCallAdRequest {
     /// Multi-creative shape: N CTWA ads under one campaign + one ad set, sharing budget and targeting. Mutually exclusive with the top-level single-creative fields (`headline` / `body` / `imageUrl` / `video`). Each entry must supply its own headline, body, and exactly one of `imageUrl` / `video`.
     #[serde(rename = "creatives", skip_serializing_if = "Option::is_none")]
     pub creatives: Option<Vec<models::CtwaAdRequestBodyCreativesInner>>,
-    /// Budget amount in the ad account's currency major units (e.g. dollars for USD, not cents). Must be > 0.
-    #[serde(rename = "budgetAmount")]
-    pub budget_amount: f64,
-    #[serde(rename = "budgetType")]
-    pub budget_type: BudgetType,
+    /// Attach the creatives to this EXISTING messaging ad set instead of building a campaign, so the ad set keeps its learning phase. It then owns budget, targeting and schedule, so `budgetAmount`, `budgetType`, `endDate`, `objective`, `countries`, `interests` and `audienceId` are rejected with a 400 alongside it. Its `destination_type` must match the ad's destination.
+    #[serde(rename = "adSetId", skip_serializing_if = "Option::is_none")]
+    pub ad_set_id: Option<String>,
+    /// Budget amount in the ad account's currency major units (e.g. dollars for USD, not cents). Must be > 0. Required unless `adSetId` is set, where the ad set owns it.
+    #[serde(rename = "budgetAmount", skip_serializing_if = "Option::is_none")]
+    pub budget_amount: Option<f64>,
+    /// Required unless `adSetId` is set.
+    #[serde(rename = "budgetType", skip_serializing_if = "Option::is_none")]
+    pub budget_type: Option<BudgetType>,
     /// ISO 4217 currency code matching the ad account's currency (e.g. `USD`). Optional; Meta infers from the ad account when omitted.
     #[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
     pub currency: Option<String>,
@@ -110,8 +114,6 @@ impl CreateCallAdRequest {
         account_id: String,
         ad_account_id: String,
         name: String,
-        budget_amount: f64,
-        budget_type: BudgetType,
         phone_number: String,
         link_url: String,
     ) -> CreateCallAdRequest {
@@ -124,8 +126,9 @@ impl CreateCallAdRequest {
             image_url: None,
             video: None,
             creatives: None,
-            budget_amount,
-            budget_type,
+            ad_set_id: None,
+            budget_amount: None,
+            budget_type: None,
             currency: None,
             end_date: None,
             countries: None,
@@ -151,7 +154,7 @@ impl CreateCallAdRequest {
         }
     }
 }
-///
+/// Required unless `adSetId` is set.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum BudgetType {
     #[serde(rename = "daily")]
