@@ -11,6 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// UpdateAdCampaignRequestBudget : **Meta only.** The CBO budget.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAdCampaignRequestBudget {
     /// Budget amount in the ad account's currency
@@ -21,6 +22,7 @@ pub struct UpdateAdCampaignRequestBudget {
 }
 
 impl UpdateAdCampaignRequestBudget {
+    /// **Meta only.** The CBO budget.
     pub fn new(amount: f64, r#type: Type) -> UpdateAdCampaignRequestBudget {
         UpdateAdCampaignRequestBudget { amount, r#type }
     }

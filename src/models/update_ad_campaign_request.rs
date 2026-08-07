@@ -13,17 +13,24 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAdCampaignRequest {
-    /// Zernio SocialAccount id owning the ad account. Required only to update an EMPTY campaign (zero ads), which has no local Ad documents to resolve a token from.
-    #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
-    pub account_id: Option<String>,
+    /// Required: platform campaign IDs are not globally unique.
     #[serde(rename = "platform")]
     pub platform: Platform,
-    #[serde(rename = "budget", skip_serializing_if = "Option::is_none")]
-    pub budget: Option<Box<models::UpdateAdCampaignRequestBudget>>,
-    /// Campaign-level default. Ad sets inherit this unless they override.
+    /// **Meta only.** Zernio SocialAccount id owning the ad account. Needed only for an EMPTY campaign (zero ads); ignored otherwise.
+    #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
+    pub account_id: Option<String>,
+    /// **Meta + Google.** On Meta, the campaign default that ad sets inherit unless they override it. On Google, the campaign's own bidding strategy.
     #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
     pub bid_strategy: Option<models::BidStrategy>,
-    /// Rename the campaign (Meta only; other platforms return 501). At least one of budget/bidStrategy/name/platformSpecificData is required.
+    /// **Google only.** Whole currency units (USD: 12 = $12.00). Max CPC for LOWEST_COST_WITH_BID_CAP, CPA target for COST_CAP; required for both.
+    #[serde(rename = "bidAmount", skip_serializing_if = "Option::is_none")]
+    pub bid_amount: Option<f64>,
+    /// **Google only.** Decimal ROAS multiplier (2.0 = 2.0x), required for LOWEST_COST_WITH_MIN_ROAS.
+    #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
+    pub roas_average_floor: Option<f64>,
+    #[serde(rename = "budget", skip_serializing_if = "Option::is_none")]
+    pub budget: Option<Box<models::UpdateAdCampaignRequestBudget>>,
+    /// **Meta only.** Rename the campaign.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(
@@ -36,22 +43,26 @@ pub struct UpdateAdCampaignRequest {
 impl UpdateAdCampaignRequest {
     pub fn new(platform: Platform) -> UpdateAdCampaignRequest {
         UpdateAdCampaignRequest {
-            account_id: None,
             platform,
-            budget: None,
+            account_id: None,
             bid_strategy: None,
+            bid_amount: None,
+            roas_average_floor: None,
+            budget: None,
             name: None,
             platform_specific_data: None,
         }
     }
 }
-///
+/// Required: platform campaign IDs are not globally unique.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Platform {
     #[serde(rename = "facebook")]
     Facebook,
     #[serde(rename = "instagram")]
     Instagram,
+    #[serde(rename = "google")]
+    Google,
 }
 
 impl Default for Platform {

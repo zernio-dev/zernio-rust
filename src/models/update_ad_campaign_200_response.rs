@@ -11,8 +11,10 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// UpdateAdCampaign200Response : Echoes back only the fields you sent, plus `updated`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAdCampaign200Response {
+    /// Local Ad documents mirrored. 0 on the empty-campaign path.
     #[serde(rename = "updated", skip_serializing_if = "Option::is_none")]
     pub updated: Option<i32>,
     #[serde(rename = "budget", skip_serializing_if = "Option::is_none")]
@@ -21,6 +23,10 @@ pub struct UpdateAdCampaign200Response {
     pub budget_level: Option<BudgetLevel>,
     #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
     pub bid_strategy: Option<models::BidStrategy>,
+    #[serde(rename = "bidAmount", skip_serializing_if = "Option::is_none")]
+    pub bid_amount: Option<f64>,
+    #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
+    pub roas_average_floor: Option<f64>,
     #[serde(
         rename = "platformSpecificData",
         skip_serializing_if = "Option::is_none"
@@ -29,12 +35,15 @@ pub struct UpdateAdCampaign200Response {
 }
 
 impl UpdateAdCampaign200Response {
+    /// Echoes back only the fields you sent, plus `updated`.
     pub fn new() -> UpdateAdCampaign200Response {
         UpdateAdCampaign200Response {
             updated: None,
             budget: None,
             budget_level: None,
             bid_strategy: None,
+            bid_amount: None,
+            roas_average_floor: None,
             platform_specific_data: None,
         }
     }

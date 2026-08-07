@@ -11,10 +11,10 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UpdateAdCampaignRequestPlatformSpecificData : Platform-specific campaign settings. The platform is implied by the `platform` body param (same convention as platformSpecificData on POST /v1/ads/create). Meta (facebook/instagram) only; other platforms return 400.
+/// UpdateAdCampaignRequestPlatformSpecificData : **Meta only.** Platform implied by the `platform` body param, same convention as POST /v1/ads/create.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAdCampaignRequestPlatformSpecificData {
-    /// Campaign lifetime spend cap, in the ad account's currency (Meta `spend_cap`). Pass null to remove the cap (0 is rejected by Meta).
+    /// Campaign lifetime spend cap, in the ad account's currency (Meta `spend_cap`). Pass null to remove the cap; 0 is rejected by Meta.
     #[serde(
         rename = "spendCap",
         default,
@@ -25,7 +25,7 @@ pub struct UpdateAdCampaignRequestPlatformSpecificData {
 }
 
 impl UpdateAdCampaignRequestPlatformSpecificData {
-    /// Platform-specific campaign settings. The platform is implied by the `platform` body param (same convention as platformSpecificData on POST /v1/ads/create). Meta (facebook/instagram) only; other platforms return 400.
+    /// **Meta only.** Platform implied by the `platform` body param, same convention as POST /v1/ads/create.
     pub fn new() -> UpdateAdCampaignRequestPlatformSpecificData {
         UpdateAdCampaignRequestPlatformSpecificData { spend_cap: None }
     }
