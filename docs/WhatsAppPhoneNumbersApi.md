@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**get_whats_app_phone_number**](WhatsAppPhoneNumbersApi.md#get_whats_app_phone_number) | **GET** /v1/whatsapp/phone-numbers/{phoneNumberId} | Get phone number
 [**get_whats_app_phone_numbers**](WhatsAppPhoneNumbersApi.md#get_whats_app_phone_numbers) | **GET** /v1/whatsapp/phone-numbers | List phone numbers
 [**list_whats_app_number_countries**](WhatsAppPhoneNumbersApi.md#list_whats_app_number_countries) | **GET** /v1/whatsapp/phone-numbers/countries | List offerable number countries
+[**move_whats_app_number_to_profile**](WhatsAppPhoneNumbersApi.md#move_whats_app_number_to_profile) | **PATCH** /v1/whatsapp/phone-numbers/{id}/profile | Move a number to another profile
 [**purchase_whats_app_phone_number**](WhatsAppPhoneNumbersApi.md#purchase_whats_app_phone_number) | **POST** /v1/whatsapp/phone-numbers/purchase | Purchase phone number
 [**release_whats_app_phone_number**](WhatsAppPhoneNumbersApi.md#release_whats_app_phone_number) | **DELETE** /v1/whatsapp/phone-numbers/{phoneNumberId} | Release phone number
 [**remediate_whats_app_number**](WhatsAppPhoneNumbersApi.md#remediate_whats_app_number) | **POST** /v1/whatsapp/phone-numbers/{id}/remediate | Resubmit a declined number
@@ -258,6 +259,37 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## move_whats_app_number_to_profile
+
+> models::MoveWhatsAppNumberToProfile200Response move_whats_app_number_to_profile(id, move_whats_app_number_to_profile_request)
+Move a number to another profile
+
+Move a provisioned number to a different profile.  A number is not a single record. Alongside the number itself there are hidden telephony owner accounts (platform `phone`, plus `sms` when SMS is enabled) and, once WhatsApp is connected, the `whatsapp` account. They all carry a profileId and this endpoint moves them together.  Use this instead of `PATCH /v1/accounts/{accountId}`: that one moves the social account only and leaves the number itself pinned to its original profile, which splits the number across two profiles. Connecting a provisioned number always places it on the profile the NUMBER is on, so a `profileId` passed to `GET /v1/connect/whatsapp` cannot re-home it and a later reconnect pulls the account back. This endpoint is how you re-home it.  `id` is the number record id from `GET /v1/phone-numbers`, not an account id.  A profile holds at most one account per platform, so the destination must be free of every platform this number occupies. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | WhatsAppPhoneNumber id. | [required] |
+**move_whats_app_number_to_profile_request** | [**MoveWhatsAppNumberToProfileRequest**](MoveWhatsAppNumberToProfileRequest.md) |  | [required] |
+
+### Return type
+
+[**models::MoveWhatsAppNumberToProfile200Response**](moveWhatsAppNumberToProfile_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

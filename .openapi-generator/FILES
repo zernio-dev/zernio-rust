@@ -1015,6 +1015,8 @@ docs/Money.md
 docs/MoneyAmount.md
 docs/MoveAccountToProfile200Response.md
 docs/MoveAccountToProfileRequest.md
+docs/MoveWhatsAppNumberToProfile200Response.md
+docs/MoveWhatsAppNumberToProfileRequest.md
 docs/OnVerificationApprovedRequest.md
 docs/OnVerificationApprovedRequestVerification.md
 docs/OnVerificationFailedRequest.md
@@ -2694,6 +2696,8 @@ src/models/money.rs
 src/models/money_amount.rs
 src/models/move_account_to_profile_200_response.rs
 src/models/move_account_to_profile_request.rs
+src/models/move_whats_app_number_to_profile_200_response.rs
+src/models/move_whats_app_number_to_profile_request.rs
 src/models/on_verification_approved_request.rs
 src/models/on_verification_approved_request_verification.rs
 src/models/on_verification_failed_request.rs

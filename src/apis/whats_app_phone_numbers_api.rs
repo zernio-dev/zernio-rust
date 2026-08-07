@@ -89,6 +89,18 @@ pub enum ListWhatsAppNumberCountriesError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`move_whats_app_number_to_profile`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum MoveWhatsAppNumberToProfileError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    Status409(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`purchase_whats_app_phone_number`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -580,6 +592,63 @@ pub async fn list_whats_app_number_countries(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListWhatsAppNumberCountriesError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Move a provisioned number to a different profile.  A number is not a single record. Alongside the number itself there are hidden telephony owner accounts (platform `phone`, plus `sms` when SMS is enabled) and, once WhatsApp is connected, the `whatsapp` account. They all carry a profileId and this endpoint moves them together.  Use this instead of `PATCH /v1/accounts/{accountId}`: that one moves the social account only and leaves the number itself pinned to its original profile, which splits the number across two profiles. Connecting a provisioned number always places it on the profile the NUMBER is on, so a `profileId` passed to `GET /v1/connect/whatsapp` cannot re-home it and a later reconnect pulls the account back. This endpoint is how you re-home it.  `id` is the number record id from `GET /v1/phone-numbers`, not an account id.  A profile holds at most one account per platform, so the destination must be free of every platform this number occupies.
+pub async fn move_whats_app_number_to_profile(
+    configuration: &configuration::Configuration,
+    id: &str,
+    move_whats_app_number_to_profile_request: models::MoveWhatsAppNumberToProfileRequest,
+) -> Result<models::MoveWhatsAppNumberToProfile200Response, Error<MoveWhatsAppNumberToProfileError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_body_move_whats_app_number_to_profile_request = move_whats_app_number_to_profile_request;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/phone-numbers/{id}/profile",
+        configuration.base_path,
+        id = crate::apis::urlencode(p_path_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::PATCH, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_move_whats_app_number_to_profile_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::MoveWhatsAppNumberToProfile200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::MoveWhatsAppNumberToProfile200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<MoveWhatsAppNumberToProfileError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
