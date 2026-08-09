@@ -79,6 +79,17 @@ pub enum GetInboxConversationMessagesError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_message_attachment`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetMessageAttachmentError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_inbox_conversations`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -504,6 +515,71 @@ pub async fn get_inbox_conversation_messages(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetInboxConversationMessagesError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Resolve one attachment on a message to a media url that works right now.  Instagram and Facebook sign DM media urls per request and expire them, so the `url` on a message is a snapshot: it works when you read the message and stops working later. This endpoint checks the stored url and, when it has gone stale, re-mints the message's media from Meta and persists it before answering. The message id never expires, so this URL is the one to store — it is returned on each attachment as `refreshUrl`.  By default it responds `302` to the live media url, so it can be used directly as an `<img src>` on a browser session. API-key integrators should pass `?format=json` and read `url` off the body, since a browser cannot attach an Authorization header to an image request.  Only Instagram and Facebook media can be re-minted. On other platforms the stored url is returned as-is when it still resolves, and `404` otherwise.
+pub async fn get_message_attachment(
+    configuration: &configuration::Configuration,
+    conversation_id: &str,
+    message_id: &str,
+    index: i32,
+    account_id: &str,
+    format: Option<&str>,
+) -> Result<models::GetMessageAttachment200Response, Error<GetMessageAttachmentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_conversation_id = conversation_id;
+    let p_path_message_id = message_id;
+    let p_path_index = index;
+    let p_query_account_id = account_id;
+    let p_query_format = format;
+
+    let uri_str = format!(
+        "{}/v1/inbox/conversations/{conversationId}/messages/{messageId}/attachments/{index}",
+        configuration.base_path,
+        conversationId = crate::apis::urlencode(p_path_conversation_id),
+        messageId = crate::apis::urlencode(p_path_message_id),
+        index = p_path_index
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_format {
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetMessageAttachment200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMessageAttachment200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetMessageAttachmentError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

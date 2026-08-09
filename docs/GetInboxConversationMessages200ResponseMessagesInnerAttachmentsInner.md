@@ -6,7 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**String**> |  | [optional]
 **r#type** | Option<**Type**> |  (enum: image, video, audio, file, sticker, share) | [optional]
-**url** | Option<**String**> |  | [optional]
+**url** | Option<**String**> | Direct media link. On Instagram and Facebook this is a signed Meta CDN url that EXPIRES: use it now, do not store it. Persist `refreshUrl` instead. | [optional]
+**refresh_url** | Option<**String**> | Instagram and Facebook only. Endpoint that resolves this attachment to a working url every time, re-minting it from Meta when the stored one has expired. Safe to store and render indefinitely. | [optional]
 **filename** | Option<**String**> |  | [optional]
 **preview_url** | Option<**String**> |  | [optional]
 

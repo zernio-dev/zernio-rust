@@ -633,6 +633,7 @@ docs/GetLinkedInSupplyForecastRequest.md
 docs/GetLinkedInSupplyForecastRequestCompetingBid.md
 docs/GetMediaPresignedUrl200Response.md
 docs/GetMediaPresignedUrlRequest.md
+docs/GetMessageAttachment200Response.md
 docs/GetMessengerMenu200Response.md
 docs/GetPendingOAuthData200Response.md
 docs/GetPendingOAuthData200ResponseOrganizationsInner.md
@@ -2337,6 +2338,7 @@ src/models/get_linked_in_supply_forecast_request.rs
 src/models/get_linked_in_supply_forecast_request_competing_bid.rs
 src/models/get_media_presigned_url_200_response.rs
 src/models/get_media_presigned_url_request.rs
+src/models/get_message_attachment_200_response.rs
 src/models/get_messenger_menu_200_response.rs
 src/models/get_pending_o_auth_data_200_response.rs
 src/models/get_pending_o_auth_data_200_response_organizations_inner.rs

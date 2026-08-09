@@ -17,8 +17,17 @@ pub struct GetInboxConversationMessages200ResponseMessagesInnerAttachmentsInner 
     pub id: Option<String>,
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
+    /// Direct media link. On Instagram and Facebook this is a signed Meta CDN url that EXPIRES: use it now, do not store it. Persist `refreshUrl` instead.
     #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
+    /// Instagram and Facebook only. Endpoint that resolves this attachment to a working url every time, re-minting it from Meta when the stored one has expired. Safe to store and render indefinitely.
+    #[serde(
+        rename = "refreshUrl",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub refresh_url: Option<Option<String>>,
     #[serde(
         rename = "filename",
         default,
@@ -41,6 +50,7 @@ impl GetInboxConversationMessages200ResponseMessagesInnerAttachmentsInner {
             id: None,
             r#type: None,
             url: None,
+            refresh_url: None,
             filename: None,
             preview_url: None,
         }

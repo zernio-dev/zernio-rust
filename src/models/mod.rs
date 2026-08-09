@@ -1218,6 +1218,8 @@ pub mod get_media_presigned_url_200_response;
 pub use self::get_media_presigned_url_200_response::GetMediaPresignedUrl200Response;
 pub mod get_media_presigned_url_request;
 pub use self::get_media_presigned_url_request::GetMediaPresignedUrlRequest;
+pub mod get_message_attachment_200_response;
+pub use self::get_message_attachment_200_response::GetMessageAttachment200Response;
 pub mod get_messenger_menu_200_response;
 pub use self::get_messenger_menu_200_response::GetMessengerMenu200Response;
 pub mod get_pending_o_auth_data_200_response;
