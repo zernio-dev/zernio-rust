@@ -270,6 +270,16 @@ pub enum ListGoogleBusinessLocationsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_instagram_pages`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListInstagramPagesError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_linked_in_organizations`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -333,6 +343,18 @@ pub enum SelectGoogleBusinessLocationError {
     Status403(),
     Status404(),
     Status500(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`select_instagram_account`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SelectInstagramAccountError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status402(models::InlineObject3),
+    Status403(),
+    Status404(),
     UnknownValue(serde_json::Value),
 }
 
@@ -995,12 +1017,14 @@ pub async fn get_connect_url(
     profile_id: &str,
     redirect_url: Option<&str>,
     headless: Option<bool>,
+    login_method: Option<&str>,
 ) -> Result<models::GetConnectUrl200Response, Error<GetConnectUrlError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_platform = platform;
     let p_query_profile_id = profile_id;
     let p_query_redirect_url = redirect_url;
     let p_query_headless = headless;
+    let p_query_login_method = login_method;
 
     let uri_str = format!(
         "{}/v1/connect/{platform}",
@@ -1015,6 +1039,9 @@ pub async fn get_connect_url(
     }
     if let Some(ref param_value) = p_query_headless {
         req_builder = req_builder.query(&[("headless", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_login_method {
+        req_builder = req_builder.query(&[("loginMethod", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
@@ -1821,6 +1848,68 @@ pub async fn list_google_business_locations(
     }
 }
 
+/// Completes the `loginMethod=facebook_login` Instagram flow, i.e. \"Instagram API with Facebook Login\".  After the user authorizes on Facebook, extract `tempToken` from the redirect params and pass it here to list the Facebook Pages they manage. Only Pages that have a linked Instagram professional account are returned, so an empty array means the user has no eligible Page. Use the X-Connect-Token header if connecting via API key.  Not used by the default `instagram_login` flow, which creates the account without a selection step.
+pub async fn list_instagram_pages(
+    configuration: &configuration::Configuration,
+    profile_id: &str,
+    temp_token: &str,
+) -> Result<models::ListInstagramPages200Response, Error<ListInstagramPagesError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_profile_id = profile_id;
+    let p_query_temp_token = temp_token;
+
+    let uri_str = format!(
+        "{}/v1/connect/instagram/select-account",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("profileId", &p_query_profile_id.to_string())]);
+    req_builder = req_builder.query(&[("tempToken", &p_query_temp_token.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref apikey) = configuration.api_key {
+        let key = apikey.key.clone();
+        let value = match apikey.prefix {
+            Some(ref prefix) => format!("{} {}", prefix, key),
+            None => key,
+        };
+        req_builder = req_builder.header("X-Connect-Token", value);
+    };
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListInstagramPages200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListInstagramPages200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListInstagramPagesError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Fetch full LinkedIn organization details (logos, vanity names, websites) for custom UI. No authentication required, just the tempToken from OAuth.
 pub async fn list_linked_in_organizations(
     configuration: &configuration::Configuration,
@@ -2167,6 +2256,67 @@ pub async fn select_google_business_location(
     } else {
         let content = resp.text().await?;
         let entity: Option<SelectGoogleBusinessLocationError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Saves the selected Page as an Instagram account connected via Facebook Login. The Page access token becomes the account's access token, so every Instagram call for it runs against the Facebook Graph host.  One Instagram account per profile: if the profile already has an Instagram account, this replaces it, and picking a different Instagram identity purges the previous account's conversations, external posts and stats.
+pub async fn select_instagram_account(
+    configuration: &configuration::Configuration,
+    select_instagram_account_request: models::SelectInstagramAccountRequest,
+) -> Result<models::SelectInstagramAccount200Response, Error<SelectInstagramAccountError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_select_instagram_account_request = select_instagram_account_request;
+
+    let uri_str = format!(
+        "{}/v1/connect/instagram/select-account",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref apikey) = configuration.api_key {
+        let key = apikey.key.clone();
+        let value = match apikey.prefix {
+            Some(ref prefix) => format!("{} {}", prefix, key),
+            None => key,
+        };
+        req_builder = req_builder.header("X-Connect-Token", value);
+    };
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_select_instagram_account_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SelectInstagramAccount200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SelectInstagramAccount200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<SelectInstagramAccountError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
