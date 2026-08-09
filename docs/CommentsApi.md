@@ -9,12 +9,14 @@ Method | HTTP request | Description
 [**get_inbox_post_comments**](CommentsApi.md#get_inbox_post_comments) | **GET** /v1/inbox/comments/{postId} | Get post comments
 [**hide_inbox_comment**](CommentsApi.md#hide_inbox_comment) | **POST** /v1/inbox/comments/{postId}/{commentId}/hide | Hide comment
 [**like_inbox_comment**](CommentsApi.md#like_inbox_comment) | **POST** /v1/inbox/comments/{postId}/{commentId}/like | Like comment
+[**like_post**](CommentsApi.md#like_post) | **POST** /v1/inbox/posts/{postId}/like | Like post
 [**list_inbox_comments**](CommentsApi.md#list_inbox_comments) | **GET** /v1/inbox/comments | List commented posts
 [**reply_to_inbox_post**](CommentsApi.md#reply_to_inbox_post) | **POST** /v1/inbox/comments/{postId} | Reply to comment
 [**send_private_reply_to_comment**](CommentsApi.md#send_private_reply_to_comment) | **POST** /v1/inbox/comments/{postId}/{commentId}/private-reply | Send private reply
 [**set_comment_moderation**](CommentsApi.md#set_comment_moderation) | **POST** /v1/inbox/comments/{postId}/{commentId}/moderation | Set comment moderation status
 [**unhide_inbox_comment**](CommentsApi.md#unhide_inbox_comment) | **DELETE** /v1/inbox/comments/{postId}/{commentId}/hide | Unhide comment
 [**unlike_inbox_comment**](CommentsApi.md#unlike_inbox_comment) | **DELETE** /v1/inbox/comments/{postId}/{commentId}/like | Unlike comment
+[**unlike_post**](CommentsApi.md#unlike_post) | **DELETE** /v1/inbox/posts/{postId}/like | Unlike post
 
 
 
@@ -154,7 +156,7 @@ Name | Type | Description  | Required | Notes
 > models::LikeInboxComment200Response like_inbox_comment(post_id, comment_id, like_inbox_comment_request)
 Like comment
 
-Like or upvote a comment on a post. Supported platforms: Facebook, Twitter/X, Bluesky, Reddit. For Bluesky, the cid (content identifier) is required in the request body. 
+Like or upvote a comment on a post. Supported platforms: Facebook, Twitter/X, Bluesky, Reddit, LinkedIn. For Bluesky, the cid (content identifier) is required in the request body. For LinkedIn, pass the composite comment URN returned by the comments endpoints as commentId; an optional reactionType picks the reaction (defaults to LIKE), and accounts connected before the social-feed scopes were requested get a 403 with code `linkedin_reconnect_required`. 
 
 ### Parameters
 
@@ -168,6 +170,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::LikeInboxComment200Response**](likeInboxComment_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## like_post
+
+> models::LikePost200Response like_post(post_id, like_post_request)
+Like post
+
+Like (or react to) a post as a connected account. Supported platforms: LinkedIn, Twitter/X, Facebook, YouTube, Bluesky. Instagram, Threads, TikTok and Pinterest expose no like endpoint in their APIs and return 400. Reddit returns 400 too, pointing at `POST /v1/accounts/{accountId}/reddit-vote`, which covers upvote, downvote and clear on both posts and comments.  The account does not have to be the one that published the post, which is what makes executive engagement possible: pass an exec's `accountId` and the brand post's ID. `postId` accepts either a Zernio post ID or the platform's native post ID. A Zernio post ID resolves to the entry for `accountId`, falling back to the post's single entry on the same platform (two entries on that platform is a 400, so pass the native ID).  LinkedIn requires the `w_member_social_feed` / `w_organization_social_feed` scopes, which are not retroactive: accounts connected before those were requested get a 403 with code `linkedin_reconnect_required` until the user reconnects the account. YouTube spends 50 quota units per call. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**post_id** | **String** | Zernio post ID or the platform's native post ID | [required] |
+**like_post_request** | [**LikePostRequest**](LikePostRequest.md) |  | [required] |
+
+### Return type
+
+[**models::LikePost200Response**](likePost_200_response.md)
 
 ### Authorization
 
@@ -351,7 +384,7 @@ Name | Type | Description  | Required | Notes
 > models::UnlikeInboxComment200Response unlike_inbox_comment(post_id, comment_id, account_id, like_uri)
 Unlike comment
 
-Remove a like from a comment. Supported platforms: Facebook, Twitter/X, Bluesky, Reddit. For Bluesky, the likeUri query parameter is required. 
+Remove a like from a comment. Supported platforms: Facebook, Twitter/X, Bluesky, Reddit, LinkedIn. For Bluesky, the likeUri query parameter is required. 
 
 ### Parameters
 
@@ -366,6 +399,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UnlikeInboxComment200Response**](unlikeInboxComment_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## unlike_post
+
+> models::UnlikePost200Response unlike_post(post_id, account_id, like_uri)
+Unlike post
+
+Remove this account's like from a post. Supported platforms: LinkedIn, Twitter/X, Facebook, YouTube, Bluesky. On YouTube this clears the rating. For Bluesky, `likeUri` (returned when the post was liked) is required. Reddit uses `POST /v1/accounts/{accountId}/reddit-vote` with `direction: 0`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**post_id** | **String** | Zernio post ID or the platform's native post ID | [required] |
+**account_id** | **String** |  | [required] |
+**like_uri** | Option<**String**> | (Bluesky only) The like URI returned when liking |  |
+
+### Return type
+
+[**models::UnlikePost200Response**](unlikePost_200_response.md)
 
 ### Authorization
 

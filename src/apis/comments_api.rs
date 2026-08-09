@@ -69,6 +69,17 @@ pub enum LikeInboxCommentError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`like_post`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum LikePostError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_inbox_comments`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -130,6 +141,17 @@ pub enum UnlikeInboxCommentError {
     Status400(),
     Status401(models::InlineObject),
     Status403(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`unlike_post`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UnlikePostError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
     UnknownValue(serde_json::Value),
 }
 
@@ -384,7 +406,7 @@ pub async fn hide_inbox_comment(
     }
 }
 
-/// Like or upvote a comment on a post. Supported platforms: Facebook, Twitter/X, Bluesky, Reddit. For Bluesky, the cid (content identifier) is required in the request body.
+/// Like or upvote a comment on a post. Supported platforms: Facebook, Twitter/X, Bluesky, Reddit, LinkedIn. For Bluesky, the cid (content identifier) is required in the request body. For LinkedIn, pass the composite comment URN returned by the comments endpoints as commentId; an optional reactionType picks the reaction (defaults to LIKE), and accounts connected before the social-feed scopes were requested get a 403 with code `linkedin_reconnect_required`.
 pub async fn like_inbox_comment(
     configuration: &configuration::Configuration,
     post_id: &str,
@@ -435,6 +457,62 @@ pub async fn like_inbox_comment(
     } else {
         let content = resp.text().await?;
         let entity: Option<LikeInboxCommentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Like (or react to) a post as a connected account. Supported platforms: LinkedIn, Twitter/X, Facebook, YouTube, Bluesky. Instagram, Threads, TikTok and Pinterest expose no like endpoint in their APIs and return 400. Reddit returns 400 too, pointing at `POST /v1/accounts/{accountId}/reddit-vote`, which covers upvote, downvote and clear on both posts and comments.  The account does not have to be the one that published the post, which is what makes executive engagement possible: pass an exec's `accountId` and the brand post's ID. `postId` accepts either a Zernio post ID or the platform's native post ID. A Zernio post ID resolves to the entry for `accountId`, falling back to the post's single entry on the same platform (two entries on that platform is a 400, so pass the native ID).  LinkedIn requires the `w_member_social_feed` / `w_organization_social_feed` scopes, which are not retroactive: accounts connected before those were requested get a 403 with code `linkedin_reconnect_required` until the user reconnects the account. YouTube spends 50 quota units per call.
+pub async fn like_post(
+    configuration: &configuration::Configuration,
+    post_id: &str,
+    like_post_request: models::LikePostRequest,
+) -> Result<models::LikePost200Response, Error<LikePostError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_post_id = post_id;
+    let p_body_like_post_request = like_post_request;
+
+    let uri_str = format!(
+        "{}/v1/inbox/posts/{postId}/like",
+        configuration.base_path,
+        postId = crate::apis::urlencode(p_path_post_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_like_post_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::LikePost200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::LikePost200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<LikePostError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -766,7 +844,7 @@ pub async fn unhide_inbox_comment(
     }
 }
 
-/// Remove a like from a comment. Supported platforms: Facebook, Twitter/X, Bluesky, Reddit. For Bluesky, the likeUri query parameter is required.
+/// Remove a like from a comment. Supported platforms: Facebook, Twitter/X, Bluesky, Reddit, LinkedIn. For Bluesky, the likeUri query parameter is required.
 pub async fn unlike_inbox_comment(
     configuration: &configuration::Configuration,
     post_id: &str,
@@ -822,6 +900,67 @@ pub async fn unlike_inbox_comment(
     } else {
         let content = resp.text().await?;
         let entity: Option<UnlikeInboxCommentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Remove this account's like from a post. Supported platforms: LinkedIn, Twitter/X, Facebook, YouTube, Bluesky. On YouTube this clears the rating. For Bluesky, `likeUri` (returned when the post was liked) is required. Reddit uses `POST /v1/accounts/{accountId}/reddit-vote` with `direction: 0`.
+pub async fn unlike_post(
+    configuration: &configuration::Configuration,
+    post_id: &str,
+    account_id: &str,
+    like_uri: Option<&str>,
+) -> Result<models::UnlikePost200Response, Error<UnlikePostError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_post_id = post_id;
+    let p_query_account_id = account_id;
+    let p_query_like_uri = like_uri;
+
+    let uri_str = format!(
+        "{}/v1/inbox/posts/{postId}/like",
+        configuration.base_path,
+        postId = crate::apis::urlencode(p_path_post_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_like_uri {
+        req_builder = req_builder.query(&[("likeUri", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UnlikePost200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UnlikePost200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UnlikePostError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

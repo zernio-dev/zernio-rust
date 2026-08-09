@@ -808,6 +808,8 @@ docs/InvitesApi.md
 docs/LeadGenApi.md
 docs/LikeInboxComment200Response.md
 docs/LikeInboxCommentRequest.md
+docs/LikePost200Response.md
+docs/LikePostRequest.md
 docs/LinkedInAdsPlatformData.md
 docs/LinkedInAdsPlatformDataCarousel.md
 docs/LinkedInAdsPlatformDataCarouselCardsInner.md
@@ -1338,6 +1340,7 @@ docs/UnblockWhatsAppUsersRequest.md
 docs/UndoRetweet200Response.md
 docs/UnfollowUser200Response.md
 docs/UnlikeInboxComment200Response.md
+docs/UnlikePost200Response.md
 docs/UnpinDiscordMessage200Response.md
 docs/UnpublishPost200Response.md
 docs/UnpublishPostRequest.md
@@ -2501,6 +2504,8 @@ src/models/instagram_platform_data_trial_params.rs
 src/models/instagram_platform_data_user_tags_inner.rs
 src/models/like_inbox_comment_200_response.rs
 src/models/like_inbox_comment_request.rs
+src/models/like_post_200_response.rs
+src/models/like_post_request.rs
 src/models/linked_in_ads_platform_data.rs
 src/models/linked_in_ads_platform_data_carousel.rs
 src/models/linked_in_ads_platform_data_carousel_cards_inner.rs
@@ -3014,6 +3019,7 @@ src/models/unblock_whats_app_users_request.rs
 src/models/undo_retweet_200_response.rs
 src/models/unfollow_user_200_response.rs
 src/models/unlike_inbox_comment_200_response.rs
+src/models/unlike_post_200_response.rs
 src/models/unpin_discord_message_200_response.rs
 src/models/unpublish_post_200_response.rs
 src/models/unpublish_post_request.rs

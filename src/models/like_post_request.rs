@@ -12,21 +12,21 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct LikeInboxCommentRequest {
-    /// The social account ID
+pub struct LikePostRequest {
+    /// The social account acting as the liker
     #[serde(rename = "accountId")]
     pub account_id: String,
     /// (LinkedIn only) Reaction to create. Defaults to LIKE; ignored on other platforms.
     #[serde(rename = "reactionType", skip_serializing_if = "Option::is_none")]
     pub reaction_type: Option<ReactionType>,
-    /// (Bluesky only) Content identifier for the comment
+    /// (Bluesky only) Content identifier of the post
     #[serde(rename = "cid", skip_serializing_if = "Option::is_none")]
     pub cid: Option<String>,
 }
 
-impl LikeInboxCommentRequest {
-    pub fn new(account_id: String) -> LikeInboxCommentRequest {
-        LikeInboxCommentRequest {
+impl LikePostRequest {
+    pub fn new(account_id: String) -> LikePostRequest {
+        LikePostRequest {
             account_id,
             reaction_type: None,
             cid: None,
