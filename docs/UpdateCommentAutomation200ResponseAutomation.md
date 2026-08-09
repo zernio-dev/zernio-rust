@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **comment_reply_variations** | Option<**Vec<String>**> | Alternate public replies rotated at random with commentReply. Omitted when none. | [optional]
 **audience** | Option<[**models::CommentAutomationAudience**](CommentAutomationAudience.md)> |  | [optional]
 **follow_gate** | Option<[**models::CommentAutomationFollowGate**](CommentAutomationFollowGate.md)> |  | [optional]
+**also_match_in_dms** | Option<**bool**> | Whether these keywords also fire on a plain inbound DM. | [optional]
 **is_active** | Option<**bool**> |  | [optional]
 **updated_at** | Option<**String**> |  | [optional]
 

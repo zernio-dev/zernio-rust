@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **comment_reply_delay_seconds** | Option<**i32**> | Seconds waited before the public reply is posted. Absent when it follows the DM immediately. | [optional]
 **audience** | Option<[**models::CommentAutomationAudience**](CommentAutomationAudience.md)> |  | [optional]
 **follow_gate** | Option<[**models::CommentAutomationFollowGate**](CommentAutomationFollowGate.md)> |  | [optional]
+**also_match_in_dms** | Option<**bool**> | Whether these keywords also fire on a plain inbound DM. | [optional]
 **is_active** | Option<**bool**> |  | [optional]
 **stats** | Option<[**models::CreateCommentAutomation200ResponseAutomationStats**](CreateCommentAutomation200ResponseAutomationStats.md)> |  | [optional]
 **created_at** | Option<**String**> |  | [optional]

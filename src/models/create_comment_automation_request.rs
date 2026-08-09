@@ -89,6 +89,9 @@ pub struct CreateCommentAutomationRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub comment_reply_delay_seconds: Option<i32>,
+    /// Also fire these keywords on a plain inbound DM, so the automation answers people who message the keyword instead of commenting it. Requires at least one keyword (an empty keyword list means 'match anything', which would answer every inbound message) and is rejected on story_reply automations, which already trigger on DMs. Dedup is per door: a contact who already received the DM from their comment can still receive it from a DM.
+    #[serde(rename = "alsoMatchInDms", skip_serializing_if = "Option::is_none")]
+    pub also_match_in_dms: Option<bool>,
     #[serde(rename = "audience", skip_serializing_if = "Option::is_none")]
     pub audience: Option<Box<models::CommentAutomationAudience>>,
     #[serde(rename = "followGate", skip_serializing_if = "Option::is_none")]
@@ -124,6 +127,7 @@ impl CreateCommentAutomationRequest {
             click_tag: None,
             dm_delay_seconds: None,
             comment_reply_delay_seconds: None,
+            also_match_in_dms: None,
             audience: None,
             follow_gate: None,
         }

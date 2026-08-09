@@ -74,6 +74,9 @@ pub struct ListCommentAutomations200ResponseAutomationsInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub comment_reply_delay_seconds: Option<i32>,
+    /// Whether these keywords also fire on a plain inbound DM.
+    #[serde(rename = "alsoMatchInDms", skip_serializing_if = "Option::is_none")]
+    pub also_match_in_dms: Option<bool>,
     #[serde(rename = "isActive", skip_serializing_if = "Option::is_none")]
     pub is_active: Option<bool>,
     #[serde(rename = "stats", skip_serializing_if = "Option::is_none")]
@@ -106,6 +109,7 @@ impl ListCommentAutomations200ResponseAutomationsInner {
             click_tag: None,
             dm_delay_seconds: None,
             comment_reply_delay_seconds: None,
+            also_match_in_dms: None,
             is_active: None,
             stats: None,
             created_at: None,

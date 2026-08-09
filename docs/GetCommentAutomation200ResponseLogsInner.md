@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **commenter_id** | Option<**String**> |  | [optional]
 **commenter_name** | Option<**String**> |  | [optional]
 **comment_text** | Option<**String**> |  | [optional]
+**source** | Option<**Source**> | Which door triggered this send. Absent on rows written before this field existed (all of those are comment-triggered). (enum: comment, story_reply, dm) | [optional]
 **status** | Option<**Status**> | DM outcome. 'pending' = the automation has a dmDelaySeconds and the response is queued but not sent yet. 'gated' = the follow-gate confirmation DM went out and we are waiting for the tap; it flips to 'sent' or 'skipped' when they tap. (enum: pending, sent, failed, skipped, gated) | [optional]
 **audience_outcome** | Option<**AudienceOutcome**> | How the audience rule resolved. Absent on automations without one. (enum: passed, blocked, gate_sent, gate_passed, gate_failed) | [optional]
 **commenter_is_follower** | Option<**bool**> | Follow relationship at decision time. Absent when Instagram would not tell us (the commenter never messaged the account). | [optional]

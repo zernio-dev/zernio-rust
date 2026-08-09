@@ -58,6 +58,9 @@ pub struct UpdateCommentAutomation200ResponseAutomation {
     pub audience: Option<Box<models::CommentAutomationAudience>>,
     #[serde(rename = "followGate", skip_serializing_if = "Option::is_none")]
     pub follow_gate: Option<Box<models::CommentAutomationFollowGate>>,
+    /// Whether these keywords also fire on a plain inbound DM.
+    #[serde(rename = "alsoMatchInDms", skip_serializing_if = "Option::is_none")]
+    pub also_match_in_dms: Option<bool>,
     #[serde(rename = "isActive", skip_serializing_if = "Option::is_none")]
     pub is_active: Option<bool>,
     #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
@@ -81,6 +84,7 @@ impl UpdateCommentAutomation200ResponseAutomation {
             comment_reply_variations: None,
             audience: None,
             follow_gate: None,
+            also_match_in_dms: None,
             is_active: None,
             updated_at: None,
         }

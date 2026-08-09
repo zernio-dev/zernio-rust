@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **click_tag** | Option<**String**> | Tag applied to a contact when they click a tracked link. | [optional]
 **dm_delay_seconds** | Option<**i32**> | Seconds waited after the trigger before the DM is sent. Absent when the DM goes out immediately. | [optional]
 **comment_reply_delay_seconds** | Option<**i32**> | Seconds waited before the public reply is posted. Absent when it follows the DM immediately. | [optional]
+**also_match_in_dms** | Option<**bool**> | Whether these keywords also fire on a plain inbound DM. | [optional]
 **is_active** | Option<**bool**> |  | [optional]
 **stats** | Option<[**models::ListCommentAutomations200ResponseAutomationsInnerStats**](ListCommentAutomations200ResponseAutomationsInnerStats.md)> |  | [optional]
 **created_at** | Option<**String**> |  | [optional]

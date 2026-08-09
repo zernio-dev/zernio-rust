@@ -61,6 +61,9 @@ pub struct UpdateCommentAutomationRequest {
     /// Tag applied to a contact when they click a tracked link (requires linkTracking). Empty string clears it.
     #[serde(rename = "clickTag", skip_serializing_if = "Option::is_none")]
     pub click_tag: Option<String>,
+    /// Also fire these keywords on a plain inbound DM. Enabling it requires the automation to end up with at least one keyword (this request's keywords if you send them, otherwise the stored ones) and is rejected on story_reply automations.
+    #[serde(rename = "alsoMatchInDms", skip_serializing_if = "Option::is_none")]
+    pub also_match_in_dms: Option<bool>,
     /// Seconds to wait after the trigger before sending the DM. Send 0 to clear the delay and reply immediately.
     #[serde(rename = "dmDelaySeconds", skip_serializing_if = "Option::is_none")]
     pub dm_delay_seconds: Option<i32>,
@@ -95,6 +98,7 @@ impl UpdateCommentAutomationRequest {
             comment_reply_variations: None,
             link_tracking: None,
             click_tag: None,
+            also_match_in_dms: None,
             dm_delay_seconds: None,
             comment_reply_delay_seconds: None,
             audience: None,

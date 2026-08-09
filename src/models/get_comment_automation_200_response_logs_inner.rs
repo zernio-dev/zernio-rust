@@ -23,6 +23,9 @@ pub struct GetCommentAutomation200ResponseLogsInner {
     pub commenter_name: Option<String>,
     #[serde(rename = "commentText", skip_serializing_if = "Option::is_none")]
     pub comment_text: Option<String>,
+    /// Which door triggered this send. Absent on rows written before this field existed (all of those are comment-triggered).
+    #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
+    pub source: Option<Source>,
     /// DM outcome. 'pending' = the automation has a dmDelaySeconds and the response is queued but not sent yet. 'gated' = the follow-gate confirmation DM went out and we are waiting for the tap; it flips to 'sent' or 'skipped' when they tap.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -64,6 +67,7 @@ impl GetCommentAutomation200ResponseLogsInner {
             commenter_id: None,
             commenter_name: None,
             comment_text: None,
+            source: None,
             status: None,
             audience_outcome: None,
             commenter_is_follower: None,
@@ -74,6 +78,22 @@ impl GetCommentAutomation200ResponseLogsInner {
             next_due_at: None,
             created_at: None,
         }
+    }
+}
+/// Which door triggered this send. Absent on rows written before this field existed (all of those are comment-triggered).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Source {
+    #[serde(rename = "comment")]
+    Comment,
+    #[serde(rename = "story_reply")]
+    StoryReply,
+    #[serde(rename = "dm")]
+    Dm,
+}
+
+impl Default for Source {
+    fn default() -> Source {
+        Self::Comment
     }
 }
 /// DM outcome. 'pending' = the automation has a dmDelaySeconds and the response is queued but not sent yet. 'gated' = the follow-gate confirmation DM went out and we are waiting for the tap; it flips to 'sent' or 'skipped' when they tap.
