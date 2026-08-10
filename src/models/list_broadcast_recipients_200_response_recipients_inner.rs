@@ -45,6 +45,14 @@ pub struct ListBroadcastRecipients200ResponseRecipientsInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub error_explanation: Option<Option<String>>,
+    /// Meta trace id (fbtrace_id) for the failed send. Quote this when escalating to Meta Direct Support. Only populated for status=failed on Meta platforms.
+    #[serde(
+        rename = "errorTraceId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub error_trace_id: Option<Option<String>>,
     #[serde(rename = "sentAt", skip_serializing_if = "Option::is_none")]
     pub sent_at: Option<String>,
     #[serde(rename = "deliveredAt", skip_serializing_if = "Option::is_none")]
@@ -66,6 +74,7 @@ impl ListBroadcastRecipients200ResponseRecipientsInner {
             error: None,
             error_code: None,
             error_explanation: None,
+            error_trace_id: None,
             sent_at: None,
             delivered_at: None,
             read_at: None,
