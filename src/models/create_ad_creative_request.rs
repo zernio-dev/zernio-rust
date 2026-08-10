@@ -46,6 +46,9 @@ pub struct CreateAdCreativeRequest {
     /// Advantage+ creative enhancements: partial map of Meta creative feature keys (snake_case) to enroll status, forwarded as degrees_of_freedom_spec.creative_features_spec. Unspecified features default to OPT_OUT.
     #[serde(rename = "creativeFeatures", skip_serializing_if = "Option::is_none")]
     pub creative_features: Option<CreativeFeatures>,
+    /// Meta only. Multi-advertiser ads: whether Meta may show this ad alongside other advertisers' in one unit. Meta auto-enrols since Aug 2024, so send OPT_OUT to leave. It is a top-level creative field, NOT a `creativeFeatures` key — Meta rejects it there.
+    #[serde(rename = "multiAdvertiser", skip_serializing_if = "Option::is_none")]
+    pub multi_advertiser: Option<MultiAdvertiser>,
 }
 
 impl CreateAdCreativeRequest {
@@ -69,6 +72,7 @@ impl CreateAdCreativeRequest {
             carousel_cards: None,
             url_tags: None,
             creative_features: None,
+            multi_advertiser: None,
         }
     }
 }
@@ -83,6 +87,20 @@ pub enum CreativeFeatures {
 
 impl Default for CreativeFeatures {
     fn default() -> CreativeFeatures {
+        Self::OptIn
+    }
+}
+/// Meta only. Multi-advertiser ads: whether Meta may show this ad alongside other advertisers' in one unit. Meta auto-enrols since Aug 2024, so send OPT_OUT to leave. It is a top-level creative field, NOT a `creativeFeatures` key — Meta rejects it there.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum MultiAdvertiser {
+    #[serde(rename = "OPT_IN")]
+    OptIn,
+    #[serde(rename = "OPT_OUT")]
+    OptOut,
+}
+
+impl Default for MultiAdvertiser {
+    fn default() -> MultiAdvertiser {
         Self::OptIn
     }
 }

@@ -48,6 +48,9 @@ pub struct CreateStandaloneAdRequest {
     /// Meta only. Advantage+ creative enhancements: a partial map of Meta creative feature keys (snake_case, e.g. enhance_cta, image_brightness_and_contrast, text_optimizations) to enroll status, forwarded as degrees_of_freedom_spec.creative_features_spec. Meta validates the keys; unspecified features default to OPT_OUT. The legacy standard_enhancements bundle is deprecated by Meta and rejected.
     #[serde(rename = "creativeFeatures", skip_serializing_if = "Option::is_none")]
     pub creative_features: Option<CreativeFeatures>,
+    /// Meta only. Multi-advertiser ads: whether Meta may show this ad alongside other advertisers' in one unit. Meta auto-enrols since Aug 2024, so send OPT_OUT to leave. It is a top-level creative field, NOT a `creativeFeatures` key — Meta rejects it there.
+    #[serde(rename = "multiAdvertiser", skip_serializing_if = "Option::is_none")]
+    pub multi_advertiser: Option<MultiAdvertiser>,
     /// Meta only, single standalone shape only (no creatives[], adSetId, or RESERVED). Dry-run: each node runs Meta's execution_options validate_only and NOTHING is created or persisted. Children need real parents, so a fresh tree validates the campaign + creative (the ad set needs its campaign to exist — pass existingCampaignId to validate it too; the ad itself is never validatable pre-create). A Meta validation failure returns the 400 verbatim; success returns 200 with per-node results instead of an ad.
     #[serde(rename = "validateOnly", skip_serializing_if = "Option::is_none")]
     pub validate_only: Option<bool>,
@@ -278,6 +281,7 @@ impl CreateStandaloneAdRequest {
             buying_type: None,
             rf_prediction_id: None,
             creative_features: None,
+            multi_advertiser: None,
             validate_only: None,
             budget_amount: None,
             budget_type: None,
@@ -404,6 +408,20 @@ pub enum CreativeFeatures {
 
 impl Default for CreativeFeatures {
     fn default() -> CreativeFeatures {
+        Self::OptIn
+    }
+}
+/// Meta only. Multi-advertiser ads: whether Meta may show this ad alongside other advertisers' in one unit. Meta auto-enrols since Aug 2024, so send OPT_OUT to leave. It is a top-level creative field, NOT a `creativeFeatures` key — Meta rejects it there.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum MultiAdvertiser {
+    #[serde(rename = "OPT_IN")]
+    OptIn,
+    #[serde(rename = "OPT_OUT")]
+    OptOut,
+}
+
+impl Default for MultiAdvertiser {
+    fn default() -> MultiAdvertiser {
         Self::OptIn
     }
 }

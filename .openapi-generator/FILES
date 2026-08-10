@@ -202,6 +202,7 @@ docs/CreateConversionDestination201Response.md
 docs/CreateConversionDestinationRequest.md
 docs/CreateConversionDestinationRequestValue.md
 docs/CreateCtwaAd201Response.md
+docs/CreateCustomConversionRequest.md
 docs/CreateCustomField200Response.md
 docs/CreateCustomFieldRequest.md
 docs/CreateDiscordGuildRole201Response.md
@@ -219,6 +220,8 @@ docs/CreateGoogleBusinessMedia200Response.md
 docs/CreateGoogleBusinessMediaRequest.md
 docs/CreateGoogleBusinessPlaceAction200Response.md
 docs/CreateGoogleBusinessPlaceActionRequest.md
+docs/CreateHighDemandPeriod201Response.md
+docs/CreateHighDemandPeriodRequest.md
 docs/CreateInboxConversation201Response.md
 docs/CreateInboxConversation201ResponseData.md
 docs/CreateInboxConversation400Response.md
@@ -330,6 +333,8 @@ docs/CtwaAdRequestBodyVideo.md
 docs/CtwaAdRequestBodyZipsInner.md
 docs/CtwaMultiResponse.md
 docs/CtwaSingleResponse.md
+docs/CustomConversion.md
+docs/CustomConversionResult.md
 docs/CustomFieldsApi.md
 docs/DeactivateSmsRegistration200Response.md
 docs/DeleteAccountGroup200Response.md
@@ -882,6 +887,7 @@ docs/ListConversionAssociations200Response.md
 docs/ListConversionAssociations200ResponseAssociationsInner.md
 docs/ListConversionDestinations200Response.md
 docs/ListConversionDestinations200ResponseDestinationsInner.md
+docs/ListCustomConversions200Response.md
 docs/ListCustomFields200Response.md
 docs/ListCustomFields200ResponseFieldsInner.md
 docs/ListDiscordGuildMembers200Response.md
@@ -1912,6 +1918,7 @@ src/models/create_conversion_destination_201_response.rs
 src/models/create_conversion_destination_request.rs
 src/models/create_conversion_destination_request_value.rs
 src/models/create_ctwa_ad_201_response.rs
+src/models/create_custom_conversion_request.rs
 src/models/create_custom_field_200_response.rs
 src/models/create_custom_field_request.rs
 src/models/create_discord_guild_role_201_response.rs
@@ -1929,6 +1936,8 @@ src/models/create_google_business_media_200_response.rs
 src/models/create_google_business_media_request.rs
 src/models/create_google_business_place_action_200_response.rs
 src/models/create_google_business_place_action_request.rs
+src/models/create_high_demand_period_201_response.rs
+src/models/create_high_demand_period_request.rs
 src/models/create_inbox_conversation_201_response.rs
 src/models/create_inbox_conversation_201_response_data.rs
 src/models/create_inbox_conversation_400_response.rs
@@ -2040,6 +2049,8 @@ src/models/ctwa_ad_request_body_video.rs
 src/models/ctwa_ad_request_body_zips_inner.rs
 src/models/ctwa_multi_response.rs
 src/models/ctwa_single_response.rs
+src/models/custom_conversion.rs
+src/models/custom_conversion_result.rs
 src/models/deactivate_sms_registration_200_response.rs
 src/models/delete_account_group_200_response.rs
 src/models/delete_ad_campaign_200_response.rs
@@ -2577,6 +2588,7 @@ src/models/list_conversion_associations_200_response.rs
 src/models/list_conversion_associations_200_response_associations_inner.rs
 src/models/list_conversion_destinations_200_response.rs
 src/models/list_conversion_destinations_200_response_destinations_inner.rs
+src/models/list_custom_conversions_200_response.rs
 src/models/list_custom_fields_200_response.rs
 src/models/list_custom_fields_200_response_fields_inner.rs
 src/models/list_discord_guild_members_200_response.rs

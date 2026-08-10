@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **carousel_cards** | Option<[**Vec<models::CreateAdCreativeRequestCarouselCardsInner>**](CreateAdCreativeRequestCarouselCardsInner.md)> |  | [optional]
 **url_tags** | Option<**String**> | Appended to every outbound URL (e.g. utm_source=fb). | [optional]
 **creative_features** | Option<**std::collections::HashMap<String, Inner>**> | Advantage+ creative enhancements: partial map of Meta creative feature keys (snake_case) to enroll status, forwarded as degrees_of_freedom_spec.creative_features_spec. Unspecified features default to OPT_OUT. (enum: OPT_IN, OPT_OUT) | [optional]
+**multi_advertiser** | Option<**MultiAdvertiser**> | Meta only. Multi-advertiser ads: whether Meta may show this ad alongside other advertisers' in one unit. Meta auto-enrols since Aug 2024, so send OPT_OUT to leave. It is a top-level creative field, NOT a `creativeFeatures` key — Meta rejects it there. (enum: OPT_IN, OPT_OUT) | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
