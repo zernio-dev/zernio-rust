@@ -16,10 +16,10 @@ pub struct GetMediaPresignedUrl200Response {
     /// Presigned URL to PUT your file to (expires in 1 hour)
     #[serde(rename = "uploadUrl", skip_serializing_if = "Option::is_none")]
     pub upload_url: Option<String>,
-    /// Public URL where the file will be accessible after upload
+    /// Public URL where the file will be accessible after upload. Served from the temp/ prefix by default (expires 7 days after upload) or from media/ when permanent is true.
     #[serde(rename = "publicUrl", skip_serializing_if = "Option::is_none")]
     pub public_url: Option<String>,
-    /// Storage key/path of the file
+    /// Storage key/path of the file. Prefixed temp/ by default, media/ when permanent is true.
     #[serde(rename = "key", skip_serializing_if = "Option::is_none")]
     pub key: Option<String>,
     /// Seconds until the presigned uploadUrl expires (always 3600)
