@@ -68,6 +68,17 @@ pub enum GetAdInsightsReportError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_ads_search_terms`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAdsSearchTermsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_campaign_analytics`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -370,6 +381,84 @@ pub async fn get_ad_insights_report(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetAdInsightsReportError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// The actual search queries that triggered your ads, with matched-keyword status and spend metrics — the raw material for wasted-spend analysis and negative-keyword lists. Reads Google's `search_term_view` live; defaults to the last 30 days. Rows are ordered by cost, descending. Draws on the shared Google Ads operations budget.
+pub async fn get_ads_search_terms(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    customer_id: Option<&str>,
+    from_date: Option<String>,
+    to_date: Option<String>,
+    campaign_id: Option<&str>,
+    ad_group_id: Option<&str>,
+    page_token: Option<&str>,
+) -> Result<models::GetAdsSearchTerms200Response, Error<GetAdsSearchTermsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_customer_id = customer_id;
+    let p_query_from_date = from_date;
+    let p_query_to_date = to_date;
+    let p_query_campaign_id = campaign_id;
+    let p_query_ad_group_id = ad_group_id;
+    let p_query_page_token = page_token;
+
+    let uri_str = format!("{}/v1/ads/search-terms", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_customer_id {
+        req_builder = req_builder.query(&[("customerId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_from_date {
+        req_builder = req_builder.query(&[("fromDate", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_to_date {
+        req_builder = req_builder.query(&[("toDate", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_campaign_id {
+        req_builder = req_builder.query(&[("campaignId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_ad_group_id {
+        req_builder = req_builder.query(&[("adGroupId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page_token {
+        req_builder = req_builder.query(&[("pageToken", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetAdsSearchTerms200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetAdsSearchTerms200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAdsSearchTermsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

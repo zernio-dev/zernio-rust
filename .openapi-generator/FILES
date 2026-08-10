@@ -95,6 +95,7 @@ docs/BookmarkPost200Response.md
 docs/BookmarkPostRequest.md
 docs/BoostPostRequest.md
 docs/BoostPostRequestBudget.md
+docs/BoostPostRequestPlatformSpecificData.md
 docs/BoostPostRequestSchedule.md
 docs/BoostPostRequestTargeting.md
 docs/BoostPostRequestTargetingCitiesInner.md
@@ -463,6 +464,9 @@ docs/GetAdTrackingTags200Response.md
 docs/GetAdTree200Response.md
 docs/GetAdsActivityLog200Response.md
 docs/GetAdsActivityLog200ResponsePaging.md
+docs/GetAdsSearchTerms200Response.md
+docs/GetAdsSearchTerms200ResponseDataInner.md
+docs/GetAdsSearchTerms200ResponsePaging.md
 docs/GetAdsTimeline200Response.md
 docs/GetAdsTimeline200ResponseRowsInner.md
 docs/GetAllAccountsHealth200Response.md
@@ -1021,6 +1025,7 @@ docs/MediaUploadResponse.md
 docs/MentionsApi.md
 docs/MessagesApi.md
 docs/MessagingAdsApi.md
+docs/MetaAdsPlatformData.md
 docs/MetaLeadFormPlatformData.md
 docs/MetaLeadFormPlatformDataContextCard.md
 docs/Money.md
@@ -1819,6 +1824,7 @@ src/models/bookmark_post_200_response.rs
 src/models/bookmark_post_request.rs
 src/models/boost_post_request.rs
 src/models/boost_post_request_budget.rs
+src/models/boost_post_request_platform_specific_data.rs
 src/models/boost_post_request_schedule.rs
 src/models/boost_post_request_targeting.rs
 src/models/boost_post_request_targeting_cities_inner.rs
@@ -2177,6 +2183,9 @@ src/models/get_ad_tracking_tags_200_response.rs
 src/models/get_ad_tree_200_response.rs
 src/models/get_ads_activity_log_200_response.rs
 src/models/get_ads_activity_log_200_response_paging.rs
+src/models/get_ads_search_terms_200_response.rs
+src/models/get_ads_search_terms_200_response_data_inner.rs
+src/models/get_ads_search_terms_200_response_paging.rs
 src/models/get_ads_timeline_200_response.rs
 src/models/get_ads_timeline_200_response_rows_inner.rs
 src/models/get_all_accounts_health_200_response.rs
@@ -2717,6 +2726,7 @@ src/models/lookup_sms_number_200_response.rs
 src/models/mark_conversation_read_200_response.rs
 src/models/media_item.rs
 src/models/media_upload_response.rs
+src/models/meta_ads_platform_data.rs
 src/models/meta_lead_form_platform_data.rs
 src/models/meta_lead_form_platform_data_context_card.rs
 src/models/mod.rs

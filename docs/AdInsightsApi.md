@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**generate_keyword_ideas**](AdInsightsApi.md#generate_keyword_ideas) | **POST** /v1/ads/keywords/ideas | Generate keyword ideas (Google Keyword Planner)
 [**get_ad_analytics**](AdInsightsApi.md#get_ad_analytics) | **GET** /v1/ads/{adId}/analytics | Get ad analytics
 [**get_ad_insights_report**](AdInsightsApi.md#get_ad_insights_report) | **GET** /v1/ads/insights/reports/{reportRunId} | Poll an async insights report run
+[**get_ads_search_terms**](AdInsightsApi.md#get_ads_search_terms) | **GET** /v1/ads/search-terms | Google Ads search terms report
 [**get_campaign_analytics**](AdInsightsApi.md#get_campaign_analytics) | **GET** /v1/ads/campaigns/{campaignId}/analytics | Get campaign analytics
 [**query_ad_insights**](AdInsightsApi.md#query_ad_insights) | **GET** /v1/ads/insights | Flexible live insights query
 
@@ -157,6 +158,42 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetAdInsightsReport200Response**](getAdInsightsReport_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_ads_search_terms
+
+> models::GetAdsSearchTerms200Response get_ads_search_terms(account_id, customer_id, from_date, to_date, campaign_id, ad_group_id, page_token)
+Google Ads search terms report
+
+The actual search queries that triggered your ads, with matched-keyword status and spend metrics — the raw material for wasted-spend analysis and negative-keyword lists. Reads Google's `search_term_view` live; defaults to the last 30 days. Rows are ordered by cost, descending. Draws on the shared Google Ads operations budget.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Google ads SocialAccount id. | [required] |
+**customer_id** | Option<**String**> | Numeric Google Ads customer id (no dashes). Defaults to the account's connected customer. |  |
+**from_date** | Option<**String**> | Defaults to 30 days ago. |  |
+**to_date** | Option<**String**> | Defaults to today. |  |
+**campaign_id** | Option<**String**> | Numeric Google campaign id filter. |  |
+**ad_group_id** | Option<**String**> | Numeric Google ad group id filter. |  |
+**page_token** | Option<**String**> | Cursor from paging.nextPageToken of the previous page. |  |
+
+### Return type
+
+[**models::GetAdsSearchTerms200Response**](getAdsSearchTerms_200_response.md)
 
 ### Authorization
 

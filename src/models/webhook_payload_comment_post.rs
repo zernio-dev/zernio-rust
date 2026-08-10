@@ -19,13 +19,31 @@ pub struct WebhookPayloadCommentPost {
     /// Platform's post ID
     #[serde(rename = "platformPostId")]
     pub platform_post_id: String,
+    /// Post text, from our synced copy — no platform call is made on the comment path, so null when the post was never synced.
+    #[serde(rename = "content", deserialize_with = "Option::deserialize")]
+    pub content: Option<String>,
+    /// Post thumbnail or first media item URL. Platform CDN URLs expire, fetch promptly.
+    #[serde(rename = "imageUrl", deserialize_with = "Option::deserialize")]
+    pub image_url: Option<String>,
+    /// Public URL of the post. Null for posts published through Zernio that were never re-synced.
+    #[serde(rename = "permalink", deserialize_with = "Option::deserialize")]
+    pub permalink: Option<String>,
 }
 
 impl WebhookPayloadCommentPost {
-    pub fn new(id: Option<String>, platform_post_id: String) -> WebhookPayloadCommentPost {
+    pub fn new(
+        id: Option<String>,
+        platform_post_id: String,
+        content: Option<String>,
+        image_url: Option<String>,
+        permalink: Option<String>,
+    ) -> WebhookPayloadCommentPost {
         WebhookPayloadCommentPost {
             id,
             platform_post_id,
+            content,
+            image_url,
+            permalink,
         }
     }
 }

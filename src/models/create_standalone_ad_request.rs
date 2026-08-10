@@ -226,13 +226,13 @@ pub struct CreateStandaloneAdRequest {
     /// Restrict the audience by gender. 'male' targets men only, 'female' targets women only, 'all' (default) targets everyone. Applied on Meta, TikTok and Pinterest. Ignored on Google, LinkedIn and X.
     #[serde(rename = "gender", skip_serializing_if = "Option::is_none")]
     pub gender: Option<Gender>,
-    /// Meta bid strategy applied to the ad set.
+    /// Deprecated: send it inside `platformSpecificData` instead (Meta today; TikTok's nested shape is planned). The flat field keeps working during the deprecation window; sending both shapes returns a 400.  Meta bid strategy applied to the ad set.
     #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
     pub bid_strategy: Option<models::BidStrategy>,
-    /// Bid cap in WHOLE currency units (USD: 5 = $5.00; JPY: 100 = ¥100). Required when `bidStrategy` is `LOWEST_COST_WITH_BID_CAP` or `COST_CAP`.
+    /// Deprecated: send it inside `platformSpecificData` instead (Meta today; TikTok's nested shape is planned). The flat field keeps working during the deprecation window; sending both shapes returns a 400.  Bid cap in WHOLE currency units (USD: 5 = $5.00; JPY: 100 = ¥100). Required when `bidStrategy` is `LOWEST_COST_WITH_BID_CAP` or `COST_CAP`.
     #[serde(rename = "bidAmount", skip_serializing_if = "Option::is_none")]
     pub bid_amount: Option<f64>,
-    /// Minimum ROAS as a decimal multiplier (e.g. 2.0 = 2.0x ROAS). Required when `bidStrategy` is `LOWEST_COST_WITH_MIN_ROAS`. Sent to Meta as `bid_constraints.roas_average_floor` × 10000.
+    /// Deprecated: send it inside `platformSpecificData` instead (Meta today; TikTok's nested shape is planned). The flat field keeps working during the deprecation window; sending both shapes returns a 400.  Minimum ROAS as a decimal multiplier (e.g. 2.0 = 2.0x ROAS). Required when `bidStrategy` is `LOWEST_COST_WITH_MIN_ROAS`. Sent to Meta as `bid_constraints.roas_average_floor` × 10000.
     #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
     pub roas_average_floor: Option<f64>,
     /// Meta only (facebook, instagram; other platforms return 400). Value rule set to attach to the new ad set, from `/v1/ads/value-rule-sets`. Attachment is driven by this id, so `valueRulesApplied` is optional alongside it.  Rejected with 400 in `adSetId` attach mode: that shape inherits the existing ad set's attachment, so the field would be silently ignored. Use `PUT /v1/ads/ad-sets/{adSetId}` there instead.  Ignored (stripped before the ad-set create) when `buyingType` is `RESERVED`: value rules only apply to auction ad sets on `LOWEST_COST_WITHOUT_CAP` or `COST_CAP`, and a Reach & Frequency reservation has no auction bid strategy.  Read back with `GET /v1/ads/ad-sets/{adSetId}?fields=value_rule_set_id`; the attachment is not mirrored onto Zernio's ad documents.
@@ -245,7 +245,7 @@ pub struct CreateStandaloneAdRequest {
         rename = "platformSpecificData",
         skip_serializing_if = "Option::is_none"
     )]
-    pub platform_specific_data: Option<Box<models::LinkedInAdsPlatformData>>,
+    pub platform_specific_data: Option<Box<models::BoostPostRequestPlatformSpecificData>>,
     /// Legal entity that benefits from the ad. Required when targeting EU users (EU DSA, Article 26). Optional if the ad account has a default beneficiary: set it once via `PATCH /v1/ads/accounts` or in Meta Ads Manager, and Meta fills it in whenever the field is omitted.
     #[serde(rename = "dsaBeneficiary", skip_serializing_if = "Option::is_none")]
     pub dsa_beneficiary: Option<String>,
