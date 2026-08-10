@@ -4,10 +4,43 @@ All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**get_instagram_audio**](InstagramApi.md#get_instagram_audio) | **GET** /v1/accounts/{accountId}/instagram/audio/{audioId} | Get Instagram audio metadata
 [**get_instagram_publishing_limit**](InstagramApi.md#get_instagram_publishing_limit) | **GET** /v1/accounts/{accountId}/instagram/publishing-limit | Get Instagram publishing limit
 [**get_instagram_story_insights**](InstagramApi.md#get_instagram_story_insights) | **GET** /v1/accounts/{accountId}/instagram/stories/{storyId}/insights | Get Instagram story insights
 [**list_instagram_stories**](InstagramApi.md#list_instagram_stories) | **GET** /v1/accounts/{accountId}/instagram/stories | List active Instagram stories
+[**search_instagram_audio**](InstagramApi.md#search_instagram_audio) | **GET** /v1/accounts/{accountId}/instagram/audio | Search Instagram audio
 
+
+
+## get_instagram_audio
+
+> models::GetInstagramAudio200Response get_instagram_audio(account_id, audio_id)
+Get Instagram audio metadata
+
+Fetch one audio asset's metadata by ID. Use it to re-validate a stored `audioId` before a scheduled Reel publishes, or to refresh the preview `downloadUrl` (Meta expires preview URLs after roughly 1.5 days).  Same connection requirement as the search endpoint: Facebook-Login Instagram accounts only. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The ID of the Instagram account | [required] |
+**audio_id** | **String** | Instagram audio asset ID | [required] |
+
+### Return type
+
+[**models::GetInstagramAudio200Response**](getInstagramAudio_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_instagram_publishing_limit
@@ -88,6 +121,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListInstagramStories200Response**](listInstagramStories_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## search_instagram_audio
+
+> models::SearchInstagramAudio200Response search_instagram_audio(account_id, audio_type, q)
+Search Instagram audio
+
+Search Instagram's audio catalog (licensed music or original sounds), or list what is currently trending by omitting `q`. Returns up to ~30 assets; Meta exposes no pagination on this edge.  Pass the returned `audioId` as `platformSpecificData.audioConfiguration.audioId` when creating a Reel to publish it with that track.  Requires an Instagram account connected via **Facebook Login**. Meta hosts this catalog on graph.facebook.com only, so accounts connected with classic Instagram Login receive a 400 (`instagram_audio_requires_facebook_login`) and must be reconnected choosing the Facebook option. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The ID of the Instagram account | [required] |
+**audio_type** | **String** | Catalog to search: licensed music or original sounds from Reels. | [required] |
+**q** | Option<**String**> | Search keywords. Omit to get the current trending list. |  |
+
+### Return type
+
+[**models::SearchInstagramAudio200Response**](searchInstagramAudio_200_response.md)
 
 ### Authorization
 

@@ -31,9 +31,11 @@ pub struct InstagramPlatformData {
     /// Tag Instagram users by username. The tag shape depends on the media: photos require x/y coordinates, Reels and videos take username only (coordinates are ignored), stories accept optional coordinates. For carousels, use mediaIndex to target specific slides (defaults to 0); video slides take username-only tags. Photo tags without valid coordinates are skipped.
     #[serde(rename = "userTags", skip_serializing_if = "Option::is_none")]
     pub user_tags: Option<Vec<models::InstagramPlatformDataUserTagsInner>>,
-    /// Custom name for original audio in Reels. Replaces the default \"Original Audio\" label. Can only be set once.
+    /// Custom name for original audio in Reels. Replaces the default \"Original Audio\" label. Can only be set once. Unrelated to audioConfiguration, which attaches a catalog track.
     #[serde(rename = "audioName", skip_serializing_if = "Option::is_none")]
     pub audio_name: Option<String>,
+    #[serde(rename = "audioConfiguration", skip_serializing_if = "Option::is_none")]
+    pub audio_configuration: Option<Box<models::InstagramPlatformDataAudioConfiguration>>,
     /// Millisecond offset from video start for the Reel cover frame. Ignored when instagramThumbnail or reelCover is provided. Defaults to 0.
     #[serde(rename = "thumbOffset", skip_serializing_if = "Option::is_none")]
     pub thumb_offset: Option<i32>,
@@ -59,6 +61,7 @@ impl InstagramPlatformData {
             trial_params: None,
             user_tags: None,
             audio_name: None,
+            audio_configuration: None,
             thumb_offset: None,
             instagram_thumbnail: None,
             reel_cover: None,

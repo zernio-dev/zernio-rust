@@ -609,6 +609,7 @@ docs/GetInboxVolume200ResponseSummary.md
 docs/GetInboxVolume200ResponseTimeseriesInner.md
 docs/GetInboxVolume400Response.md
 docs/GetInstagramAccountInsights404Response.md
+docs/GetInstagramAudio200Response.md
 docs/GetInstagramFollowStatus200Response.md
 docs/GetInstagramPublishingLimit200Response.md
 docs/GetInstagramStoryInsights200Response.md
@@ -809,9 +810,11 @@ docs/InstagramAccountInsightsResponseMetricsValueBreakdownsInner.md
 docs/InstagramAccountInsightsResponseMetricsValueValuesInner.md
 docs/InstagramAccountInsightsResponseUnavailableMetricsInner.md
 docs/InstagramApi.md
+docs/InstagramAudioAsset.md
 docs/InstagramDemographicsResponse.md
 docs/InstagramDemographicsResponseDemographicsValueInner.md
 docs/InstagramPlatformData.md
+docs/InstagramPlatformDataAudioConfiguration.md
 docs/InstagramPlatformDataTrialParams.md
 docs/InstagramPlatformDataUserTagsInner.md
 docs/InvitesApi.md
@@ -1181,6 +1184,7 @@ docs/SearchInboxConversations200ResponseDataInnerMatchesInner.md
 docs/SearchInboxConversations200ResponseMeta.md
 docs/SearchInboxConversations200ResponseMetaAccountsSkippedInner.md
 docs/SearchInboxConversations200ResponseMetaFailedAccountsInner.md
+docs/SearchInstagramAudio200Response.md
 docs/SearchReddit200Response.md
 docs/SearchTweets200Response.md
 docs/SearchTweets200ResponseMeta.md
@@ -2329,6 +2333,7 @@ src/models/get_inbox_volume_200_response_summary.rs
 src/models/get_inbox_volume_200_response_timeseries_inner.rs
 src/models/get_inbox_volume_400_response.rs
 src/models/get_instagram_account_insights_404_response.rs
+src/models/get_instagram_audio_200_response.rs
 src/models/get_instagram_follow_status_200_response.rs
 src/models/get_instagram_publishing_limit_200_response.rs
 src/models/get_instagram_story_insights_200_response.rs
@@ -2519,9 +2524,11 @@ src/models/instagram_account_insights_response_metrics_value.rs
 src/models/instagram_account_insights_response_metrics_value_breakdowns_inner.rs
 src/models/instagram_account_insights_response_metrics_value_values_inner.rs
 src/models/instagram_account_insights_response_unavailable_metrics_inner.rs
+src/models/instagram_audio_asset.rs
 src/models/instagram_demographics_response.rs
 src/models/instagram_demographics_response_demographics_value_inner.rs
 src/models/instagram_platform_data.rs
+src/models/instagram_platform_data_audio_configuration.rs
 src/models/instagram_platform_data_trial_params.rs
 src/models/instagram_platform_data_user_tags_inner.rs
 src/models/like_inbox_comment_200_response.rs
@@ -2877,6 +2884,7 @@ src/models/search_inbox_conversations_200_response_data_inner_matches_inner.rs
 src/models/search_inbox_conversations_200_response_meta.rs
 src/models/search_inbox_conversations_200_response_meta_accounts_skipped_inner.rs
 src/models/search_inbox_conversations_200_response_meta_failed_accounts_inner.rs
+src/models/search_instagram_audio_200_response.rs
 src/models/search_reddit_200_response.rs
 src/models/search_tweets_200_response.rs
 src/models/search_tweets_200_response_meta.rs

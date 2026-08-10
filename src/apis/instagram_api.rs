@@ -13,6 +13,17 @@ use crate::{apis::ResponseContent, models};
 use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
 
+/// struct for typed errors of method [`get_instagram_audio`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetInstagramAudioError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status404(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_instagram_publishing_limit`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -43,6 +54,71 @@ pub enum ListInstagramStoriesError {
     Status401(models::InlineObject),
     Status404(),
     UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`search_instagram_audio`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SearchInstagramAudioError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status404(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// Fetch one audio asset's metadata by ID. Use it to re-validate a stored `audioId` before a scheduled Reel publishes, or to refresh the preview `downloadUrl` (Meta expires preview URLs after roughly 1.5 days).  Same connection requirement as the search endpoint: Facebook-Login Instagram accounts only.
+pub async fn get_instagram_audio(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    audio_id: &str,
+) -> Result<models::GetInstagramAudio200Response, Error<GetInstagramAudioError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_path_audio_id = audio_id;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/instagram/audio/{audioId}",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id),
+        audioId = crate::apis::urlencode(p_path_audio_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetInstagramAudio200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetInstagramAudio200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetInstagramAudioError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
 }
 
 /// Returns the account's remaining content-publishing quota for Instagram's rolling 24-hour window, so you can pace publishing and warn before the cap is reached.  `quotaUsage` counts containers published since the start of the window. Always compare against the returned `quotaTotal` rather than hardcoding a number: Meta's prose documentation and the live API disagree on the value, and the live value is authoritative.
@@ -194,6 +270,65 @@ pub async fn list_instagram_stories(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListInstagramStoriesError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Search Instagram's audio catalog (licensed music or original sounds), or list what is currently trending by omitting `q`. Returns up to ~30 assets; Meta exposes no pagination on this edge.  Pass the returned `audioId` as `platformSpecificData.audioConfiguration.audioId` when creating a Reel to publish it with that track.  Requires an Instagram account connected via **Facebook Login**. Meta hosts this catalog on graph.facebook.com only, so accounts connected with classic Instagram Login receive a 400 (`instagram_audio_requires_facebook_login`) and must be reconnected choosing the Facebook option.
+pub async fn search_instagram_audio(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    audio_type: &str,
+    q: Option<&str>,
+) -> Result<models::SearchInstagramAudio200Response, Error<SearchInstagramAudioError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_query_audio_type = audio_type;
+    let p_query_q = q;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/instagram/audio",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("audioType", &p_query_audio_type.to_string())]);
+    if let Some(ref param_value) = p_query_q {
+        req_builder = req_builder.query(&[("q", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SearchInstagramAudio200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SearchInstagramAudio200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<SearchInstagramAudioError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
