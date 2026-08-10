@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 **filename** | **String** | Name of the file to upload | 
 **content_type** | **ContentType** | MIME type of the file (enum: image/jpeg, image/jpg, image/png, image/webp, image/gif, video/mp4, video/mpeg, video/quicktime, video/avi, video/x-msvideo, video/webm, video/x-m4v, application/pdf, audio/mpeg, audio/mp4, audio/aac, audio/ogg, audio/wav, audio/webm, audio/x-m4a) | 
 **size** | Option<**i32**> | Optional file size in bytes for pre-validation (max 5GB) | [optional]
-**permanent** | Option<**bool**> | Write the file to permanent storage instead of temporary storage. Temporary files auto-delete 7 days after upload; permanent files never expire. | [optional][default to false]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

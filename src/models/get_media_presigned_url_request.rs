@@ -22,9 +22,6 @@ pub struct GetMediaPresignedUrlRequest {
     /// Optional file size in bytes for pre-validation (max 5GB)
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
     pub size: Option<i32>,
-    /// Write the file to permanent storage instead of temporary storage. Temporary files auto-delete 7 days after upload; permanent files never expire.
-    #[serde(rename = "permanent", skip_serializing_if = "Option::is_none")]
-    pub permanent: Option<bool>,
 }
 
 impl GetMediaPresignedUrlRequest {
@@ -33,7 +30,6 @@ impl GetMediaPresignedUrlRequest {
             filename,
             content_type,
             size: None,
-            permanent: None,
         }
     }
 }
