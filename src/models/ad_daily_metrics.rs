@@ -52,58 +52,58 @@ pub struct AdDailyMetrics {
     /// Return on ad spend — derived as `purchaseValue / spend`. 0 when `spend` is 0. Equivalent to Meta's `purchase_roas` under default attribution. At ad-set and campaign levels this is recomputed from summed purchaseValue + spend (NOT averaged across children) so it's mathematically correct at every rollup level.
     #[serde(rename = "roas", skip_serializing_if = "Option::is_none")]
     pub roas: Option<f64>,
-    /// Meta video ads only (0 for non-video ads and other platforms), like all video* fields below. Number of times the video started playing (Meta `video_play_actions`), summed over the date range and across children at ad-set/campaign level.
+    /// Number of times the video started playing, summed over the date range and across children at ad-set/campaign level. 0 for non-video ads. Sources: Meta `video_play_actions`, TikTok `video_play_actions`.
     #[serde(rename = "videoPlayActions", skip_serializing_if = "Option::is_none")]
     pub video_play_actions: Option<i32>,
-    /// Views of at least 30 seconds (or to the end, for shorter videos). Meta `video_30_sec_watched_actions`.
+    /// Views of at least 30 seconds (or to the end, for shorter videos). Sources: Meta `video_30_sec_watched_actions` (Meta only).
     #[serde(
         rename = "video30SecWatchedActions",
         skip_serializing_if = "Option::is_none"
     )]
     pub video30_sec_watched_actions: Option<i32>,
-    /// ThruPlays (watched to completion, or at least 15 seconds). Meta `video_thruplay_watched_actions`.
+    /// ThruPlays (watched to completion, or at least 15 seconds). Sources: Meta `video_thruplay_watched_actions` (Meta only).
     #[serde(
         rename = "videoThruplayWatchedActions",
         skip_serializing_if = "Option::is_none"
     )]
     pub video_thruplay_watched_actions: Option<i32>,
-    /// Views reaching 25% of the video's length. With the other percentile fields, powers hook/hold/drop-off analysis (e.g. hook rate = videoP25WatchedActions / videoPlayActions). Meta `video_p25_watched_actions`.
+    /// Views reaching 25% of the video's length. With the other percentile fields, powers hook/hold/drop-off analysis (e.g. hook rate = videoP25WatchedActions / videoPlayActions). Sources: Meta `video_p25_watched_actions`, TikTok `video_views_p25`.
     #[serde(
         rename = "videoP25WatchedActions",
         skip_serializing_if = "Option::is_none"
     )]
     pub video_p25_watched_actions: Option<i32>,
-    /// Views reaching 50% of the video's length. Meta `video_p50_watched_actions`.
+    /// Views reaching 50% of the video's length. Sources: Meta `video_p50_watched_actions`, TikTok `video_views_p50`.
     #[serde(
         rename = "videoP50WatchedActions",
         skip_serializing_if = "Option::is_none"
     )]
     pub video_p50_watched_actions: Option<i32>,
-    /// Views reaching 75% of the video's length. Meta `video_p75_watched_actions`.
+    /// Views reaching 75% of the video's length. Sources: Meta `video_p75_watched_actions`, TikTok `video_views_p75`.
     #[serde(
         rename = "videoP75WatchedActions",
         skip_serializing_if = "Option::is_none"
     )]
     pub video_p75_watched_actions: Option<i32>,
-    /// Views reaching 95% of the video's length. Meta `video_p95_watched_actions`.
+    /// Views reaching 95% of the video's length. Sources: Meta `video_p95_watched_actions` (Meta only).
     #[serde(
         rename = "videoP95WatchedActions",
         skip_serializing_if = "Option::is_none"
     )]
     pub video_p95_watched_actions: Option<i32>,
-    /// Views reaching 100% of the video's length. Meta `video_p100_watched_actions`.
+    /// Views reaching 100% of the video's length. Sources: Meta `video_p100_watched_actions`, TikTok `video_views_p100`.
     #[serde(
         rename = "videoP100WatchedActions",
         skip_serializing_if = "Option::is_none"
     )]
     pub video_p100_watched_actions: Option<i32>,
-    /// Average seconds watched per play (Meta `video_avg_time_watched_actions`). Aggregated over date ranges and across children as a play-weighted average (total watch time / total plays), never a plain average of averages.
+    /// Average seconds watched per play. Aggregated over date ranges and across children as a play-weighted average (total watch time / total plays), never a plain average of averages. Sources: Meta `video_avg_time_watched_actions`, TikTok `average_video_play`.
     #[serde(
         rename = "videoAvgTimeWatchedActions",
         skip_serializing_if = "Option::is_none"
     )]
     pub video_avg_time_watched_actions: Option<f64>,
-    /// Derived `spend / videoThruplayWatchedActions`, in ad-account native currency. Rounded to 4 decimals rather than the usual 2 because a ThruPlay routinely costs well under a cent. 0 when the ad has no ThruPlays.
+    /// Derived `spend / videoThruplayWatchedActions`, in ad-account native currency. Rounded to 4 decimals rather than the usual 2 because a ThruPlay routinely costs well under a cent. 0 when the ad has no ThruPlays (ThruPlay is Meta-only).
     #[serde(rename = "costPerThruplay", skip_serializing_if = "Option::is_none")]
     pub cost_per_thruplay: Option<f64>,
     #[serde(rename = "funnel", skip_serializing_if = "Option::is_none")]
