@@ -202,9 +202,12 @@ pub struct CreateStandaloneAdRequest {
     /// Google only
     #[serde(rename = "campaignType", skip_serializing_if = "Option::is_none")]
     pub campaign_type: Option<CampaignType>,
-    /// Google Search only
+    /// Google Search only. BROAD-match keywords on the new ad group (first 20).
     #[serde(rename = "keywords", skip_serializing_if = "Option::is_none")]
     pub keywords: Option<Vec<String>>,
+    /// Google Search only; other platforms return 400. BROAD-match negative keywords on the new ad group. Editable later via PUT /v1/ads/{adId} targeting.negativeKeywords.
+    #[serde(rename = "negativeKeywords", skip_serializing_if = "Option::is_none")]
+    pub negative_keywords: Option<Vec<String>>,
     /// Google Search RSA only. Extra headlines.
     #[serde(
         rename = "additionalHeadlines",
@@ -334,6 +337,7 @@ impl CreateStandaloneAdRequest {
             audience_id: None,
             campaign_type: None,
             keywords: None,
+            negative_keywords: None,
             additional_headlines: None,
             additional_descriptions: None,
             advantage_audience: None,

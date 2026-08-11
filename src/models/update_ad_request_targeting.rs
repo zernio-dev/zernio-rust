@@ -11,9 +11,15 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UpdateAdRequestTargeting : Meta + TikTok only. Pinterest / X / LinkedIn / Google return 501.
+/// UpdateAdRequestTargeting : Meta + TikTok (demographics/interests) and Google (keyword edits only). Pinterest / X / LinkedIn return 501.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAdRequestTargeting {
+    /// Google only. The FULL new set of positive keywords for the ad group; live keywords not listed are removed. Entries are strings (BROAD) or { text, matchType } with matchType exact | phrase | broad. Mirrored to GET /v1/ads/keywords immediately.
+    #[serde(rename = "keywords", skip_serializing_if = "Option::is_none")]
+    pub keywords: Option<Vec<models::UpdateAdRequestTargetingKeywordsInner>>,
+    /// Google only. Same declarative contract as keywords, for the ad group's negative keywords.
+    #[serde(rename = "negativeKeywords", skip_serializing_if = "Option::is_none")]
+    pub negative_keywords: Option<Vec<models::UpdateAdRequestTargetingKeywordsInner>>,
     #[serde(rename = "ageMin", skip_serializing_if = "Option::is_none")]
     pub age_min: Option<i32>,
     #[serde(rename = "ageMax", skip_serializing_if = "Option::is_none")]
@@ -29,9 +35,11 @@ pub struct UpdateAdRequestTargeting {
 }
 
 impl UpdateAdRequestTargeting {
-    /// Meta + TikTok only. Pinterest / X / LinkedIn / Google return 501.
+    /// Meta + TikTok (demographics/interests) and Google (keyword edits only). Pinterest / X / LinkedIn return 501.
     pub fn new() -> UpdateAdRequestTargeting {
         UpdateAdRequestTargeting {
+            keywords: None,
+            negative_keywords: None,
             age_min: None,
             age_max: None,
             countries: None,

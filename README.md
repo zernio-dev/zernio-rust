@@ -1926,6 +1926,8 @@ Class | Method | HTTP request | Description
  - [UpdateAdRequestCreative](docs/UpdateAdRequestCreative.md)
  - [UpdateAdRequestTargeting](docs/UpdateAdRequestTargeting.md)
  - [UpdateAdRequestTargetingInterestsInner](docs/UpdateAdRequestTargetingInterestsInner.md)
+ - [UpdateAdRequestTargetingKeywordsInner](docs/UpdateAdRequestTargetingKeywordsInner.md)
+ - [UpdateAdRequestTargetingKeywordsInnerOneOf](docs/UpdateAdRequestTargetingKeywordsInnerOneOf.md)
  - [UpdateAdSet200Response](docs/UpdateAdSet200Response.md)
  - [UpdateAdSetRequest](docs/UpdateAdSetRequest.md)
  - [UpdateAdSetRequestBudget](docs/UpdateAdSetRequestBudget.md)
