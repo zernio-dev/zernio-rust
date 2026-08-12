@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// LinkedInPlatformData : Up to 20 images, no multi-video. Single PDF supported (max 100MB). Link previews auto-generated when no media attached. Use organizationUrn for multi-org posting. Geo-restriction only works for organization pages (not personal profiles) and requires the targeted audience to exceed 300 followers.
+/// LinkedInPlatformData : Up to 20 images, no multi-video. Single PDF supported (max 100MB). Link previews auto-generated when no media attached. Use organizationUrn for multi-org posting. Geo-restriction only works for organization pages (not personal profiles) and requires the targeted audience to exceed 300 followers. Polls are supported via the poll object: 2-4 options, cannot be combined with media or reshareUrl, cannot be edited after publishing, and API-created polls are non-sponsored only.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LinkedInPlatformData {
     /// Title displayed on LinkedIn document (PDF/carousel) posts. Required by LinkedIn for document posts. If omitted, falls back to the media item title, then the filename.
@@ -31,10 +31,12 @@ pub struct LinkedInPlatformData {
     pub reshare_url: Option<String>,
     #[serde(rename = "geoRestriction", skip_serializing_if = "Option::is_none")]
     pub geo_restriction: Option<Box<models::GeoRestriction>>,
+    #[serde(rename = "poll", skip_serializing_if = "Option::is_none")]
+    pub poll: Option<Box<models::LinkedInPlatformDataPoll>>,
 }
 
 impl LinkedInPlatformData {
-    /// Up to 20 images, no multi-video. Single PDF supported (max 100MB). Link previews auto-generated when no media attached. Use organizationUrn for multi-org posting. Geo-restriction only works for organization pages (not personal profiles) and requires the targeted audience to exceed 300 followers.
+    /// Up to 20 images, no multi-video. Single PDF supported (max 100MB). Link previews auto-generated when no media attached. Use organizationUrn for multi-org posting. Geo-restriction only works for organization pages (not personal profiles) and requires the targeted audience to exceed 300 followers. Polls are supported via the poll object: 2-4 options, cannot be combined with media or reshareUrl, cannot be edited after publishing, and API-created polls are non-sponsored only.
     pub fn new() -> LinkedInPlatformData {
         LinkedInPlatformData {
             document_title: None,
@@ -43,6 +45,7 @@ impl LinkedInPlatformData {
             disable_link_preview: None,
             reshare_url: None,
             geo_restriction: None,
+            poll: None,
         }
     }
 }

@@ -859,6 +859,7 @@ docs/LinkedInLeadFormPlatformDataQuestionsInnerOneOf1.md
 docs/LinkedInLeadFormPlatformDataQuestionsInnerOneOf1ChoicesInner.md
 docs/LinkedInMentionsApi.md
 docs/LinkedInPlatformData.md
+docs/LinkedInPlatformDataPoll.md
 docs/ListAccountGroups200Response.md
 docs/ListAccountGroups200ResponseGroupsInner.md
 docs/ListAdAccounts200Response.md
@@ -2577,6 +2578,7 @@ src/models/linked_in_lead_form_platform_data_questions_inner_one_of.rs
 src/models/linked_in_lead_form_platform_data_questions_inner_one_of_1.rs
 src/models/linked_in_lead_form_platform_data_questions_inner_one_of_1_choices_inner.rs
 src/models/linked_in_platform_data.rs
+src/models/linked_in_platform_data_poll.rs
 src/models/list_account_groups_200_response.rs
 src/models/list_account_groups_200_response_groups_inner.rs
 src/models/list_ad_accounts_200_response.rs

@@ -1644,6 +1644,8 @@ pub mod linked_in_lead_form_platform_data_questions_inner_one_of_1_choices_inner
 pub use self::linked_in_lead_form_platform_data_questions_inner_one_of_1_choices_inner::LinkedInLeadFormPlatformDataQuestionsInnerOneOf1ChoicesInner;
 pub mod linked_in_platform_data;
 pub use self::linked_in_platform_data::LinkedInPlatformData;
+pub mod linked_in_platform_data_poll;
+pub use self::linked_in_platform_data_poll::LinkedInPlatformDataPoll;
 pub mod list_account_groups_200_response;
 pub use self::list_account_groups_200_response::ListAccountGroups200Response;
 pub mod list_account_groups_200_response_groups_inner;

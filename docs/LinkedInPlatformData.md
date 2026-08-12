@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **disable_link_preview** | Option<**bool**> | Set to true to disable automatic link previews for URLs in the post content (default is false) | [optional]
 **reshare_url** | Option<**String**> | LinkedIn post link to repost (use the post's \"Copy link to post\" action), or a urn:li:share / urn:li:ugcPost / urn:li:groupPost URN. The published post becomes a quote-reshare: your content is shown as the commentary and the original post is embedded underneath (LinkedIn's \"repost with your thoughts\"). Mutually exclusive with media. Works on personal profiles and organization pages. | [optional]
 **geo_restriction** | Option<[**models::GeoRestriction**](GeoRestriction.md)> |  | [optional]
+**poll** | Option<[**models::LinkedInPlatformDataPoll**](LinkedInPlatformDataPoll.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
