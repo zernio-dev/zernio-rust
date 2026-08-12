@@ -1628,6 +1628,7 @@ docs/WebhookPayloadMessageMetadataReferral.md
 docs/WebhookPayloadMessageMetadataReferralAdsContextData.md
 docs/WebhookPayloadMessageMetadataReferredProduct.md
 docs/WebhookPayloadMessageMetadataStoryReply.md
+docs/WebhookPayloadMessageMetadataUnsupported.md
 docs/WebhookPayloadMessageSent.md
 docs/WebhookPayloadMessageSentMessage.md
 docs/WebhookPayloadMessageSentMessageAttachmentsInner.md
@@ -3332,6 +3333,7 @@ src/models/webhook_payload_message_metadata_referral.rs
 src/models/webhook_payload_message_metadata_referral_ads_context_data.rs
 src/models/webhook_payload_message_metadata_referred_product.rs
 src/models/webhook_payload_message_metadata_story_reply.rs
+src/models/webhook_payload_message_metadata_unsupported.rs
 src/models/webhook_payload_message_sent.rs
 src/models/webhook_payload_message_sent_message.rs
 src/models/webhook_payload_message_sent_message_attachments_inner.rs

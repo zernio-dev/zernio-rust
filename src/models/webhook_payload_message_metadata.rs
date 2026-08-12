@@ -61,6 +61,8 @@ pub struct WebhookPayloadMessageMetadata {
     pub is_story_mention: Option<bool>,
     #[serde(rename = "referral", skip_serializing_if = "Option::is_none")]
     pub referral: Option<Box<models::WebhookPayloadMessageMetadataReferral>>,
+    #[serde(rename = "unsupported", skip_serializing_if = "Option::is_none")]
+    pub unsupported: Option<Box<models::WebhookPayloadMessageMetadataUnsupported>>,
 }
 
 impl WebhookPayloadMessageMetadata {
@@ -84,6 +86,7 @@ impl WebhookPayloadMessageMetadata {
             story_reply: None,
             is_story_mention: None,
             referral: None,
+            unsupported: None,
         }
     }
 }
