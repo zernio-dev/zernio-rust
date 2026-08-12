@@ -870,7 +870,7 @@ pub async fn get_ad_tree(
     sort: Option<&str>,
     time_increment: Option<i32>,
     daily_level: Option<&str>,
-) -> Result<models::GetAdTree200Response, Error<GetAdTreeError>> {
+) -> Result<models::AdTreeResponse, Error<GetAdTreeError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_page = page;
     let p_query_limit = limit;
@@ -958,8 +958,8 @@ pub async fn get_ad_tree(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetAdTree200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetAdTree200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AdTreeResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AdTreeResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -980,7 +980,7 @@ pub async fn get_ads_timeline(
     from_date: Option<String>,
     to_date: Option<String>,
     platform: Option<&str>,
-) -> Result<models::GetAdsTimeline200Response, Error<GetAdsTimelineError>> {
+) -> Result<models::AdsTimelineResponse, Error<GetAdsTimelineError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_account_id = account_id;
     let p_query_ad_account_id = ad_account_id;
@@ -1026,8 +1026,8 @@ pub async fn get_ads_timeline(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetAdsTimeline200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetAdsTimeline200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AdsTimelineResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AdsTimelineResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -1263,7 +1263,7 @@ pub async fn list_ads(
     effective_instagram_media_id: Option<&str>,
     from_date: Option<String>,
     to_date: Option<String>,
-) -> Result<models::ListAds200Response, Error<ListAdsError>> {
+) -> Result<models::AdsListResponse, Error<ListAdsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_page = page;
     let p_query_limit = limit;
@@ -1351,8 +1351,8 @@ pub async fn list_ads(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListAds200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListAds200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AdsListResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AdsListResponse`")))),
         }
     } else {
         let content = resp.text().await?;

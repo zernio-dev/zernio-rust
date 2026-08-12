@@ -266,7 +266,7 @@ pub async fn get_ad_analytics(
     from_date: Option<String>,
     to_date: Option<String>,
     breakdowns: Option<&str>,
-) -> Result<models::GetAdAnalytics200Response, Error<GetAdAnalyticsError>> {
+) -> Result<models::AdAnalyticsResponse, Error<GetAdAnalyticsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_ad_id = ad_id;
     let p_query_from_date = from_date;
@@ -311,8 +311,8 @@ pub async fn get_ad_analytics(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetAdAnalytics200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetAdAnalytics200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AdAnalyticsResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AdAnalyticsResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -475,7 +475,7 @@ pub async fn get_campaign_analytics(
     from_date: Option<String>,
     to_date: Option<String>,
     breakdowns: Option<&str>,
-) -> Result<models::GetCampaignAnalytics200Response, Error<GetCampaignAnalyticsError>> {
+) -> Result<models::CampaignAnalyticsResponse, Error<GetCampaignAnalyticsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_campaign_id = campaign_id;
     let p_query_platform = platform;
@@ -524,8 +524,8 @@ pub async fn get_campaign_analytics(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetCampaignAnalytics200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCampaignAnalytics200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CampaignAnalyticsResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CampaignAnalyticsResponse`")))),
         }
     } else {
         let content = resp.text().await?;

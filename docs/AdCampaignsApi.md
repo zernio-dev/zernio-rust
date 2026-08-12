@@ -372,7 +372,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_ad_tree
 
-> models::GetAdTree200Response get_ad_tree(page, limit, source, platform, status, ad_account_id, page_id, account_id, profile_id, campaign_id, from_date, to_date, sort, time_increment, daily_level)
+> models::AdTreeResponse get_ad_tree(page, limit, source, platform, status, ad_account_id, page_id, account_id, profile_id, campaign_id, from_date, to_date, sort, time_increment, daily_level)
 Get campaign tree
 
 Returns a nested Campaign > Ad Set > Ad hierarchy with rolled-up metrics at each level. Uses a two-stage aggregation: ads are grouped into ad sets, then ad sets into campaigns. Metrics are computed over an optional date range, then rolled up from ad level to ad set and campaign levels. Pagination is at the campaign level. Ads without a campaign or ad set ID are grouped into synthetic \"Ungrouped\" buckets. If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max.  Pass `timeIncrement=1` to also get a daily breakdown: each node gains a `daily[]` array of per-day metrics (same fields as the aggregated `metrics`) in the same call. Use `dailyLevel` (`campaign` default, or `adset` / `ad`) to choose which levels carry the series. This replaces calling the tree once per day for per-campaign daily trends.  **Deleted objects stay in the tree.** Deleting an ad or a campaign is a soft delete: the Ad documents move to `status: cancelled` and are kept indefinitely, so their historical spend still counts toward the metrics of any date range they fall in. There is no pruning job and no retention window. Filter on `status` if your view should hide them, but do that after reading the totals, not before. 
@@ -400,7 +400,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetAdTree200Response**](getAdTree_200_response.md)
+[**models::AdTreeResponse**](AdTreeResponse.md)
 
 ### Authorization
 
@@ -416,7 +416,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_ads_timeline
 
-> models::GetAdsTimeline200Response get_ads_timeline(account_id, ad_account_id, from_date, to_date, platform)
+> models::AdsTimelineResponse get_ads_timeline(account_id, ad_account_id, from_date, to_date, platform)
 Get daily account metrics
 
 Returns daily aggregate metrics across all ads in a SocialAccount as a single time series — one row per calendar day in the requested range. Use this for dashboards that draw a daily-spend or daily-conversions chart, instead of calling `/v1/ads/tree` once per day.  `accountId` is required. The lookup is sibling-expanded so passing the `metaads` ID also includes ads under the linked `facebook` / `instagram` posting account (and vice-versa) — same convention as `/v1/ads/tree` and `/v1/ads`.  Date range defaults to the last 90 days. Capped at 730 days. Ranges older than the ingested history return a `202` immediately with the covered part and `backfillPending: true` while the rest is backfilled in the background; repeat the request shortly until it returns 200 with full data. 
@@ -434,7 +434,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetAdsTimeline200Response**](getAdsTimeline_200_response.md)
+[**models::AdsTimelineResponse**](AdsTimelineResponse.md)
 
 ### Authorization
 
@@ -531,7 +531,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_ads
 
-> models::ListAds200Response list_ads(page, limit, source, status, platform, account_id, ad_account_id, page_id, profile_id, campaign_id, platform_ad_id, effective_object_story_id, effective_instagram_media_id, from_date, to_date)
+> models::AdsListResponse list_ads(page, limit, source, status, platform, account_id, ad_account_id, page_id, profile_id, campaign_id, platform_ad_id, effective_object_story_id, effective_instagram_media_id, from_date, to_date)
 List ads
 
 Returns a paginated list of ads with metrics computed over an optional date range. Use source=all to include externally-synced ads from platform ad managers. If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max.  To find the Zernio ad behind a comment you see in Meta Business Manager, filter by platformAdId (the Meta ad ID), effectiveObjectStoryId (Facebook), or effectiveInstagramMediaId (Instagram) — those are the post/media the ad's engagement lives on, and are also returned on each ad's `creative` object. Then call GET /v1/ads/{adId}/comments with the returned ad id. 
@@ -559,7 +559,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::ListAds200Response**](listAds_200_response.md)
+[**models::AdsListResponse**](AdsListResponse.md)
 
 ### Authorization
 

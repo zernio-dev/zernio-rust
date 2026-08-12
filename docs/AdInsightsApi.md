@@ -107,7 +107,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_ad_analytics
 
-> models::GetAdAnalytics200Response get_ad_analytics(ad_id, from_date, to_date, breakdowns)
+> models::AdAnalyticsResponse get_ad_analytics(ad_id, from_date, to_date, breakdowns)
 Get ad analytics
 
 Returns detailed performance analytics for an ad. Includes summary metrics, a daily timeline over the requested date range, and optional demographic breakdowns (Meta and TikTok only). If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max. 
@@ -124,7 +124,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetAdAnalytics200Response**](getAdAnalytics_200_response.md)
+[**models::AdAnalyticsResponse**](AdAnalyticsResponse.md)
 
 ### Authorization
 
@@ -209,7 +209,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_campaign_analytics
 
-> models::GetCampaignAnalytics200Response get_campaign_analytics(campaign_id, platform, from_date, to_date, breakdowns)
+> models::CampaignAnalyticsResponse get_campaign_analytics(campaign_id, platform, from_date, to_date, breakdowns)
 Get campaign analytics
 
 Returns performance analytics for a whole campaign in one call: summary metrics, a daily timeline over the requested date range (summed across the campaign's ads), and optional demographic breakdowns. Breakdowns are fetched live from Meta at the campaign level (one call per dimension, no per-ad fan-out), so an agency dashboard gets campaign-level age/gender/etc. without summing thousands of per-ad reads. `campaignId` is the platform campaign id; pass `platform` when a campaign id could be ambiguous across platforms. If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max. 
@@ -227,7 +227,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetCampaignAnalytics200Response**](getCampaignAnalytics_200_response.md)
+[**models::CampaignAnalyticsResponse**](CampaignAnalyticsResponse.md)
 
 ### Authorization
 
