@@ -20,6 +20,7 @@ pub enum BoostPostError {
     Status400(),
     Status401(models::InlineObject),
     Status403(),
+    Status409(),
     Status422(),
     UnknownValue(serde_json::Value),
 }
@@ -240,13 +241,15 @@ pub enum UpdateAdStatusError {
     UnknownValue(serde_json::Value),
 }
 
-/// Creates a paid ad from an existing published post, keeping the post's engagement. By default it provisions the whole hierarchy (campaign, ad set, ad).  **Attach shape (Meta).** Send `adSetId` to put the ad under an EXISTING ad set instead, so that ad set keeps its learning phase. It then owns `budget`, `schedule` and `targeting`, and sending any of those alongside `adSetId` is a 400 rather than a silent drop. `budget` is required only without `adSetId`.  `instagramAccountId`, `destinationType` and `adSetId` are Meta-only and return 400 on other platforms.
+/// Creates a paid ad from an existing published post, keeping the post's engagement. By default it provisions the whole hierarchy (campaign, ad set, ad).  **Attach shape (Meta).** Send `adSetId` to put the ad under an EXISTING ad set instead, so that ad set keeps its learning phase. It then owns `budget`, `schedule` and `targeting`, and sending any of those alongside `adSetId` is a 400 rather than a silent drop. `budget` is required only without `adSetId`.  `instagramAccountId`, `destinationType` and `adSetId` are Meta-only and return 400 on other platforms.  **Retries.** Boosts are NOT idempotent and can take minutes when Meta requires re-hosting an Instagram video, so do not retry on client timeout. Send an Idempotency-Key header to make retries safe: same key and body replays the original 201, and distinct keys always create distinct ads. Without the header, an identical request is treated as a retry: while one is in flight it returns 409, and within 10 minutes of a completed boost it returns the already-created ad instead of creating another. To intentionally duplicate an ad, send distinct Idempotency-Keys (or vary the body, e.g. the name).
 pub async fn boost_post(
     configuration: &configuration::Configuration,
     boost_post_request: models::BoostPostRequest,
+    idempotency_key: Option<&str>,
 ) -> Result<models::UpdateAd200Response, Error<BoostPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_boost_post_request = boost_post_request;
+    let p_header_idempotency_key = idempotency_key;
 
     let uri_str = format!("{}/v1/ads/boost", configuration.base_path);
     let mut req_builder = configuration
@@ -255,6 +258,9 @@ pub async fn boost_post(
 
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_idempotency_key {
+        req_builder = req_builder.header("Idempotency-Key", param_value.to_string());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
