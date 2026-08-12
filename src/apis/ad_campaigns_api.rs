@@ -873,6 +873,8 @@ pub async fn get_ad_tree(
     campaign_id: Option<&str>,
     from_date: Option<String>,
     to_date: Option<String>,
+    has_delivery: Option<bool>,
+    min_spend: Option<f64>,
     sort: Option<&str>,
     time_increment: Option<i32>,
     daily_level: Option<&str>,
@@ -890,6 +892,8 @@ pub async fn get_ad_tree(
     let p_query_campaign_id = campaign_id;
     let p_query_from_date = from_date;
     let p_query_to_date = to_date;
+    let p_query_has_delivery = has_delivery;
+    let p_query_min_spend = min_spend;
     let p_query_sort = sort;
     let p_query_time_increment = time_increment;
     let p_query_daily_level = daily_level;
@@ -932,6 +936,12 @@ pub async fn get_ad_tree(
     }
     if let Some(ref param_value) = p_query_to_date {
         req_builder = req_builder.query(&[("toDate", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_has_delivery {
+        req_builder = req_builder.query(&[("hasDelivery", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_min_spend {
+        req_builder = req_builder.query(&[("minSpend", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_sort {
         req_builder = req_builder.query(&[("sort", &param_value.to_string())]);
@@ -1061,6 +1071,8 @@ pub async fn list_ad_campaigns(
     profile_id: Option<&str>,
     from_date: Option<String>,
     to_date: Option<String>,
+    has_delivery: Option<bool>,
+    min_spend: Option<f64>,
 ) -> Result<models::ListAdCampaigns200Response, Error<ListAdCampaignsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_include_empty = include_empty;
@@ -1075,6 +1087,8 @@ pub async fn list_ad_campaigns(
     let p_query_profile_id = profile_id;
     let p_query_from_date = from_date;
     let p_query_to_date = to_date;
+    let p_query_has_delivery = has_delivery;
+    let p_query_min_spend = min_spend;
 
     let uri_str = format!("{}/v1/ads/campaigns", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -1114,6 +1128,12 @@ pub async fn list_ad_campaigns(
     }
     if let Some(ref param_value) = p_query_to_date {
         req_builder = req_builder.query(&[("toDate", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_has_delivery {
+        req_builder = req_builder.query(&[("hasDelivery", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_min_spend {
+        req_builder = req_builder.query(&[("minSpend", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());

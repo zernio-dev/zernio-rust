@@ -373,7 +373,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_ad_tree
 
-> models::AdTreeResponse get_ad_tree(page, limit, source, platform, status, ad_account_id, page_id, account_id, profile_id, campaign_id, from_date, to_date, sort, time_increment, daily_level)
+> models::AdTreeResponse get_ad_tree(page, limit, source, platform, status, ad_account_id, page_id, account_id, profile_id, campaign_id, from_date, to_date, has_delivery, min_spend, sort, time_increment, daily_level)
 Get campaign tree
 
 Returns a nested Campaign > Ad Set > Ad hierarchy with rolled-up metrics at each level. Uses a two-stage aggregation: ads are grouped into ad sets, then ad sets into campaigns. Metrics are computed over an optional date range, then rolled up from ad level to ad set and campaign levels. Pagination is at the campaign level. Ads without a campaign or ad set ID are grouped into synthetic \"Ungrouped\" buckets. If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max.  Pass `timeIncrement=1` to also get a daily breakdown: each node gains a `daily[]` array of per-day metrics (same fields as the aggregated `metrics`) in the same call. Use `dailyLevel` (`campaign` default, or `adset` / `ad`) to choose which levels carry the series. This replaces calling the tree once per day for per-campaign daily trends.  **Deleted objects stay in the tree.** Deleting an ad or a campaign is a soft delete: the Ad documents move to `status: cancelled` and are kept indefinitely, so their historical spend still counts toward the metrics of any date range they fall in. There is no pruning job and no retention window. Filter on `status` if your view should hide them, but do that after reading the totals, not before. 
@@ -393,8 +393,10 @@ Name | Type | Description  | Required | Notes
 **account_id** | Option<**String**> | Social account ID |  |
 **profile_id** | Option<**String**> | Profile ID |  |
 **campaign_id** | Option<**String**> | Restrict the tree to a single campaign by its platform campaign id (the id the platform assigns, e.g. Meta's numeric campaign id). Filters the campaign set itself, so it works regardless of account size and pagination — pass this when you already hold a campaign id instead of paging the tree to find it. Mirrors the `campaignId` filter on GET /v1/ads. |  |
-**from_date** | Option<**String**> | Start of the METRICS date range (YYYY-MM-DD). Affects only the spend/impression numbers overlaid on each node, NOT which campaigns are returned. Defaults to 90 days ago. |  |
+**from_date** | Option<**String**> | Start of the METRICS date range (YYYY-MM-DD). On its own it affects only the spend/impression numbers overlaid on each node, not which campaigns are returned — pass `hasDelivery` or `minSpend` to also filter the campaign set to this window. Defaults to 90 days ago. |  |
 **to_date** | Option<**String**> | End of metrics date range (YYYY-MM-DD). Defaults to today. Max 730-day range. |  |
+**has_delivery** | Option<**bool**> | Return only campaigns that delivered between `fromDate` and `toDate` — spend above zero, or impressions served at zero spend. Unlike `status`, which reads a campaign's CURRENT state, this filters on what happened inside the window, so a campaign that spent then and is paused today is still returned. Filters the campaign set itself, so `pagination.total` counts only matching campaigns. |  |
+**min_spend** | Option<**f64**> | Return only campaigns whose spend between `fromDate` and `toDate` reaches this amount. Expressed in each campaign's OWN currency (the `currency` field on the campaign node): spend is stored per ad account in its native currency and one response can span several. Implies `hasDelivery`; `minSpend=0` applies no filter. |  |
 **sort** | Option<**String**> | Campaign-level sort order. `newest` (default) / `oldest` order by the campaign's newest-ad createdAt. `spend_desc` / `spend_asc` order by aggregated spend in the requested date range; campaigns with no spend land at the end. |  |[default to newest]
 **time_increment** | Option<**i32**> | Set to `1` to also return a daily breakdown. Mirrors Meta Insights' `time_increment=1`: each node gains a `daily[]` array of per-day metrics (same fields as the aggregated `metrics`) alongside the range total, so you get per-entity daily trends in ONE call instead of calling the tree once per day. Only `1` (daily) is supported. The daily series covers the same date range and uses the same source data as `metrics`, except `reach` on Meta and TikTok: the range total is the platform's de-duplicated value, so daily reach does not sum to it. See `dailyLevel` to control which levels carry it. |  |
 **daily_level** | Option<**String**> | Which tree levels get the `daily[]` series when `timeIncrement=1`. `campaign` (default) attaches it on campaign nodes only — the common per-campaign-trend case, and the smallest payload. `adset` adds it on ad sets too; `ad` adds it on every ad in `ads[]` as well (heaviest — a long range × up to 100 ads per ad set). Scope with `campaignId` to keep `ad`-level responses small. Ignored when `timeIncrement` is unset. |  |[default to campaign]
@@ -451,7 +453,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_ad_campaigns
 
-> models::ListAdCampaigns200Response list_ad_campaigns(include_empty, page, limit, source, platform, status, ad_account_id, page_id, account_id, profile_id, from_date, to_date)
+> models::ListAdCampaigns200Response list_ad_campaigns(include_empty, page, limit, source, platform, status, ad_account_id, page_id, account_id, profile_id, from_date, to_date, has_delivery, min_spend)
 List campaigns
 
 Returns campaigns as virtual aggregations over ad documents grouped by platform campaign ID. Metrics (spend, impressions, clicks, etc.) are summed across all ads in each campaign. Campaign status is derived from child ad statuses (active > pending_review > paused > error > completed > cancelled > rejected). 
@@ -473,6 +475,8 @@ Name | Type | Description  | Required | Notes
 **profile_id** | Option<**String**> | Profile ID |  |
 **from_date** | Option<**String**> | Start of metrics date range (YYYY-MM-DD, inclusive). Defaults to 90 days ago when both date params are omitted. |  |
 **to_date** | Option<**String**> | End of metrics date range (YYYY-MM-DD, inclusive). Defaults to today. Max 730-day range. |  |
+**has_delivery** | Option<**bool**> | Return only campaigns that delivered between `fromDate` and `toDate` — spend above zero, or impressions served at zero spend. Unlike `status`, which reads a campaign's CURRENT state, this filters on what happened inside the window. Filters the campaign set itself, so `pagination.total` counts only matching campaigns. Mirrors the same filter on /v1/ads/tree. |  |
+**min_spend** | Option<**f64**> | Return only campaigns whose spend between `fromDate` and `toDate` reaches this amount, in each campaign's OWN currency (the `currency` field on the campaign). Implies `hasDelivery`; `minSpend=0` applies no filter. Mirrors the same filter on /v1/ads/tree. |  |
 
 ### Return type
 
