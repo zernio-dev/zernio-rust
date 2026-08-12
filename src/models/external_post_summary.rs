@@ -32,9 +32,6 @@ pub struct ExternalPostSummary {
     /// Media type (e.g. image, video, carousel)
     #[serde(rename = "mediaType", skip_serializing_if = "Option::is_none")]
     pub media_type: Option<String>,
-    /// Primary media URL
-    #[serde(rename = "mediaUrl", skip_serializing_if = "Option::is_none")]
-    pub media_url: Option<String>,
     /// Thumbnail URL
     #[serde(rename = "thumbnailUrl", skip_serializing_if = "Option::is_none")]
     pub thumbnail_url: Option<String>,
@@ -55,7 +52,6 @@ impl ExternalPostSummary {
             content: None,
             published_at: None,
             media_type: None,
-            media_url: None,
             thumbnail_url: None,
             media_items: None,
             analytics: None,

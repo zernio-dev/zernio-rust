@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **content** | Option<**String**> | Post caption / text | [optional]
 **published_at** | Option<**String**> | When the post was published on the platform | [optional]
 **media_type** | Option<**String**> | Media type (e.g. image, video, carousel) | [optional]
-**media_url** | Option<**String**> | Primary media URL | [optional]
 **thumbnail_url** | Option<**String**> | Thumbnail URL | [optional]
 **media_items** | Option<**Vec<serde_json::Value>**> | Per-item media (for carousels / multi-media posts) | [optional]
 **analytics** | Option<[**models::ExternalPostSummaryAnalytics**](ExternalPostSummaryAnalytics.md)> |  | [optional]
