@@ -38,7 +38,7 @@ pub struct AdEngagementCounts {
     /// 3-second video views (`video_view`). For completion-based counts use `videoThruplayWatchedActions`.
     #[serde(rename = "videoViews", skip_serializing_if = "Option::is_none")]
     pub video_views: Option<i32>,
-    /// Attributed link clicks (`link_click`). This is the attribution-window count, which differs from the in-session `inline_link_clicks` reported by `GET /v1/ads/{adId}/analytics`.
+    /// Attributed link clicks (`link_click`). This is the attribution-window count, which differs from the in-session count in the sibling `inlineLinkClicks` field.
     #[serde(rename = "linkClicks", skip_serializing_if = "Option::is_none")]
     pub link_clicks: Option<i32>,
 }

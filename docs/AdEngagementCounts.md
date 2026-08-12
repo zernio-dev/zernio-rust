@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **saves** | Option<**i32**> | Saves of the ad's post (`onsite_conversion.post_save`). | [optional]
 **page_likes** | Option<**i32**> | New Page likes attributed to the ad (`like`). | [optional]
 **video_views** | Option<**i32**> | 3-second video views (`video_view`). For completion-based counts use `videoThruplayWatchedActions`. | [optional]
-**link_clicks** | Option<**i32**> | Attributed link clicks (`link_click`). This is the attribution-window count, which differs from the in-session `inline_link_clicks` reported by `GET /v1/ads/{adId}/analytics`. | [optional]
+**link_clicks** | Option<**i32**> | Attributed link clicks (`link_click`). This is the attribution-window count, which differs from the in-session count in the sibling `inlineLinkClicks` field. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

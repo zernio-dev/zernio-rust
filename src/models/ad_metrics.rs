@@ -51,6 +51,27 @@ pub struct AdMetrics {
     /// Return on ad spend — derived as `purchaseValue / spend`. 0 when `spend` is 0. Equivalent to Meta's `purchase_roas` under default attribution. At ad-set and campaign levels this is recomputed from summed purchaseValue + spend (NOT averaged across children) so it's mathematically correct at every rollup level.
     #[serde(rename = "roas", skip_serializing_if = "Option::is_none")]
     pub roas: Option<f64>,
+    /// Derived `spend / actions[type]` for every action type with a non-zero count, in ad-account native currency. Same keys as `actions`. Rounded to 4 decimals because cheap actions cost well under a cent. Recomputed from summed spend + counts at every rollup level. Empty object when spend is 0 or no actions are reported.
+    #[serde(rename = "costPerAction", skip_serializing_if = "Option::is_none")]
+    pub cost_per_action: Option<std::collections::HashMap<String, f64>>,
+    /// Clicks leading off Meta's surfaces to the advertiser's destination. Meta-only; other platforms report 0.
+    #[serde(rename = "outboundClicks", skip_serializing_if = "Option::is_none")]
+    pub outbound_clicks: Option<i32>,
+    /// Derived `outboundClicks / impressions * 100`, recomputed from sums at every rollup level.
+    #[serde(rename = "outboundClicksCtr", skip_serializing_if = "Option::is_none")]
+    pub outbound_clicks_ctr: Option<f64>,
+    /// In-session link clicks. Differs from the attributed `link_click` count in `actions`/`engagementBreakdown.linkClicks`, which uses the attribution window. Meta-only.
+    #[serde(rename = "inlineLinkClicks", skip_serializing_if = "Option::is_none")]
+    pub inline_link_clicks: Option<i32>,
+    /// Derived `inlineLinkClicks / impressions * 100`, recomputed from sums at every rollup level.
+    #[serde(rename = "inlineLinkClickCtr", skip_serializing_if = "Option::is_none")]
+    pub inline_link_click_ctr: Option<f64>,
+    /// People who clicked at least once. NOT additive: summed across days/children it overcounts people who clicked on multiple days or ads, so treat rollups as an upper bound (same caveat as `reach`). Meta-only.
+    #[serde(rename = "uniqueClicks", skip_serializing_if = "Option::is_none")]
+    pub unique_clicks: Option<i32>,
+    /// Derived `uniqueClicks / impressions * 100` (NOT Meta's reach-based unique_ctr). Inherits the non-additivity caveat of `uniqueClicks`.
+    #[serde(rename = "uniqueCtr", skip_serializing_if = "Option::is_none")]
+    pub unique_ctr: Option<f64>,
     /// Number of times the video started playing, summed over the date range and across children at ad-set/campaign level. 0 for non-video ads. Sources: Meta `video_play_actions`, TikTok `video_play_actions`.
     #[serde(rename = "videoPlayActions", skip_serializing_if = "Option::is_none")]
     pub video_play_actions: Option<i32>,
@@ -134,6 +155,13 @@ impl AdMetrics {
             action_values: None,
             purchase_value: None,
             roas: None,
+            cost_per_action: None,
+            outbound_clicks: None,
+            outbound_clicks_ctr: None,
+            inline_link_clicks: None,
+            inline_link_click_ctr: None,
+            unique_clicks: None,
+            unique_ctr: None,
             video_play_actions: None,
             video30_sec_watched_actions: None,
             video_thruplay_watched_actions: None,
