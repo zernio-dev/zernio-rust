@@ -96,7 +96,7 @@ pub struct AdTreeCampaign {
     pub account_id: Option<String>,
     #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]
     pub profile_id: Option<String>,
-    /// Google-only. Raw campaign.advertising_channel_type (SEARCH, PERFORMANCE_MAX, VIDEO, DEMAND_GEN, DISPLAY, SHOPPING, ...). Serving surface, distinct from platformObjective (advertiser intent). Null/absent for non-Google platforms.
+    /// Google-only. Raw campaign.advertising_channel_type (SEARCH, PERFORMANCE_MAX, LOCAL_SERVICES, VIDEO, DEMAND_GEN, DISPLAY, SHOPPING, ...). Serving surface, distinct from platformObjective (advertiser intent). Null/absent for non-Google platforms.
     #[serde(
         rename = "advertisingChannelType",
         default,
