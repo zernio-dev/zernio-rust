@@ -11,22 +11,22 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// AdEngagementCounts : The single `engagement` total split into the interactions behind it.  Note that `engagement` is not the sum of these: Meta's own `post_engagement` and `page_engagement` totals already contain the individual interactions, and all of them are counted into `engagement`. Use these fields when you need a specific interaction, and `engagement` only as the coarse total it has always been.  Meta-only; other platforms leave these at 0.
+/// AdEngagementCounts : The single `engagement` total split into the interactions behind it.  Note that `engagement` is not the sum of these: Meta's own `post_engagement` and `page_engagement` totals already contain the individual interactions, and all of them are counted into `engagement`. Use these fields when you need a specific interaction, and `engagement` only as the coarse total it has always been.  Populated for Meta and, since 2026-08, TikTok (`reactions` = paid likes, `comments`, `shares`; TikTok's `follow` count lives in `actions.follow`, not here). Other platforms leave these at 0. TikTok history note: paused TikTok ads are not re-synced, so campaigns that ended before the rollout keep 0s here.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AdEngagementCounts {
-    /// Meta's own post-engagement total (`post_engagement`).
+    /// Meta's own post-engagement total (`post_engagement`). Meta-only.
     #[serde(rename = "postEngagement", skip_serializing_if = "Option::is_none")]
     pub post_engagement: Option<i32>,
-    /// Meta's own page-engagement total (`page_engagement`).
+    /// Meta's own page-engagement total (`page_engagement`). Meta-only.
     #[serde(rename = "pageEngagement", skip_serializing_if = "Option::is_none")]
     pub page_engagement: Option<i32>,
-    /// Reactions on the ad's post (`post_reaction`).
+    /// Reactions on the ad's post (`post_reaction`). For TikTok these are its paid likes.
     #[serde(rename = "reactions", skip_serializing_if = "Option::is_none")]
     pub reactions: Option<i32>,
     /// Comments on the ad's post.
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<i32>,
-    /// Shares of the ad's post. Meta reports these under the action type literally named `post`.
+    /// Shares of the ad's post. Meta reports these under the action type literally named `post`; TikTok under `share`.
     #[serde(rename = "shares", skip_serializing_if = "Option::is_none")]
     pub shares: Option<i32>,
     /// Saves of the ad's post (`onsite_conversion.post_save`).
@@ -44,7 +44,7 @@ pub struct AdEngagementCounts {
 }
 
 impl AdEngagementCounts {
-    /// The single `engagement` total split into the interactions behind it.  Note that `engagement` is not the sum of these: Meta's own `post_engagement` and `page_engagement` totals already contain the individual interactions, and all of them are counted into `engagement`. Use these fields when you need a specific interaction, and `engagement` only as the coarse total it has always been.  Meta-only; other platforms leave these at 0.
+    /// The single `engagement` total split into the interactions behind it.  Note that `engagement` is not the sum of these: Meta's own `post_engagement` and `page_engagement` totals already contain the individual interactions, and all of them are counted into `engagement`. Use these fields when you need a specific interaction, and `engagement` only as the coarse total it has always been.  Populated for Meta and, since 2026-08, TikTok (`reactions` = paid likes, `comments`, `shares`; TikTok's `follow` count lives in `actions.follow`, not here). Other platforms leave these at 0. TikTok history note: paused TikTok ads are not re-synced, so campaigns that ended before the rollout keep 0s here.
     pub fn new() -> AdEngagementCounts {
         AdEngagementCounts {
             post_engagement: None,
