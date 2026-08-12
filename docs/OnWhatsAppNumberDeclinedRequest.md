@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**String**> |  | [optional]
 **event** | Option<**Event**> |  (enum: whatsapp.number.declined) | [optional]
-**timestamp** | Option<**String**> |  | [optional]
+**timestamp** | Option<**String**> | UTC time at which Zernio generated this event (set once when the event payload is built, before delivery is queued). Retries and redeliveries keep the original value, so it reflects the event, not the delivery attempt. | [optional]
 **number** | Option<[**models::OnWhatsAppNumberDeclinedRequestNumber**](OnWhatsAppNumberDeclinedRequestNumber.md)> |  | [optional]
 **reason** | Option<**String**> |  | [optional]
 

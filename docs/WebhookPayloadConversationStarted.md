@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **conversation** | [**models::WebhookPayloadConversationStartedConversation**](WebhookPayloadConversationStartedConversation.md) |  | 
 **account** | [**models::InboxWebhookAccount**](InboxWebhookAccount.md) |  | 
 **started_at** | **String** | When the conversation document was created. | 
-**timestamp** | **String** |  | 
+**timestamp** | **String** | UTC time at which Zernio generated this event (set once when the event payload is built, before delivery is queued). Retries and redeliveries keep the original value, so it reflects the event, not the delivery attempt. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

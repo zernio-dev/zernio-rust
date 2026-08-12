@@ -22,6 +22,7 @@ pub struct WebhookPayloadTest {
     /// Human-readable test message
     #[serde(rename = "message")]
     pub message: String,
+    /// UTC time at which Zernio generated this test event (set once when the payload is built). Test fires are sent synchronously as a single attempt; a later redelivery of this event keeps the original value.
     #[serde(rename = "timestamp")]
     pub timestamp: String,
 }

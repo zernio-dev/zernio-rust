@@ -17,6 +17,7 @@ pub struct OnVerificationFailedRequest {
     pub id: Option<String>,
     #[serde(rename = "event", skip_serializing_if = "Option::is_none")]
     pub event: Option<Event>,
+    /// UTC time at which Zernio generated this event (set once when the event payload is built, before delivery is queued). Retries and redeliveries keep the original value, so it reflects the event, not the delivery attempt.
     #[serde(rename = "timestamp", skip_serializing_if = "Option::is_none")]
     pub timestamp: Option<String>,
     #[serde(rename = "verification", skip_serializing_if = "Option::is_none")]

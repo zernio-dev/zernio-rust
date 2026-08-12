@@ -26,6 +26,7 @@ pub struct WebhookPayloadConversationStarted {
     /// When the conversation document was created.
     #[serde(rename = "startedAt")]
     pub started_at: String,
+    /// UTC time at which Zernio generated this event (set once when the event payload is built, before delivery is queued). Retries and redeliveries keep the original value, so it reflects the event, not the delivery attempt.
     #[serde(rename = "timestamp")]
     pub timestamp: String,
 }

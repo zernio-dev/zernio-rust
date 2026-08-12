@@ -70,7 +70,7 @@ pub struct GetInboxPostComments200ResponseCommentsInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub cid: Option<Option<String>>,
-    /// Parent comment ID for nested replies
+    /// ID of the parent comment. Present on entries inside replies[] for Facebook, Instagram and X/Twitter. On X/Twitter it is also present on top-level entries, where it holds the ID of the post replied to. Omitted entirely (key absent, not null) on top-level Facebook and Instagram entries and on every other platform, which express the parent relationship only through replies[] nesting.
     #[serde(
         rename = "parentId",
         default,

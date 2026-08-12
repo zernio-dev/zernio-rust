@@ -25,6 +25,7 @@ pub struct WebhookPayloadComment {
     pub post: Box<models::WebhookPayloadCommentPost>,
     #[serde(rename = "account")]
     pub account: Box<models::WebhookPayloadCommentAccount>,
+    /// UTC time at which Zernio generated this event (set once when the event payload is built, before delivery is queued). Retries and redeliveries keep the original value, so it reflects the event, not the delivery attempt.
     #[serde(rename = "timestamp")]
     pub timestamp: String,
 }
