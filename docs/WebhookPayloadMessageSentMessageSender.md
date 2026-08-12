@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
-**contact_id** | Option<**String**> | Zernio CRM Contact id for this sender, when one exists. | [optional]
+**contact_id** | Option<**String**> | Always omitted on this event: the sender is the business, not a contact. Use conversation.contactId to join back to the CRM Contact. | [optional]
 **name** | Option<**String**> |  | [optional]
 **username** | Option<**String**> |  | [optional]
 **picture** | Option<**String**> |  | [optional]

@@ -325,7 +325,7 @@ pub async fn get_contact_channels(
     }
 }
 
-/// List and search contacts for a profile. Supports filtering by tags, platform, subscription status, and full-text search.
+/// List and search contacts for a profile. Supports filtering by tags, platform, subscription status, and text search on name, email and company.
 pub async fn list_contacts(
     configuration: &configuration::Configuration,
     profile_id: Option<&str>,
