@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct CreatePostRequest {
     #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
-    /// Post caption/text. Optional when media is attached or all platforms have customContent. Required for text-only posts.
+    /// Post caption/text. Optional when media is attached, all platforms have customContent, or every platform entry is a LinkedIn plain repost (platformSpecificData.reshareUrl with no text). Required for text-only posts.
     #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
     pub content: Option<String>,
     #[serde(rename = "mediaItems", skip_serializing_if = "Option::is_none")]
