@@ -25,6 +25,9 @@ pub struct WorkflowNode {
     pub config: Option<std::collections::HashMap<String, serde_json::Value>>,
     #[serde(rename = "position", skip_serializing_if = "Option::is_none")]
     pub position: Option<Box<models::WorkflowNodePosition>>,
+    /// Optional display name shown on the builder canvas and inspector, falling back to the node type when absent. The nodes array is replaced wholesale on update, so it must be resent to be kept.
+    #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
+    pub label: Option<String>,
 }
 
 impl WorkflowNode {
@@ -35,6 +38,7 @@ impl WorkflowNode {
             r#type,
             config: None,
             position: None,
+            label: None,
         }
     }
 }
