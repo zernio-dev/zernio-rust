@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookPayloadReactionReactionSender : Whoever added or removed the reaction. Usually the participant, but on Slack, Instagram and Facebook Messenger it is the business own platform id when the reaction was made from the native app: compare it with conversation.participantId.
+/// WebhookPayloadReactionReactionSender : Whoever added or removed the reaction. Usually the participant, but on WhatsApp, Slack, Instagram and Facebook Messenger it is the business own platform id when the business reacted from the native app or via the reactions API: compare it with conversation.participantId.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadReactionReactionSender {
     #[serde(rename = "id")]
@@ -36,7 +36,7 @@ pub struct WebhookPayloadReactionReactionSender {
 }
 
 impl WebhookPayloadReactionReactionSender {
-    /// Whoever added or removed the reaction. Usually the participant, but on Slack, Instagram and Facebook Messenger it is the business own platform id when the reaction was made from the native app: compare it with conversation.participantId.
+    /// Whoever added or removed the reaction. Usually the participant, but on WhatsApp, Slack, Instagram and Facebook Messenger it is the business own platform id when the business reacted from the native app or via the reactions API: compare it with conversation.participantId.
     pub fn new(id: String) -> WebhookPayloadReactionReactionSender {
         WebhookPayloadReactionReactionSender {
             id,
