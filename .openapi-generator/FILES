@@ -96,6 +96,10 @@ docs/BlockWhatsAppUsers200Response.md
 docs/BlockWhatsAppUsers200ResponseBlockedInner.md
 docs/BlockWhatsAppUsers200ResponseFailedInner.md
 docs/BlockWhatsAppUsersRequest.md
+docs/Blog.md
+docs/BlogArticle.md
+docs/BlogArticleImage.md
+docs/BlogsApi.md
 docs/BlueskyPlatformData.md
 docs/BookmarkPost200Response.md
 docs/BookmarkPostRequest.md
@@ -192,6 +196,12 @@ docs/CreateAdInsightsReportRequestFilteringInner.md
 docs/CreateAdInsightsReportRequestTimeIncrement.md
 docs/CreateApiKey201Response.md
 docs/CreateApiKeyRequest.md
+docs/CreateBlog201Response.md
+docs/CreateBlogArticle201Response.md
+docs/CreateBlogArticleRequest.md
+docs/CreateBlogArticleRequestImage.md
+docs/CreateBlogArticleRequestSeo.md
+docs/CreateBlogRequest.md
 docs/CreateBroadcast200Response.md
 docs/CreateBroadcast200ResponseBroadcast.md
 docs/CreateBroadcastRequest.md
@@ -880,6 +890,8 @@ docs/ListAdStudies200Response.md
 docs/ListAds202Response.md
 docs/ListAdsBusinessCenters200Response.md
 docs/ListApiKeys200Response.md
+docs/ListBlogArticles200Response.md
+docs/ListBlogs200Response.md
 docs/ListBroadcastRecipients200Response.md
 docs/ListBroadcastRecipients200ResponseRecipientsInner.md
 docs/ListBroadcasts200Response.md
@@ -1410,6 +1422,8 @@ docs/UpdateAdStatusRequest.md
 docs/UpdateAdTrackingTagsRequest.md
 docs/UpdateAdTrackingTagsRequestCreative.md
 docs/UpdateAdTrackingTagsRequestUrlTagsInner.md
+docs/UpdateBlogArticleRequest.md
+docs/UpdateBlogRequest.md
 docs/UpdateBroadcast200Response.md
 docs/UpdateBroadcast200ResponseBroadcast.md
 docs/UpdateBroadcastRequest.md
@@ -1706,6 +1720,7 @@ src/apis/ad_insights_api.rs
 src/apis/ad_targeting_api.rs
 src/apis/analytics_api.rs
 src/apis/api_keys_api.rs
+src/apis/blogs_api.rs
 src/apis/broadcasts_api.rs
 src/apis/calls_api.rs
 src/apis/comment_automations_api.rs
@@ -1846,6 +1861,9 @@ src/models/block_whats_app_users_200_response.rs
 src/models/block_whats_app_users_200_response_blocked_inner.rs
 src/models/block_whats_app_users_200_response_failed_inner.rs
 src/models/block_whats_app_users_request.rs
+src/models/blog.rs
+src/models/blog_article.rs
+src/models/blog_article_image.rs
 src/models/bluesky_platform_data.rs
 src/models/bookmark_post_200_response.rs
 src/models/bookmark_post_request.rs
@@ -1934,6 +1952,12 @@ src/models/create_ad_insights_report_request_filtering_inner.rs
 src/models/create_ad_insights_report_request_time_increment.rs
 src/models/create_api_key_201_response.rs
 src/models/create_api_key_request.rs
+src/models/create_blog_201_response.rs
+src/models/create_blog_article_201_response.rs
+src/models/create_blog_article_request.rs
+src/models/create_blog_article_request_image.rs
+src/models/create_blog_article_request_seo.rs
+src/models/create_blog_request.rs
 src/models/create_broadcast_200_response.rs
 src/models/create_broadcast_200_response_broadcast.rs
 src/models/create_broadcast_request.rs
@@ -2607,6 +2631,8 @@ src/models/list_ad_studies_200_response.rs
 src/models/list_ads_202_response.rs
 src/models/list_ads_business_centers_200_response.rs
 src/models/list_api_keys_200_response.rs
+src/models/list_blog_articles_200_response.rs
+src/models/list_blogs_200_response.rs
 src/models/list_broadcast_recipients_200_response.rs
 src/models/list_broadcast_recipients_200_response_recipients_inner.rs
 src/models/list_broadcasts_200_response.rs
@@ -3121,6 +3147,8 @@ src/models/update_ad_status_request.rs
 src/models/update_ad_tracking_tags_request.rs
 src/models/update_ad_tracking_tags_request_creative.rs
 src/models/update_ad_tracking_tags_request_url_tags_inner.rs
+src/models/update_blog_article_request.rs
+src/models/update_blog_request.rs
 src/models/update_broadcast_200_response.rs
 src/models/update_broadcast_200_response_broadcast.rs
 src/models/update_broadcast_request.rs

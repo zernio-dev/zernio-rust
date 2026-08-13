@@ -193,6 +193,19 @@ pub enum GetRedditSubredditsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_shopify_connect_url`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetShopifyConnectUrlError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status402(models::InlineObject3),
+    Status403(),
+    Status404(),
+    Status500(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_subreddit_rules`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -1018,6 +1031,7 @@ pub async fn get_connect_url(
     redirect_url: Option<&str>,
     headless: Option<bool>,
     login_method: Option<&str>,
+    onboarding: Option<&str>,
 ) -> Result<models::GetConnectUrl200Response, Error<GetConnectUrlError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_platform = platform;
@@ -1025,6 +1039,7 @@ pub async fn get_connect_url(
     let p_query_redirect_url = redirect_url;
     let p_query_headless = headless;
     let p_query_login_method = login_method;
+    let p_query_onboarding = onboarding;
 
     let uri_str = format!(
         "{}/v1/connect/{platform}",
@@ -1042,6 +1057,9 @@ pub async fn get_connect_url(
     }
     if let Some(ref param_value) = p_query_login_method {
         req_builder = req_builder.query(&[("loginMethod", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_onboarding {
+        req_builder = req_builder.query(&[("onboarding", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
@@ -1448,6 +1466,62 @@ pub async fn get_reddit_subreddits(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetRedditSubredditsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Initiate the Shopify OAuth flow for a store. Shopify is a connect-only platform: the connected account does not publish social posts, it powers the Blogs API (`/v1/accounts/{accountId}/blogs`). Returns an `authUrl` to redirect the merchant to; after they approve the install, Shopify redirects their browser to Zernio's callback, the account is created on the profile (platform `shopify`), and the browser is redirected to `redirect_url` (or the Zernio dashboard when omitted). Requested scopes are `read_content` and `write_content` (content only; no customer or order data). Connecting the same profile to a store again refreshes the stored token in place.
+pub async fn get_shopify_connect_url(
+    configuration: &configuration::Configuration,
+    profile_id: &str,
+    shop: &str,
+    redirect_url: Option<&str>,
+) -> Result<models::GetConnectUrl200Response, Error<GetShopifyConnectUrlError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_profile_id = profile_id;
+    let p_query_shop = shop;
+    let p_query_redirect_url = redirect_url;
+
+    let uri_str = format!("{}/v1/connect/shopify", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("profileId", &p_query_profile_id.to_string())]);
+    req_builder = req_builder.query(&[("shop", &p_query_shop.to_string())]);
+    if let Some(ref param_value) = p_query_redirect_url {
+        req_builder = req_builder.query(&[("redirect_url", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetConnectUrl200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetConnectUrl200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetShopifyConnectUrlError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

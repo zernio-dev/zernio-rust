@@ -21,6 +21,7 @@ Method | HTTP request | Description
 [**get_pinterest_boards**](ConnectApi.md#get_pinterest_boards) | **GET** /v1/accounts/{accountId}/pinterest-boards | List Pinterest boards
 [**get_reddit_flairs**](ConnectApi.md#get_reddit_flairs) | **GET** /v1/accounts/{accountId}/reddit-flairs | List subreddit flairs
 [**get_reddit_subreddits**](ConnectApi.md#get_reddit_subreddits) | **GET** /v1/accounts/{accountId}/reddit-subreddits | List Reddit subreddits
+[**get_shopify_connect_url**](ConnectApi.md#get_shopify_connect_url) | **GET** /v1/connect/shopify | Get Shopify OAuth connect URL
 [**get_subreddit_rules**](ConnectApi.md#get_subreddit_rules) | **GET** /v1/accounts/{accountId}/reddit-subreddits/{subreddit}/rules | Get subreddit rules
 [**get_telegram_connect_status**](ConnectApi.md#get_telegram_connect_status) | **GET** /v1/connect/telegram | Generate Telegram code
 [**get_youtube_playlists**](ConnectApi.md#get_youtube_playlists) | **GET** /v1/accounts/{accountId}/youtube-playlists | List YouTube playlists
@@ -332,7 +333,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_connect_url
 
-> models::GetConnectUrl200Response get_connect_url(platform, profile_id, redirect_url, headless, login_method)
+> models::GetConnectUrl200Response get_connect_url(platform, profile_id, redirect_url, headless, login_method, onboarding)
 Get OAuth connect URL
 
 Initiate an OAuth connection flow. Returns an authUrl to redirect the user to. Standard flow: Zernio hosts the selection UI, then redirects to your redirect_url. Headless mode (headless=true): user is redirected to your redirect_url with OAuth data for custom UI. Use the platform-specific selection endpoints to complete. 
@@ -347,6 +348,7 @@ Name | Type | Description  | Required | Notes
 **redirect_url** | Option<**String**> | Your custom redirect URL after connection completes. Accepts an http(s) URL, a custom app scheme for mobile deeplinks (e.g. myapp://callback), or a relative path. Result params are appended with the URL API, so an existing query string is preserved. Standard mode appends connected={platform}&profileId=X&accountId=Y&username=Z. Headless mode appends OAuth data params for platforms requiring selection (e.g. LinkedIn orgs, Facebook pages). If no selection is needed, the account is created directly and the redirect includes accountId. |  |
 **headless** | Option<**bool**> | When true, the user is redirected to your redirect_url with raw OAuth data (code, state) instead of Zernio's default account selection UI. Use this to build a custom connect experience. |  |[default to false]
 **login_method** | Option<**String**> | Instagram only. Which of the two Instagram connection methods to use. Ignored for every other platform.  `instagram_login` (the default, and what you get if you omit this): the Instagram Login dialog. The user authorizes their Instagram professional account directly, no Facebook Page required.  `facebook_login`: the Facebook Login dialog, i.e. \"Instagram API with Facebook Login\". The user authorizes a Facebook Page that has a linked Instagram professional account, and every API call for that account then runs through the Page. Use this when the customer manages Instagram through a Page and expects the Facebook consent screen. Because the user has to pick which Page to connect, the callback continues at the account-selection step, `/v1/connect/instagram/select-account`.  `facebook_login` supports `headless=true` like the other selection platforms: the callback redirects to your `redirect_url` with `profileId`, `tempToken`, `platform=instagram`, `step=select_account` and `connect_token`, which you pass into the select-account endpoints to finish. The default `instagram_login` has no selection step, so it connects the account directly.  |  |[default to instagram_login]
+**onboarding** | Option<**String**> | WhatsApp only. Ignored for every other platform. Controls which screen Meta's Embedded Signup popup shows.  If omitted, the connection defaults to coexistence (same as `business_app` below), preserving existing behavior for numbers already on the WhatsApp Business app.  `api`: standard Embedded Signup, showing Meta's WABA/number picker. Use this to connect a phone number already on Cloud API elsewhere.  `business_app`: coexistence, i.e. 'Connect existing WhatsApp Business app' (a number shared between Cloud API and the consumer WhatsApp Business app).  |  |
 
 ### Return type
 
@@ -566,6 +568,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetRedditSubreddits200Response**](getRedditSubreddits_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_shopify_connect_url
+
+> models::GetConnectUrl200Response get_shopify_connect_url(profile_id, shop, redirect_url)
+Get Shopify OAuth connect URL
+
+Initiate the Shopify OAuth flow for a store. Shopify is a connect-only platform: the connected account does not publish social posts, it powers the Blogs API (`/v1/accounts/{accountId}/blogs`). Returns an `authUrl` to redirect the merchant to; after they approve the install, Shopify redirects their browser to Zernio's callback, the account is created on the profile (platform `shopify`), and the browser is redirected to `redirect_url` (or the Zernio dashboard when omitted). Requested scopes are `read_content` and `write_content` (content only; no customer or order data). Connecting the same profile to a store again refreshes the stored token in place. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**profile_id** | **String** | Your Zernio profile ID (get from /v1/profiles). | [required] |
+**shop** | **String** | The myshopify.com store domain to connect, e.g. `your-store.myshopify.com` (the bare `your-store` prefix is accepted too). | [required] |
+**redirect_url** | Option<**String**> | Your custom redirect URL after connection completes. Accepts an http(s) URL, a custom app scheme for mobile deeplinks (e.g. myapp://callback), or a relative path. On failure an `error` query param is appended. |  |
+
+### Return type
+
+[**models::GetConnectUrl200Response**](getConnectUrl_200_response.md)
 
 ### Authorization
 

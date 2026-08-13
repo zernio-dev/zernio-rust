@@ -124,6 +124,7 @@ pub mod ad_insights_api;
 pub mod ad_targeting_api;
 pub mod analytics_api;
 pub mod api_keys_api;
+pub mod blogs_api;
 pub mod broadcasts_api;
 pub mod calls_api;
 pub mod comment_automations_api;

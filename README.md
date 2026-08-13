@@ -164,6 +164,16 @@ Class | Method | HTTP request | Description
 *AnalyticsApi* | [**get_you_tube_demographics**](docs/AnalyticsApi.md#get_you_tube_demographics) | **GET** /v1/analytics/youtube/demographics | Get YouTube demographics
 *AnalyticsApi* | [**get_you_tube_video_retention**](docs/AnalyticsApi.md#get_you_tube_video_retention) | **GET** /v1/analytics/youtube/video-retention | Get YouTube video retention curve
 *AnalyticsApi* | [**sync_external_posts**](docs/AnalyticsApi.md#sync_external_posts) | **POST** /v1/posts/sync-external | Sync an external post
+*BlogsApi* | [**create_blog**](docs/BlogsApi.md#create_blog) | **POST** /v1/accounts/{accountId}/blogs | Create a blog
+*BlogsApi* | [**create_blog_article**](docs/BlogsApi.md#create_blog_article) | **POST** /v1/accounts/{accountId}/blogs/{blogId}/articles | Create a blog article
+*BlogsApi* | [**delete_blog**](docs/BlogsApi.md#delete_blog) | **DELETE** /v1/accounts/{accountId}/blogs/{blogId} | Delete a blog
+*BlogsApi* | [**delete_blog_article**](docs/BlogsApi.md#delete_blog_article) | **DELETE** /v1/accounts/{accountId}/blogs/{blogId}/articles/{articleId} | Delete a blog article
+*BlogsApi* | [**get_blog**](docs/BlogsApi.md#get_blog) | **GET** /v1/accounts/{accountId}/blogs/{blogId} | Get a blog
+*BlogsApi* | [**get_blog_article**](docs/BlogsApi.md#get_blog_article) | **GET** /v1/accounts/{accountId}/blogs/{blogId}/articles/{articleId} | Get a blog article
+*BlogsApi* | [**list_blog_articles**](docs/BlogsApi.md#list_blog_articles) | **GET** /v1/accounts/{accountId}/blogs/{blogId}/articles | List blog articles
+*BlogsApi* | [**list_blogs**](docs/BlogsApi.md#list_blogs) | **GET** /v1/accounts/{accountId}/blogs | List blogs
+*BlogsApi* | [**update_blog**](docs/BlogsApi.md#update_blog) | **PATCH** /v1/accounts/{accountId}/blogs/{blogId} | Update a blog
+*BlogsApi* | [**update_blog_article**](docs/BlogsApi.md#update_blog_article) | **PATCH** /v1/accounts/{accountId}/blogs/{blogId}/articles/{articleId} | Update a blog article
 *BroadcastsApi* | [**add_broadcast_recipients**](docs/BroadcastsApi.md#add_broadcast_recipients) | **POST** /v1/broadcasts/{broadcastId}/recipients | Add recipients to a broadcast
 *BroadcastsApi* | [**cancel_broadcast**](docs/BroadcastsApi.md#cancel_broadcast) | **POST** /v1/broadcasts/{broadcastId}/cancel | Cancel broadcast
 *BroadcastsApi* | [**create_broadcast**](docs/BroadcastsApi.md#create_broadcast) | **POST** /v1/broadcasts | Create broadcast draft
@@ -213,6 +223,7 @@ Class | Method | HTTP request | Description
 *ConnectApi* | [**get_pinterest_boards**](docs/ConnectApi.md#get_pinterest_boards) | **GET** /v1/accounts/{accountId}/pinterest-boards | List Pinterest boards
 *ConnectApi* | [**get_reddit_flairs**](docs/ConnectApi.md#get_reddit_flairs) | **GET** /v1/accounts/{accountId}/reddit-flairs | List subreddit flairs
 *ConnectApi* | [**get_reddit_subreddits**](docs/ConnectApi.md#get_reddit_subreddits) | **GET** /v1/accounts/{accountId}/reddit-subreddits | List Reddit subreddits
+*ConnectApi* | [**get_shopify_connect_url**](docs/ConnectApi.md#get_shopify_connect_url) | **GET** /v1/connect/shopify | Get Shopify OAuth connect URL
 *ConnectApi* | [**get_subreddit_rules**](docs/ConnectApi.md#get_subreddit_rules) | **GET** /v1/accounts/{accountId}/reddit-subreddits/{subreddit}/rules | Get subreddit rules
 *ConnectApi* | [**get_telegram_connect_status**](docs/ConnectApi.md#get_telegram_connect_status) | **GET** /v1/connect/telegram | Generate Telegram code
 *ConnectApi* | [**get_youtube_playlists**](docs/ConnectApi.md#get_youtube_playlists) | **GET** /v1/accounts/{accountId}/youtube-playlists | List YouTube playlists
@@ -680,6 +691,9 @@ Class | Method | HTTP request | Description
  - [BlockWhatsAppUsers200ResponseBlockedInner](docs/BlockWhatsAppUsers200ResponseBlockedInner.md)
  - [BlockWhatsAppUsers200ResponseFailedInner](docs/BlockWhatsAppUsers200ResponseFailedInner.md)
  - [BlockWhatsAppUsersRequest](docs/BlockWhatsAppUsersRequest.md)
+ - [Blog](docs/Blog.md)
+ - [BlogArticle](docs/BlogArticle.md)
+ - [BlogArticleImage](docs/BlogArticleImage.md)
  - [BlueskyPlatformData](docs/BlueskyPlatformData.md)
  - [BookmarkPost200Response](docs/BookmarkPost200Response.md)
  - [BookmarkPostRequest](docs/BookmarkPostRequest.md)
@@ -768,6 +782,12 @@ Class | Method | HTTP request | Description
  - [CreateAdInsightsReportRequestTimeIncrement](docs/CreateAdInsightsReportRequestTimeIncrement.md)
  - [CreateApiKey201Response](docs/CreateApiKey201Response.md)
  - [CreateApiKeyRequest](docs/CreateApiKeyRequest.md)
+ - [CreateBlog201Response](docs/CreateBlog201Response.md)
+ - [CreateBlogArticle201Response](docs/CreateBlogArticle201Response.md)
+ - [CreateBlogArticleRequest](docs/CreateBlogArticleRequest.md)
+ - [CreateBlogArticleRequestImage](docs/CreateBlogArticleRequestImage.md)
+ - [CreateBlogArticleRequestSeo](docs/CreateBlogArticleRequestSeo.md)
+ - [CreateBlogRequest](docs/CreateBlogRequest.md)
  - [CreateBroadcast200Response](docs/CreateBroadcast200Response.md)
  - [CreateBroadcast200ResponseBroadcast](docs/CreateBroadcast200ResponseBroadcast.md)
  - [CreateBroadcastRequest](docs/CreateBroadcastRequest.md)
@@ -1441,6 +1461,8 @@ Class | Method | HTTP request | Description
  - [ListAds202Response](docs/ListAds202Response.md)
  - [ListAdsBusinessCenters200Response](docs/ListAdsBusinessCenters200Response.md)
  - [ListApiKeys200Response](docs/ListApiKeys200Response.md)
+ - [ListBlogArticles200Response](docs/ListBlogArticles200Response.md)
+ - [ListBlogs200Response](docs/ListBlogs200Response.md)
  - [ListBroadcastRecipients200Response](docs/ListBroadcastRecipients200Response.md)
  - [ListBroadcastRecipients200ResponseRecipientsInner](docs/ListBroadcastRecipients200ResponseRecipientsInner.md)
  - [ListBroadcasts200Response](docs/ListBroadcasts200Response.md)
@@ -1954,6 +1976,8 @@ Class | Method | HTTP request | Description
  - [UpdateAdTrackingTagsRequest](docs/UpdateAdTrackingTagsRequest.md)
  - [UpdateAdTrackingTagsRequestCreative](docs/UpdateAdTrackingTagsRequestCreative.md)
  - [UpdateAdTrackingTagsRequestUrlTagsInner](docs/UpdateAdTrackingTagsRequestUrlTagsInner.md)
+ - [UpdateBlogArticleRequest](docs/UpdateBlogArticleRequest.md)
+ - [UpdateBlogRequest](docs/UpdateBlogRequest.md)
  - [UpdateBroadcast200Response](docs/UpdateBroadcast200Response.md)
  - [UpdateBroadcast200ResponseBroadcast](docs/UpdateBroadcast200ResponseBroadcast.md)
  - [UpdateBroadcastRequest](docs/UpdateBroadcastRequest.md)
