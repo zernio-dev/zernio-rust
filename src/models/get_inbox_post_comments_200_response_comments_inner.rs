@@ -23,6 +23,7 @@ pub struct GetInboxPostComments200ResponseCommentsInner {
     pub from: Option<Box<models::GetInboxPostComments200ResponseCommentsInnerFrom>>,
     #[serde(rename = "likeCount", skip_serializing_if = "Option::is_none")]
     pub like_count: Option<i32>,
+    /// The platform's own reply count, which includes hidden and deleted replies. Can exceed replies[].length even when repliesHasMore is false or absent.
     #[serde(rename = "replyCount", skip_serializing_if = "Option::is_none")]
     pub reply_count: Option<i32>,
     /// The platform this comment is from
@@ -38,6 +39,9 @@ pub struct GetInboxPostComments200ResponseCommentsInner {
     pub url: Option<Option<String>>,
     #[serde(rename = "replies", skip_serializing_if = "Option::is_none")]
     pub replies: Option<Vec<serde_json::Value>>,
+    /// Facebook only. True when replies[] (capped at 10) does not hold the comment's full reply thread; fetch the rest by passing the comment id as postId to GET /v1/inbox/comments/{postId}. Absent (not false) on every other platform, including Instagram, which has no equivalent signal.
+    #[serde(rename = "repliesHasMore", skip_serializing_if = "Option::is_none")]
+    pub replies_has_more: Option<bool>,
     #[serde(rename = "canReply", skip_serializing_if = "Option::is_none")]
     pub can_reply: Option<bool>,
     #[serde(rename = "canDelete", skip_serializing_if = "Option::is_none")]
@@ -108,6 +112,7 @@ impl GetInboxPostComments200ResponseCommentsInner {
             platform: None,
             url: None,
             replies: None,
+            replies_has_more: None,
             can_reply: None,
             can_delete: None,
             can_hide: None,
