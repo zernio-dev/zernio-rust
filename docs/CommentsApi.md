@@ -34,7 +34,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **post_id** | **String** | Zernio post ID or platform-specific post ID. LinkedIn third-party posts accept full activity URN or numeric ID. | [required] |
 **account_id** | **String** |  | [required] |
-**comment_id** | **String** |  | [required] |
+**comment_id** | **String** | For LinkedIn, accepts either the numeric comment ID or the composite comment URN returned by the comments listing (e.g. urn:li:comment:(threadUrn,id)) | [required] |
 
 ### Return type
 
