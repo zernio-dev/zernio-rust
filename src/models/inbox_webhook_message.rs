@@ -79,6 +79,8 @@ pub enum Platform {
     Telegram,
     #[serde(rename = "whatsapp")]
     Whatsapp,
+    #[serde(rename = "sms")]
+    Sms,
 }
 
 impl Default for Platform {

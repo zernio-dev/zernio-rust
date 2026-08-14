@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | Internal message ID | 
 **conversation_id** | **String** | Internal conversation ID | 
-**platform** | **Platform** |  (enum: instagram, facebook, telegram, whatsapp) | 
+**platform** | **Platform** |  (enum: instagram, facebook, telegram, whatsapp, sms) | 
 **platform_message_id** | **String** | Platform's message ID | 
 **direction** | **Direction** |  (enum: incoming, outgoing) | 
 **text** | Option<**String**> | Message text content (retained on deleted messages for API consumers; Zernio dashboard UI hides this) | 
