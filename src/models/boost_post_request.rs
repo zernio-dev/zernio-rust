@@ -41,6 +41,7 @@ pub struct BoostPostRequest {
     /// Meta only. Ad-set destination_type — where the click LANDS, as opposed to instagramAccountId which is who the ad runs as. Lead ads force ON_AD and ignore this.
     #[serde(rename = "destinationType", skip_serializing_if = "Option::is_none")]
     pub destination_type: Option<DestinationType>,
+    /// ISO 4217 currency code matching the ad account's currency. Meta only. Optional: Zernio resolves it from the ad account when omitted. The value selects the minor-unit exponent Zernio converts budget/bid amounts by before calling Meta (most currencies are cents; zero-decimal currencies like JPY/KRW are sent as-is).
     #[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
     pub currency: Option<String>,
     #[serde(rename = "schedule", skip_serializing_if = "Option::is_none")]
