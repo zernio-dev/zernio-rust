@@ -344,6 +344,13 @@ pub enum OnWhatsAppNumberVerificationRequiredError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`on_whats_app_template_category_updated`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnWhatsAppTemplateCategoryUpdatedError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`on_whats_app_template_status_updated`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -1758,6 +1765,36 @@ pub async fn on_whats_app_number_verification_required(configuration: &configura
     } else {
         let content = resp.text().await?;
         let entity: Option<OnWhatsAppNumberVerificationRequiredError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when Meta reclassifies a WhatsApp Business template's category after approval. Forwarded from Meta's `template_category_update` webhook field on the WhatsApp Business Account. Category drives Meta's per-conversation tariff and whether the template is subject to the recipient's marketing opt-out. `template.changeType` is `scheduled` (24h advance notice) or `applied`; `template.category` is always the category right now. 
+pub async fn on_whats_app_template_category_updated(configuration: &configuration::Configuration, webhook_payload_whats_app_template_category_updated: models::WebhookPayloadWhatsAppTemplateCategoryUpdated) -> Result<(), Error<OnWhatsAppTemplateCategoryUpdatedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_payload_whats_app_template_category_updated = webhook_payload_whats_app_template_category_updated;
+
+    let uri_str = format!("{}/whatsapp.template.category_updated", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_payload_whats_app_template_category_updated);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnWhatsAppTemplateCategoryUpdatedError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

@@ -127,6 +127,8 @@ pub enum Events {
     AdStatusChanged,
     #[serde(rename = "whatsapp.template.status_updated")]
     WhatsappTemplateStatusUpdated,
+    #[serde(rename = "whatsapp.template.category_updated")]
+    WhatsappTemplateCategoryUpdated,
     #[serde(rename = "whatsapp.automatic_event")]
     WhatsappAutomaticEvent,
     #[serde(rename = "whatsapp.number.activated")]
