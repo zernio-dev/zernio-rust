@@ -25,6 +25,9 @@ pub struct SubmitPhoneNumberKycRequestAddress {
     pub last_name: Option<String>,
     #[serde(rename = "street_address", skip_serializing_if = "Option::is_none")]
     pub street_address: Option<String>,
+    /// Address complement: apartment, suite, unit, or the quadra/lote used in some countries. Optional. Does not substitute for a building number on street_address.
+    #[serde(rename = "extended_address", skip_serializing_if = "Option::is_none")]
+    pub extended_address: Option<String>,
     #[serde(rename = "locality", skip_serializing_if = "Option::is_none")]
     pub locality: Option<String>,
     #[serde(
@@ -45,6 +48,7 @@ impl SubmitPhoneNumberKycRequestAddress {
             first_name: None,
             last_name: None,
             street_address: None,
+            extended_address: None,
             locality: None,
             administrative_area: None,
             postal_code: None,

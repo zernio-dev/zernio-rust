@@ -18,6 +18,9 @@ pub struct ValidatePhoneNumberKycAddressRequest {
     pub country: String,
     #[serde(rename = "street_address")]
     pub street_address: String,
+    /// Address complement: apartment, suite, unit, or the quadra/lote used in some countries. Optional. Does not substitute for a building number on street_address.
+    #[serde(rename = "extended_address", skip_serializing_if = "Option::is_none")]
+    pub extended_address: Option<String>,
     /// City / town.
     #[serde(rename = "locality")]
     pub locality: String,
@@ -41,6 +44,7 @@ impl ValidatePhoneNumberKycAddressRequest {
         ValidatePhoneNumberKycAddressRequest {
             country,
             street_address,
+            extended_address: None,
             locality,
             administrative_area: None,
             postal_code,
