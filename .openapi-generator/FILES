@@ -66,6 +66,7 @@ docs/AdsTimelineResponseRowsInner.md
 docs/AnalyticsApi.md
 docs/AnalyticsListResponse.md
 docs/AnalyticsListResponsePostsInner.md
+docs/AnalyticsListResponsePostsInnerMediaItemsInner.md
 docs/AnalyticsOverview.md
 docs/AnalyticsOverviewDataStaleness.md
 docs/AnalyticsSinglePostResponse.md
@@ -1836,6 +1837,7 @@ src/models/ads_timeline_response.rs
 src/models/ads_timeline_response_rows_inner.rs
 src/models/analytics_list_response.rs
 src/models/analytics_list_response_posts_inner.rs
+src/models/analytics_list_response_posts_inner_media_items_inner.rs
 src/models/analytics_overview.rs
 src/models/analytics_overview_data_staleness.rs
 src/models/analytics_single_post_response.rs

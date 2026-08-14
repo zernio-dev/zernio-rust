@@ -15,15 +15,31 @@ use serde::{Deserialize, Serialize};
 pub struct AnalyticsSinglePostResponseMediaItemsInner {
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
-    /// Direct URL to the media
-    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
-    /// Thumbnail URL (same as url for images)
-    #[serde(rename = "thumbnail", skip_serializing_if = "Option::is_none")]
-    pub thumbnail: Option<String>,
+    /// 'Direct URL to the media file. Null when the platform withholds it: check mediaStatus before downloading. Instagram omits the video file for Reels it flags as containing copyrighted material (its docs name audio as the usual cause), so type stays \"video\" while the file is permanently unreachable.'
+    #[serde(
+        rename = "url",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub url: Option<Option<String>>,
+    /// Thumbnail URL (same as url for images). Still present when url is null.
+    #[serde(
+        rename = "thumbnail",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub thumbnail: Option<Option<String>>,
     /// Accessibility alt text set on the media, when present.
     #[serde(rename = "altText", skip_serializing_if = "Option::is_none")]
     pub alt_text: Option<String>,
+    /// Present only when the media file could not be retrieved. Absent means the file is available at url.
+    #[serde(rename = "mediaStatus", skip_serializing_if = "Option::is_none")]
+    pub media_status: Option<MediaStatus>,
+    /// Why the file is missing. platform_withheld means the platform declined to return it and retrying will not help.
+    #[serde(rename = "unavailableReason", skip_serializing_if = "Option::is_none")]
+    pub unavailable_reason: Option<UnavailableReason>,
 }
 
 impl AnalyticsSinglePostResponseMediaItemsInner {
@@ -33,6 +49,8 @@ impl AnalyticsSinglePostResponseMediaItemsInner {
             url: None,
             thumbnail: None,
             alt_text: None,
+            media_status: None,
+            unavailable_reason: None,
         }
     }
 }
@@ -48,5 +66,29 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::Image
+    }
+}
+/// Present only when the media file could not be retrieved. Absent means the file is available at url.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum MediaStatus {
+    #[serde(rename = "unavailable")]
+    Unavailable,
+}
+
+impl Default for MediaStatus {
+    fn default() -> MediaStatus {
+        Self::Unavailable
+    }
+}
+/// Why the file is missing. platform_withheld means the platform declined to return it and retrying will not help.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum UnavailableReason {
+    #[serde(rename = "platform_withheld")]
+    PlatformWithheld,
+}
+
+impl Default for UnavailableReason {
+    fn default() -> UnavailableReason {
+        Self::PlatformWithheld
     }
 }

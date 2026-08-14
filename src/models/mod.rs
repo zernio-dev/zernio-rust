@@ -106,6 +106,8 @@ pub mod analytics_list_response;
 pub use self::analytics_list_response::AnalyticsListResponse;
 pub mod analytics_list_response_posts_inner;
 pub use self::analytics_list_response_posts_inner::AnalyticsListResponsePostsInner;
+pub mod analytics_list_response_posts_inner_media_items_inner;
+pub use self::analytics_list_response_posts_inner_media_items_inner::AnalyticsListResponsePostsInnerMediaItemsInner;
 pub mod analytics_overview;
 pub use self::analytics_overview::AnalyticsOverview;
 pub mod analytics_overview_data_staleness;

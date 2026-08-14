@@ -662,6 +662,7 @@ Class | Method | HTTP request | Description
  - [AdsTimelineResponseRowsInner](docs/AdsTimelineResponseRowsInner.md)
  - [AnalyticsListResponse](docs/AnalyticsListResponse.md)
  - [AnalyticsListResponsePostsInner](docs/AnalyticsListResponsePostsInner.md)
+ - [AnalyticsListResponsePostsInnerMediaItemsInner](docs/AnalyticsListResponsePostsInnerMediaItemsInner.md)
  - [AnalyticsOverview](docs/AnalyticsOverview.md)
  - [AnalyticsOverviewDataStaleness](docs/AnalyticsOverviewDataStaleness.md)
  - [AnalyticsSinglePostResponse](docs/AnalyticsSinglePostResponse.md)

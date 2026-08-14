@@ -54,7 +54,7 @@ pub struct AnalyticsListResponsePostsInner {
     pub media_type: Option<MediaType>,
     /// All media items for this post. Carousel posts contain one entry per slide.
     #[serde(rename = "mediaItems", skip_serializing_if = "Option::is_none")]
-    pub media_items: Option<Vec<models::AnalyticsSinglePostResponseMediaItemsInner>>,
+    pub media_items: Option<Vec<models::AnalyticsListResponsePostsInnerMediaItemsInner>>,
 }
 
 impl AnalyticsListResponsePostsInner {

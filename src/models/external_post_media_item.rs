@@ -11,24 +11,34 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ExternalPostMediaItem : A media item on a native (external/synced) post, as carried by post.external.* webhook payloads. Distinct from the richer MediaItem used for Zernio-authored posts: external items are always already-published (url required) and limited to image or video. Kept as a separate schema so the generated SDK model does not collide with MediaItem.
+/// ExternalPostMediaItem : A media item on a native (external/synced) post, as carried by post.external.* webhook payloads. Distinct from the richer MediaItem used for Zernio-authored posts: external items are always already-published and limited to image or video. Kept as a separate schema so the generated SDK model does not collide with MediaItem.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ExternalPostMediaItem {
     #[serde(rename = "type")]
     pub r#type: Type,
-    #[serde(rename = "url")]
-    pub url: String,
+    /// 'Direct URL to the media file. Null when the platform withholds it: check mediaStatus before downloading. Instagram omits the video file for Reels it flags as containing copyrighted material (its docs name audio as the usual cause), so type stays \"video\" while the file is permanently unreachable.'
+    #[serde(rename = "url", deserialize_with = "Option::deserialize")]
+    pub url: Option<String>,
+    /// Cover image. Still present when url is null.
     #[serde(rename = "thumbnail", skip_serializing_if = "Option::is_none")]
     pub thumbnail: Option<String>,
+    /// Present only when the media file could not be retrieved. Absent means the file is available at url.
+    #[serde(rename = "mediaStatus", skip_serializing_if = "Option::is_none")]
+    pub media_status: Option<MediaStatus>,
+    /// Why the file is missing. platform_withheld means the platform declined to return it and retrying will not help.
+    #[serde(rename = "unavailableReason", skip_serializing_if = "Option::is_none")]
+    pub unavailable_reason: Option<UnavailableReason>,
 }
 
 impl ExternalPostMediaItem {
-    /// A media item on a native (external/synced) post, as carried by post.external.* webhook payloads. Distinct from the richer MediaItem used for Zernio-authored posts: external items are always already-published (url required) and limited to image or video. Kept as a separate schema so the generated SDK model does not collide with MediaItem.
-    pub fn new(r#type: Type, url: String) -> ExternalPostMediaItem {
+    /// A media item on a native (external/synced) post, as carried by post.external.* webhook payloads. Distinct from the richer MediaItem used for Zernio-authored posts: external items are always already-published and limited to image or video. Kept as a separate schema so the generated SDK model does not collide with MediaItem.
+    pub fn new(r#type: Type, url: Option<String>) -> ExternalPostMediaItem {
         ExternalPostMediaItem {
             r#type,
             url,
             thumbnail: None,
+            media_status: None,
+            unavailable_reason: None,
         }
     }
 }
@@ -44,5 +54,29 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::Image
+    }
+}
+/// Present only when the media file could not be retrieved. Absent means the file is available at url.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum MediaStatus {
+    #[serde(rename = "unavailable")]
+    Unavailable,
+}
+
+impl Default for MediaStatus {
+    fn default() -> MediaStatus {
+        Self::Unavailable
+    }
+}
+/// Why the file is missing. platform_withheld means the platform declined to return it and retrying will not help.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum UnavailableReason {
+    #[serde(rename = "platform_withheld")]
+    PlatformWithheld,
+}
+
+impl Default for UnavailableReason {
+    fn default() -> UnavailableReason {
+        Self::PlatformWithheld
     }
 }
