@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookPayloadMessageMetadataReferral : Ad-click attribution forwarded verbatim from Meta. Populated only on the FIRST inbound message after the click; absent on subsequent messages of the same conversation.  The populated subset identifies the source platform:   - `ctwa_clid` and `source_*` fields: WhatsApp CTWA     (Click-to-WhatsApp). Attribution window is 7 days from click.     Forward to Meta Conversions API for Business Messaging replay.   - `ad_id` and `ads_context_data`: Facebook Messenger CTM     (Click-to-Message) or Instagram CTD (Click-to-Direct). Use     `ad_id` to attribute the conversation to a specific ad.
+/// WebhookPayloadMessageMetadataReferral : Click attribution forwarded verbatim from Meta. Populated only on the FIRST inbound message after the click; absent on subsequent messages of the same conversation. On Instagram and Messenger a RETURNING click also attaches it to the first message that follows, so read it on every `message.received` for per-click attribution; a click that opens an existing thread WITHOUT a message arrives as the separate `referral.received` event.  The populated subset identifies the source:   - `ctwa_clid` and `source_*` fields: WhatsApp CTWA     (Click-to-WhatsApp). Attribution window is 7 days from click.     Forward to Meta Conversions API for Business Messaging replay.   - `ad_id` and `ads_context_data`: Facebook Messenger CTM     (Click-to-Message) or Instagram CTD (Click-to-Direct). Use     `ad_id` to attribute the conversation to a specific ad.   - `ref` without `ad_id`: an ig.me / m.me link carrying a     `?ref=` parameter (`source` is `SHORTLINK`, `SHORTLINKS` or     `IGME-SOURCE-LINK` depending on surface - treat it as     opaque). Instagram delivers ig.me refs on new threads only     when the account has at least one Ice Breaker configured     (`PUT /v1/accounts/{accountId}/instagram-ice-breakers`).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadMessageMetadataReferral {
     /// Meta's GCLID-equivalent click identifier.
@@ -38,21 +38,24 @@ pub struct WebhookPayloadMessageMetadataReferral {
     /// Facebook Messenger CTM / Instagram CTD only. The Meta ad ID the user clicked to start the conversation.
     #[serde(rename = "ad_id", skip_serializing_if = "Option::is_none")]
     pub ad_id: Option<String>,
-    /// Optional `ref` parameter passed through from the Meta ad creative. Facebook Messenger CTM / Instagram CTD only.
+    /// The `ref` parameter passed through from the Meta ad creative or from an ig.me / m.me link. Instagram / Facebook Messenger only.
     #[serde(rename = "ref", skip_serializing_if = "Option::is_none")]
     pub r#ref: Option<String>,
-    /// Meta-supplied source identifier (e.g. `ADS`). Facebook Messenger CTM / Instagram CTD only.
+    /// Meta-supplied source identifier (`ADS` for ad clicks; `SHORTLINK`, `SHORTLINKS` or `IGME-SOURCE-LINK` for ref links). Instagram / Facebook Messenger only.
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<String>,
-    /// Meta-supplied referral type (e.g. `OPEN_THREAD`). Facebook Messenger CTM / Instagram CTD only.
+    /// Meta-supplied referral type (e.g. `OPEN_THREAD`). Instagram / Facebook Messenger only.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<String>,
+    /// URI of the originating site, when Meta supplies one (m.me links opened from the web). Facebook Messenger only.
+    #[serde(rename = "referer_uri", skip_serializing_if = "Option::is_none")]
+    pub referer_uri: Option<String>,
     #[serde(rename = "ads_context_data", skip_serializing_if = "Option::is_none")]
     pub ads_context_data: Option<Box<models::WebhookPayloadMessageMetadataReferralAdsContextData>>,
 }
 
 impl WebhookPayloadMessageMetadataReferral {
-    /// Ad-click attribution forwarded verbatim from Meta. Populated only on the FIRST inbound message after the click; absent on subsequent messages of the same conversation.  The populated subset identifies the source platform:   - `ctwa_clid` and `source_*` fields: WhatsApp CTWA     (Click-to-WhatsApp). Attribution window is 7 days from click.     Forward to Meta Conversions API for Business Messaging replay.   - `ad_id` and `ads_context_data`: Facebook Messenger CTM     (Click-to-Message) or Instagram CTD (Click-to-Direct). Use     `ad_id` to attribute the conversation to a specific ad.
+    /// Click attribution forwarded verbatim from Meta. Populated only on the FIRST inbound message after the click; absent on subsequent messages of the same conversation. On Instagram and Messenger a RETURNING click also attaches it to the first message that follows, so read it on every `message.received` for per-click attribution; a click that opens an existing thread WITHOUT a message arrives as the separate `referral.received` event.  The populated subset identifies the source:   - `ctwa_clid` and `source_*` fields: WhatsApp CTWA     (Click-to-WhatsApp). Attribution window is 7 days from click.     Forward to Meta Conversions API for Business Messaging replay.   - `ad_id` and `ads_context_data`: Facebook Messenger CTM     (Click-to-Message) or Instagram CTD (Click-to-Direct). Use     `ad_id` to attribute the conversation to a specific ad.   - `ref` without `ad_id`: an ig.me / m.me link carrying a     `?ref=` parameter (`source` is `SHORTLINK`, `SHORTLINKS` or     `IGME-SOURCE-LINK` depending on surface - treat it as     opaque). Instagram delivers ig.me refs on new threads only     when the account has at least one Ice Breaker configured     (`PUT /v1/accounts/{accountId}/instagram-ice-breakers`).
     pub fn new() -> WebhookPayloadMessageMetadataReferral {
         WebhookPayloadMessageMetadataReferral {
             ctwa_clid: None,
@@ -69,6 +72,7 @@ impl WebhookPayloadMessageMetadataReferral {
             r#ref: None,
             source: None,
             r#type: None,
+            referer_uri: None,
             ads_context_data: None,
         }
     }

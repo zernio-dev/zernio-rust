@@ -239,6 +239,13 @@ pub enum OnReactionReceivedError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`on_referral_received`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnReferralReceivedError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`on_review_new`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -1301,6 +1308,36 @@ pub async fn on_reaction_received(configuration: &configuration::Configuration, 
     } else {
         let content = resp.text().await?;
         let entity: Option<OnReactionReceivedError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when someone opens an EXISTING Instagram or Messenger thread through an attributable entry point - an ig.me / m.me link with a `ref` parameter, or (Messenger) a returning Click-to-Message ad click - which Meta delivers as a standalone referral with no message attached. A referral that rides an inbound message (first message of a thread, icebreaker taps, returning ad clicks on Instagram) arrives on `message.received` under `metadata.referral` instead; the two never fire for the same click. The first referral captured on a conversation is also persisted on it (see `metadata` on `GET /v1/inbox/conversations`). Requires the Inbox add-on. 
+pub async fn on_referral_received(configuration: &configuration::Configuration, webhook_payload_referral: models::WebhookPayloadReferral) -> Result<(), Error<OnReferralReceivedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_payload_referral = webhook_payload_referral;
+
+    let uri_str = format!("{}/referral.received", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_payload_referral);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnReferralReceivedError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

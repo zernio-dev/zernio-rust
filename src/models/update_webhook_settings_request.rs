@@ -117,6 +117,8 @@ pub enum Events {
     MessageFailed,
     #[serde(rename = "reaction.received")]
     ReactionReceived,
+    #[serde(rename = "referral.received")]
+    ReferralReceived,
     #[serde(rename = "comment.received")]
     CommentReceived,
     #[serde(rename = "review.new")]
