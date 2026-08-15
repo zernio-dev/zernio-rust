@@ -364,7 +364,7 @@ Name | Type | Description  | Required | Notes
 **platform** | Option<**String**> | Filter by platform (searchable platforms only) |  |
 **account_id** | Option<**String**> | Filter by specific social account ID |  |
 **limit** | Option<**i32**> | Maximum number of conversations to return |  |[default to 20]
-**cursor** | Option<**String**> | Pagination cursor for next page |  |
+**cursor** | Option<**String**> | Opaque pagination cursor. Pass back pagination.nextCursor verbatim; do not construct one. |  |
 
 ### Return type
 
