@@ -53,7 +53,7 @@ Name | Type | Description  | Required | Notes
 > models::GetAccountHealth200Response get_account_health(account_id)
 Check account health
 
-Returns detailed health info for a specific account including token status, permissions, and recommendations.
+Returns detailed health info for a specific account including token status, permissions, and recommendations.  For WhatsApp accounts the response also includes `platformConnection`, a live probe of the Meta link behind the channel (the same read as `GET /v1/whatsapp/number-info`). The OAuth token can be perfectly valid while Meta refuses to serve the phone-number object (for example after a phone-side coexistence disconnect), so `tokenStatus` alone is not a liveness signal for WhatsApp. When the Meta link is dead, `platformConnection.status` is `disconnected` and the overall `status` is `error`. 
 
 ### Parameters
 

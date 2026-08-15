@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **permissions** | Option<[**models::GetAccountHealth200ResponsePermissions**](GetAccountHealth200ResponsePermissions.md)> |  | [optional]
 **issues** | Option<**Vec<String>**> | List of issues found | [optional]
 **recommendations** | Option<**Vec<String>**> | Actionable recommendations to fix issues | [optional]
+**platform_connection** | Option<[**models::GetAccountHealth200ResponsePlatformConnection**](GetAccountHealth200ResponsePlatformConnection.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

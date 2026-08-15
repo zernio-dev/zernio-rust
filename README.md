@@ -1051,6 +1051,8 @@ Class | Method | HTTP request | Description
  - [GetAccountHealth200Response](docs/GetAccountHealth200Response.md)
  - [GetAccountHealth200ResponsePermissions](docs/GetAccountHealth200ResponsePermissions.md)
  - [GetAccountHealth200ResponsePermissionsPostingInner](docs/GetAccountHealth200ResponsePermissionsPostingInner.md)
+ - [GetAccountHealth200ResponsePlatformConnection](docs/GetAccountHealth200ResponsePlatformConnection.md)
+ - [GetAccountHealth200ResponsePlatformConnectionMetaError](docs/GetAccountHealth200ResponsePlatformConnectionMetaError.md)
  - [GetAccountHealth200ResponseTokenStatus](docs/GetAccountHealth200ResponseTokenStatus.md)
  - [GetAd200Response](docs/GetAd200Response.md)
  - [GetAdAccountFinance200Response](docs/GetAdAccountFinance200Response.md)

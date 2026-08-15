@@ -467,6 +467,8 @@ docs/GeoRestriction.md
 docs/GetAccountHealth200Response.md
 docs/GetAccountHealth200ResponsePermissions.md
 docs/GetAccountHealth200ResponsePermissionsPostingInner.md
+docs/GetAccountHealth200ResponsePlatformConnection.md
+docs/GetAccountHealth200ResponsePlatformConnectionMetaError.md
 docs/GetAccountHealth200ResponseTokenStatus.md
 docs/GetAd200Response.md
 docs/GetAdAccountFinance200Response.md
@@ -2228,6 +2230,8 @@ src/models/geo_restriction.rs
 src/models/get_account_health_200_response.rs
 src/models/get_account_health_200_response_permissions.rs
 src/models/get_account_health_200_response_permissions_posting_inner.rs
+src/models/get_account_health_200_response_platform_connection.rs
+src/models/get_account_health_200_response_platform_connection_meta_error.rs
 src/models/get_account_health_200_response_token_status.rs
 src/models/get_ad_200_response.rs
 src/models/get_ad_account_finance_200_response.rs
