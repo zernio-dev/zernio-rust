@@ -138,6 +138,12 @@ pub enum Platform {
     Googleads,
     #[serde(rename = "openaiads")]
     Openaiads,
+    #[serde(rename = "sms")]
+    Sms,
+    #[serde(rename = "phone")]
+    Phone,
+    #[serde(rename = "rcs")]
+    Rcs,
 }
 
 impl Default for Platform {
