@@ -23,7 +23,7 @@ pub struct PostAnalytics {
     pub comments: Option<i32>,
     #[serde(rename = "shares", skip_serializing_if = "Option::is_none")]
     pub shares: Option<i32>,
-    /// Number of saves/bookmarks (Instagram, Pinterest)
+    /// Number of saves/bookmarks (Instagram, Pinterest, X/Twitter)
     #[serde(rename = "saves", skip_serializing_if = "Option::is_none")]
     pub saves: Option<i32>,
     #[serde(rename = "clicks", skip_serializing_if = "Option::is_none")]

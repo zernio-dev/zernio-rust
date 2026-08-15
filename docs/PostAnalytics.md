@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **likes** | Option<**i32**> |  | [optional]
 **comments** | Option<**i32**> |  | [optional]
 **shares** | Option<**i32**> |  | [optional]
-**saves** | Option<**i32**> | Number of saves/bookmarks (Instagram, Pinterest) | [optional]
+**saves** | Option<**i32**> | Number of saves/bookmarks (Instagram, Pinterest, X/Twitter) | [optional]
 **clicks** | Option<**i32**> |  | [optional]
 **views** | Option<**i32**> |  | [optional]
 **follows** | Option<**i32**> | Instagram feed posts and stories only: organic accounts that started following from this post. 0 for reels and other platforms. | [optional]
