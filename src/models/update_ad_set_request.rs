@@ -17,7 +17,7 @@ pub struct UpdateAdSetRequest {
     pub platform: Platform,
     #[serde(rename = "budget", skip_serializing_if = "Option::is_none")]
     pub budget: Option<Box<models::UpdateAdSetRequestBudget>>,
-    /// Omit if not toggling delivery state
+    /// Writes the ad set's own on/off switch (Meta: `configured_status`) on Meta and LinkedIn, whatever delivery status its ads report. Omit if not toggling delivery state.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
     /// Rename the ad set (Meta only; other platforms return 501). At least one of budget/status/bidStrategy/name is required.
@@ -87,7 +87,7 @@ impl Default for Platform {
         Self::Facebook
     }
 }
-/// Omit if not toggling delivery state
+/// Writes the ad set's own on/off switch (Meta: `configured_status`) on Meta and LinkedIn, whatever delivery status its ads report. Omit if not toggling delivery state.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
     #[serde(rename = "active")]

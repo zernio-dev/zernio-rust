@@ -17,12 +17,24 @@ pub struct UpdateAdSet200Response {
     pub budget: Option<Box<models::AdBudget>>,
     #[serde(rename = "budgetLevel", skip_serializing_if = "Option::is_none")]
     pub budget_level: Option<BudgetLevel>,
+    /// The status written to the ad set. Absent when nothing was written (see statusMessage).
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
+    /// Number of ads whose own stored status changed alongside the ad set switch
     #[serde(rename = "statusUpdated", skip_serializing_if = "Option::is_none")]
     pub status_updated: Option<i32>,
+    /// Number of ads whose own status was left as it was
     #[serde(rename = "statusSkipped", skip_serializing_if = "Option::is_none")]
     pub status_skipped: Option<i32>,
+    /// Why each group of ads was skipped
+    #[serde(
+        rename = "statusSkippedReasons",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub status_skipped_reasons: Option<Vec<String>>,
+    /// Present only where the platform has no ad-set switch and no child ad was actionable; `status` is then absent because nothing was written
+    #[serde(rename = "statusMessage", skip_serializing_if = "Option::is_none")]
+    pub status_message: Option<String>,
     #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
     pub bid_strategy: Option<models::BidStrategy>,
     #[serde(
@@ -54,6 +66,8 @@ impl UpdateAdSet200Response {
             status: None,
             status_updated: None,
             status_skipped: None,
+            status_skipped_reasons: None,
+            status_message: None,
             bid_strategy: None,
             bid_amount: None,
             roas_average_floor: None,
@@ -73,7 +87,7 @@ impl Default for BudgetLevel {
         Self::Adset
     }
 }
-///
+/// The status written to the ad set. Absent when nothing was written (see statusMessage).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
     #[serde(rename = "active")]

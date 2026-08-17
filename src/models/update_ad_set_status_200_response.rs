@@ -13,17 +13,45 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAdSetStatus200Response {
+    /// The status written to the ad set. Absent when nothing was written (see message).
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<Status>,
+    /// Number of ads whose own stored status changed too. 0 is normal on a resume whose ads are all awaiting the platform.
     #[serde(rename = "updated", skip_serializing_if = "Option::is_none")]
     pub updated: Option<i32>,
+    /// Number of ads whose own status was left as it was
     #[serde(rename = "skipped", skip_serializing_if = "Option::is_none")]
     pub skipped: Option<i32>,
+    /// Why each group of ads was skipped
+    #[serde(rename = "skippedReasons", skip_serializing_if = "Option::is_none")]
+    pub skipped_reasons: Option<Vec<String>>,
+    /// Present only where the platform has no ad-set switch and no child ad was actionable
+    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
+    pub message: Option<String>,
 }
 
 impl UpdateAdSetStatus200Response {
     pub fn new() -> UpdateAdSetStatus200Response {
         UpdateAdSetStatus200Response {
+            status: None,
             updated: None,
             skipped: None,
+            skipped_reasons: None,
+            message: None,
         }
+    }
+}
+/// The status written to the ad set. Absent when nothing was written (see message).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Status {
+    #[serde(rename = "active")]
+    Active,
+    #[serde(rename = "paused")]
+    Paused,
+}
+
+impl Default for Status {
+    fn default() -> Status {
+        Self::Active
     }
 }
