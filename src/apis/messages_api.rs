@@ -74,6 +74,7 @@ pub enum GetInboxConversationError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetInboxConversationMessagesError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status403(),
     UnknownValue(serde_json::Value),

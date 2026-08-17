@@ -194,7 +194,7 @@ Name | Type | Description  | Required | Notes
 **conversation_id** | **String** | The conversation ID (id field from list conversations endpoint). This is the platform-specific conversation identifier, not an internal database ID. | [required] |
 **account_id** | **String** | Social account ID | [required] |
 **limit** | Option<**i32**> | Number of messages to return per page. Default 100, max 100. |  |[default to 100]
-**cursor** | Option<**String**> | Opaque pagination cursor. Pass `pagination.nextCursor` from a prior response. |  |
+**cursor** | Option<**String**> | Opaque pagination cursor. Pass `pagination.nextCursor` from a prior response verbatim: a cursor we cannot parse returns 400 rather than silently restarting from the first page. |  |
 **sort_order** | Option<**String**> | Order of returned messages. Default `asc` (oldest first, chat style). Twitter, Instagram, Telegram, WhatsApp and Reddit honor this order across cursor pages. For Facebook and Bluesky, only intra-page ordering is affected — pages always walk newest→oldest. See `sortOrderApplied` in the response.  |  |[default to asc]
 
 ### Return type
