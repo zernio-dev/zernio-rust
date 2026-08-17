@@ -34,7 +34,7 @@ pub struct LinkedInAggregateAnalyticsTotalResponseAnalytics {
     /// Total times posts were sent via LinkedIn messaging (personal accounts only)
     #[serde(rename = "sends", skip_serializing_if = "Option::is_none")]
     pub sends: Option<i32>,
-    /// Overall engagement rate as percentage
+    /// Overall engagement rate, as a percentage rounded to 2 decimals: (reactions + comments + shares + saves + sends) / impressions * 100. Clicks are not counted, and there is no fallback denominator, so this is 0 whenever impressions is 0. This is NOT the same formula as PostAnalytics.engagementRate on GET /v1/analytics.
     #[serde(rename = "engagementRate", skip_serializing_if = "Option::is_none")]
     pub engagement_rate: Option<f64>,
 }

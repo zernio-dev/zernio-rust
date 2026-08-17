@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **shares** | Option<**i32**> | Total reshares across all posts | [optional]
 **saves** | Option<**i32**> | Total times posts were saved (personal accounts only) | [optional]
 **sends** | Option<**i32**> | Total times posts were sent via LinkedIn messaging (personal accounts only) | [optional]
-**engagement_rate** | Option<**f64**> | Overall engagement rate as percentage | [optional]
+**engagement_rate** | Option<**f64**> | Overall engagement rate, as a percentage rounded to 2 decimals: (reactions + comments + shares + saves + sends) / impressions * 100. Clicks are not counted, and there is no fallback denominator, so this is 0 whenever impressions is 0. This is NOT the same formula as PostAnalytics.engagementRate on GET /v1/analytics. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

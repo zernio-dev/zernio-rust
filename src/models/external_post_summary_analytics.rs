@@ -32,6 +32,7 @@ pub struct ExternalPostSummaryAnalytics {
     pub reach: Option<i32>,
     #[serde(rename = "impressions", skip_serializing_if = "Option::is_none")]
     pub impressions: Option<i32>,
+    /// Percentage, rounded to 2 decimals. Same definition as PostAnalytics.engagementRate: (likes + comments + shares + saves) / (impressions or reach or views) * 100, where the denominator is the first of the three that is non-zero. Clicks and follows are never counted.
     #[serde(rename = "engagementRate", skip_serializing_if = "Option::is_none")]
     pub engagement_rate: Option<f64>,
     /// When these metrics were last refreshed
