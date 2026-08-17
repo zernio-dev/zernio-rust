@@ -41,6 +41,14 @@ pub struct AdCreative {
         skip_serializing_if = "Option::is_none"
     )]
     pub video_url: Option<Option<String>>,
+    /// Meta ad creative id backing this ad. Reusable via existingCreativeId on POST /v1/ads/create.
+    #[serde(
+        rename = "creativeId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub creative_id: Option<Option<String>>,
     /// Meta creative object_type (e.g. SHARE, VIDEO, PRIVACY_CHECK_FAIL, POST_DELETED). Use this to render state-aware previews — when Meta moderation strips image/video fields, only thumbnailUrl at 64x64 is available.
     #[serde(rename = "objectType", skip_serializing_if = "Option::is_none")]
     pub object_type: Option<String>,
@@ -137,6 +145,7 @@ impl AdCreative {
             image_url: None,
             video_id: None,
             video_url: None,
+            creative_id: None,
             object_type: None,
             object_story_id: None,
             effective_object_story_id: None,
