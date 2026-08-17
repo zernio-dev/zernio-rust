@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AddBroadcastRecipientsRequest {
-    /// Specific contact IDs to add
+    /// Specific contact IDs to add. Zernio contact ids (24-character hex), as returned by the list-contacts endpoint. A platform identifier such as a WhatsApp wa_id is rejected with 400; use phones for raw numbers.
     #[serde(rename = "contactIds", skip_serializing_if = "Option::is_none")]
     pub contact_ids: Option<Vec<String>>,
     /// Raw phone numbers (auto-creates contacts). Useful for WhatsApp/Telegram manual entry
