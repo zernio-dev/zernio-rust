@@ -11,17 +11,23 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BlueskyPlatformData : Bluesky post settings. Supports text posts with up to 4 images or a single video. threadItems creates a reply chain (Bluesky thread). Images exceeding 1MB are automatically compressed. Alt text supported via mediaItem properties.
+/// BlueskyPlatformData : Bluesky post settings. Supports text posts with up to 4 images or a single video. threadItems creates a reply chain (Bluesky thread). Images exceeding 1MB are automatically compressed. Alt text supported via mediaItem properties. Use langs to tag post language for feed-generator filtering.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BlueskyPlatformData {
+    /// Language(s) of the post text as 1-3 BCP-47 codes (e.g. \"pt\", \"en-US\"), written to the post record's langs field. Bluesky feed generators filter on this field, so posts without it never appear in language-scoped feeds. Can only be set at creation (Bluesky has no post editing). When threadItems is used, every item in the thread carries the same langs. When omitted, the account's default (set via PATCH /v1/accounts/{accountId}/bluesky-settings) applies; with no default either, the field is absent from the record.
+    #[serde(rename = "langs", skip_serializing_if = "Option::is_none")]
+    pub langs: Option<Vec<String>>,
     /// Complete sequence of posts in a Bluesky thread. The first item becomes the root post, subsequent items are chained as replies. When threadItems is provided, the top-level content field is used only for display and search purposes, it is NOT published. You must include your first post as threadItems[0].
     #[serde(rename = "threadItems", skip_serializing_if = "Option::is_none")]
     pub thread_items: Option<Vec<models::TwitterPlatformDataThreadItemsInner>>,
 }
 
 impl BlueskyPlatformData {
-    /// Bluesky post settings. Supports text posts with up to 4 images or a single video. threadItems creates a reply chain (Bluesky thread). Images exceeding 1MB are automatically compressed. Alt text supported via mediaItem properties.
+    /// Bluesky post settings. Supports text posts with up to 4 images or a single video. threadItems creates a reply chain (Bluesky thread). Images exceeding 1MB are automatically compressed. Alt text supported via mediaItem properties. Use langs to tag post language for feed-generator filtering.
     pub fn new() -> BlueskyPlatformData {
-        BlueskyPlatformData { thread_items: None }
+        BlueskyPlatformData {
+            langs: None,
+            thread_items: None,
+        }
     }
 }

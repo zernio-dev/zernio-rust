@@ -21,6 +21,9 @@ pub struct GetWhatsAppNumberKycForm200Response {
     pub fields: Option<Vec<models::GetWhatsAppNumberKycForm200ResponseFieldsInner>>,
     #[serde(rename = "reusable", skip_serializing_if = "Option::is_none")]
     pub reusable: Option<Box<models::GetPhoneNumberKycForm200ResponseReusable>>,
+    /// true when this account already has a number for this country in regulatory review (status pending_regulatory). Scope is the whole account across all profiles, and the country only (any number type), so it is not a per-end-client signal on a multi-tenant setup. Informational only: it never blocks a submission, and several same-country numbers may sit in review at once. For a per-end-client view, call GET /v1/phone-numbers with `profileId` and `status=pending_regulatory`; that view also lists numbers declined in the last 30 days.
+    #[serde(rename = "pendingReview", skip_serializing_if = "Option::is_none")]
+    pub pending_review: Option<bool>,
 }
 
 impl GetWhatsAppNumberKycForm200Response {
@@ -30,6 +33,7 @@ impl GetWhatsAppNumberKycForm200Response {
             number_type: None,
             fields: None,
             reusable: None,
+            pending_review: None,
         }
     }
 }

@@ -40,6 +40,22 @@ pub struct WebhookPayloadCallEndedCall {
     pub duration_seconds: Option<i32>,
     #[serde(rename = "endReason", skip_serializing_if = "Option::is_none")]
     pub end_reason: Option<EndReason>,
+    /// Raw carrier hangup cause behind endReason (e.g. normal_clearing, call_rejected, not_found). Null when the carrier reported none.
+    #[serde(
+        rename = "hangupCause",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub hangup_cause: Option<Option<String>>,
+    /// SIP response code that ended the call when SIP-signalled (e.g. '403', '486', '603'). endReason collapses all three to 'rejected', so this is what separates a refused destination from a busy line. Null on non-SIP legs.
+    #[serde(
+        rename = "sipHangupCause",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub sip_hangup_cause: Option<Option<String>>,
     #[serde(rename = "recordingUrl", skip_serializing_if = "Option::is_none")]
     pub recording_url: Option<String>,
     #[serde(rename = "recordingExpiresAt", skip_serializing_if = "Option::is_none")]
@@ -62,6 +78,8 @@ impl WebhookPayloadCallEndedCall {
             ended_at: None,
             duration_seconds: None,
             end_reason: None,
+            hangup_cause: None,
+            sip_hangup_cause: None,
             recording_url: None,
             recording_expires_at: None,
             billing: None,

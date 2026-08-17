@@ -500,6 +500,7 @@ docs/GetAnalytics402Response.md
 docs/GetBestTimeToPost200Response.md
 docs/GetBestTimeToPost200ResponseSlotsInner.md
 docs/GetBestTimeToPost403Response.md
+docs/GetBlueskySettings200Response.md
 docs/GetBroadcast200Response.md
 docs/GetBroadcast200ResponseBroadcast.md
 docs/GetBroadcast200ResponseBroadcastMessage.md
@@ -1427,6 +1428,7 @@ docs/UpdateAdTrackingTagsRequestCreative.md
 docs/UpdateAdTrackingTagsRequestUrlTagsInner.md
 docs/UpdateBlogArticleRequest.md
 docs/UpdateBlogRequest.md
+docs/UpdateBlueskySettingsRequest.md
 docs/UpdateBroadcast200Response.md
 docs/UpdateBroadcast200ResponseBroadcast.md
 docs/UpdateBroadcastRequest.md
@@ -2263,6 +2265,7 @@ src/models/get_analytics_402_response.rs
 src/models/get_best_time_to_post_200_response.rs
 src/models/get_best_time_to_post_200_response_slots_inner.rs
 src/models/get_best_time_to_post_403_response.rs
+src/models/get_bluesky_settings_200_response.rs
 src/models/get_broadcast_200_response.rs
 src/models/get_broadcast_200_response_broadcast.rs
 src/models/get_broadcast_200_response_broadcast_message.rs
@@ -3161,6 +3164,7 @@ src/models/update_ad_tracking_tags_request_creative.rs
 src/models/update_ad_tracking_tags_request_url_tags_inner.rs
 src/models/update_blog_article_request.rs
 src/models/update_blog_request.rs
+src/models/update_bluesky_settings_request.rs
 src/models/update_broadcast_200_response.rs
 src/models/update_broadcast_200_response_broadcast.rs
 src/models/update_broadcast_request.rs
