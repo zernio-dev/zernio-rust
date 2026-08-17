@@ -21,8 +21,13 @@ pub struct ListBroadcastRecipients200ResponseRecipientsInner {
     pub channel_id: Option<String>,
     #[serde(rename = "platformIdentifier", skip_serializing_if = "Option::is_none")]
     pub platform_identifier: Option<String>,
-    #[serde(rename = "contactName", skip_serializing_if = "Option::is_none")]
-    pub contact_name: Option<String>,
+    #[serde(
+        rename = "contactName",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub contact_name: Option<Option<String>>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
     #[serde(rename = "messageId", skip_serializing_if = "Option::is_none")]

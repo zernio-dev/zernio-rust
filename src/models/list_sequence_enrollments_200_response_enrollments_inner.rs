@@ -27,14 +27,29 @@ pub struct ListSequenceEnrollments200ResponseEnrollmentsInner {
     pub current_step_index: Option<i32>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
-    #[serde(rename = "exitReason", skip_serializing_if = "Option::is_none")]
-    pub exit_reason: Option<String>,
-    #[serde(rename = "nextStepAt", skip_serializing_if = "Option::is_none")]
-    pub next_step_at: Option<String>,
+    #[serde(
+        rename = "exitReason",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub exit_reason: Option<Option<String>>,
+    #[serde(
+        rename = "nextStepAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub next_step_at: Option<Option<String>>,
     #[serde(rename = "stepsSent", skip_serializing_if = "Option::is_none")]
     pub steps_sent: Option<i32>,
-    #[serde(rename = "lastStepSentAt", skip_serializing_if = "Option::is_none")]
-    pub last_step_sent_at: Option<String>,
+    #[serde(
+        rename = "lastStepSentAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_step_sent_at: Option<Option<String>>,
     #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
     pub created_at: Option<String>,
 }
