@@ -63,6 +63,12 @@ pub struct WebhookPayloadMessageMetadata {
     pub referral: Option<Box<models::WebhookPayloadMessageMetadataReferral>>,
     #[serde(rename = "unsupported", skip_serializing_if = "Option::is_none")]
     pub unsupported: Option<Box<models::WebhookPayloadMessageMetadataUnsupported>>,
+    /// Instagram / Facebook Messenger only. Set when the message carries nothing an integrator can render (a `template` attachment with no text and no parseable content, or Meta's own `is_unsupported` flag). Sibling of `unsupported` above (WhatsApp only, carries Meta's error code/title/details): this field has no error envelope, just the boolean. Absence means \"not flagged\", never \"checked and renderable\".
+    #[serde(
+        rename = "noRenderableContent",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub no_renderable_content: Option<bool>,
 }
 
 impl WebhookPayloadMessageMetadata {
@@ -87,6 +93,7 @@ impl WebhookPayloadMessageMetadata {
             is_story_mention: None,
             referral: None,
             unsupported: None,
+            no_renderable_content: None,
         }
     }
 }
