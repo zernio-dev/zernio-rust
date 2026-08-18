@@ -63,7 +63,7 @@ pub struct PlatformTarget {
     /// Human-readable error message when status is failed. Contains platform-specific error details explaining why the publish failed.
     #[serde(rename = "errorMessage", skip_serializing_if = "Option::is_none")]
     pub error_message: Option<String>,
-    /// Error category for programmatic handling: auth_expired (token expired/revoked), user_content (wrong format/too long), user_abuse (rate limits/spam), account_issue (config problems), platform_rejected (policy violation), platform_error (5xx/maintenance), system_error (Zernio infra), unknown
+    /// Error category for programmatic handling: auth_expired (token expired/revoked), user_content (wrong format/too long), user_abuse (rate limits/spam), account_issue (config problems), platform_rejected (policy violation), platform_error (5xx/maintenance), platform_rate_limit (platform throttling, retried automatically), quota_exhausted (shared daily API quota empty, resumes at the platform's reset), system_error (Zernio infra), unknown
     #[serde(rename = "errorCategory", skip_serializing_if = "Option::is_none")]
     pub error_category: Option<ErrorCategory>,
     /// Who caused the error: user (fix content/reconnect), platform (outage/API change), system (Zernio issue, rare)
@@ -107,7 +107,7 @@ impl Default for TrialGraduationStrategy {
         Self::Manual
     }
 }
-/// Error category for programmatic handling: auth_expired (token expired/revoked), user_content (wrong format/too long), user_abuse (rate limits/spam), account_issue (config problems), platform_rejected (policy violation), platform_error (5xx/maintenance), system_error (Zernio infra), unknown
+/// Error category for programmatic handling: auth_expired (token expired/revoked), user_content (wrong format/too long), user_abuse (rate limits/spam), account_issue (config problems), platform_rejected (policy violation), platform_error (5xx/maintenance), platform_rate_limit (platform throttling, retried automatically), quota_exhausted (shared daily API quota empty, resumes at the platform's reset), system_error (Zernio infra), unknown
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ErrorCategory {
     #[serde(rename = "auth_expired")]
@@ -122,6 +122,10 @@ pub enum ErrorCategory {
     PlatformRejected,
     #[serde(rename = "platform_error")]
     PlatformError,
+    #[serde(rename = "platform_rate_limit")]
+    PlatformRateLimit,
+    #[serde(rename = "quota_exhausted")]
+    QuotaExhausted,
     #[serde(rename = "system_error")]
     SystemError,
     #[serde(rename = "unknown")]
