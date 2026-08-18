@@ -37,6 +37,9 @@ pub struct CreateInboxConversationRequest {
     /// WhatsApp only (Meta Direct Send). Combined with message and without templateName, starts the conversation with a business-initiated UTILITY message and no pre-approved template; Meta matches or auto-creates a template asynchronously. The WhatsApp Business Account must be eligible for Direct Send, otherwise the send fails with an error telling you to use an approved message template instead. Cannot be combined with templateName (templates are already categorized at creation). Utility messages only; marketing content is not allowed under this category. Accepted on the JSON body only, not on multipart requests.
     #[serde(rename = "category", skip_serializing_if = "Option::is_none")]
     pub category: Option<Category>,
+    /// WhatsApp only. Set false to send the Direct Send (category: 'utility') text message without a link-preview thumbnail for the first URL in the text. Defaults to true, which is how every WhatsApp text has been sent to date. Does not apply to template sends. Accepted on the JSON body only, not on multipart requests.
+    #[serde(rename = "linkPreview", skip_serializing_if = "Option::is_none")]
+    pub link_preview: Option<bool>,
     /// WhatsApp only. Template language code (e.g. en_US).
     #[serde(rename = "templateLanguage", skip_serializing_if = "Option::is_none")]
     pub template_language: Option<String>,
@@ -57,6 +60,7 @@ impl CreateInboxConversationRequest {
             skip_dm_check: None,
             template_name: None,
             category: None,
+            link_preview: None,
             template_language: None,
             template_params: None,
             header_media: None,

@@ -25,6 +25,9 @@ pub struct SendInboxMessageRequest {
     /// WhatsApp only (Meta Direct Send). Sends this message as a business-initiated UTILITY message without an approved template, for example outside the 24-hour customer service window; Meta matches or auto-creates a template asynchronously. The WhatsApp Business Account must be eligible for Direct Send, otherwise the send fails with an error telling you to use an approved message template instead. Supported only for text messages (link preview ok) and interactive messages (reply buttons, CTA URL buttons, voice-call button, header of text/image/video/document). Cannot be combined with template, attachments, location, or contacts. Utility messages only; marketing content is not allowed under this category. Accepted on the JSON body only, not on multipart requests.
     #[serde(rename = "category", skip_serializing_if = "Option::is_none")]
     pub category: Option<Category>,
+    /// WhatsApp only. Set false to send the message without a link-preview thumbnail for the first URL in the text. Defaults to true, which is how every WhatsApp text has been sent to date. Ignored on other platforms. Accepted on the JSON body only, not on multipart requests.
+    #[serde(rename = "linkPreview", skip_serializing_if = "Option::is_none")]
+    pub link_preview: Option<bool>,
     /// Type of attachment. Defaults to file if not specified.
     #[serde(rename = "attachmentType", skip_serializing_if = "Option::is_none")]
     pub attachment_type: Option<AttachmentType>,
@@ -69,6 +72,7 @@ impl SendInboxMessageRequest {
             message: None,
             attachment_url: None,
             category: None,
+            link_preview: None,
             attachment_type: None,
             attachment_name: None,
             voice_note: None,
