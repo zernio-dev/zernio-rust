@@ -11,9 +11,11 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// TwitterPlatformData : X (Twitter) geo-restriction applies at the media level. Media in geo-restricted tweets will be hidden for users outside the specified countries; the tweet text itself remains visible globally. Requires media to be attached (ignored for text-only tweets).
+/// TwitterPlatformData : X-specific post options. The article field creates a long-form X Article and is mutually exclusive with tweet media and tweet-only options. Geo-restriction applies at the media level: media is hidden outside the specified countries while tweet text remains visible.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TwitterPlatformData {
+    #[serde(rename = "article", skip_serializing_if = "Option::is_none")]
+    pub article: Option<Box<models::XArticle>>,
     /// ID of an existing tweet to reply to. The published tweet will appear as a reply in that tweet's thread. For threads, only the first tweet replies to the target; subsequent tweets chain normally. X only permits replying to your own posts or posts you are mentioned in; replying to an arbitrary other account's post is rejected by X.
     #[serde(rename = "replyToTweetId", skip_serializing_if = "Option::is_none")]
     pub reply_to_tweet_id: Option<String>,
@@ -44,9 +46,10 @@ pub struct TwitterPlatformData {
 }
 
 impl TwitterPlatformData {
-    /// X (Twitter) geo-restriction applies at the media level. Media in geo-restricted tweets will be hidden for users outside the specified countries; the tweet text itself remains visible globally. Requires media to be attached (ignored for text-only tweets).
+    /// X-specific post options. The article field creates a long-form X Article and is mutually exclusive with tweet media and tweet-only options. Geo-restriction applies at the media level: media is hidden outside the specified countries while tweet text remains visible.
     pub fn new() -> TwitterPlatformData {
         TwitterPlatformData {
+            article: None,
             reply_to_tweet_id: None,
             quote_tweet_id: None,
             reply_settings: None,
