@@ -22,6 +22,7 @@ pub enum AddTrackingTagSharedAccountError {
     Status403(),
     Status404(),
     Status405(),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
@@ -35,6 +36,7 @@ pub enum CreateTrackingTagError {
     Status404(),
     Status405(),
     Status422(),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
@@ -56,6 +58,7 @@ pub enum GetTrackingTagError {
     Status403(),
     Status404(),
     Status405(),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
@@ -68,6 +71,7 @@ pub enum GetTrackingTagStatsError {
     Status403(),
     Status404(),
     Status405(),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
@@ -79,6 +83,7 @@ pub enum ListTrackingTagSharedAccountsError {
     Status403(),
     Status404(),
     Status405(),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
@@ -91,6 +96,7 @@ pub enum ListTrackingTagsError {
     Status403(),
     Status404(),
     Status405(),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
@@ -103,6 +109,7 @@ pub enum RemoveTrackingTagSharedAccountError {
     Status403(),
     Status404(),
     Status405(),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
@@ -126,6 +133,7 @@ pub enum UpdateTrackingTagError {
     Status403(),
     Status404(),
     Status405(),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
