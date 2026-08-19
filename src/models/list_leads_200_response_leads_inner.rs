@@ -16,7 +16,7 @@ pub struct ListLeads200ResponseLeadsInner {
     /// Zernio lead id.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
-    /// Meta lead id.
+    /// Meta lead id. On LinkedIn, the leadFormResponse id.
     #[serde(rename = "leadgenId", skip_serializing_if = "Option::is_none")]
     pub leadgen_id: Option<String>,
     #[serde(rename = "formId", skip_serializing_if = "Option::is_none")]
@@ -44,6 +44,7 @@ pub struct ListLeads200ResponseLeadsInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub adset_id: Option<Option<String>>,
+    /// On LinkedIn, this is the LinkedIn Campaign id, which corresponds to platformAdSetId on GET /v1/ads (LinkedIn's Campaign Group is Zernio's campaign).
     #[serde(
         rename = "campaignId",
         default,
@@ -61,7 +62,7 @@ pub struct ListLeads200ResponseLeadsInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub created_time: Option<Option<String>>,
-    /// Question key → answer.
+    /// Question key → answer. On LinkedIn, the key is the lowercased predefinedField, else the question name, else the numeric questionId; multiple-choice values are option labels (unlike Meta, which returns the option key).
     #[serde(rename = "fields", skip_serializing_if = "Option::is_none")]
     pub fields: Option<std::collections::HashMap<String, String>>,
     /// Raw Meta field_data.
