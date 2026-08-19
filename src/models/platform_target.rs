@@ -37,9 +37,14 @@ pub struct PlatformTarget {
     /// The native post ID on the platform (populated after successful publish)
     #[serde(rename = "platformPostId", skip_serializing_if = "Option::is_none")]
     pub platform_post_id: Option<String>,
-    /// Public URL of the published post. Included in the response for immediate posts; for scheduled posts, fetch via GET /v1/posts/{postId} after publish time.
-    #[serde(rename = "platformPostUrl", skip_serializing_if = "Option::is_none")]
-    pub platform_post_url: Option<String>,
+    /// Public URL of the published post. Included in the response for immediate posts; for scheduled posts, fetch via GET /v1/posts/{postId} after publish time. Empty when the platform confirmed the publish without returning an id a permalink can be built from (TikTok returns a publish id for some uploads); the TikTok reconcile cron backfills it later.
+    #[serde(
+        rename = "platformPostUrl",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub platform_post_url: Option<Option<String>>,
     /// Timestamp when the post was published to this platform
     #[serde(rename = "publishedAt", skip_serializing_if = "Option::is_none")]
     pub published_at: Option<String>,
