@@ -50,7 +50,7 @@ pub struct YouTubeVideoRetentionResponse {
     /// Present only when the range reaches into YouTube's ~3-day processing window: the first date whose numbers are provisional and may still be revised by YouTube.
     #[serde(rename = "provisionalSince", skip_serializing_if = "Option::is_none")]
     pub provisional_since: Option<String>,
-    /// Up to 100 points covering the video timeline, aggregated over the date range. Empty for videos with very few views.
+    /// Up to 100 points covering the video timeline, aggregated over the date range. Can be empty when YouTube has no retention data for the video in the given range.
     #[serde(rename = "retentionCurve", skip_serializing_if = "Option::is_none")]
     pub retention_curve: Option<Vec<models::YouTubeVideoRetentionResponseRetentionCurveInner>>,
     /// Present only when the curve is empty, explaining why

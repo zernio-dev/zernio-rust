@@ -28,10 +28,10 @@ pub struct YouTubeVideoRetentionResponseRetentionCurveInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub relative_retention_performance: Option<f64>,
-    /// Viewers who started watching in this segment
+    /// Viewers who started watching in this segment. 0 when YouTube has no segment-level data for the video.
     #[serde(rename = "startedWatching", skip_serializing_if = "Option::is_none")]
     pub started_watching: Option<i32>,
-    /// Viewers who stopped watching in this segment
+    /// Viewers who stopped watching in this segment. 0 when YouTube has no segment-level data for the video.
     #[serde(rename = "stoppedWatching", skip_serializing_if = "Option::is_none")]
     pub stopped_watching: Option<i32>,
     /// Total views of this segment, including rewatches
