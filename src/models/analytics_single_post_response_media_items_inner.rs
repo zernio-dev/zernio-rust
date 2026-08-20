@@ -34,7 +34,7 @@ pub struct AnalyticsSinglePostResponseMediaItemsInner {
     /// Accessibility alt text set on the media, when present.
     #[serde(rename = "altText", skip_serializing_if = "Option::is_none")]
     pub alt_text: Option<String>,
-    /// Present only when the media file could not be retrieved. Absent means the file is available at url.
+    /// unavailable means the media file could not be retrieved (url is null or, for LinkedIn videos, a cover image standing in for the file). available or absent means the file is available at url (older synced items omit the field).
     #[serde(rename = "mediaStatus", skip_serializing_if = "Option::is_none")]
     pub media_status: Option<MediaStatus>,
     /// Why the file is missing. platform_withheld means the platform declined to return it and retrying will not help.
@@ -68,16 +68,18 @@ impl Default for Type {
         Self::Image
     }
 }
-/// Present only when the media file could not be retrieved. Absent means the file is available at url.
+/// unavailable means the media file could not be retrieved (url is null or, for LinkedIn videos, a cover image standing in for the file). available or absent means the file is available at url (older synced items omit the field).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum MediaStatus {
+    #[serde(rename = "available")]
+    Available,
     #[serde(rename = "unavailable")]
     Unavailable,
 }
 
 impl Default for MediaStatus {
     fn default() -> MediaStatus {
-        Self::Unavailable
+        Self::Available
     }
 }
 /// Why the file is missing. platform_withheld means the platform declined to return it and retrying will not help.
