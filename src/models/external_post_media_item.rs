@@ -16,13 +16,13 @@ use serde::{Deserialize, Serialize};
 pub struct ExternalPostMediaItem {
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// 'Direct URL to the media file. Null when the platform withholds it: check mediaStatus before downloading. Instagram omits the video file for Reels it flags as containing copyrighted material (its docs name audio as the usual cause), so type stays \"video\" while the file is permanently unreachable.'
+    /// 'Direct URL to the media file. Null when the platform withholds it: check mediaStatus before downloading. Instagram omits the video file for Reels it flags as containing copyrighted material (its docs name audio as the usual cause), so type stays \"video\" while the file is permanently unreachable. For LinkedIn videos where the platform returns no file, url falls back to the cover image and the item carries mediaStatus: unavailable.'
     #[serde(rename = "url", deserialize_with = "Option::deserialize")]
     pub url: Option<String>,
     /// Cover image. Still present when url is null.
     #[serde(rename = "thumbnail", skip_serializing_if = "Option::is_none")]
     pub thumbnail: Option<String>,
-    /// Present only when the media file could not be retrieved. Absent means the file is available at url.
+    /// 'Present only when the media file could not be retrieved (url is null or, for LinkedIn videos, a cover image standing in for the file). Absent means the file is available at url.'
     #[serde(rename = "mediaStatus", skip_serializing_if = "Option::is_none")]
     pub media_status: Option<MediaStatus>,
     /// Why the file is missing. platform_withheld means the platform declined to return it and retrying will not help.
@@ -56,7 +56,7 @@ impl Default for Type {
         Self::Image
     }
 }
-/// Present only when the media file could not be retrieved. Absent means the file is available at url.
+/// 'Present only when the media file could not be retrieved (url is null or, for LinkedIn videos, a cover image standing in for the file). Absent means the file is available at url.'
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum MediaStatus {
     #[serde(rename = "unavailable")]
