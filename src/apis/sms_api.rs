@@ -175,6 +175,7 @@ pub enum ReuseSmsRegistrationForNumberError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SendSmsError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
     Status404(),
     Status409(),
