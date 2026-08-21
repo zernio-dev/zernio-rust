@@ -4,8 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**billing_system** | Option<**BillingSystem**> |  (enum: metronome, stripe) | [optional]
+**billing_system** | Option<**BillingSystem**> |  (enum: metronome, stripe, shopify) | [optional]
 **plan** | Option<[**models::BillingSnapshotPlan**](BillingSnapshotPlan.md)> |  | [optional]
+**shopify_shop_domain** | Option<**String**> | myshopify.com domain owning the subscription; present only when billingSystem is shopify. | [optional]
 **period** | Option<[**models::BillingSnapshotPeriod**](BillingSnapshotPeriod.md)> |  | [optional]
 **balance** | Option<[**models::BillingSnapshotBalance**](BillingSnapshotBalance.md)> |  | [optional]
 **caps** | Option<[**models::BillingSnapshotCaps**](BillingSnapshotCaps.md)> |  | [optional]

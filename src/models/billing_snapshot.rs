@@ -18,6 +18,14 @@ pub struct BillingSnapshot {
     pub billing_system: Option<BillingSystem>,
     #[serde(rename = "plan", skip_serializing_if = "Option::is_none")]
     pub plan: Option<Box<models::BillingSnapshotPlan>>,
+    /// myshopify.com domain owning the subscription; present only when billingSystem is shopify.
+    #[serde(
+        rename = "shopifyShopDomain",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub shopify_shop_domain: Option<Option<String>>,
     #[serde(rename = "period", skip_serializing_if = "Option::is_none")]
     pub period: Option<Box<models::BillingSnapshotPeriod>>,
     #[serde(rename = "balance", skip_serializing_if = "Option::is_none")]
@@ -36,6 +44,7 @@ impl BillingSnapshot {
         BillingSnapshot {
             billing_system: None,
             plan: None,
+            shopify_shop_domain: None,
             period: None,
             balance: None,
             caps: None,
@@ -51,6 +60,8 @@ pub enum BillingSystem {
     Metronome,
     #[serde(rename = "stripe")]
     Stripe,
+    #[serde(rename = "shopify")]
+    Shopify,
 }
 
 impl Default for BillingSystem {

@@ -17,6 +17,9 @@ pub struct BillingSnapshotPlan {
     pub name: Option<String>,
     #[serde(rename = "isUsageBased", skip_serializing_if = "Option::is_none")]
     pub is_usage_based: Option<bool>,
+    /// True when the key belongs to an account with an active paid billing relationship (Stripe subscription, Metronome enrollment, or Shopify-managed billing).
+    #[serde(rename = "isPaid", skip_serializing_if = "Option::is_none")]
+    pub is_paid: Option<bool>,
 }
 
 impl BillingSnapshotPlan {
@@ -24,6 +27,7 @@ impl BillingSnapshotPlan {
         BillingSnapshotPlan {
             name: None,
             is_usage_based: None,
+            is_paid: None,
         }
     }
 }
