@@ -1021,6 +1021,8 @@ docs/ListUsers200ResponseUsersInner.md
 docs/ListValueRuleSets200Response.md
 docs/ListValueRuleSets200ResponsePaging.md
 docs/ListVoiceCalls200Response.md
+docs/ListWhatsAppAccountEvents200Response.md
+docs/ListWhatsAppAccountEvents200ResponseEventsInner.md
 docs/ListWhatsAppCalls200Response.md
 docs/ListWhatsAppCalls200ResponseCallsInner.md
 docs/ListWhatsAppCalls200ResponseCallsInnerBilling.md
@@ -2802,6 +2804,8 @@ src/models/list_users_200_response_users_inner.rs
 src/models/list_value_rule_sets_200_response.rs
 src/models/list_value_rule_sets_200_response_paging.rs
 src/models/list_voice_calls_200_response.rs
+src/models/list_whats_app_account_events_200_response.rs
+src/models/list_whats_app_account_events_200_response_events_inner.rs
 src/models/list_whats_app_calls_200_response.rs
 src/models/list_whats_app_calls_200_response_calls_inner.rs
 src/models/list_whats_app_calls_200_response_calls_inner_billing.rs

@@ -25,6 +25,7 @@ Method | HTTP request | Description
 [**get_whats_app_templates**](WhatsAppApi.md#get_whats_app_templates) | **GET** /v1/whatsapp/templates | List templates
 [**get_whatsapp_business_username**](WhatsAppApi.md#get_whatsapp_business_username) | **GET** /v1/whatsapp/business-profile/username | Get business username
 [**get_whatsapp_business_username_suggestions**](WhatsAppApi.md#get_whatsapp_business_username_suggestions) | **GET** /v1/whatsapp/business-profile/username/suggestions | Get username suggestions
+[**list_whats_app_account_events**](WhatsAppApi.md#list_whats_app_account_events) | **GET** /v1/whatsapp/account-events | List account notifications
 [**list_whats_app_conversions**](WhatsAppApi.md#list_whats_app_conversions) | **GET** /v1/whatsapp/conversions | List conversion events
 [**list_whats_app_group_chats**](WhatsAppApi.md#list_whats_app_group_chats) | **GET** /v1/whatsapp/wa-groups | List active groups
 [**list_whats_app_group_join_requests**](WhatsAppApi.md#list_whats_app_group_join_requests) | **GET** /v1/whatsapp/wa-groups/{groupId}/join-requests | List join requests
@@ -672,6 +673,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetWhatsappBusinessUsernameSuggestions200Response**](getWhatsappBusinessUsernameSuggestions_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_whats_app_account_events
+
+> models::ListWhatsAppAccountEvents200Response list_whats_app_account_events(account_id, limit)
+List account notifications
+
+Returns Meta-originated events recorded for a WhatsApp account, newest first: template review outcomes (approved, rejected, paused, category changes) and WABA status changes (restricted, disabled, reinstated, disconnected). Events are captured from Meta webhooks as they happen; the feed starts at the account's first recorded event and is not backfilled. Complements the push events `whatsapp.template.status_updated` and `account.disconnected` with a pollable history. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | WhatsApp social account ID | [required] |
+**limit** | Option<**i32**> | Maximum events to return |  |[default to 50]
+
+### Return type
+
+[**models::ListWhatsAppAccountEvents200Response**](listWhatsAppAccountEvents_200_response.md)
 
 ### Authorization
 

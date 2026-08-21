@@ -530,6 +530,7 @@ Class | Method | HTTP request | Description
 *WhatsAppApi* | [**get_whats_app_templates**](docs/WhatsAppApi.md#get_whats_app_templates) | **GET** /v1/whatsapp/templates | List templates
 *WhatsAppApi* | [**get_whatsapp_business_username**](docs/WhatsAppApi.md#get_whatsapp_business_username) | **GET** /v1/whatsapp/business-profile/username | Get business username
 *WhatsAppApi* | [**get_whatsapp_business_username_suggestions**](docs/WhatsAppApi.md#get_whatsapp_business_username_suggestions) | **GET** /v1/whatsapp/business-profile/username/suggestions | Get username suggestions
+*WhatsAppApi* | [**list_whats_app_account_events**](docs/WhatsAppApi.md#list_whats_app_account_events) | **GET** /v1/whatsapp/account-events | List account notifications
 *WhatsAppApi* | [**list_whats_app_conversions**](docs/WhatsAppApi.md#list_whats_app_conversions) | **GET** /v1/whatsapp/conversions | List conversion events
 *WhatsAppApi* | [**list_whats_app_group_chats**](docs/WhatsAppApi.md#list_whats_app_group_chats) | **GET** /v1/whatsapp/wa-groups | List active groups
 *WhatsAppApi* | [**list_whats_app_group_join_requests**](docs/WhatsAppApi.md#list_whats_app_group_join_requests) | **GET** /v1/whatsapp/wa-groups/{groupId}/join-requests | List join requests
@@ -1595,6 +1596,8 @@ Class | Method | HTTP request | Description
  - [ListValueRuleSets200Response](docs/ListValueRuleSets200Response.md)
  - [ListValueRuleSets200ResponsePaging](docs/ListValueRuleSets200ResponsePaging.md)
  - [ListVoiceCalls200Response](docs/ListVoiceCalls200Response.md)
+ - [ListWhatsAppAccountEvents200Response](docs/ListWhatsAppAccountEvents200Response.md)
+ - [ListWhatsAppAccountEvents200ResponseEventsInner](docs/ListWhatsAppAccountEvents200ResponseEventsInner.md)
  - [ListWhatsAppCalls200Response](docs/ListWhatsAppCalls200Response.md)
  - [ListWhatsAppCalls200ResponseCallsInner](docs/ListWhatsAppCalls200ResponseCallsInner.md)
  - [ListWhatsAppCalls200ResponseCallsInnerBilling](docs/ListWhatsAppCalls200ResponseCallsInnerBilling.md)
