@@ -92,6 +92,17 @@ pub enum ConnectOpenAiAdsCredentialsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`connect_shopify_with_token`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ConnectShopifyWithTokenError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status402(models::InlineObject3),
+    Status403(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`connect_whats_app_credentials`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -906,6 +917,56 @@ pub async fn connect_open_ai_ads_credentials(
     } else {
         let content = resp.text().await?;
         let entity: Option<ConnectOpenAiAdsCredentialsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Token-paste alternative to the OAuth flow: connect a store using the Admin API access token of a custom app the merchant created in their own Shopify admin (Settings → Apps and sales channels → Develop apps, with the `read_content`/`write_content` scopes). Use this when the one-click OAuth connect is unavailable or when your users prefer not to install a third-party app on their store. The token is validated against the store before anything is saved; custom-app tokens do not expire. Connecting the same profile to a store again replaces the stored token in place.
+pub async fn connect_shopify_with_token(
+    configuration: &configuration::Configuration,
+    connect_shopify_with_token_request: models::ConnectShopifyWithTokenRequest,
+) -> Result<models::ConnectShopifyWithToken200Response, Error<ConnectShopifyWithTokenError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_connect_shopify_with_token_request = connect_shopify_with_token_request;
+
+    let uri_str = format!("{}/v1/connect/shopify/token", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_connect_shopify_with_token_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ConnectShopifyWithToken200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ConnectShopifyWithToken200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ConnectShopifyWithTokenError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

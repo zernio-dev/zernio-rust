@@ -167,6 +167,9 @@ docs/ConnectBlueskyCredentials200Response.md
 docs/ConnectBlueskyCredentialsRequest.md
 docs/ConnectOpenAiAdsCredentials200Response.md
 docs/ConnectOpenAiAdsCredentialsRequest.md
+docs/ConnectShopifyWithToken200Response.md
+docs/ConnectShopifyWithToken200ResponseAccount.md
+docs/ConnectShopifyWithTokenRequest.md
 docs/ConnectWhatsAppCredentials200Response.md
 docs/ConnectWhatsAppCredentials200ResponseAccount.md
 docs/ConnectWhatsAppCredentialsRequest.md
@@ -1963,6 +1966,9 @@ src/models/connect_bluesky_credentials_200_response.rs
 src/models/connect_bluesky_credentials_request.rs
 src/models/connect_open_ai_ads_credentials_200_response.rs
 src/models/connect_open_ai_ads_credentials_request.rs
+src/models/connect_shopify_with_token_200_response.rs
+src/models/connect_shopify_with_token_200_response_account.rs
+src/models/connect_shopify_with_token_request.rs
 src/models/connect_whats_app_credentials_200_response.rs
 src/models/connect_whats_app_credentials_200_response_account.rs
 src/models/connect_whats_app_credentials_request.rs
