@@ -5,6 +5,13 @@ on:
     types: [openapi-updated]
   workflow_dispatch:
 
+# Serialize runs: two dispatches computing the same next version from the same
+# tag state double-publish (2026-08-21: two runs both computed 0.0.723 and the
+# second was rejected by crates.io).
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
 jobs:
   generate:
     name: Regenerate from OpenAPI
@@ -106,10 +113,17 @@ jobs:
         if: steps.changes.outputs.has_changes == 'true'
         id: version
         run: |
-          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
-          NEW_VERSION=$(echo $LATEST_TAG | awk -F. '{printf "v%d.%d.%d", $1, $2, $3+1}' | sed 's/vv/v/')
-          CARGO_VERSION=$(echo $NEW_VERSION | sed 's/v//')
-          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          # Base = max(highest tag, highest published crate). git describe alone
+          # gets stuck when a run publishes but dies before tagging (crates.io
+          # rejects the recomputed version forever after; zernio-ruby hit this
+          # 2026-08-12). Checking the registry self-heals any publish/tag
+          # divergence, including the tag race between concurrent dispatches.
+          TAG_VERSION=$(git tag -l 'v*' | sed 's/^v//' | sort -V | tail -1)
+          ZERNIO_PUBLISHED=$(curl -sf --retry 3 https://index.crates.io/ze/rn/zernio | jq -r '.vers' | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -1 || echo "0.0.0")
+          LATE_PUBLISHED=$(curl -sf --retry 3 https://index.crates.io/la/te/late | jq -r '.vers' | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -1 || echo "0.0.0")
+          BASE=$(printf '%s\n' "${TAG_VERSION:-0.0.0}" "${ZERNIO_PUBLISHED:-0.0.0}" "${LATE_PUBLISHED:-0.0.0}" | sort -V | tail -1)
+          CARGO_VERSION=$(echo "$BASE" | awk -F. '{printf "%d.%d.%d", $1, $2, $3+1}')
+          echo "new_version=v$CARGO_VERSION" >> $GITHUB_OUTPUT
           echo "cargo_version=$CARGO_VERSION" >> $GITHUB_OUTPUT
 
       - name: Update Cargo.toml version
