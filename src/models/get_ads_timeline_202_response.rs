@@ -13,29 +13,18 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetAdsTimeline202Response {
+    /// Always true on this response. Part of the requested range is still being backfilled; retry until the request returns 200.
     #[serde(rename = "backfillPending")]
-    pub backfill_pending: BackfillPending,
+    pub backfill_pending: bool,
     #[serde(rename = "rows", skip_serializing_if = "Option::is_none")]
     pub rows: Option<Vec<models::AdsTimelineResponseRowsInner>>,
 }
 
 impl GetAdsTimeline202Response {
-    pub fn new(backfill_pending: BackfillPending) -> GetAdsTimeline202Response {
+    pub fn new(backfill_pending: bool) -> GetAdsTimeline202Response {
         GetAdsTimeline202Response {
             backfill_pending,
             rows: None,
         }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum BackfillPending {
-    #[serde(rename = "true")]
-    True,
-}
-
-impl Default for BackfillPending {
-    fn default() -> BackfillPending {
-        Self::True
     }
 }

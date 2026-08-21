@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**backfill_pending** | **BackfillPending** |  (enum: true) | 
+**backfill_pending** | **bool** | Always true on this response. Part of the requested range is still being backfilled; retry until the request returns 200. | 
 **campaign** | Option<[**models::CampaignAnalyticsResponseCampaign**](CampaignAnalyticsResponseCampaign.md)> |  | [optional]
 **analytics** | Option<[**models::CampaignAnalyticsResponseAnalytics**](CampaignAnalyticsResponseAnalytics.md)> |  | [optional]
 

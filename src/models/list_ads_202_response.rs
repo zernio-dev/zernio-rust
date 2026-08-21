@@ -17,28 +17,17 @@ pub struct ListAds202Response {
     pub ads: Option<Vec<models::Ad>>,
     #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
     pub pagination: Option<Box<models::Pagination>>,
+    /// Always true on this response. Part of the requested range is still being backfilled; retry until the request returns 200.
     #[serde(rename = "backfillPending")]
-    pub backfill_pending: BackfillPending,
+    pub backfill_pending: bool,
 }
 
 impl ListAds202Response {
-    pub fn new(backfill_pending: BackfillPending) -> ListAds202Response {
+    pub fn new(backfill_pending: bool) -> ListAds202Response {
         ListAds202Response {
             ads: None,
             pagination: None,
             backfill_pending,
         }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum BackfillPending {
-    #[serde(rename = "true")]
-    True,
-}
-
-impl Default for BackfillPending {
-    fn default() -> BackfillPending {
-        Self::True
     }
 }

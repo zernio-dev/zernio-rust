@@ -13,8 +13,9 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetAdAnalytics202Response {
+    /// Always true on this response. Part of the requested range is still being backfilled; retry until the request returns 200.
     #[serde(rename = "backfillPending")]
-    pub backfill_pending: BackfillPending,
+    pub backfill_pending: bool,
     #[serde(rename = "ad", skip_serializing_if = "Option::is_none")]
     pub ad: Option<Box<models::AdAnalyticsResponseAd>>,
     #[serde(rename = "analytics", skip_serializing_if = "Option::is_none")]
@@ -22,23 +23,11 @@ pub struct GetAdAnalytics202Response {
 }
 
 impl GetAdAnalytics202Response {
-    pub fn new(backfill_pending: BackfillPending) -> GetAdAnalytics202Response {
+    pub fn new(backfill_pending: bool) -> GetAdAnalytics202Response {
         GetAdAnalytics202Response {
             backfill_pending,
             ad: None,
             analytics: None,
         }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum BackfillPending {
-    #[serde(rename = "true")]
-    True,
-}
-
-impl Default for BackfillPending {
-    fn default() -> BackfillPending {
-        Self::True
     }
 }
