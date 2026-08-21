@@ -84,6 +84,9 @@ pub struct ListPhoneNumbers200ResponseNumbersInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub regulatory_decline_reason: Option<Option<String>>,
+    /// Whether WhatsApp Business Calling is enabled on this number (manage via /v1/whatsapp/phone-numbers/{id}/calling).
+    #[serde(rename = "callingEnabled", skip_serializing_if = "Option::is_none")]
+    pub calling_enabled: Option<bool>,
     #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
     pub created_at: Option<String>,
 }
@@ -107,6 +110,7 @@ impl ListPhoneNumbers200ResponseNumbersInner {
             end_user_first_name: None,
             end_user_last_name: None,
             regulatory_decline_reason: None,
+            calling_enabled: None,
             created_at: None,
         }
     }

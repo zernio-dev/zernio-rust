@@ -43,6 +43,9 @@ pub struct ListPhoneNumbers200ResponseConnectedInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub connected_at: Option<Option<String>>,
+    /// Whether WhatsApp Business Calling is enabled on this number.
+    #[serde(rename = "callingEnabled", skip_serializing_if = "Option::is_none")]
+    pub calling_enabled: Option<bool>,
 }
 
 impl ListPhoneNumbers200ResponseConnectedInner {
@@ -53,6 +56,7 @@ impl ListPhoneNumbers200ResponseConnectedInner {
             display_name: None,
             profile_id: None,
             connected_at: None,
+            calling_enabled: None,
         }
     }
 }
