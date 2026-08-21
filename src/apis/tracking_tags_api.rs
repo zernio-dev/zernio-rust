@@ -121,6 +121,7 @@ pub enum UpdateAdTrackingTagsError {
     Status404(),
     Status405(),
     Status422(),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 

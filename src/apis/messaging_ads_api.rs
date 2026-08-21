@@ -21,6 +21,7 @@ pub enum CreateCallAdError {
     Status401(models::InlineObject),
     Status404(),
     Status422(),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
@@ -45,6 +46,7 @@ pub enum CreateMessagingAdError {
     Status401(models::InlineObject),
     Status404(),
     Status422(),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 

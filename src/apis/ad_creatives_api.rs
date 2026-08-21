@@ -21,6 +21,7 @@ pub enum CreateAdCreativeError {
     Status401(models::InlineObject),
     Status422(),
     Status501(),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
@@ -124,6 +125,7 @@ pub enum UploadAdImageError {
     Status400(),
     Status401(models::InlineObject),
     Status501(),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
