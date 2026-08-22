@@ -92,6 +92,7 @@ Class | Method | HTTP request | Description
 *AdAudiencesApi* | [**delete_ad_audience**](docs/AdAudiencesApi.md#delete_ad_audience) | **DELETE** /v1/ads/audiences/{audienceId} | Delete custom audience
 *AdAudiencesApi* | [**get_ad_audience**](docs/AdAudiencesApi.md#get_ad_audience) | **GET** /v1/ads/audiences/{audienceId} | Get audience details
 *AdAudiencesApi* | [**list_ad_audiences**](docs/AdAudiencesApi.md#list_ad_audiences) | **GET** /v1/ads/audiences | List custom audiences
+*AdAudiencesApi* | [**replace_ad_audience_companies**](docs/AdAudiencesApi.md#replace_ad_audience_companies) | **POST** /v1/ads/audiences/{audienceId}/companies | Replace audience companies
 *AdAudiencesApi* | [**update_ad_audience**](docs/AdAudiencesApi.md#update_ad_audience) | **PUT** /v1/ads/audiences/{audienceId} | Update an audience
 *AdCampaignsApi* | [**boost_post**](docs/AdCampaignsApi.md#boost_post) | **POST** /v1/ads/boost | Boost post as ad
 *AdCampaignsApi* | [**bulk_update_ad_campaign_status**](docs/AdCampaignsApi.md#bulk_update_ad_campaign_status) | **POST** /v1/ads/campaigns/bulk-status | Pause or resume many campaigns
@@ -1730,6 +1731,9 @@ Class | Method | HTTP request | Description
  - [RemoveConversionAssociations200Response](docs/RemoveConversionAssociations200Response.md)
  - [RemoveDiscordMemberRole200Response](docs/RemoveDiscordMemberRole200Response.md)
  - [RemoveWhatsAppGroupParticipantsRequest](docs/RemoveWhatsAppGroupParticipantsRequest.md)
+ - [ReplaceAdAudienceCompanies200Response](docs/ReplaceAdAudienceCompanies200Response.md)
+ - [ReplaceAdAudienceCompaniesRequest](docs/ReplaceAdAudienceCompaniesRequest.md)
+ - [ReplaceAdAudienceCompaniesRequestCompaniesInner](docs/ReplaceAdAudienceCompaniesRequestCompaniesInner.md)
  - [ReplyToGoogleBusinessReview200Response](docs/ReplyToGoogleBusinessReview200Response.md)
  - [ReplyToGoogleBusinessReviewRequest](docs/ReplyToGoogleBusinessReviewRequest.md)
  - [ReplyToInboxPost200Response](docs/ReplyToInboxPost200Response.md)

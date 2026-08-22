@@ -1165,6 +1165,9 @@ docs/RemoveBookmark200Response.md
 docs/RemoveConversionAssociations200Response.md
 docs/RemoveDiscordMemberRole200Response.md
 docs/RemoveWhatsAppGroupParticipantsRequest.md
+docs/ReplaceAdAudienceCompanies200Response.md
+docs/ReplaceAdAudienceCompaniesRequest.md
+docs/ReplaceAdAudienceCompaniesRequestCompaniesInner.md
 docs/ReplyToGoogleBusinessReview200Response.md
 docs/ReplyToGoogleBusinessReviewRequest.md
 docs/ReplyToInboxPost200Response.md
@@ -2941,6 +2944,9 @@ src/models/remove_bookmark_200_response.rs
 src/models/remove_conversion_associations_200_response.rs
 src/models/remove_discord_member_role_200_response.rs
 src/models/remove_whats_app_group_participants_request.rs
+src/models/replace_ad_audience_companies_200_response.rs
+src/models/replace_ad_audience_companies_request.rs
+src/models/replace_ad_audience_companies_request_companies_inner.rs
 src/models/reply_to_google_business_review_200_response.rs
 src/models/reply_to_google_business_review_request.rs
 src/models/reply_to_inbox_post_200_response.rs
