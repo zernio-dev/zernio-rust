@@ -38,6 +38,18 @@ pub struct ExternalPostWebhookPost {
     pub thumbnail_url: Option<String>,
     #[serde(rename = "publishedAt")]
     pub published_at: String,
+    /// Instagram only: the platform media product type (e.g. FEED, REELS, STORY, AD). Absent when the platform did not report it.
+    #[serde(rename = "mediaProductType", skip_serializing_if = "Option::is_none")]
+    pub media_product_type: Option<String>,
+    /// Instagram only: whether Instagram labeled the media as AI-generated. Absent when the platform did not report it.
+    #[serde(rename = "isAiGenerated", skip_serializing_if = "Option::is_none")]
+    pub is_ai_generated: Option<bool>,
+    /// Instagram reels only: whether the reel is also shared to the main feed. Absent when the platform did not report it.
+    #[serde(rename = "isSharedToFeed", skip_serializing_if = "Option::is_none")]
+    pub is_shared_to_feed: Option<bool>,
+    /// Instagram only: audio type of the media (MUSIC or ORIGINAL_SOUND). Absent when the platform did not report it.
+    #[serde(rename = "mediaAudioType", skip_serializing_if = "Option::is_none")]
+    pub media_audio_type: Option<String>,
     /// Always \"external\" — distinguishes these from Zernio-originated post.* events.
     #[serde(rename = "source")]
     pub source: Source,
@@ -75,6 +87,10 @@ impl ExternalPostWebhookPost {
             media_items,
             thumbnail_url,
             published_at,
+            media_product_type: None,
+            is_ai_generated: None,
+            is_shared_to_feed: None,
+            media_audio_type: None,
             source,
             deleted_at: None,
         }

@@ -15,6 +15,9 @@ use serde::{Deserialize, Serialize};
 pub struct ListWhatsAppAccountEvents200ResponseEventsInner {
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
+    /// WhatsApp social account the event belongs to
+    #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
+    pub account_id: Option<String>,
     /// Event kind, e.g. template_approved, template_rejected, account_restricted, account_disconnected
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<String>,
@@ -37,6 +40,7 @@ impl ListWhatsAppAccountEvents200ResponseEventsInner {
     pub fn new() -> ListWhatsAppAccountEvents200ResponseEventsInner {
         ListWhatsAppAccountEvents200ResponseEventsInner {
             id: None,
+            account_id: None,
             r#type: None,
             severity: None,
             title: None,

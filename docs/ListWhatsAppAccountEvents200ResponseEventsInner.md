@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**String**> |  | [optional]
+**account_id** | Option<**String**> | WhatsApp social account the event belongs to | [optional]
 **r#type** | Option<**String**> | Event kind, e.g. template_approved, template_rejected, account_restricted, account_disconnected | [optional]
 **severity** | Option<**Severity**> |  (enum: info, success, warning, critical) | [optional]
 **title** | Option<**String**> |  | [optional]
