@@ -33,9 +33,9 @@ pub enum CreateInboxConversationError {
     Status400(models::CreateInboxConversation400Response),
     Status401(models::InlineObject),
     Status403(),
-    Status404(),
+    Status404(models::CreateInboxConversation404Response),
     Status422(models::CreateInboxConversation422Response),
-    Status429(),
+    Status429(models::CreateInboxConversation429Response),
     UnknownValue(serde_json::Value),
 }
 
