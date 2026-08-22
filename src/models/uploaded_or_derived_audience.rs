@@ -67,7 +67,10 @@ pub struct UploadedOrDerivedAudience {
     /// Required for lookalike audiences
     #[serde(rename = "ratio", skip_serializing_if = "Option::is_none")]
     pub ratio: Option<f64>,
-    /// Optional raw Meta rule, forwarded verbatim: pixel event rule for website audiences, or the engagement rule for meta_engagement (overrides the built rule, e.g. for event/canvas/lead-form sources).
+    /// website only. Narrows the audience from all visitors to visitors of URLs containing this substring. Ignored when `rule` is supplied.
+    #[serde(rename = "urlContains", skip_serializing_if = "Option::is_none")]
+    pub url_contains: Option<String>,
+    /// Optional raw Meta rule, replacing the one we build. Omit it for all visitors of `pixelId`, or use `urlContains` for the common page-match case.  For `website` this is Meta's Flexible Audience Rule and is VALIDATED before we call Meta: every entry in `inclusions.rules` (and `exclusions.rules`) must carry `event_sources`, `retention_seconds` AND `filter`. Meta rejects a rule missing any of the three with code 100 / subcode 1713098 (\"Invalid rule JSON format\"), so a bad shape is a 400 here instead. The pre-2018 flat shapes (`{url: ...}`, `{event: ...}`) are not accepted by Meta at all (subcode 1870029).  Example, visitors of /checkout in the last 30 days: `{\"inclusions\":{\"operator\":\"or\",\"rules\":[{\"event_sources\":[{\"id\":\"<pixelId>\",\"type\":\"pixel\"}],\"retention_seconds\":2592000,\"filter\":{\"operator\":\"and\",\"filters\":[{\"field\":\"url\",\"operator\":\"i_contains\",\"value\":\"/checkout\"}]}}]}}`  Note Meta DERIVES `retention_days` from `retention_seconds` and stores `event_sources[].id` as a number, so a rule read back will not be byte-identical to the one you sent.  For `meta_engagement` the rule is forwarded verbatim and NOT validated: that type has two dialects (the `video` source uses a legacy flat array), so no single schema covers both.
     #[serde(rename = "rule", skip_serializing_if = "Option::is_none")]
     pub rule: Option<serde_json::Value>,
     /// Data source declaration for GDPR compliance (customer_list only)
@@ -103,6 +106,7 @@ impl UploadedOrDerivedAudience {
             source_audience_id: None,
             country: None,
             ratio: None,
+            url_contains: None,
             rule: None,
             customer_file_source: None,
         }

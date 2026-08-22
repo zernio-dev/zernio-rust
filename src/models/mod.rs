@@ -1716,6 +1716,8 @@ pub mod list_ad_labels_200_response;
 pub use self::list_ad_labels_200_response::ListAdLabels200Response;
 pub mod list_ad_studies_200_response;
 pub use self::list_ad_studies_200_response::ListAdStudies200Response;
+pub mod list_ad_videos_200_response;
+pub use self::list_ad_videos_200_response::ListAdVideos200Response;
 pub mod list_ads_202_response;
 pub use self::list_ads_202_response::ListAds202Response;
 pub mod list_ads_business_centers_200_response;

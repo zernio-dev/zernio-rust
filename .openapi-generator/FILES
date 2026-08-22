@@ -896,6 +896,7 @@ docs/ListAdKeywords200Response.md
 docs/ListAdKeywords200ResponseKeywordsInner.md
 docs/ListAdLabels200Response.md
 docs/ListAdStudies200Response.md
+docs/ListAdVideos200Response.md
 docs/ListAds202Response.md
 docs/ListAdsBusinessCenters200Response.md
 docs/ListApiKeys200Response.md
@@ -2681,6 +2682,7 @@ src/models/list_ad_keywords_200_response.rs
 src/models/list_ad_keywords_200_response_keywords_inner.rs
 src/models/list_ad_labels_200_response.rs
 src/models/list_ad_studies_200_response.rs
+src/models/list_ad_videos_200_response.rs
 src/models/list_ads_202_response.rs
 src/models/list_ads_business_centers_200_response.rs
 src/models/list_api_keys_200_response.rs
