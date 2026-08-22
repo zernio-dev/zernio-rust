@@ -2434,6 +2434,8 @@ pub mod send_inbox_message_200_response;
 pub use self::send_inbox_message_200_response::SendInboxMessage200Response;
 pub mod send_inbox_message_200_response_data;
 pub use self::send_inbox_message_200_response_data::SendInboxMessage200ResponseData;
+pub mod send_inbox_message_200_response_data_attachments_inner;
+pub use self::send_inbox_message_200_response_data_attachments_inner::SendInboxMessage200ResponseDataAttachmentsInner;
 pub mod send_inbox_message_400_response;
 pub use self::send_inbox_message_400_response::SendInboxMessage400Response;
 pub mod send_inbox_message_400_response_platform_error;
