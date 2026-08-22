@@ -19,11 +19,18 @@ pub struct EditPostRequest {
     /// The new post text content
     #[serde(rename = "content")]
     pub content: String,
+    /// Which account's copy of the post to edit when the post was published to several accounts on the same platform; defaults to the first.
+    #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
+    pub account_id: Option<String>,
 }
 
 impl EditPostRequest {
     pub fn new(platform: Platform, content: String) -> EditPostRequest {
-        EditPostRequest { platform, content }
+        EditPostRequest {
+            platform,
+            content,
+            account_id: None,
+        }
     }
 }
 /// The platform to edit the post on.
@@ -37,6 +44,18 @@ pub enum Platform {
     Facebook,
     #[serde(rename = "reddit")]
     Reddit,
+    #[serde(rename = "linkedin")]
+    Linkedin,
+    #[serde(rename = "telegram")]
+    Telegram,
+    #[serde(rename = "pinterest")]
+    Pinterest,
+    #[serde(rename = "googlebusiness")]
+    Googlebusiness,
+    #[serde(rename = "youtube")]
+    Youtube,
+    #[serde(rename = "slack")]
+    Slack,
 }
 
 impl Default for Platform {

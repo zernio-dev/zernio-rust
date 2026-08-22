@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct EditPost200Response {
     #[serde(rename = "success", skip_serializing_if = "Option::is_none")]
     pub success: Option<bool>,
-    /// The platform post ID after the edit. X assigns a new ID; Discord, Facebook, and Reddit return the original ID unchanged.
+    /// The platform post ID after the edit. X assigns a new ID; every other platform returns the original ID unchanged.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     /// URL of the edited post

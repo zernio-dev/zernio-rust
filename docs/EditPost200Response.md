@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **success** | Option<**bool**> |  | [optional]
-**id** | Option<**String**> | The platform post ID after the edit. X assigns a new ID; Discord, Facebook, and Reddit return the original ID unchanged.  | [optional]
+**id** | Option<**String**> | The platform post ID after the edit. X assigns a new ID; every other platform returns the original ID unchanged.  | [optional]
 **url** | Option<**String**> | URL of the edited post | [optional]
 **message** | Option<**String**> |  | [optional]
 
