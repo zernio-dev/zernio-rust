@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **title** | Option<**String**> |  | [optional]
-**content** | Option<**String**> | Post caption/text. Optional when media is attached, all platforms have customContent, every platform entry is an X Article (platformSpecificData.article), or every platform entry is a LinkedIn plain repost (platformSpecificData.reshareUrl with no text). Required for other text-only posts. | [optional]
+**content** | Option<**String**> | Post caption/text. Optional when media is attached, all platforms have customContent, every platform entry is an X Article (platformSpecificData.article), or every platform entry is a LinkedIn text-free reshare (platformSpecificData.reshareUrl with no text). Required for other text-only posts. | [optional]
 **media_items** | Option<[**Vec<models::MediaItem>**](MediaItem.md)> |  | [optional]
 **platforms** | Option<[**Vec<models::CreatePostRequestPlatformsInner>**](CreatePostRequestPlatformsInner.md)> | Target platforms and accounts for this post. Required for non-draft posts (returns 400 if empty). Drafts can omit platforms. | [optional]
 **scheduled_for** | Option<**String**> |  | [optional]
