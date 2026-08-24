@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_ad_creative**](AdCreativesApi.md#create_ad_creative) | **POST** /v1/ads/creatives | Create a standalone creative
 [**delete_ad_creative**](AdCreativesApi.md#delete_ad_creative) | **DELETE** /v1/ads/creatives/{creativeId} | Delete a creative
+[**delete_ad_video**](AdCreativesApi.md#delete_ad_video) | **DELETE** /v1/ads/videos/{videoId} | Delete an ad video
 [**generate_ad_previews**](AdCreativesApi.md#generate_ad_previews) | **POST** /v1/ads/preview | Render pre-create ad previews
 [**get_ad_creative**](AdCreativesApi.md#get_ad_creative) | **GET** /v1/ads/creatives/{creativeId} | Creative details
 [**get_ad_previews**](AdCreativesApi.md#get_ad_previews) | **GET** /v1/ads/{adId}/preview | Render previews of an existing ad
@@ -16,6 +17,7 @@ Method | HTTP request | Description
 [**list_ad_videos**](AdCreativesApi.md#list_ad_videos) | **GET** /v1/ads/videos | Ad video library
 [**update_ad_creative**](AdCreativesApi.md#update_ad_creative) | **PUT** /v1/ads/creatives/{creativeId} | Rename a creative
 [**upload_ad_image**](AdCreativesApi.md#upload_ad_image) | **POST** /v1/ads/images | Upload an ad image from base64
+[**upload_ad_video**](AdCreativesApi.md#upload_ad_video) | **POST** /v1/ads/videos | Upload an ad video
 
 
 
@@ -67,6 +69,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::DeleteAdCreative200Response**](deleteAdCreative_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_ad_video
+
+> models::DeleteAdVideo200Response delete_ad_video(video_id, account_id, ad_account_id)
+Delete an ad video
+
+Removes a video from the ad account's video library. Meta's canonical `DELETE /{video_id}` fails with code 10 / subcode 1363055 for videos uploaded via `/act_X/advideos` even with `ads_management`; this endpoint uses the working account-scoped shape `DELETE /act_X/advideos?video_id=<id>` and returns Meta's `{success: true}` verbatim. Deleting a video that lives in a different ad account, or that Meta has already removed, returns Meta's error verbatim as a 4xx.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**video_id** | **String** | Meta ad video id (numeric). | [required] |
+**account_id** | **String** | Zernio SocialAccount id (posting or ads variant) used to resolve the Meta token. | [required] |
+**ad_account_id** | **String** | Meta ad account id (act_<n>) that owns the video. | [required] |
+
+### Return type
+
+[**models::DeleteAdVideo200Response**](deleteAdVideo_200_response.md)
 
 ### Authorization
 
@@ -308,7 +342,7 @@ Name | Type | Description  | Required | Notes
 > models::ListAdVideos200Response list_ad_videos(account_id, ad_account_id, fields, limit, after)
 Ad video library
 
-Lists the ad account's video library (Meta's `/act_X/advideos`), rows returned verbatim. The default projection covers id, title, status, poster frames and length; `fields` is a raw-passthrough override. Any `id` here is reusable as `video.id` on the create endpoints, so N ads that differ only in copy share one upload.  This is the only way to reach a video uploaded OUTSIDE Zernio (Ads Manager, another tool); videos we uploaded also come back as `creative.videoId` on GET /v1/ads.  Meta transcodes asynchronously, so a row is only usable once `status.video_status` reads `ready`. There is no upload operation here: upload by URL inline via `video.url` on POST /v1/ads/create.
+Lists the ad account's video library (Meta's `/act_X/advideos`), rows returned verbatim. The default projection covers id, title, status, poster frames and length; `fields` is a raw-passthrough override. Any `id` here is reusable as `video.id` on the create endpoints, so N ads that differ only in copy share one upload.  This is the only way to reach a video uploaded OUTSIDE Zernio (Ads Manager, another tool); videos we uploaded also come back as `creative.videoId` on GET /v1/ads.  Meta transcodes asynchronously, so a row is only usable once `status.video_status` reads `ready`. Upload a new video via POST /v1/ads/videos, or inline via `video.url` on POST /v1/ads/create.
 
 ### Parameters
 
@@ -385,6 +419,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UploadAdImage201Response**](uploadAdImage_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## upload_ad_video
+
+> models::UploadAdVideo201Response upload_ad_video(upload_ad_video_request)
+Upload an ad video
+
+Standalone ad-video upload (parallel to POST /v1/ads/images), so a video creative can be rendered via POST /v1/ads/preview or attached via `video.id` on POST /v1/ads/create before an ad exists.  Accepts either an https `videoUrl` we download server-side (SSRF-guarded) or raw `videoBase64` bytes; exactly one is required. `videoBase64` is capped by Vercel's body limit — around 4.5 MB payload in practice, so larger videos must come via `videoUrl`.  Returns the Meta `video.id` (reusable wherever `video.id` is accepted) plus Meta's auto-generated poster URL when available. The endpoint waits until Meta reports the video ready (chunked upload + transcode can take minutes; the handler runs up to 800 s).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**upload_ad_video_request** | [**UploadAdVideoRequest**](UploadAdVideoRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UploadAdVideo201Response**](uploadAdVideo_201_response.md)
 
 ### Authorization
 

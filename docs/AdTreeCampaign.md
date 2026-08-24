@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **platform_campaign_id** | Option<**String**> |  | [optional]
 **platform** | Option<**Platform**> |  (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter, openai) | [optional]
 **campaign_name** | Option<**String**> |  | [optional]
+**created_time** | Option<**String**> | Earliest `platformCreatedAt` (platform ad creation time; falls back to `createdAt`, Zernio's sync time, for ads synced before that field existed) across every ad in the campaign. Not the platform campaign's own creation time (Meta's `Campaign.created_time` etc. is not synced) — a campaign created empty and populated later will show its first ad's time, not the campaign's. Usable for sorting \"most recently created\" without the numeric-campaign-id heuristic. Same source as `AdTreeAdSet.createdTime` and `Ad.platformCreatedAt`; mirrors `AdCampaign.earliestAd`. | [optional]
 **status** | Option<[**models::AdStatus**](AdStatus.md)> | Delivery status derived from child ad statuses. Distinct from `reviewStatus`, which reflects the platform-side review state. | [optional]
 **review_status** | Option<[**models::AdReviewStatus**](AdReviewStatus.md)> |  | [optional]
 **platform_campaign_status** | Option<**String**> | Raw platform-level campaign status (Meta `effective_status`: ACTIVE, PAUSED, DELETED, ARCHIVED, IN_PROCESS, WITH_ISSUES). Distinct from per-ad `platformStatus`. | [optional]

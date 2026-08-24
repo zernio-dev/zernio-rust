@@ -375,6 +375,7 @@ docs/DeleteAccountGroup200Response.md
 docs/DeleteAdCampaign200Response.md
 docs/DeleteAdCampaignRequest.md
 docs/DeleteAdCreative200Response.md
+docs/DeleteAdVideo200Response.md
 docs/DeleteDiscordScheduledEvent200Response.md
 docs/DeleteGoogleBusinessMedia200Response.md
 docs/DeleteGoogleBusinessPlaceAction200Response.md
@@ -1551,6 +1552,9 @@ docs/UpdateYoutubeDefaultPlaylistRequest.md
 docs/UploadAdImage201Response.md
 docs/UploadAdImage201ResponseImage.md
 docs/UploadAdImageRequest.md
+docs/UploadAdVideo201Response.md
+docs/UploadAdVideo201ResponseVideo.md
+docs/UploadAdVideoRequest.md
 docs/UploadMediaDirect200Response.md
 docs/UploadPhoneNumberKycDocument200Response.md
 docs/UploadPhoneNumberPortInDocument200Response.md
@@ -2193,6 +2197,7 @@ src/models/delete_account_group_200_response.rs
 src/models/delete_ad_campaign_200_response.rs
 src/models/delete_ad_campaign_request.rs
 src/models/delete_ad_creative_200_response.rs
+src/models/delete_ad_video_200_response.rs
 src/models/delete_discord_scheduled_event_200_response.rs
 src/models/delete_google_business_media_200_response.rs
 src/models/delete_google_business_place_action_200_response.rs
@@ -3339,6 +3344,9 @@ src/models/update_youtube_default_playlist_request.rs
 src/models/upload_ad_image_201_response.rs
 src/models/upload_ad_image_201_response_image.rs
 src/models/upload_ad_image_request.rs
+src/models/upload_ad_video_201_response.rs
+src/models/upload_ad_video_201_response_video.rs
+src/models/upload_ad_video_request.rs
 src/models/upload_media_direct_200_response.rs
 src/models/upload_phone_number_kyc_document_200_response.rs
 src/models/upload_phone_number_port_in_document_200_response.rs

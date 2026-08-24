@@ -20,6 +20,14 @@ pub struct AdTreeCampaign {
     pub platform: Option<Platform>,
     #[serde(rename = "campaignName", skip_serializing_if = "Option::is_none")]
     pub campaign_name: Option<String>,
+    /// Earliest `platformCreatedAt` (platform ad creation time; falls back to `createdAt`, Zernio's sync time, for ads synced before that field existed) across every ad in the campaign. Not the platform campaign's own creation time (Meta's `Campaign.created_time` etc. is not synced) — a campaign created empty and populated later will show its first ad's time, not the campaign's. Usable for sorting \"most recently created\" without the numeric-campaign-id heuristic. Same source as `AdTreeAdSet.createdTime` and `Ad.platformCreatedAt`; mirrors `AdCampaign.earliestAd`.
+    #[serde(
+        rename = "createdTime",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_time: Option<Option<String>>,
     /// Delivery status derived from child ad statuses. Distinct from `reviewStatus`, which reflects the platform-side review state.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<models::AdStatus>,
@@ -153,6 +161,7 @@ impl AdTreeCampaign {
             platform_campaign_id: None,
             platform: None,
             campaign_name: None,
+            created_time: None,
             status: None,
             review_status: None,
             platform_campaign_status: None,

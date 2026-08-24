@@ -33,7 +33,7 @@ pub struct CreateCallAdRequest {
     pub image_url: Option<String>,
     #[serde(rename = "video", skip_serializing_if = "Option::is_none")]
     pub video: Option<Box<models::CtwaAdRequestBodyVideo>>,
-    /// Multi-creative shape: N CTWA ads under one campaign + one ad set, sharing budget and targeting. Mutually exclusive with the top-level single-creative fields (`headline` / `body` / `imageUrl` / `video`). Each entry must supply its own headline, body, and exactly one of `imageUrl` / `video`.
+    /// Multi-creative shape: N CTWA ads under one campaign + one ad set, sharing budget and targeting. Mutually exclusive with the top-level single-creative fields (`headline` / `body` / `imageUrl` / `video`): setting both is a 400, unlike `POST /v1/ads/create` where the top-level fields are silently ignored in multi-creative mode. Each entry must supply its own headline, body, and exactly one of `imageUrl` / `video`.
     #[serde(rename = "creatives", skip_serializing_if = "Option::is_none")]
     pub creatives: Option<Vec<models::CtwaAdRequestBodyCreativesInner>>,
     /// Attach the creatives to this EXISTING messaging ad set instead of building a campaign, so the ad set keeps its learning phase. It then owns budget, targeting and schedule, so `budgetAmount`, `budgetType`, `endDate`, `objective`, `countries`, `interests`, `audienceId` and `campaignStatus` are rejected with a 400 alongside it. Its `destination_type` must match the ad's destination.

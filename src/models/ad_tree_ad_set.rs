@@ -21,6 +21,14 @@ pub struct AdTreeAdSet {
     /// Derived from child ad statuses
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<models::AdStatus>,
+    /// Earliest `platformCreatedAt` (platform ad creation time; falls back to `createdAt`, Zernio's sync time, for ads synced before that field existed) across this ad set's ads. Not the ad set's own creation time on the platform — a proxy usable for sorting.
+    #[serde(
+        rename = "createdTime",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_time: Option<Option<String>>,
     #[serde(rename = "adCount", skip_serializing_if = "Option::is_none")]
     pub ad_count: Option<i32>,
     #[serde(rename = "budget", skip_serializing_if = "Option::is_none")]
@@ -88,6 +96,7 @@ impl AdTreeAdSet {
             platform_ad_set_id: None,
             ad_set_name: None,
             status: None,
+            created_time: None,
             ad_count: None,
             budget: None,
             ad_set_budget: None,

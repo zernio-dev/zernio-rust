@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **platform_ad_set_id** | Option<**String**> |  | [optional]
 **ad_set_name** | Option<**String**> |  | [optional]
 **status** | Option<[**models::AdStatus**](AdStatus.md)> | Derived from child ad statuses | [optional]
+**created_time** | Option<**String**> | Earliest `platformCreatedAt` (platform ad creation time; falls back to `createdAt`, Zernio's sync time, for ads synced before that field existed) across this ad set's ads. Not the ad set's own creation time on the platform — a proxy usable for sorting. | [optional]
 **ad_count** | Option<**i32**> |  | [optional]
 **budget** | Option<[**models::AdTreeAdSetBudget**](AdTreeAdSetBudget.md)> |  | [optional]
 **ad_set_budget** | Option<[**models::AdTreeAdSetAdSetBudget**](AdTreeAdSetAdSetBudget.md)> |  | [optional]
