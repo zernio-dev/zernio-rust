@@ -43,6 +43,14 @@ pub struct ListPhoneNumbers200ResponseNumbersInner {
     /// False for numbers you brought yourself (connected via Meta embedded signup) — they live on your own carrier, so SMS/Calls can't be enabled on them.
     #[serde(rename = "hostedByZernio", skip_serializing_if = "Option::is_none")]
     pub hosted_by_zernio: Option<bool>,
+    /// SIP trunk the number is attached to; null when not trunked. While attached, enabling Calls or WhatsApp calling, requesting WhatsApp verification, and releasing the number all return 409.
+    #[serde(
+        rename = "sipTrunkId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub sip_trunk_id: Option<Option<String>>,
     #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]
     pub profile_id: Option<serde_json::Value>,
     #[serde(rename = "provisionedAt", skip_serializing_if = "Option::is_none")]
@@ -102,6 +110,7 @@ impl ListPhoneNumbers200ResponseNumbersInner {
             telnyx_order_id: None,
             monthly_cents: None,
             hosted_by_zernio: None,
+            sip_trunk_id: None,
             profile_id: None,
             provisioned_at: None,
             meta_preverified_id: None,

@@ -40,6 +40,7 @@ pub enum EnableWhatsAppCallingError {
     Status400(),
     Status401(models::InlineObject),
     Status404(),
+    Status409(),
     Status422(),
     UnknownValue(serde_json::Value),
 }

@@ -60,6 +60,14 @@ pub struct GetPhoneNumber200ResponsePhoneNumber {
     pub regulatory_decline_reason: Option<Option<String>>,
     #[serde(rename = "provisionedAt", skip_serializing_if = "Option::is_none")]
     pub provisioned_at: Option<String>,
+    /// SIP trunk the number is attached to; null when not trunked. While attached, enabling Calls or WhatsApp calling, requesting WhatsApp verification, and releasing the number all return 409.
+    #[serde(
+        rename = "sipTrunkId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub sip_trunk_id: Option<Option<String>>,
 }
 
 impl GetPhoneNumber200ResponsePhoneNumber {
@@ -76,6 +84,7 @@ impl GetPhoneNumber200ResponsePhoneNumber {
             end_user_last_name: None,
             regulatory_decline_reason: None,
             provisioned_at: None,
+            sip_trunk_id: None,
         }
     }
 }

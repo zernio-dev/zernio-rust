@@ -121,6 +121,7 @@ pub enum ReleaseWhatsAppPhoneNumberError {
     Status400(),
     Status401(models::InlineObject),
     Status404(models::InlineObject1),
+    Status409(),
     UnknownValue(serde_json::Value),
 }
 

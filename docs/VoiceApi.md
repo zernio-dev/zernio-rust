@@ -4,18 +4,86 @@ All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**attach_number_to_sip_trunk**](VoiceApi.md#attach_number_to_sip_trunk) | **POST** /v1/phone-numbers/{id}/sip-trunk | Attach a number to a SIP trunk
+[**create_sip_trunk**](VoiceApi.md#create_sip_trunk) | **POST** /v1/phone-numbers/sip-trunks | Create a SIP trunk
 [**create_voice_call**](VoiceApi.md#create_voice_call) | **POST** /v1/voice/calls | Place an outbound phone call
 [**create_voice_web_session**](VoiceApi.md#create_voice_web_session) | **POST** /v1/voice/calls/web | Mint a browser softphone session
+[**delete_sip_trunk**](VoiceApi.md#delete_sip_trunk) | **DELETE** /v1/phone-numbers/sip-trunks/{id} | Delete a SIP trunk
+[**detach_number_from_sip_trunk**](VoiceApi.md#detach_number_from_sip_trunk) | **DELETE** /v1/phone-numbers/{id}/sip-trunk | Detach a number from its SIP trunk
 [**dial_voice_web_call**](VoiceApi.md#dial_voice_web_call) | **POST** /v1/voice/calls/web/dial | Dial from the browser softphone
 [**disable_voice_on_number**](VoiceApi.md#disable_voice_on_number) | **DELETE** /v1/phone-numbers/{id}/voice | Disable phone calling on a number
 [**enable_voice_on_number**](VoiceApi.md#enable_voice_on_number) | **POST** /v1/phone-numbers/{id}/voice | Enable phone calling on a number
 [**end_voice_call**](VoiceApi.md#end_voice_call) | **POST** /v1/voice/calls/{id}/end | Hang up a live call
+[**get_sip_trunk**](VoiceApi.md#get_sip_trunk) | **GET** /v1/phone-numbers/sip-trunks/{id} | Get a SIP trunk
 [**get_voice_call**](VoiceApi.md#get_voice_call) | **GET** /v1/voice/calls/{id} | Get a phone call
 [**get_voice_call_estimate**](VoiceApi.md#get_voice_call_estimate) | **GET** /v1/voice/calls/estimate | Estimate call cost
 [**get_voice_call_recording**](VoiceApi.md#get_voice_call_recording) | **GET** /v1/voice/calls/{id}/recording | Get a call recording
+[**list_sip_trunks**](VoiceApi.md#list_sip_trunks) | **GET** /v1/phone-numbers/sip-trunks | List SIP trunks
 [**list_voice_calls**](VoiceApi.md#list_voice_calls) | **GET** /v1/voice/calls | List phone calls
+[**rotate_sip_trunk_credentials**](VoiceApi.md#rotate_sip_trunk_credentials) | **POST** /v1/phone-numbers/sip-trunks/{id}/rotate-credentials | Rotate a SIP trunk's password
 [**transfer_voice_call**](VoiceApi.md#transfer_voice_call) | **POST** /v1/voice/calls/{id}/transfer | Blind-transfer a live call
 
+
+
+## attach_number_to_sip_trunk
+
+> models::AttachNumberToSipTrunk200Response attach_number_to_sip_trunk(id, attach_number_to_sip_trunk_request)
+Attach a number to a SIP trunk
+
+Routes the number's calls to the trunk: the external platform receives its inbound directly and can present it as outbound caller ID. While attached, Zernio-side voice features are off for this number (call forwarding, IVR, voicemail, recording, the softphone, and WhatsApp calling), so the number must have Calls and WhatsApp calling disabled before attaching. SMS and WhatsApp messaging are unaffected. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | Phone number record ID (from GET /v1/phone-numbers). | [required] |
+**attach_number_to_sip_trunk_request** | [**AttachNumberToSipTrunkRequest**](AttachNumberToSipTrunkRequest.md) |  | [required] |
+
+### Return type
+
+[**models::AttachNumberToSipTrunk200Response**](attachNumberToSipTrunk_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_sip_trunk
+
+> models::CreateSipTrunk201Response create_sip_trunk(create_sip_trunk_request)
+Create a SIP trunk
+
+Creates a SIP trunk an external voice platform (Retell, ElevenLabs, Vapi, or any SIP endpoint) can import your Zernio numbers into. The trunk carries both directions: inbound calls on attached numbers are delivered to `sipHost`, and the platform originates outbound calls through `termination.uri` with the digest credentials.  The `digestPassword` is returned only by this call (and by rotate-credentials); store it immediately. Attach any number of numbers to a trunk. Several trunks may point at the same host — each carries its own credentials and spend cap, so separate destination workspaces (e.g. an agency's clients) stay isolated. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_sip_trunk_request** | [**CreateSipTrunkRequest**](CreateSipTrunkRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateSipTrunk201Response**](createSipTrunk_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## create_voice_call
@@ -63,6 +131,66 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**models::CreateVoiceWebSession200Response**](createVoiceWebSession_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_sip_trunk
+
+> models::DeleteSmsSenderId200Response delete_sip_trunk(id)
+Delete a SIP trunk
+
+Tears down the trunk and its carrier-side objects. Refused while any number is still attached: detach them first. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+[**models::DeleteSmsSenderId200Response**](deleteSmsSenderId_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## detach_number_from_sip_trunk
+
+> models::DetachNumberFromSipTrunk200Response detach_number_from_sip_trunk(id)
+Detach a number from its SIP trunk
+
+Returns the number's calls to Zernio routing. Idempotent when the number is not attached to any trunk. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+[**models::DetachNumberFromSipTrunk200Response**](detachNumberFromSipTrunk_200_response.md)
 
 ### Authorization
 
@@ -197,6 +325,34 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_sip_trunk
+
+> models::GetSipTrunk200Response get_sip_trunk(id)
+Get a SIP trunk
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+[**models::GetSipTrunk200Response**](getSipTrunk_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_voice_call
 
 > models::GetVoiceCall200Response get_voice_call(id)
@@ -291,6 +447,31 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_sip_trunks
+
+> models::ListSipTrunks200Response list_sip_trunks()
+List SIP trunks
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::ListSipTrunks200Response**](listSipTrunks_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_voice_calls
 
 > models::ListVoiceCalls200Response list_voice_calls(status, direction, number, before, limit)
@@ -312,6 +493,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListVoiceCalls200Response**](listVoiceCalls_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## rotate_sip_trunk_credentials
+
+> models::RotateSipTrunkCredentials200Response rotate_sip_trunk_credentials(id)
+Rotate a SIP trunk's password
+
+Mints a new digest password on the trunk. The old password stops working immediately, so update the destination platform right away. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+[**models::RotateSipTrunkCredentials200Response**](rotateSipTrunkCredentials_200_response.md)
 
 ### Authorization
 
