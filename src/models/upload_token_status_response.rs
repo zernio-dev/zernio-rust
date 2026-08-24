@@ -23,8 +23,13 @@ pub struct UploadTokenStatusResponse {
     pub created_at: Option<String>,
     #[serde(rename = "expiresAt", skip_serializing_if = "Option::is_none")]
     pub expires_at: Option<String>,
-    #[serde(rename = "completedAt", skip_serializing_if = "Option::is_none")]
-    pub completed_at: Option<String>,
+    #[serde(
+        rename = "completedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub completed_at: Option<Option<String>>,
 }
 
 impl UploadTokenStatusResponse {
