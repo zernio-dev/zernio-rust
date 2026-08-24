@@ -40,6 +40,7 @@ docs/AdTreeAdSetPromotedObject.md
 docs/AdTreeCampaign.md
 docs/AdTreeCampaignBudget.md
 docs/AdTreeCampaignCampaignBudget.md
+docs/AdTreeCampaignOptimizationGoal.md
 docs/AdTreeCampaignPromotedObject.md
 docs/AdTreeResponse.md
 docs/AddBroadcastRecipients200Response.md
@@ -1868,6 +1869,7 @@ src/models/ad_tree_ad_set_promoted_object.rs
 src/models/ad_tree_campaign.rs
 src/models/ad_tree_campaign_budget.rs
 src/models/ad_tree_campaign_campaign_budget.rs
+src/models/ad_tree_campaign_optimization_goal.rs
 src/models/ad_tree_campaign_promoted_object.rs
 src/models/ad_tree_response.rs
 src/models/add_broadcast_recipients_200_response.rs

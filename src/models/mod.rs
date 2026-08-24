@@ -56,6 +56,8 @@ pub mod ad_tree_campaign_budget;
 pub use self::ad_tree_campaign_budget::AdTreeCampaignBudget;
 pub mod ad_tree_campaign_campaign_budget;
 pub use self::ad_tree_campaign_campaign_budget::AdTreeCampaignCampaignBudget;
+pub mod ad_tree_campaign_optimization_goal;
+pub use self::ad_tree_campaign_optimization_goal::AdTreeCampaignOptimizationGoal;
 pub mod ad_tree_campaign_promoted_object;
 pub use self::ad_tree_campaign_promoted_object::AdTreeCampaignPromotedObject;
 pub mod ad_tree_response;
