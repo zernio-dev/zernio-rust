@@ -21,6 +21,9 @@ pub struct ConnectWhatsAppCredentials200Response {
         skip_serializing_if = "Option::is_none"
     )]
     pub registration_warning: Option<String>,
+    /// Present when the WABA webhook subscription (with the Zernio override callback) succeeded. Explains the delivery cutover and warns against unsubscribing the app from the WABA afterward.
+    #[serde(rename = "webhookNotice", skip_serializing_if = "Option::is_none")]
+    pub webhook_notice: Option<String>,
     #[serde(rename = "account", skip_serializing_if = "Option::is_none")]
     pub account: Option<Box<models::ConnectWhatsAppCredentials200ResponseAccount>>,
 }
@@ -30,6 +33,7 @@ impl ConnectWhatsAppCredentials200Response {
         ConnectWhatsAppCredentials200Response {
             message: None,
             registration_warning: None,
+            webhook_notice: None,
             account: None,
         }
     }
