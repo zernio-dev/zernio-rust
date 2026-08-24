@@ -23,6 +23,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          # Explicit ref: for repository_dispatch, the default github.sha is
+          # resolved at dispatch time, so a run queued behind another run
+          # checks out a tip that misses the earlier push and then conflicts.
+          ref: main
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
@@ -142,11 +146,13 @@ jobs:
           - Auto-generated SDK updates
           - Version: ${{ steps.version.outputs.new_version }}"
           # Retry with rebase to survive concurrent dispatches that land
-          # back-to-back pushes to main.
+          # back-to-back pushes to main. -X theirs: the replayed commit is a
+          # full regeneration from a fresher spec fetch, so on conflicting
+          # hunks the regenerated content wins instead of aborting the run.
           for attempt in 1 2 3; do
             if git push; then break; fi
             echo "Push attempt $attempt failed; rebasing and retrying..."
-            git pull --rebase origin main
+            git pull --rebase -X theirs origin main
             sleep $((attempt * 5))
           done
 
