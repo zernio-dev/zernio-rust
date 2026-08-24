@@ -740,7 +740,7 @@ pub async fn send_whats_app_flow_message(
     }
 }
 
-/// Update metadata (name, categories) of a DRAFT flow. Published flows are immutable.
+/// Update metadata (name, categories, endpointUri) of a DRAFT flow. Published flows are immutable.
 pub async fn update_whats_app_flow(
     configuration: &configuration::Configuration,
     flow_id: &str,

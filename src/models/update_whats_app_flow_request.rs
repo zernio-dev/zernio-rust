@@ -21,6 +21,9 @@ pub struct UpdateWhatsAppFlowRequest {
     pub name: Option<String>,
     #[serde(rename = "categories", skip_serializing_if = "Option::is_none")]
     pub categories: Option<Vec<Categories>>,
+    /// HTTPS-only data exchange endpoint for the flow. Settable only while the flow is in DRAFT, and the flow's uploaded Flow JSON must declare data_api_version \"3.0\" for the endpoint to be used.
+    #[serde(rename = "endpointUri", skip_serializing_if = "Option::is_none")]
+    pub endpoint_uri: Option<String>,
 }
 
 impl UpdateWhatsAppFlowRequest {
@@ -29,6 +32,7 @@ impl UpdateWhatsAppFlowRequest {
             account_id,
             name: None,
             categories: None,
+            endpoint_uri: None,
         }
     }
 }

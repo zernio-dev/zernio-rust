@@ -28,6 +28,9 @@ pub struct CreateWhatsAppFlowRequest {
     /// When cloning, true keeps the clone in cloneFlowId's version lineage (auto-numbered next version); false/absent creates an independent flow. Ignored without cloneFlowId.
     #[serde(rename = "asVersion", skip_serializing_if = "Option::is_none")]
     pub as_version: Option<bool>,
+    /// HTTPS-only data exchange endpoint for the flow. Settable only while the flow is in DRAFT, and the flow's uploaded Flow JSON must declare data_api_version \"3.0\" for the endpoint to be used.
+    #[serde(rename = "endpointUri", skip_serializing_if = "Option::is_none")]
+    pub endpoint_uri: Option<String>,
 }
 
 impl CreateWhatsAppFlowRequest {
@@ -42,6 +45,7 @@ impl CreateWhatsAppFlowRequest {
             categories,
             clone_flow_id: None,
             as_version: None,
+            endpoint_uri: None,
         }
     }
 }
