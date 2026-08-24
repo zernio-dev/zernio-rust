@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | Option<**String**> |  | [optional]
-**description** | Option<**String**> |  | [optional]
+**description** | Option<**String**> | Set to null to clear the description. | [optional]
 **color** | Option<**String**> |  | [optional]
 **is_default** | Option<**bool**> |  | [optional]
 

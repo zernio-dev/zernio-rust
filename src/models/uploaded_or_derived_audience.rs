@@ -49,7 +49,7 @@ pub struct UploadedOrDerivedAudience {
     /// Required for website (max 180) and meta_engagement (max 365) audiences.
     #[serde(rename = "retentionDays", skip_serializing_if = "Option::is_none")]
     pub retention_days: Option<i32>,
-    /// Required for meta_engagement audiences (Meta only): what people engaged with. `page` = a Facebook Page, `instagram` = an IG professional account, `video` = a video. The source object must be eligible for engagement audiences or Meta rejects with subcode 1713151 (\"Invalid Event Name\"), surfaced verbatim.
+    /// Required for meta_engagement audiences (Meta only): what people engaged with. `page` = a Facebook Page, `instagram` = an IG professional account, `video` = a video.
     #[serde(rename = "engagementSource", skip_serializing_if = "Option::is_none")]
     pub engagement_source: Option<EngagementSource>,
     /// Required for meta_engagement: the Page / IG account / video id.
@@ -176,7 +176,7 @@ impl Default for LookbackDays {
         Self::Variant30
     }
 }
-/// Required for meta_engagement audiences (Meta only): what people engaged with. `page` = a Facebook Page, `instagram` = an IG professional account, `video` = a video. The source object must be eligible for engagement audiences or Meta rejects with subcode 1713151 (\"Invalid Event Name\"), surfaced verbatim.
+/// Required for meta_engagement audiences (Meta only): what people engaged with. `page` = a Facebook Page, `instagram` = an IG professional account, `video` = a video.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum EngagementSource {
     #[serde(rename = "page")]
