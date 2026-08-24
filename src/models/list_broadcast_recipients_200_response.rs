@@ -19,6 +19,8 @@ pub struct ListBroadcastRecipients200Response {
     pub recipients: Option<Vec<models::ListBroadcastRecipients200ResponseRecipientsInner>>,
     #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
     pub pagination: Option<Box<models::ListContacts200ResponsePagination>>,
+    #[serde(rename = "summary", skip_serializing_if = "Option::is_none")]
+    pub summary: Option<Box<models::ListBroadcastRecipients200ResponseSummary>>,
 }
 
 impl ListBroadcastRecipients200Response {
@@ -27,6 +29,7 @@ impl ListBroadcastRecipients200Response {
             success: None,
             recipients: None,
             pagination: None,
+            summary: None,
         }
     }
 }

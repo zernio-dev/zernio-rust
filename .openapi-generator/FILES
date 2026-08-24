@@ -913,6 +913,7 @@ docs/ListBlogArticles200Response.md
 docs/ListBlogs200Response.md
 docs/ListBroadcastRecipients200Response.md
 docs/ListBroadcastRecipients200ResponseRecipientsInner.md
+docs/ListBroadcastRecipients200ResponseSummary.md
 docs/ListBroadcasts200Response.md
 docs/ListBroadcasts200ResponseBroadcastsInner.md
 docs/ListCalls200Response.md
@@ -2716,6 +2717,7 @@ src/models/list_blog_articles_200_response.rs
 src/models/list_blogs_200_response.rs
 src/models/list_broadcast_recipients_200_response.rs
 src/models/list_broadcast_recipients_200_response_recipients_inner.rs
+src/models/list_broadcast_recipients_200_response_summary.rs
 src/models/list_broadcasts_200_response.rs
 src/models/list_broadcasts_200_response_broadcasts_inner.rs
 src/models/list_calls_200_response.rs

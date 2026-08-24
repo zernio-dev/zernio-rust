@@ -14,16 +14,24 @@ use serde::{Deserialize, Serialize};
 /// CtwaAdRequestBodyVideo : Video creative for single-creative shape. Mutually exclusive with `imageUrl` and with `creatives[]`. Required on the single-creative shape if `imageUrl` is not supplied.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CtwaAdRequestBodyVideo {
-    #[serde(rename = "url")]
-    pub url: String,
-    /// Required by Meta for every video creative. Used as the ad thumbnail.
-    #[serde(rename = "thumbnailUrl")]
-    pub thumbnail_url: String,
+    /// Public URL of the video to upload. Provide either `url` or `id`.
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    /// Reuse a video already uploaded to this ad account (list them with GET /v1/ads/videos) instead of re-uploading. Wins over `url`. Provide either `url` or `id`.
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    /// OPTIONAL: when omitted, the poster is auto-generated from Meta's own preferred video thumbnail. When Meta produces no candidate the request fails with a 502 platform_error (reason: video_thumbnail_unavailable) — retry, or supply this field to control the poster frame exactly.
+    #[serde(rename = "thumbnailUrl", skip_serializing_if = "Option::is_none")]
+    pub thumbnail_url: Option<String>,
 }
 
 impl CtwaAdRequestBodyVideo {
     /// Video creative for single-creative shape. Mutually exclusive with `imageUrl` and with `creatives[]`. Required on the single-creative shape if `imageUrl` is not supplied.
-    pub fn new(url: String, thumbnail_url: String) -> CtwaAdRequestBodyVideo {
-        CtwaAdRequestBodyVideo { url, thumbnail_url }
+    pub fn new() -> CtwaAdRequestBodyVideo {
+        CtwaAdRequestBodyVideo {
+            url: None,
+            id: None,
+            thumbnail_url: None,
+        }
     }
 }

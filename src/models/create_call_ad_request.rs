@@ -36,7 +36,7 @@ pub struct CreateCallAdRequest {
     /// Multi-creative shape: N CTWA ads under one campaign + one ad set, sharing budget and targeting. Mutually exclusive with the top-level single-creative fields (`headline` / `body` / `imageUrl` / `video`). Each entry must supply its own headline, body, and exactly one of `imageUrl` / `video`.
     #[serde(rename = "creatives", skip_serializing_if = "Option::is_none")]
     pub creatives: Option<Vec<models::CtwaAdRequestBodyCreativesInner>>,
-    /// Attach the creatives to this EXISTING messaging ad set instead of building a campaign, so the ad set keeps its learning phase. It then owns budget, targeting and schedule, so `budgetAmount`, `budgetType`, `endDate`, `objective`, `countries`, `interests` and `audienceId` are rejected with a 400 alongside it. Its `destination_type` must match the ad's destination.
+    /// Attach the creatives to this EXISTING messaging ad set instead of building a campaign, so the ad set keeps its learning phase. It then owns budget, targeting and schedule, so `budgetAmount`, `budgetType`, `endDate`, `objective`, `countries`, `interests`, `audienceId` and `campaignStatus` are rejected with a 400 alongside it. Its `destination_type` must match the ad's destination.
     #[serde(rename = "adSetId", skip_serializing_if = "Option::is_none")]
     pub ad_set_id: Option<String>,
     /// Budget amount in the ad account's currency major units (e.g. dollars for USD, not cents). Must be > 0. Required unless `adSetId` is set, where the ad set owns it.
@@ -86,6 +86,12 @@ pub struct CreateCallAdRequest {
     /// Defaults to `OUTCOME_ENGAGEMENT`. `OUTCOME_SALES` and `OUTCOME_LEADS` require additional account configuration (Dataset linked to the WABA for sales) and may be rejected by Meta if missing.
     #[serde(rename = "objective", skip_serializing_if = "Option::is_none")]
     pub objective: Option<Objective>,
+    /// Ad-level status. Defaults to `ACTIVE`. `PAUSED` skips activating the newly created ad(s) after Meta accepts them.
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<Status>,
+    /// Campaign-level status, same semantics as `POST /v1/ads/create`. Defaults to `ACTIVE`. `PAUSED` holds activation at the campaign so it never spends before the advertiser reviews it, while the ad set and ad still switch on (one resume call brings the whole hierarchy live). Only meaningful when a new campaign is being created; rejected with a 400 alongside `adSetId` (the attach shape reuses an existing campaign).
+    #[serde(rename = "campaignStatus", skip_serializing_if = "Option::is_none")]
+    pub campaign_status: Option<CampaignStatus>,
     /// Meta bid strategy applied to the shared ad set. Defaults to `LOWEST_COST_WITHOUT_CAP` (auto-bid) when omitted. `LOWEST_COST_WITH_BID_CAP` and `COST_CAP` require `bidAmount`. `LOWEST_COST_WITH_MIN_ROAS` requires `roasAverageFloor`. CTWA's `optimization_goal` is fixed to `CONVERSATIONS`, but the bid strategy is independent.
     #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
     pub bid_strategy: Option<BidStrategy>,
@@ -144,6 +150,8 @@ impl CreateCallAdRequest {
             placements: None,
             advantage_audience: None,
             objective: None,
+            status: None,
+            campaign_status: None,
             bid_strategy: None,
             bid_amount: None,
             roas_average_floor: None,
@@ -196,6 +204,34 @@ pub enum Objective {
 impl Default for Objective {
     fn default() -> Objective {
         Self::OutcomeEngagement
+    }
+}
+/// Ad-level status. Defaults to `ACTIVE`. `PAUSED` skips activating the newly created ad(s) after Meta accepts them.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Status {
+    #[serde(rename = "ACTIVE")]
+    Active,
+    #[serde(rename = "PAUSED")]
+    Paused,
+}
+
+impl Default for Status {
+    fn default() -> Status {
+        Self::Active
+    }
+}
+/// Campaign-level status, same semantics as `POST /v1/ads/create`. Defaults to `ACTIVE`. `PAUSED` holds activation at the campaign so it never spends before the advertiser reviews it, while the ad set and ad still switch on (one resume call brings the whole hierarchy live). Only meaningful when a new campaign is being created; rejected with a 400 alongside `adSetId` (the attach shape reuses an existing campaign).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum CampaignStatus {
+    #[serde(rename = "ACTIVE")]
+    Active,
+    #[serde(rename = "PAUSED")]
+    Paused,
+}
+
+impl Default for CampaignStatus {
+    fn default() -> CampaignStatus {
+        Self::Active
     }
 }
 /// Meta bid strategy applied to the shared ad set. Defaults to `LOWEST_COST_WITHOUT_CAP` (auto-bid) when omitted. `LOWEST_COST_WITH_BID_CAP` and `COST_CAP` require `bidAmount`. `LOWEST_COST_WITH_MIN_ROAS` requires `roasAverageFloor`. CTWA's `optimization_goal` is fixed to `CONVERSATIONS`, but the bid strategy is independent.

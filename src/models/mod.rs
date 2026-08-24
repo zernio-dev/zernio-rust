@@ -1750,6 +1750,8 @@ pub mod list_broadcast_recipients_200_response;
 pub use self::list_broadcast_recipients_200_response::ListBroadcastRecipients200Response;
 pub mod list_broadcast_recipients_200_response_recipients_inner;
 pub use self::list_broadcast_recipients_200_response_recipients_inner::ListBroadcastRecipients200ResponseRecipientsInner;
+pub mod list_broadcast_recipients_200_response_summary;
+pub use self::list_broadcast_recipients_200_response_summary::ListBroadcastRecipients200ResponseSummary;
 pub mod list_broadcasts_200_response;
 pub use self::list_broadcasts_200_response::ListBroadcasts200Response;
 pub mod list_broadcasts_200_response_broadcasts_inner;

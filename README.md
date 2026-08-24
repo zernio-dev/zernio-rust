@@ -1506,6 +1506,7 @@ Class | Method | HTTP request | Description
  - [ListBlogs200Response](docs/ListBlogs200Response.md)
  - [ListBroadcastRecipients200Response](docs/ListBroadcastRecipients200Response.md)
  - [ListBroadcastRecipients200ResponseRecipientsInner](docs/ListBroadcastRecipients200ResponseRecipientsInner.md)
+ - [ListBroadcastRecipients200ResponseSummary](docs/ListBroadcastRecipients200ResponseSummary.md)
  - [ListBroadcasts200Response](docs/ListBroadcasts200Response.md)
  - [ListBroadcasts200ResponseBroadcastsInner](docs/ListBroadcasts200ResponseBroadcastsInner.md)
  - [ListCalls200Response](docs/ListCalls200Response.md)
