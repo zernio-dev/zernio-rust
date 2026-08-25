@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **body** | **String** | Primary text shown above the image / video. | 
 **image_url** | Option<**String**> | Image asset. Mutually exclusive with this entry's `video`. Required if `video` is not supplied.  | [optional]
 **video** | Option<[**models::CtwaAdRequestBodyCreativesInnerVideo**](CtwaAdRequestBodyCreativesInnerVideo.md)> |  | [optional]
+**welcome_message** | Option<[**models::CtwaAdRequestBodyCreativesInnerWelcomeMessage**](CtwaAdRequestBodyCreativesInnerWelcomeMessage.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

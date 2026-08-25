@@ -33,6 +33,8 @@ pub struct CreateMessagingAdRequest {
     pub image_url: Option<String>,
     #[serde(rename = "video", skip_serializing_if = "Option::is_none")]
     pub video: Option<Box<models::CtwaAdRequestBodyVideo>>,
+    #[serde(rename = "welcomeMessage", skip_serializing_if = "Option::is_none")]
+    pub welcome_message: Option<Box<models::CtwaAdRequestBodyWelcomeMessage>>,
     /// Multi-creative shape: N CTWA ads under one campaign + one ad set, sharing budget and targeting. Mutually exclusive with the top-level single-creative fields (`headline` / `body` / `imageUrl` / `video`): setting both is a 400, unlike `POST /v1/ads/create` where the top-level fields are silently ignored in multi-creative mode. Each entry must supply its own headline, body, and exactly one of `imageUrl` / `video`.
     #[serde(rename = "creatives", skip_serializing_if = "Option::is_none")]
     pub creatives: Option<Vec<models::CtwaAdRequestBodyCreativesInner>>,
@@ -127,6 +129,7 @@ impl CreateMessagingAdRequest {
             body: None,
             image_url: None,
             video: None,
+            welcome_message: None,
             creatives: None,
             ad_set_id: None,
             budget_amount: None,

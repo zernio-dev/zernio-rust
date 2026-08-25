@@ -24,6 +24,8 @@ pub struct CtwaAdRequestBodyCreativesInner {
     pub image_url: Option<String>,
     #[serde(rename = "video", skip_serializing_if = "Option::is_none")]
     pub video: Option<Box<models::CtwaAdRequestBodyCreativesInnerVideo>>,
+    #[serde(rename = "welcomeMessage", skip_serializing_if = "Option::is_none")]
+    pub welcome_message: Option<Box<models::CtwaAdRequestBodyCreativesInnerWelcomeMessage>>,
 }
 
 impl CtwaAdRequestBodyCreativesInner {
@@ -34,6 +36,7 @@ impl CtwaAdRequestBodyCreativesInner {
             body,
             image_url: None,
             video: None,
+            welcome_message: None,
         }
     }
 }
