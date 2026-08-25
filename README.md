@@ -228,9 +228,12 @@ Class | Method | HTTP request | Description
 *ConnectApi* | [**configure_tik_tok_ads_brand_identity**](docs/ConnectApi.md#configure_tik_tok_ads_brand_identity) | **PATCH** /v1/connect/tiktok-ads | Set TikTok brand identity
 *ConnectApi* | [**connect_ads**](docs/ConnectApi.md#connect_ads) | **GET** /v1/connect/{platform}/ads | Connect ads for a platform
 *ConnectApi* | [**connect_bluesky_credentials**](docs/ConnectApi.md#connect_bluesky_credentials) | **POST** /v1/connect/bluesky/credentials | Connect Bluesky account
+*ConnectApi* | [**connect_discord_channel**](docs/ConnectApi.md#connect_discord_channel) | **POST** /v1/connect/discord | Connect a Discord channel
 *ConnectApi* | [**connect_open_ai_ads_credentials**](docs/ConnectApi.md#connect_open_ai_ads_credentials) | **POST** /v1/connect/openai-ads/credentials | Connect an OpenAI Ads account
 *ConnectApi* | [**connect_shopify_with_token**](docs/ConnectApi.md#connect_shopify_with_token) | **POST** /v1/connect/shopify/token | Connect a Shopify store with a custom-app Admin token
+*ConnectApi* | [**connect_slack_channel**](docs/ConnectApi.md#connect_slack_channel) | **POST** /v1/connect/slack | Connect a Slack channel
 *ConnectApi* | [**connect_whats_app_credentials**](docs/ConnectApi.md#connect_whats_app_credentials) | **POST** /v1/connect/whatsapp/credentials | Connect WhatsApp via credentials
+*ConnectApi* | [**connect_whats_app_embedded_signup**](docs/ConnectApi.md#connect_whats_app_embedded_signup) | **POST** /v1/connect/whatsapp/embedded-signup | Connect WhatsApp from Embedded Signup
 *ConnectApi* | [**create_pinterest_board**](docs/ConnectApi.md#create_pinterest_board) | **POST** /v1/accounts/{accountId}/pinterest-boards | Create Pinterest board
 *ConnectApi* | [**get_connect_url**](docs/ConnectApi.md#get_connect_url) | **GET** /v1/connect/{platform} | Get OAuth connect URL
 *ConnectApi* | [**get_facebook_pages**](docs/ConnectApi.md#get_facebook_pages) | **GET** /v1/accounts/{accountId}/facebook-page | List Facebook pages
@@ -782,14 +785,17 @@ Class | Method | HTTP request | Description
  - [ConnectAds200ResponseOneOf1](docs/ConnectAds200ResponseOneOf1.md)
  - [ConnectBlueskyCredentials200Response](docs/ConnectBlueskyCredentials200Response.md)
  - [ConnectBlueskyCredentialsRequest](docs/ConnectBlueskyCredentialsRequest.md)
+ - [ConnectDiscordChannelRequest](docs/ConnectDiscordChannelRequest.md)
  - [ConnectOpenAiAdsCredentials200Response](docs/ConnectOpenAiAdsCredentials200Response.md)
  - [ConnectOpenAiAdsCredentialsRequest](docs/ConnectOpenAiAdsCredentialsRequest.md)
  - [ConnectShopifyWithToken200Response](docs/ConnectShopifyWithToken200Response.md)
  - [ConnectShopifyWithToken200ResponseAccount](docs/ConnectShopifyWithToken200ResponseAccount.md)
  - [ConnectShopifyWithTokenRequest](docs/ConnectShopifyWithTokenRequest.md)
+ - [ConnectSlackChannelRequest](docs/ConnectSlackChannelRequest.md)
  - [ConnectWhatsAppCredentials200Response](docs/ConnectWhatsAppCredentials200Response.md)
  - [ConnectWhatsAppCredentials200ResponseAccount](docs/ConnectWhatsAppCredentials200ResponseAccount.md)
  - [ConnectWhatsAppCredentialsRequest](docs/ConnectWhatsAppCredentialsRequest.md)
+ - [ConnectWhatsAppEmbeddedSignupRequest](docs/ConnectWhatsAppEmbeddedSignupRequest.md)
  - [Connected](docs/Connected.md)
  - [ConnectedAccount](docs/ConnectedAccount.md)
  - [ConnectedApp](docs/ConnectedApp.md)

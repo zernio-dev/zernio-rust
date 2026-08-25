@@ -82,6 +82,17 @@ pub enum ConnectBlueskyCredentialsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`connect_discord_channel`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ConnectDiscordChannelError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status402(models::InlineObject3),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`connect_open_ai_ads_credentials`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -103,6 +114,18 @@ pub enum ConnectShopifyWithTokenError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`connect_slack_channel`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ConnectSlackChannelError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status402(models::InlineObject3),
+    Status403(),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`connect_whats_app_credentials`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -110,6 +133,17 @@ pub enum ConnectWhatsAppCredentialsError {
     Status400(),
     Status401(),
     Status403(),
+    Status409(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`connect_whats_app_embedded_signup`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ConnectWhatsAppEmbeddedSignupError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status402(models::InlineObject3),
     Status409(),
     UnknownValue(serde_json::Value),
 }
@@ -256,9 +290,12 @@ pub enum GetYoutubePlaylistsError {
 pub enum HandleOAuthCallbackError {
     Status400(),
     Status401(models::InlineObject),
+    Status402(models::InlineObject3),
     Status403(),
+    Status404(),
     Status500(),
     Status502(),
+    Status503(),
     UnknownValue(serde_json::Value),
 }
 
@@ -871,6 +908,45 @@ pub async fn connect_bluesky_credentials(
     }
 }
 
+/// Finalize a Discord connect by binding one channel to a profile. Served by a dedicated route, so it is not reachable through POST /v1/connect/{platform}. One connected account per channel: repeat the call with a different channelId to add another.
+pub async fn connect_discord_channel(
+    configuration: &configuration::Configuration,
+    connect_discord_channel_request: models::ConnectDiscordChannelRequest,
+) -> Result<(), Error<ConnectDiscordChannelError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_connect_discord_channel_request = connect_discord_channel_request;
+
+    let uri_str = format!("{}/v1/connect/discord", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_connect_discord_channel_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ConnectDiscordChannelError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Connect an OpenAI Ads account using an API key from ChatGPT Ads Manager.  The key grants full campaign write access on OpenAI's side (OpenAI does not offer a read-only key scope). Zernio uses it to read ads and performance, and to create and manage campaigns you set up through Zernio (create, status, budget, and cancel). Campaigns created directly in ChatGPT Ads Manager can still be managed there.
 pub async fn connect_open_ai_ads_credentials(
     configuration: &configuration::Configuration,
@@ -975,6 +1051,45 @@ pub async fn connect_shopify_with_token(
     }
 }
 
+/// Finalize a Slack connect by creating the per-channel account. Served by a dedicated route, so it is not reachable through POST /v1/connect/{platform}. Send pendingDataToken for a first connect (the nonce from the OAuth redirect) or accountId to add another channel to a workspace already connected.
+pub async fn connect_slack_channel(
+    configuration: &configuration::Configuration,
+    connect_slack_channel_request: models::ConnectSlackChannelRequest,
+) -> Result<(), Error<ConnectSlackChannelError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_connect_slack_channel_request = connect_slack_channel_request;
+
+    let uri_str = format!("{}/v1/connect/slack", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_connect_slack_channel_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ConnectSlackChannelError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Connect a WhatsApp Business Account by providing Meta credentials directly. This is the headless alternative to the Embedded Signup browser flow.  To get the required credentials: 1. Go to Meta Business Suite (business.facebook.com) 2. Create or select a WhatsApp Business Account 3. In Business Settings > System Users, create a System User 4. Assign it the whatsapp_business_management and whatsapp_business_messaging permissions 5. Generate a permanent access token 6. Get the WABA ID from WhatsApp Manager > Account Tools > Phone Numbers 7. Get the Phone Number ID from the same page (click on the number)  Warning: connecting subscribes your own Meta app to this WABA with an override callback that redirects its webhook delivery to Zernio. This WABA's events stop reaching any callback URL you had configured before, immediately and with no overlap window. Do not unsubscribe your app from the WABA afterward: that also cuts off Zernio's delivery, and recovery requires calling this endpoint again.
 pub async fn connect_whats_app_credentials(
     configuration: &configuration::Configuration,
@@ -1020,6 +1135,50 @@ pub async fn connect_whats_app_credentials(
     } else {
         let content = resp.text().await?;
         let entity: Option<ConnectWhatsAppCredentialsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Exchange the authorization code Meta Embedded Signup returns to your browser SDK. This is the headless completion path for WhatsApp: the code never passes through a redirect_uri, so POST /v1/connect/{platform} cannot accept it.
+pub async fn connect_whats_app_embedded_signup(
+    configuration: &configuration::Configuration,
+    connect_whats_app_embedded_signup_request: models::ConnectWhatsAppEmbeddedSignupRequest,
+) -> Result<(), Error<ConnectWhatsAppEmbeddedSignupError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_connect_whats_app_embedded_signup_request =
+        connect_whats_app_embedded_signup_request;
+
+    let uri_str = format!(
+        "{}/v1/connect/whatsapp/embedded-signup",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_connect_whats_app_embedded_signup_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ConnectWhatsAppEmbeddedSignupError> =
+            serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1744,7 +1903,7 @@ pub async fn get_youtube_playlists(
     }
 }
 
-/// Exchange the OAuth authorization code for tokens and connect the account to the specified profile.
+/// Exchange the OAuth authorization code for tokens and connect the account to the specified profile.  Facebook, Google Business, Snapchat and WhatsApp are not accepted here: their account identity is a destination chosen after OAuth, which this single-shot exchange cannot do. Connect them through the redirect flow from `GET /v1/connect/{platform}`, or, for WhatsApp Embedded Signup, through `POST /v1/connect/whatsapp/embedded-signup`.
 pub async fn handle_o_auth_callback(
     configuration: &configuration::Configuration,
     platform: &str,
