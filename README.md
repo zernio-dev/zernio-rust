@@ -130,6 +130,7 @@ Class | Method | HTTP request | Description
 *AdCreativesApi* | [**delete_ad_video**](docs/AdCreativesApi.md#delete_ad_video) | **DELETE** /v1/ads/videos/{videoId} | Delete an ad video
 *AdCreativesApi* | [**generate_ad_previews**](docs/AdCreativesApi.md#generate_ad_previews) | **POST** /v1/ads/preview | Render pre-create ad previews
 *AdCreativesApi* | [**get_ad_creative**](docs/AdCreativesApi.md#get_ad_creative) | **GET** /v1/ads/creatives/{creativeId} | Creative details
+*AdCreativesApi* | [**get_ad_media**](docs/AdCreativesApi.md#get_ad_media) | **GET** /v1/ads/{adId}/media | Direct video and image URLs for an ad
 *AdCreativesApi* | [**get_ad_previews**](docs/AdCreativesApi.md#get_ad_previews) | **GET** /v1/ads/{adId}/preview | Render previews of an existing ad
 *AdCreativesApi* | [**list_ad_catalog_product_sets**](docs/AdCreativesApi.md#list_ad_catalog_product_sets) | **GET** /v1/ads/catalogs/{catalogId}/product-sets | List a catalog's product sets
 *AdCreativesApi* | [**list_ad_catalogs**](docs/AdCreativesApi.md#list_ad_catalogs) | **GET** /v1/ads/catalogs | List Meta product catalogs
@@ -1104,6 +1105,8 @@ Class | Method | HTTP request | Description
  - [GetAdCreative200Response](docs/GetAdCreative200Response.md)
  - [GetAdInsightsReport200Response](docs/GetAdInsightsReport200Response.md)
  - [GetAdInsightsReport200ResponsePaging](docs/GetAdInsightsReport200ResponsePaging.md)
+ - [GetAdMedia200Response](docs/GetAdMedia200Response.md)
+ - [GetAdMedia200ResponseMediaInner](docs/GetAdMedia200ResponseMediaInner.md)
  - [GetAdPreviews200Response](docs/GetAdPreviews200Response.md)
  - [GetAdSetDetails200Response](docs/GetAdSetDetails200Response.md)
  - [GetAdTrackingTags200Response](docs/GetAdTrackingTags200Response.md)

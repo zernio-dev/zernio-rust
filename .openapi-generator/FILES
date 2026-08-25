@@ -496,6 +496,8 @@ docs/GetAdComments200ResponsePagination.md
 docs/GetAdCreative200Response.md
 docs/GetAdInsightsReport200Response.md
 docs/GetAdInsightsReport200ResponsePaging.md
+docs/GetAdMedia200Response.md
+docs/GetAdMedia200ResponseMediaInner.md
 docs/GetAdPreviews200Response.md
 docs/GetAdSetDetails200Response.md
 docs/GetAdTrackingTags200Response.md
@@ -2319,6 +2321,8 @@ src/models/get_ad_comments_200_response_pagination.rs
 src/models/get_ad_creative_200_response.rs
 src/models/get_ad_insights_report_200_response.rs
 src/models/get_ad_insights_report_200_response_paging.rs
+src/models/get_ad_media_200_response.rs
+src/models/get_ad_media_200_response_media_inner.rs
 src/models/get_ad_previews_200_response.rs
 src/models/get_ad_set_details_200_response.rs
 src/models/get_ad_tracking_tags_200_response.rs

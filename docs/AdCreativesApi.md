@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**delete_ad_video**](AdCreativesApi.md#delete_ad_video) | **DELETE** /v1/ads/videos/{videoId} | Delete an ad video
 [**generate_ad_previews**](AdCreativesApi.md#generate_ad_previews) | **POST** /v1/ads/preview | Render pre-create ad previews
 [**get_ad_creative**](AdCreativesApi.md#get_ad_creative) | **GET** /v1/ads/creatives/{creativeId} | Creative details
+[**get_ad_media**](AdCreativesApi.md#get_ad_media) | **GET** /v1/ads/{adId}/media | Direct video and image URLs for an ad
 [**get_ad_previews**](AdCreativesApi.md#get_ad_previews) | **GET** /v1/ads/{adId}/preview | Render previews of an existing ad
 [**list_ad_catalog_product_sets**](AdCreativesApi.md#list_ad_catalog_product_sets) | **GET** /v1/ads/catalogs/{catalogId}/product-sets | List a catalog's product sets
 [**list_ad_catalogs**](AdCreativesApi.md#list_ad_catalogs) | **GET** /v1/ads/catalogs | List Meta product catalogs
@@ -163,6 +164,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetAdCreative200Response**](getAdCreative_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_ad_media
+
+> models::GetAdMedia200Response get_ad_media(ad_id)
+Direct video and image URLs for an ad
+
+Returns the direct signed URLs for every video and image asset used by an ad's live creative, normalised across shapes: single image/video, carousel, Reels/Story (`object_story_spec.video_data`) and dynamic creative (`asset_feed_spec`). Video items include Meta's poster thumbnail and the video's Meta id when available.  Reads Meta live rather than the stored creative blob because Meta's signed fbcdn URLs carry an `oe=<hex>` expiration (image_url ~24 h, video source ~12 d). Treat URLs as short-lived — re-fetch this endpoint before serving or downloading assets instead of caching URLs beyond that window.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**ad_id** | **String** | Zernio ad id (24-char hex) or platform ad id. | [required] |
+
+### Return type
+
+[**models::GetAdMedia200Response**](getAdMedia_200_response.md)
 
 ### Authorization
 
