@@ -243,7 +243,7 @@ pub async fn get_google_business_reviews(
     }
 }
 
-/// Posts (or updates) the business owner reply to a Google Business review. The reply is associated with the account's currently selected location (set via /v1/accounts/{accountId}/gmb-locations). Calling this endpoint a second time on the same review overwrites the previous reply (PUT semantics on Google's side).
+/// Posts (or updates) the business owner reply to a Google Business review. The reply is associated with the account's currently selected location (set via /v1/accounts/{accountId}/gmb-locations). Calling this endpoint a second time on the same review overwrites the previous reply (PUT semantics on Google's side). Google keeps no history, so an automated retry silently replaces a reply someone edited by hand in the Google Business Profile UI. Read the review before retrying if a human may have answered it.
 pub async fn reply_to_google_business_review(
     configuration: &configuration::Configuration,
     account_id: &str,
