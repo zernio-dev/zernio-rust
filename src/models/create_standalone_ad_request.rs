@@ -189,7 +189,7 @@ pub struct CreateStandaloneAdRequest {
     pub instagram_account_id: Option<String>,
     #[serde(rename = "dynamicCreative", skip_serializing_if = "Option::is_none")]
     pub dynamic_creative: Option<Box<models::CreateStandaloneAdRequestDynamicCreative>>,
-    /// Meta only. Hand-built carousel: 2-10 authored cards in DETERMINISTIC order, mapped to the creative's `link_data.child_attachments`. Unlike `dynamicCreative`, you control the card order and per-card copy/link. Requires top-level `body`, `linkUrl` and `callToAction`. Mutually exclusive with `imageUrl`/`video`, `creatives[]`, `dynamicCreative`, `placementAssets`, `existingCreativeId`, `adSetId`, `leadGenFormId` and goal `catalog_sales`.
+    /// Meta only. Hand-built carousel: 2-10 authored cards in DETERMINISTIC order, mapped to the creative's `link_data.child_attachments`. Unlike `dynamicCreative`, you control the card order and per-card copy/link. Requires top-level `body`, `linkUrl` and `callToAction`. Those become the ad's own Destination and button (`link_data.link` / `link_data.call_to_action`), and double as the per-card fallback when a card omits its own. Mutually exclusive with `imageUrl`/`video`, `creatives[]`, `dynamicCreative`, `placementAssets`, `existingCreativeId`, `adSetId`, `leadGenFormId` and goal `catalog_sales`.
     #[serde(rename = "carouselCards", skip_serializing_if = "Option::is_none")]
     pub carousel_cards: Option<Vec<models::CreateStandaloneAdRequestCarouselCardsInner>>,
     /// Meta only. Language the top-level copy is written in (e.g. `en`, `pt_BR`), used by the `translations` default rule. Defaults to `en`. Meta rejects a language asset feed whose default rule carries no locales of its own. Must NOT also appear as an entry in `translations`.
