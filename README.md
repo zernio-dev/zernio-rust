@@ -2280,6 +2280,8 @@ Class | Method | HTTP request | Description
  - [WebhookPayloadReviewNewAccount](docs/WebhookPayloadReviewNewAccount.md)
  - [WebhookPayloadReviewUpdated](docs/WebhookPayloadReviewUpdated.md)
  - [WebhookPayloadTest](docs/WebhookPayloadTest.md)
+ - [WebhookPayloadWhatsAppAccountNameStatusUpdated](docs/WebhookPayloadWhatsAppAccountNameStatusUpdated.md)
+ - [WebhookPayloadWhatsAppAccountNameStatusUpdatedName](docs/WebhookPayloadWhatsAppAccountNameStatusUpdatedName.md)
  - [WebhookPayloadWhatsAppTemplateCategoryUpdated](docs/WebhookPayloadWhatsAppTemplateCategoryUpdated.md)
  - [WebhookPayloadWhatsAppTemplateCategoryUpdatedTemplate](docs/WebhookPayloadWhatsAppTemplateCategoryUpdatedTemplate.md)
  - [WebhookPayloadWhatsAppTemplateStatusUpdated](docs/WebhookPayloadWhatsAppTemplateStatusUpdated.md)

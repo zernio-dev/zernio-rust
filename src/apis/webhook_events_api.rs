@@ -281,6 +281,13 @@ pub enum OnWebhookTestError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`on_whats_app_account_name_status_updated`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnWhatsAppAccountNameStatusUpdatedError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`on_whats_app_automatic_event`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -1495,6 +1502,36 @@ pub async fn on_webhook_test(configuration: &configuration::Configuration, webho
     } else {
         let content = resp.text().await?;
         let entity: Option<OnWebhookTestError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired when Meta finishes reviewing a WhatsApp Business display-name change. Forwarded from Meta's `phone_number_name_update` webhook field on the WhatsApp Business Account. Fires only on a review outcome (`name.status` APPROVED, DECLINED, or PENDING_REVIEW); a name applied without review reports `name_status: AVAILABLE_WITHOUT_REVIEW` on the phone node instead and produces no event here. `decision` REJECTED maps to DECLINED and DEFERRED maps to PENDING_REVIEW, matching the `name_status` vocabulary returned by `GET /v1/whatsapp/number-info`. Delivery is at-least-once; dedupe on `(account.accountId, name.status, name.requestedName)`. 
+pub async fn on_whats_app_account_name_status_updated(configuration: &configuration::Configuration, webhook_payload_whats_app_account_name_status_updated: models::WebhookPayloadWhatsAppAccountNameStatusUpdated) -> Result<(), Error<OnWhatsAppAccountNameStatusUpdatedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_payload_whats_app_account_name_status_updated = webhook_payload_whats_app_account_name_status_updated;
+
+    let uri_str = format!("{}/whatsapp.account.name_status_updated", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_payload_whats_app_account_name_status_updated);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnWhatsAppAccountNameStatusUpdatedError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
