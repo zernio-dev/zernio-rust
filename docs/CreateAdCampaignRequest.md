@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **account_id** | **String** | Zernio SocialAccount id (posting or ads variant) used to resolve the Meta token. | 
 **ad_account_id** | **String** | Meta ad account id (act_<n>). | 
 **name** | **String** |  | 
-**goal** | **Goal** | Mapped to the ODAX objective (same mapping as POST /v1/ads/create). (enum: engagement, traffic, awareness, video_views, lead_generation, lead_conversion, job_applicants, conversions, app_promotion, catalog_sales) | 
+**goal** | **Goal** | Mapped to the ODAX objective (same mapping as POST /v1/ads/create). (enum: engagement, traffic, awareness, video_views, lead_generation, lead_conversion, job_applicants, conversions, app_promotion, catalog_sales, page_likes) | 
 **special_ad_categories** | Option<**Vec<SpecialAdCategories>**> |  (enum: HOUSING, EMPLOYMENT, CREDIT, ISSUES_ELECTIONS_POLITICS, FINANCIAL_PRODUCTS_SERVICES, ONLINE_GAMBLING_AND_GAMING) | [optional]
 **budget_amount** | Option<**f64**> | Campaign-level (CBO) budget in WHOLE currency units (USD: 50 = $50.00), NOT cents — Meta's own Marketing API takes this same number in minor units, so it is an easy and expensive mix-up. Requires budgetType. | [optional]
 **budget_type** | Option<**BudgetType**> |  (enum: daily, lifetime) | [optional]

@@ -92,6 +92,8 @@ pub enum Goal {
     AppPromotion,
     #[serde(rename = "catalog_sales")]
     CatalogSales,
+    #[serde(rename = "page_likes")]
+    PageLikes,
 }
 
 impl Default for Goal {
