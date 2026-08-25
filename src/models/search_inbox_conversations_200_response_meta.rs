@@ -25,7 +25,7 @@ pub struct SearchInboxConversations200ResponseMeta {
     /// Connected messaging accounts that cannot be searched (live-fetched platforms)
     #[serde(rename = "accountsSkipped", skip_serializing_if = "Option::is_none")]
     pub accounts_skipped:
-        Option<Vec<models::SearchInboxConversations200ResponseMetaAccountsSkippedInner>>,
+        Option<Vec<models::ListInboxConversations200ResponseMetaAccountsSkippedInner>>,
 }
 
 impl SearchInboxConversations200ResponseMeta {

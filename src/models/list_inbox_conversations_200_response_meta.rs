@@ -22,6 +22,10 @@ pub struct ListInboxConversations200ResponseMeta {
         Option<Vec<models::ListInboxConversations200ResponseMetaFailedAccountsInner>>,
     #[serde(rename = "lastUpdated", skip_serializing_if = "Option::is_none")]
     pub last_updated: Option<String>,
+    /// Connected accounts that were not queried: their platform does not support this feature, or the account is not enabled for it
+    #[serde(rename = "accountsSkipped", skip_serializing_if = "Option::is_none")]
+    pub accounts_skipped:
+        Option<Vec<models::ListInboxConversations200ResponseMetaAccountsSkippedInner>>,
 }
 
 impl ListInboxConversations200ResponseMeta {
@@ -31,6 +35,7 @@ impl ListInboxConversations200ResponseMeta {
             accounts_failed: None,
             failed_accounts: None,
             last_updated: None,
+            accounts_skipped: None,
         }
     }
 }
