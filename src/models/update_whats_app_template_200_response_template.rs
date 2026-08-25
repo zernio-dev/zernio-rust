@@ -17,6 +17,7 @@ pub struct UpdateWhatsAppTemplate200ResponseTemplate {
     pub id: Option<String>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
+    /// Approval state read back from Meta after the update, normally PENDING. If the state cannot be read back, the last known status is returned instead.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
 }
