@@ -1883,6 +1883,8 @@ Class | Method | HTTP request | Description
  - [SendInboxMessageRequestInteractiveAction](docs/SendInboxMessageRequestInteractiveAction.md)
  - [SendInboxMessageRequestInteractiveActionOneOf](docs/SendInboxMessageRequestInteractiveActionOneOf.md)
  - [SendInboxMessageRequestInteractiveActionOneOf1](docs/SendInboxMessageRequestInteractiveActionOneOf1.md)
+ - [SendInboxMessageRequestInteractiveActionOneOf10](docs/SendInboxMessageRequestInteractiveActionOneOf10.md)
+ - [SendInboxMessageRequestInteractiveActionOneOf10Parameters](docs/SendInboxMessageRequestInteractiveActionOneOf10Parameters.md)
  - [SendInboxMessageRequestInteractiveActionOneOf1Parameters](docs/SendInboxMessageRequestInteractiveActionOneOf1Parameters.md)
  - [SendInboxMessageRequestInteractiveActionOneOf2](docs/SendInboxMessageRequestInteractiveActionOneOf2.md)
  - [SendInboxMessageRequestInteractiveActionOneOf2Parameters](docs/SendInboxMessageRequestInteractiveActionOneOf2Parameters.md)

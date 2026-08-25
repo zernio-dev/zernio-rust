@@ -44,6 +44,9 @@ pub enum SendInboxMessageRequestInteractiveAction {
     SendInboxMessageRequestInteractiveActionOneOf9(
         Box<models::SendInboxMessageRequestInteractiveActionOneOf9>,
     ),
+    SendInboxMessageRequestInteractiveActionOneOf10(
+        Box<models::SendInboxMessageRequestInteractiveActionOneOf10>,
+    ),
 }
 
 impl Default for SendInboxMessageRequestInteractiveAction {
@@ -54,12 +57,12 @@ impl Default for SendInboxMessageRequestInteractiveAction {
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Name {
-    #[serde(rename = "catalog_message")]
-    CatalogMessage,
+    #[serde(rename = "address_message")]
+    AddressMessage,
 }
 
 impl Default for Name {
     fn default() -> Name {
-        Self::CatalogMessage
+        Self::AddressMessage
     }
 }

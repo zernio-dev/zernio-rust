@@ -29,7 +29,7 @@ pub struct WebhookPayloadMessageMetadata {
     /// Callback data from an inline keyboard button tap (Telegram).
     #[serde(rename = "callbackData", skip_serializing_if = "Option::is_none")]
     pub callback_data: Option<String>,
-    /// WhatsApp only. Which kind of interactive reply the user sent: `button_reply` (tap on an interactive button), `list_reply` (tap on a list row), or `nfm_reply` (a WhatsApp Flow submission).
+    /// WhatsApp only. Which kind of interactive reply the user sent: `button_reply` (tap on an interactive button), `list_reply` (tap on a list row), or `nfm_reply` (a WhatsApp Flow submission or an `address_message` submission, see `nfmReplyName`).
     #[serde(rename = "interactiveType", skip_serializing_if = "Option::is_none")]
     pub interactive_type: Option<InteractiveType>,
     /// WhatsApp only. The `id` of the tapped button or list row, matching the `id` you supplied when the message was sent. Not set for Flow responses.
@@ -41,9 +41,12 @@ pub struct WebhookPayloadMessageMetadata {
     /// WhatsApp only. Raw `nfm_reply.response_json` string returned by a Flow submission. Useful if you need the exact wire payload; for typed access use `flowResponseData` instead.
     #[serde(rename = "flowResponseJson", skip_serializing_if = "Option::is_none")]
     pub flow_response_json: Option<String>,
-    /// WhatsApp only. Parsed Flow response JSON. Populated when `flowResponseJson` is valid JSON; otherwise omitted. Keys and value types depend on the specific Flow that was submitted.
+    /// WhatsApp only. Parsed Flow response JSON. Populated when `flowResponseJson` is valid JSON; otherwise omitted. Keys and value types depend on the specific Flow that was submitted. An `address_message` submission (`nfmReplyName: address_message`) carries the address fields (`name`, `address`, `city`, `state`, `in_pin_code`, ...), either at the top level or nested under `values`; read both.
     #[serde(rename = "flowResponseData", skip_serializing_if = "Option::is_none")]
     pub flow_response_data: Option<std::collections::HashMap<String, serde_json::Value>>,
+    /// WhatsApp only. `nfm_reply.name` as Meta sent it, e.g. `flow` or `address_message`. Address submissions share the `nfm_reply` envelope with Flow submissions and are otherwise indistinguishable in `flowResponseData`; use this field to tell them apart.
+    #[serde(rename = "nfmReplyName", skip_serializing_if = "Option::is_none")]
+    pub nfm_reply_name: Option<String>,
     #[serde(rename = "order", skip_serializing_if = "Option::is_none")]
     pub order: Option<Box<models::WebhookPayloadMessageMetadataOrder>>,
     #[serde(rename = "referredProduct", skip_serializing_if = "Option::is_none")]
@@ -85,6 +88,7 @@ impl WebhookPayloadMessageMetadata {
             button_payload: None,
             flow_response_json: None,
             flow_response_data: None,
+            nfm_reply_name: None,
             order: None,
             referred_product: None,
             contacts: None,
@@ -97,7 +101,7 @@ impl WebhookPayloadMessageMetadata {
         }
     }
 }
-/// WhatsApp only. Which kind of interactive reply the user sent: `button_reply` (tap on an interactive button), `list_reply` (tap on a list row), or `nfm_reply` (a WhatsApp Flow submission).
+/// WhatsApp only. Which kind of interactive reply the user sent: `button_reply` (tap on an interactive button), `list_reply` (tap on a list row), or `nfm_reply` (a WhatsApp Flow submission or an `address_message` submission, see `nfmReplyName`).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum InteractiveType {
     #[serde(rename = "button_reply")]

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | Which interactive layout to render. (enum: list, cta_url, flow, location_request_message, request_contact_info, voice_call, product, product_list, catalog_message, carousel) | 
+**r#type** | **Type** | Which interactive layout to render. (enum: list, cta_url, flow, location_request_message, request_contact_info, voice_call, product, product_list, catalog_message, carousel, address_message) | 
 **header** | Option<[**models::SendInboxMessageRequestInteractiveHeader**](SendInboxMessageRequestInteractiveHeader.md)> |  | [optional]
 **body** | Option<[**models::SendInboxMessageRequestInteractiveBody**](SendInboxMessageRequestInteractiveBody.md)> |  | [optional]
 **footer** | Option<[**models::SendInboxMessageRequestInteractiveFooter**](SendInboxMessageRequestInteractiveFooter.md)> |  | [optional]
