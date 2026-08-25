@@ -224,6 +224,9 @@ pub struct CreateStandaloneAdRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub additional_descriptions: Option<Vec<String>>,
+    /// Google Search only. Sitelink assets to create and attach at the campaign level. Each entry becomes an Asset (with sitelink_asset + Asset.final_urls) plus a CampaignAsset link (field_type SITELINK). Approval is async — Google reviews assets after creation; poll asset.policy_summary later to read the verdict. Google requires at least two sitelinks to surface them on an ad; four or more is Google's own recommendation for maximum visibility. The response's creative.sitelinks[] echoes each input plus its Google resourceName.
+    #[serde(rename = "sitelinks", skip_serializing_if = "Option::is_none")]
+    pub sitelinks: Option<Vec<models::CreateStandaloneAdRequestSitelinksInner>>,
     /// Meta only. Controls the Advantage audience feature (targeting_automation). 0 = disabled (default), 1 = enabled. Meta Marketing API requires this field on all ad set creation requests.
     #[serde(rename = "advantageAudience", skip_serializing_if = "Option::is_none")]
     pub advantage_audience: Option<AdvantageAudience>,
@@ -348,6 +351,7 @@ impl CreateStandaloneAdRequest {
             negative_keywords: None,
             additional_headlines: None,
             additional_descriptions: None,
+            sitelinks: None,
             advantage_audience: None,
             attribution_spec: None,
             gender: None,

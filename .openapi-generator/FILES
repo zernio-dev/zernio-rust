@@ -325,6 +325,7 @@ docs/CreateStandaloneAdRequestPlacements.md
 docs/CreateStandaloneAdRequestPlatformSpecificData.md
 docs/CreateStandaloneAdRequestPromotedObject.md
 docs/CreateStandaloneAdRequestRegionsInner.md
+docs/CreateStandaloneAdRequestSitelinksInner.md
 docs/CreateStandaloneAdRequestTracking.md
 docs/CreateStandaloneAdRequestTranslationsInner.md
 docs/CreateStandaloneAdRequestVideo.md
@@ -2159,6 +2160,7 @@ src/models/create_standalone_ad_request_placements.rs
 src/models/create_standalone_ad_request_platform_specific_data.rs
 src/models/create_standalone_ad_request_promoted_object.rs
 src/models/create_standalone_ad_request_regions_inner.rs
+src/models/create_standalone_ad_request_sitelinks_inner.rs
 src/models/create_standalone_ad_request_tracking.rs
 src/models/create_standalone_ad_request_translations_inner.rs
 src/models/create_standalone_ad_request_video.rs

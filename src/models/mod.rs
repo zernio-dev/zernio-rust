@@ -604,6 +604,8 @@ pub mod create_standalone_ad_request_promoted_object;
 pub use self::create_standalone_ad_request_promoted_object::CreateStandaloneAdRequestPromotedObject;
 pub mod create_standalone_ad_request_regions_inner;
 pub use self::create_standalone_ad_request_regions_inner::CreateStandaloneAdRequestRegionsInner;
+pub mod create_standalone_ad_request_sitelinks_inner;
+pub use self::create_standalone_ad_request_sitelinks_inner::CreateStandaloneAdRequestSitelinksInner;
 pub mod create_standalone_ad_request_tracking;
 pub use self::create_standalone_ad_request_tracking::CreateStandaloneAdRequestTracking;
 pub mod create_standalone_ad_request_translations_inner;
