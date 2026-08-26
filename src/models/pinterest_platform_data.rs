@@ -19,6 +19,9 @@ pub struct PinterestPlatformData {
     /// Target Pinterest board ID. If omitted, the first available board is used.
     #[serde(rename = "boardId", skip_serializing_if = "Option::is_none")]
     pub board_id: Option<String>,
+    /// Target section inside the board. Optional; the pin lands on the board itself when omitted. Pinterest rejects the pin if the section does not belong to boardId, so send both together.
+    #[serde(rename = "boardSectionId", skip_serializing_if = "Option::is_none")]
+    pub board_section_id: Option<String>,
     /// Destination link (pin URL)
     #[serde(rename = "link", skip_serializing_if = "Option::is_none")]
     pub link: Option<String>,
@@ -31,6 +34,9 @@ pub struct PinterestPlatformData {
         skip_serializing_if = "Option::is_none"
     )]
     pub cover_image_key_frame_time: Option<i32>,
+    /// When true, the Pin is created with Pinterest's AI_MODIFIED disclosure (ai_disclosures), which shows an \"AI modified\" label. Applies to image and video Pins. Pinterest offers no \"not AI\" value, so false simply omits the disclosure. Pinterest may still label a Pin on its own detection.
+    #[serde(rename = "isAiGenerated", skip_serializing_if = "Option::is_none")]
+    pub is_ai_generated: Option<bool>,
 }
 
 impl PinterestPlatformData {
@@ -38,9 +44,11 @@ impl PinterestPlatformData {
         PinterestPlatformData {
             title: None,
             board_id: None,
+            board_section_id: None,
             link: None,
             cover_image_url: None,
             cover_image_key_frame_time: None,
+            is_ai_generated: None,
         }
     }
 }
