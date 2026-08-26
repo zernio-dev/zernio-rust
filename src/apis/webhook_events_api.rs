@@ -696,7 +696,7 @@ pub async fn on_lead_received(configuration: &configuration::Configuration, webh
     }
 }
 
-/// Fired when a sender deletes (unsends) a message. Supported on Instagram (incoming unsend) and WhatsApp (when the business deletes an outgoing message via the Cloud API). The payload retains the pre-delete text and attachments so API consumers can access the original content for moderation or compliance — the Zernio dashboard UI hides it. 
+/// Fired when a sender deletes (unsends) a message. Supported on Instagram (incoming unsend) and WhatsApp in both directions: an outgoing message the business deleted (via the Cloud API, or from the WhatsApp Business app on a Coexistence number) and an incoming message the customer deleted. Read `message.direction` to tell the two apart. The payload retains the pre-delete text and attachments so API consumers can access the original content for moderation or compliance; the Zernio dashboard UI hides it. 
 pub async fn on_message_deleted(configuration: &configuration::Configuration, webhook_payload_message_deleted: models::WebhookPayloadMessageDeleted) -> Result<(), Error<OnMessageDeletedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_payload_message_deleted = webhook_payload_message_deleted;

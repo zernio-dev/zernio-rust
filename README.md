@@ -337,6 +337,7 @@ Class | Method | HTTP request | Description
 *GmbPlaceActionsApi* | [**update_google_business_place_action**](docs/GmbPlaceActionsApi.md#update_google_business_place_action) | **PATCH** /v1/accounts/{accountId}/gmb-place-actions | Update action link
 *GmbReviewsApi* | [**batch_get_google_business_reviews**](docs/GmbReviewsApi.md#batch_get_google_business_reviews) | **POST** /v1/accounts/{accountId}/gmb-reviews/batch | Batch get reviews
 *GmbReviewsApi* | [**delete_google_business_review_reply**](docs/GmbReviewsApi.md#delete_google_business_review_reply) | **DELETE** /v1/accounts/{accountId}/gmb-reviews/{reviewId}/reply | Delete a review reply
+*GmbReviewsApi* | [**get_google_business_review**](docs/GmbReviewsApi.md#get_google_business_review) | **GET** /v1/accounts/{accountId}/gmb-reviews/{reviewId} | Get a review
 *GmbReviewsApi* | [**get_google_business_reviews**](docs/GmbReviewsApi.md#get_google_business_reviews) | **GET** /v1/accounts/{accountId}/gmb-reviews | Get reviews
 *GmbReviewsApi* | [**reply_to_google_business_review**](docs/GmbReviewsApi.md#reply_to_google_business_review) | **POST** /v1/accounts/{accountId}/gmb-reviews/{reviewId}/reply | Reply to a review
 *GmbServicesApi* | [**get_google_business_services**](docs/GmbServicesApi.md#get_google_business_services) | **GET** /v1/accounts/{accountId}/gmb-services | Get services
@@ -674,6 +675,7 @@ Class | Method | HTTP request | Description
  - [AddConversionAssociations200ResponseFailedInner](docs/AddConversionAssociations200ResponseFailedInner.md)
  - [AddConversionAssociationsRequest](docs/AddConversionAssociationsRequest.md)
  - [AddDiscordMemberRole200Response](docs/AddDiscordMemberRole200Response.md)
+ - [AddMessageReaction200Response](docs/AddMessageReaction200Response.md)
  - [AddMessageReactionRequest](docs/AddMessageReactionRequest.md)
  - [AddTrackingTagSharedAccount201Response](docs/AddTrackingTagSharedAccount201Response.md)
  - [AddTrackingTagSharedAccountRequest](docs/AddTrackingTagSharedAccountRequest.md)
@@ -1207,11 +1209,8 @@ Class | Method | HTTP request | Description
  - [GetGoogleBusinessPerformance200ResponseMetricsValue](docs/GetGoogleBusinessPerformance200ResponseMetricsValue.md)
  - [GetGoogleBusinessPerformance200ResponseMetricsValueValuesInner](docs/GetGoogleBusinessPerformance200ResponseMetricsValueValuesInner.md)
  - [GetGoogleBusinessPerformance400Response](docs/GetGoogleBusinessPerformance400Response.md)
+ - [GetGoogleBusinessReview200Response](docs/GetGoogleBusinessReview200Response.md)
  - [GetGoogleBusinessReviews200Response](docs/GetGoogleBusinessReviews200Response.md)
- - [GetGoogleBusinessReviews200ResponseReviewsInner](docs/GetGoogleBusinessReviews200ResponseReviewsInner.md)
- - [GetGoogleBusinessReviews200ResponseReviewsInnerPhotosInner](docs/GetGoogleBusinessReviews200ResponseReviewsInnerPhotosInner.md)
- - [GetGoogleBusinessReviews200ResponseReviewsInnerReviewReply](docs/GetGoogleBusinessReviews200ResponseReviewsInnerReviewReply.md)
- - [GetGoogleBusinessReviews200ResponseReviewsInnerReviewer](docs/GetGoogleBusinessReviews200ResponseReviewsInnerReviewer.md)
  - [GetGoogleBusinessSearchKeywords200Response](docs/GetGoogleBusinessSearchKeywords200Response.md)
  - [GetGoogleBusinessSearchKeywords200ResponseKeywordsInner](docs/GetGoogleBusinessSearchKeywords200ResponseKeywordsInner.md)
  - [GetGoogleBusinessSearchKeywords200ResponseMonthRange](docs/GetGoogleBusinessSearchKeywords200ResponseMonthRange.md)
@@ -1427,6 +1426,9 @@ Class | Method | HTTP request | Description
  - [GoogleBusinessPlatformDataEventScheduleStartDate](docs/GoogleBusinessPlatformDataEventScheduleStartDate.md)
  - [GoogleBusinessPlatformDataEventScheduleStartTime](docs/GoogleBusinessPlatformDataEventScheduleStartTime.md)
  - [GoogleBusinessPlatformDataOffer](docs/GoogleBusinessPlatformDataOffer.md)
+ - [GoogleBusinessReview](docs/GoogleBusinessReview.md)
+ - [GoogleBusinessReviewReviewReply](docs/GoogleBusinessReviewReviewReply.md)
+ - [GoogleBusinessReviewReviewer](docs/GoogleBusinessReviewReviewer.md)
  - [HandleOAuthCallbackRequest](docs/HandleOAuthCallbackRequest.md)
  - [HideInboxComment200Response](docs/HideInboxComment200Response.md)
  - [HideInboxCommentRequest](docs/HideInboxCommentRequest.md)
@@ -1581,6 +1583,7 @@ Class | Method | HTTP request | Description
  - [ListInboxMentions200ResponseMeta](docs/ListInboxMentions200ResponseMeta.md)
  - [ListInboxReviews200Response](docs/ListInboxReviews200Response.md)
  - [ListInboxReviews200ResponseDataInner](docs/ListInboxReviews200ResponseDataInner.md)
+ - [ListInboxReviews200ResponseDataInnerPhotosInner](docs/ListInboxReviews200ResponseDataInnerPhotosInner.md)
  - [ListInboxReviews200ResponseDataInnerReply](docs/ListInboxReviews200ResponseDataInnerReply.md)
  - [ListInboxReviews200ResponseDataInnerReviewer](docs/ListInboxReviews200ResponseDataInnerReviewer.md)
  - [ListInboxReviews200ResponseSummary](docs/ListInboxReviews200ResponseSummary.md)
@@ -1775,6 +1778,7 @@ Class | Method | HTTP request | Description
  - [RemoveBookmark200Response](docs/RemoveBookmark200Response.md)
  - [RemoveConversionAssociations200Response](docs/RemoveConversionAssociations200Response.md)
  - [RemoveDiscordMemberRole200Response](docs/RemoveDiscordMemberRole200Response.md)
+ - [RemoveMessageReaction200Response](docs/RemoveMessageReaction200Response.md)
  - [RemoveWhatsAppGroupParticipantsRequest](docs/RemoveWhatsAppGroupParticipantsRequest.md)
  - [ReplaceAdAudienceCompanies200Response](docs/ReplaceAdAudienceCompanies200Response.md)
  - [ReplaceAdAudienceCompaniesRequest](docs/ReplaceAdAudienceCompaniesRequest.md)

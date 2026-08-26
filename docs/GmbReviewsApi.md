@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**batch_get_google_business_reviews**](GmbReviewsApi.md#batch_get_google_business_reviews) | **POST** /v1/accounts/{accountId}/gmb-reviews/batch | Batch get reviews
 [**delete_google_business_review_reply**](GmbReviewsApi.md#delete_google_business_review_reply) | **DELETE** /v1/accounts/{accountId}/gmb-reviews/{reviewId}/reply | Delete a review reply
+[**get_google_business_review**](GmbReviewsApi.md#get_google_business_review) | **GET** /v1/accounts/{accountId}/gmb-reviews/{reviewId} | Get a review
 [**get_google_business_reviews**](GmbReviewsApi.md#get_google_business_reviews) | **GET** /v1/accounts/{accountId}/gmb-reviews | Get reviews
 [**reply_to_google_business_review**](GmbReviewsApi.md#reply_to_google_business_review) | **POST** /v1/accounts/{accountId}/gmb-reviews/{reviewId}/reply | Reply to a review
 
@@ -60,6 +61,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::DeleteGoogleBusinessReviewReply200Response**](deleteGoogleBusinessReviewReply_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_google_business_review
+
+> models::GetGoogleBusinessReview200Response get_google_business_review(account_id, review_id, location_id)
+Get a review
+
+Returns one Google Business review, in the same shape as the entries of GET /v1/accounts/{accountId}/gmb-reviews. The review is read from the account's selected location unless locationId overrides it, and Google returns 404 for a review id that belongs to another location. Read the review before replying if a human may have answered it already: replies are overwritten in place and Google keeps no history. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The Zernio account ID (from /v1/accounts) | [required] |
+**review_id** | **String** | The review ID portion (e.g. \"AIe9_BGx1234567890\"), not the full resource name | [required] |
+**location_id** | Option<**String**> | Override which location to read the review from. If omitted, uses the account's selected location. Use GET /gmb-locations to list valid IDs. |  |
+
+### Return type
+
+[**models::GetGoogleBusinessReview200Response**](getGoogleBusinessReview_200_response.md)
 
 ### Authorization
 

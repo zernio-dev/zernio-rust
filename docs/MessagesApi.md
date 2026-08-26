@@ -24,7 +24,7 @@ Method | HTTP request | Description
 
 ## add_message_reaction
 
-> models::UpdateYoutubeDefaultPlaylist200Response add_message_reaction(conversation_id, message_id, add_message_reaction_request)
+> models::AddMessageReaction200Response add_message_reaction(conversation_id, message_id, add_message_reaction_request)
 Add reaction
 
 Add an emoji reaction to a message. Platform support: - Telegram: Supports a subset of Unicode emoji reactions - WhatsApp: Supports any standard emoji (one reaction per message per sender) - Instagram and Facebook Messenger: Any standard emoji, subject to Meta's 24h messaging window - Slack: The emoji must have a Slack name (e.g. `:thumbsup:`); unnamed characters return 400 - All others: Returns 400 (not supported) 
@@ -35,12 +35,12 @@ Add an emoji reaction to a message. Platform support: - Telegram: Supports a sub
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **conversation_id** | **String** | The conversation ID | [required] |
-**message_id** | **String** | The platform message ID to react to | [required] |
+**message_id** | **String** | The platform message ID (as returned by GET /messages) or the Zernio message ID (as returned by the reaction webhook) | [required] |
 **add_message_reaction_request** | [**AddMessageReactionRequest**](AddMessageReactionRequest.md) |  | [required] |
 
 ### Return type
 
-[**models::UpdateYoutubeDefaultPlaylist200Response**](updateYoutubeDefaultPlaylist_200_response.md)
+[**models::AddMessageReaction200Response**](addMessageReaction_200_response.md)
 
 ### Authorization
 
@@ -316,7 +316,7 @@ Name | Type | Description  | Required | Notes
 
 ## remove_message_reaction
 
-> models::UpdateYoutubeDefaultPlaylist200Response remove_message_reaction(conversation_id, message_id, account_id)
+> models::RemoveMessageReaction200Response remove_message_reaction(conversation_id, message_id, account_id)
 Remove reaction
 
 Remove a reaction from a message. Platform support: - Telegram: Send empty reaction array to clear - WhatsApp: Send empty emoji to remove - Instagram and Facebook Messenger: Sends Meta's `unreact` action; the emoji does not need to be repeated - Slack: Removes the reaction we previously sent on that message - All others: Returns 400 (not supported) 
@@ -327,12 +327,12 @@ Remove a reaction from a message. Platform support: - Telegram: Send empty react
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **conversation_id** | **String** | The conversation ID | [required] |
-**message_id** | **String** | The platform message ID | [required] |
+**message_id** | **String** | The platform message ID (as returned by GET /messages) or the Zernio message ID (as returned by the reaction webhook) | [required] |
 **account_id** | **String** | Social account ID | [required] |
 
 ### Return type
 
-[**models::UpdateYoutubeDefaultPlaylist200Response**](updateYoutubeDefaultPlaylist_200_response.md)
+[**models::RemoveMessageReaction200Response**](removeMessageReaction_200_response.md)
 
 ### Authorization
 

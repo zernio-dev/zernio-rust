@@ -34,12 +34,24 @@ pub struct MetaLeadFormPlatformData {
     pub thank_you_button_type: Option<String>,
     #[serde(rename = "thankYouWebsiteUrl", skip_serializing_if = "Option::is_none")]
     pub thank_you_website_url: Option<String>,
+    /// Adds a 'Continue in Messenger' option to the thank-you page (Meta thank_you_page.enable_messenger), so the lead can carry on chatting with the Page. Set thankYouButtonType to MESSAGE_BUSINESS or P2B_MESSENGER to make the chat the primary button.
+    #[serde(
+        rename = "thankYouEnableMessenger",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub thank_you_enable_messenger: Option<bool>,
     /// Set true for a higher-intent form (adds a review step before submit).
     #[serde(
         rename = "isOptimizedForQuality",
         skip_serializing_if = "Option::is_none"
     )]
     pub is_optimized_for_quality: Option<bool>,
+    /// Requires the lead to verify their phone number over SMS before the form submits (Meta is_phone_sms_verify_enabled). Only meaningful on a form with a PHONE question. Meta can restrict this parameter to apps holding a capability: when it does, the create fails with a 422 naming platformSpecificData.isPhoneSmsVerifyEnabled, and the toggle then has to be set in Meta's form builder.
+    #[serde(
+        rename = "isPhoneSmsVerifyEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_phone_sms_verify_enabled: Option<bool>,
     #[serde(
         rename = "blockDisplayForNonTargetedViewer",
         skip_serializing_if = "Option::is_none"
@@ -68,7 +80,9 @@ impl MetaLeadFormPlatformData {
             thank_you_button_text: None,
             thank_you_button_type: None,
             thank_you_website_url: None,
+            thank_you_enable_messenger: None,
             is_optimized_for_quality: None,
+            is_phone_sms_verify_enabled: None,
             block_display_for_non_targeted_viewer: None,
             question_page_custom_headline: None,
             context_card: None,

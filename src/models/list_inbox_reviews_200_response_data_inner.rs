@@ -51,7 +51,7 @@ pub struct ListInboxReviews200ResponseDataInner {
     pub photo_count: Option<i32>,
     /// Photos attached to the review. Google Business only; always an empty array for other platforms.
     #[serde(rename = "photos", skip_serializing_if = "Option::is_none")]
-    pub photos: Option<Vec<models::GetGoogleBusinessReviews200ResponseReviewsInnerPhotosInner>>,
+    pub photos: Option<Vec<models::ListInboxReviews200ResponseDataInnerPhotosInner>>,
     #[serde(rename = "reply", skip_serializing_if = "Option::is_none")]
     pub reply: Option<Box<models::ListInboxReviews200ResponseDataInnerReply>>,
     #[serde(

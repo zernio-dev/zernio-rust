@@ -12,41 +12,24 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetGoogleBusinessReviews200Response {
+pub struct GetGoogleBusinessReview200Response {
     #[serde(rename = "success", skip_serializing_if = "Option::is_none")]
     pub success: Option<bool>,
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
     #[serde(rename = "locationId", skip_serializing_if = "Option::is_none")]
     pub location_id: Option<String>,
-    #[serde(rename = "reviews", skip_serializing_if = "Option::is_none")]
-    pub reviews: Option<Vec<models::GoogleBusinessReview>>,
-    /// Overall average rating
-    #[serde(rename = "averageRating", skip_serializing_if = "Option::is_none")]
-    pub average_rating: Option<f64>,
-    /// Total number of reviews
-    #[serde(rename = "totalReviewCount", skip_serializing_if = "Option::is_none")]
-    pub total_review_count: Option<i32>,
-    /// Token for next page
-    #[serde(
-        rename = "nextPageToken",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub next_page_token: Option<Option<String>>,
+    #[serde(rename = "review", skip_serializing_if = "Option::is_none")]
+    pub review: Option<Box<models::GoogleBusinessReview>>,
 }
 
-impl GetGoogleBusinessReviews200Response {
-    pub fn new() -> GetGoogleBusinessReviews200Response {
-        GetGoogleBusinessReviews200Response {
+impl GetGoogleBusinessReview200Response {
+    pub fn new() -> GetGoogleBusinessReview200Response {
+        GetGoogleBusinessReview200Response {
             success: None,
             account_id: None,
             location_id: None,
-            reviews: None,
-            average_rating: None,
-            total_review_count: None,
-            next_page_token: None,
+            review: None,
         }
     }
 }
