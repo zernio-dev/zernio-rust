@@ -36,6 +36,9 @@ pub struct InstagramPlatformData {
     pub audio_name: Option<String>,
     #[serde(rename = "audioConfiguration", skip_serializing_if = "Option::is_none")]
     pub audio_configuration: Option<Box<models::InstagramPlatformDataAudioConfiguration>>,
+    /// Publish the video without sound. Applies to Reels, Stories, and video carousel slides; ignored for images. Instagram has no mute parameter, so we strip the audio track from the file before handing it to Instagram: the published video is permanently silent and the original audio cannot be restored from Instagram. If the audio cannot be stripped the post fails rather than publishing with sound; videos above 200MB cannot be muted at all, so mute them before uploading. Unrelated to audioConfiguration.videoVolume, which only lowers the original sound when a catalog track is attached.
+    #[serde(rename = "muteAudio", skip_serializing_if = "Option::is_none")]
+    pub mute_audio: Option<bool>,
     /// Millisecond offset from video start for the Reel cover frame. Ignored when instagramThumbnail or reelCover is provided. Defaults to 0.
     #[serde(rename = "thumbOffset", skip_serializing_if = "Option::is_none")]
     pub thumb_offset: Option<i32>,
@@ -62,6 +65,7 @@ impl InstagramPlatformData {
             user_tags: None,
             audio_name: None,
             audio_configuration: None,
+            mute_audio: None,
             thumb_offset: None,
             instagram_thumbnail: None,
             reel_cover: None,
