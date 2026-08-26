@@ -13,6 +13,16 @@ use crate::{apis::ResponseContent, models};
 use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
 
+/// struct for typed errors of method [`attach_campaign_assets`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AttachCampaignAssetsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`boost_post`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -241,6 +251,62 @@ pub enum UpdateAdStatusError {
     Status401(models::InlineObject),
     Status404(),
     UnknownValue(serde_json::Value),
+}
+
+/// Attach sitelinks, callouts and/or structured snippets to an already-existing Google Search campaign — the same builders POST /v1/ads/create uses, but without rebuilding the hierarchy. At least one of sitelinks, callouts or structuredSnippets is required.  Google-only. Other platforms have no equivalent extension surface and return 501.  Approval status is Google-async; poll `asset.policy_summary` after review. Assets stay in the account library even if the campaign is later deleted.
+pub async fn attach_campaign_assets(
+    configuration: &configuration::Configuration,
+    campaign_id: &str,
+    attach_campaign_assets_request: models::AttachCampaignAssetsRequest,
+) -> Result<models::AttachCampaignAssets201Response, Error<AttachCampaignAssetsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_campaign_id = campaign_id;
+    let p_body_attach_campaign_assets_request = attach_campaign_assets_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/campaigns/{campaignId}/assets",
+        configuration.base_path,
+        campaignId = crate::apis::urlencode(p_path_campaign_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_attach_campaign_assets_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AttachCampaignAssets201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AttachCampaignAssets201Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AttachCampaignAssetsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
 }
 
 /// Creates a paid ad from an existing published post, keeping the post's engagement. By default it provisions the whole hierarchy (campaign, ad set, ad).  **Attach shape (Meta).** Send `adSetId` to put the ad under an EXISTING ad set instead, so that ad set keeps its learning phase. It then owns `budget`, `schedule` and `targeting`, and sending any of those alongside `adSetId` is a 400 rather than a silent drop. `budget` is required only without `adSetId`.  `instagramAccountId`, `destinationType` and `adSetId` are Meta-only and return 400 on other platforms.  **Retries.** Boosts are NOT idempotent and can take minutes when Meta requires re-hosting an Instagram video, so do not retry on client timeout. Send an Idempotency-Key header to make retries safe: same key and body replays the original 201, and distinct keys always create distinct ads. Without the header, an identical request is treated as a retry: while one is in flight it returns 409, and within 10 minutes of a completed boost it returns the already-created ad instead of creating another. To intentionally duplicate an ad, send distinct Idempotency-Keys (or vary the body, e.g. the name).

@@ -227,6 +227,12 @@ pub struct CreateStandaloneAdRequest {
     /// Google Search only. Sitelink assets to create and attach at the campaign level. Each entry becomes an Asset (with sitelink_asset + Asset.final_urls) plus a CampaignAsset link (field_type SITELINK). Approval is async — Google reviews assets after creation; poll asset.policy_summary later to read the verdict. Google requires at least two sitelinks to surface them on an ad; four or more is Google's own recommendation for maximum visibility. The response's creative.sitelinks[] echoes each input plus its Google resourceName.
     #[serde(rename = "sitelinks", skip_serializing_if = "Option::is_none")]
     pub sitelinks: Option<Vec<models::CreateStandaloneAdRequestSitelinksInner>>,
+    /// Google Search only. Short callout texts (max 25 chars each) that appear as non-clickable annotations under the ad, e.g. \"Free shipping\", \"24/7 support\". Each becomes one Asset (`callout_asset`) plus a CampaignAsset link with field_type CALLOUT. Response's creative.callouts[] echoes each input plus its Google resourceName.
+    #[serde(rename = "callouts", skip_serializing_if = "Option::is_none")]
+    pub callouts: Option<Vec<String>>,
+    /// Google Search only. Structured snippets — one header from Google's predefined list plus 3-10 values (max 25 chars each). Each becomes one Asset (`structured_snippet_asset`) plus a CampaignAsset link with field_type STRUCTURED_SNIPPET.
+    #[serde(rename = "structuredSnippets", skip_serializing_if = "Option::is_none")]
+    pub structured_snippets: Option<Vec<models::CreateStandaloneAdRequestStructuredSnippetsInner>>,
     /// Meta only. Controls the Advantage audience feature (targeting_automation). 0 = disabled (default), 1 = enabled. Meta Marketing API requires this field on all ad set creation requests.
     #[serde(rename = "advantageAudience", skip_serializing_if = "Option::is_none")]
     pub advantage_audience: Option<AdvantageAudience>,
@@ -352,6 +358,8 @@ impl CreateStandaloneAdRequest {
             additional_headlines: None,
             additional_descriptions: None,
             sitelinks: None,
+            callouts: None,
+            structured_snippets: None,
             advantage_audience: None,
             attribution_spec: None,
             gender: None,

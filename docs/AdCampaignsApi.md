@@ -4,6 +4,7 @@ All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**attach_campaign_assets**](AdCampaignsApi.md#attach_campaign_assets) | **POST** /v1/ads/campaigns/{campaignId}/assets | Attach extension assets to a Google Search campaign
 [**boost_post**](AdCampaignsApi.md#boost_post) | **POST** /v1/ads/boost | Boost post as ad
 [**bulk_update_ad_campaign_status**](AdCampaignsApi.md#bulk_update_ad_campaign_status) | **POST** /v1/ads/campaigns/bulk-status | Pause or resume many campaigns
 [**create_ad_campaign**](AdCampaignsApi.md#create_ad_campaign) | **POST** /v1/ads/campaigns | Create a standalone campaign
@@ -27,6 +28,37 @@ Method | HTTP request | Description
 [**update_ad_set_status**](AdCampaignsApi.md#update_ad_set_status) | **PUT** /v1/ads/ad-sets/{adSetId}/status | Pause or resume a single ad set
 [**update_ad_status**](AdCampaignsApi.md#update_ad_status) | **PUT** /v1/ads/{adId}/status | Pause or resume a single ad
 
+
+
+## attach_campaign_assets
+
+> models::AttachCampaignAssets201Response attach_campaign_assets(campaign_id, attach_campaign_assets_request)
+Attach extension assets to a Google Search campaign
+
+Attach sitelinks, callouts and/or structured snippets to an already-existing Google Search campaign — the same builders POST /v1/ads/create uses, but without rebuilding the hierarchy. At least one of sitelinks, callouts or structuredSnippets is required.  Google-only. Other platforms have no equivalent extension surface and return 501.  Approval status is Google-async; poll `asset.policy_summary` after review. Assets stay in the account library even if the campaign is later deleted.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Numeric Google platform campaign id. | [required] |
+**attach_campaign_assets_request** | [**AttachCampaignAssetsRequest**](AttachCampaignAssetsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::AttachCampaignAssets201Response**](attachCampaignAssets_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## boost_post

@@ -45,6 +45,12 @@ pub struct PostAnalytics {
         skip_serializing_if = "Option::is_none"
     )]
     pub ig_reels_video_view_total_time: Option<i32>,
+    /// Instagram Reels only: the rate of initial views that skipped the reel within its first 3 seconds, as reported by Meta. Passed through exactly as Meta reports it, with no rescaling, so do not assume a 0-1 share. Meta labels the metric estimated and in development, so it can move between syncs. 0 for non-Reels media and other platforms. When a post is published to several accounts, the aggregate is weighted by views.
+    #[serde(rename = "reelsSkipRate", skip_serializing_if = "Option::is_none")]
+    pub reels_skip_rate: Option<f64>,
+    /// Instagram only: reposts of the media by other users, minus deleted reposts. Available on feed posts, reels and stories. 0 for other platforms, including Threads, where reposts are counted in shares instead.
+    #[serde(rename = "reposts", skip_serializing_if = "Option::is_none")]
+    pub reposts: Option<i32>,
     /// Video length in seconds. Currently Instagram Reels only; combine with igReelsAvgWatchTime (ms) to estimate retention. Null when unknown (other platforms, non-video media, or when Instagram does not expose the media URL, e.g. reels with copyrighted audio).
     #[serde(
         rename = "videoDurationSeconds",
@@ -74,6 +80,8 @@ impl PostAnalytics {
             follows: None,
             ig_reels_avg_watch_time: None,
             ig_reels_video_view_total_time: None,
+            reels_skip_rate: None,
+            reposts: None,
             video_duration_seconds: None,
             engagement_rate: None,
             last_updated: None,

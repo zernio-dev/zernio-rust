@@ -34,8 +34,10 @@ pub struct TargetingSpec {
     pub custom_locations: Option<Vec<models::TargetingSpecCustomLocationsInner>>,
     #[serde(rename = "excludedLocations", skip_serializing_if = "Option::is_none")]
     pub excluded_locations: Option<Box<models::TargetingSpecExcludedLocations>>,
+    /// Minimum age. Applied on Meta, TikTok and Pinterest; ignored on Google, LinkedIn and X. Each platform clamps to its own range: Meta and Pinterest effectively cap at 65 (65 = 65+), TikTok maps up to 100. Pinterest has no under-18 bucket, so an ageMin below 18 starts at 18 there.
     #[serde(rename = "ageMin", skip_serializing_if = "Option::is_none")]
     pub age_min: Option<i32>,
+    /// Maximum age. Same per-platform application and clamping as ageMin.
     #[serde(rename = "ageMax", skip_serializing_if = "Option::is_none")]
     pub age_max: Option<i32>,
     /// Restrict by gender. 'all' (default) targets everyone. Applied on Meta, TikTok and Pinterest. Ignored on Google, LinkedIn and X.

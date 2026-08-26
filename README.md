@@ -103,6 +103,7 @@ Class | Method | HTTP request | Description
 *AdAudiencesApi* | [**list_ad_audiences**](docs/AdAudiencesApi.md#list_ad_audiences) | **GET** /v1/ads/audiences | List custom audiences
 *AdAudiencesApi* | [**replace_ad_audience_companies**](docs/AdAudiencesApi.md#replace_ad_audience_companies) | **POST** /v1/ads/audiences/{audienceId}/companies | Replace audience companies
 *AdAudiencesApi* | [**update_ad_audience**](docs/AdAudiencesApi.md#update_ad_audience) | **PUT** /v1/ads/audiences/{audienceId} | Update an audience
+*AdCampaignsApi* | [**attach_campaign_assets**](docs/AdCampaignsApi.md#attach_campaign_assets) | **POST** /v1/ads/campaigns/{campaignId}/assets | Attach extension assets to a Google Search campaign
 *AdCampaignsApi* | [**boost_post**](docs/AdCampaignsApi.md#boost_post) | **POST** /v1/ads/boost | Boost post as ad
 *AdCampaignsApi* | [**bulk_update_ad_campaign_status**](docs/AdCampaignsApi.md#bulk_update_ad_campaign_status) | **POST** /v1/ads/campaigns/bulk-status | Pause or resume many campaigns
 *AdCampaignsApi* | [**create_ad_campaign**](docs/AdCampaignsApi.md#create_ad_campaign) | **POST** /v1/ads/campaigns | Create a standalone campaign
@@ -707,6 +708,10 @@ Class | Method | HTTP request | Description
  - [AssignGoogleBusinessLocation200Response](docs/AssignGoogleBusinessLocation200Response.md)
  - [AssignGoogleBusinessLocation200ResponseAccount](docs/AssignGoogleBusinessLocation200ResponseAccount.md)
  - [AssignGoogleBusinessLocationRequest](docs/AssignGoogleBusinessLocationRequest.md)
+ - [AttachCampaignAssets201Response](docs/AttachCampaignAssets201Response.md)
+ - [AttachCampaignAssetsRequest](docs/AttachCampaignAssetsRequest.md)
+ - [AttachCampaignAssetsRequestSitelinksInner](docs/AttachCampaignAssetsRequestSitelinksInner.md)
+ - [AttachCampaignAssetsRequestStructuredSnippetsInner](docs/AttachCampaignAssetsRequestStructuredSnippetsInner.md)
  - [AttachNumberToSipTrunk200Response](docs/AttachNumberToSipTrunk200Response.md)
  - [AttachNumberToSipTrunkRequest](docs/AttachNumberToSipTrunkRequest.md)
  - [BatchGetGoogleBusinessReviews200Response](docs/BatchGetGoogleBusinessReviews200Response.md)
@@ -942,6 +947,7 @@ Class | Method | HTTP request | Description
  - [CreateStandaloneAdRequestPromotedObject](docs/CreateStandaloneAdRequestPromotedObject.md)
  - [CreateStandaloneAdRequestRegionsInner](docs/CreateStandaloneAdRequestRegionsInner.md)
  - [CreateStandaloneAdRequestSitelinksInner](docs/CreateStandaloneAdRequestSitelinksInner.md)
+ - [CreateStandaloneAdRequestStructuredSnippetsInner](docs/CreateStandaloneAdRequestStructuredSnippetsInner.md)
  - [CreateStandaloneAdRequestTracking](docs/CreateStandaloneAdRequestTracking.md)
  - [CreateStandaloneAdRequestTranslationsInner](docs/CreateStandaloneAdRequestTranslationsInner.md)
  - [CreateStandaloneAdRequestVideo](docs/CreateStandaloneAdRequestVideo.md)

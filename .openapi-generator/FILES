@@ -83,6 +83,10 @@ docs/ArchiveLeadForm200Response.md
 docs/AssignGoogleBusinessLocation200Response.md
 docs/AssignGoogleBusinessLocation200ResponseAccount.md
 docs/AssignGoogleBusinessLocationRequest.md
+docs/AttachCampaignAssets201Response.md
+docs/AttachCampaignAssetsRequest.md
+docs/AttachCampaignAssetsRequestSitelinksInner.md
+docs/AttachCampaignAssetsRequestStructuredSnippetsInner.md
 docs/AttachNumberToSipTrunk200Response.md
 docs/AttachNumberToSipTrunkRequest.md
 docs/BatchGetGoogleBusinessReviews200Response.md
@@ -327,6 +331,7 @@ docs/CreateStandaloneAdRequestPlatformSpecificData.md
 docs/CreateStandaloneAdRequestPromotedObject.md
 docs/CreateStandaloneAdRequestRegionsInner.md
 docs/CreateStandaloneAdRequestSitelinksInner.md
+docs/CreateStandaloneAdRequestStructuredSnippetsInner.md
 docs/CreateStandaloneAdRequestTracking.md
 docs/CreateStandaloneAdRequestTranslationsInner.md
 docs/CreateStandaloneAdRequestVideo.md
@@ -1931,6 +1936,10 @@ src/models/archive_lead_form_200_response.rs
 src/models/assign_google_business_location_200_response.rs
 src/models/assign_google_business_location_200_response_account.rs
 src/models/assign_google_business_location_request.rs
+src/models/attach_campaign_assets_201_response.rs
+src/models/attach_campaign_assets_request.rs
+src/models/attach_campaign_assets_request_sitelinks_inner.rs
+src/models/attach_campaign_assets_request_structured_snippets_inner.rs
 src/models/attach_number_to_sip_trunk_200_response.rs
 src/models/attach_number_to_sip_trunk_request.rs
 src/models/batch_get_google_business_reviews_200_response.rs
@@ -2166,6 +2175,7 @@ src/models/create_standalone_ad_request_platform_specific_data.rs
 src/models/create_standalone_ad_request_promoted_object.rs
 src/models/create_standalone_ad_request_regions_inner.rs
 src/models/create_standalone_ad_request_sitelinks_inner.rs
+src/models/create_standalone_ad_request_structured_snippets_inner.rs
 src/models/create_standalone_ad_request_tracking.rs
 src/models/create_standalone_ad_request_translations_inner.rs
 src/models/create_standalone_ad_request_video.rs
