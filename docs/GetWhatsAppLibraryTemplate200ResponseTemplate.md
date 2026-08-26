@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **category** | Option<**String**> |  | [optional]
 **body** | Option<**String**> |  | [optional]
 **body_params** | Option<**Vec<String>**> |  | [optional]
+**available_languages** | Option<**Vec<String>**> |  | [optional]
 **buttons** | Option<[**Vec<models::GetWhatsAppLibraryTemplate200ResponseTemplateButtonsInner>**](GetWhatsAppLibraryTemplate200ResponseTemplateButtonsInner.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -28,16 +28,21 @@ pub async fn get_whats_app_library_template(
     configuration: &configuration::Configuration,
     account_id: &str,
     name: &str,
+    language: Option<&str>,
 ) -> Result<models::GetWhatsAppLibraryTemplate200Response, Error<GetWhatsAppLibraryTemplateError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_account_id = account_id;
     let p_query_name = name;
+    let p_query_language = language;
 
     let uri_str = format!("{}/v1/whatsapp/template-library", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
     req_builder = req_builder.query(&[("name", &p_query_name.to_string())]);
+    if let Some(ref param_value) = p_query_language {
+        req_builder = req_builder.query(&[("language", &param_value.to_string())]);
+    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }

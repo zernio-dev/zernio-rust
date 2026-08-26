@@ -23,6 +23,8 @@ pub struct GetWhatsAppLibraryTemplate200ResponseTemplate {
     pub body: Option<String>,
     #[serde(rename = "body_params", skip_serializing_if = "Option::is_none")]
     pub body_params: Option<Vec<String>>,
+    #[serde(rename = "availableLanguages", skip_serializing_if = "Option::is_none")]
+    pub available_languages: Option<Vec<String>>,
     #[serde(rename = "buttons", skip_serializing_if = "Option::is_none")]
     pub buttons: Option<Vec<models::GetWhatsAppLibraryTemplate200ResponseTemplateButtonsInner>>,
 }
@@ -35,6 +37,7 @@ impl GetWhatsAppLibraryTemplate200ResponseTemplate {
             category: None,
             body: None,
             body_params: None,
+            available_languages: None,
             buttons: None,
         }
     }
