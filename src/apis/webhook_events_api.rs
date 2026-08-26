@@ -876,7 +876,7 @@ pub async fn on_message_received(configuration: &configuration::Configuration, w
     }
 }
 
-/// Fired when a message is sent via the API, or from the WhatsApp Business app on Coexistence numbers.
+/// Fired when a message is sent via the API, or from the WhatsApp Business app on Coexistence numbers. Sends that carry platform-specific context deliver it under `metadata`, so a quote-reply arrives with `metadata.quotedMessageId` and mirroring CRMs can thread it without a lookup. 
 pub async fn on_message_sent(configuration: &configuration::Configuration, webhook_payload_message_sent: models::WebhookPayloadMessageSent) -> Result<(), Error<OnMessageSentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_payload_message_sent = webhook_payload_message_sent;

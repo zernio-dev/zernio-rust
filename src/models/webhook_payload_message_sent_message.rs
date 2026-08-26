@@ -19,6 +19,7 @@ pub struct WebhookPayloadMessageSentMessage {
     /// Internal conversation ID
     #[serde(rename = "conversationId")]
     pub conversation_id: String,
+    /// Every platform whose outgoing messages Zernio observes. sms is absent on purpose: its carrier receipts update delivery status and never raise message.sent.
     #[serde(rename = "platform")]
     pub platform: Platform,
     /// Platform's message ID
@@ -71,7 +72,7 @@ impl WebhookPayloadMessageSentMessage {
         }
     }
 }
-///
+/// Every platform whose outgoing messages Zernio observes. sms is absent on purpose: its carrier receipts update delivery status and never raise message.sent.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Platform {
     #[serde(rename = "instagram")]
@@ -82,6 +83,14 @@ pub enum Platform {
     Telegram,
     #[serde(rename = "whatsapp")]
     Whatsapp,
+    #[serde(rename = "twitter")]
+    Twitter,
+    #[serde(rename = "reddit")]
+    Reddit,
+    #[serde(rename = "bluesky")]
+    Bluesky,
+    #[serde(rename = "slack")]
+    Slack,
 }
 
 impl Default for Platform {

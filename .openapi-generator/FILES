@@ -1695,6 +1695,7 @@ docs/WebhookPayloadMessageSent.md
 docs/WebhookPayloadMessageSentMessage.md
 docs/WebhookPayloadMessageSentMessageAttachmentsInner.md
 docs/WebhookPayloadMessageSentMessageSender.md
+docs/WebhookPayloadMessageSentMetadata.md
 docs/WebhookPayloadPost.md
 docs/WebhookPayloadPostPlatform.md
 docs/WebhookPayloadPostPlatformAccount.md
@@ -3496,6 +3497,7 @@ src/models/webhook_payload_message_sent.rs
 src/models/webhook_payload_message_sent_message.rs
 src/models/webhook_payload_message_sent_message_attachments_inner.rs
 src/models/webhook_payload_message_sent_message_sender.rs
+src/models/webhook_payload_message_sent_metadata.rs
 src/models/webhook_payload_post.rs
 src/models/webhook_payload_post_platform.rs
 src/models/webhook_payload_post_platform_account.rs

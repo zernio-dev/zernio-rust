@@ -27,6 +27,9 @@ pub struct ListUsers200ResponseUsersInner {
     pub profile_access: Option<Vec<String>>,
     #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
     pub created_at: Option<String>,
+    /// Last sign-in, stamped at most once an hour, so it is accurate to within an hour rather than to the exact session. Omitted for members with no recorded sign-in since the field shipped, which does not mean they never signed in.
+    #[serde(rename = "lastLoginAt", skip_serializing_if = "Option::is_none")]
+    pub last_login_at: Option<String>,
 }
 
 impl ListUsers200ResponseUsersInner {
@@ -39,6 +42,7 @@ impl ListUsers200ResponseUsersInner {
             is_root: None,
             profile_access: None,
             created_at: None,
+            last_login_at: None,
         }
     }
 }

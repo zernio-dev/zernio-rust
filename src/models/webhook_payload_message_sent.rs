@@ -25,6 +25,8 @@ pub struct WebhookPayloadMessageSent {
     pub conversation: Box<models::InboxWebhookConversation>,
     #[serde(rename = "account")]
     pub account: Box<models::InboxWebhookAccount>,
+    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<Box<models::WebhookPayloadMessageSentMetadata>>,
     /// UTC time at which Zernio generated this event (set once when the event payload is built, before delivery is queued). Retries and redeliveries keep the original value, so it reflects the event, not the delivery attempt.
     #[serde(rename = "timestamp")]
     pub timestamp: String,
@@ -46,6 +48,7 @@ impl WebhookPayloadMessageSent {
             message: Box::new(message),
             conversation: Box::new(conversation),
             account: Box::new(account),
+            metadata: None,
             timestamp,
         }
     }

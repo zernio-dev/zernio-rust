@@ -3268,6 +3268,8 @@ pub mod webhook_payload_message_sent_message_attachments_inner;
 pub use self::webhook_payload_message_sent_message_attachments_inner::WebhookPayloadMessageSentMessageAttachmentsInner;
 pub mod webhook_payload_message_sent_message_sender;
 pub use self::webhook_payload_message_sent_message_sender::WebhookPayloadMessageSentMessageSender;
+pub mod webhook_payload_message_sent_metadata;
+pub use self::webhook_payload_message_sent_metadata::WebhookPayloadMessageSentMetadata;
 pub mod webhook_payload_post;
 pub use self::webhook_payload_post::WebhookPayloadPost;
 pub mod webhook_payload_post_platform;
