@@ -38,6 +38,14 @@ pub struct WebhookPayloadMessageMessage {
     pub sent_at: String,
     #[serde(rename = "isRead")]
     pub is_read: bool,
+    /// Which Zernio surface produced the message. Always present and always `null` on this event, since nobody on our side produced an inbound message; it is only informative on `message.sent`, which documents the vocabulary.
+    #[serde(
+        rename = "sentVia",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub sent_via: Option<Option<SentVia>>,
 }
 
 impl WebhookPayloadMessageMessage {
@@ -64,6 +72,7 @@ impl WebhookPayloadMessageMessage {
             sender: Box::new(sender),
             sent_at,
             is_read,
+            sent_via: None,
         }
     }
 }
@@ -99,5 +108,29 @@ pub enum Direction {
 impl Default for Direction {
     fn default() -> Direction {
         Self::Incoming
+    }
+}
+/// Which Zernio surface produced the message. Always present and always `null` on this event, since nobody on our side produced an inbound message; it is only informative on `message.sent`, which documents the vocabulary.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum SentVia {
+    #[serde(rename = "human")]
+    Human,
+    #[serde(rename = "api")]
+    Api,
+    #[serde(rename = "broadcast")]
+    Broadcast,
+    #[serde(rename = "sequence")]
+    Sequence,
+    #[serde(rename = "workflow")]
+    Workflow,
+    #[serde(rename = "comment_automation")]
+    CommentAutomation,
+    #[serde(rename = "bulk-api")]
+    BulkApi,
+}
+
+impl Default for SentVia {
+    fn default() -> SentVia {
+        Self::Human
     }
 }

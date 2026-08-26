@@ -43,9 +43,16 @@ pub struct CreateInboxConversationRequest {
     /// WhatsApp only. Template language code (e.g. en_US).
     #[serde(rename = "templateLanguage", skip_serializing_if = "Option::is_none")]
     pub template_language: Option<String>,
-    /// WhatsApp only. Template variable values as one flat array, in the order the variables appear across the whole template: text-header variables first, then body variables, then one value per dynamic URL button (in button order). Works with positional placeholders ({{1}}, {{2}}, ...) and with named placeholders ({{name}}, {{company}} - how Meta Business Manager creates templates), where values fill the named slots in order of appearance. Example - a body with {{1}}, {{2}} plus a URL button https://example.com/{{1}} takes three values: [body1, body2, buttonSuffix]. Media headers (image, video, document) are filled automatically from the approved template and take no value here (use headerMedia to override the header asset per send).
+    /// WhatsApp only. Template variable values as one flat array, in the order the variables appear across the whole template: text-header variables first, then body variables, then one value per dynamic URL button (in button order). Works with positional placeholders ({{1}}, {{2}}, ...) and with named placeholders ({{name}}, {{company}} - how Meta Business Manager creates templates), where values fill the named slots in order of appearance. Example - a body with {{1}}, {{2}} plus a URL button https://example.com/{{1}} takes three values: [body1, body2, buttonSuffix]. Media headers (image, video, document) are filled automatically from the approved template and take no value here (use headerMedia to override the header asset per send). Buttons that are not dynamic-URL buttons (copy-code, flow) take no value here either; use templateButtonParams.
     #[serde(rename = "templateParams", skip_serializing_if = "Option::is_none")]
     pub template_params: Option<Vec<String>>,
+    /// WhatsApp only. Values for template buttons that carry one at send time, each addressed by the button's position in the approved template. This is the only way to send a copy-code button's payload (a Pix payment code, a coupon) or a flow token, because templateParams is a flat array of text variables and covers dynamic URL buttons only. Supplying a button here overrides whatever templateParams would have derived for that same index, so the send never carries one button twice; repeating an index within this array is rejected with 400. Each index must name a button of the matching kind on the approved template, which is also checked before the send and returns 400 (INVALID_TEMPLATE_BUTTON_PARAM) rather than a Meta rejection.
+    #[serde(
+        rename = "templateButtonParams",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub template_button_params:
+        Option<Vec<models::CreateInboxConversationRequestTemplateButtonParamsInner>>,
     #[serde(rename = "headerMedia", skip_serializing_if = "Option::is_none")]
     pub header_media: Option<Box<models::CreateInboxConversationRequestHeaderMedia>>,
 }
@@ -63,6 +70,7 @@ impl CreateInboxConversationRequest {
             link_preview: None,
             template_language: None,
             template_params: None,
+            template_button_params: None,
             header_media: None,
         }
     }

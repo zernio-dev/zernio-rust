@@ -135,9 +135,17 @@ pub struct GetInboxConversationMessages200ResponseMessagesInner {
     #[serde(rename = "reactions", skip_serializing_if = "Option::is_none")]
     pub reactions:
         Option<Vec<models::GetInboxConversationMessages200ResponseMessagesInnerReactionsInner>>,
-    /// Platform-specific extras. Free-form, but commonly includes: `quotedMessageId` (platformMessageId this message replies to), `waInteractive` (a compact descriptor of WhatsApp interactive content sent: buttons / list / cta_url / flow / location_request), and for inbound interactive taps `interactiveType` / `interactiveId`.
+    /// Platform-specific extras. Free-form, but commonly includes: `quotedMessageId` (platformMessageId this message replies to), `waInteractive` (a compact descriptor of WhatsApp interactive content sent: buttons / list / cta_url / flow / location_request), and for inbound interactive taps `interactiveType` / `interactiveId`. It can also carry `source` (`whatsapp_business_app` / `coexistence_history` on a WhatsApp Coexistence number, `bulk-api` on a POST /v1/whatsapp/bulk send), which is where the message reached us from rather than who produced it: read `sentVia` for that.
     #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
     pub metadata: Option<std::collections::HashMap<String, serde_json::Value>>,
+    /// Which Zernio surface produced this outgoing message: `human` (an operator in the Zernio inbox), `api` (a call to this API), `broadcast`, `sequence`, `workflow`, `comment_automation`, or `bulk-api` (POST /v1/whatsapp/bulk). Same vocabulary as the `source` filter on the inbox analytics endpoints.  Always present, and `null` whenever the lineage is unknown: every incoming message, any outgoing message sent from the platform's own app, and every message stored before this field shipped (2026-08). Existing messages are NOT backfilled, so treat `null` as \"unknown\", never as \"sent by a human\".
+    #[serde(
+        rename = "sentVia",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub sent_via: Option<Option<SentVia>>,
 }
 
 impl GetInboxConversationMessages200ResponseMessagesInner {
@@ -170,6 +178,7 @@ impl GetInboxConversationMessages200ResponseMessagesInner {
             delivery_error: None,
             reactions: None,
             metadata: None,
+            sent_via: None,
         }
     }
 }
@@ -223,5 +232,29 @@ pub enum DeliveryStatus {
 impl Default for DeliveryStatus {
     fn default() -> DeliveryStatus {
         Self::Sent
+    }
+}
+/// Which Zernio surface produced this outgoing message: `human` (an operator in the Zernio inbox), `api` (a call to this API), `broadcast`, `sequence`, `workflow`, `comment_automation`, or `bulk-api` (POST /v1/whatsapp/bulk). Same vocabulary as the `source` filter on the inbox analytics endpoints.  Always present, and `null` whenever the lineage is unknown: every incoming message, any outgoing message sent from the platform's own app, and every message stored before this field shipped (2026-08). Existing messages are NOT backfilled, so treat `null` as \"unknown\", never as \"sent by a human\".
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum SentVia {
+    #[serde(rename = "human")]
+    Human,
+    #[serde(rename = "api")]
+    Api,
+    #[serde(rename = "broadcast")]
+    Broadcast,
+    #[serde(rename = "sequence")]
+    Sequence,
+    #[serde(rename = "workflow")]
+    Workflow,
+    #[serde(rename = "comment_automation")]
+    CommentAutomation,
+    #[serde(rename = "bulk-api")]
+    BulkApi,
+}
+
+impl Default for SentVia {
+    fn default() -> SentVia {
+        Self::Human
     }
 }

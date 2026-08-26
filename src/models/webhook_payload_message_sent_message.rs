@@ -39,9 +39,17 @@ pub struct WebhookPayloadMessageSentMessage {
     pub sent_at: String,
     #[serde(rename = "isRead")]
     pub is_read: bool,
-    /// WhatsApp send origin. whatsapp_business_app when sent from the WhatsApp Business phone app on a Coexistence number; cloud_api when sent through Zernio (dashboard, API, or broadcasts). Absent on non-WhatsApp platforms. This is not the inbox metadata.source lineage field.
+    /// WhatsApp send origin. whatsapp_business_app when sent from the WhatsApp Business phone app on a Coexistence number; cloud_api when sent through Zernio (dashboard, API, or broadcasts). Absent on non-WhatsApp platforms. Says where WhatsApp saw the send come from, not which Zernio surface produced it: read sentVia for that.
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Source>,
+    /// Which Zernio surface produced this message: `human` (an operator in the Zernio inbox), `api` (a call to this API), `broadcast`, `sequence`, `workflow`, `comment_automation`, or `bulk-api` (POST /v1/whatsapp/bulk). Same vocabulary as the `source` filter on the inbox analytics endpoints, and the same value a later GET on this message returns.  Always present, and `null` whenever the lineage is unknown: a message sent from the platform's own app, and every message stored before this field shipped (2026-08). Existing messages are NOT backfilled, so treat `null` as \"unknown\", never as \"sent by a human\".
+    #[serde(
+        rename = "sentVia",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub sent_via: Option<Option<SentVia>>,
 }
 
 impl WebhookPayloadMessageSentMessage {
@@ -69,6 +77,7 @@ impl WebhookPayloadMessageSentMessage {
             sent_at,
             is_read,
             source: None,
+            sent_via: None,
         }
     }
 }
@@ -112,7 +121,7 @@ impl Default for Direction {
         Self::Incoming
     }
 }
-/// WhatsApp send origin. whatsapp_business_app when sent from the WhatsApp Business phone app on a Coexistence number; cloud_api when sent through Zernio (dashboard, API, or broadcasts). Absent on non-WhatsApp platforms. This is not the inbox metadata.source lineage field.
+/// WhatsApp send origin. whatsapp_business_app when sent from the WhatsApp Business phone app on a Coexistence number; cloud_api when sent through Zernio (dashboard, API, or broadcasts). Absent on non-WhatsApp platforms. Says where WhatsApp saw the send come from, not which Zernio surface produced it: read sentVia for that.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Source {
     #[serde(rename = "whatsapp_business_app")]
@@ -124,5 +133,29 @@ pub enum Source {
 impl Default for Source {
     fn default() -> Source {
         Self::WhatsappBusinessApp
+    }
+}
+/// Which Zernio surface produced this message: `human` (an operator in the Zernio inbox), `api` (a call to this API), `broadcast`, `sequence`, `workflow`, `comment_automation`, or `bulk-api` (POST /v1/whatsapp/bulk). Same vocabulary as the `source` filter on the inbox analytics endpoints, and the same value a later GET on this message returns.  Always present, and `null` whenever the lineage is unknown: a message sent from the platform's own app, and every message stored before this field shipped (2026-08). Existing messages are NOT backfilled, so treat `null` as \"unknown\", never as \"sent by a human\".
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum SentVia {
+    #[serde(rename = "human")]
+    Human,
+    #[serde(rename = "api")]
+    Api,
+    #[serde(rename = "broadcast")]
+    Broadcast,
+    #[serde(rename = "sequence")]
+    Sequence,
+    #[serde(rename = "workflow")]
+    Workflow,
+    #[serde(rename = "comment_automation")]
+    CommentAutomation,
+    #[serde(rename = "bulk-api")]
+    BulkApi,
+}
+
+impl Default for SentVia {
+    fn default() -> SentVia {
+        Self::Human
     }
 }
