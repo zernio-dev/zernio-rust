@@ -110,6 +110,7 @@ Class | Method | HTTP request | Description
 *AdCampaignsApi* | [**create_standalone_ad**](docs/AdCampaignsApi.md#create_standalone_ad) | **POST** /v1/ads/create | Create standalone ad
 *AdCampaignsApi* | [**delete_ad**](docs/AdCampaignsApi.md#delete_ad) | **DELETE** /v1/ads/{adId} | Cancel an ad
 *AdCampaignsApi* | [**delete_ad_campaign**](docs/AdCampaignsApi.md#delete_ad_campaign) | **DELETE** /v1/ads/campaigns/{campaignId} | Delete a campaign
+*AdCampaignsApi* | [**delete_ad_set**](docs/AdCampaignsApi.md#delete_ad_set) | **DELETE** /v1/ads/ad-sets/{adSetId} | Delete an ad set
 *AdCampaignsApi* | [**duplicate_ad**](docs/AdCampaignsApi.md#duplicate_ad) | **POST** /v1/ads/{adId}/duplicate | Duplicate an ad
 *AdCampaignsApi* | [**duplicate_ad_campaign**](docs/AdCampaignsApi.md#duplicate_ad_campaign) | **POST** /v1/ads/campaigns/{campaignId}/duplicate | Duplicate a campaign
 *AdCampaignsApi* | [**duplicate_ad_set**](docs/AdCampaignsApi.md#duplicate_ad_set) | **POST** /v1/ads/ad-sets/{adSetId}/duplicate | Duplicate an ad set
@@ -1003,6 +1004,7 @@ Class | Method | HTTP request | Description
  - [DeleteAdCampaign200Response](docs/DeleteAdCampaign200Response.md)
  - [DeleteAdCampaignRequest](docs/DeleteAdCampaignRequest.md)
  - [DeleteAdCreative200Response](docs/DeleteAdCreative200Response.md)
+ - [DeleteAdSet200Response](docs/DeleteAdSet200Response.md)
  - [DeleteAdVideo200Response](docs/DeleteAdVideo200Response.md)
  - [DeleteDiscordScheduledEvent200Response](docs/DeleteDiscordScheduledEvent200Response.md)
  - [DeleteGoogleBusinessMedia200Response](docs/DeleteGoogleBusinessMedia200Response.md)

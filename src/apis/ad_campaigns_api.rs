@@ -85,6 +85,16 @@ pub enum DeleteAdCampaignError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`delete_ad_set`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteAdSetError {
+    Status401(models::InlineObject),
+    Status404(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`duplicate_ad`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -625,6 +635,59 @@ pub async fn delete_ad_campaign(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteAdCampaignError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Deletes the ad set on the platform, cascading to its ads only (never the campaign). Locally, every Ad document under the ad set is marked `status: cancelled`.  Delete is soft on platforms that have no hard delete: LinkedIn moves the campaign to `PENDING_DELETION`, Pinterest archives the ad group, and X soft-flags the line item. Google removes the ad group. All remain readable for reporting.
+pub async fn delete_ad_set(
+    configuration: &configuration::Configuration,
+    ad_set_id: &str,
+) -> Result<models::DeleteAdSet200Response, Error<DeleteAdSetError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_ad_set_id = ad_set_id;
+
+    let uri_str = format!(
+        "{}/v1/ads/ad-sets/{adSetId}",
+        configuration.base_path,
+        adSetId = crate::apis::urlencode(p_path_ad_set_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteAdSet200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteAdSet200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteAdSetError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

@@ -388,6 +388,7 @@ docs/DeleteAccountGroup200Response.md
 docs/DeleteAdCampaign200Response.md
 docs/DeleteAdCampaignRequest.md
 docs/DeleteAdCreative200Response.md
+docs/DeleteAdSet200Response.md
 docs/DeleteAdVideo200Response.md
 docs/DeleteDiscordScheduledEvent200Response.md
 docs/DeleteGoogleBusinessMedia200Response.md
@@ -2232,6 +2233,7 @@ src/models/delete_account_group_200_response.rs
 src/models/delete_ad_campaign_200_response.rs
 src/models/delete_ad_campaign_request.rs
 src/models/delete_ad_creative_200_response.rs
+src/models/delete_ad_set_200_response.rs
 src/models/delete_ad_video_200_response.rs
 src/models/delete_discord_scheduled_event_200_response.rs
 src/models/delete_google_business_media_200_response.rs

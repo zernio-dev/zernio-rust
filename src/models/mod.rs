@@ -728,6 +728,8 @@ pub mod delete_ad_campaign_request;
 pub use self::delete_ad_campaign_request::DeleteAdCampaignRequest;
 pub mod delete_ad_creative_200_response;
 pub use self::delete_ad_creative_200_response::DeleteAdCreative200Response;
+pub mod delete_ad_set_200_response;
+pub use self::delete_ad_set_200_response::DeleteAdSet200Response;
 pub mod delete_ad_video_200_response;
 pub use self::delete_ad_video_200_response::DeleteAdVideo200Response;
 pub mod delete_discord_scheduled_event_200_response;
