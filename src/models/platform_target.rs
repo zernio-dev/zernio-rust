@@ -26,11 +26,12 @@ pub struct PlatformTarget {
     /// Optional per-platform scheduled time override (uses post.scheduledFor when omitted)
     #[serde(rename = "scheduledFor", skip_serializing_if = "Option::is_none")]
     pub scheduled_for: Option<String>,
+    /// The platform-specific options stored on this target, echoed back as they were sent. Typed per platform on the way in (see the *PlatformData schemas on the request body); free-form on the way out, because a response is not guaranteed to match exactly one of those variants and generated clients that pick a variant by structure reject the entire response when it doesn't. Zernio's internal publishing state (snapshots, container ids, publish stage) is never returned here, and the key is omitted rather than sent as an empty object.
     #[serde(
         rename = "platformSpecificData",
         skip_serializing_if = "Option::is_none"
     )]
-    pub platform_specific_data: Option<Box<models::PlatformTargetPlatformSpecificData>>,
+    pub platform_specific_data: Option<std::collections::HashMap<String, serde_json::Value>>,
     /// Platform-specific status: pending, publishing, published, failed
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,

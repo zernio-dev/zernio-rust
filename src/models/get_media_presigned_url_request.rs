@@ -16,70 +16,22 @@ pub struct GetMediaPresignedUrlRequest {
     /// Name of the file to upload
     #[serde(rename = "filename")]
     pub filename: String,
-    /// MIME type of the file
     #[serde(rename = "contentType")]
-    pub content_type: ContentType,
+    pub content_type: models::MediaContentType,
     /// Optional file size in bytes for pre-validation (max 5GB)
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
     pub size: Option<i32>,
 }
 
 impl GetMediaPresignedUrlRequest {
-    pub fn new(filename: String, content_type: ContentType) -> GetMediaPresignedUrlRequest {
+    pub fn new(
+        filename: String,
+        content_type: models::MediaContentType,
+    ) -> GetMediaPresignedUrlRequest {
         GetMediaPresignedUrlRequest {
             filename,
             content_type,
             size: None,
         }
-    }
-}
-/// MIME type of the file
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum ContentType {
-    #[serde(rename = "image/jpeg")]
-    ImageSlashJpeg,
-    #[serde(rename = "image/jpg")]
-    ImageSlashJpg,
-    #[serde(rename = "image/png")]
-    ImageSlashPng,
-    #[serde(rename = "image/webp")]
-    ImageSlashWebp,
-    #[serde(rename = "image/gif")]
-    ImageSlashGif,
-    #[serde(rename = "video/mp4")]
-    VideoSlashMp4,
-    #[serde(rename = "video/mpeg")]
-    VideoSlashMpeg,
-    #[serde(rename = "video/quicktime")]
-    VideoSlashQuicktime,
-    #[serde(rename = "video/avi")]
-    VideoSlashAvi,
-    #[serde(rename = "video/x-msvideo")]
-    VideoSlashXMsvideo,
-    #[serde(rename = "video/webm")]
-    VideoSlashWebm,
-    #[serde(rename = "video/x-m4v")]
-    VideoSlashXM4v,
-    #[serde(rename = "application/pdf")]
-    ApplicationSlashPdf,
-    #[serde(rename = "audio/mpeg")]
-    AudioSlashMpeg,
-    #[serde(rename = "audio/mp4")]
-    AudioSlashMp4,
-    #[serde(rename = "audio/aac")]
-    AudioSlashAac,
-    #[serde(rename = "audio/ogg")]
-    AudioSlashOgg,
-    #[serde(rename = "audio/wav")]
-    AudioSlashWav,
-    #[serde(rename = "audio/webm")]
-    AudioSlashWebm,
-    #[serde(rename = "audio/x-m4a")]
-    AudioSlashXM4a,
-}
-
-impl Default for ContentType {
-    fn default() -> ContentType {
-        Self::ImageSlashJpeg
     }
 }

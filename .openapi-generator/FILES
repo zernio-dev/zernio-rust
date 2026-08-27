@@ -1092,6 +1092,7 @@ docs/LogsApi.md
 docs/LookupSmsNumber200Response.md
 docs/MarkConversationRead200Response.md
 docs/MediaApi.md
+docs/MediaContentType.md
 docs/MediaItem.md
 docs/MediaUploadResponse.md
 docs/MentionsApi.md
@@ -1131,7 +1132,6 @@ docs/PinterestPlatformData.md
 docs/PlatformAnalytics.md
 docs/PlatformTarget.md
 docs/PlatformTargetAccountId.md
-docs/PlatformTargetPlatformSpecificData.md
 docs/Post.md
 docs/PostAnalytics.md
 docs/PostCreateResponse.md
@@ -2920,6 +2920,7 @@ src/models/list_workflows_200_response.rs
 src/models/list_workflows_200_response_workflows_inner.rs
 src/models/lookup_sms_number_200_response.rs
 src/models/mark_conversation_read_200_response.rs
+src/models/media_content_type.rs
 src/models/media_item.rs
 src/models/media_upload_response.rs
 src/models/meta_ads_platform_data.rs
@@ -2956,7 +2957,6 @@ src/models/pinterest_platform_data.rs
 src/models/platform_analytics.rs
 src/models/platform_target.rs
 src/models/platform_target_account_id.rs
-src/models/platform_target_platform_specific_data.rs
 src/models/post.rs
 src/models/post_analytics.rs
 src/models/post_create_response.rs
