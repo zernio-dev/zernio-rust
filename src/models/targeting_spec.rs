@@ -29,7 +29,7 @@ pub struct TargetingSpec {
     /// DMA / metro-area targeting. `key` is the platform's metro ID (e.g. Meta `DMA:807`).
     #[serde(rename = "metros", skip_serializing_if = "Option::is_none")]
     pub metros: Option<Vec<models::BoostPostRequestTargetingRegionsInner>>,
-    /// Point-radius (lat/lng) targeting (Meta custom_locations / Google proximity). Honoured only where the capability map allows radius (Meta).
+    /// Point-radius (lat/lng) targeting (Meta custom_locations / Google proximity). Honoured on Meta and Google; ignored on platforms without radius support.
     #[serde(rename = "customLocations", skip_serializing_if = "Option::is_none")]
     pub custom_locations: Option<Vec<models::TargetingSpecCustomLocationsInner>>,
     #[serde(rename = "excludedLocations", skip_serializing_if = "Option::is_none")]
