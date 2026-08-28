@@ -55,6 +55,8 @@ pub struct CreateInboxConversationRequest {
         Option<Vec<models::CreateInboxConversationRequestTemplateButtonParamsInner>>,
     #[serde(rename = "headerMedia", skip_serializing_if = "Option::is_none")]
     pub header_media: Option<Box<models::CreateInboxConversationRequestHeaderMedia>>,
+    #[serde(rename = "headerLocation", skip_serializing_if = "Option::is_none")]
+    pub header_location: Option<Box<models::CreateInboxConversationRequestHeaderLocation>>,
 }
 
 impl CreateInboxConversationRequest {
@@ -72,6 +74,7 @@ impl CreateInboxConversationRequest {
             template_params: None,
             template_button_params: None,
             header_media: None,
+            header_location: None,
         }
     }
 }

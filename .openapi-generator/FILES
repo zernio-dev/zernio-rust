@@ -265,6 +265,7 @@ docs/CreateInboxConversation404Response.md
 docs/CreateInboxConversation422Response.md
 docs/CreateInboxConversation429Response.md
 docs/CreateInboxConversationRequest.md
+docs/CreateInboxConversationRequestHeaderLocation.md
 docs/CreateInboxConversationRequestHeaderMedia.md
 docs/CreateInboxConversationRequestTemplateButtonParamsInner.md
 docs/CreateInviteToken201Response.md
@@ -2128,6 +2129,7 @@ src/models/create_inbox_conversation_404_response.rs
 src/models/create_inbox_conversation_422_response.rs
 src/models/create_inbox_conversation_429_response.rs
 src/models/create_inbox_conversation_request.rs
+src/models/create_inbox_conversation_request_header_location.rs
 src/models/create_inbox_conversation_request_header_media.rs
 src/models/create_inbox_conversation_request_template_button_params_inner.rs
 src/models/create_invite_token_201_response.rs

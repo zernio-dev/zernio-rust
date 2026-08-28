@@ -887,6 +887,7 @@ Class | Method | HTTP request | Description
  - [CreateInboxConversation422Response](docs/CreateInboxConversation422Response.md)
  - [CreateInboxConversation429Response](docs/CreateInboxConversation429Response.md)
  - [CreateInboxConversationRequest](docs/CreateInboxConversationRequest.md)
+ - [CreateInboxConversationRequestHeaderLocation](docs/CreateInboxConversationRequestHeaderLocation.md)
  - [CreateInboxConversationRequestHeaderMedia](docs/CreateInboxConversationRequestHeaderMedia.md)
  - [CreateInboxConversationRequestTemplateButtonParamsInner](docs/CreateInboxConversationRequestTemplateButtonParamsInner.md)
  - [CreateInviteToken201Response](docs/CreateInviteToken201Response.md)
