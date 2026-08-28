@@ -141,6 +141,13 @@ pub enum OnMessageSentError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`on_phone_number_stock_available`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnPhoneNumberStockAvailableError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`on_post_cancelled`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -902,6 +909,36 @@ pub async fn on_message_sent(configuration: &configuration::Configuration, webho
     } else {
         let content = resp.text().await?;
         let entity: Option<OnMessageSentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired by the stock sweep (every 6h) the first time a country you watch via POST /v1/phone-numbers/stock-watches has deliverable numbers again. The watch is consumed, so the event fires once per watch; the stock counts are a snapshot and numbers are sold first come, first served. Buy with POST /v1/phone-numbers/purchase. 
+pub async fn on_phone_number_stock_available(configuration: &configuration::Configuration, webhook_payload_phone_number_stock_available: models::WebhookPayloadPhoneNumberStockAvailable) -> Result<(), Error<OnPhoneNumberStockAvailableError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_payload_phone_number_stock_available = webhook_payload_phone_number_stock_available;
+
+    let uri_str = format!("{}/phone_number.stock_available", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_payload_phone_number_stock_available);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnPhoneNumberStockAvailableError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

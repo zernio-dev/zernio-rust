@@ -9,6 +9,8 @@ Method | HTTP request | Description
 [**check_phone_number_portability**](PhoneNumbersApi.md#check_phone_number_portability) | **POST** /v1/phone-numbers/port-in/check | Check portability
 [**create_phone_number_kyc_link**](PhoneNumbersApi.md#create_phone_number_kyc_link) | **POST** /v1/phone-numbers/kyc/share | Create a hosted KYC link
 [**create_phone_number_port_in**](PhoneNumbersApi.md#create_phone_number_port_in) | **POST** /v1/phone-numbers/port-in | Port numbers in
+[**create_phone_number_stock_watch**](PhoneNumbersApi.md#create_phone_number_stock_watch) | **POST** /v1/phone-numbers/stock-watches | Watch an out-of-stock country
+[**delete_phone_number_stock_watch**](PhoneNumbersApi.md#delete_phone_number_stock_watch) | **DELETE** /v1/phone-numbers/stock-watches/{id} | Stop watching a country
 [**get_phone_number**](PhoneNumbersApi.md#get_phone_number) | **GET** /v1/phone-numbers/{id} | Get phone number
 [**get_phone_number_kyc_form**](PhoneNumbersApi.md#get_phone_number_kyc_form) | **GET** /v1/phone-numbers/kyc | Get KYC form spec
 [**get_phone_number_port_in_order_requirements**](PhoneNumbersApi.md#get_phone_number_port_in_order_requirements) | **GET** /v1/phone-numbers/port-in/{id}/requirements | A port-in order's pending requirements
@@ -16,6 +18,7 @@ Method | HTTP request | Description
 [**get_phone_number_remediation**](PhoneNumbersApi.md#get_phone_number_remediation) | **GET** /v1/phone-numbers/{id}/remediate | Get declined requirements
 [**list_phone_number_countries**](PhoneNumbersApi.md#list_phone_number_countries) | **GET** /v1/phone-numbers/countries | List offerable number countries
 [**list_phone_number_port_ins**](PhoneNumbersApi.md#list_phone_number_port_ins) | **GET** /v1/phone-numbers/port-in | List port-in orders
+[**list_phone_number_stock_watches**](PhoneNumbersApi.md#list_phone_number_stock_watches) | **GET** /v1/phone-numbers/stock-watches | List stock watches
 [**list_phone_numbers**](PhoneNumbersApi.md#list_phone_numbers) | **GET** /v1/phone-numbers | List phone numbers
 [**purchase_phone_number**](PhoneNumbersApi.md#purchase_phone_number) | **POST** /v1/phone-numbers/purchase | Purchase phone number
 [**release_phone_number**](PhoneNumbersApi.md#release_phone_number) | **DELETE** /v1/phone-numbers/{id} | Release phone number
@@ -179,6 +182,64 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_phone_number_stock_watch
+
+> models::PhoneNumberStockWatch create_phone_number_stock_watch(create_phone_number_stock_watch_request)
+Watch an out-of-stock country
+
+Get notified the first time an out-of-stock country has deliverable numbers again: an email to the account holder plus the `phone_number.stock_available` webhook. Stock is re-checked every 6h. One watch per country; a repeat request returns the existing watch (200). The watch is consumed when it fires, so re-create it if you miss the stock. Up to 20 countries can be watched at once. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_phone_number_stock_watch_request** | [**CreatePhoneNumberStockWatchRequest**](CreatePhoneNumberStockWatchRequest.md) |  | [required] |
+
+### Return type
+
+[**models::PhoneNumberStockWatch**](PhoneNumberStockWatch.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_phone_number_stock_watch
+
+> models::DeleteSmsSenderId200Response delete_phone_number_stock_watch(id)
+Stop watching a country
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+[**models::DeleteSmsSenderId200Response**](deleteSmsSenderId_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -377,6 +438,31 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**models::ListPhoneNumberPortIns200Response**](listPhoneNumberPortIns_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_phone_number_stock_watches
+
+> models::ListPhoneNumberStockWatches200Response list_phone_number_stock_watches()
+List stock watches
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::ListPhoneNumberStockWatches200Response**](listPhoneNumberStockWatches_200_response.md)
 
 ### Authorization
 

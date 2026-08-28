@@ -153,6 +153,8 @@ pub enum Events {
     WhatsappNumberReleased,
     #[serde(rename = "whatsapp.number.kyc_submitted")]
     WhatsappNumberKycSubmitted,
+    #[serde(rename = "phone_number.stock_available")]
+    PhoneNumberStockAvailable,
     #[serde(rename = "verification.approved")]
     VerificationApproved,
     #[serde(rename = "verification.failed")]

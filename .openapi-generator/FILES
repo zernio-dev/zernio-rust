@@ -282,6 +282,7 @@ docs/CreatePhoneNumberPortIn201ResponseOrdersInner.md
 docs/CreatePhoneNumberPortInRequest.md
 docs/CreatePhoneNumberPortInRequestEndUser.md
 docs/CreatePhoneNumberPortInRequestRequirementsInner.md
+docs/CreatePhoneNumberStockWatchRequest.md
 docs/CreatePinterestBoard201Response.md
 docs/CreatePinterestBoard201ResponseBoard.md
 docs/CreatePinterestBoardRequest.md
@@ -1023,6 +1024,7 @@ docs/ListPhoneNumberCountries200ResponseCountriesInner.md
 docs/ListPhoneNumberCountries200ResponseCountriesInnerTypesInner.md
 docs/ListPhoneNumberPortIns200Response.md
 docs/ListPhoneNumberPortIns200ResponseOrdersInner.md
+docs/ListPhoneNumberStockWatches200Response.md
 docs/ListPhoneNumbers200Response.md
 docs/ListPhoneNumbers200ResponseConnectedInner.md
 docs/ListPhoneNumbers200ResponseNumbersInner.md
@@ -1130,6 +1132,7 @@ docs/OnWhatsAppNumberVerificationRequiredRequest.md
 docs/Pagination.md
 docs/PauseWorkflow200Response.md
 docs/Pending.md
+docs/PhoneNumberStockWatch.md
 docs/PhoneNumbersApi.md
 docs/PinDiscordMessage200Response.md
 docs/PinterestPlatformData.md
@@ -1712,6 +1715,9 @@ docs/WebhookPayloadMessageSentMessage.md
 docs/WebhookPayloadMessageSentMessageAttachmentsInner.md
 docs/WebhookPayloadMessageSentMessageSender.md
 docs/WebhookPayloadMessageSentMetadata.md
+docs/WebhookPayloadPhoneNumberStockAvailable.md
+docs/WebhookPayloadPhoneNumberStockAvailableStock.md
+docs/WebhookPayloadPhoneNumberStockAvailableStockTypesInner.md
 docs/WebhookPayloadPost.md
 docs/WebhookPayloadPostPlatform.md
 docs/WebhookPayloadPostPlatformAccount.md
@@ -2137,6 +2143,7 @@ src/models/create_phone_number_port_in_201_response_orders_inner.rs
 src/models/create_phone_number_port_in_request.rs
 src/models/create_phone_number_port_in_request_end_user.rs
 src/models/create_phone_number_port_in_request_requirements_inner.rs
+src/models/create_phone_number_stock_watch_request.rs
 src/models/create_pinterest_board_201_response.rs
 src/models/create_pinterest_board_201_response_board.rs
 src/models/create_pinterest_board_request.rs
@@ -2863,6 +2870,7 @@ src/models/list_phone_number_countries_200_response_countries_inner.rs
 src/models/list_phone_number_countries_200_response_countries_inner_types_inner.rs
 src/models/list_phone_number_port_ins_200_response.rs
 src/models/list_phone_number_port_ins_200_response_orders_inner.rs
+src/models/list_phone_number_stock_watches_200_response.rs
 src/models/list_phone_numbers_200_response.rs
 src/models/list_phone_numbers_200_response_connected_inner.rs
 src/models/list_phone_numbers_200_response_numbers_inner.rs
@@ -2966,6 +2974,7 @@ src/models/on_whats_app_number_verification_required_request.rs
 src/models/pagination.rs
 src/models/pause_workflow_200_response.rs
 src/models/pending.rs
+src/models/phone_number_stock_watch.rs
 src/models/pin_discord_message_200_response.rs
 src/models/pinterest_platform_data.rs
 src/models/platform_analytics.rs
@@ -3530,6 +3539,9 @@ src/models/webhook_payload_message_sent_message.rs
 src/models/webhook_payload_message_sent_message_attachments_inner.rs
 src/models/webhook_payload_message_sent_message_sender.rs
 src/models/webhook_payload_message_sent_metadata.rs
+src/models/webhook_payload_phone_number_stock_available.rs
+src/models/webhook_payload_phone_number_stock_available_stock.rs
+src/models/webhook_payload_phone_number_stock_available_stock_types_inner.rs
 src/models/webhook_payload_post.rs
 src/models/webhook_payload_post_platform.rs
 src/models/webhook_payload_post_platform_account.rs
