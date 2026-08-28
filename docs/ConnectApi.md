@@ -28,6 +28,7 @@ Method | HTTP request | Description
 [**get_shopify_connect_url**](ConnectApi.md#get_shopify_connect_url) | **GET** /v1/connect/shopify | Get Shopify OAuth connect URL
 [**get_subreddit_rules**](ConnectApi.md#get_subreddit_rules) | **GET** /v1/accounts/{accountId}/reddit-subreddits/{subreddit}/rules | Get subreddit rules
 [**get_telegram_connect_status**](ConnectApi.md#get_telegram_connect_status) | **GET** /v1/connect/telegram | Generate Telegram code
+[**get_youtube_captions**](ConnectApi.md#get_youtube_captions) | **GET** /v1/accounts/{accountId}/youtube-captions | Get a YouTube video transcript
 [**get_youtube_playlists**](ConnectApi.md#get_youtube_playlists) | **GET** /v1/accounts/{accountId}/youtube-playlists | List YouTube playlists
 [**handle_o_auth_callback**](ConnectApi.md#handle_o_auth_callback) | **POST** /v1/connect/{platform} | Complete OAuth callback
 [**initiate_telegram_connect**](ConnectApi.md#initiate_telegram_connect) | **POST** /v1/connect/telegram | Connect Telegram directly
@@ -785,6 +786,40 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetTelegramConnectStatus200Response**](getTelegramConnectStatus_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_youtube_captions
+
+> models::GetYoutubeCaptions200Response get_youtube_captions(account_id, video_id, language, format, refresh)
+Get a YouTube video transcript
+
+Returns the caption track YouTube already holds for one of the connected channel's own videos, as plain text plus timed cues. Use it instead of downloading and transcribing the video yourself.  Auto-generated (ASR) tracks are included: YouTube serves them to the channel owner, which is what the connected account is. Uploaded tracks win over auto-generated ones when both exist for a language.  Caching: we store the transcript on first read and serve it from there afterwards, so you do not need to cache it yourself. A cached read costs no YouTube quota and does not call YouTube at all. `source` tells you which happened (`youtube` on the first read, `cache` after). Pass `refresh=true` only when the captions actually changed on YouTube, since that re-downloads.  Notes: - Only videos owned by this connected channel. Anything else returns 404. - `contentDetails.caption` in YouTube's own API reads `false` on videos that DO have a serving auto-generated track, so it is not a usable availability signal. Call this endpoint and handle the 404. - YouTube generates auto-captions only for videos with recognisable speech, and can take a few hours after upload to publish them. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The connected YouTube account. | [required] |
+**video_id** | **String** | The YouTube video id (the `platformPostId` on a synced external post). | [required] |
+**language** | Option<**String**> | BCP-47 language tag as YouTube labels the track. `en` also matches an `en-GB` track. Omit to take the best available track. |  |
+**format** | Option<**String**> | `json` returns timed `cues`; `srt` returns the raw SubRip body instead. `text` is present either way. |  |[default to json]
+**refresh** | Option<**bool**> | Re-download from YouTube instead of serving the stored copy. Spends 200 quota units. |  |[default to false]
+
+### Return type
+
+[**models::GetYoutubeCaptions200Response**](getYoutubeCaptions_200_response.md)
 
 ### Authorization
 

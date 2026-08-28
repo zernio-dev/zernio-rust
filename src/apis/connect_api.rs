@@ -274,6 +274,16 @@ pub enum GetTelegramConnectStatusError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_youtube_captions`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetYoutubeCaptionsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status404(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_youtube_playlists`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -1844,6 +1854,75 @@ pub async fn get_telegram_connect_status(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTelegramConnectStatusError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns the caption track YouTube already holds for one of the connected channel's own videos, as plain text plus timed cues. Use it instead of downloading and transcribing the video yourself.  Auto-generated (ASR) tracks are included: YouTube serves them to the channel owner, which is what the connected account is. Uploaded tracks win over auto-generated ones when both exist for a language.  Caching: we store the transcript on first read and serve it from there afterwards, so you do not need to cache it yourself. A cached read costs no YouTube quota and does not call YouTube at all. `source` tells you which happened (`youtube` on the first read, `cache` after). Pass `refresh=true` only when the captions actually changed on YouTube, since that re-downloads.  Notes: - Only videos owned by this connected channel. Anything else returns 404. - `contentDetails.caption` in YouTube's own API reads `false` on videos that DO have a serving auto-generated track, so it is not a usable availability signal. Call this endpoint and handle the 404. - YouTube generates auto-captions only for videos with recognisable speech, and can take a few hours after upload to publish them.
+pub async fn get_youtube_captions(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    video_id: &str,
+    language: Option<&str>,
+    format: Option<&str>,
+    refresh: Option<bool>,
+) -> Result<models::GetYoutubeCaptions200Response, Error<GetYoutubeCaptionsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_query_video_id = video_id;
+    let p_query_language = language;
+    let p_query_format = format;
+    let p_query_refresh = refresh;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/youtube-captions",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("videoId", &p_query_video_id.to_string())]);
+    if let Some(ref param_value) = p_query_language {
+        req_builder = req_builder.query(&[("language", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_format {
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_refresh {
+        req_builder = req_builder.query(&[("refresh", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetYoutubeCaptions200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetYoutubeCaptions200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetYoutubeCaptionsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

@@ -809,6 +809,9 @@ docs/GetYouTubeDailyViews500Response.md
 docs/GetYouTubeDemographics412Response.md
 docs/GetYouTubeDemographics412ResponseScopeStatus.md
 docs/GetYouTubeVideoRetention404Response.md
+docs/GetYoutubeCaptions200Response.md
+docs/GetYoutubeCaptions200ResponseAvailableTracksInner.md
+docs/GetYoutubeCaptions200ResponseCuesInner.md
 docs/GetYoutubePlaylists200Response.md
 docs/GetYoutubePlaylists200ResponsePlaylistsInner.md
 docs/GmbAttributesApi.md
@@ -2653,6 +2656,9 @@ src/models/get_you_tube_daily_views_500_response.rs
 src/models/get_you_tube_demographics_412_response.rs
 src/models/get_you_tube_demographics_412_response_scope_status.rs
 src/models/get_you_tube_video_retention_404_response.rs
+src/models/get_youtube_captions_200_response.rs
+src/models/get_youtube_captions_200_response_available_tracks_inner.rs
+src/models/get_youtube_captions_200_response_cues_inner.rs
 src/models/get_youtube_playlists_200_response.rs
 src/models/get_youtube_playlists_200_response_playlists_inner.rs
 src/models/google_business_platform_data.rs

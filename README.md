@@ -248,6 +248,7 @@ Class | Method | HTTP request | Description
 *ConnectApi* | [**get_shopify_connect_url**](docs/ConnectApi.md#get_shopify_connect_url) | **GET** /v1/connect/shopify | Get Shopify OAuth connect URL
 *ConnectApi* | [**get_subreddit_rules**](docs/ConnectApi.md#get_subreddit_rules) | **GET** /v1/accounts/{accountId}/reddit-subreddits/{subreddit}/rules | Get subreddit rules
 *ConnectApi* | [**get_telegram_connect_status**](docs/ConnectApi.md#get_telegram_connect_status) | **GET** /v1/connect/telegram | Generate Telegram code
+*ConnectApi* | [**get_youtube_captions**](docs/ConnectApi.md#get_youtube_captions) | **GET** /v1/accounts/{accountId}/youtube-captions | Get a YouTube video transcript
 *ConnectApi* | [**get_youtube_playlists**](docs/ConnectApi.md#get_youtube_playlists) | **GET** /v1/accounts/{accountId}/youtube-playlists | List YouTube playlists
 *ConnectApi* | [**handle_o_auth_callback**](docs/ConnectApi.md#handle_o_auth_callback) | **POST** /v1/connect/{platform} | Complete OAuth callback
 *ConnectApi* | [**initiate_telegram_connect**](docs/ConnectApi.md#initiate_telegram_connect) | **POST** /v1/connect/telegram | Connect Telegram directly
@@ -1424,6 +1425,9 @@ Class | Method | HTTP request | Description
  - [GetYouTubeDemographics412Response](docs/GetYouTubeDemographics412Response.md)
  - [GetYouTubeDemographics412ResponseScopeStatus](docs/GetYouTubeDemographics412ResponseScopeStatus.md)
  - [GetYouTubeVideoRetention404Response](docs/GetYouTubeVideoRetention404Response.md)
+ - [GetYoutubeCaptions200Response](docs/GetYoutubeCaptions200Response.md)
+ - [GetYoutubeCaptions200ResponseAvailableTracksInner](docs/GetYoutubeCaptions200ResponseAvailableTracksInner.md)
+ - [GetYoutubeCaptions200ResponseCuesInner](docs/GetYoutubeCaptions200ResponseCuesInner.md)
  - [GetYoutubePlaylists200Response](docs/GetYoutubePlaylists200Response.md)
  - [GetYoutubePlaylists200ResponsePlaylistsInner](docs/GetYoutubePlaylists200ResponsePlaylistsInner.md)
  - [GoogleBusinessPlatformData](docs/GoogleBusinessPlatformData.md)
