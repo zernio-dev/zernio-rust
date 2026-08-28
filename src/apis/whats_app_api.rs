@@ -95,9 +95,21 @@ pub enum DeleteWhatsAppGroupChatError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteWhatsAppTemplateError {
-    Status400(),
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status404(),
+    Status409(models::GetWhatsAppTemplate409Response),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`delete_whats_app_template_by_id`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteWhatsAppTemplateByIdError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
 }
@@ -183,9 +195,21 @@ pub enum GetWhatsAppMediaError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetWhatsAppTemplateError {
-    Status400(),
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status404(),
+    Status409(models::GetWhatsAppTemplate409Response),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_whats_app_template_by_id`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetWhatsAppTemplateByIdError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
 }
@@ -348,9 +372,21 @@ pub enum UpdateWhatsAppGroupChatError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateWhatsAppTemplateError {
-    Status400(),
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status404(),
+    Status409(models::GetWhatsAppTemplate409Response),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_whats_app_template_by_id`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateWhatsAppTemplateByIdError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
 }
@@ -803,20 +839,81 @@ pub async fn delete_whats_app_group_chat(
     }
 }
 
-/// Permanently delete a message template by name.
+/// Permanently delete a message template.  **Without `language` this deletes every language variant of the name** (Meta's own contract for deletion by name). Pass `language` to delete one variant only; the response `scope` says which happened. Meta keeps a deleted approved template in `PENDING_DELETION` for a while and the name cannot be reused for 30 days.
 pub async fn delete_whats_app_template(
     configuration: &configuration::Configuration,
     template_name: &str,
     account_id: &str,
-) -> Result<models::UnpublishPost200Response, Error<DeleteWhatsAppTemplateError>> {
+    language: Option<&str>,
+) -> Result<models::DeleteWhatsAppTemplate200Response, Error<DeleteWhatsAppTemplateError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_template_name = template_name;
     let p_query_account_id = account_id;
+    let p_query_language = language;
 
     let uri_str = format!(
         "{}/v1/whatsapp/templates/{templateName}",
         configuration.base_path,
         templateName = crate::apis::urlencode(p_path_template_name)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_language {
+        req_builder = req_builder.query(&[("language", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteWhatsAppTemplate200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteWhatsAppTemplate200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteWhatsAppTemplateError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Delete one language variant by its Meta id. Other languages of the same name are untouched. The name cannot be reused for 30 days once its last variant is deleted.
+pub async fn delete_whats_app_template_by_id(
+    configuration: &configuration::Configuration,
+    template_id: &str,
+    account_id: &str,
+) -> Result<models::DeleteWhatsAppTemplateById200Response, Error<DeleteWhatsAppTemplateByIdError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_template_id = template_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/templates/id/{templateId}",
+        configuration.base_path,
+        templateId = crate::apis::urlencode(p_path_template_id)
     );
     let mut req_builder = configuration
         .client
@@ -845,12 +942,12 @@ pub async fn delete_whats_app_template(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UnpublishPost200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UnpublishPost200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteWhatsAppTemplateById200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteWhatsAppTemplateById200Response`")))),
         }
     } else {
         let content = resp.text().await?;
-        let entity: Option<DeleteWhatsAppTemplateError> = serde_json::from_str(&content).ok();
+        let entity: Option<DeleteWhatsAppTemplateByIdError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1270,15 +1367,17 @@ pub async fn get_whats_app_media(
     }
 }
 
-/// Retrieve a single message template by name.
+/// Retrieve one message template variant by name.  Meta stores one template per **name + language**, so a name identifies a family of variants, each with its own Meta id. Pass `language` to address one variant. Without it, a name with a single variant resolves to that variant; a name with several returns `409 ambiguous_template` with `details.languages`. A bare language (`es`) matches a single regional variant (`es_ES`); if the family has several regional variants for it, that is also a 409. A full code (`es_ES`) must match exactly. Variants in `PENDING_DELETION` are not part of the family.
 pub async fn get_whats_app_template(
     configuration: &configuration::Configuration,
     template_name: &str,
     account_id: &str,
+    language: Option<&str>,
 ) -> Result<models::GetWhatsAppTemplate200Response, Error<GetWhatsAppTemplateError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_template_name = template_name;
     let p_query_account_id = account_id;
+    let p_query_language = language;
 
     let uri_str = format!(
         "{}/v1/whatsapp/templates/{templateName}",
@@ -1288,6 +1387,9 @@ pub async fn get_whats_app_template(
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_language {
+        req_builder = req_builder.query(&[("language", &param_value.to_string())]);
+    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -1324,18 +1426,87 @@ pub async fn get_whats_app_template(
     }
 }
 
-/// List all message templates for the WhatsApp Business Account (WABA) associated with the given account. Templates are fetched directly from the WhatsApp Cloud API.
+/// Retrieve one template variant by its Meta id, the id every variant of a family has on its own and the one the `whatsapp.template.status_updated` webhook carries.
+pub async fn get_whats_app_template_by_id(
+    configuration: &configuration::Configuration,
+    template_id: &str,
+    account_id: &str,
+) -> Result<models::GetWhatsAppTemplate200Response, Error<GetWhatsAppTemplateByIdError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_template_id = template_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/templates/id/{templateId}",
+        configuration.base_path,
+        templateId = crate::apis::urlencode(p_path_template_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetWhatsAppTemplate200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetWhatsAppTemplate200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetWhatsAppTemplateByIdError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// List message templates for the WhatsApp Business Account (WABA) associated with the given account. Templates are fetched directly from the WhatsApp Cloud API. One entry per **name + language**: a multi-language template appears once per language, each with its own Meta `id`.
 pub async fn get_whats_app_templates(
     configuration: &configuration::Configuration,
     account_id: &str,
+    name: Option<&str>,
+    language: Option<&str>,
+    status: Option<&str>,
 ) -> Result<models::GetWhatsAppTemplates200Response, Error<GetWhatsAppTemplatesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_account_id = account_id;
+    let p_query_name = name;
+    let p_query_language = language;
+    let p_query_status = status;
 
     let uri_str = format!("{}/v1/whatsapp/templates", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_name {
+        req_builder = req_builder.query(&[("name", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_language {
+        req_builder = req_builder.query(&[("language", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_status {
+        req_builder = req_builder.query(&[("status", &param_value.to_string())]);
+    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -2197,7 +2368,7 @@ pub async fn update_whats_app_group_chat(
     }
 }
 
-/// Update a message template's components. Only certain fields can be updated depending on the template's current approval state. Approved templates can only have components updated.  A successful update sends the template back to Meta for review, so the `status` returned here is normally `PENDING`. The final outcome arrives later on the `whatsapp.template.status_updated` webhook. A template already in `PENDING` cannot be edited again until Meta finishes reviewing it.
+/// Update one variant's components. Name, language and category cannot change after creation.  Meta stores one template per **name + language**, so a name identifies a family of variants, each with its own Meta id. Pass `language` to address one variant. Without it, a name with a single variant resolves to that variant; a name with several returns `409 ambiguous_template` with `details.languages`. A bare language (`es`) matches a single regional variant (`es_ES`); if the family has several regional variants for it, that is also a 409. A full code (`es_ES`) must match exactly. Variants in `PENDING_DELETION` are not part of the family.  Meta only allows editing templates in `APPROVED`, `REJECTED` or `PAUSED` state; an approved template can be edited once per 24 hours and up to 10 times per 30 days. A successful update sends the variant back to Meta for review, so the `status` returned here is normally `PENDING`. The final outcome arrives on the `whatsapp.template.status_updated` webhook (which carries the variant's `templateId` and `language`). A variant already in `PENDING` cannot be edited again until Meta finishes reviewing it.
 pub async fn update_whats_app_template(
     configuration: &configuration::Configuration,
     template_name: &str,
@@ -2245,6 +2416,62 @@ pub async fn update_whats_app_template(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateWhatsAppTemplateError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Update one variant's components by its Meta id. Name, language and category cannot change.  Meta only allows editing templates in `APPROVED`, `REJECTED` or `PAUSED` state; an approved template can be edited once per 24 hours and up to 10 times per 30 days. A successful update sends the variant back to Meta for review, so the `status` returned here is normally `PENDING`. The final outcome arrives on the `whatsapp.template.status_updated` webhook (which carries the variant's `templateId` and `language`). A variant already in `PENDING` cannot be edited again until Meta finishes reviewing it.
+pub async fn update_whats_app_template_by_id(
+    configuration: &configuration::Configuration,
+    template_id: &str,
+    update_whats_app_template_by_id_request: models::UpdateWhatsAppTemplateByIdRequest,
+) -> Result<models::UpdateWhatsAppTemplateById200Response, Error<UpdateWhatsAppTemplateByIdError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_template_id = template_id;
+    let p_body_update_whats_app_template_by_id_request = update_whats_app_template_by_id_request;
+
+    let uri_str = format!(
+        "{}/v1/whatsapp/templates/id/{templateId}",
+        configuration.base_path,
+        templateId = crate::apis::urlencode(p_path_template_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::PATCH, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_whats_app_template_by_id_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateWhatsAppTemplateById200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateWhatsAppTemplateById200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateWhatsAppTemplateByIdError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

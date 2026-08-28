@@ -12,27 +12,18 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct UpdateWhatsAppTemplateRequest {
-    /// WhatsApp social account ID
-    #[serde(rename = "accountId")]
-    pub account_id: String,
-    /// Language code of the variant to edit (e.g. en_US, es, pt_BR). Required when the family has several languages. Body only: a language query parameter on PATCH is a 400.
-    #[serde(rename = "language", skip_serializing_if = "Option::is_none")]
-    pub language: Option<String>,
-    /// Updated template components
-    #[serde(rename = "components")]
-    pub components: Vec<models::WhatsAppTemplateComponent>,
+pub struct UpdateWhatsAppTemplateById200Response {
+    #[serde(rename = "success", skip_serializing_if = "Option::is_none")]
+    pub success: Option<bool>,
+    #[serde(rename = "template", skip_serializing_if = "Option::is_none")]
+    pub template: Option<Box<models::UpdateWhatsAppTemplateById200ResponseTemplate>>,
 }
 
-impl UpdateWhatsAppTemplateRequest {
-    pub fn new(
-        account_id: String,
-        components: Vec<models::WhatsAppTemplateComponent>,
-    ) -> UpdateWhatsAppTemplateRequest {
-        UpdateWhatsAppTemplateRequest {
-            account_id,
-            language: None,
-            components,
+impl UpdateWhatsAppTemplateById200Response {
+    pub fn new() -> UpdateWhatsAppTemplateById200Response {
+        UpdateWhatsAppTemplateById200Response {
+            success: None,
+            template: None,
         }
     }
 }

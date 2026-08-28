@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**create_whats_app_template**](WhatsAppApi.md#create_whats_app_template) | **POST** /v1/whatsapp/templates | Create template
 [**delete_whats_app_group_chat**](WhatsAppApi.md#delete_whats_app_group_chat) | **DELETE** /v1/whatsapp/wa-groups/{groupId} | Delete group
 [**delete_whats_app_template**](WhatsAppApi.md#delete_whats_app_template) | **DELETE** /v1/whatsapp/templates/{templateName} | Delete template
+[**delete_whats_app_template_by_id**](WhatsAppApi.md#delete_whats_app_template_by_id) | **DELETE** /v1/whatsapp/templates/id/{templateId} | Delete template by id
 [**delete_whatsapp_business_username**](WhatsAppApi.md#delete_whatsapp_business_username) | **DELETE** /v1/whatsapp/business-profile/username | Delete business username
 [**get_whats_app_block_status**](WhatsAppApi.md#get_whats_app_block_status) | **GET** /v1/whatsapp/block-users/status | Check if a user is blocked
 [**get_whats_app_blocked_users**](WhatsAppApi.md#get_whats_app_blocked_users) | **GET** /v1/whatsapp/block-users | List blocked users
@@ -22,6 +23,7 @@ Method | HTTP request | Description
 [**get_whats_app_group_chat**](WhatsAppApi.md#get_whats_app_group_chat) | **GET** /v1/whatsapp/wa-groups/{groupId} | Get group info
 [**get_whats_app_media**](WhatsAppApi.md#get_whats_app_media) | **GET** /v1/whatsapp/media/{mediaId} | Download WhatsApp media
 [**get_whats_app_template**](WhatsAppApi.md#get_whats_app_template) | **GET** /v1/whatsapp/templates/{templateName} | Get template
+[**get_whats_app_template_by_id**](WhatsAppApi.md#get_whats_app_template_by_id) | **GET** /v1/whatsapp/templates/id/{templateId} | Get template by id
 [**get_whats_app_templates**](WhatsAppApi.md#get_whats_app_templates) | **GET** /v1/whatsapp/templates | List templates
 [**get_whatsapp_business_username**](WhatsAppApi.md#get_whatsapp_business_username) | **GET** /v1/whatsapp/business-profile/username | Get business username
 [**get_whatsapp_business_username_suggestions**](WhatsAppApi.md#get_whatsapp_business_username_suggestions) | **GET** /v1/whatsapp/business-profile/username/suggestions | Get username suggestions
@@ -39,6 +41,7 @@ Method | HTTP request | Description
 [**update_whats_app_display_name**](WhatsAppApi.md#update_whats_app_display_name) | **POST** /v1/whatsapp/business-profile/display-name | Request display name change
 [**update_whats_app_group_chat**](WhatsAppApi.md#update_whats_app_group_chat) | **POST** /v1/whatsapp/wa-groups/{groupId} | Update group settings
 [**update_whats_app_template**](WhatsAppApi.md#update_whats_app_template) | **PATCH** /v1/whatsapp/templates/{templateName} | Update template
+[**update_whats_app_template_by_id**](WhatsAppApi.md#update_whats_app_template_by_id) | **PATCH** /v1/whatsapp/templates/id/{templateId} | Update template by id
 [**upload_whats_app_profile_photo**](WhatsAppApi.md#upload_whats_app_profile_photo) | **POST** /v1/whatsapp/business-profile/photo | Upload profile picture
 
 
@@ -291,22 +294,54 @@ Name | Type | Description  | Required | Notes
 
 ## delete_whats_app_template
 
-> models::UnpublishPost200Response delete_whats_app_template(template_name, account_id)
+> models::DeleteWhatsAppTemplate200Response delete_whats_app_template(template_name, account_id, language)
 Delete template
 
-Permanently delete a message template by name. 
+Permanently delete a message template.  **Without `language` this deletes every language variant of the name** (Meta's own contract for deletion by name). Pass `language` to delete one variant only; the response `scope` says which happened. Meta keeps a deleted approved template in `PENDING_DELETION` for a while and the name cannot be reused for 30 days. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**template_name** | **String** | Template name | [required] |
+**template_name** | **String** | Template name (the family). | [required] |
+**account_id** | **String** | WhatsApp social account ID | [required] |
+**language** | Option<**String**> | Delete only this language variant (e.g. es). Omit to delete the whole family. |  |
+
+### Return type
+
+[**models::DeleteWhatsAppTemplate200Response**](deleteWhatsAppTemplate_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_whats_app_template_by_id
+
+> models::DeleteWhatsAppTemplateById200Response delete_whats_app_template_by_id(template_id, account_id)
+Delete template by id
+
+Delete one language variant by its Meta id. Other languages of the same name are untouched. The name cannot be reused for 30 days once its last variant is deleted. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**template_id** | **String** | Meta template id (numeric). | [required] |
 **account_id** | **String** | WhatsApp social account ID | [required] |
 
 ### Return type
 
-[**models::UnpublishPost200Response**](unpublishPost_200_response.md)
+[**models::DeleteWhatsAppTemplateById200Response**](deleteWhatsAppTemplateById_200_response.md)
 
 ### Authorization
 
@@ -567,17 +602,49 @@ Name | Type | Description  | Required | Notes
 
 ## get_whats_app_template
 
-> models::GetWhatsAppTemplate200Response get_whats_app_template(template_name, account_id)
+> models::GetWhatsAppTemplate200Response get_whats_app_template(template_name, account_id, language)
 Get template
 
-Retrieve a single message template by name. 
+Retrieve one message template variant by name.  Meta stores one template per **name + language**, so a name identifies a family of variants, each with its own Meta id. Pass `language` to address one variant. Without it, a name with a single variant resolves to that variant; a name with several returns `409 ambiguous_template` with `details.languages`. A bare language (`es`) matches a single regional variant (`es_ES`); if the family has several regional variants for it, that is also a 409. A full code (`es_ES`) must match exactly. Variants in `PENDING_DELETION` are not part of the family. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**template_name** | **String** | Template name | [required] |
+**template_name** | **String** | Template name (the family). | [required] |
+**account_id** | **String** | WhatsApp social account ID | [required] |
+**language** | Option<**String**> | Language code of the variant (e.g. en_US, es, pt_BR). Required when the family has several languages. |  |
+
+### Return type
+
+[**models::GetWhatsAppTemplate200Response**](getWhatsAppTemplate_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_whats_app_template_by_id
+
+> models::GetWhatsAppTemplate200Response get_whats_app_template_by_id(template_id, account_id)
+Get template by id
+
+Retrieve one template variant by its Meta id, the id every variant of a family has on its own and the one the `whatsapp.template.status_updated` webhook carries. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**template_id** | **String** | Meta template id (numeric). | [required] |
 **account_id** | **String** | WhatsApp social account ID | [required] |
 
 ### Return type
@@ -598,10 +665,10 @@ Name | Type | Description  | Required | Notes
 
 ## get_whats_app_templates
 
-> models::GetWhatsAppTemplates200Response get_whats_app_templates(account_id)
+> models::GetWhatsAppTemplates200Response get_whats_app_templates(account_id, name, language, status)
 List templates
 
-List all message templates for the WhatsApp Business Account (WABA) associated with the given account. Templates are fetched directly from the WhatsApp Cloud API. 
+List message templates for the WhatsApp Business Account (WABA) associated with the given account. Templates are fetched directly from the WhatsApp Cloud API. One entry per **name + language**: a multi-language template appears once per language, each with its own Meta `id`. 
 
 ### Parameters
 
@@ -609,6 +676,9 @@ List all message templates for the WhatsApp Business Account (WABA) associated w
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** | WhatsApp social account ID | [required] |
+**name** | Option<**String**> | Exact template name; returns every language variant of that family. |  |
+**language** | Option<**String**> | Exact language code (e.g. en_US). |  |
+**status** | Option<**String**> |  |  |
 
 ### Return type
 
@@ -1093,19 +1163,50 @@ Name | Type | Description  | Required | Notes
 > models::UpdateWhatsAppTemplate200Response update_whats_app_template(template_name, update_whats_app_template_request)
 Update template
 
-Update a message template's components. Only certain fields can be updated depending on the template's current approval state. Approved templates can only have components updated.  A successful update sends the template back to Meta for review, so the `status` returned here is normally `PENDING`. The final outcome arrives later on the `whatsapp.template.status_updated` webhook. A template already in `PENDING` cannot be edited again until Meta finishes reviewing it. 
+Update one variant's components. Name, language and category cannot change after creation.  Meta stores one template per **name + language**, so a name identifies a family of variants, each with its own Meta id. Pass `language` to address one variant. Without it, a name with a single variant resolves to that variant; a name with several returns `409 ambiguous_template` with `details.languages`. A bare language (`es`) matches a single regional variant (`es_ES`); if the family has several regional variants for it, that is also a 409. A full code (`es_ES`) must match exactly. Variants in `PENDING_DELETION` are not part of the family.  Meta only allows editing templates in `APPROVED`, `REJECTED` or `PAUSED` state; an approved template can be edited once per 24 hours and up to 10 times per 30 days. A successful update sends the variant back to Meta for review, so the `status` returned here is normally `PENDING`. The final outcome arrives on the `whatsapp.template.status_updated` webhook (which carries the variant's `templateId` and `language`). A variant already in `PENDING` cannot be edited again until Meta finishes reviewing it. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**template_name** | **String** | Template name | [required] |
+**template_name** | **String** | Template name (the family). | [required] |
 **update_whats_app_template_request** | [**UpdateWhatsAppTemplateRequest**](UpdateWhatsAppTemplateRequest.md) |  | [required] |
 
 ### Return type
 
 [**models::UpdateWhatsAppTemplate200Response**](updateWhatsAppTemplate_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_whats_app_template_by_id
+
+> models::UpdateWhatsAppTemplateById200Response update_whats_app_template_by_id(template_id, update_whats_app_template_by_id_request)
+Update template by id
+
+Update one variant's components by its Meta id. Name, language and category cannot change.  Meta only allows editing templates in `APPROVED`, `REJECTED` or `PAUSED` state; an approved template can be edited once per 24 hours and up to 10 times per 30 days. A successful update sends the variant back to Meta for review, so the `status` returned here is normally `PENDING`. The final outcome arrives on the `whatsapp.template.status_updated` webhook (which carries the variant's `templateId` and `language`). A variant already in `PENDING` cannot be edited again until Meta finishes reviewing it. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**template_id** | **String** | Meta template id (numeric). | [required] |
+**update_whats_app_template_by_id_request** | [**UpdateWhatsAppTemplateByIdRequest**](UpdateWhatsAppTemplateByIdRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateWhatsAppTemplateById200Response**](updateWhatsAppTemplateById_200_response.md)
 
 ### Authorization
 

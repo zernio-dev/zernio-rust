@@ -401,6 +401,8 @@ docs/DeleteInboxReviewReply200Response.md
 docs/DeleteInboxReviewReplyRequest.md
 docs/DeleteSmsSenderId200Response.md
 docs/DeleteValueRuleSet200Response.md
+docs/DeleteWhatsAppTemplate200Response.md
+docs/DeleteWhatsAppTemplateById200Response.md
 docs/DeleteWhatsappBusinessUsernameRequest.md
 docs/DetachNumberFromSipTrunk200Response.md
 docs/DialVoiceWebCall200Response.md
@@ -799,6 +801,8 @@ docs/GetWhatsAppNumberKycForm200ResponseFieldsInner.md
 docs/GetWhatsAppNumberRemediation200Response.md
 docs/GetWhatsAppTemplate200Response.md
 docs/GetWhatsAppTemplate200ResponseTemplate.md
+docs/GetWhatsAppTemplate409Response.md
+docs/GetWhatsAppTemplate409ResponseDetails.md
 docs/GetWhatsAppTemplates200Response.md
 docs/GetWhatsAppTemplates200ResponseTemplatesInner.md
 docs/GetWhatsappBusinessUsername200Response.md
@@ -1574,6 +1578,9 @@ docs/UpdateWhatsAppFlowRequest.md
 docs/UpdateWhatsAppGroupChatRequest.md
 docs/UpdateWhatsAppTemplate200Response.md
 docs/UpdateWhatsAppTemplate200ResponseTemplate.md
+docs/UpdateWhatsAppTemplateById200Response.md
+docs/UpdateWhatsAppTemplateById200ResponseTemplate.md
+docs/UpdateWhatsAppTemplateByIdRequest.md
 docs/UpdateWhatsAppTemplateRequest.md
 docs/UpdateWorkflow200Response.md
 docs/UpdateWorkflow200ResponseWorkflow.md
@@ -2266,6 +2273,8 @@ src/models/delete_inbox_review_reply_200_response.rs
 src/models/delete_inbox_review_reply_request.rs
 src/models/delete_sms_sender_id_200_response.rs
 src/models/delete_value_rule_set_200_response.rs
+src/models/delete_whats_app_template_200_response.rs
+src/models/delete_whats_app_template_by_id_200_response.rs
 src/models/delete_whatsapp_business_username_request.rs
 src/models/detach_number_from_sip_trunk_200_response.rs
 src/models/dial_voice_web_call_200_response.rs
@@ -2663,6 +2672,8 @@ src/models/get_whats_app_number_kyc_form_200_response_fields_inner.rs
 src/models/get_whats_app_number_remediation_200_response.rs
 src/models/get_whats_app_template_200_response.rs
 src/models/get_whats_app_template_200_response_template.rs
+src/models/get_whats_app_template_409_response.rs
+src/models/get_whats_app_template_409_response_details.rs
 src/models/get_whats_app_templates_200_response.rs
 src/models/get_whats_app_templates_200_response_templates_inner.rs
 src/models/get_whatsapp_business_username_200_response.rs
@@ -3409,6 +3420,9 @@ src/models/update_whats_app_flow_request.rs
 src/models/update_whats_app_group_chat_request.rs
 src/models/update_whats_app_template_200_response.rs
 src/models/update_whats_app_template_200_response_template.rs
+src/models/update_whats_app_template_by_id_200_response.rs
+src/models/update_whats_app_template_by_id_200_response_template.rs
+src/models/update_whats_app_template_by_id_request.rs
 src/models/update_whats_app_template_request.rs
 src/models/update_workflow_200_response.rs
 src/models/update_workflow_200_response_workflow.rs

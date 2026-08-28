@@ -12,27 +12,36 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct UpdateWhatsAppTemplate200ResponseTemplate {
-    /// Meta id of the edited variant.
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
-    /// The variant that was edited.
+pub struct DeleteWhatsAppTemplateById200Response {
+    #[serde(rename = "success", skip_serializing_if = "Option::is_none")]
+    pub success: Option<bool>,
+    #[serde(rename = "scope", skip_serializing_if = "Option::is_none")]
+    pub scope: Option<Scope>,
     #[serde(rename = "language", skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
-    /// Approval state read back from Meta after the update, normally PENDING. If the state cannot be read back, the last known status is returned instead.
-    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<String>,
+    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
+    pub message: Option<String>,
 }
 
-impl UpdateWhatsAppTemplate200ResponseTemplate {
-    pub fn new() -> UpdateWhatsAppTemplate200ResponseTemplate {
-        UpdateWhatsAppTemplate200ResponseTemplate {
-            id: None,
-            name: None,
+impl DeleteWhatsAppTemplateById200Response {
+    pub fn new() -> DeleteWhatsAppTemplateById200Response {
+        DeleteWhatsAppTemplateById200Response {
+            success: None,
+            scope: None,
             language: None,
-            status: None,
+            message: None,
         }
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Scope {
+    #[serde(rename = "language")]
+    Language,
+}
+
+impl Default for Scope {
+    fn default() -> Scope {
+        Self::Language
     }
 }

@@ -12,40 +12,25 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetWhatsAppTemplate200ResponseTemplate {
-    /// Meta template id. Unique per language variant; usable on /v1/whatsapp/templates/id/{templateId}.
+pub struct UpdateWhatsAppTemplateById200ResponseTemplate {
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<String>,
-    #[serde(rename = "category", skip_serializing_if = "Option::is_none")]
-    pub category: Option<String>,
-    /// The variant actually returned.
     #[serde(rename = "language", skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
-    #[serde(rename = "components", skip_serializing_if = "Option::is_none")]
-    pub components: Option<Vec<serde_json::Value>>,
-    /// Only when status is REJECTED.
-    #[serde(rename = "rejected_reason", skip_serializing_if = "Option::is_none")]
-    pub rejected_reason: Option<String>,
-    /// Post-approval quality (GREEN/YELLOW/RED), when Meta reports one.
-    #[serde(rename = "quality_score", skip_serializing_if = "Option::is_none")]
-    pub quality_score: Option<serde_json::Value>,
+    /// Approval state read back from Meta after the update, normally PENDING. If the state cannot be read back, the last known status is returned instead.
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<String>,
 }
 
-impl GetWhatsAppTemplate200ResponseTemplate {
-    pub fn new() -> GetWhatsAppTemplate200ResponseTemplate {
-        GetWhatsAppTemplate200ResponseTemplate {
+impl UpdateWhatsAppTemplateById200ResponseTemplate {
+    pub fn new() -> UpdateWhatsAppTemplateById200ResponseTemplate {
+        UpdateWhatsAppTemplateById200ResponseTemplate {
             id: None,
             name: None,
-            status: None,
-            category: None,
             language: None,
-            components: None,
-            rejected_reason: None,
-            quality_score: None,
+            status: None,
         }
     }
 }
