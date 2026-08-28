@@ -22,6 +22,11 @@ pub struct SendInboxMessage200ResponseData {
     /// Echo of the sent attachment with its resolved public URL, when one is available (Facebook, Instagram, Telegram, WhatsApp).
     #[serde(rename = "attachments", skip_serializing_if = "Option::is_none")]
     pub attachments: Option<Vec<models::SendInboxMessage200ResponseDataAttachmentsInner>>,
+    /// Facebook/Instagram only. Present when an attachment and text were both requested: Meta has no single body shape for both, so the send is two Meta messages under the hood. First element === messageId (the attachment); second is the follow-up text.
+    #[serde(rename = "messageIds", skip_serializing_if = "Option::is_none")]
+    pub message_ids: Option<Vec<String>>,
+    #[serde(rename = "partialFailure", skip_serializing_if = "Option::is_none")]
+    pub partial_failure: Option<Box<models::SendInboxMessage200ResponseDataPartialFailure>>,
 }
 
 impl SendInboxMessage200ResponseData {
@@ -30,6 +35,8 @@ impl SendInboxMessage200ResponseData {
             message_id: None,
             conversation_id: None,
             attachments: None,
+            message_ids: None,
+            partial_failure: None,
         }
     }
 }

@@ -1905,6 +1905,8 @@ Class | Method | HTTP request | Description
  - [SendInboxMessage200Response](docs/SendInboxMessage200Response.md)
  - [SendInboxMessage200ResponseData](docs/SendInboxMessage200ResponseData.md)
  - [SendInboxMessage200ResponseDataAttachmentsInner](docs/SendInboxMessage200ResponseDataAttachmentsInner.md)
+ - [SendInboxMessage200ResponseDataPartialFailure](docs/SendInboxMessage200ResponseDataPartialFailure.md)
+ - [SendInboxMessage200ResponseDataPartialFailurePlatformError](docs/SendInboxMessage200ResponseDataPartialFailurePlatformError.md)
  - [SendInboxMessage400Response](docs/SendInboxMessage400Response.md)
  - [SendInboxMessage400ResponsePlatformError](docs/SendInboxMessage400ResponsePlatformError.md)
  - [SendInboxMessageRequest](docs/SendInboxMessageRequest.md)
