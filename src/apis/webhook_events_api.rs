@@ -763,7 +763,7 @@ pub async fn on_message_delivered(configuration: &configuration::Configuration, 
     }
 }
 
-/// Fired when a sender edits a previously-sent message. Supported on Instagram, Facebook Messenger, and Telegram. The payload includes the full editHistory so consumers can show prior versions. 
+/// Fired when a sender edits a previously-sent message. Supported on Instagram, Facebook Messenger, Telegram, and WhatsApp. The payload includes the full editHistory so consumers can show prior versions. 
 pub async fn on_message_edited(configuration: &configuration::Configuration, webhook_payload_message_edited: models::WebhookPayloadMessageEdited) -> Result<(), Error<OnMessageEditedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_payload_message_edited = webhook_payload_message_edited;
