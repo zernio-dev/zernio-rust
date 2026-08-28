@@ -254,10 +254,10 @@ Name | Type | Description  | Required | Notes
 
 ## reply_to_inbox_post
 
-> models::ReplyToInboxPost200Response reply_to_inbox_post(post_id, reply_to_inbox_post_request)
+> models::ReplyToInboxPost200Response reply_to_inbox_post(post_id, reply_to_inbox_post_request, idempotency_key)
 Reply to comment
 
-Post a reply to a post or specific comment. Requires accountId in request body.
+Post a reply to a post or specific comment. Requires accountId in request body.  **Idempotency:** send an `Idempotency-Key` header to make retries safe (e.g. after a client-side timeout where delivery is unknown): same key + same body replays the original response (with `Idempotent-Replayed: true`) instead of posting the comment a second time; same key + different body returns 422; a key still in flight returns 409. Keys are retained for 24 hours and are scoped to the credential and to this exact path, so reusing a key against a different postId returns 422 rather than replaying the other post's response.  Only successful (2xx) responses are stored for replay. If the request throws or returns a non-2xx status the key is released, so the header protects the \"request succeeded but the response was lost\" case. After an ambiguous failure (a 5xx or a network timeout) list the post's comments before retrying with the same key, and treat an empty result as inconclusive rather than as proof nothing was posted. 
 
 ### Parameters
 
@@ -266,6 +266,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **post_id** | **String** | Zernio post ID or platform-specific post ID. LinkedIn third-party posts accept full activity URN or numeric ID. | [required] |
 **reply_to_inbox_post_request** | [**ReplyToInboxPostRequest**](ReplyToInboxPostRequest.md) |  | [required] |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe. Same key + same body replays the original response; same key + different body → 422; key still processing → 409. |  |
 
 ### Return type
 

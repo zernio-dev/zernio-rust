@@ -37,6 +37,8 @@ pub enum ListInboxReviewsError {
 pub enum ReplyToInboxReviewError {
     Status401(models::InlineObject),
     Status403(),
+    Status409(),
+    Status422(),
     UnknownValue(serde_json::Value),
 }
 
@@ -191,15 +193,17 @@ pub async fn list_inbox_reviews(
     }
 }
 
-/// Post a reply to a review. Requires accountId in request body.
+/// Post a reply to a review. Requires accountId in request body.  **Idempotency:** send an `Idempotency-Key` header to make retries safe (e.g. after a client-side timeout where delivery is unknown): same key + same body replays the original response (with `Idempotent-Replayed: true`) instead of sending the reply to the platform again; same key + different body returns 422; a key still in flight returns 409. Keys are retained for 24 hours and are scoped to the credential and to this exact path, so reusing a key against a different reviewId returns 422 rather than replaying the other review's response.  Only successful (2xx) responses are stored for replay. If the request throws or returns a non-2xx status the key is released, so the header protects the \"request succeeded but the response was lost\" case. After an ambiguous failure (a 5xx or a network timeout) fetch the review before retrying with the same key, and treat a missing reply as inconclusive rather than as proof nothing was sent.
 pub async fn reply_to_inbox_review(
     configuration: &configuration::Configuration,
     review_id: &str,
     reply_to_inbox_review_request: models::ReplyToInboxReviewRequest,
+    idempotency_key: Option<&str>,
 ) -> Result<models::ReplyToInboxReview200Response, Error<ReplyToInboxReviewError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_review_id = review_id;
     let p_body_reply_to_inbox_review_request = reply_to_inbox_review_request;
+    let p_header_idempotency_key = idempotency_key;
 
     let uri_str = format!(
         "{}/v1/inbox/reviews/{reviewId}/reply",
@@ -212,6 +216,9 @@ pub async fn reply_to_inbox_review(
 
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_idempotency_key {
+        req_builder = req_builder.header("Idempotency-Key", param_value.to_string());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
