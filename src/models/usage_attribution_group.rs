@@ -11,21 +11,23 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UsageMeteringCallUsage : Billable call volumes over the window. Null when `profileId` / `accountId` is set.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct UsageMeteringCallUsage {
-    #[serde(rename = "whatsapp", skip_serializing_if = "Option::is_none")]
-    pub whatsapp: Option<Box<models::UsageMeteringCallUsageWhatsapp>>,
-    #[serde(rename = "pstn", skip_serializing_if = "Option::is_none")]
-    pub pstn: Option<Box<models::UsageMeteringCallUsageWhatsapp>>,
+pub struct UsageAttributionGroup {
+    #[serde(rename = "byProduct", skip_serializing_if = "Option::is_none")]
+    pub by_product: Option<Box<models::UsageAttributionSliceByProduct>>,
+    #[serde(rename = "totalUsd", skip_serializing_if = "Option::is_none")]
+    pub total_usd: Option<f64>,
+    /// Profile id or account id, per `groupBy`.
+    #[serde(rename = "key")]
+    pub key: String,
 }
 
-impl UsageMeteringCallUsage {
-    /// Billable call volumes over the window. Null when `profileId` / `accountId` is set.
-    pub fn new() -> UsageMeteringCallUsage {
-        UsageMeteringCallUsage {
-            whatsapp: None,
-            pstn: None,
+impl UsageAttributionGroup {
+    pub fn new(key: String) -> UsageAttributionGroup {
+        UsageAttributionGroup {
+            by_product: None,
+            total_usd: None,
+            key,
         }
     }
 }

@@ -247,7 +247,7 @@ pub async fn get_sms_usage(
     }
 }
 
-/// Dual-mode endpoint, selected by query params — fully backward compatible:  **Without metering params (the default):** the plan / quota / usage snapshot — plan name, billing period, limits, usage counts, access state. Identical to `GET /v1/usage-stats`. Existing integrations keep working unchanged.  **With `range`, `granularity`, `from`, or `to`:** usage METERING — billed spend (USD) by product family (`accounts`, `numbers`, `calls`, `sms`, `dlc`, `xApi`, `credits`, `other`) over the window, at `day` / `month` / `total` granularity, from Metronome's invoice breakdown (the CHARGE view — always reconciles with what gets billed). Also served at `GET /v1/usage/daily`. Usage-based accounts only — legacy Stripe accounts get `{ \"supported\": false, \"days\": [] }`.  For per-domain consumption *volumes* use `GET /v1/usage/calls` and `GET /v1/usage/sms`. For the billing statement (balance, credits, caps, payment status) use `GET /v1/billing`.
+/// Dual-mode endpoint, selected by query params — fully backward compatible:  **Without metering params (the default):** the plan / quota / usage snapshot — plan name, billing period, limits, usage counts, access state. Identical to `GET /v1/usage-stats`. Existing integrations keep working unchanged.  **With `range`, `granularity`, `from`, or `to`:** usage METERING — billed spend (USD) by product family (`accounts`, `numbers`, `calls`, `sms`, `dlc`, `xApi`, `credits`, `other`) over the window, at `day` / `month` / `total` granularity, from Metronome's invoice breakdown (the CHARGE view — always reconciles with what gets billed). Also served at `GET /v1/usage/daily`. Usage-based accounts only — legacy Stripe accounts get `{ \"supported\": false, \"days\": [] }`.  **Attribution (metering mode):** `groupBy=profile|account` adds an `attribution` breakdown of the window's spend per profile or account, assembled from your own records and pro-rated against the invoice so `sum(groups) + unattributed` equals `totals` exactly. `profileId` / `accountId` instead project the whole payload (`days`, `totals`, `lineItems`) onto that one group; `peaks`, `callUsage` and `tax` are then `null` (workspace-level facts). Projected `days` spread the group's period share over each day (usage is attributed per period, not per day). Profile-scoped API keys and members only see their profiles' groups (`attribution.restricted: true`, with `totals` summing the visible groups). Credits, 10DLC fees and Verify are always unattributed. `profileId` / `accountId` on their own do not select metering mode: pair them with `range`.  For per-domain consumption *volumes* use `GET /v1/usage/calls` and `GET /v1/usage/sms`. For the billing statement (balance, credits, caps, payment status) use `GET /v1/billing`.
 pub async fn get_usage(
     configuration: &configuration::Configuration,
     reconcile: Option<bool>,
@@ -255,6 +255,9 @@ pub async fn get_usage(
     from: Option<String>,
     to: Option<String>,
     granularity: Option<&str>,
+    group_by: Option<&str>,
+    profile_id: Option<&str>,
+    account_id: Option<&str>,
 ) -> Result<models::GetUsage200Response, Error<GetUsageError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_reconcile = reconcile;
@@ -262,6 +265,9 @@ pub async fn get_usage(
     let p_query_from = from;
     let p_query_to = to;
     let p_query_granularity = granularity;
+    let p_query_group_by = group_by;
+    let p_query_profile_id = profile_id;
+    let p_query_account_id = account_id;
 
     let uri_str = format!("{}/v1/usage", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -280,6 +286,15 @@ pub async fn get_usage(
     }
     if let Some(ref param_value) = p_query_granularity {
         req_builder = req_builder.query(&[("granularity", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_group_by {
+        req_builder = req_builder.query(&[("groupBy", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_profile_id {
+        req_builder = req_builder.query(&[("profileId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_account_id {
+        req_builder = req_builder.query(&[("accountId", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());

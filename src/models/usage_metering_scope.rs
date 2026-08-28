@@ -11,21 +11,17 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UsageMeteringCallUsage : Billable call volumes over the window. Null when `profileId` / `accountId` is set.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct UsageMeteringCallUsage {
-    #[serde(rename = "whatsapp", skip_serializing_if = "Option::is_none")]
-    pub whatsapp: Option<Box<models::UsageMeteringCallUsageWhatsapp>>,
-    #[serde(rename = "pstn", skip_serializing_if = "Option::is_none")]
-    pub pstn: Option<Box<models::UsageMeteringCallUsageWhatsapp>>,
+/// UsageMeteringScope : Present with `profileId` / `accountId`: echoes the group the payload was projected onto.
+/// Present with `profileId` / `accountId`: echoes the group the payload was projected onto.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UsageMeteringScope {
+    UsageMeteringScopeOneOf(Box<models::UsageMeteringScopeOneOf>),
+    DeleteInboxReviewReplyRequest(Box<models::DeleteInboxReviewReplyRequest>),
 }
 
-impl UsageMeteringCallUsage {
-    /// Billable call volumes over the window. Null when `profileId` / `accountId` is set.
-    pub fn new() -> UsageMeteringCallUsage {
-        UsageMeteringCallUsage {
-            whatsapp: None,
-            pstn: None,
-        }
+impl Default for UsageMeteringScope {
+    fn default() -> Self {
+        Self::UsageMeteringScopeOneOf(Default::default())
     }
 }

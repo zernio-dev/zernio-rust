@@ -35,6 +35,10 @@ pub struct UsageMetering {
     pub period: Option<Box<models::UsageMeteringPeriod>>,
     #[serde(rename = "tax", skip_serializing_if = "Option::is_none")]
     pub tax: Option<Box<models::UsageMeteringTax>>,
+    #[serde(rename = "attribution", skip_serializing_if = "Option::is_none")]
+    pub attribution: Option<Box<models::UsageMeteringAttribution>>,
+    #[serde(rename = "scope", skip_serializing_if = "Option::is_none")]
+    pub scope: Option<Box<models::UsageMeteringScope>>,
 }
 
 impl UsageMetering {
@@ -50,6 +54,8 @@ impl UsageMetering {
             call_usage: None,
             period: None,
             tax: None,
+            attribution: None,
+            scope: None,
         }
     }
 }

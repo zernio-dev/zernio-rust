@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UsageMeteringPeaks : Peak counts over the window (Metronome COUNT metrics + live active-number count).
+/// UsageMeteringPeaks : Peak counts over the window (Metronome COUNT metrics + live active-number count). Null when `profileId` / `accountId` is set.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UsageMeteringPeaks {
     #[serde(rename = "accounts", skip_serializing_if = "Option::is_none")]
@@ -21,7 +21,7 @@ pub struct UsageMeteringPeaks {
 }
 
 impl UsageMeteringPeaks {
-    /// Peak counts over the window (Metronome COUNT metrics + live active-number count).
+    /// Peak counts over the window (Metronome COUNT metrics + live active-number count). Null when `profileId` / `accountId` is set.
     pub fn new() -> UsageMeteringPeaks {
         UsageMeteringPeaks {
             accounts: None,
