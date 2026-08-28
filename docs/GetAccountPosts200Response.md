@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | Option<**String**> |  | [optional]
+**status** | Option<**Status**> |  (enum: success) | [optional]
 **posts** | Option<[**Vec<models::GetAccountPosts200ResponsePostsInner>**](GetAccountPosts200ResponsePostsInner.md)> |  | [optional]
 **last_updated** | Option<**String**> |  | [optional]
 

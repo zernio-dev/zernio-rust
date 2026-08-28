@@ -1,7 +1,7 @@
 /*
  * Zernio API
  *
- * API reference for Zernio. Authenticate with a Bearer API key. Base URL: https://zernio.com/api
+ * API reference for Zernio. Authenticate with a Bearer API key. Base URL: https://zernio.com/api  Versioning and deprecation: all endpoints are versioned in the URL path (current version: /v1). Breaking changes only ship in a new path version; existing versions keep working. Deprecated operations are marked 'deprecated: true' in this spec and announced in the changelog (https://zernio.com/changelog) before removal.  Errors: every 4xx/5xx response is application/json with a machine-readable 'code' and a human-readable 'error' message (see the ErrorResponse schema).
  *
  * The version of the OpenAPI document: 1.0.4
  * Contact: support@zernio.com
@@ -13,95 +13,55 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetAccountPosts200ResponsePostsInner {
+    /// The platform's own post id (the video ID on YouTube)
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
+    #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
+    pub platform: Option<String>,
+    /// Caption or title, empty string when the post has no text
     #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
     #[serde(rename = "createdTime", skip_serializing_if = "Option::is_none")]
     pub created_time: Option<String>,
-    #[serde(
-        rename = "picture",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub picture: Option<Option<String>>,
-    #[serde(
-        rename = "permalink",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub permalink: Option<Option<String>>,
-    #[serde(
-        rename = "mediaType",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub media_type: Option<Option<String>>,
-    #[serde(
-        rename = "commentCount",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub comment_count: Option<Option<i32>>,
-    #[serde(
-        rename = "likeCount",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub like_count: Option<Option<i32>>,
-    #[serde(
-        rename = "reactionCount",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub reaction_count: Option<Option<i32>>,
-    #[serde(
-        rename = "shareCount",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub share_count: Option<Option<i32>>,
-    #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
-    pub platform: Option<String>,
-    /// Bluesky only. Content ID needed for fetching replies.
-    #[serde(
-        rename = "cid",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub cid: Option<Option<String>>,
-    /// Reddit only. Subreddit name, needed for fetching comments.
-    #[serde(
-        rename = "subreddit",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub subreddit: Option<Option<String>>,
+    /// Public URL of the post on the platform
+    #[serde(rename = "permalink", skip_serializing_if = "Option::is_none")]
+    pub permalink: Option<String>,
+    /// Thumbnail or media URL
+    #[serde(rename = "picture", skip_serializing_if = "Option::is_none")]
+    pub picture: Option<String>,
+    #[serde(rename = "mediaType", skip_serializing_if = "Option::is_none")]
+    pub media_type: Option<String>,
+    #[serde(rename = "commentCount", skip_serializing_if = "Option::is_none")]
+    pub comment_count: Option<i32>,
+    #[serde(rename = "likeCount", skip_serializing_if = "Option::is_none")]
+    pub like_count: Option<i32>,
+    /// Facebook and LinkedIn only
+    #[serde(rename = "reactionCount", skip_serializing_if = "Option::is_none")]
+    pub reaction_count: Option<i32>,
+    #[serde(rename = "shareCount", skip_serializing_if = "Option::is_none")]
+    pub share_count: Option<i32>,
+    /// Bluesky content id, required to reply to the post
+    #[serde(rename = "cid", skip_serializing_if = "Option::is_none")]
+    pub cid: Option<String>,
+    /// Reddit only
+    #[serde(rename = "subreddit", skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
 }
 
 impl GetAccountPosts200ResponsePostsInner {
     pub fn new() -> GetAccountPosts200ResponsePostsInner {
         GetAccountPosts200ResponsePostsInner {
             id: None,
+            platform: None,
             message: None,
             created_time: None,
-            picture: None,
             permalink: None,
+            picture: None,
             media_type: None,
             comment_count: None,
             like_count: None,
             reaction_count: None,
             share_count: None,
-            platform: None,
             cid: None,
             subreddit: None,
         }

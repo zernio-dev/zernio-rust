@@ -1,7 +1,7 @@
 /*
  * Zernio API
  *
- * API reference for Zernio. Authenticate with a Bearer API key. Base URL: https://zernio.com/api
+ * API reference for Zernio. Authenticate with a Bearer API key. Base URL: https://zernio.com/api  Versioning and deprecation: all endpoints are versioned in the URL path (current version: /v1). Breaking changes only ship in a new path version; existing versions keep working. Deprecated operations are marked 'deprecated: true' in this spec and announced in the changelog (https://zernio.com/changelog) before removal.  Errors: every 4xx/5xx response is application/json with a machine-readable 'code' and a human-readable 'error' message (see the ErrorResponse schema).
  *
  * The version of the OpenAPI document: 1.0.4
  * Contact: support@zernio.com
@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetAccountPosts200Response {
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<String>,
+    pub status: Option<Status>,
     #[serde(rename = "posts", skip_serializing_if = "Option::is_none")]
     pub posts: Option<Vec<models::GetAccountPosts200ResponsePostsInner>>,
     #[serde(rename = "lastUpdated", skip_serializing_if = "Option::is_none")]
@@ -28,5 +28,17 @@ impl GetAccountPosts200Response {
             posts: None,
             last_updated: None,
         }
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Status {
+    #[serde(rename = "success")]
+    Success,
+}
+
+impl Default for Status {
+    fn default() -> Status {
+        Self::Success
     }
 }
