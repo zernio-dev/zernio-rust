@@ -53,7 +53,7 @@ Name | Type | Description  | Required | Notes
 **to_date** | Option<**String**> | Inclusive upper bound (YYYY-MM-DD). Defaults to today if omitted. |  |
 **limit** | Option<**i32**> | Page size (default 50) |  |[default to 50]
 **page** | Option<**i32**> | Page number (default 1) |  |[default to 1]
-**sort_by** | Option<**String**> | Sort by date, engagement, or a specific metric. Instagram-only metrics (follows, reposts, reels_skip_rate, ig_reels_*) sort posts with no value as 0. |  |[default to date]
+**sort_by** | Option<**String**> | Sort by date, engagement, or a specific metric. Instagram-only metrics (follows, reposts, reels_skip_rate, ig_reels_*) sort a null value as 0. |  |[default to date]
 **order** | Option<**String**> | Sort order |  |[default to desc]
 
 ### Return type
