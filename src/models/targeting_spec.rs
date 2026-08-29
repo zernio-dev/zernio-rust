@@ -67,10 +67,10 @@ pub struct TargetingSpec {
     /// LinkedIn B2B only.
     #[serde(rename = "jobFunctions", skip_serializing_if = "Option::is_none")]
     pub job_functions: Option<Vec<String>>,
-    /// Platform audience IDs to include.
+    /// Platform audience IDs to include. Not supported on any platform (no builder maps it): rejected with a 400 on ad create, boost, and reach estimate.
     #[serde(rename = "audienceInclude", skip_serializing_if = "Option::is_none")]
     pub audience_include: Option<Vec<String>>,
-    /// Platform audience IDs to exclude.
+    /// Platform audience IDs to exclude. Not supported on any platform (no builder maps it): rejected with a 400 on ad create, boost, and reach estimate.
     #[serde(rename = "audienceExclude", skip_serializing_if = "Option::is_none")]
     pub audience_exclude: Option<Vec<String>>,
 }

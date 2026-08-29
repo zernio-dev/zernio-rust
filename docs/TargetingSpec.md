@@ -22,8 +22,8 @@ Name | Type | Description | Notes
 **company_sizes** | Option<**Vec<String>**> | LinkedIn B2B only. | [optional]
 **seniorities** | Option<**Vec<String>**> | LinkedIn B2B only. | [optional]
 **job_functions** | Option<**Vec<String>**> | LinkedIn B2B only. | [optional]
-**audience_include** | Option<**Vec<String>**> | Platform audience IDs to include. | [optional]
-**audience_exclude** | Option<**Vec<String>**> | Platform audience IDs to exclude. | [optional]
+**audience_include** | Option<**Vec<String>**> | Platform audience IDs to include. Not supported on any platform (no builder maps it): rejected with a 400 on ad create, boost, and reach estimate. | [optional]
+**audience_exclude** | Option<**Vec<String>**> | Platform audience IDs to exclude. Not supported on any platform (no builder maps it): rejected with a 400 on ad create, boost, and reach estimate. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
