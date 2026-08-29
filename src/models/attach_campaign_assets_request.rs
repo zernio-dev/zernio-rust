@@ -16,6 +16,9 @@ pub struct AttachCampaignAssetsRequest {
     /// Zernio Google Ads SocialAccount id — resolves the customer id + refresh token.
     #[serde(rename = "accountId")]
     pub account_id: String,
+    /// Numeric Google Ads customer id. Required when the connection has multiple Google Ads accounts; optional (and inferred) when it has only one.
+    #[serde(rename = "customerId", skip_serializing_if = "Option::is_none")]
+    pub customer_id: Option<String>,
     /// See POST /v1/ads/create sitelinks — same shape.
     #[serde(rename = "sitelinks", skip_serializing_if = "Option::is_none")]
     pub sitelinks: Option<Vec<models::AttachCampaignAssetsRequestSitelinksInner>>,
@@ -30,6 +33,7 @@ impl AttachCampaignAssetsRequest {
     pub fn new(account_id: String) -> AttachCampaignAssetsRequest {
         AttachCampaignAssetsRequest {
             account_id,
+            customer_id: None,
             sitelinks: None,
             callouts: None,
             structured_snippets: None,

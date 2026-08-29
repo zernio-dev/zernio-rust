@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 pub enum AttachCampaignAssetsError {
     Status400(),
     Status401(models::InlineObject),
+    Status422(),
     Status501(),
     UnknownValue(serde_json::Value),
 }
