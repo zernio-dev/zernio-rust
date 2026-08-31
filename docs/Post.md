@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **_id** | Option<**String**> |  | [optional]
 **user_id** | Option<[**models::PostUserId**](PostUserId.md)> |  | [optional]
-**title** | Option<**String**> | YouTube: title must be ≤ 100 characters.  | [optional]
+**title** | Option<**String**> | Stored on the post for reference/display only. This field is NOT used as the video title when publishing. To set a YouTube video title, use platformSpecificData.title on the youtube platform target (falls back to the first line of content when omitted). | [optional]
 **content** | Option<**String**> |  | [optional]
 **media_items** | Option<[**Vec<models::MediaItem>**](MediaItem.md)> |  | [optional]
 **platforms** | Option<[**Vec<models::PlatformTarget>**](PlatformTarget.md)> |  | [optional]
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **timezone** | Option<**String**> |  | [optional]
 **status** | Option<**Status**> |  (enum: draft, scheduled, publishing, published, failed, partial) | [optional]
 **tags** | Option<**Vec<String>**> | YouTube constraints: each tag max 100 chars, combined max 500 chars, duplicates removed. | [optional]
-**hashtags** | Option<**Vec<String>**> |  | [optional]
+**hashtags** | Option<**Vec<String>**> | Stored for reference only. Hashtags are NOT automatically appended to the caption when publishing. Include hashtags directly in the content field (platforms like Instagram only support hashtags as caption text). For YouTube keywords, use the tags field instead. | [optional]
 **mentions** | Option<**Vec<String>**> | Stored for reference only. This field does NOT automatically create @mentions when publishing. For LinkedIn @mentions, use the /v1/accounts/{accountId}/linkedin-mentions endpoint to resolve profile URLs to URNs, then embed the returned mentionFormat directly in the post content field. | [optional]
 **visibility** | Option<**Visibility**> |  (enum: public, private, unlisted) | [optional]
 **metadata** | Option<**std::collections::HashMap<String, serde_json::Value>**> |  | [optional]
