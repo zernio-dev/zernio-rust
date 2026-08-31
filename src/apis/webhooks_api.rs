@@ -52,6 +52,18 @@ pub enum GetWebhookSettingsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`redeliver_webhook_event`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RedeliverWebhookEventError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(models::InlineObject2),
+    Status500(),
+    Status502(models::UnpublishPost200Response),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`test_webhook`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -285,6 +297,56 @@ pub async fn get_webhook_settings(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetWebhookSettingsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Replay a past delivery: the original payload is re-sent, byte for byte, to the subscription's current URL. The original event ID is preserved so your endpoint can dedupe, and the replay is recorded as a fresh attempt, so it shows up in `GET /v1/webhooks/logs` next to the delivery it replays.  Both `webhookId` and `eventId` come from a row of `GET /v1/webhooks/logs`. Because the stored payload is replayed as-is, a redelivery reflects the event as it was emitted, not the current state of the resource.  Only deliveries inside the 30-day log retention window can be replayed; past that the payload is gone and the request fails with a 500. Replays run the same resource-group checks as live delivery, against both the key's groups and the subscription's `disabledResourceGroups`.
+pub async fn redeliver_webhook_event(
+    configuration: &configuration::Configuration,
+    redeliver_webhook_event_request: models::RedeliverWebhookEventRequest,
+) -> Result<models::UnpublishPost200Response, Error<RedeliverWebhookEventError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_redeliver_webhook_event_request = redeliver_webhook_event_request;
+
+    let uri_str = format!("{}/v1/webhooks/logs/redeliver", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_redeliver_webhook_event_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UnpublishPost200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UnpublishPost200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RedeliverWebhookEventError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
