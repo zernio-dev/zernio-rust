@@ -17,6 +17,9 @@ pub struct GetInboxConversationMessages200ResponseMessagesInnerAttachmentsInner 
     pub id: Option<String>,
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
+    /// Instagram and Facebook only, and present only when it differs from `type`. Meta's own type before normalization: `ig_reel` and `reel` become `video`, while `ig_post`, `post`, `ig_story` and `story_mention` become `share`. A story mention is `type: \"share\"` with `originalType: \"story_mention\"`; render on this field, since `share` alone is ambiguous.
+    #[serde(rename = "originalType", skip_serializing_if = "Option::is_none")]
+    pub original_type: Option<String>,
     /// Direct media link. On Instagram and Facebook this is a signed Meta CDN url that EXPIRES: use it now, do not store it. Persist `refreshUrl` instead.
     #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
@@ -49,6 +52,7 @@ impl GetInboxConversationMessages200ResponseMessagesInnerAttachmentsInner {
         GetInboxConversationMessages200ResponseMessagesInnerAttachmentsInner {
             id: None,
             r#type: None,
+            original_type: None,
             url: None,
             refresh_url: None,
             filename: None,

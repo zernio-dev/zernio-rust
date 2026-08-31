@@ -11,22 +11,28 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// WebhookPayloadMessageSentMessageSender : **On this event the sender is your own business, not the person you are talking to.** `id` is the Zernio account id and `name`, `username` and `picture` are that connected account's own profile.  Do not read these to name or update a contact: doing so on an echo relabels the customer's record with your business name. The other party is `conversation.participantId` / `participantName` / `participantUsername`, which are populated in both directions.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadMessageSentMessageSender {
+    /// The Zernio account id of the connected account that sent the message, not a contact id.
     #[serde(rename = "id")]
     pub id: String,
     /// Always omitted on this event: the sender is the business, not a contact. Use conversation.contactId to join back to the CRM Contact.
     #[serde(rename = "contactId", skip_serializing_if = "Option::is_none")]
     pub contact_id: Option<String>,
+    /// Display name of your connected account.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
+    /// Username of your connected account.
     #[serde(rename = "username", skip_serializing_if = "Option::is_none")]
     pub username: Option<String>,
+    /// Profile picture of your connected account.
     #[serde(rename = "picture", skip_serializing_if = "Option::is_none")]
     pub picture: Option<String>,
 }
 
 impl WebhookPayloadMessageSentMessageSender {
+    /// **On this event the sender is your own business, not the person you are talking to.** `id` is the Zernio account id and `name`, `username` and `picture` are that connected account's own profile.  Do not read these to name or update a contact: doing so on an echo relabels the customer's record with your business name. The other party is `conversation.participantId` / `participantName` / `participantUsername`, which are populated in both directions.
     pub fn new(id: String) -> WebhookPayloadMessageSentMessageSender {
         WebhookPayloadMessageSentMessageSender {
             id,
