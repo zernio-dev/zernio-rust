@@ -26,7 +26,7 @@ pub struct BulkUploadResult {
     /// One entry per CSV data row, in row order.
     #[serde(rename = "results", skip_serializing_if = "Option::is_none")]
     pub results: Option<Vec<models::BulkUploadResultResultsInner>>,
-    /// Top-level advisory warnings (e.g. `rows_exceed_advisory_limit:500`). Empty when none.
+    /// Top-level advisory warnings, e.g. `rows_exceed_advisory_limit:500` or `unknown_columns:<a,b,c>` (comma-separated unrecognized CSV column names). Empty when none.
     #[serde(rename = "warnings", skip_serializing_if = "Option::is_none")]
     pub warnings: Option<Vec<String>>,
     /// Present only when one or more rows targeted an account currently in cooldown. Lets callers map `rate_limited:*` row errors back to structured metadata without parsing the error strings.

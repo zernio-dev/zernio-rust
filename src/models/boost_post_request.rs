@@ -94,6 +94,12 @@ pub struct BoostPostRequest {
     /// Legal entity that pays for the ad. Can differ from `dsaBeneficiary` (for example, an agency paying for a client's ads). Same rules as `dsaBeneficiary`: required for EU targeting unless the ad account has a default payor.
     #[serde(rename = "dsaPayor", skip_serializing_if = "Option::is_none")]
     pub dsa_payor: Option<String>,
+    /// Lead Gen form ID to attach to the boosted ad's creative. REQUIRED when `goal` is `lead_generation`. On Meta this is the leadgen_forms ID (create one via POST /v1/ads/lead-forms). On LinkedIn this is the adForm ID (create one via POST /v1/ads/lead-forms with a LinkedIn account); the creative's `leadgenCallToAction.destination` is set to `urn:li:adForm:{id}`. Ignored for other goals.
+    #[serde(rename = "leadGenFormId", skip_serializing_if = "Option::is_none")]
+    pub lead_gen_form_id: Option<String>,
+    /// Meta, TikTok, and LinkedIn. Publish state of the created entities. Omitted or ACTIVE publishes live (default); PAUSED creates them paused so you can review before they spend. On LinkedIn the whole campaign group, campaign, and creative hierarchy stays PAUSED (intendedStatus PAUSED on each).
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<Status>,
     /// Meta only. Explicit ad-set `optimization_goal` override. When omitted, defaults to the value derived from `goal`. The value must be compatible with the objective Meta derives from `goal`, not with the objective used by `POST /v1/ads/create` for the same `goal` name: boost maps `goal: \"engagement\"` to objective `OUTCOME_AWARENESS`, which accepts `REACH`, `IMPRESSIONS`, `AD_RECALL_LIFT`, or THRUPLAY-class values, and rejects `POST_ENGAGEMENT` (that value is only valid under `OUTCOME_ENGAGEMENT`, which create uses for the same goal name).
     #[serde(rename = "optimizationGoal", skip_serializing_if = "Option::is_none")]
     pub optimization_goal: Option<String>,
@@ -133,6 +139,8 @@ impl BoostPostRequest {
             spark_auth_code: None,
             dsa_beneficiary: None,
             dsa_payor: None,
+            lead_gen_form_id: None,
+            status: None,
             optimization_goal: None,
         }
     }
@@ -201,5 +209,19 @@ pub enum SpecialAdCategories {
 impl Default for SpecialAdCategories {
     fn default() -> SpecialAdCategories {
         Self::Housing
+    }
+}
+/// Meta, TikTok, and LinkedIn. Publish state of the created entities. Omitted or ACTIVE publishes live (default); PAUSED creates them paused so you can review before they spend. On LinkedIn the whole campaign group, campaign, and creative hierarchy stays PAUSED (intendedStatus PAUSED on each).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Status {
+    #[serde(rename = "ACTIVE")]
+    Active,
+    #[serde(rename = "PAUSED")]
+    Paused,
+}
+
+impl Default for Status {
+    fn default() -> Status {
+        Self::Active
     }
 }
