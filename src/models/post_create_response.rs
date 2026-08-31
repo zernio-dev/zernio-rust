@@ -17,6 +17,9 @@ pub struct PostCreateResponse {
     pub message: Option<String>,
     #[serde(rename = "post", skip_serializing_if = "Option::is_none")]
     pub post: Option<Box<models::Post>>,
+    /// Advisory notices about a post that was still created: media truncated for a platform, a recycling caveat, or a field that was ignored because it sat outside platforms[].platformSpecificData. Absent when there are none.
+    #[serde(rename = "warnings", skip_serializing_if = "Option::is_none")]
+    pub warnings: Option<Vec<String>>,
 }
 
 impl PostCreateResponse {
@@ -24,6 +27,7 @@ impl PostCreateResponse {
         PostCreateResponse {
             message: None,
             post: None,
+            warnings: None,
         }
     }
 }
