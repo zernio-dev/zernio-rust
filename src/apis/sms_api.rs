@@ -31,7 +31,9 @@ pub enum AppealSmsRegistrationError {
 pub enum CreateSmsSenderIdError {
     Status400(models::ErrorResponse),
     Status401(models::InlineObject),
+    Status402(),
     Status403(),
+    Status409(),
     Status422(),
     UnknownValue(serde_json::Value),
 }

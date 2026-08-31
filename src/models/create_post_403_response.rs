@@ -33,6 +33,8 @@ impl CreatePost403Response {
 pub enum Code {
     #[serde(rename = "ACCOUNT_DISCONNECTED")]
     AccountDisconnected,
+    #[serde(rename = "ACCOUNT_NOT_ENABLED_FOR_POSTING")]
+    AccountNotEnabledForPosting,
     #[serde(rename = "PROFILE_OVER_LIMIT")]
     ProfileOverLimit,
 }

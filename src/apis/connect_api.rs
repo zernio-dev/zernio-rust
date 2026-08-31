@@ -99,6 +99,7 @@ pub enum ConnectDiscordChannelError {
 pub enum ConnectOpenAiAdsCredentialsError {
     Status400(models::ErrorResponse),
     Status401(),
+    Status402(models::InlineObject3),
     Status403(),
     UnknownValue(serde_json::Value),
 }
