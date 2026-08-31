@@ -18,7 +18,7 @@ pub struct ListInboxComments200Response {
     #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
     pub pagination: Option<Box<models::ListInboxConversations200ResponsePagination>>,
     #[serde(rename = "meta", skip_serializing_if = "Option::is_none")]
-    pub meta: Option<Box<models::ListInboxConversations200ResponseMeta>>,
+    pub meta: Option<Box<models::ListInboxComments200ResponseMeta>>,
 }
 
 impl ListInboxComments200Response {

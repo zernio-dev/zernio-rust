@@ -38,6 +38,7 @@ pub enum GetAccountHealthError {
 pub enum GetAccountPostsError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     Status404(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
