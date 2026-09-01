@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **is_subscribed** | Option<**bool**> |  | [optional][default to true]
 **notes** | Option<**String**> |  | [optional]
 **account_id** | Option<**String**> | Optional. Creates a channel if provided with platform + platformIdentifier | [optional]
-**platform** | Option<**String**> |  | [optional]
+**platform** | Option<**Platform**> | Channel platform. Only the enum values support contact channels; any other platform is rejected with code platform_not_supported. (enum: instagram, facebook, telegram, twitter, bluesky, reddit, whatsapp, slack) | [optional]
 **platform_identifier** | Option<**String**> |  | [optional]
 **display_identifier** | Option<**String**> |  | [optional]
 

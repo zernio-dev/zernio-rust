@@ -30,8 +30,9 @@ pub struct CreateContactRequest {
     /// Optional. Creates a channel if provided with platform + platformIdentifier
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
+    /// Channel platform. Only the enum values support contact channels; any other platform is rejected with code platform_not_supported.
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
-    pub platform: Option<String>,
+    pub platform: Option<Platform>,
     #[serde(rename = "platformIdentifier", skip_serializing_if = "Option::is_none")]
     pub platform_identifier: Option<String>,
     #[serde(rename = "displayIdentifier", skip_serializing_if = "Option::is_none")]
@@ -53,5 +54,31 @@ impl CreateContactRequest {
             platform_identifier: None,
             display_identifier: None,
         }
+    }
+}
+/// Channel platform. Only the enum values support contact channels; any other platform is rejected with code platform_not_supported.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Platform {
+    #[serde(rename = "instagram")]
+    Instagram,
+    #[serde(rename = "facebook")]
+    Facebook,
+    #[serde(rename = "telegram")]
+    Telegram,
+    #[serde(rename = "twitter")]
+    Twitter,
+    #[serde(rename = "bluesky")]
+    Bluesky,
+    #[serde(rename = "reddit")]
+    Reddit,
+    #[serde(rename = "whatsapp")]
+    Whatsapp,
+    #[serde(rename = "slack")]
+    Slack,
+}
+
+impl Default for Platform {
+    fn default() -> Platform {
+        Self::Instagram
     }
 }
