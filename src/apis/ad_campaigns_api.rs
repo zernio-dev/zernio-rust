@@ -1416,6 +1416,7 @@ pub async fn list_ads(
     page_id: Option<&str>,
     profile_id: Option<&str>,
     campaign_id: Option<&str>,
+    ad_set_id: Option<&str>,
     platform_ad_id: Option<&str>,
     effective_object_story_id: Option<&str>,
     effective_instagram_media_id: Option<&str>,
@@ -1433,6 +1434,7 @@ pub async fn list_ads(
     let p_query_page_id = page_id;
     let p_query_profile_id = profile_id;
     let p_query_campaign_id = campaign_id;
+    let p_query_ad_set_id = ad_set_id;
     let p_query_platform_ad_id = platform_ad_id;
     let p_query_effective_object_story_id = effective_object_story_id;
     let p_query_effective_instagram_media_id = effective_instagram_media_id;
@@ -1471,6 +1473,9 @@ pub async fn list_ads(
     }
     if let Some(ref param_value) = p_query_campaign_id {
         req_builder = req_builder.query(&[("campaignId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_ad_set_id {
+        req_builder = req_builder.query(&[("adSetId", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_platform_ad_id {
         req_builder = req_builder.query(&[("platformAdId", &param_value.to_string())]);

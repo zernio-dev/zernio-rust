@@ -11,14 +11,17 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UpdateAdRequestCreative : Replace the ad's creative. Meta, TikTok, and LinkedIn.  - **Meta**: requires `headline`, `body`, `callToAction`, `linkUrl`, `imageUrl`. The   ad's existing creative is replaced via a new `/act_X/adcreatives` upload + ad   update. The old creative is retained on the ad account for historical reporting. - **TikTok**: patch-style. Pass any subset; `headline` is ignored (TikTok creatives   have no headline slot). `body` becomes the in-feed `ad_text`; `linkUrl` becomes   `landing_page_url`; `videoUrl` triggers a fresh upload. - **LinkedIn**: uploads new media (image via `imageUrl` or video via `videoUrl`),   creates a new inline media creative on the same campaign, and pauses the old   creative (best-effort). The old creative is retained for historical reporting.
+/// UpdateAdRequestCreative : Replace or patch the ad's creative. Meta, TikTok, and LinkedIn.  - **Meta**: patch-style. Pass any subset — fields you omit are preserved from the   live creative, including media (`image_hash`/`video_id` are reused, no re-upload)   and `url_tags`. Sending the full set (`headline`, `body`, `callToAction`,   `linkUrl`, `imageUrl`) rebuilds the creative from scratch instead. Partial   patching reads the live `object_story_spec`, which Meta strips on SHARE /   page-post / dark / asset_feed creatives — those return 422 asking for the full   set. A `videoUrl`/`videoId` on an image creative is a type change and also   needs the full set. `existingCreativeId` repoints the ad at a creative from   GET /v1/ads/creatives and ignores every other field. Meta creatives are   immutable, so any change creates a new creative and repoints the ad; the old   creative is retained on the ad account for historical reporting. - **TikTok**: patch-style. Pass any subset; `headline` is ignored (TikTok creatives   have no headline slot). `body` becomes the in-feed `ad_text`; `linkUrl` becomes   `landing_page_url`; `videoUrl` triggers a fresh upload. `description`, `videoId`   and `existingCreativeId` are Meta-only and return 400. - **LinkedIn**: uploads new media (image via `imageUrl` or video via `videoUrl`),   creates a new inline media creative on the same campaign, and pauses the old   creative (best-effort). The old creative is retained for historical reporting.   `videoId` and `existingCreativeId` are Meta-only and return 400.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAdRequestCreative {
-    /// Meta only
+    /// Meta and LinkedIn (TikTok has no headline slot)
     #[serde(rename = "headline", skip_serializing_if = "Option::is_none")]
     pub headline: Option<String>,
     #[serde(rename = "body", skip_serializing_if = "Option::is_none")]
     pub body: Option<String>,
+    /// Link description slot (Meta `link_data.description` / `video_data.link_description`, LinkedIn creative description).
+    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
     #[serde(rename = "callToAction", skip_serializing_if = "Option::is_none")]
     pub call_to_action: Option<String>,
     #[serde(rename = "linkUrl", skip_serializing_if = "Option::is_none")]
@@ -27,18 +30,27 @@ pub struct UpdateAdRequestCreative {
     pub image_url: Option<String>,
     #[serde(rename = "videoUrl", skip_serializing_if = "Option::is_none")]
     pub video_url: Option<String>,
+    /// Meta only. Reuse an already-uploaded ad video (from POST /v1/ads/videos or GET /v1/ads/videos) instead of re-uploading via videoUrl.
+    #[serde(rename = "videoId", skip_serializing_if = "Option::is_none")]
+    pub video_id: Option<String>,
+    /// Meta only. Repoint the ad at an existing library creative (from GET /v1/ads/creatives); all other creative fields are ignored.
+    #[serde(rename = "existingCreativeId", skip_serializing_if = "Option::is_none")]
+    pub existing_creative_id: Option<String>,
 }
 
 impl UpdateAdRequestCreative {
-    /// Replace the ad's creative. Meta, TikTok, and LinkedIn.  - **Meta**: requires `headline`, `body`, `callToAction`, `linkUrl`, `imageUrl`. The   ad's existing creative is replaced via a new `/act_X/adcreatives` upload + ad   update. The old creative is retained on the ad account for historical reporting. - **TikTok**: patch-style. Pass any subset; `headline` is ignored (TikTok creatives   have no headline slot). `body` becomes the in-feed `ad_text`; `linkUrl` becomes   `landing_page_url`; `videoUrl` triggers a fresh upload. - **LinkedIn**: uploads new media (image via `imageUrl` or video via `videoUrl`),   creates a new inline media creative on the same campaign, and pauses the old   creative (best-effort). The old creative is retained for historical reporting.
+    /// Replace or patch the ad's creative. Meta, TikTok, and LinkedIn.  - **Meta**: patch-style. Pass any subset — fields you omit are preserved from the   live creative, including media (`image_hash`/`video_id` are reused, no re-upload)   and `url_tags`. Sending the full set (`headline`, `body`, `callToAction`,   `linkUrl`, `imageUrl`) rebuilds the creative from scratch instead. Partial   patching reads the live `object_story_spec`, which Meta strips on SHARE /   page-post / dark / asset_feed creatives — those return 422 asking for the full   set. A `videoUrl`/`videoId` on an image creative is a type change and also   needs the full set. `existingCreativeId` repoints the ad at a creative from   GET /v1/ads/creatives and ignores every other field. Meta creatives are   immutable, so any change creates a new creative and repoints the ad; the old   creative is retained on the ad account for historical reporting. - **TikTok**: patch-style. Pass any subset; `headline` is ignored (TikTok creatives   have no headline slot). `body` becomes the in-feed `ad_text`; `linkUrl` becomes   `landing_page_url`; `videoUrl` triggers a fresh upload. `description`, `videoId`   and `existingCreativeId` are Meta-only and return 400. - **LinkedIn**: uploads new media (image via `imageUrl` or video via `videoUrl`),   creates a new inline media creative on the same campaign, and pauses the old   creative (best-effort). The old creative is retained for historical reporting.   `videoId` and `existingCreativeId` are Meta-only and return 400.
     pub fn new() -> UpdateAdRequestCreative {
         UpdateAdRequestCreative {
             headline: None,
             body: None,
+            description: None,
             call_to_action: None,
             link_url: None,
             image_url: None,
             video_url: None,
+            video_id: None,
+            existing_creative_id: None,
         }
     }
 }

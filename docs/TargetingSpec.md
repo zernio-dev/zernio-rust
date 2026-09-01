@@ -18,12 +18,15 @@ Name | Type | Description | Notes
 **languages** | Option<**Vec<String>**> | Language codes restricting the audience by language. On Meta, ISO 639-1 codes (e.g. ['en']); a bare code targets all regional variants (\"en\" = all English), or use a region-qualified code (\"en_GB\", \"pt_BR\") for a specific one. Unknown codes are rejected. | [optional]
 **interests** | Option<[**Vec<models::CreateStandaloneAdRequestBehaviorsInner>**](CreateStandaloneAdRequestBehaviorsInner.md)> | Interest entities from /v1/ads/targeting/search?dimension=interest. Each carries the platform's opaque id. | [optional]
 **behaviors** | Option<[**Vec<models::CreateStandaloneAdRequestBehaviorsInner>**](CreateStandaloneAdRequestBehaviorsInner.md)> | Behaviour entities from /v1/ads/targeting/search?dimension=behavior. Supported on Meta and TikTok. | [optional]
+**work_positions** | Option<[**Vec<models::CreateStandaloneAdRequestBehaviorsInner>**](CreateStandaloneAdRequestBehaviorsInner.md)> | Meta only. Job title entities from /v1/ads/targeting/search?dimension=workPosition. Not interchangeable with the LinkedIn `jobTitles` URN fragments. | [optional]
+**work_employers** | Option<[**Vec<models::CreateStandaloneAdRequestBehaviorsInner>**](CreateStandaloneAdRequestBehaviorsInner.md)> | Meta only. Employer entities from /v1/ads/targeting/search?dimension=workEmployer. | [optional]
+**work_industries** | Option<[**Vec<models::CreateStandaloneAdRequestBehaviorsInner>**](CreateStandaloneAdRequestBehaviorsInner.md)> | Meta only. Work-industry entities from /v1/ads/targeting/search?dimension=workIndustry. Not interchangeable with the LinkedIn `industries` URN fragments. | [optional]
 **industries** | Option<**Vec<String>**> | LinkedIn B2B only. Industry URN id fragments. | [optional]
 **company_sizes** | Option<**Vec<String>**> | LinkedIn B2B only. | [optional]
 **seniorities** | Option<**Vec<String>**> | LinkedIn B2B only. | [optional]
 **job_functions** | Option<**Vec<String>**> | LinkedIn B2B only. | [optional]
-**audience_include** | Option<**Vec<String>**> | Platform audience IDs to include. Not supported on any platform (no builder maps it): rejected with a 400 on ad create, boost, and reach estimate. | [optional]
-**audience_exclude** | Option<**Vec<String>**> | Platform audience IDs to exclude. Not supported on any platform (no builder maps it): rejected with a 400 on ad create, boost, and reach estimate. | [optional]
+**audience_include** | Option<**Vec<String>**> | Platform audience IDs to include, as returned by GET /v1/ads/audiences (Meta custom audience ids, TikTok audience ids, Pinterest customer list ids, LinkedIn segment ids (bare, urn:li:adSegment or urn:li:dmpSegment forms accepted), Google user list ids, X custom audience ids). Not supported on OpenAI (400). | [optional]
+**audience_exclude** | Option<**Vec<String>**> | Platform audience IDs to exclude; same ID formats as audienceInclude. Not supported on OpenAI (400). | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

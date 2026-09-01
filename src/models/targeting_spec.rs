@@ -55,6 +55,15 @@ pub struct TargetingSpec {
     /// Behaviour entities from /v1/ads/targeting/search?dimension=behavior. Supported on Meta and TikTok.
     #[serde(rename = "behaviors", skip_serializing_if = "Option::is_none")]
     pub behaviors: Option<Vec<models::CreateStandaloneAdRequestBehaviorsInner>>,
+    /// Meta only. Job title entities from /v1/ads/targeting/search?dimension=workPosition. Not interchangeable with the LinkedIn `jobTitles` URN fragments.
+    #[serde(rename = "workPositions", skip_serializing_if = "Option::is_none")]
+    pub work_positions: Option<Vec<models::CreateStandaloneAdRequestBehaviorsInner>>,
+    /// Meta only. Employer entities from /v1/ads/targeting/search?dimension=workEmployer.
+    #[serde(rename = "workEmployers", skip_serializing_if = "Option::is_none")]
+    pub work_employers: Option<Vec<models::CreateStandaloneAdRequestBehaviorsInner>>,
+    /// Meta only. Work-industry entities from /v1/ads/targeting/search?dimension=workIndustry. Not interchangeable with the LinkedIn `industries` URN fragments.
+    #[serde(rename = "workIndustries", skip_serializing_if = "Option::is_none")]
+    pub work_industries: Option<Vec<models::CreateStandaloneAdRequestBehaviorsInner>>,
     /// LinkedIn B2B only. Industry URN id fragments.
     #[serde(rename = "industries", skip_serializing_if = "Option::is_none")]
     pub industries: Option<Vec<String>>,
@@ -67,10 +76,10 @@ pub struct TargetingSpec {
     /// LinkedIn B2B only.
     #[serde(rename = "jobFunctions", skip_serializing_if = "Option::is_none")]
     pub job_functions: Option<Vec<String>>,
-    /// Platform audience IDs to include. Not supported on any platform (no builder maps it): rejected with a 400 on ad create, boost, and reach estimate.
+    /// Platform audience IDs to include, as returned by GET /v1/ads/audiences (Meta custom audience ids, TikTok audience ids, Pinterest customer list ids, LinkedIn segment ids (bare, urn:li:adSegment or urn:li:dmpSegment forms accepted), Google user list ids, X custom audience ids). Not supported on OpenAI (400).
     #[serde(rename = "audienceInclude", skip_serializing_if = "Option::is_none")]
     pub audience_include: Option<Vec<String>>,
-    /// Platform audience IDs to exclude. Not supported on any platform (no builder maps it): rejected with a 400 on ad create, boost, and reach estimate.
+    /// Platform audience IDs to exclude; same ID formats as audienceInclude. Not supported on OpenAI (400).
     #[serde(rename = "audienceExclude", skip_serializing_if = "Option::is_none")]
     pub audience_exclude: Option<Vec<String>>,
 }
@@ -93,6 +102,9 @@ impl TargetingSpec {
             languages: None,
             interests: None,
             behaviors: None,
+            work_positions: None,
+            work_employers: None,
+            work_industries: None,
             industries: None,
             company_sizes: None,
             seniorities: None,

@@ -152,6 +152,15 @@ pub struct CreateStandaloneAdRequest {
     /// Behaviour entities from /v1/ads/targeting/search?dimension=behavior. Supported on Meta and TikTok. Each must include id.
     #[serde(rename = "behaviors", skip_serializing_if = "Option::is_none")]
     pub behaviors: Option<Vec<models::CreateStandaloneAdRequestBehaviorsInner>>,
+    /// Meta only. Job title entities from /v1/ads/targeting/search?dimension=workPosition. Each must include id. Rejected on other platforms (use LinkedIn's `jobTitles` there).
+    #[serde(rename = "workPositions", skip_serializing_if = "Option::is_none")]
+    pub work_positions: Option<Vec<models::CreateStandaloneAdRequestBehaviorsInner>>,
+    /// Meta only. Employer entities from /v1/ads/targeting/search?dimension=workEmployer. Each must include id.
+    #[serde(rename = "workEmployers", skip_serializing_if = "Option::is_none")]
+    pub work_employers: Option<Vec<models::CreateStandaloneAdRequestBehaviorsInner>>,
+    /// Meta only. Work-industry entities from /v1/ads/targeting/search?dimension=workIndustry. Each must include id. Rejected on other platforms (use LinkedIn's `industries` there).
+    #[serde(rename = "workIndustries", skip_serializing_if = "Option::is_none")]
+    pub work_industries: Option<Vec<models::CreateStandaloneAdRequestBehaviorsInner>>,
     /// Normalized household-income tier. Meta and TikTok express all four; Google maps only `top_10`; rejected on LinkedIn, X, and Pinterest. On Meta, income targeting is incompatible with housing/employment/credit `specialAdCategories`.
     #[serde(rename = "incomeTier", skip_serializing_if = "Option::is_none")]
     pub income_tier: Option<IncomeTier>,
@@ -336,6 +345,9 @@ impl CreateStandaloneAdRequest {
             metros: None,
             custom_locations: None,
             behaviors: None,
+            work_positions: None,
+            work_employers: None,
+            work_industries: None,
             income_tier: None,
             languages: None,
             placements: None,
