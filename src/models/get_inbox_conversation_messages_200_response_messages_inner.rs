@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetInboxConversationMessages200ResponseMessagesInner {
+    /// The platform's own message id: the `wamid` on WhatsApp, the `mid` on Instagram and Facebook Messenger. This is what `metadata.quotedMessageId` points at, the value to pass as `replyTo` on the platforms that support quote-replies, and the `{messageId}` segment of the attachment-resolve URL. Webhooks deliver the same value as `message.platformMessageId`; this response has no field by that name.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[serde(rename = "conversationId", skip_serializing_if = "Option::is_none")]
@@ -135,7 +136,7 @@ pub struct GetInboxConversationMessages200ResponseMessagesInner {
     #[serde(rename = "reactions", skip_serializing_if = "Option::is_none")]
     pub reactions:
         Option<Vec<models::GetInboxConversationMessages200ResponseMessagesInnerReactionsInner>>,
-    /// Platform-specific extras. Free-form, but commonly includes: `quotedMessageId` (platformMessageId this message replies to), `waInteractive` (a compact descriptor of WhatsApp interactive content sent: buttons / list / cta_url / flow / location_request), and for inbound interactive taps `interactiveType` / `interactiveId`. It can also carry `source` (`whatsapp_business_app` / `coexistence_history` on a WhatsApp Coexistence number, `bulk-api` on a POST /v1/whatsapp/bulk send), which is where the message reached us from rather than who produced it: read `sentVia` for that.
+    /// Platform-specific extras. Free-form, but commonly includes: `quotedMessageId` (the `id` of the message this one replies to, delivered as `message.platformMessageId` on webhooks), `waInteractive` (a compact descriptor of WhatsApp interactive content sent: buttons / list / cta_url / flow / location_request), and for inbound interactive taps `interactiveType` / `interactiveId`. It can also carry `source` (`whatsapp_business_app` / `coexistence_history` on a WhatsApp Coexistence number, `bulk-api` on a POST /v1/whatsapp/bulk send), which is where the message reached us from rather than who produced it: read `sentVia` for that.
     #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
     pub metadata: Option<std::collections::HashMap<String, serde_json::Value>>,
     /// Which Zernio surface produced this outgoing message: `human` (an operator in the Zernio inbox), `api` (a call to this API), `broadcast`, `sequence`, `workflow`, `comment_automation`, or `bulk-api` (POST /v1/whatsapp/bulk). Same vocabulary as the `source` filter on the inbox analytics endpoints.  Always present, and `null` whenever the lineage is unknown: every incoming message, any outgoing message sent from the platform's own app, and every message stored before this field shipped (2026-08). Existing messages are NOT backfilled, so treat `null` as \"unknown\", never as \"sent by a human\".

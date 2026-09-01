@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// WebhookPayloadMessageMetadata : Platform-specific message context (present when the message is a quick reply tap, postback button tap, inline keyboard callback, or a quote-reply to an earlier message)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadMessageMetadata {
-    /// platformMessageId of the message this one is a quote-reply to. WhatsApp (`context.id`), Instagram and Facebook Messenger (`reply_to.mid`). Outgoing quote-replies carry the same field on `message.sent`; see WebhookPayloadMessageSent.metadata.
+    /// platformMessageId of the message this one is a quote-reply to. WhatsApp (`context.id`), Instagram and Facebook Messenger (`reply_to.mid`). On outgoing messages the same field appears on `message.sent`, but only on some surfaces: see WebhookPayloadMessageSent.metadata.quotedMessageId.
     #[serde(rename = "quotedMessageId", skip_serializing_if = "Option::is_none")]
     pub quoted_message_id: Option<String>,
     /// Payload from a quick reply tap (Facebook/Instagram Messenger).
