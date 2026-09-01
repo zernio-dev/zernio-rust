@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 pub enum AttachCampaignAssetsError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     Status422(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -42,6 +43,7 @@ pub enum BoostPostError {
 pub enum BulkUpdateAdCampaignStatusError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     UnknownValue(serde_json::Value),
 }
 
@@ -102,6 +104,7 @@ pub enum DeleteAdSetError {
 pub enum DuplicateAdError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     Status404(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -113,6 +116,7 @@ pub enum DuplicateAdError {
 pub enum DuplicateAdCampaignError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     Status404(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -124,6 +128,7 @@ pub enum DuplicateAdCampaignError {
 pub enum DuplicateAdSetError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     Status404(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -203,6 +208,7 @@ pub enum ListAdsError {
 pub enum UpdateAdError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     Status404(models::InlineObject1),
     Status501(),
     Status502(),
@@ -215,6 +221,7 @@ pub enum UpdateAdError {
 pub enum UpdateAdCampaignError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     Status404(),
     Status409(),
     Status501(),
@@ -227,6 +234,7 @@ pub enum UpdateAdCampaignError {
 pub enum UpdateAdCampaignStatusError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -237,6 +245,7 @@ pub enum UpdateAdCampaignStatusError {
 pub enum UpdateAdSetError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     Status404(),
     Status409(),
     Status422(),
@@ -250,6 +259,7 @@ pub enum UpdateAdSetError {
 pub enum UpdateAdSetStatusError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -260,6 +270,7 @@ pub enum UpdateAdSetStatusError {
 pub enum UpdateAdStatusError {
     Status400(),
     Status401(models::InlineObject),
+    Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
 }

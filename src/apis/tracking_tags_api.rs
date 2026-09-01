@@ -118,6 +118,7 @@ pub enum RemoveTrackingTagSharedAccountError {
 #[serde(untagged)]
 pub enum UpdateAdTrackingTagsError {
     Status401(models::InlineObject),
+    Status403(),
     Status404(),
     Status405(),
     Status422(),
