@@ -79,6 +79,12 @@ pub struct BoostPostRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub special_ad_category_country: Option<Vec<String>>,
+    /// Meta only. Regional regulation categories required when the ad set targets certain countries (e.g. SINGAPORE_UNIVERSAL, TAIWAN_UNIVERSAL, THAILAND_UNIVERSAL, AUSTRALIA_FINSERV, INDIA_FINSERV). Forwarded to the ad set.
+    #[serde(
+        rename = "regionalRegulatedCategories",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub regional_regulated_categories: Option<Vec<String>>,
     /// Destination URL for the CTA button. Send it together with `callToAction`.  **Meta**: adds a top-level `call_to_action` to the post-reference creative. This is what gives a `traffic` boost a clickable destination without replacing the creative and losing the post's social proof. Ignored when `leadGenFormId` is set, which supplies its own destination. Live-verified against a Page-post creative.  **TikTok**: maps to `landing_page_url` on the Spark Ad creative (`AdcreateCreatives.landing_page_url`); Spark Ads have no clickable destination without it.  Ignored on LinkedIn / Pinterest / X / Google, which infer the destination from the boosted post.
     #[serde(rename = "linkUrl", skip_serializing_if = "Option::is_none")]
     pub link_url: Option<String>,
@@ -134,6 +140,7 @@ impl BoostPostRequest {
             tracking: None,
             special_ad_categories: None,
             special_ad_category_country: None,
+            regional_regulated_categories: None,
             link_url: None,
             call_to_action: None,
             spark_auth_code: None,

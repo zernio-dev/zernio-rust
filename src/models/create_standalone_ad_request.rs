@@ -187,6 +187,12 @@ pub struct CreateStandaloneAdRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub special_ad_category_country: Option<Vec<String>>,
+    /// Meta only. Regional regulation categories required when the ad set targets certain countries. Known values: SINGAPORE_UNIVERSAL, TAIWAN_UNIVERSAL, THAILAND_UNIVERSAL, AUSTRALIA_FINSERV, INDIA_FINSERV, TAIWAN_FINSERV. Meta rejects the ad set without this when the targeting geo includes the corresponding country.
+    #[serde(
+        rename = "regionalRegulatedCategories",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub regional_regulated_categories: Option<Vec<String>>,
     /// Required for lifetime budgets
     #[serde(rename = "endDate", skip_serializing_if = "Option::is_none")]
     pub end_date: Option<String>,
@@ -355,6 +361,7 @@ impl CreateStandaloneAdRequest {
             raw_targeting: None,
             special_ad_categories: None,
             special_ad_category_country: None,
+            regional_regulated_categories: None,
             end_date: None,
             start_date: None,
             instagram_account_id: None,

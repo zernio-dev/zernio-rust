@@ -109,6 +109,12 @@ pub struct CreateMessagingAdRequest {
     /// Legal entity that pays for the ad. Can differ from `dsaBeneficiary` (for example, an agency paying for a client's ads). Same rules as `dsaBeneficiary`: required for EU targeting unless the ad account has a default payor.
     #[serde(rename = "dsaPayor", skip_serializing_if = "Option::is_none")]
     pub dsa_payor: Option<String>,
+    /// Meta only. Regional regulation categories required when the ad set targets certain countries (e.g. SINGAPORE_UNIVERSAL, TAIWAN_UNIVERSAL, THAILAND_UNIVERSAL, AUSTRALIA_FINSERV, INDIA_FINSERV). Forwarded to the ad set.
+    #[serde(
+        rename = "regionalRegulatedCategories",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub regional_regulated_categories: Option<Vec<String>>,
     /// Where the conversation opens when the ad is tapped.
     #[serde(rename = "destination")]
     pub destination: Destination,
@@ -156,6 +162,7 @@ impl CreateMessagingAdRequest {
             roas_average_floor: None,
             dsa_beneficiary: None,
             dsa_payor: None,
+            regional_regulated_categories: None,
             destination,
         }
     }
