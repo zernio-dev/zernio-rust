@@ -16,7 +16,7 @@ pub struct CreateAdCreativeRequest {
     /// Zernio SocialAccount id (posting or ads variant) used to resolve the Meta token and Page.
     #[serde(rename = "accountId")]
     pub account_id: String,
-    /// Meta ad account id (act_<n>).
+    /// Platform ad account id (Meta act_<n>, Google customer id, LinkedIn account id, ...).
     #[serde(rename = "adAccountId")]
     pub ad_account_id: String,
     #[serde(rename = "headline")]

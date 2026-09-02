@@ -13,10 +13,10 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UploadAdImageRequest {
-    /// Zernio SocialAccount id (posting or ads variant) used to resolve the Meta token.
+    /// Zernio SocialAccount id (posting or ads variant); its platform decides where the campaign is created.
     #[serde(rename = "accountId")]
     pub account_id: String,
-    /// Meta ad account id (act_<n>).
+    /// Platform ad account id (Meta act_<n>, Google customer id, LinkedIn account id, ...).
     #[serde(rename = "adAccountId")]
     pub ad_account_id: String,
     /// Raw base64 image bytes, or a full data URL (the data:image/...;base64, prefix is stripped).

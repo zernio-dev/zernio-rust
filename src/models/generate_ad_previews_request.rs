@@ -16,7 +16,7 @@ pub struct GenerateAdPreviewsRequest {
     /// Zernio SocialAccount id used to resolve the Meta token.
     #[serde(rename = "accountId")]
     pub account_id: String,
-    /// Meta ad account id (act_<n>).
+    /// Platform ad account id (Meta act_<n>, Google customer id, LinkedIn account id, ...).
     #[serde(rename = "adAccountId")]
     pub ad_account_id: String,
     /// Meta ad_format values, one preview per format. Defaults to [DESKTOP_FEED_STANDARD].
