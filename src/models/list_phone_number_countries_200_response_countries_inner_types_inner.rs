@@ -19,6 +19,7 @@ pub struct ListPhoneNumberCountries200ResponseCountriesInnerTypesInner {
     pub tier: Option<Tier>,
     #[serde(rename = "needsKyc", skip_serializing_if = "Option::is_none")]
     pub needs_kyc: Option<bool>,
+    /// Price a NEW number of this type costs per month, in cents.
     #[serde(rename = "monthlyCents", skip_serializing_if = "Option::is_none")]
     pub monthly_cents: Option<i32>,
     /// Always false for toll_free (WhatsApp does not reliably register toll-free numbers).

@@ -18,6 +18,7 @@ pub struct ListPhoneNumberCountries200ResponseCountriesInner {
     pub code: Option<String>,
     #[serde(rename = "tier", skip_serializing_if = "Option::is_none")]
     pub tier: Option<Tier>,
+    /// Price a NEW number in this country costs per month, in cents, for the default (first) type. 1.5x the carrier's monthly cost, rounded up to a whole dollar, minimum $3.
     #[serde(rename = "monthlyCents", skip_serializing_if = "Option::is_none")]
     pub monthly_cents: Option<i32>,
     #[serde(rename = "needsKyc", skip_serializing_if = "Option::is_none")]

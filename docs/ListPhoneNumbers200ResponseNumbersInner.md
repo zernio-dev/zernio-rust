@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **status** | Option<**Status**> |  (enum: pending_payment, pending_regulatory, regulatory_declined, provisioning, verifying, active, suspended, releasing, released) | [optional]
 **registrant_name** | Option<**String**> | For regulated numbers, who it's registered for (company or person) — set from the submitted KYC. | [optional]
 **telnyx_order_id** | Option<**String**> | Present once the number order has been placed (i.e. the requirement group was approved). Absent while still in identity review. | [optional]
-**monthly_cents** | Option<**i32**> | Per-country monthly price in cents ($2..$25). | [optional]
+**monthly_cents** | Option<**i32**> | What this number bills each month, in cents. Stamped when the number was bought, so an existing number keeps its price when the rate card changes. | [optional]
 **hosted_by_zernio** | Option<**bool**> | False for numbers you brought yourself (connected via Meta embedded signup) — they live on your own carrier, so SMS/Calls can't be enabled on them. | [optional]
 **sip_trunk_id** | Option<**String**> | SIP trunk the number is attached to; null when not trunked. While attached, enabling Calls or WhatsApp calling, requesting WhatsApp verification, and releasing the number all return 409. | [optional]
 **profile_id** | Option<**serde_json::Value**> |  | [optional]

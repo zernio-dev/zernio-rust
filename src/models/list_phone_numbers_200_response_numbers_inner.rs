@@ -37,7 +37,7 @@ pub struct ListPhoneNumbers200ResponseNumbersInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub telnyx_order_id: Option<Option<String>>,
-    /// Per-country monthly price in cents ($2..$25).
+    /// What this number bills each month, in cents. Stamped when the number was bought, so an existing number keeps its price when the rate card changes.
     #[serde(rename = "monthlyCents", skip_serializing_if = "Option::is_none")]
     pub monthly_cents: Option<i32>,
     /// False for numbers you brought yourself (connected via Meta embedded signup) — they live on your own carrier, so SMS/Calls can't be enabled on them.

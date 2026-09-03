@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **code** | Option<**String**> | ISO 3166-1 alpha-2 | [optional]
 **tier** | Option<**Tier**> |  (enum: 1, 2, 3, 4) | [optional]
-**monthly_cents** | Option<**i32**> |  | [optional]
+**monthly_cents** | Option<**i32**> | Price a NEW number in this country costs per month, in cents, for the default (first) type. 1.5x the carrier's monthly cost, rounded up to a whole dollar, minimum $3. | [optional]
 **needs_kyc** | Option<**bool**> |  | [optional]
 **calls_available** | Option<**bool**> | Regular phone (PSTN) calling on the number, inbound + outbound. Available on every offerable country. | [optional]
 **whatsapp_available** | Option<**bool**> | WhatsApp can be enabled on numbers from this country. | [optional]
