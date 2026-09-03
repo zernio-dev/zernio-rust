@@ -10,11 +10,13 @@ Method | HTTP request | Description
 [**get_whats_app_flow**](WhatsAppFlowsApi.md#get_whats_app_flow) | **GET** /v1/whatsapp/flows/{flowId} | Get flow
 [**get_whats_app_flow_json**](WhatsAppFlowsApi.md#get_whats_app_flow_json) | **GET** /v1/whatsapp/flows/{flowId}/json | Get flow JSON asset
 [**get_whats_app_flow_preview**](WhatsAppFlowsApi.md#get_whats_app_flow_preview) | **GET** /v1/whatsapp/flows/{flowId}/preview | Get flow preview URL
+[**get_whats_app_flows_encryption_key**](WhatsAppFlowsApi.md#get_whats_app_flows_encryption_key) | **GET** /v1/whatsapp/flows/encryption-key | Get Flows encryption key status
 [**list_whats_app_flow_responses**](WhatsAppFlowsApi.md#list_whats_app_flow_responses) | **GET** /v1/whatsapp/flow-responses | List flow responses
 [**list_whats_app_flow_versions**](WhatsAppFlowsApi.md#list_whats_app_flow_versions) | **GET** /v1/whatsapp/flows/{flowId}/versions | List flow versions
 [**list_whats_app_flows**](WhatsAppFlowsApi.md#list_whats_app_flows) | **GET** /v1/whatsapp/flows | List flows
 [**publish_whats_app_flow**](WhatsAppFlowsApi.md#publish_whats_app_flow) | **POST** /v1/whatsapp/flows/{flowId}/publish | Publish flow
 [**send_whats_app_flow_message**](WhatsAppFlowsApi.md#send_whats_app_flow_message) | **POST** /v1/whatsapp/flows/send | Send flow message
+[**set_whats_app_flows_encryption_key**](WhatsAppFlowsApi.md#set_whats_app_flows_encryption_key) | **POST** /v1/whatsapp/flows/encryption-key | Register a Flows encryption key
 [**update_whats_app_flow**](WhatsAppFlowsApi.md#update_whats_app_flow) | **PATCH** /v1/whatsapp/flows/{flowId} | Update flow
 [**upload_whats_app_flow_json**](WhatsAppFlowsApi.md#upload_whats_app_flow_json) | **PUT** /v1/whatsapp/flows/{flowId}/json | Upload flow JSON
 
@@ -207,6 +209,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_whats_app_flows_encryption_key
+
+> models::GetWhatsAppFlowsEncryptionKey200Response get_whats_app_flows_encryption_key(account_id)
+Get Flows encryption key status
+
+Read the RSA business public key registered on the phone number for WhatsApp Flows endpoint encryption. Only one key is active per phone number at a time. Flows that use flow_action: data_exchange (an endpoint-backed flow) stop working at runtime until the endpoint serves the matching private key, and Meta rejects publish with error code 139002 (\"Missing Flows Signed Public Key\") when no key is registered. `registered` reflects whether a key is present, never `signatureStatus` alone: Meta reports an unregistered key as MISMATCH rather than a null/absent value. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | WhatsApp social account ID | [required] |
+
+### Return type
+
+[**models::GetWhatsAppFlowsEncryptionKey200Response**](getWhatsAppFlowsEncryptionKey_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_whats_app_flow_responses
 
 > models::ListWhatsAppFlowResponses200Response list_whats_app_flow_responses(account_id, flow_id, limit)
@@ -348,6 +380,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::SendWhatsAppFlowMessage200Response**](sendWhatsAppFlowMessage_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## set_whats_app_flows_encryption_key
+
+> models::UpdateYoutubeDefaultPlaylist200Response set_whats_app_flows_encryption_key(set_whats_app_flows_encryption_key_request)
+Register a Flows encryption key
+
+Register (or replace) the RSA business public key for WhatsApp Flows endpoint encryption on the phone number. Uploading a new key replaces the previous one: only one key is active per phone number. The corresponding private key must be served by the flow's endpoint, or endpoint-backed flows (flow_action: data_exchange) will fail at runtime even though the key is registered. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**set_whats_app_flows_encryption_key_request** | [**SetWhatsAppFlowsEncryptionKeyRequest**](SetWhatsAppFlowsEncryptionKeyRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateYoutubeDefaultPlaylist200Response**](updateYoutubeDefaultPlaylist_200_response.md)
 
 ### Authorization
 

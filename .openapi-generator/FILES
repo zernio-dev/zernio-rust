@@ -789,6 +789,7 @@ docs/GetWhatsAppFlow200ResponseFlowPreview.md
 docs/GetWhatsAppFlowJson200Response.md
 docs/GetWhatsAppFlowJson200ResponseAssetsInner.md
 docs/GetWhatsAppFlowPreview200Response.md
+docs/GetWhatsAppFlowsEncryptionKey200Response.md
 docs/GetWhatsAppGroupChat200Response.md
 docs/GetWhatsAppGroupChat200ResponseGroup.md
 docs/GetWhatsAppGroupChat200ResponseGroupParticipantsInner.md
@@ -1391,6 +1392,7 @@ docs/SetMessengerMenuRequest.md
 docs/SetRedditPostFlairRequest.md
 docs/SetTelegramCommandsRequest.md
 docs/SetTelegramCommandsRequestCommandsInner.md
+docs/SetWhatsAppFlowsEncryptionKeyRequest.md
 docs/SetWhatsappBusinessUsername200Response.md
 docs/SetWhatsappBusinessUsernameRequest.md
 docs/ShareSmsRegistration200Response.md
@@ -2670,6 +2672,7 @@ src/models/get_whats_app_flow_200_response_flow_preview.rs
 src/models/get_whats_app_flow_json_200_response.rs
 src/models/get_whats_app_flow_json_200_response_assets_inner.rs
 src/models/get_whats_app_flow_preview_200_response.rs
+src/models/get_whats_app_flows_encryption_key_200_response.rs
 src/models/get_whats_app_group_chat_200_response.rs
 src/models/get_whats_app_group_chat_200_response_group.rs
 src/models/get_whats_app_group_chat_200_response_group_participants_inner.rs
@@ -3247,6 +3250,7 @@ src/models/set_messenger_menu_request.rs
 src/models/set_reddit_post_flair_request.rs
 src/models/set_telegram_commands_request.rs
 src/models/set_telegram_commands_request_commands_inner.rs
+src/models/set_whats_app_flows_encryption_key_request.rs
 src/models/set_whatsapp_business_username_200_response.rs
 src/models/set_whatsapp_business_username_request.rs
 src/models/share_sms_registration_200_response.rs
