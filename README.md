@@ -2315,6 +2315,7 @@ Class | Method | HTTP request | Description
  - [WebhookPayloadMessageMetadata](docs/WebhookPayloadMessageMetadata.md)
  - [WebhookPayloadMessageMetadataOrder](docs/WebhookPayloadMessageMetadataOrder.md)
  - [WebhookPayloadMessageMetadataOrderProductItemsInner](docs/WebhookPayloadMessageMetadataOrderProductItemsInner.md)
+ - [WebhookPayloadMessageMetadataQuotedMessage](docs/WebhookPayloadMessageMetadataQuotedMessage.md)
  - [WebhookPayloadMessageMetadataReferral](docs/WebhookPayloadMessageMetadataReferral.md)
  - [WebhookPayloadMessageMetadataReferralAdsContextData](docs/WebhookPayloadMessageMetadataReferralAdsContextData.md)
  - [WebhookPayloadMessageMetadataReferredProduct](docs/WebhookPayloadMessageMetadataReferredProduct.md)
