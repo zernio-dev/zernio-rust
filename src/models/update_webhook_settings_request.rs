@@ -91,6 +91,8 @@ pub enum Events {
     AccountDisconnected,
     #[serde(rename = "account.ads.initial_sync_completed")]
     AccountAdsInitialSyncCompleted,
+    #[serde(rename = "analytics.synced")]
+    AnalyticsSynced,
     #[serde(rename = "message.received")]
     MessageReceived,
     #[serde(rename = "conversation.started")]

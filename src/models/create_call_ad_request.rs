@@ -109,12 +109,18 @@ pub struct CreateCallAdRequest {
     /// Legal entity that pays for the ad. Can differ from `dsaBeneficiary` (for example, an agency paying for a client's ads). Same rules as `dsaBeneficiary`: required for EU targeting unless the ad account has a default payor.
     #[serde(rename = "dsaPayor", skip_serializing_if = "Option::is_none")]
     pub dsa_payor: Option<String>,
-    /// Meta only. Regional regulation categories required when the ad set targets certain countries (e.g. SINGAPORE_UNIVERSAL, TAIWAN_UNIVERSAL, THAILAND_UNIVERSAL, AUSTRALIA_FINSERV, INDIA_FINSERV). Forwarded to the ad set.
+    /// Meta only. Regional regulation categories required when the ad set targets certain countries (e.g. BRAZIL_REGULATION, SINGAPORE_UNIVERSAL, TAIWAN_UNIVERSAL, THAILAND_UNIVERSAL, AUSTRALIA_FINSERV, INDIA_FINSERV, TAIWAN_FINSERV). Forwarded to the ad set.
     #[serde(
         rename = "regionalRegulatedCategories",
         skip_serializing_if = "Option::is_none"
     )]
     pub regional_regulated_categories: Option<Vec<String>>,
+    /// Meta only. Beneficiary/payer entity IDs required alongside regionalRegulatedCategories. Values are numeric IDs from the advertiser's Meta verification/authorization setup. Keys depend on the declared category: BRAZIL_REGULATION and THAILAND_UNIVERSAL use universal_beneficiary / universal_payer; SINGAPORE_UNIVERSAL uses singapore_universal_beneficiary / singapore_universal_payer; TAIWAN_UNIVERSAL uses taiwan_universal_beneficiary / taiwan_universal_payer; TAIWAN_FINSERV uses taiwan_finserv_beneficiary / taiwan_finserv_payer; AUSTRALIA_FINSERV uses australia_finserv_beneficiary / australia_finserv_payer; INDIA_FINSERV uses india_finserv_beneficiary / india_finserv_payer. Both beneficiary and payer must be included. If omitted and the advertiser has set defaults in Meta Ads Manager advertising settings, Meta auto-fills them.
+    #[serde(
+        rename = "regionalRegulationIdentities",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub regional_regulation_identities: Option<std::collections::HashMap<String, i32>>,
     /// E.164 number the CALL_NOW CTA dials (e.g. +34600111222).
     #[serde(rename = "phoneNumber")]
     pub phone_number: String,
@@ -167,6 +173,7 @@ impl CreateCallAdRequest {
             dsa_beneficiary: None,
             dsa_payor: None,
             regional_regulated_categories: None,
+            regional_regulation_identities: None,
             phone_number,
             link_url,
         }

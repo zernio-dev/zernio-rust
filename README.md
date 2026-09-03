@@ -159,6 +159,7 @@ Class | Method | HTTP request | Description
 *AdTargetingApi* | [**search_ad_interests**](docs/AdTargetingApi.md#search_ad_interests) | **GET** /v1/ads/interests | Search targeting interests
 *AdTargetingApi* | [**search_ad_targeting**](docs/AdTargetingApi.md#search_ad_targeting) | **GET** /v1/ads/targeting/search | Search targeting options
 *AnalyticsApi* | [**get_analytics**](docs/AnalyticsApi.md#get_analytics) | **GET** /v1/analytics | Get post analytics
+*AnalyticsApi* | [**get_analytics_delta**](docs/AnalyticsApi.md#get_analytics_delta) | **GET** /v1/analytics/delta | Analytics changed since a cursor
 *AnalyticsApi* | [**get_best_time_to_post**](docs/AnalyticsApi.md#get_best_time_to_post) | **GET** /v1/analytics/best-time | Get best times to post
 *AnalyticsApi* | [**get_content_decay**](docs/AnalyticsApi.md#get_content_decay) | **GET** /v1/analytics/content-decay | Get content performance decay
 *AnalyticsApi* | [**get_daily_metrics**](docs/AnalyticsApi.md#get_daily_metrics) | **GET** /v1/analytics/daily-metrics | Get daily aggregated metrics
@@ -702,6 +703,9 @@ Class | Method | HTTP request | Description
  - [AdsListResponse](docs/AdsListResponse.md)
  - [AdsTimelineResponse](docs/AdsTimelineResponse.md)
  - [AdsTimelineResponseRowsInner](docs/AdsTimelineResponseRowsInner.md)
+ - [AnalyticsDeltaEntry](docs/AnalyticsDeltaEntry.md)
+ - [AnalyticsDeltaEntryMetrics](docs/AnalyticsDeltaEntryMetrics.md)
+ - [AnalyticsDeltaResponse](docs/AnalyticsDeltaResponse.md)
  - [AnalyticsListResponse](docs/AnalyticsListResponse.md)
  - [AnalyticsListResponsePostsInner](docs/AnalyticsListResponsePostsInner.md)
  - [AnalyticsListResponsePostsInnerMediaItemsInner](docs/AnalyticsListResponsePostsInnerMediaItemsInner.md)
@@ -2273,6 +2277,9 @@ Class | Method | HTTP request | Description
  - [WebhookPayloadAdStatusChangedAdObject](docs/WebhookPayloadAdStatusChangedAdObject.md)
  - [WebhookPayloadAdStatusChangedError](docs/WebhookPayloadAdStatusChangedError.md)
  - [WebhookPayloadAdStatusChangedStatus](docs/WebhookPayloadAdStatusChangedStatus.md)
+ - [WebhookPayloadAnalyticsSynced](docs/WebhookPayloadAnalyticsSynced.md)
+ - [WebhookPayloadAnalyticsSyncedAccount](docs/WebhookPayloadAnalyticsSyncedAccount.md)
+ - [WebhookPayloadAnalyticsSyncedSync](docs/WebhookPayloadAnalyticsSyncedSync.md)
  - [WebhookPayloadCallEnded](docs/WebhookPayloadCallEnded.md)
  - [WebhookPayloadCallEndedCall](docs/WebhookPayloadCallEndedCall.md)
  - [WebhookPayloadCallEndedCallBilling](docs/WebhookPayloadCallEndedCallBilling.md)

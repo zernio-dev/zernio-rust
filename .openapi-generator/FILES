@@ -66,6 +66,9 @@ docs/AdsListResponse.md
 docs/AdsTimelineResponse.md
 docs/AdsTimelineResponseRowsInner.md
 docs/AnalyticsApi.md
+docs/AnalyticsDeltaEntry.md
+docs/AnalyticsDeltaEntryMetrics.md
+docs/AnalyticsDeltaResponse.md
 docs/AnalyticsListResponse.md
 docs/AnalyticsListResponsePostsInner.md
 docs/AnalyticsListResponsePostsInnerMediaItemsInner.md
@@ -1685,6 +1688,9 @@ docs/WebhookPayloadAdStatusChangedAccount.md
 docs/WebhookPayloadAdStatusChangedAdObject.md
 docs/WebhookPayloadAdStatusChangedError.md
 docs/WebhookPayloadAdStatusChangedStatus.md
+docs/WebhookPayloadAnalyticsSynced.md
+docs/WebhookPayloadAnalyticsSyncedAccount.md
+docs/WebhookPayloadAnalyticsSyncedSync.md
 docs/WebhookPayloadCallEnded.md
 docs/WebhookPayloadCallEndedCall.md
 docs/WebhookPayloadCallEndedCallBilling.md
@@ -1952,6 +1958,9 @@ src/models/adjust_conversions_request_adjustments_inner_user.rs
 src/models/ads_list_response.rs
 src/models/ads_timeline_response.rs
 src/models/ads_timeline_response_rows_inner.rs
+src/models/analytics_delta_entry.rs
+src/models/analytics_delta_entry_metrics.rs
+src/models/analytics_delta_response.rs
 src/models/analytics_list_response.rs
 src/models/analytics_list_response_posts_inner.rs
 src/models/analytics_list_response_posts_inner_media_items_inner.rs
@@ -3524,6 +3533,9 @@ src/models/webhook_payload_ad_status_changed_account.rs
 src/models/webhook_payload_ad_status_changed_ad_object.rs
 src/models/webhook_payload_ad_status_changed_error.rs
 src/models/webhook_payload_ad_status_changed_status.rs
+src/models/webhook_payload_analytics_synced.rs
+src/models/webhook_payload_analytics_synced_account.rs
+src/models/webhook_payload_analytics_synced_sync.rs
 src/models/webhook_payload_call_ended.rs
 src/models/webhook_payload_call_ended_call.rs
 src/models/webhook_payload_call_ended_call_billing.rs

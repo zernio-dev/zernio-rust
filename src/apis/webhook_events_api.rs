@@ -43,6 +43,13 @@ pub enum OnAdStatusChangedError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`on_analytics_synced`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnAnalyticsSyncedError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`on_call_ended`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -489,6 +496,36 @@ pub async fn on_ad_status_changed(configuration: &configuration::Configuration, 
     } else {
         let content = resp.text().await?;
         let entity: Option<OnAdStatusChangedError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired once per connected account each time its analytics sync cycle completes successfully. Poll-driven (roughly hourly per account), not real-time, and never fired for a skipped or failed cycle.  A trigger, not a transport: the payload carries no metrics and no cursor. On receipt, call `GET /v1/analytics/delta` with your own last `nextCursor` to read every post whose analytics changed, across every account, in one paginated stream instead of polling analytics once per account.  The feed holds back its most recent few seconds of writes, so a read issued the instant this event lands often returns an empty page for that account. Poll again with the same cursor rather than reading an empty page as \"nothing changed\".  High volume (roughly one delivery per connected account per hour). Subscribe to it on a dedicated webhook endpoint: a subscription's consecutive-failure count is shared across all of its events, so an outage while this event is flowing can suppress the low-volume publishing events on the same subscription. 
+pub async fn on_analytics_synced(configuration: &configuration::Configuration, webhook_payload_analytics_synced: models::WebhookPayloadAnalyticsSynced) -> Result<(), Error<OnAnalyticsSyncedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_payload_analytics_synced = webhook_payload_analytics_synced;
+
+    let uri_str = format!("{}/analytics.synced", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_payload_analytics_synced);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnAnalyticsSyncedError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

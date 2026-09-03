@@ -26,6 +26,20 @@ pub enum GetAnalyticsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_analytics_delta`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAnalyticsDeltaError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status402(models::GetAnalytics402Response),
+    Status403(models::ErrorResponse),
+    Status404(models::InlineObject1),
+    Status500(models::ErrorResponse),
+    Status503(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_best_time_to_post`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -388,6 +402,71 @@ pub async fn get_analytics(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetAnalyticsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Cursor feed of the analytics snapshots that CHANGED, across every account you can read, in one paginated stream. Built for integrations that would otherwise call `GET /v1/analytics` once per connected account. Each page carries changes from many accounts at once, so your call count scales with how much actually changed rather than with how many accounts you have. Measured against a fleet of roughly 1,600 connected accounts: about 1,599 per-account analytics calls an hour became about 205 delta calls an hour, a 7.8x reduction.  **Bootstrap once, then stay in sync.** Load your baseline from `GET /v1/analytics`, which is the historical endpoint. This one is a rolling 7-day change log and cannot replay history. Then call this endpoint with NO `cursor`: it answers with an empty `data` array plus the feed's current position in `nextCursor`. Send that `nextCursor` back on the next call and you receive everything written since. `nextCursor` is present on every response, empty pages included, so you always have something to advance with.  **Ordering.** Entries come back oldest first, in the order the feed received them. That order is NOT `syncedAt`: `syncedAt` is stamped when an account's sync cycle started, and a slow cycle writes its rows after a faster cycle that started later, so `syncedAt` can go backwards between consecutive entries. Do not sort, filter or resume on it. The cursor is the only stable position, and it is opaque: pass it back verbatim, and do not parse, construct or compare cursors.  **`hasMore: false` does not mean the feed ended.** This stream has no end and `nextCursor` is never null. `hasMore: true` means more changes are already waiting, so call again straight away. `hasMore: false` means you are caught up: keep the cursor and poll again on your normal interval.  **The newest changes settle before they are served.** The feed deliberately holds back its last few seconds of writes, so that a row can never become visible behind a cursor you have already advanced past. A read issued the instant an `analytics.synced` webhook lands will therefore often return an empty page for that account. Do not read an empty page as \"nothing changed\": poll again with the SAME cursor you just used rather than advancing.  **Repeats inside one instant.** A sync cycle occasionally records the same post twice at the same feed position. When that happens the feed delivers one of those rows, not both. Measured over a day of production traffic, about 1.3% of rows fall in such a group and 99.4% of those groups are identical rows, so this is far more often deduplication than loss. Metrics are absolute values rather than increments, so a later entry for the same post supersedes an earlier one.  **Retention is 7 days.** Changes older than that leave the feed. A cursor older than 6 days is rejected with a `400` (a day of margin, because expiry is lazy). Recover by re-bootstrapping from `GET /v1/analytics` and taking a fresh cursor from a call to this endpoint with no `cursor`. A consumer that polls at least daily never reaches this.  Pairs with the `analytics.synced` webhook, so changes can be read on notification instead of on a timer. That event carries no cursor of its own: keep using the `nextCursor` this endpoint gave you.  Requires the same analytics access as `GET /v1/analytics`, and shares the stricter per-second rate-limit window applied to analytics endpoints.
+pub async fn get_analytics_delta(
+    configuration: &configuration::Configuration,
+    cursor: Option<&str>,
+    limit: Option<i32>,
+    platform: Option<&str>,
+    profile_id: Option<&str>,
+) -> Result<models::AnalyticsDeltaResponse, Error<GetAnalyticsDeltaError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_cursor = cursor;
+    let p_query_limit = limit;
+    let p_query_platform = platform;
+    let p_query_profile_id = profile_id;
+
+    let uri_str = format!("{}/v1/analytics/delta", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_cursor {
+        req_builder = req_builder.query(&[("cursor", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_platform {
+        req_builder = req_builder.query(&[("platform", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_profile_id {
+        req_builder = req_builder.query(&[("profileId", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AnalyticsDeltaResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AnalyticsDeltaResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAnalyticsDeltaError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
