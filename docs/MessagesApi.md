@@ -160,7 +160,7 @@ Retrieve details and metadata for a specific conversation. Requires accountId qu
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**conversation_id** | **String** | The conversation ID (id field from list conversations endpoint). This is the platform-specific conversation identifier, not an internal database ID. | [required] |
+**conversation_id** | **String** | Opaque conversation identifier, accepted verbatim from the list endpoint or from the conversationId on inbox webhooks. Format not to be assumed. | [required] |
 **account_id** | **String** | The social account ID | [required] |
 
 ### Return type
@@ -191,7 +191,7 @@ Fetch messages for a specific conversation, with cursor-based pagination and ord
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**conversation_id** | **String** | The conversation ID (id field from list conversations endpoint). This is the platform-specific conversation identifier, not an internal database ID. | [required] |
+**conversation_id** | **String** | Opaque conversation identifier, accepted verbatim from the list endpoint or from the conversationId on inbox webhooks. Format not to be assumed. | [required] |
 **account_id** | **String** | Social account ID | [required] |
 **limit** | Option<**i32**> | Number of messages to return per page. Default 100, max 100. |  |[default to 100]
 **cursor** | Option<**String**> | Opaque pagination cursor. Pass `pagination.nextCursor` from a prior response verbatim: a cursor we cannot parse returns 400 rather than silently restarting from the first page. |  |
@@ -457,7 +457,7 @@ Archive or activate a conversation. Requires accountId in request body.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**conversation_id** | **String** | The conversation ID (id field from list conversations endpoint). This is the platform-specific conversation identifier, not an internal database ID. | [required] |
+**conversation_id** | **String** | Opaque conversation identifier, accepted verbatim from the list endpoint or from the conversationId on inbox webhooks. Format not to be assumed. | [required] |
 **update_inbox_conversation_request** | [**UpdateInboxConversationRequest**](UpdateInboxConversationRequest.md) |  | [required] |
 
 ### Return type
