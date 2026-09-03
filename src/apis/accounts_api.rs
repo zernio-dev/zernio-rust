@@ -152,7 +152,7 @@ pub enum UpdateSlackSettingsError {
     UnknownValue(serde_json::Value),
 }
 
-/// Disconnects and removes a connected social account.
+/// Disconnects and removes a connected social account. Repeating the call for an account already disconnected returns 404, the account stays in its 1h grace window and the disconnect is not re-run.
 pub async fn delete_account(
     configuration: &configuration::Configuration,
     account_id: &str,

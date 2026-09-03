@@ -26,7 +26,7 @@ Method | HTTP request | Description
 > models::DeleteAccountGroup200Response delete_account(account_id)
 Disconnect account
 
-Disconnects and removes a connected social account.
+Disconnects and removes a connected social account. Repeating the call for an account already disconnected returns 404, the account stays in its 1h grace window and the disconnect is not re-run.
 
 ### Parameters
 
