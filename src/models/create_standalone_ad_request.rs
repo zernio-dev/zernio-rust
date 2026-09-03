@@ -81,9 +81,18 @@ pub struct CreateStandaloneAdRequest {
     /// Required on legacy + attach shapes. For X/Twitter this is the tweet text (max 280 chars including a ~24-char URL when `linkUrl` is set). On LinkedIn this is the post commentary (the intro text shown above the ad). On OpenAI Ads this is the chat card's body text. Max: Google=90, Pinterest=500, OpenAI=100.
     #[serde(rename = "body", skip_serializing_if = "Option::is_none")]
     pub body: Option<String>,
-    /// Meta only (facebook/instagram). Link description — the secondary text shown below the headline (Meta's link_data.description; on video creatives mapped to video_data.link_description). When omitted, Meta auto-pulls the destination URL's OpenGraph description. Applies on legacy, attach, and placementAssets shapes; for multi-creative use creatives[].description (this field is the shared fallback). For multi-text variations use dynamicCreative.descriptions instead.
+    /// Meta only (facebook/instagram). Link description — the secondary text shown below the headline (Meta's link_data.description; on video creatives mapped to video_data.link_description). When omitted, Meta auto-pulls the destination URL's OpenGraph description. Applies on legacy, attach, and placementAssets shapes; for multi-creative use creatives[].description (this field is the shared fallback). For multi-text variations use `descriptions` (array) instead.
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
+    /// Meta only. Multiple Text Options (Advantage+ Flexible Format): supply 1-5 primary-text variations and Meta optimises delivery across them, WITHOUT enabling full Dynamic Creative (`dynamicCreative`). Uses `optimization_type: DEGREES_OF_FREEDOM` on the asset feed, so multiple ads per ad set are allowed (unlike `dynamicCreative` which is limited to one). Requires `imageUrl` or `video`, `linkUrl`, and `callToAction`. When set, the top-level `body` field is used as the `object_story_spec.link_data.message` (the preview text) and `headlines` must also be present. Mutually exclusive with `dynamicCreative`, `placementAssets`, `carouselCards`, and `creatives[]`.
+    #[serde(rename = "bodies", skip_serializing_if = "Option::is_none")]
+    pub bodies: Option<Vec<String>>,
+    /// Meta only. Headline variations for Multiple Text Options. Must be sent alongside `bodies`. The top-level `headline` field is used as the `object_story_spec.link_data.name`.
+    #[serde(rename = "headlines", skip_serializing_if = "Option::is_none")]
+    pub headlines: Option<Vec<String>>,
+    /// Meta only. Optional description variations for Multiple Text Options. Sent alongside `bodies` and `headlines`.
+    #[serde(rename = "descriptions", skip_serializing_if = "Option::is_none")]
+    pub descriptions: Option<Vec<String>>,
     /// Required on legacy + attach shapes for Meta. Honoured on TikTok (passes through to the Spark Ad creative's `call_to_action`) and on LinkedIn (the CTA button on the ad; defaults to LEARN_MORE when `linkUrl` is set). LinkedIn accepts: LEARN_MORE, SIGN_UP, DOWNLOAD, SUBSCRIBE, REGISTER, JOIN, ATTEND, REQUEST_DEMO, VIEW_QUOTE, APPLY, SEE_MORE, SHOP_NOW, BUY_NOW. Ignored by Google, Pinterest, and X/Twitter.
     #[serde(rename = "callToAction", skip_serializing_if = "Option::is_none")]
     pub call_to_action: Option<CallToAction>,
@@ -333,6 +342,9 @@ impl CreateStandaloneAdRequest {
             long_headline: None,
             body: None,
             description: None,
+            bodies: None,
+            headlines: None,
+            descriptions: None,
             call_to_action: None,
             link_url: None,
             lead_gen_form_id: None,
