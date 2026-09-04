@@ -136,6 +136,7 @@ pub enum SearchInboxConversationsError {
 #[serde(untagged)]
 pub enum SendInboxMessageError {
     Status400(models::SendInboxMessage400Response),
+    Status500(),
     Status401(models::InlineObject),
     Status403(),
     Status409(),
