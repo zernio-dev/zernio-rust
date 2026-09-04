@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **token_expires_at** | Option<**String**> |  | [optional]
 **needs_reconnect** | Option<**bool**> |  | [optional]
 **issues** | Option<**Vec<String>**> |  | [optional]
+**messaging_restriction** | Option<[**models::GetAllAccountsHealth200ResponseAccountsInnerMessagingRestriction**](GetAllAccountsHealth200ResponseAccountsInnerMessagingRestriction.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -34,6 +34,12 @@ pub struct GetAccountHealth200Response {
     /// Actionable recommendations to fix issues
     #[serde(rename = "recommendations", skip_serializing_if = "Option::is_none")]
     pub recommendations: Option<Vec<String>>,
+    #[serde(
+        rename = "messagingRestriction",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub messaging_restriction:
+        Option<Box<models::GetAllAccountsHealth200ResponseAccountsInnerMessagingRestriction>>,
     #[serde(rename = "platformConnection", skip_serializing_if = "Option::is_none")]
     pub platform_connection: Option<Box<models::GetAccountHealth200ResponsePlatformConnection>>,
 }
@@ -50,6 +56,7 @@ impl GetAccountHealth200Response {
             permissions: None,
             issues: None,
             recommendations: None,
+            messaging_restriction: None,
             platform_connection: None,
         }
     }

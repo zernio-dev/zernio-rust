@@ -32,7 +32,7 @@ pub struct ErrorResponse {
     /// Raw error payload from the upstream platform, passed through verbatim so integrators can read provider-specific codes. For Meta this includes error_subcode, error_user_title, and error_user_msg.
     #[serde(rename = "platformError", skip_serializing_if = "Option::is_none")]
     pub platform_error: Option<std::collections::HashMap<String, serde_json::Value>>,
-    /// Additional structured context (e.g. field-level validation errors).
+    /// Additional structured context (e.g. field-level validation errors), for example `privateReplyConsumed` on the private-reply endpoint's 400 when the comment's single reply is already spent.
     #[serde(rename = "details", skip_serializing_if = "Option::is_none")]
     pub details: Option<std::collections::HashMap<String, serde_json::Value>>,
 }

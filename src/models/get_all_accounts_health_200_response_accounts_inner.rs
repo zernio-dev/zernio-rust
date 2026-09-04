@@ -37,6 +37,12 @@ pub struct GetAllAccountsHealth200ResponseAccountsInner {
     pub needs_reconnect: Option<bool>,
     #[serde(rename = "issues", skip_serializing_if = "Option::is_none")]
     pub issues: Option<Vec<String>>,
+    #[serde(
+        rename = "messagingRestriction",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub messaging_restriction:
+        Option<Box<models::GetAllAccountsHealth200ResponseAccountsInnerMessagingRestriction>>,
 }
 
 impl GetAllAccountsHealth200ResponseAccountsInner {
@@ -54,6 +60,7 @@ impl GetAllAccountsHealth200ResponseAccountsInner {
             token_expires_at: None,
             needs_reconnect: None,
             issues: None,
+            messaging_restriction: None,
         }
     }
 }

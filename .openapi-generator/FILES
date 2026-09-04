@@ -531,6 +531,7 @@ docs/GetAdsSearchTerms200ResponsePaging.md
 docs/GetAdsTimeline202Response.md
 docs/GetAllAccountsHealth200Response.md
 docs/GetAllAccountsHealth200ResponseAccountsInner.md
+docs/GetAllAccountsHealth200ResponseAccountsInnerMessagingRestriction.md
 docs/GetAllAccountsHealth200ResponseSummary.md
 docs/GetAnalytics200Response.md
 docs/GetAnalytics400Response.md
@@ -1367,7 +1368,6 @@ docs/SendInboxMessageRequestTemplate.md
 docs/SendInboxMessageRequestTemplateElementsInner.md
 docs/SendInboxMessageRequestTemplateElementsInnerButtonsInner.md
 docs/SendPrivateReplyToComment200Response.md
-docs/SendPrivateReplyToComment400Response.md
 docs/SendPrivateReplyToCommentRequest.md
 docs/SendPrivateReplyToCommentRequestButtonsInner.md
 docs/SendPrivateReplyToCommentRequestButtonsInnerOneOf.md
@@ -2414,6 +2414,7 @@ src/models/get_ads_search_terms_200_response_paging.rs
 src/models/get_ads_timeline_202_response.rs
 src/models/get_all_accounts_health_200_response.rs
 src/models/get_all_accounts_health_200_response_accounts_inner.rs
+src/models/get_all_accounts_health_200_response_accounts_inner_messaging_restriction.rs
 src/models/get_all_accounts_health_200_response_summary.rs
 src/models/get_analytics_200_response.rs
 src/models/get_analytics_400_response.rs
@@ -3226,7 +3227,6 @@ src/models/send_inbox_message_request_template.rs
 src/models/send_inbox_message_request_template_elements_inner.rs
 src/models/send_inbox_message_request_template_elements_inner_buttons_inner.rs
 src/models/send_private_reply_to_comment_200_response.rs
-src/models/send_private_reply_to_comment_400_response.rs
 src/models/send_private_reply_to_comment_request.rs
 src/models/send_private_reply_to_comment_request_buttons_inner.rs
 src/models/send_private_reply_to_comment_request_buttons_inner_one_of.rs
