@@ -56,6 +56,12 @@ pub struct WebhookPayloadCallEndedCall {
         skip_serializing_if = "Option::is_none"
     )]
     pub sip_hangup_cause: Option<Option<String>>,
+    /// True when the inbound call was handled by voicemail, whether scheduled or because the forward did not connect.
+    #[serde(rename = "isVoicemail", skip_serializing_if = "Option::is_none")]
+    pub is_voicemail: Option<bool>,
+    /// Failures recorded on the call up to hangup (bridge failed, dial failed, recording error). Empty on a clean call. `message` is free-form diagnostic text and is not stable, do not parse it. `code` is 0 unless a provider code is known. Errors the carrier reports after hangup appear only on GET /v1/calls/{id}.
+    #[serde(rename = "callErrors", skip_serializing_if = "Option::is_none")]
+    pub call_errors: Option<Vec<models::CallRecordCallErrorsInner>>,
     #[serde(rename = "recordingUrl", skip_serializing_if = "Option::is_none")]
     pub recording_url: Option<String>,
     #[serde(rename = "recordingExpiresAt", skip_serializing_if = "Option::is_none")]
@@ -80,6 +86,8 @@ impl WebhookPayloadCallEndedCall {
             end_reason: None,
             hangup_cause: None,
             sip_hangup_cause: None,
+            is_voicemail: None,
+            call_errors: None,
             recording_url: None,
             recording_expires_at: None,
             billing: None,
