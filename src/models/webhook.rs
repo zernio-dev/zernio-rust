@@ -35,7 +35,7 @@ pub struct Webhook {
     /// Timestamp of last successful webhook delivery
     #[serde(rename = "lastFiredAt", skip_serializing_if = "Option::is_none")]
     pub last_fired_at: Option<String>,
-    /// Consecutive delivery failures (resets on success, webhook disabled at 10)
+    /// Consecutive terminal delivery failures (resets to 0 on any successful delivery). Auto-disable only triggers when the endpoint has had no successful delivery within a 3-day window AND either reaches 20 consecutive terminal failures or has been failing continuously for 3 days; any success within that window keeps the endpoint enabled regardless of the count.
     #[serde(rename = "failureCount", skip_serializing_if = "Option::is_none")]
     pub failure_count: Option<i32>,
     /// Custom headers included in webhook requests
