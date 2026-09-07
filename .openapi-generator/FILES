@@ -1158,6 +1158,8 @@ docs/PostAnalytics.md
 docs/PostCreateResponse.md
 docs/PostDeleteResponse.md
 docs/PostGetResponse.md
+docs/PostPublishIncompleteResponse.md
+docs/PostPublishIncompleteResponsePlatformResultsInner.md
 docs/PostRetryResponse.md
 docs/PostUpdateResponse.md
 docs/PostUserId.md
@@ -1246,6 +1248,7 @@ docs/RespondToSmsRegistrationReview200Response.md
 docs/RespondToSmsRegistrationReviewRequest.md
 docs/RestoreWorkflowVersion200Response.md
 docs/RestoreWorkflowVersion200ResponseWorkflow.md
+docs/RetryPost207Response.md
 docs/RetweetPost200Response.md
 docs/RetweetPostRequest.md
 docs/ReuseSmsRegistrationForNumber200Response.md
@@ -3023,6 +3026,8 @@ src/models/post_analytics.rs
 src/models/post_create_response.rs
 src/models/post_delete_response.rs
 src/models/post_get_response.rs
+src/models/post_publish_incomplete_response.rs
+src/models/post_publish_incomplete_response_platform_results_inner.rs
 src/models/post_retry_response.rs
 src/models/post_update_response.rs
 src/models/post_user_id.rs
@@ -3106,6 +3111,7 @@ src/models/respond_to_sms_registration_review_200_response.rs
 src/models/respond_to_sms_registration_review_request.rs
 src/models/restore_workflow_version_200_response.rs
 src/models/restore_workflow_version_200_response_workflow.rs
+src/models/retry_post_207_response.rs
 src/models/retweet_post_200_response.rs
 src/models/retweet_post_request.rs
 src/models/reuse_sms_registration_for_number_200_response.rs
