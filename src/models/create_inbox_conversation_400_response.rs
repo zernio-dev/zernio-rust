@@ -32,6 +32,20 @@ impl CreateInboxConversation400Response {
 pub enum Code {
     #[serde(rename = "PLATFORM_NOT_SUPPORTED")]
     PlatformNotSupported,
+    #[serde(rename = "PLATFORM_LIMITATION")]
+    PlatformLimitation,
+    #[serde(rename = "TEMPLATE_REQUIRED")]
+    TemplateRequired,
+    #[serde(rename = "INVALID_TEMPLATE_PARAMS")]
+    InvalidTemplateParams,
+    #[serde(rename = "INVALID_TEMPLATE_BUTTON_PARAM")]
+    InvalidTemplateButtonParam,
+    #[serde(rename = "DIRECT_SEND_NOT_ELIGIBLE")]
+    DirectSendNotEligible,
+    #[serde(rename = "DIRECT_SEND_LIMITED")]
+    DirectSendLimited,
+    #[serde(rename = "DIRECT_SEND_BLOCKED")]
+    DirectSendBlocked,
 }
 
 impl Default for Code {

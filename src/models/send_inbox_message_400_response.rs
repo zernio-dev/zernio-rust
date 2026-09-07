@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct SendInboxMessage400Response {
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
     pub error: Option<String>,
-    /// Stable machine-readable reason. PLATFORM_LIMITATION covers a capability the platform does not offer (e.g. Bluesky and Reddit DMs reject media); MISSING_PARTICIPANT means the stored conversation has no recipient to send to.
+    /// Stable machine-readable reason. PLATFORM_LIMITATION covers a capability the platform does not offer (e.g. Bluesky and Reddit DMs reject media); MISSING_PARTICIPANT means the stored conversation has no recipient to send to; DIRECT_SEND_NOT_ELIGIBLE and DIRECT_SEND_BLOCKED mean the WhatsApp Business Account needs Meta to grant or restore Direct Send access; DIRECT_SEND_LIMITED is temporary, Meta lifts it on its own.
     #[serde(rename = "code", skip_serializing_if = "Option::is_none")]
     pub code: Option<Code>,
     #[serde(rename = "platformError", skip_serializing_if = "Option::is_none")]
@@ -31,13 +31,19 @@ impl SendInboxMessage400Response {
         }
     }
 }
-/// Stable machine-readable reason. PLATFORM_LIMITATION covers a capability the platform does not offer (e.g. Bluesky and Reddit DMs reject media); MISSING_PARTICIPANT means the stored conversation has no recipient to send to.
+/// Stable machine-readable reason. PLATFORM_LIMITATION covers a capability the platform does not offer (e.g. Bluesky and Reddit DMs reject media); MISSING_PARTICIPANT means the stored conversation has no recipient to send to; DIRECT_SEND_NOT_ELIGIBLE and DIRECT_SEND_BLOCKED mean the WhatsApp Business Account needs Meta to grant or restore Direct Send access; DIRECT_SEND_LIMITED is temporary, Meta lifts it on its own.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Code {
     #[serde(rename = "PLATFORM_LIMITATION")]
     PlatformLimitation,
     #[serde(rename = "MISSING_PARTICIPANT")]
     MissingParticipant,
+    #[serde(rename = "DIRECT_SEND_NOT_ELIGIBLE")]
+    DirectSendNotEligible,
+    #[serde(rename = "DIRECT_SEND_LIMITED")]
+    DirectSendLimited,
+    #[serde(rename = "DIRECT_SEND_BLOCKED")]
+    DirectSendBlocked,
 }
 
 impl Default for Code {
