@@ -12,18 +12,27 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ListAdKeywords200Response {
-    #[serde(rename = "keywords", skip_serializing_if = "Option::is_none")]
-    pub keywords: Option<Vec<models::AdKeyword>>,
-    #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
-    pub pagination: Option<Box<models::Pagination>>,
+pub struct UpdateAdKeywordRequest {
+    #[serde(rename = "status")]
+    pub status: Status,
 }
 
-impl ListAdKeywords200Response {
-    pub fn new() -> ListAdKeywords200Response {
-        ListAdKeywords200Response {
-            keywords: None,
-            pagination: None,
-        }
+impl UpdateAdKeywordRequest {
+    pub fn new(status: Status) -> UpdateAdKeywordRequest {
+        UpdateAdKeywordRequest { status }
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Status {
+    #[serde(rename = "active")]
+    Active,
+    #[serde(rename = "paused")]
+    Paused,
+}
+
+impl Default for Status {
+    fn default() -> Status {
+        Self::Active
     }
 }

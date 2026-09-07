@@ -27,6 +27,8 @@ docs/AdDailyMetrics.md
 docs/AdEngagementCounts.md
 docs/AdFunnelCounts.md
 docs/AdInsightsApi.md
+docs/AdKeyword.md
+docs/AdKeywordMetrics.md
 docs/AdLibraryApi.md
 docs/AdMetrics.md
 docs/AdPromotedObject.md
@@ -44,6 +46,10 @@ docs/AdTreeCampaignCampaignBudget.md
 docs/AdTreeCampaignOptimizationGoal.md
 docs/AdTreeCampaignPromotedObject.md
 docs/AdTreeResponse.md
+docs/AddAdKeywords201Response.md
+docs/AddAdKeywordsRequest.md
+docs/AddAdKeywordsRequestKeywordsInner.md
+docs/AddAdKeywordsRequestKeywordsInnerAnyOf.md
 docs/AddBroadcastRecipients200Response.md
 docs/AddBroadcastRecipientsRequest.md
 docs/AddConversionAssociations200Response.md
@@ -889,6 +895,7 @@ docs/InstagramPlatformDataAudioConfiguration.md
 docs/InstagramPlatformDataTrialParams.md
 docs/InstagramPlatformDataUserTagsInner.md
 docs/InvitesApi.md
+docs/KeywordEntry.md
 docs/LeadGenApi.md
 docs/LikeInboxComment200Response.md
 docs/LikeInboxCommentRequest.md
@@ -940,7 +947,6 @@ docs/ListAdCatalogs200ResponseCatalogsInner.md
 docs/ListAdCreatives200Response.md
 docs/ListAdImages200Response.md
 docs/ListAdKeywords200Response.md
-docs/ListAdKeywords200ResponseKeywordsInner.md
 docs/ListAdLabels200Response.md
 docs/ListAdStudies200Response.md
 docs/ListAdVideos200Response.md
@@ -956,6 +962,8 @@ docs/ListBroadcasts200Response.md
 docs/ListBroadcasts200ResponseBroadcastsInner.md
 docs/ListCalls200Response.md
 docs/ListCalls200ResponseCallsInner.md
+docs/ListCampaignNegativeKeywords200Response.md
+docs/ListCampaignNegativeKeywords200ResponseKeywordsInner.md
 docs/ListCommentAutomationLogs200Response.md
 docs/ListCommentAutomationLogs200ResponseMisses.md
 docs/ListCommentAutomationLogs200ResponseMissesSamplesInner.md
@@ -1221,6 +1229,7 @@ docs/RemediatePhoneNumber200ResponsePhoneNumber.md
 docs/RemediatePhoneNumberRequest.md
 docs/RemediatePhoneNumberRequestDocumentsInner.md
 docs/RemediatePhoneNumberRequestDocumentsInnerOneOf.md
+docs/RemoveAdKeyword200Response.md
 docs/RemoveBookmark200Response.md
 docs/RemoveConversionAssociations200Response.md
 docs/RemoveDiscordMemberRole200Response.md
@@ -1229,6 +1238,8 @@ docs/RemoveWhatsAppGroupParticipantsRequest.md
 docs/ReplaceAdAudienceCompanies200Response.md
 docs/ReplaceAdAudienceCompaniesRequest.md
 docs/ReplaceAdAudienceCompaniesRequestCompaniesInner.md
+docs/ReplaceCampaignNegativeKeywords200Response.md
+docs/ReplaceCampaignNegativeKeywordsRequest.md
 docs/ReplyToGoogleBusinessReview200Response.md
 docs/ReplyToGoogleBusinessReviewRequest.md
 docs/ReplyToInboxPost200Response.md
@@ -1488,6 +1499,8 @@ docs/UpdateAdCampaignStatus200Response.md
 docs/UpdateAdCampaignStatusRequest.md
 docs/UpdateAdCreative200Response.md
 docs/UpdateAdCreativeRequest.md
+docs/UpdateAdKeyword200Response.md
+docs/UpdateAdKeywordRequest.md
 docs/UpdateAdRequest.md
 docs/UpdateAdRequestBudget.md
 docs/UpdateAdRequestCreative.md
@@ -1502,7 +1515,6 @@ docs/UpdateAdSetRequestPlatformSpecificData.md
 docs/UpdateAdSetRequestPlatformSpecificDataPromotedObject.md
 docs/UpdateAdSetStatus200Response.md
 docs/UpdateAdStatus200Response.md
-docs/UpdateAdStatusRequest.md
 docs/UpdateAdTrackingTagsRequest.md
 docs/UpdateAdTrackingTagsRequestCreative.md
 docs/UpdateAdTrackingTagsRequestUrlTagsInner.md
@@ -1935,6 +1947,8 @@ src/models/ad_creative.rs
 src/models/ad_daily_metrics.rs
 src/models/ad_engagement_counts.rs
 src/models/ad_funnel_counts.rs
+src/models/ad_keyword.rs
+src/models/ad_keyword_metrics.rs
 src/models/ad_metrics.rs
 src/models/ad_promoted_object.rs
 src/models/ad_review_status.rs
@@ -1950,6 +1964,10 @@ src/models/ad_tree_campaign_campaign_budget.rs
 src/models/ad_tree_campaign_optimization_goal.rs
 src/models/ad_tree_campaign_promoted_object.rs
 src/models/ad_tree_response.rs
+src/models/add_ad_keywords_201_response.rs
+src/models/add_ad_keywords_request.rs
+src/models/add_ad_keywords_request_keywords_inner.rs
+src/models/add_ad_keywords_request_keywords_inner_any_of.rs
 src/models/add_broadcast_recipients_200_response.rs
 src/models/add_broadcast_recipients_request.rs
 src/models/add_conversion_associations_200_response.rs
@@ -2771,6 +2789,7 @@ src/models/instagram_platform_data.rs
 src/models/instagram_platform_data_audio_configuration.rs
 src/models/instagram_platform_data_trial_params.rs
 src/models/instagram_platform_data_user_tags_inner.rs
+src/models/keyword_entry.rs
 src/models/like_inbox_comment_200_response.rs
 src/models/like_inbox_comment_request.rs
 src/models/like_post_200_response.rs
@@ -2820,7 +2839,6 @@ src/models/list_ad_catalogs_200_response_catalogs_inner.rs
 src/models/list_ad_creatives_200_response.rs
 src/models/list_ad_images_200_response.rs
 src/models/list_ad_keywords_200_response.rs
-src/models/list_ad_keywords_200_response_keywords_inner.rs
 src/models/list_ad_labels_200_response.rs
 src/models/list_ad_studies_200_response.rs
 src/models/list_ad_videos_200_response.rs
@@ -2836,6 +2854,8 @@ src/models/list_broadcasts_200_response.rs
 src/models/list_broadcasts_200_response_broadcasts_inner.rs
 src/models/list_calls_200_response.rs
 src/models/list_calls_200_response_calls_inner.rs
+src/models/list_campaign_negative_keywords_200_response.rs
+src/models/list_campaign_negative_keywords_200_response_keywords_inner.rs
 src/models/list_comment_automation_logs_200_response.rs
 src/models/list_comment_automation_logs_200_response_misses.rs
 src/models/list_comment_automation_logs_200_response_misses_samples_inner.rs
@@ -3091,6 +3111,7 @@ src/models/remediate_phone_number_200_response_phone_number.rs
 src/models/remediate_phone_number_request.rs
 src/models/remediate_phone_number_request_documents_inner.rs
 src/models/remediate_phone_number_request_documents_inner_one_of.rs
+src/models/remove_ad_keyword_200_response.rs
 src/models/remove_bookmark_200_response.rs
 src/models/remove_conversion_associations_200_response.rs
 src/models/remove_discord_member_role_200_response.rs
@@ -3099,6 +3120,8 @@ src/models/remove_whats_app_group_participants_request.rs
 src/models/replace_ad_audience_companies_200_response.rs
 src/models/replace_ad_audience_companies_request.rs
 src/models/replace_ad_audience_companies_request_companies_inner.rs
+src/models/replace_campaign_negative_keywords_200_response.rs
+src/models/replace_campaign_negative_keywords_request.rs
 src/models/reply_to_google_business_review_200_response.rs
 src/models/reply_to_google_business_review_request.rs
 src/models/reply_to_inbox_post_200_response.rs
@@ -3352,6 +3375,8 @@ src/models/update_ad_campaign_status_200_response.rs
 src/models/update_ad_campaign_status_request.rs
 src/models/update_ad_creative_200_response.rs
 src/models/update_ad_creative_request.rs
+src/models/update_ad_keyword_200_response.rs
+src/models/update_ad_keyword_request.rs
 src/models/update_ad_request.rs
 src/models/update_ad_request_budget.rs
 src/models/update_ad_request_creative.rs
@@ -3366,7 +3391,6 @@ src/models/update_ad_set_request_platform_specific_data.rs
 src/models/update_ad_set_request_platform_specific_data_promoted_object.rs
 src/models/update_ad_set_status_200_response.rs
 src/models/update_ad_status_200_response.rs
-src/models/update_ad_status_request.rs
 src/models/update_ad_tracking_tags_request.rs
 src/models/update_ad_tracking_tags_request_creative.rs
 src/models/update_ad_tracking_tags_request_url_tags_inner.rs

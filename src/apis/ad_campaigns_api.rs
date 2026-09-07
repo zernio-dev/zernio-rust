@@ -13,6 +13,17 @@ use crate::{apis::ResponseContent, models};
 use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
 
+/// struct for typed errors of method [`add_ad_keywords`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AddAdKeywordsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status404(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`attach_campaign_assets`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -202,6 +213,39 @@ pub enum ListAdsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_campaign_negative_keywords`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListCampaignNegativeKeywordsError {
+    Status401(models::InlineObject),
+    Status404(),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`remove_ad_keyword`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RemoveAdKeywordError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`replace_campaign_negative_keywords`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ReplaceCampaignNegativeKeywordsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status404(),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`update_ad`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -239,6 +283,17 @@ pub enum UpdateAdCampaignStatusError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`update_ad_keyword`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateAdKeywordError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject),
+    Status404(),
+    Status422(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`update_ad_set`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -273,6 +328,56 @@ pub enum UpdateAdStatusError {
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
+}
+
+/// Adds one or more keyword criteria to an existing Google Search ad group, without touching the keywords already there (unlike the whole-set diff on `PUT /v1/ads/{adId}`, `keywords`/`negativeKeywords` in `platformSpecificData`, which replaces the set). Set `negative: true` to add ad-group-level negatives instead of positive keywords.
+pub async fn add_ad_keywords(
+    configuration: &configuration::Configuration,
+    add_ad_keywords_request: models::AddAdKeywordsRequest,
+) -> Result<models::AddAdKeywords201Response, Error<AddAdKeywordsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_add_ad_keywords_request = add_ad_keywords_request;
+
+    let uri_str = format!("{}/v1/ads/keywords", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_add_ad_keywords_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AddAdKeywords201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AddAdKeywords201Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AddAdKeywordsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
 }
 
 /// Attach sitelinks, callouts and/or structured snippets to an already-existing Google Search campaign — the same builders POST /v1/ads/create uses, but without rebuilding the hierarchy. At least one of sitelinks, callouts or structuredSnippets is required.  Google-only. Other platforms have no equivalent extension surface and return 501.  Approval status is Google-async; poll `asset.policy_summary` after review. Assets stay in the account library even if the campaign is later deleted.
@@ -1539,6 +1644,175 @@ pub async fn list_ads(
     }
 }
 
+/// Returns the campaign-level negative keywords (`campaign_criterion.negative`), distinct from the ad-group-level negatives under `GET /v1/ads/keywords`. Read live from Google on every call (not synced to Postgres), and gated by the shared Google Ads operations budget like every other on-demand Google surface.  The platform is always discovered from the campaign itself; a non-Google campaign returns 501 rather than 404, whether or not `platform` was passed.
+pub async fn list_campaign_negative_keywords(
+    configuration: &configuration::Configuration,
+    campaign_id: &str,
+    platform: Option<&str>,
+) -> Result<models::ListCampaignNegativeKeywords200Response, Error<ListCampaignNegativeKeywordsError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_campaign_id = campaign_id;
+    let p_query_platform = platform;
+
+    let uri_str = format!(
+        "{}/v1/ads/campaigns/{campaignId}/negative-keywords",
+        configuration.base_path,
+        campaignId = crate::apis::urlencode(p_path_campaign_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_platform {
+        req_builder = req_builder.query(&[("platform", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListCampaignNegativeKeywords200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListCampaignNegativeKeywords200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListCampaignNegativeKeywordsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Removes one keyword criterion (positive or negative) from its ad group (M.140).
+pub async fn remove_ad_keyword(
+    configuration: &configuration::Configuration,
+    keyword_id: &str,
+) -> Result<models::RemoveAdKeyword200Response, Error<RemoveAdKeywordError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_keyword_id = keyword_id;
+
+    let uri_str = format!(
+        "{}/v1/ads/keywords/{keywordId}",
+        configuration.base_path,
+        keywordId = crate::apis::urlencode(p_path_keyword_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::RemoveAdKeyword200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::RemoveAdKeyword200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RemoveAdKeywordError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Replaces the FULL set of campaign-level negative keywords (C.270): the desired list is diffed against what Google already has, and the difference is applied as one `create`/`remove` mutate. Send an empty array to clear every campaign negative.  The platform is always discovered from the campaign itself; a non-Google campaign returns 501 rather than 404, whether or not `platform` was sent.
+pub async fn replace_campaign_negative_keywords(
+    configuration: &configuration::Configuration,
+    campaign_id: &str,
+    replace_campaign_negative_keywords_request: models::ReplaceCampaignNegativeKeywordsRequest,
+) -> Result<
+    models::ReplaceCampaignNegativeKeywords200Response,
+    Error<ReplaceCampaignNegativeKeywordsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_campaign_id = campaign_id;
+    let p_body_replace_campaign_negative_keywords_request =
+        replace_campaign_negative_keywords_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/campaigns/{campaignId}/negative-keywords",
+        configuration.base_path,
+        campaignId = crate::apis::urlencode(p_path_campaign_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_replace_campaign_negative_keywords_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ReplaceCampaignNegativeKeywords200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ReplaceCampaignNegativeKeywords200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ReplaceCampaignNegativeKeywordsError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Patch one or more fields on an ad. Status, budget, targeting, and creative changes are propagated to the platform.  Per-platform support: - **Meta** (Facebook + Instagram): all fields supported. - **TikTok**: status, budget, targeting (via `/v2/adgroup/update/`), and creative   (via `/v2/ad/update/` patch-style — `headline` is ignored, `body` becomes `ad_text`). - **Google**: status, budget, and KEYWORD edits via `targeting.keywords` /   `targeting.negativeKeywords` — each list you send becomes the FULL new set of its   kind on the ad group (criteria not in the list are removed); a kind left out is   untouched. Any other `targeting` field returns 400: Google cannot mutate broad   targeting post-create without recreating the campaign. `creative` returns 501. - **LinkedIn**: status, budget, targeting (geo countries only, applied to the   LinkedIn Campaign via PARTIAL_UPDATE), and creative (uploads new media, creates a   replacement inline creative on the same campaign, pauses the old one). - **Pinterest / X / OpenAI Ads**: status + budget only. Sending   `targeting` or `creative` returns 501 with code `unsupported_platform_operation`.   OpenAI Ads budget is lifetime-only (see `budget.type` below).
 pub async fn update_ad(
     configuration: &configuration::Configuration,
@@ -1701,6 +1975,62 @@ pub async fn update_ad_campaign_status(
     }
 }
 
+/// Changes `ad_group_criterion.status` for one keyword criterion (M.140). Negative keywords have no status on Google and cannot be paused or enabled.
+pub async fn update_ad_keyword(
+    configuration: &configuration::Configuration,
+    keyword_id: &str,
+    update_ad_keyword_request: models::UpdateAdKeywordRequest,
+) -> Result<models::UpdateAdKeyword200Response, Error<UpdateAdKeywordError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_keyword_id = keyword_id;
+    let p_body_update_ad_keyword_request = update_ad_keyword_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/keywords/{keywordId}",
+        configuration.base_path,
+        keywordId = crate::apis::urlencode(p_path_keyword_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::PATCH, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_ad_keyword_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateAdKeyword200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateAdKeyword200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateAdKeywordError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Ad-set-level writes. Use this for ABO budget updates, ad-set-scoped pause/resume, bid-strategy edits, Meta value-rule-set attach/detach, and Meta-only post-launch delivery settings via `platformSpecificData`. At least one updatable field is required.  Value rule sets (Meta only, see `/v1/ads/value-rule-sets`): - ATTACH or REPLACE: send `valueRuleSetId`. Attachment is driven by the id's   presence, so `valueRulesApplied: true` is optional. Sending a different id   replaces the previous association; there is no separate replace call. - DETACH: send `valueRulesApplied: false` and OMIT `valueRuleSetId`. - Sending `valueRulesApplied: false` TOGETHER with `valueRuleSetId` returns 400   `mutually_exclusive_fields`. This is deliberate: Meta attaches the rule set   whenever `value_rule_set_id` is present, even with `value_rules_applied` false,   so echoing stored state while asking to detach would silently keep the bid   adjustments live. - Eligibility: only ad sets on `LOWEST_COST_WITHOUT_CAP` or `COST_CAP`. Meta   rejects the rest server-side. - Read back with `GET /v1/ads/ad-sets/{adSetId}?fields=value_rule_set_id`. Meta   does not document `value_rules_applied` as a readable ad-set field, so the   boolean cannot be read back.  Bid strategy compatibility (per Meta's spec): - `LOWEST_COST_WITHOUT_CAP`: no `bidAmount`, no `roasAverageFloor`. - `LOWEST_COST_WITH_BID_CAP` / `COST_CAP`: `bidAmount` REQUIRED (whole currency units). - `LOWEST_COST_WITH_MIN_ROAS`: `roasAverageFloor` REQUIRED (decimal multiplier, e.g. 2.0 = 2.0x ROAS). - Meta only: send `bidAmount` WITHOUT `bidStrategy` to change the cap amount on an ad set   under a COST_CAP / LOWEST_COST_WITH_BID_CAP parent campaign, leaving the strategy itself   (inherited from the campaign) untouched. `roasAverageFloor` without `bidStrategy` is   rejected (it has no meaning outside LOWEST_COST_WITH_MIN_ROAS).  Delivery settings are validated by Meta against the campaign objective; incompatible combinations (e.g. a billingEvent the optimization goal doesn't allow) surface as 400s from Meta.  When updating `budget` on an ABO campaign: if the parent campaign is CBO, the response is 409 with code BUDGET_LEVEL_MISMATCH — route to PUT /v1/ads/campaigns/{campaignId} instead.
 pub async fn update_ad_set(
     configuration: &configuration::Configuration,
@@ -1813,11 +2143,11 @@ pub async fn update_ad_set_status(
 pub async fn update_ad_status(
     configuration: &configuration::Configuration,
     ad_id: &str,
-    update_ad_status_request: models::UpdateAdStatusRequest,
+    update_ad_keyword_request: models::UpdateAdKeywordRequest,
 ) -> Result<models::UpdateAdStatus200Response, Error<UpdateAdStatusError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_ad_id = ad_id;
-    let p_body_update_ad_status_request = update_ad_status_request;
+    let p_body_update_ad_keyword_request = update_ad_keyword_request;
 
     let uri_str = format!(
         "{}/v1/ads/{adId}/status",
@@ -1832,7 +2162,7 @@ pub async fn update_ad_status(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_update_ad_status_request);
+    req_builder = req_builder.json(&p_body_update_ad_keyword_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

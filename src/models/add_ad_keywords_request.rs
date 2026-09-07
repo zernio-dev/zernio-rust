@@ -12,18 +12,31 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ListAdKeywords200Response {
-    #[serde(rename = "keywords", skip_serializing_if = "Option::is_none")]
-    pub keywords: Option<Vec<models::AdKeyword>>,
-    #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
-    pub pagination: Option<Box<models::Pagination>>,
+pub struct AddAdKeywordsRequest {
+    /// Social account ID (Google Ads)
+    #[serde(rename = "accountId")]
+    pub account_id: String,
+    /// Google ad group ID to add the keywords to
+    #[serde(rename = "adSetId")]
+    pub ad_set_id: String,
+    #[serde(rename = "keywords")]
+    pub keywords: Vec<models::AddAdKeywordsRequestKeywordsInner>,
+    /// Add as ad-group-level negatives instead of positive keywords
+    #[serde(rename = "negative", skip_serializing_if = "Option::is_none")]
+    pub negative: Option<bool>,
 }
 
-impl ListAdKeywords200Response {
-    pub fn new() -> ListAdKeywords200Response {
-        ListAdKeywords200Response {
-            keywords: None,
-            pagination: None,
+impl AddAdKeywordsRequest {
+    pub fn new(
+        account_id: String,
+        ad_set_id: String,
+        keywords: Vec<models::AddAdKeywordsRequestKeywordsInner>,
+    ) -> AddAdKeywordsRequest {
+        AddAdKeywordsRequest {
+            account_id,
+            ad_set_id,
+            keywords,
+            negative: None,
         }
     }
 }

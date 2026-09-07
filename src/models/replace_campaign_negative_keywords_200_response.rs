@@ -12,18 +12,24 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ListAdKeywords200Response {
+pub struct ReplaceCampaignNegativeKeywords200Response {
+    /// Negative criteria newly created on Google
+    #[serde(rename = "created", skip_serializing_if = "Option::is_none")]
+    pub created: Option<i32>,
+    /// Negative criteria removed from Google
+    #[serde(rename = "removed", skip_serializing_if = "Option::is_none")]
+    pub removed: Option<i32>,
+    /// The full negative-keyword set after the replace
     #[serde(rename = "keywords", skip_serializing_if = "Option::is_none")]
-    pub keywords: Option<Vec<models::AdKeyword>>,
-    #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
-    pub pagination: Option<Box<models::Pagination>>,
+    pub keywords: Option<Vec<models::ListCampaignNegativeKeywords200ResponseKeywordsInner>>,
 }
 
-impl ListAdKeywords200Response {
-    pub fn new() -> ListAdKeywords200Response {
-        ListAdKeywords200Response {
+impl ReplaceCampaignNegativeKeywords200Response {
+    pub fn new() -> ReplaceCampaignNegativeKeywords200Response {
+        ReplaceCampaignNegativeKeywords200Response {
+            created: None,
+            removed: None,
             keywords: None,
-            pagination: None,
         }
     }
 }

@@ -1,11 +1,11 @@
-# ListAdKeywords200Response
+# AddAdKeywordsRequestKeywordsInner
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**keywords** | Option<[**Vec<models::AdKeyword>**](AdKeyword.md)> |  | [optional]
-**pagination** | Option<[**models::Pagination**](Pagination.md)> |  | [optional]
+**text** | **String** |  | 
+**match_type** | Option<**MatchType**> |  (enum: exact, phrase, broad) | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

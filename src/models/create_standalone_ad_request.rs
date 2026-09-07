@@ -236,12 +236,18 @@ pub struct CreateStandaloneAdRequest {
     /// Google only
     #[serde(rename = "campaignType", skip_serializing_if = "Option::is_none")]
     pub campaign_type: Option<CampaignType>,
-    /// Google Search only. BROAD-match keywords on the new ad group. Editable later via PUT /v1/ads/{adId} targeting.keywords, which also sets match types.
+    /// Google Search only. Keywords on the new ad group; entries are strings (BROAD) or { text, matchType }. Editable later via PUT /v1/ads/{adId} targeting.keywords.
     #[serde(rename = "keywords", skip_serializing_if = "Option::is_none")]
-    pub keywords: Option<Vec<String>>,
-    /// Google Search only; other platforms return 400. BROAD-match negative keywords on the new ad group. Editable later via PUT /v1/ads/{adId} targeting.negativeKeywords.
+    pub keywords: Option<Vec<models::KeywordEntry>>,
+    /// Google Search only; other platforms return 400. Ad-group-level negative keywords on the new ad group. Editable later via PUT /v1/ads/{adId} targeting.negativeKeywords.
     #[serde(rename = "negativeKeywords", skip_serializing_if = "Option::is_none")]
-    pub negative_keywords: Option<Vec<String>>,
+    pub negative_keywords: Option<Vec<models::KeywordEntry>>,
+    /// Google Search only; other platforms return 400. Campaign-level negative keywords (campaign_criterion.negative), created alongside the ad group. Editable later via PUT /v1/ads/campaigns/{campaignId}/negative-keywords.
+    #[serde(
+        rename = "campaignNegativeKeywords",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub campaign_negative_keywords: Option<Vec<models::KeywordEntry>>,
     /// Google Search RSA only. Extra headlines.
     #[serde(
         rename = "additionalHeadlines",
@@ -393,6 +399,7 @@ impl CreateStandaloneAdRequest {
             campaign_type: None,
             keywords: None,
             negative_keywords: None,
+            campaign_negative_keywords: None,
             additional_headlines: None,
             additional_descriptions: None,
             sitelinks: None,

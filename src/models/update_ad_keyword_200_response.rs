@@ -12,18 +12,13 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ListAdKeywords200Response {
-    #[serde(rename = "keywords", skip_serializing_if = "Option::is_none")]
-    pub keywords: Option<Vec<models::AdKeyword>>,
-    #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
-    pub pagination: Option<Box<models::Pagination>>,
+pub struct UpdateAdKeyword200Response {
+    #[serde(rename = "keyword", skip_serializing_if = "Option::is_none")]
+    pub keyword: Option<Box<models::AdKeyword>>,
 }
 
-impl ListAdKeywords200Response {
-    pub fn new() -> ListAdKeywords200Response {
-        ListAdKeywords200Response {
-            keywords: None,
-            pagination: None,
-        }
+impl UpdateAdKeyword200Response {
+    pub fn new() -> UpdateAdKeyword200Response {
+        UpdateAdKeyword200Response { keyword: None }
     }
 }
