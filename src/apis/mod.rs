@@ -121,6 +121,7 @@ pub mod ad_audiences_api;
 pub mod ad_campaigns_api;
 pub mod ad_creatives_api;
 pub mod ad_insights_api;
+pub mod ad_library_api;
 pub mod ad_targeting_api;
 pub mod analytics_api;
 pub mod api_keys_api;

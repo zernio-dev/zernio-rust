@@ -27,6 +27,7 @@ docs/AdDailyMetrics.md
 docs/AdEngagementCounts.md
 docs/AdFunnelCounts.md
 docs/AdInsightsApi.md
+docs/AdLibraryApi.md
 docs/AdMetrics.md
 docs/AdPromotedObject.md
 docs/AdReviewStatus.md
@@ -1272,6 +1273,8 @@ docs/ScheduleBroadcast200ResponseBroadcast.md
 docs/ScheduleBroadcastRequest.md
 docs/SearchAdInterests200Response.md
 docs/SearchAdInterests200ResponseInterestsInner.md
+docs/SearchAdLibrary200Response.md
+docs/SearchAdLibrary200ResponsePaging.md
 docs/SearchAdTargeting200Response.md
 docs/SearchAdTargeting200ResponseResultsInner.md
 docs/SearchAvailablePhoneNumbers200Response.md
@@ -1853,6 +1856,7 @@ src/apis/ad_audiences_api.rs
 src/apis/ad_campaigns_api.rs
 src/apis/ad_creatives_api.rs
 src/apis/ad_insights_api.rs
+src/apis/ad_library_api.rs
 src/apis/ad_targeting_api.rs
 src/apis/analytics_api.rs
 src/apis/api_keys_api.rs
@@ -3138,6 +3142,8 @@ src/models/schedule_broadcast_200_response_broadcast.rs
 src/models/schedule_broadcast_request.rs
 src/models/search_ad_interests_200_response.rs
 src/models/search_ad_interests_200_response_interests_inner.rs
+src/models/search_ad_library_200_response.rs
+src/models/search_ad_library_200_response_paging.rs
 src/models/search_ad_targeting_200_response.rs
 src/models/search_ad_targeting_200_response_results_inner.rs
 src/models/search_available_phone_numbers_200_response.rs
