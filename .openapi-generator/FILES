@@ -46,6 +46,9 @@ docs/AdTreeCampaignCampaignBudget.md
 docs/AdTreeCampaignOptimizationGoal.md
 docs/AdTreeCampaignPromotedObject.md
 docs/AdTreeResponse.md
+docs/AddAccountCallouts201Response.md
+docs/AddAccountCallouts201ResponseCalloutsInner.md
+docs/AddAccountCalloutsRequest.md
 docs/AddAdKeywords201Response.md
 docs/AddAdKeywordsRequest.md
 docs/AddAdKeywordsRequestKeywordsInner.md
@@ -129,7 +132,6 @@ docs/BoostPostRequestSchedule.md
 docs/BoostPostRequestTargeting.md
 docs/BoostPostRequestTargetingCitiesInner.md
 docs/BoostPostRequestTargetingCustomLocationsInner.md
-docs/BoostPostRequestTargetingRegionsInner.md
 docs/BoostPostRequestTracking.md
 docs/BoostPostRequestTrackingUrlTagsInner.md
 docs/BroadcastsApi.md
@@ -202,6 +204,8 @@ docs/ConnectedAccount.md
 docs/ConnectedApp.md
 docs/ConnectedAppsApi.md
 docs/ContactsApi.md
+docs/ConversionAction.md
+docs/ConversionActionTagSnippetsInner.md
 docs/ConversionDestination.md
 docs/ConversionEvent.md
 docs/ConversionEventItemsInner.md
@@ -222,6 +226,8 @@ docs/CreateAdInsightsReport202Response.md
 docs/CreateAdInsightsReportRequest.md
 docs/CreateAdInsightsReportRequestFilteringInner.md
 docs/CreateAdInsightsReportRequestTimeIncrement.md
+docs/CreateAdSet201Response.md
+docs/CreateAdSetRequest.md
 docs/CreateApiKey201Response.md
 docs/CreateApiKeyRequest.md
 docs/CreateBlog201Response.md
@@ -247,6 +253,8 @@ docs/CreateContact200Response.md
 docs/CreateContact200ResponseChannel.md
 docs/CreateContact200ResponseContact.md
 docs/CreateContactRequest.md
+docs/CreateConversionAction201Response.md
+docs/CreateConversionActionRequest.md
 docs/CreateConversionDestination201Response.md
 docs/CreateConversionDestinationRequest.md
 docs/CreateConversionDestinationRequestValue.md
@@ -561,6 +569,10 @@ docs/GetCallsUsage200Response.md
 docs/GetCallsUsage200ResponseGroupsInner.md
 docs/GetCallsUsage200ResponseTotals.md
 docs/GetCampaignAnalytics202Response.md
+docs/GetCampaignTargeting200Response.md
+docs/GetCampaignTargeting200ResponseDevicesInner.md
+docs/GetCampaignTargeting200ResponseLanguagesInner.md
+docs/GetCampaignTargeting200ResponseLocationsInner.md
 docs/GetCommentAutomation200Response.md
 docs/GetCommentAutomation200ResponseAutomation.md
 docs/GetCommentAutomation200ResponseLogsInner.md
@@ -938,6 +950,8 @@ docs/LinkedInLeadFormPlatformDataQuestionsInnerOneOf1ChoicesInner.md
 docs/LinkedInMentionsApi.md
 docs/LinkedInPlatformData.md
 docs/LinkedInPlatformDataPoll.md
+docs/ListAccountCallouts200Response.md
+docs/ListAccountCallouts200ResponseCalloutsInner.md
 docs/ListAccountGroups200Response.md
 docs/ListAccountGroups200ResponseGroupsInner.md
 docs/ListAdAccounts200Response.md
@@ -953,6 +967,8 @@ docs/ListAdCreatives200Response.md
 docs/ListAdImages200Response.md
 docs/ListAdKeywords200Response.md
 docs/ListAdLabels200Response.md
+docs/ListAdSets200Response.md
+docs/ListAdSets200ResponseAdSetsInner.md
 docs/ListAdStudies200Response.md
 docs/ListAdVideos200Response.md
 docs/ListAds202Response.md
@@ -980,6 +996,7 @@ docs/ListContacts200Response.md
 docs/ListContacts200ResponseContactsInner.md
 docs/ListContacts200ResponseFilters.md
 docs/ListContacts200ResponsePagination.md
+docs/ListConversionActions200Response.md
 docs/ListConversionAssociations200Response.md
 docs/ListConversionAssociations200ResponseAssociationsInner.md
 docs/ListConversionDestinations200Response.md
@@ -1235,6 +1252,8 @@ docs/RemediatePhoneNumber200ResponsePhoneNumber.md
 docs/RemediatePhoneNumberRequest.md
 docs/RemediatePhoneNumberRequestDocumentsInner.md
 docs/RemediatePhoneNumberRequestDocumentsInnerOneOf.md
+docs/RemoveAccountCallout200Response.md
+docs/RemoveAccountCalloutRequest.md
 docs/RemoveAdKeyword200Response.md
 docs/RemoveBookmark200Response.md
 docs/RemoveConversionAssociations200Response.md
@@ -1534,6 +1553,14 @@ docs/UpdateBroadcastRequest.md
 docs/UpdateBroadcastRequestMessage.md
 docs/UpdateBroadcastRequestTemplate.md
 docs/UpdateBroadcastRequestTemplateVariableMappingValue.md
+docs/UpdateCampaignTargeting200Response.md
+docs/UpdateCampaignTargetingRequest.md
+docs/UpdateCampaignTargetingRequestTargeting.md
+docs/UpdateCampaignTargetingRequestTargetingDevicesInner.md
+docs/UpdateCampaignTargetingRequestTargetingDevicesInnerOneOf.md
+docs/UpdateCampaignTargetingRequestTargetingLocations.md
+docs/UpdateCampaignTargetingRequestTargetingLocationsOneOf.md
+docs/UpdateCampaignTargetingRequestTargetingLocationsOneOfRegionsInner.md
 docs/UpdateCommentAutomation200Response.md
 docs/UpdateCommentAutomation200ResponseAutomation.md
 docs/UpdateCommentAutomationRequest.md
@@ -1971,6 +1998,9 @@ src/models/ad_tree_campaign_campaign_budget.rs
 src/models/ad_tree_campaign_optimization_goal.rs
 src/models/ad_tree_campaign_promoted_object.rs
 src/models/ad_tree_response.rs
+src/models/add_account_callouts_201_response.rs
+src/models/add_account_callouts_201_response_callouts_inner.rs
+src/models/add_account_callouts_request.rs
 src/models/add_ad_keywords_201_response.rs
 src/models/add_ad_keywords_request.rs
 src/models/add_ad_keywords_request_keywords_inner.rs
@@ -2051,7 +2081,6 @@ src/models/boost_post_request_schedule.rs
 src/models/boost_post_request_targeting.rs
 src/models/boost_post_request_targeting_cities_inner.rs
 src/models/boost_post_request_targeting_custom_locations_inner.rs
-src/models/boost_post_request_targeting_regions_inner.rs
 src/models/boost_post_request_tracking.rs
 src/models/boost_post_request_tracking_url_tags_inner.rs
 src/models/bulk_create_contacts_200_response.rs
@@ -2117,6 +2146,8 @@ src/models/connect_whats_app_embedded_signup_request.rs
 src/models/connected.rs
 src/models/connected_account.rs
 src/models/connected_app.rs
+src/models/conversion_action.rs
+src/models/conversion_action_tag_snippets_inner.rs
 src/models/conversion_destination.rs
 src/models/conversion_event.rs
 src/models/conversion_event_items_inner.rs
@@ -2136,6 +2167,8 @@ src/models/create_ad_insights_report_202_response.rs
 src/models/create_ad_insights_report_request.rs
 src/models/create_ad_insights_report_request_filtering_inner.rs
 src/models/create_ad_insights_report_request_time_increment.rs
+src/models/create_ad_set_201_response.rs
+src/models/create_ad_set_request.rs
 src/models/create_api_key_201_response.rs
 src/models/create_api_key_request.rs
 src/models/create_blog_201_response.rs
@@ -2161,6 +2194,8 @@ src/models/create_contact_200_response.rs
 src/models/create_contact_200_response_channel.rs
 src/models/create_contact_200_response_contact.rs
 src/models/create_contact_request.rs
+src/models/create_conversion_action_201_response.rs
+src/models/create_conversion_action_request.rs
 src/models/create_conversion_destination_201_response.rs
 src/models/create_conversion_destination_request.rs
 src/models/create_conversion_destination_request_value.rs
@@ -2473,6 +2508,10 @@ src/models/get_calls_usage_200_response.rs
 src/models/get_calls_usage_200_response_groups_inner.rs
 src/models/get_calls_usage_200_response_totals.rs
 src/models/get_campaign_analytics_202_response.rs
+src/models/get_campaign_targeting_200_response.rs
+src/models/get_campaign_targeting_200_response_devices_inner.rs
+src/models/get_campaign_targeting_200_response_languages_inner.rs
+src/models/get_campaign_targeting_200_response_locations_inner.rs
 src/models/get_comment_automation_200_response.rs
 src/models/get_comment_automation_200_response_automation.rs
 src/models/get_comment_automation_200_response_logs_inner.rs
@@ -2837,6 +2876,8 @@ src/models/linked_in_lead_form_platform_data_questions_inner_one_of_1.rs
 src/models/linked_in_lead_form_platform_data_questions_inner_one_of_1_choices_inner.rs
 src/models/linked_in_platform_data.rs
 src/models/linked_in_platform_data_poll.rs
+src/models/list_account_callouts_200_response.rs
+src/models/list_account_callouts_200_response_callouts_inner.rs
 src/models/list_account_groups_200_response.rs
 src/models/list_account_groups_200_response_groups_inner.rs
 src/models/list_ad_accounts_200_response.rs
@@ -2852,6 +2893,8 @@ src/models/list_ad_creatives_200_response.rs
 src/models/list_ad_images_200_response.rs
 src/models/list_ad_keywords_200_response.rs
 src/models/list_ad_labels_200_response.rs
+src/models/list_ad_sets_200_response.rs
+src/models/list_ad_sets_200_response_ad_sets_inner.rs
 src/models/list_ad_studies_200_response.rs
 src/models/list_ad_videos_200_response.rs
 src/models/list_ads_202_response.rs
@@ -2879,6 +2922,7 @@ src/models/list_contacts_200_response.rs
 src/models/list_contacts_200_response_contacts_inner.rs
 src/models/list_contacts_200_response_filters.rs
 src/models/list_contacts_200_response_pagination.rs
+src/models/list_conversion_actions_200_response.rs
 src/models/list_conversion_associations_200_response.rs
 src/models/list_conversion_associations_200_response_associations_inner.rs
 src/models/list_conversion_destinations_200_response.rs
@@ -3124,6 +3168,8 @@ src/models/remediate_phone_number_200_response_phone_number.rs
 src/models/remediate_phone_number_request.rs
 src/models/remediate_phone_number_request_documents_inner.rs
 src/models/remediate_phone_number_request_documents_inner_one_of.rs
+src/models/remove_account_callout_200_response.rs
+src/models/remove_account_callout_request.rs
 src/models/remove_ad_keyword_200_response.rs
 src/models/remove_bookmark_200_response.rs
 src/models/remove_conversion_associations_200_response.rs
@@ -3417,6 +3463,14 @@ src/models/update_broadcast_request.rs
 src/models/update_broadcast_request_message.rs
 src/models/update_broadcast_request_template.rs
 src/models/update_broadcast_request_template_variable_mapping_value.rs
+src/models/update_campaign_targeting_200_response.rs
+src/models/update_campaign_targeting_request.rs
+src/models/update_campaign_targeting_request_targeting.rs
+src/models/update_campaign_targeting_request_targeting_devices_inner.rs
+src/models/update_campaign_targeting_request_targeting_devices_inner_one_of.rs
+src/models/update_campaign_targeting_request_targeting_locations.rs
+src/models/update_campaign_targeting_request_targeting_locations_one_of.rs
+src/models/update_campaign_targeting_request_targeting_locations_one_of_regions_inner.rs
 src/models/update_comment_automation_200_response.rs
 src/models/update_comment_automation_200_response_automation.rs
 src/models/update_comment_automation_request.rs

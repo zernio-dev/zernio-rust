@@ -151,10 +151,12 @@ pub struct CreateStandaloneAdRequest {
     pub interests: Option<Vec<models::UpdateAdRequestTargetingInterestsInner>>,
     /// Postal/ZIP geo targeting. `key` is the platform's postal location ID from /v1/ads/targeting/search?dimension=geo&geoType=zip. Supported on Meta, Google, TikTok, Pinterest, X.
     #[serde(rename = "zips", skip_serializing_if = "Option::is_none")]
-    pub zips: Option<Vec<models::BoostPostRequestTargetingRegionsInner>>,
+    pub zips:
+        Option<Vec<models::UpdateCampaignTargetingRequestTargetingLocationsOneOfRegionsInner>>,
     /// DMA / metro-area geo targeting (Meta and TikTok). `key` is the platform's metro ID from /v1/ads/targeting/search?dimension=geo&geoType=metro (TikTok metros appear as type `metro`, e.g. the New York DMA).
     #[serde(rename = "metros", skip_serializing_if = "Option::is_none")]
-    pub metros: Option<Vec<models::BoostPostRequestTargetingRegionsInner>>,
+    pub metros:
+        Option<Vec<models::UpdateCampaignTargetingRequestTargetingLocationsOneOfRegionsInner>>,
     /// Point-radius (lat/lng) geo targeting. Meta only (custom_locations). Rejected on platforms without radius support.
     #[serde(rename = "customLocations", skip_serializing_if = "Option::is_none")]
     pub custom_locations: Option<Vec<models::CreateStandaloneAdRequestCustomLocationsInner>>,
@@ -173,7 +175,7 @@ pub struct CreateStandaloneAdRequest {
     /// Normalized household-income tier. Meta and TikTok express all four; Google maps only `top_10`; rejected on LinkedIn, X, and Pinterest. On Meta, income targeting is incompatible with housing/employment/credit `specialAdCategories`.
     #[serde(rename = "incomeTier", skip_serializing_if = "Option::is_none")]
     pub income_tier: Option<IncomeTier>,
-    /// Language codes restricting the audience by language. On Meta, ISO 639-1 codes (e.g. ['en'], ['de']); a bare code targets all regional variants (\"en\" = all English), or use a region-qualified code for a specific one (\"en_GB\", \"pt_BR\", \"zh_TW\"). Unknown codes are rejected. Other ad platforms use their own language-code systems.
+    /// e.g. [\"en\",\"es\"]. Google: campaign language targeting (language_constant) using Google's language codes (ISO 639-1, plus variants such as `zh_CN`); unknown codes return 400. On Meta, a bare code targets all regional variants (\"en\" = all English), or use a region-qualified code for a specific one (\"en_GB\", \"pt_BR\", \"zh_TW\"); unknown codes are rejected. Other ad platforms use their own language-code systems.
     #[serde(rename = "languages", skip_serializing_if = "Option::is_none")]
     pub languages: Option<Vec<String>>,
     #[serde(rename = "placements", skip_serializing_if = "Option::is_none")]

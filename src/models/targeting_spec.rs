@@ -19,16 +19,19 @@ pub struct TargetingSpec {
     pub countries: Option<Vec<String>>,
     /// Region/state targeting. `key` is the platform location ID from /v1/ads/targeting/search?dimension=geo&geoType=region.
     #[serde(rename = "regions", skip_serializing_if = "Option::is_none")]
-    pub regions: Option<Vec<models::BoostPostRequestTargetingRegionsInner>>,
+    pub regions:
+        Option<Vec<models::UpdateCampaignTargetingRequestTargetingLocationsOneOfRegionsInner>>,
     /// City targeting. Optional `radius` + `distanceUnit` extend beyond the city limits; both must be set together or both omitted. `radius` is only honoured on platforms whose capability map allows city radius (Meta).
     #[serde(rename = "cities", skip_serializing_if = "Option::is_none")]
     pub cities: Option<Vec<models::TargetingSpecCitiesInner>>,
     /// Postal/ZIP targeting. `key` is the platform's postal location ID (e.g. Meta `US:94304`). Supported on Meta, Google, TikTok, Pinterest, X.
     #[serde(rename = "zips", skip_serializing_if = "Option::is_none")]
-    pub zips: Option<Vec<models::BoostPostRequestTargetingRegionsInner>>,
+    pub zips:
+        Option<Vec<models::UpdateCampaignTargetingRequestTargetingLocationsOneOfRegionsInner>>,
     /// DMA / metro-area targeting. `key` is the platform's metro ID (e.g. Meta `DMA:807`).
     #[serde(rename = "metros", skip_serializing_if = "Option::is_none")]
-    pub metros: Option<Vec<models::BoostPostRequestTargetingRegionsInner>>,
+    pub metros:
+        Option<Vec<models::UpdateCampaignTargetingRequestTargetingLocationsOneOfRegionsInner>>,
     /// Point-radius (lat/lng) targeting (Meta custom_locations / Google proximity). Honoured on Meta and Google; ignored on platforms without radius support.
     #[serde(rename = "customLocations", skip_serializing_if = "Option::is_none")]
     pub custom_locations: Option<Vec<models::TargetingSpecCustomLocationsInner>>,
