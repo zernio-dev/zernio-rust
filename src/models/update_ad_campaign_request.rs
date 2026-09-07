@@ -19,7 +19,7 @@ pub struct UpdateAdCampaignRequest {
     /// **Meta only.** Zernio SocialAccount id owning the ad account. Needed only for an EMPTY campaign (zero ads); ignored otherwise.
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
-    /// **Meta + Google.** On Meta, the campaign default that ad sets inherit unless they override it. On Google, the campaign's own bidding strategy.
+    /// **Meta + Google.** On Meta, the campaign default that ad sets inherit unless they override it. On Google, the campaign's own bidding strategy. On Google: LOWEST_COST_WITHOUT_CAP = Maximize Conversions, COST_CAP + bidAmount = Target CPA, LOWEST_COST_WITH_MIN_ROAS + roasAverageFloor = Target ROAS, LOWEST_COST_WITH_BID_CAP + bidAmount = Maximize Clicks with a CPC ceiling; portfolioBidStrategyId attaches a portfolio strategy instead.
     #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
     pub bid_strategy: Option<models::BidStrategy>,
     /// **Google only.** Whole currency units (USD: 12 = $12.00). Max CPC for LOWEST_COST_WITH_BID_CAP, CPA target for COST_CAP; required for both.
@@ -28,6 +28,12 @@ pub struct UpdateAdCampaignRequest {
     /// **Google only.** Decimal ROAS multiplier (2.0 = 2.0x), required for LOWEST_COST_WITH_MIN_ROAS.
     #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
     pub roas_average_floor: Option<f64>,
+    /// **Google only.** Attach an existing portfolio bid strategy (numeric id from GET /v1/ads/bid-strategies) instead of setting bidStrategy. Exclusive with bidStrategy.
+    #[serde(
+        rename = "portfolioBidStrategyId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub portfolio_bid_strategy_id: Option<String>,
     #[serde(rename = "budget", skip_serializing_if = "Option::is_none")]
     pub budget: Option<Box<models::UpdateAdCampaignRequestBudget>>,
     /// **Meta only.** Rename the campaign.
@@ -48,6 +54,7 @@ impl UpdateAdCampaignRequest {
             bid_strategy: None,
             bid_amount: None,
             roas_average_floor: None,
+            portfolio_bid_strategy_id: None,
             budget: None,
             name: None,
             platform_specific_data: None,

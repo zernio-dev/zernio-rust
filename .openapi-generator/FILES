@@ -156,6 +156,9 @@ docs/CampaignAnalyticsResponse.md
 docs/CampaignAnalyticsResponseAnalytics.md
 docs/CampaignAnalyticsResponseAnalyticsDailyInner.md
 docs/CampaignAnalyticsResponseCampaign.md
+docs/CampaignBidding.md
+docs/CampaignBiddingBidSpec.md
+docs/CampaignBiddingPortfolio.md
 docs/CancelBroadcast200Response.md
 docs/CancelPhoneNumberPortIn200Response.md
 docs/ChannelPicker.md
@@ -230,6 +233,9 @@ docs/CreateAdSet201Response.md
 docs/CreateAdSetRequest.md
 docs/CreateApiKey201Response.md
 docs/CreateApiKeyRequest.md
+docs/CreateBidStrategy201Response.md
+docs/CreateBidStrategy201ResponseStrategy.md
+docs/CreateBidStrategyRequest.md
 docs/CreateBlog201Response.md
 docs/CreateBlogArticle201Response.md
 docs/CreateBlogArticleRequest.md
@@ -569,6 +575,7 @@ docs/GetCallsUsage200Response.md
 docs/GetCallsUsage200ResponseGroupsInner.md
 docs/GetCallsUsage200ResponseTotals.md
 docs/GetCampaignAnalytics202Response.md
+docs/GetCampaignBidding200Response.md
 docs/GetCampaignTargeting200Response.md
 docs/GetCampaignTargeting200ResponseDevicesInner.md
 docs/GetCampaignTargeting200ResponseLanguagesInner.md
@@ -974,6 +981,7 @@ docs/ListAdVideos200Response.md
 docs/ListAds202Response.md
 docs/ListAdsBusinessCenters200Response.md
 docs/ListApiKeys200Response.md
+docs/ListBidStrategies200Response.md
 docs/ListBlogArticles200Response.md
 docs/ListBlogs200Response.md
 docs/ListBroadcastRecipients200Response.md
@@ -1189,6 +1197,7 @@ docs/PinterestPlatformData.md
 docs/PlatformAnalytics.md
 docs/PlatformTarget.md
 docs/PlatformTargetAccountId.md
+docs/PortfolioBidStrategy.md
 docs/Post.md
 docs/PostAnalytics.md
 docs/PostCreateResponse.md
@@ -1531,6 +1540,8 @@ docs/UpdateAdRequest.md
 docs/UpdateAdRequestBudget.md
 docs/UpdateAdRequestCreative.md
 docs/UpdateAdRequestTargeting.md
+docs/UpdateAdRequestTargetingDevicesInner.md
+docs/UpdateAdRequestTargetingDevicesInnerOneOf.md
 docs/UpdateAdRequestTargetingInterestsInner.md
 docs/UpdateAdRequestTargetingKeywordsInner.md
 docs/UpdateAdRequestTargetingKeywordsInnerOneOf.md
@@ -1544,6 +1555,9 @@ docs/UpdateAdStatus200Response.md
 docs/UpdateAdTrackingTagsRequest.md
 docs/UpdateAdTrackingTagsRequestCreative.md
 docs/UpdateAdTrackingTagsRequestUrlTagsInner.md
+docs/UpdateBidStrategy200Response.md
+docs/UpdateBidStrategy200ResponseStrategy.md
+docs/UpdateBidStrategyRequest.md
 docs/UpdateBlogArticleRequest.md
 docs/UpdateBlogRequest.md
 docs/UpdateBlueskySettingsRequest.md
@@ -2103,6 +2117,9 @@ src/models/campaign_analytics_response.rs
 src/models/campaign_analytics_response_analytics.rs
 src/models/campaign_analytics_response_analytics_daily_inner.rs
 src/models/campaign_analytics_response_campaign.rs
+src/models/campaign_bidding.rs
+src/models/campaign_bidding_bid_spec.rs
+src/models/campaign_bidding_portfolio.rs
 src/models/cancel_broadcast_200_response.rs
 src/models/cancel_phone_number_port_in_200_response.rs
 src/models/channel_picker.rs
@@ -2171,6 +2188,9 @@ src/models/create_ad_set_201_response.rs
 src/models/create_ad_set_request.rs
 src/models/create_api_key_201_response.rs
 src/models/create_api_key_request.rs
+src/models/create_bid_strategy_201_response.rs
+src/models/create_bid_strategy_201_response_strategy.rs
+src/models/create_bid_strategy_request.rs
 src/models/create_blog_201_response.rs
 src/models/create_blog_article_201_response.rs
 src/models/create_blog_article_request.rs
@@ -2508,6 +2528,7 @@ src/models/get_calls_usage_200_response.rs
 src/models/get_calls_usage_200_response_groups_inner.rs
 src/models/get_calls_usage_200_response_totals.rs
 src/models/get_campaign_analytics_202_response.rs
+src/models/get_campaign_bidding_200_response.rs
 src/models/get_campaign_targeting_200_response.rs
 src/models/get_campaign_targeting_200_response_devices_inner.rs
 src/models/get_campaign_targeting_200_response_languages_inner.rs
@@ -2900,6 +2921,7 @@ src/models/list_ad_videos_200_response.rs
 src/models/list_ads_202_response.rs
 src/models/list_ads_business_centers_200_response.rs
 src/models/list_api_keys_200_response.rs
+src/models/list_bid_strategies_200_response.rs
 src/models/list_blog_articles_200_response.rs
 src/models/list_blogs_200_response.rs
 src/models/list_broadcast_recipients_200_response.rs
@@ -3110,6 +3132,7 @@ src/models/pinterest_platform_data.rs
 src/models/platform_analytics.rs
 src/models/platform_target.rs
 src/models/platform_target_account_id.rs
+src/models/portfolio_bid_strategy.rs
 src/models/post.rs
 src/models/post_analytics.rs
 src/models/post_create_response.rs
@@ -3441,6 +3464,8 @@ src/models/update_ad_request.rs
 src/models/update_ad_request_budget.rs
 src/models/update_ad_request_creative.rs
 src/models/update_ad_request_targeting.rs
+src/models/update_ad_request_targeting_devices_inner.rs
+src/models/update_ad_request_targeting_devices_inner_one_of.rs
 src/models/update_ad_request_targeting_interests_inner.rs
 src/models/update_ad_request_targeting_keywords_inner.rs
 src/models/update_ad_request_targeting_keywords_inner_one_of.rs
@@ -3454,6 +3479,9 @@ src/models/update_ad_status_200_response.rs
 src/models/update_ad_tracking_tags_request.rs
 src/models/update_ad_tracking_tags_request_creative.rs
 src/models/update_ad_tracking_tags_request_url_tags_inner.rs
+src/models/update_bid_strategy_200_response.rs
+src/models/update_bid_strategy_200_response_strategy.rs
+src/models/update_bid_strategy_request.rs
 src/models/update_blog_article_request.rs
 src/models/update_blog_request.rs
 src/models/update_bluesky_settings_request.rs

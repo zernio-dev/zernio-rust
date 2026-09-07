@@ -11,59 +11,33 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UpdateAdCampaign200Response : Echoes back only the fields you sent, plus `updated`.
+/// CampaignBiddingBidSpec : Null when the campaign is on a strategy PUT does not model (Manual CPC, Target Impression Share, ...); show biddingStrategyType instead in that case.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct UpdateAdCampaign200Response {
-    /// Local Ad documents mirrored. 0 on the empty-campaign path.
-    #[serde(rename = "updated", skip_serializing_if = "Option::is_none")]
-    pub updated: Option<i32>,
-    #[serde(rename = "budget", skip_serializing_if = "Option::is_none")]
-    pub budget: Option<Box<models::AdBudget>>,
-    #[serde(rename = "budgetLevel", skip_serializing_if = "Option::is_none")]
-    pub budget_level: Option<BudgetLevel>,
+pub struct CampaignBiddingBidSpec {
     #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]
     pub bid_strategy: Option<models::BidStrategy>,
+    /// Whole currency units. Present for COST_CAP and LOWEST_COST_WITH_BID_CAP, and omitted when the campaign is on a bare TARGET_SPEND with no CPC ceiling set.
     #[serde(rename = "bidAmount", skip_serializing_if = "Option::is_none")]
     pub bid_amount: Option<f64>,
+    /// Decimal ROAS multiplier (2.0 = 2.0x). Present for LOWEST_COST_WITH_MIN_ROAS.
     #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
     pub roas_average_floor: Option<f64>,
-    /// Google only. Echoed back, but NOT mirrored onto local Ad documents (no column for it yet).
+    /// Present alone (bidStrategy omitted) when the campaign is on a portfolio strategy; see portfolio.
     #[serde(
         rename = "portfolioBidStrategyId",
         skip_serializing_if = "Option::is_none"
     )]
     pub portfolio_bid_strategy_id: Option<String>,
-    #[serde(
-        rename = "platformSpecificData",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub platform_specific_data: Option<serde_json::Value>,
 }
 
-impl UpdateAdCampaign200Response {
-    /// Echoes back only the fields you sent, plus `updated`.
-    pub fn new() -> UpdateAdCampaign200Response {
-        UpdateAdCampaign200Response {
-            updated: None,
-            budget: None,
-            budget_level: None,
+impl CampaignBiddingBidSpec {
+    /// Null when the campaign is on a strategy PUT does not model (Manual CPC, Target Impression Share, ...); show biddingStrategyType instead in that case.
+    pub fn new() -> CampaignBiddingBidSpec {
+        CampaignBiddingBidSpec {
             bid_strategy: None,
             bid_amount: None,
             roas_average_floor: None,
             portfolio_bid_strategy_id: None,
-            platform_specific_data: None,
         }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum BudgetLevel {
-    #[serde(rename = "campaign")]
-    Campaign,
-}
-
-impl Default for BudgetLevel {
-    fn default() -> BudgetLevel {
-        Self::Campaign
     }
 }

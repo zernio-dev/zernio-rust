@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UpdateAdRequestTargeting : Meta + TikTok (demographics/interests), Google (keyword edits only), and LinkedIn (geo countries). Pinterest / X return 501.
+/// UpdateAdRequestTargeting : Meta + TikTok (demographics/interests), Google (keyword and device bid adjustment edits only), and LinkedIn (geo countries). Pinterest / X return 501.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAdRequestTargeting {
     /// Google only. The FULL new set of positive keywords for the ad group; live keywords not listed are removed. Entries are strings (BROAD) or { text, matchType } with matchType exact | phrase | broad. Mirrored to GET /v1/ads/keywords immediately.
@@ -20,6 +20,9 @@ pub struct UpdateAdRequestTargeting {
     /// Google only. Same declarative contract as keywords, for the ad group's negative keywords.
     #[serde(rename = "negativeKeywords", skip_serializing_if = "Option::is_none")]
     pub negative_keywords: Option<Vec<models::UpdateAdRequestTargetingKeywordsInner>>,
+    /// Google only. The FULL new set of device criteria for the campaign; devices not listed are excluded. Entries are a device name alone (included, no bid adjustment) or { device, bidModifier }.
+    #[serde(rename = "devices", skip_serializing_if = "Option::is_none")]
+    pub devices: Option<Vec<models::UpdateAdRequestTargetingDevicesInner>>,
     #[serde(rename = "ageMin", skip_serializing_if = "Option::is_none")]
     pub age_min: Option<i32>,
     #[serde(rename = "ageMax", skip_serializing_if = "Option::is_none")]
@@ -35,11 +38,12 @@ pub struct UpdateAdRequestTargeting {
 }
 
 impl UpdateAdRequestTargeting {
-    /// Meta + TikTok (demographics/interests), Google (keyword edits only), and LinkedIn (geo countries). Pinterest / X return 501.
+    /// Meta + TikTok (demographics/interests), Google (keyword and device bid adjustment edits only), and LinkedIn (geo countries). Pinterest / X return 501.
     pub fn new() -> UpdateAdRequestTargeting {
         UpdateAdRequestTargeting {
             keywords: None,
             negative_keywords: None,
+            devices: None,
             age_min: None,
             age_max: None,
             countries: None,
