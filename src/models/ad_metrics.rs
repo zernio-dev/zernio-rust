@@ -36,6 +36,9 @@ pub struct AdMetrics {
     /// Count of conversion events over the requested date range. FRACTIONAL: attribution splits one conversion across touchpoints and Google additionally reports modeled conversions, so values like 0.347 are normal. Meta: events matching the campaign's promoted_object.custom_event_type (PURCHASE, LEAD, etc.). Google: the account's tracked conversions. X and LinkedIn: their reported website/lead conversions (added 2026-07). 0 for non-conversion campaigns or when no events have fired.
     #[serde(rename = "conversions", skip_serializing_if = "Option::is_none")]
     pub conversions: Option<f64>,
+    /// All conversions, including actions excluded from the Conversions column (Google metrics.all_conversions). 0 on platforms without the concept.
+    #[serde(rename = "allConversions", skip_serializing_if = "Option::is_none")]
+    pub all_conversions: Option<f64>,
     /// Derived spend / conversions in the same currency as spend. 0 when conversions is 0.
     #[serde(rename = "costPerConversion", skip_serializing_if = "Option::is_none")]
     pub cost_per_conversion: Option<f64>,
@@ -150,6 +153,7 @@ impl AdMetrics {
             cpm: None,
             engagement: None,
             conversions: None,
+            all_conversions: None,
             cost_per_conversion: None,
             actions: None,
             action_values: None,
