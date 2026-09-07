@@ -30,6 +30,7 @@ pub struct Post {
     pub scheduled_for: Option<String>,
     #[serde(rename = "timezone", skip_serializing_if = "Option::is_none")]
     pub timezone: Option<String>,
+    /// `cancelled` is set by DELETE /v1/posts/{postId}/unpublish once every platform entry has been removed from its platform (a post with published entries left becomes `partial`); cancelled posts can be edited and rescheduled like drafts.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
     /// YouTube constraints: each tag max 100 chars, combined max 500 chars, duplicates removed.
@@ -88,7 +89,7 @@ impl Post {
         }
     }
 }
-///
+/// `cancelled` is set by DELETE /v1/posts/{postId}/unpublish once every platform entry has been removed from its platform (a post with published entries left becomes `partial`); cancelled posts can be edited and rescheduled like drafts.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
     #[serde(rename = "draft")]
@@ -99,10 +100,12 @@ pub enum Status {
     Publishing,
     #[serde(rename = "published")]
     Published,
-    #[serde(rename = "failed")]
-    Failed,
     #[serde(rename = "partial")]
     Partial,
+    #[serde(rename = "failed")]
+    Failed,
+    #[serde(rename = "cancelled")]
+    Cancelled,
 }
 
 impl Default for Status {

@@ -34,6 +34,9 @@ pub struct CreatePostRequest {
     /// When true, saves the post as a draft. When none of scheduledFor, publishNow, or queuedFromProfile are provided, the post defaults to draft automatically.
     #[serde(rename = "isDraft", skip_serializing_if = "Option::is_none")]
     pub is_draft: Option<bool>,
+    /// TikTok only. Preview whether each `tiktok` entry in `platforms` could publish right now under the TikTok Direct Post daily limits, without creating, scheduling or publishing anything: no post is persisted and no upload slot is claimed, so it can be repeated freely. The request still goes through auth, the payment gate and body validation, then returns HTTP 200 with `{ dryRun: true, canPublish, tiktok: [...] }` instead of 201. Only `tiktok` entries are evaluated; other platforms in the body are ignored, and a body with no `tiktok` entry is rejected with 400 `invalid_field_value` on `platforms`. An entry with `platformSpecificData.tiktokSettings.draft: true` (Creator Inbox upload) is not subject to the limit and always reports `canPublish: true`.
+    #[serde(rename = "dryRun", skip_serializing_if = "Option::is_none")]
+    pub dry_run: Option<bool>,
     /// IANA timezone (`Europe/Madrid`, `America/New_York`) used to interpret a `scheduledFor` (root or per-platform) that carries no `Z` or offset. Has no effect on values that already carry one. An unknown name returns 400 when `scheduledFor` is set.
     #[serde(rename = "timezone", skip_serializing_if = "Option::is_none")]
     pub timezone: Option<String>,
@@ -81,6 +84,7 @@ impl CreatePostRequest {
             scheduled_for: None,
             publish_now: None,
             is_draft: None,
+            dry_run: None,
             timezone: None,
             tags: None,
             hashtags: None,

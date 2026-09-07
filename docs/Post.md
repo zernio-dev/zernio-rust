@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **platforms** | Option<[**Vec<models::PlatformTarget>**](PlatformTarget.md)> |  | [optional]
 **scheduled_for** | Option<**String**> |  | [optional]
 **timezone** | Option<**String**> |  | [optional]
-**status** | Option<**Status**> |  (enum: draft, scheduled, publishing, published, failed, partial) | [optional]
+**status** | Option<**Status**> | `cancelled` is set by DELETE /v1/posts/{postId}/unpublish once every platform entry has been removed from its platform (a post with published entries left becomes `partial`); cancelled posts can be edited and rescheduled like drafts. (enum: draft, scheduled, publishing, published, partial, failed, cancelled) | [optional]
 **tags** | Option<**Vec<String>**> | YouTube constraints: each tag max 100 chars, combined max 500 chars, duplicates removed. | [optional]
 **hashtags** | Option<**Vec<String>**> | Stored for reference only. Hashtags are NOT automatically appended to the caption when publishing. Include hashtags directly in the content field (platforms like Instagram only support hashtags as caption text). For YouTube keywords, use the tags field instead. | [optional]
 **mentions** | Option<**Vec<String>**> | Stored for reference only. This field does NOT automatically create @mentions when publishing. For LinkedIn @mentions, use the /v1/accounts/{accountId}/linkedin-mentions endpoint to resolve profile URLs to URNs, then embed the returned mentionFormat directly in the post content field. | [optional]

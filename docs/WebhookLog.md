@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **user_id** | Option<**String**> | ID of the account owner the webhook belongs to | [optional]
 **webhook_id** | Option<**String**> | ID of the webhook configuration that produced this delivery | [optional]
 **webhook_name** | Option<**String**> | Name of the webhook configuration at delivery time | [optional]
-**event_id** | Option<**String**> | Stable webhook event ID (correlates to the delivered payload) | [optional]
+**event_id** | Option<**String**> | Stable webhook event ID: the payload `id`, also sent as the X-Zernio-Event-Id header. Shared by every attempt and redelivery of the same event. | [optional]
 **event** | Option<**String**> | Event type that triggered the delivery (e.g. post.published) | [optional]
 **url** | Option<**String**> | Destination URL the webhook was delivered to | [optional]
 **status** | Option<**Status**> | Delivery outcome (enum: success, failed) | [optional]

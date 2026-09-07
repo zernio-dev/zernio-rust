@@ -23,7 +23,7 @@ pub struct WebhookLog {
     /// Name of the webhook configuration at delivery time
     #[serde(rename = "webhookName", skip_serializing_if = "Option::is_none")]
     pub webhook_name: Option<String>,
-    /// Stable webhook event ID (correlates to the delivered payload)
+    /// Stable webhook event ID: the payload `id`, also sent as the X-Zernio-Event-Id header. Shared by every attempt and redelivery of the same event.
     #[serde(rename = "eventId", skip_serializing_if = "Option::is_none")]
     pub event_id: Option<String>,
     /// Event type that triggered the delivery (e.g. post.published)

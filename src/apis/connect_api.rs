@@ -372,6 +372,17 @@ pub enum ListPinterestBoardsForSelectionError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_slack_channels`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListSlackChannelsError {
+    Status400(),
+    Status401(models::InlineObject),
+    Status403(),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_snapchat_profiles`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -2391,6 +2402,69 @@ pub async fn list_pinterest_boards_for_selection(
         let content = resp.text().await?;
         let entity: Option<ListPinterestBoardsForSelectionError> =
             serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Serves the channel picker of the Slack connect flow. Slack's OAuth installs the bot into a workspace, not a channel, so after the redirect the caller lists the workspace's channels here and finalizes one with `POST /v1/connect/slack`. Served by a dedicated route that shadows `GET /v1/connect/{platform}` for `slack`.  Send exactly one of `pendingDataToken` (first connect: the nonce from the OAuth redirect, bound to the same `profileId`) or `accountId` (add another channel to a workspace already connected: the existing Slack account's workspace token is reused, no re-OAuth). With neither, the endpoint behaves like `GET /v1/connect/{platform}` and returns `authUrl` and `state` to start the OAuth flow.  Channels are read live from Slack (`conversations.list`, public and private, archived excluded, up to 2,000). `isMember` says whether the Zernio bot is already in the channel: a public channel is joined automatically on finalize, a private one must be invited (`/invite @Zernio`) first.
+pub async fn list_slack_channels(
+    configuration: &configuration::Configuration,
+    profile_id: &str,
+    pending_data_token: Option<&str>,
+    account_id: Option<&str>,
+    redirect_url: Option<&str>,
+) -> Result<models::ListSlackChannels200Response, Error<ListSlackChannelsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_profile_id = profile_id;
+    let p_query_pending_data_token = pending_data_token;
+    let p_query_account_id = account_id;
+    let p_query_redirect_url = redirect_url;
+
+    let uri_str = format!("{}/v1/connect/slack", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("profileId", &p_query_profile_id.to_string())]);
+    if let Some(ref param_value) = p_query_pending_data_token {
+        req_builder = req_builder.query(&[("pendingDataToken", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_account_id {
+        req_builder = req_builder.query(&[("accountId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_redirect_url {
+        req_builder = req_builder.query(&[("redirect_url", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListSlackChannels200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListSlackChannels200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListSlackChannelsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

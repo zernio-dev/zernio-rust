@@ -156,6 +156,9 @@ docs/CampaignAnalyticsResponseAnalyticsDailyInner.md
 docs/CampaignAnalyticsResponseCampaign.md
 docs/CancelBroadcast200Response.md
 docs/CancelPhoneNumberPortIn200Response.md
+docs/ChannelPicker.md
+docs/ChannelPickerChannelsInner.md
+docs/ChannelPickerTeam.md
 docs/CheckPhoneNumberAvailability200Response.md
 docs/CheckPhoneNumberAvailability200ResponseAreaOptionsInner.md
 docs/CheckPhoneNumberPortability200Response.md
@@ -297,6 +300,8 @@ docs/CreatePhoneNumberStockWatchRequest.md
 docs/CreatePinterestBoard201Response.md
 docs/CreatePinterestBoard201ResponseBoard.md
 docs/CreatePinterestBoardRequest.md
+docs/CreatePost200Response.md
+docs/CreatePost200ResponseTiktokInner.md
 docs/CreatePost403Response.md
 docs/CreatePost409Response.md
 docs/CreatePost409ResponseDetails.md
@@ -1068,6 +1073,7 @@ docs/ListSequences200ResponseSequencesInner.md
 docs/ListSipTrunks200Response.md
 docs/ListSipTrunks200ResponseTrunksInner.md
 docs/ListSipTrunks200ResponseTrunksInnerTermination.md
+docs/ListSlackChannels200Response.md
 docs/ListSlackMembers200Response.md
 docs/ListSlackMembers200ResponseMembersInner.md
 docs/ListSmsOptOuts200Response.md
@@ -1428,6 +1434,7 @@ docs/SocialAccountProfileId.md
 docs/StartGoogleBusinessVerification200Response.md
 docs/StartGoogleBusinessVerification200ResponseVerification.md
 docs/StartGoogleBusinessVerificationRequest.md
+docs/StartOAuth.md
 docs/StartSmsRegistration200Response.md
 docs/StartSmsRegistrationRequest.md
 docs/StartSmsRegistrationRequestBrand.md
@@ -2069,6 +2076,9 @@ src/models/campaign_analytics_response_analytics_daily_inner.rs
 src/models/campaign_analytics_response_campaign.rs
 src/models/cancel_broadcast_200_response.rs
 src/models/cancel_phone_number_port_in_200_response.rs
+src/models/channel_picker.rs
+src/models/channel_picker_channels_inner.rs
+src/models/channel_picker_team.rs
 src/models/check_phone_number_availability_200_response.rs
 src/models/check_phone_number_availability_200_response_area_options_inner.rs
 src/models/check_phone_number_portability_200_response.rs
@@ -2204,6 +2214,8 @@ src/models/create_phone_number_stock_watch_request.rs
 src/models/create_pinterest_board_201_response.rs
 src/models/create_pinterest_board_201_response_board.rs
 src/models/create_pinterest_board_request.rs
+src/models/create_post_200_response.rs
+src/models/create_post_200_response_tiktok_inner.rs
 src/models/create_post_403_response.rs
 src/models/create_post_409_response.rs
 src/models/create_post_409_response_details.rs
@@ -2960,6 +2972,7 @@ src/models/list_sequences_200_response_sequences_inner.rs
 src/models/list_sip_trunks_200_response.rs
 src/models/list_sip_trunks_200_response_trunks_inner.rs
 src/models/list_sip_trunks_200_response_trunks_inner_termination.rs
+src/models/list_slack_channels_200_response.rs
 src/models/list_slack_members_200_response.rs
 src/models/list_slack_members_200_response_members_inner.rs
 src/models/list_sms_opt_outs_200_response.rs
@@ -3306,6 +3319,7 @@ src/models/social_account_profile_id.rs
 src/models/start_google_business_verification_200_response.rs
 src/models/start_google_business_verification_200_response_verification.rs
 src/models/start_google_business_verification_request.rs
+src/models/start_o_auth.rs
 src/models/start_sms_registration_200_response.rs
 src/models/start_sms_registration_request.rs
 src/models/start_sms_registration_request_brand.rs

@@ -32,7 +32,7 @@ pub struct PlatformTarget {
         skip_serializing_if = "Option::is_none"
     )]
     pub platform_specific_data: Option<std::collections::HashMap<String, serde_json::Value>>,
-    /// Platform-specific status: pending, publishing, published, failed
+    /// Platform-specific status: pending, processing, uploading, published, failed, cancelled (removed from the platform via DELETE /v1/posts/{postId}/unpublish)
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
     /// The native post ID on the platform (populated after successful publish)

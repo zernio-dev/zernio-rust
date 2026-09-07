@@ -203,7 +203,7 @@ pub async fn create_post(
     configuration: &configuration::Configuration,
     create_post_request: models::CreatePostRequest,
     x_request_id: Option<&str>,
-) -> Result<models::PostCreateResponse, Error<CreatePostError>> {
+) -> Result<models::CreatePost200Response, Error<CreatePostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_post_request = create_post_request;
     let p_header_x_request_id = x_request_id;
@@ -239,8 +239,8 @@ pub async fn create_post(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PostCreateResponse`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PostCreateResponse`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreatePost200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreatePost200Response`")))),
         }
     } else {
         let content = resp.text().await?;

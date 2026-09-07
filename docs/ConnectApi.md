@@ -37,6 +37,7 @@ Method | HTTP request | Description
 [**list_instagram_pages**](ConnectApi.md#list_instagram_pages) | **GET** /v1/connect/instagram/select-account | List Pages with a linked Instagram account
 [**list_linked_in_organizations**](ConnectApi.md#list_linked_in_organizations) | **GET** /v1/connect/linkedin/organizations | List LinkedIn orgs
 [**list_pinterest_boards_for_selection**](ConnectApi.md#list_pinterest_boards_for_selection) | **GET** /v1/connect/pinterest/select-board | List Pinterest boards
+[**list_slack_channels**](ConnectApi.md#list_slack_channels) | **GET** /v1/connect/slack | List Slack channels for the channel picker
 [**list_snapchat_profiles**](ConnectApi.md#list_snapchat_profiles) | **GET** /v1/connect/snapchat/select-profile | List Snapchat profiles
 [**list_whats_app_phone_numbers**](ConnectApi.md#list_whats_app_phone_numbers) | **GET** /v1/connect/whatsapp/select-phone-number | List numbers for selection
 [**select_facebook_page**](ConnectApi.md#select_facebook_page) | **POST** /v1/connect/facebook/select-page | Select Facebook page
@@ -1070,6 +1071,39 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListPinterestBoardsForSelection200Response**](listPinterestBoardsForSelection_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_slack_channels
+
+> models::ListSlackChannels200Response list_slack_channels(profile_id, pending_data_token, account_id, redirect_url)
+List Slack channels for the channel picker
+
+Serves the channel picker of the Slack connect flow. Slack's OAuth installs the bot into a workspace, not a channel, so after the redirect the caller lists the workspace's channels here and finalizes one with `POST /v1/connect/slack`. Served by a dedicated route that shadows `GET /v1/connect/{platform}` for `slack`.  Send exactly one of `pendingDataToken` (first connect: the nonce from the OAuth redirect, bound to the same `profileId`) or `accountId` (add another channel to a workspace already connected: the existing Slack account's workspace token is reused, no re-OAuth). With neither, the endpoint behaves like `GET /v1/connect/{platform}` and returns `authUrl` and `state` to start the OAuth flow.  Channels are read live from Slack (`conversations.list`, public and private, archived excluded, up to 2,000). `isMember` says whether the Zernio bot is already in the channel: a public channel is joined automatically on finalize, a private one must be invited (`/invite @Zernio`) first. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**profile_id** | **String** | Zernio profile the channel account will belong to. Must match the profile the OAuth flow was started on when `pendingDataToken` is used. | [required] |
+**pending_data_token** | Option<**String**> | Nonce from the OAuth redirect (first connect). |  |
+**account_id** | Option<**String**> | Existing active Slack account (yours or a team member's) whose workspace token is reused. |  |
+**redirect_url** | Option<**String**> | Start-OAuth mode only: where to send the user after the connect completes. `redirectUrl` is accepted as an alias. |  |
+
+### Return type
+
+[**models::ListSlackChannels200Response**](listSlackChannels_200_response.md)
 
 ### Authorization
 
