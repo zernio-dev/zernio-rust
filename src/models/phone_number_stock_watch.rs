@@ -20,6 +20,9 @@ pub struct PhoneNumberStockWatch {
     pub country: String,
     #[serde(rename = "countryName")]
     pub country_name: String,
+    /// The watched number type, or null when the watch covers every type in the country.
+    #[serde(rename = "numberType", deserialize_with = "Option::deserialize")]
+    pub number_type: Option<NumberType>,
     #[serde(rename = "createdAt")]
     pub created_at: String,
 }
@@ -29,13 +32,33 @@ impl PhoneNumberStockWatch {
         id: String,
         country: String,
         country_name: String,
+        number_type: Option<NumberType>,
         created_at: String,
     ) -> PhoneNumberStockWatch {
         PhoneNumberStockWatch {
             id,
             country,
             country_name,
+            number_type,
             created_at,
         }
+    }
+}
+/// The watched number type, or null when the watch covers every type in the country.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum NumberType {
+    #[serde(rename = "local")]
+    Local,
+    #[serde(rename = "mobile")]
+    Mobile,
+    #[serde(rename = "national")]
+    National,
+    #[serde(rename = "toll_free")]
+    TollFree,
+}
+
+impl Default for NumberType {
+    fn default() -> NumberType {
+        Self::Local
     }
 }

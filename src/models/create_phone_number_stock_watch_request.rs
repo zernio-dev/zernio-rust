@@ -16,10 +16,34 @@ pub struct CreatePhoneNumberStockWatchRequest {
     /// ISO 3166-1 alpha-2 code of a country listed by GET /v1/phone-numbers/countries.
     #[serde(rename = "country")]
     pub country: String,
+    /// Narrow the watch to one number type. Omit to be notified when any type in the country is back.
+    #[serde(rename = "numberType", skip_serializing_if = "Option::is_none")]
+    pub number_type: Option<NumberType>,
 }
 
 impl CreatePhoneNumberStockWatchRequest {
     pub fn new(country: String) -> CreatePhoneNumberStockWatchRequest {
-        CreatePhoneNumberStockWatchRequest { country }
+        CreatePhoneNumberStockWatchRequest {
+            country,
+            number_type: None,
+        }
+    }
+}
+/// Narrow the watch to one number type. Omit to be notified when any type in the country is back.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum NumberType {
+    #[serde(rename = "local")]
+    Local,
+    #[serde(rename = "mobile")]
+    Mobile,
+    #[serde(rename = "national")]
+    National,
+    #[serde(rename = "toll_free")]
+    TollFree,
+}
+
+impl Default for NumberType {
+    fn default() -> NumberType {
+        Self::Local
     }
 }
