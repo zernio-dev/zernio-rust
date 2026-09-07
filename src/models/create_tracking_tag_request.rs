@@ -18,6 +18,9 @@ pub struct CreateTrackingTagRequest {
     pub ad_account_id: String,
     #[serde(rename = "name")]
     pub name: String,
+    /// OpenAI Ads only (ignored by Meta). When set, also provisions a standard conversion event setting wired to the new pixel, so `goal: conversions` ad creates on `POST /v1/ads/create` have an event to reference immediately.
+    #[serde(rename = "defaultEventType", skip_serializing_if = "Option::is_none")]
+    pub default_event_type: Option<DefaultEventType>,
 }
 
 impl CreateTrackingTagRequest {
@@ -25,6 +28,41 @@ impl CreateTrackingTagRequest {
         CreateTrackingTagRequest {
             ad_account_id,
             name,
+            default_event_type: None,
         }
+    }
+}
+/// OpenAI Ads only (ignored by Meta). When set, also provisions a standard conversion event setting wired to the new pixel, so `goal: conversions` ad creates on `POST /v1/ads/create` have an event to reference immediately.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum DefaultEventType {
+    #[serde(rename = "order_created")]
+    OrderCreated,
+    #[serde(rename = "lead_created")]
+    LeadCreated,
+    #[serde(rename = "items_added")]
+    ItemsAdded,
+    #[serde(rename = "contents_viewed")]
+    ContentsViewed,
+    #[serde(rename = "checkout_started")]
+    CheckoutStarted,
+    #[serde(rename = "registration_completed")]
+    RegistrationCompleted,
+    #[serde(rename = "subscription_created")]
+    SubscriptionCreated,
+    #[serde(rename = "trial_started")]
+    TrialStarted,
+    #[serde(rename = "appointment_scheduled")]
+    AppointmentScheduled,
+    #[serde(rename = "page_viewed")]
+    PageViewed,
+    #[serde(rename = "app_installed")]
+    AppInstalled,
+    #[serde(rename = "app_opened")]
+    AppOpened,
+}
+
+impl Default for DefaultEventType {
+    fn default() -> DefaultEventType {
+        Self::OrderCreated
     }
 }
