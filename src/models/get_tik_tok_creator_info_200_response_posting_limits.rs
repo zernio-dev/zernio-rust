@@ -19,12 +19,12 @@ pub struct GetTikTokCreatorInfo200ResponsePostingLimits {
         skip_serializing_if = "Option::is_none"
     )]
     pub max_video_duration_sec: Option<i32>,
-    /// Available interaction toggles (comment, duet, stitch) and their defaults
     #[serde(
         rename = "interactionSettings",
         skip_serializing_if = "Option::is_none"
     )]
-    pub interaction_settings: Option<serde_json::Value>,
+    pub interaction_settings:
+        Option<Box<models::GetTikTokCreatorInfo200ResponsePostingLimitsInteractionSettings>>,
 }
 
 impl GetTikTokCreatorInfo200ResponsePostingLimits {
