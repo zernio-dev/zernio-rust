@@ -27,6 +27,17 @@ pub struct CampaignBidding {
     pub bid_spec: Option<Box<models::CampaignBiddingBidSpec>>,
     #[serde(rename = "portfolio", skip_serializing_if = "Option::is_none")]
     pub portfolio: Option<Box<models::CampaignBiddingPortfolio>>,
+    /// When this data was fetched from Google. Null when it was never served from cache.
+    #[serde(
+        rename = "cachedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub cached_at: Option<Option<String>>,
+    /// True when Google's daily API quota was exhausted and this is the last successful fetch, not a live read.
+    #[serde(rename = "stale", skip_serializing_if = "Option::is_none")]
+    pub stale: Option<bool>,
 }
 
 impl CampaignBidding {
@@ -37,6 +48,8 @@ impl CampaignBidding {
             bidding_strategy_type: None,
             bid_spec: None,
             portfolio: None,
+            cached_at: None,
+            stale: None,
         }
     }
 }

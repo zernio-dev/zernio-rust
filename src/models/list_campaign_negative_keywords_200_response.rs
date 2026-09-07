@@ -15,10 +15,25 @@ use serde::{Deserialize, Serialize};
 pub struct ListCampaignNegativeKeywords200Response {
     #[serde(rename = "keywords", skip_serializing_if = "Option::is_none")]
     pub keywords: Option<Vec<models::ListCampaignNegativeKeywords200ResponseKeywordsInner>>,
+    /// When this list was fetched from Google. Null when it was never served from cache.
+    #[serde(
+        rename = "cachedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub cached_at: Option<Option<String>>,
+    /// True when Google's daily API quota was exhausted and this is the last successful fetch, not a live read.
+    #[serde(rename = "stale", skip_serializing_if = "Option::is_none")]
+    pub stale: Option<bool>,
 }
 
 impl ListCampaignNegativeKeywords200Response {
     pub fn new() -> ListCampaignNegativeKeywords200Response {
-        ListCampaignNegativeKeywords200Response { keywords: None }
+        ListCampaignNegativeKeywords200Response {
+            keywords: None,
+            cached_at: None,
+            stale: None,
+        }
     }
 }

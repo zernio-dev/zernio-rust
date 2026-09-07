@@ -2184,6 +2184,8 @@ Class | Method | HTTP request | Description
  - [UpdateBroadcastRequestTemplate](docs/UpdateBroadcastRequestTemplate.md)
  - [UpdateBroadcastRequestTemplateVariableMappingValue](docs/UpdateBroadcastRequestTemplateVariableMappingValue.md)
  - [UpdateCampaignTargeting200Response](docs/UpdateCampaignTargeting200Response.md)
+ - [UpdateCampaignTargeting200ResponseDevicesInner](docs/UpdateCampaignTargeting200ResponseDevicesInner.md)
+ - [UpdateCampaignTargeting200ResponseLanguagesInner](docs/UpdateCampaignTargeting200ResponseLanguagesInner.md)
  - [UpdateCampaignTargetingRequest](docs/UpdateCampaignTargetingRequest.md)
  - [UpdateCampaignTargetingRequestTargeting](docs/UpdateCampaignTargetingRequestTargeting.md)
  - [UpdateCampaignTargetingRequestTargetingDevicesInner](docs/UpdateCampaignTargetingRequestTargetingDevicesInner.md)

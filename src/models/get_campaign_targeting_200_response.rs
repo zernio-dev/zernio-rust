@@ -19,6 +19,17 @@ pub struct GetCampaignTargeting200Response {
     pub locations: Option<Vec<models::GetCampaignTargeting200ResponseLocationsInner>>,
     #[serde(rename = "languages", skip_serializing_if = "Option::is_none")]
     pub languages: Option<Vec<models::GetCampaignTargeting200ResponseLanguagesInner>>,
+    /// When this targeting was fetched from Google. Null when it was never served from cache.
+    #[serde(
+        rename = "cachedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub cached_at: Option<Option<String>>,
+    /// True when Google's daily API quota was exhausted and this is the last successful fetch, not a live read.
+    #[serde(rename = "stale", skip_serializing_if = "Option::is_none")]
+    pub stale: Option<bool>,
 }
 
 impl GetCampaignTargeting200Response {
@@ -27,6 +38,8 @@ impl GetCampaignTargeting200Response {
             devices: None,
             locations: None,
             languages: None,
+            cached_at: None,
+            stale: None,
         }
     }
 }

@@ -15,10 +15,25 @@ use serde::{Deserialize, Serialize};
 pub struct ListAdAccounts200Response {
     #[serde(rename = "accounts", skip_serializing_if = "Option::is_none")]
     pub accounts: Option<Vec<models::ListAdAccounts200ResponseAccountsInner>>,
+    /// Google only. When this list was fetched from Google. Null when it was never served from cache, or on other platforms.
+    #[serde(
+        rename = "cachedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub cached_at: Option<Option<String>>,
+    /// Google only. True when Google's daily API quota was exhausted and this is the last successful fetch, not a live read. Absent on other platforms.
+    #[serde(rename = "stale", skip_serializing_if = "Option::is_none")]
+    pub stale: Option<bool>,
 }
 
 impl ListAdAccounts200Response {
     pub fn new() -> ListAdAccounts200Response {
-        ListAdAccounts200Response { accounts: None }
+        ListAdAccounts200Response {
+            accounts: None,
+            cached_at: None,
+            stale: None,
+        }
     }
 }

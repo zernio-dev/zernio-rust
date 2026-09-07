@@ -18,6 +18,17 @@ pub struct ListConversionActions200Response {
     pub customer_id: Option<String>,
     #[serde(rename = "actions", skip_serializing_if = "Option::is_none")]
     pub actions: Option<Vec<models::ConversionAction>>,
+    /// When this list was fetched from Google. Null when it was never served from cache.
+    #[serde(
+        rename = "cachedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub cached_at: Option<Option<String>>,
+    /// True when Google's daily API quota was exhausted and this is the last successful fetch, not a live read.
+    #[serde(rename = "stale", skip_serializing_if = "Option::is_none")]
+    pub stale: Option<bool>,
 }
 
 impl ListConversionActions200Response {
@@ -25,6 +36,8 @@ impl ListConversionActions200Response {
         ListConversionActions200Response {
             customer_id: None,
             actions: None,
+            cached_at: None,
+            stale: None,
         }
     }
 }

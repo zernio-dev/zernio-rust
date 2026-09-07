@@ -18,6 +18,12 @@ pub struct UpdateCampaignTargeting200Response {
     /// Which targeting fields were applied.
     #[serde(rename = "updated", skip_serializing_if = "Option::is_none")]
     pub updated: Option<Vec<Updated>>,
+    #[serde(rename = "devices", skip_serializing_if = "Option::is_none")]
+    pub devices: Option<Vec<models::UpdateCampaignTargeting200ResponseDevicesInner>>,
+    #[serde(rename = "locations", skip_serializing_if = "Option::is_none")]
+    pub locations: Option<Vec<models::GetCampaignTargeting200ResponseLocationsInner>>,
+    #[serde(rename = "languages", skip_serializing_if = "Option::is_none")]
+    pub languages: Option<Vec<models::UpdateCampaignTargeting200ResponseLanguagesInner>>,
 }
 
 impl UpdateCampaignTargeting200Response {
@@ -25,6 +31,9 @@ impl UpdateCampaignTargeting200Response {
         UpdateCampaignTargeting200Response {
             campaign_id: None,
             updated: None,
+            devices: None,
+            locations: None,
+            languages: None,
         }
     }
 }

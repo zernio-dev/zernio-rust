@@ -17,6 +17,17 @@ pub struct ListAccountCallouts200Response {
     pub customer_id: Option<String>,
     #[serde(rename = "callouts", skip_serializing_if = "Option::is_none")]
     pub callouts: Option<Vec<models::ListAccountCallouts200ResponseCalloutsInner>>,
+    /// When this list was fetched from Google. Null when it was never served from cache.
+    #[serde(
+        rename = "cachedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub cached_at: Option<Option<String>>,
+    /// True when Google's daily API quota was exhausted and this is the last successful fetch, not a live read.
+    #[serde(rename = "stale", skip_serializing_if = "Option::is_none")]
+    pub stale: Option<bool>,
 }
 
 impl ListAccountCallouts200Response {
@@ -24,6 +35,8 @@ impl ListAccountCallouts200Response {
         ListAccountCallouts200Response {
             customer_id: None,
             callouts: None,
+            cached_at: None,
+            stale: None,
         }
     }
 }
