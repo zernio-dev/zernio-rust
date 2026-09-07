@@ -1460,7 +1460,7 @@ pub async fn on_review_new(configuration: &configuration::Configuration, webhook
     }
 }
 
-/// Fired when a review changes: the reviewer edits their text or rating, or a reply is added (via the API or directly through the Google Business dashboard). Payload shape matches review.new. Requires the Inbox add-on. 
+/// Fired when a Google Business Profile reviewer edits their review text or rating, or when a reply is posted through POST /v1/inbox/reviews/{reviewId}/reply. A reply written directly in Google's own interface does NOT fire this event, because Google emits no notification for it. Payload shape matches review.new. Requires the Inbox add-on. 
 pub async fn on_review_updated(configuration: &configuration::Configuration, webhook_payload_review_updated: models::WebhookPayloadReviewUpdated) -> Result<(), Error<OnReviewUpdatedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_payload_review_updated = webhook_payload_review_updated;
