@@ -21,7 +21,7 @@ pub struct MetaLeadFormPlatformDataContextCard {
     pub style: Option<Style>,
     #[serde(rename = "buttonText", skip_serializing_if = "Option::is_none")]
     pub button_text: Option<String>,
-    /// Direct public JPEG or PNG image URL, up to 5 MB. Redirects, Ad Image hashes and IDs are not supported.
+    /// Direct public JPEG or PNG image URL, up to 5 MB. Uploaded as an unpublished Page photo and attached to the form. Redirects, Ad Image hashes and IDs are not supported.
     #[serde(rename = "coverPhoto", skip_serializing_if = "Option::is_none")]
     pub cover_photo: Option<String>,
 }

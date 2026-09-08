@@ -12,14 +12,14 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetCampaignTargeting200ResponseLocationsInner {
+pub struct UpdateCampaignTargeting200ResponseLocationsInner {
     /// Numeric id from Google's geoTargetConstants/{id}.
     #[serde(rename = "geoTargetId", skip_serializing_if = "Option::is_none")]
     pub geo_target_id: Option<String>,
     /// true = excluded location.
     #[serde(rename = "negative", skip_serializing_if = "Option::is_none")]
     pub negative: Option<bool>,
-    /// Google's geo_target_constant.name, e.g. \"United States\"; null when the id could not be resolved.
+    /// Google's geo_target_constant.name; see GET's description.
     #[serde(
         rename = "name",
         default,
@@ -27,7 +27,7 @@ pub struct GetCampaignTargeting200ResponseLocationsInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub name: Option<Option<String>>,
-    /// Google's geo_target_constant.canonical_name, e.g. \"California, United States\"; null when the id could not be resolved.
+    /// Google's geo_target_constant.canonical_name; see GET's description.
     #[serde(
         rename = "canonicalName",
         default,
@@ -35,7 +35,7 @@ pub struct GetCampaignTargeting200ResponseLocationsInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub canonical_name: Option<Option<String>>,
-    /// Google's geo_target_constant.target_type, e.g. \"Country\", \"Region\", \"City\"; null when the id could not be resolved.
+    /// Google's geo_target_constant.target_type; see GET's description.
     #[serde(
         rename = "type",
         default,
@@ -43,7 +43,7 @@ pub struct GetCampaignTargeting200ResponseLocationsInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub r#type: Option<Option<String>>,
-    /// Google's geo_target_constant.country_code, an ISO 3166-1 alpha-2 code; null when the id could not be resolved.
+    /// Google's geo_target_constant.country_code; see GET's description.
     #[serde(
         rename = "countryCode",
         default,
@@ -53,9 +53,9 @@ pub struct GetCampaignTargeting200ResponseLocationsInner {
     pub country_code: Option<Option<String>>,
 }
 
-impl GetCampaignTargeting200ResponseLocationsInner {
-    pub fn new() -> GetCampaignTargeting200ResponseLocationsInner {
-        GetCampaignTargeting200ResponseLocationsInner {
+impl UpdateCampaignTargeting200ResponseLocationsInner {
+    pub fn new() -> UpdateCampaignTargeting200ResponseLocationsInner {
+        UpdateCampaignTargeting200ResponseLocationsInner {
             geo_target_id: None,
             negative: None,
             name: None,

@@ -21,7 +21,7 @@ pub struct UpdateCampaignTargeting200Response {
     #[serde(rename = "devices", skip_serializing_if = "Option::is_none")]
     pub devices: Option<Vec<models::UpdateCampaignTargeting200ResponseDevicesInner>>,
     #[serde(rename = "locations", skip_serializing_if = "Option::is_none")]
-    pub locations: Option<Vec<models::GetCampaignTargeting200ResponseLocationsInner>>,
+    pub locations: Option<Vec<models::UpdateCampaignTargeting200ResponseLocationsInner>>,
     #[serde(rename = "languages", skip_serializing_if = "Option::is_none")]
     pub languages: Option<Vec<models::UpdateCampaignTargeting200ResponseLanguagesInner>>,
 }
