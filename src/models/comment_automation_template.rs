@@ -16,6 +16,9 @@ use serde::{Deserialize, Serialize};
 pub struct CommentAutomationTemplate {
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// Facebook only. How Messenger renders each element imageUrl: horizontal (1.91:1, the default) or square (1:1). Instagram has no such setting, so an Instagram automation carrying it is a 400.
+    #[serde(rename = "imageAspectRatio", skip_serializing_if = "Option::is_none")]
+    pub image_aspect_ratio: Option<ImageAspectRatio>,
     #[serde(rename = "elements")]
     pub elements: Vec<models::CommentAutomationTemplateElement>,
 }
@@ -26,7 +29,11 @@ impl CommentAutomationTemplate {
         r#type: Type,
         elements: Vec<models::CommentAutomationTemplateElement>,
     ) -> CommentAutomationTemplate {
-        CommentAutomationTemplate { r#type, elements }
+        CommentAutomationTemplate {
+            r#type,
+            image_aspect_ratio: None,
+            elements,
+        }
     }
 }
 ///
@@ -39,5 +46,19 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::Generic
+    }
+}
+/// Facebook only. How Messenger renders each element imageUrl: horizontal (1.91:1, the default) or square (1:1). Instagram has no such setting, so an Instagram automation carrying it is a 400.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum ImageAspectRatio {
+    #[serde(rename = "horizontal")]
+    Horizontal,
+    #[serde(rename = "square")]
+    Square,
+}
+
+impl Default for ImageAspectRatio {
+    fn default() -> ImageAspectRatio {
+        Self::Horizontal
     }
 }
