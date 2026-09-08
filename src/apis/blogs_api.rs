@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum CreateBlogError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -31,7 +31,7 @@ pub enum CreateBlogError {
 #[serde(untagged)]
 pub enum CreateBlogArticleError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -44,7 +44,7 @@ pub enum CreateBlogArticleError {
 #[serde(untagged)]
 pub enum DeleteBlogError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -57,7 +57,7 @@ pub enum DeleteBlogError {
 #[serde(untagged)]
 pub enum DeleteBlogArticleError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -70,7 +70,7 @@ pub enum DeleteBlogArticleError {
 #[serde(untagged)]
 pub enum GetBlogError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -83,7 +83,7 @@ pub enum GetBlogError {
 #[serde(untagged)]
 pub enum GetBlogArticleError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -96,7 +96,7 @@ pub enum GetBlogArticleError {
 #[serde(untagged)]
 pub enum ListBlogArticlesError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -109,7 +109,7 @@ pub enum ListBlogArticlesError {
 #[serde(untagged)]
 pub enum ListBlogsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -122,7 +122,7 @@ pub enum ListBlogsError {
 #[serde(untagged)]
 pub enum UpdateBlogError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -135,7 +135,7 @@ pub enum UpdateBlogError {
 #[serde(untagged)]
 pub enum UpdateBlogArticleError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),

@@ -18,8 +18,8 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum CreateProfileError {
     Status400(),
-    Status401(models::InlineObject),
-    Status402(models::InlineObject3),
+    Status401(models::InlineObject1),
+    Status402(models::InlineObject4),
     Status403(),
     Status409(),
     Status422(),
@@ -31,9 +31,9 @@ pub enum CreateProfileError {
 #[serde(untagged)]
 pub enum DeleteProfileError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -41,8 +41,8 @@ pub enum DeleteProfileError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetProfileError {
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -51,7 +51,7 @@ pub enum GetProfileError {
 #[serde(untagged)]
 pub enum ListProfilesError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -60,8 +60,8 @@ pub enum ListProfilesError {
 #[serde(untagged)]
 pub enum UpdateProfileError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status409(),
     UnknownValue(serde_json::Value),
 }

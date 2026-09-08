@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum GetRedditFeedError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
@@ -29,7 +29,7 @@ pub enum GetRedditFeedError {
 #[serde(untagged)]
 pub enum SearchRedditError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),

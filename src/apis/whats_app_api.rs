@@ -20,7 +20,7 @@ use tokio_util::codec::{BytesCodec, FramedRead};
 #[serde(untagged)]
 pub enum AddWhatsAppGroupParticipantsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -29,7 +29,7 @@ pub enum AddWhatsAppGroupParticipantsError {
 #[serde(untagged)]
 pub enum ApproveWhatsAppGroupJoinRequestsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -37,7 +37,7 @@ pub enum ApproveWhatsAppGroupJoinRequestsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BlockWhatsAppUsersError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -46,7 +46,7 @@ pub enum BlockWhatsAppUsersError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateWhatsAppDatasetError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status422(),
     Status502(),
@@ -58,7 +58,7 @@ pub enum CreateWhatsAppDatasetError {
 #[serde(untagged)]
 pub enum CreateWhatsAppGroupChatError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -67,7 +67,7 @@ pub enum CreateWhatsAppGroupChatError {
 #[serde(untagged)]
 pub enum CreateWhatsAppGroupInviteLinkError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -76,7 +76,7 @@ pub enum CreateWhatsAppGroupInviteLinkError {
 #[serde(untagged)]
 pub enum CreateWhatsAppTemplateError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -86,8 +86,8 @@ pub enum CreateWhatsAppTemplateError {
 #[serde(untagged)]
 pub enum DeleteWhatsAppGroupChatError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -96,7 +96,7 @@ pub enum DeleteWhatsAppGroupChatError {
 #[serde(untagged)]
 pub enum DeleteWhatsAppTemplateError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status409(models::GetWhatsAppTemplate409Response),
     Status502(),
@@ -108,7 +108,7 @@ pub enum DeleteWhatsAppTemplateError {
 #[serde(untagged)]
 pub enum DeleteWhatsAppTemplateByIdError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -118,7 +118,7 @@ pub enum DeleteWhatsAppTemplateByIdError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteWhatsappBusinessUsernameError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -127,7 +127,7 @@ pub enum DeleteWhatsappBusinessUsernameError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetWhatsAppBlockStatusError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -136,7 +136,7 @@ pub enum GetWhatsAppBlockStatusError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetWhatsAppBlockedUsersError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -146,7 +146,7 @@ pub enum GetWhatsAppBlockedUsersError {
 #[serde(untagged)]
 pub enum GetWhatsAppBusinessProfileError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -155,7 +155,7 @@ pub enum GetWhatsAppBusinessProfileError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetWhatsAppDatasetError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -165,7 +165,7 @@ pub enum GetWhatsAppDatasetError {
 #[serde(untagged)]
 pub enum GetWhatsAppDisplayNameError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -175,8 +175,8 @@ pub enum GetWhatsAppDisplayNameError {
 #[serde(untagged)]
 pub enum GetWhatsAppGroupChatError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -185,7 +185,7 @@ pub enum GetWhatsAppGroupChatError {
 #[serde(untagged)]
 pub enum GetWhatsAppMediaError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -196,7 +196,7 @@ pub enum GetWhatsAppMediaError {
 #[serde(untagged)]
 pub enum GetWhatsAppTemplateError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status409(models::GetWhatsAppTemplate409Response),
     Status502(),
@@ -208,7 +208,7 @@ pub enum GetWhatsAppTemplateError {
 #[serde(untagged)]
 pub enum GetWhatsAppTemplateByIdError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -219,7 +219,7 @@ pub enum GetWhatsAppTemplateByIdError {
 #[serde(untagged)]
 pub enum GetWhatsAppTemplatesError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -228,7 +228,7 @@ pub enum GetWhatsAppTemplatesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetWhatsappBusinessUsernameError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -237,7 +237,7 @@ pub enum GetWhatsappBusinessUsernameError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetWhatsappBusinessUsernameSuggestionsError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -247,7 +247,7 @@ pub enum GetWhatsappBusinessUsernameSuggestionsError {
 #[serde(untagged)]
 pub enum ListWhatsAppAccountEventsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -256,7 +256,7 @@ pub enum ListWhatsAppAccountEventsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListWhatsAppConversionsError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -266,7 +266,7 @@ pub enum ListWhatsAppConversionsError {
 #[serde(untagged)]
 pub enum ListWhatsAppGroupChatsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -275,7 +275,7 @@ pub enum ListWhatsAppGroupChatsError {
 #[serde(untagged)]
 pub enum ListWhatsAppGroupJoinRequestsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -295,7 +295,7 @@ pub enum RegisterWhatsAppNumberError {
 #[serde(untagged)]
 pub enum RejectWhatsAppGroupJoinRequestsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -304,7 +304,7 @@ pub enum RejectWhatsAppGroupJoinRequestsError {
 #[serde(untagged)]
 pub enum RemoveWhatsAppGroupParticipantsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -313,7 +313,7 @@ pub enum RemoveWhatsAppGroupParticipantsError {
 #[serde(untagged)]
 pub enum SendWhatsAppConversionError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status422(),
     UnknownValue(serde_json::Value),
@@ -324,7 +324,7 @@ pub enum SendWhatsAppConversionError {
 #[serde(untagged)]
 pub enum SetWhatsappBusinessUsernameError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -333,7 +333,7 @@ pub enum SetWhatsappBusinessUsernameError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UnblockWhatsAppUsersError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -343,7 +343,7 @@ pub enum UnblockWhatsAppUsersError {
 #[serde(untagged)]
 pub enum UpdateWhatsAppBusinessProfileError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -353,7 +353,7 @@ pub enum UpdateWhatsAppBusinessProfileError {
 #[serde(untagged)]
 pub enum UpdateWhatsAppDisplayNameError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -363,8 +363,8 @@ pub enum UpdateWhatsAppDisplayNameError {
 #[serde(untagged)]
 pub enum UpdateWhatsAppGroupChatError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -373,7 +373,7 @@ pub enum UpdateWhatsAppGroupChatError {
 #[serde(untagged)]
 pub enum UpdateWhatsAppTemplateError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status409(models::GetWhatsAppTemplate409Response),
     Status502(),
@@ -385,7 +385,7 @@ pub enum UpdateWhatsAppTemplateError {
 #[serde(untagged)]
 pub enum UpdateWhatsAppTemplateByIdError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -396,7 +396,7 @@ pub enum UpdateWhatsAppTemplateByIdError {
 #[serde(untagged)]
 pub enum UploadWhatsAppProfilePhotoError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status422(),
     UnknownValue(serde_json::Value),

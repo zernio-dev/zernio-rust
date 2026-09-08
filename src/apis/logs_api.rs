@@ -17,7 +17,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListLogsError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 

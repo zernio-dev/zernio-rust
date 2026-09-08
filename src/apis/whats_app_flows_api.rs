@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum CreateWhatsAppFlowError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -28,7 +28,7 @@ pub enum CreateWhatsAppFlowError {
 #[serde(untagged)]
 pub enum DeleteWhatsAppFlowError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -38,7 +38,7 @@ pub enum DeleteWhatsAppFlowError {
 #[serde(untagged)]
 pub enum DeprecateWhatsAppFlowError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -47,7 +47,7 @@ pub enum DeprecateWhatsAppFlowError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetWhatsAppFlowError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -56,7 +56,7 @@ pub enum GetWhatsAppFlowError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetWhatsAppFlowJsonError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -65,7 +65,7 @@ pub enum GetWhatsAppFlowJsonError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetWhatsAppFlowPreviewError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -75,8 +75,8 @@ pub enum GetWhatsAppFlowPreviewError {
 #[serde(untagged)]
 pub enum GetWhatsAppFlowsEncryptionKeyError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
-    Status403(models::InlineObject2),
+    Status401(models::InlineObject1),
+    Status403(models::InlineObject3),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -86,7 +86,7 @@ pub enum GetWhatsAppFlowsEncryptionKeyError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListWhatsAppFlowResponsesError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -95,7 +95,7 @@ pub enum ListWhatsAppFlowResponsesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListWhatsAppFlowVersionsError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -105,7 +105,7 @@ pub enum ListWhatsAppFlowVersionsError {
 #[serde(untagged)]
 pub enum ListWhatsAppFlowsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -115,7 +115,7 @@ pub enum ListWhatsAppFlowsError {
 #[serde(untagged)]
 pub enum PublishWhatsAppFlowError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -125,7 +125,7 @@ pub enum PublishWhatsAppFlowError {
 #[serde(untagged)]
 pub enum SendWhatsAppFlowMessageError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -135,8 +135,8 @@ pub enum SendWhatsAppFlowMessageError {
 #[serde(untagged)]
 pub enum SetWhatsAppFlowsEncryptionKeyError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
-    Status403(models::InlineObject2),
+    Status401(models::InlineObject1),
+    Status403(models::InlineObject3),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -147,7 +147,7 @@ pub enum SetWhatsAppFlowsEncryptionKeyError {
 #[serde(untagged)]
 pub enum UpdateWhatsAppFlowError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -157,7 +157,7 @@ pub enum UpdateWhatsAppFlowError {
 #[serde(untagged)]
 pub enum UploadWhatsAppFlowJsonError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }

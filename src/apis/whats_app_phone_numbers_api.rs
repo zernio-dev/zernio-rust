@@ -20,7 +20,7 @@ use tokio_util::codec::{BytesCodec, FramedRead};
 #[serde(untagged)]
 pub enum CheckWhatsAppNumberAvailabilityError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status502(),
     UnknownValue(serde_json::Value),
 }
@@ -30,7 +30,7 @@ pub enum CheckWhatsAppNumberAvailabilityError {
 #[serde(untagged)]
 pub enum CreateWhatsAppNumberKycLinkError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -39,7 +39,7 @@ pub enum CreateWhatsAppNumberKycLinkError {
 #[serde(untagged)]
 pub enum GetWhatsAppNumberInfoError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -49,7 +49,7 @@ pub enum GetWhatsAppNumberInfoError {
 #[serde(untagged)]
 pub enum GetWhatsAppNumberKycFormError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -58,7 +58,7 @@ pub enum GetWhatsAppNumberKycFormError {
 #[serde(untagged)]
 pub enum GetWhatsAppNumberRemediationError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -67,8 +67,8 @@ pub enum GetWhatsAppNumberRemediationError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetWhatsAppPhoneNumberError {
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -77,7 +77,7 @@ pub enum GetWhatsAppPhoneNumberError {
 #[serde(untagged)]
 pub enum GetWhatsAppPhoneNumbersError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -85,7 +85,7 @@ pub enum GetWhatsAppPhoneNumbersError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListWhatsAppNumberCountriesError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -94,7 +94,7 @@ pub enum ListWhatsAppNumberCountriesError {
 #[serde(untagged)]
 pub enum MoveWhatsAppNumberToProfileError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status409(),
@@ -106,7 +106,7 @@ pub enum MoveWhatsAppNumberToProfileError {
 #[serde(untagged)]
 pub enum PurchaseWhatsAppPhoneNumberError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status409(models::PurchasePhoneNumber409Response),
     Status402(),
@@ -119,8 +119,8 @@ pub enum PurchaseWhatsAppPhoneNumberError {
 #[serde(untagged)]
 pub enum ReleaseWhatsAppPhoneNumberError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status409(),
     UnknownValue(serde_json::Value),
 }
@@ -130,7 +130,7 @@ pub enum ReleaseWhatsAppPhoneNumberError {
 #[serde(untagged)]
 pub enum RemediateWhatsAppNumberError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -140,7 +140,7 @@ pub enum RemediateWhatsAppNumberError {
 #[serde(untagged)]
 pub enum SearchAvailableWhatsAppNumbersError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -150,7 +150,7 @@ pub enum SearchAvailableWhatsAppNumbersError {
 pub enum SubmitWhatsAppNumberKycError {
     Status400(),
     Status409(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -159,7 +159,7 @@ pub enum SubmitWhatsAppNumberKycError {
 #[serde(untagged)]
 pub enum UploadWhatsAppNumberKycDocumentError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -168,7 +168,7 @@ pub enum UploadWhatsAppNumberKycDocumentError {
 #[serde(untagged)]
 pub enum ValidateWhatsAppNumberKycAddressError {
     Status400(models::ValidatePhoneNumberKycAddress400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 

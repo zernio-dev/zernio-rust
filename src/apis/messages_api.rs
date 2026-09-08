@@ -20,7 +20,7 @@ use tokio_util::codec::{BytesCodec, FramedRead};
 #[serde(untagged)]
 pub enum AddMessageReactionError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -31,7 +31,7 @@ pub enum AddMessageReactionError {
 #[serde(untagged)]
 pub enum CreateInboxConversationError {
     Status400(models::CreateInboxConversation400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(models::CreateInboxConversation404Response),
     Status422(models::CreateInboxConversation422Response),
@@ -44,7 +44,7 @@ pub enum CreateInboxConversationError {
 #[serde(untagged)]
 pub enum DeleteInboxMessageError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -55,7 +55,7 @@ pub enum DeleteInboxMessageError {
 #[serde(untagged)]
 pub enum EditInboxMessageError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -64,7 +64,7 @@ pub enum EditInboxMessageError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetInboxConversationError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -75,7 +75,7 @@ pub enum GetInboxConversationError {
 #[serde(untagged)]
 pub enum GetInboxConversationMessagesError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -85,7 +85,7 @@ pub enum GetInboxConversationMessagesError {
 #[serde(untagged)]
 pub enum GetMessageAttachmentError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -95,7 +95,7 @@ pub enum GetMessageAttachmentError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListInboxConversationsError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -104,7 +104,7 @@ pub enum ListInboxConversationsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum MarkConversationReadError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -115,7 +115,7 @@ pub enum MarkConversationReadError {
 #[serde(untagged)]
 pub enum RemoveMessageReactionError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -126,7 +126,7 @@ pub enum RemoveMessageReactionError {
 #[serde(untagged)]
 pub enum SearchInboxConversationsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -137,7 +137,7 @@ pub enum SearchInboxConversationsError {
 pub enum SendInboxMessageError {
     Status400(models::SendInboxMessage400Response),
     Status500(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status409(),
     Status422(),
@@ -149,7 +149,7 @@ pub enum SendInboxMessageError {
 #[serde(untagged)]
 pub enum SendTypingIndicatorError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -160,7 +160,7 @@ pub enum SendTypingIndicatorError {
 #[serde(untagged)]
 pub enum SetConversationThreadControlError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -170,7 +170,7 @@ pub enum SetConversationThreadControlError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateInboxConversationError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -181,7 +181,7 @@ pub enum UpdateInboxConversationError {
 #[serde(untagged)]
 pub enum UploadMediaDirectError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -991,7 +991,7 @@ pub async fn send_typing_indicator(
     }
 }
 
-/// WhatsApp only, on numbers with Meta Business Agent enabled. Wraps Meta's thread control: - `release`: hand the conversation back to the agent so it resumes answering. You must currently hold control (sending any message takes it implicitly). - `take`: take control before sending anything, so the agent stops replying while an operator reads the thread. Meta accepts this only from the business configured as the number's escalation partner; other apps take control by sending a message. - `pass`: transfer control to the number's configured escalation partner, or to the agent with `target: ai_agent`.  The conversation's `threadControl` follows the result; a `conversation.control_changed` webhook fires when Meta later reports the change.
+/// WhatsApp only, on numbers with Meta Business Agent enabled. Wraps Meta's thread control: - `release`: hand the conversation back to the agent so it resumes answering. You must currently hold control (sending any message takes it implicitly). - `take`: take control before sending anything, so the agent stops replying while an operator reads the thread. Meta accepts this only from the business configured as the number's escalation partner; other apps take control by sending a message. - `pass`: transfer control to the number's configured escalation partner, or to the agent with `target: ai_agent`. Meta's Cloud API currently rejects it (\"Pass action is not supported\", verified 2026-09-08); use `release` to hand a thread back to the agent.  The conversation's `threadControl` follows the result; a `conversation.control_changed` webhook fires when Meta later reports the change.
 pub async fn set_conversation_thread_control(
     configuration: &configuration::Configuration,
     conversation_id: &str,

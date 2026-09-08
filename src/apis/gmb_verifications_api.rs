@@ -19,7 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 pub enum CompleteGoogleBusinessVerificationError {
     Status400(models::ErrorResponse),
     Status401(models::ErrorResponse),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -29,7 +29,7 @@ pub enum CompleteGoogleBusinessVerificationError {
 pub enum FetchGoogleBusinessVerificationOptionsError {
     Status400(models::ErrorResponse),
     Status401(models::ErrorResponse),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -39,7 +39,7 @@ pub enum FetchGoogleBusinessVerificationOptionsError {
 pub enum GetGoogleBusinessVerificationsError {
     Status400(models::ErrorResponse),
     Status401(models::ErrorResponse),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -49,7 +49,7 @@ pub enum GetGoogleBusinessVerificationsError {
 pub enum StartGoogleBusinessVerificationError {
     Status400(models::ErrorResponse),
     Status401(models::ErrorResponse),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 

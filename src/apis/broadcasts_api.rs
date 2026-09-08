@@ -18,8 +18,8 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum AddBroadcastRecipientsError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -28,8 +28,8 @@ pub enum AddBroadcastRecipientsError {
 #[serde(untagged)]
 pub enum CancelBroadcastError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -38,7 +38,7 @@ pub enum CancelBroadcastError {
 #[serde(untagged)]
 pub enum CreateBroadcastError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -46,8 +46,8 @@ pub enum CreateBroadcastError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteBroadcastError {
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -55,8 +55,8 @@ pub enum DeleteBroadcastError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetBroadcastError {
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -65,8 +65,8 @@ pub enum GetBroadcastError {
 #[serde(untagged)]
 pub enum ListBroadcastRecipientsError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -75,7 +75,7 @@ pub enum ListBroadcastRecipientsError {
 #[serde(untagged)]
 pub enum ListBroadcastsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -84,8 +84,8 @@ pub enum ListBroadcastsError {
 #[serde(untagged)]
 pub enum ScheduleBroadcastError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -94,8 +94,8 @@ pub enum ScheduleBroadcastError {
 #[serde(untagged)]
 pub enum SendBroadcastError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -103,8 +103,8 @@ pub enum SendBroadcastError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateBroadcastError {
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 

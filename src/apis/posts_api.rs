@@ -20,7 +20,7 @@ use tokio_util::codec::{BytesCodec, FramedRead};
 #[serde(untagged)]
 pub enum BulkUploadPostsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(models::GetYouTubeDailyViews400Response),
     Status404(models::ErrorResponse),
     Status429(models::GetInboxVolume400Response),
@@ -32,7 +32,7 @@ pub enum BulkUploadPostsError {
 #[serde(untagged)]
 pub enum CreatePostError {
     Status400(models::GetYouTubeDailyViews400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(models::CreatePost403Response),
     Status409(models::CreatePost409Response),
     Status429(models::CreatePost429Response),
@@ -44,9 +44,9 @@ pub enum CreatePostError {
 #[serde(untagged)]
 pub enum DeletePostError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(models::ErrorResponse),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -55,9 +55,9 @@ pub enum DeletePostError {
 #[serde(untagged)]
 pub enum EditPostError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status500(),
     UnknownValue(serde_json::Value),
 }
@@ -67,9 +67,9 @@ pub enum EditPostError {
 #[serde(untagged)]
 pub enum GetPostError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(models::ErrorResponse),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -78,7 +78,7 @@ pub enum GetPostError {
 #[serde(untagged)]
 pub enum ListPostsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -87,10 +87,10 @@ pub enum ListPostsError {
 #[serde(untagged)]
 pub enum RetryPostError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(models::GetYouTubeDailyViews400Response),
     Status403(models::ErrorResponse),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status409(models::ErrorResponse),
     Status429(models::GetInboxVolume400Response),
     UnknownValue(serde_json::Value),
@@ -101,9 +101,9 @@ pub enum RetryPostError {
 #[serde(untagged)]
 pub enum UnpublishPostError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(models::ErrorResponse),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status500(),
     UnknownValue(serde_json::Value),
 }
@@ -113,9 +113,9 @@ pub enum UnpublishPostError {
 #[serde(untagged)]
 pub enum UpdatePostError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(models::ErrorResponse),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status409(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -125,9 +125,9 @@ pub enum UpdatePostError {
 #[serde(untagged)]
 pub enum UpdatePostMetadataError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(models::ErrorResponse),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status500(),
     UnknownValue(serde_json::Value),
 }

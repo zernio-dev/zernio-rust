@@ -18,8 +18,8 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum ActivateSequenceError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -28,7 +28,7 @@ pub enum ActivateSequenceError {
 #[serde(untagged)]
 pub enum CreateSequenceError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -37,8 +37,8 @@ pub enum CreateSequenceError {
 #[serde(untagged)]
 pub enum DeleteSequenceError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -47,8 +47,8 @@ pub enum DeleteSequenceError {
 #[serde(untagged)]
 pub enum EnrollContactsError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -57,8 +57,8 @@ pub enum EnrollContactsError {
 #[serde(untagged)]
 pub enum GetSequenceError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -67,8 +67,8 @@ pub enum GetSequenceError {
 #[serde(untagged)]
 pub enum ListSequenceEnrollmentsError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -77,7 +77,7 @@ pub enum ListSequenceEnrollmentsError {
 #[serde(untagged)]
 pub enum ListSequencesError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -86,8 +86,8 @@ pub enum ListSequencesError {
 #[serde(untagged)]
 pub enum PauseSequenceError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -96,8 +96,8 @@ pub enum PauseSequenceError {
 #[serde(untagged)]
 pub enum UnenrollContactError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -106,8 +106,8 @@ pub enum UnenrollContactError {
 #[serde(untagged)]
 pub enum UpdateSequenceError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 

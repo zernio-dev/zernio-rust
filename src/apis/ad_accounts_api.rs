@@ -18,9 +18,9 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum AddAccountCalloutsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -30,7 +30,7 @@ pub enum AddAccountCalloutsError {
 #[serde(untagged)]
 pub enum CreateCustomConversionError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -40,7 +40,7 @@ pub enum CreateCustomConversionError {
 #[serde(untagged)]
 pub enum CreateHighDemandPeriodError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -50,7 +50,7 @@ pub enum CreateHighDemandPeriodError {
 #[serde(untagged)]
 pub enum CreateValueRuleSetError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -60,7 +60,7 @@ pub enum CreateValueRuleSetError {
 #[serde(untagged)]
 pub enum DeleteValueRuleSetError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -70,7 +70,7 @@ pub enum DeleteValueRuleSetError {
 #[serde(untagged)]
 pub enum GetAdAccountFinanceError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -80,9 +80,9 @@ pub enum GetAdAccountFinanceError {
 #[serde(untagged)]
 pub enum GetAdCommentsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status422(),
     UnknownValue(serde_json::Value),
 }
@@ -92,7 +92,7 @@ pub enum GetAdCommentsError {
 #[serde(untagged)]
 pub enum GetAdsActivityLogError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -102,7 +102,7 @@ pub enum GetAdsActivityLogError {
 #[serde(untagged)]
 pub enum GetDsaDefaultsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -112,7 +112,7 @@ pub enum GetDsaDefaultsError {
 #[serde(untagged)]
 pub enum GetDsaRecommendationsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -122,7 +122,7 @@ pub enum GetDsaRecommendationsError {
 #[serde(untagged)]
 pub enum GetValueRuleSetError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -132,9 +132,9 @@ pub enum GetValueRuleSetError {
 #[serde(untagged)]
 pub enum ListAccountCalloutsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -144,7 +144,7 @@ pub enum ListAccountCalloutsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdAccountsError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status422(),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
@@ -155,7 +155,7 @@ pub enum ListAdAccountsError {
 #[serde(untagged)]
 pub enum ListAdLabelsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -165,7 +165,7 @@ pub enum ListAdLabelsError {
 #[serde(untagged)]
 pub enum ListAdStudiesError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -175,7 +175,7 @@ pub enum ListAdStudiesError {
 #[serde(untagged)]
 pub enum ListAdsBusinessCentersError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status422(),
     UnknownValue(serde_json::Value),
@@ -186,7 +186,7 @@ pub enum ListAdsBusinessCentersError {
 #[serde(untagged)]
 pub enum ListCustomConversionsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -196,7 +196,7 @@ pub enum ListCustomConversionsError {
 #[serde(untagged)]
 pub enum ListHighDemandPeriodsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -206,7 +206,7 @@ pub enum ListHighDemandPeriodsError {
 #[serde(untagged)]
 pub enum ListMetaBusinessesError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -216,7 +216,7 @@ pub enum ListMetaBusinessesError {
 #[serde(untagged)]
 pub enum ListValueRuleSetsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -226,9 +226,9 @@ pub enum ListValueRuleSetsError {
 #[serde(untagged)]
 pub enum RemoveAccountCalloutError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -238,7 +238,7 @@ pub enum RemoveAccountCalloutError {
 #[serde(untagged)]
 pub enum UpdateAdAccountError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -248,7 +248,7 @@ pub enum UpdateAdAccountError {
 #[serde(untagged)]
 pub enum UpdateValueRuleSetError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }

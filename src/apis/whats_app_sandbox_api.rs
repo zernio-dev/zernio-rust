@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum CreateWhatsAppSandboxSessionError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -28,7 +28,7 @@ pub enum CreateWhatsAppSandboxSessionError {
 #[serde(untagged)]
 pub enum DeleteWhatsAppSandboxSessionError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -37,7 +37,7 @@ pub enum DeleteWhatsAppSandboxSessionError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListWhatsAppSandboxSessionsError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }

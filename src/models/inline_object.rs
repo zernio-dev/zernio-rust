@@ -13,12 +13,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct InlineObject {
-    #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
-    pub error: Option<String>,
+    #[serde(rename = "success")]
+    pub success: bool,
 }
 
 impl InlineObject {
-    pub fn new() -> InlineObject {
-        InlineObject { error: None }
+    pub fn new(success: bool) -> InlineObject {
+        InlineObject { success }
     }
 }

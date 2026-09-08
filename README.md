@@ -221,6 +221,61 @@ Class | Method | HTTP request | Description
 *BroadcastsApi* | [**schedule_broadcast**](docs/BroadcastsApi.md#schedule_broadcast) | **POST** /v1/broadcasts/{broadcastId}/schedule | Schedule broadcast for later
 *BroadcastsApi* | [**send_broadcast**](docs/BroadcastsApi.md#send_broadcast) | **POST** /v1/broadcasts/{broadcastId}/send | Send broadcast now
 *BroadcastsApi* | [**update_broadcast**](docs/BroadcastsApi.md#update_broadcast) | **PATCH** /v1/broadcasts/{broadcastId} | Update broadcast
+*BusinessAgentApi* | [**add_business_agent_allowlist_entry**](docs/BusinessAgentApi.md#add_business_agent_allowlist_entry) | **POST** /v1/accounts/{accountId}/business-agent/allowlist | Allowlist a consumer
+*BusinessAgentApi* | [**add_business_agent_website**](docs/BusinessAgentApi.md#add_business_agent_website) | **POST** /v1/accounts/{accountId}/business-agent/websites | Add a website to crawl
+*BusinessAgentApi* | [**create_business_agent_connector**](docs/BusinessAgentApi.md#create_business_agent_connector) | **POST** /v1/accounts/{accountId}/business-agent/connectors | Create a connector
+*BusinessAgentApi* | [**create_business_agent_connector_tool**](docs/BusinessAgentApi.md#create_business_agent_connector_tool) | **POST** /v1/accounts/{accountId}/business-agent/connectors/{connectorId}/tools | Create a connector tool
+*BusinessAgentApi* | [**create_business_agent_faq**](docs/BusinessAgentApi.md#create_business_agent_faq) | **POST** /v1/accounts/{accountId}/business-agent/faqs | Create a FAQ
+*BusinessAgentApi* | [**create_business_agent_skill**](docs/BusinessAgentApi.md#create_business_agent_skill) | **POST** /v1/accounts/{accountId}/business-agent/skills | Create a skill
+*BusinessAgentApi* | [**create_business_agent_ui_skill**](docs/BusinessAgentApi.md#create_business_agent_ui_skill) | **POST** /v1/accounts/{accountId}/business-agent/ui-skills | Create a UI skill
+*BusinessAgentApi* | [**delete_business_agent_connector**](docs/BusinessAgentApi.md#delete_business_agent_connector) | **DELETE** /v1/accounts/{accountId}/business-agent/connectors/{connectorId} | Delete a connector
+*BusinessAgentApi* | [**delete_business_agent_connector_tool**](docs/BusinessAgentApi.md#delete_business_agent_connector_tool) | **DELETE** /v1/accounts/{accountId}/business-agent/connectors/{connectorId}/tools/{toolId} | Delete a connector tool
+*BusinessAgentApi* | [**delete_business_agent_faq**](docs/BusinessAgentApi.md#delete_business_agent_faq) | **DELETE** /v1/accounts/{accountId}/business-agent/faqs/{faqId} | Delete a FAQ
+*BusinessAgentApi* | [**delete_business_agent_file**](docs/BusinessAgentApi.md#delete_business_agent_file) | **DELETE** /v1/accounts/{accountId}/business-agent/files/{fileId} | Delete a knowledge file
+*BusinessAgentApi* | [**delete_business_agent_skill**](docs/BusinessAgentApi.md#delete_business_agent_skill) | **DELETE** /v1/accounts/{accountId}/business-agent/skills/{skillId} | Delete a skill
+*BusinessAgentApi* | [**delete_business_agent_ui_skill**](docs/BusinessAgentApi.md#delete_business_agent_ui_skill) | **DELETE** /v1/accounts/{accountId}/business-agent/ui-skills/{uiSkillId} | Delete a UI skill
+*BusinessAgentApi* | [**delete_business_agent_website**](docs/BusinessAgentApi.md#delete_business_agent_website) | **DELETE** /v1/accounts/{accountId}/business-agent/websites/{websiteId} | Remove a crawled website
+*BusinessAgentApi* | [**get_business_agent_budget**](docs/BusinessAgentApi.md#get_business_agent_budget) | **GET** /v1/accounts/{accountId}/business-agent/budget | Get usage budgets
+*BusinessAgentApi* | [**get_business_agent_business_information**](docs/BusinessAgentApi.md#get_business_agent_business_information) | **GET** /v1/accounts/{accountId}/business-agent/business-information | Get business information
+*BusinessAgentApi* | [**get_business_agent_connector**](docs/BusinessAgentApi.md#get_business_agent_connector) | **GET** /v1/accounts/{accountId}/business-agent/connectors/{connectorId} | Get a connector
+*BusinessAgentApi* | [**get_business_agent_connector_logs**](docs/BusinessAgentApi.md#get_business_agent_connector_logs) | **GET** /v1/accounts/{accountId}/business-agent/connectors/{connectorId}/logs | Get connector failure logs
+*BusinessAgentApi* | [**get_business_agent_connector_tool**](docs/BusinessAgentApi.md#get_business_agent_connector_tool) | **GET** /v1/accounts/{accountId}/business-agent/connectors/{connectorId}/tools/{toolId} | Get a connector tool
+*BusinessAgentApi* | [**get_business_agent_event**](docs/BusinessAgentApi.md#get_business_agent_event) | **GET** /v1/accounts/{accountId}/business-agent/events/{eventId} | Get a business event status
+*BusinessAgentApi* | [**get_business_agent_faq**](docs/BusinessAgentApi.md#get_business_agent_faq) | **GET** /v1/accounts/{accountId}/business-agent/faqs/{faqId} | Get a FAQ
+*BusinessAgentApi* | [**get_business_agent_file**](docs/BusinessAgentApi.md#get_business_agent_file) | **GET** /v1/accounts/{accountId}/business-agent/files/{fileId} | Get a knowledge file
+*BusinessAgentApi* | [**get_business_agent_skill**](docs/BusinessAgentApi.md#get_business_agent_skill) | **GET** /v1/accounts/{accountId}/business-agent/skills/{skillId} | Get a skill
+*BusinessAgentApi* | [**get_business_agent_status**](docs/BusinessAgentApi.md#get_business_agent_status) | **GET** /v1/accounts/{accountId}/business-agent | Get agent setup status
+*BusinessAgentApi* | [**get_business_agent_ui_skill**](docs/BusinessAgentApi.md#get_business_agent_ui_skill) | **GET** /v1/accounts/{accountId}/business-agent/ui-skills/{uiSkillId} | Get a UI skill
+*BusinessAgentApi* | [**get_business_agent_website**](docs/BusinessAgentApi.md#get_business_agent_website) | **GET** /v1/accounts/{accountId}/business-agent/websites/{websiteId} | Get a crawled website
+*BusinessAgentApi* | [**list_business_agent_allowlist**](docs/BusinessAgentApi.md#list_business_agent_allowlist) | **GET** /v1/accounts/{accountId}/business-agent/allowlist | List allowlisted consumers
+*BusinessAgentApi* | [**list_business_agent_connector_tools**](docs/BusinessAgentApi.md#list_business_agent_connector_tools) | **GET** /v1/accounts/{accountId}/business-agent/connectors/{connectorId}/tools | List connector tools
+*BusinessAgentApi* | [**list_business_agent_connectors**](docs/BusinessAgentApi.md#list_business_agent_connectors) | **GET** /v1/accounts/{accountId}/business-agent/connectors | List connectors
+*BusinessAgentApi* | [**list_business_agent_faqs**](docs/BusinessAgentApi.md#list_business_agent_faqs) | **GET** /v1/accounts/{accountId}/business-agent/faqs | List FAQs
+*BusinessAgentApi* | [**list_business_agent_files**](docs/BusinessAgentApi.md#list_business_agent_files) | **GET** /v1/accounts/{accountId}/business-agent/files | List knowledge files
+*BusinessAgentApi* | [**list_business_agent_settings**](docs/BusinessAgentApi.md#list_business_agent_settings) | **GET** /v1/accounts/{accountId}/business-agent/settings | List agent settings
+*BusinessAgentApi* | [**list_business_agent_skills**](docs/BusinessAgentApi.md#list_business_agent_skills) | **GET** /v1/accounts/{accountId}/business-agent/skills | List skills
+*BusinessAgentApi* | [**list_business_agent_ui_skills**](docs/BusinessAgentApi.md#list_business_agent_ui_skills) | **GET** /v1/accounts/{accountId}/business-agent/ui-skills | List UI skills
+*BusinessAgentApi* | [**list_business_agent_websites**](docs/BusinessAgentApi.md#list_business_agent_websites) | **GET** /v1/accounts/{accountId}/business-agent/websites | List crawled websites
+*BusinessAgentApi* | [**onboard_business_agent**](docs/BusinessAgentApi.md#onboard_business_agent) | **POST** /v1/accounts/{accountId}/business-agent/onboard | Create the agent
+*BusinessAgentApi* | [**read_business_agent_evals**](docs/BusinessAgentApi.md#read_business_agent_evals) | **GET** /v1/accounts/{accountId}/business-agent/evals | Read evaluation data
+*BusinessAgentApi* | [**refresh_business_agent_connector_tools**](docs/BusinessAgentApi.md#refresh_business_agent_connector_tools) | **POST** /v1/accounts/{accountId}/business-agent/connectors/{connectorId}/refresh-tools | Refresh MCP connector tools
+*BusinessAgentApi* | [**remove_business_agent_allowlist_entry**](docs/BusinessAgentApi.md#remove_business_agent_allowlist_entry) | **DELETE** /v1/accounts/{accountId}/business-agent/allowlist/{entryId} | Remove an allowlisted consumer
+*BusinessAgentApi* | [**replace_business_agent_budget**](docs/BusinessAgentApi.md#replace_business_agent_budget) | **PUT** /v1/accounts/{accountId}/business-agent/budget | Replace usage budgets
+*BusinessAgentApi* | [**replace_business_agent_business_information**](docs/BusinessAgentApi.md#replace_business_agent_business_information) | **PUT** /v1/accounts/{accountId}/business-agent/business-information | Replace business information
+*BusinessAgentApi* | [**reset_business_agent_business_information**](docs/BusinessAgentApi.md#reset_business_agent_business_information) | **DELETE** /v1/accounts/{accountId}/business-agent/business-information | Reset business information
+*BusinessAgentApi* | [**run_business_agent_connector_tool**](docs/BusinessAgentApi.md#run_business_agent_connector_tool) | **POST** /v1/accounts/{accountId}/business-agent/connectors/{connectorId}/tools/{toolId}/run | Run a connector tool once
+*BusinessAgentApi* | [**send_business_agent_event**](docs/BusinessAgentApi.md#send_business_agent_event) | **POST** /v1/accounts/{accountId}/business-agent/events | Send a business event
+*BusinessAgentApi* | [**send_business_agent_test_message**](docs/BusinessAgentApi.md#send_business_agent_test_message) | **POST** /v1/accounts/{accountId}/business-agent/test-messages | Send a test message
+*BusinessAgentApi* | [**set_business_agent_connector_credentials**](docs/BusinessAgentApi.md#set_business_agent_connector_credentials) | **POST** /v1/accounts/{accountId}/business-agent/connectors/{connectorId}/credentials | Set connector credentials
+*BusinessAgentApi* | [**start_business_agent_eval_run**](docs/BusinessAgentApi.md#start_business_agent_eval_run) | **POST** /v1/accounts/{accountId}/business-agent/evals | Start an evaluation run
+*BusinessAgentApi* | [**update_business_agent_connector**](docs/BusinessAgentApi.md#update_business_agent_connector) | **PUT** /v1/accounts/{accountId}/business-agent/connectors/{connectorId} | Update a connector
+*BusinessAgentApi* | [**update_business_agent_connector_tool**](docs/BusinessAgentApi.md#update_business_agent_connector_tool) | **PUT** /v1/accounts/{accountId}/business-agent/connectors/{connectorId}/tools/{toolId} | Update a connector tool
+*BusinessAgentApi* | [**update_business_agent_faq**](docs/BusinessAgentApi.md#update_business_agent_faq) | **PUT** /v1/accounts/{accountId}/business-agent/faqs/{faqId} | Update a FAQ
+*BusinessAgentApi* | [**update_business_agent_settings**](docs/BusinessAgentApi.md#update_business_agent_settings) | **PATCH** /v1/accounts/{accountId}/business-agent/settings | Update agent settings
+*BusinessAgentApi* | [**update_business_agent_skill**](docs/BusinessAgentApi.md#update_business_agent_skill) | **PUT** /v1/accounts/{accountId}/business-agent/skills/{skillId} | Update a skill
+*BusinessAgentApi* | [**update_business_agent_ui_skill**](docs/BusinessAgentApi.md#update_business_agent_ui_skill) | **PUT** /v1/accounts/{accountId}/business-agent/ui-skills/{uiSkillId} | Update a UI skill
+*BusinessAgentApi* | [**update_business_agent_website**](docs/BusinessAgentApi.md#update_business_agent_website) | **PUT** /v1/accounts/{accountId}/business-agent/websites/{websiteId} | Update a crawled website
+*BusinessAgentApi* | [**upload_business_agent_file**](docs/BusinessAgentApi.md#upload_business_agent_file) | **POST** /v1/accounts/{accountId}/business-agent/files | Upload a knowledge file
 *CallsApi* | [**get_call**](docs/CallsApi.md#get_call) | **GET** /v1/calls/{id} | Get a call (any channel)
 *CallsApi* | [**get_call_recording**](docs/CallsApi.md#get_call_recording) | **GET** /v1/calls/{id}/recording | Get a call recording
 *CallsApi* | [**list_calls**](docs/CallsApi.md#list_calls) | **GET** /v1/calls | List all calls (unified history)
@@ -267,7 +322,6 @@ Class | Method | HTTP request | Description
 *ConnectApi* | [**get_shopify_connect_url**](docs/ConnectApi.md#get_shopify_connect_url) | **GET** /v1/connect/shopify | Get Shopify OAuth connect URL
 *ConnectApi* | [**get_subreddit_rules**](docs/ConnectApi.md#get_subreddit_rules) | **GET** /v1/accounts/{accountId}/reddit-subreddits/{subreddit}/rules | Get subreddit rules
 *ConnectApi* | [**get_telegram_connect_status**](docs/ConnectApi.md#get_telegram_connect_status) | **GET** /v1/connect/telegram | Generate Telegram code
-*ConnectApi* | [**get_whats_app_sdk_config**](docs/ConnectApi.md#get_whats_app_sdk_config) | **GET** /v1/connect/whatsapp/sdk-config | Get Embedded Signup SDK config
 *ConnectApi* | [**get_youtube_captions**](docs/ConnectApi.md#get_youtube_captions) | **GET** /v1/accounts/{accountId}/youtube-captions | Get a YouTube video transcript
 *ConnectApi* | [**get_youtube_playlists**](docs/ConnectApi.md#get_youtube_playlists) | **GET** /v1/accounts/{accountId}/youtube-playlists | List YouTube playlists
 *ConnectApi* | [**handle_o_auth_callback**](docs/ConnectApi.md#handle_o_auth_callback) | **POST** /v1/connect/{platform} | Complete OAuth callback
@@ -716,6 +770,7 @@ Class | Method | HTTP request | Description
  - [AddAdKeywordsRequestKeywordsInnerAnyOf](docs/AddAdKeywordsRequestKeywordsInnerAnyOf.md)
  - [AddBroadcastRecipients200Response](docs/AddBroadcastRecipients200Response.md)
  - [AddBroadcastRecipientsRequest](docs/AddBroadcastRecipientsRequest.md)
+ - [AddBusinessAgentAllowlistEntryRequest](docs/AddBusinessAgentAllowlistEntryRequest.md)
  - [AddConversionAssociations200Response](docs/AddConversionAssociations200Response.md)
  - [AddConversionAssociations200ResponseFailedInner](docs/AddConversionAssociations200ResponseFailedInner.md)
  - [AddConversionAssociationsRequest](docs/AddConversionAssociationsRequest.md)
@@ -803,6 +858,38 @@ Class | Method | HTTP request | Description
  - [BulkUploadResult](docs/BulkUploadResult.md)
  - [BulkUploadResultRateLimitedAccountsInner](docs/BulkUploadResultRateLimitedAccountsInner.md)
  - [BulkUploadResultResultsInner](docs/BulkUploadResultResultsInner.md)
+ - [BusinessAgentAllowlistEntry](docs/BusinessAgentAllowlistEntry.md)
+ - [BusinessAgentApiKeyConfig](docs/BusinessAgentApiKeyConfig.md)
+ - [BusinessAgentApiKeyParamsInner](docs/BusinessAgentApiKeyParamsInner.md)
+ - [BusinessAgentBudget](docs/BusinessAgentBudget.md)
+ - [BusinessAgentBusinessInformation](docs/BusinessAgentBusinessInformation.md)
+ - [BusinessAgentBusinessInformationContactInfo](docs/BusinessAgentBusinessInformationContactInfo.md)
+ - [BusinessAgentConnector](docs/BusinessAgentConnector.md)
+ - [BusinessAgentConnectorAllOfConnectionStatus](docs/BusinessAgentConnectorAllOfConnectionStatus.md)
+ - [BusinessAgentConnectorInput](docs/BusinessAgentConnectorInput.md)
+ - [BusinessAgentConnectorInputAuthConfig](docs/BusinessAgentConnectorInputAuthConfig.md)
+ - [BusinessAgentConnectorInputUserAuthInjectionConfig](docs/BusinessAgentConnectorInputUserAuthInjectionConfig.md)
+ - [BusinessAgentConnectorTool](docs/BusinessAgentConnectorTool.md)
+ - [BusinessAgentConnectorToolInput](docs/BusinessAgentConnectorToolInput.md)
+ - [BusinessAgentEventStatus](docs/BusinessAgentEventStatus.md)
+ - [BusinessAgentFaq](docs/BusinessAgentFaq.md)
+ - [BusinessAgentFaqInput](docs/BusinessAgentFaqInput.md)
+ - [BusinessAgentKnowledgeFile](docs/BusinessAgentKnowledgeFile.md)
+ - [BusinessAgentOAuthClientCredentials](docs/BusinessAgentOAuthClientCredentials.md)
+ - [BusinessAgentSettings](docs/BusinessAgentSettings.md)
+ - [BusinessAgentSettingsFollowup](docs/BusinessAgentSettingsFollowup.md)
+ - [BusinessAgentSettingsHandoff](docs/BusinessAgentSettingsHandoff.md)
+ - [BusinessAgentSettingsRollout](docs/BusinessAgentSettingsRollout.md)
+ - [BusinessAgentSkill](docs/BusinessAgentSkill.md)
+ - [BusinessAgentSkillInput](docs/BusinessAgentSkillInput.md)
+ - [BusinessAgentStatus](docs/BusinessAgentStatus.md)
+ - [BusinessAgentStatusManualStepsInner](docs/BusinessAgentStatusManualStepsInner.md)
+ - [BusinessAgentStatusUnverifiedStepsInner](docs/BusinessAgentStatusUnverifiedStepsInner.md)
+ - [BusinessAgentTestMessageResponse](docs/BusinessAgentTestMessageResponse.md)
+ - [BusinessAgentUiSkill](docs/BusinessAgentUiSkill.md)
+ - [BusinessAgentUiSkillInput](docs/BusinessAgentUiSkillInput.md)
+ - [BusinessAgentWebsite](docs/BusinessAgentWebsite.md)
+ - [BusinessAgentWebsiteInput](docs/BusinessAgentWebsiteInput.md)
  - [BusinessCenter](docs/BusinessCenter.md)
  - [CallRecord](docs/CallRecord.md)
  - [CallRecordBilling](docs/CallRecordBilling.md)
@@ -1219,6 +1306,8 @@ Class | Method | HTTP request | Description
  - [GetBroadcast200ResponseBroadcast](docs/GetBroadcast200ResponseBroadcast.md)
  - [GetBroadcast200ResponseBroadcastMessage](docs/GetBroadcast200ResponseBroadcastMessage.md)
  - [GetBroadcast200ResponseBroadcastTemplate](docs/GetBroadcast200ResponseBroadcastTemplate.md)
+ - [GetBusinessAgentBudget200Response](docs/GetBusinessAgentBudget200Response.md)
+ - [GetBusinessAgentConnectorLogs200Response](docs/GetBusinessAgentConnectorLogs200Response.md)
  - [GetCall200Response](docs/GetCall200Response.md)
  - [GetCallsUsage200Response](docs/GetCallsUsage200Response.md)
  - [GetCallsUsage200ResponseGroupsInner](docs/GetCallsUsage200ResponseGroupsInner.md)
@@ -1488,7 +1577,6 @@ Class | Method | HTTP request | Description
  - [GetWhatsAppNumberKycForm200Response](docs/GetWhatsAppNumberKycForm200Response.md)
  - [GetWhatsAppNumberKycForm200ResponseFieldsInner](docs/GetWhatsAppNumberKycForm200ResponseFieldsInner.md)
  - [GetWhatsAppNumberRemediation200Response](docs/GetWhatsAppNumberRemediation200Response.md)
- - [GetWhatsAppSdkConfig200Response](docs/GetWhatsAppSdkConfig200Response.md)
  - [GetWhatsAppTemplate200Response](docs/GetWhatsAppTemplate200Response.md)
  - [GetWhatsAppTemplate200ResponseTemplate](docs/GetWhatsAppTemplate200ResponseTemplate.md)
  - [GetWhatsAppTemplate409Response](docs/GetWhatsAppTemplate409Response.md)
@@ -1544,7 +1632,8 @@ Class | Method | HTTP request | Description
  - [InlineObject1](docs/InlineObject1.md)
  - [InlineObject2](docs/InlineObject2.md)
  - [InlineObject3](docs/InlineObject3.md)
- - [InlineObject3Details](docs/InlineObject3Details.md)
+ - [InlineObject4](docs/InlineObject4.md)
+ - [InlineObject4Details](docs/InlineObject4Details.md)
  - [InstagramAccountInsightsResponse](docs/InstagramAccountInsightsResponse.md)
  - [InstagramAccountInsightsResponseDateRange](docs/InstagramAccountInsightsResponseDateRange.md)
  - [InstagramAccountInsightsResponseMetricsValue](docs/InstagramAccountInsightsResponseMetricsValue.md)
@@ -1626,6 +1715,15 @@ Class | Method | HTTP request | Description
  - [ListBroadcastRecipients200ResponseSummary](docs/ListBroadcastRecipients200ResponseSummary.md)
  - [ListBroadcasts200Response](docs/ListBroadcasts200Response.md)
  - [ListBroadcasts200ResponseBroadcastsInner](docs/ListBroadcasts200ResponseBroadcastsInner.md)
+ - [ListBusinessAgentAllowlist200Response](docs/ListBusinessAgentAllowlist200Response.md)
+ - [ListBusinessAgentConnectorTools200Response](docs/ListBusinessAgentConnectorTools200Response.md)
+ - [ListBusinessAgentConnectors200Response](docs/ListBusinessAgentConnectors200Response.md)
+ - [ListBusinessAgentFaqs200Response](docs/ListBusinessAgentFaqs200Response.md)
+ - [ListBusinessAgentFiles200Response](docs/ListBusinessAgentFiles200Response.md)
+ - [ListBusinessAgentSettings200Response](docs/ListBusinessAgentSettings200Response.md)
+ - [ListBusinessAgentSkills200Response](docs/ListBusinessAgentSkills200Response.md)
+ - [ListBusinessAgentUiSkills200Response](docs/ListBusinessAgentUiSkills200Response.md)
+ - [ListBusinessAgentWebsites200Response](docs/ListBusinessAgentWebsites200Response.md)
  - [ListCalls200Response](docs/ListCalls200Response.md)
  - [ListCalls200ResponseCallsInner](docs/ListCalls200ResponseCallsInner.md)
  - [ListCampaignNegativeKeywords200Response](docs/ListCampaignNegativeKeywords200Response.md)
@@ -1819,6 +1917,7 @@ Class | Method | HTTP request | Description
  - [OnWhatsAppNumberReleasedRequest](docs/OnWhatsAppNumberReleasedRequest.md)
  - [OnWhatsAppNumberSuspendedRequest](docs/OnWhatsAppNumberSuspendedRequest.md)
  - [OnWhatsAppNumberVerificationRequiredRequest](docs/OnWhatsAppNumberVerificationRequiredRequest.md)
+ - [OnboardBusinessAgent201Response](docs/OnboardBusinessAgent201Response.md)
  - [Pagination](docs/Pagination.md)
  - [PauseWorkflow200Response](docs/PauseWorkflow200Response.md)
  - [Pending](docs/Pending.md)
@@ -1937,6 +2036,8 @@ Class | Method | HTTP request | Description
  - [RevokeConnectedApp200Response](docs/RevokeConnectedApp200Response.md)
  - [RfPrediction](docs/RfPrediction.md)
  - [RotateSipTrunkCredentials200Response](docs/RotateSipTrunkCredentials200Response.md)
+ - [RunBusinessAgentConnectorTool200Response](docs/RunBusinessAgentConnectorTool200Response.md)
+ - [RunBusinessAgentConnectorToolRequest](docs/RunBusinessAgentConnectorToolRequest.md)
  - [SavedTargetingAudience](docs/SavedTargetingAudience.md)
  - [ScheduleBroadcast200Response](docs/ScheduleBroadcast200Response.md)
  - [ScheduleBroadcast200ResponseBroadcast](docs/ScheduleBroadcast200ResponseBroadcast.md)
@@ -1989,6 +2090,9 @@ Class | Method | HTTP request | Description
  - [SelectSnapchatProfileRequest](docs/SelectSnapchatProfileRequest.md)
  - [SelectSnapchatProfileRequestSelectedPublicProfile](docs/SelectSnapchatProfileRequestSelectedPublicProfile.md)
  - [SendBroadcast200Response](docs/SendBroadcast200Response.md)
+ - [SendBusinessAgentEvent202Response](docs/SendBusinessAgentEvent202Response.md)
+ - [SendBusinessAgentEventRequest](docs/SendBusinessAgentEventRequest.md)
+ - [SendBusinessAgentTestMessageRequest](docs/SendBusinessAgentTestMessageRequest.md)
  - [SendConversions200Response](docs/SendConversions200Response.md)
  - [SendConversions200ResponseFailuresInner](docs/SendConversions200ResponseFailuresInner.md)
  - [SendConversions200ResponseFailuresInnerCode](docs/SendConversions200ResponseFailuresInnerCode.md)
@@ -2064,6 +2168,10 @@ Class | Method | HTTP request | Description
  - [SendWhatsAppFlowMessageRequest](docs/SendWhatsAppFlowMessageRequest.md)
  - [SendWhatsAppFlowMessageRequestFlowActionPayload](docs/SendWhatsAppFlowMessageRequestFlowActionPayload.md)
  - [SendWhatsAppFlowMessageRequestHeader](docs/SendWhatsAppFlowMessageRequestHeader.md)
+ - [SetBusinessAgentConnectorCredentialsRequest](docs/SetBusinessAgentConnectorCredentialsRequest.md)
+ - [SetBusinessAgentConnectorCredentialsRequestOneOf](docs/SetBusinessAgentConnectorCredentialsRequestOneOf.md)
+ - [SetBusinessAgentConnectorCredentialsRequestOneOf1](docs/SetBusinessAgentConnectorCredentialsRequestOneOf1.md)
+ - [SetBusinessAgentConnectorCredentialsRequestOneOf2](docs/SetBusinessAgentConnectorCredentialsRequestOneOf2.md)
  - [SetCommentModerationRequest](docs/SetCommentModerationRequest.md)
  - [SetContactFieldValueRequest](docs/SetContactFieldValueRequest.md)
  - [SetConversationThreadControl200Response](docs/SetConversationThreadControl200Response.md)
@@ -2085,6 +2193,8 @@ Class | Method | HTTP request | Description
  - [SnapchatPlatformData](docs/SnapchatPlatformData.md)
  - [SocialAccount](docs/SocialAccount.md)
  - [SocialAccountProfileId](docs/SocialAccountProfileId.md)
+ - [StartBusinessAgentEvalRun202Response](docs/StartBusinessAgentEvalRun202Response.md)
+ - [StartBusinessAgentEvalRunRequest](docs/StartBusinessAgentEvalRunRequest.md)
  - [StartGoogleBusinessVerification200Response](docs/StartGoogleBusinessVerification200Response.md)
  - [StartGoogleBusinessVerification200ResponseVerification](docs/StartGoogleBusinessVerification200ResponseVerification.md)
  - [StartGoogleBusinessVerificationRequest](docs/StartGoogleBusinessVerificationRequest.md)
@@ -2191,6 +2301,10 @@ Class | Method | HTTP request | Description
  - [UpdateBroadcastRequestMessage](docs/UpdateBroadcastRequestMessage.md)
  - [UpdateBroadcastRequestTemplate](docs/UpdateBroadcastRequestTemplate.md)
  - [UpdateBroadcastRequestTemplateVariableMappingValue](docs/UpdateBroadcastRequestTemplateVariableMappingValue.md)
+ - [UpdateBusinessAgentSettingsRequest](docs/UpdateBusinessAgentSettingsRequest.md)
+ - [UpdateBusinessAgentSettingsRequestFollowup](docs/UpdateBusinessAgentSettingsRequestFollowup.md)
+ - [UpdateBusinessAgentSettingsRequestHandoff](docs/UpdateBusinessAgentSettingsRequestHandoff.md)
+ - [UpdateBusinessAgentSettingsRequestRollout](docs/UpdateBusinessAgentSettingsRequestRollout.md)
  - [UpdateCampaignTargeting200Response](docs/UpdateCampaignTargeting200Response.md)
  - [UpdateCampaignTargeting200ResponseDevicesInner](docs/UpdateCampaignTargeting200ResponseDevicesInner.md)
  - [UpdateCampaignTargeting200ResponseLanguagesInner](docs/UpdateCampaignTargeting200ResponseLanguagesInner.md)
@@ -2298,6 +2412,7 @@ Class | Method | HTTP request | Description
  - [UploadAdVideo201Response](docs/UploadAdVideo201Response.md)
  - [UploadAdVideo201ResponseVideo](docs/UploadAdVideo201ResponseVideo.md)
  - [UploadAdVideoRequest](docs/UploadAdVideoRequest.md)
+ - [UploadBusinessAgentFileRequest](docs/UploadBusinessAgentFileRequest.md)
  - [UploadMediaDirect200Response](docs/UploadMediaDirect200Response.md)
  - [UploadPhoneNumberKycDocument200Response](docs/UploadPhoneNumberKycDocument200Response.md)
  - [UploadPhoneNumberPortInDocument200Response](docs/UploadPhoneNumberPortInDocument200Response.md)

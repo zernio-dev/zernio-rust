@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum CreateQueueSlotError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -28,7 +28,7 @@ pub enum CreateQueueSlotError {
 #[serde(untagged)]
 pub enum DeleteQueueSlotError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -38,7 +38,7 @@ pub enum DeleteQueueSlotError {
 #[serde(untagged)]
 pub enum GetNextQueueSlotError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -48,7 +48,7 @@ pub enum GetNextQueueSlotError {
 #[serde(untagged)]
 pub enum ListQueueSlotsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -58,7 +58,7 @@ pub enum ListQueueSlotsError {
 #[serde(untagged)]
 pub enum PreviewQueueError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -68,7 +68,7 @@ pub enum PreviewQueueError {
 #[serde(untagged)]
 pub enum UpdateQueueSlotError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }

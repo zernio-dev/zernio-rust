@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum AssignGoogleBusinessLocationError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status409(),
@@ -30,7 +30,7 @@ pub enum AssignGoogleBusinessLocationError {
 #[serde(untagged)]
 pub enum CompleteTelegramConnectError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status500(),
     UnknownValue(serde_json::Value),
@@ -41,7 +41,7 @@ pub enum CompleteTelegramConnectError {
 #[serde(untagged)]
 pub enum CompleteWhatsAppPhoneSelectionError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(models::ErrorResponse),
     Status409(),
@@ -54,7 +54,7 @@ pub enum CompleteWhatsAppPhoneSelectionError {
 #[serde(untagged)]
 pub enum ConfigureTikTokAdsBrandIdentityError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status500(),
     Status502(),
@@ -66,7 +66,7 @@ pub enum ConfigureTikTokAdsBrandIdentityError {
 #[serde(untagged)]
 pub enum ConnectAdsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -77,7 +77,7 @@ pub enum ConnectAdsError {
 #[serde(untagged)]
 pub enum ConnectBlueskyCredentialsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status500(),
     UnknownValue(serde_json::Value),
 }
@@ -87,8 +87,8 @@ pub enum ConnectBlueskyCredentialsError {
 #[serde(untagged)]
 pub enum ConnectDiscordChannelError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
-    Status402(models::InlineObject3),
+    Status401(models::InlineObject1),
+    Status402(models::InlineObject4),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -99,7 +99,7 @@ pub enum ConnectDiscordChannelError {
 pub enum ConnectOpenAiAdsCredentialsError {
     Status400(models::ErrorResponse),
     Status401(),
-    Status402(models::InlineObject3),
+    Status402(models::InlineObject4),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -109,8 +109,8 @@ pub enum ConnectOpenAiAdsCredentialsError {
 #[serde(untagged)]
 pub enum ConnectShopifyWithTokenError {
     Status400(),
-    Status401(models::InlineObject),
-    Status402(models::InlineObject3),
+    Status401(models::InlineObject1),
+    Status402(models::InlineObject4),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -120,8 +120,8 @@ pub enum ConnectShopifyWithTokenError {
 #[serde(untagged)]
 pub enum ConnectSlackChannelError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
-    Status402(models::InlineObject3),
+    Status401(models::InlineObject1),
+    Status402(models::InlineObject4),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -143,8 +143,8 @@ pub enum ConnectWhatsAppCredentialsError {
 #[serde(untagged)]
 pub enum ConnectWhatsAppEmbeddedSignupError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
-    Status402(models::InlineObject3),
+    Status401(models::InlineObject1),
+    Status402(models::InlineObject4),
     Status409(),
     UnknownValue(serde_json::Value),
 }
@@ -154,7 +154,7 @@ pub enum ConnectWhatsAppEmbeddedSignupError {
 #[serde(untagged)]
 pub enum CreatePinterestBoardError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -165,8 +165,8 @@ pub enum CreatePinterestBoardError {
 #[serde(untagged)]
 pub enum GetConnectUrlError {
     Status400(),
-    Status401(models::InlineObject),
-    Status402(models::InlineObject3),
+    Status401(models::InlineObject1),
+    Status402(models::InlineObject4),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -176,7 +176,7 @@ pub enum GetConnectUrlError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetFacebookPagesError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -186,7 +186,7 @@ pub enum GetFacebookPagesError {
 #[serde(untagged)]
 pub enum GetGmbLocationsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -195,7 +195,7 @@ pub enum GetGmbLocationsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetLinkedInOrganizationsError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -214,7 +214,7 @@ pub enum GetPendingOAuthDataError {
 #[serde(untagged)]
 pub enum GetPinterestBoardsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -224,7 +224,7 @@ pub enum GetPinterestBoardsError {
 #[serde(untagged)]
 pub enum GetRedditFlairsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -234,7 +234,7 @@ pub enum GetRedditFlairsError {
 #[serde(untagged)]
 pub enum GetRedditSubredditsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -244,8 +244,8 @@ pub enum GetRedditSubredditsError {
 #[serde(untagged)]
 pub enum GetShopifyConnectUrlError {
     Status400(),
-    Status401(models::InlineObject),
-    Status402(models::InlineObject3),
+    Status401(models::InlineObject1),
+    Status402(models::InlineObject4),
     Status403(),
     Status404(),
     Status500(),
@@ -257,7 +257,7 @@ pub enum GetShopifyConnectUrlError {
 #[serde(untagged)]
 pub enum GetSubredditRulesError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -268,18 +268,10 @@ pub enum GetSubredditRulesError {
 #[serde(untagged)]
 pub enum GetTelegramConnectStatusError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status500(),
-    UnknownValue(serde_json::Value),
-}
-
-/// struct for typed errors of method [`get_whats_app_sdk_config`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum GetWhatsAppSdkConfigError {
-    Status401(models::InlineObject),
     UnknownValue(serde_json::Value),
 }
 
@@ -288,7 +280,7 @@ pub enum GetWhatsAppSdkConfigError {
 #[serde(untagged)]
 pub enum GetYoutubeCaptionsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -298,7 +290,7 @@ pub enum GetYoutubeCaptionsError {
 #[serde(untagged)]
 pub enum GetYoutubePlaylistsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -308,8 +300,8 @@ pub enum GetYoutubePlaylistsError {
 #[serde(untagged)]
 pub enum HandleOAuthCallbackError {
     Status400(),
-    Status401(models::InlineObject),
-    Status402(models::InlineObject3),
+    Status401(models::InlineObject1),
+    Status402(models::InlineObject4),
     Status403(),
     Status404(),
     Status500(),
@@ -323,7 +315,7 @@ pub enum HandleOAuthCallbackError {
 #[serde(untagged)]
 pub enum InitiateTelegramConnectError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status500(),
@@ -335,7 +327,7 @@ pub enum InitiateTelegramConnectError {
 #[serde(untagged)]
 pub enum ListFacebookPagesError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status500(models::GetYouTubeDailyViews400Response),
     UnknownValue(serde_json::Value),
 }
@@ -345,7 +337,7 @@ pub enum ListFacebookPagesError {
 #[serde(untagged)]
 pub enum ListGoogleBusinessLocationsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status500(models::GetYouTubeDailyViews400Response),
     UnknownValue(serde_json::Value),
 }
@@ -355,7 +347,7 @@ pub enum ListGoogleBusinessLocationsError {
 #[serde(untagged)]
 pub enum ListInstagramPagesError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -374,7 +366,7 @@ pub enum ListLinkedInOrganizationsError {
 #[serde(untagged)]
 pub enum ListPinterestBoardsForSelectionError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status500(),
     UnknownValue(serde_json::Value),
@@ -385,7 +377,7 @@ pub enum ListPinterestBoardsForSelectionError {
 #[serde(untagged)]
 pub enum ListSlackChannelsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -396,7 +388,7 @@ pub enum ListSlackChannelsError {
 #[serde(untagged)]
 pub enum ListSnapchatProfilesError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status500(),
     UnknownValue(serde_json::Value),
@@ -407,7 +399,7 @@ pub enum ListSnapchatProfilesError {
 #[serde(untagged)]
 pub enum ListWhatsAppPhoneNumbersError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -417,7 +409,7 @@ pub enum ListWhatsAppPhoneNumbersError {
 #[serde(untagged)]
 pub enum SelectFacebookPageError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status409(models::SelectFacebookPage409Response),
@@ -430,7 +422,7 @@ pub enum SelectFacebookPageError {
 #[serde(untagged)]
 pub enum SelectGoogleBusinessLocationError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status500(),
@@ -442,8 +434,8 @@ pub enum SelectGoogleBusinessLocationError {
 #[serde(untagged)]
 pub enum SelectInstagramAccountError {
     Status400(),
-    Status401(models::InlineObject),
-    Status402(models::InlineObject3),
+    Status401(models::InlineObject1),
+    Status402(models::InlineObject4),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -454,7 +446,7 @@ pub enum SelectInstagramAccountError {
 #[serde(untagged)]
 pub enum SelectLinkedInOrganizationError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status500(),
     UnknownValue(serde_json::Value),
 }
@@ -464,7 +456,7 @@ pub enum SelectLinkedInOrganizationError {
 #[serde(untagged)]
 pub enum SelectPinterestBoardError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status500(),
     UnknownValue(serde_json::Value),
@@ -475,7 +467,7 @@ pub enum SelectPinterestBoardError {
 #[serde(untagged)]
 pub enum SelectSnapchatProfileError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status500(),
     UnknownValue(serde_json::Value),
@@ -486,7 +478,7 @@ pub enum SelectSnapchatProfileError {
 #[serde(untagged)]
 pub enum SetRedditPostFlairError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -497,7 +489,7 @@ pub enum SetRedditPostFlairError {
 #[serde(untagged)]
 pub enum UpdateFacebookPageError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -507,7 +499,7 @@ pub enum UpdateFacebookPageError {
 #[serde(untagged)]
 pub enum UpdateGmbLocationError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -517,7 +509,7 @@ pub enum UpdateGmbLocationError {
 #[serde(untagged)]
 pub enum UpdateLinkedInOrganizationError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -527,7 +519,7 @@ pub enum UpdateLinkedInOrganizationError {
 #[serde(untagged)]
 pub enum UpdatePinterestBoardsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -537,7 +529,7 @@ pub enum UpdatePinterestBoardsError {
 #[serde(untagged)]
 pub enum UpdateRedditSubredditsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -547,7 +539,7 @@ pub enum UpdateRedditSubredditsError {
 #[serde(untagged)]
 pub enum UpdateYoutubeDefaultPlaylistError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -557,7 +549,7 @@ pub enum UpdateYoutubeDefaultPlaylistError {
 #[serde(untagged)]
 pub enum VoteRedditThingError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -1173,7 +1165,7 @@ pub async fn connect_whats_app_credentials(
     }
 }
 
-/// Finish a WhatsApp connection started with Meta's Embedded Signup in your own page (Facebook JavaScript SDK). The code never passes through a `redirect_url`, so `POST /v1/connect/{platform}` cannot accept it.  The flow: call `GET /v1/connect/whatsapp/sdk-config`, run `FB.login` with that `configId`, `response_type: 'code'`, `override_default_response_type: true` and `extras: { sessionInfoVersion: '3' }`, read `waba_id` and `phone_number_id` from the `WA_EMBEDDED_SIGNUP` message event Meta posts to your window, then send the `code` from the login response here together with those ids.  Always forward `wabaId` and `phoneNumberId`: Zernio connects exactly that number and no picker is shown. Without them Zernio falls back to the first number of the first WhatsApp Business Account the token can reach, which may not be the one the user picked.  The Zernio Meta app must list the domain that hosts the popup before `FB.login` will open there. Available on request: send the domains to support.
+/// Exchange the authorization code Meta Embedded Signup returns to your browser SDK. This is the headless completion path for WhatsApp: the code never passes through a redirect_uri, so POST /v1/connect/{platform} cannot accept it.
 pub async fn connect_whats_app_embedded_signup(
     configuration: &configuration::Configuration,
     connect_whats_app_embedded_signup_request: models::ConnectWhatsAppEmbeddedSignupRequest,
@@ -1874,49 +1866,6 @@ pub async fn get_telegram_connect_status(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTelegramConnectStatusError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
-/// The public values needed to run Meta's Embedded Signup inside your own page with the Facebook JavaScript SDK instead of the redirect flow: pass `appId` and `graphApiVersion` to `FB.init`, and `configId` as `config_id` to `FB.login`. The popup then reports the WhatsApp Business Account and phone number the user picked through the `WA_EMBEDDED_SIGNUP` message event, and you finish the connection with `POST /v1/connect/whatsapp/embedded-signup`. Because the number comes back from the popup, the user never sees a second number picker.  Available on request: `FB.login` only opens on HTTPS domains listed in the Zernio Meta app, so send the domains that will host the popup to support before going live.
-pub async fn get_whats_app_sdk_config(
-    configuration: &configuration::Configuration,
-) -> Result<models::GetWhatsAppSdkConfig200Response, Error<GetWhatsAppSdkConfigError>> {
-    let uri_str = format!("{}/v1/connect/whatsapp/sdk-config", configuration.base_path);
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetWhatsAppSdkConfig200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetWhatsAppSdkConfig200Response`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<GetWhatsAppSdkConfigError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

@@ -17,8 +17,8 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetBillingError {
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -27,7 +27,7 @@ pub enum GetBillingError {
 #[serde(untagged)]
 pub enum GetCallsUsageError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -36,7 +36,7 @@ pub enum GetCallsUsageError {
 #[serde(untagged)]
 pub enum GetSmsUsageError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -46,8 +46,8 @@ pub enum GetSmsUsageError {
 #[serde(untagged)]
 pub enum GetUsageError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -56,8 +56,8 @@ pub enum GetUsageError {
 #[serde(untagged)]
 pub enum GetUsageStatsError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -65,7 +65,7 @@ pub enum GetUsageStatsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetXApiPricingError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 

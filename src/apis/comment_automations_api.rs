@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum CreateCommentAutomationError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status409(),
     UnknownValue(serde_json::Value),
 }
@@ -27,8 +27,8 @@ pub enum CreateCommentAutomationError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteCommentAutomationError {
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -36,8 +36,8 @@ pub enum DeleteCommentAutomationError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetCommentAutomationError {
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -46,8 +46,8 @@ pub enum GetCommentAutomationError {
 #[serde(untagged)]
 pub enum ListCommentAutomationLogsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -56,7 +56,7 @@ pub enum ListCommentAutomationLogsError {
 #[serde(untagged)]
 pub enum ListCommentAutomationsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -64,8 +64,8 @@ pub enum ListCommentAutomationsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateCommentAutomationError {
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 

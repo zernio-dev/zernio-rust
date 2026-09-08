@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum AttachNumberToSipTrunkError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status409(),
@@ -31,7 +31,7 @@ pub enum AttachNumberToSipTrunkError {
 #[serde(untagged)]
 pub enum CreateSipTrunkError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status409(),
     Status422(),
@@ -42,7 +42,7 @@ pub enum CreateSipTrunkError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVoiceCallError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status422(),
     Status429(),
     Status502(),
@@ -53,7 +53,7 @@ pub enum CreateVoiceCallError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVoiceWebSessionError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status502(),
     UnknownValue(serde_json::Value),
 }
@@ -63,7 +63,7 @@ pub enum CreateVoiceWebSessionError {
 #[serde(untagged)]
 pub enum DeleteSipTrunkError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status409(),
     UnknownValue(serde_json::Value),
@@ -74,7 +74,7 @@ pub enum DeleteSipTrunkError {
 #[serde(untagged)]
 pub enum DetachNumberFromSipTrunkError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -83,7 +83,7 @@ pub enum DetachNumberFromSipTrunkError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DialVoiceWebCallError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status422(),
     Status429(),
     Status502(),
@@ -94,7 +94,7 @@ pub enum DialVoiceWebCallError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DisableVoiceOnNumberError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -103,7 +103,7 @@ pub enum DisableVoiceOnNumberError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum EnableVoiceOnNumberError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status409(),
     Status422(),
@@ -114,7 +114,7 @@ pub enum EnableVoiceOnNumberError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum EndVoiceCallError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -125,7 +125,7 @@ pub enum EndVoiceCallError {
 #[serde(untagged)]
 pub enum GetSipTrunkError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -134,7 +134,7 @@ pub enum GetSipTrunkError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetVoiceCallError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -143,7 +143,7 @@ pub enum GetVoiceCallError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetVoiceCallEstimateError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -151,7 +151,7 @@ pub enum GetVoiceCallEstimateError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetVoiceCallRecordingError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -161,7 +161,7 @@ pub enum GetVoiceCallRecordingError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListSipTrunksError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -169,7 +169,7 @@ pub enum ListSipTrunksError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListVoiceCallsError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -178,7 +178,7 @@ pub enum ListVoiceCallsError {
 #[serde(untagged)]
 pub enum RotateSipTrunkCredentialsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -187,7 +187,7 @@ pub enum RotateSipTrunkCredentialsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum TransferVoiceCallError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status409(),
     UnknownValue(serde_json::Value),

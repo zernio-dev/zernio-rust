@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum CreateAdInsightsReportError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -29,7 +29,7 @@ pub enum CreateAdInsightsReportError {
 #[serde(untagged)]
 pub enum GenerateKeywordHistoricalMetricsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -40,7 +40,7 @@ pub enum GenerateKeywordHistoricalMetricsError {
 #[serde(untagged)]
 pub enum GenerateKeywordIdeasError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -51,9 +51,9 @@ pub enum GenerateKeywordIdeasError {
 #[serde(untagged)]
 pub enum GetAdAnalyticsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -62,7 +62,7 @@ pub enum GetAdAnalyticsError {
 #[serde(untagged)]
 pub enum GetAdInsightsReportError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -73,7 +73,7 @@ pub enum GetAdInsightsReportError {
 #[serde(untagged)]
 pub enum GetAdsSearchTermsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -84,9 +84,9 @@ pub enum GetAdsSearchTermsError {
 #[serde(untagged)]
 pub enum GetCampaignAnalyticsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -95,7 +95,7 @@ pub enum GetCampaignAnalyticsError {
 #[serde(untagged)]
 pub enum ListLocalServicesLeadConversationsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -106,7 +106,7 @@ pub enum ListLocalServicesLeadConversationsError {
 #[serde(untagged)]
 pub enum ListLocalServicesLeadsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -117,7 +117,7 @@ pub enum ListLocalServicesLeadsError {
 #[serde(untagged)]
 pub enum QueryAdInsightsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),

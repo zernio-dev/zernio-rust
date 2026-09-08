@@ -18,9 +18,9 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum GetAnalyticsError {
     Status400(models::GetAnalytics400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(models::GetAnalytics402Response),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status424(models::AnalyticsSinglePostResponse),
     Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
@@ -31,10 +31,10 @@ pub enum GetAnalyticsError {
 #[serde(untagged)]
 pub enum GetAnalyticsDeltaError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(models::GetAnalytics402Response),
     Status403(models::ErrorResponse),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status500(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
@@ -44,7 +44,7 @@ pub enum GetAnalyticsDeltaError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetBestTimeToPostError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(models::GetBestTimeToPost403Response),
     UnknownValue(serde_json::Value),
 }
@@ -54,7 +54,7 @@ pub enum GetBestTimeToPostError {
 #[serde(untagged)]
 pub enum GetContentDecayError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(models::GetBestTimeToPost403Response),
     UnknownValue(serde_json::Value),
 }
@@ -63,7 +63,7 @@ pub enum GetContentDecayError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetDailyMetricsError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(models::GetAnalytics402Response),
     UnknownValue(serde_json::Value),
 }
@@ -73,7 +73,7 @@ pub enum GetDailyMetricsError {
 #[serde(untagged)]
 pub enum GetFacebookPageInsightsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -84,7 +84,7 @@ pub enum GetFacebookPageInsightsError {
 #[serde(untagged)]
 pub enum GetFacebookPostEarningsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -95,7 +95,7 @@ pub enum GetFacebookPostEarningsError {
 #[serde(untagged)]
 pub enum GetFacebookPostReactionsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -105,7 +105,7 @@ pub enum GetFacebookPostReactionsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetFollowerStatsError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(models::GetFollowerStats403Response),
     UnknownValue(serde_json::Value),
 }
@@ -115,7 +115,7 @@ pub enum GetFollowerStatsError {
 #[serde(untagged)]
 pub enum GetGoogleBusinessPerformanceError {
     Status400(models::GetGoogleBusinessPerformance400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(models::GetAnalytics402Response),
     Status403(models::GetYouTubeDailyViews403Response),
     UnknownValue(serde_json::Value),
@@ -126,7 +126,7 @@ pub enum GetGoogleBusinessPerformanceError {
 #[serde(untagged)]
 pub enum GetGoogleBusinessSearchKeywordsError {
     Status400(models::GetGoogleBusinessSearchKeywords400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(models::GetAnalytics402Response),
     Status403(models::GetYouTubeDailyViews403Response),
     UnknownValue(serde_json::Value),
@@ -137,7 +137,7 @@ pub enum GetGoogleBusinessSearchKeywordsError {
 #[serde(untagged)]
 pub enum GetInstagramAccountInsightsError {
     Status400(models::GetYouTubeDailyViews400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(models::GetAnalytics402Response),
     Status403(models::GetYouTubeDailyViews403Response),
     Status404(models::GetInstagramAccountInsights404Response),
@@ -149,7 +149,7 @@ pub enum GetInstagramAccountInsightsError {
 #[serde(untagged)]
 pub enum GetInstagramDemographicsError {
     Status400(models::GetYouTubeDailyViews400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(models::GetAnalytics402Response),
     Status403(models::GetYouTubeDailyViews403Response),
     Status404(models::GetInstagramAccountInsights404Response),
@@ -161,7 +161,7 @@ pub enum GetInstagramDemographicsError {
 #[serde(untagged)]
 pub enum GetInstagramFollowerHistoryError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -172,7 +172,7 @@ pub enum GetInstagramFollowerHistoryError {
 #[serde(untagged)]
 pub enum GetLinkedInAggregateAnalyticsError {
     Status400(models::GetLinkedInAggregateAnalytics400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(models::GetLinkedInAggregateAnalytics402Response),
     Status403(models::GetLinkedInAggregateAnalytics403Response),
     Status404(),
@@ -184,7 +184,7 @@ pub enum GetLinkedInAggregateAnalyticsError {
 #[serde(untagged)]
 pub enum GetLinkedInOrgAggregateAnalyticsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(),
     Status403(),
     Status404(),
@@ -197,7 +197,7 @@ pub enum GetLinkedInOrgAggregateAnalyticsError {
 #[serde(untagged)]
 pub enum GetLinkedInPostAnalyticsError {
     Status400(models::GetLinkedInPostAnalytics400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(),
     Status403(models::GetLinkedInPostAnalytics403Response),
     Status404(models::GetLinkedInAggregateAnalytics402Response),
@@ -209,7 +209,7 @@ pub enum GetLinkedInPostAnalyticsError {
 #[serde(untagged)]
 pub enum GetLinkedInPostReactionsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(),
     Status403(),
     Status404(),
@@ -221,7 +221,7 @@ pub enum GetLinkedInPostReactionsError {
 #[serde(untagged)]
 pub enum GetPostTimelineError {
     Status400(models::GetPostTimeline400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(models::GetAnalytics402Response),
     Status403(models::GetPostTimeline403Response),
     Status404(models::GetPostTimeline404Response),
@@ -232,7 +232,7 @@ pub enum GetPostTimelineError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetPostingFrequencyError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(models::GetBestTimeToPost403Response),
     UnknownValue(serde_json::Value),
 }
@@ -242,7 +242,7 @@ pub enum GetPostingFrequencyError {
 #[serde(untagged)]
 pub enum GetTikTokAccountInsightsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(),
     Status404(),
     Status412(),
@@ -254,7 +254,7 @@ pub enum GetTikTokAccountInsightsError {
 #[serde(untagged)]
 pub enum GetYouTubeChannelInsightsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(),
     Status404(),
     Status412(models::YouTubeScopeMissingResponse),
@@ -266,7 +266,7 @@ pub enum GetYouTubeChannelInsightsError {
 #[serde(untagged)]
 pub enum GetYouTubeDailyViewsError {
     Status400(models::GetYouTubeDailyViews400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(models::GetAnalytics402Response),
     Status403(models::GetYouTubeDailyViews403Response),
     Status412(models::YouTubeScopeMissingResponse),
@@ -279,7 +279,7 @@ pub enum GetYouTubeDailyViewsError {
 #[serde(untagged)]
 pub enum GetYouTubeDemographicsError {
     Status400(models::GetYouTubeDailyViews400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(models::GetAnalytics402Response),
     Status403(models::GetYouTubeDailyViews403Response),
     Status404(models::GetInstagramAccountInsights404Response),
@@ -292,7 +292,7 @@ pub enum GetYouTubeDemographicsError {
 #[serde(untagged)]
 pub enum GetYouTubeVideoRetentionError {
     Status400(models::GetYouTubeDailyViews400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(models::GetAnalytics402Response),
     Status403(models::GetYouTubeDailyViews403Response),
     Status404(models::GetYouTubeVideoRetention404Response),

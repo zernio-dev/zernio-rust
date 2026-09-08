@@ -17,7 +17,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteInboxReviewReplyError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -26,7 +26,7 @@ pub enum DeleteInboxReviewReplyError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListInboxReviewsError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -35,7 +35,7 @@ pub enum ListInboxReviewsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ReplyToInboxReviewError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status409(),
     Status422(),

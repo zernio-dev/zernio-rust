@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum AddTrackingTagSharedAccountError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -31,7 +31,7 @@ pub enum AddTrackingTagSharedAccountError {
 #[serde(untagged)]
 pub enum CreateTrackingTagError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -44,7 +44,7 @@ pub enum CreateTrackingTagError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetAdTrackingTagsError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status405(),
     UnknownValue(serde_json::Value),
@@ -54,7 +54,7 @@ pub enum GetAdTrackingTagsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetTrackingTagError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -67,7 +67,7 @@ pub enum GetTrackingTagError {
 #[serde(untagged)]
 pub enum GetTrackingTagStatsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -79,7 +79,7 @@ pub enum GetTrackingTagStatsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListTrackingTagSharedAccountsError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -92,7 +92,7 @@ pub enum ListTrackingTagSharedAccountsError {
 #[serde(untagged)]
 pub enum ListTrackingTagsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -105,7 +105,7 @@ pub enum ListTrackingTagsError {
 #[serde(untagged)]
 pub enum RemoveTrackingTagSharedAccountError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -117,7 +117,7 @@ pub enum RemoveTrackingTagSharedAccountError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateAdTrackingTagsError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -131,7 +131,7 @@ pub enum UpdateAdTrackingTagsError {
 #[serde(untagged)]
 pub enum UpdateTrackingTagError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),

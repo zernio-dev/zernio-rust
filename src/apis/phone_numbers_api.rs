@@ -19,7 +19,7 @@ use tokio_util::codec::{BytesCodec, FramedRead};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CancelPhoneNumberPortInError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status409(),
     UnknownValue(serde_json::Value),
@@ -30,7 +30,7 @@ pub enum CancelPhoneNumberPortInError {
 #[serde(untagged)]
 pub enum CheckPhoneNumberAvailabilityError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status502(),
     UnknownValue(serde_json::Value),
 }
@@ -39,7 +39,7 @@ pub enum CheckPhoneNumberAvailabilityError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CheckPhoneNumberPortabilityError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -48,7 +48,7 @@ pub enum CheckPhoneNumberPortabilityError {
 #[serde(untagged)]
 pub enum CreatePhoneNumberKycLinkError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -57,7 +57,7 @@ pub enum CreatePhoneNumberKycLinkError {
 #[serde(untagged)]
 pub enum CreatePhoneNumberPortInError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status409(),
     Status422(),
     UnknownValue(serde_json::Value),
@@ -68,7 +68,7 @@ pub enum CreatePhoneNumberPortInError {
 #[serde(untagged)]
 pub enum CreatePhoneNumberStockWatchError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status409(),
     UnknownValue(serde_json::Value),
 }
@@ -78,7 +78,7 @@ pub enum CreatePhoneNumberStockWatchError {
 #[serde(untagged)]
 pub enum DeletePhoneNumberStockWatchError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -87,8 +87,8 @@ pub enum DeletePhoneNumberStockWatchError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetPhoneNumberError {
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -97,7 +97,7 @@ pub enum GetPhoneNumberError {
 #[serde(untagged)]
 pub enum GetPhoneNumberKycFormError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -106,7 +106,7 @@ pub enum GetPhoneNumberKycFormError {
 #[serde(untagged)]
 pub enum GetPhoneNumberPortInOrderRequirementsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -116,7 +116,7 @@ pub enum GetPhoneNumberPortInOrderRequirementsError {
 #[serde(untagged)]
 pub enum GetPhoneNumberPortInRequirementsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status422(),
     UnknownValue(serde_json::Value),
 }
@@ -126,7 +126,7 @@ pub enum GetPhoneNumberPortInRequirementsError {
 #[serde(untagged)]
 pub enum GetPhoneNumberRemediationError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -135,7 +135,7 @@ pub enum GetPhoneNumberRemediationError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListPhoneNumberCountriesError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -143,7 +143,7 @@ pub enum ListPhoneNumberCountriesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListPhoneNumberPortInsError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -151,7 +151,7 @@ pub enum ListPhoneNumberPortInsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListPhoneNumberStockWatchesError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -159,7 +159,7 @@ pub enum ListPhoneNumberStockWatchesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListPhoneNumbersError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -168,7 +168,7 @@ pub enum ListPhoneNumbersError {
 #[serde(untagged)]
 pub enum PurchasePhoneNumberError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status409(models::PurchasePhoneNumber409Response),
     Status402(),
@@ -181,8 +181,8 @@ pub enum PurchasePhoneNumberError {
 #[serde(untagged)]
 pub enum ReleasePhoneNumberError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status409(),
     UnknownValue(serde_json::Value),
 }
@@ -192,7 +192,7 @@ pub enum ReleasePhoneNumberError {
 #[serde(untagged)]
 pub enum RemediatePhoneNumberError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -202,7 +202,7 @@ pub enum RemediatePhoneNumberError {
 #[serde(untagged)]
 pub enum ReplyToPhoneNumberReviewerError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -213,7 +213,7 @@ pub enum ReplyToPhoneNumberReviewerError {
 #[serde(untagged)]
 pub enum RespondToPhoneNumberReviewerError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status409(),
     Status502(),
@@ -224,7 +224,7 @@ pub enum RespondToPhoneNumberReviewerError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ReviewPhoneNumberKycPacketError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -233,7 +233,7 @@ pub enum ReviewPhoneNumberKycPacketError {
 #[serde(untagged)]
 pub enum SearchAvailablePhoneNumbersError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -243,7 +243,7 @@ pub enum SearchAvailablePhoneNumbersError {
 pub enum SubmitPhoneNumberKycError {
     Status400(),
     Status409(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -252,7 +252,7 @@ pub enum SubmitPhoneNumberKycError {
 #[serde(untagged)]
 pub enum UploadPhoneNumberKycDocumentError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -261,7 +261,7 @@ pub enum UploadPhoneNumberKycDocumentError {
 #[serde(untagged)]
 pub enum UploadPhoneNumberPortInDocumentError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -270,7 +270,7 @@ pub enum UploadPhoneNumberPortInDocumentError {
 #[serde(untagged)]
 pub enum ValidatePhoneNumberKycAddressError {
     Status400(models::ValidatePhoneNumberKycAddress400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -279,7 +279,7 @@ pub enum ValidatePhoneNumberKycAddressError {
 #[serde(untagged)]
 pub enum ViewPhoneNumberKycDocumentError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }

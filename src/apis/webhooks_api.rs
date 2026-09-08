@@ -18,8 +18,8 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum CreateWebhookSettingsError {
     Status400(),
-    Status401(models::InlineObject),
-    Status403(models::InlineObject2),
+    Status401(models::InlineObject1),
+    Status403(models::InlineObject3),
     UnknownValue(serde_json::Value),
 }
 
@@ -28,8 +28,8 @@ pub enum CreateWebhookSettingsError {
 #[serde(untagged)]
 pub enum DeleteWebhookSettingsError {
     Status400(),
-    Status401(models::InlineObject),
-    Status403(models::InlineObject2),
+    Status401(models::InlineObject1),
+    Status403(models::InlineObject3),
     UnknownValue(serde_json::Value),
 }
 
@@ -38,8 +38,8 @@ pub enum DeleteWebhookSettingsError {
 #[serde(untagged)]
 pub enum GetWebhookLogsError {
     Status400(),
-    Status401(models::InlineObject),
-    Status403(models::InlineObject2),
+    Status401(models::InlineObject1),
+    Status403(models::InlineObject3),
     UnknownValue(serde_json::Value),
 }
 
@@ -47,8 +47,8 @@ pub enum GetWebhookLogsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetWebhookSettingsError {
-    Status401(models::InlineObject),
-    Status403(models::InlineObject2),
+    Status401(models::InlineObject1),
+    Status403(models::InlineObject3),
     UnknownValue(serde_json::Value),
 }
 
@@ -57,8 +57,8 @@ pub enum GetWebhookSettingsError {
 #[serde(untagged)]
 pub enum RedeliverWebhookEventError {
     Status400(),
-    Status401(models::InlineObject),
-    Status403(models::InlineObject2),
+    Status401(models::InlineObject1),
+    Status403(models::InlineObject3),
     Status404(),
     Status422(),
     Status502(models::UnpublishPost200Response),
@@ -70,8 +70,8 @@ pub enum RedeliverWebhookEventError {
 #[serde(untagged)]
 pub enum TestWebhookError {
     Status400(),
-    Status401(models::InlineObject),
-    Status403(models::InlineObject2),
+    Status401(models::InlineObject1),
+    Status403(models::InlineObject3),
     Status404(),
     Status500(models::UnpublishPost200Response),
     UnknownValue(serde_json::Value),
@@ -82,8 +82,8 @@ pub enum TestWebhookError {
 #[serde(untagged)]
 pub enum UpdateWebhookSettingsError {
     Status400(),
-    Status401(models::InlineObject),
-    Status403(models::InlineObject2),
+    Status401(models::InlineObject1),
+    Status403(models::InlineObject3),
     Status404(),
     UnknownValue(serde_json::Value),
 }

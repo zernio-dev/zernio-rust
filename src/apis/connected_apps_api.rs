@@ -17,8 +17,8 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListConnectedAppsError {
-    Status401(models::InlineObject),
-    Status403(models::InlineObject2),
+    Status401(models::InlineObject1),
+    Status403(models::InlineObject3),
     UnknownValue(serde_json::Value),
 }
 
@@ -27,8 +27,8 @@ pub enum ListConnectedAppsError {
 #[serde(untagged)]
 pub enum RevokeConnectedAppError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
-    Status403(models::InlineObject2),
+    Status401(models::InlineObject1),
+    Status403(models::InlineObject3),
     Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }

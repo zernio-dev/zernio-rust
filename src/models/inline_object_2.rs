@@ -15,63 +15,10 @@ use serde::{Deserialize, Serialize};
 pub struct InlineObject2 {
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
     pub error: Option<String>,
-    #[serde(rename = "code", skip_serializing_if = "Option::is_none")]
-    pub code: Option<Code>,
-    /// The resource group the key needs for this operation. Absent on admin-plane and unclassified-path denials.
-    #[serde(rename = "required_group", skip_serializing_if = "Option::is_none")]
-    pub required_group: Option<RequiredGroup>,
 }
 
 impl InlineObject2 {
     pub fn new() -> InlineObject2 {
-        InlineObject2 {
-            error: None,
-            code: None,
-            required_group: None,
-        }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Code {
-    #[serde(rename = "insufficient_permissions")]
-    InsufficientPermissions,
-    #[serde(rename = "unclassified_resource")]
-    UnclassifiedResource,
-}
-
-impl Default for Code {
-    fn default() -> Code {
-        Self::InsufficientPermissions
-    }
-}
-/// The resource group the key needs for this operation. Absent on admin-plane and unclassified-path denials.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum RequiredGroup {
-    #[serde(rename = "publishing")]
-    Publishing,
-    #[serde(rename = "engagement")]
-    Engagement,
-    #[serde(rename = "messages")]
-    Messages,
-    #[serde(rename = "contacts")]
-    Contacts,
-    #[serde(rename = "analytics")]
-    Analytics,
-    #[serde(rename = "ads")]
-    Ads,
-    #[serde(rename = "telephony")]
-    Telephony,
-    #[serde(rename = "accounts")]
-    Accounts,
-    #[serde(rename = "billing")]
-    Billing,
-    #[serde(rename = "webhooks")]
-    Webhooks,
-}
-
-impl Default for RequiredGroup {
-    fn default() -> RequiredGroup {
-        Self::Publishing
+        InlineObject2 { error: None }
     }
 }

@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum BulkCreateContactsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -27,7 +27,7 @@ pub enum BulkCreateContactsError {
 #[serde(untagged)]
 pub enum CreateContactError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status409(),
     UnknownValue(serde_json::Value),
 }
@@ -37,8 +37,8 @@ pub enum CreateContactError {
 #[serde(untagged)]
 pub enum DeleteContactError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -47,8 +47,8 @@ pub enum DeleteContactError {
 #[serde(untagged)]
 pub enum GetContactError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -57,8 +57,8 @@ pub enum GetContactError {
 #[serde(untagged)]
 pub enum GetContactChannelsError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -67,7 +67,7 @@ pub enum GetContactChannelsError {
 #[serde(untagged)]
 pub enum ListContactsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -76,8 +76,8 @@ pub enum ListContactsError {
 #[serde(untagged)]
 pub enum UpdateContactError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 

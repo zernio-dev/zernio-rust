@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum BookmarkPostError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -29,7 +29,7 @@ pub enum BookmarkPostError {
 #[serde(untagged)]
 pub enum FollowUserError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -40,7 +40,7 @@ pub enum FollowUserError {
 #[serde(untagged)]
 pub enum GetTweetError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(),
     Status403(),
     Status404(),
@@ -53,7 +53,7 @@ pub enum GetTweetError {
 #[serde(untagged)]
 pub enum RemoveBookmarkError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -64,7 +64,7 @@ pub enum RemoveBookmarkError {
 #[serde(untagged)]
 pub enum RetweetPostError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -75,7 +75,7 @@ pub enum RetweetPostError {
 #[serde(untagged)]
 pub enum SearchTweetsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status402(),
     Status403(),
     Status404(),
@@ -88,7 +88,7 @@ pub enum SearchTweetsError {
 #[serde(untagged)]
 pub enum UndoRetweetError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -99,7 +99,7 @@ pub enum UndoRetweetError {
 #[serde(untagged)]
 pub enum UnfollowUserError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),

@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum CreateAdCreativeError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status422(),
     Status501(),
     Status502(),
@@ -30,7 +30,7 @@ pub enum CreateAdCreativeError {
 #[serde(untagged)]
 pub enum DeleteAdCreativeError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -40,7 +40,7 @@ pub enum DeleteAdCreativeError {
 #[serde(untagged)]
 pub enum DeleteAdVideoError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -50,7 +50,7 @@ pub enum DeleteAdVideoError {
 #[serde(untagged)]
 pub enum GenerateAdPreviewsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -61,7 +61,7 @@ pub enum GenerateAdPreviewsError {
 #[serde(untagged)]
 pub enum GetAdCreativeError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -71,7 +71,7 @@ pub enum GetAdCreativeError {
 #[serde(untagged)]
 pub enum GetAdMediaError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status422(),
     Status501(),
@@ -83,7 +83,7 @@ pub enum GetAdMediaError {
 #[serde(untagged)]
 pub enum GetAdPreviewsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status429(),
     Status501(),
@@ -95,7 +95,7 @@ pub enum GetAdPreviewsError {
 #[serde(untagged)]
 pub enum ListAdCatalogProductSetsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -105,7 +105,7 @@ pub enum ListAdCatalogProductSetsError {
 #[serde(untagged)]
 pub enum ListAdCatalogsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -115,7 +115,7 @@ pub enum ListAdCatalogsError {
 #[serde(untagged)]
 pub enum ListAdCreativesError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -125,7 +125,7 @@ pub enum ListAdCreativesError {
 #[serde(untagged)]
 pub enum ListAdImagesError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -135,7 +135,7 @@ pub enum ListAdImagesError {
 #[serde(untagged)]
 pub enum ListAdVideosError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -145,7 +145,7 @@ pub enum ListAdVideosError {
 #[serde(untagged)]
 pub enum UpdateAdCreativeError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -155,7 +155,7 @@ pub enum UpdateAdCreativeError {
 #[serde(untagged)]
 pub enum UploadAdImageError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -166,7 +166,7 @@ pub enum UploadAdImageError {
 #[serde(untagged)]
 pub enum UploadAdVideoError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     Status502(),
     UnknownValue(serde_json::Value),

@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum CreateCallAdError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status422(),
@@ -31,7 +31,7 @@ pub enum CreateCallAdError {
 #[serde(untagged)]
 pub enum CreateCtwaAdError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status422(),
@@ -44,7 +44,7 @@ pub enum CreateCtwaAdError {
 #[serde(untagged)]
 pub enum CreateMessagingAdError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status422(),

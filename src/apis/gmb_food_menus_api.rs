@@ -20,7 +20,7 @@ pub enum GetGoogleBusinessFoodMenusError {
     Status400(models::ErrorResponse),
     Status401(models::ErrorResponse),
     Status403(models::ErrorResponse),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -32,7 +32,7 @@ pub enum UpdateGoogleBusinessFoodMenusError {
     Status400(models::ErrorResponse),
     Status401(models::ErrorResponse),
     Status403(models::ErrorResponse),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }

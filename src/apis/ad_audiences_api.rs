@@ -18,9 +18,9 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum AddUsersToAdAudienceError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status422(),
     UnknownValue(serde_json::Value),
 }
@@ -30,7 +30,7 @@ pub enum AddUsersToAdAudienceError {
 #[serde(untagged)]
 pub enum CreateAdAudienceError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -39,9 +39,9 @@ pub enum CreateAdAudienceError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteAdAudienceError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -49,9 +49,9 @@ pub enum DeleteAdAudienceError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetAdAudienceError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -59,7 +59,7 @@ pub enum GetAdAudienceError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdAudiencesError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -69,9 +69,9 @@ pub enum ListAdAudiencesError {
 #[serde(untagged)]
 pub enum ReplaceAdAudienceCompaniesError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status422(),
     UnknownValue(serde_json::Value),
 }
@@ -81,9 +81,9 @@ pub enum ReplaceAdAudienceCompaniesError {
 #[serde(untagged)]
 pub enum UpdateAdAudienceError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status422(),
     Status501(),
     UnknownValue(serde_json::Value),

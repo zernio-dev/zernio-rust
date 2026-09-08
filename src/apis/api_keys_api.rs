@@ -18,8 +18,8 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum CreateApiKeyError {
     Status400(),
-    Status401(models::InlineObject),
-    Status403(models::InlineObject2),
+    Status401(models::InlineObject1),
+    Status403(models::InlineObject3),
     UnknownValue(serde_json::Value),
 }
 
@@ -27,9 +27,9 @@ pub enum CreateApiKeyError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteApiKeyError {
-    Status401(models::InlineObject),
-    Status403(models::InlineObject2),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status403(models::InlineObject3),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -37,8 +37,8 @@ pub enum DeleteApiKeyError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListApiKeysError {
-    Status401(models::InlineObject),
-    Status403(models::InlineObject2),
+    Status401(models::InlineObject1),
+    Status403(models::InlineObject3),
     UnknownValue(serde_json::Value),
 }
 
@@ -46,7 +46,7 @@ pub enum ListApiKeysError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum VerifyCredentialError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 

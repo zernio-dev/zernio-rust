@@ -19,7 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 pub enum GetGoogleBusinessLocationDetailsError {
     Status400(models::ErrorResponse),
     Status401(models::ErrorResponse),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -29,7 +29,7 @@ pub enum GetGoogleBusinessLocationDetailsError {
 pub enum UpdateGoogleBusinessLocationDetailsError {
     Status400(models::ErrorResponse),
     Status401(models::ErrorResponse),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 

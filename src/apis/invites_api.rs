@@ -18,8 +18,8 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum CreateInviteTokenError {
     Status400(),
-    Status401(models::InlineObject),
-    Status403(models::InlineObject2),
+    Status401(models::InlineObject1),
+    Status403(models::InlineObject3),
     UnknownValue(serde_json::Value),
 }
 

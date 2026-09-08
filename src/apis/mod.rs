@@ -127,6 +127,7 @@ pub mod analytics_api;
 pub mod api_keys_api;
 pub mod blogs_api;
 pub mod broadcasts_api;
+pub mod business_agent_api;
 pub mod calls_api;
 pub mod comment_automations_api;
 pub mod comments_api;

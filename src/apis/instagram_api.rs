@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum GetInstagramAudioError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -29,7 +29,7 @@ pub enum GetInstagramAudioError {
 #[serde(untagged)]
 pub enum GetInstagramPublishingLimitError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -40,7 +40,7 @@ pub enum GetInstagramPublishingLimitError {
 #[serde(untagged)]
 pub enum GetInstagramStoryInsightsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -51,7 +51,7 @@ pub enum GetInstagramStoryInsightsError {
 #[serde(untagged)]
 pub enum ListInstagramStoriesError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -61,7 +61,7 @@ pub enum ListInstagramStoriesError {
 #[serde(untagged)]
 pub enum SearchInstagramAudioError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),

@@ -17,8 +17,8 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ClearContactFieldValueError {
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -27,7 +27,7 @@ pub enum ClearContactFieldValueError {
 #[serde(untagged)]
 pub enum CreateCustomFieldError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status409(),
     UnknownValue(serde_json::Value),
 }
@@ -37,8 +37,8 @@ pub enum CreateCustomFieldError {
 #[serde(untagged)]
 pub enum DeleteCustomFieldError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -47,7 +47,7 @@ pub enum DeleteCustomFieldError {
 #[serde(untagged)]
 pub enum ListCustomFieldsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -55,8 +55,8 @@ pub enum ListCustomFieldsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SetContactFieldValueError {
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -65,8 +65,8 @@ pub enum SetContactFieldValueError {
 #[serde(untagged)]
 pub enum UpdateCustomFieldError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 

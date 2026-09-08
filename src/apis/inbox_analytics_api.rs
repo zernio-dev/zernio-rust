@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum GetInboxConversationAnalyticsError {
     Status400(models::GetInboxVolume400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(models::GetInboxConversationAnalytics404Response),
     Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
@@ -29,7 +29,7 @@ pub enum GetInboxConversationAnalyticsError {
 #[serde(untagged)]
 pub enum GetInboxHeatmapError {
     Status400(models::GetInboxVolume400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -39,7 +39,7 @@ pub enum GetInboxHeatmapError {
 #[serde(untagged)]
 pub enum GetInboxResponseTimeError {
     Status400(models::GetInboxVolume400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -49,7 +49,7 @@ pub enum GetInboxResponseTimeError {
 #[serde(untagged)]
 pub enum GetInboxSourceBreakdownError {
     Status400(models::GetInboxVolume400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -59,7 +59,7 @@ pub enum GetInboxSourceBreakdownError {
 #[serde(untagged)]
 pub enum GetInboxTopAccountsError {
     Status400(models::GetInboxVolume400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -69,7 +69,7 @@ pub enum GetInboxTopAccountsError {
 #[serde(untagged)]
 pub enum GetInboxVolumeError {
     Status400(models::GetInboxVolume400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -79,7 +79,7 @@ pub enum GetInboxVolumeError {
 #[serde(untagged)]
 pub enum ListInboxConversationAnalyticsError {
     Status400(models::GetInboxVolume400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }

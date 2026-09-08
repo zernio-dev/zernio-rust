@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum CreateAccountGroupError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status409(),
     UnknownValue(serde_json::Value),
 }
@@ -28,8 +28,8 @@ pub enum CreateAccountGroupError {
 #[serde(untagged)]
 pub enum DeleteAccountGroupError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -37,7 +37,7 @@ pub enum DeleteAccountGroupError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAccountGroupsError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -46,8 +46,8 @@ pub enum ListAccountGroupsError {
 #[serde(untagged)]
 pub enum UpdateAccountGroupError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status409(),
     UnknownValue(serde_json::Value),
 }

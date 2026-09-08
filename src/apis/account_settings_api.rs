@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum DeleteInstagramIceBreakersError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -27,7 +27,7 @@ pub enum DeleteInstagramIceBreakersError {
 #[serde(untagged)]
 pub enum DeleteMessengerMenuError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -36,7 +36,7 @@ pub enum DeleteMessengerMenuError {
 #[serde(untagged)]
 pub enum DeleteTelegramCommandsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -45,7 +45,7 @@ pub enum DeleteTelegramCommandsError {
 #[serde(untagged)]
 pub enum GetInstagramIceBreakersError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -54,7 +54,7 @@ pub enum GetInstagramIceBreakersError {
 #[serde(untagged)]
 pub enum GetMessengerMenuError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -63,7 +63,7 @@ pub enum GetMessengerMenuError {
 #[serde(untagged)]
 pub enum GetTelegramCommandsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -72,7 +72,7 @@ pub enum GetTelegramCommandsError {
 #[serde(untagged)]
 pub enum SetInstagramIceBreakersError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -81,7 +81,7 @@ pub enum SetInstagramIceBreakersError {
 #[serde(untagged)]
 pub enum SetMessengerMenuError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -90,7 +90,7 @@ pub enum SetMessengerMenuError {
 #[serde(untagged)]
 pub enum SetTelegramCommandsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 

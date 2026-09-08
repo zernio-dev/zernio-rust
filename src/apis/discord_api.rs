@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum AddDiscordMemberRoleError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status403(),
     Status502(),
@@ -30,7 +30,7 @@ pub enum AddDiscordMemberRoleError {
 #[serde(untagged)]
 pub enum CreateDiscordGuildRoleError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status403(),
     Status502(),
@@ -42,7 +42,7 @@ pub enum CreateDiscordGuildRoleError {
 #[serde(untagged)]
 pub enum CreateDiscordScheduledEventError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -53,7 +53,7 @@ pub enum CreateDiscordScheduledEventError {
 #[serde(untagged)]
 pub enum CreateDiscordThreadError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status403(),
     Status502(),
@@ -65,7 +65,7 @@ pub enum CreateDiscordThreadError {
 #[serde(untagged)]
 pub enum CrosspostDiscordMessageError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status403(),
     Status502(),
@@ -77,7 +77,7 @@ pub enum CrosspostDiscordMessageError {
 #[serde(untagged)]
 pub enum DeleteDiscordGuildRoleError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status403(),
     Status502(),
@@ -89,7 +89,7 @@ pub enum DeleteDiscordGuildRoleError {
 #[serde(untagged)]
 pub enum DeleteDiscordMessageError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status403(),
     Status502(),
@@ -100,7 +100,7 @@ pub enum DeleteDiscordMessageError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteDiscordScheduledEventError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -111,7 +111,7 @@ pub enum DeleteDiscordScheduledEventError {
 #[serde(untagged)]
 pub enum EditDiscordGuildRoleError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status403(),
     Status502(),
@@ -123,7 +123,7 @@ pub enum EditDiscordGuildRoleError {
 #[serde(untagged)]
 pub enum GetDiscordChannelsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -133,7 +133,7 @@ pub enum GetDiscordChannelsError {
 #[serde(untagged)]
 pub enum GetDiscordGuildMemberError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -142,7 +142,7 @@ pub enum GetDiscordGuildMemberError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetDiscordScheduledEventError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -152,7 +152,7 @@ pub enum GetDiscordScheduledEventError {
 #[serde(untagged)]
 pub enum GetDiscordSettingsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -162,7 +162,7 @@ pub enum GetDiscordSettingsError {
 #[serde(untagged)]
 pub enum ListDiscordGuildMembersError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -173,7 +173,7 @@ pub enum ListDiscordGuildMembersError {
 #[serde(untagged)]
 pub enum ListDiscordGuildRolesError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status403(),
     Status502(),
@@ -185,7 +185,7 @@ pub enum ListDiscordGuildRolesError {
 #[serde(untagged)]
 pub enum ListDiscordPinnedMessagesError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -196,7 +196,7 @@ pub enum ListDiscordPinnedMessagesError {
 #[serde(untagged)]
 pub enum ListDiscordScheduledEventsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -207,7 +207,7 @@ pub enum ListDiscordScheduledEventsError {
 #[serde(untagged)]
 pub enum PinDiscordMessageError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -218,7 +218,7 @@ pub enum PinDiscordMessageError {
 #[serde(untagged)]
 pub enum RemoveDiscordMemberRoleError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status403(),
     Status502(),
@@ -230,7 +230,7 @@ pub enum RemoveDiscordMemberRoleError {
 #[serde(untagged)]
 pub enum SearchDiscordGuildMembersError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -240,7 +240,7 @@ pub enum SearchDiscordGuildMembersError {
 #[serde(untagged)]
 pub enum SendDiscordDirectMessageError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status403(),
     Status502(),
@@ -252,7 +252,7 @@ pub enum SendDiscordDirectMessageError {
 #[serde(untagged)]
 pub enum UnpinDiscordMessageError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -263,7 +263,7 @@ pub enum UnpinDiscordMessageError {
 #[serde(untagged)]
 pub enum UpdateDiscordScheduledEventError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status502(),
@@ -275,7 +275,7 @@ pub enum UpdateDiscordScheduledEventError {
 #[serde(untagged)]
 pub enum UpdateDiscordSettingsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }

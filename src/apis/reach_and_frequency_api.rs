@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum CancelRfReservationError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -28,7 +28,7 @@ pub enum CancelRfReservationError {
 #[serde(untagged)]
 pub enum CreateRfPredictionError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status422(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -39,7 +39,7 @@ pub enum CreateRfPredictionError {
 #[serde(untagged)]
 pub enum GetRfPredictionError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -49,7 +49,7 @@ pub enum GetRfPredictionError {
 #[serde(untagged)]
 pub enum ReserveRfPredictionError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status501(),
     UnknownValue(serde_json::Value),
 }

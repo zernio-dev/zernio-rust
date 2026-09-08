@@ -17,8 +17,8 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteAccountError {
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -27,8 +27,8 @@ pub enum DeleteAccountError {
 #[serde(untagged)]
 pub enum GetAccountHealthError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -37,9 +37,9 @@ pub enum GetAccountHealthError {
 #[serde(untagged)]
 pub enum GetAccountPostsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -48,7 +48,7 @@ pub enum GetAccountPostsError {
 #[serde(untagged)]
 pub enum GetAllAccountsHealthError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -57,7 +57,7 @@ pub enum GetAllAccountsHealthError {
 #[serde(untagged)]
 pub enum GetBlueskySettingsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -66,7 +66,7 @@ pub enum GetBlueskySettingsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetFollowerStatsError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(models::GetFollowerStats403Response),
     UnknownValue(serde_json::Value),
 }
@@ -76,8 +76,8 @@ pub enum GetFollowerStatsError {
 #[serde(untagged)]
 pub enum GetInstagramFollowStatusError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -86,7 +86,7 @@ pub enum GetInstagramFollowStatusError {
 #[serde(untagged)]
 pub enum GetSlackSettingsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -96,8 +96,8 @@ pub enum GetSlackSettingsError {
 #[serde(untagged)]
 pub enum GetTikTokCreatorInfoError {
     Status400(models::GetYouTubeDailyViews400Response),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status429(models::GetYouTubeDailyViews400Response),
     UnknownValue(serde_json::Value),
 }
@@ -107,7 +107,7 @@ pub enum GetTikTokCreatorInfoError {
 #[serde(untagged)]
 pub enum ListAccountsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),
 }
 
@@ -116,7 +116,7 @@ pub enum ListAccountsError {
 #[serde(untagged)]
 pub enum MoveAccountToProfileError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -127,8 +127,8 @@ pub enum MoveAccountToProfileError {
 #[serde(untagged)]
 pub enum UpdateAccountError {
     Status400(),
-    Status401(models::InlineObject),
-    Status404(models::InlineObject1),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     UnknownValue(serde_json::Value),
 }
 
@@ -137,7 +137,7 @@ pub enum UpdateAccountError {
 #[serde(untagged)]
 pub enum UpdateBlueskySettingsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -147,7 +147,7 @@ pub enum UpdateBlueskySettingsError {
 #[serde(untagged)]
 pub enum UpdateSlackSettingsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status404(),
     UnknownValue(serde_json::Value),
 }

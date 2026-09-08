@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum AddConversionAssociationsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -31,7 +31,7 @@ pub enum AddConversionAssociationsError {
 #[serde(untagged)]
 pub enum AdjustConversionsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -43,9 +43,9 @@ pub enum AdjustConversionsError {
 #[serde(untagged)]
 pub enum CreateConversionActionError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -55,7 +55,7 @@ pub enum CreateConversionActionError {
 #[serde(untagged)]
 pub enum CreateConversionDestinationError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -69,7 +69,7 @@ pub enum CreateConversionDestinationError {
 #[serde(untagged)]
 pub enum DeleteConversionDestinationError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -82,7 +82,7 @@ pub enum DeleteConversionDestinationError {
 #[serde(untagged)]
 pub enum GetConversionDestinationError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -95,7 +95,7 @@ pub enum GetConversionDestinationError {
 #[serde(untagged)]
 pub enum GetConversionMetricsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -108,7 +108,7 @@ pub enum GetConversionMetricsError {
 #[serde(untagged)]
 pub enum GetConversionsQualityError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status405(),
     UnknownValue(serde_json::Value),
 }
@@ -118,9 +118,9 @@ pub enum GetConversionsQualityError {
 #[serde(untagged)]
 pub enum ListConversionActionsError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -130,7 +130,7 @@ pub enum ListConversionActionsError {
 #[serde(untagged)]
 pub enum ListConversionAssociationsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -143,7 +143,7 @@ pub enum ListConversionAssociationsError {
 #[serde(untagged)]
 pub enum ListConversionDestinationsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status429(),
@@ -155,7 +155,7 @@ pub enum ListConversionDestinationsError {
 #[serde(untagged)]
 pub enum RemoveConversionAssociationsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),
@@ -168,7 +168,7 @@ pub enum RemoveConversionAssociationsError {
 #[serde(untagged)]
 pub enum SendConversionsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status422(),
@@ -181,7 +181,7 @@ pub enum SendConversionsError {
 #[serde(untagged)]
 pub enum UpdateConversionDestinationError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status405(),

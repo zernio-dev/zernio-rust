@@ -18,7 +18,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum DeleteInboxCommentError {
     Status400(models::GetYouTubeDailyViews400Response),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status429(models::ErrorResponse),
     Status502(),
@@ -30,7 +30,7 @@ pub enum DeleteInboxCommentError {
 #[serde(untagged)]
 pub enum EditInboxCommentError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status502(),
@@ -42,7 +42,7 @@ pub enum EditInboxCommentError {
 #[serde(untagged)]
 pub enum GetInboxPostCommentsError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status429(models::ErrorResponse),
     Status502(),
@@ -54,7 +54,7 @@ pub enum GetInboxPostCommentsError {
 #[serde(untagged)]
 pub enum HideInboxCommentError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -64,7 +64,7 @@ pub enum HideInboxCommentError {
 #[serde(untagged)]
 pub enum LikeInboxCommentError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -74,7 +74,7 @@ pub enum LikeInboxCommentError {
 #[serde(untagged)]
 pub enum LikePostError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -84,7 +84,7 @@ pub enum LikePostError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListInboxCommentsError {
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -94,7 +94,7 @@ pub enum ListInboxCommentsError {
 #[serde(untagged)]
 pub enum ReplyToInboxPostError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status409(),
     Status422(),
@@ -108,7 +108,7 @@ pub enum ReplyToInboxPostError {
 #[serde(untagged)]
 pub enum SendPrivateReplyToCommentError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
@@ -119,7 +119,7 @@ pub enum SendPrivateReplyToCommentError {
 #[serde(untagged)]
 pub enum SetCommentModerationError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     Status502(),
@@ -131,7 +131,7 @@ pub enum SetCommentModerationError {
 #[serde(untagged)]
 pub enum UnhideInboxCommentError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -141,7 +141,7 @@ pub enum UnhideInboxCommentError {
 #[serde(untagged)]
 pub enum UnlikeInboxCommentError {
     Status400(),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
 }
@@ -151,7 +151,7 @@ pub enum UnlikeInboxCommentError {
 #[serde(untagged)]
 pub enum UnlikePostError {
     Status400(models::ErrorResponse),
-    Status401(models::InlineObject),
+    Status401(models::InlineObject1),
     Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
