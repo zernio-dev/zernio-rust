@@ -15,6 +15,9 @@ use serde::{Deserialize, Serialize};
 pub struct SendInboxMessage200Response {
     #[serde(rename = "success", skip_serializing_if = "Option::is_none")]
     pub success: Option<bool>,
+    /// Present when a successful send ignored replyTo on Instagram or Facebook Messenger. The message was sent without a quote; do not retry it to apply the reply.
+    #[serde(rename = "warnings", skip_serializing_if = "Option::is_none")]
+    pub warnings: Option<Vec<models::SendInboxMessage200ResponseWarningsInner>>,
     #[serde(rename = "data", skip_serializing_if = "Option::is_none")]
     pub data: Option<Box<models::SendInboxMessage200ResponseData>>,
 }
@@ -23,6 +26,7 @@ impl SendInboxMessage200Response {
     pub fn new() -> SendInboxMessage200Response {
         SendInboxMessage200Response {
             success: None,
+            warnings: None,
             data: None,
         }
     }

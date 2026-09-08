@@ -1379,6 +1379,7 @@ docs/SendInboxMessage200ResponseData.md
 docs/SendInboxMessage200ResponseDataAttachmentsInner.md
 docs/SendInboxMessage200ResponseDataPartialFailure.md
 docs/SendInboxMessage200ResponseDataPartialFailurePlatformError.md
+docs/SendInboxMessage200ResponseWarningsInner.md
 docs/SendInboxMessage400Response.md
 docs/SendInboxMessage400ResponsePlatformError.md
 docs/SendInboxMessageRequest.md
@@ -3310,6 +3311,7 @@ src/models/send_inbox_message_200_response_data.rs
 src/models/send_inbox_message_200_response_data_attachments_inner.rs
 src/models/send_inbox_message_200_response_data_partial_failure.rs
 src/models/send_inbox_message_200_response_data_partial_failure_platform_error.rs
+src/models/send_inbox_message_200_response_warnings_inner.rs
 src/models/send_inbox_message_400_response.rs
 src/models/send_inbox_message_400_response_platform_error.rs
 src/models/send_inbox_message_request.rs
