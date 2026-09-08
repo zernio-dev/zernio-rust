@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **category** | Option<**String**> |  | [optional]
 **language** | Option<**String**> | The variant actually returned. | [optional]
 **components** | Option<**Vec<serde_json::Value>**> |  | [optional]
+**message_send_ttl_seconds** | Option<**i32**> | Only when a custom TTL is set; absent while the category default applies. | [optional]
 **rejected_reason** | Option<**String**> | Only when status is REJECTED. | [optional]
 **quality_score** | Option<**serde_json::Value**> | Post-approval quality (GREEN/YELLOW/RED), when Meta reports one. | [optional]
 

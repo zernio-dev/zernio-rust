@@ -24,6 +24,12 @@ pub struct CreateWhatsAppTemplate200ResponseTemplate {
     pub category: Option<String>,
     #[serde(rename = "language", skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
+    /// Echoed when supplied on the request.
+    #[serde(
+        rename = "message_send_ttl_seconds",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub message_send_ttl_seconds: Option<i32>,
 }
 
 impl CreateWhatsAppTemplate200ResponseTemplate {
@@ -34,6 +40,7 @@ impl CreateWhatsAppTemplate200ResponseTemplate {
             status: None,
             category: None,
             language: None,
+            message_send_ttl_seconds: None,
         }
     }
 }

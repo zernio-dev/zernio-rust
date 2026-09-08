@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **status** | Option<**String**> | APPROVED for library templates, PENDING for custom | [optional]
 **category** | Option<**String**> |  | [optional]
 **language** | Option<**String**> |  | [optional]
+**message_send_ttl_seconds** | Option<**i32**> | Echoed when supplied on the request. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

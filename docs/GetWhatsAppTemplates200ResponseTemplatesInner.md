@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **status** | Option<**Status**> |  (enum: APPROVED, PENDING, REJECTED) | [optional]
 **category** | Option<**Category**> |  (enum: AUTHENTICATION, MARKETING, UTILITY) | [optional]
 **language** | Option<**String**> |  | [optional]
+**message_send_ttl_seconds** | Option<**i32**> | Only when a custom TTL is set; absent while the category default applies. | [optional]
 **components** | Option<**Vec<serde_json::Value>**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

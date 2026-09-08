@@ -27,6 +27,12 @@ pub struct GetWhatsAppTemplate200ResponseTemplate {
     pub language: Option<String>,
     #[serde(rename = "components", skip_serializing_if = "Option::is_none")]
     pub components: Option<Vec<serde_json::Value>>,
+    /// Only when a custom TTL is set; absent while the category default applies.
+    #[serde(
+        rename = "message_send_ttl_seconds",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub message_send_ttl_seconds: Option<i32>,
     /// Only when status is REJECTED.
     #[serde(rename = "rejected_reason", skip_serializing_if = "Option::is_none")]
     pub rejected_reason: Option<String>,
@@ -44,6 +50,7 @@ impl GetWhatsAppTemplate200ResponseTemplate {
             category: None,
             language: None,
             components: None,
+            message_send_ttl_seconds: None,
             rejected_reason: None,
             quality_score: None,
         }
