@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateWhatsAppDisplayNameRequest {
-    /// WhatsApp social account ID
+    /// WhatsApp account ID
     #[serde(rename = "accountId")]
     pub account_id: String,
     /// New display name (must follow WhatsApp naming guidelines)

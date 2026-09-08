@@ -49,7 +49,7 @@ impl Default for Type {
         Self::CustomerList
     }
 }
-/// Required for engagement audiences (LinkedIn only): what members engaged with — a video/leadgen/single-image ad campaign, a Company Page or an Event page.
+/// Required for engagement audiences (LinkedIn only): what members engaged with: a video/leadgen/single-image ad campaign, a Company Page or an Event page.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum SourceType {
     #[serde(rename = "VIDEO_ADS")]

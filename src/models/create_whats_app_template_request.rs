@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateWhatsAppTemplateRequest {
-    /// WhatsApp social account ID
+    /// WhatsApp account ID
     #[serde(rename = "accountId")]
     pub account_id: String,
     /// Template name (lowercase, letters/numbers/underscores, must start with a letter)

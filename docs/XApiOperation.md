@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **operation** | Option<**String**> | Internal operation key. Matches keys in `xApiCallsByOperation`. | [optional]
-**event_type** | Option<**String**> | Metronome `event_type` emitted when this operation runs. | [optional]
-**display_name** | Option<**String**> | Human-readable label shown on Metronome invoices. | [optional]
+**event_type** | Option<**String**> | Metering `event_type` emitted when this operation runs. | [optional]
+**display_name** | Option<**String**> | Human-readable label shown on invoices. | [optional]
 **price_per_call_usd** | Option<**f64**> |  | [optional]
 **price_per_call_cents** | Option<**f64**> | Per-call price in cents. Fractional values are intentional. | [optional]
 **tier** | Option<**String**> | Tier key derived from `pricePerCallUsd` (e.g. `x_api_005` for $0.005, `x_api_200` for $0.200). Useful for grouping operations by price in dashboards.  | [optional]

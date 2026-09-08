@@ -84,7 +84,7 @@ pub enum ListInboxConversationAnalyticsError {
     UnknownValue(serde_json::Value),
 }
 
-/// Per-conversation inbox analytics. The inbox analog of /v1/analytics/post-timeline — one conversation, daily totals, source mix.  The {conversationId} path param accepts EITHER the Mongo `_id` of the Conversation document OR its `platformConversationId` (the same identity used by metadata.conversationId at ingest time). Ownership is verified in MongoDB against the caller's team before the Tinybird query fires.  Max date range is 365 days.
+/// Per-conversation inbox analytics. The inbox analog of /v1/analytics/post-timeline: one conversation, daily totals, source mix.  The {conversationId} path param accepts EITHER the Mongo `_id` of the Conversation document OR its `platformConversationId` (the same identity used by metadata.conversationId at ingest time). Ownership is verified in MongoDB against the caller's team before the Tinybird query fires.  Max date range is 365 days.
 pub async fn get_inbox_conversation_analytics(
     configuration: &configuration::Configuration,
     conversation_id: &str,
@@ -147,7 +147,7 @@ pub async fn get_inbox_conversation_analytics(
     }
 }
 
-/// Day-of-week × hour-of-day breakdown of inbox messages. Buckets are sparse — only cells with at least one event are returned; clients zero-fill the rest to render the full 7×24 grid. The `dow` field follows ClickHouse's `toDayOfWeek` convention (1 = Monday … 7 = Sunday). Max date range is 365 days.
+/// Day-of-week × hour-of-day breakdown of inbox messages. Buckets are sparse: only cells with at least one event are returned; clients zero-fill the rest to render the full 7×24 grid. The `dow` field follows ClickHouse's `toDayOfWeek` convention (1 = Monday … 7 = Sunday). Max date range is 365 days.
 pub async fn get_inbox_heatmap(
     configuration: &configuration::Configuration,
     from_date: String,
@@ -225,7 +225,7 @@ pub async fn get_inbox_heatmap(
     }
 }
 
-/// Time-to-first-response stats. Pairs each received message with the next sent message in the same conversation and reports the delta as both summary statistics and a fixed-bucket histogram suited for the analytics page's TTR chart.  `sampleSize` reflects only conversations that received AND got a reply in the window — received-but-never-answered conversations are excluded. Compare against /v1/analytics/inbox/volume's `summary.received` to compute reply rate.  Max date range is 365 days.
+/// Time-to-first-response stats. Pairs each received message with the next sent message in the same conversation and reports the delta as both summary statistics and a fixed-bucket histogram suited for the analytics page's TTR chart.  `sampleSize` reflects only conversations that received AND got a reply in the window. Received-but-never-answered conversations are excluded. Compare against /v1/analytics/inbox/volume's `summary.received` to compute reply rate.  Max date range is 365 days.
 pub async fn get_inbox_response_time(
     configuration: &configuration::Configuration,
     from_date: String,
@@ -367,7 +367,7 @@ pub async fn get_inbox_source_breakdown(
     }
 }
 
-/// Leaderboard of social accounts by inbox message volume. Decorates each row with display labels from the live SocialAccount record (so the UI shows username + displayName, not just an ID). Accounts that no longer map to a SocialAccount surface as \"(disconnected)\" so the row stays visible. Max date range is 365 days.
+/// Leaderboard of accounts by inbox message volume. Decorates each row with display labels from the live SocialAccount record (so the UI shows username + displayName, not only an ID). Accounts that no longer map to a SocialAccount surface as \"(disconnected)\" so the row stays visible. Max date range is 365 days.
 pub async fn get_inbox_top_accounts(
     configuration: &configuration::Configuration,
     from_date: String,
@@ -516,7 +516,7 @@ pub async fn get_inbox_volume(
     }
 }
 
-/// Per-conversation listing with per-row totals + first/last message timestamps. The inbox analog of GET /v1/analytics (posts listing) — same filter shape, same pagination, same sort/order semantics. Use as the entry point for the per-conversation analytics drawer at /v1/analytics/inbox/conversations/{conversationId}.  Rows are enriched with the conversation's participant info (`participantName`, `participantUsername`, `participantPicture`) and last-message preview by joining the Conversation document scoped to the caller's team. Max date range is 365 days.
+/// Per-conversation listing with per-row totals + first/last message timestamps. The inbox analog of GET /v1/analytics (posts listing): same filter shape, same pagination, same sort/order semantics. Use as the entry point for the per-conversation analytics drawer at /v1/analytics/inbox/conversations/{conversationId}.  Rows are enriched with the conversation's participant info (`participantName`, `participantUsername`, `participantPicture`) and last-message preview by joining the Conversation document scoped to the caller's team. Max date range is 365 days.
 pub async fn list_inbox_conversation_analytics(
     configuration: &configuration::Configuration,
     from_date: String,

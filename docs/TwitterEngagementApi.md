@@ -50,7 +50,7 @@ Name | Type | Description  | Required | Notes
 > models::FollowUser200Response follow_user(follow_user_request)
 Follow a user
 
-Follow a user on X/Twitter. Requires the follows.write OAuth scope. For protected accounts, a follow request is sent instead (pending_follow will be true). 
+Follow a user on X. Requires the follows.write OAuth scope. For protected accounts, a follow request is sent instead (pending_follow will be true). 
 
 ### Parameters
 
@@ -87,7 +87,7 @@ Resolve a single tweet by ID or URL into its text, author and public metrics.  U
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | The social account ID whose X token is used for the lookup | [required] |
+**account_id** | **String** | The account ID whose X token is used for the lookup | [required] |
 **id** | **String** | Numeric tweet ID or a tweet URL (e.g. https://x.com/user/status/123...) | [required] |
 
 ### Return type
@@ -172,14 +172,14 @@ Name | Type | Description  | Required | Notes
 > models::SearchTweets200Response search_tweets(account_id, query, limit, since_id, until_id, start_time, end_time, cursor, sort_order)
 Search recent tweets
 
-Search public tweets from the last 7 days matching an X search query, e.g. to discover tweets to reply to. The query string is passed through to X unchanged and supports X's search operators (`from:user`, `-is:retweet`, `is:reply`, `lang:en`, `\"exact phrase\"`, `conversation_id:123`, boolean `OR`, ...). Note that standalone operators like `is:` / `has:` / `lang:` must be combined with a keyword or `from:` clause.  To reply to a found tweet, pass its `id` as the twitter platform entry's `platformSpecificData.replyToTweetId` when creating a post.  Rate limit: 300 requests per 15-min window per connected account. 
+Search public tweets from the last 7 days matching an X search query, e.g. to discover tweets to reply to. The query string is passed through to X unchanged and supports X's search operators (`from:user`, `-is:retweet`, `is:reply`, `lang:en`, `\"exact phrase\"`, `conversation_id:123`, boolean `OR`, ...). Standalone operators like `is:` / `has:` / `lang:` must be combined with a keyword or `from:` clause.  To reply to a found tweet, pass its `id` as the twitter platform entry's `platformSpecificData.replyToTweetId` when creating a post.  Rate limit: 300 requests per 15-min window per connected account. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | The social account ID | [required] |
+**account_id** | **String** | The account ID | [required] |
 **query** | **String** | X search query, max 512 characters. Operators are passed through unchanged; X rejects malformed queries with a 400. | [required] |
 **limit** | Option<**i32**> | Results per page. X requires a minimum of 10; values below 10 are rejected. |  |[default to 10]
 **since_id** | Option<**String**> | Only return tweets with an ID greater than (more recent than) this numeric tweet ID. Non-numeric values are rejected with 400. |  |
@@ -241,7 +241,7 @@ Name | Type | Description  | Required | Notes
 > models::UnfollowUser200Response unfollow_user(account_id, target_user_id)
 Unfollow a user
 
-Unfollow a user on X/Twitter. 
+Unfollow a user on X. 
 
 ### Parameters
 
@@ -249,7 +249,7 @@ Unfollow a user on X/Twitter.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** |  | [required] |
-**target_user_id** | **String** | The Twitter ID of the user to unfollow | [required] |
+**target_user_id** | **String** | The X ID of the user to unfollow | [required] |
 
 ### Return type
 

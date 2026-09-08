@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SetWhatsAppFlowsEncryptionKeyRequest {
-    /// WhatsApp social account ID
+    /// WhatsApp account ID
     #[serde(rename = "accountId")]
     pub account_id: String,
     /// RSA public key in PEM format. Rejected if it is a private key or not a valid RSA public key PEM.

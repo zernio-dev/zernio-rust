@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UsageStatsUsageXApiCalls : **Deprecated.** Legacy 3-tier aggregate. Operations outside the three historical prices ($0.005/$0.010/$0.015) — notably the $0.200 \"Posts with URL\" tier added April 2026 — are silently excluded from this shape. Use `xApiCallsByOperation` instead; it captures every tier and is the source of truth for per-operation call counts.
+/// UsageStatsUsageXApiCalls : **Deprecated.** Legacy 3-tier aggregate. Operations outside the three historical prices ($0.005/$0.010/$0.015), notably the $0.200 \"Posts with URL\" tier added April 2026, are silently excluded from this shape. Use `xApiCallsByOperation` instead; it captures every tier and is the source of truth for per-operation call counts.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UsageStatsUsageXApiCalls {
     /// Calls at $0.005 per call (reads, lists, bookmarks, content manage, etc.)
@@ -26,7 +26,7 @@ pub struct UsageStatsUsageXApiCalls {
 }
 
 impl UsageStatsUsageXApiCalls {
-    /// **Deprecated.** Legacy 3-tier aggregate. Operations outside the three historical prices ($0.005/$0.010/$0.015) — notably the $0.200 \"Posts with URL\" tier added April 2026 — are silently excluded from this shape. Use `xApiCallsByOperation` instead; it captures every tier and is the source of truth for per-operation call counts.
+    /// **Deprecated.** Legacy 3-tier aggregate. Operations outside the three historical prices ($0.005/$0.010/$0.015), notably the $0.200 \"Posts with URL\" tier added April 2026, are silently excluded from this shape. Use `xApiCallsByOperation` instead; it captures every tier and is the source of truth for per-operation call counts.
     pub fn new() -> UsageStatsUsageXApiCalls {
         UsageStatsUsageXApiCalls {
             x_api_005: None,

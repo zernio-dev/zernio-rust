@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **platform_campaign_id** | Option<**String**> |  | [optional]
 **platform** | Option<**Platform**> |  (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter, openai) | [optional]
 **campaign_name** | Option<**String**> |  | [optional]
-**created_time** | Option<**String**> | Earliest `platformCreatedAt` (platform ad creation time; falls back to `createdAt`, Zernio's sync time, for ads synced before that field existed) across every ad in the campaign. Not the platform campaign's own creation time (Meta's `Campaign.created_time` etc. is not synced) — a campaign created empty and populated later will show its first ad's time, not the campaign's. Usable for sorting \"most recently created\" without the numeric-campaign-id heuristic. Same source as `AdTreeAdSet.createdTime` and `Ad.platformCreatedAt`; mirrors `AdCampaign.earliestAd`. | [optional]
+**created_time** | Option<**String**> | Earliest `platformCreatedAt` (platform ad creation time; falls back to `createdAt`, Zernio's sync time, for ads synced before that field existed) across every ad in the campaign. Not the platform campaign's own creation time (Meta's `Campaign.created_time` etc. is not synced). A campaign created empty and populated later will show its first ad's time, not the campaign's. Usable for sorting \"most recently created\" without the numeric-campaign-id heuristic. Same source as `AdTreeAdSet.createdTime` and `Ad.platformCreatedAt`; mirrors `AdCampaign.earliestAd`. | [optional]
 **status** | Option<[**models::AdStatus**](AdStatus.md)> | Delivery status derived from child ad statuses. Distinct from `reviewStatus`, which reflects the platform-side review state. | [optional]
 **review_status** | Option<[**models::AdReviewStatus**](AdReviewStatus.md)> |  | [optional]
 **platform_campaign_status** | Option<**String**> | Raw platform-level campaign status (Meta `effective_status`: ACTIVE, PAUSED, DELETED, ARCHIVED, IN_PROCESS, WITH_ISSUES). Distinct from per-ad `platformStatus`. | [optional]
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **budget** | Option<[**models::AdTreeCampaignBudget**](AdTreeCampaignBudget.md)> |  | [optional]
 **campaign_budget** | Option<[**models::AdTreeCampaignCampaignBudget**](AdTreeCampaignCampaignBudget.md)> |  | [optional]
 **budget_level** | Option<**BudgetLevel**> | Canonical CBO/ABO indicator. `campaign` = CBO (Advantage Campaign Budget, budget lives on the campaign). `adset` = ABO (budget lives on each ad set). Route budget updates to the matching Meta entity. (enum: campaign, adset) | [optional]
-**is_budget_schedule_enabled** | Option<**bool**> | Meta-only. Mirrors Campaign.is_budget_schedule_enabled — true when the campaign uses budget scheduling (time-based budget changes). Independent of CBO/ABO. | [optional][default to false]
+**is_budget_schedule_enabled** | Option<**bool**> | Meta-only. Mirrors Campaign.is_budget_schedule_enabled: true when the campaign uses budget scheduling (time-based budget changes). Independent of CBO/ABO. | [optional][default to false]
 **currency** | Option<**String**> | ISO 4217 currency code (e.g. USD, EUR, CLP, JPY) for all budget amounts in this campaign node. Budgets are NOT normalized to USD. | [optional]
 **metrics** | Option<[**models::AdMetrics**](AdMetrics.md)> |  | [optional]
 **platform_ad_account_id** | Option<**String**> |  | [optional]
@@ -29,10 +29,10 @@ Name | Type | Description | Notes
 **optimization_goal** | Option<[**models::AdTreeCampaignOptimizationGoal**](AdTreeCampaignOptimizationGoal.md)> |  | [optional]
 **bid_strategy** | Option<[**models::BidStrategy**](BidStrategy.md)> |  | [optional]
 **bid_amount** | Option<**f64**> | Representative bid for the campaign, bubbled up from the top-spending ad set (whole currency units). Meta: populated when the ad-set bidStrategy is LOWEST_COST_WITH_BID_CAP or COST_CAP. LinkedIn: the campaign unitCost, which has no bidStrategy gate and where 0 is a real, delivery-stopping value rather than unset. | [optional]
-**roas_average_floor** | Option<**f64**> | Representative ROAS floor for the campaign — bubbled up from the top-spending ad set. Decimal multiplier (2.0 = 2.0x). | [optional]
+**roas_average_floor** | Option<**f64**> | Representative ROAS floor for the campaign, bubbled up from the top-spending ad set. Decimal multiplier (2.0 = 2.0x). | [optional]
 **promoted_object** | Option<[**models::AdTreeCampaignPromotedObject**](AdTreeCampaignPromotedObject.md)> |  | [optional]
 **ad_sets** | Option<[**Vec<models::AdTreeAdSet>**](AdTreeAdSet.md)> |  | [optional]
-**daily** | Option<[**Vec<models::AdDailyMetrics>**](AdDailyMetrics.md)> | Per-day metric series for this campaign. Present only when `GET /v1/ads/tree` is called with `timeIncrement=1` (any `dailyLevel`). This is the per-campaign daily trend — summing its additive fields reproduces the campaign `metrics` total, except `reach`: on Meta the range total is de-duplicated, so daily reach does not sum to it. | [optional]
+**daily** | Option<[**Vec<models::AdDailyMetrics>**](AdDailyMetrics.md)> | Per-day metric series for this campaign. Present only when `GET /v1/ads/tree` is called with `timeIncrement=1` (any `dailyLevel`). This is the per-campaign daily trend. Summing its additive fields reproduces the campaign `metrics` total, except `reach`: on Meta the range total is de-duplicated, so daily reach does not sum to it. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

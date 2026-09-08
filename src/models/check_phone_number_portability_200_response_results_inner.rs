@@ -28,7 +28,7 @@ pub struct CheckPhoneNumberPortability200ResponseResultsInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub line_type: Option<Option<String>>,
-    /// ISO country of the number — pass it to GET /v1/phone-numbers/port-in/requirements for international numbers.
+    /// ISO country of the number. Pass it to GET /v1/phone-numbers/port-in/requirements for international numbers.
     #[serde(
         rename = "countryCode",
         default,
@@ -36,7 +36,7 @@ pub struct CheckPhoneNumberPortability200ResponseResultsInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub country_code: Option<Option<String>>,
-    /// Carrier number-type classification (local, mobile, national, toll_free…) — the numberType for the requirements endpoint.
+    /// Carrier number-type classification (local, mobile, national, toll_free…), the numberType for the requirements endpoint.
     #[serde(
         rename = "phoneNumberType",
         default,

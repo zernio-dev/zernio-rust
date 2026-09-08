@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**account_id** | **String** | WhatsApp social account ID | 
+**account_id** | **String** | WhatsApp account ID | 
 **about** | Option<**String**> | Short business description (max 139 characters) | [optional]
 **address** | Option<**String**> | Business address | [optional]
 **description** | Option<**String**> | Full business description (max 512 characters) | [optional]

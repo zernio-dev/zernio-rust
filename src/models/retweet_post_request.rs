@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RetweetPostRequest {
-    /// The social account ID
+    /// The account ID
     #[serde(rename = "accountId")]
     pub account_id: String,
     /// The ID of the tweet to retweet

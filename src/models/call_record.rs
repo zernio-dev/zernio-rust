@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct CallRecord {
     #[serde(rename = "_id", skip_serializing_if = "Option::is_none")]
     pub _id: Option<String>,
-    /// Owning social account. The unified /v1/calls/{id} detail + recording endpoints work for any channel; the channel-specific endpoints remain for account-scoped access.
+    /// Owning account. The unified /v1/calls/{id} detail + recording endpoints work for any channel; the channel-specific endpoints remain for account-scoped access.
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
     /// Inbox conversation with the counterparty, when one exists.
@@ -121,7 +121,7 @@ pub struct CallRecord {
     pub duration_seconds: Option<i32>,
     #[serde(rename = "endReason", skip_serializing_if = "Option::is_none")]
     pub end_reason: Option<EndReason>,
-    /// Raw carrier hangup cause behind endReason (e.g. normal_clearing, not_found, time_limit) — the actual motive when endReason is a coarse bucket.
+    /// Raw carrier hangup cause behind endReason (e.g. normal_clearing, not_found, time_limit). The actual motive when endReason is a coarse bucket.
     #[serde(
         rename = "hangupCause",
         default,

@@ -28,7 +28,7 @@ pub struct GetPhoneNumber200ResponsePhoneNumber {
         skip_serializing_if = "Option::is_none"
     )]
     pub meta_verification_status: Option<String>,
-    /// For a regulated number with an Onfido ID step — the link to forward to the end user. Appears once the order is placed; null otherwise.
+    /// For a regulated number with an Onfido ID step: the link to forward to the end user. Appears once the order is placed; null otherwise.
     #[serde(
         rename = "onfidoVerificationUrl",
         default,

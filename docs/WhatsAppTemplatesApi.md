@@ -20,7 +20,7 @@ Look up a single pre-approved Template Library template by its exact name, to in
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 **name** | **String** | Exact library template name | [required] |
 **language** | Option<**String**> | Desired language variant (e.g. es, en_US). If the template is not offered in it, the first available variant is returned and named in the response language field. |  |
 

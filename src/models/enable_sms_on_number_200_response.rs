@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct EnableSmsOnNumber200Response {
     #[serde(rename = "enabled", skip_serializing_if = "Option::is_none")]
     pub enabled: Option<bool>,
-    /// The SMS social account ID (present when enabled).
+    /// The SMS account ID (present when enabled).
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[serde(rename = "phoneNumber", skip_serializing_if = "Option::is_none")]

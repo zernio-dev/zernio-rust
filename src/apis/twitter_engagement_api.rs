@@ -155,7 +155,7 @@ pub async fn bookmark_post(
     }
 }
 
-/// Follow a user on X/Twitter. Requires the follows.write OAuth scope. For protected accounts, a follow request is sent instead (pending_follow will be true).
+/// Follow a user on X. Requires the follows.write OAuth scope. For protected accounts, a follow request is sent instead (pending_follow will be true).
 pub async fn follow_user(
     configuration: &configuration::Configuration,
     follow_user_request: models::FollowUserRequest,
@@ -359,7 +359,7 @@ pub async fn retweet_post(
     }
 }
 
-/// Search public tweets from the last 7 days matching an X search query, e.g. to discover tweets to reply to. The query string is passed through to X unchanged and supports X's search operators (`from:user`, `-is:retweet`, `is:reply`, `lang:en`, `\"exact phrase\"`, `conversation_id:123`, boolean `OR`, ...). Note that standalone operators like `is:` / `has:` / `lang:` must be combined with a keyword or `from:` clause.  To reply to a found tweet, pass its `id` as the twitter platform entry's `platformSpecificData.replyToTweetId` when creating a post.  Rate limit: 300 requests per 15-min window per connected account.
+/// Search public tweets from the last 7 days matching an X search query, e.g. to discover tweets to reply to. The query string is passed through to X unchanged and supports X's search operators (`from:user`, `-is:retweet`, `is:reply`, `lang:en`, `\"exact phrase\"`, `conversation_id:123`, boolean `OR`, ...). Standalone operators like `is:` / `has:` / `lang:` must be combined with a keyword or `from:` clause.  To reply to a found tweet, pass its `id` as the twitter platform entry's `platformSpecificData.replyToTweetId` when creating a post.  Rate limit: 300 requests per 15-min window per connected account.
 pub async fn search_tweets(
     configuration: &configuration::Configuration,
     account_id: &str,
@@ -498,7 +498,7 @@ pub async fn undo_retweet(
     }
 }
 
-/// Unfollow a user on X/Twitter.
+/// Unfollow a user on X.
 pub async fn unfollow_user(
     configuration: &configuration::Configuration,
     account_id: &str,

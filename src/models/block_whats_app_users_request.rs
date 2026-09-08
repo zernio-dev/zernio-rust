@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BlockWhatsAppUsersRequest {
-    /// WhatsApp social account ID
+    /// WhatsApp account ID
     #[serde(rename = "accountId")]
     pub account_id: String,
     /// Phone numbers (E.164, e.g. \"+16505551234\") or WhatsApp user IDs to block.

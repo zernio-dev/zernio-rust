@@ -30,7 +30,7 @@ Name | Type | Description  | Required | Notes
 **skip** | Option<**i32**> | Number of logs to skip (for pagination) |  |[default to 0]
 **account_id** | Option<**String**> | Filter by connected account ID |  |
 **event** | Option<**String**> | Filter webhook logs by event (e.g. post.published, message.received) |  |
-**request_id** | Option<**String**> | Correlation ID — returns every log spawned by a single API request |  |
+**request_id** | Option<**String**> | Correlation ID. Returns every log spawned by a single API request |  |
 **from** | Option<**String**> | Precise start instant (ISO 8601); narrows within the day range |  |
 **to** | Option<**String**> | Precise end instant (ISO 8601) |  |
 **status_code** | Option<**i32**> | Filter by exact HTTP status code (api_request logs) |  |

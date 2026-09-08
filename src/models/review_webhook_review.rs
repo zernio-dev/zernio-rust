@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ReviewWebhookReview : Review data shared by review.new and review.updated payloads.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ReviewWebhookReview {
-    /// Platform review ID (e.g. \"accounts/123/locations/456/reviews/789\" for Google Business).
+    /// Platform review ID (e.g. \"accounts/123/locations/456/reviews/789\" for Google Business Profile).
     #[serde(rename = "id")]
     pub id: String,
     /// Platform the review originated on. Currently Google Business Profile only.

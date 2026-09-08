@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ReplyToMentionRequest {
-    /// The Instagram social account ID
+    /// The Instagram account ID
     #[serde(rename = "accountId")]
     pub account_id: String,
     /// The ID of the media the account was mentioned in

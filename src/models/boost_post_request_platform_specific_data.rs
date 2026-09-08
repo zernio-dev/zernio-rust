@@ -11,8 +11,8 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BoostPostRequestPlatformSpecificData : Platform-specific options. The platform is derived from `accountId`; sending options for a different platform returns a 400. LinkedIn (campaign bidding and delivery controls) and Meta (the bid trio) have options today.  **Meta**: `bidStrategy`, `bidAmount` and `roasAverageFloor` may be sent here instead of at the root — the preferred home going forward. Sending the bid fields in BOTH places returns a 400 (`mutually_exclusive_fields`).
-/// Platform-specific options. The platform is derived from `accountId`; sending options for a different platform returns a 400. LinkedIn (campaign bidding and delivery controls) and Meta (the bid trio) have options today.  **Meta**: `bidStrategy`, `bidAmount` and `roasAverageFloor` may be sent here instead of at the root — the preferred home going forward. Sending the bid fields in BOTH places returns a 400 (`mutually_exclusive_fields`).
+/// BoostPostRequestPlatformSpecificData : Platform-specific options. The platform is derived from `accountId`; sending options for a different platform returns a 400. LinkedIn (campaign bidding and delivery controls) and Meta (the bid trio) have options today.  **Meta**: `bidStrategy`, `bidAmount` and `roasAverageFloor` may be sent here instead of at the root, which is the preferred home going forward. Sending the bid fields in BOTH places returns a 400 (`mutually_exclusive_fields`).
+/// Platform-specific options. The platform is derived from `accountId`; sending options for a different platform returns a 400. LinkedIn (campaign bidding and delivery controls) and Meta (the bid trio) have options today.  **Meta**: `bidStrategy`, `bidAmount` and `roasAverageFloor` may be sent here instead of at the root, which is the preferred home going forward. Sending the bid fields in BOTH places returns a 400 (`mutually_exclusive_fields`).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BoostPostRequestPlatformSpecificData {

@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAdAccountRequest {
-    /// Social account ID (metaads, or a facebook/instagram posting account)
+    /// Account ID (metaads, or a facebook/instagram posting account)
     #[serde(rename = "accountId")]
     pub account_id: String,
     /// Meta ad account ID (act_...)

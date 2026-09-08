@@ -17,10 +17,10 @@ pub struct XApiOperation {
     /// Internal operation key. Matches keys in `xApiCallsByOperation`.
     #[serde(rename = "operation", skip_serializing_if = "Option::is_none")]
     pub operation: Option<String>,
-    /// Metronome `event_type` emitted when this operation runs.
+    /// Metering `event_type` emitted when this operation runs.
     #[serde(rename = "eventType", skip_serializing_if = "Option::is_none")]
     pub event_type: Option<String>,
-    /// Human-readable label shown on Metronome invoices.
+    /// Human-readable label shown on invoices.
     #[serde(rename = "displayName", skip_serializing_if = "Option::is_none")]
     pub display_name: Option<String>,
     #[serde(rename = "pricePerCallUsd", skip_serializing_if = "Option::is_none")]

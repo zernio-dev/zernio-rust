@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ListDiscordPinnedMessages200ResponseDataInner : Raw Discord Message object — see DiscordPlatformData for embed/attachment shapes.
+/// ListDiscordPinnedMessages200ResponseDataInner : Raw Discord Message object. See DiscordPlatformData for embed/attachment shapes.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ListDiscordPinnedMessages200ResponseDataInner {
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -31,7 +31,7 @@ pub struct ListDiscordPinnedMessages200ResponseDataInner {
 }
 
 impl ListDiscordPinnedMessages200ResponseDataInner {
-    /// Raw Discord Message object — see DiscordPlatformData for embed/attachment shapes.
+    /// Raw Discord Message object. See DiscordPlatformData for embed/attachment shapes.
     pub fn new() -> ListDiscordPinnedMessages200ResponseDataInner {
         ListDiscordPinnedMessages200ResponseDataInner {
             id: None,

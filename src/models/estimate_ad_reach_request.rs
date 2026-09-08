@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct EstimateAdReachRequest {
-    /// Zernio social account ID on the target ad platform (the estimate runs against its platform).
+    /// Zernio account ID on the target ad platform (the estimate runs against its platform).
     #[serde(rename = "accountId")]
     pub account_id: String,
     /// Required. The platform ad-account ID the reach call runs against (Meta act_..., LinkedIn numeric sponsoredAccount ID, Pinterest ad-account ID, X account ID) - every backing reach API is scoped to one ad account. Get it from GET /v1/ads/accounts.

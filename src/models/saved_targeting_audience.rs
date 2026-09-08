@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct SavedTargetingAudience {
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// Social account ID on the target ad platform.
+    /// Account ID on the target ad platform.
     #[serde(rename = "accountId")]
     pub account_id: String,
     #[serde(rename = "name")]

@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LikeInboxCommentRequest {
-    /// The social account ID
+    /// The account ID
     #[serde(rename = "accountId")]
     pub account_id: String,
     /// (LinkedIn only) Reaction to create. Defaults to LIKE; ignored on other platforms.

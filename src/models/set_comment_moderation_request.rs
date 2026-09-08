@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SetCommentModerationRequest {
-    /// The social account ID
+    /// The account ID
     #[serde(rename = "accountId")]
     pub account_id: String,
     /// Only YouTube supports comment moderation

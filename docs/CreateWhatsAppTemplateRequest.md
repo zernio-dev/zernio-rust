@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**account_id** | **String** | WhatsApp social account ID | 
+**account_id** | **String** | WhatsApp account ID | 
 **name** | **String** | Template name (lowercase, letters/numbers/underscores, must start with a letter) | 
 **category** | **Category** | Template category (enum: AUTHENTICATION, MARKETING, UTILITY) | 
 **language** | **String** | Template language code (e.g., en_US) | 

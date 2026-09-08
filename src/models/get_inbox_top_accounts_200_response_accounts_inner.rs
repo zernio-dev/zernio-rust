@@ -35,7 +35,7 @@ pub struct GetInboxTopAccounts200ResponseAccountsInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub median_response_seconds: Option<i32>,
-    /// Distinguishes 'instant replies' from 'no replies at all' so a zero medianResponseSeconds with repliedCount=0 renders as '—' instead of '0s'
+    /// Distinguishes 'instant replies' from 'no replies at all' so a zero medianResponseSeconds with repliedCount=0 renders as an em dash instead of '0s'
     #[serde(rename = "repliedCount", skip_serializing_if = "Option::is_none")]
     pub replied_count: Option<i32>,
 }

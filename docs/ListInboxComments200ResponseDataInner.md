@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **platform** | Option<**String**> |  | [optional]
 **account_id** | Option<**String**> |  | [optional]
 **account_username** | Option<**String**> |  | [optional]
-**content** | Option<**String**> | The post text/caption. On ad rows (isAd: true) this is the AD NAME, not the underlying post's caption — the creative text isn't exposed here. | [optional]
+**content** | Option<**String**> | The post text/caption. On ad rows (isAd: true) this is the AD NAME, not the underlying post's caption. The creative text isn't exposed here. | [optional]
 **picture** | Option<**String**> | Post media thumbnail. On ad rows this is the ad creative thumbnail. | [optional]
 **permalink** | Option<**String**> | Public URL of the post. On ad rows: the Facebook dark-post URL (facebook placement) or the IG media permalink (instagram placement); may be null when unknown. | [optional]
 **created_time** | Option<**String**> |  | [optional]
@@ -17,8 +17,8 @@ Name | Type | Description | Notes
 **cid** | Option<**String**> | Bluesky content identifier | [optional]
 **subreddit** | Option<**String**> | Reddit subreddit name | [optional]
 **is_ad** | Option<**bool**> | True when this row is an ad (boosted/dark post). `platform` is then the placement (facebook = the Page dark post / instagram = the IG media), `id` is `{adId}:{placement}`, and the thread is at GET /v1/ads/{adId}/comments?placement={placement}. | [optional]
-**ad_id** | Option<**String**> | Internal Zernio ad id — only on ad rows. | [optional]
-**placement** | Option<**Placement**> | Which side of the ad this row's comments are on — only on ad rows. (enum: facebook, instagram) | [optional]
+**ad_id** | Option<**String**> | Internal Zernio ad id, only on ad rows. | [optional]
+**placement** | Option<**Placement**> | Which side of the ad this row's comments are on, only on ad rows. (enum: facebook, instagram) | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

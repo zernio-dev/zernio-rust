@@ -15,7 +15,7 @@ Method | HTTP request | Description
 > models::DeleteInboxReviewReply200Response delete_inbox_review_reply(review_id, delete_inbox_review_reply_request)
 Delete review reply
 
-Delete a reply to a review (Google Business only). Requires accountId in request body.
+Delete a reply to a review (Google Business Profile only). Requires accountId in request body.
 
 ### Parameters
 
@@ -46,7 +46,7 @@ Name | Type | Description  | Required | Notes
 > models::ListInboxReviews200Response list_inbox_reviews(profile_id, platform, min_rating, max_rating, has_reply, sort_by, sort_order, limit, cursor, account_id)
 List reviews
 
-Fetch reviews from all connected Facebook Pages and Google Business accounts. Aggregates data with filtering and sorting options. Supported platforms: Facebook, Google Business. 
+Fetch reviews from all connected Facebook Pages and Google Business Profile accounts. Aggregates data with filtering and sorting options. Supported platforms: Facebook, Google Business Profile. 
 
 ### Parameters
 
@@ -62,7 +62,7 @@ Name | Type | Description  | Required | Notes
 **sort_order** | Option<**String**> |  |  |[default to desc]
 **limit** | Option<**i32**> |  |  |[default to 25]
 **cursor** | Option<**String**> |  |  |
-**account_id** | Option<**String**> | Filter by specific social account ID |  |
+**account_id** | Option<**String**> | Filter by specific account ID |  |
 
 ### Return type
 
@@ -92,7 +92,7 @@ Post a reply to a review. Requires accountId in request body.  **Idempotency:** 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**review_id** | **String** | Review ID (URL-encoded for Google Business) | [required] |
+**review_id** | **String** | Review ID (URL-encoded for Google Business Profile) | [required] |
 **reply_to_inbox_review_request** | [**ReplyToInboxReviewRequest**](ReplyToInboxReviewRequest.md) |  | [required] |
 **idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe. Same key + same body replays the original response; same key + different body → 422; key still processing → 409. |  |
 

@@ -11,10 +11,10 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UpdateAccountRequestXCapabilities : X/Twitter only. Per-account opt-in toggles for background API operations that incur X API pass-through costs. Each call is billed via Metronome at the X tier rate. Either field can be sent independently; omitted fields are unchanged.
+/// UpdateAccountRequestXCapabilities : X only. Per-account opt-in toggles for background API operations that incur X API pass-through costs. Each call is billed at the X tier rate. Either field can be sent independently; omitted fields are unchanged.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAccountRequestXCapabilities {
-    /// Enable periodic analytics reads (impressions, likes, etc.) for this X account. Each X API call is metered as `posts_read` and billed pass-through (~$0.005/call at the time of writing — actual rate depends on X's pricing tier).
+    /// Enable periodic analytics reads (impressions, likes, etc.) for this X account. Each X API call is metered as `posts_read` and billed pass-through (~$0.005/call at the time of writing; the actual rate depends on X's pricing tier).
     #[serde(rename = "analytics", skip_serializing_if = "Option::is_none")]
     pub analytics: Option<bool>,
     /// Enable DM polling and inbox sync for this X account. DM reads are metered as `dm_event_read` (~$0.010/call) and DM sends as `dm_interaction_create` (~$0.015/call), both billed pass-through. DM sends fire only on user-initiated actions; reads/polling fire only when this flag is true.
@@ -23,7 +23,7 @@ pub struct UpdateAccountRequestXCapabilities {
 }
 
 impl UpdateAccountRequestXCapabilities {
-    /// X/Twitter only. Per-account opt-in toggles for background API operations that incur X API pass-through costs. Each call is billed via Metronome at the X tier rate. Either field can be sent independently; omitted fields are unchanged.
+    /// X only. Per-account opt-in toggles for background API operations that incur X API pass-through costs. Each call is billed at the X tier rate. Either field can be sent independently; omitted fields are unchanged.
     pub fn new() -> UpdateAccountRequestXCapabilities {
         UpdateAccountRequestXCapabilities {
             analytics: None,

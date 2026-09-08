@@ -34,7 +34,7 @@ pub struct PinterestPlatformData {
         skip_serializing_if = "Option::is_none"
     )]
     pub cover_image_key_frame_time: Option<i32>,
-    /// When true, the Pin is created with Pinterest's AI_MODIFIED disclosure (ai_disclosures), which shows an \"AI modified\" label. Applies to image and video Pins. Pinterest offers no \"not AI\" value, so false simply omits the disclosure. Pinterest may still label a Pin on its own detection.
+    /// When true, the Pin is created with Pinterest's AI_MODIFIED disclosure (ai_disclosures), which shows an \"AI modified\" label. Applies to image and video Pins. Pinterest offers no \"not AI\" value, so false omits the disclosure. Pinterest may still label a Pin on its own detection.
     #[serde(rename = "isAiGenerated", skip_serializing_if = "Option::is_none")]
     pub is_ai_generated: Option<bool>,
 }

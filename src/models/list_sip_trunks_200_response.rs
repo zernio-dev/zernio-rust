@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct ListSipTrunks200Response {
     #[serde(rename = "trunks", skip_serializing_if = "Option::is_none")]
     pub trunks: Option<Vec<models::ListSipTrunks200ResponseTrunksInner>>,
-    /// Whether this workspace can create SIP trunks. Managing existing trunks always works.
+    /// Whether this team can create SIP trunks. Managing existing trunks always works.
     #[serde(rename = "enabled", skip_serializing_if = "Option::is_none")]
     pub enabled: Option<bool>,
 }

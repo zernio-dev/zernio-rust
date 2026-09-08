@@ -23,7 +23,7 @@ Returns metadata about which Google Business Profile attributes are available fo
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** |  | [required] |
-**location_id** | Option<**String**> | GBP location ID (e.g. \"6257659026299438786\"). If omitted, uses the account's stored selectedLocationId. Mutually exclusive with categoryName.  |  |
+**location_id** | Option<**String**> | Google Business Profile location ID (e.g. \"6257659026299438786\"). If omitted, uses the account's stored selectedLocationId. Mutually exclusive with categoryName.  |  |
 **category_name** | Option<**String**> | Category resource name, must start with \"categories/\" (e.g. \"categories/gcid:plumber\"). Required together with regionCode. Mutually exclusive with locationId.  |  |
 **region_code** | Option<**String**> | BCP-47 region code (e.g. \"US\", \"ES\"). Required when categoryName is provided.  |  |
 **language_code** | Option<**String**> | BCP-47 language code for display names (e.g. \"en\", \"es\"). Optional when categoryName is provided. Omitted from the Google call when not supplied.  |  |
@@ -51,7 +51,7 @@ Name | Type | Description  | Required | Notes
 > models::GetGoogleBusinessAttributes200Response get_google_business_attributes(account_id, location_id)
 Get attributes
 
-Returns GBP location attributes (amenities, services, accessibility, payment types). Available attributes vary by business category.
+Returns Google Business Profile location attributes (amenities, services, accessibility, payment types). Available attributes vary by business category.
 
 ### Parameters
 

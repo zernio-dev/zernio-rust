@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// WebhookPayloadAdStatusChangedStatus : Status info. Branch on `status.raw` to handle each transition.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadAdStatusChangedStatus {
-    /// Platform-native status string, forwarded verbatim. For Meta this is `status_name` from `in_process_ad_objects` (e.g. `ACTIVE`, `PAUSED`, `PENDING_REVIEW`, `ARCHIVED`, `DELETED`, `DISAPPROVED`), or `WITH_ISSUES` when sourced from `with_issues_ad_objects`. Not constrained by an `enum` — Meta may add new values.
+    /// Platform-native status string, forwarded verbatim. For Meta this is `status_name` from `in_process_ad_objects` (e.g. `ACTIVE`, `PAUSED`, `PENDING_REVIEW`, `ARCHIVED`, `DELETED`, `DISAPPROVED`), or `WITH_ISSUES` when sourced from `with_issues_ad_objects`. Not constrained by an `enum`, because Meta may add new values.
     #[serde(rename = "raw")]
     pub raw: String,
 }

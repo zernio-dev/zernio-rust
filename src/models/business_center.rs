@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BusinessCenter : TikTok Business Center entity. Returned by `GET /v1/ads/business-centers`. BCs are TikTok's agency container — one BC owns N advertisers (ad accounts). Most solo advertisers don't have one; the agency token uses BCs to roll up multi-client access.
+/// BusinessCenter : TikTok Business Center entity. Returned by `GET /v1/ads/business-centers`. BCs are TikTok's agency container: one BC owns N advertisers (ad accounts). Most solo advertisers don't have one; the agency token uses BCs to roll up multi-client access.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BusinessCenter {
     /// Business Center ID
@@ -20,7 +20,7 @@ pub struct BusinessCenter {
     /// Display name set by the BC owner
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Number of advertisers reachable under this BC for the calling token. `null` when the BC asset walk returned empty or failed (typical for agency apps without full BC asset read scope) — distinct from `0`, which would imply the BC genuinely has no advertisers.
+    /// Number of advertisers reachable under this BC for the calling token. `null` when the BC asset walk returned empty or failed (typical for agency apps without full BC asset read scope), distinct from `0`, which would imply the BC genuinely has no advertisers.
     #[serde(
         rename = "advertiserCount",
         default,
@@ -31,7 +31,7 @@ pub struct BusinessCenter {
 }
 
 impl BusinessCenter {
-    /// TikTok Business Center entity. Returned by `GET /v1/ads/business-centers`. BCs are TikTok's agency container — one BC owns N advertisers (ad accounts). Most solo advertisers don't have one; the agency token uses BCs to roll up multi-client access.
+    /// TikTok Business Center entity. Returned by `GET /v1/ads/business-centers`. BCs are TikTok's agency container: one BC owns N advertisers (ad accounts). Most solo advertisers don't have one; the agency token uses BCs to roll up multi-client access.
     pub fn new() -> BusinessCenter {
         BusinessCenter {
             bc_id: None,

@@ -85,6 +85,13 @@ pub enum OnCommentReceivedError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`on_conversation_control_changed`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnConversationControlChangedError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`on_conversation_started`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -410,7 +417,7 @@ pub async fn on_account_ads_initial_sync_completed(configuration: &configuration
     }
 }
 
-/// Fired when a social account is successfully connected.
+/// Fired when a account is successfully connected.
 pub async fn on_account_connected(configuration: &configuration::Configuration, webhook_payload_account_connected: models::WebhookPayloadAccountConnected) -> Result<(), Error<OnAccountConnectedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_payload_account_connected = webhook_payload_account_connected;
@@ -440,7 +447,7 @@ pub async fn on_account_connected(configuration: &configuration::Configuration, 
     }
 }
 
-/// Fired when a connected social account becomes disconnected.
+/// Fired when a connected account becomes disconnected.
 pub async fn on_account_disconnected(configuration: &configuration::Configuration, webhook_payload_account_disconnected: models::WebhookPayloadAccountDisconnected) -> Result<(), Error<OnAccountDisconnectedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_payload_account_disconnected = webhook_payload_account_disconnected;
@@ -470,7 +477,7 @@ pub async fn on_account_disconnected(configuration: &configuration::Configuratio
     }
 }
 
-/// Fired when a campaign, ad set, or ad on a connected ad platform changes status. Currently emitted only for Meta (`metaads`).  Subscribed to two Meta `ad_account` webhook fields:   - `in_process_ad_objects` - the ad object finished processing and exited     the `IN_PROCESS` state. `status.raw` carries Meta's `status_name`     (e.g. `ACTIVE`, `PAUSED`, `ARCHIVED`, `DELETED`).   - `with_issues_ad_objects` - the ad object entered the `WITH_ISSUES`     state. `status.raw` is set to `WITH_ISSUES` and the `error` block is     populated from Meta's `error_code` / `error_summary` / `error_message`.  `adObject.level` mirrors Meta's `level` and is one of `CAMPAIGN`, `AD_SET`, or `AD`. Creative-level events are not forwarded.  Branch on `status.raw` to handle each transition; use `error.code` (when present) as the stable discriminator — `error.summary` and `error.message` are localized to the ad-account owner's Meta locale.  The `error` block is optional. It's present on most `WITH_ISSUES` events but can be absent (Meta does not always include diagnostics), and is never present on any other status. Always null-check `error` before reading `error.code`.  **Fan-out:** matching is keyed on `adObject.platformAdAccountId`. When multiple connected Zernio `metaads` accounts are linked to the same Meta ad account, each receives its own delivery. 
+/// Fired when a campaign, ad set, or ad on a connected ad platform changes status. Currently emitted only for Meta (`metaads`).  Subscribed to two Meta `ad_account` webhook fields:   - `in_process_ad_objects` - the ad object finished processing and exited     the `IN_PROCESS` state. `status.raw` carries Meta's `status_name`     (e.g. `ACTIVE`, `PAUSED`, `ARCHIVED`, `DELETED`).   - `with_issues_ad_objects` - the ad object entered the `WITH_ISSUES`     state. `status.raw` is set to `WITH_ISSUES` and the `error` block is     populated from Meta's `error_code` / `error_summary` / `error_message`.  `adObject.level` mirrors Meta's `level` and is one of `CAMPAIGN`, `AD_SET`, or `AD`. Creative-level events are not forwarded.  Branch on `status.raw` to handle each transition; use `error.code` (when present) as the stable discriminator, since `error.summary` and `error.message` are localized to the ad-account owner's Meta locale.  The `error` block is optional. It's present on most `WITH_ISSUES` events but can be absent (Meta does not always include diagnostics), and is never present on any other status. Always null-check `error` before reading `error.code`.  **Fan-out:** matching is keyed on `adObject.platformAdAccountId`. When multiple connected Zernio `metaads` accounts are linked to the same Meta ad account, each receives its own delivery. 
 pub async fn on_ad_status_changed(configuration: &configuration::Configuration, webhook_payload_ad_status_changed: models::WebhookPayloadAdStatusChanged) -> Result<(), Error<OnAdStatusChangedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_payload_ad_status_changed = webhook_payload_ad_status_changed;
@@ -680,7 +687,37 @@ pub async fn on_comment_received(configuration: &configuration::Configuration, w
     }
 }
 
-/// Fired once when a new conversation begins between one of your connected accounts and a contact, in either direction. Works across every DM platform (Instagram, Messenger/Facebook, Telegram, WhatsApp, Twitter, Reddit, Bluesky). Naturally deduped — a given conversation only fires this event the very first time it appears. 
+/// WhatsApp only. Fired when control of a conversation moves between Meta Business Agent and your app (Meta's `messaging_handovers`), or when the agent is first seen answering a thread. While `control.owner` is `ai_agent`, inbound messages arrive on `message.received` with `metadata.standby: true` and the agent's replies on `message.sent` with `source: meta_business_agent`. Sending any message takes control back; release it with `POST /v1/inbox/conversations/{conversationId}/thread-control`. 
+pub async fn on_conversation_control_changed(configuration: &configuration::Configuration, webhook_payload_conversation_control_changed: models::WebhookPayloadConversationControlChanged) -> Result<(), Error<OnConversationControlChangedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_payload_conversation_control_changed = webhook_payload_conversation_control_changed;
+
+    let uri_str = format!("{}/conversation.control_changed", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_payload_conversation_control_changed);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnConversationControlChangedError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Fired once when a new conversation begins between one of your connected accounts and a contact, in either direction. Works across every DM platform (Instagram, Messenger/Facebook, Telegram, WhatsApp, X, Reddit, Bluesky). Naturally deduped: a given conversation only fires this event the very first time it appears. 
 pub async fn on_conversation_started(configuration: &configuration::Configuration, webhook_payload_conversation_started: models::WebhookPayloadConversationStarted) -> Result<(), Error<OnConversationStartedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_payload_conversation_started = webhook_payload_conversation_started;
@@ -1190,7 +1227,7 @@ pub async fn on_post_platform_deleted(configuration: &configuration::Configurati
     }
 }
 
-/// Fired once per platform target inside a post as that platform fails permanently. Temporary/retryable failures do NOT fire this event — only permanent ones, so retry loops stay quiet. The envelope event (`post.failed` / `post.partial`) fires separately AFTER all platforms have terminated. 
+/// Fired once per platform target inside a post as that platform fails permanently. Temporary/retryable failures do NOT fire this event, only permanent ones do, so retry loops stay quiet. The envelope event (`post.failed` / `post.partial`) fires separately AFTER all platforms have terminated. 
 pub async fn on_post_platform_failed(configuration: &configuration::Configuration, webhook_payload_post_platform: models::WebhookPayloadPostPlatform) -> Result<(), Error<OnPostPlatformFailedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_payload_post_platform = webhook_payload_post_platform;
@@ -1220,7 +1257,7 @@ pub async fn on_post_platform_failed(configuration: &configuration::Configuratio
     }
 }
 
-/// Fired once per platform target inside a post as that platform finishes publishing successfully. Does NOT wait for the post-level rollup — consumers building incremental UIs get notified immediately, even when other platforms on the same post are still processing. The envelope event (`post.published` / `post.partial`) fires separately AFTER all platforms have terminated. 
+/// Fired once per platform target inside a post as that platform finishes publishing successfully. Does NOT wait for the post-level rollup, so consumers building incremental UIs get notified immediately, even when other platforms on the same post are still processing. The envelope event (`post.published` / `post.partial`) fires separately AFTER all platforms have terminated. 
 pub async fn on_post_platform_published(configuration: &configuration::Configuration, webhook_payload_post_platform: models::WebhookPayloadPostPlatform) -> Result<(), Error<OnPostPlatformPublishedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_payload_post_platform = webhook_payload_post_platform;
@@ -1670,7 +1707,7 @@ pub async fn on_whats_app_number_action_required(configuration: &configuration::
     }
 }
 
-/// Fired when a purchased WhatsApp number becomes active and usable — both the synchronous (Tier 1/2) path and the asynchronous regulated (Tier 3/4) path land here. Lets integrators react without polling GET /v1/phone-numbers. 
+/// Fired when a purchased WhatsApp number becomes active and usable. Both the synchronous (Tier 1/2) path and the asynchronous regulated (Tier 3/4) path land here. Lets integrators react without polling GET /v1/phone-numbers. 
 pub async fn on_whats_app_number_activated(configuration: &configuration::Configuration, on_whats_app_number_activated_request: models::OnWhatsAppNumberActivatedRequest) -> Result<(), Error<OnWhatsAppNumberActivatedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_on_whats_app_number_activated_request = on_whats_app_number_activated_request;

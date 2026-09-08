@@ -16,10 +16,10 @@ pub struct AssignGoogleBusinessLocationRequest {
     /// Target profile to connect the location onto.
     #[serde(rename = "profileId")]
     pub profile_id: String,
-    /// The Google Business location ID to assign (e.g. \"locations/123\").
+    /// The Google Business Profile location ID to assign (e.g. \"locations/123\").
     #[serde(rename = "selectedLocationId")]
     pub selected_location_id: String,
-    /// Optional but recommended. The Google Business Account resource name (\"accounts/123\") that owns the location (from GET gmb-locations). When provided the location is resolved directly instead of by enumerating the account, required for accounts with many locations.
+    /// Optional but recommended. The Google Business Profile Account resource name (\"accounts/123\") that owns the location (from GET gmb-locations). When provided the location is resolved directly instead of by enumerating the account, required for accounts with many locations.
     #[serde(rename = "googleAccountId", skip_serializing_if = "Option::is_none")]
     pub google_account_id: Option<String>,
 }

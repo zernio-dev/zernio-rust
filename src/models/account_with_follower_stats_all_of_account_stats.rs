@@ -23,7 +23,7 @@ pub struct AccountWithFollowerStatsAllOfAccountStats {
     /// Total videos (YouTube, TikTok)
     #[serde(rename = "videoCount", skip_serializing_if = "Option::is_none")]
     pub video_count: Option<f64>,
-    /// Total tweets (X/Twitter)
+    /// Total tweets (X)
     #[serde(rename = "tweetCount", skip_serializing_if = "Option::is_none")]
     pub tweet_count: Option<f64>,
     /// Total posts (Bluesky)
@@ -41,7 +41,7 @@ pub struct AccountWithFollowerStatsAllOfAccountStats {
     /// Monthly profile views (Pinterest)
     #[serde(rename = "monthlyViews", skip_serializing_if = "Option::is_none")]
     pub monthly_views: Option<f64>,
-    /// Lists the user appears on (X/Twitter)
+    /// Lists the user appears on (X)
     #[serde(rename = "listedCount", skip_serializing_if = "Option::is_none")]
     pub listed_count: Option<f64>,
     /// Total boards (Pinterest)

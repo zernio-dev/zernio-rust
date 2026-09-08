@@ -122,7 +122,7 @@ pub async fn get_gmb_attribute_metadata(
     }
 }
 
-/// Returns GBP location attributes (amenities, services, accessibility, payment types). Available attributes vary by business category.
+/// Returns Google Business Profile location attributes (amenities, services, accessibility, payment types). Available attributes vary by business category.
 pub async fn get_google_business_attributes(
     configuration: &configuration::Configuration,
     account_id: &str,

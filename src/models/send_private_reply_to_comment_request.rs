@@ -13,13 +13,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SendPrivateReplyToCommentRequest {
-    /// The social account ID (Instagram or Facebook)
+    /// The account ID (Instagram or Facebook)
     #[serde(rename = "accountId")]
     pub account_id: String,
     /// The message text to send as a private DM
     #[serde(rename = "message")]
     pub message: String,
-    /// Optional quick-reply chips appended to the message. Visible only in the Instagram and Messenger apps (not on web). Maximum 13 entries. Mutually exclusive with `buttons`. Note: chips do NOT render in the Instagram Message Requests folder where DMs from non-followers land — use `buttons` instead for cold reach.
+    /// Optional quick-reply chips appended to the message. Visible only in the Instagram and Messenger apps (not on web). Maximum 13 entries. Mutually exclusive with `buttons`. Note: chips do NOT render in the Instagram Message Requests folder where DMs from non-followers land. Use `buttons` instead for cold reach.
     #[serde(rename = "quickReplies", skip_serializing_if = "Option::is_none")]
     pub quick_replies: Option<Vec<models::SendPrivateReplyToCommentRequestQuickRepliesInner>>,
     /// Optional 1-3 inline buttons rendered as part of the same message bubble via Meta's button_template. Visible in the Instagram Message Requests folder (unlike quick replies). Mutually exclusive with `quickReplies`.

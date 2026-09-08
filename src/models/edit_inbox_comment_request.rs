@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct EditInboxCommentRequest {
-    /// The social account ID
+    /// The account ID
     #[serde(rename = "accountId")]
     pub account_id: String,
     /// Only Reddit supports editing a comment

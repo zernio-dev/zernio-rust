@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AddAdKeywordsRequest {
-    /// Social account ID (Google Ads)
+    /// Account ID (Google Ads)
     #[serde(rename = "accountId")]
     pub account_id: String,
     /// Google ad group ID to add the keywords to

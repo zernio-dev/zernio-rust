@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct GetAdMedia200Response {
     #[serde(rename = "adId", skip_serializing_if = "Option::is_none")]
     pub ad_id: Option<String>,
-    /// 'facebook' or 'instagram' — only Meta is supported for now.
+    /// 'facebook' or 'instagram'. Only Meta is supported for now.
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<String>,
     #[serde(rename = "media", skip_serializing_if = "Option::is_none")]

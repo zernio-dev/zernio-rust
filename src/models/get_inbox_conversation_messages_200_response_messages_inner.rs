@@ -33,7 +33,7 @@ pub struct GetInboxConversationMessages200ResponseMessagesInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub sender_name: Option<Option<String>>,
-    /// X/Twitter verified badge type. Only present for Twitter/X messages.
+    /// X verified badge type. Only present for X messages.
     #[serde(
         rename = "senderVerifiedType",
         default,
@@ -183,7 +183,7 @@ impl GetInboxConversationMessages200ResponseMessagesInner {
         }
     }
 }
-/// X/Twitter verified badge type. Only present for Twitter/X messages.
+/// X verified badge type. Only present for X messages.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum SenderVerifiedType {
     #[serde(rename = "blue")]

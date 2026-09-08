@@ -82,7 +82,7 @@ pub async fn get_user(
     }
 }
 
-/// Returns all users in the workspace including roles and profile access. Also returns the currentUserId of the caller.
+/// Returns all users in the team including roles and profile access. Also returns the currentUserId of the caller.
 pub async fn list_users(
     configuration: &configuration::Configuration,
 ) -> Result<models::ListUsers200Response, Error<ListUsersError>> {

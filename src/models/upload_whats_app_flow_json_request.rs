@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UploadWhatsAppFlowJsonRequest {
-    /// WhatsApp social account ID
+    /// WhatsApp account ID
     #[serde(rename = "accountId")]
     pub account_id: String,
     #[serde(rename = "flow_json")]

@@ -33,7 +33,7 @@ pub enum UpdateGoogleBusinessLocationDetailsError {
     UnknownValue(serde_json::Value),
 }
 
-/// Returns detailed GBP location info (hours, description, phone, website, categories, services). Use readMask to request specific fields.
+/// Returns detailed Google Business Profile location info (hours, description, phone, website, categories, services). Use readMask to request specific fields.
 pub async fn get_google_business_location_details(
     configuration: &configuration::Configuration,
     account_id: &str,
@@ -98,7 +98,7 @@ pub async fn get_google_business_location_details(
     }
 }
 
-/// Updates GBP location details. The updateMask field is required and specifies which fields to update. This endpoint proxies Google's Business Information API locations.patch, so any valid updateMask field is supported. Common fields: regularHours, specialHours, profile.description, websiteUri, phoneNumbers, categories, serviceItems.
+/// Updates Google Business Profile location details. The updateMask field is required and specifies which fields to update. This endpoint proxies Google's Business Information API locations.patch, so any valid updateMask field is supported. Common fields: regularHours, specialHours, profile.description, websiteUri, phoneNumbers, categories, serviceItems.
 pub async fn update_google_business_location_details(
     configuration: &configuration::Configuration,
     account_id: &str,

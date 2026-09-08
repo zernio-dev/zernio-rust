@@ -152,7 +152,7 @@ pub enum UpdateSlackSettingsError {
     UnknownValue(serde_json::Value),
 }
 
-/// Disconnects and removes a connected social account. Repeating the call for an account already disconnected returns 404, the account stays in its 1h grace window and the disconnect is not re-run.
+/// Disconnects and removes a connected account. Repeating the call for an account already disconnected returns 404, the account stays in its 1h grace window and the disconnect is not re-run.
 pub async fn delete_account(
     configuration: &configuration::Configuration,
     account_id: &str,
@@ -418,7 +418,7 @@ pub async fn get_bluesky_settings(
     }
 }
 
-/// Returns follower count history and growth metrics for connected social accounts. Requires analytics add-on subscription. Follower counts are refreshed once per day.
+/// Returns follower count history and growth metrics for connected accounts. Requires analytics add-on subscription. Follower counts are refreshed once per day.
 pub async fn get_follower_stats(
     configuration: &configuration::Configuration,
     account_ids: Option<&str>,
@@ -654,7 +654,7 @@ pub async fn get_tik_tok_creator_info(
     }
 }
 
-/// Returns connected social accounts. Only includes accounts within the plan limit by default. Follower data requires analytics add-on. Supports optional server-side pagination via page/limit params. When omitted, returns all accounts (backward-compatible). page and limit must be supplied together; out-of-range page/limit values are rejected with 400 rather than silently clamped.
+/// Returns connected accounts. Only includes accounts within the plan limit by default. Follower data requires analytics add-on. Supports optional server-side pagination via page/limit params. When omitted, returns all accounts (backward-compatible). page and limit must be supplied together; out-of-range page/limit values are rejected with 400 rather than silently clamped.
 pub async fn list_accounts(
     configuration: &configuration::Configuration,
     profile_id: Option<&str>,
@@ -729,7 +729,7 @@ pub async fn list_accounts(
     }
 }
 
-/// Moves a connected social account to a different profile owned by the same user. The target profile must belong to the same user as the account.  For API keys restricted to specific profiles, BOTH the source account's current profile AND the target profile must be in the key's allowed set. Calls with a target profile outside the key's scope return 403.
+/// Moves a connected account to a different profile owned by the same user. The target profile must belong to the same user as the account.  For API keys restricted to specific profiles, BOTH the source account's current profile AND the target profile must be in the key's allowed set. Calls with a target profile outside the key's scope return 403.
 pub async fn move_account_to_profile(
     configuration: &configuration::Configuration,
     account_id: &str,
@@ -785,7 +785,7 @@ pub async fn move_account_to_profile(
     }
 }
 
-/// Updates a connected social account's display name or username override.  For X/Twitter accounts on usage-based billing, also accepts an `xCapabilities` object to toggle background API operations that incur X API pass-through costs. Both fields are opt-in (default `false`) — when off, no analytics syncs or DM polling are performed for that account, and no API call is metered for those operations. Publishing and deleting posts are always available regardless of these toggles. Setting `xCapabilities` on a non-X account returns 400.
+/// Updates a connected account's display name or username override.  For X accounts on usage-based billing, also accepts an `xCapabilities` object to toggle background API operations that incur X API pass-through costs. Both fields are opt-in (default `false`). When off, no analytics syncs or DM polling are performed for that account, and no API call is metered for those operations. Publishing and deleting posts are always available regardless of these toggles. Setting `xCapabilities` on a non-X account returns 400.
 pub async fn update_account(
     configuration: &configuration::Configuration,
     account_id: &str,

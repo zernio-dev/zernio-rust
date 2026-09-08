@@ -33,7 +33,7 @@ pub struct ListInboxConversations200ResponseDataInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub participant_picture: Option<Option<String>>,
-    /// X/Twitter verified badge type. Only present for Twitter/X conversations.
+    /// X verified badge type. Only present for X conversations.
     #[serde(
         rename = "participantVerifiedType",
         default,
@@ -55,6 +55,9 @@ pub struct ListInboxConversations200ResponseDataInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub unread_count: Option<Option<i32>>,
+    /// WhatsApp only, present once Meta Business Agent has touched the thread. ai_agent: the agent answers and new inbound arrive flagged metadata.standby; app: you hold control; other: another partner app does. Change it with POST /v1/inbox/conversations/{conversationId}/thread-control.
+    #[serde(rename = "threadControl", skip_serializing_if = "Option::is_none")]
+    pub thread_control: Option<ThreadControl>,
     /// Direct link to open the conversation on the platform (if available)
     #[serde(
         rename = "url",
@@ -85,13 +88,14 @@ impl ListInboxConversations200ResponseDataInner {
             updated_time: None,
             status: None,
             unread_count: None,
+            thread_control: None,
             url: None,
             instagram_profile: None,
             metadata: None,
         }
     }
 }
-/// X/Twitter verified badge type. Only present for Twitter/X conversations.
+/// X verified badge type. Only present for X conversations.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ParticipantVerifiedType {
     #[serde(rename = "blue")]
@@ -121,5 +125,21 @@ pub enum Status {
 impl Default for Status {
     fn default() -> Status {
         Self::Active
+    }
+}
+/// WhatsApp only, present once Meta Business Agent has touched the thread. ai_agent: the agent answers and new inbound arrive flagged metadata.standby; app: you hold control; other: another partner app does. Change it with POST /v1/inbox/conversations/{conversationId}/thread-control.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum ThreadControl {
+    #[serde(rename = "app")]
+    App,
+    #[serde(rename = "ai_agent")]
+    AiAgent,
+    #[serde(rename = "other")]
+    Other,
+}
+
+impl Default for ThreadControl {
+    fn default() -> ThreadControl {
+        Self::App
     }
 }

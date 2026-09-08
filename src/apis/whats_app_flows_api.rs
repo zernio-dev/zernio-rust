@@ -552,7 +552,7 @@ pub async fn get_whats_app_flows_encryption_key(
     }
 }
 
-/// List the responses customers submitted when completing a flow (parsed from the nfm_reply messages received via webhook), newest first. Scope to a single flow with `flowId` — this matches responses whose flow_token carries the `<flowId>:` prefix that Zernio stamps on auto-generated tokens at send time. Responses sent with a custom integrator-supplied flow_token are not attributed to a flow.
+/// List the responses customers submitted when completing a flow (parsed from the nfm_reply messages received via webhook), newest first. Scope to a single flow with `flowId`, which matches responses whose flow_token carries the `<flowId>:` prefix that Zernio stamps on auto-generated tokens at send time. Responses sent with a custom integrator-supplied flow_token are not attributed to a flow.
 pub async fn list_whats_app_flow_responses(
     configuration: &configuration::Configuration,
     account_id: &str,
@@ -610,7 +610,7 @@ pub async fn list_whats_app_flow_responses(
     }
 }
 
-/// List the flow's version history (the clone lineage Zernio tracks, since Meta has no native versioning), newest version first. Each entry is enriched with the version's live name and status from Meta. A flow with no lineage returns just itself as version 1.
+/// List the flow's version history (the clone lineage Zernio tracks, since Meta has no native versioning), newest version first. Each entry is enriched with the version's live name and status from Meta. A flow with no lineage returns only itself as version 1.
 pub async fn list_whats_app_flow_versions(
     configuration: &configuration::Configuration,
     flow_id: &str,

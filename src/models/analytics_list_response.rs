@@ -19,7 +19,7 @@ pub struct AnalyticsListResponse {
     pub posts: Option<Vec<models::AnalyticsListResponsePostsInner>>,
     #[serde(rename = "pagination", skip_serializing_if = "Option::is_none")]
     pub pagination: Option<Box<models::Pagination>>,
-    /// Connected social accounts (followerCount and followersLastUpdated only included if user has analytics add-on)
+    /// Connected accounts (followerCount and followersLastUpdated only included if user has analytics add-on)
     #[serde(rename = "accounts", skip_serializing_if = "Option::is_none")]
     pub accounts: Option<Vec<models::SocialAccount>>,
     /// Whether user has analytics add-on access

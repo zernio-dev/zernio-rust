@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// GetInboxPostComments200ResponseMetaAdComments : (Facebook/Instagram only) Present when this post has no organic comments but is a boosted post — the engagement lives on the ad. Use the ad-comments endpoint instead.
+/// GetInboxPostComments200ResponseMetaAdComments : (Facebook/Instagram only) Present when this post has no organic comments but is a boosted post: the engagement lives on the ad. Use the ad-comments endpoint instead.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetInboxPostComments200ResponseMetaAdComments {
     /// Internal Zernio ad ID
@@ -23,7 +23,7 @@ pub struct GetInboxPostComments200ResponseMetaAdComments {
 }
 
 impl GetInboxPostComments200ResponseMetaAdComments {
-    /// (Facebook/Instagram only) Present when this post has no organic comments but is a boosted post — the engagement lives on the ad. Use the ad-comments endpoint instead.
+    /// (Facebook/Instagram only) Present when this post has no organic comments but is a boosted post: the engagement lives on the ad. Use the ad-comments endpoint instead.
     pub fn new() -> GetInboxPostComments200ResponseMetaAdComments {
         GetInboxPostComments200ResponseMetaAdComments {
             ad_id: None,

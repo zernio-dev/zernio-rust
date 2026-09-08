@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ListSmsSenderIds200ResponseBudget : Workspace-wide daily sending budget, shared by every sender ID (resets midnight UTC).
+/// ListSmsSenderIds200ResponseBudget : Team-wide daily sending budget, shared by every sender ID (resets midnight UTC).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ListSmsSenderIds200ResponseBudget {
     /// Daily message cap (raisable via `/v1/sms/sender-ids/limit-request`).
@@ -28,7 +28,7 @@ pub struct ListSmsSenderIds200ResponseBudget {
 }
 
 impl ListSmsSenderIds200ResponseBudget {
-    /// Workspace-wide daily sending budget, shared by every sender ID (resets midnight UTC).
+    /// Team-wide daily sending budget, shared by every sender ID (resets midnight UTC).
     pub fn new() -> ListSmsSenderIds200ResponseBudget {
         ListSmsSenderIds200ResponseBudget {
             cap: None,

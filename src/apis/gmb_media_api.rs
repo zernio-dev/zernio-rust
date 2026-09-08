@@ -101,7 +101,7 @@ pub async fn create_google_business_media(
     }
 }
 
-/// Deletes a photo or media item from a GBP location.
+/// Deletes a photo or media item from a Google Business Profile location.
 pub async fn delete_google_business_media(
     configuration: &configuration::Configuration,
     account_id: &str,

@@ -21,21 +21,21 @@ pub struct AdjustConversionsRequestAdjustmentsInner {
     /// Transaction ID of the original conversion (the `eventId` you sent). Recommended; required for ENHANCEMENT.
     #[serde(rename = "orderId", skip_serializing_if = "Option::is_none")]
     pub order_id: Option<String>,
-    /// Alternative key — the original click ID. Pair with `conversionTime`. Not valid for ENHANCEMENT.
+    /// Alternative key. The original click ID. Pair with `conversionTime`. Not valid for ENHANCEMENT.
     #[serde(rename = "gclid", skip_serializing_if = "Option::is_none")]
     pub gclid: Option<String>,
     /// The original conversion's time, unix seconds. Required when identifying by `gclid`.
     #[serde(rename = "conversionTime", skip_serializing_if = "Option::is_none")]
     pub conversion_time: Option<f64>,
-    /// RESTATEMENT only — the corrected TOTAL conversion value.
+    /// RESTATEMENT only. The corrected TOTAL conversion value.
     #[serde(rename = "restatementValue", skip_serializing_if = "Option::is_none")]
     pub restatement_value: Option<f64>,
-    /// RESTATEMENT only — ISO 4217 currency for `restatementValue`.
+    /// RESTATEMENT only. ISO 4217 currency for `restatementValue`.
     #[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
     pub currency: Option<String>,
     #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
     pub user: Option<Box<models::AdjustConversionsRequestAdjustmentsInnerUser>>,
-    /// ENHANCEMENT only — the original conversion's user agent (improves match quality).
+    /// ENHANCEMENT only. The original conversion's user agent (improves match quality).
     #[serde(rename = "userAgent", skip_serializing_if = "Option::is_none")]
     pub user_agent: Option<String>,
 }

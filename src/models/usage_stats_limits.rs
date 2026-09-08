@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UsageStatsLimits : Plan limits. For Metronome users both fields are `-1` (unlimited).
+/// UsageStatsLimits : Plan limits. For accounts on usage-based billing both fields are `-1` (unlimited).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UsageStatsLimits {
     #[serde(rename = "uploads", skip_serializing_if = "Option::is_none")]
@@ -21,7 +21,7 @@ pub struct UsageStatsLimits {
 }
 
 impl UsageStatsLimits {
-    /// Plan limits. For Metronome users both fields are `-1` (unlimited).
+    /// Plan limits. For accounts on usage-based billing both fields are `-1` (unlimited).
     pub fn new() -> UsageStatsLimits {
         UsageStatsLimits {
             uploads: None,

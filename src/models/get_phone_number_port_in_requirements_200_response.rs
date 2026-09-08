@@ -17,7 +17,7 @@ pub struct GetPhoneNumberPortInRequirements200Response {
     pub country: Option<String>,
     #[serde(rename = "numberType", skip_serializing_if = "Option::is_none")]
     pub number_type: Option<String>,
-    /// false when the combination includes a step that can't be completed through the API (e.g. an in-person identity verification) — porting it needs support.
+    /// false when the combination includes a step that can't be completed through the API (e.g. an in-person identity verification). Porting it needs support.
     #[serde(rename = "supported", skip_serializing_if = "Option::is_none")]
     pub supported: Option<bool>,
     #[serde(rename = "fields", skip_serializing_if = "Option::is_none")]

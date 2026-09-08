@@ -65,7 +65,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateSmsSenderId200Response create_sms_sender_id(create_sms_sender_id_request)
 Create an alphanumeric sender ID
 
-Registers an alphanumeric sender ID (e.g. `ZERNIO`) — a branded `from` for one-way international SMS. No phone number purchase or carrier registration is needed; once created, pass it as `from` on `POST /v1/sms/messages`.  Constraints: 3-11 characters (letters, digits, spaces; at least one letter). Sends cannot reach the US, Canada, or Puerto Rico, are text-only, and recipients cannot reply. Sender IDs that impersonate well-known brands or institutions are rejected. Names are not exclusive: the same sender ID can be registered by any number of workspaces. Creating the same sender ID again is a no-op (re-activates it after a delete). 
+Registers an alphanumeric sender ID (e.g. `ZERNIO`), a branded `from` for one-way international SMS. No phone number purchase or carrier registration is needed; once created, pass it as `from` on `POST /v1/sms/messages`.  Constraints: 3-11 characters (letters, digits, spaces; at least one letter). Sends cannot reach the US, Canada, or Puerto Rico, are text-only, and recipients cannot reply. Sender IDs that impersonate well-known brands or institutions are rejected. Names are not exclusive: the same sender ID can be registered by any number of teams. Creating the same sender ID again is a no-op (re-activates it after a delete). 
 
 ### Parameters
 
@@ -95,7 +95,7 @@ Name | Type | Description  | Required | Notes
 > models::DeactivateSmsRegistration200Response deactivate_sms_registration(id)
 Deactivate a brand/campaign registration
 
-Terminates the campaign with the carrier registry so the recurring monthly campaign fee stops (carriers bill the first 3 months of a campaign regardless). Numbers covered by it can no longer SEND texts — receiving is unaffected — until they're registered under a new brand. Irreversible: a deactivated campaign cannot be restored; texting again later requires a new registration (new one-time and review fees). Idempotent. 
+Terminates the campaign with the carrier registry so the recurring monthly campaign fee stops (carriers bill the first 3 months of a campaign regardless). Numbers covered by it can no longer SEND texts (receiving is unaffected) until they're registered under a new brand. Irreversible: a deactivated campaign cannot be restored; texting again later requires a new registration (new one-time and review fees). Idempotent. 
 
 ### Parameters
 
@@ -155,7 +155,7 @@ Name | Type | Description  | Required | Notes
 > models::DisableSmsOnNumber200Response disable_sms_on_number(id)
 Disable SMS on a number
 
-Turns off SMS for the number (deactivates its SMS account). The carrier registration is untouched, so re-enabling later just reactivates it, with no re-registration. 
+Turns off SMS for the number (deactivates its SMS account). The carrier registration is untouched, so re-enabling later reactivates it, with no re-registration. 
 
 ### Parameters
 
@@ -185,7 +185,7 @@ Name | Type | Description  | Required | Notes
 > models::EnableSmsOnNumber200Response enable_sms_on_number(id)
 Enable SMS on a number
 
-Turns on SMS for one of your numbers. The number's real carrier capability is checked first: some number types can't do SMS at all (`smsCapable: false`), and a number still provisioning at the carrier returns `notReady: true` (try again once provisioning finishes).  US numbers additionally need a carrier registration before messages deliver; the response tells you which path applies: - `alreadyRegistered: true`: a prior registration still covers this   number; SMS was simply reactivated. - `reusable` set: you have an approved registration this number can   join in one click via   `POST /v1/phone-numbers/{id}/sms/reuse-registration`   (no new brand/campaign, no extra carrier fee). - `needsRegistration: true` and no `reusable`: start one via   `POST /v1/sms/registrations`.  Idempotent: re-running re-attempts any carrier-side setup that failed. 
+Turns on SMS for one of your numbers. The number's real carrier capability is checked first: some number types can't do SMS at all (`smsCapable: false`), and a number still provisioning at the carrier returns `notReady: true` (try again once provisioning finishes).  US numbers additionally need a carrier registration before messages deliver; the response tells you which path applies: - `alreadyRegistered: true`: a prior registration still covers this   number; SMS was reactivated. - `reusable` set: you have an approved registration this number can   join in one click via   `POST /v1/phone-numbers/{id}/sms/reuse-registration`   (no new brand/campaign, no extra carrier fee). - `needsRegistration: true` and no `reusable`: start one via   `POST /v1/sms/registrations`.  Idempotent: re-running re-attempts any carrier-side setup that failed. 
 
 ### Parameters
 
@@ -281,7 +281,7 @@ List carrier registrations
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**include_deactivated** | Option<**bool**> | Deactivated (terminated) registrations are hidden by default — pass true to include them. |  |
+**include_deactivated** | Option<**bool**> | Deactivated (terminated) registrations are hidden by default. Pass true to include them. |  |
 
 ### Return type
 
@@ -389,7 +389,7 @@ Name | Type | Description  | Required | Notes
 > models::RequestSmsSenderIdLimitIncrease200Response request_sms_sender_id_limit_increase(request_sms_sender_id_limit_increase_request)
 Request a higher sender ID daily limit
 
-Asks support to raise the workspace's daily sender-ID message cap. There is no self-serve raise: the request (desired cap + use case) is reviewed manually, usually within a business day. 
+Asks support to raise the team's daily sender-ID message cap. There is no self-serve raise: the request (desired cap + use case) is reviewed manually, usually within a business day. 
 
 ### Parameters
 
@@ -419,7 +419,7 @@ Name | Type | Description  | Required | Notes
 > models::ResendSmsRegistrationOtp200Response resend_sms_registration_otp(id)
 Re-send the sole-prop OTP
 
-Re-sends the sole-proprietor verification PIN to the brand's mobile number — use it when the original code expired or never arrived. Only valid while the registration is pending and awaiting its OTP; rate limited to one send per minute. 
+Re-sends the sole-proprietor verification PIN to the brand's mobile number. Use it when the original code expired or never arrived. Only valid while the registration is pending and awaiting its OTP; rate limited to one send per minute. 
 
 ### Parameters
 
@@ -449,7 +449,7 @@ Name | Type | Description  | Required | Notes
 > models::RespondToSmsRegistrationReview200Response respond_to_sms_registration_review(id, respond_to_sms_registration_review_request)
 Reply to a change request
 
-Replies to a reviewer change request on a registration in `changes_requested` state: a note, hosted document URLs (from `POST /v1/sms/opt-in-proof`), or both, sent together. The registration returns to `requested` (back in review) — no need to resubmit the whole registration. To change the submitted brand/campaign fields themselves, resubmit via `POST /v1/sms/registrations` with `resubmitRequestId` instead. 
+Replies to a reviewer change request on a registration in `changes_requested` state: a note, hosted document URLs (from `POST /v1/sms/opt-in-proof`), or both, sent together. The registration returns to `requested` (back in review), and you do not need to resubmit the whole registration. To change the submitted brand/campaign fields themselves, resubmit via `POST /v1/sms/registrations` with `resubmitRequestId` instead. 
 
 ### Parameters
 
@@ -601,7 +601,7 @@ Name | Type | Description  | Required | Notes
 > models::UploadSmsOptInProofFile200Response upload_sms_opt_in_proof(id, file)
 Upload opt-in form proof for an appeal
 
-Hosts a screenshot (or PDF) of your SMS opt-in form and returns its public URL. Carrier reviewers reject campaigns whose consent can't be verified and ask for a \"link/screenshot of the opt-in form\" — the registry has no attachment field, so include the returned URL inside the `messageFlow` you submit with the appeal (`POST /v1/sms/registrations/{id}/appeal`). 
+Hosts a screenshot (or PDF) of your SMS opt-in form and returns its public URL. Carrier reviewers reject campaigns whose consent can't be verified and ask for a \"link/screenshot of the opt-in form\". The registry has no attachment field, so include the returned URL inside the `messageFlow` you submit with the appeal (`POST /v1/sms/registrations/{id}/appeal`). 
 
 ### Parameters
 
@@ -632,7 +632,7 @@ Name | Type | Description  | Required | Notes
 > models::UploadSmsOptInProofFile200Response upload_sms_opt_in_proof_file(file)
 Upload opt-in form proof
 
-Hosts a screenshot (or PDF) of your SMS opt-in form and returns its public URL. Include that URL in the campaign's `messageFlow` (the opt-in workflow text) — the carrier registry has no attachment field, so reviewers verify consent by opening links in that answer. Works before a registration exists (use it when registering) and for appeals. `/v1/sms/registrations/{id}/opt-in-proof` is an alias. 
+Hosts a screenshot (or PDF) of your SMS opt-in form and returns its public URL. Include that URL in the campaign's `messageFlow` (the opt-in workflow text). The carrier registry has no attachment field, so reviewers verify consent by opening links in that answer. Works before a registration exists (use it when registering) and for appeals. `/v1/sms/registrations/{id}/opt-in-proof` is an alias. 
 
 ### Parameters
 

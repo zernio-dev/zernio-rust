@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// StartSmsRegistrationRequestCampaign : Required for 10DLC. What you'll send and how recipients opt in/out. The opt-in/opt-out/help auto-responses (`optinMessage`, `optoutMessage`, `helpMessage`) are optional: when omitted, a compliant, brand-named template with the carrier-required disclosures is generated for you. If you do send them, they must name the registered brand and carry the disclosures — submissions that don't are rewritten to the compliant template before the campaign is filed.
+/// StartSmsRegistrationRequestCampaign : Required for 10DLC. What you'll send and how recipients opt in/out. The opt-in/opt-out/help auto-responses (`optinMessage`, `optoutMessage`, `helpMessage`) are optional: when omitted, a compliant, brand-named template with the carrier-required disclosures is generated for you. If you do send them, they must name the registered brand and carry the disclosures. Submissions that don't are rewritten to the compliant template before the campaign is filed.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct StartSmsRegistrationRequestCampaign {
     #[serde(rename = "usecase")]
@@ -21,7 +21,7 @@ pub struct StartSmsRegistrationRequestCampaign {
     pub sub_usecases: Option<Vec<SubUsecases>>,
     #[serde(rename = "description")]
     pub description: String,
-    /// How a recipient ends up receiving your messages (the opt-in flow). Include a link to the page or form where they opt in — carrier reviewers reject campaigns whose consent they can't verify.
+    /// How a recipient ends up receiving your messages (the opt-in flow). Include a link to the page or form where they opt in, because carrier reviewers reject campaigns whose consent they can't verify.
     #[serde(rename = "messageFlow")]
     pub message_flow: String,
     #[serde(rename = "sample1")]
@@ -65,7 +65,7 @@ pub struct StartSmsRegistrationRequestCampaign {
 }
 
 impl StartSmsRegistrationRequestCampaign {
-    /// Required for 10DLC. What you'll send and how recipients opt in/out. The opt-in/opt-out/help auto-responses (`optinMessage`, `optoutMessage`, `helpMessage`) are optional: when omitted, a compliant, brand-named template with the carrier-required disclosures is generated for you. If you do send them, they must name the registered brand and carry the disclosures — submissions that don't are rewritten to the compliant template before the campaign is filed.
+    /// Required for 10DLC. What you'll send and how recipients opt in/out. The opt-in/opt-out/help auto-responses (`optinMessage`, `optoutMessage`, `helpMessage`) are optional: when omitted, a compliant, brand-named template with the carrier-required disclosures is generated for you. If you do send them, they must name the registered brand and carry the disclosures. Submissions that don't are rewritten to the compliant template before the campaign is filed.
     pub fn new(
         usecase: String,
         description: String,

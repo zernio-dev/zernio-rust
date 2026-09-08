@@ -20,7 +20,7 @@ pub struct ExternalPostWebhookPost {
     /// Platform the post lives on (e.g. \"googlebusiness\").
     #[serde(rename = "platform")]
     pub platform: String,
-    /// Zernio social account ID the post belongs to.
+    /// Zernio account ID the post belongs to.
     #[serde(rename = "accountId")]
     pub account_id: String,
     /// Direct URL to the post on the platform, when available.
@@ -50,7 +50,7 @@ pub struct ExternalPostWebhookPost {
     /// Instagram only: audio type of the media (MUSIC or ORIGINAL_SOUND). Absent when the platform did not report it.
     #[serde(rename = "mediaAudioType", skip_serializing_if = "Option::is_none")]
     pub media_audio_type: Option<String>,
-    /// Always \"external\" — distinguishes these from Zernio-originated post.* events.
+    /// Always \"external\". Distinguishes these from Zernio-originated post.* events.
     #[serde(rename = "source")]
     pub source: Source,
     /// Detection time of deletion. Present on post.external.deleted; null/absent otherwise.
@@ -96,7 +96,7 @@ impl ExternalPostWebhookPost {
         }
     }
 }
-/// Always \"external\" — distinguishes these from Zernio-originated post.* events.
+/// Always \"external\". Distinguishes these from Zernio-originated post.* events.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Source {
     #[serde(rename = "external")]

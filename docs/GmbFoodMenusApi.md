@@ -14,7 +14,7 @@ Method | HTTP request | Description
 > models::GetGoogleBusinessFoodMenus200Response get_google_business_food_menus(account_id, location_id)
 Get food menus
 
-Returns food menus for a GBP location including sections, items, pricing, and dietary info. Only for locations with food menu support.
+Returns food menus for a Google Business Profile location including sections, items, pricing, and dietary info. Only for locations with food menu support.
 
 ### Parameters
 
@@ -45,7 +45,7 @@ Name | Type | Description  | Required | Notes
 > models::UpdateGoogleBusinessFoodMenus200Response update_google_business_food_menus(account_id, update_google_business_food_menus_request, location_id)
 Update food menus
 
-Updates food menus for a GBP location. Send the full menus array. Use updateMask for partial updates.
+Updates food menus for a Google Business Profile location. Send the full menus array. Use updateMask for partial updates.
 
 ### Parameters
 

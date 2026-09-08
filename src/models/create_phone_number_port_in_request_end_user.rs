@@ -11,19 +11,19 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreatePhoneNumberPortInRequestEndUser : End-user / current-carrier account info that authorizes the port. The losing carrier matches every field against its records and rejects the whole port on a mismatch — enter values exactly as they appear on the carrier bill.
+/// CreatePhoneNumberPortInRequestEndUser : End-user / current-carrier account info that authorizes the port. The losing carrier matches every field against its records and rejects the whole port on a mismatch, so enter values exactly as they appear on the carrier bill.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreatePhoneNumberPortInRequestEndUser {
     /// Account holder / business name, as on the carrier account.
     #[serde(rename = "entityName")]
     pub entity_name: String,
-    /// Full name (first + last) of the person authorizing the port — must match the LOA signature.
+    /// Full name (first + last) of the person authorizing the port, which must match the LOA signature.
     #[serde(rename = "authPersonName")]
     pub auth_person_name: String,
     /// Phone number on the losing carrier's bill. Defaults to the ported number itself on single-number orders. Validated as a real phone number when present.
     #[serde(rename = "billingPhoneNumber", skip_serializing_if = "Option::is_none")]
     pub billing_phone_number: Option<String>,
-    /// Account number with the losing carrier — required (carriers reject ports without it; on prepaid mobile plans it is often the phone number itself).
+    /// Account number with the losing carrier. Required (carriers reject ports without it; on prepaid mobile plans it is often the phone number itself).
     #[serde(rename = "accountNumber")]
     pub account_number: String,
     /// Transfer PIN. Required for US/CA mobile numbers (wireless carriers reject PIN-less ports). Forwarded to the carrier, never stored. International porting codes (e.g. the UK PAC) go through `requirements` instead.
@@ -53,7 +53,7 @@ pub struct CreatePhoneNumberPortInRequestEndUser {
 }
 
 impl CreatePhoneNumberPortInRequestEndUser {
-    /// End-user / current-carrier account info that authorizes the port. The losing carrier matches every field against its records and rejects the whole port on a mismatch — enter values exactly as they appear on the carrier bill.
+    /// End-user / current-carrier account info that authorizes the port. The losing carrier matches every field against its records and rejects the whole port on a mismatch, so enter values exactly as they appear on the carrier bill.
     pub fn new(
         entity_name: String,
         auth_person_name: String,

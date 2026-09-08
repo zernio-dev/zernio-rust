@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateStandaloneAd201ResponseOneOf : Legacy + attach shapes — one ad returned.
+/// CreateStandaloneAd201ResponseOneOf : Legacy + attach shapes: one ad returned.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateStandaloneAd201ResponseOneOf {
     #[serde(rename = "ad", skip_serializing_if = "Option::is_none")]
@@ -21,7 +21,7 @@ pub struct CreateStandaloneAd201ResponseOneOf {
 }
 
 impl CreateStandaloneAd201ResponseOneOf {
-    /// Legacy + attach shapes — one ad returned.
+    /// Legacy + attach shapes: one ad returned.
     pub fn new() -> CreateStandaloneAd201ResponseOneOf {
         CreateStandaloneAd201ResponseOneOf {
             ad: None,

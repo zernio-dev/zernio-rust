@@ -27,7 +27,7 @@ pub struct AdsTimelineResponseRowsInner {
     pub clicks: Option<i32>,
     #[serde(rename = "engagement", skip_serializing_if = "Option::is_none")]
     pub engagement: Option<i32>,
-    /// Click-through rate as a percentage (0–100).
+    /// Click-through rate as a percentage (0 to 100).
     #[serde(rename = "ctr", skip_serializing_if = "Option::is_none")]
     pub ctr: Option<f64>,
     /// Cost per click in native currency.

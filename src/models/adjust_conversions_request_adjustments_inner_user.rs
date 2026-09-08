@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// AdjustConversionsRequestAdjustmentsInnerUser : ENHANCEMENT only — first-party identifiers (hashed server-side). At least one of email/phone required.
+/// AdjustConversionsRequestAdjustmentsInnerUser : ENHANCEMENT only. First-party identifiers (hashed server-side). At least one of email/phone required.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AdjustConversionsRequestAdjustmentsInnerUser {
     #[serde(rename = "email", skip_serializing_if = "Option::is_none")]
@@ -21,7 +21,7 @@ pub struct AdjustConversionsRequestAdjustmentsInnerUser {
 }
 
 impl AdjustConversionsRequestAdjustmentsInnerUser {
-    /// ENHANCEMENT only — first-party identifiers (hashed server-side). At least one of email/phone required.
+    /// ENHANCEMENT only. First-party identifiers (hashed server-side). At least one of email/phone required.
     pub fn new() -> AdjustConversionsRequestAdjustmentsInnerUser {
         AdjustConversionsRequestAdjustmentsInnerUser {
             email: None,

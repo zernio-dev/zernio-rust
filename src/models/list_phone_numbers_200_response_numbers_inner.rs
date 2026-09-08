@@ -21,7 +21,7 @@ pub struct ListPhoneNumbers200ResponseNumbersInner {
     pub country: Option<String>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
-    /// For regulated numbers, who it's registered for (company or person) — set from the submitted KYC.
+    /// For regulated numbers, who it's registered for (company or person), set from the submitted KYC.
     #[serde(
         rename = "registrantName",
         default,
@@ -40,7 +40,7 @@ pub struct ListPhoneNumbers200ResponseNumbersInner {
     /// What this number bills each month, in cents. Stamped when the number was bought, so an existing number keeps its price when the rate card changes.
     #[serde(rename = "monthlyCents", skip_serializing_if = "Option::is_none")]
     pub monthly_cents: Option<i32>,
-    /// False for numbers you brought yourself (connected via Meta embedded signup) — they live on your own carrier, so SMS/Calls can't be enabled on them.
+    /// False for numbers you brought yourself (connected via Meta embedded signup). They live on your own carrier, so SMS/Calls can't be enabled on them.
     #[serde(rename = "hostedByZernio", skip_serializing_if = "Option::is_none")]
     pub hosted_by_zernio: Option<bool>,
     /// SIP trunk the number is attached to; null when not trunked. While attached, enabling Calls or WhatsApp calling, requesting WhatsApp verification, and releasing the number all return 409.
@@ -62,7 +62,7 @@ pub struct ListPhoneNumbers200ResponseNumbersInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub meta_verification_status: Option<String>,
-    /// For regulated (Tier 3/4) numbers with an Onfido ID-verification step — the link to forward to the end user. Set once the order is placed; null otherwise. Poll this field after submitting KYC.
+    /// For regulated (Tier 3/4) numbers with an Onfido ID-verification step: the link to forward to the end user. Set once the order is placed; null otherwise. Poll this field after submitting KYC.
     #[serde(
         rename = "onfidoVerificationUrl",
         default,

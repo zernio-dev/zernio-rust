@@ -21,7 +21,7 @@ Returns mentions of your connected organization accounts, delivered via platform
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | Option<**String**> | Filter by social account ID |  |
+**account_id** | Option<**String**> | Filter by account ID |  |
 **profile_id** | Option<**String**> | Filter by profile ID |  |
 **sort_order** | Option<**String**> | Sort order by publishedAt |  |[default to desc]
 **limit** | Option<**i32**> |  |  |[default to 25]
@@ -48,7 +48,7 @@ Name | Type | Description  | Required | Notes
 > models::ReplyToMention200Response reply_to_mention(reply_to_mention_request)
 Reply to a mention
 
-Reply to a mention of the connected account. Supported on Instagram only.  Two shapes, selected by whether `commentId` is present:  - **Comment mention** (someone @mentioned the account inside a comment): pass both   `mediaId` and `commentId`. Instagram posts a reply under that comment. - **Caption mention** (someone @mentioned the account in their media caption, so no   comment exists): pass `mediaId` only. Instagram posts a comment on their media.  Story mentions are not supported by Instagram's API.  Note that `GET /v1/inbox/mentions` currently returns LinkedIn mentions only and does not surface Instagram mentions. Source `mediaId` and `commentId` from Instagram's `comments` webhook, which is where mention notifications are delivered for accounts connected through Instagram Login. 
+Reply to a mention of the connected account. Supported on Instagram only.  Two shapes, selected by whether `commentId` is present:  - **Comment mention** (someone @mentioned the account inside a comment): pass both   `mediaId` and `commentId`. Instagram posts a reply under that comment. - **Caption mention** (someone @mentioned the account in their media caption, so no   comment exists): pass `mediaId` only. Instagram posts a comment on their media.  Story mentions are not supported by Instagram's API.  `GET /v1/inbox/mentions` currently returns LinkedIn mentions only and does not surface Instagram mentions. Source `mediaId` and `commentId` from Instagram's `comments` webhook, which is where mention notifications are delivered for accounts connected through Instagram Login. 
 
 ### Parameters
 

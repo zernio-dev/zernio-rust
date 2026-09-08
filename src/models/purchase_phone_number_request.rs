@@ -16,7 +16,7 @@ pub struct PurchasePhoneNumberRequest {
     /// Preferred profile for the number. One number = one profile, so when the requested profile already holds a number the API assigns the next free profile instead (or creates one) and returns the actual assignment in `profileId` on the response.
     #[serde(rename = "profileId")]
     pub profile_id: String,
-    /// ISO 3166-1 alpha-2 country for the number (default US). International numbers require usage-based billing. Tier 3/4 countries return 202 { status: \"kyc_required\", kycUrl } — the customer must complete KYC at that URL before the number is ordered. See GET /v1/phone-numbers/countries.
+    /// ISO 3166-1 alpha-2 country for the number (default US). International numbers require usage-based billing. Tier 3/4 countries return 202 { status: \"kyc_required\", kycUrl }. The customer must complete KYC at that URL before the number is ordered. See GET /v1/phone-numbers/countries.
     #[serde(rename = "country", skip_serializing_if = "Option::is_none")]
     pub country: Option<String>,
     /// Which of the country's offered number types to order (see `types[]` on GET /v1/phone-numbers/countries). Omitted = the country's default type, which is always the WhatsApp-safe choice. Capabilities, price, and KYC requirements are per (country, type): toll_free can never connect WhatsApp (400 when combined with connectWhatsapp:true), and wantsSms:true requires an SMS-capable type.

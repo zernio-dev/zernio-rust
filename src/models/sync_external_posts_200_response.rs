@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct SyncExternalPosts200Response {
     #[serde(rename = "synced", skip_serializing_if = "Option::is_none")]
     pub synced: Option<Box<models::SyncExternalPosts200ResponseSynced>>,
-    /// Present only when a locator (`url`/`postId`) was provided — whether the post was found.
+    /// Present only when a locator (`url`/`postId`) was provided: whether the post was found.
     #[serde(rename = "found", skip_serializing_if = "Option::is_none")]
     pub found: Option<bool>,
     #[serde(

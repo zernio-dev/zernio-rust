@@ -11,10 +11,10 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// GoogleBusinessPlatformData : Text and single image only (no videos). Supports STANDARD, EVENT, OFFER, and ALERT post types. Posts appear on GBP, Google Search, and Maps. Use locationId for multi-location posting. Schedule dates accept both ISO 8601 strings (e.g. '2026-04-15T09:00:00Z') and Google's native {year, month, day} objects.
+/// GoogleBusinessPlatformData : Text and single image only (no videos). Supports STANDARD, EVENT, OFFER, and ALERT post types. Posts appear on Google Business Profile, Google Search, and Maps. Use locationId for multi-location posting. Schedule dates accept both ISO 8601 strings (e.g. '2026-04-15T09:00:00Z') and Google's native {year, month, day} objects.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GoogleBusinessPlatformData {
-    /// Target GBP location ID (e.g. \"locations/123456789\"). If omitted, uses the default location. Use GET /v1/accounts/{id}/gmb-locations to list locations.
+    /// Target Google Business Profile location ID (e.g. \"locations/123456789\"). If omitted, uses the default location. Use GET /v1/accounts/{id}/gmb-locations to list locations.
     #[serde(rename = "locationId", skip_serializing_if = "Option::is_none")]
     pub location_id: Option<String>,
     /// BCP 47 language code (e.g. \"en\", \"de\", \"es\"). Auto-detected if omitted. Set explicitly for short or mixed-language posts.
@@ -32,7 +32,7 @@ pub struct GoogleBusinessPlatformData {
 }
 
 impl GoogleBusinessPlatformData {
-    /// Text and single image only (no videos). Supports STANDARD, EVENT, OFFER, and ALERT post types. Posts appear on GBP, Google Search, and Maps. Use locationId for multi-location posting. Schedule dates accept both ISO 8601 strings (e.g. '2026-04-15T09:00:00Z') and Google's native {year, month, day} objects.
+    /// Text and single image only (no videos). Supports STANDARD, EVENT, OFFER, and ALERT post types. Posts appear on Google Business Profile, Google Search, and Maps. Use locationId for multi-location posting. Schedule dates accept both ISO 8601 strings (e.g. '2026-04-15T09:00:00Z') and Google's native {year, month, day} objects.
     pub fn new() -> GoogleBusinessPlatformData {
         GoogleBusinessPlatformData {
             location_id: None,

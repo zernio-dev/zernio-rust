@@ -11,10 +11,10 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UsageMetering : Billed spend by product family over a window, from Metronome's invoice breakdown (the CHARGE view). Returned by `GET /v1/usage`.
+/// UsageMetering : Billed spend by product family over a window, from the usage-based invoice breakdown (the CHARGE view). Returned by `GET /v1/usage`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UsageMetering {
-    /// False for legacy Stripe accounts (no Metronome invoice to split); `days` and `totals` are then empty/zero.
+    /// False for legacy Stripe accounts (no usage-based invoice to split); `days` and `totals` are then empty/zero.
     #[serde(rename = "supported", skip_serializing_if = "Option::is_none")]
     pub supported: Option<bool>,
     #[serde(rename = "granularity", skip_serializing_if = "Option::is_none")]
@@ -42,7 +42,7 @@ pub struct UsageMetering {
 }
 
 impl UsageMetering {
-    /// Billed spend by product family over a window, from Metronome's invoice breakdown (the CHARGE view). Returned by `GET /v1/usage`.
+    /// Billed spend by product family over a window, from the usage-based invoice breakdown (the CHARGE view). Returned by `GET /v1/usage`.
     pub fn new() -> UsageMetering {
         UsageMetering {
             supported: None,

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | Option<**String**> | Business name as set in GBP | [optional]
+**name** | Option<**String**> | Business name as set in Google Business Profile | [optional]
 **place_id** | Option<**String**> | Google Maps Place ID for this location | [optional]
 **review_url** | Option<**String**> | Public \"write a review\" URL Google generates for this place | [optional]
 **maps_uri** | Option<**String**> | Public Google Maps URL for this location | [optional]

@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UsageStatsSpend : Metronome users only. Current-period spend summary.
+/// UsageStatsSpend : Usage-based billing only. Current-period spend summary.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UsageStatsSpend {
     /// Total current-period spend in cents (all products combined).
@@ -23,7 +23,7 @@ pub struct UsageStatsSpend {
         skip_serializing_if = "Option::is_none"
     )]
     pub credits_remaining_cents: Option<i32>,
-    /// Current-period X/Twitter API spend in cents, summed from `xApiCallsByOperation` × per-operation prices. Tier-agnostic (covers every price including the $0.200 URL tier). Rounded up for conservative enforcement against `xSpendLimitCents`.
+    /// Current-period X API spend in cents, summed from `xApiCallsByOperation` × per-operation prices. Tier-agnostic (covers every price including the $0.200 URL tier). Rounded up for conservative enforcement against `xSpendLimitCents`.
     #[serde(rename = "xSpendCents", skip_serializing_if = "Option::is_none")]
     pub x_spend_cents: Option<i32>,
     /// Monthly X spend cap set by the account owner, or null if no cap. When current X spend hits this cap, analytics and inbox sync are auto-paused for X accounts. Publishing is never blocked by this cap.
@@ -37,7 +37,7 @@ pub struct UsageStatsSpend {
 }
 
 impl UsageStatsSpend {
-    /// Metronome users only. Current-period spend summary.
+    /// Usage-based billing only. Current-period spend summary.
     pub fn new() -> UsageStatsSpend {
         UsageStatsSpend {
             current_period_cents: None,

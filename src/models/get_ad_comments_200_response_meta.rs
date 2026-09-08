@@ -16,7 +16,7 @@ pub struct GetAdComments200ResponseMeta {
     /// Which side these comments are on (same as `placement`).
     #[serde(rename = "platform")]
     pub platform: Platform,
-    /// The placement these comments are for — useful when you didn't pass ?placement= and want to know which one you got.
+    /// The placement these comments are for, useful when you didn't pass ?placement= and want to know which one you got.
     #[serde(rename = "placement")]
     pub placement: Placement,
     /// Internal Zernio ad ID.
@@ -28,7 +28,7 @@ pub struct GetAdComments200ResponseMeta {
     /// Underlying post ID the comments belong to. effective_object_story_id for the Facebook side, effective_instagram_media_id for the Instagram side.
     #[serde(rename = "effectiveStoryId")]
     pub effective_story_id: String,
-    /// Facebook-only. The connected Facebook Page SocialAccount these comments were read through — pass it as `accountId` (with `effectiveStoryId` as the postId) to /v1/inbox/comments to reply/hide/delete. Null when no connected Page was used (then moderation isn't possible).
+    /// Facebook-only. The connected Facebook Page SocialAccount these comments were read through. Pass it as `accountId` (with `effectiveStoryId` as the postId) to /v1/inbox/comments to reply/hide/delete. Null when no connected Page was used (then moderation isn't possible).
     #[serde(
         rename = "facebookAccountId",
         default,
@@ -42,10 +42,10 @@ pub struct GetAdComments200ResponseMeta {
     /// Instagram-only. Public permalink of the boosted IG post (creative.instagram_permalink_url).
     #[serde(rename = "instagramPermalink", skip_serializing_if = "Option::is_none")]
     pub instagram_permalink: Option<String>,
-    /// Instagram-only. The connected Instagram SocialAccount these comments were read through — pass it as `accountId` (with `effectiveStoryId` as the postId) to /v1/inbox/comments to reply/hide/delete.
+    /// Instagram-only. The connected Instagram SocialAccount these comments were read through. Pass it as `accountId` (with `effectiveStoryId` as the postId) to /v1/inbox/comments to reply/hide/delete.
     #[serde(rename = "instagramAccountId", skip_serializing_if = "Option::is_none")]
     pub instagram_account_id: Option<String>,
-    /// Social account ID (ads SocialAccount).
+    /// Account ID (ads SocialAccount).
     #[serde(rename = "accountId")]
     pub account_id: String,
     #[serde(rename = "lastUpdated")]
@@ -91,7 +91,7 @@ impl Default for Platform {
         Self::Facebook
     }
 }
-/// The placement these comments are for — useful when you didn't pass ?placement= and want to know which one you got.
+/// The placement these comments are for, useful when you didn't pass ?placement= and want to know which one you got.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Placement {
     #[serde(rename = "facebook")]

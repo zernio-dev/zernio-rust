@@ -19,7 +19,7 @@ pub struct WebhookPayloadCommentPost {
     /// Platform's post ID
     #[serde(rename = "platformPostId")]
     pub platform_post_id: String,
-    /// Post text, from our synced copy — no platform call is made on the comment path, so null when the post was never synced.
+    /// Post text, from our synced copy. No platform call is made on the comment path, so null when the post was never synced.
     #[serde(rename = "content", deserialize_with = "Option::deserialize")]
     pub content: Option<String>,
     /// Post thumbnail or first media item URL. Platform CDN URLs expire, fetch promptly.

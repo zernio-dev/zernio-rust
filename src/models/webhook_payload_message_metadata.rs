@@ -11,9 +11,12 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookPayloadMessageMetadata : Platform-specific message context (present when the message is a quick reply tap, postback button tap, inline keyboard callback, or a quote-reply to an earlier message)
+/// WebhookPayloadMessageMetadata : Platform-specific message context (present when the message is a quick reply tap, postback button tap, inline keyboard callback, a quote-reply to an earlier message, or a WhatsApp inbound that Meta Business Agent is answering)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadMessageMetadata {
+    /// WhatsApp only. true when this inbound arrived while Meta Business Agent held the conversation: the agent answers it, and Zernio only observes. Sending a reply takes control back. See conversation.control_changed.
+    #[serde(rename = "standby", skip_serializing_if = "Option::is_none")]
+    pub standby: Option<bool>,
     /// Raw platform envelope id (WhatsApp `context.id`; Instagram and Facebook Messenger `reply_to.mid`) of the message this one is a quote-reply to, forwarded verbatim. It may not equal the stored id of that message (see `quotedMessage.platformMessageId`). On outgoing messages the same field appears on `message.sent`, but only on some surfaces: see WebhookPayloadMessageSent.metadata.quotedMessageId.
     #[serde(rename = "quotedMessageId", skip_serializing_if = "Option::is_none")]
     pub quoted_message_id: Option<String>,
@@ -68,7 +71,7 @@ pub struct WebhookPayloadMessageMetadata {
     pub referral: Option<Box<models::WebhookPayloadMessageMetadataReferral>>,
     #[serde(rename = "unsupported", skip_serializing_if = "Option::is_none")]
     pub unsupported: Option<Box<models::WebhookPayloadMessageMetadataUnsupported>>,
-    /// Instagram / Facebook Messenger only. Set when the message carries nothing an integrator can render (a `template` attachment with no text and no parseable content, or Meta's own `is_unsupported` flag). Sibling of `unsupported` above (WhatsApp only, carries Meta's error code/title/details): this field has no error envelope, just the boolean. Absence means \"not flagged\", never \"checked and renderable\".
+    /// Instagram / Facebook Messenger only. Set when the message carries nothing an integrator can render (a `template` attachment with no text and no parseable content, or Meta's own `is_unsupported` flag). Sibling of `unsupported` above (WhatsApp only, carries Meta's error code/title/details): this field has no error envelope, only the boolean. Absence means \"not flagged\", never \"checked and renderable\".
     #[serde(
         rename = "noRenderableContent",
         skip_serializing_if = "Option::is_none"
@@ -77,9 +80,10 @@ pub struct WebhookPayloadMessageMetadata {
 }
 
 impl WebhookPayloadMessageMetadata {
-    /// Platform-specific message context (present when the message is a quick reply tap, postback button tap, inline keyboard callback, or a quote-reply to an earlier message)
+    /// Platform-specific message context (present when the message is a quick reply tap, postback button tap, inline keyboard callback, a quote-reply to an earlier message, or a WhatsApp inbound that Meta Business Agent is answering)
     pub fn new() -> WebhookPayloadMessageMetadata {
         WebhookPayloadMessageMetadata {
+            standby: None,
             quoted_message_id: None,
             quoted_message: None,
             quick_reply_payload: None,

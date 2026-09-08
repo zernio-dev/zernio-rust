@@ -13,17 +13,18 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ConnectWhatsAppEmbeddedSignupRequest {
-    /// Authorization code from the WA_EMBEDDED_SIGNUP postMessage
+    /// Authorization code from the FB.login response (authResponse.code)
     #[serde(rename = "code")]
     pub code: String,
     #[serde(rename = "profileId")]
     pub profile_id: String,
-    /// WhatsApp Business Account id, when the SDK reported one
+    /// waba_id from the WA_EMBEDDED_SIGNUP message event
     #[serde(rename = "wabaId", skip_serializing_if = "Option::is_none")]
     pub waba_id: Option<String>,
+    /// phone_number_id from the WA_EMBEDDED_SIGNUP message event. With wabaId it skips the number picker.
     #[serde(rename = "phoneNumberId", skip_serializing_if = "Option::is_none")]
     pub phone_number_id: Option<String>,
-    /// Number is also live in the WhatsApp Business app
+    /// Set when the popup ended with the FINISH_WHATSAPP_BUSINESS_APP_ONBOARDING event, so the number stays live in the WhatsApp Business app
     #[serde(rename = "isCoexistence", skip_serializing_if = "Option::is_none")]
     pub is_coexistence: Option<bool>,
     /// Rejects the connect when Meta returns a different number

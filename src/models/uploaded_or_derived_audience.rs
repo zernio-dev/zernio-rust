@@ -25,10 +25,10 @@ pub struct UploadedOrDerivedAudience {
     pub description: Option<String>,
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// Required for website_retargeting audiences (LinkedIn only). Each rule is a URL pattern; a member who visits any matching page enters the segment. Needs the LinkedIn Insight Tag installed on the customer's site — the segment only starts filling once the tag reports visits.  The response's `platformAudienceId` is the LinkedIn adSegment id, valid for downstream use. These segments appear in GET /v1/ads/audiences with  `type: website_retargeting` once LinkedIn has finished building them.
+    /// Required for website_retargeting audiences (LinkedIn only). Each rule is a URL pattern; a member who visits any matching page enters the segment. Needs the LinkedIn Insight Tag installed on the customer's site; the segment only starts filling once the tag reports visits.  The response's `platformAudienceId` is the LinkedIn adSegment id, valid for downstream use. These segments appear in GET /v1/ads/audiences with  `type: website_retargeting` once LinkedIn has finished building them.
     #[serde(rename = "matchRules", skip_serializing_if = "Option::is_none")]
     pub match_rules: Option<Vec<models::UploadedOrDerivedAudienceMatchRulesInner>>,
-    /// Required for engagement audiences (LinkedIn only): what members engaged with — a video/leadgen/single-image ad campaign, a Company Page or an Event page.
+    /// Required for engagement audiences (LinkedIn only): what members engaged with: a video/leadgen/single-image ad campaign, a Company Page or an Event page.
     #[serde(rename = "sourceType", skip_serializing_if = "Option::is_none")]
     pub source_type: Option<SourceType>,
     /// Required for engagement audiences. The action, validated by LinkedIn against `sourceType`. Common values: VIDEO_ADS FIRST_QUARTILE / MIDPOINT / THIRD_QUARTILE / FULL_COMPLETE; LEAD_GEN_FORMS VIEW_FORM / LEAD_FORM_SUBMIT; ORGANIZATION_PAGES VIEW / CTA_CLICK; EVENT_PAGES RSVPED / VIDEO_VIEWED / ENGAGEMENT / CLICK.
@@ -136,7 +136,7 @@ impl Default for Type {
         Self::CustomerList
     }
 }
-/// Required for engagement audiences (LinkedIn only): what members engaged with — a video/leadgen/single-image ad campaign, a Company Page or an Event page.
+/// Required for engagement audiences (LinkedIn only): what members engaged with: a video/leadgen/single-image ad campaign, a Company Page or an Event page.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum SourceType {
     #[serde(rename = "VIDEO_ADS")]

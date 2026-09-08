@@ -11,10 +11,10 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// AdFunnelCounts : Named conversion-funnel steps, resolved from the same data as `actions` so you never have to parse action-type strings yourself.  Meta reports one event under several action types at once (`offsite_conversion.fb_pixel_purchase`, `omni_purchase`, `purchase`, …). Each field below takes the FIRST family member present rather than summing them, which is what makes these counts safe to add up — summing the raw `actions` keys yourself double or triple counts. The same priority order backs `conversions`, so a purchase-optimised campaign reports the identical number in `conversions` and `funnel.purchases`.  Every field is 0 when that step never fired. Populated for Meta ads; other platforms report a different action taxonomy and generally leave these at 0 (read `actions` for those). At ad-set and campaign level each step is summed from its per-ad values.
+/// AdFunnelCounts : Named conversion-funnel steps, resolved from the same data as `actions` so you never have to parse action-type strings yourself.  Meta reports one event under several action types at once (`offsite_conversion.fb_pixel_purchase`, `omni_purchase`, `purchase`, …). Each field below takes the FIRST family member present rather than summing them, which is what makes these counts safe to add up. Summing the raw `actions` keys yourself double or triple counts. The same priority order backs `conversions`, so a purchase-optimised campaign reports the identical number in `conversions` and `funnel.purchases`.  Every field is 0 when that step never fired. Populated for Meta ads; other platforms report a different action taxonomy and generally leave these at 0 (read `actions` for those). At ad-set and campaign level each step is summed from its per-ad values.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AdFunnelCounts {
-    /// Landing page views — the visitor actually loaded the destination, unlike a link click. Meta `landing_page_view`.
+    /// Landing page views: the visitor actually loaded the destination, unlike a link click. Meta `landing_page_view`.
     #[serde(rename = "landingPageViews", skip_serializing_if = "Option::is_none")]
     pub landing_page_views: Option<i32>,
     /// Content views (Meta `ViewContent` pixel event).
@@ -38,7 +38,7 @@ pub struct AdFunnelCounts {
     /// Purchases (Meta `Purchase` pixel event). Pair with `purchaseValue` for revenue.
     #[serde(rename = "purchases", skip_serializing_if = "Option::is_none")]
     pub purchases: Option<i32>,
-    /// Leads, from either the website pixel or an instant form — whichever the ad uses.
+    /// Leads, from either the website pixel or an instant form, whichever the ad uses.
     #[serde(rename = "leads", skip_serializing_if = "Option::is_none")]
     pub leads: Option<i32>,
     /// Completed registrations (Meta `CompleteRegistration` pixel event).
@@ -50,7 +50,7 @@ pub struct AdFunnelCounts {
     /// Mobile app installs attributed to the ad.
     #[serde(rename = "appInstalls", skip_serializing_if = "Option::is_none")]
     pub app_installs: Option<i32>,
-    /// Messaging conversations started within 7 days — the headline metric for click-to-WhatsApp and click-to-Messenger ads.
+    /// Messaging conversations started within 7 days, the headline metric for click-to-WhatsApp and click-to-Messenger ads.
     #[serde(
         rename = "messagingConversationsStarted",
         skip_serializing_if = "Option::is_none"
@@ -65,7 +65,7 @@ pub struct AdFunnelCounts {
 }
 
 impl AdFunnelCounts {
-    /// Named conversion-funnel steps, resolved from the same data as `actions` so you never have to parse action-type strings yourself.  Meta reports one event under several action types at once (`offsite_conversion.fb_pixel_purchase`, `omni_purchase`, `purchase`, …). Each field below takes the FIRST family member present rather than summing them, which is what makes these counts safe to add up — summing the raw `actions` keys yourself double or triple counts. The same priority order backs `conversions`, so a purchase-optimised campaign reports the identical number in `conversions` and `funnel.purchases`.  Every field is 0 when that step never fired. Populated for Meta ads; other platforms report a different action taxonomy and generally leave these at 0 (read `actions` for those). At ad-set and campaign level each step is summed from its per-ad values.
+    /// Named conversion-funnel steps, resolved from the same data as `actions` so you never have to parse action-type strings yourself.  Meta reports one event under several action types at once (`offsite_conversion.fb_pixel_purchase`, `omni_purchase`, `purchase`, …). Each field below takes the FIRST family member present rather than summing them, which is what makes these counts safe to add up. Summing the raw `actions` keys yourself double or triple counts. The same priority order backs `conversions`, so a purchase-optimised campaign reports the identical number in `conversions` and `funnel.purchases`.  Every field is 0 when that step never fired. Populated for Meta ads; other platforms report a different action taxonomy and generally leave these at 0 (read `actions` for those). At ad-set and campaign level each step is summed from its per-ad values.
     pub fn new() -> AdFunnelCounts {
         AdFunnelCounts {
             landing_page_views: None,

@@ -19,7 +19,7 @@ pub struct UpdatePostMetadataRequest {
     /// YouTube video ID (required for direct mode, ignored for post-based mode)
     #[serde(rename = "videoId", skip_serializing_if = "Option::is_none")]
     pub video_id: Option<String>,
-    /// Zernio social account ID (required for direct mode, ignored for post-based mode)
+    /// Zernio account ID (required for direct mode, ignored for post-based mode)
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
     /// New video title (max 100 characters for YouTube)

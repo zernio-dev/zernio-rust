@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BillingSnapshot : Account billing state — plan, cycle, balance, spend caps, and payment / access status. Returned by `GET /v1/billing`.
+/// BillingSnapshot : Account billing state: plan, cycle, balance, spend caps, and payment / access status. Returned by `GET /v1/billing`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BillingSnapshot {
     #[serde(rename = "billingSystem", skip_serializing_if = "Option::is_none")]
@@ -39,7 +39,7 @@ pub struct BillingSnapshot {
 }
 
 impl BillingSnapshot {
-    /// Account billing state — plan, cycle, balance, spend caps, and payment / access status. Returned by `GET /v1/billing`.
+    /// Account billing state: plan, cycle, balance, spend caps, and payment / access status. Returned by `GET /v1/billing`.
     pub fn new() -> BillingSnapshot {
         BillingSnapshot {
             billing_system: None,

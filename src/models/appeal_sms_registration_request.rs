@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AppealSmsRegistrationRequest {
-    /// Goes verbatim to the carrier reviewer — address the decline reason directly.
+    /// Goes verbatim to the carrier reviewer. Address the decline reason directly.
     #[serde(rename = "appealReason")]
     pub appeal_reason: String,
     /// Corrected opt-in flow; include a link to the opt-in page/form.

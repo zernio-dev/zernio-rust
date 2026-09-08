@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ConversionDestination : A discoverable conversion destination on an ad platform — a Meta pixel, Google conversion action, or LinkedIn conversion rule. Returned by `listConversionDestinations`, `getConversionDestination`, `createConversionDestination`, and `updateConversionDestination`.
+/// ConversionDestination : A discoverable conversion destination on an ad platform: a Meta pixel, Google conversion action, or LinkedIn conversion rule. Returned by `listConversionDestinations`, `getConversionDestination`, `createConversionDestination`, and `updateConversionDestination`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ConversionDestination {
     /// Platform-native identifier. Pass back as `destinationId` on event send and as the path segment on CRUD endpoints.
@@ -31,7 +31,7 @@ pub struct ConversionDestination {
 }
 
 impl ConversionDestination {
-    /// A discoverable conversion destination on an ad platform — a Meta pixel, Google conversion action, or LinkedIn conversion rule. Returned by `listConversionDestinations`, `getConversionDestination`, `createConversionDestination`, and `updateConversionDestination`.
+    /// A discoverable conversion destination on an ad platform: a Meta pixel, Google conversion action, or LinkedIn conversion rule. Returned by `listConversionDestinations`, `getConversionDestination`, `createConversionDestination`, and `updateConversionDestination`.
     pub fn new(id: String, name: String) -> ConversionDestination {
         ConversionDestination {
             id,

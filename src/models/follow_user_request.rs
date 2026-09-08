@@ -13,10 +13,10 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FollowUserRequest {
-    /// The social account ID
+    /// The account ID
     #[serde(rename = "accountId")]
     pub account_id: String,
-    /// The Twitter ID of the user to follow
+    /// The X ID of the user to follow
     #[serde(rename = "targetUserId")]
     pub target_user_id: String,
 }

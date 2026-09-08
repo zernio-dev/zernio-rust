@@ -603,7 +603,7 @@ pub async fn get_whats_app_call_recording(
     }
 }
 
-/// The WhatsApp Business Calling configuration of this number, keyed the same way as the POST/PATCH/DELETE below (full read-write on one sub-resource). Encrypted secrets are never returned; only a boolean saying whether a SIP password is stored. The account-scoped read (`GET /v1/whatsapp/calling?accountId=`) remains for callers that only know the social account id, and additionally carries account-level extras (billing eligibility, current-period spend).
+/// The WhatsApp Business Calling configuration of this number, keyed the same way as the POST/PATCH/DELETE below (full read-write on one sub-resource). Encrypted secrets are never returned; only a boolean saying whether a SIP password is stored. The account-scoped read (`GET /v1/whatsapp/calling?accountId=`) remains for callers that only know the account id, and additionally carries account-level extras (billing eligibility, current-period spend).
 pub async fn get_whats_app_calling(
     configuration: &configuration::Configuration,
     id: &str,

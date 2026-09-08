@@ -28,7 +28,7 @@ pub struct StartSmsRegistrationRequest {
     /// Raw dashboard-wizard answers, stored only to prefill edit-and-resubmit. API integrators can omit.
     #[serde(rename = "wizardValues", skip_serializing_if = "Option::is_none")]
     pub wizard_values: Option<std::collections::HashMap<String, String>>,
-    /// Resubmit a registration that was returned for changes — updates it in place instead of creating a new one.
+    /// Resubmit a registration that was returned for changes. Updates it in place instead of creating a new one.
     #[serde(rename = "resubmitRequestId", skip_serializing_if = "Option::is_none")]
     pub resubmit_request_id: Option<String>,
     #[serde(rename = "tollFree", skip_serializing_if = "Option::is_none")]

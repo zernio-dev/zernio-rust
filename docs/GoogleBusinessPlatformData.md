@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**location_id** | Option<**String**> | Target GBP location ID (e.g. \"locations/123456789\"). If omitted, uses the default location. Use GET /v1/accounts/{id}/gmb-locations to list locations. | [optional]
+**location_id** | Option<**String**> | Target Google Business Profile location ID (e.g. \"locations/123456789\"). If omitted, uses the default location. Use GET /v1/accounts/{id}/gmb-locations to list locations. | [optional]
 **language_code** | Option<**String**> | BCP 47 language code (e.g. \"en\", \"de\", \"es\"). Auto-detected if omitted. Set explicitly for short or mixed-language posts. | [optional]
 **topic_type** | Option<**TopicType**> | Post type. STANDARD is a regular update. EVENT requires the event object. OFFER requires the offer object. Defaults to STANDARD if omitted. (enum: STANDARD, EVENT, OFFER) | [optional][default to Standard]
 **call_to_action** | Option<[**models::GoogleBusinessPlatformDataCallToAction**](GoogleBusinessPlatformDataCallToAction.md)> |  | [optional]

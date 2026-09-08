@@ -16,7 +16,7 @@ pub struct PurchaseWhatsAppPhoneNumberRequest {
     /// Profile to associate the number with
     #[serde(rename = "profileId")]
     pub profile_id: String,
-    /// ISO 3166-1 alpha-2 country for the number (default US). International numbers require usage-based billing. Tier 3/4 countries return 202 { status: \"kyc_required\", kycUrl } — the customer must complete KYC at that URL before the number is ordered. See GET /v1/whatsapp/phone-numbers/countries.
+    /// ISO 3166-1 alpha-2 country for the number (default US). International numbers require usage-based billing. Tier 3/4 countries return 202 { status: \"kyc_required\", kycUrl }. The customer must complete KYC at that URL before the number is ordered. See GET /v1/whatsapp/phone-numbers/countries.
     #[serde(rename = "country", skip_serializing_if = "Option::is_none")]
     pub country: Option<String>,
     /// Optional idempotency key. Send the same value when retrying a purchase: if a number was already bought under this key, the API returns { status: \"already_purchased\", numberId, phoneNumber } instead of provisioning a second number. Generate a fresh key for each genuinely new purchase.

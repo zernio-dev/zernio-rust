@@ -19,7 +19,7 @@ pub struct ListGoogleBusinessLocations200ResponseLocationsInner {
     /// Business name
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Google Business Account ID
+    /// Google Business Profile Account ID
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
     /// Account name

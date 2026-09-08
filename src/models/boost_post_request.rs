@@ -19,7 +19,7 @@ pub struct BoostPostRequest {
     /// Platform post ID (alternative to postId)
     #[serde(rename = "platformPostId", skip_serializing_if = "Option::is_none")]
     pub platform_post_id: Option<String>,
-    /// Social account ID
+    /// Account ID
     #[serde(rename = "accountId")]
     pub account_id: String,
     /// Platform ad account ID
@@ -27,7 +27,7 @@ pub struct BoostPostRequest {
     pub ad_account_id: String,
     #[serde(rename = "name")]
     pub name: String,
-    /// Available goals vary by platform. Meta (Facebook/Instagram) and TikTok support all 7. LinkedIn supports all except app_promotion. Twitter/X supports engagement, traffic, awareness, video_views, app_promotion. Pinterest and Google Ads support only engagement, traffic, awareness, video_views.
+    /// Available goals vary by platform. Meta (Facebook/Instagram) and TikTok support all 7. LinkedIn supports all except app_promotion. X supports engagement, traffic, awareness, video_views, app_promotion. Pinterest and Google Ads support only engagement, traffic, awareness, video_views.
     #[serde(rename = "goal")]
     pub goal: Goal,
     /// Meta only. Attach the boosted post to this existing ad set instead of creating a campaign. The ad set then owns budget, schedule and targeting; sending those too is a 400.
@@ -38,7 +38,7 @@ pub struct BoostPostRequest {
     /// Meta only. Instagram identity the ad runs AS (creative.instagram_user_id), overriding the account linked to the Page. Live-verified against a Page-post creative.
     #[serde(rename = "instagramAccountId", skip_serializing_if = "Option::is_none")]
     pub instagram_account_id: Option<String>,
-    /// Meta only. Ad-set destination_type — where the click LANDS, as opposed to instagramAccountId which is who the ad runs as. Lead ads force ON_AD and ignore this.
+    /// Meta only. Ad-set destination_type: where the click LANDS, as opposed to instagramAccountId which is who the ad runs as. Lead ads force ON_AD and ignore this.
     #[serde(rename = "destinationType", skip_serializing_if = "Option::is_none")]
     pub destination_type: Option<DestinationType>,
     /// ISO 4217 currency code matching the ad account's currency. Meta only. Optional: Zernio resolves it from the ad account when omitted. The value selects the minor-unit exponent Zernio converts budget/bid amounts by before calling Meta (most currencies are cents; zero-decimal currencies like JPY/KRW are sent as-is).
@@ -94,10 +94,10 @@ pub struct BoostPostRequest {
     /// Destination URL for the CTA button. Send it together with `callToAction`.  **Meta**: adds a top-level `call_to_action` to the post-reference creative. This is what gives a `traffic` boost a clickable destination without replacing the creative and losing the post's social proof. Ignored when `leadGenFormId` is set, which supplies its own destination. Live-verified against a Page-post creative.  **TikTok**: maps to `landing_page_url` on the Spark Ad creative (`AdcreateCreatives.landing_page_url`); Spark Ads have no clickable destination without it.  Ignored on LinkedIn / Pinterest / X / Google, which infer the destination from the boosted post.
     #[serde(rename = "linkUrl", skip_serializing_if = "Option::is_none")]
     pub link_url: Option<String>,
-    /// CTA button label. Send it together with `linkUrl` — a CTA without a destination produces a button that goes nowhere, so sending one alone is a 400.  **Meta**: the CTA enum of POST /v1/ads/create plus `VIEW_INSTAGRAM_PROFILE`, which is accepted on boost only. For that value `linkUrl` is typically the Instagram profile URL.  **TikTok**: pass-through to `call_to_action` on the Spark Ad creative; the platform validates the value. See TikTok's \"Enumeration - Call-to-Action\".
+    /// CTA button label. Send it together with `linkUrl`: a CTA without a destination produces a button that goes nowhere, so sending one alone is a 400.  **Meta**: the CTA enum of POST /v1/ads/create plus `VIEW_INSTAGRAM_PROFILE`, which is accepted on boost only. For that value `linkUrl` is typically the Instagram profile URL.  **TikTok**: pass-through to `call_to_action` on the Spark Ad creative; the platform validates the value. See TikTok's \"Enumeration - Call-to-Action\".
     #[serde(rename = "callToAction", skip_serializing_if = "Option::is_none")]
     pub call_to_action: Option<String>,
-    /// TikTok-only. Spark Code (creator's `auth_code`) authorizing cross-creator Spark Ads — the advertiser can boost a video owned by a DIFFERENT TikTok account. Without this, boosts are limited to videos owned by the same account running the ads (same-BC creators only). The creator generates the code in their TikTok app's Promote settings and shares it with the advertiser. Maps to `auth_code` on the creative entry of /v2/ad/create/.
+    /// TikTok-only. Spark Code (creator's `auth_code`) authorizing cross-creator Spark Ads: the advertiser can boost a video owned by a DIFFERENT TikTok account. Without this, boosts are limited to videos owned by the same account running the ads (same-BC creators only). The creator generates the code in their TikTok app's Promote settings and shares it with the advertiser. Maps to `auth_code` on the creative entry of /v2/ad/create/.
     #[serde(rename = "sparkAuthCode", skip_serializing_if = "Option::is_none")]
     pub spark_auth_code: Option<String>,
     /// Legal entity that benefits from the ad. Required when targeting EU users (EU DSA, Article 26). Optional if the ad account has a default beneficiary: set it once via `PATCH /v1/ads/accounts` or in Meta Ads Manager, and Meta fills it in whenever the field is omitted.
@@ -159,7 +159,7 @@ impl BoostPostRequest {
         }
     }
 }
-/// Available goals vary by platform. Meta (Facebook/Instagram) and TikTok support all 7. LinkedIn supports all except app_promotion. Twitter/X supports engagement, traffic, awareness, video_views, app_promotion. Pinterest and Google Ads support only engagement, traffic, awareness, video_views.
+/// Available goals vary by platform. Meta (Facebook/Instagram) and TikTok support all 7. LinkedIn supports all except app_promotion. X supports engagement, traffic, awareness, video_views, app_promotion. Pinterest and Google Ads support only engagement, traffic, awareness, video_views.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Goal {
     #[serde(rename = "engagement")]
@@ -183,7 +183,7 @@ impl Default for Goal {
         Self::Engagement
     }
 }
-/// Meta only. Ad-set destination_type — where the click LANDS, as opposed to instagramAccountId which is who the ad runs as. Lead ads force ON_AD and ignore this.
+/// Meta only. Ad-set destination_type: where the click LANDS, as opposed to instagramAccountId which is who the ad runs as. Lead ads force ON_AD and ignore this.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum DestinationType {
     #[serde(rename = "INSTAGRAM_PROFILE")]

@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct UpdateGmbLocationRequest {
     #[serde(rename = "selectedLocationId")]
     pub selected_location_id: String,
-    /// Optional but recommended. The Google Business Account resource name (\"accounts/123\") that owns the new location (from GET gmb-locations). When provided, the location is resolved directly instead of by enumerating the account, which is required for accounts with many locations. Named `googleAccountId` to disambiguate from the path `accountId` (the Zernio account). The legacy field name `accountId` is still accepted for backwards compatibility.
+    /// Optional but recommended. The Google Business Profile Account resource name (\"accounts/123\") that owns the new location (from GET gmb-locations). When provided, the location is resolved directly instead of by enumerating the account, which is required for accounts with many locations. Named `googleAccountId` to disambiguate from the path `accountId` (the Zernio account). The legacy field name `accountId` is still accepted for backwards compatibility.
     #[serde(rename = "googleAccountId", skip_serializing_if = "Option::is_none")]
     pub google_account_id: Option<String>,
 }

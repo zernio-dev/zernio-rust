@@ -22,7 +22,7 @@ pub struct WorkflowEdge {
     /// Target node id
     #[serde(rename = "target")]
     pub target: String,
-    /// Selects a branch output of a multi-output node. Null (or omitted) = the node's single/default output. Known handles per node type:    - **condition** — a rule's `id`, or `'default'` (no rule matched)   - **wait_for_reply** — `'reply'` (contact replied) | `'timeout'` (no reply in window)   - **webhook** — `'success'` (2xx) | `'error'` (non-2xx / fetch failed)   - **ai** — `'success'` (text/JSON response) | `'tool:<toolName>'` (model invoked     that tool) | `'error'` (upstream failure / non-JSON in JSON mode)   - **start_call** — `'success'` | `'permission_required'` | `'failed'`   - **a_b_split** — `'a'` | `'b'`   - **enroll_sequence** — `'success'` | `'error'`
+    /// Selects a branch output of a multi-output node. Null (or omitted) = the node's single/default output. Known handles per node type:    - **condition**: a rule's `id`, or `'default'` (no rule matched)   - **wait_for_reply**: `'reply'` (contact replied) | `'timeout'` (no reply in window)   - **webhook**: `'success'` (2xx) | `'error'` (non-2xx / fetch failed)   - **ai**: `'success'` (text/JSON response) | `'tool:<toolName>'` (model invoked     that tool) | `'error'` (upstream failure / non-JSON in JSON mode)   - **start_call**: `'success'` | `'permission_required'` | `'failed'`   - **a_b_split**: `'a'` | `'b'`   - **enroll_sequence**: `'success'` | `'error'`
     #[serde(
         rename = "sourceHandle",
         default,

@@ -20,7 +20,7 @@ pub struct AdTreeCampaign {
     pub platform: Option<Platform>,
     #[serde(rename = "campaignName", skip_serializing_if = "Option::is_none")]
     pub campaign_name: Option<String>,
-    /// Earliest `platformCreatedAt` (platform ad creation time; falls back to `createdAt`, Zernio's sync time, for ads synced before that field existed) across every ad in the campaign. Not the platform campaign's own creation time (Meta's `Campaign.created_time` etc. is not synced) — a campaign created empty and populated later will show its first ad's time, not the campaign's. Usable for sorting \"most recently created\" without the numeric-campaign-id heuristic. Same source as `AdTreeAdSet.createdTime` and `Ad.platformCreatedAt`; mirrors `AdCampaign.earliestAd`.
+    /// Earliest `platformCreatedAt` (platform ad creation time; falls back to `createdAt`, Zernio's sync time, for ads synced before that field existed) across every ad in the campaign. Not the platform campaign's own creation time (Meta's `Campaign.created_time` etc. is not synced). A campaign created empty and populated later will show its first ad's time, not the campaign's. Usable for sorting \"most recently created\" without the numeric-campaign-id heuristic. Same source as `AdTreeAdSet.createdTime` and `Ad.platformCreatedAt`; mirrors `AdCampaign.earliestAd`.
     #[serde(
         rename = "createdTime",
         default,
@@ -71,7 +71,7 @@ pub struct AdTreeCampaign {
         skip_serializing_if = "Option::is_none"
     )]
     pub budget_level: Option<Option<BudgetLevel>>,
-    /// Meta-only. Mirrors Campaign.is_budget_schedule_enabled — true when the campaign uses budget scheduling (time-based budget changes). Independent of CBO/ABO.
+    /// Meta-only. Mirrors Campaign.is_budget_schedule_enabled: true when the campaign uses budget scheduling (time-based budget changes). Independent of CBO/ABO.
     #[serde(
         rename = "isBudgetScheduleEnabled",
         skip_serializing_if = "Option::is_none"
@@ -137,7 +137,7 @@ pub struct AdTreeCampaign {
         skip_serializing_if = "Option::is_none"
     )]
     pub bid_amount: Option<Option<f64>>,
-    /// Representative ROAS floor for the campaign — bubbled up from the top-spending ad set. Decimal multiplier (2.0 = 2.0x).
+    /// Representative ROAS floor for the campaign, bubbled up from the top-spending ad set. Decimal multiplier (2.0 = 2.0x).
     #[serde(
         rename = "roasAverageFloor",
         default,
@@ -149,7 +149,7 @@ pub struct AdTreeCampaign {
     pub promoted_object: Option<Box<models::AdTreeCampaignPromotedObject>>,
     #[serde(rename = "adSets", skip_serializing_if = "Option::is_none")]
     pub ad_sets: Option<Vec<models::AdTreeAdSet>>,
-    /// Per-day metric series for this campaign. Present only when `GET /v1/ads/tree` is called with `timeIncrement=1` (any `dailyLevel`). This is the per-campaign daily trend — summing its additive fields reproduces the campaign `metrics` total, except `reach`: on Meta the range total is de-duplicated, so daily reach does not sum to it.
+    /// Per-day metric series for this campaign. Present only when `GET /v1/ads/tree` is called with `timeIncrement=1` (any `dailyLevel`). This is the per-campaign daily trend. Summing its additive fields reproduces the campaign `metrics` total, except `reach`: on Meta the range total is de-duplicated, so daily reach does not sum to it.
     #[serde(rename = "daily", skip_serializing_if = "Option::is_none")]
     pub daily: Option<Vec<models::AdDailyMetrics>>,
 }

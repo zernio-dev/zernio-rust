@@ -16,7 +16,7 @@ pub struct XApiOperationTriggeredByInner {
     /// Zernio platform method name.
     #[serde(rename = "method", skip_serializing_if = "Option::is_none")]
     pub method: Option<String>,
-    /// When the method actually bills the user:   * `always` — every call is metered   * `analytics_optin` — only when the X account has analytics enabled   * `inbox_optin` — only when the X account has inbox sync enabled   * `absorbed` — Zernio eats the cost, never billed
+    /// When the method actually bills the user:   * `always`: every call is metered   * `analytics_optin`: only when the X account has analytics enabled   * `inbox_optin`: only when the X account has inbox sync enabled   * `absorbed`: Zernio eats the cost, never billed
     #[serde(rename = "metering", skip_serializing_if = "Option::is_none")]
     pub metering: Option<Metering>,
 }
@@ -29,7 +29,7 @@ impl XApiOperationTriggeredByInner {
         }
     }
 }
-/// When the method actually bills the user:   * `always` — every call is metered   * `analytics_optin` — only when the X account has analytics enabled   * `inbox_optin` — only when the X account has inbox sync enabled   * `absorbed` — Zernio eats the cost, never billed
+/// When the method actually bills the user:   * `always`: every call is metered   * `analytics_optin`: only when the X account has analytics enabled   * `inbox_optin`: only when the X account has inbox sync enabled   * `absorbed`: Zernio eats the cost, never billed
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Metering {
     #[serde(rename = "always")]

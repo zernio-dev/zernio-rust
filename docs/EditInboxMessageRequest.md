@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**account_id** | **String** | Social account ID | 
+**account_id** | **String** | Account ID | 
 **text** | Option<**String**> | New message text | [optional]
 **reply_markup** | Option<[**models::EditInboxMessageRequestReplyMarkup**](EditInboxMessageRequestReplyMarkup.md)> |  | [optional]
 

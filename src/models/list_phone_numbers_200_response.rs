@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct ListPhoneNumbers200Response {
     #[serde(rename = "numbers", skip_serializing_if = "Option::is_none")]
     pub numbers: Option<Vec<models::ListPhoneNumbers200ResponseNumbersInner>>,
-    /// Connected (bring-your-own) WhatsApp numbers — your own WABA numbers linked via Embedded Signup. Not provisioned or billed by Zernio, so they are not in `numbers`; `accountId` is the social-account id used by the messaging and inbox endpoints. Included only on the default and `status=active` views.
+    /// Connected (bring-your-own) WhatsApp numbers: your own WABA numbers linked via Embedded Signup. Not provisioned or billed by Zernio, so they are not in `numbers`; `accountId` is the social-account id used by the messaging and inbox endpoints. Included only on the default and `status=active` views.
     #[serde(rename = "connected", skip_serializing_if = "Option::is_none")]
     pub connected: Option<Vec<models::ListPhoneNumbers200ResponseConnectedInner>>,
     #[serde(rename = "sandbox", skip_serializing_if = "Option::is_none")]

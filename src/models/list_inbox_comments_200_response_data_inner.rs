@@ -21,7 +21,7 @@ pub struct ListInboxComments200ResponseDataInner {
     pub account_id: Option<String>,
     #[serde(rename = "accountUsername", skip_serializing_if = "Option::is_none")]
     pub account_username: Option<String>,
-    /// The post text/caption. On ad rows (isAd: true) this is the AD NAME, not the underlying post's caption — the creative text isn't exposed here.
+    /// The post text/caption. On ad rows (isAd: true) this is the AD NAME, not the underlying post's caption. The creative text isn't exposed here.
     #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
     pub content: Option<String>,
     /// Post media thumbnail. On ad rows this is the ad creative thumbnail.
@@ -66,10 +66,10 @@ pub struct ListInboxComments200ResponseDataInner {
     /// True when this row is an ad (boosted/dark post). `platform` is then the placement (facebook = the Page dark post / instagram = the IG media), `id` is `{adId}:{placement}`, and the thread is at GET /v1/ads/{adId}/comments?placement={placement}.
     #[serde(rename = "isAd", skip_serializing_if = "Option::is_none")]
     pub is_ad: Option<bool>,
-    /// Internal Zernio ad id — only on ad rows.
+    /// Internal Zernio ad id, only on ad rows.
     #[serde(rename = "adId", skip_serializing_if = "Option::is_none")]
     pub ad_id: Option<String>,
-    /// Which side of the ad this row's comments are on — only on ad rows.
+    /// Which side of the ad this row's comments are on, only on ad rows.
     #[serde(rename = "placement", skip_serializing_if = "Option::is_none")]
     pub placement: Option<Placement>,
 }
@@ -95,7 +95,7 @@ impl ListInboxComments200ResponseDataInner {
         }
     }
 }
-/// Which side of the ad this row's comments are on — only on ad rows.
+/// Which side of the ad this row's comments are on, only on ad rows.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Placement {
     #[serde(rename = "facebook")]

@@ -25,7 +25,7 @@ pub struct WebhookPayloadMessageMessageSender {
     pub username: Option<String>,
     #[serde(rename = "picture", skip_serializing_if = "Option::is_none")]
     pub picture: Option<String>,
-    /// WhatsApp only. Sender's phone number in E.164 format (with leading `+`).  **Nullable during the BSUID rollout (April 2026+).** WhatsApp users who adopt a username can message businesses without exposing a phone number — this field is omitted for them. Match by `businessScopedUserId` instead. See `docs/whatsapp-bsuid-migration.md`.
+    /// WhatsApp only. Sender's phone number in E.164 format (with leading `+`).  **Nullable during the BSUID rollout (April 2026+).** WhatsApp users who adopt a username can message businesses without exposing a phone number, so this field is omitted for them. Match by `businessScopedUserId` instead. See `docs/whatsapp-bsuid-migration.md`.
     #[serde(
         rename = "phoneNumber",
         default,
@@ -33,7 +33,7 @@ pub struct WebhookPayloadMessageMessageSender {
         skip_serializing_if = "Option::is_none"
     )]
     pub phone_number: Option<Option<String>>,
-    /// WhatsApp only. Business-scoped user ID (BSUID) — Meta's canonical identifier for a WhatsApp user within your business. Present when Meta includes it in the inbound payload (rollout in progress since early April 2026). **Recommended primary identity anchor** going forward; fall back to `phoneNumber` only when this field is absent.
+    /// WhatsApp only. Business-scoped user ID (BSUID), Meta's canonical identifier for a WhatsApp user within your business. Present when Meta includes it in the inbound payload (rollout in progress since early April 2026). **Recommended primary identity anchor** going forward; fall back to `phoneNumber` only when this field is absent.
     #[serde(
         rename = "businessScopedUserId",
         skip_serializing_if = "Option::is_none"
@@ -45,7 +45,7 @@ pub struct WebhookPayloadMessageMessageSender {
         skip_serializing_if = "Option::is_none"
     )]
     pub parent_business_scoped_user_id: Option<String>,
-    /// WhatsApp only. User's WhatsApp username (e.g. `@jane`). Not a stable identifier — users can change it. Useful for display, not recommended as an identity anchor.
+    /// WhatsApp only. User's WhatsApp username (e.g. `@jane`). Not a stable identifier, because users can change it. Useful for display, not recommended as an identity anchor.
     #[serde(rename = "whatsappUsername", skip_serializing_if = "Option::is_none")]
     pub whatsapp_username: Option<String>,
     #[serde(rename = "instagramProfile", skip_serializing_if = "Option::is_none")]

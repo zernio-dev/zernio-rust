@@ -277,7 +277,7 @@ Name | Type | Description  | Required | Notes
 > models::GetWhatsAppCalling200Response get_whats_app_calling(id)
 Get calling config for a number
 
-The WhatsApp Business Calling configuration of this number, keyed the same way as the POST/PATCH/DELETE below (full read-write on one sub-resource). Encrypted secrets are never returned; only a boolean saying whether a SIP password is stored. The account-scoped read (`GET /v1/whatsapp/calling?accountId=`) remains for callers that only know the social account id, and additionally carries account-level extras (billing eligibility, current-period spend). 
+The WhatsApp Business Calling configuration of this number, keyed the same way as the POST/PATCH/DELETE below (full read-write on one sub-resource). Encrypted secrets are never returned; only a boolean saying whether a SIP password is stored. The account-scoped read (`GET /v1/whatsapp/calling?accountId=`) remains for callers that only know the account id, and additionally carries account-level extras (billing eligibility, current-period spend). 
 
 ### Parameters
 
@@ -314,7 +314,7 @@ Returns the local calling configuration snapshot for the connected WhatsApp acco
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 
 ### Return type
 

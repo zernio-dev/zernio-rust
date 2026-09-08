@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct GetAdMedia200ResponseMediaInner {
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
-    /// Direct file URL (signed; short-lived — see description).
+    /// Direct file URL (signed; short-lived, see description).
     #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
     /// Video poster URL (videos only).

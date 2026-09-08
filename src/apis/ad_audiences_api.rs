@@ -299,7 +299,7 @@ pub async fn get_ad_audience(
     }
 }
 
-/// Returns custom audiences for the given ad account. Supports Meta, Google, TikTok, Pinterest, LinkedIn, and X (Twitter).
+/// Returns custom audiences for the given ad account. Supports Meta, Google, TikTok, Pinterest, LinkedIn, and X.
 pub async fn list_ad_audiences(
     configuration: &configuration::Configuration,
     account_id: &str,
@@ -360,7 +360,7 @@ pub async fn list_ad_audiences(
     }
 }
 
-/// Upload the company rows of a LinkedIn `company_list` audience (account-based marketing). LinkedIn-only, every other platform returns 422.  A LinkedIn audience segment holds exactly one uploaded list, so the list you send here REPLACES the segment's list instead of being appended to it: always send the full set of companies. LinkedIn returns only the identifier of the uploaded file, never its rows, so the merge cannot be done for you, keep the source list on your side. LinkedIn does not document how quickly companies dropped from the list stop being targeted, so treat removals as eventual rather than immediate. Rows are plain text (not hashed), matched against LinkedIn's own company graph. Matching is asynchronous: LinkedIn takes up to 48h for a new audience and up to 24h for a later update, and the audience stays `processing` meanwhile. LinkedIn recommends at least 1,000 companies for a usable match rate, and caps a list at 300,000.  The initial list is sent with `companies` on `POST /v1/ads/audiences`; this endpoint is for every change after that.
+/// Upload the company rows of a LinkedIn `company_list` audience (account-based marketing). LinkedIn-only, every other platform returns 422.  A LinkedIn audience segment holds exactly one uploaded list, so the list you send here REPLACES the segment's list instead of being appended to it: always send the full set of companies. LinkedIn returns only the identifier of the uploaded file, never its rows, so the merge cannot be done for you, keep the source list on your side.  How the matching behaves:  - Rows are plain text (not hashed), matched against LinkedIn's own company graph. - Matching is asynchronous: LinkedIn takes up to 48h for a new audience and up to 24h for a   later update, and the audience stays `processing` meanwhile. - LinkedIn does not document how quickly companies dropped from the list stop being targeted,   so treat removals as eventual rather than immediate. - LinkedIn recommends at least 1,000 companies for a usable match rate, and caps a list at   300,000.  The initial list is sent with `companies` on `POST /v1/ads/audiences`; this endpoint is for every change after that.
 pub async fn replace_ad_audience_companies(
     configuration: &configuration::Configuration,
     audience_id: &str,

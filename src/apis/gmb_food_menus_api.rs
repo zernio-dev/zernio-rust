@@ -37,7 +37,7 @@ pub enum UpdateGoogleBusinessFoodMenusError {
     UnknownValue(serde_json::Value),
 }
 
-/// Returns food menus for a GBP location including sections, items, pricing, and dietary info. Only for locations with food menu support.
+/// Returns food menus for a Google Business Profile location including sections, items, pricing, and dietary info. Only for locations with food menu support.
 pub async fn get_google_business_food_menus(
     configuration: &configuration::Configuration,
     account_id: &str,
@@ -93,7 +93,7 @@ pub async fn get_google_business_food_menus(
     }
 }
 
-/// Updates food menus for a GBP location. Send the full menus array. Use updateMask for partial updates.
+/// Updates food menus for a Google Business Profile location. Send the full menus array. Use updateMask for partial updates.
 pub async fn update_google_business_food_menus(
     configuration: &configuration::Configuration,
     account_id: &str,

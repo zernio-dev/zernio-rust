@@ -14,13 +14,13 @@ use serde::{Deserialize, Serialize};
 /// WebhookPayloadAdStatusChangedError : Optional. Present on most `WITH_ISSUES` events, carrying the platform's error diagnostics. May be absent on some `WITH_ISSUES` events (Meta does not always include diagnostics). Always absent for any other `status.raw` value. Always null-check before reading.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadAdStatusChangedError {
-    /// Platform-native error code, forwarded verbatim. For Meta this is `error_code` as a string. Use as the stable discriminator — `summary` and `message` are localized.
+    /// Platform-native error code, forwarded verbatim. For Meta this is `error_code` as a string. Use as the stable discriminator, since `summary` and `message` are localized.
     #[serde(rename = "code")]
     pub code: String,
-    /// Short human-readable summary (Meta `error_summary`). Localized to the ad-account owner's Meta locale — display only, do not match on it.
+    /// Short human-readable summary (Meta `error_summary`). Localized to the ad-account owner's Meta locale. Display only, do not match on it.
     #[serde(rename = "summary", skip_serializing_if = "Option::is_none")]
     pub summary: Option<String>,
-    /// Full human-readable error message (Meta `error_message`). Localized — display only.
+    /// Full human-readable error message (Meta `error_message`). Localized, display only.
     #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
 }

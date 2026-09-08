@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct AdKeyword {
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
-    /// Social account ID owning the sync
+    /// Account ID owning the sync
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
     #[serde(rename = "profileId", skip_serializing_if = "Option::is_none")]

@@ -63,7 +63,7 @@ pub struct WorkflowExecutionEvent {
         skip_serializing_if = "Option::is_none"
     )]
     pub error_message: Option<Option<String>>,
-    /// Per-node-type payload. Shape varies — see WorkflowNode `type`. Examples:   `send_message` → `{ messageType, text, recipient }`,   `webhook` → `{ url, method, statusCode, responseTimeMs, responsePreview }`,   `ai` → `{ model, provider, inputTokens, outputTokens, responsePreview }`,   `condition` → `{ matchedHandle, rulesEvaluated }`,   `a_b_split` → `{ percentage, chosen }`.
+    /// Per-node-type payload. Shape varies; see WorkflowNode `type`. Examples:   `send_message` → `{ messageType, text, recipient }`,   `webhook` → `{ url, method, statusCode, responseTimeMs, responsePreview }`,   `ai` → `{ model, provider, inputTokens, outputTokens, responsePreview }`,   `condition` → `{ matchedHandle, rulesEvaluated }`,   `a_b_split` → `{ percentage, chosen }`.
     #[serde(
         rename = "meta",
         default,

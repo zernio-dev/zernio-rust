@@ -35,7 +35,7 @@ pub struct Ad {
     pub review_status: Option<models::AdReviewStatus>,
     #[serde(rename = "adType", skip_serializing_if = "Option::is_none")]
     pub ad_type: Option<AdType>,
-    /// Creative format, classified from the media the creative carries. `null` when the creative carries no media to classify — an unsynced creative and a genuine text-only ad are indistinguishable, so neither is guessed at. Returned by `GET /v1/ads`, `GET /v1/ads/{adId}` and the ad nodes of `GET /v1/ads/tree`.
+    /// Creative format, classified from the media the creative carries. `null` when the creative carries no media to classify. An unsynced creative and a genuine text-only ad are indistinguishable, so neither is guessed at. Returned by `GET /v1/ads`, `GET /v1/ads/{adId}` and the ad nodes of `GET /v1/ads/tree`.
     #[serde(
         rename = "creativeType",
         default,
@@ -43,7 +43,7 @@ pub struct Ad {
         skip_serializing_if = "Option::is_none"
     )]
     pub creative_type: Option<Option<CreativeType>>,
-    /// Available goals vary by platform. Meta (Facebook/Instagram) supports all 10 (incl. `lead_conversion` = website pixel lead optimization, `catalog_sales` = Advantage+ catalog ads and `page_likes` = Page Likes conversion location under Engagement). TikTok supports engagement, traffic, awareness, video_views, lead_generation, conversions, app_promotion. LinkedIn supports all Meta goals except app_promotion / lead_conversion / catalog_sales / page_likes. Twitter/X supports engagement, traffic, awareness, video_views, app_promotion. Pinterest supports only engagement, traffic, awareness, video_views. Google Ads supports only engagement, traffic, awareness (video_views is rejected at create with 422 FEATURE_NOT_AVAILABLE).
+    /// Available goals vary by platform. Meta (Facebook/Instagram) supports all 10 (incl. `lead_conversion` = website pixel lead optimization, `catalog_sales` = Advantage+ catalog ads and `page_likes` = Page Likes conversion location under Engagement). TikTok supports engagement, traffic, awareness, video_views, lead_generation, conversions, app_promotion. LinkedIn supports all Meta goals except app_promotion / lead_conversion / catalog_sales / page_likes. X supports engagement, traffic, awareness, video_views, app_promotion. Pinterest supports only engagement, traffic, awareness, video_views. Google Ads supports only engagement, traffic, awareness (video_views is rejected at create with 422 FEATURE_NOT_AVAILABLE).
     #[serde(rename = "goal", skip_serializing_if = "Option::is_none")]
     pub goal: Option<Goal>,
     /// True for ads synced from platform ad managers
@@ -97,7 +97,7 @@ pub struct Ad {
         skip_serializing_if = "Option::is_none"
     )]
     pub cost_type: Option<Option<String>>,
-    /// LinkedIn only. Why the parent campaign is (or is not) delivering, verbatim from LinkedIn. A campaign can report `status: ACTIVE` and still serve nothing; this array is what says so.  - `[]` means no serving data: a non-LinkedIn ad, or a LinkedIn ad not yet re-synced. - `[\"RUNNABLE\"]` means the campaign is eligible to serve. - Anything else is a hold. Known values include ACCOUNT_SERVING_HOLD, ACCOUNT_TOTAL_BUDGET_HOLD,   ACCOUNT_END_DATE_HOLD, CAMPAIGN_START_DATE_HOLD, CAMPAIGN_END_DATE_HOLD,   CAMPAIGN_TOTAL_BUDGET_HOLD, CAMPAIGN_AUDIENCE_COUNT_HOLD, CAMPAIGN_GROUP_START_DATE_HOLD,   CAMPAIGN_GROUP_END_DATE_HOLD, CAMPAIGN_GROUP_TOTAL_BUDGET_HOLD, CAMPAIGN_GROUP_STATUS_HOLD and   STOPPED. The list is open on purpose, so treat unrecognized values as holds rather than errors.  The end-date and total-budget holds are terminal and surface as `status: completed`; the rest surface as `status: paused`. Note that a hold is not the only cause of zero delivery: with manual, target-cost or cost-cap bidding, a `bidAmount` of 0 stops delivery while `servingStatuses` still reads `[\"RUNNABLE\"]`. Check `costType` / `bidAmount` / `optimizationGoal` as well.
+    /// LinkedIn only. Why the parent campaign is (or is not) delivering, verbatim from LinkedIn. A campaign can report `status: ACTIVE` and still serve nothing; this array is what says so.  - `[]` means no serving data: a non-LinkedIn ad, or a LinkedIn ad not yet re-synced. - `[\"RUNNABLE\"]` means the campaign is eligible to serve. - Anything else is a hold. Known values include ACCOUNT_SERVING_HOLD, ACCOUNT_TOTAL_BUDGET_HOLD,   ACCOUNT_END_DATE_HOLD, CAMPAIGN_START_DATE_HOLD, CAMPAIGN_END_DATE_HOLD,   CAMPAIGN_TOTAL_BUDGET_HOLD, CAMPAIGN_AUDIENCE_COUNT_HOLD, CAMPAIGN_GROUP_START_DATE_HOLD,   CAMPAIGN_GROUP_END_DATE_HOLD, CAMPAIGN_GROUP_TOTAL_BUDGET_HOLD, CAMPAIGN_GROUP_STATUS_HOLD and   STOPPED. The list is open on purpose, so treat unrecognized values as holds rather than errors.  The end-date and total-budget holds are terminal and surface as `status: completed`; the rest surface as `status: paused`. A hold is not the only cause of zero delivery: with manual, target-cost or cost-cap bidding, a `bidAmount` of 0 stops delivery while `servingStatuses` still reads `[\"RUNNABLE\"]`. Check `costType` / `bidAmount` / `optimizationGoal` as well.
     #[serde(rename = "servingStatuses", skip_serializing_if = "Option::is_none")]
     pub serving_statuses: Option<Vec<String>>,
     /// Human-readable advertiser/account name (Meta `AdAccount.name`, TikTok `advertiser_name`, LinkedIn / X / Pinterest equivalents). Refreshed every sync so platform-side renames propagate within one cycle. `null` when the platform doesn't return a name or the sync hasn't run yet.
@@ -108,7 +108,7 @@ pub struct Ad {
         skip_serializing_if = "Option::is_none"
     )]
     pub platform_ad_account_name: Option<Option<String>>,
-    /// Platform-reported creation timestamp (Meta `created_time`, TikTok `create_time`). Distinct from `createdAt` which reflects when Zernio first synced the doc — for sort/filter by \"when the ad was actually created on the platform\", read this field. `null` for legacy ads synced before this field was added; aggregations fall back to `createdAt` in that case.
+    /// Platform-reported creation timestamp (Meta `created_time`, TikTok `create_time`). Distinct from `createdAt` which reflects when Zernio first synced the doc. To sort or filter by \"when the ad was actually created on the platform\", read this field. `null` for legacy ads synced before this field was added; aggregations fall back to `createdAt` in that case.
     #[serde(
         rename = "platformCreatedAt",
         default,
@@ -236,7 +236,7 @@ impl Default for AdType {
         Self::Boost
     }
 }
-/// Creative format, classified from the media the creative carries. `null` when the creative carries no media to classify — an unsynced creative and a genuine text-only ad are indistinguishable, so neither is guessed at. Returned by `GET /v1/ads`, `GET /v1/ads/{adId}` and the ad nodes of `GET /v1/ads/tree`.
+/// Creative format, classified from the media the creative carries. `null` when the creative carries no media to classify. An unsynced creative and a genuine text-only ad are indistinguishable, so neither is guessed at. Returned by `GET /v1/ads`, `GET /v1/ads/{adId}` and the ad nodes of `GET /v1/ads/tree`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum CreativeType {
     #[serde(rename = "carousel")]
@@ -254,7 +254,7 @@ impl Default for CreativeType {
         Self::Carousel
     }
 }
-/// Available goals vary by platform. Meta (Facebook/Instagram) supports all 10 (incl. `lead_conversion` = website pixel lead optimization, `catalog_sales` = Advantage+ catalog ads and `page_likes` = Page Likes conversion location under Engagement). TikTok supports engagement, traffic, awareness, video_views, lead_generation, conversions, app_promotion. LinkedIn supports all Meta goals except app_promotion / lead_conversion / catalog_sales / page_likes. Twitter/X supports engagement, traffic, awareness, video_views, app_promotion. Pinterest supports only engagement, traffic, awareness, video_views. Google Ads supports only engagement, traffic, awareness (video_views is rejected at create with 422 FEATURE_NOT_AVAILABLE).
+/// Available goals vary by platform. Meta (Facebook/Instagram) supports all 10 (incl. `lead_conversion` = website pixel lead optimization, `catalog_sales` = Advantage+ catalog ads and `page_likes` = Page Likes conversion location under Engagement). TikTok supports engagement, traffic, awareness, video_views, lead_generation, conversions, app_promotion. LinkedIn supports all Meta goals except app_promotion / lead_conversion / catalog_sales / page_likes. X supports engagement, traffic, awareness, video_views, app_promotion. Pinterest supports only engagement, traffic, awareness, video_views. Google Ads supports only engagement, traffic, awareness (video_views is rejected at create with 422 FEATURE_NOT_AVAILABLE).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Goal {
     #[serde(rename = "engagement")]

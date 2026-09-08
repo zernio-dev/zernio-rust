@@ -19,7 +19,7 @@ pub struct CreateInboxConversation201ResponseData {
     /// Platform conversation ID (dm_conversation_id). For WhatsApp, this is Zernio's internal conversation id (24-character hex) which matches the id returned by the list-conversations endpoint and the conversationId in the message.received and conversation.started webhooks; use it to correlate the created thread with inbound events.
     #[serde(rename = "conversationId", skip_serializing_if = "Option::is_none")]
     pub conversation_id: Option<String>,
-    /// Twitter numeric user ID of the recipient
+    /// X numeric user ID of the recipient
     #[serde(rename = "participantId", skip_serializing_if = "Option::is_none")]
     pub participant_id: Option<String>,
     /// Display name of the recipient
@@ -30,7 +30,7 @@ pub struct CreateInboxConversation201ResponseData {
         skip_serializing_if = "Option::is_none"
     )]
     pub participant_name: Option<Option<String>>,
-    /// Twitter username of the recipient
+    /// X username of the recipient
     #[serde(
         rename = "participantUsername",
         default,

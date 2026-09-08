@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateStandaloneAd201ResponseOneOf1 : Multi-creative shape — N ads returned sharing platformCampaignId / platformAdSetId.
+/// CreateStandaloneAd201ResponseOneOf1 : Multi-creative shape: N ads returned sharing platformCampaignId / platformAdSetId.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateStandaloneAd201ResponseOneOf1 {
     #[serde(rename = "ads", skip_serializing_if = "Option::is_none")]
@@ -25,7 +25,7 @@ pub struct CreateStandaloneAd201ResponseOneOf1 {
 }
 
 impl CreateStandaloneAd201ResponseOneOf1 {
-    /// Multi-creative shape — N ads returned sharing platformCampaignId / platformAdSetId.
+    /// Multi-creative shape: N ads returned sharing platformCampaignId / platformAdSetId.
     pub fn new() -> CreateStandaloneAd201ResponseOneOf1 {
         CreateStandaloneAd201ResponseOneOf1 {
             ads: None,

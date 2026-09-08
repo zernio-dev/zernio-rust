@@ -93,6 +93,8 @@ pub enum Events {
     MessageReceived,
     #[serde(rename = "conversation.started")]
     ConversationStarted,
+    #[serde(rename = "conversation.control_changed")]
+    ConversationControlChanged,
     #[serde(rename = "call.received")]
     CallReceived,
     #[serde(rename = "call.ended")]

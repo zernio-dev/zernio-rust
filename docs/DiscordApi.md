@@ -36,7 +36,7 @@ Method | HTTP request | Description
 > models::AddDiscordMemberRole200Response add_discord_member_role(guild_id, user_id, role_id, account_id)
 Assign a role to a guild member
 
-Assign one role to one member. Idempotent on Discord's side — re-running on a member who already has the role is a 204 no-op.  Path shape mirrors Discord's own API (`PUT /guilds/{guild}/members/{user}/roles/{role}`) for zero-translation mental mapping.  Bot needs MANAGE_ROLES permission in the guild AND its highest role must be above the target role (Discord hierarchy rule). The `@everyone` role (where roleId == guildId) cannot be assigned. 
+Assign one role to one member. Idempotent on Discord's side: re-running on a member who already has the role is a 204 no-op.  Path shape mirrors Discord's own API (`PUT /guilds/{guild}/members/{user}/roles/{role}`) for zero-translation mental mapping.  Bot needs MANAGE_ROLES permission in the guild AND its highest role must be above the target role (Discord hierarchy rule). The `@everyone` role (where roleId == guildId) cannot be assigned. 
 
 ### Parameters
 
@@ -101,7 +101,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateDiscordScheduledEvent200Response create_discord_scheduled_event(guild_id, create_discord_scheduled_event_request)
 Create a Discord scheduled event
 
-Create a guild scheduled event. Three event types, selected via the discriminator on `entity.type`:    - `external` — off-platform (Zoom, in-person, livestream). Requires     both `location` and `endsAt`. Most common type for scheduler     integrations.   - `voice` — hosted in a Discord voice channel. Requires `channelId`.   - `stage` — hosted in a Discord stage channel. Requires `channelId`.  Bot needs MANAGE_EVENTS in the guild. Existing installs (pre-events PR) need a re-invite OR a server admin manually granting the permission — see route header for details. 
+Create a guild scheduled event. Three event types, selected via the discriminator on `entity.type`:    - `external`: off-platform (Zoom, in-person, livestream). Requires     both `location` and `endsAt`. Most common type for scheduler     integrations.   - `voice`: hosted in a Discord voice channel. Requires `channelId`.   - `stage`: hosted in a Discord stage channel. Requires `channelId`.  Bot needs MANAGE_EVENTS in the guild. Existing installs (pre-events PR) need a re-invite OR a server admin manually granting the permission. See route header for details. 
 
 ### Parameters
 
@@ -480,7 +480,7 @@ Name | Type | Description  | Required | Notes
 > models::ListDiscordGuildRoles200Response list_discord_guild_roles(guild_id, account_id)
 List Discord guild roles
 
-Returns all roles in a Discord guild. Useful for building role-mention pickers, role-permission UIs, or finding the role ID before calling the role-assign endpoint.  Roles are returned unordered — sort client-side by `position` if you need Discord's UI ordering.  Caller must pass `accountId` of a Discord SocialAccount bound to this guild (route verifies team access + guild match). 
+Returns all roles in a Discord guild. Useful for building role-mention pickers, role-permission UIs, or finding the role ID before calling the role-assign endpoint.  Roles are returned unordered. Sort client-side by `position` if you need Discord's UI ordering.  Caller must pass `accountId` of a Discord SocialAccount bound to this guild (route verifies team access + guild match). 
 
 ### Parameters
 
@@ -542,7 +542,7 @@ Name | Type | Description  | Required | Notes
 > models::ListDiscordScheduledEvents200Response list_discord_scheduled_events(guild_id, account_id, with_user_count)
 List Discord scheduled events
 
-Return all scheduled events in the guild. Events are distinct from messages — they appear in the server's Events panel and Discord auto-notifies interested members ahead of start time.  Pass `withUserCount=true` to include `user_count` (number of members who RSVP'd) on each event. Useful for surfacing engagement. 
+Return all scheduled events in the guild. Events are distinct from messages: they appear in the server's Events panel and Discord auto-notifies interested members ahead of start time.  Pass `withUserCount=true` to include `user_count` (number of members who RSVP'd) on each event. Useful for surfacing engagement. 
 
 ### Parameters
 
@@ -574,7 +574,7 @@ Name | Type | Description  | Required | Notes
 > models::PinDiscordMessage200Response pin_discord_message(channel_id, message_id, account_id)
 Pin a Discord message
 
-Pin a specific message in a channel. Path shape mirrors Discord's own API (`PUT /channels/{cid}/pins/{mid}`).  Idempotent — re-pinning an already-pinned message is a 204 no-op.  Constraints:   - Bot needs MANAGE_MESSAGES in the channel.   - 50-pin cap per channel — hitting it returns 400 (Discord-side).     Caller should unpin one first. 
+Pin a specific message in a channel. Path shape mirrors Discord's own API (`PUT /channels/{cid}/pins/{mid}`).  Idempotent: re-pinning an already-pinned message is a 204 no-op.  Constraints:   - Bot needs MANAGE_MESSAGES in the channel.   - 50-pin cap per channel: hitting it returns 400 (Discord-side).     Caller should unpin one first. 
 
 ### Parameters
 
@@ -606,7 +606,7 @@ Name | Type | Description  | Required | Notes
 > models::RemoveDiscordMemberRole200Response remove_discord_member_role(guild_id, user_id, role_id, account_id)
 Remove a role from a guild member
 
-Remove one role from one member. Idempotent — removing a role the member doesn't have returns 204 no-op.  Same permission + hierarchy constraints as the PUT counterpart. 
+Remove one role from one member. Idempotent: removing a role the member doesn't have returns 204 no-op.  Same permission + hierarchy constraints as the PUT counterpart. 
 
 ### Parameters
 
@@ -672,7 +672,7 @@ Name | Type | Description  | Required | Notes
 > models::SendDiscordDirectMessage200Response send_discord_direct_message(send_discord_direct_message_request)
 Send a Discord Direct Message
 
-Send a 1:1 Direct Message from the bot to a Discord user (by snowflake ID). Supports the same payload shape as channel posts — content, embeds, media attachments, and TTS.  Constraints (Discord platform limits):   - The bot can only DM users it shares at least one guild with.   - If the recipient has DMs disabled for non-friends, Discord returns 403     (surfaces as a 502 platform error).   - `content` capped at 2,000 chars.   - At least one of `content`, `embeds`, or `attachments` is required.   - The recipient must be identified by Discord snowflake ID (not username).  This is a dedicated endpoint rather than a `POST /v1/posts` variant because DMs are 1:1 operational messages (onboarding, billing reminders, support pings) with a different lifecycle than scheduled channel posts. DMs are not persisted to `Post` / `ExternalPost` and are always sent immediately. 
+Send a 1:1 Direct Message from the bot to a Discord user (by snowflake ID). Supports the same payload shape as channel posts: content, embeds, media attachments, and TTS.  Constraints (Discord platform limits):   - The bot can only DM users it shares at least one guild with.   - If the recipient has DMs disabled for non-friends, Discord returns 403     (surfaces as a 502 platform error).   - `content` capped at 2,000 chars.   - At least one of `content`, `embeds`, or `attachments` is required.   - The recipient must be identified by Discord snowflake ID (not username).  This is a dedicated endpoint rather than a `POST /v1/posts` variant because DMs are 1:1 operational messages (onboarding, billing reminders, support pings) with a different lifecycle than scheduled channel posts. DMs are not persisted to `Post` / `ExternalPost` and are always sent immediately. 
 
 ### Parameters
 
@@ -702,7 +702,7 @@ Name | Type | Description  | Required | Notes
 > models::UnpinDiscordMessage200Response unpin_discord_message(channel_id, message_id, account_id)
 Unpin a Discord message
 
-Unpin a message. Same MANAGE_MESSAGES permission requirement as pin. Idempotent — unpinning a non-pinned message is a 204 no-op. 
+Unpin a message. Same MANAGE_MESSAGES permission requirement as pin. Idempotent: unpinning a non-pinned message is a 204 no-op. 
 
 ### Parameters
 
@@ -734,7 +734,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateDiscordScheduledEvent200Response update_discord_scheduled_event(guild_id, event_id, update_discord_scheduled_event_request)
 Update a Discord scheduled event
 
-Patch any subset of fields. Passing `status: 'cancelled'` is how you cancel an event — Discord doesn't have a dedicated cancel endpoint, it's a status transition.  Most status transitions Discord enforces (you can't go SCHEDULED → COMPLETED directly). The common consumer case is SCHEDULED → CANCELED. 
+Patch any subset of fields. Passing `status: 'cancelled'` is how you cancel an event. Discord doesn't have a dedicated cancel endpoint, it's a status transition.  Most status transitions Discord enforces (you can't go SCHEDULED → COMPLETED directly). The common consumer case is SCHEDULED → CANCELED. 
 
 ### Parameters
 

@@ -17,7 +17,7 @@ pub struct AnalyticsDeltaEntry {
     /// External post ID. The same identifier as `posts[]._id` in GET /v1/analytics.
     #[serde(rename = "postId")]
     pub post_id: String,
-    /// Social account this post was published through
+    /// Account this post was published through
     #[serde(rename = "accountId")]
     pub account_id: String,
     /// Profile the account belongs to

@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookPayloadPostPlatformPlatform : The specific platform that just transitioned to a terminal state.
+/// WebhookPayloadPostPlatformPlatform : The specific platform that transitioned to a terminal state.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadPostPlatformPlatform {
     /// Platform name (e.g. `twitter`, `tiktok`, `instagram`).
@@ -35,7 +35,7 @@ pub struct WebhookPayloadPostPlatformPlatform {
 }
 
 impl WebhookPayloadPostPlatformPlatform {
-    /// The specific platform that just transitioned to a terminal state.
+    /// The specific platform that transitioned to a terminal state.
     pub fn new(name: String, status: Status) -> WebhookPayloadPostPlatformPlatform {
         WebhookPayloadPostPlatformPlatform {
             name,

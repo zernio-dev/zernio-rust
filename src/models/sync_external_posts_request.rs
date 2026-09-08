@@ -16,7 +16,7 @@ pub struct SyncExternalPostsRequest {
     /// SocialAccount ID whose posts to sync. Must be connected to Zernio.
     #[serde(rename = "accountId")]
     pub account_id: String,
-    /// The post URL to locate. Optional. Provide `url` or `postId` to return a specific post; omit both to just refresh and return the account's recent posts.
+    /// The post URL to locate. Optional. Provide `url` or `postId` to return a specific post; omit both to refresh and return the account's recent posts.
     #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
     /// The platform post/media/video id to locate, as an alternative to `url`. Optional.

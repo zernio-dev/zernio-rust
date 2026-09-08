@@ -13,10 +13,10 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadCommentAccount {
-    /// Social account ID
+    /// Account ID
     #[serde(rename = "id")]
     pub id: String,
-    /// Social account ID (same as id); canonical field for account filtering.
+    /// Account ID (same as id); canonical field for account filtering.
     #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
     #[serde(rename = "platform")]

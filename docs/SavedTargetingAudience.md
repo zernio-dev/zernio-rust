@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **Type** |  (enum: saved_targeting) | 
-**account_id** | **String** | Social account ID on the target ad platform. | 
+**account_id** | **String** | Account ID on the target ad platform. | 
 **name** | **String** |  | 
 **description** | Option<**String**> |  | [optional]
 **spec** | Option<[**models::TargetingSpec**](TargetingSpec.md)> | The targeting spec to store. | 

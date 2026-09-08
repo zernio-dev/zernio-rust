@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// TrackingTag : A platform measurement tag — the thing you create, install on a website, send events to, and target ads against. On Meta this is a Pixel (`kind: pixel`). The shape is platform-neutral so other platforms (Pinterest Tag, LinkedIn Insight Tag, etc.) can be added without changing the contract; platform-specific fields are simply absent where a platform has no equivalent. Returned by `listTrackingTags`, `createTrackingTag`, `getTrackingTag`, and `updateTrackingTag`.
+/// TrackingTag : A platform measurement tag: the thing you create, install on a website, send events to, and target ads against. On Meta this is a Pixel (`kind: pixel`). The shape is platform-neutral so other platforms (Pinterest Tag, LinkedIn Insight Tag, etc.) can be added without changing the contract; platform-specific fields are absent where a platform has no equivalent. Returned by `listTrackingTags`, `createTrackingTag`, `getTrackingTag`, and `updateTrackingTag`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TrackingTag {
     /// Platform-native tag id. Meta: numeric pixel id, as a string.
@@ -41,13 +41,13 @@ pub struct TrackingTag {
     /// Whether the tag is in a broken/unavailable state (Meta `is_unavailable`).
     #[serde(rename = "isUnavailable", skip_serializing_if = "Option::is_none")]
     pub is_unavailable: Option<bool>,
-    /// Convenience flag derived from `lastFiredTime` — has the tag ever fired.
+    /// Convenience flag derived from `lastFiredTime`: has the tag ever fired.
     #[serde(rename = "installed", skip_serializing_if = "Option::is_none")]
     pub installed: Option<bool>,
     /// Unix seconds the tag was created.
     #[serde(rename = "creationTime", skip_serializing_if = "Option::is_none")]
     pub creation_time: Option<i32>,
-    /// Business Manager id that owns the tag, or `null` when the tag lives on a personal (non-BM) ad account — such tags can't be shared with other ad accounts.
+    /// Business Manager id that owns the tag, or `null` when the tag lives on a personal (non-BM) ad account. Such tags can't be shared with other ad accounts.
     #[serde(
         rename = "ownerBusinessId",
         default,
@@ -61,7 +61,7 @@ pub struct TrackingTag {
 }
 
 impl TrackingTag {
-    /// A platform measurement tag — the thing you create, install on a website, send events to, and target ads against. On Meta this is a Pixel (`kind: pixel`). The shape is platform-neutral so other platforms (Pinterest Tag, LinkedIn Insight Tag, etc.) can be added without changing the contract; platform-specific fields are simply absent where a platform has no equivalent. Returned by `listTrackingTags`, `createTrackingTag`, `getTrackingTag`, and `updateTrackingTag`.
+    /// A platform measurement tag: the thing you create, install on a website, send events to, and target ads against. On Meta this is a Pixel (`kind: pixel`). The shape is platform-neutral so other platforms (Pinterest Tag, LinkedIn Insight Tag, etc.) can be added without changing the contract; platform-specific fields are absent where a platform has no equivalent. Returned by `listTrackingTags`, `createTrackingTag`, `getTrackingTag`, and `updateTrackingTag`.
     pub fn new(
         id: String,
         name: String,

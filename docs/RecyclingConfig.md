@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **start_date** | Option<**String**> | When to start the recycling cycle. Defaults to the post's scheduledFor date. | [optional]
 **expire_count** | Option<**i32**> | Stop recycling after this many copies have been created. Send null on update to clear this limit. | [optional]
 **expire_date** | Option<**String**> | Stop recycling after this date, regardless of count. Send null on update to clear this limit. | [optional]
-**content_variations** | Option<**Vec<String>**> | Array of content variations for recycled copies. On each recycle, the next variation is used in round-robin order. Recommended for Twitter and Pinterest to avoid duplicate content flags. If omitted, the original post content is used for all recycled copies. Send an empty array [] to clear existing variations. Must have 2+ entries when setting variations. Platform-level customContent still overrides the base content per platform.  | [optional]
+**content_variations** | Option<**Vec<String>**> | Array of content variations for recycled copies. On each recycle, the next variation is used in round-robin order. Recommended for X and Pinterest to avoid duplicate content flags. If omitted, the original post content is used for all recycled copies. Send an empty array [] to clear existing variations. Must have 2+ entries when setting variations. Platform-level customContent still overrides the base content per platform.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

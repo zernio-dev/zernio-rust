@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ListInboxReviews200ResponseDataInner {
-    /// Review identifier. For Google Business this is the full review resource name (accounts/{accountId}/locations/{locationId}/reviews/{reviewId}), so it also encodes the location.
+    /// Review identifier. For Google Business Profile this is the full review resource name (accounts/{accountId}/locations/{locationId}/reviews/{reviewId}), so it also encodes the location.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
@@ -22,10 +22,10 @@ pub struct ListInboxReviews200ResponseDataInner {
     pub account_id: Option<String>,
     #[serde(rename = "accountUsername", skip_serializing_if = "Option::is_none")]
     pub account_username: Option<String>,
-    /// Bare GBP location id the review belongs to. Google Business only; absent for other platforms.
+    /// Bare Google Business Profile location id the review belongs to. Google Business Profile only; absent for other platforms.
     #[serde(rename = "locationId", skip_serializing_if = "Option::is_none")]
     pub location_id: Option<String>,
-    /// Human-readable GBP location display name. Google Business only; absent for other platforms.
+    /// Human-readable Google Business Profile location display name. Google Business Profile only; absent for other platforms.
     #[serde(
         rename = "locationName",
         default,
@@ -43,13 +43,13 @@ pub struct ListInboxReviews200ResponseDataInner {
     pub created: Option<String>,
     #[serde(rename = "hasReply", skip_serializing_if = "Option::is_none")]
     pub has_reply: Option<bool>,
-    /// Whether the review has at least one photo. Google Business only; always false for other platforms.
+    /// Whether the review has at least one photo. Google Business Profile only; always false for other platforms.
     #[serde(rename = "hasPhotos", skip_serializing_if = "Option::is_none")]
     pub has_photos: Option<bool>,
-    /// Number of photos attached to the review (photos only; videos are not counted). Google Business only; 0 for other platforms.
+    /// Number of photos attached to the review (photos only; videos are not counted). Google Business Profile only; 0 for other platforms.
     #[serde(rename = "photoCount", skip_serializing_if = "Option::is_none")]
     pub photo_count: Option<i32>,
-    /// Photos attached to the review. Google Business only; always an empty array for other platforms.
+    /// Photos attached to the review. Google Business Profile only; always an empty array for other platforms.
     #[serde(rename = "photos", skip_serializing_if = "Option::is_none")]
     pub photos: Option<Vec<models::ListInboxReviews200ResponseDataInnerPhotosInner>>,
     #[serde(rename = "reply", skip_serializing_if = "Option::is_none")]

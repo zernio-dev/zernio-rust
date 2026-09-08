@@ -207,6 +207,7 @@ docs/ConnectedAccount.md
 docs/ConnectedApp.md
 docs/ConnectedAppsApi.md
 docs/ContactsApi.md
+docs/Conversation.md
 docs/ConversionAction.md
 docs/ConversionActionTagSnippetsInner.md
 docs/ConversionDestination.md
@@ -839,6 +840,7 @@ docs/GetWhatsAppNumberInfo200ResponseWaba.md
 docs/GetWhatsAppNumberKycForm200Response.md
 docs/GetWhatsAppNumberKycForm200ResponseFieldsInner.md
 docs/GetWhatsAppNumberRemediation200Response.md
+docs/GetWhatsAppSdkConfig200Response.md
 docs/GetWhatsAppTemplate200Response.md
 docs/GetWhatsAppTemplate200ResponseTemplate.md
 docs/GetWhatsAppTemplate409Response.md
@@ -1442,6 +1444,9 @@ docs/SendWhatsAppFlowMessageRequestHeader.md
 docs/SequencesApi.md
 docs/SetCommentModerationRequest.md
 docs/SetContactFieldValueRequest.md
+docs/SetConversationThreadControl200Response.md
+docs/SetConversationThreadControl200ResponseControl.md
+docs/SetConversationThreadControlRequest.md
 docs/SetInstagramIceBreakersRequest.md
 docs/SetInstagramIceBreakersRequestIceBreakersInner.md
 docs/SetMessengerMenuRequest.md
@@ -1784,6 +1789,8 @@ docs/WebhookPayloadCommentCommentAttachment.md
 docs/WebhookPayloadCommentCommentAuthor.md
 docs/WebhookPayloadCommentCommentAuthorInstagramProfile.md
 docs/WebhookPayloadCommentPost.md
+docs/WebhookPayloadConversationControlChanged.md
+docs/WebhookPayloadConversationControlChangedControl.md
 docs/WebhookPayloadConversationStarted.md
 docs/WebhookPayloadConversationStartedConversation.md
 docs/WebhookPayloadExternalPost.md
@@ -2167,6 +2174,7 @@ src/models/connect_whats_app_embedded_signup_request.rs
 src/models/connected.rs
 src/models/connected_account.rs
 src/models/connected_app.rs
+src/models/conversation.rs
 src/models/conversion_action.rs
 src/models/conversion_action_tag_snippets_inner.rs
 src/models/conversion_destination.rs
@@ -2796,6 +2804,7 @@ src/models/get_whats_app_number_info_200_response_waba.rs
 src/models/get_whats_app_number_kyc_form_200_response.rs
 src/models/get_whats_app_number_kyc_form_200_response_fields_inner.rs
 src/models/get_whats_app_number_remediation_200_response.rs
+src/models/get_whats_app_sdk_config_200_response.rs
 src/models/get_whats_app_template_200_response.rs
 src/models/get_whats_app_template_200_response_template.rs
 src/models/get_whats_app_template_409_response.rs
@@ -3374,6 +3383,9 @@ src/models/send_whats_app_flow_message_request_flow_action_payload.rs
 src/models/send_whats_app_flow_message_request_header.rs
 src/models/set_comment_moderation_request.rs
 src/models/set_contact_field_value_request.rs
+src/models/set_conversation_thread_control_200_response.rs
+src/models/set_conversation_thread_control_200_response_control.rs
+src/models/set_conversation_thread_control_request.rs
 src/models/set_instagram_ice_breakers_request.rs
 src/models/set_instagram_ice_breakers_request_ice_breakers_inner.rs
 src/models/set_messenger_menu_request.rs
@@ -3706,6 +3718,8 @@ src/models/webhook_payload_comment_comment_attachment.rs
 src/models/webhook_payload_comment_comment_author.rs
 src/models/webhook_payload_comment_comment_author_instagram_profile.rs
 src/models/webhook_payload_comment_post.rs
+src/models/webhook_payload_conversation_control_changed.rs
+src/models/webhook_payload_conversation_control_changed_control.rs
 src/models/webhook_payload_conversation_started.rs
 src/models/webhook_payload_conversation_started_conversation.rs
 src/models/webhook_payload_external_post.rs

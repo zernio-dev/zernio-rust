@@ -13,13 +13,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AttachCampaignAssetsRequest {
-    /// Zernio Google Ads SocialAccount id — resolves the customer id + refresh token.
+    /// Zernio Google Ads SocialAccount id. Resolves the customer id + refresh token.
     #[serde(rename = "accountId")]
     pub account_id: String,
     /// Numeric Google Ads customer id. Required when the connection has multiple Google Ads accounts; optional (and inferred) when it has only one.
     #[serde(rename = "customerId", skip_serializing_if = "Option::is_none")]
     pub customer_id: Option<String>,
-    /// See POST /v1/ads/create sitelinks — same shape.
+    /// See POST /v1/ads/create sitelinks, same shape.
     #[serde(rename = "sitelinks", skip_serializing_if = "Option::is_none")]
     pub sitelinks: Option<Vec<models::AttachCampaignAssetsRequestSitelinksInner>>,
     #[serde(rename = "callouts", skip_serializing_if = "Option::is_none")]

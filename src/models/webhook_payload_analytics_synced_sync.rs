@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookPayloadAnalyticsSyncedSync : Summary of the analytics sync cycle that just completed.
+/// WebhookPayloadAnalyticsSyncedSync : Summary of the analytics sync cycle that completed.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadAnalyticsSyncedSync {
     /// When the cycle COMPLETED. Not a join key for the delta feed: the rows a cycle produces carry a `syncedAt` stamped when the cycle STARTED, which is measured at around one second earlier at the median and up to a couple of minutes earlier in the tail. Correlate on `account.accountId`.
@@ -23,7 +23,7 @@ pub struct WebhookPayloadAnalyticsSyncedSync {
 }
 
 impl WebhookPayloadAnalyticsSyncedSync {
-    /// Summary of the analytics sync cycle that just completed.
+    /// Summary of the analytics sync cycle that completed.
     pub fn new(synced_at: String, posts_updated: i32) -> WebhookPayloadAnalyticsSyncedSync {
         WebhookPayloadAnalyticsSyncedSync {
             synced_at,

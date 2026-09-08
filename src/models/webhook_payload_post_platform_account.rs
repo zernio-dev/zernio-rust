@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookPayloadPostPlatformAccount : The connected social account the platform-write went through.
+/// WebhookPayloadPostPlatformAccount : The connected account the platform-write went through.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadPostPlatformAccount {
     #[serde(rename = "accountId")]
@@ -25,7 +25,7 @@ pub struct WebhookPayloadPostPlatformAccount {
 }
 
 impl WebhookPayloadPostPlatformAccount {
-    /// The connected social account the platform-write went through.
+    /// The connected account the platform-write went through.
     pub fn new(
         account_id: String,
         platform: String,

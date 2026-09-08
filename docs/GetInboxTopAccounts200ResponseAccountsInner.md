@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **total** | Option<**i32**> |  | [optional]
 **conversations** | Option<**i32**> |  | [optional]
 **median_response_seconds** | Option<**i32**> |  | [optional]
-**replied_count** | Option<**i32**> | Distinguishes 'instant replies' from 'no replies at all' so a zero medianResponseSeconds with repliedCount=0 renders as '—' instead of '0s' | [optional]
+**replied_count** | Option<**i32**> | Distinguishes 'instant replies' from 'no replies at all' so a zero medianResponseSeconds with repliedCount=0 renders as an em dash instead of '0s' | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

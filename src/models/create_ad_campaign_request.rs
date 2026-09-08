@@ -29,7 +29,7 @@ pub struct CreateAdCampaignRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub special_ad_categories: Option<Vec<SpecialAdCategories>>,
-    /// Campaign-level (CBO) budget in WHOLE currency units (USD: 50 = $50.00), NOT cents — Meta's own Marketing API takes this same number in minor units, so it is an easy and expensive mix-up. Requires budgetType.
+    /// Campaign-level (CBO) budget in WHOLE currency units (USD: 50 = $50.00), NOT cents. Meta's own Marketing API takes this same number in minor units, so it is an easy and expensive mix-up. Requires budgetType.
     #[serde(rename = "budgetAmount", skip_serializing_if = "Option::is_none")]
     pub budget_amount: Option<f64>,
     #[serde(rename = "budgetType", skip_serializing_if = "Option::is_none")]

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | Platform review ID (e.g. \"accounts/123/locations/456/reviews/789\" for Google Business). | 
+**id** | **String** | Platform review ID (e.g. \"accounts/123/locations/456/reviews/789\" for Google Business Profile). | 
 **platform** | **Platform** | Platform the review originated on. Currently Google Business Profile only. (enum: googlebusiness) | 
 **rating** | **i32** | Star rating the reviewer gave. | 
 **text** | **String** | Review text content. May be empty if the reviewer left only a rating. | 

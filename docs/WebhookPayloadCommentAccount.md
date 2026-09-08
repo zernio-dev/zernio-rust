@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | Social account ID | 
-**account_id** | Option<**String**> | Social account ID (same as id); canonical field for account filtering. | [optional]
+**id** | **String** | Account ID | 
+**account_id** | Option<**String**> | Account ID (same as id); canonical field for account filtering. | [optional]
 **platform** | **String** |  | 
 **username** | **String** |  | 
 

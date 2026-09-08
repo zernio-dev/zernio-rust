@@ -65,7 +65,7 @@ Delete a DRAFT flow. This is irreversible. Only flows in DRAFT status can be del
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **flow_id** | **String** | Flow ID | [required] |
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 
 ### Return type
 
@@ -127,7 +127,7 @@ Get details for a specific flow, including status, categories, validation errors
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **flow_id** | **String** | Flow ID | [required] |
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 **fields** | Option<**String**> | Comma-separated fields to return (default: id,name,status,categories,validation_errors,json_version,preview,data_api_version,endpoint_uri) |  |
 
 ### Return type
@@ -159,7 +159,7 @@ Get the flow JSON asset metadata, including a temporary download URL for the Flo
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **flow_id** | **String** | Flow ID | [required] |
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 
 ### Return type
 
@@ -190,7 +190,7 @@ Get Meta's public web-preview URL for a flow (drafts included), embeddable as an
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **flow_id** | **String** | Flow ID | [required] |
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 **invalidate** | Option<**bool**> | Mint a fresh preview link (default false) |  |
 
 ### Return type
@@ -221,7 +221,7 @@ Read the RSA business public key registered on the phone number for WhatsApp Flo
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 
 ### Return type
 
@@ -244,14 +244,14 @@ Name | Type | Description  | Required | Notes
 > models::ListWhatsAppFlowResponses200Response list_whats_app_flow_responses(account_id, flow_id, limit)
 List flow responses
 
-List the responses customers submitted when completing a flow (parsed from the nfm_reply messages received via webhook), newest first. Scope to a single flow with `flowId` — this matches responses whose flow_token carries the `<flowId>:` prefix that Zernio stamps on auto-generated tokens at send time. Responses sent with a custom integrator-supplied flow_token are not attributed to a flow. 
+List the responses customers submitted when completing a flow (parsed from the nfm_reply messages received via webhook), newest first. Scope to a single flow with `flowId`, which matches responses whose flow_token carries the `<flowId>:` prefix that Zernio stamps on auto-generated tokens at send time. Responses sent with a custom integrator-supplied flow_token are not attributed to a flow. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 **flow_id** | Option<**String**> | Scope to responses for this flow |  |
 **limit** | Option<**i32**> | Max responses to return |  |[default to 50]
 
@@ -276,7 +276,7 @@ Name | Type | Description  | Required | Notes
 > models::ListWhatsAppFlowVersions200Response list_whats_app_flow_versions(flow_id, account_id)
 List flow versions
 
-List the flow's version history (the clone lineage Zernio tracks, since Meta has no native versioning), newest version first. Each entry is enriched with the version's live name and status from Meta. A flow with no lineage returns just itself as version 1. 
+List the flow's version history (the clone lineage Zernio tracks, since Meta has no native versioning), newest version first. Each entry is enriched with the version's live name and status from Meta. A flow with no lineage returns only itself as version 1. 
 
 ### Parameters
 
@@ -284,7 +284,7 @@ List the flow's version history (the clone lineage Zernio tracks, since Meta has
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **flow_id** | **String** | Flow ID | [required] |
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 
 ### Return type
 
@@ -314,7 +314,7 @@ List all WhatsApp Flows for the Business Account (WABA) associated with the give
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 
 ### Return type
 

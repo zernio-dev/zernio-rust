@@ -13,10 +13,10 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetPhoneNumberKycForm200ResponseReusableOptionsInner {
-    /// Opaque option id — pass as `reuseOptionId` on POST. Stable selection key (a phone number is not unique across verifications).
+    /// Opaque option id. Pass as `reuseOptionId` on POST. Stable selection key (a phone number is not unique across verifications).
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
-    /// Display only — the number this verification was submitted for. Not a selection key.
+    /// Display only. The number this verification was submitted for. Not a selection key.
     #[serde(rename = "fromPhoneNumber", skip_serializing_if = "Option::is_none")]
     pub from_phone_number: Option<String>,
     /// true = group-approved, a new order activates in minutes; false = documents are reused but the order still queues for carrier review (1-3 days).

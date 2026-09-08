@@ -20,7 +20,7 @@ pub struct GetAdsSearchTerms200ResponseDataInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub search_term: Option<Option<String>>,
-    /// ADDED / EXCLUDED / ADDED_EXCLUDED / NONE — whether the term is already a keyword or a negative.
+    /// ADDED / EXCLUDED / ADDED_EXCLUDED / NONE: whether the term is already a keyword or a negative.
     #[serde(
         rename = "status",
         default,

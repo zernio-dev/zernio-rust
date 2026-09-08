@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**account_id** | **String** | Zernio social account ID (LinkedIn). | 
+**account_id** | **String** | Zernio account ID (LinkedIn). | 
 **ad_account_id** | **String** | LinkedIn ad account ID (numeric). | 
 **spec** | Option<[**models::TargetingSpec**](TargetingSpec.md)> | Same targeting spec used by POST /v1/ads/create. | 
 **campaign_type** | Option<**CampaignType**> | Defaults to SPONSORED_UPDATES. (enum: TEXT_AD, SPONSORED_UPDATES, SPONSORED_INMAILS) | [optional]

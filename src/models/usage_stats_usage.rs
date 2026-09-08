@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UsageStatsUsage : Per-period usage counts. Fields present depend on `billingSystem`: Stripe returns `uploads` / `profiles` / `lastReset`; Metronome returns `connectedAccounts` / `xApiCalls` / `xApiCallsByOperation`.
+/// UsageStatsUsage : Per-period usage counts. Fields present depend on `billingSystem`: Stripe returns `uploads` / `profiles` / `lastReset`; usage-based billing returns `connectedAccounts` / `xApiCalls` / `xApiCallsByOperation`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UsageStatsUsage {
     /// Stripe users only. Uploads consumed in the current period.
@@ -23,12 +23,12 @@ pub struct UsageStatsUsage {
     /// Stripe users only.
     #[serde(rename = "lastReset", skip_serializing_if = "Option::is_none")]
     pub last_reset: Option<String>,
-    /// Metronome users only. Accounts currently connected across the team.
+    /// Usage-based billing only. Accounts currently connected across the team.
     #[serde(rename = "connectedAccounts", skip_serializing_if = "Option::is_none")]
     pub connected_accounts: Option<i32>,
     #[serde(rename = "xApiCalls", skip_serializing_if = "Option::is_none")]
     pub x_api_calls: Option<Box<models::UsageStatsUsageXApiCalls>>,
-    /// Metronome users only. Per-operation X API call counts keyed by operation (e.g. `posts_read`, `content_create`, `content_create_with_url`). Resolve each key to price and metadata via `GET /v1/billing/x-pricing`. This is the canonical source — covers every price tier including the $0.200 URL tier that `xApiCalls` excludes.
+    /// Usage-based billing only. Per-operation X API call counts keyed by operation (e.g. `posts_read`, `content_create`, `content_create_with_url`). Resolve each key to price and metadata via `GET /v1/billing/x-pricing`. This is the canonical source: it covers every price tier including the $0.200 URL tier that `xApiCalls` excludes.
     #[serde(
         rename = "xApiCallsByOperation",
         skip_serializing_if = "Option::is_none"
@@ -37,7 +37,7 @@ pub struct UsageStatsUsage {
 }
 
 impl UsageStatsUsage {
-    /// Per-period usage counts. Fields present depend on `billingSystem`: Stripe returns `uploads` / `profiles` / `lastReset`; Metronome returns `connectedAccounts` / `xApiCalls` / `xApiCallsByOperation`.
+    /// Per-period usage counts. Fields present depend on `billingSystem`: Stripe returns `uploads` / `profiles` / `lastReset`; usage-based billing returns `connectedAccounts` / `xApiCalls` / `xApiCallsByOperation`.
     pub fn new() -> UsageStatsUsage {
         UsageStatsUsage {
             uploads: None,

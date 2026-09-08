@@ -18,7 +18,7 @@ pub struct GetPhoneNumberKycForm200ResponseReusable {
     pub available: Option<bool>,
     #[serde(rename = "fromPhoneNumber", skip_serializing_if = "Option::is_none")]
     pub from_phone_number: Option<String>,
-    /// Human-readable summary of the verification on file (field labels + values, plus the address as one line). Best-effort — may be empty if the provider lookup fails.
+    /// Human-readable summary of the verification on file (field labels + values, plus the address as one line). Best-effort. May be empty if the provider lookup fails.
     #[serde(rename = "details", skip_serializing_if = "Option::is_none")]
     pub details: Option<Vec<models::GetPhoneNumberKycForm200ResponseReusableDetailsInner>>,
     /// One entry per distinct approved verification, newest first.

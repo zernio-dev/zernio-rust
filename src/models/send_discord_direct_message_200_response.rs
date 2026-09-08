@@ -19,7 +19,7 @@ pub struct SendDiscordDirectMessage200Response {
     /// DM channel snowflake (Discord auto-creates one per recipient pair)
     #[serde(rename = "channelId", skip_serializing_if = "Option::is_none")]
     pub channel_id: Option<String>,
-    /// Direct link to the message — uses Discord's @me path for DMs
+    /// Direct link to the message, using Discord's @me path for DMs
     #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
     #[serde(rename = "timestamp", skip_serializing_if = "Option::is_none")]

@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateInboxConversationRequest {
-    /// Social account ID
+    /// Account ID
     #[serde(rename = "accountId")]
     pub account_id: String,
     #[serde(rename = "status")]

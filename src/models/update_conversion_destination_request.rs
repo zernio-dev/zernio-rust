@@ -18,7 +18,7 @@ pub struct UpdateConversionDestinationRequest {
     pub ad_account_id: String,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Setting `false` is equivalent to calling DELETE — the rule will appear as `inactive` afterwards.
+    /// Setting `false` is equivalent to calling DELETE: the rule will appear as `inactive` afterwards.
     #[serde(rename = "enabled", skip_serializing_if = "Option::is_none")]
     pub enabled: Option<bool>,
     #[serde(rename = "attributionType", skip_serializing_if = "Option::is_none")]

@@ -26,7 +26,7 @@ pub struct ErrorResponse {
     /// The request field that caused the error, when applicable.
     #[serde(rename = "param", skip_serializing_if = "Option::is_none")]
     pub param: Option<String>,
-    /// Upstream platform (e.g. meta, google, tiktok) — present when type is platform_error.
+    /// Upstream platform (e.g. meta, google, tiktok), present when type is platform_error.
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<String>,
     /// Raw error payload from the upstream platform, passed through verbatim so integrators can read provider-specific codes. For Meta this includes error_subcode, error_user_title, and error_user_msg.

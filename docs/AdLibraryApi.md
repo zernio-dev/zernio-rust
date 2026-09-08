@@ -21,7 +21,7 @@ Competitor and market research over the public ad archives. Meta's Ad Library (`
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **platform** | Option<**String**> | Which archive to search. `meta` needs no accountId. Required unless accountId is given. |  |
-**account_id** | Option<**String**> | Zernio SocialAccount id. Required for LinkedIn (linkedin / linkedinads: its token searches). Optional for Meta, where any facebook / instagram / metaads account just selects the platform. |  |
+**account_id** | Option<**String**> | Zernio SocialAccount id. Required for LinkedIn (linkedin / linkedinads: its token searches). Optional for Meta, where any facebook / instagram / metaads account only selects the platform. |  |
 **q** | Option<**String**> | Keyword search. Meta does not translate it, so write it in the ads' language. Required unless pageIds (Meta) or advertiser (LinkedIn) is given. |  |
 **page_ids** | Option<**String**> | Meta only. Comma-separated Facebook Page ids (max 10) whose ads to list. |  |
 **advertiser** | Option<**String**> | LinkedIn only. Advertiser (Page) name to search. |  |

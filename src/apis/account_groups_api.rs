@@ -52,7 +52,7 @@ pub enum UpdateAccountGroupError {
     UnknownValue(serde_json::Value),
 }
 
-/// Creates a new account group with a name and a list of social account IDs. Accounts can belong to different profiles; the caller must have access to every account's profile. Group names must be unique per user.
+/// Creates a new account group with a name and a list of account IDs. Accounts can belong to different profiles; the caller must have access to every account's profile. Group names must be unique per user.
 pub async fn create_account_group(
     configuration: &configuration::Configuration,
     create_account_group_request: models::CreateAccountGroupRequest,

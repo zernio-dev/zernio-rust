@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **post_id** | **String** | External post ID. The same identifier as `posts[]._id` in GET /v1/analytics. | 
-**account_id** | **String** | Social account this post was published through | 
+**account_id** | **String** | Account this post was published through | 
 **profile_id** | **String** | Profile the account belongs to | 
 **platform** | **String** |  | 
 **platform_post_id** | **String** | Platform-side post ID (for example the YouTube video ID) | 

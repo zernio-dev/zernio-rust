@@ -37,7 +37,7 @@ pub struct CustomConversion {
         skip_serializing_if = "Option::is_none"
     )]
     pub custom_event_type: Option<Option<String>>,
-    /// Meta's event_source_id — the pixel the rule reads from.
+    /// Meta's event_source_id, the pixel the rule reads from.
     #[serde(
         rename = "pixelId",
         default,

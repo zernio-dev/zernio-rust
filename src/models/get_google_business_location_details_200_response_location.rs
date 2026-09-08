@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// GetGoogleBusinessLocationDetails200ResponseLocation : Compact public-facing summary derived from Google's `metadata`. Useful for surfacing the \"leave a review\" URL (e.g. behind a QR code) without parsing the raw block. Always populated regardless of readMask. For unverified or new locations Google omits placeId/reviewUrl/mapsUri, so those return as null and `isVerified` is false.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetGoogleBusinessLocationDetails200ResponseLocation {
-    /// Business name as set in GBP
+    /// Business name as set in Google Business Profile
     #[serde(
         rename = "name",
         default,

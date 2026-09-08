@@ -49,10 +49,10 @@ pub struct AdCreative {
         skip_serializing_if = "Option::is_none"
     )]
     pub creative_id: Option<Option<String>>,
-    /// Meta creative object_type (e.g. SHARE, VIDEO, PRIVACY_CHECK_FAIL, POST_DELETED). Use this to render state-aware previews — when Meta moderation strips image/video fields, only thumbnailUrl at 64x64 is available.
+    /// Meta creative object_type (e.g. SHARE, VIDEO, PRIVACY_CHECK_FAIL, POST_DELETED). Use this to render state-aware previews: when Meta moderation strips image/video fields, only thumbnailUrl at 64x64 is available.
     #[serde(rename = "objectType", skip_serializing_if = "Option::is_none")]
     pub object_type: Option<String>,
-    /// Meta creative `object_story_id` (the SHARE reference). Frequently absent — Meta omits it for SHARE creatives. Use effectiveObjectStoryId instead.
+    /// Meta creative `object_story_id` (the SHARE reference). Frequently absent, because Meta omits it for SHARE creatives. Use effectiveObjectStoryId instead.
     #[serde(
         rename = "objectStoryId",
         default,
@@ -60,7 +60,7 @@ pub struct AdCreative {
         skip_serializing_if = "Option::is_none"
     )]
     pub object_story_id: Option<Option<String>>,
-    /// Meta `effective_object_story_id` — `{pageId}_{postId}` of the Facebook post the ad's engagement (comments) lives on. Pass to GET /v1/ads?effectiveObjectStoryId= to map a Business-Manager-visible post back to this ad; GET /v1/ads/{adId}/comments resolves comments against it.
+    /// Meta `effective_object_story_id`, the `{pageId}_{postId}` of the Facebook post the ad's engagement (comments) lives on. Pass to GET /v1/ads?effectiveObjectStoryId= to map a Business-Manager-visible post back to this ad; GET /v1/ads/{adId}/comments resolves comments against it.
     #[serde(
         rename = "effectiveObjectStoryId",
         default,
@@ -76,7 +76,7 @@ pub struct AdCreative {
         skip_serializing_if = "Option::is_none"
     )]
     pub page_id: Option<Option<String>>,
-    /// Meta `effective_instagram_media_id` — the Instagram media ID of the boosted post the ad's engagement lives on. Pass to GET /v1/ads?effectiveInstagramMediaId= to map a Business-Manager-visible IG post back to this ad.
+    /// Meta `effective_instagram_media_id`, the Instagram media ID of the boosted post the ad's engagement lives on. Pass to GET /v1/ads?effectiveInstagramMediaId= to map a Business-Manager-visible IG post back to this ad.
     #[serde(
         rename = "effectiveInstagramMediaId",
         default,
@@ -84,7 +84,7 @@ pub struct AdCreative {
         skip_serializing_if = "Option::is_none"
     )]
     pub effective_instagram_media_id: Option<Option<String>>,
-    /// Meta `instagram_user_id` — the Instagram-scoped business ID that owns the boosted media.
+    /// Meta `instagram_user_id`, the Instagram-scoped business ID that owns the boosted media.
     #[serde(
         rename = "instagramUserId",
         default,
@@ -92,7 +92,7 @@ pub struct AdCreative {
         skip_serializing_if = "Option::is_none"
     )]
     pub instagram_user_id: Option<Option<String>>,
-    /// Meta `instagram_permalink_url` — public Instagram post URL of the boosted media.
+    /// Meta `instagram_permalink_url`, the public Instagram post URL of the boosted media.
     #[serde(
         rename = "instagramPermalinkUrl",
         default,

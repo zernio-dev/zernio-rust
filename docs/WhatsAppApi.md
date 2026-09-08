@@ -59,7 +59,7 @@ Add participants to a WhatsApp group. Maximum 8 participants per request.  Not a
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **group_id** | **String** | Group ID | [required] |
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 **add_whats_app_group_participants_request** | [**AddWhatsAppGroupParticipantsRequest**](AddWhatsAppGroupParticipantsRequest.md) |  | [required] |
 
 ### Return type
@@ -91,7 +91,7 @@ Approve pending join requests for a WhatsApp group.  Not available on [Coexisten
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **group_id** | **String** | Group ID | [required] |
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 **approve_whats_app_group_join_requests_request** | [**ApproveWhatsAppGroupJoinRequestsRequest**](ApproveWhatsAppGroupJoinRequestsRequest.md) |  | [required] |
 
 ### Return type
@@ -145,7 +145,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateWhatsAppDataset200Response create_whats_app_dataset(delete_whatsapp_business_username_request)
 Provision CTWA dataset
 
-Creates (or fetches, if one already exists) the Meta dataset that Click-to-WhatsApp ad events are reported against via the Conversions API, and persists its ID on the account as `metadata.metaCapiDatasetId`.  The call is GET-first idempotent — a WABA can only own one CTWA dataset, so a second call after a successful provision is a safe no-op that returns the same ID with `created: false`.  Requires the connected WhatsApp account's token to carry the `whatsapp_business_manage_events` permission. If the permission is missing the endpoint returns 422 with a message asking the user to reconnect the account. 
+Creates (or fetches, if one already exists) the Meta dataset that Click-to-WhatsApp ad events are reported against via the Conversions API, and persists its ID on the account as `metadata.metaCapiDatasetId`.  The call is GET-first idempotent: a WABA can only own one CTWA dataset, so a second call after a successful provision is a safe no-op that returns the same ID with `created: false`.  Requires the connected WhatsApp account's token to carry the `whatsapp_business_manage_events` permission. If the permission is missing the endpoint returns 422 with a message asking the user to reconnect the account. 
 
 ### Parameters
 
@@ -213,7 +213,7 @@ Create a new invite link for a WhatsApp group. The previous link is revoked.  No
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **group_id** | **String** | Group ID | [required] |
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 
 ### Return type
 
@@ -274,7 +274,7 @@ Delete a WhatsApp group and remove all participants.  Not available on [Coexiste
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **group_id** | **String** | Group ID | [required] |
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 
 ### Return type
 
@@ -305,7 +305,7 @@ Permanently delete a message template.  **Without `language` this deletes every 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **template_name** | **String** | Template name (the family). | [required] |
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 **language** | Option<**String**> | Delete only this language variant (e.g. es). Omit to delete the whole family. |  |
 
 ### Return type
@@ -337,7 +337,7 @@ Delete one language variant by its Meta id. Other languages of the same name are
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **template_id** | **String** | Meta template id (numeric). | [required] |
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 
 ### Return type
 
@@ -428,7 +428,7 @@ List the WhatsApp users blocked on this number. Cursor-paginated; pass `nextCurs
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 **limit** | Option<**i32**> | Page size. |  |
 **after** | Option<**String**> | Cursor from a previous response's `nextCursor`. |  |
 
@@ -460,7 +460,7 @@ Retrieve the WhatsApp Business profile for the account (about, address, descript
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 
 ### Return type
 
@@ -483,14 +483,14 @@ Name | Type | Description  | Required | Notes
 > models::GetWhatsAppDataset200Response get_whats_app_dataset(account_id)
 Get CTWA conversions dataset
 
-Returns the Meta Click-to-WhatsApp conversions dataset currently linked to the WhatsApp account, if one has been provisioned. Reads only from the stored `metadata.metaCapiDatasetId` — never hits Meta, never creates a dataset. Use this to detect whether `POST /v1/whatsapp/conversions` is configured for an account. 
+Returns the Meta Click-to-WhatsApp conversions dataset currently linked to the WhatsApp account, if one has been provisioned. Reads only from the stored `metadata.metaCapiDatasetId`, never hits Meta, never creates a dataset. Use this to detect whether `POST /v1/whatsapp/conversions` is configured for an account. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 
 ### Return type
 
@@ -520,7 +520,7 @@ Fetch the current display name and its Meta review status for a WhatsApp Busines
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 
 ### Return type
 
@@ -551,7 +551,7 @@ Retrieve metadata about a WhatsApp group including subject, description, partici
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **group_id** | **String** | Group ID | [required] |
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 
 ### Return type
 
@@ -613,7 +613,7 @@ Retrieve one message template variant by name.  Meta stores one template per **n
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **template_name** | **String** | Template name (the family). | [required] |
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 **language** | Option<**String**> | Language code of the variant (e.g. en_US, es, pt_BR). Required when the family has several languages. |  |
 
 ### Return type
@@ -645,7 +645,7 @@ Retrieve one template variant by its Meta id, the id every variant of a family h
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **template_id** | **String** | Meta template id (numeric). | [required] |
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 
 ### Return type
 
@@ -675,7 +675,7 @@ List message templates for the WhatsApp Business Account (WABA) associated with 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 **name** | Option<**String**> | Exact template name; returns every language variant of that family. |  |
 **language** | Option<**String**> | Exact language code (e.g. en_US). |  |
 **status** | Option<**String**> |  |  |
@@ -708,7 +708,7 @@ Fetch the current WhatsApp Business username and its approval status. Username s
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 
 ### Return type
 
@@ -738,7 +738,7 @@ Retrieve a list of available WhatsApp Business username suggestions based on the
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 
 ### Return type
 
@@ -768,7 +768,7 @@ Returns Meta-originated events recorded for a WhatsApp account, newest first: te
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 **limit** | Option<**i32**> | Maximum events to return |  |[default to 50]
 
 ### Return type
@@ -799,7 +799,7 @@ Returns the most recent conversion events sent through `POST /v1/whatsapp/conver
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 **limit** | Option<**i32**> | Max events to return (1-200, default 50). |  |[default to 50]
 
 ### Return type
@@ -830,7 +830,7 @@ List active WhatsApp group chats for a business phone number. These are actual W
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 **limit** | Option<**i32**> | Max groups to return |  |[default to 25]
 **after** | Option<**String**> | Pagination cursor |  |
 
@@ -863,7 +863,7 @@ List pending join requests for a WhatsApp group (only for groups with approval_r
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **group_id** | **String** | Group ID | [required] |
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 
 ### Return type
 
@@ -925,7 +925,7 @@ Reject pending join requests for a WhatsApp group.  Not available on [Coexistenc
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **group_id** | **String** | Group ID | [required] |
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 **reject_whats_app_group_join_requests_request** | [**RejectWhatsAppGroupJoinRequestsRequest**](RejectWhatsAppGroupJoinRequestsRequest.md) |  | [required] |
 
 ### Return type
@@ -957,7 +957,7 @@ Remove participants from a WhatsApp group.  Not available on [Coexistence](/plat
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **group_id** | **String** | Group ID | [required] |
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 **remove_whats_app_group_participants_request** | [**RemoveWhatsAppGroupParticipantsRequest**](RemoveWhatsAppGroupParticipantsRequest.md) |  | [required] |
 
 ### Return type
@@ -1139,7 +1139,7 @@ Update the subject, description, or join approval mode of a WhatsApp group.  Not
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **group_id** | **String** | Group ID | [required] |
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 **update_whats_app_group_chat_request** | [**UpdateWhatsAppGroupChatRequest**](UpdateWhatsAppGroupChatRequest.md) |  | [required] |
 
 ### Return type
@@ -1225,14 +1225,14 @@ Name | Type | Description  | Required | Notes
 > models::UnpublishPost200Response upload_whats_app_profile_photo(account_id, file)
 Upload profile picture
 
-Upload a new profile picture for the WhatsApp Business Profile. Uses Meta's resumable upload API under the hood: creates an upload session, uploads the image bytes, then updates the business profile with the resulting handle.  Provide the image either as a binary upload (`multipart/form-data` with `file`) or as a download URL (`application/json` with `url`) — with a URL we fetch the image server-side and upload the bytes for you. Meta's profile-photo API is bytes-only, so there is no direct URL passthrough. JPEG/PNG, max 5MB either way. 
+Upload a new profile picture for the WhatsApp Business Profile. Uses Meta's resumable upload API under the hood: creates an upload session, uploads the image bytes, then updates the business profile with the resulting handle.  Provide the image either as a binary upload (`multipart/form-data` with `file`) or as a download URL (`application/json` with `url`). With a URL we fetch the image server-side and upload the bytes for you. Meta's profile-photo API is bytes-only, so there is no direct URL passthrough. JPEG/PNG, max 5MB either way. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | WhatsApp social account ID | [required] |
+**account_id** | **String** | WhatsApp account ID | [required] |
 **file** | **std::path::PathBuf** | Image file (JPEG or PNG, max 5MB, recommended 640x640) | [required] |
 
 ### Return type

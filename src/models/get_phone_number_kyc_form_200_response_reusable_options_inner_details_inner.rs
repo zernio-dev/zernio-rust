@@ -17,7 +17,7 @@ pub struct GetPhoneNumberKycForm200ResponseReusableOptionsInnerDetailsInner {
     pub label: Option<String>,
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
-    /// Present on document rows — the Telnyx document id. GET /v1/whatsapp/phone-numbers/kyc/document/{documentId} streams it (auth-scoped, inline PDF).
+    /// Present on document rows: the Telnyx document id. GET /v1/whatsapp/phone-numbers/kyc/document/{documentId} streams it (auth-scoped, inline PDF).
     #[serde(rename = "documentId", skip_serializing_if = "Option::is_none")]
     pub document_id: Option<String>,
 }

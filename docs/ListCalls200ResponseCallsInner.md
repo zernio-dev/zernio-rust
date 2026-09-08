@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **_id** | Option<**String**> |  | [optional]
-**account_id** | Option<**String**> | Owning social account. The unified /v1/calls/{id} detail + recording endpoints work for any channel; the channel-specific endpoints remain for account-scoped access. | [optional]
+**account_id** | Option<**String**> | Owning account. The unified /v1/calls/{id} detail + recording endpoints work for any channel; the channel-specific endpoints remain for account-scoped access. | [optional]
 **conversation_id** | Option<**String**> | Inbox conversation with the counterparty, when one exists. | [optional]
 **contact_id** | Option<**String**> | CRM Contact for the counterparty, when resolved. | [optional]
 **channel** | Option<**Channel**> |  (enum: whatsapp, pstn) | [optional]
@@ -28,7 +28,7 @@ Name | Type | Description | Notes
 **transferred_at** | Option<**String**> | When the call was blind-transferred (POST /v1/voice/calls/{id}/transfer). | [optional]
 **duration_seconds** | Option<**i32**> |  | [optional]
 **end_reason** | Option<**EndReason**> |  (enum: hangup, no_answer, rejected, error) | [optional]
-**hangup_cause** | Option<**String**> | Raw carrier hangup cause behind endReason (e.g. normal_clearing, not_found, time_limit) — the actual motive when endReason is a coarse bucket. | [optional]
+**hangup_cause** | Option<**String**> | Raw carrier hangup cause behind endReason (e.g. normal_clearing, not_found, time_limit). The actual motive when endReason is a coarse bucket. | [optional]
 **sip_hangup_cause** | Option<**String**> | SIP response code that ended the call, when SIP-signalled (e.g. '403', '488'). The real failure reason for SIP legs. | [optional]
 **call_errors** | Option<[**Vec<models::CallRecordCallErrorsInner>**](CallRecordCallErrorsInner.md)> | Per-call failure log (dial failed, bridge failed, recording error). | [optional]
 **recording_url** | Option<**String**> | May be expired. Resolve a fresh playable URL via GET /v1/calls/{id}/recording (any channel). | [optional]

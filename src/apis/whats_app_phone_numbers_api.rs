@@ -238,7 +238,7 @@ pub async fn check_whats_app_number_availability(
     }
 }
 
-/// Deprecated alias of `/v1/phone-numbers/kyc/share`; same contract. New integrations should use that path.  Create a single-use, 7-day hosted KYC link that your end customer completes WITHOUT a Zernio login — useful when the person who holds the ID and address is not your team. They fill the regulated verification on a Zernio-hosted page; the number provisions under YOUR account once they submit. Only regulated (KYC) countries are valid: a country that does not require KYC returns 400.  White-label the page with `branding` (your company name, logo, brand color). Supply `redirect_url` to send the end customer back to your own site after a successful submit (completion params are appended — see below). Listen for the `whatsapp.number.kyc_submitted` webhook to react when the form is completed.
+/// Deprecated alias of `/v1/phone-numbers/kyc/share`; same contract. New integrations should use that path.  Create a single-use, 7-day hosted KYC link that your end customer completes WITHOUT a Zernio login. Useful when the person who holds the ID and address is not your team. They fill the regulated verification on a Zernio-hosted page; the number provisions under YOUR account once they submit. Only regulated (KYC) countries are valid: a country that does not require KYC returns 400.  White-label the page with `branding` (your company name, logo, brand color). Supply `redirect_url` to send the end customer back to your own site after a successful submit (completion params are appended; see below). Listen for the `whatsapp.number.kyc_submitted` webhook to react when the form is completed.
 #[deprecated]
 pub async fn create_whats_app_number_kyc_link(
     configuration: &configuration::Configuration,
@@ -392,7 +392,7 @@ pub async fn get_whats_app_number_kyc_form(
     }
 }
 
-/// Deprecated alias of `/v1/phone-numbers/{id}/remediate`; same contract. New integrations should use that path.  For a number in `regulatory_declined`, returns ONLY the requirements the reviewer flagged declined, as a form spec (same shape as the KYC form GET). The customer fixes just those — Telnyx supports correcting a declined requirement group and re-submitting it (no new number/group). Falls back to the full spec if the provider exposes no per-requirement flags.
+/// Deprecated alias of `/v1/phone-numbers/{id}/remediate`; same contract. New integrations should use that path.  For a number in `regulatory_declined`, returns ONLY the requirements the reviewer flagged declined, as a form spec (same shape as the KYC form GET). The customer fixes only those, because Telnyx supports correcting a declined requirement group and re-submitting it (no new number/group). Falls back to the full spec if the provider exposes no per-requirement flags.
 #[deprecated]
 pub async fn get_whats_app_number_remediation(
     configuration: &configuration::Configuration,
@@ -445,7 +445,7 @@ pub async fn get_whats_app_number_remediation(
     }
 }
 
-/// Deprecated alias of `/v1/phone-numbers/{id}`; same contract. New integrations should use that path.  Retrieve the current status of a purchased phone number. Poll this to track Meta pre-verification (US sync path) and, for regulated (Tier 3/4) numbers, the async lifecycle: pending_regulatory → active (or regulatory_declined). When a regulated number has an Onfido ID step, `onfidoVerificationUrl` appears here once the order is placed — forward it to the end user. (Or subscribe to the whatsapp.number.* webhooks instead of polling.)
+/// Deprecated alias of `/v1/phone-numbers/{id}`; same contract. New integrations should use that path.  Retrieve the current status of a purchased phone number. Poll this to track Meta pre-verification (US sync path) and, for regulated (Tier 3/4) numbers, the async lifecycle: pending_regulatory → active (or regulatory_declined). When a regulated number has an Onfido ID step, `onfidoVerificationUrl` appears here once the order is placed. Forward it to the end user. (Or subscribe to the whatsapp.number.* webhooks instead of polling.)
 #[deprecated]
 pub async fn get_whats_app_phone_number(
     configuration: &configuration::Configuration,
@@ -497,7 +497,7 @@ pub async fn get_whats_app_phone_number(
     }
 }
 
-/// Deprecated alias of `/v1/phone-numbers`; same contract. New integrations should use that path.  List all WhatsApp phone numbers purchased by the authenticated user. By default, released numbers are excluded. Connected (bring-your-own) numbers are returned in the separate `connected` array — they are not billed and have no provisioning lifecycle.
+/// Deprecated alias of `/v1/phone-numbers`; same contract. New integrations should use that path.  List all WhatsApp phone numbers purchased by the authenticated user. By default, released numbers are excluded. Connected (bring-your-own) numbers are returned in the separate `connected` array. They are not billed and have no provisioning lifecycle.
 #[deprecated]
 pub async fn get_whats_app_phone_numbers(
     configuration: &configuration::Configuration,
@@ -601,7 +601,7 @@ pub async fn list_whats_app_number_countries(
     }
 }
 
-/// Move a provisioned number to a different profile.  A number is not a single record. Alongside the number itself there are hidden telephony owner accounts (platform `phone`, plus `sms` when SMS is enabled) and, once WhatsApp is connected, the `whatsapp` account. They all carry a profileId and this endpoint moves them together.  Use this instead of `PATCH /v1/accounts/{accountId}`: that one moves the social account only and leaves the number itself pinned to its original profile, which splits the number across two profiles. Connecting a Zernio-provisioned number from any profile but its own is rejected with a `409` (`WHATSAPP_NUMBER_PINNED_TO_PROFILE`). This endpoint is how you re-home the number first, so it can then be connected from the new profile.  `id` is the number record id from `GET /v1/phone-numbers`, not an account id.  A profile holds at most one account per platform, so the destination must be free of every platform this number occupies.
+/// Move a provisioned number to a different profile.  A number is not a single record. Alongside the number itself there are hidden telephony owner accounts (platform `phone`, plus `sms` when SMS is enabled) and, once WhatsApp is connected, the `whatsapp` account. They all carry a profileId and this endpoint moves them together.  Use this instead of `PATCH /v1/accounts/{accountId}`: that one moves the account only and leaves the number itself pinned to its original profile, which splits the number across two profiles. Connecting a Zernio-provisioned number from any profile but its own is rejected with a `409` (`WHATSAPP_NUMBER_PINNED_TO_PROFILE`). This endpoint is how you re-home the number first, so it can then be connected from the new profile.  `id` is the number record id from `GET /v1/phone-numbers`, not an account id.  A profile holds at most one account per platform, so the destination must be free of every platform this number occupies.
 pub async fn move_whats_app_number_to_profile(
     configuration: &configuration::Configuration,
     id: &str,
@@ -713,7 +713,7 @@ pub async fn purchase_whats_app_phone_number(
     }
 }
 
-/// Deprecated alias of `/v1/phone-numbers/{id}`; same contract. New integrations should use that path.  Release a purchased phone number. This will: 1. Disconnect any linked WhatsApp social account 2. Decrement the Stripe subscription quantity (or cancel if last number) 3. Release the number from Telnyx 4. Mark the number as released
+/// Deprecated alias of `/v1/phone-numbers/{id}`; same contract. New integrations should use that path.  Release a purchased phone number. This will: 1. Disconnect any linked WhatsApp account 2. Decrement the Stripe subscription quantity (or cancel if last number) 3. Release the number from Telnyx 4. Mark the number as released
 #[deprecated]
 pub async fn release_whats_app_phone_number(
     configuration: &configuration::Configuration,
@@ -767,7 +767,7 @@ pub async fn release_whats_app_phone_number(
     }
 }
 
-/// Deprecated alias of `/v1/phone-numbers/{id}/remediate`; same contract. New integrations should use that path.  Submit corrected values/documents for the declined requirement(s). We PATCH them onto the SAME requirement group and re-submit it for approval; the number goes `regulatory_declined` → `pending_regulatory`. No new number and no new billing. Body shape matches the KYC submit (values / documents / address) — send only the corrected fields.
+/// Deprecated alias of `/v1/phone-numbers/{id}/remediate`; same contract. New integrations should use that path.  Submit corrected values/documents for the declined requirement(s). We PATCH them onto the SAME requirement group and re-submit it for approval; the number goes `regulatory_declined` → `pending_regulatory`. No new number and no new billing. Body shape matches the KYC submit (values / documents / address). Send only the corrected fields.
 #[deprecated]
 pub async fn remediate_whats_app_number(
     configuration: &configuration::Configuration,
@@ -907,7 +907,7 @@ pub async fn search_available_whats_app_numbers(
     }
 }
 
-/// Deprecated alias of `/v1/phone-numbers/kyc`; same contract. New integrations should use that path.  Submit the end customer's KYC (textual values, uploaded documents, address) for a Tier 3/4 country. Documents are streamed straight to the number provider and are not stored by Zernio. Builds + submits a regulatory requirement group and claims a pending_regulatory slot; the number is ordered + activated once the provider approves (asynchronous). A customer may hold several same-country numbers in review at once; a double-submit of the SAME attempt is deduped via `submissionId`.  For an ID-card document requirement, carriers commonly require BOTH sides: combine the front and back into a single file before uploading (the dashboard does this automatically). A one-sided ID is a common decline reason; fix it via POST /v1/whatsapp/phone-numbers/{id}/remediate.  Before submitting, call GET /v1/whatsapp/phone-numbers/availability to check the country has deliverable inventory and, for geographic-match countries, which area the address must be in — otherwise the submission can pass review yet never be assignable a number.
+/// Deprecated alias of `/v1/phone-numbers/kyc`; same contract. New integrations should use that path.  Submit the end customer's KYC (textual values, uploaded documents, address) for a Tier 3/4 country. Documents are streamed straight to the number provider and are not stored by Zernio. Builds + submits a regulatory requirement group and claims a pending_regulatory slot; the number is ordered + activated once the provider approves (asynchronous). A customer may hold several same-country numbers in review at once; a double-submit of the SAME attempt is deduped via `submissionId`.  For an ID-card document requirement, carriers commonly require BOTH sides: combine the front and back into a single file before uploading (the dashboard does this automatically). A one-sided ID is a common decline reason; fix it via POST /v1/whatsapp/phone-numbers/{id}/remediate.  Before submitting, call GET /v1/whatsapp/phone-numbers/availability to check the country has deliverable inventory and, for geographic-match countries, which area the address must be in. Otherwise the submission can pass review yet never be assignable a number.
 #[deprecated]
 pub async fn submit_whats_app_number_kyc(
     configuration: &configuration::Configuration,

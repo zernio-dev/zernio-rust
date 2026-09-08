@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**supported** | Option<**bool**> | False for legacy Stripe accounts (no Metronome invoice to split); `days` and `totals` are then empty/zero. | [optional]
+**supported** | Option<**bool**> | False for legacy Stripe accounts (no usage-based invoice to split); `days` and `totals` are then empty/zero. | [optional]
 **granularity** | Option<**Granularity**> |  (enum: day, month, total) | [optional]
 **days** | Option<[**Vec<models::UsageMeteringDaysInner>**](UsageMeteringDaysInner.md)> | One row per bucket. Empty when `granularity=total`. `date` is a UTC date (month buckets use the 1st). | [optional]
 **totals** | Option<[**models::UsageMeteringTotals**](UsageMeteringTotals.md)> |  | [optional]
