@@ -116,6 +116,7 @@ pub enum UpdatePostError {
     Status401(models::InlineObject),
     Status403(models::ErrorResponse),
     Status404(models::InlineObject1),
+    Status409(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
