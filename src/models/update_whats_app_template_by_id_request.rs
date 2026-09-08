@@ -19,7 +19,7 @@ pub struct UpdateWhatsAppTemplateByIdRequest {
     /// Updated template components. Optional when only message_send_ttl_seconds changes; at least one of the two is required.
     #[serde(rename = "components", skip_serializing_if = "Option::is_none")]
     pub components: Option<Vec<models::WhatsAppTemplateComponent>>,
-    /// Delivery validity window in seconds: a message not delivered within it is dropped. Range depends on category: AUTHENTICATION 30 to 900, UTILITY 30 to 43200 (12h), MARKETING 43200 to 2592000 (30 days); -1 restores the 30-day default on AUTHENTICATION and UTILITY. Meta defaults to 600 for AUTHENTICATION and 30 days otherwise. If Meta later recategorises the template, it clears the TTL (read it back to check).
+    /// Delivery validity window in seconds: a message not delivered within it is dropped. Range depends on category: AUTHENTICATION 30 to 900, UTILITY 30 to 43200 (12h), MARKETING 43200 to 2592000 (30 days); -1 is not accepted here (Meta treats it as an empty edit); send a value in range. A TTL-only edit keeps an APPROVED template approved, no re-review. Meta defaults to 600 for AUTHENTICATION and 30 days otherwise. If Meta later recategorises the template, it clears the TTL (read it back to check).
     #[serde(
         rename = "message_send_ttl_seconds",
         skip_serializing_if = "Option::is_none"

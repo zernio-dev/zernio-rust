@@ -75,6 +75,8 @@ pub enum Platform {
     Whatsapp,
     #[serde(rename = "slack")]
     Slack,
+    #[serde(rename = "sms")]
+    Sms,
 }
 
 impl Default for Platform {

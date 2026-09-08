@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **profile_id** | **String** |  | 
 **account_id** | **String** |  | 
-**platform** | **Platform** |  (enum: instagram, facebook, telegram, twitter, bluesky, reddit, whatsapp) | 
+**platform** | **Platform** |  (enum: instagram, facebook, telegram, twitter, bluesky, reddit, whatsapp, sms, slack) | 
 **name** | **String** |  | 
 **description** | Option<**String**> |  | [optional]
 **message** | Option<[**models::CreateBroadcastRequestMessage**](CreateBroadcastRequestMessage.md)> |  | [optional]

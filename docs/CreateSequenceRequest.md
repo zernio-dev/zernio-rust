@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **profile_id** | **String** |  | 
 **account_id** | **String** |  | 
-**platform** | **Platform** |  (enum: instagram, facebook, telegram, twitter, bluesky, reddit, whatsapp) | 
+**platform** | **Platform** |  (enum: instagram, facebook, telegram, twitter, bluesky, reddit, whatsapp, slack) | 
 **name** | **String** |  | 
 **description** | Option<**String**> |  | [optional]
 **steps** | Option<[**Vec<models::CreateSequenceRequestStepsInner>**](CreateSequenceRequestStepsInner.md)> |  | [optional]
