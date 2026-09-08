@@ -22,13 +22,15 @@ pub enum SearchAdLibraryError {
     Status403(),
     Status404(),
     Status501(),
+    Status503(),
     UnknownValue(serde_json::Value),
 }
 
-/// Competitor and market research over the platform's public ad archive, searched with the customer's own connected token (no extra scope): Meta's Ad Library (`GET /ads_archive`) for a `facebook` / `instagram` / `metaads` account, LinkedIn's Ad Library (`GET /rest/adLibrary`) for a `linkedin` / `linkedinads` account. Rows are returned in the platform's raw shape under `data`; `paging.after` is an opaque cursor on both (`null` when exhausted).  **Meta coverage.** Political and social-issue ads are searchable worldwide. Every other ad is in the archive only if it was delivered to the EU or UK within the last year, so a US-only commercial advertiser is invisible. Spend, impressions and demographics are political-only fields and are left out of the default projection; request them via `fields`. Meta serves the archive only to people who confirmed their identity and location at facebook.com/ID: until the Facebook user behind the connection has done so, the call fails with `meta_identity_confirmation_required` (403).  **LinkedIn coverage.** Ads served after June 1 2023, worldwide, kept for a year after their last impression. EU-delivered ads carry impression ranges and the disclosed targeting facets. Pages are capped at 25 ads (`limit` > 25 is a 400); `after` is the next offset.  Which params apply: `q`, `countries`, `since`, `until`, `limit`, `after` on both; `pageIds`, `adType`, `status`, `platforms`, `mediaType`, `languages`, `searchType`, `fields` are Meta-only; `advertiser` is LinkedIn-only. Passing a param the account's platform does not support is a 400 naming the param.
+/// Competitor and market research over the public ad archives. Meta's Ad Library (`GET /ads_archive`) is searched with Zernio's own developer access, so `platform=meta` needs no connected account at all. LinkedIn's Ad Library (`GET /rest/adLibrary`) runs on a connected `linkedin` / `linkedinads` account, passed as `accountId`. Passing a Meta account as `accountId` also selects Meta. Rows are returned in the platform's raw shape under `data`; `paging.after` is an opaque cursor on both (`null` when exhausted).  **Meta coverage.** Political and social-issue ads are searchable worldwide. Every other ad is in the archive only if it was delivered to the EU or UK within the last year, so a US-only commercial advertiser is invisible. Spend, impressions and demographics are political-only fields and are left out of the default projection; request them via `fields`. All customers share Zernio's Meta quota, so a `429` means back off for a minute.  **LinkedIn coverage.** Ads served after June 1 2023, worldwide, kept for a year after their last impression. EU-delivered ads carry impression ranges and the disclosed targeting facets. Pages are capped at 25 ads (`limit` > 25 is a 400); `after` is the next offset.  Which params apply: `q`, `countries`, `since`, `until`, `limit`, `after` on both; `pageIds`, `adType`, `status`, `platforms`, `mediaType`, `languages`, `searchType`, `fields` are Meta-only; `advertiser` is LinkedIn-only. Passing a param the account's platform does not support is a 400 naming the param.
 pub async fn search_ad_library(
     configuration: &configuration::Configuration,
-    account_id: &str,
+    platform: Option<&str>,
+    account_id: Option<&str>,
     q: Option<&str>,
     page_ids: Option<&str>,
     advertiser: Option<&str>,
@@ -46,6 +48,7 @@ pub async fn search_ad_library(
     after: Option<&str>,
 ) -> Result<models::SearchAdLibrary200Response, Error<SearchAdLibraryError>> {
     // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_platform = platform;
     let p_query_account_id = account_id;
     let p_query_q = q;
     let p_query_page_ids = page_ids;
@@ -66,7 +69,12 @@ pub async fn search_ad_library(
     let uri_str = format!("{}/v1/ads/library", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_platform {
+        req_builder = req_builder.query(&[("platform", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_account_id {
+        req_builder = req_builder.query(&[("accountId", &param_value.to_string())]);
+    }
     if let Some(ref param_value) = p_query_q {
         req_builder = req_builder.query(&[("q", &param_value.to_string())]);
     }
