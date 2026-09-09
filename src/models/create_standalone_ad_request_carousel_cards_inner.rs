@@ -16,7 +16,7 @@ pub struct CreateStandaloneAdRequestCarouselCardsInner {
     /// Card image; uploaded to the ad account and referenced by hash.
     #[serde(rename = "imageUrl")]
     pub image_url: String,
-    /// Card destination URL. Defaults to the top-level linkUrl.
+    /// Card destination URL. Defaults to the top-level linkUrl, or Meta's lead-form link when leadGenFormId is set and neither is provided.
     #[serde(rename = "linkUrl", skip_serializing_if = "Option::is_none")]
     pub link_url: Option<String>,
     /// Card headline, shown below the card image.
