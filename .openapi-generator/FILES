@@ -931,6 +931,8 @@ docs/GoogleBusinessReview.md
 docs/GoogleBusinessReviewReviewReply.md
 docs/GoogleBusinessReviewReviewer.md
 docs/HandleOAuthCallbackRequest.md
+docs/HideAdComment200Response.md
+docs/HideAdCommentRequest.md
 docs/HideInboxComment200Response.md
 docs/HideInboxCommentRequest.md
 docs/InboxAnalyticsApi.md
@@ -1340,6 +1342,8 @@ docs/ReplaceAdNegativeKeywordListKeywordsRequest.md
 docs/ReplaceCampaignNegativeKeywordListsRequest.md
 docs/ReplaceCampaignNegativeKeywords200Response.md
 docs/ReplaceCampaignNegativeKeywordsRequest.md
+docs/ReplyToAdComment200Response.md
+docs/ReplyToAdCommentRequest.md
 docs/ReplyToGoogleBusinessReview200Response.md
 docs/ReplyToGoogleBusinessReviewRequest.md
 docs/ReplyToInboxPost200Response.md
@@ -2983,6 +2987,8 @@ src/models/google_business_review.rs
 src/models/google_business_review_review_reply.rs
 src/models/google_business_review_reviewer.rs
 src/models/handle_o_auth_callback_request.rs
+src/models/hide_ad_comment_200_response.rs
+src/models/hide_ad_comment_request.rs
 src/models/hide_inbox_comment_200_response.rs
 src/models/hide_inbox_comment_request.rs
 src/models/inbox_message_edit_attachment.rs
@@ -3377,6 +3383,8 @@ src/models/replace_ad_negative_keyword_list_keywords_request.rs
 src/models/replace_campaign_negative_keyword_lists_request.rs
 src/models/replace_campaign_negative_keywords_200_response.rs
 src/models/replace_campaign_negative_keywords_request.rs
+src/models/reply_to_ad_comment_200_response.rs
+src/models/reply_to_ad_comment_request.rs
 src/models/reply_to_google_business_review_200_response.rs
 src/models/reply_to_google_business_review_request.rs
 src/models/reply_to_inbox_post_200_response.rs

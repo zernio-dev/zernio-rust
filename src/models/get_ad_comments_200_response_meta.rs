@@ -13,21 +13,35 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetAdComments200ResponseMeta {
-    /// Which side these comments are on (same as `placement`).
+    /// Platform of the comments.
     #[serde(rename = "platform")]
     pub platform: Platform,
     /// The placement these comments are for, useful when you didn't pass ?placement= and want to know which one you got.
-    #[serde(rename = "placement")]
-    pub placement: Placement,
+    #[serde(rename = "placement", skip_serializing_if = "Option::is_none")]
+    pub placement: Option<Placement>,
     /// Internal Zernio ad ID.
     #[serde(rename = "adId")]
     pub ad_id: String,
-    /// Meta ad ID.
-    #[serde(rename = "platformAdId")]
-    pub platform_ad_id: String,
+    /// Platform ad ID.
+    #[serde(rename = "platformAdId", skip_serializing_if = "Option::is_none")]
+    pub platform_ad_id: Option<String>,
     /// Underlying post ID the comments belong to. effective_object_story_id for the Facebook side, effective_instagram_media_id for the Instagram side.
-    #[serde(rename = "effectiveStoryId")]
-    pub effective_story_id: String,
+    #[serde(rename = "effectiveStoryId", skip_serializing_if = "Option::is_none")]
+    pub effective_story_id: Option<String>,
+    /// TikTok-only video item ID. Null when the ad and comments do not expose it.
+    #[serde(
+        rename = "tiktokItemId",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub tiktok_item_id: Option<Option<String>>,
+    /// TikTok-only resolved start date.
+    #[serde(rename = "since", skip_serializing_if = "Option::is_none")]
+    pub since: Option<String>,
+    /// TikTok-only resolved end date.
+    #[serde(rename = "until", skip_serializing_if = "Option::is_none")]
+    pub until: Option<String>,
     /// Facebook-only. The connected Facebook Page SocialAccount these comments were read through. Pass it as `accountId` (with `effectiveStoryId` as the postId) to /v1/inbox/comments to reply/hide/delete. Null when no connected Page was used (then moderation isn't possible).
     #[serde(
         rename = "facebookAccountId",
@@ -55,19 +69,19 @@ pub struct GetAdComments200ResponseMeta {
 impl GetAdComments200ResponseMeta {
     pub fn new(
         platform: Platform,
-        placement: Placement,
         ad_id: String,
-        platform_ad_id: String,
-        effective_story_id: String,
         account_id: String,
         last_updated: String,
     ) -> GetAdComments200ResponseMeta {
         GetAdComments200ResponseMeta {
             platform,
-            placement,
+            placement: None,
             ad_id,
-            platform_ad_id,
-            effective_story_id,
+            platform_ad_id: None,
+            effective_story_id: None,
+            tiktok_item_id: None,
+            since: None,
+            until: None,
             facebook_account_id: None,
             instagram_user_id: None,
             instagram_permalink: None,
@@ -77,13 +91,15 @@ impl GetAdComments200ResponseMeta {
         }
     }
 }
-/// Which side these comments are on (same as `placement`).
+/// Platform of the comments.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Platform {
     #[serde(rename = "facebook")]
     Facebook,
     #[serde(rename = "instagram")]
     Instagram,
+    #[serde(rename = "tiktok")]
+    Tiktok,
 }
 
 impl Default for Platform {

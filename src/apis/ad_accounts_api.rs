@@ -70,6 +70,20 @@ pub enum CreateValueRuleSetError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`delete_ad_comment`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteAdCommentError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(),
+    Status422(),
+    Status501(),
+    Status502(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`delete_ad_negative_keyword_list`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -169,6 +183,20 @@ pub enum GetValueRuleSetError {
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`hide_ad_comment`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum HideAdCommentError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(),
+    Status422(),
+    Status501(),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
@@ -305,6 +333,20 @@ pub enum ReplaceAdNegativeKeywordListKeywordsError {
     Status422(),
     Status429(),
     Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`reply_to_ad_comment`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ReplyToAdCommentError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(),
+    Status422(),
+    Status501(),
+    Status502(),
     UnknownValue(serde_json::Value),
 }
 
@@ -603,6 +645,72 @@ pub async fn create_value_rule_set(
     }
 }
 
+/// Delete your own TikTok ad comment or reply. TikTok must return can_delete=true for the comment. Other users' comments can be hidden instead.  Requires Ads access. The ad is resolved within the caller's accessible profiles. Before moderation, Zernio verifies that the comment belongs to this ad using TikTok's ad-group comment listing. The default search window is the last 30 days. Use since/until for older comments, with at most 30 days between the dates. Lookups scan at most 2,000 ad-group comments; narrow the date window if exceeded. Meta returns 501 feature_not_available with guidance to use the existing inbox comment endpoints and the account/post IDs from GET /v1/ads/{adId}/comments.
+pub async fn delete_ad_comment(
+    configuration: &configuration::Configuration,
+    ad_id: &str,
+    comment_id: &str,
+    since: Option<String>,
+    until: Option<String>,
+) -> Result<models::ReplyToAdComment200Response, Error<DeleteAdCommentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_ad_id = ad_id;
+    let p_path_comment_id = comment_id;
+    let p_query_since = since;
+    let p_query_until = until;
+
+    let uri_str = format!(
+        "{}/v1/ads/{adId}/comments/{commentId}",
+        configuration.base_path,
+        adId = crate::apis::urlencode(p_path_ad_id),
+        commentId = crate::apis::urlencode(p_path_comment_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref param_value) = p_query_since {
+        req_builder = req_builder.query(&[("since", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_until {
+        req_builder = req_builder.query(&[("until", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ReplyToAdComment200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ReplyToAdComment200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteAdCommentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Removes the Google shared negative keyword list. Detach it from all campaigns first; an in-use list is rejected. Only NEGATIVE_KEYWORDS shared sets are supported.
 pub async fn delete_ad_negative_keyword_list(
     configuration: &configuration::Configuration,
@@ -777,18 +885,22 @@ pub async fn get_ad_account_finance(
     }
 }
 
-/// Returns comments on an ad's underlying creative post. Useful for moderating or analyzing engagement on dark posts (ad creatives that never went live organically), which the regular GET /v1/inbox/comments/{postId} endpoint cannot serve because dark posts are not in Zernio's post database.  An ad that runs on both Facebook feed and Instagram feed has two separate underlying posts with separate comment threads (the creative's effective_object_story_id and effective_instagram_media_id). Use the `placement` query param to pick one; with no param the Instagram side is returned when it exists, otherwise Facebook. The identifiers are read from the ad record (persisted during sync) with a Marketing-API fallback for ads that predate the field.  For Instagram-placed comments, the Instagram account that runs the ad must be connected to Zernio, because those comments are read through that account's token. If no connected Instagram account on the profile can read the ad's media, the call returns ads_connection_required (the Facebook side, if any, is still readable via ?placement=facebook).  Meta-only for now. Other ad platforms (TikTok, LinkedIn, Pinterest, Google, X) are not wired to this endpoint and return feature_not_available.  Requires the Ads add-on. Response shape matches GET /v1/inbox/comments/{postId}.  The `{adId}` path segment accepts any identifier dialect Zernio indexes for the ad: Zernio internal `_id` (24-char hex), Meta's numeric `platformAdId` (the value shipped in `comment.received` webhooks as `comment.ad.id`), or the creative's `effective_object_story_id` / `effective_instagram_media_id`. Caller doesn't need a translation step.
+/// Returns comments on an ad's underlying creative post. Useful for moderating or analyzing engagement on dark posts (ad creatives that never went live organically), which the regular GET /v1/inbox/comments/{postId} endpoint cannot serve because dark posts are not in Zernio's post database.  An ad that runs on both Facebook feed and Instagram feed has two separate underlying posts with separate comment threads (the creative's effective_object_story_id and effective_instagram_media_id). Use the `placement` query param to pick one; with no param the Instagram side is returned when it exists, otherwise Facebook. The identifiers are read from the ad record (persisted during sync) with a Marketing-API fallback for ads that predate the field.  For Instagram-placed comments, the Instagram account that runs the ad must be connected to Zernio, because those comments are read through that account's token. If no connected Instagram account on the profile can read the ad's media, the call returns ads_connection_required (the Facebook side, if any, is still readable via ?placement=facebook).  TikTok uses the connected TikTok Ads advertiser token and supports both paid video ads and Spark Ads. `since` and `until` select a date window of at most 30 days; the default is the last 30 days. TikTok searches by ad group, so Zernio filters each page to this ad. A page can be empty while `pagination.hasMore` is true. Reuse `pagination.cursor` with the same `limit`; the cursor retains the date window. `placement` is Meta-only and returns a 400 for TikTok.  TikTok returns replies as separate comments with `parentId`; nested reply fetching is not supported. `canReply` requires a first-level comment and an identity with comment-management permission. `canDelete` reflects TikTok's own-comment deletion capability. `canHide` is supported and `canLike` is false. Use the ad comment reply, hide and delete operations below to moderate TikTok comments. Other platforms return feature_not_available.  Requires the Ads add-on. Response shape matches GET /v1/inbox/comments/{postId}.  The `{adId}` path segment accepts any identifier dialect Zernio indexes for the ad: Zernio internal `_id` (24-char hex), the numeric `platformAdId` (the value shipped in `comment.received` webhooks as `comment.ad.id`), or the creative's `effective_object_story_id` / `effective_instagram_media_id`. Caller doesn't need a translation step.
 pub async fn get_ad_comments(
     configuration: &configuration::Configuration,
     ad_id: &str,
     placement: Option<&str>,
     limit: Option<i32>,
+    since: Option<String>,
+    until: Option<String>,
     cursor: Option<&str>,
 ) -> Result<models::GetAdComments200Response, Error<GetAdCommentsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_ad_id = ad_id;
     let p_query_placement = placement;
     let p_query_limit = limit;
+    let p_query_since = since;
+    let p_query_until = until;
     let p_query_cursor = cursor;
 
     let uri_str = format!(
@@ -803,6 +915,12 @@ pub async fn get_ad_comments(
     }
     if let Some(ref param_value) = p_query_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_since {
+        req_builder = req_builder.query(&[("since", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_until {
+        req_builder = req_builder.query(&[("until", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_cursor {
         req_builder = req_builder.query(&[("cursor", &param_value.to_string())]);
@@ -1131,6 +1249,75 @@ pub async fn get_value_rule_set(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetValueRuleSetError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Hide or restore a TikTok ad comment. Send hidden=true to hide it or hidden=false to make it public again.  Requires Ads access. The ad is resolved within the caller's accessible profiles. Before moderation, Zernio verifies that the comment belongs to this ad using TikTok's ad-group comment listing. The default search window is the last 30 days. Use since/until for older comments, with at most 30 days between the dates. Lookups scan at most 2,000 ad-group comments; narrow the date window if exceeded. Meta returns 501 feature_not_available with guidance to use the existing inbox comment endpoints and the account/post IDs from GET /v1/ads/{adId}/comments.
+pub async fn hide_ad_comment(
+    configuration: &configuration::Configuration,
+    ad_id: &str,
+    comment_id: &str,
+    hide_ad_comment_request: models::HideAdCommentRequest,
+    since: Option<String>,
+    until: Option<String>,
+) -> Result<models::HideAdComment200Response, Error<HideAdCommentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_ad_id = ad_id;
+    let p_path_comment_id = comment_id;
+    let p_body_hide_ad_comment_request = hide_ad_comment_request;
+    let p_query_since = since;
+    let p_query_until = until;
+
+    let uri_str = format!(
+        "{}/v1/ads/{adId}/comments/{commentId}/hide",
+        configuration.base_path,
+        adId = crate::apis::urlencode(p_path_ad_id),
+        commentId = crate::apis::urlencode(p_path_comment_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref param_value) = p_query_since {
+        req_builder = req_builder.query(&[("since", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_until {
+        req_builder = req_builder.query(&[("until", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_hide_ad_comment_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::HideAdComment200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::HideAdComment200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<HideAdCommentError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1828,6 +2015,75 @@ pub async fn replace_ad_negative_keyword_list_keywords(
         let content = resp.text().await?;
         let entity: Option<ReplaceAdNegativeKeywordListKeywordsError> =
             serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Reply to a first-level TikTok ad comment. Requires a TT_USER or CUSTOMIZED_USER identity with comment-management permission. Replies to replies are rejected. The response commentId identifies the new reply. This operation is not idempotent; do not blindly retry an uncertain response.  Requires Ads access. The ad is resolved within the caller's accessible profiles. Before moderation, Zernio verifies that the comment belongs to this ad using TikTok's ad-group comment listing. The default search window is the last 30 days. Use since/until for older comments, with at most 30 days between the dates. Lookups scan at most 2,000 ad-group comments; narrow the date window if exceeded. Meta returns 501 feature_not_available with guidance to use the existing inbox comment endpoints and the account/post IDs from GET /v1/ads/{adId}/comments.
+pub async fn reply_to_ad_comment(
+    configuration: &configuration::Configuration,
+    ad_id: &str,
+    comment_id: &str,
+    reply_to_ad_comment_request: models::ReplyToAdCommentRequest,
+    since: Option<String>,
+    until: Option<String>,
+) -> Result<models::ReplyToAdComment200Response, Error<ReplyToAdCommentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_ad_id = ad_id;
+    let p_path_comment_id = comment_id;
+    let p_body_reply_to_ad_comment_request = reply_to_ad_comment_request;
+    let p_query_since = since;
+    let p_query_until = until;
+
+    let uri_str = format!(
+        "{}/v1/ads/{adId}/comments/{commentId}/reply",
+        configuration.base_path,
+        adId = crate::apis::urlencode(p_path_ad_id),
+        commentId = crate::apis::urlencode(p_path_comment_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref param_value) = p_query_since {
+        req_builder = req_builder.query(&[("since", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_until {
+        req_builder = req_builder.query(&[("until", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_reply_to_ad_comment_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ReplyToAdComment200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ReplyToAdComment200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ReplyToAdCommentError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

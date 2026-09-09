@@ -82,6 +82,7 @@ Class | Method | HTTP request | Description
 *AdAccountsApi* | [**create_custom_conversion**](docs/AdAccountsApi.md#create_custom_conversion) | **POST** /v1/accounts/{accountId}/custom-conversions | Create or reuse a custom conversion
 *AdAccountsApi* | [**create_high_demand_period**](docs/AdAccountsApi.md#create_high_demand_period) | **POST** /v1/ads/high-demand-periods | Schedule a budget increase
 *AdAccountsApi* | [**create_value_rule_set**](docs/AdAccountsApi.md#create_value_rule_set) | **POST** /v1/ads/value-rule-sets | Create a value rule set
+*AdAccountsApi* | [**delete_ad_comment**](docs/AdAccountsApi.md#delete_ad_comment) | **DELETE** /v1/ads/{adId}/comments/{commentId} | Delete an ad comment
 *AdAccountsApi* | [**delete_ad_negative_keyword_list**](docs/AdAccountsApi.md#delete_ad_negative_keyword_list) | **DELETE** /v1/ads/accounts/negative-keyword-lists/{listId} | Delete a negative keyword list
 *AdAccountsApi* | [**delete_value_rule_set**](docs/AdAccountsApi.md#delete_value_rule_set) | **DELETE** /v1/ads/value-rule-sets/{valueRuleSetId} | Delete a value rule set
 *AdAccountsApi* | [**get_ad_account_finance**](docs/AdAccountsApi.md#get_ad_account_finance) | **GET** /v1/ads/accounts/finance | Ad account finances
@@ -91,6 +92,7 @@ Class | Method | HTTP request | Description
 *AdAccountsApi* | [**get_dsa_defaults**](docs/AdAccountsApi.md#get_dsa_defaults) | **GET** /v1/ads/dsa-defaults | Get ad account DSA defaults
 *AdAccountsApi* | [**get_dsa_recommendations**](docs/AdAccountsApi.md#get_dsa_recommendations) | **GET** /v1/ads/dsa-recommendations | List DSA beneficiary/payor suggestions
 *AdAccountsApi* | [**get_value_rule_set**](docs/AdAccountsApi.md#get_value_rule_set) | **GET** /v1/ads/value-rule-sets/{valueRuleSetId} | Read a value rule set
+*AdAccountsApi* | [**hide_ad_comment**](docs/AdAccountsApi.md#hide_ad_comment) | **POST** /v1/ads/{adId}/comments/{commentId}/hide | Hide or unhide an ad comment
 *AdAccountsApi* | [**list_account_callouts**](docs/AdAccountsApi.md#list_account_callouts) | **GET** /v1/ads/accounts/callouts | List account-level callout extensions
 *AdAccountsApi* | [**list_ad_accounts**](docs/AdAccountsApi.md#list_ad_accounts) | **GET** /v1/ads/accounts | List ad accounts
 *AdAccountsApi* | [**list_ad_labels**](docs/AdAccountsApi.md#list_ad_labels) | **GET** /v1/ads/labels | Ad labels
@@ -103,6 +105,7 @@ Class | Method | HTTP request | Description
 *AdAccountsApi* | [**list_value_rule_sets**](docs/AdAccountsApi.md#list_value_rule_sets) | **GET** /v1/ads/value-rule-sets | List value rule sets
 *AdAccountsApi* | [**remove_account_callout**](docs/AdAccountsApi.md#remove_account_callout) | **DELETE** /v1/ads/accounts/callouts | Remove an account-level callout extension
 *AdAccountsApi* | [**replace_ad_negative_keyword_list_keywords**](docs/AdAccountsApi.md#replace_ad_negative_keyword_list_keywords) | **PUT** /v1/ads/accounts/negative-keyword-lists/{listId}/keywords | Replace negative list keywords
+*AdAccountsApi* | [**reply_to_ad_comment**](docs/AdAccountsApi.md#reply_to_ad_comment) | **POST** /v1/ads/{adId}/comments/{commentId}/reply | Reply to an ad comment
 *AdAccountsApi* | [**update_ad_account**](docs/AdAccountsApi.md#update_ad_account) | **PATCH** /v1/ads/accounts | Update ad account settings
 *AdAccountsApi* | [**update_ad_negative_keyword_list**](docs/AdAccountsApi.md#update_ad_negative_keyword_list) | **PUT** /v1/ads/accounts/negative-keyword-lists/{listId} | Rename a negative keyword list
 *AdAccountsApi* | [**update_value_rule_set**](docs/AdAccountsApi.md#update_value_rule_set) | **PUT** /v1/ads/value-rule-sets/{valueRuleSetId} | Replace a value rule set
@@ -1635,6 +1638,8 @@ Class | Method | HTTP request | Description
  - [GoogleBusinessReviewReviewReply](docs/GoogleBusinessReviewReviewReply.md)
  - [GoogleBusinessReviewReviewer](docs/GoogleBusinessReviewReviewer.md)
  - [HandleOAuthCallbackRequest](docs/HandleOAuthCallbackRequest.md)
+ - [HideAdComment200Response](docs/HideAdComment200Response.md)
+ - [HideAdCommentRequest](docs/HideAdCommentRequest.md)
  - [HideInboxComment200Response](docs/HideInboxComment200Response.md)
  - [HideInboxCommentRequest](docs/HideInboxCommentRequest.md)
  - [InboxMessageEditAttachment](docs/InboxMessageEditAttachment.md)
@@ -2028,6 +2033,8 @@ Class | Method | HTTP request | Description
  - [ReplaceCampaignNegativeKeywordListsRequest](docs/ReplaceCampaignNegativeKeywordListsRequest.md)
  - [ReplaceCampaignNegativeKeywords200Response](docs/ReplaceCampaignNegativeKeywords200Response.md)
  - [ReplaceCampaignNegativeKeywordsRequest](docs/ReplaceCampaignNegativeKeywordsRequest.md)
+ - [ReplyToAdComment200Response](docs/ReplyToAdComment200Response.md)
+ - [ReplyToAdCommentRequest](docs/ReplyToAdCommentRequest.md)
  - [ReplyToGoogleBusinessReview200Response](docs/ReplyToGoogleBusinessReview200Response.md)
  - [ReplyToGoogleBusinessReviewRequest](docs/ReplyToGoogleBusinessReviewRequest.md)
  - [ReplyToInboxPost200Response](docs/ReplyToInboxPost200Response.md)

@@ -45386,7 +45386,7 @@ paths:
       x-resource-group: "engagement"
       operationId: getAdComments
       tags: ["Ad Accounts"]
-      x-platforms: ["meta"]
+      x-platforms: ["meta", "tiktok"]
       summary: List comments on an ad
       description: |
         Returns comments on an ad's underlying creative post. Useful for moderating or analyzing
@@ -45406,26 +45406,39 @@ paths:
         Instagram account on the profile can read the ad's media, the call returns
         ads_connection_required (the Facebook side, if any, is still readable via ?placement=facebook).
 
-        Meta-only for now. Other ad platforms (TikTok, LinkedIn, Pinterest, Google, X)
-        are not wired to this endpoint and return feature_not_available.
+        TikTok uses the connected TikTok Ads advertiser token and supports both paid video
+        ads and Spark Ads. `since` and `until` select a date window of at most 30 days;
+        the default is the last 30 days. TikTok searches by ad group, so Zernio filters
+        each page to this ad. A page can be empty while `pagination.hasMore` is true.
+        Reuse `pagination.cursor` with the same `limit`; the cursor retains the date window.
+        `placement` is Meta-only and returns a 400 for TikTok.
+
+        TikTok returns replies as separate comments with `parentId`; nested reply fetching
+        is not supported. `canReply` requires a first-level comment and an identity with
+        comment-management permission. `canDelete` reflects TikTok's own-comment deletion
+        capability. `canHide` is supported and `canLike` is false. Use the ad comment
+        reply, hide and delete operations below to moderate TikTok comments.
+        Other platforms return feature_not_available.
 
         Requires the Ads add-on. Response shape matches GET /v1/inbox/comments/{postId}.
 
         The `{adId}` path segment accepts any identifier dialect Zernio indexes for the ad:
-        Zernio internal `_id` (24-char hex), Meta's numeric `platformAdId` (the value shipped in
+        Zernio internal `_id` (24-char hex), the numeric `platformAdId` (the value shipped in
         `comment.received` webhooks as `comment.ad.id`), or the creative's
         `effective_object_story_id` / `effective_instagram_media_id`. Caller doesn't need a
         translation step.
       security:
         - bearerAuth: []
       parameters:
-        - { name: adId, in: path, required: true, schema: { type: string }, description: "Internal Zernio ad ID (ObjectId)." }
+        - { name: adId, in: path, required: true, schema: { type: string }, description: "Internal Zernio ad ID or indexed platform ad/post ID." }
         - { name: placement, in: query, schema: { type: string, enum: [facebook, instagram] }, description: "Which side of the ad to return comments for. Omit to default to the Instagram side when present, else Facebook. Returns ad_not_commentable if the ad has no such placement." }
         - { name: limit, in: query, schema: { type: integer, minimum: 1, maximum: 100, default: 25 } }
+        - { name: since, in: query, schema: { type: string, format: date }, description: "TikTok-only start date. Defaults to 30 days before until. Maximum window is 30 days." }
+        - { name: until, in: query, schema: { type: string, format: date }, description: "TikTok-only end date. Defaults to today in UTC." }
         - { name: cursor, in: query, schema: { type: string }, description: "Pagination cursor from a previous response." }
       responses:
         '200':
-          description: Comments on the ad
+          description: "Comments on the ad."
           content:
             application/json:
               schema:
@@ -45437,7 +45450,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      description: Normalized comment. Same shape as /v1/inbox/comments/{postId} responses.
+                      description: "Normalized comment. Same shape as /v1/inbox/comments/{postId} responses."
                   pagination:
                     type: object
                     properties:
@@ -45445,15 +45458,20 @@ paths:
                       cursor: { type: string }
                   meta:
                     type: object
-                    required: [platform, placement, adId, platformAdId, effectiveStoryId, accountId, lastUpdated]
+                    required: [platform, adId, accountId, lastUpdated]
                     properties:
-                      platform: { type: string, enum: [facebook, instagram], description: "Which side these comments are on (same as `placement`)." }
+                      platform: { type: string, enum: [facebook, instagram, tiktok], description: "Platform of the comments." }
                       placement: { type: string, enum: [facebook, instagram], description: "The placement these comments are for, useful when you didn't pass ?placement= and want to know which one you got." }
                       adId: { type: string, description: "Internal Zernio ad ID." }
-                      platformAdId: { type: string, description: "Meta ad ID." }
+                      platformAdId: { type: string, description: "Platform ad ID." }
                       effectiveStoryId:
                         type: string
                         description: "Underlying post ID the comments belong to. effective_object_story_id for the Facebook side, effective_instagram_media_id for the Instagram side."
+                      tiktokItemId:
+                        type: [string, "null"]
+                        description: "TikTok-only video item ID. Null when the ad and comments do not expose it."
+                      since: { type: string, format: date, description: "TikTok-only resolved start date." }
+                      until: { type: string, format: date, description: "TikTok-only resolved end date." }
                       facebookAccountId:
                         type: [string, "null"]
                         description: "Facebook-only. The connected Facebook Page SocialAccount these comments were read through. Pass it as `accountId` (with `effectiveStoryId` as the postId) to /v1/inbox/comments to reply/hide/delete. Null when no connected Page was used (then moderation isn't possible)."
@@ -45468,18 +45486,214 @@ paths:
                         description: "Instagram-only. The connected Instagram SocialAccount these comments were read through. Pass it as `accountId` (with `effectiveStoryId` as the postId) to /v1/inbox/comments to reply/hide/delete."
                       accountId: { type: string, description: "Account ID (ads SocialAccount)." }
                       lastUpdated: { type: string, format: date-time }
+              example:
+                status: success
+                comments:
+                  - id: "7512345678901234567"
+                    message: "Can you share more details?"
+                    createdTime: "2026-09-08T10:00:00.000Z"
+                    from: { id: "6123456789123456789", name: "reader", username: "reader", picture: "https://example.com/avatar.jpg", isOwner: false }
+                    likeCount: 4
+                    replyCount: 0
+                    platform: tiktok
+                    url: null
+                    replies: []
+                    isHidden: false
+                    canReply: true
+                    canDelete: false
+                    canHide: true
+                    canLike: false
+                    isLiked: false
+                pagination: { hasMore: false }
+                meta:
+                  platform: tiktok
+                  adId: "507f1f77bcf86cd799439011"
+                  platformAdId: "1790166588666881"
+                  accountId: "507f1f77bcf86cd799439012"
+                  tiktokItemId: "7512345678901234500"
+                  since: "2026-08-10"
+                  until: "2026-09-09"
+                  lastUpdated: "2026-09-09T12:00:00.000Z"
         '400':
           description: |
             Invalid ad ID format, or the ad's creative format does not expose a commentable
             underlying post (code ad_not_commentable).
         '401': { $ref: '#/components/responses/Unauthorized' }
         '403':
-          description: Ads access required (legacy plans need the Ads add-on; included by default on usage-based plans), or ad platform is not Meta (code feature_not_available).
+          description: Ads access required (legacy plans need the Ads add-on; included by default on usage-based plans), or ad platform is not Meta or TikTok (code feature_not_available).
         '404': { $ref: '#/components/responses/NotFound' }
         '422':
           description: |
             Ads account token unavailable, or (for Instagram-placed ads) no connected
             Instagram account on the profile can read the ad's media (code ads_connection_required).
+
+  /v1/ads/{adId}/comments/{commentId}/reply:
+    post:
+      operationId: replyToAdComment
+      summary: Reply to an ad comment
+      tags: ["Ad Accounts"]
+      x-resource-group: "engagement"
+      x-platforms: ["tiktok"]
+      description: |
+        Reply to a first-level TikTok ad comment. Requires a TT_USER or CUSTOMIZED_USER identity with comment-management permission. Replies to replies are rejected. The response commentId identifies the new reply. This operation is not idempotent; do not blindly retry an uncertain response.
+
+        Requires Ads access. The ad is resolved within the caller's accessible profiles.
+        Before moderation, Zernio verifies that the comment belongs to this ad using
+        TikTok's ad-group comment listing. The default search window is the last 30 days.
+        Use since/until for older comments, with at most 30 days between the dates.
+        Lookups scan at most 2,000 ad-group comments; narrow the date window if exceeded.
+        Meta returns 501 feature_not_available with guidance to use the existing inbox
+        comment endpoints and the account/post IDs from GET /v1/ads/{adId}/comments.
+      security:
+        - bearerAuth: []
+      parameters:
+        - { name: adId, in: path, required: true, schema: { type: string }, description: "Internal Zernio ad ID or indexed platform ad ID." }
+        - { name: commentId, in: path, required: true, schema: { type: string, pattern: '^\d+$' }, description: "TikTok comment ID from the ad comment listing." }
+        - { name: since, in: query, schema: { type: string, format: date }, description: "Start date of the comment lookup window. Defaults to 30 days before until." }
+        - { name: until, in: query, schema: { type: string, format: date }, description: "End date of the comment lookup window. Defaults to today in UTC." }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [text]
+              properties:
+                text: { type: string, minLength: 1, description: "Non-empty reply text." }
+            example: { text: "Thanks for your question!" }
+      responses:
+        '200':
+          description: "Comment action completed."
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status, commentId]
+                properties:
+                  status: { type: string, enum: [success] }
+                  commentId: { type: string, description: "ID of the created reply or moderated comment." }
+              example: { status: success, commentId: "7512345678901234567" }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403':
+          description: "Ads access or the required TikTok comment capability is unavailable."
+        '404':
+          description: "Ad is inaccessible or the comment was not found on this ad in the selected date window."
+        '422':
+          description: "TikTok Ads connection is unavailable."
+        '501':
+          description: "Moderation on this route supports TikTok. Use the inbox comment routes for Meta."
+        '502':
+          description: "TikTok rejected the request or was unavailable. Inspect platformError for its code and message."
+
+  /v1/ads/{adId}/comments/{commentId}/hide:
+    post:
+      operationId: hideAdComment
+      summary: Hide or unhide an ad comment
+      tags: ["Ad Accounts"]
+      x-resource-group: "engagement"
+      x-platforms: ["tiktok"]
+      description: |
+        Hide or restore a TikTok ad comment. Send hidden=true to hide it or hidden=false to make it public again.
+
+        Requires Ads access. The ad is resolved within the caller's accessible profiles.
+        Before moderation, Zernio verifies that the comment belongs to this ad using
+        TikTok's ad-group comment listing. The default search window is the last 30 days.
+        Use since/until for older comments, with at most 30 days between the dates.
+        Lookups scan at most 2,000 ad-group comments; narrow the date window if exceeded.
+        Meta returns 501 feature_not_available with guidance to use the existing inbox
+        comment endpoints and the account/post IDs from GET /v1/ads/{adId}/comments.
+      security:
+        - bearerAuth: []
+      parameters:
+        - { name: adId, in: path, required: true, schema: { type: string }, description: "Internal Zernio ad ID or indexed platform ad ID." }
+        - { name: commentId, in: path, required: true, schema: { type: string, pattern: '^\d+$' }, description: "TikTok comment ID from the ad comment listing." }
+        - { name: since, in: query, schema: { type: string, format: date }, description: "Start date of the comment lookup window. Defaults to 30 days before until." }
+        - { name: until, in: query, schema: { type: string, format: date }, description: "End date of the comment lookup window. Defaults to today in UTC." }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [hidden]
+              properties:
+                hidden: { type: boolean, description: "True to hide the comment; false to restore it." }
+            example: { hidden: true }
+      responses:
+        '200':
+          description: "Comment action completed."
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status, commentId]
+                properties:
+                  status: { type: string, enum: [success] }
+                  commentId: { type: string, description: "ID of the created reply or moderated comment." }
+                  hidden: { type: boolean, description: "The requested visibility state." }
+              example: { status: success, commentId: "7512345678901234567", hidden: true }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403':
+          description: "Ads access or the required TikTok comment capability is unavailable."
+        '404':
+          description: "Ad is inaccessible or the comment was not found on this ad in the selected date window."
+        '422':
+          description: "TikTok Ads connection is unavailable."
+        '501':
+          description: "Moderation on this route supports TikTok. Use the inbox comment routes for Meta."
+        '502':
+          description: "TikTok rejected the request or was unavailable. Inspect platformError for its code and message."
+
+  /v1/ads/{adId}/comments/{commentId}:
+    delete:
+      operationId: deleteAdComment
+      summary: Delete an ad comment
+      tags: ["Ad Accounts"]
+      x-resource-group: "engagement"
+      x-platforms: ["tiktok"]
+      description: |
+        Delete your own TikTok ad comment or reply. TikTok must return can_delete=true for the comment. Other users' comments can be hidden instead.
+
+        Requires Ads access. The ad is resolved within the caller's accessible profiles.
+        Before moderation, Zernio verifies that the comment belongs to this ad using
+        TikTok's ad-group comment listing. The default search window is the last 30 days.
+        Use since/until for older comments, with at most 30 days between the dates.
+        Lookups scan at most 2,000 ad-group comments; narrow the date window if exceeded.
+        Meta returns 501 feature_not_available with guidance to use the existing inbox
+        comment endpoints and the account/post IDs from GET /v1/ads/{adId}/comments.
+      security:
+        - bearerAuth: []
+      parameters:
+        - { name: adId, in: path, required: true, schema: { type: string }, description: "Internal Zernio ad ID or indexed platform ad ID." }
+        - { name: commentId, in: path, required: true, schema: { type: string, pattern: '^\d+$' }, description: "TikTok comment ID from the ad comment listing." }
+        - { name: since, in: query, schema: { type: string, format: date }, description: "Start date of the comment lookup window. Defaults to 30 days before until." }
+        - { name: until, in: query, schema: { type: string, format: date }, description: "End date of the comment lookup window. Defaults to today in UTC." }
+      responses:
+        '200':
+          description: "Comment action completed."
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status, commentId]
+                properties:
+                  status: { type: string, enum: [success] }
+                  commentId: { type: string, description: "ID of the created reply or moderated comment." }
+              example: { status: success, commentId: "7512345678901234567" }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403':
+          description: "Ads access or the required TikTok comment capability is unavailable."
+        '404':
+          description: "Ad is inaccessible or the comment was not found on this ad in the selected date window."
+        '422':
+          description: "TikTok Ads connection is unavailable."
+        '501':
+          description: "Moderation on this route supports TikTok. Use the inbox comment routes for Meta."
+        '502':
+          description: "TikTok rejected the request or was unavailable. Inspect platformError for its code and message."
 
   /v1/ads/business-centers:
     get:
