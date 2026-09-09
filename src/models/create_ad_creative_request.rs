@@ -43,7 +43,9 @@ pub struct CreateAdCreativeRequest {
     /// Appended to every outbound URL (e.g. utm_source=fb).
     #[serde(rename = "urlTags", skip_serializing_if = "Option::is_none")]
     pub url_tags: Option<String>,
-    /// Advantage+ creative enhancements: partial map of Meta creative feature keys (snake_case) to enroll status, forwarded as degrees_of_freedom_spec.creative_features_spec. Unspecified features default to OPT_OUT.
+    #[serde(rename = "promotion", skip_serializing_if = "Option::is_none")]
+    pub promotion: Option<Box<models::MetaPromotion>>,
+    /// Meta only. Applied to each new creative, including standalone and attach shapes. With creatives[], these are defaults; an item replaces the whole feature map, including an empty map. auto_promotion_tag is an enhancement; an explicit offer uses promotion.
     #[serde(rename = "creativeFeatures", skip_serializing_if = "Option::is_none")]
     pub creative_features: Option<CreativeFeatures>,
     /// Meta only. Multi-advertiser ads: whether Meta may show this ad alongside other advertisers' in one unit. Meta auto-enrols since Aug 2024, so send OPT_OUT to leave. It is a top-level creative field, NOT a `creativeFeatures` key, and Meta rejects it there.
@@ -71,12 +73,13 @@ impl CreateAdCreativeRequest {
             image_hash: None,
             carousel_cards: None,
             url_tags: None,
+            promotion: None,
             creative_features: None,
             multi_advertiser: None,
         }
     }
 }
-/// Advantage+ creative enhancements: partial map of Meta creative feature keys (snake_case) to enroll status, forwarded as degrees_of_freedom_spec.creative_features_spec. Unspecified features default to OPT_OUT.
+/// Meta only. Applied to each new creative, including standalone and attach shapes. With creatives[], these are defaults; an item replaces the whole feature map, including an empty map. auto_promotion_tag is an enhancement; an explicit offer uses promotion.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum CreativeFeatures {
     #[serde(rename = "OPT_IN")]

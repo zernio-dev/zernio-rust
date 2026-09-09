@@ -13,6 +13,9 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BoostPostRequest {
+    /// Meta Advantage+ creative enhancements. Map snake_case feature names to OPT_IN or OPT_OUT; Meta validates supported keys and unspecified features default to OPT_OUT. auto_promotion_tag is an enhancement; use the separate promotion field for an explicit offer. The deprecated standard_enhancements bundle is rejected by Meta.
+    #[serde(rename = "creativeFeatures", skip_serializing_if = "Option::is_none")]
+    pub creative_features: Option<CreativeFeatures>,
     /// Zernio post ID (provide this or platformPostId)
     #[serde(rename = "postId", skip_serializing_if = "Option::is_none")]
     pub post_id: Option<String>,
@@ -38,10 +41,10 @@ pub struct BoostPostRequest {
     /// Meta only. Instagram identity the ad runs AS (creative.instagram_user_id), overriding the account linked to the Page. Live-verified against a Page-post creative.
     #[serde(rename = "instagramAccountId", skip_serializing_if = "Option::is_none")]
     pub instagram_account_id: Option<String>,
-    /// Meta only. Ad-set destination_type: where the click LANDS, as opposed to instagramAccountId which is who the ad runs as. Messaging destinations imply their matching CTA and require goal engagement. Lead ads use ON_AD; combining an instant form with a messaging destination is rejected.
+    /// Meta only. Ad-set destination_type: where the click LANDS, as opposed to instagramAccountId which is who the ad runs as. Independent of plain link CTAs and their goal. A messaging callToAction selects its destination automatically; an explicit destinationType must then match. Lead ads use ON_AD.
     #[serde(rename = "destinationType", skip_serializing_if = "Option::is_none")]
     pub destination_type: Option<DestinationType>,
-    /// Meta WhatsApp only. E.164 number already paired with the Page. Omit to use the default pairing. Requires WHATSAPP destinationType or WHATSAPP_MESSAGE callToAction.
+    /// Meta WhatsApp only. E.164 number already paired with the Page. Omit to use the default pairing. Requires WHATSAPP_MESSAGE callToAction. Stored as creative.whatsappPhoneNumber on the ad.
     #[serde(
         rename = "whatsappPhoneNumber",
         skip_serializing_if = "Option::is_none"
@@ -115,7 +118,7 @@ pub struct BoostPostRequest {
     /// Lead Gen form ID to attach to the boosted ad's creative. REQUIRED when `goal` is `lead_generation`. On Meta this is the leadgen_forms ID (create one via POST /v1/ads/lead-forms). On LinkedIn this is the adForm ID (create one via POST /v1/ads/lead-forms with a LinkedIn account); the creative's `leadgenCallToAction.destination` is set to `urn:li:adForm:{id}`. Ignored for other goals.
     #[serde(rename = "leadGenFormId", skip_serializing_if = "Option::is_none")]
     pub lead_gen_form_id: Option<String>,
-    /// Meta, TikTok, and LinkedIn. Publish state of the created entities. Omitted or ACTIVE publishes live (default); PAUSED creates them paused so you can review before they spend. On LinkedIn the whole campaign group, campaign, and creative hierarchy stays PAUSED (intendedStatus PAUSED on each).
+    /// Meta, TikTok, and LinkedIn. Publish state of the created entities. Omitted or ACTIVE publishes live (default); PAUSED creates them paused so you can review before they spend. On Meta a new campaign stays paused until explicitly activated; an attached ad is itself paused. On LinkedIn the whole campaign group, campaign, and creative hierarchy stays PAUSED (intendedStatus PAUSED on each).
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
     /// Meta only. Explicit ad-set `optimization_goal` override. When omitted, defaults to the value derived from `goal`. Messaging boosts always use CONVERSATIONS and reject another optimizationGoal. Otherwise the value must be compatible with the objective Meta derives from `goal`, not with the objective used by `POST /v1/ads/create` for the same `goal` name: boost maps `goal: \"engagement\"` to objective `OUTCOME_AWARENESS`, which accepts `REACH`, `IMPRESSIONS`, `AD_RECALL_LIFT`, or THRUPLAY-class values, and rejects `POST_ENGAGEMENT` (that value is only valid under `OUTCOME_ENGAGEMENT`, which create uses for the same goal name).
@@ -131,6 +134,7 @@ impl BoostPostRequest {
         goal: Goal,
     ) -> BoostPostRequest {
         BoostPostRequest {
+            creative_features: None,
             post_id: None,
             platform_post_id: None,
             account_id,
@@ -166,6 +170,20 @@ impl BoostPostRequest {
         }
     }
 }
+/// Meta Advantage+ creative enhancements. Map snake_case feature names to OPT_IN or OPT_OUT; Meta validates supported keys and unspecified features default to OPT_OUT. auto_promotion_tag is an enhancement; use the separate promotion field for an explicit offer. The deprecated standard_enhancements bundle is rejected by Meta.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum CreativeFeatures {
+    #[serde(rename = "OPT_IN")]
+    OptIn,
+    #[serde(rename = "OPT_OUT")]
+    OptOut,
+}
+
+impl Default for CreativeFeatures {
+    fn default() -> CreativeFeatures {
+        Self::OptIn
+    }
+}
 /// Available goals vary by platform. Meta (Facebook/Instagram) and TikTok support all 7. LinkedIn supports all except app_promotion. X supports engagement, traffic, awareness, video_views, app_promotion. Pinterest and Google Ads support only engagement, traffic, awareness, video_views.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Goal {
@@ -190,7 +208,7 @@ impl Default for Goal {
         Self::Engagement
     }
 }
-/// Meta only. Ad-set destination_type: where the click LANDS, as opposed to instagramAccountId which is who the ad runs as. Messaging destinations imply their matching CTA and require goal engagement. Lead ads use ON_AD; combining an instant form with a messaging destination is rejected.
+/// Meta only. Ad-set destination_type: where the click LANDS, as opposed to instagramAccountId which is who the ad runs as. Independent of plain link CTAs and their goal. A messaging callToAction selects its destination automatically; an explicit destinationType must then match. Lead ads use ON_AD.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum DestinationType {
     #[serde(rename = "INSTAGRAM_PROFILE")]
@@ -234,7 +252,7 @@ impl Default for SpecialAdCategories {
         Self::Housing
     }
 }
-/// Meta, TikTok, and LinkedIn. Publish state of the created entities. Omitted or ACTIVE publishes live (default); PAUSED creates them paused so you can review before they spend. On LinkedIn the whole campaign group, campaign, and creative hierarchy stays PAUSED (intendedStatus PAUSED on each).
+/// Meta, TikTok, and LinkedIn. Publish state of the created entities. Omitted or ACTIVE publishes live (default); PAUSED creates them paused so you can review before they spend. On Meta a new campaign stays paused until explicitly activated; an attached ad is itself paused. On LinkedIn the whole campaign group, campaign, and creative hierarchy stays PAUSED (intendedStatus PAUSED on each).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
     #[serde(rename = "ACTIVE")]

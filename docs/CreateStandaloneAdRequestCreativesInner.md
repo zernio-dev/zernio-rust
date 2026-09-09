@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**promotion** | Option<[**models::MetaPromotion**](MetaPromotion.md)> | Overrides the top-level offer for this item. Omit to inherit; null disables the inherited offer. | [optional]
+**creative_features** | Option<**std::collections::HashMap<String, Inner>**> | Replaces the entire top-level creativeFeatures map for this item. Omit to inherit; an empty map clears these defaults. (enum: OPT_IN, OPT_OUT) | [optional]
 **name** | Option<**String**> | Exact name for this ad. Falls back to `<name> #N` (N = 1-based position). | [optional]
 **headline** | **String** |  | 
 **body** | **String** |  | 

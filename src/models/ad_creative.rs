@@ -41,6 +41,11 @@ pub struct AdCreative {
         skip_serializing_if = "Option::is_none"
     )]
     pub video_url: Option<Option<String>>,
+    /// Meta offer read from the live creative on creation or GET /v1/ads/{adId}. Null when metadata is not returned or cannot be read. Requested values are never echoed as applied.
+    #[serde(rename = "promotion", skip_serializing_if = "Option::is_none")]
+    pub promotion: Option<Box<models::MetaPromotion>>,
+    #[serde(rename = "promotionStatus", skip_serializing_if = "Option::is_none")]
+    pub promotion_status: Option<models::MetaPromotionStatus>,
     /// Meta ad creative id backing this ad. Reusable via existingCreativeId on POST /v1/ads/create.
     #[serde(
         rename = "creativeId",
@@ -126,6 +131,12 @@ pub struct AdCreative {
     /// Destination URL
     #[serde(rename = "linkUrl", skip_serializing_if = "Option::is_none")]
     pub link_url: Option<String>,
+    /// Explicit E.164 WhatsApp number supplied when creating a Meta boost or messaging ad. Absent when omitted by the caller or on older records.
+    #[serde(
+        rename = "whatsappPhoneNumber",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub whatsapp_phone_number: Option<String>,
     #[serde(rename = "pinterestImageUrl", skip_serializing_if = "Option::is_none")]
     pub pinterest_image_url: Option<String>,
     #[serde(rename = "pinterestTitle", skip_serializing_if = "Option::is_none")]
@@ -145,6 +156,8 @@ impl AdCreative {
             image_url: None,
             video_id: None,
             video_url: None,
+            promotion: None,
+            promotion_status: None,
             creative_id: None,
             object_type: None,
             object_story_id: None,
@@ -160,6 +173,7 @@ impl AdCreative {
             google_headline: None,
             google_description: None,
             link_url: None,
+            whatsapp_phone_number: None,
             pinterest_image_url: None,
             pinterest_title: None,
             pinterest_description: None,

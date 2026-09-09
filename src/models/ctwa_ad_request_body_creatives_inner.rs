@@ -20,6 +20,9 @@ pub struct CtwaAdRequestBodyCreativesInner {
     /// Messaging and CTWA only. Raw Facebook pageId_postId reference, used as object_story_id even with an Instagram account. Mutually exclusive with existingPostId and fresh creative fields.
     #[serde(rename = "objectStoryId", skip_serializing_if = "Option::is_none")]
     pub object_story_id: Option<String>,
+    /// Replaces the top-level creativeFeatures map for this item. Omit to inherit; an empty object clears inherited enrollment choices.
+    #[serde(rename = "creativeFeatures", skip_serializing_if = "Option::is_none")]
+    pub creative_features: Option<CreativeFeatures>,
     #[serde(rename = "headline", skip_serializing_if = "Option::is_none")]
     pub headline: Option<String>,
     /// Primary text shown above the image / video.
@@ -40,11 +43,26 @@ impl CtwaAdRequestBodyCreativesInner {
         CtwaAdRequestBodyCreativesInner {
             existing_post_id: None,
             object_story_id: None,
+            creative_features: None,
             headline: None,
             body: None,
             image_url: None,
             video: None,
             welcome_message: None,
         }
+    }
+}
+/// Replaces the top-level creativeFeatures map for this item. Omit to inherit; an empty object clears inherited enrollment choices.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum CreativeFeatures {
+    #[serde(rename = "OPT_IN")]
+    OptIn,
+    #[serde(rename = "OPT_OUT")]
+    OptOut,
+}
+
+impl Default for CreativeFeatures {
+    fn default() -> CreativeFeatures {
+        Self::OptIn
     }
 }

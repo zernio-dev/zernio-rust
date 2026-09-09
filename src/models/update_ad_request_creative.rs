@@ -11,9 +11,14 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UpdateAdRequestCreative : Replace or patch the ad's creative. Meta, TikTok, and LinkedIn.  - **Meta**: patch-style. Pass any subset: fields you omit are preserved from the   live creative, including media (`image_hash`/`video_id` are reused, no re-upload)   and `url_tags`. Sending the full set (`headline`, `body`, `callToAction`,   `linkUrl`, `imageUrl`) rebuilds the creative from scratch instead. Partial   patching reads the live `object_story_spec`, which Meta strips on SHARE /   page-post / dark / asset_feed creatives. Those return 422 asking for the full   set. A `videoUrl`/`videoId` on an image creative is a type change and also   needs the full set. `existingCreativeId` repoints the ad at a creative from   GET /v1/ads/creatives and ignores every other field. Meta creatives are   immutable, so any change creates a new creative and repoints the ad; the old   creative is retained on the ad account for historical reporting. - **TikTok**: patch-style. Pass any subset; `headline` is ignored (TikTok creatives   have no headline slot). `body` becomes the in-feed `ad_text`; `linkUrl` becomes   `landing_page_url`; `videoUrl` triggers a fresh upload. `description`, `videoId`   and `existingCreativeId` are Meta-only and return 400. - **LinkedIn**: requires new media (image via `imageUrl` or video via `videoUrl`);   a text-only creative update returns 400. Uploads the media, creates a new inline   media creative on the same campaign, and pauses the old creative (best-effort).   The old creative is retained for historical reporting. `videoId` and   `existingCreativeId` are Meta-only and return 400.
+/// UpdateAdRequestCreative : Replace or patch the ad's creative. Meta, TikTok, and LinkedIn.  - **Meta**: patch-style. Pass any subset: fields you omit are preserved from the   live creative, including media (`image_hash`/`video_id` are reused, no re-upload)   and `url_tags`. Sending the full set (`headline`, `body`, `callToAction`,   `linkUrl`, `imageUrl`) rebuilds the creative from scratch instead. Partial   patching reads the live `object_story_spec`, which Meta strips on SHARE /   page-post / dark / asset_feed creatives. Those return 422 asking for the full   set. A `videoUrl`/`videoId` on an image creative is a type change and also   needs the full set. `existingCreativeId` repoints the ad at a creative from   GET /v1/ads/creatives and ignores every other field. Meta creatives are   immutable, so any change creates a new creative and repoints the ad; the old   creative is retained on the ad account for historical reporting.   `promotion` and `creativeFeatures` are Meta-only. Omitted settings are   preserved from the live creative, including full rebuilds. Send   `promotion: null` to remove the explicit offer from the replacement.   A supplied creativeFeatures map overrides individual existing keys. - **TikTok**: patch-style. Pass any subset; `headline` is ignored (TikTok creatives   have no headline slot). `body` becomes the in-feed `ad_text`; `linkUrl` becomes   `landing_page_url`; `videoUrl` triggers a fresh upload. `description`, `videoId`   and `existingCreativeId` are Meta-only and return 400. - **LinkedIn**: requires new media (image via `imageUrl` or video via `videoUrl`);   a text-only creative update returns 400. Uploads the media, creates a new inline   media creative on the same campaign, and pauses the old creative (best-effort).   The old creative is retained for historical reporting. `videoId` and   `existingCreativeId` are Meta-only and return 400.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAdRequestCreative {
+    #[serde(rename = "promotion", skip_serializing_if = "Option::is_none")]
+    pub promotion: Option<Box<models::MetaPromotion>>,
+    /// Meta Advantage+ creative enhancements. Map snake_case feature names to OPT_IN or OPT_OUT; Meta validates supported keys and unspecified features default to OPT_OUT. auto_promotion_tag is an enhancement; use the separate promotion field for an explicit offer. The deprecated standard_enhancements bundle is rejected by Meta.
+    #[serde(rename = "creativeFeatures", skip_serializing_if = "Option::is_none")]
+    pub creative_features: Option<CreativeFeatures>,
     /// Meta and LinkedIn (TikTok has no headline slot)
     #[serde(rename = "headline", skip_serializing_if = "Option::is_none")]
     pub headline: Option<String>,
@@ -39,9 +44,11 @@ pub struct UpdateAdRequestCreative {
 }
 
 impl UpdateAdRequestCreative {
-    /// Replace or patch the ad's creative. Meta, TikTok, and LinkedIn.  - **Meta**: patch-style. Pass any subset: fields you omit are preserved from the   live creative, including media (`image_hash`/`video_id` are reused, no re-upload)   and `url_tags`. Sending the full set (`headline`, `body`, `callToAction`,   `linkUrl`, `imageUrl`) rebuilds the creative from scratch instead. Partial   patching reads the live `object_story_spec`, which Meta strips on SHARE /   page-post / dark / asset_feed creatives. Those return 422 asking for the full   set. A `videoUrl`/`videoId` on an image creative is a type change and also   needs the full set. `existingCreativeId` repoints the ad at a creative from   GET /v1/ads/creatives and ignores every other field. Meta creatives are   immutable, so any change creates a new creative and repoints the ad; the old   creative is retained on the ad account for historical reporting. - **TikTok**: patch-style. Pass any subset; `headline` is ignored (TikTok creatives   have no headline slot). `body` becomes the in-feed `ad_text`; `linkUrl` becomes   `landing_page_url`; `videoUrl` triggers a fresh upload. `description`, `videoId`   and `existingCreativeId` are Meta-only and return 400. - **LinkedIn**: requires new media (image via `imageUrl` or video via `videoUrl`);   a text-only creative update returns 400. Uploads the media, creates a new inline   media creative on the same campaign, and pauses the old creative (best-effort).   The old creative is retained for historical reporting. `videoId` and   `existingCreativeId` are Meta-only and return 400.
+    /// Replace or patch the ad's creative. Meta, TikTok, and LinkedIn.  - **Meta**: patch-style. Pass any subset: fields you omit are preserved from the   live creative, including media (`image_hash`/`video_id` are reused, no re-upload)   and `url_tags`. Sending the full set (`headline`, `body`, `callToAction`,   `linkUrl`, `imageUrl`) rebuilds the creative from scratch instead. Partial   patching reads the live `object_story_spec`, which Meta strips on SHARE /   page-post / dark / asset_feed creatives. Those return 422 asking for the full   set. A `videoUrl`/`videoId` on an image creative is a type change and also   needs the full set. `existingCreativeId` repoints the ad at a creative from   GET /v1/ads/creatives and ignores every other field. Meta creatives are   immutable, so any change creates a new creative and repoints the ad; the old   creative is retained on the ad account for historical reporting.   `promotion` and `creativeFeatures` are Meta-only. Omitted settings are   preserved from the live creative, including full rebuilds. Send   `promotion: null` to remove the explicit offer from the replacement.   A supplied creativeFeatures map overrides individual existing keys. - **TikTok**: patch-style. Pass any subset; `headline` is ignored (TikTok creatives   have no headline slot). `body` becomes the in-feed `ad_text`; `linkUrl` becomes   `landing_page_url`; `videoUrl` triggers a fresh upload. `description`, `videoId`   and `existingCreativeId` are Meta-only and return 400. - **LinkedIn**: requires new media (image via `imageUrl` or video via `videoUrl`);   a text-only creative update returns 400. Uploads the media, creates a new inline   media creative on the same campaign, and pauses the old creative (best-effort).   The old creative is retained for historical reporting. `videoId` and   `existingCreativeId` are Meta-only and return 400.
     pub fn new() -> UpdateAdRequestCreative {
         UpdateAdRequestCreative {
+            promotion: None,
+            creative_features: None,
             headline: None,
             body: None,
             description: None,
@@ -52,5 +59,19 @@ impl UpdateAdRequestCreative {
             video_id: None,
             existing_creative_id: None,
         }
+    }
+}
+/// Meta Advantage+ creative enhancements. Map snake_case feature names to OPT_IN or OPT_OUT; Meta validates supported keys and unspecified features default to OPT_OUT. auto_promotion_tag is an enhancement; use the separate promotion field for an explicit offer. The deprecated standard_enhancements bundle is rejected by Meta.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum CreativeFeatures {
+    #[serde(rename = "OPT_IN")]
+    OptIn,
+    #[serde(rename = "OPT_OUT")]
+    OptOut,
+}
+
+impl Default for CreativeFeatures {
+    fn default() -> CreativeFeatures {
+        Self::OptIn
     }
 }

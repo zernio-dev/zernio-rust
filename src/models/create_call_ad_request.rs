@@ -13,6 +13,9 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateCallAdRequest {
+    /// Meta enhancement settings for single or attached ads, and defaults for creatives[]. An item replaces the entire map, including with an empty object.
+    #[serde(rename = "creativeFeatures", skip_serializing_if = "Option::is_none")]
+    pub creative_features: Option<CreativeFeatures>,
     /// Facebook or Instagram SocialAccount ID.
     #[serde(rename = "accountId")]
     pub account_id: String,
@@ -28,7 +31,7 @@ pub struct CreateCallAdRequest {
     /// Messaging and CTWA only. Raw Facebook pageId_postId reference, used as object_story_id even with an Instagram account. Mutually exclusive with existingPostId and fresh creative fields.
     #[serde(rename = "objectStoryId", skip_serializing_if = "Option::is_none")]
     pub object_story_id: Option<String>,
-    /// WhatsApp only. Optional E.164 number already paired with the Facebook Page. Omit to let Meta select the paired number. Sent to the creative CTA and, when creating a new ad set, its promoted_object. Attach requests do not change the existing ad set.
+    /// WhatsApp only. Optional E.164 number already paired with the Facebook Page. Omit to let Meta select the paired number. Sent to the creative CTA and, when creating a new ad set, its promoted_object. Attach requests do not change the existing ad set. Stored as creative.whatsappPhoneNumber on every created ad.
     #[serde(
         rename = "whatsappPhoneNumber",
         skip_serializing_if = "Option::is_none"
@@ -150,6 +153,7 @@ impl CreateCallAdRequest {
         link_url: String,
     ) -> CreateCallAdRequest {
         CreateCallAdRequest {
+            creative_features: None,
             account_id,
             ad_account_id,
             name,
@@ -192,6 +196,20 @@ impl CreateCallAdRequest {
             phone_number,
             link_url,
         }
+    }
+}
+/// Meta enhancement settings for single or attached ads, and defaults for creatives[]. An item replaces the entire map, including with an empty object.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum CreativeFeatures {
+    #[serde(rename = "OPT_IN")]
+    OptIn,
+    #[serde(rename = "OPT_OUT")]
+    OptOut,
+}
+
+impl Default for CreativeFeatures {
+    fn default() -> CreativeFeatures {
+        Self::OptIn
     }
 }
 /// Required unless `adSetId` is set.

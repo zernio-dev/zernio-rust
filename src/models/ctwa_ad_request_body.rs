@@ -14,6 +14,9 @@ use serde::{Deserialize, Serialize};
 /// CtwaAdRequestBody : In addition to the `required` list, the request must use EXACTLY ONE of the two shapes:  - Single-creative: `headline`, `body`, and one of `imageUrl` / `video`,   OR `existingPostId` / `objectStoryId` to reuse an organic post. - Multi-creative: a non-empty `creatives[]` array. Top-level   creative fields must NOT be set on this shape.  Existing post references work on messaging and CTWA only (not call ads). They cannot be combined with each other or with headline, body, imageUrl, video, or welcomeMessage. No media is uploaded and the organic post is retained. Fresh creatives still require headline, body, and image or video.  The route enforces this at the Zod boundary; OpenAPI's `required` cannot express the OR cleanly.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CtwaAdRequestBody {
+    /// Meta enhancement settings for single or attached ads, and defaults for creatives[]. An item replaces the entire map, including with an empty object.
+    #[serde(rename = "creativeFeatures", skip_serializing_if = "Option::is_none")]
+    pub creative_features: Option<CreativeFeatures>,
     /// Facebook or Instagram SocialAccount ID.
     #[serde(rename = "accountId")]
     pub account_id: String,
@@ -29,7 +32,7 @@ pub struct CtwaAdRequestBody {
     /// Messaging and CTWA only. Raw Facebook pageId_postId reference, used as object_story_id even with an Instagram account. Mutually exclusive with existingPostId and fresh creative fields.
     #[serde(rename = "objectStoryId", skip_serializing_if = "Option::is_none")]
     pub object_story_id: Option<String>,
-    /// WhatsApp only. Optional E.164 number already paired with the Facebook Page. Omit to let Meta select the paired number. Sent to the creative CTA and, when creating a new ad set, its promoted_object. Attach requests do not change the existing ad set.
+    /// WhatsApp only. Optional E.164 number already paired with the Facebook Page. Omit to let Meta select the paired number. Sent to the creative CTA and, when creating a new ad set, its promoted_object. Attach requests do not change the existing ad set. Stored as creative.whatsappPhoneNumber on every created ad.
     #[serde(
         rename = "whatsappPhoneNumber",
         skip_serializing_if = "Option::is_none"
@@ -140,6 +143,7 @@ impl CtwaAdRequestBody {
     /// In addition to the `required` list, the request must use EXACTLY ONE of the two shapes:  - Single-creative: `headline`, `body`, and one of `imageUrl` / `video`,   OR `existingPostId` / `objectStoryId` to reuse an organic post. - Multi-creative: a non-empty `creatives[]` array. Top-level   creative fields must NOT be set on this shape.  Existing post references work on messaging and CTWA only (not call ads). They cannot be combined with each other or with headline, body, imageUrl, video, or welcomeMessage. No media is uploaded and the organic post is retained. Fresh creatives still require headline, body, and image or video.  The route enforces this at the Zod boundary; OpenAPI's `required` cannot express the OR cleanly.
     pub fn new(account_id: String, ad_account_id: String, name: String) -> CtwaAdRequestBody {
         CtwaAdRequestBody {
+            creative_features: None,
             account_id,
             ad_account_id,
             name,
@@ -180,6 +184,20 @@ impl CtwaAdRequestBody {
             regional_regulated_categories: None,
             regional_regulation_identities: None,
         }
+    }
+}
+/// Meta enhancement settings for single or attached ads, and defaults for creatives[]. An item replaces the entire map, including with an empty object.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum CreativeFeatures {
+    #[serde(rename = "OPT_IN")]
+    OptIn,
+    #[serde(rename = "OPT_OUT")]
+    OptOut,
+}
+
+impl Default for CreativeFeatures {
+    fn default() -> CreativeFeatures {
+        Self::OptIn
     }
 }
 /// Required unless `adSetId` is set.

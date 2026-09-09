@@ -18,6 +18,10 @@ pub struct CreateAdCreative201Response {
     /// Platform creative id, reusable via existingCreativeId.
     #[serde(rename = "creativeId", skip_serializing_if = "Option::is_none")]
     pub creative_id: Option<String>,
+    #[serde(rename = "promotion", skip_serializing_if = "Option::is_none")]
+    pub promotion: Option<Box<models::MetaPromotion>>,
+    #[serde(rename = "promotionStatus", skip_serializing_if = "Option::is_none")]
+    pub promotion_status: Option<models::MetaPromotionStatus>,
 }
 
 impl CreateAdCreative201Response {
@@ -25,6 +29,8 @@ impl CreateAdCreative201Response {
         CreateAdCreative201Response {
             ad_account_id: None,
             creative_id: None,
+            promotion: None,
+            promotion_status: None,
         }
     }
 }

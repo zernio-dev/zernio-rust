@@ -16,6 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct MediaItem {
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
+    /// A media item with a null, missing or empty url is dropped from non-draft posts (drafts keep it as a pending-upload placeholder).
     #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
     /// Optional title for the media item. Used as the document title for LinkedIn PDF/carousel posts. If omitted, falls back to the post title, then the filename.

@@ -4,12 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**creative_features** | Option<**std::collections::HashMap<String, Inner>**> | Meta enhancement settings for single or attached ads, and defaults for creatives[]. An item replaces the entire map, including with an empty object. (enum: OPT_IN, OPT_OUT) | [optional]
 **account_id** | **String** | Facebook or Instagram SocialAccount ID. | 
 **ad_account_id** | **String** | Meta ad account ID, e.g. `act_123456789`. | 
 **name** | **String** | Ad display name. Used to derive campaign / ad set names. On the multi-creative shape, each ad's Meta name gets a \" #N\" suffix (1-indexed) so Ads Manager shows them as a numbered batch.  | 
 **existing_post_id** | Option<**String**> | Messaging and CTWA only. Platform post or reel ID, resolved like boost platformPostId. Facebook IDs become object_story_id; Instagram IDs become source_instagram_media_id using the connected Instagram identity. Mutually exclusive with objectStoryId and fresh creative fields. | [optional]
 **object_story_id** | Option<**String**> | Messaging and CTWA only. Raw Facebook pageId_postId reference, used as object_story_id even with an Instagram account. Mutually exclusive with existingPostId and fresh creative fields. | [optional]
-**whatsapp_phone_number** | Option<**String**> | WhatsApp only. Optional E.164 number already paired with the Facebook Page. Omit to let Meta select the paired number. Sent to the creative CTA and, when creating a new ad set, its promoted_object. Attach requests do not change the existing ad set. | [optional]
+**whatsapp_phone_number** | Option<**String**> | WhatsApp only. Optional E.164 number already paired with the Facebook Page. Omit to let Meta select the paired number. Sent to the creative CTA and, when creating a new ad set, its promoted_object. Attach requests do not change the existing ad set. Stored as creative.whatsappPhoneNumber on every created ad. | [optional]
 **headline** | Option<**String**> | Single-creative shape only. Mutually exclusive with `creatives[]`.  | [optional]
 **body** | Option<**String**> | Primary text shown above the image / video. Single-creative shape only. Mutually exclusive with `creatives[]`.  | [optional]
 **image_url** | Option<**String**> | Image asset for single-creative shape. Mutually exclusive with `video` and with `creatives[]`. Required on the single-creative shape if neither `video` nor an existing post reference is supplied.  | [optional]

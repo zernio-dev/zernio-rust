@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateStandaloneAdRequestDynamicCreative : Meta only. Dynamic Creative: supply a POOL of assets and Meta auto-combines and optimises them into the best-performing variations within a single ad (mapped to the creative's `asset_feed_spec`). When set, the top-level single-creative fields (`imageUrl`, `headline`, `body`, `linkUrl`, `callToAction`) are ignored. Mutually exclusive with the `creatives[]` multi-creative shape. Exactly ONE of `imageUrls` / `videoUrls` is required (Meta allows one ad format per asset feed; sending both → 400). Meta limits: ≤10 images or ≤10 videos, ≤5 bodies / titles / descriptions.
+/// CreateStandaloneAdRequestDynamicCreative : Meta only. Dynamic Creative: supply a POOL of assets and Meta auto-combines and optimises them into the best-performing variations within a single ad (mapped to the creative's `asset_feed_spec`). When set, the top-level single-creative fields (`imageUrl`, `headline`, `body`, `linkUrl`, `callToAction`) are ignored. Mutually exclusive with the `creatives[]` multi-creative shape. Exactly ONE of `imageUrls` / `videoUrls` is required (Meta allows one ad format per asset feed; sending both → 400). Limits remain 10 images or videos and 5 bodies, titles or descriptions. The ad set is created with `is_dynamic_creative: true`. Combining this field with `adSetId` returns 400: omit `adSetId` to create a new dynamic ad set. Multiple headlines go in `titles`; multiple primary texts go in `bodies`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateStandaloneAdRequestDynamicCreative {
     /// Pool of image URLs (1-10). Uploaded to the ad account and referenced by hash in the asset feed. Mutually exclusive with `videoUrls`.
@@ -41,7 +41,7 @@ pub struct CreateStandaloneAdRequestDynamicCreative {
 }
 
 impl CreateStandaloneAdRequestDynamicCreative {
-    /// Meta only. Dynamic Creative: supply a POOL of assets and Meta auto-combines and optimises them into the best-performing variations within a single ad (mapped to the creative's `asset_feed_spec`). When set, the top-level single-creative fields (`imageUrl`, `headline`, `body`, `linkUrl`, `callToAction`) are ignored. Mutually exclusive with the `creatives[]` multi-creative shape. Exactly ONE of `imageUrls` / `videoUrls` is required (Meta allows one ad format per asset feed; sending both → 400). Meta limits: ≤10 images or ≤10 videos, ≤5 bodies / titles / descriptions.
+    /// Meta only. Dynamic Creative: supply a POOL of assets and Meta auto-combines and optimises them into the best-performing variations within a single ad (mapped to the creative's `asset_feed_spec`). When set, the top-level single-creative fields (`imageUrl`, `headline`, `body`, `linkUrl`, `callToAction`) are ignored. Mutually exclusive with the `creatives[]` multi-creative shape. Exactly ONE of `imageUrls` / `videoUrls` is required (Meta allows one ad format per asset feed; sending both → 400). Limits remain 10 images or videos and 5 bodies, titles or descriptions. The ad set is created with `is_dynamic_creative: true`. Combining this field with `adSetId` returns 400: omit `adSetId` to create a new dynamic ad set. Multiple headlines go in `titles`; multiple primary texts go in `bodies`.
     pub fn new() -> CreateStandaloneAdRequestDynamicCreative {
         CreateStandaloneAdRequestDynamicCreative {
             image_urls: None,

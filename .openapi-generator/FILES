@@ -1225,6 +1225,8 @@ docs/MessagingAdsApi.md
 docs/MetaAdsPlatformData.md
 docs/MetaLeadFormPlatformData.md
 docs/MetaLeadFormPlatformDataContextCard.md
+docs/MetaPromotion.md
+docs/MetaPromotionStatus.md
 docs/Money.md
 docs/MoneyAmount.md
 docs/MoveAccountToProfile200Response.md
@@ -3265,6 +3267,8 @@ src/models/media_upload_response.rs
 src/models/meta_ads_platform_data.rs
 src/models/meta_lead_form_platform_data.rs
 src/models/meta_lead_form_platform_data_context_card.rs
+src/models/meta_promotion.rs
+src/models/meta_promotion_status.rs
 src/models/mod.rs
 src/models/money.rs
 src/models/money_amount.rs
