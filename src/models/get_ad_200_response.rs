@@ -15,10 +15,25 @@ use serde::{Deserialize, Serialize};
 pub struct GetAd200Response {
     #[serde(rename = "ad", skip_serializing_if = "Option::is_none")]
     pub ad: Option<Box<models::Ad>>,
+    /// Google RSA details cache timestamp.
+    #[serde(
+        rename = "cachedAt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub cached_at: Option<Option<String>>,
+    /// Whether Google RSA details use the last successful cached response.
+    #[serde(rename = "stale", skip_serializing_if = "Option::is_none")]
+    pub stale: Option<bool>,
 }
 
 impl GetAd200Response {
     pub fn new() -> GetAd200Response {
-        GetAd200Response { ad: None }
+        GetAd200Response {
+            ad: None,
+            cached_at: None,
+            stale: None,
+        }
     }
 }

@@ -4,7 +4,9 @@ All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_account_callouts**](AdAccountsApi.md#add_account_callouts) | **POST** /v1/ads/accounts/callouts | Add account-level callout extensions
+[**add_account_callouts**](AdAccountsApi.md#add_account_callouts) | **POST** /v1/ads/accounts/callouts | Add account callouts
+[**add_account_sitelinks**](AdAccountsApi.md#add_account_sitelinks) | **POST** /v1/ads/accounts/sitelinks | Add account sitelinks
+[**add_account_structured_snippets**](AdAccountsApi.md#add_account_structured_snippets) | **POST** /v1/ads/accounts/structured-snippets | Add account snippets
 [**create_ad_negative_keyword_list**](AdAccountsApi.md#create_ad_negative_keyword_list) | **POST** /v1/ads/accounts/negative-keyword-lists | Create a negative keyword list
 [**create_custom_conversion**](AdAccountsApi.md#create_custom_conversion) | **POST** /v1/accounts/{accountId}/custom-conversions | Create or reuse a custom conversion
 [**create_high_demand_period**](AdAccountsApi.md#create_high_demand_period) | **POST** /v1/ads/high-demand-periods | Schedule a budget increase
@@ -21,7 +23,9 @@ Method | HTTP request | Description
 [**get_ios_fourteen_campaign_limits**](AdAccountsApi.md#get_ios_fourteen_campaign_limits) | **GET** /v1/ads/ios-fourteen-campaign-limits | Get iOS 14 campaign limits
 [**get_value_rule_set**](AdAccountsApi.md#get_value_rule_set) | **GET** /v1/ads/value-rule-sets/{valueRuleSetId} | Read a value rule set
 [**hide_ad_comment**](AdAccountsApi.md#hide_ad_comment) | **POST** /v1/ads/{adId}/comments/{commentId}/hide | Hide or unhide an ad comment
-[**list_account_callouts**](AdAccountsApi.md#list_account_callouts) | **GET** /v1/ads/accounts/callouts | List account-level callout extensions
+[**list_account_callouts**](AdAccountsApi.md#list_account_callouts) | **GET** /v1/ads/accounts/callouts | List account callouts
+[**list_account_sitelinks**](AdAccountsApi.md#list_account_sitelinks) | **GET** /v1/ads/accounts/sitelinks | List account sitelinks
+[**list_account_structured_snippets**](AdAccountsApi.md#list_account_structured_snippets) | **GET** /v1/ads/accounts/structured-snippets | List account snippets
 [**list_ad_accounts**](AdAccountsApi.md#list_ad_accounts) | **GET** /v1/ads/accounts | List ad accounts
 [**list_ad_labels**](AdAccountsApi.md#list_ad_labels) | **GET** /v1/ads/labels | Ad labels
 [**list_ad_negative_keyword_lists**](AdAccountsApi.md#list_ad_negative_keyword_lists) | **GET** /v1/ads/accounts/negative-keyword-lists | List negative keyword lists
@@ -33,9 +37,14 @@ Method | HTTP request | Description
 [**list_high_demand_periods**](AdAccountsApi.md#list_high_demand_periods) | **GET** /v1/ads/high-demand-periods | High demand periods / budget schedules
 [**list_meta_businesses**](AdAccountsApi.md#list_meta_businesses) | **GET** /v1/ads/businesses | Businesses list
 [**list_value_rule_sets**](AdAccountsApi.md#list_value_rule_sets) | **GET** /v1/ads/value-rule-sets | List value rule sets
-[**remove_account_callout**](AdAccountsApi.md#remove_account_callout) | **DELETE** /v1/ads/accounts/callouts | Remove an account-level callout extension
+[**remove_account_callout**](AdAccountsApi.md#remove_account_callout) | **DELETE** /v1/ads/accounts/callouts | Remove account callout
+[**remove_account_sitelink**](AdAccountsApi.md#remove_account_sitelink) | **DELETE** /v1/ads/accounts/sitelinks | Remove account sitelink
+[**remove_account_structured_snippet**](AdAccountsApi.md#remove_account_structured_snippet) | **DELETE** /v1/ads/accounts/structured-snippets | Remove account snippet
 [**replace_ad_negative_keyword_list_keywords**](AdAccountsApi.md#replace_ad_negative_keyword_list_keywords) | **PUT** /v1/ads/accounts/negative-keyword-lists/{listId}/keywords | Replace negative list keywords
 [**reply_to_ad_comment**](AdAccountsApi.md#reply_to_ad_comment) | **POST** /v1/ads/{adId}/comments/{commentId}/reply | Reply to an ad comment
+[**update_account_callouts**](AdAccountsApi.md#update_account_callouts) | **PUT** /v1/ads/accounts/callouts | Update account callouts
+[**update_account_sitelinks**](AdAccountsApi.md#update_account_sitelinks) | **PUT** /v1/ads/accounts/sitelinks | Update account sitelinks
+[**update_account_structured_snippets**](AdAccountsApi.md#update_account_structured_snippets) | **PUT** /v1/ads/accounts/structured-snippets | Update account snippets
 [**update_ad_account**](AdAccountsApi.md#update_ad_account) | **PATCH** /v1/ads/accounts | Update ad account settings
 [**update_ad_negative_keyword_list**](AdAccountsApi.md#update_ad_negative_keyword_list) | **PUT** /v1/ads/accounts/negative-keyword-lists/{listId} | Rename a negative keyword list
 [**update_value_rule_set**](AdAccountsApi.md#update_value_rule_set) | **PUT** /v1/ads/value-rule-sets/{valueRuleSetId} | Replace a value rule set
@@ -45,9 +54,9 @@ Method | HTTP request | Description
 ## add_account_callouts
 
 > models::AddAccountCallouts201Response add_account_callouts(add_account_callouts_request)
-Add account-level callout extensions
+Add account callouts
 
-Creates one asset plus one `customerAsset` link (field type CALLOUT) per callout text, in a single mutate. Google only; every other platform returns 501.
+Creates assets and customer_asset links for this Google customer. Links apply at account level.
 
 ### Parameters
 
@@ -59,6 +68,66 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::AddAccountCallouts201Response**](addAccountCallouts_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## add_account_sitelinks
+
+> models::AddAccountSitelinks201Response add_account_sitelinks(add_account_sitelinks_request)
+Add account sitelinks
+
+Creates assets and customer_asset links for this Google customer. Links apply at account level.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**add_account_sitelinks_request** | [**AddAccountSitelinksRequest**](AddAccountSitelinksRequest.md) |  | [required] |
+
+### Return type
+
+[**models::AddAccountSitelinks201Response**](addAccountSitelinks_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## add_account_structured_snippets
+
+> models::AddAccountStructuredSnippets201Response add_account_structured_snippets(add_account_structured_snippets_request)
+Add account snippets
+
+Creates assets and customer_asset links for this Google customer. Links apply at account level.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**add_account_structured_snippets_request** | [**AddAccountStructuredSnippetsRequest**](AddAccountStructuredSnippetsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::AddAccountStructuredSnippets201Response**](addAccountStructuredSnippets_201_response.md)
 
 ### Authorization
 
@@ -587,21 +656,83 @@ Name | Type | Description  | Required | Notes
 ## list_account_callouts
 
 > models::ListAccountCallouts200Response list_account_callouts(account_id, customer_id)
-List account-level callout extensions
+List account callouts
 
-Google Ads compliance row C.75: callout assets linked at the CUSTOMER level via `customer_asset` (not a campaign or ad group), so they serve fleet-wide across the account. Google only; every other platform returns 501. Cached for the quota window (10 minutes fresh, up to 7 days last-good), and gated by the shared Google Ads operations budget on a cache miss. The response carries `cachedAt` and `stale`, set when a quota-exhausted call falls back to the last-good copy instead of a live read.
+Lists directly attached Google assets. Fresh reads are cached for 10 minutes; exhausted quota may return the last successful read with stale=true. Inherited assets are not included. Preserves Google RMF C.75 account-level callouts.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | Google ads SocialAccount id. | [required] |
-**customer_id** | Option<**String**> | Numeric Google Ads customer id (no dashes). Defaults to the account's connected customer. |  |
+**account_id** | **String** |  | [required] |
+**customer_id** | Option<**String**> |  |  |
 
 ### Return type
 
 [**models::ListAccountCallouts200Response**](listAccountCallouts_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_account_sitelinks
+
+> models::ListAccountSitelinks200Response list_account_sitelinks(account_id, customer_id)
+List account sitelinks
+
+Lists directly attached Google assets. Fresh reads are cached for 10 minutes; exhausted quota may return the last successful read with stale=true. Inherited assets are not included.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** |  | [required] |
+**customer_id** | Option<**String**> |  |  |
+
+### Return type
+
+[**models::ListAccountSitelinks200Response**](listAccountSitelinks_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_account_structured_snippets
+
+> models::ListAccountStructuredSnippets200Response list_account_structured_snippets(account_id, customer_id)
+List account snippets
+
+Lists directly attached Google assets. Fresh reads are cached for 10 minutes; exhausted quota may return the last successful read with stale=true. Inherited assets are not included.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** |  | [required] |
+**customer_id** | Option<**String**> |  |  |
+
+### Return type
+
+[**models::ListAccountStructuredSnippets200Response**](listAccountStructuredSnippets_200_response.md)
 
 ### Authorization
 
@@ -971,9 +1102,69 @@ Name | Type | Description  | Required | Notes
 ## remove_account_callout
 
 > models::RemoveAccountCallout200Response remove_account_callout(remove_account_callout_request)
-Remove an account-level callout extension
+Remove account callout
 
-Removes the `customerAsset` link (`customers/{cid}/customerAssets/{assetId}~CALLOUT`). Google only; every other platform returns 501.
+Removes the customer_asset attachment only. The underlying shared asset and its campaign or ad-group attachments remain.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**remove_account_callout_request** | [**RemoveAccountCalloutRequest**](RemoveAccountCalloutRequest.md) |  | [required] |
+
+### Return type
+
+[**models::RemoveAccountCallout200Response**](removeAccountCallout_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## remove_account_sitelink
+
+> models::RemoveAccountCallout200Response remove_account_sitelink(remove_account_callout_request)
+Remove account sitelink
+
+Removes the customer_asset attachment only. The underlying shared asset and its campaign or ad-group attachments remain.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**remove_account_callout_request** | [**RemoveAccountCalloutRequest**](RemoveAccountCalloutRequest.md) |  | [required] |
+
+### Return type
+
+[**models::RemoveAccountCallout200Response**](removeAccountCallout_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## remove_account_structured_snippet
+
+> models::RemoveAccountCallout200Response remove_account_structured_snippet(remove_account_callout_request)
+Remove account snippet
+
+Removes the customer_asset attachment only. The underlying shared asset and its campaign or ad-group attachments remain.
 
 ### Parameters
 
@@ -1050,6 +1241,96 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ReplyToAdComment200Response**](replyToAdComment_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_account_callouts
+
+> models::UpdateAccountCallouts200Response update_account_callouts(update_account_callouts_request)
+Update account callouts
+
+Edits existing Google assets in place. Send updates with assetResourceName and the fields to change. An asset is shared: changes affect every attachment using it. Omitted fields stay unchanged. The operation consumes the Google operations budget and invalidates affected cached lists.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**update_account_callouts_request** | [**UpdateAccountCalloutsRequest**](UpdateAccountCalloutsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateAccountCallouts200Response**](updateAccountCallouts_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_account_sitelinks
+
+> models::UpdateAccountCallouts200Response update_account_sitelinks(update_account_sitelinks_request)
+Update account sitelinks
+
+Edits existing Google assets in place. Send updates with assetResourceName and the fields to change. An asset is shared: changes affect every attachment using it. Omitted fields stay unchanged. The operation consumes the Google operations budget and invalidates affected cached lists.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**update_account_sitelinks_request** | [**UpdateAccountSitelinksRequest**](UpdateAccountSitelinksRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateAccountCallouts200Response**](updateAccountCallouts_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_account_structured_snippets
+
+> models::UpdateAccountCallouts200Response update_account_structured_snippets(update_account_structured_snippets_request)
+Update account snippets
+
+Edits existing Google assets in place. Send updates with assetResourceName and the fields to change. An asset is shared: changes affect every attachment using it. Omitted fields stay unchanged. The operation consumes the Google operations budget and invalidates affected cached lists.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**update_account_structured_snippets_request** | [**UpdateAccountStructuredSnippetsRequest**](UpdateAccountStructuredSnippetsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateAccountCallouts200Response**](updateAccountCallouts_200_response.md)
 
 ### Authorization
 

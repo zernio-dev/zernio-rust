@@ -15,19 +15,18 @@ use serde::{Deserialize, Serialize};
 pub struct ListAccountCallouts200ResponseCalloutsInner {
     #[serde(rename = "assetId", skip_serializing_if = "Option::is_none")]
     pub asset_id: Option<String>,
-    #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
-    pub text: Option<String>,
-    /// customer_asset.status, e.g. ENABLED, REMOVED, PAUSED.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
+    #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
+    pub text: Option<String>,
 }
 
 impl ListAccountCallouts200ResponseCalloutsInner {
     pub fn new() -> ListAccountCallouts200ResponseCalloutsInner {
         ListAccountCallouts200ResponseCalloutsInner {
             asset_id: None,
-            text: None,
             status: None,
+            text: None,
         }
     }
 }

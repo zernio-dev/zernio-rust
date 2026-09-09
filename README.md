@@ -77,7 +77,9 @@ Class | Method | HTTP request | Description
 *AccountsApi* | [**update_account**](docs/AccountsApi.md#update_account) | **PUT** /v1/accounts/{accountId} | Update account
 *AccountsApi* | [**update_bluesky_settings**](docs/AccountsApi.md#update_bluesky_settings) | **PATCH** /v1/accounts/{accountId}/bluesky-settings | Update Bluesky account settings
 *AccountsApi* | [**update_slack_settings**](docs/AccountsApi.md#update_slack_settings) | **PATCH** /v1/accounts/{accountId}/slack-settings | Update Slack account settings
-*AdAccountsApi* | [**add_account_callouts**](docs/AdAccountsApi.md#add_account_callouts) | **POST** /v1/ads/accounts/callouts | Add account-level callout extensions
+*AdAccountsApi* | [**add_account_callouts**](docs/AdAccountsApi.md#add_account_callouts) | **POST** /v1/ads/accounts/callouts | Add account callouts
+*AdAccountsApi* | [**add_account_sitelinks**](docs/AdAccountsApi.md#add_account_sitelinks) | **POST** /v1/ads/accounts/sitelinks | Add account sitelinks
+*AdAccountsApi* | [**add_account_structured_snippets**](docs/AdAccountsApi.md#add_account_structured_snippets) | **POST** /v1/ads/accounts/structured-snippets | Add account snippets
 *AdAccountsApi* | [**create_ad_negative_keyword_list**](docs/AdAccountsApi.md#create_ad_negative_keyword_list) | **POST** /v1/ads/accounts/negative-keyword-lists | Create a negative keyword list
 *AdAccountsApi* | [**create_custom_conversion**](docs/AdAccountsApi.md#create_custom_conversion) | **POST** /v1/accounts/{accountId}/custom-conversions | Create or reuse a custom conversion
 *AdAccountsApi* | [**create_high_demand_period**](docs/AdAccountsApi.md#create_high_demand_period) | **POST** /v1/ads/high-demand-periods | Schedule a budget increase
@@ -94,7 +96,9 @@ Class | Method | HTTP request | Description
 *AdAccountsApi* | [**get_ios_fourteen_campaign_limits**](docs/AdAccountsApi.md#get_ios_fourteen_campaign_limits) | **GET** /v1/ads/ios-fourteen-campaign-limits | Get iOS 14 campaign limits
 *AdAccountsApi* | [**get_value_rule_set**](docs/AdAccountsApi.md#get_value_rule_set) | **GET** /v1/ads/value-rule-sets/{valueRuleSetId} | Read a value rule set
 *AdAccountsApi* | [**hide_ad_comment**](docs/AdAccountsApi.md#hide_ad_comment) | **POST** /v1/ads/{adId}/comments/{commentId}/hide | Hide or unhide an ad comment
-*AdAccountsApi* | [**list_account_callouts**](docs/AdAccountsApi.md#list_account_callouts) | **GET** /v1/ads/accounts/callouts | List account-level callout extensions
+*AdAccountsApi* | [**list_account_callouts**](docs/AdAccountsApi.md#list_account_callouts) | **GET** /v1/ads/accounts/callouts | List account callouts
+*AdAccountsApi* | [**list_account_sitelinks**](docs/AdAccountsApi.md#list_account_sitelinks) | **GET** /v1/ads/accounts/sitelinks | List account sitelinks
+*AdAccountsApi* | [**list_account_structured_snippets**](docs/AdAccountsApi.md#list_account_structured_snippets) | **GET** /v1/ads/accounts/structured-snippets | List account snippets
 *AdAccountsApi* | [**list_ad_accounts**](docs/AdAccountsApi.md#list_ad_accounts) | **GET** /v1/ads/accounts | List ad accounts
 *AdAccountsApi* | [**list_ad_labels**](docs/AdAccountsApi.md#list_ad_labels) | **GET** /v1/ads/labels | Ad labels
 *AdAccountsApi* | [**list_ad_negative_keyword_lists**](docs/AdAccountsApi.md#list_ad_negative_keyword_lists) | **GET** /v1/ads/accounts/negative-keyword-lists | List negative keyword lists
@@ -106,9 +110,14 @@ Class | Method | HTTP request | Description
 *AdAccountsApi* | [**list_high_demand_periods**](docs/AdAccountsApi.md#list_high_demand_periods) | **GET** /v1/ads/high-demand-periods | High demand periods / budget schedules
 *AdAccountsApi* | [**list_meta_businesses**](docs/AdAccountsApi.md#list_meta_businesses) | **GET** /v1/ads/businesses | Businesses list
 *AdAccountsApi* | [**list_value_rule_sets**](docs/AdAccountsApi.md#list_value_rule_sets) | **GET** /v1/ads/value-rule-sets | List value rule sets
-*AdAccountsApi* | [**remove_account_callout**](docs/AdAccountsApi.md#remove_account_callout) | **DELETE** /v1/ads/accounts/callouts | Remove an account-level callout extension
+*AdAccountsApi* | [**remove_account_callout**](docs/AdAccountsApi.md#remove_account_callout) | **DELETE** /v1/ads/accounts/callouts | Remove account callout
+*AdAccountsApi* | [**remove_account_sitelink**](docs/AdAccountsApi.md#remove_account_sitelink) | **DELETE** /v1/ads/accounts/sitelinks | Remove account sitelink
+*AdAccountsApi* | [**remove_account_structured_snippet**](docs/AdAccountsApi.md#remove_account_structured_snippet) | **DELETE** /v1/ads/accounts/structured-snippets | Remove account snippet
 *AdAccountsApi* | [**replace_ad_negative_keyword_list_keywords**](docs/AdAccountsApi.md#replace_ad_negative_keyword_list_keywords) | **PUT** /v1/ads/accounts/negative-keyword-lists/{listId}/keywords | Replace negative list keywords
 *AdAccountsApi* | [**reply_to_ad_comment**](docs/AdAccountsApi.md#reply_to_ad_comment) | **POST** /v1/ads/{adId}/comments/{commentId}/reply | Reply to an ad comment
+*AdAccountsApi* | [**update_account_callouts**](docs/AdAccountsApi.md#update_account_callouts) | **PUT** /v1/ads/accounts/callouts | Update account callouts
+*AdAccountsApi* | [**update_account_sitelinks**](docs/AdAccountsApi.md#update_account_sitelinks) | **PUT** /v1/ads/accounts/sitelinks | Update account sitelinks
+*AdAccountsApi* | [**update_account_structured_snippets**](docs/AdAccountsApi.md#update_account_structured_snippets) | **PUT** /v1/ads/accounts/structured-snippets | Update account snippets
 *AdAccountsApi* | [**update_ad_account**](docs/AdAccountsApi.md#update_ad_account) | **PATCH** /v1/ads/accounts | Update ad account settings
 *AdAccountsApi* | [**update_ad_negative_keyword_list**](docs/AdAccountsApi.md#update_ad_negative_keyword_list) | **PUT** /v1/ads/accounts/negative-keyword-lists/{listId} | Rename a negative keyword list
 *AdAccountsApi* | [**update_value_rule_set**](docs/AdAccountsApi.md#update_value_rule_set) | **PUT** /v1/ads/value-rule-sets/{valueRuleSetId} | Replace a value rule set
@@ -120,7 +129,8 @@ Class | Method | HTTP request | Description
 *AdAudiencesApi* | [**replace_ad_audience_companies**](docs/AdAudiencesApi.md#replace_ad_audience_companies) | **POST** /v1/ads/audiences/{audienceId}/companies | Replace audience companies
 *AdAudiencesApi* | [**update_ad_audience**](docs/AdAudiencesApi.md#update_ad_audience) | **PUT** /v1/ads/audiences/{audienceId} | Update an audience
 *AdCampaignsApi* | [**add_ad_keywords**](docs/AdCampaignsApi.md#add_ad_keywords) | **POST** /v1/ads/keywords | Add Search keywords to an ad group
-*AdCampaignsApi* | [**attach_campaign_assets**](docs/AdCampaignsApi.md#attach_campaign_assets) | **POST** /v1/ads/campaigns/{campaignId}/assets | Attach extension assets to a Google Search campaign
+*AdCampaignsApi* | [**attach_ad_group_assets**](docs/AdCampaignsApi.md#attach_ad_group_assets) | **POST** /v1/ads/ad-sets/{adSetId}/assets | Attach ad-group assets
+*AdCampaignsApi* | [**attach_campaign_assets**](docs/AdCampaignsApi.md#attach_campaign_assets) | **POST** /v1/ads/campaigns/{campaignId}/assets | Attach campaign assets
 *AdCampaignsApi* | [**boost_post**](docs/AdCampaignsApi.md#boost_post) | **POST** /v1/ads/boost | Boost post as ad
 *AdCampaignsApi* | [**bulk_update_ad_campaign_status**](docs/AdCampaignsApi.md#bulk_update_ad_campaign_status) | **POST** /v1/ads/campaigns/bulk-status | Pause or resume many campaigns
 *AdCampaignsApi* | [**create_ad_campaign**](docs/AdCampaignsApi.md#create_ad_campaign) | **POST** /v1/ads/campaigns | Create a standalone campaign
@@ -140,23 +150,29 @@ Class | Method | HTTP request | Description
 *AdCampaignsApi* | [**get_campaign_bidding**](docs/AdCampaignsApi.md#get_campaign_bidding) | **GET** /v1/ads/campaigns/{campaignId}/bidding | Read a campaign's current bidding
 *AdCampaignsApi* | [**get_campaign_targeting**](docs/AdCampaignsApi.md#get_campaign_targeting) | **GET** /v1/ads/campaigns/{campaignId}/targeting | Read a Google campaign's device, location, and language targeting
 *AdCampaignsApi* | [**list_ad_campaigns**](docs/AdCampaignsApi.md#list_ad_campaigns) | **GET** /v1/ads/campaigns | List campaigns
+*AdCampaignsApi* | [**list_ad_group_assets**](docs/AdCampaignsApi.md#list_ad_group_assets) | **GET** /v1/ads/ad-sets/{adSetId}/assets | List ad-group assets
 *AdCampaignsApi* | [**list_ad_keywords**](docs/AdCampaignsApi.md#list_ad_keywords) | **GET** /v1/ads/keywords | List Search keywords
 *AdCampaignsApi* | [**list_ad_sets**](docs/AdCampaignsApi.md#list_ad_sets) | **GET** /v1/ads/ad-sets | List ad sets
 *AdCampaignsApi* | [**list_ads**](docs/AdCampaignsApi.md#list_ads) | **GET** /v1/ads | List ads
 *AdCampaignsApi* | [**list_bid_strategies**](docs/AdCampaignsApi.md#list_bid_strategies) | **GET** /v1/ads/bid-strategies | List Google Ads portfolio bid strategies
+*AdCampaignsApi* | [**list_campaign_assets**](docs/AdCampaignsApi.md#list_campaign_assets) | **GET** /v1/ads/campaigns/{campaignId}/assets | List campaign assets
 *AdCampaignsApi* | [**list_campaign_negative_keyword_lists**](docs/AdCampaignsApi.md#list_campaign_negative_keyword_lists) | **GET** /v1/ads/campaigns/{campaignId}/negative-keyword-lists | List campaign negative lists
 *AdCampaignsApi* | [**list_campaign_negative_keywords**](docs/AdCampaignsApi.md#list_campaign_negative_keywords) | **GET** /v1/ads/campaigns/{campaignId}/negative-keywords | List campaign-level negative keywords
+*AdCampaignsApi* | [**remove_ad_group_assets**](docs/AdCampaignsApi.md#remove_ad_group_assets) | **DELETE** /v1/ads/ad-sets/{adSetId}/assets | Remove ad-group assets
 *AdCampaignsApi* | [**remove_ad_keyword**](docs/AdCampaignsApi.md#remove_ad_keyword) | **DELETE** /v1/ads/keywords/{keywordId} | Remove a Search keyword
+*AdCampaignsApi* | [**remove_campaign_assets**](docs/AdCampaignsApi.md#remove_campaign_assets) | **DELETE** /v1/ads/campaigns/{campaignId}/assets | Remove campaign assets
 *AdCampaignsApi* | [**replace_campaign_negative_keyword_lists**](docs/AdCampaignsApi.md#replace_campaign_negative_keyword_lists) | **PUT** /v1/ads/campaigns/{campaignId}/negative-keyword-lists | Replace campaign negative lists
 *AdCampaignsApi* | [**replace_campaign_negative_keywords**](docs/AdCampaignsApi.md#replace_campaign_negative_keywords) | **PUT** /v1/ads/campaigns/{campaignId}/negative-keywords | Replace campaign-level negative keywords
 *AdCampaignsApi* | [**update_ad**](docs/AdCampaignsApi.md#update_ad) | **PUT** /v1/ads/{adId} | Update ad
 *AdCampaignsApi* | [**update_ad_campaign**](docs/AdCampaignsApi.md#update_ad_campaign) | **PUT** /v1/ads/campaigns/{campaignId} | Update a campaign
 *AdCampaignsApi* | [**update_ad_campaign_status**](docs/AdCampaignsApi.md#update_ad_campaign_status) | **PUT** /v1/ads/campaigns/{campaignId}/status | Pause or resume a campaign
+*AdCampaignsApi* | [**update_ad_group_assets**](docs/AdCampaignsApi.md#update_ad_group_assets) | **PUT** /v1/ads/ad-sets/{adSetId}/assets | Update ad-group assets
 *AdCampaignsApi* | [**update_ad_keyword**](docs/AdCampaignsApi.md#update_ad_keyword) | **PATCH** /v1/ads/keywords/{keywordId} | Pause or enable a Search keyword
 *AdCampaignsApi* | [**update_ad_set**](docs/AdCampaignsApi.md#update_ad_set) | **PUT** /v1/ads/ad-sets/{adSetId} | Update an ad set
 *AdCampaignsApi* | [**update_ad_set_status**](docs/AdCampaignsApi.md#update_ad_set_status) | **PUT** /v1/ads/ad-sets/{adSetId}/status | Pause or resume a single ad set
 *AdCampaignsApi* | [**update_ad_status**](docs/AdCampaignsApi.md#update_ad_status) | **PUT** /v1/ads/{adId}/status | Pause or resume a single ad
 *AdCampaignsApi* | [**update_bid_strategy**](docs/AdCampaignsApi.md#update_bid_strategy) | **PATCH** /v1/ads/bid-strategies/{strategyId} | Update a Google Ads portfolio bid strategy
+*AdCampaignsApi* | [**update_campaign_assets**](docs/AdCampaignsApi.md#update_campaign_assets) | **PUT** /v1/ads/campaigns/{campaignId}/assets | Update campaign assets
 *AdCampaignsApi* | [**update_campaign_targeting**](docs/AdCampaignsApi.md#update_campaign_targeting) | **PUT** /v1/ads/campaigns/{campaignId}/targeting | Edit a Google campaign's device, location, or language targeting
 *AdCreativesApi* | [**create_ad_creative**](docs/AdCreativesApi.md#create_ad_creative) | **POST** /v1/ads/creatives | Create a standalone creative
 *AdCreativesApi* | [**delete_ad_creative**](docs/AdCreativesApi.md#delete_ad_creative) | **DELETE** /v1/ads/creatives/{creativeId} | Delete a creative
@@ -784,6 +800,12 @@ Class | Method | HTTP request | Description
  - [AddAccountCallouts201Response](docs/AddAccountCallouts201Response.md)
  - [AddAccountCallouts201ResponseCalloutsInner](docs/AddAccountCallouts201ResponseCalloutsInner.md)
  - [AddAccountCalloutsRequest](docs/AddAccountCalloutsRequest.md)
+ - [AddAccountSitelinks201Response](docs/AddAccountSitelinks201Response.md)
+ - [AddAccountSitelinks201ResponseSitelinksInner](docs/AddAccountSitelinks201ResponseSitelinksInner.md)
+ - [AddAccountSitelinksRequest](docs/AddAccountSitelinksRequest.md)
+ - [AddAccountStructuredSnippets201Response](docs/AddAccountStructuredSnippets201Response.md)
+ - [AddAccountStructuredSnippets201ResponseStructuredSnippetsInner](docs/AddAccountStructuredSnippets201ResponseStructuredSnippetsInner.md)
+ - [AddAccountStructuredSnippetsRequest](docs/AddAccountStructuredSnippetsRequest.md)
  - [AddAdKeywords201Response](docs/AddAdKeywords201Response.md)
  - [AddAdKeywordsRequest](docs/AddAdKeywordsRequest.md)
  - [AddAdKeywordsRequestKeywordsInner](docs/AddAdKeywordsRequestKeywordsInner.md)
@@ -830,10 +852,9 @@ Class | Method | HTTP request | Description
  - [AssignGoogleBusinessLocation200Response](docs/AssignGoogleBusinessLocation200Response.md)
  - [AssignGoogleBusinessLocation200ResponseAccount](docs/AssignGoogleBusinessLocation200ResponseAccount.md)
  - [AssignGoogleBusinessLocationRequest](docs/AssignGoogleBusinessLocationRequest.md)
+ - [AttachAdGroupAssets201Response](docs/AttachAdGroupAssets201Response.md)
  - [AttachCampaignAssets201Response](docs/AttachCampaignAssets201Response.md)
  - [AttachCampaignAssetsRequest](docs/AttachCampaignAssetsRequest.md)
- - [AttachCampaignAssetsRequestSitelinksInner](docs/AttachCampaignAssetsRequestSitelinksInner.md)
- - [AttachCampaignAssetsRequestStructuredSnippetsInner](docs/AttachCampaignAssetsRequestStructuredSnippetsInner.md)
  - [AttachNumberToSipTrunk200Response](docs/AttachNumberToSipTrunk200Response.md)
  - [AttachNumberToSipTrunkRequest](docs/AttachNumberToSipTrunkRequest.md)
  - [BatchGetGoogleBusinessReviews200Response](docs/BatchGetGoogleBusinessReviews200Response.md)
@@ -1108,6 +1129,8 @@ Class | Method | HTTP request | Description
  - [CreateStandaloneAd201ResponseOneOf](docs/CreateStandaloneAd201ResponseOneOf.md)
  - [CreateStandaloneAd201ResponseOneOf1](docs/CreateStandaloneAd201ResponseOneOf1.md)
  - [CreateStandaloneAdRequest](docs/CreateStandaloneAdRequest.md)
+ - [CreateStandaloneAdRequestAdditionalDescriptionsInner](docs/CreateStandaloneAdRequestAdditionalDescriptionsInner.md)
+ - [CreateStandaloneAdRequestAdditionalHeadlinesInner](docs/CreateStandaloneAdRequestAdditionalHeadlinesInner.md)
  - [CreateStandaloneAdRequestAttributionSpecInner](docs/CreateStandaloneAdRequestAttributionSpecInner.md)
  - [CreateStandaloneAdRequestBehaviorsInner](docs/CreateStandaloneAdRequestBehaviorsInner.md)
  - [CreateStandaloneAdRequestBrandIdentity](docs/CreateStandaloneAdRequestBrandIdentity.md)
@@ -1630,6 +1653,7 @@ Class | Method | HTTP request | Description
  - [GetYoutubeCaptions200ResponseCuesInner](docs/GetYoutubeCaptions200ResponseCuesInner.md)
  - [GetYoutubePlaylists200Response](docs/GetYoutubePlaylists200Response.md)
  - [GetYoutubePlaylists200ResponsePlaylistsInner](docs/GetYoutubePlaylists200ResponsePlaylistsInner.md)
+ - [GoogleAssetUpdate](docs/GoogleAssetUpdate.md)
  - [GoogleBusinessPlatformData](docs/GoogleBusinessPlatformData.md)
  - [GoogleBusinessPlatformDataCallToAction](docs/GoogleBusinessPlatformDataCallToAction.md)
  - [GoogleBusinessPlatformDataEvent](docs/GoogleBusinessPlatformDataEvent.md)
@@ -1642,6 +1666,10 @@ Class | Method | HTTP request | Description
  - [GoogleBusinessReview](docs/GoogleBusinessReview.md)
  - [GoogleBusinessReviewReviewReply](docs/GoogleBusinessReviewReviewReply.md)
  - [GoogleBusinessReviewReviewer](docs/GoogleBusinessReviewReviewer.md)
+ - [GoogleRsaDescription](docs/GoogleRsaDescription.md)
+ - [GoogleRsaHeadline](docs/GoogleRsaHeadline.md)
+ - [GoogleSitelink](docs/GoogleSitelink.md)
+ - [GoogleStructuredSnippet](docs/GoogleStructuredSnippet.md)
  - [HandleOAuthCallbackRequest](docs/HandleOAuthCallbackRequest.md)
  - [HideAdComment200Response](docs/HideAdComment200Response.md)
  - [HideAdCommentRequest](docs/HideAdCommentRequest.md)
@@ -1720,6 +1748,10 @@ Class | Method | HTTP request | Description
  - [ListAccountCallouts200ResponseCalloutsInner](docs/ListAccountCallouts200ResponseCalloutsInner.md)
  - [ListAccountGroups200Response](docs/ListAccountGroups200Response.md)
  - [ListAccountGroups200ResponseGroupsInner](docs/ListAccountGroups200ResponseGroupsInner.md)
+ - [ListAccountSitelinks200Response](docs/ListAccountSitelinks200Response.md)
+ - [ListAccountSitelinks200ResponseSitelinksInner](docs/ListAccountSitelinks200ResponseSitelinksInner.md)
+ - [ListAccountStructuredSnippets200Response](docs/ListAccountStructuredSnippets200Response.md)
+ - [ListAccountStructuredSnippets200ResponseStructuredSnippetsInner](docs/ListAccountStructuredSnippets200ResponseStructuredSnippetsInner.md)
  - [ListAdAccounts200Response](docs/ListAdAccounts200Response.md)
  - [ListAdAccounts200ResponseAccountsInner](docs/ListAdAccounts200ResponseAccountsInner.md)
  - [ListAdAudiences200Response](docs/ListAdAudiences200Response.md)
@@ -1730,6 +1762,10 @@ Class | Method | HTTP request | Description
  - [ListAdCatalogs200Response](docs/ListAdCatalogs200Response.md)
  - [ListAdCatalogs200ResponseCatalogsInner](docs/ListAdCatalogs200ResponseCatalogsInner.md)
  - [ListAdCreatives200Response](docs/ListAdCreatives200Response.md)
+ - [ListAdGroupAssets200Response](docs/ListAdGroupAssets200Response.md)
+ - [ListAdGroupAssets200ResponseCalloutsInner](docs/ListAdGroupAssets200ResponseCalloutsInner.md)
+ - [ListAdGroupAssets200ResponseSitelinksInner](docs/ListAdGroupAssets200ResponseSitelinksInner.md)
+ - [ListAdGroupAssets200ResponseStructuredSnippetsInner](docs/ListAdGroupAssets200ResponseStructuredSnippetsInner.md)
  - [ListAdImages200Response](docs/ListAdImages200Response.md)
  - [ListAdKeywords200Response](docs/ListAdKeywords200Response.md)
  - [ListAdLabels200Response](docs/ListAdLabels200Response.md)
@@ -1766,6 +1802,10 @@ Class | Method | HTTP request | Description
  - [ListBusinessAgentWebsites200Response](docs/ListBusinessAgentWebsites200Response.md)
  - [ListCalls200Response](docs/ListCalls200Response.md)
  - [ListCalls200ResponseCallsInner](docs/ListCalls200ResponseCallsInner.md)
+ - [ListCampaignAssets200Response](docs/ListCampaignAssets200Response.md)
+ - [ListCampaignAssets200ResponseCalloutsInner](docs/ListCampaignAssets200ResponseCalloutsInner.md)
+ - [ListCampaignAssets200ResponseSitelinksInner](docs/ListCampaignAssets200ResponseSitelinksInner.md)
+ - [ListCampaignAssets200ResponseStructuredSnippetsInner](docs/ListCampaignAssets200ResponseStructuredSnippetsInner.md)
  - [ListCampaignNegativeKeywords200Response](docs/ListCampaignNegativeKeywords200Response.md)
  - [ListCampaignNegativeKeywords200ResponseKeywordsInner](docs/ListCampaignNegativeKeywords200ResponseKeywordsInner.md)
  - [ListCommentAutomationLogs200Response](docs/ListCommentAutomationLogs200Response.md)
@@ -2031,8 +2071,11 @@ Class | Method | HTTP request | Description
  - [RemediatePhoneNumberRequestDocumentsInnerOneOf](docs/RemediatePhoneNumberRequestDocumentsInnerOneOf.md)
  - [RemoveAccountCallout200Response](docs/RemoveAccountCallout200Response.md)
  - [RemoveAccountCalloutRequest](docs/RemoveAccountCalloutRequest.md)
+ - [RemoveAdGroupAssetsRequest](docs/RemoveAdGroupAssetsRequest.md)
  - [RemoveAdKeyword200Response](docs/RemoveAdKeyword200Response.md)
  - [RemoveBookmark200Response](docs/RemoveBookmark200Response.md)
+ - [RemoveCampaignAssets200Response](docs/RemoveCampaignAssets200Response.md)
+ - [RemoveCampaignAssetsRequest](docs/RemoveCampaignAssetsRequest.md)
  - [RemoveConversionAssociations200Response](docs/RemoveConversionAssociations200Response.md)
  - [RemoveDiscordMemberRole200Response](docs/RemoveDiscordMemberRole200Response.md)
  - [RemoveMessageReaction200Response](docs/RemoveMessageReaction200Response.md)
@@ -2303,10 +2346,19 @@ Class | Method | HTTP request | Description
  - [UnpublishPostRequest](docs/UnpublishPostRequest.md)
  - [UpdateAccount200Response](docs/UpdateAccount200Response.md)
  - [UpdateAccount200ResponseXCapabilities](docs/UpdateAccount200ResponseXCapabilities.md)
+ - [UpdateAccountCallouts200Response](docs/UpdateAccountCallouts200Response.md)
+ - [UpdateAccountCalloutsRequest](docs/UpdateAccountCalloutsRequest.md)
+ - [UpdateAccountCalloutsRequestUpdatesInner](docs/UpdateAccountCalloutsRequestUpdatesInner.md)
+ - [UpdateAccountCalloutsRequestUpdatesInnerCalloutAsset](docs/UpdateAccountCalloutsRequestUpdatesInnerCalloutAsset.md)
  - [UpdateAccountGroup200Response](docs/UpdateAccountGroup200Response.md)
  - [UpdateAccountGroupRequest](docs/UpdateAccountGroupRequest.md)
  - [UpdateAccountRequest](docs/UpdateAccountRequest.md)
  - [UpdateAccountRequestXCapabilities](docs/UpdateAccountRequestXCapabilities.md)
+ - [UpdateAccountSitelinksRequest](docs/UpdateAccountSitelinksRequest.md)
+ - [UpdateAccountSitelinksRequestUpdatesInner](docs/UpdateAccountSitelinksRequestUpdatesInner.md)
+ - [UpdateAccountSitelinksRequestUpdatesInnerSitelinkAsset](docs/UpdateAccountSitelinksRequestUpdatesInnerSitelinkAsset.md)
+ - [UpdateAccountStructuredSnippetsRequest](docs/UpdateAccountStructuredSnippetsRequest.md)
+ - [UpdateAccountStructuredSnippetsRequestUpdatesInner](docs/UpdateAccountStructuredSnippetsRequestUpdatesInner.md)
  - [UpdateAd200Response](docs/UpdateAd200Response.md)
  - [UpdateAdAccount200Response](docs/UpdateAdAccount200Response.md)
  - [UpdateAdAccount200ResponseDsaDefaults](docs/UpdateAdAccount200ResponseDsaDefaults.md)
@@ -2360,6 +2412,8 @@ Class | Method | HTTP request | Description
  - [UpdateBusinessAgentSettingsRequestFollowup](docs/UpdateBusinessAgentSettingsRequestFollowup.md)
  - [UpdateBusinessAgentSettingsRequestHandoff](docs/UpdateBusinessAgentSettingsRequestHandoff.md)
  - [UpdateBusinessAgentSettingsRequestRollout](docs/UpdateBusinessAgentSettingsRequestRollout.md)
+ - [UpdateCampaignAssets200Response](docs/UpdateCampaignAssets200Response.md)
+ - [UpdateCampaignAssetsRequest](docs/UpdateCampaignAssetsRequest.md)
  - [UpdateCampaignTargeting200Response](docs/UpdateCampaignTargeting200Response.md)
  - [UpdateCampaignTargeting200ResponseDevicesInner](docs/UpdateCampaignTargeting200ResponseDevicesInner.md)
  - [UpdateCampaignTargeting200ResponseLanguagesInner](docs/UpdateCampaignTargeting200ResponseLanguagesInner.md)

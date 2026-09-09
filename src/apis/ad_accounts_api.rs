@@ -21,6 +21,33 @@ pub enum AddAccountCalloutsError {
     Status401(models::InlineObject1),
     Status403(),
     Status404(models::InlineObject2),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`add_account_sitelinks`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AddAccountSitelinksError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`add_account_structured_snippets`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AddAccountStructuredSnippetsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -225,6 +252,32 @@ pub enum ListAccountCalloutsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_account_sitelinks`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListAccountSitelinksError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_account_structured_snippets`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListAccountStructuredSnippetsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_ad_accounts`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -353,6 +406,33 @@ pub enum RemoveAccountCalloutError {
     Status401(models::InlineObject1),
     Status403(),
     Status404(models::InlineObject2),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`remove_account_sitelink`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RemoveAccountSitelinkError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`remove_account_structured_snippet`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RemoveAccountStructuredSnippetError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -383,6 +463,45 @@ pub enum ReplyToAdCommentError {
     Status422(),
     Status501(),
     Status502(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_account_callouts`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateAccountCalloutsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_account_sitelinks`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateAccountSitelinksError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_account_structured_snippets`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateAccountStructuredSnippetsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status429(),
+    Status501(),
     UnknownValue(serde_json::Value),
 }
 
@@ -421,7 +540,7 @@ pub enum UpdateValueRuleSetError {
     UnknownValue(serde_json::Value),
 }
 
-/// Creates one asset plus one `customerAsset` link (field type CALLOUT) per callout text, in a single mutate. Google only; every other platform returns 501.
+/// Creates assets and customer_asset links for this Google customer. Links apply at account level.
 pub async fn add_account_callouts(
     configuration: &configuration::Configuration,
     add_account_callouts_request: models::AddAccountCalloutsRequest,
@@ -463,6 +582,110 @@ pub async fn add_account_callouts(
     } else {
         let content = resp.text().await?;
         let entity: Option<AddAccountCalloutsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Creates assets and customer_asset links for this Google customer. Links apply at account level.
+pub async fn add_account_sitelinks(
+    configuration: &configuration::Configuration,
+    add_account_sitelinks_request: models::AddAccountSitelinksRequest,
+) -> Result<models::AddAccountSitelinks201Response, Error<AddAccountSitelinksError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_add_account_sitelinks_request = add_account_sitelinks_request;
+
+    let uri_str = format!("{}/v1/ads/accounts/sitelinks", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_add_account_sitelinks_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AddAccountSitelinks201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AddAccountSitelinks201Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AddAccountSitelinksError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Creates assets and customer_asset links for this Google customer. Links apply at account level.
+pub async fn add_account_structured_snippets(
+    configuration: &configuration::Configuration,
+    add_account_structured_snippets_request: models::AddAccountStructuredSnippetsRequest,
+) -> Result<models::AddAccountStructuredSnippets201Response, Error<AddAccountStructuredSnippetsError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_add_account_structured_snippets_request = add_account_structured_snippets_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/accounts/structured-snippets",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_add_account_structured_snippets_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AddAccountStructuredSnippets201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AddAccountStructuredSnippets201Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AddAccountStructuredSnippetsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1420,7 +1643,7 @@ pub async fn hide_ad_comment(
     }
 }
 
-/// Google Ads compliance row C.75: callout assets linked at the CUSTOMER level via `customer_asset` (not a campaign or ad group), so they serve fleet-wide across the account. Google only; every other platform returns 501. Cached for the quota window (10 minutes fresh, up to 7 days last-good), and gated by the shared Google Ads operations budget on a cache miss. The response carries `cachedAt` and `stale`, set when a quota-exhausted call falls back to the last-good copy instead of a live read.
+/// Lists directly attached Google assets. Fresh reads are cached for 10 minutes; exhausted quota may return the last successful read with stale=true. Inherited assets are not included. Preserves Google RMF C.75 account-level callouts.
 pub async fn list_account_callouts(
     configuration: &configuration::Configuration,
     account_id: &str,
@@ -1465,6 +1688,119 @@ pub async fn list_account_callouts(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListAccountCalloutsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Lists directly attached Google assets. Fresh reads are cached for 10 minutes; exhausted quota may return the last successful read with stale=true. Inherited assets are not included.
+pub async fn list_account_sitelinks(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    customer_id: Option<&str>,
+) -> Result<models::ListAccountSitelinks200Response, Error<ListAccountSitelinksError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_customer_id = customer_id;
+
+    let uri_str = format!("{}/v1/ads/accounts/sitelinks", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_customer_id {
+        req_builder = req_builder.query(&[("customerId", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListAccountSitelinks200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListAccountSitelinks200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListAccountSitelinksError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Lists directly attached Google assets. Fresh reads are cached for 10 minutes; exhausted quota may return the last successful read with stale=true. Inherited assets are not included.
+pub async fn list_account_structured_snippets(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    customer_id: Option<&str>,
+) -> Result<
+    models::ListAccountStructuredSnippets200Response,
+    Error<ListAccountStructuredSnippetsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_customer_id = customer_id;
+
+    let uri_str = format!(
+        "{}/v1/ads/accounts/structured-snippets",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_customer_id {
+        req_builder = req_builder.query(&[("customerId", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListAccountStructuredSnippets200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListAccountStructuredSnippets200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListAccountStructuredSnippetsError> =
+            serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -2114,7 +2450,7 @@ pub async fn list_value_rule_sets(
     }
 }
 
-/// Removes the `customerAsset` link (`customers/{cid}/customerAssets/{assetId}~CALLOUT`). Google only; every other platform returns 501.
+/// Removes the customer_asset attachment only. The underlying shared asset and its campaign or ad-group attachments remain.
 pub async fn remove_account_callout(
     configuration: &configuration::Configuration,
     remove_account_callout_request: models::RemoveAccountCalloutRequest,
@@ -2156,6 +2492,110 @@ pub async fn remove_account_callout(
     } else {
         let content = resp.text().await?;
         let entity: Option<RemoveAccountCalloutError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Removes the customer_asset attachment only. The underlying shared asset and its campaign or ad-group attachments remain.
+pub async fn remove_account_sitelink(
+    configuration: &configuration::Configuration,
+    remove_account_callout_request: models::RemoveAccountCalloutRequest,
+) -> Result<models::RemoveAccountCallout200Response, Error<RemoveAccountSitelinkError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_remove_account_callout_request = remove_account_callout_request;
+
+    let uri_str = format!("{}/v1/ads/accounts/sitelinks", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_remove_account_callout_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::RemoveAccountCallout200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::RemoveAccountCallout200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RemoveAccountSitelinkError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Removes the customer_asset attachment only. The underlying shared asset and its campaign or ad-group attachments remain.
+pub async fn remove_account_structured_snippet(
+    configuration: &configuration::Configuration,
+    remove_account_callout_request: models::RemoveAccountCalloutRequest,
+) -> Result<models::RemoveAccountCallout200Response, Error<RemoveAccountStructuredSnippetError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_remove_account_callout_request = remove_account_callout_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/accounts/structured-snippets",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_remove_account_callout_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::RemoveAccountCallout200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::RemoveAccountCallout200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RemoveAccountStructuredSnippetError> =
+            serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -2284,6 +2724,155 @@ pub async fn reply_to_ad_comment(
     } else {
         let content = resp.text().await?;
         let entity: Option<ReplyToAdCommentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Edits existing Google assets in place. Send updates with assetResourceName and the fields to change. An asset is shared: changes affect every attachment using it. Omitted fields stay unchanged. The operation consumes the Google operations budget and invalidates affected cached lists.
+pub async fn update_account_callouts(
+    configuration: &configuration::Configuration,
+    update_account_callouts_request: models::UpdateAccountCalloutsRequest,
+) -> Result<models::UpdateAccountCallouts200Response, Error<UpdateAccountCalloutsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_update_account_callouts_request = update_account_callouts_request;
+
+    let uri_str = format!("{}/v1/ads/accounts/callouts", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_account_callouts_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateAccountCallouts200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateAccountCallouts200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateAccountCalloutsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Edits existing Google assets in place. Send updates with assetResourceName and the fields to change. An asset is shared: changes affect every attachment using it. Omitted fields stay unchanged. The operation consumes the Google operations budget and invalidates affected cached lists.
+pub async fn update_account_sitelinks(
+    configuration: &configuration::Configuration,
+    update_account_sitelinks_request: models::UpdateAccountSitelinksRequest,
+) -> Result<models::UpdateAccountCallouts200Response, Error<UpdateAccountSitelinksError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_update_account_sitelinks_request = update_account_sitelinks_request;
+
+    let uri_str = format!("{}/v1/ads/accounts/sitelinks", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_account_sitelinks_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateAccountCallouts200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateAccountCallouts200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateAccountSitelinksError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Edits existing Google assets in place. Send updates with assetResourceName and the fields to change. An asset is shared: changes affect every attachment using it. Omitted fields stay unchanged. The operation consumes the Google operations budget and invalidates affected cached lists.
+pub async fn update_account_structured_snippets(
+    configuration: &configuration::Configuration,
+    update_account_structured_snippets_request: models::UpdateAccountStructuredSnippetsRequest,
+) -> Result<models::UpdateAccountCallouts200Response, Error<UpdateAccountStructuredSnippetsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_update_account_structured_snippets_request =
+        update_account_structured_snippets_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/accounts/structured-snippets",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_account_structured_snippets_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateAccountCallouts200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateAccountCallouts200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateAccountStructuredSnippetsError> =
+            serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

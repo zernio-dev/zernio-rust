@@ -252,18 +252,20 @@ pub struct CreateStandaloneAdRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub campaign_negative_keywords: Option<Vec<models::KeywordEntry>>,
-    /// Google Search RSA only. Extra headlines.
+    /// Google Search RSA only. Extra text assets as strings or objects with text and optional pinnedField. Existing string input remains supported. The effective create lists, including primary text and deduplication, must contain 3-15 headlines and 2-4 descriptions; excess entries return 400.
     #[serde(
         rename = "additionalHeadlines",
         skip_serializing_if = "Option::is_none"
     )]
-    pub additional_headlines: Option<Vec<String>>,
-    /// Google Search RSA only. Extra descriptions.
+    pub additional_headlines:
+        Option<Vec<models::CreateStandaloneAdRequestAdditionalHeadlinesInner>>,
+    /// Google Search RSA only. Extra text assets as strings or objects with text and optional pinnedField. Existing string input remains supported. The effective create lists, including primary text and deduplication, must contain 3-15 headlines and 2-4 descriptions; excess entries return 400.
     #[serde(
         rename = "additionalDescriptions",
         skip_serializing_if = "Option::is_none"
     )]
-    pub additional_descriptions: Option<Vec<String>>,
+    pub additional_descriptions:
+        Option<Vec<models::CreateStandaloneAdRequestAdditionalDescriptionsInner>>,
     /// Google Search only. Sitelink assets to create and attach at the campaign level. Each entry becomes an Asset (with sitelink_asset + Asset.final_urls) plus a CampaignAsset link (field_type SITELINK). Approval is async: Google reviews assets after creation; poll asset.policy_summary later to read the verdict. Google requires at least two sitelinks to surface them on an ad; four or more is Google's own recommendation for maximum visibility. The response's creative.sitelinks[] echoes each input plus its Google resourceName.
     #[serde(rename = "sitelinks", skip_serializing_if = "Option::is_none")]
     pub sitelinks: Option<Vec<models::CreateStandaloneAdRequestSitelinksInner>>,

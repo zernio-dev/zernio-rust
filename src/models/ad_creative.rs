@@ -14,6 +14,15 @@ use serde::{Deserialize, Serialize};
 /// AdCreative : Platform-specific creative data. Fields vary by platform.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AdCreative {
+    /// Google RSA only. Replaces the complete headline list. No padding or truncation on update.
+    #[serde(rename = "headlines", skip_serializing_if = "Option::is_none")]
+    pub headlines: Option<Vec<models::GoogleRsaHeadline>>,
+    /// Google RSA only. Replaces the complete description list. No padding or truncation on update.
+    #[serde(rename = "descriptions", skip_serializing_if = "Option::is_none")]
+    pub descriptions: Option<Vec<models::GoogleRsaDescription>>,
+    /// Google RSA only. Replaces final URLs. Omitted lists stay unchanged.
+    #[serde(rename = "finalUrls", skip_serializing_if = "Option::is_none")]
+    pub final_urls: Option<Vec<String>>,
     /// Primary thumbnail/image URL
     #[serde(
         rename = "thumbnailUrl",
@@ -152,6 +161,9 @@ impl AdCreative {
     /// Platform-specific creative data. Fields vary by platform.
     pub fn new() -> AdCreative {
         AdCreative {
+            headlines: None,
+            descriptions: None,
+            final_urls: None,
             thumbnail_url: None,
             image_url: None,
             video_id: None,

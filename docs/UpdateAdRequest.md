@@ -4,6 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**headlines** | Option<[**Vec<models::GoogleRsaHeadline>**](GoogleRsaHeadline.md)> | Google RSA only. Replaces the complete headline list. No padding or truncation on update. | [optional]
+**descriptions** | Option<[**Vec<models::GoogleRsaDescription>**](GoogleRsaDescription.md)> | Google RSA only. Replaces the complete description list. No padding or truncation on update. | [optional]
+**final_urls** | Option<**Vec<String>**> | Google RSA only. Replaces final URLs. Omitted lists stay unchanged. | [optional]
 **status** | Option<**Status**> |  (enum: active, paused) | [optional]
 **budget** | Option<[**models::UpdateAdRequestBudget**](UpdateAdRequestBudget.md)> |  | [optional]
 **targeting** | Option<[**models::UpdateAdRequestTargeting**](UpdateAdRequestTargeting.md)> |  | [optional]

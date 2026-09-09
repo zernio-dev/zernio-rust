@@ -4,6 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**headlines** | Option<[**Vec<models::GoogleRsaHeadline>**](GoogleRsaHeadline.md)> | Google RSA only. Replaces the complete headline list. No padding or truncation on update. | [optional]
+**descriptions** | Option<[**Vec<models::GoogleRsaDescription>**](GoogleRsaDescription.md)> | Google RSA only. Replaces the complete description list. No padding or truncation on update. | [optional]
+**final_urls** | Option<**Vec<String>**> | Google RSA only. Replaces final URLs. Omitted lists stay unchanged. | [optional]
 **thumbnail_url** | Option<**String**> | Primary thumbnail/image URL | [optional]
 **image_url** | Option<**String**> | Alternative image URL | [optional]
 **video_id** | Option<**String**> | Meta video ID for VIDEO-type ads. Null for non-video ads. Callers that need an embeddable MP4 can call GET /{videoId}?fields=source with the page access token. | [optional]

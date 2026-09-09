@@ -24,14 +24,28 @@ pub enum AddAdKeywordsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`attach_ad_group_assets`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AttachAdGroupAssetsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`attach_campaign_assets`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AttachCampaignAssetsError {
-    Status400(),
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status422(),
+    Status404(models::InlineObject2),
+    Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -244,6 +258,19 @@ pub enum ListAdCampaignsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_ad_group_assets`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListAdGroupAssetsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_ad_keywords`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -286,6 +313,19 @@ pub enum ListBidStrategiesError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_campaign_assets`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListCampaignAssetsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_campaign_negative_keyword_lists`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -312,6 +352,19 @@ pub enum ListCampaignNegativeKeywordsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`remove_ad_group_assets`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RemoveAdGroupAssetsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`remove_ad_keyword`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -319,6 +372,19 @@ pub enum RemoveAdKeywordError {
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`remove_campaign_assets`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RemoveCampaignAssetsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status429(),
+    Status501(),
     UnknownValue(serde_json::Value),
 }
 
@@ -386,6 +452,19 @@ pub enum UpdateAdCampaignStatusError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`update_ad_group_assets`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateAdGroupAssetsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`update_ad_keyword`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -439,6 +518,19 @@ pub enum UpdateAdStatusError {
 pub enum UpdateBidStrategyError {
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_campaign_assets`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateCampaignAssetsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
     Status404(models::InlineObject2),
     Status429(),
     Status501(),
@@ -507,7 +599,63 @@ pub async fn add_ad_keywords(
     }
 }
 
-/// Attach sitelinks, callouts and/or structured snippets to an already-existing Google Search campaign. These are the same builders POST /v1/ads/create uses, but without rebuilding the hierarchy. At least one of sitelinks, callouts or structuredSnippets is required.  Google-only. Other platforms have no equivalent extension surface and return 501.  Approval status is Google-async; poll `asset.policy_summary` after review. Assets stay in the account library even if the campaign is later deleted.
+/// Creates and attaches sitelinks, callouts and structured snippets in one Google mutation.
+pub async fn attach_ad_group_assets(
+    configuration: &configuration::Configuration,
+    ad_set_id: &str,
+    attach_campaign_assets_request: models::AttachCampaignAssetsRequest,
+) -> Result<models::AttachAdGroupAssets201Response, Error<AttachAdGroupAssetsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_ad_set_id = ad_set_id;
+    let p_body_attach_campaign_assets_request = attach_campaign_assets_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/ad-sets/{adSetId}/assets",
+        configuration.base_path,
+        adSetId = crate::apis::urlencode(p_path_ad_set_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_attach_campaign_assets_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AttachAdGroupAssets201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AttachAdGroupAssets201Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AttachAdGroupAssetsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Creates and attaches sitelinks, callouts and structured snippets in one Google mutation.
 pub async fn attach_campaign_assets(
     configuration: &configuration::Configuration,
     campaign_id: &str,
@@ -1228,7 +1376,7 @@ pub async fn duplicate_ad_set(
     }
 }
 
-/// Returns an ad with its creative, targeting, status, and performance metrics.  The `{adId}` path segment accepts any identifier dialect Zernio indexes for the ad: - the Zernio internal `_id` (24-char hex) - Meta's numeric `platformAdId` (the value shipped in `comment.received` webhooks as `comment.ad.id`) - the creative's `effective_object_story_id` (`{pageId}_{postId}` shape, Facebook side) - the creative's `effective_instagram_media_id` (Instagram side)  Any of the four resolve to the same ad. Caller doesn't need a translation step. By default, creative.promotion and creative.creativeFeatures contain stored requested settings, which do not confirm platform application. With `refreshPromotion=true`, Meta promotion metadata is read live and exposed as `ad.creative.promotion` with `promotionStatus`. Only `applied` confirms an offer; `not_returned` means the creative read succeeded without promotion metadata, and `unavailable` means it failed.
+/// Returns an ad with its creative, targeting, status, and performance metrics. Google Search ads include current creative.headlines, creative.descriptions and creative.finalUrls, preserving pinnedField. Top-level cachedAt and stale report cache freshness. Google mutations invalidate this read. RSA enrichment requires a stored advertisingChannelType of SEARCH. Ads with an unknown or other channel return their stored details without a Google read. If RSA enrichment fails, the stored ad is returned with HTTP 200 and without cache metadata.  The `{adId}` path segment accepts any identifier dialect Zernio indexes for the ad: - the Zernio internal `_id` (24-char hex) - Meta's numeric `platformAdId` (the value shipped in `comment.received` webhooks as `comment.ad.id`) - the creative's `effective_object_story_id` (`{pageId}_{postId}` shape, Facebook side) - the creative's `effective_instagram_media_id` (Instagram side)  Any of the four resolve to the same ad. Caller doesn't need a translation step. By default, creative.promotion and creative.creativeFeatures contain stored requested settings, which do not confirm platform application. With `refreshPromotion=true`, Meta promotion metadata is read live and exposed as `ad.creative.promotion` with `promotionStatus`. Only `applied` confirms an offer; `not_returned` means the creative read succeeded without promotion metadata, and `unavailable` means it failed.
 pub async fn get_ad(
     configuration: &configuration::Configuration,
     ad_id: &str,
@@ -1774,6 +1922,65 @@ pub async fn list_ad_campaigns(
     }
 }
 
+/// Lists directly attached Google assets. Fresh reads are cached for 10 minutes; exhausted quota may return the last successful read with stale=true. Inherited assets are not included.
+pub async fn list_ad_group_assets(
+    configuration: &configuration::Configuration,
+    ad_set_id: &str,
+    account_id: &str,
+    customer_id: Option<&str>,
+) -> Result<models::ListAdGroupAssets200Response, Error<ListAdGroupAssetsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_ad_set_id = ad_set_id;
+    let p_query_account_id = account_id;
+    let p_query_customer_id = customer_id;
+
+    let uri_str = format!(
+        "{}/v1/ads/ad-sets/{adSetId}/assets",
+        configuration.base_path,
+        adSetId = crate::apis::urlencode(p_path_ad_set_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_customer_id {
+        req_builder = req_builder.query(&[("customerId", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListAdGroupAssets200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListAdGroupAssets200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListAdGroupAssetsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Returns the Google Search keyword criteria (positive and negative) synced from connected Google Ads accounts, one row per ad-group keyword. Refreshed about once a week per Google Ads customer (the keyword sweep rides the ads discovery pass on a slower slot, to stay inside Google's shared daily API quota), so keywords added on Google can take several days to appear. A customer synced for the first time is populated on the next discovery pass rather than waiting for its weekly slot, and connecting an account or triggering a manual sync refreshes it immediately. Campaign-level negative keywords are not included; only ad-group-level criteria are.
 pub async fn list_ad_keywords(
     configuration: &configuration::Configuration,
@@ -2122,6 +2329,65 @@ pub async fn list_bid_strategies(
     }
 }
 
+/// Lists directly attached Google assets. Fresh reads are cached for 10 minutes; exhausted quota may return the last successful read with stale=true. Inherited assets are not included.
+pub async fn list_campaign_assets(
+    configuration: &configuration::Configuration,
+    campaign_id: &str,
+    account_id: &str,
+    customer_id: Option<&str>,
+) -> Result<models::ListCampaignAssets200Response, Error<ListCampaignAssetsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_campaign_id = campaign_id;
+    let p_query_account_id = account_id;
+    let p_query_customer_id = customer_id;
+
+    let uri_str = format!(
+        "{}/v1/ads/campaigns/{campaignId}/assets",
+        configuration.base_path,
+        campaignId = crate::apis::urlencode(p_path_campaign_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_customer_id {
+        req_builder = req_builder.query(&[("customerId", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListCampaignAssets200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListCampaignAssets200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListCampaignAssetsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Returns shared negative keyword lists attached to the campaign, separate from campaign-level negative keywords. Google Ads shared negative keyword lists (shared_set type NEGATIVE_KEYWORDS). Reads are cached for 10 minutes; quota exhaustion may return the last successful result for up to 7 days with stale=true. Customer selection is limited to this connection and its account scope.
 pub async fn list_campaign_negative_keyword_lists(
     configuration: &configuration::Configuration,
@@ -2239,6 +2505,62 @@ pub async fn list_campaign_negative_keywords(
     }
 }
 
+/// Removes the specified attachments only. Google assets cannot be deleted. Other attachments remain. assetResourceNames is retained for compatibility.
+pub async fn remove_ad_group_assets(
+    configuration: &configuration::Configuration,
+    ad_set_id: &str,
+    remove_ad_group_assets_request: models::RemoveAdGroupAssetsRequest,
+) -> Result<models::RemoveCampaignAssets200Response, Error<RemoveAdGroupAssetsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_ad_set_id = ad_set_id;
+    let p_body_remove_ad_group_assets_request = remove_ad_group_assets_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/ad-sets/{adSetId}/assets",
+        configuration.base_path,
+        adSetId = crate::apis::urlencode(p_path_ad_set_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_remove_ad_group_assets_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::RemoveCampaignAssets200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::RemoveCampaignAssets200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RemoveAdGroupAssetsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Removes one keyword criterion (positive or negative) from its ad group (M.140).
 pub async fn remove_ad_keyword(
     configuration: &configuration::Configuration,
@@ -2284,6 +2606,62 @@ pub async fn remove_ad_keyword(
     } else {
         let content = resp.text().await?;
         let entity: Option<RemoveAdKeywordError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Removes the specified attachments only. Google assets cannot be deleted. Other attachments remain. assetResourceNames is retained for compatibility.
+pub async fn remove_campaign_assets(
+    configuration: &configuration::Configuration,
+    campaign_id: &str,
+    remove_campaign_assets_request: models::RemoveCampaignAssetsRequest,
+) -> Result<models::RemoveCampaignAssets200Response, Error<RemoveCampaignAssetsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_campaign_id = campaign_id;
+    let p_body_remove_campaign_assets_request = remove_campaign_assets_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/campaigns/{campaignId}/assets",
+        configuration.base_path,
+        campaignId = crate::apis::urlencode(p_path_campaign_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_remove_campaign_assets_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::RemoveCampaignAssets200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::RemoveCampaignAssets200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RemoveCampaignAssetsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -2410,7 +2788,7 @@ pub async fn replace_campaign_negative_keywords(
     }
 }
 
-/// Patch one or more fields on an ad. Status, budget, targeting, and creative changes are propagated to the platform.  Per-platform support: - **Meta** (Facebook + Instagram): all fields supported. - **TikTok**: status, budget, targeting (via `/v2/adgroup/update/`), and creative   (via `/v2/ad/update/` patch-style: `headline` is ignored, `body` becomes `ad_text`). - **Google**: status, budget, KEYWORD edits via `targeting.keywords` /   `targeting.negativeKeywords`, and DEVICE bid adjustments via `targeting.devices`.   Each list you send becomes the FULL new set of its kind (criteria not in the   list are removed); a kind left out is untouched. Any other `targeting` field   returns 400: Google cannot mutate broad targeting post-create without recreating   the campaign. `creative` returns 501. - **LinkedIn**: status, budget, targeting (countries or regions, excludedLocations (countries),   the B2B facets, and audience segments; applied to the LinkedIn Campaign via   PARTIAL_UPDATE, and REPLACES the campaign's entire targetingCriteria, not a merge),   and creative (uploads new media, creates a replacement inline creative on the same   campaign, pauses the old one). - **Pinterest / X / OpenAI Ads**: status + budget only. Sending   `targeting` or `creative` returns 501 with code `unsupported_platform_operation`.   OpenAI Ads budget is lifetime-only (see `budget.type` below).  **Google keyword replacement:** These edits affect the ad's entire ad group, including sibling ads. Positive (`targeting.keywords`) and negative (`targeting.negativeKeywords`) sets are independent: omit a field to leave that set unchanged, or send `[]` to remove every keyword of that kind.  Zernio compares each supplied set with Google's live criteria by case-insensitive keyword text and match type. A matching criterion is left untouched, retaining its criterion ID, enabled/paused status, keyword-level bid overrides, labels, and criterion-associated history/statistics. Zernio does not reset its quality score; Google continues to calculate scores and statistics normally. Text comparison does not trim whitespace.  A bare string or an object without `matchType` means `broad`, not the existing criterion's match type. For example, resending an existing `{ \"text\": \"plumber\", \"matchType\": \"exact\" }` preserves it; sending `\"plumber\"` instead removes that EXACT criterion and requests a BROAD one. Changing text or match type removes criteria no longer requested and creates any missing criteria. New criteria get new IDs and do not inherit removed criteria's bid overrides, labels, or history. Historical reporting for a removed criterion is not transferred to its replacement.  To add keywords without replacing a set, use [POST /v1/ads/keywords](https://docs.zernio.com/ad-campaigns/add-ad-keywords). Use `PATCH /v1/ads/keywords/{keywordId}` to pause/enable one keyword, or `DELETE /v1/ads/keywords/{keywordId}` to remove it.
+/// Patch one or more fields on an ad. Status, budget, targeting, and creative changes are propagated to the platform.  Per-platform support: - **Meta** (Facebook + Instagram): all fields supported. - **TikTok**: status, budget, targeting (via `/v2/adgroup/update/`), and creative   (via `/v2/ad/update/` patch-style: `headline` is ignored, `body` becomes `ad_text`). - **Google**: status, budget, KEYWORD edits via `targeting.keywords` /   `targeting.negativeKeywords`, and DEVICE bid adjustments via `targeting.devices`.   Each list you send becomes the FULL new set of its kind (criteria not in the   list are removed); a kind left out is untouched. Any other `targeting` field   returns 400: Google cannot mutate broad targeting post-create without recreating   the campaign. RSA text updates use top-level `headlines`, `descriptions` and `finalUrls`.   Each supplied array replaces the full list; omit a field to preserve it. Use 3-15 headlines   (1-30 characters) and 2-4 descriptions (1-90 characters). Omit an asset to remove it;   omit pinnedField on an included asset to unpin it. Updates do not pad or truncate text.   The legacy creative fields remain unsupported for Google. - **LinkedIn**: status, budget, targeting (countries or regions, excludedLocations (countries),   the B2B facets, and audience segments; applied to the LinkedIn Campaign via   PARTIAL_UPDATE, and REPLACES the campaign's entire targetingCriteria, not a merge),   and creative (uploads new media, creates a replacement inline creative on the same   campaign, pauses the old one). - **Pinterest / X / OpenAI Ads**: status + budget only. Sending   `targeting` or `creative` returns 501 with code `unsupported_platform_operation`.   OpenAI Ads budget is lifetime-only (see `budget.type` below).  **Google keyword replacement:** These edits affect the ad's entire ad group, including sibling ads. Positive (`targeting.keywords`) and negative (`targeting.negativeKeywords`) sets are independent: omit a field to leave that set unchanged, or send `[]` to remove every keyword of that kind.  Zernio compares each supplied set with Google's live criteria by case-insensitive keyword text and match type. A matching criterion is left untouched, retaining its criterion ID, enabled/paused status, keyword-level bid overrides, labels, and criterion-associated history/statistics. Zernio does not reset its quality score; Google continues to calculate scores and statistics normally. Text comparison does not trim whitespace.  A bare string or an object without `matchType` means `broad`, not the existing criterion's match type. For example, resending an existing `{ \"text\": \"plumber\", \"matchType\": \"exact\" }` preserves it; sending `\"plumber\"` instead removes that EXACT criterion and requests a BROAD one. Changing text or match type removes criteria no longer requested and creates any missing criteria. New criteria get new IDs and do not inherit removed criteria's bid overrides, labels, or history. Historical reporting for a removed criterion is not transferred to its replacement.  To add keywords without replacing a set, use [POST /v1/ads/keywords](https://docs.zernio.com/ad-campaigns/add-ad-keywords). Use `PATCH /v1/ads/keywords/{keywordId}` to pause/enable one keyword, or `DELETE /v1/ads/keywords/{keywordId}` to remove it.
 pub async fn update_ad(
     configuration: &configuration::Configuration,
     ad_id: &str,
@@ -2564,6 +2942,60 @@ pub async fn update_ad_campaign_status(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateAdCampaignStatusError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Edits existing Google assets in place. Send updates with assetResourceName and the fields to change. An asset is shared: changes affect every attachment using it. Omitted fields stay unchanged. The operation consumes the Google operations budget and invalidates affected cached lists.
+pub async fn update_ad_group_assets(
+    configuration: &configuration::Configuration,
+    ad_set_id: &str,
+    update_campaign_assets_request: models::UpdateCampaignAssetsRequest,
+) -> Result<models::UpdateCampaignAssets200Response, Error<UpdateAdGroupAssetsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_ad_set_id = ad_set_id;
+    let p_body_update_campaign_assets_request = update_campaign_assets_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/ad-sets/{adSetId}/assets",
+        configuration.base_path,
+        adSetId = crate::apis::urlencode(p_path_ad_set_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_campaign_assets_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateCampaignAssets200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateCampaignAssets200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateAdGroupAssetsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -2838,6 +3270,60 @@ pub async fn update_bid_strategy(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateBidStrategyError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Edits existing Google assets in place. Send updates with assetResourceName and the fields to change. An asset is shared: changes affect every attachment using it. Omitted fields stay unchanged. The operation consumes the Google operations budget and invalidates affected cached lists.
+pub async fn update_campaign_assets(
+    configuration: &configuration::Configuration,
+    campaign_id: &str,
+    update_campaign_assets_request: models::UpdateCampaignAssetsRequest,
+) -> Result<models::UpdateCampaignAssets200Response, Error<UpdateCampaignAssetsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_campaign_id = campaign_id;
+    let p_body_update_campaign_assets_request = update_campaign_assets_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/campaigns/{campaignId}/assets",
+        configuration.base_path,
+        campaignId = crate::apis::urlencode(p_path_campaign_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_campaign_assets_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateCampaignAssets200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateCampaignAssets200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateCampaignAssetsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

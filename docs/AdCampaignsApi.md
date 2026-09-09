@@ -5,7 +5,8 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**add_ad_keywords**](AdCampaignsApi.md#add_ad_keywords) | **POST** /v1/ads/keywords | Add Search keywords to an ad group
-[**attach_campaign_assets**](AdCampaignsApi.md#attach_campaign_assets) | **POST** /v1/ads/campaigns/{campaignId}/assets | Attach extension assets to a Google Search campaign
+[**attach_ad_group_assets**](AdCampaignsApi.md#attach_ad_group_assets) | **POST** /v1/ads/ad-sets/{adSetId}/assets | Attach ad-group assets
+[**attach_campaign_assets**](AdCampaignsApi.md#attach_campaign_assets) | **POST** /v1/ads/campaigns/{campaignId}/assets | Attach campaign assets
 [**boost_post**](AdCampaignsApi.md#boost_post) | **POST** /v1/ads/boost | Boost post as ad
 [**bulk_update_ad_campaign_status**](AdCampaignsApi.md#bulk_update_ad_campaign_status) | **POST** /v1/ads/campaigns/bulk-status | Pause or resume many campaigns
 [**create_ad_campaign**](AdCampaignsApi.md#create_ad_campaign) | **POST** /v1/ads/campaigns | Create a standalone campaign
@@ -25,23 +26,29 @@ Method | HTTP request | Description
 [**get_campaign_bidding**](AdCampaignsApi.md#get_campaign_bidding) | **GET** /v1/ads/campaigns/{campaignId}/bidding | Read a campaign's current bidding
 [**get_campaign_targeting**](AdCampaignsApi.md#get_campaign_targeting) | **GET** /v1/ads/campaigns/{campaignId}/targeting | Read a Google campaign's device, location, and language targeting
 [**list_ad_campaigns**](AdCampaignsApi.md#list_ad_campaigns) | **GET** /v1/ads/campaigns | List campaigns
+[**list_ad_group_assets**](AdCampaignsApi.md#list_ad_group_assets) | **GET** /v1/ads/ad-sets/{adSetId}/assets | List ad-group assets
 [**list_ad_keywords**](AdCampaignsApi.md#list_ad_keywords) | **GET** /v1/ads/keywords | List Search keywords
 [**list_ad_sets**](AdCampaignsApi.md#list_ad_sets) | **GET** /v1/ads/ad-sets | List ad sets
 [**list_ads**](AdCampaignsApi.md#list_ads) | **GET** /v1/ads | List ads
 [**list_bid_strategies**](AdCampaignsApi.md#list_bid_strategies) | **GET** /v1/ads/bid-strategies | List Google Ads portfolio bid strategies
+[**list_campaign_assets**](AdCampaignsApi.md#list_campaign_assets) | **GET** /v1/ads/campaigns/{campaignId}/assets | List campaign assets
 [**list_campaign_negative_keyword_lists**](AdCampaignsApi.md#list_campaign_negative_keyword_lists) | **GET** /v1/ads/campaigns/{campaignId}/negative-keyword-lists | List campaign negative lists
 [**list_campaign_negative_keywords**](AdCampaignsApi.md#list_campaign_negative_keywords) | **GET** /v1/ads/campaigns/{campaignId}/negative-keywords | List campaign-level negative keywords
+[**remove_ad_group_assets**](AdCampaignsApi.md#remove_ad_group_assets) | **DELETE** /v1/ads/ad-sets/{adSetId}/assets | Remove ad-group assets
 [**remove_ad_keyword**](AdCampaignsApi.md#remove_ad_keyword) | **DELETE** /v1/ads/keywords/{keywordId} | Remove a Search keyword
+[**remove_campaign_assets**](AdCampaignsApi.md#remove_campaign_assets) | **DELETE** /v1/ads/campaigns/{campaignId}/assets | Remove campaign assets
 [**replace_campaign_negative_keyword_lists**](AdCampaignsApi.md#replace_campaign_negative_keyword_lists) | **PUT** /v1/ads/campaigns/{campaignId}/negative-keyword-lists | Replace campaign negative lists
 [**replace_campaign_negative_keywords**](AdCampaignsApi.md#replace_campaign_negative_keywords) | **PUT** /v1/ads/campaigns/{campaignId}/negative-keywords | Replace campaign-level negative keywords
 [**update_ad**](AdCampaignsApi.md#update_ad) | **PUT** /v1/ads/{adId} | Update ad
 [**update_ad_campaign**](AdCampaignsApi.md#update_ad_campaign) | **PUT** /v1/ads/campaigns/{campaignId} | Update a campaign
 [**update_ad_campaign_status**](AdCampaignsApi.md#update_ad_campaign_status) | **PUT** /v1/ads/campaigns/{campaignId}/status | Pause or resume a campaign
+[**update_ad_group_assets**](AdCampaignsApi.md#update_ad_group_assets) | **PUT** /v1/ads/ad-sets/{adSetId}/assets | Update ad-group assets
 [**update_ad_keyword**](AdCampaignsApi.md#update_ad_keyword) | **PATCH** /v1/ads/keywords/{keywordId} | Pause or enable a Search keyword
 [**update_ad_set**](AdCampaignsApi.md#update_ad_set) | **PUT** /v1/ads/ad-sets/{adSetId} | Update an ad set
 [**update_ad_set_status**](AdCampaignsApi.md#update_ad_set_status) | **PUT** /v1/ads/ad-sets/{adSetId}/status | Pause or resume a single ad set
 [**update_ad_status**](AdCampaignsApi.md#update_ad_status) | **PUT** /v1/ads/{adId}/status | Pause or resume a single ad
 [**update_bid_strategy**](AdCampaignsApi.md#update_bid_strategy) | **PATCH** /v1/ads/bid-strategies/{strategyId} | Update a Google Ads portfolio bid strategy
+[**update_campaign_assets**](AdCampaignsApi.md#update_campaign_assets) | **PUT** /v1/ads/campaigns/{campaignId}/assets | Update campaign assets
 [**update_campaign_targeting**](AdCampaignsApi.md#update_campaign_targeting) | **PUT** /v1/ads/campaigns/{campaignId}/targeting | Edit a Google campaign's device, location, or language targeting
 
 
@@ -76,19 +83,50 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## attach_campaign_assets
+## attach_ad_group_assets
 
-> models::AttachCampaignAssets201Response attach_campaign_assets(campaign_id, attach_campaign_assets_request)
-Attach extension assets to a Google Search campaign
+> models::AttachAdGroupAssets201Response attach_ad_group_assets(ad_set_id, attach_campaign_assets_request)
+Attach ad-group assets
 
-Attach sitelinks, callouts and/or structured snippets to an already-existing Google Search campaign. These are the same builders POST /v1/ads/create uses, but without rebuilding the hierarchy. At least one of sitelinks, callouts or structuredSnippets is required.  Google-only. Other platforms have no equivalent extension surface and return 501.  Approval status is Google-async; poll `asset.policy_summary` after review. Assets stay in the account library even if the campaign is later deleted.
+Creates and attaches sitelinks, callouts and structured snippets in one Google mutation.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**campaign_id** | **String** | Numeric Google platform campaign id. | [required] |
+**ad_set_id** | **String** | Numeric Google platform id. | [required] |
+**attach_campaign_assets_request** | [**AttachCampaignAssetsRequest**](AttachCampaignAssetsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::AttachAdGroupAssets201Response**](attachAdGroupAssets_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## attach_campaign_assets
+
+> models::AttachCampaignAssets201Response attach_campaign_assets(campaign_id, attach_campaign_assets_request)
+Attach campaign assets
+
+Creates and attaches sitelinks, callouts and structured snippets in one Google mutation.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Numeric Google platform id. | [required] |
 **attach_campaign_assets_request** | [**AttachCampaignAssetsRequest**](AttachCampaignAssetsRequest.md) |  | [required] |
 
 ### Return type
@@ -483,7 +521,7 @@ Name | Type | Description  | Required | Notes
 > models::GetAd200Response get_ad(ad_id, refresh_promotion)
 Get ad details
 
-Returns an ad with its creative, targeting, status, and performance metrics.  The `{adId}` path segment accepts any identifier dialect Zernio indexes for the ad: - the Zernio internal `_id` (24-char hex) - Meta's numeric `platformAdId` (the value shipped in `comment.received` webhooks as `comment.ad.id`) - the creative's `effective_object_story_id` (`{pageId}_{postId}` shape, Facebook side) - the creative's `effective_instagram_media_id` (Instagram side)  Any of the four resolve to the same ad. Caller doesn't need a translation step. By default, creative.promotion and creative.creativeFeatures contain stored requested settings, which do not confirm platform application. With `refreshPromotion=true`, Meta promotion metadata is read live and exposed as `ad.creative.promotion` with `promotionStatus`. Only `applied` confirms an offer; `not_returned` means the creative read succeeded without promotion metadata, and `unavailable` means it failed. 
+Returns an ad with its creative, targeting, status, and performance metrics. Google Search ads include current creative.headlines, creative.descriptions and creative.finalUrls, preserving pinnedField. Top-level cachedAt and stale report cache freshness. Google mutations invalidate this read. RSA enrichment requires a stored advertisingChannelType of SEARCH. Ads with an unknown or other channel return their stored details without a Google read. If RSA enrichment fails, the stored ad is returned with HTTP 200 and without cache metadata.  The `{adId}` path segment accepts any identifier dialect Zernio indexes for the ad: - the Zernio internal `_id` (24-char hex) - Meta's numeric `platformAdId` (the value shipped in `comment.received` webhooks as `comment.ad.id`) - the creative's `effective_object_story_id` (`{pageId}_{postId}` shape, Facebook side) - the creative's `effective_instagram_media_id` (Instagram side)  Any of the four resolve to the same ad. Caller doesn't need a translation step. By default, creative.promotion and creative.creativeFeatures contain stored requested settings, which do not confirm platform application. With `refreshPromotion=true`, Meta promotion metadata is read live and exposed as `ad.creative.promotion` with `promotionStatus`. Only `applied` confirms an offer; `not_returned` means the creative read succeeded without promotion metadata, and `unavailable` means it failed. 
 
 ### Parameters
 
@@ -728,6 +766,38 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_ad_group_assets
+
+> models::ListAdGroupAssets200Response list_ad_group_assets(ad_set_id, account_id, customer_id)
+List ad-group assets
+
+Lists directly attached Google assets. Fresh reads are cached for 10 minutes; exhausted quota may return the last successful read with stale=true. Inherited assets are not included.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**ad_set_id** | **String** | Numeric Google platform id. | [required] |
+**account_id** | **String** |  | [required] |
+**customer_id** | Option<**String**> |  |  |
+
+### Return type
+
+[**models::ListAdGroupAssets200Response**](listAdGroupAssets_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_ad_keywords
 
 > models::ListAdKeywords200Response list_ad_keywords(page, limit, account_id, ad_account_id, profile_id, campaign_id, ad_set_id, status, match_type, negative, search)
@@ -878,6 +948,38 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_campaign_assets
+
+> models::ListCampaignAssets200Response list_campaign_assets(campaign_id, account_id, customer_id)
+List campaign assets
+
+Lists directly attached Google assets. Fresh reads are cached for 10 minutes; exhausted quota may return the last successful read with stale=true. Inherited assets are not included.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Numeric Google platform id. | [required] |
+**account_id** | **String** |  | [required] |
+**customer_id** | Option<**String**> |  |  |
+
+### Return type
+
+[**models::ListCampaignAssets200Response**](listCampaignAssets_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_campaign_negative_keyword_lists
 
 > models::ListAdNegativeKeywordLists200Response list_campaign_negative_keyword_lists(campaign_id, platform)
@@ -940,6 +1042,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## remove_ad_group_assets
+
+> models::RemoveCampaignAssets200Response remove_ad_group_assets(ad_set_id, remove_ad_group_assets_request)
+Remove ad-group assets
+
+Removes the specified attachments only. Google assets cannot be deleted. Other attachments remain. assetResourceNames is retained for compatibility.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**ad_set_id** | **String** | Numeric Google platform id. | [required] |
+**remove_ad_group_assets_request** | [**RemoveAdGroupAssetsRequest**](RemoveAdGroupAssetsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::RemoveCampaignAssets200Response**](removeCampaignAssets_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## remove_ad_keyword
 
 > models::RemoveAdKeyword200Response remove_ad_keyword(keyword_id)
@@ -965,6 +1098,37 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## remove_campaign_assets
+
+> models::RemoveCampaignAssets200Response remove_campaign_assets(campaign_id, remove_campaign_assets_request)
+Remove campaign assets
+
+Removes the specified attachments only. Google assets cannot be deleted. Other attachments remain. assetResourceNames is retained for compatibility.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Numeric Google platform id. | [required] |
+**remove_campaign_assets_request** | [**RemoveCampaignAssetsRequest**](RemoveCampaignAssetsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::RemoveCampaignAssets200Response**](removeCampaignAssets_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1037,7 +1201,7 @@ Name | Type | Description  | Required | Notes
 > models::UpdateAd200Response update_ad(ad_id, update_ad_request)
 Update ad
 
-Patch one or more fields on an ad. Status, budget, targeting, and creative changes are propagated to the platform.  Per-platform support: - **Meta** (Facebook + Instagram): all fields supported. - **TikTok**: status, budget, targeting (via `/v2/adgroup/update/`), and creative   (via `/v2/ad/update/` patch-style: `headline` is ignored, `body` becomes `ad_text`). - **Google**: status, budget, KEYWORD edits via `targeting.keywords` /   `targeting.negativeKeywords`, and DEVICE bid adjustments via `targeting.devices`.   Each list you send becomes the FULL new set of its kind (criteria not in the   list are removed); a kind left out is untouched. Any other `targeting` field   returns 400: Google cannot mutate broad targeting post-create without recreating   the campaign. `creative` returns 501. - **LinkedIn**: status, budget, targeting (countries or regions, excludedLocations (countries),   the B2B facets, and audience segments; applied to the LinkedIn Campaign via   PARTIAL_UPDATE, and REPLACES the campaign's entire targetingCriteria, not a merge),   and creative (uploads new media, creates a replacement inline creative on the same   campaign, pauses the old one). - **Pinterest / X / OpenAI Ads**: status + budget only. Sending   `targeting` or `creative` returns 501 with code `unsupported_platform_operation`.   OpenAI Ads budget is lifetime-only (see `budget.type` below).  **Google keyword replacement:** These edits affect the ad's entire ad group, including sibling ads. Positive (`targeting.keywords`) and negative (`targeting.negativeKeywords`) sets are independent: omit a field to leave that set unchanged, or send `[]` to remove every keyword of that kind.  Zernio compares each supplied set with Google's live criteria by case-insensitive keyword text and match type. A matching criterion is left untouched, retaining its criterion ID, enabled/paused status, keyword-level bid overrides, labels, and criterion-associated history/statistics. Zernio does not reset its quality score; Google continues to calculate scores and statistics normally. Text comparison does not trim whitespace.  A bare string or an object without `matchType` means `broad`, not the existing criterion's match type. For example, resending an existing `{ \"text\": \"plumber\", \"matchType\": \"exact\" }` preserves it; sending `\"plumber\"` instead removes that EXACT criterion and requests a BROAD one. Changing text or match type removes criteria no longer requested and creates any missing criteria. New criteria get new IDs and do not inherit removed criteria's bid overrides, labels, or history. Historical reporting for a removed criterion is not transferred to its replacement.  To add keywords without replacing a set, use [POST /v1/ads/keywords](https://docs.zernio.com/ad-campaigns/add-ad-keywords). Use `PATCH /v1/ads/keywords/{keywordId}` to pause/enable one keyword, or `DELETE /v1/ads/keywords/{keywordId}` to remove it. 
+Patch one or more fields on an ad. Status, budget, targeting, and creative changes are propagated to the platform.  Per-platform support: - **Meta** (Facebook + Instagram): all fields supported. - **TikTok**: status, budget, targeting (via `/v2/adgroup/update/`), and creative   (via `/v2/ad/update/` patch-style: `headline` is ignored, `body` becomes `ad_text`). - **Google**: status, budget, KEYWORD edits via `targeting.keywords` /   `targeting.negativeKeywords`, and DEVICE bid adjustments via `targeting.devices`.   Each list you send becomes the FULL new set of its kind (criteria not in the   list are removed); a kind left out is untouched. Any other `targeting` field   returns 400: Google cannot mutate broad targeting post-create without recreating   the campaign. RSA text updates use top-level `headlines`, `descriptions` and `finalUrls`.   Each supplied array replaces the full list; omit a field to preserve it. Use 3-15 headlines   (1-30 characters) and 2-4 descriptions (1-90 characters). Omit an asset to remove it;   omit pinnedField on an included asset to unpin it. Updates do not pad or truncate text.   The legacy creative fields remain unsupported for Google. - **LinkedIn**: status, budget, targeting (countries or regions, excludedLocations (countries),   the B2B facets, and audience segments; applied to the LinkedIn Campaign via   PARTIAL_UPDATE, and REPLACES the campaign's entire targetingCriteria, not a merge),   and creative (uploads new media, creates a replacement inline creative on the same   campaign, pauses the old one). - **Pinterest / X / OpenAI Ads**: status + budget only. Sending   `targeting` or `creative` returns 501 with code `unsupported_platform_operation`.   OpenAI Ads budget is lifetime-only (see `budget.type` below).  **Google keyword replacement:** These edits affect the ad's entire ad group, including sibling ads. Positive (`targeting.keywords`) and negative (`targeting.negativeKeywords`) sets are independent: omit a field to leave that set unchanged, or send `[]` to remove every keyword of that kind.  Zernio compares each supplied set with Google's live criteria by case-insensitive keyword text and match type. A matching criterion is left untouched, retaining its criterion ID, enabled/paused status, keyword-level bid overrides, labels, and criterion-associated history/statistics. Zernio does not reset its quality score; Google continues to calculate scores and statistics normally. Text comparison does not trim whitespace.  A bare string or an object without `matchType` means `broad`, not the existing criterion's match type. For example, resending an existing `{ \"text\": \"plumber\", \"matchType\": \"exact\" }` preserves it; sending `\"plumber\"` instead removes that EXACT criterion and requests a BROAD one. Changing text or match type removes criteria no longer requested and creates any missing criteria. New criteria get new IDs and do not inherit removed criteria's bid overrides, labels, or history. Historical reporting for a removed criterion is not transferred to its replacement.  To add keywords without replacing a set, use [POST /v1/ads/keywords](https://docs.zernio.com/ad-campaigns/add-ad-keywords). Use `PATCH /v1/ads/keywords/{keywordId}` to pause/enable one keyword, or `DELETE /v1/ads/keywords/{keywordId}` to remove it. 
 
 ### Parameters
 
@@ -1112,6 +1276,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UpdateAdCampaignStatus200Response**](updateAdCampaignStatus_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_ad_group_assets
+
+> models::UpdateCampaignAssets200Response update_ad_group_assets(ad_set_id, update_campaign_assets_request)
+Update ad-group assets
+
+Edits existing Google assets in place. Send updates with assetResourceName and the fields to change. An asset is shared: changes affect every attachment using it. Omitted fields stay unchanged. The operation consumes the Google operations budget and invalidates affected cached lists.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**ad_set_id** | **String** | Numeric Google platform id. | [required] |
+**update_campaign_assets_request** | [**UpdateCampaignAssetsRequest**](UpdateCampaignAssetsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateCampaignAssets200Response**](updateCampaignAssets_200_response.md)
 
 ### Authorization
 
@@ -1267,6 +1462,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UpdateBidStrategy200Response**](updateBidStrategy_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_campaign_assets
+
+> models::UpdateCampaignAssets200Response update_campaign_assets(campaign_id, update_campaign_assets_request)
+Update campaign assets
+
+Edits existing Google assets in place. Send updates with assetResourceName and the fields to change. An asset is shared: changes affect every attachment using it. Omitted fields stay unchanged. The operation consumes the Google operations budget and invalidates affected cached lists.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Numeric Google platform id. | [required] |
+**update_campaign_assets_request** | [**UpdateCampaignAssetsRequest**](UpdateCampaignAssetsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateCampaignAssets200Response**](updateCampaignAssets_200_response.md)
 
 ### Authorization
 

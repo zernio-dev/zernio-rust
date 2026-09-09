@@ -13,6 +13,15 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAdRequest {
+    /// Google RSA only. Replaces the complete headline list. No padding or truncation on update.
+    #[serde(rename = "headlines", skip_serializing_if = "Option::is_none")]
+    pub headlines: Option<Vec<models::GoogleRsaHeadline>>,
+    /// Google RSA only. Replaces the complete description list. No padding or truncation on update.
+    #[serde(rename = "descriptions", skip_serializing_if = "Option::is_none")]
+    pub descriptions: Option<Vec<models::GoogleRsaDescription>>,
+    /// Google RSA only. Replaces final URLs. Omitted lists stay unchanged.
+    #[serde(rename = "finalUrls", skip_serializing_if = "Option::is_none")]
+    pub final_urls: Option<Vec<String>>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
     #[serde(rename = "budget", skip_serializing_if = "Option::is_none")]
@@ -29,6 +38,9 @@ pub struct UpdateAdRequest {
 impl UpdateAdRequest {
     pub fn new() -> UpdateAdRequest {
         UpdateAdRequest {
+            headlines: None,
+            descriptions: None,
+            final_urls: None,
             status: None,
             budget: None,
             targeting: None,

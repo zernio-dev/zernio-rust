@@ -13,13 +13,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RemoveAccountCalloutRequest {
-    /// Zernio SocialAccount id owning the Google Ads connection.
+    /// Zernio Google Ads connection id.
     #[serde(rename = "accountId")]
     pub account_id: String,
-    /// Numeric Google Ads customer id. Only required when the connection has more than one.
+    /// Google customer id without dashes. Required when the connection has multiple customers.
     #[serde(rename = "customerId", skip_serializing_if = "Option::is_none")]
     pub customer_id: Option<String>,
-    /// Numeric asset id from GET /v1/ads/accounts/callouts.
     #[serde(rename = "assetId")]
     pub asset_id: String,
 }
