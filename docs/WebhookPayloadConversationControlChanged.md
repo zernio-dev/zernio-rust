@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | Stable webhook event ID | 
 **event** | **Event** |  (enum: conversation.control_changed) | 
-**conversation** | [**models::WebhookPayloadConversationStartedConversation**](WebhookPayloadConversationStartedConversation.md) |  | 
+**conversation** | [**models::InboxWebhookConversationDetail**](InboxWebhookConversationDetail.md) |  | 
 **account** | [**models::InboxWebhookAccount**](InboxWebhookAccount.md) |  | 
 **control** | [**models::WebhookPayloadConversationControlChangedControl**](WebhookPayloadConversationControlChangedControl.md) |  | 
 **changed_at** | **String** |  | 

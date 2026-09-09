@@ -243,7 +243,6 @@ docs/ConnectedAccount.md
 docs/ConnectedApp.md
 docs/ConnectedAppsApi.md
 docs/ContactsApi.md
-docs/Conversation.md
 docs/ConversionAction.md
 docs/ConversionActionTagSnippetsInner.md
 docs/ConversionDestination.md
@@ -930,6 +929,7 @@ docs/InboxMessageEditAttachment.md
 docs/InboxMessageEditHistoryEntry.md
 docs/InboxWebhookAccount.md
 docs/InboxWebhookConversation.md
+docs/InboxWebhookConversationDetail.md
 docs/InboxWebhookMessage.md
 docs/InboxWebhookMessageAttachmentsInner.md
 docs/InboxWebhookMessageSender.md
@@ -1872,7 +1872,6 @@ docs/WebhookPayloadCommentPost.md
 docs/WebhookPayloadConversationControlChanged.md
 docs/WebhookPayloadConversationControlChangedControl.md
 docs/WebhookPayloadConversationStarted.md
-docs/WebhookPayloadConversationStartedConversation.md
 docs/WebhookPayloadExternalPost.md
 docs/WebhookPayloadLead.md
 docs/WebhookPayloadLeadAccount.md
@@ -2290,7 +2289,6 @@ src/models/connect_whats_app_embedded_signup_request.rs
 src/models/connected.rs
 src/models/connected_account.rs
 src/models/connected_app.rs
-src/models/conversation.rs
 src/models/conversion_action.rs
 src/models/conversion_action_tag_snippets_inner.rs
 src/models/conversion_destination.rs
@@ -2965,6 +2963,7 @@ src/models/inbox_message_edit_attachment.rs
 src/models/inbox_message_edit_history_entry.rs
 src/models/inbox_webhook_account.rs
 src/models/inbox_webhook_conversation.rs
+src/models/inbox_webhook_conversation_detail.rs
 src/models/inbox_webhook_message.rs
 src/models/inbox_webhook_message_attachments_inner.rs
 src/models/inbox_webhook_message_sender.rs
@@ -3881,7 +3880,6 @@ src/models/webhook_payload_comment_post.rs
 src/models/webhook_payload_conversation_control_changed.rs
 src/models/webhook_payload_conversation_control_changed_control.rs
 src/models/webhook_payload_conversation_started.rs
-src/models/webhook_payload_conversation_started_conversation.rs
 src/models/webhook_payload_external_post.rs
 src/models/webhook_payload_lead.rs
 src/models/webhook_payload_lead_account.rs

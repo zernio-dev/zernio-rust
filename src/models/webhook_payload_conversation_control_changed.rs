@@ -20,7 +20,7 @@ pub struct WebhookPayloadConversationControlChanged {
     #[serde(rename = "event")]
     pub event: Event,
     #[serde(rename = "conversation")]
-    pub conversation: Box<models::WebhookPayloadConversationStartedConversation>,
+    pub conversation: Box<models::InboxWebhookConversationDetail>,
     #[serde(rename = "account")]
     pub account: Box<models::InboxWebhookAccount>,
     #[serde(rename = "control")]
@@ -37,7 +37,7 @@ impl WebhookPayloadConversationControlChanged {
     pub fn new(
         id: String,
         event: Event,
-        conversation: models::WebhookPayloadConversationStartedConversation,
+        conversation: models::InboxWebhookConversationDetail,
         account: models::InboxWebhookAccount,
         control: models::WebhookPayloadConversationControlChangedControl,
         changed_at: String,
