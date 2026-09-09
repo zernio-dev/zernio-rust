@@ -79,7 +79,7 @@ pub struct TargetingSpec {
     /// LinkedIn B2B only.
     #[serde(rename = "jobFunctions", skip_serializing_if = "Option::is_none")]
     pub job_functions: Option<Vec<String>>,
-    /// Platform audience IDs to include, as returned by GET /v1/ads/audiences (Meta custom audience ids, TikTok audience ids, Pinterest customer list ids, LinkedIn segment ids (bare, urn:li:adSegment or urn:li:dmpSegment forms accepted), Google user list ids, X custom audience ids). Not supported on OpenAI (400).
+    /// Platform audience IDs to include, as returned by GET /v1/ads/audiences (Meta custom audience ids, TikTok audience ids, Pinterest customer list ids, LinkedIn segment ids (the platformAudienceId from GET /v1/ads/audiences; Zernio resolves it to the targetable LinkedIn ad segment, an unknown id returns 400), Google user list ids, X custom audience ids). Not supported on OpenAI (400).
     #[serde(rename = "audienceInclude", skip_serializing_if = "Option::is_none")]
     pub audience_include: Option<Vec<String>>,
     /// Platform audience IDs to exclude; same ID formats as audienceInclude. Not supported on OpenAI (400).

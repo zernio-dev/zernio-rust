@@ -25,7 +25,7 @@ Name | Type | Description | Notes
 **company_sizes** | Option<**Vec<String>**> | LinkedIn B2B only. | [optional]
 **seniorities** | Option<**Vec<String>**> | LinkedIn B2B only. | [optional]
 **job_functions** | Option<**Vec<String>**> | LinkedIn B2B only. | [optional]
-**audience_include** | Option<**Vec<String>**> | Platform audience IDs to include, as returned by GET /v1/ads/audiences (Meta custom audience ids, TikTok audience ids, Pinterest customer list ids, LinkedIn segment ids (bare, urn:li:adSegment or urn:li:dmpSegment forms accepted), Google user list ids, X custom audience ids). Not supported on OpenAI (400). | [optional]
+**audience_include** | Option<**Vec<String>**> | Platform audience IDs to include, as returned by GET /v1/ads/audiences (Meta custom audience ids, TikTok audience ids, Pinterest customer list ids, LinkedIn segment ids (the platformAudienceId from GET /v1/ads/audiences; Zernio resolves it to the targetable LinkedIn ad segment, an unknown id returns 400), Google user list ids, X custom audience ids). Not supported on OpenAI (400). | [optional]
 **audience_exclude** | Option<**Vec<String>**> | Platform audience IDs to exclude; same ID formats as audienceInclude. Not supported on OpenAI (400). | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
