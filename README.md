@@ -322,6 +322,7 @@ Class | Method | HTTP request | Description
 *ConnectApi* | [**get_shopify_connect_url**](docs/ConnectApi.md#get_shopify_connect_url) | **GET** /v1/connect/shopify | Get Shopify OAuth connect URL
 *ConnectApi* | [**get_subreddit_rules**](docs/ConnectApi.md#get_subreddit_rules) | **GET** /v1/accounts/{accountId}/reddit-subreddits/{subreddit}/rules | Get subreddit rules
 *ConnectApi* | [**get_telegram_connect_status**](docs/ConnectApi.md#get_telegram_connect_status) | **GET** /v1/connect/telegram | Generate Telegram code
+*ConnectApi* | [**get_whats_app_sdk_config**](docs/ConnectApi.md#get_whats_app_sdk_config) | **GET** /v1/connect/whatsapp/sdk-config | Get Embedded Signup SDK config
 *ConnectApi* | [**get_youtube_captions**](docs/ConnectApi.md#get_youtube_captions) | **GET** /v1/accounts/{accountId}/youtube-captions | Get a YouTube video transcript
 *ConnectApi* | [**get_youtube_playlists**](docs/ConnectApi.md#get_youtube_playlists) | **GET** /v1/accounts/{accountId}/youtube-playlists | List YouTube playlists
 *ConnectApi* | [**handle_o_auth_callback**](docs/ConnectApi.md#handle_o_auth_callback) | **POST** /v1/connect/{platform} | Complete OAuth callback
@@ -941,6 +942,8 @@ Class | Method | HTTP request | Description
  - [ConnectWhatsAppCredentials200Response](docs/ConnectWhatsAppCredentials200Response.md)
  - [ConnectWhatsAppCredentials200ResponseAccount](docs/ConnectWhatsAppCredentials200ResponseAccount.md)
  - [ConnectWhatsAppCredentialsRequest](docs/ConnectWhatsAppCredentialsRequest.md)
+ - [ConnectWhatsAppEmbeddedSignup200Response](docs/ConnectWhatsAppEmbeddedSignup200Response.md)
+ - [ConnectWhatsAppEmbeddedSignup200ResponseAccount](docs/ConnectWhatsAppEmbeddedSignup200ResponseAccount.md)
  - [ConnectWhatsAppEmbeddedSignupRequest](docs/ConnectWhatsAppEmbeddedSignupRequest.md)
  - [Connected](docs/Connected.md)
  - [ConnectedAccount](docs/ConnectedAccount.md)
@@ -1577,6 +1580,8 @@ Class | Method | HTTP request | Description
  - [GetWhatsAppNumberKycForm200Response](docs/GetWhatsAppNumberKycForm200Response.md)
  - [GetWhatsAppNumberKycForm200ResponseFieldsInner](docs/GetWhatsAppNumberKycForm200ResponseFieldsInner.md)
  - [GetWhatsAppNumberRemediation200Response](docs/GetWhatsAppNumberRemediation200Response.md)
+ - [GetWhatsAppSdkConfig200Response](docs/GetWhatsAppSdkConfig200Response.md)
+ - [GetWhatsAppSdkConfig200ResponseBranding](docs/GetWhatsAppSdkConfig200ResponseBranding.md)
  - [GetWhatsAppTemplate200Response](docs/GetWhatsAppTemplate200Response.md)
  - [GetWhatsAppTemplate200ResponseTemplate](docs/GetWhatsAppTemplate200ResponseTemplate.md)
  - [GetWhatsAppTemplate409Response](docs/GetWhatsAppTemplate409Response.md)

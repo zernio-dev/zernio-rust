@@ -235,6 +235,8 @@ docs/ConnectSlackChannelRequest.md
 docs/ConnectWhatsAppCredentials200Response.md
 docs/ConnectWhatsAppCredentials200ResponseAccount.md
 docs/ConnectWhatsAppCredentialsRequest.md
+docs/ConnectWhatsAppEmbeddedSignup200Response.md
+docs/ConnectWhatsAppEmbeddedSignup200ResponseAccount.md
 docs/ConnectWhatsAppEmbeddedSignupRequest.md
 docs/Connected.md
 docs/ConnectedAccount.md
@@ -876,6 +878,8 @@ docs/GetWhatsAppNumberInfo200ResponseWaba.md
 docs/GetWhatsAppNumberKycForm200Response.md
 docs/GetWhatsAppNumberKycForm200ResponseFieldsInner.md
 docs/GetWhatsAppNumberRemediation200Response.md
+docs/GetWhatsAppSdkConfig200Response.md
+docs/GetWhatsAppSdkConfig200ResponseBranding.md
 docs/GetWhatsAppTemplate200Response.md
 docs/GetWhatsAppTemplate200ResponseTemplate.md
 docs/GetWhatsAppTemplate409Response.md
@@ -2266,6 +2270,8 @@ src/models/connect_slack_channel_request.rs
 src/models/connect_whats_app_credentials_200_response.rs
 src/models/connect_whats_app_credentials_200_response_account.rs
 src/models/connect_whats_app_credentials_request.rs
+src/models/connect_whats_app_embedded_signup_200_response.rs
+src/models/connect_whats_app_embedded_signup_200_response_account.rs
 src/models/connect_whats_app_embedded_signup_request.rs
 src/models/connected.rs
 src/models/connected_account.rs
@@ -2902,6 +2908,8 @@ src/models/get_whats_app_number_info_200_response_waba.rs
 src/models/get_whats_app_number_kyc_form_200_response.rs
 src/models/get_whats_app_number_kyc_form_200_response_fields_inner.rs
 src/models/get_whats_app_number_remediation_200_response.rs
+src/models/get_whats_app_sdk_config_200_response.rs
+src/models/get_whats_app_sdk_config_200_response_branding.rs
 src/models/get_whats_app_template_200_response.rs
 src/models/get_whats_app_template_200_response_template.rs
 src/models/get_whats_app_template_409_response.rs

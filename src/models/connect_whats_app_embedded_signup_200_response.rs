@@ -12,27 +12,22 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetWhatsAppSdkConfig200Response {
-    /// Meta app id
-    #[serde(rename = "appId")]
-    pub app_id: String,
-    /// Embedded Signup configuration id
-    #[serde(rename = "configId")]
-    pub config_id: String,
-    #[serde(rename = "branding")]
-    pub branding: Box<models::GetWhatsAppSdkConfig200ResponseBranding>,
+pub struct ConnectWhatsAppEmbeddedSignup200Response {
+    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
+    pub message: Option<String>,
+    #[serde(rename = "account", skip_serializing_if = "Option::is_none")]
+    pub account: Option<Box<models::ConnectWhatsAppEmbeddedSignup200ResponseAccount>>,
+    /// Present only when `redirectUrl` was sent; also present on error responses.
+    #[serde(rename = "redirectUrl", skip_serializing_if = "Option::is_none")]
+    pub redirect_url: Option<String>,
 }
 
-impl GetWhatsAppSdkConfig200Response {
-    pub fn new(
-        app_id: String,
-        config_id: String,
-        branding: models::GetWhatsAppSdkConfig200ResponseBranding,
-    ) -> GetWhatsAppSdkConfig200Response {
-        GetWhatsAppSdkConfig200Response {
-            app_id,
-            config_id,
-            branding: Box::new(branding),
+impl ConnectWhatsAppEmbeddedSignup200Response {
+    pub fn new() -> ConnectWhatsAppEmbeddedSignup200Response {
+        ConnectWhatsAppEmbeddedSignup200Response {
+            message: None,
+            account: None,
+            redirect_url: None,
         }
     }
 }

@@ -1,12 +1,12 @@
-# GetWhatsAppSdkConfig200Response
+# GetWhatsAppSdkConfig200ResponseBranding
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**app_id** | **String** | Meta app id | 
-**config_id** | **String** | Embedded Signup configuration id | 
-**branding** | [**models::GetWhatsAppSdkConfig200ResponseBranding**](GetWhatsAppSdkConfig200ResponseBranding.md) |  | 
+**brand_name** | Option<**String**> |  | [optional]
+**primary_color** | Option<**String**> | Hex colour, #RRGGBB | [optional]
+**language** | Option<**Language**> |  (enum: en, es, ) | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

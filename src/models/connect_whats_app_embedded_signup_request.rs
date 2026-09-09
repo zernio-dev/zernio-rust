@@ -32,6 +32,12 @@ pub struct ConnectWhatsAppEmbeddedSignupRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub expected_phone_number: Option<String>,
+    /// Hosted signup page only. When present, the response also carries `redirectUrl`, the URL the user should land on, with the outcome mapped exactly like the redirect flow (success params, or `error` and `platform` with the same values). Must be an absolute http(s) URL or a custom app scheme.
+    #[serde(rename = "redirectUrl", skip_serializing_if = "Option::is_none")]
+    pub redirect_url: Option<String>,
+    /// Hosted signup page only. Append the connect token to the success redirect, as the redirect flow does for API-key callers.
+    #[serde(rename = "echoConnectToken", skip_serializing_if = "Option::is_none")]
+    pub echo_connect_token: Option<bool>,
 }
 
 impl ConnectWhatsAppEmbeddedSignupRequest {
@@ -43,6 +49,8 @@ impl ConnectWhatsAppEmbeddedSignupRequest {
             phone_number_id: None,
             is_coexistence: None,
             expected_phone_number: None,
+            redirect_url: None,
+            echo_connect_token: None,
         }
     }
 }

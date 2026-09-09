@@ -275,6 +275,14 @@ pub enum GetTelegramConnectStatusError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_whats_app_sdk_config`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetWhatsAppSdkConfigError {
+    Status401(models::InlineObject1),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_youtube_captions`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -1165,14 +1173,19 @@ pub async fn connect_whats_app_credentials(
     }
 }
 
-/// Exchange the authorization code Meta Embedded Signup returns to your browser SDK. This is the headless completion path for WhatsApp: the code never passes through a redirect_uri, so POST /v1/connect/{platform} cannot accept it.
+/// Exchange the authorization code Meta's Embedded Signup popup returned. This is the call the Zernio-hosted signup page makes after the popup closes (`GET /v1/connect/whatsapp?signup=hosted`), sending the `wabaId` and `phoneNumberId` Meta reported so exactly the chosen number is connected; when both are omitted the first number the token can see is used. The code never passes through a `redirect_uri`, so `POST /v1/connect/{platform}` cannot accept it. Authenticates with an API key, or with the connect token the hosted flow issues (`X-Connect-Token` header).
 pub async fn connect_whats_app_embedded_signup(
     configuration: &configuration::Configuration,
     connect_whats_app_embedded_signup_request: models::ConnectWhatsAppEmbeddedSignupRequest,
-) -> Result<(), Error<ConnectWhatsAppEmbeddedSignupError>> {
+    x_connect_token: Option<&str>,
+) -> Result<
+    models::ConnectWhatsAppEmbeddedSignup200Response,
+    Error<ConnectWhatsAppEmbeddedSignupError>,
+> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_connect_whats_app_embedded_signup_request =
         connect_whats_app_embedded_signup_request;
+    let p_header_x_connect_token = x_connect_token;
 
     let uri_str = format!(
         "{}/v1/connect/whatsapp/embedded-signup",
@@ -1185,6 +1198,9 @@ pub async fn connect_whats_app_embedded_signup(
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
+    if let Some(param_value) = p_header_x_connect_token {
+        req_builder = req_builder.header("X-Connect-Token", param_value.to_string());
+    }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -1194,9 +1210,20 @@ pub async fn connect_whats_app_embedded_signup(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ConnectWhatsAppEmbeddedSignup200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ConnectWhatsAppEmbeddedSignup200Response`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<ConnectWhatsAppEmbeddedSignupError> =
@@ -1274,6 +1301,10 @@ pub async fn get_connect_url(
     headless: Option<bool>,
     login_method: Option<&str>,
     onboarding: Option<&str>,
+    signup: Option<&str>,
+    brand_name: Option<&str>,
+    primary_color: Option<&str>,
+    language: Option<&str>,
 ) -> Result<models::GetConnectUrl200Response, Error<GetConnectUrlError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_platform = platform;
@@ -1282,6 +1313,10 @@ pub async fn get_connect_url(
     let p_query_headless = headless;
     let p_query_login_method = login_method;
     let p_query_onboarding = onboarding;
+    let p_query_signup = signup;
+    let p_query_brand_name = brand_name;
+    let p_query_primary_color = primary_color;
+    let p_query_language = language;
 
     let uri_str = format!(
         "{}/v1/connect/{platform}",
@@ -1302,6 +1337,18 @@ pub async fn get_connect_url(
     }
     if let Some(ref param_value) = p_query_onboarding {
         req_builder = req_builder.query(&[("onboarding", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_signup {
+        req_builder = req_builder.query(&[("signup", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_brand_name {
+        req_builder = req_builder.query(&[("brandName", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_primary_color {
+        req_builder = req_builder.query(&[("primaryColor", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_language {
+        req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
@@ -1866,6 +1913,56 @@ pub async fn get_telegram_connect_status(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTelegramConnectStatusError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// The Meta app id and Embedded Signup configuration id the Zernio-hosted signup page uses to open Meta's popup. Integrators do not need this endpoint: start the hosted flow with `GET /v1/connect/whatsapp?signup=hosted` and send the user to the returned `authUrl`. Authenticates with an API key or with the connect token the hosted flow issues (`X-Connect-Token` header).
+pub async fn get_whats_app_sdk_config(
+    configuration: &configuration::Configuration,
+    x_connect_token: Option<&str>,
+) -> Result<models::GetWhatsAppSdkConfig200Response, Error<GetWhatsAppSdkConfigError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_header_x_connect_token = x_connect_token;
+
+    let uri_str = format!("{}/v1/connect/whatsapp/sdk-config", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_x_connect_token {
+        req_builder = req_builder.header("X-Connect-Token", param_value.to_string());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetWhatsAppSdkConfig200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetWhatsAppSdkConfig200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetWhatsAppSdkConfigError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
