@@ -5173,7 +5173,6 @@ components:
         url:
           type: string
           format: uri
-          description: 'A media item with a null, missing or empty url is dropped from non-draft posts (drafts keep it as a pending-upload placeholder).'
         title:
           type: string
           description: Optional title for the media item. Used as the document title for LinkedIn PDF/carousel posts. If omitted, falls back to the post title, then the filename.
