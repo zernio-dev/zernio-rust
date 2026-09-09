@@ -138,7 +138,7 @@ pub enum SendInboxMessageError {
     Status400(models::SendInboxMessage400Response),
     Status500(),
     Status401(models::InlineObject1),
-    Status403(),
+    Status403(models::ErrorResponse),
     Status409(),
     Status422(),
     UnknownValue(serde_json::Value),

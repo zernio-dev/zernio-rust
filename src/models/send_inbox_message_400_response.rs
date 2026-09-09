@@ -15,9 +15,15 @@ use serde::{Deserialize, Serialize};
 pub struct SendInboxMessage400Response {
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
     pub error: Option<String>,
-    /// Stable machine-readable reason. PLATFORM_LIMITATION covers a capability the platform does not offer (e.g. Bluesky and Reddit DMs reject media); MISSING_PARTICIPANT means the stored conversation has no recipient to send to; DIRECT_SEND_NOT_ELIGIBLE and DIRECT_SEND_BLOCKED mean the WhatsApp Business Account needs Meta to grant or restore Direct Send access; DIRECT_SEND_LIMITED is temporary, Meta lifts it on its own.
+    /// Present on Meta pass-through rejections: platform_error when Meta rejected the send (see platform/platformError below), invalid_request_error for validation failures.
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<Type>,
+    /// Stable machine-readable reason. PLATFORM_LIMITATION covers a capability the platform does not offer (e.g. Bluesky and Reddit DMs reject media); MISSING_PARTICIPANT means the stored conversation has no recipient to send to; DIRECT_SEND_NOT_ELIGIBLE and DIRECT_SEND_BLOCKED mean the WhatsApp Business Account needs Meta to grant or restore Direct Send access; DIRECT_SEND_LIMITED is temporary, Meta lifts it on its own; platform_api_error means Meta itself rejected the send (see platformError).
     #[serde(rename = "code", skip_serializing_if = "Option::is_none")]
     pub code: Option<Code>,
+    /// Present alongside code platform_api_error. The platform that rejected the send (e.g. instagram, facebook).
+    #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
+    pub platform: Option<String>,
     #[serde(rename = "platformError", skip_serializing_if = "Option::is_none")]
     pub platform_error: Option<Box<models::SendInboxMessage400ResponsePlatformError>>,
 }
@@ -26,12 +32,28 @@ impl SendInboxMessage400Response {
     pub fn new() -> SendInboxMessage400Response {
         SendInboxMessage400Response {
             error: None,
+            r#type: None,
             code: None,
+            platform: None,
             platform_error: None,
         }
     }
 }
-/// Stable machine-readable reason. PLATFORM_LIMITATION covers a capability the platform does not offer (e.g. Bluesky and Reddit DMs reject media); MISSING_PARTICIPANT means the stored conversation has no recipient to send to; DIRECT_SEND_NOT_ELIGIBLE and DIRECT_SEND_BLOCKED mean the WhatsApp Business Account needs Meta to grant or restore Direct Send access; DIRECT_SEND_LIMITED is temporary, Meta lifts it on its own.
+/// Present on Meta pass-through rejections: platform_error when Meta rejected the send (see platform/platformError below), invalid_request_error for validation failures.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "platform_error")]
+    PlatformError,
+    #[serde(rename = "invalid_request_error")]
+    InvalidRequestError,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::PlatformError
+    }
+}
+/// Stable machine-readable reason. PLATFORM_LIMITATION covers a capability the platform does not offer (e.g. Bluesky and Reddit DMs reject media); MISSING_PARTICIPANT means the stored conversation has no recipient to send to; DIRECT_SEND_NOT_ELIGIBLE and DIRECT_SEND_BLOCKED mean the WhatsApp Business Account needs Meta to grant or restore Direct Send access; DIRECT_SEND_LIMITED is temporary, Meta lifts it on its own; platform_api_error means Meta itself rejected the send (see platformError).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Code {
     #[serde(rename = "PLATFORM_LIMITATION")]
@@ -44,6 +66,8 @@ pub enum Code {
     DirectSendLimited,
     #[serde(rename = "DIRECT_SEND_BLOCKED")]
     DirectSendBlocked,
+    #[serde(rename = "platform_api_error")]
+    PlatformApiError,
 }
 
 impl Default for Code {
