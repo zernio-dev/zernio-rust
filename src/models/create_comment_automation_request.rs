@@ -24,7 +24,7 @@ pub struct CreateCommentAutomationRequest {
     /// Platform media/post ID (or story media id when trigger=story_reply). Omit for an account-wide (any-post / any-story) automation.
     #[serde(rename = "platformPostId", skip_serializing_if = "Option::is_none")]
     pub platform_post_id: Option<String>,
-    /// Zernio post ID. Required only when also targeting a specific post via platformPostId.
+    /// Zernio post ID. Optional and never required. Use it INSTEAD of platformPostId to bind a per-post automation to a not-yet-published Zernio post: the automation stays pending and arms itself when that post publishes. For a post already live on the platform, pass platformPostId alone and omit this.
     #[serde(rename = "postId", skip_serializing_if = "Option::is_none")]
     pub post_id: Option<String>,
     /// Post content snippet for display

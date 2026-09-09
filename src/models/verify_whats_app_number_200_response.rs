@@ -12,33 +12,21 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct RequestWhatsAppVerificationCodeRequest {
-    #[serde(rename = "method", skip_serializing_if = "Option::is_none")]
-    pub method: Option<Method>,
-    /// Meta locale code for the verification message, e.g. en_US.
-    #[serde(rename = "language", skip_serializing_if = "Option::is_none")]
-    pub language: Option<String>,
+pub struct VerifyWhatsAppNumber200Response {
+    #[serde(rename = "verified", skip_serializing_if = "Option::is_none")]
+    pub verified: Option<bool>,
+    #[serde(rename = "accountId", skip_serializing_if = "Option::is_none")]
+    pub account_id: Option<String>,
+    #[serde(rename = "phoneNumberId", skip_serializing_if = "Option::is_none")]
+    pub phone_number_id: Option<String>,
 }
 
-impl RequestWhatsAppVerificationCodeRequest {
-    pub fn new() -> RequestWhatsAppVerificationCodeRequest {
-        RequestWhatsAppVerificationCodeRequest {
-            method: None,
-            language: None,
+impl VerifyWhatsAppNumber200Response {
+    pub fn new() -> VerifyWhatsAppNumber200Response {
+        VerifyWhatsAppNumber200Response {
+            verified: None,
+            account_id: None,
+            phone_number_id: None,
         }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Method {
-    #[serde(rename = "SMS")]
-    Sms,
-    #[serde(rename = "VOICE")]
-    Voice,
-}
-
-impl Default for Method {
-    fn default() -> Method {
-        Self::Sms
     }
 }

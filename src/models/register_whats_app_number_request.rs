@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RegisterWhatsAppNumberRequest {
-    /// The 6-digit two-step verification PIN set on the number. Omit it only if the number has no PIN of its own.
+    /// The 6-digit two-step verification PIN set on the number. Omitting it applies Zernio's managed default registration PIN, the same one every Embedded Signup connect sets automatically.
     #[serde(rename = "pin", skip_serializing_if = "Option::is_none")]
     pub pin: Option<String>,
 }

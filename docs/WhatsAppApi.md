@@ -34,6 +34,7 @@ Method | HTTP request | Description
 [**register_whats_app_number**](WhatsAppApi.md#register_whats_app_number) | **POST** /v1/accounts/{accountId}/whatsapp/register | Register a connected WhatsApp number on the Cloud API
 [**reject_whats_app_group_join_requests**](WhatsAppApi.md#reject_whats_app_group_join_requests) | **DELETE** /v1/whatsapp/wa-groups/{groupId}/join-requests | Reject join requests
 [**remove_whats_app_group_participants**](WhatsAppApi.md#remove_whats_app_group_participants) | **DELETE** /v1/whatsapp/wa-groups/{groupId}/participants | Remove participants
+[**request_whats_app_verification_code**](WhatsAppApi.md#request_whats_app_verification_code) | **POST** /v1/accounts/{accountId}/whatsapp/request-code | Request a Meta re-verification code for a BYO WhatsApp number
 [**send_whats_app_conversion**](WhatsAppApi.md#send_whats_app_conversion) | **POST** /v1/whatsapp/conversions | Send WhatsApp conversion event
 [**set_whatsapp_business_username**](WhatsAppApi.md#set_whatsapp_business_username) | **POST** /v1/whatsapp/business-profile/username | Set business username
 [**unblock_whats_app_users**](WhatsAppApi.md#unblock_whats_app_users) | **DELETE** /v1/whatsapp/block-users | Unblock users
@@ -43,6 +44,7 @@ Method | HTTP request | Description
 [**update_whats_app_template**](WhatsAppApi.md#update_whats_app_template) | **PATCH** /v1/whatsapp/templates/{templateName} | Update template
 [**update_whats_app_template_by_id**](WhatsAppApi.md#update_whats_app_template_by_id) | **PATCH** /v1/whatsapp/templates/id/{templateId} | Update template by id
 [**upload_whats_app_profile_photo**](WhatsAppApi.md#upload_whats_app_profile_photo) | **POST** /v1/whatsapp/business-profile/photo | Upload profile picture
+[**verify_whats_app_number**](WhatsAppApi.md#verify_whats_app_number) | **POST** /v1/accounts/{accountId}/whatsapp/verify-code | Verify the Meta re-verification code for a BYO WhatsApp number
 
 
 
@@ -976,6 +978,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## request_whats_app_verification_code
+
+> models::RequestWhatsAppVerificationCode200Response request_whats_app_verification_code(account_id, request_whats_app_verification_code_request)
+Request a Meta re-verification code for a BYO WhatsApp number
+
+For a bring-your-own WhatsApp number (its own WABA, migrated off another BSP) that Meta demoted to re-verification, this requests a new OTP from Meta. The code lands on the customer's own handset, so verifying it is necessarily self-service; call POST /v1/accounts/{accountId}/whatsapp/verify-code with the code once it arrives. Rate-limited to one request per 10 minutes per account, and Meta enforces its own cooldown on top of that. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The WhatsApp account ID | [required] |
+**request_whats_app_verification_code_request** | Option<[**RequestWhatsAppVerificationCodeRequest**](RequestWhatsAppVerificationCodeRequest.md)> |  |  |
+
+### Return type
+
+[**models::RequestWhatsAppVerificationCode200Response**](requestWhatsAppVerificationCode_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## send_whats_app_conversion
 
 > models::SendWhatsAppConversion200Response send_whats_app_conversion(send_whats_app_conversion_request)
@@ -1246,6 +1279,37 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: multipart/form-data, application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## verify_whats_app_number
+
+> models::VerifyWhatsAppNumber200Response verify_whats_app_number(account_id, verify_whats_app_number_request)
+Verify the Meta re-verification code for a BYO WhatsApp number
+
+Submits the OTP Meta sent in response to POST /v1/accounts/{accountId}/whatsapp/request-code. This only verifies the number with Meta; it does not register it on the Cloud API. Call POST /v1/accounts/{accountId}/whatsapp/register afterward to complete activation. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The WhatsApp account ID | [required] |
+**verify_whats_app_number_request** | [**VerifyWhatsAppNumberRequest**](VerifyWhatsAppNumberRequest.md) |  | [required] |
+
+### Return type
+
+[**models::VerifyWhatsAppNumber200Response**](verifyWhatsAppNumber_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

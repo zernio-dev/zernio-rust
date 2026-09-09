@@ -308,6 +308,20 @@ pub enum RemoveWhatsAppGroupParticipantsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`request_whats_app_verification_code`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RequestWhatsAppVerificationCodeError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
+    Status409(),
+    Status422(),
+    Status429(models::ErrorResponse),
+    Status503(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`send_whats_app_conversion`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -398,6 +412,17 @@ pub enum UploadWhatsAppProfilePhotoError {
     Status400(),
     Status401(models::InlineObject1),
     Status404(),
+    Status422(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`verify_whats_app_number`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum VerifyWhatsAppNumberError {
+    Status400(),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
     Status422(),
     UnknownValue(serde_json::Value),
 }
@@ -2050,6 +2075,69 @@ pub async fn remove_whats_app_group_participants(
     }
 }
 
+/// For a bring-your-own WhatsApp number (its own WABA, migrated off another BSP) that Meta demoted to re-verification, this requests a new OTP from Meta. The code lands on the customer's own handset, so verifying it is necessarily self-service; call POST /v1/accounts/{accountId}/whatsapp/verify-code with the code once it arrives. Rate-limited to one request per 10 minutes per account, and Meta enforces its own cooldown on top of that.
+pub async fn request_whats_app_verification_code(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    request_whats_app_verification_code_request: Option<
+        models::RequestWhatsAppVerificationCodeRequest,
+    >,
+) -> Result<
+    models::RequestWhatsAppVerificationCode200Response,
+    Error<RequestWhatsAppVerificationCodeError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_body_request_whats_app_verification_code_request =
+        request_whats_app_verification_code_request;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/whatsapp/request-code",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_request_whats_app_verification_code_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::RequestWhatsAppVerificationCode200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::RequestWhatsAppVerificationCode200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RequestWhatsAppVerificationCodeError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Forward a WhatsApp Business Messaging conversion event (`LeadSubmitted`, `Purchase`, `AddToCart`, `InitiateCheckout`, `ViewContent`) to Meta's Conversions API with `action_source = business_messaging` and `messaging_channel = whatsapp`. The endpoint looks up the originating CTWA click ID (`ctwa_clid`) captured on the first inbound message of the conversation and replays it on every event so Meta can attribute the conversion back to the Click-to-WhatsApp ad that drove the chat.  Configuration prerequisite on the WhatsApp account metadata:   - `metaCapiDatasetId`: the Meta dataset ID linked to the WABA.     Provision one with `POST /v1/whatsapp/dataset`.  The WABA ID (already set automatically at connect time) is forwarded as `user_data.whatsapp_business_account_id`, which is the per-channel attribution identifier Meta requires for WhatsApp events. No Facebook Page ID is needed (that field is the Messenger-branch identifier).  Identify the conversation by either `conversationId` (preferred) or `phoneE164` (digits only, no `+`). At least one is required. If the conversation has no captured `ctwa_clid`, the request returns 422 because there is nothing to attribute.  Token and dataset coupling: the WhatsApp account's accessToken must have access to the configured `metaCapiDatasetId`. By default a WABA's system-user token is scoped to the WABA's own Business Manager and cannot post to a pixel owned by a different Business; Meta returns code 100 in that case. Either share the dataset with the WhatsApp app's Business in BM, or use a dataset already in the same Business as the WABA.
 pub async fn send_whats_app_conversion(
     configuration: &configuration::Configuration,
@@ -2538,6 +2626,62 @@ pub async fn upload_whats_app_profile_photo(
     } else {
         let content = resp.text().await?;
         let entity: Option<UploadWhatsAppProfilePhotoError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Submits the OTP Meta sent in response to POST /v1/accounts/{accountId}/whatsapp/request-code. This only verifies the number with Meta; it does not register it on the Cloud API. Call POST /v1/accounts/{accountId}/whatsapp/register afterward to complete activation.
+pub async fn verify_whats_app_number(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    verify_whats_app_number_request: models::VerifyWhatsAppNumberRequest,
+) -> Result<models::VerifyWhatsAppNumber200Response, Error<VerifyWhatsAppNumberError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_body_verify_whats_app_number_request = verify_whats_app_number_request;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/whatsapp/verify-code",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_verify_whats_app_number_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VerifyWhatsAppNumber200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VerifyWhatsAppNumber200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<VerifyWhatsAppNumberError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

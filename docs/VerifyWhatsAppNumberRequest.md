@@ -1,11 +1,10 @@
-# RequestWhatsAppVerificationCodeRequest
+# VerifyWhatsAppNumberRequest
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**method** | Option<**Method**> |  (enum: SMS, VOICE) | [optional][default to Sms]
-**language** | Option<**String**> | Meta locale code for the verification message, e.g. en_US. | [optional][default to en_US]
+**code** | **String** | The 6-digit code Meta sent to the phone. Non-digit separators (e.g. \"749-456\") are stripped automatically. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

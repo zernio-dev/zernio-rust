@@ -1,11 +1,12 @@
-# RequestWhatsAppVerificationCodeRequest
+# VerifyWhatsAppNumber200Response
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**method** | Option<**Method**> |  (enum: SMS, VOICE) | [optional][default to Sms]
-**language** | Option<**String**> | Meta locale code for the verification message, e.g. en_US. | [optional][default to en_US]
+**verified** | Option<**bool**> |  | [optional]
+**account_id** | Option<**String**> |  | [optional]
+**phone_number_id** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

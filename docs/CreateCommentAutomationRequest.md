@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **account_id** | **String** | Instagram or Facebook account ID | 
 **trigger** | Option<**Trigger**> | What fires the automation. 'comment' (keyword comment on a post) or 'story_reply' (keyword reply to an Instagram story). For 'story_reply', platformPostId is the story media id (omit for any story). (enum: comment, story_reply) | [optional][default to Comment]
 **platform_post_id** | Option<**String**> | Platform media/post ID (or story media id when trigger=story_reply). Omit for an account-wide (any-post / any-story) automation. | [optional]
-**post_id** | Option<**String**> | Zernio post ID. Required only when also targeting a specific post via platformPostId. | [optional]
+**post_id** | Option<**String**> | Zernio post ID. Optional and never required. Use it INSTEAD of platformPostId to bind a per-post automation to a not-yet-published Zernio post: the automation stays pending and arms itself when that post publishes. For a post already live on the platform, pass platformPostId alone and omit this. | [optional]
 **post_title** | Option<**String**> | Post content snippet for display | [optional]
 **name** | **String** | Automation label | 
 **keywords** | Option<**Vec<String>**> | Trigger keywords (empty = any comment triggers) | [optional]
