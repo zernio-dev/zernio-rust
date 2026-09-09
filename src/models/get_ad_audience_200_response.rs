@@ -15,21 +15,21 @@ use serde::{Deserialize, Serialize};
 pub struct GetAdAudience200Response {
     #[serde(rename = "audience", skip_serializing_if = "Option::is_none")]
     pub audience: Option<serde_json::Value>,
-    /// Fresh data from Meta API
+    /// Fresh data from the platform API
     #[serde(
-        rename = "metaData",
+        rename = "platformData",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub meta_data: Option<Option<serde_json::Value>>,
+    pub platform_data: Option<Option<serde_json::Value>>,
 }
 
 impl GetAdAudience200Response {
     pub fn new() -> GetAdAudience200Response {
         GetAdAudience200Response {
             audience: None,
-            meta_data: None,
+            platform_data: None,
         }
     }
 }

@@ -26,7 +26,7 @@ Upload user data to a customer_list audience. Data is SHA256-hashed server-side 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**audience_id** | **String** |  | [required] |
+**audience_id** | **String** | The Zernio audience id (the id field of GET /v1/ads/audiences), not the platform segment id. | [required] |
 **add_users_to_ad_audience_request** | [**AddUsersToAdAudienceRequest**](AddUsersToAdAudienceRequest.md) |  | [required] |
 
 ### Return type
@@ -117,7 +117,7 @@ Returns the local audience record and fresh data from Meta (if available).
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**audience_id** | **String** |  | [required] |
+**audience_id** | **String** | The Zernio audience id (the id field of GET /v1/ads/audiences), not the platform segment id. | [required] |
 
 ### Return type
 
@@ -180,7 +180,7 @@ Upload the company rows of a LinkedIn `company_list` audience (account-based mar
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**audience_id** | **String** |  | [required] |
+**audience_id** | **String** | The Zernio audience id (the id field of GET /v1/ads/audiences), not the platform segment id. | [required] |
 **replace_ad_audience_companies_request** | [**ReplaceAdAudienceCompaniesRequest**](ReplaceAdAudienceCompaniesRequest.md) |  | [required] |
 
 ### Return type
