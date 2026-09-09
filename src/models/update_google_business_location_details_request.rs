@@ -32,6 +32,33 @@ pub struct UpdateGoogleBusinessLocationDetailsRequest {
     #[serde(rename = "serviceItems", skip_serializing_if = "Option::is_none")]
     pub service_items:
         Option<Vec<models::UpdateGoogleBusinessLocationDetailsRequestServiceItemsInner>>,
+    /// Business name. Use updateMask='title'.
+    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    /// External store identifier, unique within the account. Use updateMask='storeCode'.
+    #[serde(rename = "storeCode", skip_serializing_if = "Option::is_none")]
+    pub store_code: Option<String>,
+    /// Free-form, internal-only labels for grouping (1-255 characters each). Use updateMask='labels'.
+    #[serde(rename = "labels", skip_serializing_if = "Option::is_none")]
+    pub labels: Option<Vec<String>>,
+    #[serde(rename = "storefrontAddress", skip_serializing_if = "Option::is_none")]
+    pub storefront_address:
+        Option<Box<models::UpdateGoogleBusinessLocationDetailsRequestStorefrontAddress>>,
+    #[serde(rename = "serviceArea", skip_serializing_if = "Option::is_none")]
+    pub service_area: Option<Box<models::UpdateGoogleBusinessLocationDetailsRequestServiceArea>>,
+    #[serde(rename = "openInfo", skip_serializing_if = "Option::is_none")]
+    pub open_info: Option<Box<models::UpdateGoogleBusinessLocationDetailsRequestOpenInfo>>,
+    /// Additional hours for specific services (delivery, drive-through, etc.). Use updateMask='moreHours'.
+    #[serde(rename = "moreHours", skip_serializing_if = "Option::is_none")]
+    pub more_hours: Option<Vec<models::UpdateGoogleBusinessLocationDetailsRequestMoreHoursInner>>,
+    #[serde(rename = "latlng", skip_serializing_if = "Option::is_none")]
+    pub latlng: Option<Box<models::UpdateGoogleBusinessLocationDetailsRequestLatlng>>,
+    #[serde(
+        rename = "adWordsLocationExtensions",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub ad_words_location_extensions:
+        Option<Box<models::UpdateGoogleBusinessLocationDetailsRequestAdWordsLocationExtensions>>,
 }
 
 impl UpdateGoogleBusinessLocationDetailsRequest {
@@ -45,6 +72,15 @@ impl UpdateGoogleBusinessLocationDetailsRequest {
             phone_numbers: None,
             categories: None,
             service_items: None,
+            title: None,
+            store_code: None,
+            labels: None,
+            storefront_address: None,
+            service_area: None,
+            open_info: None,
+            more_hours: None,
+            latlng: None,
+            ad_words_location_extensions: None,
         }
     }
 }

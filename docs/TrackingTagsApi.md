@@ -271,7 +271,7 @@ Name | Type | Description  | Required | Notes
 
 ## update_ad_tracking_tags
 
-> update_ad_tracking_tags(ad_id, update_ad_tracking_tags_request)
+> models::UpdateAdTrackingTags200Response update_ad_tracking_tags(ad_id, update_ad_tracking_tags_request)
 Set ad tracking tags
 
 Unified update. Send only the fields for the ad's platform: - Meta: `urlTags` (array of {key,value}). Meta creatives are immutable, so this rebuilds the   creative and repoints the ad. By DEFAULT we PRESERVE the existing creative verbatim   (re-post its object_story_spec + the new url_tags, reusing the image), so you send `urlTags`   ALONE, with no need to read back headline/body/CTA. `creative` (headline, body, callToAction,   linkUrl, imageUrl) is OPTIONAL and only needed to rebuild explicitly, or for SHARE / page-post   / dark / asset_feed creatives whose object_story_spec Meta strips (those return 422 asking for   `creative`). - Google: `trackingUrlTemplate` and/or `finalUrlSuffix` (full template strings; account quota applies). - LinkedIn: `dynamicValueParameters` and/or `customValueParameters` (campaign-level Dynamic UTM). 
@@ -286,7 +286,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::UpdateAdTrackingTags200Response**](updateAdTrackingTags_200_response.md)
 
 ### Authorization
 

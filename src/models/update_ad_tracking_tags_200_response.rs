@@ -11,15 +11,14 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum CreatePost200Response {
-    TikTokDryRunVerdict(Box<models::TikTokDryRunVerdict>),
-    PostCreateResponse(Box<models::PostCreateResponse>),
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+pub struct UpdateAdTrackingTags200Response {
+    #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
+    pub platform: Option<String>,
 }
 
-impl Default for CreatePost200Response {
-    fn default() -> Self {
-        Self::TikTokDryRunVerdict(Default::default())
+impl UpdateAdTrackingTags200Response {
+    pub fn new() -> UpdateAdTrackingTags200Response {
+        UpdateAdTrackingTags200Response { platform: None }
     }
 }

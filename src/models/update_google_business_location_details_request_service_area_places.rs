@@ -11,15 +11,16 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum CreatePost200Response {
-    TikTokDryRunVerdict(Box<models::TikTokDryRunVerdict>),
-    PostCreateResponse(Box<models::PostCreateResponse>),
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+pub struct UpdateGoogleBusinessLocationDetailsRequestServiceAreaPlaces {
+    #[serde(rename = "placeInfos", skip_serializing_if = "Option::is_none")]
+    pub place_infos: Option<
+        Vec<models::UpdateGoogleBusinessLocationDetailsRequestServiceAreaPlacesPlaceInfosInner>,
+    >,
 }
 
-impl Default for CreatePost200Response {
-    fn default() -> Self {
-        Self::TikTokDryRunVerdict(Default::default())
+impl UpdateGoogleBusinessLocationDetailsRequestServiceAreaPlaces {
+    pub fn new() -> UpdateGoogleBusinessLocationDetailsRequestServiceAreaPlaces {
+        UpdateGoogleBusinessLocationDetailsRequestServiceAreaPlaces { place_infos: None }
     }
 }

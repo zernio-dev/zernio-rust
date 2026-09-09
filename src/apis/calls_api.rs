@@ -19,7 +19,6 @@ use serde::{de::Error as _, Deserialize, Serialize};
 pub enum GetCallError {
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
-    Status403(),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -30,7 +29,6 @@ pub enum GetCallError {
 pub enum GetCallRecordingError {
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
-    Status403(),
     Status404(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -41,7 +39,6 @@ pub enum GetCallRecordingError {
 #[serde(untagged)]
 pub enum ListCallsError {
     Status401(models::InlineObject1),
-    Status403(),
     UnknownValue(serde_json::Value),
 }
 

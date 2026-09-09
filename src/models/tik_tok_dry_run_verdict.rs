@@ -11,15 +11,29 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum CreatePost200Response {
-    TikTokDryRunVerdict(Box<models::TikTokDryRunVerdict>),
-    PostCreateResponse(Box<models::PostCreateResponse>),
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+pub struct TikTokDryRunVerdict {
+    /// Always true on this response
+    #[serde(rename = "dryRun")]
+    pub dry_run: bool,
+    /// True only when every evaluated TikTok account can publish now
+    #[serde(rename = "canPublish")]
+    pub can_publish: bool,
+    /// One verdict per `tiktok` entry in the request, in request order
+    #[serde(rename = "tiktok")]
+    pub tiktok: Vec<models::TikTokDryRunVerdictTiktokInner>,
 }
 
-impl Default for CreatePost200Response {
-    fn default() -> Self {
-        Self::TikTokDryRunVerdict(Default::default())
+impl TikTokDryRunVerdict {
+    pub fn new(
+        dry_run: bool,
+        can_publish: bool,
+        tiktok: Vec<models::TikTokDryRunVerdictTiktokInner>,
+    ) -> TikTokDryRunVerdict {
+        TikTokDryRunVerdict {
+            dry_run,
+            can_publish,
+            tiktok,
+        }
     }
 }

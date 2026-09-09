@@ -56,7 +56,7 @@ pub enum CreateMessagingAdError {
 pub async fn create_call_ad(
     configuration: &configuration::Configuration,
     create_call_ad_request: models::CreateCallAdRequest,
-) -> Result<(), Error<CreateCallAdError>> {
+) -> Result<models::CreateMessagingAd201Response, Error<CreateCallAdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_call_ad_request = create_call_ad_request;
 
@@ -77,9 +77,20 @@ pub async fn create_call_ad(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateMessagingAd201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateMessagingAd201Response`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateCallAdError> = serde_json::from_str(&content).ok();
@@ -96,7 +107,7 @@ pub async fn create_call_ad(
 pub async fn create_ctwa_ad(
     configuration: &configuration::Configuration,
     ctwa_ad_request_body: models::CtwaAdRequestBody,
-) -> Result<models::CreateCtwaAd201Response, Error<CreateCtwaAdError>> {
+) -> Result<models::CreateMessagingAd201Response, Error<CreateCtwaAdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_ctwa_ad_request_body = ctwa_ad_request_body;
 
@@ -128,8 +139,8 @@ pub async fn create_ctwa_ad(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateCtwaAd201Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateCtwaAd201Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateMessagingAd201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateMessagingAd201Response`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -146,7 +157,7 @@ pub async fn create_ctwa_ad(
 pub async fn create_messaging_ad(
     configuration: &configuration::Configuration,
     create_messaging_ad_request: models::CreateMessagingAdRequest,
-) -> Result<(), Error<CreateMessagingAdError>> {
+) -> Result<models::CreateMessagingAd201Response, Error<CreateMessagingAdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_messaging_ad_request = create_messaging_ad_request;
 
@@ -167,9 +178,20 @@ pub async fn create_messaging_ad(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateMessagingAd201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateMessagingAd201Response`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateMessagingAdError> = serde_json::from_str(&content).ok();

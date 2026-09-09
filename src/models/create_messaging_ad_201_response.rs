@@ -12,14 +12,16 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum CreatePost200Response {
-    TikTokDryRunVerdict(Box<models::TikTokDryRunVerdict>),
-    PostCreateResponse(Box<models::PostCreateResponse>),
+#[serde(tag = "adType")]
+pub enum CreateMessagingAd201Response {
+    #[serde(rename = "single")]
+    Single(Box<models::CtwaSingleResponse>),
+    #[serde(rename = "multi")]
+    Multi(Box<models::CtwaMultiResponse>),
 }
 
-impl Default for CreatePost200Response {
+impl Default for CreateMessagingAd201Response {
     fn default() -> Self {
-        Self::TikTokDryRunVerdict(Default::default())
+        Self::Single(Default::default())
     }
 }

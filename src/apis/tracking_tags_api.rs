@@ -599,7 +599,7 @@ pub async fn update_ad_tracking_tags(
     configuration: &configuration::Configuration,
     ad_id: &str,
     update_ad_tracking_tags_request: models::UpdateAdTrackingTagsRequest,
-) -> Result<(), Error<UpdateAdTrackingTagsError>> {
+) -> Result<models::UpdateAdTrackingTags200Response, Error<UpdateAdTrackingTagsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_ad_id = ad_id;
     let p_body_update_ad_tracking_tags_request = update_ad_tracking_tags_request;
@@ -625,9 +625,20 @@ pub async fn update_ad_tracking_tags(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateAdTrackingTags200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateAdTrackingTags200Response`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateAdTrackingTagsError> = serde_json::from_str(&content).ok();
