@@ -11,21 +11,50 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// AdCampaignBudget : Effective budget (back-compat). Use `budgetLevel` to disambiguate CBO vs ABO.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AdCampaignBudget {
-    #[serde(rename = "amount", skip_serializing_if = "Option::is_none")]
-    pub amount: Option<f64>,
-    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<Type>,
+    #[serde(rename = "amount")]
+    pub amount: f64,
+    #[serde(rename = "type")]
+    pub r#type: Type,
+    /// Google only. Exact decimal micros; DAILY uses amount_micros and CUSTOM_PERIOD uses total_amount_micros.
+    #[serde(rename = "amountMicros", skip_serializing_if = "Option::is_none")]
+    pub amount_micros: Option<String>,
+    /// Google only. True for a shared budget; null when unavailable. Shared writes require allowSharedBudgetUpdate=true; unknown sharing status cannot be overridden.
+    #[serde(
+        rename = "explicitlyShared",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub explicitly_shared: Option<Option<bool>>,
+    /// Google only. campaign_budget.resource_name, or null when unavailable.
+    #[serde(
+        rename = "resourceName",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub resource_name: Option<Option<String>>,
+    /// Google only. campaign_budget.delivery_method, typically STANDARD, or null when unavailable.
+    #[serde(
+        rename = "deliveryMethod",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub delivery_method: Option<Option<String>>,
 }
 
 impl AdCampaignBudget {
-    /// Effective budget (back-compat). Use `budgetLevel` to disambiguate CBO vs ABO.
-    pub fn new() -> AdCampaignBudget {
+    pub fn new(amount: f64, r#type: Type) -> AdCampaignBudget {
         AdCampaignBudget {
-            amount: None,
-            r#type: None,
+            amount,
+            r#type,
+            amount_micros: None,
+            explicitly_shared: None,
+            resource_name: None,
+            delivery_method: None,
         }
     }
 }

@@ -11,15 +11,21 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CtwaAdRequestBodyCreativesInner : Each entry must also include exactly one of `imageUrl` or `video`.
+/// CtwaAdRequestBodyCreativesInner : Supply headline, body, and image/video, or exactly one existing post reference. References cannot be combined with fresh creative fields.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CtwaAdRequestBodyCreativesInner {
-    #[serde(rename = "headline")]
-    pub headline: String,
+    /// Messaging and CTWA only. Platform post or reel ID, resolved like boost platformPostId. Facebook IDs become object_story_id; Instagram IDs become source_instagram_media_id using the connected Instagram identity. Mutually exclusive with objectStoryId and fresh creative fields.
+    #[serde(rename = "existingPostId", skip_serializing_if = "Option::is_none")]
+    pub existing_post_id: Option<String>,
+    /// Messaging and CTWA only. Raw Facebook pageId_postId reference, used as object_story_id even with an Instagram account. Mutually exclusive with existingPostId and fresh creative fields.
+    #[serde(rename = "objectStoryId", skip_serializing_if = "Option::is_none")]
+    pub object_story_id: Option<String>,
+    #[serde(rename = "headline", skip_serializing_if = "Option::is_none")]
+    pub headline: Option<String>,
     /// Primary text shown above the image / video.
-    #[serde(rename = "body")]
-    pub body: String,
-    /// Image asset. Mutually exclusive with this entry's `video`. Required if `video` is not supplied.
+    #[serde(rename = "body", skip_serializing_if = "Option::is_none")]
+    pub body: Option<String>,
+    /// Image asset. Mutually exclusive with this entry's `video`. Required if neither `video` nor an existing post reference is supplied.
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
     #[serde(rename = "video", skip_serializing_if = "Option::is_none")]
@@ -29,11 +35,13 @@ pub struct CtwaAdRequestBodyCreativesInner {
 }
 
 impl CtwaAdRequestBodyCreativesInner {
-    /// Each entry must also include exactly one of `imageUrl` or `video`.
-    pub fn new(headline: String, body: String) -> CtwaAdRequestBodyCreativesInner {
+    /// Supply headline, body, and image/video, or exactly one existing post reference. References cannot be combined with fresh creative fields.
+    pub fn new() -> CtwaAdRequestBodyCreativesInner {
         CtwaAdRequestBodyCreativesInner {
-            headline,
-            body,
+            existing_post_id: None,
+            object_story_id: None,
+            headline: None,
+            body: None,
             image_url: None,
             video: None,
             welcome_message: None,

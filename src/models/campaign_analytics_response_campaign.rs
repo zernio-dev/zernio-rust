@@ -32,6 +32,13 @@ pub struct CampaignAnalyticsResponseCampaign {
         skip_serializing_if = "Option::is_none"
     )]
     pub status: Option<Option<String>>,
+    #[serde(
+        rename = "budget",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub budget: Option<Option<Box<models::AdCampaignBudget>>>,
     /// ISO 4217 code of the ad account (e.g. USD, THB). All money values in `summary` and `daily` are in this currency.
     #[serde(
         rename = "currency",
@@ -49,6 +56,7 @@ impl CampaignAnalyticsResponseCampaign {
             name: None,
             platform: None,
             status: None,
+            budget: None,
             currency: None,
         }
     }

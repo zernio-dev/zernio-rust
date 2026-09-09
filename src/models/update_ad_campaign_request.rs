@@ -34,6 +34,12 @@ pub struct UpdateAdCampaignRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub portfolio_bid_strategy_id: Option<String>,
+    /// Google only. Explicitly allow changing a shared campaign budget, affecting every campaign that uses it. Does not bypass an unknown sharing state.
+    #[serde(
+        rename = "allowSharedBudgetUpdate",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub allow_shared_budget_update: Option<bool>,
     #[serde(rename = "budget", skip_serializing_if = "Option::is_none")]
     pub budget: Option<Box<models::UpdateAdCampaignRequestBudget>>,
     /// **Meta only.** Rename the campaign.
@@ -55,6 +61,7 @@ impl UpdateAdCampaignRequest {
             bid_amount: None,
             roas_average_floor: None,
             portfolio_bid_strategy_id: None,
+            allow_shared_budget_update: None,
             budget: None,
             name: None,
             platform_specific_data: None,

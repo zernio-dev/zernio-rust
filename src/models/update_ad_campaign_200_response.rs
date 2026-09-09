@@ -18,7 +18,7 @@ pub struct UpdateAdCampaign200Response {
     #[serde(rename = "updated", skip_serializing_if = "Option::is_none")]
     pub updated: Option<i32>,
     #[serde(rename = "budget", skip_serializing_if = "Option::is_none")]
-    pub budget: Option<Box<models::AdBudget>>,
+    pub budget: Option<Box<models::AdCampaignBudget>>,
     #[serde(rename = "budgetLevel", skip_serializing_if = "Option::is_none")]
     pub budget_level: Option<BudgetLevel>,
     #[serde(rename = "bidStrategy", skip_serializing_if = "Option::is_none")]

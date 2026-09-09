@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**summary** | Option<[**models::AdMetrics**](AdMetrics.md)> |  | [optional]
+**summary** | Option<[**models::CampaignAnalyticsResponseAnalyticsSummary**](CampaignAnalyticsResponseAnalyticsSummary.md)> |  | [optional]
+**impression_share_cache** | Option<[**models::CampaignAnalyticsResponseAnalyticsImpressionShareCache**](CampaignAnalyticsResponseAnalyticsImpressionShareCache.md)> |  | [optional]
 **daily** | Option<[**Vec<models::CampaignAnalyticsResponseAnalyticsDailyInner>**](CampaignAnalyticsResponseAnalyticsDailyInner.md)> |  | [optional]
 **breakdowns** | Option<[**std::collections::HashMap<String, Vec<serde_json::Value>>**](Vec.md)> |  | [optional]
 

@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CtwaAdRequestBodyVideo : Video creative for single-creative shape. Mutually exclusive with `imageUrl` and with `creatives[]`. Required on the single-creative shape if `imageUrl` is not supplied.
+/// CtwaAdRequestBodyVideo : Video creative for single-creative shape. Mutually exclusive with `imageUrl` and with `creatives[]`. Required on the single-creative shape if neither `imageUrl` nor an existing post reference is supplied.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CtwaAdRequestBodyVideo {
     /// Public URL of the video to upload. Provide either `url` or `id`.
@@ -26,7 +26,7 @@ pub struct CtwaAdRequestBodyVideo {
 }
 
 impl CtwaAdRequestBodyVideo {
-    /// Video creative for single-creative shape. Mutually exclusive with `imageUrl` and with `creatives[]`. Required on the single-creative shape if `imageUrl` is not supplied.
+    /// Video creative for single-creative shape. Mutually exclusive with `imageUrl` and with `creatives[]`. Required on the single-creative shape if neither `imageUrl` nor an existing post reference is supplied.
     pub fn new() -> CtwaAdRequestBodyVideo {
         CtwaAdRequestBodyVideo {
             url: None,

@@ -15,11 +15,11 @@ docs/Ad.md
 docs/AdAccountsApi.md
 docs/AdAnalyticsResponse.md
 docs/AdAnalyticsResponseAd.md
+docs/AdAnalyticsResponseAnalytics.md
 docs/AdAudiencesApi.md
 docs/AdBudget.md
 docs/AdCampaign.md
 docs/AdCampaignBudget.md
-docs/AdCampaignCampaignBudget.md
 docs/AdCampaignsApi.md
 docs/AdCreative.md
 docs/AdCreativesApi.md
@@ -31,6 +31,8 @@ docs/AdKeyword.md
 docs/AdKeywordMetrics.md
 docs/AdLibraryApi.md
 docs/AdMetrics.md
+docs/AdNegativeKeywordList.md
+docs/AdNegativeKeywordListKeyword.md
 docs/AdPromotedObject.md
 docs/AdReviewStatus.md
 docs/AdSchedule.md
@@ -189,6 +191,8 @@ docs/CallsApi.md
 docs/CampaignAnalyticsResponse.md
 docs/CampaignAnalyticsResponseAnalytics.md
 docs/CampaignAnalyticsResponseAnalyticsDailyInner.md
+docs/CampaignAnalyticsResponseAnalyticsImpressionShareCache.md
+docs/CampaignAnalyticsResponseAnalyticsSummary.md
 docs/CampaignAnalyticsResponseCampaign.md
 docs/CampaignBidding.md
 docs/CampaignBiddingBidSpec.md
@@ -265,6 +269,8 @@ docs/CreateAdInsightsReport202Response.md
 docs/CreateAdInsightsReportRequest.md
 docs/CreateAdInsightsReportRequestFilteringInner.md
 docs/CreateAdInsightsReportRequestTimeIncrement.md
+docs/CreateAdNegativeKeywordList201Response.md
+docs/CreateAdNegativeKeywordListRequest.md
 docs/CreateAdSet201Response.md
 docs/CreateAdSetRequest.md
 docs/CreateApiKey201Response.md
@@ -454,6 +460,7 @@ docs/DeleteAccountGroup200Response.md
 docs/DeleteAdCampaign200Response.md
 docs/DeleteAdCampaignRequest.md
 docs/DeleteAdCreative200Response.md
+docs/DeleteAdNegativeKeywordList200Response.md
 docs/DeleteAdSet200Response.md
 docs/DeleteAdVideo200Response.md
 docs/DeleteDiscordScheduledEvent200Response.md
@@ -580,6 +587,8 @@ docs/GetAdInsightsReport200Response.md
 docs/GetAdInsightsReport200ResponsePaging.md
 docs/GetAdMedia200Response.md
 docs/GetAdMedia200ResponseMediaInner.md
+docs/GetAdNegativeKeywordList200Response.md
+docs/GetAdNegativeKeywordList200ResponseList.md
 docs/GetAdPreviews200Response.md
 docs/GetAdSetDetails200Response.md
 docs/GetAdTrackingTags200Response.md
@@ -1015,6 +1024,7 @@ docs/ListAdCreatives200Response.md
 docs/ListAdImages200Response.md
 docs/ListAdKeywords200Response.md
 docs/ListAdLabels200Response.md
+docs/ListAdNegativeKeywordLists200Response.md
 docs/ListAdSets200Response.md
 docs/ListAdSets200ResponseAdSetsInner.md
 docs/ListAdStudies200Response.md
@@ -1323,6 +1333,9 @@ docs/RemoveWhatsAppGroupParticipantsRequest.md
 docs/ReplaceAdAudienceCompanies200Response.md
 docs/ReplaceAdAudienceCompaniesRequest.md
 docs/ReplaceAdAudienceCompaniesRequestCompaniesInner.md
+docs/ReplaceAdNegativeKeywordListKeywords200Response.md
+docs/ReplaceAdNegativeKeywordListKeywordsRequest.md
+docs/ReplaceCampaignNegativeKeywordListsRequest.md
 docs/ReplaceCampaignNegativeKeywords200Response.md
 docs/ReplaceCampaignNegativeKeywordsRequest.md
 docs/ReplyToGoogleBusinessReview200Response.md
@@ -1606,6 +1619,8 @@ docs/UpdateAdCreative200Response.md
 docs/UpdateAdCreativeRequest.md
 docs/UpdateAdKeyword200Response.md
 docs/UpdateAdKeywordRequest.md
+docs/UpdateAdNegativeKeywordList200Response.md
+docs/UpdateAdNegativeKeywordListRequest.md
 docs/UpdateAdRequest.md
 docs/UpdateAdRequestBudget.md
 docs/UpdateAdRequestCreative.md
@@ -2078,10 +2093,10 @@ src/models/activate_workflow_200_response_workflow.rs
 src/models/ad.rs
 src/models/ad_analytics_response.rs
 src/models/ad_analytics_response_ad.rs
+src/models/ad_analytics_response_analytics.rs
 src/models/ad_budget.rs
 src/models/ad_campaign.rs
 src/models/ad_campaign_budget.rs
-src/models/ad_campaign_campaign_budget.rs
 src/models/ad_creative.rs
 src/models/ad_daily_metrics.rs
 src/models/ad_engagement_counts.rs
@@ -2089,6 +2104,8 @@ src/models/ad_funnel_counts.rs
 src/models/ad_keyword.rs
 src/models/ad_keyword_metrics.rs
 src/models/ad_metrics.rs
+src/models/ad_negative_keyword_list.rs
+src/models/ad_negative_keyword_list_keyword.rs
 src/models/ad_promoted_object.rs
 src/models/ad_review_status.rs
 src/models/ad_schedule.rs
@@ -2240,6 +2257,8 @@ src/models/call_record_transcript_inner.rs
 src/models/campaign_analytics_response.rs
 src/models/campaign_analytics_response_analytics.rs
 src/models/campaign_analytics_response_analytics_daily_inner.rs
+src/models/campaign_analytics_response_analytics_impression_share_cache.rs
+src/models/campaign_analytics_response_analytics_summary.rs
 src/models/campaign_analytics_response_campaign.rs
 src/models/campaign_bidding.rs
 src/models/campaign_bidding_bid_spec.rs
@@ -2310,6 +2329,8 @@ src/models/create_ad_insights_report_202_response.rs
 src/models/create_ad_insights_report_request.rs
 src/models/create_ad_insights_report_request_filtering_inner.rs
 src/models/create_ad_insights_report_request_time_increment.rs
+src/models/create_ad_negative_keyword_list_201_response.rs
+src/models/create_ad_negative_keyword_list_request.rs
 src/models/create_ad_set_201_response.rs
 src/models/create_ad_set_request.rs
 src/models/create_api_key_201_response.rs
@@ -2498,6 +2519,7 @@ src/models/delete_account_group_200_response.rs
 src/models/delete_ad_campaign_200_response.rs
 src/models/delete_ad_campaign_request.rs
 src/models/delete_ad_creative_200_response.rs
+src/models/delete_ad_negative_keyword_list_200_response.rs
 src/models/delete_ad_set_200_response.rs
 src/models/delete_ad_video_200_response.rs
 src/models/delete_discord_scheduled_event_200_response.rs
@@ -2623,6 +2645,8 @@ src/models/get_ad_insights_report_200_response.rs
 src/models/get_ad_insights_report_200_response_paging.rs
 src/models/get_ad_media_200_response.rs
 src/models/get_ad_media_200_response_media_inner.rs
+src/models/get_ad_negative_keyword_list_200_response.rs
+src/models/get_ad_negative_keyword_list_200_response_list.rs
 src/models/get_ad_previews_200_response.rs
 src/models/get_ad_set_details_200_response.rs
 src/models/get_ad_tracking_tags_200_response.rs
@@ -3045,6 +3069,7 @@ src/models/list_ad_creatives_200_response.rs
 src/models/list_ad_images_200_response.rs
 src/models/list_ad_keywords_200_response.rs
 src/models/list_ad_labels_200_response.rs
+src/models/list_ad_negative_keyword_lists_200_response.rs
 src/models/list_ad_sets_200_response.rs
 src/models/list_ad_sets_200_response_ad_sets_inner.rs
 src/models/list_ad_studies_200_response.rs
@@ -3343,6 +3368,9 @@ src/models/remove_whats_app_group_participants_request.rs
 src/models/replace_ad_audience_companies_200_response.rs
 src/models/replace_ad_audience_companies_request.rs
 src/models/replace_ad_audience_companies_request_companies_inner.rs
+src/models/replace_ad_negative_keyword_list_keywords_200_response.rs
+src/models/replace_ad_negative_keyword_list_keywords_request.rs
+src/models/replace_campaign_negative_keyword_lists_request.rs
 src/models/replace_campaign_negative_keywords_200_response.rs
 src/models/replace_campaign_negative_keywords_request.rs
 src/models/reply_to_google_business_review_200_response.rs
@@ -3620,6 +3648,8 @@ src/models/update_ad_creative_200_response.rs
 src/models/update_ad_creative_request.rs
 src/models/update_ad_keyword_200_response.rs
 src/models/update_ad_keyword_request.rs
+src/models/update_ad_negative_keyword_list_200_response.rs
+src/models/update_ad_negative_keyword_list_request.rs
 src/models/update_ad_request.rs
 src/models/update_ad_request_budget.rs
 src/models/update_ad_request_creative.rs

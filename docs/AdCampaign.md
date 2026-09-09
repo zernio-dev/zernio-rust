@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **campaign_issues_info** | Option<**Vec<serde_json::Value>**> | Platform-reported campaign issues (Meta `issues_info[]`). | [optional]
 **ad_count** | Option<**i32**> |  | [optional]
 **budget** | Option<[**models::AdCampaignBudget**](AdCampaignBudget.md)> |  | [optional]
-**campaign_budget** | Option<[**models::AdCampaignCampaignBudget**](AdCampaignCampaignBudget.md)> |  | [optional]
+**campaign_budget** | Option<[**models::AdCampaignBudget**](AdCampaignBudget.md)> |  | [optional]
 **budget_level** | Option<**BudgetLevel**> | Canonical CBO/ABO indicator. See AdTreeCampaign.budgetLevel. (enum: campaign, adset) | [optional]
 **is_budget_schedule_enabled** | Option<**bool**> | Meta-only. Mirrors Campaign.is_budget_schedule_enabled. | [optional][default to false]
 **currency** | Option<**String**> | ISO 4217 currency code for all budget amounts. Budgets are NOT normalized to USD. | [optional]

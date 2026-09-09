@@ -14,7 +14,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CampaignAnalyticsResponseAnalytics {
     #[serde(rename = "summary", skip_serializing_if = "Option::is_none")]
-    pub summary: Option<Box<models::AdMetrics>>,
+    pub summary: Option<Box<models::CampaignAnalyticsResponseAnalyticsSummary>>,
+    #[serde(
+        rename = "impressionShareCache",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub impression_share_cache:
+        Option<Box<models::CampaignAnalyticsResponseAnalyticsImpressionShareCache>>,
     #[serde(rename = "daily", skip_serializing_if = "Option::is_none")]
     pub daily: Option<Vec<models::CampaignAnalyticsResponseAnalyticsDailyInner>>,
     #[serde(rename = "breakdowns", skip_serializing_if = "Option::is_none")]
@@ -25,6 +31,7 @@ impl CampaignAnalyticsResponseAnalytics {
     pub fn new() -> CampaignAnalyticsResponseAnalytics {
         CampaignAnalyticsResponseAnalytics {
             summary: None,
+            impression_share_cache: None,
             daily: None,
             breakdowns: None,
         }

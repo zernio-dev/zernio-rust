@@ -47,10 +47,20 @@ pub struct AdCampaign {
     pub campaign_issues_info: Option<Option<Vec<serde_json::Value>>>,
     #[serde(rename = "adCount", skip_serializing_if = "Option::is_none")]
     pub ad_count: Option<i32>,
-    #[serde(rename = "budget", skip_serializing_if = "Option::is_none")]
-    pub budget: Option<Box<models::AdCampaignBudget>>,
-    #[serde(rename = "campaignBudget", skip_serializing_if = "Option::is_none")]
-    pub campaign_budget: Option<Box<models::AdCampaignCampaignBudget>>,
+    #[serde(
+        rename = "budget",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub budget: Option<Option<Box<models::AdCampaignBudget>>>,
+    #[serde(
+        rename = "campaignBudget",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub campaign_budget: Option<Option<Box<models::AdCampaignBudget>>>,
     /// Canonical CBO/ABO indicator. See AdTreeCampaign.budgetLevel.
     #[serde(
         rename = "budgetLevel",

@@ -25,6 +25,21 @@ pub enum AddAccountCalloutsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`create_ad_negative_keyword_list`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateAdNegativeKeywordListError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status409(),
+    Status422(),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`create_custom_conversion`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -51,6 +66,21 @@ pub enum CreateHighDemandPeriodError {
 pub enum CreateValueRuleSetError {
     Status400(),
     Status401(models::InlineObject1),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`delete_ad_negative_keyword_list`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteAdNegativeKeywordListError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status409(),
+    Status422(),
+    Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -84,6 +114,21 @@ pub enum GetAdCommentsError {
     Status403(),
     Status404(models::InlineObject2),
     Status422(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_ad_negative_keyword_list`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAdNegativeKeywordListError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status409(),
+    Status422(),
+    Status429(),
+    Status501(),
     UnknownValue(serde_json::Value),
 }
 
@@ -156,6 +201,21 @@ pub enum ListAdAccountsError {
 pub enum ListAdLabelsError {
     Status400(),
     Status401(models::InlineObject1),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_ad_negative_keyword_lists`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListAdNegativeKeywordListsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status409(),
+    Status422(),
+    Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -233,6 +293,21 @@ pub enum RemoveAccountCalloutError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`replace_ad_negative_keyword_list_keywords`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ReplaceAdNegativeKeywordListKeywordsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status409(),
+    Status422(),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`update_ad_account`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -240,6 +315,21 @@ pub enum UpdateAdAccountError {
     Status400(),
     Status401(models::InlineObject1),
     Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_ad_negative_keyword_list`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateAdNegativeKeywordListError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::InlineObject2),
+    Status409(),
+    Status422(),
+    Status429(),
+    Status501(),
     UnknownValue(serde_json::Value),
 }
 
@@ -295,6 +385,60 @@ pub async fn add_account_callouts(
     } else {
         let content = resp.text().await?;
         let entity: Option<AddAccountCalloutsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Creates one Google Ads shared negative keyword list with optional initial keywords in a single atomic mutation. Daily quota is reserved for every mutate item, so large batches may return 429 before any change. This operation is not idempotent. The list is not attached to any campaign.
+pub async fn create_ad_negative_keyword_list(
+    configuration: &configuration::Configuration,
+    create_ad_negative_keyword_list_request: models::CreateAdNegativeKeywordListRequest,
+) -> Result<models::CreateAdNegativeKeywordList201Response, Error<CreateAdNegativeKeywordListError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_ad_negative_keyword_list_request = create_ad_negative_keyword_list_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/accounts/negative-keyword-lists",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_ad_negative_keyword_list_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateAdNegativeKeywordList201Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateAdNegativeKeywordList201Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateAdNegativeKeywordListError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -451,6 +595,73 @@ pub async fn create_value_rule_set(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateValueRuleSetError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Removes the Google shared negative keyword list. Detach it from all campaigns first; an in-use list is rejected. Only NEGATIVE_KEYWORDS shared sets are supported.
+pub async fn delete_ad_negative_keyword_list(
+    configuration: &configuration::Configuration,
+    list_id: &str,
+    account_id: &str,
+    customer_id: Option<&str>,
+    platform: Option<&str>,
+) -> Result<models::DeleteAdNegativeKeywordList200Response, Error<DeleteAdNegativeKeywordListError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_list_id = list_id;
+    let p_query_account_id = account_id;
+    let p_query_customer_id = customer_id;
+    let p_query_platform = platform;
+
+    let uri_str = format!(
+        "{}/v1/ads/accounts/negative-keyword-lists/{listId}",
+        configuration.base_path,
+        listId = crate::apis::urlencode(p_path_list_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_customer_id {
+        req_builder = req_builder.query(&[("customerId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_platform {
+        req_builder = req_builder.query(&[("platform", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteAdNegativeKeywordList200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteAdNegativeKeywordList200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteAdNegativeKeywordListError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -624,6 +835,70 @@ pub async fn get_ad_comments(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetAdCommentsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Google Ads shared negative keyword lists (shared_set type NEGATIVE_KEYWORDS). Reads are cached for 10 minutes; quota exhaustion may return the last successful result for up to 7 days with stale=true. Customer selection is limited to this connection and its account scope. Includes the keywords and their criterion ids.
+pub async fn get_ad_negative_keyword_list(
+    configuration: &configuration::Configuration,
+    list_id: &str,
+    account_id: &str,
+    customer_id: Option<&str>,
+    platform: Option<&str>,
+) -> Result<models::GetAdNegativeKeywordList200Response, Error<GetAdNegativeKeywordListError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_list_id = list_id;
+    let p_query_account_id = account_id;
+    let p_query_customer_id = customer_id;
+    let p_query_platform = platform;
+
+    let uri_str = format!(
+        "{}/v1/ads/accounts/negative-keyword-lists/{listId}",
+        configuration.base_path,
+        listId = crate::apis::urlencode(p_path_list_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_customer_id {
+        req_builder = req_builder.query(&[("customerId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_platform {
+        req_builder = req_builder.query(&[("platform", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetAdNegativeKeywordList200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetAdNegativeKeywordList200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAdNegativeKeywordListError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1028,6 +1303,67 @@ pub async fn list_ad_labels(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListAdLabelsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Google Ads shared negative keyword lists (shared_set type NEGATIVE_KEYWORDS). Reads are cached for 10 minutes; quota exhaustion may return the last successful result for up to 7 days with stale=true. Customer selection is limited to this connection and its account scope.
+pub async fn list_ad_negative_keyword_lists(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    customer_id: Option<&str>,
+    platform: Option<&str>,
+) -> Result<models::ListAdNegativeKeywordLists200Response, Error<ListAdNegativeKeywordListsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_customer_id = customer_id;
+    let p_query_platform = platform;
+
+    let uri_str = format!(
+        "{}/v1/ads/accounts/negative-keyword-lists",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_customer_id {
+        req_builder = req_builder.query(&[("customerId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_platform {
+        req_builder = req_builder.query(&[("platform", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListAdNegativeKeywordLists200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListAdNegativeKeywordLists200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListAdNegativeKeywordListsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1441,6 +1777,65 @@ pub async fn remove_account_callout(
     }
 }
 
+/// Replaces the full desired keyword set. Existing keywords are diffed by normalized text and match type; creates and removals are applied atomically in one mutation. Unchanged criteria retain their ids. Send an empty keywords array to clear the list. Changes affect every campaign using this list. Each create or removal consumes one daily operation; the entire batch must fit the remaining quota.
+pub async fn replace_ad_negative_keyword_list_keywords(
+    configuration: &configuration::Configuration,
+    list_id: &str,
+    replace_ad_negative_keyword_list_keywords_request: models::ReplaceAdNegativeKeywordListKeywordsRequest,
+) -> Result<
+    models::ReplaceAdNegativeKeywordListKeywords200Response,
+    Error<ReplaceAdNegativeKeywordListKeywordsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_list_id = list_id;
+    let p_body_replace_ad_negative_keyword_list_keywords_request =
+        replace_ad_negative_keyword_list_keywords_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/accounts/negative-keyword-lists/{listId}/keywords",
+        configuration.base_path,
+        listId = crate::apis::urlencode(p_path_list_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_replace_ad_negative_keyword_list_keywords_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ReplaceAdNegativeKeywordListKeywords200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ReplaceAdNegativeKeywordListKeywords200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ReplaceAdNegativeKeywordListKeywordsError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Sets the default DSA beneficiary and payor on a Meta ad account (EU DSA, Article 26). Set them once and every EU-targeted call to `/v1/ads/create`, `/v1/ads/boost` and `/v1/ads/ctwa` on that ad account can omit `dsaBeneficiary`/`dsaPayor`: Meta applies the defaults automatically.  The values are written to the ad account on Meta, the same setting Ads Manager edits. Nothing is stored in Zernio, and defaults already set in Ads Manager work identically. Zernio never guesses these values for you. Beneficiary and payor are legal disclosures shown to EU users, so you must provide the entity names explicitly. Use `GET /v1/ads/dsa-recommendations` to offer suggestions in your UI.  If `defaultDsaPayor` is omitted, the beneficiary is also set as the payor, which covers the common case where the same entity benefits from and pays for the ads. Read the current values back with `GET /v1/ads/dsa-defaults`.  Currently supported for Meta accounts only; other platforms return 400.
 pub async fn update_ad_account(
     configuration: &configuration::Configuration,
@@ -1483,6 +1878,61 @@ pub async fn update_ad_account(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateAdAccountError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Renames a shared negative keyword list. Keywords and campaign associations are unchanged. Use the keywords endpoint to edit the desired keyword set.
+pub async fn update_ad_negative_keyword_list(
+    configuration: &configuration::Configuration,
+    list_id: &str,
+    update_ad_negative_keyword_list_request: models::UpdateAdNegativeKeywordListRequest,
+) -> Result<models::UpdateAdNegativeKeywordList200Response, Error<UpdateAdNegativeKeywordListError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_list_id = list_id;
+    let p_body_update_ad_negative_keyword_list_request = update_ad_negative_keyword_list_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/accounts/negative-keyword-lists/{listId}",
+        configuration.base_path,
+        listId = crate::apis::urlencode(p_path_list_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_ad_negative_keyword_list_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateAdNegativeKeywordList200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateAdNegativeKeywordList200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateAdNegativeKeywordListError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

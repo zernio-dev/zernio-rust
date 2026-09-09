@@ -19,7 +19,7 @@ pub struct GetAdAnalytics202Response {
     #[serde(rename = "ad", skip_serializing_if = "Option::is_none")]
     pub ad: Option<Box<models::AdAnalyticsResponseAd>>,
     #[serde(rename = "analytics", skip_serializing_if = "Option::is_none")]
-    pub analytics: Option<Box<models::CampaignAnalyticsResponseAnalytics>>,
+    pub analytics: Option<Box<models::AdAnalyticsResponseAnalytics>>,
 }
 
 impl GetAdAnalytics202Response {

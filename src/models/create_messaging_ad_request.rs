@@ -22,20 +22,32 @@ pub struct CreateMessagingAdRequest {
     /// Ad display name. Used to derive campaign / ad set names. On the multi-creative shape, each ad's Meta name gets a \" #N\" suffix (1-indexed) so Ads Manager shows them as a numbered batch.
     #[serde(rename = "name")]
     pub name: String,
+    /// Messaging and CTWA only. Platform post or reel ID, resolved like boost platformPostId. Facebook IDs become object_story_id; Instagram IDs become source_instagram_media_id using the connected Instagram identity. Mutually exclusive with objectStoryId and fresh creative fields.
+    #[serde(rename = "existingPostId", skip_serializing_if = "Option::is_none")]
+    pub existing_post_id: Option<String>,
+    /// Messaging and CTWA only. Raw Facebook pageId_postId reference, used as object_story_id even with an Instagram account. Mutually exclusive with existingPostId and fresh creative fields.
+    #[serde(rename = "objectStoryId", skip_serializing_if = "Option::is_none")]
+    pub object_story_id: Option<String>,
+    /// WhatsApp only. Optional E.164 number already paired with the Facebook Page. Omit to let Meta select the paired number. Sent to the creative CTA and, when creating a new ad set, its promoted_object. Attach requests do not change the existing ad set.
+    #[serde(
+        rename = "whatsappPhoneNumber",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub whatsapp_phone_number: Option<String>,
     /// Single-creative shape only. Mutually exclusive with `creatives[]`.
     #[serde(rename = "headline", skip_serializing_if = "Option::is_none")]
     pub headline: Option<String>,
     /// Primary text shown above the image / video. Single-creative shape only. Mutually exclusive with `creatives[]`.
     #[serde(rename = "body", skip_serializing_if = "Option::is_none")]
     pub body: Option<String>,
-    /// Image asset for single-creative shape. Mutually exclusive with `video` and with `creatives[]`. Required on the single-creative shape if `video` is not supplied.
+    /// Image asset for single-creative shape. Mutually exclusive with `video` and with `creatives[]`. Required on the single-creative shape if neither `video` nor an existing post reference is supplied.
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
     #[serde(rename = "video", skip_serializing_if = "Option::is_none")]
     pub video: Option<Box<models::CtwaAdRequestBodyVideo>>,
     #[serde(rename = "welcomeMessage", skip_serializing_if = "Option::is_none")]
     pub welcome_message: Option<Box<models::CtwaAdRequestBodyWelcomeMessage>>,
-    /// Multi-creative shape: N CTWA ads under one campaign + one ad set, sharing budget and targeting. Mutually exclusive with the top-level single-creative fields (`headline` / `body` / `imageUrl` / `video`): setting both is a 400, unlike `POST /v1/ads/create` where the top-level fields are silently ignored in multi-creative mode. Each entry must supply its own headline, body, and exactly one of `imageUrl` / `video`.
+    /// Multi-creative shape: N CTWA ads under one campaign + one ad set, sharing budget and targeting. Mutually exclusive with the top-level single-creative fields (`headline` / `body` / `imageUrl` / `video`): setting both is a 400, unlike `POST /v1/ads/create` where the top-level fields are silently ignored in multi-creative mode. Each entry supplies headline, body, and image/video, or an existingPostId or objectStoryId reference. Fresh and existing creatives can be mixed.
     #[serde(rename = "creatives", skip_serializing_if = "Option::is_none")]
     pub creatives: Option<Vec<models::CtwaAdRequestBodyCreativesInner>>,
     /// Attach the creatives to this EXISTING messaging ad set instead of building a campaign, so the ad set keeps its learning phase. It then owns budget, targeting and schedule, so `budgetAmount`, `budgetType`, `endDate`, `objective`, `countries`, `interests`, `audienceId` and `campaignStatus` are rejected with a 400 alongside it. Its `destination_type` must match the ad's destination.
@@ -137,6 +149,9 @@ impl CreateMessagingAdRequest {
             account_id,
             ad_account_id,
             name,
+            existing_post_id: None,
+            object_story_id: None,
+            whatsapp_phone_number: None,
             headline: None,
             body: None,
             image_url: None,
