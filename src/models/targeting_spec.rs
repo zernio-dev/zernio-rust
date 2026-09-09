@@ -14,6 +14,12 @@ use serde::{Deserialize, Serialize};
 /// TargetingSpec : Normalized, platform-agnostic ad-targeting spec. Every field is optional, an empty object targets the platform's default broadest audience. Field names are camelCase and identical across `POST /v1/ads/create` (the `targeting` object), `POST /v1/ads/targeting/reach-estimate`, and `saved_targeting` audiences, so a spec resolved once can be reused verbatim.  Entity ids (`regions[].key`, `cities[].key`, `zips[].key`, `metros[].key`, `interests[].id`, `behaviors[].id`) are the platform's opaque identifiers resolved via `GET /v1/ads/targeting/search`. A spec is therefore meaningful only for the platform it was built against, except the portable fields (`countries`, `ageMin`/`ageMax`, `gender`, `incomeTier`, `languages`) which carry across platforms. Fields a platform cannot honour are rejected at create time with `INVALID_FIELD_VALUE` naming the offending field (not silently dropped).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TargetingSpec {
+    /// Meta only. Operating systems and version ranges, such as iOS_ver_14.0_and_above or Android. Emitted as user_os. May also be supplied inside targeting.
+    #[serde(rename = "userOs", skip_serializing_if = "Option::is_none")]
+    pub user_os: Option<Vec<String>>,
+    /// Meta only. Device models such as iPhone. Emitted as user_device. May also be supplied inside targeting.
+    #[serde(rename = "userDevice", skip_serializing_if = "Option::is_none")]
+    pub user_device: Option<Vec<String>>,
     /// ISO 3166-1 alpha-2 country codes (e.g. ['US']).
     #[serde(rename = "countries", skip_serializing_if = "Option::is_none")]
     pub countries: Option<Vec<String>>,
@@ -91,6 +97,8 @@ impl TargetingSpec {
     /// Normalized, platform-agnostic ad-targeting spec. Every field is optional, an empty object targets the platform's default broadest audience. Field names are camelCase and identical across `POST /v1/ads/create` (the `targeting` object), `POST /v1/ads/targeting/reach-estimate`, and `saved_targeting` audiences, so a spec resolved once can be reused verbatim.  Entity ids (`regions[].key`, `cities[].key`, `zips[].key`, `metros[].key`, `interests[].id`, `behaviors[].id`) are the platform's opaque identifiers resolved via `GET /v1/ads/targeting/search`. A spec is therefore meaningful only for the platform it was built against, except the portable fields (`countries`, `ageMin`/`ageMax`, `gender`, `incomeTier`, `languages`) which carry across platforms. Fields a platform cannot honour are rejected at create time with `INVALID_FIELD_VALUE` naming the offending field (not silently dropped).
     pub fn new() -> TargetingSpec {
         TargetingSpec {
+            user_os: None,
+            user_device: None,
             countries: None,
             regions: None,
             cities: None,

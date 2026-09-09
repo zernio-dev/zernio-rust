@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **creative_features** | Option<**std::collections::HashMap<String, Inner>**> | Meta enhancement settings for single or attached ads, and defaults for creatives[]. An item replaces the entire map, including with an empty object. (enum: OPT_IN, OPT_OUT) | [optional]
+**tracking** | Option<[**models::AdTracking**](AdTracking.md)> |  | [optional]
 **account_id** | **String** | Facebook or Instagram SocialAccount ID. | 
 **ad_account_id** | **String** | Meta ad account ID, e.g. `act_123456789`. | 
 **name** | **String** | Ad display name. Used to derive campaign / ad set names. On the multi-creative shape, each ad's Meta name gets a \" #N\" suffix (1-indexed) so Ads Manager shows them as a numbered batch.  | 

@@ -170,7 +170,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_ad_campaign
 
-> models::CreateAdCampaign201Response create_ad_campaign(create_ad_campaign_request, idempotency_key)
+> models::CreateAdCampaign200Response create_ad_campaign(create_ad_campaign_request, idempotency_key)
 Create a standalone campaign
 
 Creates a campaign WITHOUT its first ad set / ad, on the platform of the given `accountId`. Ad sets join it later via `existingCampaignId` on the create endpoints. Platform notes: on Meta a budget here is campaign-level (CBO) by definition; omit it for ABO (each ad set carries its own budget), and `specialAdCategories` is Meta-only (400 elsewhere); `bidStrategy` is Meta and Google (400 elsewhere), and Google also accepts `portfolioBidStrategyId` instead. Google, X and OpenAI require a budget (422 without one; OpenAI accepts only `budgetType: lifetime`, Google only `budgetType: daily`). LinkedIn creates the campaign GROUP (our campaign level) and rejects a budget, which lives on the campaign (ad set) level there; it comes back `status: DRAFT`. TikTok campaigns are created without a status and report `ENABLE`. Created `PAUSED` unless `status: ACTIVE` where the platform supports it.  **Idempotency:** send an `Idempotency-Key` header to make retries safe.
@@ -185,7 +185,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::CreateAdCampaign201Response**](createAdCampaign_201_response.md)
+[**models::CreateAdCampaign200Response**](createAdCampaign_200_response.md)
 
 ### Authorization
 

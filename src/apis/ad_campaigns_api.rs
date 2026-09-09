@@ -673,7 +673,7 @@ pub async fn create_ad_campaign(
     configuration: &configuration::Configuration,
     create_ad_campaign_request: models::CreateAdCampaignRequest,
     idempotency_key: Option<&str>,
-) -> Result<models::CreateAdCampaign201Response, Error<CreateAdCampaignError>> {
+) -> Result<models::CreateAdCampaign200Response, Error<CreateAdCampaignError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_ad_campaign_request = create_ad_campaign_request;
     let p_header_idempotency_key = idempotency_key;
@@ -709,8 +709,8 @@ pub async fn create_ad_campaign(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateAdCampaign201Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateAdCampaign201Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateAdCampaign200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateAdCampaign200Response`")))),
         }
     } else {
         let content = resp.text().await?;

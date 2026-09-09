@@ -24,6 +24,20 @@ pub struct CreateAdCampaignRequest {
     /// Mapped to the ODAX objective (same mapping as POST /v1/ads/create).
     #[serde(rename = "goal")]
     pub goal: Goal,
+    /// Meta app promotion only. Immutable campaign flag. Set true for iOS 14+ SKAdNetwork campaigns and supply promotedObject.applicationId plus promotedObject.objectStoreUrl. The campaign receives promotedObject only when this flag is true. Cannot be changed on an existing campaign.
+    #[serde(
+        rename = "isSkadnetworkAttribution",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_skadnetwork_attribution: Option<bool>,
+    #[serde(rename = "promotedObject", skip_serializing_if = "Option::is_none")]
+    pub promoted_object: Option<Box<models::AdPromotedObject>>,
+    /// Meta only. SKAdNetwork app promotion requires AUCTION.
+    #[serde(rename = "buyingType", skip_serializing_if = "Option::is_none")]
+    pub buying_type: Option<BuyingType>,
+    /// Meta only. Runs campaign validation without creating or persisting a campaign; Idempotency-Key storage is bypassed. Returns HTTP 200 with validateOnly true and status VALIDATED.
+    #[serde(rename = "validateOnly", skip_serializing_if = "Option::is_none")]
+    pub validate_only: Option<bool>,
     #[serde(
         rename = "specialAdCategories",
         skip_serializing_if = "Option::is_none"
@@ -65,6 +79,10 @@ impl CreateAdCampaignRequest {
             ad_account_id,
             name,
             goal,
+            is_skadnetwork_attribution: None,
+            promoted_object: None,
+            buying_type: None,
+            validate_only: None,
             special_ad_categories: None,
             budget_amount: None,
             budget_type: None,
@@ -106,6 +124,20 @@ pub enum Goal {
 impl Default for Goal {
     fn default() -> Goal {
         Self::Engagement
+    }
+}
+/// Meta only. SKAdNetwork app promotion requires AUCTION.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum BuyingType {
+    #[serde(rename = "AUCTION")]
+    Auction,
+    #[serde(rename = "RESERVED")]
+    Reserved,
+}
+
+impl Default for BuyingType {
+    fn default() -> BuyingType {
+        Self::Auction
     }
 }
 ///

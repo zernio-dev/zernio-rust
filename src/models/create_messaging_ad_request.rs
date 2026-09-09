@@ -16,6 +16,8 @@ pub struct CreateMessagingAdRequest {
     /// Meta enhancement settings for single or attached ads, and defaults for creatives[]. An item replaces the entire map, including with an empty object.
     #[serde(rename = "creativeFeatures", skip_serializing_if = "Option::is_none")]
     pub creative_features: Option<CreativeFeatures>,
+    #[serde(rename = "tracking", skip_serializing_if = "Option::is_none")]
+    pub tracking: Option<Box<models::AdTracking>>,
     /// Facebook or Instagram SocialAccount ID.
     #[serde(rename = "accountId")]
     pub account_id: String,
@@ -150,6 +152,7 @@ impl CreateMessagingAdRequest {
     ) -> CreateMessagingAdRequest {
         CreateMessagingAdRequest {
             creative_features: None,
+            tracking: None,
             account_id,
             ad_account_id,
             name,

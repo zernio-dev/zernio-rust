@@ -29,7 +29,7 @@ pub struct CreateStandaloneAdRequest {
     #[serde(rename = "adName", skip_serializing_if = "Option::is_none")]
     pub ad_name: Option<String>,
     #[serde(rename = "tracking", skip_serializing_if = "Option::is_none")]
-    pub tracking: Option<Box<models::CreateStandaloneAdRequestTracking>>,
+    pub tracking: Option<Box<models::AdTracking>>,
     /// Required on legacy and multi-creative shapes; the attach shape inherits it from the ad set. Available goals vary by platform.  **Meta** - `conversions`: OUTCOME_SALES. Requires `promotedObject.pixelId` and `promotedObject.customEventType` with a commerce event such as PURCHASE or START_TRIAL, or `promotedObject.customConversionId` to optimise against a Custom Conversion, or `customEventType: OTHER` + `customEventStr` to optimise against a pixel custom event. - `lead_conversion`: OUTCOME_LEADS optimizing website pixel leads. Same pixel and event fields, but with a leads-class event such as LEAD, SUBMIT_APPLICATION, SCHEDULE or CONTACT (or `promotedObject.customConversionId` to optimise against a Custom Conversion instead). Meta gates conversion events by objective, so leads-class events are rejected under `conversions`. - `lead_generation`: OUTCOME_LEADS with instant forms. Requires `leadGenFormId`. `promotedObject.pageId` is optional and auto-filled from the connected Page. - `app_promotion`: requires `promotedObject.applicationId` and `promotedObject.objectStoreUrl`. - `catalog_sales`: Advantage+ catalog ads, for example vehicle inventory. Requires `promotedObject.productSetId`, `promotedObject.pixelId` and `promotedObject.customEventType`. Builds a catalog TEMPLATE creative from the copy fields, which may carry template tags like {{product.name}} or {{vehicle.make}}. No imageUrl or video is sent; Meta renders the visuals per catalog item. Discover catalogs via GET /v1/ads/catalogs and product sets via GET /v1/ads/catalogs/{catalogId}/product-sets. Single shape only, no creatives[], adSetId, dynamicCreative or placementAssets. - `page_likes`: Page Likes conversion location under OUTCOME_ENGAGEMENT (destination_type ON_PAGE, optimization PAGE_LIKES). `promotedObject.pageId` is optional and auto-filled from the connected Page. The creative CTA is fixed to LIKE_PAGE targeting that Page; headline / body / linkUrl / callToAction / imageUrl / video are all optional (Meta derives the link and the Like button from the Page).  **TikTok** - `conversions`: website-conversion ad group. Requires `promotedObject.pixelId`, your TikTok Pixel ID. Accepts an optional `promotedObject.customEventType` with a TikTok optimization_event code your pixel tracks (newer pixels use e.g. SHOPPING for purchase events; legacy pixels use ON_WEB_ORDER, INITIATE_ORDER, ON_WEB_REGISTER or FORM). To inherit pixel and event from an existing ad group, pass `adSetId` instead.  **LinkedIn** - `engagement`, `traffic`, `awareness` and `video_views` create standalone Direct Sponsored Content ads. `traffic` requires `linkUrl`; `video_views` requires `video`. - `lead_generation`: requires `leadGenFormId` (an adForm ID from POST /v1/ads/lead-forms). The campaign objective is set to MAX_LEAD and the creative's `leadgenCallToAction` destination is set to `urn:li:adForm:{id}`. - `job_applicants` requires a `platformSpecificData.jobs` creative. - For `conversions` on LinkedIn, or to promote an existing post, use POST /v1/ads/boost.  **OpenAI Ads** - Only `traffic`, `awareness`, and `conversions` are supported (other goals return 400). Maps to OpenAI's `bidding_type` (clicks, impressions, conversions respectively). `conversions` requires an active conversion event setting on the account; create a tracking tag with `defaultEventType` via the tracking-tags API (`POST /v1/accounts/{accountId}/tracking-tags`), or configure a conversion event in OpenAI Ads Manager, or the request returns 422.
     #[serde(rename = "goal", skip_serializing_if = "Option::is_none")]
     pub goal: Option<Goal>,
@@ -53,7 +53,7 @@ pub struct CreateStandaloneAdRequest {
     /// Meta only. Multi-advertiser ads: whether Meta may show this ad alongside other advertisers' in one unit. Meta auto-enrols since Aug 2024, so send OPT_OUT to leave. It is a top-level creative field, NOT a `creativeFeatures` key, and Meta rejects it there.
     #[serde(rename = "multiAdvertiser", skip_serializing_if = "Option::is_none")]
     pub multi_advertiser: Option<MultiAdvertiser>,
-    /// Meta only, single standalone shape only (no creatives[], adSetId, or RESERVED). Dry-run: each node runs Meta's execution_options validate_only and NOTHING is created or persisted. Children need real parents, so a fresh tree validates the campaign + creative (the ad set needs its campaign to exist, so pass existingCampaignId to validate it too; the ad itself is never validatable pre-create). A Meta validation failure returns the 400 verbatim; success returns 200 with per-node results instead of an ad.
+    /// Meta only. Validates the complete inline campaign, ad set, creative and ad with execution_options validate_only. Nothing is uploaded or created, and validation bypasses Idempotency-Key storage. Supports a single image, existing video.id or existingCreativeId; media pools, new video uploads, creatives[], adSetId and RESERVED buying return 400. Existing campaign or creative nodes are marked skipped. Success returns 200 with per-node results; Meta rejection returns an error.
     #[serde(rename = "validateOnly", skip_serializing_if = "Option::is_none")]
     pub validate_only: Option<bool>,
     /// Budget in WHOLE currency units (USD: 50 = $50.00), NOT cents. Meta's own Marketing API takes this same number in minor units, so it is an easy and expensive mix-up. Required on legacy + multi-creative shapes. Inherited on attach. OpenAI Ads requires a $1 minimum (its budget is lifetime-only, see budgetType).
@@ -322,8 +322,26 @@ pub struct CreateStandaloneAdRequest {
     /// TikTok only. Creates the ad as a TikTok Upgraded Smart+ campaign: TikTok automates targeting, bidding and delivery. Supports goals `conversions` (Smart+ Web Conversions), `lead_generation` (Smart+ Lead Generation with a website form on `linkUrl`; TikTok Instant Forms not supported) and `app_promotion` (Smart+ App installs; the ad's destination is the app store, so `linkUrl` is not used). The web goals require `promotedObject.pixelId` AND `promotedObject.customEventType`; `app_promotion` requires `promotedObject.applicationId` instead. Targeting works like on any TikTok ad (defaults to `countries: [\"US\"]` when omitted); TikTok automates delivery within it. The budget lives on the Smart+ campaign (Campaign Budget Optimization); a `lifetime` budget additionally requires `endDate`. Cannot be combined with `adSetId`.
     #[serde(rename = "smartPlus", skip_serializing_if = "Option::is_none")]
     pub smart_plus: Option<bool>,
+    /// Meta only. Operating systems and version ranges, such as iOS_ver_14.0_and_above or Android. Emitted as user_os. May also be supplied inside targeting.
+    #[serde(rename = "userOs", skip_serializing_if = "Option::is_none")]
+    pub user_os: Option<Vec<String>>,
+    /// Meta only. Device models such as iPhone. Emitted as user_device. May also be supplied inside targeting.
+    #[serde(rename = "userDevice", skip_serializing_if = "Option::is_none")]
+    pub user_device: Option<Vec<String>>,
+    /// Meta app promotion only. Immutable campaign flag. Set true for iOS 14+ SKAdNetwork campaigns and supply promotedObject.applicationId plus promotedObject.objectStoreUrl. The campaign receives promotedObject only when this flag is true. Cannot be changed on an existing campaign.
+    #[serde(
+        rename = "isSkadnetworkAttribution",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_skadnetwork_attribution: Option<bool>,
+    /// Meta ad-set attribution. Required as SKADNETWORK for iOS 14+ app promotion or a SKAdNetwork campaign. Requires AUCTION buying. Standalone Meta ad-set creation is not supported; use this field on /v1/ads/create.
+    #[serde(
+        rename = "campaignAttribution",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub campaign_attribution: Option<CampaignAttribution>,
     #[serde(rename = "promotedObject", skip_serializing_if = "Option::is_none")]
-    pub promoted_object: Option<Box<models::CreateStandaloneAdRequestPromotedObject>>,
+    pub promoted_object: Option<Box<models::AdPromotedObject>>,
 }
 
 impl CreateStandaloneAdRequest {
@@ -431,6 +449,10 @@ impl CreateStandaloneAdRequest {
             brand_identity: None,
             identity_type: None,
             smart_plus: None,
+            user_os: None,
+            user_device: None,
+            is_skadnetwork_attribution: None,
+            campaign_attribution: None,
             promoted_object: None,
         }
     }
@@ -739,5 +761,19 @@ pub enum IdentityType {
 impl Default for IdentityType {
     fn default() -> IdentityType {
         Self::TtUser
+    }
+}
+/// Meta ad-set attribution. Required as SKADNETWORK for iOS 14+ app promotion or a SKAdNetwork campaign. Requires AUCTION buying. Standalone Meta ad-set creation is not supported; use this field on /v1/ads/create.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum CampaignAttribution {
+    #[serde(rename = "AEM")]
+    Aem,
+    #[serde(rename = "SKADNETWORK")]
+    Skadnetwork,
+}
+
+impl Default for CampaignAttribution {
+    fn default() -> CampaignAttribution {
+        Self::Aem
     }
 }

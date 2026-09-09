@@ -91,6 +91,7 @@ Class | Method | HTTP request | Description
 *AdAccountsApi* | [**get_ads_activity_log**](docs/AdAccountsApi.md#get_ads_activity_log) | **GET** /v1/ads/activity | Ad account change / audit log
 *AdAccountsApi* | [**get_dsa_defaults**](docs/AdAccountsApi.md#get_dsa_defaults) | **GET** /v1/ads/dsa-defaults | Get ad account DSA defaults
 *AdAccountsApi* | [**get_dsa_recommendations**](docs/AdAccountsApi.md#get_dsa_recommendations) | **GET** /v1/ads/dsa-recommendations | List DSA beneficiary/payor suggestions
+*AdAccountsApi* | [**get_ios_fourteen_campaign_limits**](docs/AdAccountsApi.md#get_ios_fourteen_campaign_limits) | **GET** /v1/ads/ios-fourteen-campaign-limits | Get iOS 14 campaign limits
 *AdAccountsApi* | [**get_value_rule_set**](docs/AdAccountsApi.md#get_value_rule_set) | **GET** /v1/ads/value-rule-sets/{valueRuleSetId} | Read a value rule set
 *AdAccountsApi* | [**hide_ad_comment**](docs/AdAccountsApi.md#hide_ad_comment) | **POST** /v1/ads/{adId}/comments/{commentId}/hide | Hide or unhide an ad comment
 *AdAccountsApi* | [**list_account_callouts**](docs/AdAccountsApi.md#list_account_callouts) | **GET** /v1/ads/accounts/callouts | List account-level callout extensions
@@ -99,6 +100,8 @@ Class | Method | HTTP request | Description
 *AdAccountsApi* | [**list_ad_negative_keyword_lists**](docs/AdAccountsApi.md#list_ad_negative_keyword_lists) | **GET** /v1/ads/accounts/negative-keyword-lists | List negative keyword lists
 *AdAccountsApi* | [**list_ad_studies**](docs/AdAccountsApi.md#list_ad_studies) | **GET** /v1/ads/studies | A/B tests and lift studies
 *AdAccountsApi* | [**list_ads_business_centers**](docs/AdAccountsApi.md#list_ads_business_centers) | **GET** /v1/ads/business-centers | List TikTok Business Centers
+*AdAccountsApi* | [**list_ads_instagram_accounts**](docs/AdAccountsApi.md#list_ads_instagram_accounts) | **GET** /v1/ads/instagram-accounts | List Instagram ad identities
+*AdAccountsApi* | [**list_advertisable_applications**](docs/AdAccountsApi.md#list_advertisable_applications) | **GET** /v1/ads/advertisable-applications | List advertisable apps
 *AdAccountsApi* | [**list_custom_conversions**](docs/AdAccountsApi.md#list_custom_conversions) | **GET** /v1/accounts/{accountId}/custom-conversions | List custom conversions
 *AdAccountsApi* | [**list_high_demand_periods**](docs/AdAccountsApi.md#list_high_demand_periods) | **GET** /v1/ads/high-demand-periods | High demand periods / budget schedules
 *AdAccountsApi* | [**list_meta_businesses**](docs/AdAccountsApi.md#list_meta_businesses) | **GET** /v1/ads/businesses | Businesses list
@@ -767,6 +770,7 @@ Class | Method | HTTP request | Description
  - [AdReviewStatus](docs/AdReviewStatus.md)
  - [AdSchedule](docs/AdSchedule.md)
  - [AdStatus](docs/AdStatus.md)
+ - [AdTracking](docs/AdTracking.md)
  - [AdTreeAdSet](docs/AdTreeAdSet.md)
  - [AdTreeAdSetAdSetBudget](docs/AdTreeAdSetAdSetBudget.md)
  - [AdTreeAdSetBudget](docs/AdTreeAdSetBudget.md)
@@ -977,6 +981,7 @@ Class | Method | HTTP request | Description
  - [CreateAccountGroupRequest](docs/CreateAccountGroupRequest.md)
  - [CreateAdAudience201Response](docs/CreateAdAudience201Response.md)
  - [CreateAdAudienceRequest](docs/CreateAdAudienceRequest.md)
+ - [CreateAdCampaign200Response](docs/CreateAdCampaign200Response.md)
  - [CreateAdCampaign201Response](docs/CreateAdCampaign201Response.md)
  - [CreateAdCampaignRequest](docs/CreateAdCampaignRequest.md)
  - [CreateAdCreative201Response](docs/CreateAdCreative201Response.md)
@@ -1118,11 +1123,9 @@ Class | Method | HTTP request | Description
  - [CreateStandaloneAdRequestPlacementAssetsRulesInnerPlacements](docs/CreateStandaloneAdRequestPlacementAssetsRulesInnerPlacements.md)
  - [CreateStandaloneAdRequestPlacements](docs/CreateStandaloneAdRequestPlacements.md)
  - [CreateStandaloneAdRequestPlatformSpecificData](docs/CreateStandaloneAdRequestPlatformSpecificData.md)
- - [CreateStandaloneAdRequestPromotedObject](docs/CreateStandaloneAdRequestPromotedObject.md)
  - [CreateStandaloneAdRequestRegionsInner](docs/CreateStandaloneAdRequestRegionsInner.md)
  - [CreateStandaloneAdRequestSitelinksInner](docs/CreateStandaloneAdRequestSitelinksInner.md)
  - [CreateStandaloneAdRequestStructuredSnippetsInner](docs/CreateStandaloneAdRequestStructuredSnippetsInner.md)
- - [CreateStandaloneAdRequestTracking](docs/CreateStandaloneAdRequestTracking.md)
  - [CreateStandaloneAdRequestTranslationsInner](docs/CreateStandaloneAdRequestTranslationsInner.md)
  - [CreateStandaloneAdRequestVideo](docs/CreateStandaloneAdRequestVideo.md)
  - [CreateTestLead200Response](docs/CreateTestLead200Response.md)
@@ -1462,6 +1465,8 @@ Class | Method | HTTP request | Description
  - [GetInstagramStoryInsights200Response](docs/GetInstagramStoryInsights200Response.md)
  - [GetInstagramStoryInsights200ResponseData](docs/GetInstagramStoryInsights200ResponseData.md)
  - [GetInstagramStoryInsights200ResponseDataMetrics](docs/GetInstagramStoryInsights200ResponseDataMetrics.md)
+ - [GetIosFourteenCampaignLimits200Response](docs/GetIosFourteenCampaignLimits200Response.md)
+ - [GetIosFourteenCampaignLimits200ResponseLimits](docs/GetIosFourteenCampaignLimits200ResponseLimits.md)
  - [GetLeadForm200Response](docs/GetLeadForm200Response.md)
  - [GetLinkedInAggregateAnalytics200Response](docs/GetLinkedInAggregateAnalytics200Response.md)
  - [GetLinkedInAggregateAnalytics400Response](docs/GetLinkedInAggregateAnalytics400Response.md)
@@ -1735,6 +1740,12 @@ Class | Method | HTTP request | Description
  - [ListAdVideos200Response](docs/ListAdVideos200Response.md)
  - [ListAds202Response](docs/ListAds202Response.md)
  - [ListAdsBusinessCenters200Response](docs/ListAdsBusinessCenters200Response.md)
+ - [ListAdsInstagramAccounts200Response](docs/ListAdsInstagramAccounts200Response.md)
+ - [ListAdsInstagramAccounts200ResponseAccountsInner](docs/ListAdsInstagramAccounts200ResponseAccountsInner.md)
+ - [ListAdsInstagramAccounts200ResponsePagesInner](docs/ListAdsInstagramAccounts200ResponsePagesInner.md)
+ - [ListAdsInstagramAccounts200ResponseResolved](docs/ListAdsInstagramAccounts200ResponseResolved.md)
+ - [ListAdvertisableApplications200Response](docs/ListAdvertisableApplications200Response.md)
+ - [ListAdvertisableApplications200ResponseApplicationsInner](docs/ListAdvertisableApplications200ResponseApplicationsInner.md)
  - [ListApiKeys200Response](docs/ListApiKeys200Response.md)
  - [ListBidStrategies200Response](docs/ListBidStrategies200Response.md)
  - [ListBlogArticles200Response](docs/ListBlogArticles200Response.md)
@@ -1922,6 +1933,7 @@ Class | Method | HTTP request | Description
  - [MediaItem](docs/MediaItem.md)
  - [MediaUploadResponse](docs/MediaUploadResponse.md)
  - [MetaAdsPlatformData](docs/MetaAdsPlatformData.md)
+ - [MetaInstagramIdentityRef](docs/MetaInstagramIdentityRef.md)
  - [MetaLeadFormPlatformData](docs/MetaLeadFormPlatformData.md)
  - [MetaLeadFormPlatformDataContextCard](docs/MetaLeadFormPlatformDataContextCard.md)
  - [MetaPromotion](docs/MetaPromotion.md)
