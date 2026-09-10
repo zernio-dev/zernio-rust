@@ -53,6 +53,9 @@ pub struct CreateInboxConversationRequest {
     )]
     pub template_button_params:
         Option<Vec<models::CreateInboxConversationRequestTemplateButtonParamsInner>>,
+    /// WhatsApp only. Per-card overrides for a CAROUSEL template, each addressed by the card's card_index. Carousel card body variables restart at {{1}} per card, so they cannot be expressed in the flat templateParams slot order; use this instead. A cardIndex naming a card the approved template does not have, a duplicate cardIndex, or a params count that does not match the card body's token count is rejected with 400 (INVALID_TEMPLATE_CARD_PARAM).
+    #[serde(rename = "templateCards", skip_serializing_if = "Option::is_none")]
+    pub template_cards: Option<Vec<models::CreateInboxConversationRequestTemplateCardsInner>>,
     #[serde(rename = "headerMedia", skip_serializing_if = "Option::is_none")]
     pub header_media: Option<Box<models::CreateInboxConversationRequestHeaderMedia>>,
     #[serde(rename = "headerLocation", skip_serializing_if = "Option::is_none")]
@@ -73,6 +76,7 @@ impl CreateInboxConversationRequest {
             template_language: None,
             template_params: None,
             template_button_params: None,
+            template_cards: None,
             header_media: None,
             header_location: None,
         }

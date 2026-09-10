@@ -40,6 +40,8 @@ pub enum Code {
     InvalidTemplateParams,
     #[serde(rename = "INVALID_TEMPLATE_BUTTON_PARAM")]
     InvalidTemplateButtonParam,
+    #[serde(rename = "INVALID_TEMPLATE_CARD_PARAM")]
+    InvalidTemplateCardParam,
     #[serde(rename = "DIRECT_SEND_NOT_ELIGIBLE")]
     DirectSendNotEligible,
     #[serde(rename = "DIRECT_SEND_LIMITED")]
