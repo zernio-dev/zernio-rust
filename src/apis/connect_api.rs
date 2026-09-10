@@ -25,6 +25,17 @@ pub enum AssignGoogleBusinessLocationError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`complete_meta_ads_business_login`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CompleteMetaAdsBusinessLoginError {
+    Status400(models::ErrorResponse),
+    Status403(),
+    Status409(),
+    Status503(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`complete_telegram_connect`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -69,6 +80,8 @@ pub enum ConnectAdsError {
     Status401(models::InlineObject1),
     Status403(),
     Status404(),
+    Status409(),
+    Status503(),
     UnknownValue(serde_json::Value),
 }
 
@@ -620,6 +633,50 @@ pub async fn assign_google_business_location(
     }
 }
 
+/// Facebook Login for Business redirect target. Meta supplies the single-use authorization code and the authenticated state returned by connectAds. The state expires after 30 minutes and binds the user, profile, Page selection and ad-account scope. No bearer token is sent by the browser. Success reconnects only metaads and redirects to the original redirect_url. Invalid state returns 400; inaccessible profiles or missing ads access cannot connect. No token is returned to the browser.
+pub async fn complete_meta_ads_business_login(
+    configuration: &configuration::Configuration,
+    state: &str,
+    code: Option<&str>,
+    error: Option<&str>,
+) -> Result<(), Error<CompleteMetaAdsBusinessLoginError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_state = state;
+    let p_query_code = code;
+    let p_query_error = error;
+
+    let uri_str = format!("{}/v1/connect/meta-ads/callback", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("state", &p_query_state.to_string())]);
+    if let Some(ref param_value) = p_query_code {
+        req_builder = req_builder.query(&[("code", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_error {
+        req_builder = req_builder.query(&[("error", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CompleteMetaAdsBusinessLoginError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Poll this endpoint to check if a Telegram access code has been used to connect a channel/group. Recommended polling interval: 3 seconds. Status values: pending (waiting for user), connected (channel/group linked), expired (generate a new code).
 pub async fn complete_telegram_connect(
     configuration: &configuration::Configuration,
@@ -788,11 +845,13 @@ pub async fn configure_tik_tok_ads_brand_identity(
     }
 }
 
-/// Unified ads connection endpoint. Creates a dedicated ads SocialAccount for the specified platform.  **Same-token platforms (facebook, instagram, linkedin, pinterest).** The ads SocialAccount (metaads, linkedinads, pinterestads) reuses the OAuth token of the parent posting account, but only when an active parent exists and, for facebook and instagram, its stored token carries ads_management and ads_read (linkedin and pinterest need no extra scope). In that case no extra OAuth happens and the response is alreadyConnected: true.  When no such parent exists, or the scopes are missing, the endpoint returns an authUrl and a full OAuth round trip is required. When a parent exists but carries no token usable for ad accounts, the call fails with 400 RECONNECT_REQUIRED. Independently of the branch, the call can return 403 ADS_ADDON_REQUIRED without the ads add-on and 402 PAYMENT_REQUIRED when the billing gate is closed.  Meta Ads prerequisite: connecting Meta Ads (via facebook or instagram) requires a Facebook Page. Not because the ad account is read through a Page, but because both parent posting accounts are: the facebook flow only offers Pages you manage, and the instagram flow with loginMethod=facebook_login only offers Instagram accounts linked to one of those Pages. Without a Page there is no parent account to inherit a token from. A user who manages no Facebook Page cannot complete this connection, and the facebook flow ends with error=no_facebook_pages.  **Separate-token platforms (tiktok, twitter).** Starts the platform-specific marketing API OAuth flow and creates an ads SocialAccount (tiktokads, xads) with its own token. If the ads account already exists, returns alreadyConnected: true.   - tiktok: accountId is OPTIONAL. With accountId, the new tiktokads account links to that posting account (parentAccountId set), so Spark Ads + standalone ads using the posting TT_USER identity become available. Without accountId, ads-only mode kicks in: the new tiktokads account has parentAccountId=null and standalone ads use a synthetic CUSTOMIZED_USER (\"Brand Identity\"); Spark Ads are unavailable because TikTok requires a posting account for them. The Brand Identity is configured separately via PATCH /v1/connect/tiktok-ads (or inline on POST /v1/ads/create via the brandIdentity field).   - twitter (X Ads): accountId is REQUIRED. There's no ads-only mode, because tweets need to be authored by a real X user.  **Standalone platforms (googleads).** Starts the Google Ads OAuth flow and creates a standalone ads SocialAccount (googleads) with no parent. If the account already exists, returns alreadyConnected: true.  Ads accounts appear as regular SocialAccount documents with ads platform values (e.g., metaads, tiktokads) in GET /v1/accounts.
+/// Unified ads connection endpoint. Creates a dedicated ads SocialAccount for the specified platform.  **Meta business login (opt-in).** Set `loginMode=business` for `facebook` or `instagram` to use Facebook Login for Business and a Business Integration System User token. No posting account is created or required. This mode always returns an authUrl; it returns 503 when the server has no META_ADS_CONFIG_ID. Complete the dialog in a browser. The callback creates or reconnects only the metaads account, preserving its ID, history and scopedAdAccountIds. Non-empty successful subscription results replace subscribedAdAccountIds to remove stale grants; an empty result leaves routing unchanged. A reconnect must grant every previously scoped ad account (or every previous grant for an unscoped connection). Missing or unverifiable grants return 409 before changing the account.  Pass `pageId` to select a granted Page for creatives and lead forms. Otherwise the previous Page or sole granted Page is selected. Multiple Pages without a selection return 400 with available Page IDs; restart with pageId. With no Pages granted the account can manage campaigns and sync insights but cannot create Page-based creatives or list Page forms. Success redirects with connected=metaads, profileId and accountId. Business login reports metadata.tokenType=system-user in GET /v1/accounts. An absent Meta expires_in leaves tokenExpiresAt absent; no personal-token re-exchange occurs. Subsequent classic requests can change the ad-account scope using the business token; force=true requires loginMode=business to reconnect that connection.  **Same-token platforms (facebook, instagram, linkedin, pinterest).** The ads SocialAccount (metaads, linkedinads, pinterestads) reuses the OAuth token of the parent posting account, but only when an active parent exists and, for facebook and instagram, its stored token carries ads_management and ads_read (linkedin and pinterest need no extra scope). In that case no extra OAuth happens and the response is alreadyConnected: true.  When no such parent exists, or the scopes are missing, the endpoint returns an authUrl and a full OAuth round trip is required. When a parent exists but carries no token usable for ad accounts, the call fails with 400 RECONNECT_REQUIRED. Independently of the branch, the call can return 403 ADS_ADDON_REQUIRED without the ads add-on and 402 PAYMENT_REQUIRED when the billing gate is closed.  Meta Ads prerequisite: connecting Meta Ads (via facebook or instagram) requires a Facebook Page. Not because the ad account is read through a Page, but because both parent posting accounts are: the facebook flow only offers Pages you manage, and the instagram flow with loginMethod=facebook_login only offers Instagram accounts linked to one of those Pages. Without a Page there is no parent account to inherit a token from. A user who manages no Facebook Page cannot complete this connection, and the facebook flow ends with error=no_facebook_pages.  **Separate-token platforms (tiktok, twitter).** Starts the platform-specific marketing API OAuth flow and creates an ads SocialAccount (tiktokads, xads) with its own token. If the ads account already exists, returns alreadyConnected: true.   - tiktok: accountId is OPTIONAL. With accountId, the new tiktokads account links to that posting account (parentAccountId set), so Spark Ads + standalone ads using the posting TT_USER identity become available. Without accountId, ads-only mode kicks in: the new tiktokads account has parentAccountId=null and standalone ads use a synthetic CUSTOMIZED_USER (\"Brand Identity\"); Spark Ads are unavailable because TikTok requires a posting account for them. The Brand Identity is configured separately via PATCH /v1/connect/tiktok-ads (or inline on POST /v1/ads/create via the brandIdentity field).   - twitter (X Ads): accountId is REQUIRED. There's no ads-only mode, because tweets need to be authored by a real X user.  **Standalone platforms (googleads).** Starts the Google Ads OAuth flow and creates a standalone ads SocialAccount (googleads) with no parent. If the account already exists, returns alreadyConnected: true.  Ads accounts appear as regular SocialAccount documents with ads platform values (e.g., metaads, tiktokads) in GET /v1/accounts.
 pub async fn connect_ads(
     configuration: &configuration::Configuration,
     platform: &str,
     profile_id: &str,
+    login_mode: Option<&str>,
+    page_id: Option<&str>,
     account_id: Option<&str>,
     redirect_url: Option<&str>,
     headless: Option<bool>,
@@ -803,6 +862,8 @@ pub async fn connect_ads(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_platform = platform;
     let p_query_profile_id = profile_id;
+    let p_query_login_mode = login_mode;
+    let p_query_page_id = page_id;
     let p_query_account_id = account_id;
     let p_query_redirect_url = redirect_url;
     let p_query_headless = headless;
@@ -817,6 +878,12 @@ pub async fn connect_ads(
     );
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+    if let Some(ref param_value) = p_query_login_mode {
+        req_builder = req_builder.query(&[("loginMode", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page_id {
+        req_builder = req_builder.query(&[("pageId", &param_value.to_string())]);
+    }
     req_builder = req_builder.query(&[("profileId", &p_query_profile_id.to_string())]);
     if let Some(ref param_value) = p_query_account_id {
         req_builder = req_builder.query(&[("accountId", &param_value.to_string())]);

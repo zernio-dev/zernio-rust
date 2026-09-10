@@ -159,6 +159,7 @@ Class | Method | HTTP request | Description
 *AdCampaignsApi* | [**list_campaign_assets**](docs/AdCampaignsApi.md#list_campaign_assets) | **GET** /v1/ads/campaigns/{campaignId}/assets | List campaign assets
 *AdCampaignsApi* | [**list_campaign_negative_keyword_lists**](docs/AdCampaignsApi.md#list_campaign_negative_keyword_lists) | **GET** /v1/ads/campaigns/{campaignId}/negative-keyword-lists | List campaign negative lists
 *AdCampaignsApi* | [**list_campaign_negative_keywords**](docs/AdCampaignsApi.md#list_campaign_negative_keywords) | **GET** /v1/ads/campaigns/{campaignId}/negative-keywords | List campaign-level negative keywords
+*AdCampaignsApi* | [**list_google_asset_groups**](docs/AdCampaignsApi.md#list_google_asset_groups) | **GET** /v1/ads/campaigns/{campaignId}/asset-groups | List Performance Max asset groups
 *AdCampaignsApi* | [**remove_ad_group_assets**](docs/AdCampaignsApi.md#remove_ad_group_assets) | **DELETE** /v1/ads/ad-sets/{adSetId}/assets | Remove ad-group assets
 *AdCampaignsApi* | [**remove_ad_keyword**](docs/AdCampaignsApi.md#remove_ad_keyword) | **DELETE** /v1/ads/keywords/{keywordId} | Remove a Search keyword
 *AdCampaignsApi* | [**remove_campaign_assets**](docs/AdCampaignsApi.md#remove_campaign_assets) | **DELETE** /v1/ads/campaigns/{campaignId}/assets | Remove campaign assets
@@ -330,6 +331,7 @@ Class | Method | HTTP request | Description
 *CommentsApi* | [**unlike_inbox_comment**](docs/CommentsApi.md#unlike_inbox_comment) | **DELETE** /v1/inbox/comments/{postId}/{commentId}/like | Unlike comment
 *CommentsApi* | [**unlike_post**](docs/CommentsApi.md#unlike_post) | **DELETE** /v1/inbox/posts/{postId}/like | Unlike post
 *ConnectApi* | [**assign_google_business_location**](docs/ConnectApi.md#assign_google_business_location) | **POST** /v1/accounts/{accountId}/gmb-locations/assign | Assign Google Business Profile location to another profile
+*ConnectApi* | [**complete_meta_ads_business_login**](docs/ConnectApi.md#complete_meta_ads_business_login) | **GET** /v1/connect/meta-ads/callback | Complete Meta business login
 *ConnectApi* | [**complete_telegram_connect**](docs/ConnectApi.md#complete_telegram_connect) | **PATCH** /v1/connect/telegram | Check Telegram status
 *ConnectApi* | [**complete_whats_app_phone_selection**](docs/ConnectApi.md#complete_whats_app_phone_selection) | **POST** /v1/connect/whatsapp/select-phone-number | Complete number selection
 *ConnectApi* | [**configure_tik_tok_ads_brand_identity**](docs/ConnectApi.md#configure_tik_tok_ads_brand_identity) | **PATCH** /v1/connect/tiktok-ads | Set TikTok brand identity
@@ -1669,6 +1671,10 @@ Class | Method | HTTP request | Description
  - [GoogleBusinessReview](docs/GoogleBusinessReview.md)
  - [GoogleBusinessReviewReviewReply](docs/GoogleBusinessReviewReviewReply.md)
  - [GoogleBusinessReviewReviewer](docs/GoogleBusinessReviewReviewer.md)
+ - [GooglePmaxAssetGroup](docs/GooglePmaxAssetGroup.md)
+ - [GooglePmaxAssetGroupAssetsInner](docs/GooglePmaxAssetGroupAssetsInner.md)
+ - [GooglePmaxAssetGroupInput](docs/GooglePmaxAssetGroupInput.md)
+ - [GooglePmaxAssetGroupInputImages](docs/GooglePmaxAssetGroupInputImages.md)
  - [GoogleRsaDescription](docs/GoogleRsaDescription.md)
  - [GoogleRsaHeadline](docs/GoogleRsaHeadline.md)
  - [GoogleSitelink](docs/GoogleSitelink.md)
@@ -1841,6 +1847,7 @@ Class | Method | HTTP request | Description
  - [ListFacebookPages200ResponsePagesInner](docs/ListFacebookPages200ResponsePagesInner.md)
  - [ListFormLeads200Response](docs/ListFormLeads200Response.md)
  - [ListFormLeads200ResponseLeadsInner](docs/ListFormLeads200ResponseLeadsInner.md)
+ - [ListGoogleAssetGroups200Response](docs/ListGoogleAssetGroups200Response.md)
  - [ListGoogleBusinessLocations200Response](docs/ListGoogleBusinessLocations200Response.md)
  - [ListGoogleBusinessLocations200ResponseLocationsInner](docs/ListGoogleBusinessLocations200ResponseLocationsInner.md)
  - [ListGoogleBusinessMedia200Response](docs/ListGoogleBusinessMedia200Response.md)

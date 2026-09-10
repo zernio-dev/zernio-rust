@@ -20,6 +20,12 @@ pub struct ListAdAccounts200ResponseAccountsInner {
     pub name: Option<String>,
     #[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
     pub currency: Option<String>,
+    /// Meta only. Owning Business Manager ID when available on the grant.
+    #[serde(rename = "businessId", skip_serializing_if = "Option::is_none")]
+    pub business_id: Option<String>,
+    /// Owning business name when supplied by the platform.
+    #[serde(rename = "businessName", skip_serializing_if = "Option::is_none")]
+    pub business_name: Option<String>,
     /// LinkedIn only. LinkedIn's own ad account status. In practice always `ACTIVE`, because the LinkedIn query filters to active accounts. Meta, Google, TikTok and Pinterest report `accountStatus` instead; X reports `approvalStatus`.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
@@ -67,6 +73,8 @@ impl ListAdAccounts200ResponseAccountsInner {
             id: None,
             name: None,
             currency: None,
+            business_id: None,
+            business_name: None,
             status: None,
             account_status: None,
             approval_status: None,

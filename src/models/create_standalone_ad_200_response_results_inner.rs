@@ -42,6 +42,8 @@ pub enum Node {
     Creative,
     #[serde(rename = "ad")]
     Ad,
+    #[serde(rename = "performanceMaxCampaign")]
+    PerformanceMaxCampaign,
 }
 
 impl Default for Node {

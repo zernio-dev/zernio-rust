@@ -24,6 +24,9 @@ pub struct ConnectAds200ResponseOneOf {
     pub username: Option<String>,
     #[serde(rename = "displayName", skip_serializing_if = "Option::is_none")]
     pub display_name: Option<String>,
+    /// Present for an existing business-login connection.
+    #[serde(rename = "tokenType", skip_serializing_if = "Option::is_none")]
+    pub token_type: Option<TokenType>,
     /// Echo of the persisted ad-account scope when the caller passed `adAccountId` / `adAccountIds`. Omitted when no scope is set.
     #[serde(rename = "scopedAdAccountIds", skip_serializing_if = "Option::is_none")]
     pub scoped_ad_account_ids: Option<Vec<String>>,
@@ -38,7 +41,20 @@ impl ConnectAds200ResponseOneOf {
             platform: None,
             username: None,
             display_name: None,
+            token_type: None,
             scoped_ad_account_ids: None,
         }
+    }
+}
+/// Present for an existing business-login connection.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum TokenType {
+    #[serde(rename = "system-user")]
+    SystemUser,
+}
+
+impl Default for TokenType {
+    fn default() -> TokenType {
+        Self::SystemUser
     }
 }

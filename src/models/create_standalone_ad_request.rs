@@ -53,16 +53,16 @@ pub struct CreateStandaloneAdRequest {
     /// Meta only. Multi-advertiser ads: whether Meta may show this ad alongside other advertisers' in one unit. Meta auto-enrols since Aug 2024, so send OPT_OUT to leave. It is a top-level creative field, NOT a `creativeFeatures` key, and Meta rejects it there.
     #[serde(rename = "multiAdvertiser", skip_serializing_if = "Option::is_none")]
     pub multi_advertiser: Option<MultiAdvertiser>,
-    /// Meta only. Validates the complete inline campaign, ad set, creative and ad with execution_options validate_only. Nothing is uploaded or created, and validation bypasses Idempotency-Key storage. Supports a single image, existing video.id or existingCreativeId; media pools, new video uploads, creatives[], adSetId and RESERVED buying return 400. Existing campaign or creative nodes are marked skipped. Success returns 200 with per-node results; Meta rejection returns an error.
+    /// Google Performance Max validates the complete atomic campaign and asset group with no resource creation or local persistence. Google validation still downloads image URLs and consumes quota. On Meta, validates the complete inline campaign, ad set, creative and ad with execution_options validate_only. Nothing is uploaded or created, and validation bypasses Idempotency-Key storage. Supports a single image, existing video.id or existingCreativeId; media pools, new video uploads, creatives[], adSetId and RESERVED buying return 400. Existing campaign or creative nodes are marked skipped. Success returns 200 with per-node results; Meta rejection returns an error.
     #[serde(rename = "validateOnly", skip_serializing_if = "Option::is_none")]
     pub validate_only: Option<bool>,
-    /// Budget in WHOLE currency units (USD: 50 = $50.00), NOT cents. Meta's own Marketing API takes this same number in minor units, so it is an easy and expensive mix-up. Required on legacy + multi-creative shapes. Inherited on attach. OpenAI Ads requires a $1 minimum (its budget is lifetime-only, see budgetType).
+    /// Budget in WHOLE currency units (USD: 50 = $50.00), NOT cents. Meta's own Marketing API takes this same number in minor units, so it is an easy and expensive mix-up. Required on legacy, multi-creative and Performance Max shapes. Inherited on attach. OpenAI Ads requires a $1 minimum (its budget is lifetime-only, see budgetType).
     #[serde(rename = "budgetAmount", skip_serializing_if = "Option::is_none")]
     pub budget_amount: Option<f64>,
-    /// Required on legacy + multi-creative shapes. Inherited on attach. OpenAI Ads accepts lifetime only (no daily-budget concept on the platform); sending daily returns 422. OpenAI Ads lifetime budgets require `endDate` to give the lifetime cap a spend window.
+    /// Required on legacy, multi-creative and Performance Max shapes. Inherited on attach. OpenAI Ads accepts lifetime only (no daily-budget concept on the platform); sending daily returns 422. OpenAI Ads lifetime budgets require `endDate` to give the lifetime cap a spend window.
     #[serde(rename = "budgetType", skip_serializing_if = "Option::is_none")]
     pub budget_type: Option<BudgetType>,
-    /// Meta, TikTok, and LinkedIn. Publish state of the created entities. Omitted or ACTIVE publishes live (default, back-compat); PAUSED creates them paused so you can review before they spend. On Meta the pause is held on the campaign this call creates, leaving the ad set and ad switched on, so a single PUT /v1/ads/campaigns/{campaignId}/status with `active` brings the whole thing live. It is held at every level instead when the pause cannot rely on the campaign: `existingCampaignId` (that campaign may be running and is never touched) or `campaignStatus: ACTIVE`. On TikTok the whole campaign > ad group > ad hierarchy stays paused. On LinkedIn the whole campaign group, campaign, and creative hierarchy stays PAUSED (intendedStatus PAUSED on each).
+    /// Google Performance Max accepts PAUSED only and always creates a paused campaign. Meta, TikTok, and LinkedIn: publish state of the created entities. Omitted or ACTIVE publishes live (default, back-compat); PAUSED creates them paused so you can review before they spend. On Meta the pause is held on the campaign this call creates, leaving the ad set and ad switched on, so a single PUT /v1/ads/campaigns/{campaignId}/status with `active` brings the whole thing live. It is held at every level instead when the pause cannot rely on the campaign: `existingCampaignId` (that campaign may be running and is never touched) or `campaignStatus: ACTIVE`. On TikTok the whole campaign > ad group > ad hierarchy stays paused. On LinkedIn the whole campaign group, campaign, and creative hierarchy stays PAUSED (intendedStatus PAUSED on each).
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
     /// Meta only. Overrides `status` for the campaign level alone, so you can create a live campaign whose ad set and ad stay paused, or the reverse. Omitted, it follows `status`.
@@ -237,9 +237,11 @@ pub struct CreateStandaloneAdRequest {
     /// Custom audience ID for targeting
     #[serde(rename = "audienceId", skip_serializing_if = "Option::is_none")]
     pub audience_id: Option<String>,
-    /// Google only
+    /// Google only. Performance Max requires assetGroup and is always created PAUSED.
     #[serde(rename = "campaignType", skip_serializing_if = "Option::is_none")]
     pub campaign_type: Option<CampaignType>,
+    #[serde(rename = "assetGroup", skip_serializing_if = "Option::is_none")]
+    pub asset_group: Option<Box<models::GooglePmaxAssetGroupInput>>,
     /// Google Search only. Keywords on the new ad group; entries are strings (BROAD) or { text, matchType }. Editable later via PUT /v1/ads/{adId} targeting.keywords.
     #[serde(rename = "keywords", skip_serializing_if = "Option::is_none")]
     pub keywords: Option<Vec<models::KeywordEntry>>,
@@ -293,7 +295,7 @@ pub struct CreateStandaloneAdRequest {
     /// Deprecated: send it inside `platformSpecificData` instead (Meta today; TikTok's nested shape is planned). The flat field keeps working during the deprecation window; sending both shapes returns a 400.  Minimum ROAS as a decimal multiplier (e.g. 2.0 = 2.0x ROAS). Required when `bidStrategy` is `LOWEST_COST_WITH_MIN_ROAS`. Sending it without `bidStrategy` is a 400. Sent to Meta as `bid_constraints.roas_average_floor` × 10000. Known gap: a CBO campaign's ROAS floor lives on the campaign only (set via `POST /v1/ads/campaigns`); there is no supported way to set it while joining a CBO campaign here.
     #[serde(rename = "roasAverageFloor", skip_serializing_if = "Option::is_none")]
     pub roas_average_floor: Option<f64>,
-    /// Google only. Attach an existing portfolio bid strategy (numeric id from GET /v1/ads/bid-strategies) to the new campaign instead of a standard one. Exclusive with bidStrategy.
+    /// Google Search and Display only. Performance Max rejects portfolio bidding. Attach an existing portfolio bid strategy (numeric id from GET /v1/ads/bid-strategies) to the new campaign instead of a standard one. Exclusive with bidStrategy.
     #[serde(
         rename = "portfolioBidStrategyId",
         skip_serializing_if = "Option::is_none"
@@ -428,6 +430,7 @@ impl CreateStandaloneAdRequest {
             placement_assets: None,
             audience_id: None,
             campaign_type: None,
+            asset_group: None,
             keywords: None,
             negative_keywords: None,
             campaign_negative_keywords: None,
@@ -533,7 +536,7 @@ impl Default for MultiAdvertiser {
         Self::OptIn
     }
 }
-/// Required on legacy + multi-creative shapes. Inherited on attach. OpenAI Ads accepts lifetime only (no daily-budget concept on the platform); sending daily returns 422. OpenAI Ads lifetime budgets require `endDate` to give the lifetime cap a spend window.
+/// Required on legacy, multi-creative and Performance Max shapes. Inherited on attach. OpenAI Ads accepts lifetime only (no daily-budget concept on the platform); sending daily returns 422. OpenAI Ads lifetime budgets require `endDate` to give the lifetime cap a spend window.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum BudgetType {
     #[serde(rename = "daily")]
@@ -547,7 +550,7 @@ impl Default for BudgetType {
         Self::Daily
     }
 }
-/// Meta, TikTok, and LinkedIn. Publish state of the created entities. Omitted or ACTIVE publishes live (default, back-compat); PAUSED creates them paused so you can review before they spend. On Meta the pause is held on the campaign this call creates, leaving the ad set and ad switched on, so a single PUT /v1/ads/campaigns/{campaignId}/status with `active` brings the whole thing live. It is held at every level instead when the pause cannot rely on the campaign: `existingCampaignId` (that campaign may be running and is never touched) or `campaignStatus: ACTIVE`. On TikTok the whole campaign > ad group > ad hierarchy stays paused. On LinkedIn the whole campaign group, campaign, and creative hierarchy stays PAUSED (intendedStatus PAUSED on each).
+/// Google Performance Max accepts PAUSED only and always creates a paused campaign. Meta, TikTok, and LinkedIn: publish state of the created entities. Omitted or ACTIVE publishes live (default, back-compat); PAUSED creates them paused so you can review before they spend. On Meta the pause is held on the campaign this call creates, leaving the ad set and ad switched on, so a single PUT /v1/ads/campaigns/{campaignId}/status with `active` brings the whole thing live. It is held at every level instead when the pause cannot rely on the campaign: `existingCampaignId` (that campaign may be running and is never touched) or `campaignStatus: ACTIVE`. On TikTok the whole campaign > ad group > ad hierarchy stays paused. On LinkedIn the whole campaign group, campaign, and creative hierarchy stays PAUSED (intendedStatus PAUSED on each).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
     #[serde(rename = "ACTIVE")]
@@ -707,13 +710,15 @@ impl Default for SpecialAdCategories {
         Self::Housing
     }
 }
-/// Google only
+/// Google only. Performance Max requires assetGroup and is always created PAUSED.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum CampaignType {
     #[serde(rename = "display")]
     Display,
     #[serde(rename = "search")]
     Search,
+    #[serde(rename = "pmax")]
+    Pmax,
 }
 
 impl Default for CampaignType {

@@ -50,7 +50,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateLeadForm200Response create_lead_form(create_lead_form_request)
 Create a lead form
 
-Creates a Lead Gen form. The form content goes inside `platformSpecificData` for both platforms (the shape is selected by the accountId's platform). Meta: created on the connected Facebook Page (POST /{page-id}/leadgen_forms); the old top-level Meta fields (questions, thankYou*, contextCard, …) are DEPRECATED but still accepted while platformSpecificData is absent; mixing both shapes is a 400. LinkedIn: created on the ad account's Company Page. NOT idempotent: a retry creates a second form. Meta prefilled question types (EMAIL, PHONE, FULL_NAME, …) must omit label/key; CUSTOM questions require both. LinkedIn exposes only free-text and multiple-choice questions via API (prefilled-from-profile fields are Campaign Manager UI-only). Requires the Ads add-on. 
+Creates a Lead Gen form. The form content goes inside `platformSpecificData` for both platforms (the shape is selected by the accountId's platform). Meta: created on the connected Facebook Page (a facebook account or a metaads business-login account with a selected Page) (POST /{page-id}/leadgen_forms); the old top-level Meta fields (questions, thankYou*, contextCard, …) are DEPRECATED but still accepted while platformSpecificData is absent; mixing both shapes is a 400. LinkedIn: created on the ad account's Company Page. NOT idempotent: a retry creates a second form. Meta prefilled question types (EMAIL, PHONE, FULL_NAME, …) must omit label/key; CUSTOM questions require both. LinkedIn exposes only free-text and multiple-choice questions via API (prefilled-from-profile fields are Campaign Manager UI-only). Requires the Ads add-on. 
 
 ### Parameters
 
@@ -140,7 +140,7 @@ Name | Type | Description  | Required | Notes
 > models::ListFormLeads200Response list_form_leads(form_id, account_id, limit, cursor, since)
 List leads for a single form
 
-Returns leads for one form. Serves persisted leads (ingested via the leadgen webhook) when available, falling back to a live Graph read. 
+Returns leads for one form. Serves persisted leads (ingested via the leadgen webhook) when available, falling back to a live Graph read. Accepts a Facebook account or a metaads business-login account with leads_retrieval access to the form; the latter uses its system-user token without a posting parent. 
 
 ### Parameters
 
@@ -174,14 +174,14 @@ Name | Type | Description  | Required | Notes
 > models::ListLeadForms200Response list_lead_forms(account_id, ad_account_id, limit, cursor)
 List lead forms
 
-Lists the Lead Gen forms owned by the account. Meta: forms on the connected Facebook Page. LinkedIn: forms owned by the ad account's Company Page. Pass `adAccountId` (LinkedIn forms are org-owned). Requires the Ads add-on. 
+Lists the Lead Gen forms owned by the account. Meta: forms on the connected Facebook Page, including a Page selected on a metaads business-login connection. LinkedIn: forms owned by the ad account's Company Page. Pass `adAccountId` (LinkedIn forms are org-owned). Requires the Ads add-on. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | Connected facebook or linkedin ads account id. | [required] |
+**account_id** | **String** | Connected Facebook, Meta ads business-login or LinkedIn ads account ID. | [required] |
 **ad_account_id** | Option<**String**> | LinkedIn only: the LinkedIn ad account id (used to resolve the owning organization). Required for LinkedIn. |  |
 **limit** | Option<**i32**> |  |  |[default to 25]
 **cursor** | Option<**String**> |  |  |

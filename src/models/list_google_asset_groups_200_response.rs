@@ -11,27 +11,26 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum ConnectAds200Response {
-    ConnectAds200ResponseOneOf(Box<models::ConnectAds200ResponseOneOf>),
-    ConnectAds200ResponseOneOf1(Box<models::ConnectAds200ResponseOneOf1>),
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+pub struct ListGoogleAssetGroups200Response {
+    #[serde(rename = "assetGroups")]
+    pub asset_groups: Vec<models::GooglePmaxAssetGroup>,
+    #[serde(rename = "cachedAt", deserialize_with = "Option::deserialize")]
+    pub cached_at: Option<String>,
+    #[serde(rename = "stale")]
+    pub stale: bool,
 }
 
-impl Default for ConnectAds200Response {
-    fn default() -> Self {
-        Self::ConnectAds200ResponseOneOf(Default::default())
-    }
-}
-/// Present for an existing business-login connection.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum TokenType {
-    #[serde(rename = "system-user")]
-    SystemUser,
-}
-
-impl Default for TokenType {
-    fn default() -> TokenType {
-        Self::SystemUser
+impl ListGoogleAssetGroups200Response {
+    pub fn new(
+        asset_groups: Vec<models::GooglePmaxAssetGroup>,
+        cached_at: Option<String>,
+        stale: bool,
+    ) -> ListGoogleAssetGroups200Response {
+        ListGoogleAssetGroups200Response {
+            asset_groups,
+            cached_at,
+            stale,
+        }
     }
 }

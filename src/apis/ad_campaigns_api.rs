@@ -352,6 +352,18 @@ pub enum ListCampaignNegativeKeywordsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_google_asset_groups`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListGoogleAssetGroupsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status404(models::InlineObject2),
+    Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`remove_ad_group_assets`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -976,7 +988,7 @@ pub async fn create_bid_strategy(
     }
 }
 
-/// Create a paid ad with custom creative across Meta, Google Ads, Pinterest, TikTok, X, LinkedIn, and OpenAI Ads (ChatGPT Ads).  Three mutually-exclusive request shapes are selected by the body:  - Legacy single-creative shape (all platforms, the default). - Meta-only multi-creative shape via the creatives array: one ad set with N ads sharing budget and targeting. - Attach shape via adSetId: adds one new ad to an existing ad set, inheriting its budget, targeting, and schedule (Meta, Google Ads, TikTok, and LinkedIn). On LinkedIn adSetId is the existing Campaign id, and the budget, schedule, targeting and bidding fields must be omitted.  Meta accepts `promotion` and `creativeFeatures` on the single and attach shapes and as defaults for `creatives[]`. An item replaces the whole feature map; its `promotion` replaces the default offer, and `promotion: null` disables that default for the item. Reusing `existingCreativeId` uses the existing creative settings instead of new settings. Requested settings are persisted for lists, exports, and default ad-detail reads. Only ads supplied a `promotion` receive live readback; multi-create batches those reads in groups of up to 50 IDs without per-ad fallback. Inspect `ad.creative.promotionStatus` (or `ads[].creative.promotionStatus`). `not_returned` means Meta omitted the metadata; successful creation does not by itself prove the offer was applied or will display.  Per-platform required fields, budget minimums, and video-ad rules are documented on each property below.  LinkedIn creates a Single Image or Single Video Ad backed by a Direct Sponsored Content \"dark post\" authored by a Company Page (see `organizationId`). Supported goals are engagement, traffic, awareness, and video_views (video ads use the `video` field; video_views requires a video), and traffic ads require `linkUrl`.  **Idempotency:** this endpoint is not idempotent at the platform level (a blind retry creates a second campaign/ad set/ad). Send an `Idempotency-Key` header to make retries safe: the first request with a given key creates the ad and we store the response; a retry with the same key replays that exact response (with `Idempotent-Replayed: true`) instead of creating duplicates. Reusing a key with a different body returns 422; a key whose first request is still in flight returns 409 (retry after a short backoff). Keys are scoped to your credential and expire after 24h.
+/// Create a paid ad with custom creative across Meta, Google Ads, Pinterest, TikTok, X, LinkedIn, and OpenAI Ads (ChatGPT Ads).  Google Performance Max: set `campaignType: \"pmax\"` and supply `assetGroup` with text, images by role, business name and finalUrl. Creates a daily budget, PAUSED campaign and asset group atomically. `validateOnly: true` validates the complete request with Google without creating or persisting resources. Read assets with `GET /v1/ads/campaigns/{campaignId}/asset-groups`. The logo is required; video is optional via `assetGroup.youtubeVideoId`. Brand guidelines are disabled at creation. PMax rejects ACTIVE creation, portfolio bidding, bid caps, legacy creative fields and attach shapes. Geo and language targeting are supported; omitted geo targets all locations. PMax does not require top-level goal, headline, body or linkUrl. Supported bidding: omitted or LOWEST_COST_WITHOUT_CAP for Maximize Conversions, COST_CAP plus bidAmount for target CPA, LOWEST_COST_WITH_MIN_ROAS plus roasAverageFloor for Maximize Conversion Value with target ROAS.  Other mutually-exclusive request shapes are selected by the body:  - Legacy single-creative shape (all platforms, the default). - Meta-only multi-creative shape via the creatives array: one ad set with N ads sharing budget and targeting. - Attach shape via adSetId: adds one new ad to an existing ad set, inheriting its budget, targeting, and schedule (Meta, Google Ads, TikTok, and LinkedIn). On LinkedIn adSetId is the existing Campaign id, and the budget, schedule, targeting and bidding fields must be omitted.  Meta accepts `promotion` and `creativeFeatures` on the single and attach shapes and as defaults for `creatives[]`. An item replaces the whole feature map; its `promotion` replaces the default offer, and `promotion: null` disables that default for the item. Reusing `existingCreativeId` uses the existing creative settings instead of new settings. Requested settings are persisted for lists, exports, and default ad-detail reads. Only ads supplied a `promotion` receive live readback; multi-create batches those reads in groups of up to 50 IDs without per-ad fallback. Inspect `ad.creative.promotionStatus` (or `ads[].creative.promotionStatus`). `not_returned` means Meta omitted the metadata; successful creation does not by itself prove the offer was applied or will display.  Per-platform required fields, budget minimums, and video-ad rules are documented on each property below.  LinkedIn creates a Single Image or Single Video Ad backed by a Direct Sponsored Content \"dark post\" authored by a Company Page (see `organizationId`). Supported goals are engagement, traffic, awareness, and video_views (video ads use the `video` field; video_views requires a video), and traffic ads require `linkUrl`.  **Idempotency:** this endpoint is not idempotent at the platform level (a blind retry creates a second campaign/ad set/ad). Send an `Idempotency-Key` header to make retries safe: the first request with a given key creates the ad and we store the response; a retry with the same key replays that exact response (with `Idempotent-Replayed: true`) instead of creating duplicates. Reusing a key with a different body returns 422; a key whose first request is still in flight returns 409 (retry after a short backoff). Keys are scoped to your credential and expire after 24h.
 pub async fn create_standalone_ad(
     configuration: &configuration::Configuration,
     create_standalone_ad_request: models::CreateStandaloneAdRequest,
@@ -2497,6 +2509,57 @@ pub async fn list_campaign_negative_keywords(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListCampaignNegativeKeywordsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Read Performance Max asset groups and their linked text, image and YouTube assets. campaignId is the platform campaign id returned by creation or the campaign list. The campaign must be visible to the caller. Uses a 10-minute cache, with the last successful response served as stale when Google quota is exhausted. Removed groups and asset links are excluded. Campaign-level brand assets on campaigns with brand guidelines enabled are not included.
+pub async fn list_google_asset_groups(
+    configuration: &configuration::Configuration,
+    campaign_id: &str,
+) -> Result<models::ListGoogleAssetGroups200Response, Error<ListGoogleAssetGroupsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_campaign_id = campaign_id;
+
+    let uri_str = format!(
+        "{}/v1/ads/campaigns/{campaignId}/asset-groups",
+        configuration.base_path,
+        campaignId = crate::apis::urlencode(p_path_campaign_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListGoogleAssetGroups200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListGoogleAssetGroups200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListGoogleAssetGroupsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

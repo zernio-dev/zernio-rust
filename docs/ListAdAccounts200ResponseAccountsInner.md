@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **id** | Option<**String**> | Platform ad account ID (e.g. act_123) | [optional]
 **name** | Option<**String**> |  | [optional]
 **currency** | Option<**String**> |  | [optional]
+**business_id** | Option<**String**> | Meta only. Owning Business Manager ID when available on the grant. | [optional]
+**business_name** | Option<**String**> | Owning business name when supplied by the platform. | [optional]
 **status** | Option<**String**> | LinkedIn only. LinkedIn's own ad account status. In practice always `ACTIVE`, because the LinkedIn query filters to active accounts. Meta, Google, TikTok and Pinterest report `accountStatus` instead; X reports `approvalStatus`. | [optional]
 **account_status** | Option<**serde_json::Value**> |  | [optional]
 **approval_status** | Option<**String**> | X only. X's own ad account approval status. Observed values are `ACCEPTED`, `PENDING` and `REJECTED`, but X does not publish the full vocabulary, so treat an unrecognised value as not usable. Other platforms report `accountStatus` or `status` instead. | [optional]

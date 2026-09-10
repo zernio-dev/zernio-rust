@@ -942,6 +942,10 @@ docs/GoogleBusinessPlatformDataOffer.md
 docs/GoogleBusinessReview.md
 docs/GoogleBusinessReviewReviewReply.md
 docs/GoogleBusinessReviewReviewer.md
+docs/GooglePmaxAssetGroup.md
+docs/GooglePmaxAssetGroupAssetsInner.md
+docs/GooglePmaxAssetGroupInput.md
+docs/GooglePmaxAssetGroupInputImages.md
 docs/GoogleRsaDescription.md
 docs/GoogleRsaHeadline.md
 docs/GoogleSitelink.md
@@ -1119,6 +1123,7 @@ docs/ListFacebookPages200Response.md
 docs/ListFacebookPages200ResponsePagesInner.md
 docs/ListFormLeads200Response.md
 docs/ListFormLeads200ResponseLeadsInner.md
+docs/ListGoogleAssetGroups200Response.md
 docs/ListGoogleBusinessLocations200Response.md
 docs/ListGoogleBusinessLocations200ResponseLocationsInner.md
 docs/ListGoogleBusinessMedia200Response.md
@@ -3049,6 +3054,10 @@ src/models/google_business_platform_data_offer.rs
 src/models/google_business_review.rs
 src/models/google_business_review_review_reply.rs
 src/models/google_business_review_reviewer.rs
+src/models/google_pmax_asset_group.rs
+src/models/google_pmax_asset_group_assets_inner.rs
+src/models/google_pmax_asset_group_input.rs
+src/models/google_pmax_asset_group_input_images.rs
 src/models/google_rsa_description.rs
 src/models/google_rsa_headline.rs
 src/models/google_sitelink.rs
@@ -3221,6 +3230,7 @@ src/models/list_facebook_pages_200_response.rs
 src/models/list_facebook_pages_200_response_pages_inner.rs
 src/models/list_form_leads_200_response.rs
 src/models/list_form_leads_200_response_leads_inner.rs
+src/models/list_google_asset_groups_200_response.rs
 src/models/list_google_business_locations_200_response.rs
 src/models/list_google_business_locations_200_response_locations_inner.rs
 src/models/list_google_business_media_200_response.rs

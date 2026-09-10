@@ -14,6 +14,15 @@ use serde::{Deserialize, Serialize};
 /// AdCreative : Platform-specific creative data. Fields vary by platform.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AdCreative {
+    /// Initial Performance Max asset group input. Use the asset-groups endpoint for current Google assets.
+    #[serde(rename = "assetGroup", skip_serializing_if = "Option::is_none")]
+    pub asset_group: Option<Box<models::GooglePmaxAssetGroupInput>>,
+    /// Google resource name of the created Performance Max asset group.
+    #[serde(
+        rename = "assetGroupResourceName",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub asset_group_resource_name: Option<String>,
     /// Google RSA only. Replaces the complete headline list. No padding or truncation on update.
     #[serde(rename = "headlines", skip_serializing_if = "Option::is_none")]
     pub headlines: Option<Vec<models::GoogleRsaHeadline>>,
@@ -161,6 +170,8 @@ impl AdCreative {
     /// Platform-specific creative data. Fields vary by platform.
     pub fn new() -> AdCreative {
         AdCreative {
+            asset_group: None,
+            asset_group_resource_name: None,
             headlines: None,
             descriptions: None,
             final_urls: None,
