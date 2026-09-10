@@ -15,6 +15,9 @@ use serde::{Deserialize, Serialize};
 pub struct SubmitPhoneNumberKyc200Response {
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
+    /// True when nothing was in stock and this submission placed a pre-order. The number stays `pending_regulatory` until the carrier sources it (usually about 3 weeks) and is not billed until active. A pre-order is one number: `quantity` above 1 is rejected with 400.
+    #[serde(rename = "preOrder", skip_serializing_if = "Option::is_none")]
+    pub pre_order: Option<bool>,
     #[serde(rename = "phoneNumber", skip_serializing_if = "Option::is_none")]
     pub phone_number: Option<Box<models::SubmitPhoneNumberKyc200ResponsePhoneNumber>>,
     /// Every number provisioned from this submission. Length equals the requested `quantity` on full success (fewer if some orders failed; best-effort). The first element mirrors `phoneNumber`.
@@ -26,6 +29,7 @@ impl SubmitPhoneNumberKyc200Response {
     pub fn new() -> SubmitPhoneNumberKyc200Response {
         SubmitPhoneNumberKyc200Response {
             status: None,
+            pre_order: None,
             phone_number: None,
             numbers: None,
         }

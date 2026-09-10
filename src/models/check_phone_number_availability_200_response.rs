@@ -20,6 +20,9 @@ pub struct CheckPhoneNumberAvailability200Response {
     /// Whether deliverable voice inventory exists right now.
     #[serde(rename = "available", skip_serializing_if = "Option::is_none")]
     pub available: Option<bool>,
+    /// Nothing deliverable now, but this pair can be pre-ordered: submit KYC as usual and the carrier sources the number after review (usually about 3 weeks, never guaranteed). Only document tiers (3/4) qualify.
+    #[serde(rename = "preOrderable", skip_serializing_if = "Option::is_none")]
+    pub pre_orderable: Option<bool>,
     #[serde(rename = "addressConstraint", skip_serializing_if = "Option::is_none")]
     pub address_constraint: Option<AddressConstraint>,
     /// For `geo` only: the area(s) the registered address must be in.
@@ -36,6 +39,7 @@ impl CheckPhoneNumberAvailability200Response {
             country: None,
             number_type: None,
             available: None,
+            pre_orderable: None,
             address_constraint: None,
             areas: None,
             area_options: None,

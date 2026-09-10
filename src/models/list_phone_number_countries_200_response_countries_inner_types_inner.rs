@@ -15,8 +15,14 @@ use serde::{Deserialize, Serialize};
 pub struct ListPhoneNumberCountries200ResponseCountriesInnerTypesInner {
     #[serde(rename = "numberType", skip_serializing_if = "Option::is_none")]
     pub number_type: Option<NumberType>,
-    #[serde(rename = "tier", skip_serializing_if = "Option::is_none")]
-    pub tier: Option<Tier>,
+    /// Null on a `fulfilment: request` type, whose document tier is only known once its requirements are read.
+    #[serde(
+        rename = "tier",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub tier: Option<Option<Tier>>,
     #[serde(rename = "needsKyc", skip_serializing_if = "Option::is_none")]
     pub needs_kyc: Option<bool>,
     /// Price a NEW number of this type costs per month, in cents.
@@ -31,6 +37,12 @@ pub struct ListPhoneNumberCountries200ResponseCountriesInnerTypesInner {
     pub calls_available: Option<bool>,
     #[serde(rename = "inStock", skip_serializing_if = "Option::is_none")]
     pub in_stock: Option<bool>,
+    /// `request`: the carrier stocks this type nowhere and only sources it to order, so it is always a pre-order.
+    #[serde(rename = "fulfilment", skip_serializing_if = "Option::is_none")]
+    pub fulfilment: Option<Fulfilment>,
+    /// Out of stock but orderable anyway. Submit KYC as usual (POST /v1/phone-numbers/kyc) and the carrier sources the number after review, usually about 3 weeks and never guaranteed. Only document tiers (3/4) qualify, and nothing is billed until the number is active.
+    #[serde(rename = "preOrderable", skip_serializing_if = "Option::is_none")]
+    pub pre_orderable: Option<bool>,
 }
 
 impl ListPhoneNumberCountries200ResponseCountriesInnerTypesInner {
@@ -44,6 +56,8 @@ impl ListPhoneNumberCountries200ResponseCountriesInnerTypesInner {
             sms_available: None,
             calls_available: None,
             in_stock: None,
+            fulfilment: None,
+            pre_orderable: None,
         }
     }
 }
@@ -65,7 +79,7 @@ impl Default for NumberType {
         Self::Local
     }
 }
-///
+/// Null on a `fulfilment: request` type, whose document tier is only known once its requirements are read.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Tier {
     #[serde(rename = "1")]
@@ -81,5 +95,19 @@ pub enum Tier {
 impl Default for Tier {
     fn default() -> Tier {
         Self::Variant1
+    }
+}
+/// `request`: the carrier stocks this type nowhere and only sources it to order, so it is always a pre-order.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Fulfilment {
+    #[serde(rename = "instant")]
+    Instant,
+    #[serde(rename = "request")]
+    Request,
+}
+
+impl Default for Fulfilment {
+    fn default() -> Fulfilment {
+        Self::Instant
     }
 }
