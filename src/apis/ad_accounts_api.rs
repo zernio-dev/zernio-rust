@@ -17,10 +17,11 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AddAccountCalloutsError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -30,10 +31,11 @@ pub enum AddAccountCalloutsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AddAccountSitelinksError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -43,10 +45,11 @@ pub enum AddAccountSitelinksError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AddAccountStructuredSnippetsError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -56,10 +59,11 @@ pub enum AddAccountStructuredSnippetsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateAdAccountError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(models::ErrorResponse),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status502(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -71,7 +75,7 @@ pub enum CreateAdNegativeKeywordListError {
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status409(),
     Status422(),
     Status429(),
@@ -83,6 +87,8 @@ pub enum CreateAdNegativeKeywordListError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateCustomConversionError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
@@ -93,6 +99,8 @@ pub enum CreateCustomConversionError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateHighDemandPeriodError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -103,6 +111,8 @@ pub enum CreateHighDemandPeriodError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateValueRuleSetError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -130,7 +140,7 @@ pub enum DeleteAdNegativeKeywordListError {
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status409(),
     Status422(),
     Status429(),
@@ -142,6 +152,8 @@ pub enum DeleteAdNegativeKeywordListError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteValueRuleSetError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -152,6 +164,8 @@ pub enum DeleteValueRuleSetError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetAdAccountFinanceError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -177,7 +191,7 @@ pub enum GetAdNegativeKeywordListError {
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status409(),
     Status422(),
     Status429(),
@@ -189,6 +203,8 @@ pub enum GetAdNegativeKeywordListError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetAdsActivityLogError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -199,9 +215,10 @@ pub enum GetAdsActivityLogError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetDsaDefaultsError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
-    Status404(),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -209,9 +226,10 @@ pub enum GetDsaDefaultsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetDsaRecommendationsError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
-    Status404(),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -219,10 +237,11 @@ pub enum GetDsaRecommendationsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetIosFourteenCampaignLimitsError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -231,6 +250,8 @@ pub enum GetIosFourteenCampaignLimitsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetValueRuleSetError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -255,10 +276,11 @@ pub enum HideAdCommentError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAccountCalloutsError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -268,10 +290,11 @@ pub enum ListAccountCalloutsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAccountSitelinksError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -281,10 +304,11 @@ pub enum ListAccountSitelinksError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAccountStructuredSnippetsError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -294,6 +318,9 @@ pub enum ListAccountStructuredSnippetsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdAccountsError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status422(),
     Status429(models::ErrorResponse),
@@ -304,6 +331,8 @@ pub enum ListAdAccountsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdLabelsError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -317,7 +346,7 @@ pub enum ListAdNegativeKeywordListsError {
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status409(),
     Status422(),
     Status429(),
@@ -329,6 +358,8 @@ pub enum ListAdNegativeKeywordListsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdStudiesError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -339,9 +370,10 @@ pub enum ListAdStudiesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdsBusinessCentersError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status422(),
     UnknownValue(serde_json::Value),
 }
@@ -350,10 +382,11 @@ pub enum ListAdsBusinessCentersError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdsInstagramAccountsError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -362,10 +395,11 @@ pub enum ListAdsInstagramAccountsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdvertisableApplicationsError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -374,6 +408,8 @@ pub enum ListAdvertisableApplicationsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListCustomConversionsError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
@@ -384,6 +420,8 @@ pub enum ListCustomConversionsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListHighDemandPeriodsError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -394,9 +432,24 @@ pub enum ListHighDemandPeriodsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListMetaBusinessesError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_tik_tok_ad_pixels`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListTikTokAdPixelsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::ErrorResponse),
+    Status409(models::ErrorResponse),
+    Status422(),
     UnknownValue(serde_json::Value),
 }
 
@@ -404,6 +457,8 @@ pub enum ListMetaBusinessesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListValueRuleSetsError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -414,10 +469,11 @@ pub enum ListValueRuleSetsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RemoveAccountCalloutError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -427,10 +483,11 @@ pub enum RemoveAccountCalloutError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RemoveAccountSitelinkError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -440,10 +497,11 @@ pub enum RemoveAccountSitelinkError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RemoveAccountStructuredSnippetError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -456,7 +514,7 @@ pub enum ReplaceAdNegativeKeywordListKeywordsError {
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status409(),
     Status422(),
     Status429(),
@@ -482,10 +540,11 @@ pub enum ReplyToAdCommentError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateAccountCalloutsError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -495,10 +554,11 @@ pub enum UpdateAccountCalloutsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateAccountSitelinksError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -508,10 +568,11 @@ pub enum UpdateAccountSitelinksError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateAccountStructuredSnippetsError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -521,9 +582,10 @@ pub enum UpdateAccountStructuredSnippetsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateAdAccountError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
-    Status404(),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -534,7 +596,7 @@ pub enum UpdateAdNegativeKeywordListError {
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status409(),
     Status422(),
     Status429(),
@@ -546,6 +608,8 @@ pub enum UpdateAdNegativeKeywordListError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateValueRuleSetError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -2443,6 +2507,64 @@ pub async fn list_meta_businesses(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListMetaBusinessesError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Lists pixels and their supported optimization events for a connected TikTok Ads account. The advertiser defaults to the first advertiser on the connection. Reconnect if Pixel Management permission has not been granted.
+pub async fn list_tik_tok_ad_pixels(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    advertiser_id: Option<&str>,
+    code: Option<&str>,
+) -> Result<models::ListTikTokAdPixels200Response, Error<ListTikTokAdPixelsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_advertiser_id = advertiser_id;
+    let p_query_code = code;
+
+    let uri_str = format!("{}/v1/ads/pixels", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_advertiser_id {
+        req_builder = req_builder.query(&[("advertiserId", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_code {
+        req_builder = req_builder.query(&[("code", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListTikTokAdPixels200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListTikTokAdPixels200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListTikTokAdPixelsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

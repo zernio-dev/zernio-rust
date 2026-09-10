@@ -17,10 +17,11 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum EstimateAdReachError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -28,10 +29,11 @@ pub enum EstimateAdReachError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetLinkedInBidPricingError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -39,10 +41,11 @@ pub enum GetLinkedInBidPricingError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetLinkedInSupplyForecastError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -50,6 +53,9 @@ pub enum GetLinkedInSupplyForecastError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SearchAdInterestsError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),
@@ -59,10 +65,11 @@ pub enum SearchAdInterestsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SearchAdTargetingError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 

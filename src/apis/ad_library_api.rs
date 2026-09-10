@@ -17,10 +17,11 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SearchAdLibraryError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status501(),
     Status503(),
     UnknownValue(serde_json::Value),

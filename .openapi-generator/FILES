@@ -1177,6 +1177,10 @@ docs/ListLogs200Response.md
 docs/ListLogs200ResponseLogsInner.md
 docs/ListLogs200ResponsePagination.md
 docs/ListMetaBusinesses200Response.md
+docs/ListPartnershipAdContent200Response.md
+docs/ListPartnershipAdContent200ResponseMediaInner.md
+docs/ListPartnershipAdPermissions200Response.md
+docs/ListPartnershipAdPermissions200ResponsePermissionsInner.md
 docs/ListPhoneNumberCountries200Response.md
 docs/ListPhoneNumberCountries200ResponseCountriesInner.md
 docs/ListPhoneNumberCountries200ResponseCountriesInnerTypesInner.md
@@ -1213,6 +1217,9 @@ docs/ListSmsSenderIds200ResponseBudgetPendingRequest.md
 docs/ListSmsSenderIds200ResponseSenderIdsInner.md
 docs/ListSnapchatProfiles200Response.md
 docs/ListSnapchatProfiles200ResponsePublicProfilesInner.md
+docs/ListTikTokAdPixels200Response.md
+docs/ListTikTokAdPixels200ResponsePixelsInner.md
+docs/ListTikTokAdPixels200ResponsePixelsInnerEventDetailsInner.md
 docs/ListTrackingTagSharedAccounts200Response.md
 docs/ListTrackingTags200Response.md
 docs/ListUsers200Response.md
@@ -1572,6 +1579,8 @@ docs/SetConversationThreadControlRequest.md
 docs/SetInstagramIceBreakersRequest.md
 docs/SetInstagramIceBreakersRequestIceBreakersInner.md
 docs/SetMessengerMenuRequest.md
+docs/SetPartnershipAdPermission200Response.md
+docs/SetPartnershipAdPermissionRequest.md
 docs/SetRedditPostFlairRequest.md
 docs/SetTelegramCommandsRequest.md
 docs/SetTelegramCommandsRequestCommandsInner.md
@@ -3284,6 +3293,10 @@ src/models/list_logs_200_response.rs
 src/models/list_logs_200_response_logs_inner.rs
 src/models/list_logs_200_response_pagination.rs
 src/models/list_meta_businesses_200_response.rs
+src/models/list_partnership_ad_content_200_response.rs
+src/models/list_partnership_ad_content_200_response_media_inner.rs
+src/models/list_partnership_ad_permissions_200_response.rs
+src/models/list_partnership_ad_permissions_200_response_permissions_inner.rs
 src/models/list_phone_number_countries_200_response.rs
 src/models/list_phone_number_countries_200_response_countries_inner.rs
 src/models/list_phone_number_countries_200_response_countries_inner_types_inner.rs
@@ -3320,6 +3333,9 @@ src/models/list_sms_sender_ids_200_response_budget_pending_request.rs
 src/models/list_sms_sender_ids_200_response_sender_ids_inner.rs
 src/models/list_snapchat_profiles_200_response.rs
 src/models/list_snapchat_profiles_200_response_public_profiles_inner.rs
+src/models/list_tik_tok_ad_pixels_200_response.rs
+src/models/list_tik_tok_ad_pixels_200_response_pixels_inner.rs
+src/models/list_tik_tok_ad_pixels_200_response_pixels_inner_event_details_inner.rs
 src/models/list_tracking_tag_shared_accounts_200_response.rs
 src/models/list_tracking_tags_200_response.rs
 src/models/list_users_200_response.rs
@@ -3667,6 +3683,8 @@ src/models/set_conversation_thread_control_request.rs
 src/models/set_instagram_ice_breakers_request.rs
 src/models/set_instagram_ice_breakers_request_ice_breakers_inner.rs
 src/models/set_messenger_menu_request.rs
+src/models/set_partnership_ad_permission_200_response.rs
+src/models/set_partnership_ad_permission_request.rs
 src/models/set_reddit_post_flair_request.rs
 src/models/set_telegram_commands_request.rs
 src/models/set_telegram_commands_request_commands_inner.rs

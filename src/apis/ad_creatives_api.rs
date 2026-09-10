@@ -17,6 +17,8 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateAdCreativeError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status422(),
@@ -29,6 +31,8 @@ pub enum CreateAdCreativeError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteAdCreativeError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -39,6 +43,8 @@ pub enum DeleteAdCreativeError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteAdVideoError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status501(),
@@ -49,6 +55,8 @@ pub enum DeleteAdVideoError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GenerateAdPreviewsError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status429(),
@@ -60,6 +68,8 @@ pub enum GenerateAdPreviewsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetAdCreativeError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -94,6 +104,8 @@ pub enum GetAdPreviewsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdCatalogProductSetsError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
@@ -104,6 +116,8 @@ pub enum ListAdCatalogProductSetsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdCatalogsError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
@@ -114,6 +128,8 @@ pub enum ListAdCatalogsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdCreativesError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -124,6 +140,8 @@ pub enum ListAdCreativesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdImagesError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -134,9 +152,50 @@ pub enum ListAdImagesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdVideosError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_partnership_ad_content`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListPartnershipAdContentError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::ErrorResponse),
+    Status409(models::ErrorResponse),
+    Status422(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_partnership_ad_permissions`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListPartnershipAdPermissionsError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::ErrorResponse),
+    Status409(models::ErrorResponse),
+    Status422(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`set_partnership_ad_permission`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SetPartnershipAdPermissionError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::ErrorResponse),
+    Status409(models::ErrorResponse),
+    Status422(),
     UnknownValue(serde_json::Value),
 }
 
@@ -144,6 +203,8 @@ pub enum ListAdVideosError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateAdCreativeError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -154,6 +215,8 @@ pub enum UpdateAdCreativeError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UploadAdImageError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -165,6 +228,8 @@ pub enum UploadAdImageError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UploadAdVideoError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -848,6 +913,173 @@ pub async fn list_ad_videos(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListAdVideosError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Private beta. Lists creator Instagram posts available to the advertiser for Partnership Ads. Supply creatorUsername or postUrl. Requires instagram_branded_content_ads_brand permission and an advertiser Instagram Business Account.
+pub async fn list_partnership_ad_content(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    creator_username: Option<&str>,
+    post_url: Option<&str>,
+    only_allowlisted: Option<bool>,
+) -> Result<models::ListPartnershipAdContent200Response, Error<ListPartnershipAdContentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_creator_username = creator_username;
+    let p_query_post_url = post_url;
+    let p_query_only_allowlisted = only_allowlisted;
+
+    let uri_str = format!("{}/v1/ads/partnership-content", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_creator_username {
+        req_builder = req_builder.query(&[("creatorUsername", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_post_url {
+        req_builder = req_builder.query(&[("postUrl", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_only_allowlisted {
+        req_builder = req_builder.query(&[("onlyAllowlisted", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListPartnershipAdContent200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListPartnershipAdContent200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListPartnershipAdContentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Private beta. Lists granted or pending creator permissions for the advertiser Instagram Business Account. Requires instagram_branded_content_ads_brand permission.
+pub async fn list_partnership_ad_permissions(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    creator_username: Option<&str>,
+) -> Result<models::ListPartnershipAdPermissions200Response, Error<ListPartnershipAdPermissionsError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_account_id = account_id;
+    let p_query_creator_username = creator_username;
+
+    let uri_str = format!("{}/v1/ads/partnership-permissions", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_creator_username {
+        req_builder = req_builder.query(&[("creatorUsername", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListPartnershipAdPermissions200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListPartnershipAdPermissions200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListPartnershipAdPermissionsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Private beta. Requests permission from a creator or revokes it when revoke is true. Requests require the creator to approve in Instagram. Requires instagram_branded_content_ads_brand permission.
+pub async fn set_partnership_ad_permission(
+    configuration: &configuration::Configuration,
+    set_partnership_ad_permission_request: models::SetPartnershipAdPermissionRequest,
+) -> Result<models::SetPartnershipAdPermission200Response, Error<SetPartnershipAdPermissionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_set_partnership_ad_permission_request = set_partnership_ad_permission_request;
+
+    let uri_str = format!("{}/v1/ads/partnership-permissions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_set_partnership_ad_permission_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SetPartnershipAdPermission200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SetPartnershipAdPermission200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<SetPartnershipAdPermissionError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

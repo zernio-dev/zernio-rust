@@ -17,9 +17,10 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AddAdKeywordsError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -28,10 +29,11 @@ pub enum AddAdKeywordsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AttachAdGroupAssetsError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -41,10 +43,11 @@ pub enum AttachAdGroupAssetsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AttachCampaignAssetsError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -54,6 +57,7 @@ pub enum AttachCampaignAssetsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BoostPostError {
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
@@ -76,6 +80,8 @@ pub enum BulkUpdateAdCampaignStatusError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateAdCampaignError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -86,10 +92,11 @@ pub enum CreateAdCampaignError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateAdSetError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -98,9 +105,10 @@ pub enum CreateAdSetError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateBidStrategyError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status422(),
     Status429(),
     Status501(),
@@ -111,6 +119,8 @@ pub enum CreateBidStrategyError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateStandaloneAdError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
@@ -133,8 +143,10 @@ pub enum DeleteAdError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteAdCampaignError {
+    Status409(models::ErrorResponse),
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -199,6 +211,8 @@ pub enum GetAdError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetAdSetDetailsError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -228,10 +242,11 @@ pub enum GetAdsTimelineError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetCampaignBiddingError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -252,6 +267,8 @@ pub enum GetCampaignTargetingError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdCampaignsError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
@@ -262,10 +279,11 @@ pub enum ListAdCampaignsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdGroupAssetsError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -305,9 +323,10 @@ pub enum ListAdsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListBidStrategiesError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -317,10 +336,11 @@ pub enum ListBidStrategiesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListCampaignAssetsError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -333,7 +353,7 @@ pub enum ListCampaignNegativeKeywordListsError {
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status409(),
     Status422(),
     Status429(),
@@ -368,10 +388,11 @@ pub enum ListGoogleAssetGroupsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RemoveAdGroupAssetsError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -381,9 +402,10 @@ pub enum RemoveAdGroupAssetsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RemoveAdKeywordError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
-    Status404(),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -391,10 +413,11 @@ pub enum RemoveAdKeywordError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RemoveCampaignAssetsError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -407,7 +430,7 @@ pub enum ReplaceCampaignNegativeKeywordListsError {
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status409(),
     Status422(),
     Status429(),
@@ -447,7 +470,7 @@ pub enum UpdateAdCampaignError {
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status409(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -468,10 +491,11 @@ pub enum UpdateAdCampaignStatusError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateAdGroupAssetsError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -481,9 +505,10 @@ pub enum UpdateAdGroupAssetsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateAdKeywordError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status422(),
     UnknownValue(serde_json::Value),
 }
@@ -528,9 +553,10 @@ pub enum UpdateAdStatusError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateBidStrategyError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),
@@ -540,10 +566,11 @@ pub enum UpdateBidStrategyError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateCampaignAssetsError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status429(),
     Status501(),
     UnknownValue(serde_json::Value),

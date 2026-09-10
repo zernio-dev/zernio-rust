@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**add_account_structured_snippets**](AdAccountsApi.md#add_account_structured_snippets) | **POST** /v1/ads/accounts/structured-snippets | Add account snippets
 [**create_ad_account**](AdAccountsApi.md#create_ad_account) | **POST** /v1/ads/accounts | Create Meta ad account
 [**create_ad_negative_keyword_list**](AdAccountsApi.md#create_ad_negative_keyword_list) | **POST** /v1/ads/accounts/negative-keyword-lists | Create a negative keyword list
-[**create_custom_conversion**](AdAccountsApi.md#create_custom_conversion) | **POST** /v1/accounts/{accountId}/custom-conversions | Create or reuse a custom conversion
+[**create_custom_conversion**](AdAccountsApi.md#create_custom_conversion) | **POST** /v1/accounts/{accountId}/custom-conversions | Create custom conversion
 [**create_high_demand_period**](AdAccountsApi.md#create_high_demand_period) | **POST** /v1/ads/high-demand-periods | Schedule a budget increase
 [**create_value_rule_set**](AdAccountsApi.md#create_value_rule_set) | **POST** /v1/ads/value-rule-sets | Create a value rule set
 [**delete_ad_comment**](AdAccountsApi.md#delete_ad_comment) | **DELETE** /v1/ads/{adId}/comments/{commentId} | Delete an ad comment
@@ -20,7 +20,7 @@ Method | HTTP request | Description
 [**get_ad_negative_keyword_list**](AdAccountsApi.md#get_ad_negative_keyword_list) | **GET** /v1/ads/accounts/negative-keyword-lists/{listId} | Get a negative keyword list
 [**get_ads_activity_log**](AdAccountsApi.md#get_ads_activity_log) | **GET** /v1/ads/activity | Ad account change / audit log
 [**get_dsa_defaults**](AdAccountsApi.md#get_dsa_defaults) | **GET** /v1/ads/dsa-defaults | Get ad account DSA defaults
-[**get_dsa_recommendations**](AdAccountsApi.md#get_dsa_recommendations) | **GET** /v1/ads/dsa-recommendations | List DSA beneficiary/payor suggestions
+[**get_dsa_recommendations**](AdAccountsApi.md#get_dsa_recommendations) | **GET** /v1/ads/dsa-recommendations | Get DSA recommendations
 [**get_ios_fourteen_campaign_limits**](AdAccountsApi.md#get_ios_fourteen_campaign_limits) | **GET** /v1/ads/ios-fourteen-campaign-limits | Get iOS 14 campaign limits
 [**get_value_rule_set**](AdAccountsApi.md#get_value_rule_set) | **GET** /v1/ads/value-rule-sets/{valueRuleSetId} | Read a value rule set
 [**hide_ad_comment**](AdAccountsApi.md#hide_ad_comment) | **POST** /v1/ads/{adId}/comments/{commentId}/hide | Hide or unhide an ad comment
@@ -35,8 +35,9 @@ Method | HTTP request | Description
 [**list_ads_instagram_accounts**](AdAccountsApi.md#list_ads_instagram_accounts) | **GET** /v1/ads/instagram-accounts | List Instagram ad identities
 [**list_advertisable_applications**](AdAccountsApi.md#list_advertisable_applications) | **GET** /v1/ads/advertisable-applications | List advertisable apps
 [**list_custom_conversions**](AdAccountsApi.md#list_custom_conversions) | **GET** /v1/accounts/{accountId}/custom-conversions | List custom conversions
-[**list_high_demand_periods**](AdAccountsApi.md#list_high_demand_periods) | **GET** /v1/ads/high-demand-periods | High demand periods / budget schedules
+[**list_high_demand_periods**](AdAccountsApi.md#list_high_demand_periods) | **GET** /v1/ads/high-demand-periods | List high-demand periods
 [**list_meta_businesses**](AdAccountsApi.md#list_meta_businesses) | **GET** /v1/ads/businesses | Businesses list
+[**list_tik_tok_ad_pixels**](AdAccountsApi.md#list_tik_tok_ad_pixels) | **GET** /v1/ads/pixels | List TikTok ad pixels
 [**list_value_rule_sets**](AdAccountsApi.md#list_value_rule_sets) | **GET** /v1/ads/value-rule-sets | List value rule sets
 [**remove_account_callout**](AdAccountsApi.md#remove_account_callout) | **DELETE** /v1/ads/accounts/callouts | Remove account callout
 [**remove_account_sitelink**](AdAccountsApi.md#remove_account_sitelink) | **DELETE** /v1/ads/accounts/sitelinks | Remove account sitelink
@@ -205,7 +206,7 @@ Name | Type | Description  | Required | Notes
 ## create_custom_conversion
 
 > models::CustomConversionResult create_custom_conversion(account_id, create_custom_conversion_request)
-Create or reuse a custom conversion
+Create custom conversion
 
 Provision the Meta custom conversion an ads flow optimises toward, and hand back the `customConversionId` for `promotedObject.customConversionId` on POST /v1/ads/create. Removes the manual \"create it in Ads Manager first\" step.  **Reuse is ours, not Meta's.** Meta's create is not idempotent, so a retried request would otherwise mint a duplicate carrying none of the original's optimisation history. A non-archived conversion with the same `name` on the same `pixelId` is returned instead of created, with `reused: true` and a 200 rather than a 201.  `rule` is forwarded verbatim in Meta's own grammar (e.g. `{\"url\": {\"i_contains\": \"thank-you\"}}`); Meta validates it and rejects a malformed one with \"A conversion rule is required at creation time\".
 
@@ -559,7 +560,7 @@ Name | Type | Description  | Required | Notes
 ## get_dsa_recommendations
 
 > models::GetDsaRecommendations200Response get_dsa_recommendations(account_id, ad_account_id)
-List DSA beneficiary/payor suggestions
+Get DSA recommendations
 
 Returns Meta's suggested beneficiary/payor names for an ad account, derived by Meta from the account's recent activity. Useful for prefilling `dsaBeneficiary`/`dsaPayor` inputs, or the defaults sent to `PATCH /v1/ads/accounts`, in your own UI.  Meta returns a single flat list. Entries are not labeled as beneficiary or payor, and since these are legal disclosures Zernio never applies them automatically: let your user pick the right entity. The list may be empty for accounts with little activity. Meta accounts only. 
 
@@ -1034,7 +1035,7 @@ Name | Type | Description  | Required | Notes
 ## list_high_demand_periods
 
 > models::ListHighDemandPeriods200Response list_high_demand_periods(account_id, campaign_id, ad_set_id, limit, after)
-High demand periods / budget schedules
+List high-demand periods
 
 Scheduled budget increases (Meta's budget-scheduling API). The Graph edge lives on the campaign and ad-set nodes only, so exactly one of `campaignId` / `adSetId` (platform ids) is required. Rows returned verbatim (budget_value, budget_value_type, time window, recurrence).
 
@@ -1084,6 +1085,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListMetaBusinesses200Response**](listMetaBusinesses_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_tik_tok_ad_pixels
+
+> models::ListTikTokAdPixels200Response list_tik_tok_ad_pixels(account_id, advertiser_id, code)
+List TikTok ad pixels
+
+Lists pixels and their supported optimization events for a connected TikTok Ads account. The advertiser defaults to the first advertiser on the connection. Reconnect if Pixel Management permission has not been granted.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Zernio SocialAccount ID. | [required] |
+**advertiser_id** | Option<**String**> | Advertiser belonging to this connection. |  |
+**code** | Option<**String**> | Filter by a Pixel Code. |  |
+
+### Return type
+
+[**models::ListTikTokAdPixels200Response**](listTikTokAdPixels_200_response.md)
 
 ### Authorization
 

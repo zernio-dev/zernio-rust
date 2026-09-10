@@ -17,10 +17,11 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AddConversionAssociationsError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status405(),
     Status429(),
     UnknownValue(serde_json::Value),
@@ -30,10 +31,11 @@ pub enum AddConversionAssociationsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AdjustConversionsError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status405(),
     UnknownValue(serde_json::Value),
 }
@@ -42,10 +44,11 @@ pub enum AdjustConversionsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateConversionActionError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -57,7 +60,7 @@ pub enum CreateConversionDestinationError {
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status405(),
     Status409(),
     Status429(),
@@ -68,10 +71,11 @@ pub enum CreateConversionDestinationError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteConversionDestinationError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status405(),
     Status429(),
     UnknownValue(serde_json::Value),
@@ -81,10 +85,11 @@ pub enum DeleteConversionDestinationError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetConversionDestinationError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status405(),
     Status429(),
     UnknownValue(serde_json::Value),
@@ -94,10 +99,11 @@ pub enum GetConversionDestinationError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetConversionMetricsError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status405(),
     Status429(),
     UnknownValue(serde_json::Value),
@@ -107,6 +113,8 @@ pub enum GetConversionMetricsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetConversionsQualityError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status405(),
@@ -117,10 +125,11 @@ pub enum GetConversionsQualityError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListConversionActionsError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(models::InlineObject2),
+    Status404(models::ErrorResponse),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -129,10 +138,11 @@ pub enum ListConversionActionsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListConversionAssociationsError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status405(),
     Status429(),
     UnknownValue(serde_json::Value),
@@ -142,10 +152,11 @@ pub enum ListConversionAssociationsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListConversionDestinationsError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status429(),
     UnknownValue(serde_json::Value),
 }
@@ -154,10 +165,11 @@ pub enum ListConversionDestinationsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RemoveConversionAssociationsError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status405(),
     Status429(),
     UnknownValue(serde_json::Value),
@@ -167,10 +179,11 @@ pub enum RemoveConversionAssociationsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SendConversionsError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status422(),
     Status429(),
     UnknownValue(serde_json::Value),
@@ -180,10 +193,11 @@ pub enum SendConversionsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateConversionDestinationError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status405(),
     Status429(),
     UnknownValue(serde_json::Value),

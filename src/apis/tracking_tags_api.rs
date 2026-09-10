@@ -17,10 +17,11 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AddTrackingTagSharedAccountError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status405(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -30,10 +31,11 @@ pub enum AddTrackingTagSharedAccountError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateTrackingTagError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status405(),
     Status422(),
     Status502(),
@@ -54,9 +56,11 @@ pub enum GetAdTrackingTagsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetTrackingTagError {
+    Status409(models::ErrorResponse),
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status405(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -66,10 +70,11 @@ pub enum GetTrackingTagError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetTrackingTagStatsError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status405(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -79,9 +84,11 @@ pub enum GetTrackingTagStatsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListTrackingTagSharedAccountsError {
+    Status409(models::ErrorResponse),
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status405(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -91,10 +98,11 @@ pub enum ListTrackingTagSharedAccountsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListTrackingTagsError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status405(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -104,10 +112,11 @@ pub enum ListTrackingTagsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RemoveTrackingTagSharedAccountError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status405(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -130,10 +139,11 @@ pub enum UpdateAdTrackingTagsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateTrackingTagError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status405(),
     Status502(),
     UnknownValue(serde_json::Value),

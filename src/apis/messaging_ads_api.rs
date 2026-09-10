@@ -17,10 +17,11 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateCallAdError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status422(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -30,10 +31,11 @@ pub enum CreateCallAdError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateCtwaAdError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status422(),
     Status502(),
     UnknownValue(serde_json::Value),
@@ -43,10 +45,11 @@ pub enum CreateCtwaAdError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateMessagingAdError {
+    Status409(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
-    Status404(),
+    Status404(models::ErrorResponse),
     Status422(),
     Status502(),
     UnknownValue(serde_json::Value),

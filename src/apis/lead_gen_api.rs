@@ -55,6 +55,8 @@ pub enum GetLeadFormError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListFormLeadsError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     UnknownValue(serde_json::Value),

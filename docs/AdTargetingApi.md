@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**estimate_ad_reach**](AdTargetingApi.md#estimate_ad_reach) | **POST** /v1/ads/targeting/reach-estimate | Estimate audience reach
 [**get_linked_in_bid_pricing**](AdTargetingApi.md#get_linked_in_bid_pricing) | **POST** /v1/ads/targeting/bid-pricing | Suggested bid and budget bounds
-[**get_linked_in_supply_forecast**](AdTargetingApi.md#get_linked_in_supply_forecast) | **POST** /v1/ads/targeting/supply-forecast | Impressions, clicks and spend forecast
+[**get_linked_in_supply_forecast**](AdTargetingApi.md#get_linked_in_supply_forecast) | **POST** /v1/ads/targeting/supply-forecast | Forecast ad delivery
 [**search_ad_interests**](AdTargetingApi.md#search_ad_interests) | **GET** /v1/ads/interests | Search targeting interests
 [**search_ad_targeting**](AdTargetingApi.md#search_ad_targeting) | **GET** /v1/ads/targeting/search | Search targeting options
 
@@ -75,7 +75,7 @@ Name | Type | Description  | Required | Notes
 ## get_linked_in_supply_forecast
 
 > models::GetLinkedInSupplyForecast200Response get_linked_in_supply_forecast(get_linked_in_supply_forecast_request)
-Impressions, clicks and spend forecast
+Forecast ad delivery
 
 LinkedIn-only. Forecasted impressions, clicks, spend and ~20 other metrics for a targeting spec over a time range. Wraps LinkedIn's `adSupplyForecasts` finder.  Each returned series carries a `metricType` (IMPRESSION, CLICK, SPENDING, MAX_POTENTIAL_BUDGET, COST_PER_MILLION_IMPRESSIONS, ...) and a `granularity` (DAILY, SEVEN_DAY, THIRTY_DAY, CUSTOM). LinkedIn caps the daily spending forecast at 1.2x the daily budget and returns 0 once the total budget is exhausted.  Non-LinkedIn accounts return `available: false`. 
 

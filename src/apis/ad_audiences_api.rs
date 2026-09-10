@@ -29,6 +29,8 @@ pub enum AddUsersToAdAudienceError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateAdAudienceError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
@@ -59,6 +61,9 @@ pub enum GetAdAudienceError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAdAudiencesError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
     UnknownValue(serde_json::Value),

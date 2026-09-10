@@ -17,6 +17,8 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CancelRfReservationError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -27,6 +29,8 @@ pub enum CancelRfReservationError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateRfPredictionError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status422(),
@@ -38,6 +42,8 @@ pub enum CreateRfPredictionError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetRfPredictionError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),
@@ -48,6 +54,8 @@ pub enum GetRfPredictionError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ReserveRfPredictionError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status501(),

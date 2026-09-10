@@ -16,6 +16,9 @@ Method | HTTP request | Description
 [**list_ad_creatives**](AdCreativesApi.md#list_ad_creatives) | **GET** /v1/ads/creatives | Creative library
 [**list_ad_images**](AdCreativesApi.md#list_ad_images) | **GET** /v1/ads/images | Ad image library
 [**list_ad_videos**](AdCreativesApi.md#list_ad_videos) | **GET** /v1/ads/videos | Ad video library
+[**list_partnership_ad_content**](AdCreativesApi.md#list_partnership_ad_content) | **GET** /v1/ads/partnership-content | List partnership ad content
+[**list_partnership_ad_permissions**](AdCreativesApi.md#list_partnership_ad_permissions) | **GET** /v1/ads/partnership-permissions | List partnership permissions
+[**set_partnership_ad_permission**](AdCreativesApi.md#set_partnership_ad_permission) | **POST** /v1/ads/partnership-permissions | Set partnership permission
 [**update_ad_creative**](AdCreativesApi.md#update_ad_creative) | **PUT** /v1/ads/creatives/{creativeId} | Rename a creative
 [**upload_ad_image**](AdCreativesApi.md#upload_ad_image) | **POST** /v1/ads/images | Upload an ad image from base64
 [**upload_ad_video**](AdCreativesApi.md#upload_ad_video) | **POST** /v1/ads/videos | Upload an ad video
@@ -397,6 +400,100 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_partnership_ad_content
+
+> models::ListPartnershipAdContent200Response list_partnership_ad_content(account_id, creator_username, post_url, only_allowlisted)
+List partnership ad content
+
+Private beta. Lists creator Instagram posts available to the advertiser for Partnership Ads. Supply creatorUsername or postUrl. Requires instagram_branded_content_ads_brand permission and an advertiser Instagram Business Account.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Zernio SocialAccount ID. | [required] |
+**creator_username** | Option<**String**> | Creator username. Required unless postUrl is supplied. |  |
+**post_url** | Option<**String**> | Instagram post permalink. Required unless creatorUsername is supplied. |  |
+**only_allowlisted** | Option<**bool**> | Return only creators with account-level permission. |  |
+
+### Return type
+
+[**models::ListPartnershipAdContent200Response**](listPartnershipAdContent_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_partnership_ad_permissions
+
+> models::ListPartnershipAdPermissions200Response list_partnership_ad_permissions(account_id, creator_username)
+List partnership permissions
+
+Private beta. Lists granted or pending creator permissions for the advertiser Instagram Business Account. Requires instagram_branded_content_ads_brand permission.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Zernio SocialAccount ID. | [required] |
+**creator_username** | Option<**String**> | Filter by creator username. |  |
+
+### Return type
+
+[**models::ListPartnershipAdPermissions200Response**](listPartnershipAdPermissions_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## set_partnership_ad_permission
+
+> models::SetPartnershipAdPermission200Response set_partnership_ad_permission(set_partnership_ad_permission_request)
+Set partnership permission
+
+Private beta. Requests permission from a creator or revokes it when revoke is true. Requests require the creator to approve in Instagram. Requires instagram_branded_content_ads_brand permission.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**set_partnership_ad_permission_request** | [**SetPartnershipAdPermissionRequest**](SetPartnershipAdPermissionRequest.md) |  | [required] |
+
+### Return type
+
+[**models::SetPartnershipAdPermission200Response**](setPartnershipAdPermission_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

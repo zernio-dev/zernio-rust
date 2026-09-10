@@ -17,6 +17,8 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateAdInsightsReportError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status429(),
@@ -28,6 +30,8 @@ pub enum CreateAdInsightsReportError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GenerateKeywordHistoricalMetricsError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status429(),
@@ -39,6 +43,8 @@ pub enum GenerateKeywordHistoricalMetricsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GenerateKeywordIdeasError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status429(),
@@ -61,6 +67,8 @@ pub enum GetAdAnalyticsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetAdInsightsReportError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status429(),
@@ -72,6 +80,8 @@ pub enum GetAdInsightsReportError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetAdsSearchTermsError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status429(),
@@ -95,6 +105,8 @@ pub enum GetCampaignAnalyticsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListLocalServicesLeadConversationsError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status429(),
@@ -106,6 +118,8 @@ pub enum ListLocalServicesLeadConversationsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListLocalServicesLeadsError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status429(),
@@ -117,6 +131,8 @@ pub enum ListLocalServicesLeadsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum QueryAdInsightsError {
+    Status409(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status400(),
     Status401(models::InlineObject1),
     Status429(),
