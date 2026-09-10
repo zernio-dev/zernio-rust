@@ -66,6 +66,7 @@ pub enum LikeInboxCommentError {
     Status400(),
     Status401(models::InlineObject1),
     Status403(),
+    Status409(),
     UnknownValue(serde_json::Value),
 }
 
@@ -77,6 +78,7 @@ pub enum LikePostError {
     Status401(models::InlineObject1),
     Status403(),
     Status404(),
+    Status409(),
     UnknownValue(serde_json::Value),
 }
 

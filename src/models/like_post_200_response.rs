@@ -25,6 +25,12 @@ pub struct LikePost200Response {
     /// (Bluesky only) URI to use for unliking
     #[serde(rename = "likeUri", skip_serializing_if = "Option::is_none")]
     pub like_uri: Option<String>,
+    /// LinkedIn only: the account already had this exact reaction, so nothing was created
+    #[serde(rename = "alreadyReacted", skip_serializing_if = "Option::is_none")]
+    pub already_reacted: Option<bool>,
+    /// LinkedIn only: the reaction type now in effect
+    #[serde(rename = "reactionType", skip_serializing_if = "Option::is_none")]
+    pub reaction_type: Option<String>,
 }
 
 impl LikePost200Response {
@@ -35,6 +41,8 @@ impl LikePost200Response {
             platform: None,
             liked: None,
             like_uri: None,
+            already_reacted: None,
+            reaction_type: None,
         }
     }
 }

@@ -49,7 +49,7 @@ pub struct GetInboxPostComments200ResponseCommentsInner {
     /// Whether this comment can be hidden (Facebook, Instagram, Threads)
     #[serde(rename = "canHide", skip_serializing_if = "Option::is_none")]
     pub can_hide: Option<bool>,
-    /// Whether this comment can be liked (Facebook, X, Bluesky, Reddit)
+    /// Whether this comment can be liked (Facebook, X, Bluesky, Reddit, LinkedIn)
     #[serde(rename = "canLike", skip_serializing_if = "Option::is_none")]
     pub can_like: Option<bool>,
     /// Whether the comment is currently hidden
