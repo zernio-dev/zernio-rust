@@ -25,6 +25,9 @@ pub struct PurchasePhoneNumberRequest {
     /// Area code (national destination code, e.g. 11 for Sao Paulo) the number must be in. Hard constraint: when the area has no deliverable inventory the purchase fails with 409 code AREA_CODE_UNAVAILABLE instead of assigning a number from another area, and later replacements stay in this area too. Omit for any area. Get live options from GET /v1/phone-numbers/availability (areaOptions).
     #[serde(rename = "areaCode", skip_serializing_if = "Option::is_none")]
     pub area_code: Option<String>,
+    /// One exact number to buy, in E.164, taken from GET /v1/phone-numbers/available. Hard constraint: when it is no longer available (bought by someone else, or WhatsApp's buy-time check rejects it) the purchase fails with 409 code PHONE_NUMBER_UNAVAILABLE instead of assigning another number; search again and pick another. Only for countries and types that activate instantly: a regulated one (202 kyc_required) returns 400 when phoneNumber is set.
+    #[serde(rename = "phoneNumber", skip_serializing_if = "Option::is_none")]
+    pub phone_number: Option<String>,
     /// A phone number is the unit; WhatsApp is one optional feature. Pass false to buy a STANDALONE number (Calls/SMS only): provisioning skips the Meta pre-verify/OTP steps and the number activates immediately. Omitted defaults to the WhatsApp provisioning path. WhatsApp can be connected to a standalone number later from the connect flow.
     #[serde(rename = "connectWhatsapp", skip_serializing_if = "Option::is_none")]
     pub connect_whatsapp: Option<bool>,
@@ -49,6 +52,7 @@ impl PurchasePhoneNumberRequest {
             country: None,
             number_type: None,
             area_code: None,
+            phone_number: None,
             connect_whatsapp: None,
             wants_sms: None,
             wants_whatsapp: None,

@@ -15,10 +15,18 @@ use serde::{Deserialize, Serialize};
 pub struct SearchAvailableWhatsAppNumbers200ResponseNumbersInner {
     #[serde(rename = "phoneNumber", skip_serializing_if = "Option::is_none")]
     pub phone_number: Option<String>,
+    #[serde(rename = "locality", skip_serializing_if = "Option::is_none")]
+    pub locality: Option<String>,
+    #[serde(rename = "bestEffort", skip_serializing_if = "Option::is_none")]
+    pub best_effort: Option<bool>,
 }
 
 impl SearchAvailableWhatsAppNumbers200ResponseNumbersInner {
     pub fn new() -> SearchAvailableWhatsAppNumbers200ResponseNumbersInner {
-        SearchAvailableWhatsAppNumbers200ResponseNumbersInner { phone_number: None }
+        SearchAvailableWhatsAppNumbers200ResponseNumbersInner {
+            phone_number: None,
+            locality: None,
+            best_effort: None,
+        }
     }
 }

@@ -34,6 +34,8 @@ pub enum Code {
     PurchaseVelocity,
     #[serde(rename = "AREA_CODE_UNAVAILABLE")]
     AreaCodeUnavailable,
+    #[serde(rename = "PHONE_NUMBER_UNAVAILABLE")]
+    PhoneNumberUnavailable,
 }
 
 impl Default for Code {

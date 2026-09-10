@@ -13,11 +13,18 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SearchAvailablePhoneNumbers200ResponseNumbersInner {
+    /// E.164. Pass it as `phoneNumber` on POST /v1/phone-numbers/purchase to buy this exact number.
     #[serde(rename = "phoneNumber", skip_serializing_if = "Option::is_none")]
     pub phone_number: Option<String>,
     /// Provider capability list for this number (e.g. voice, sms, mms).
     #[serde(rename = "features", skip_serializing_if = "Option::is_none")]
     pub features: Option<Vec<String>>,
+    /// Town or rate center the number belongs to, as the carrier names it (e.g. WACO).
+    #[serde(rename = "locality", skip_serializing_if = "Option::is_none")]
+    pub locality: Option<String>,
+    /// true when the carrier added this number because too few matched your filters, so it may be outside the requested prefix or locality.
+    #[serde(rename = "bestEffort", skip_serializing_if = "Option::is_none")]
+    pub best_effort: Option<bool>,
 }
 
 impl SearchAvailablePhoneNumbers200ResponseNumbersInner {
@@ -25,6 +32,8 @@ impl SearchAvailablePhoneNumbers200ResponseNumbersInner {
         SearchAvailablePhoneNumbers200ResponseNumbersInner {
             phone_number: None,
             features: None,
+            locality: None,
+            best_effort: None,
         }
     }
 }
