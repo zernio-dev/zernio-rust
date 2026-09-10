@@ -91,6 +91,16 @@ pub enum ListInboxCommentsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`pin_inbox_comment`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum PinInboxCommentError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`reply_to_inbox_post`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -156,6 +166,16 @@ pub enum UnlikePostError {
     Status401(models::InlineObject1),
     Status403(),
     Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`unpin_inbox_comment`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UnpinInboxCommentError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
     UnknownValue(serde_json::Value),
 }
 
@@ -277,7 +297,7 @@ pub async fn edit_inbox_comment(
     }
 }
 
-/// Fetch comments for a specific post. Requires accountId query parameter.  On Facebook and Instagram, passing a COMMENT id as `postId` is also supported and returns that comment's replies instead of the post's top-level comments. This is not available on YouTube, where `postId` must be a video id.  Responses are cached for up to 10 minutes, so a page may lag new comments by that window. Do not poll this endpoint for real-time updates: subscribe to the `comment.received` webhook, which delivers new comments as they arrive. Your own writes (creating, replying to, or deleting a comment) refresh the cache immediately.
+/// Fetch comments for a specific post. Requires accountId query parameter.  On Facebook and Instagram, passing a COMMENT id as `postId` is also supported and returns that comment's replies instead of the post's top-level comments. This is not available on YouTube, where `postId` must be a video id.  Responses are cached for up to 10 minutes, so a page may lag new comments by that window. Do not poll this endpoint for real-time updates: subscribe to the `comment.received` webhook, which delivers new comments as they arrive. Your own writes (creating, replying to, or deleting a comment) refresh the cache immediately.  TikTok is served for accounts connected through the TikTok for Business app: `postId` is the TikTok video id, each top-level comment carries up to three inline replies, and `commentId` pages the full reply list of one comment. Developer-app TikTok accounts return 400 with code `PLATFORM_LIMITATION`.
 pub async fn get_inbox_post_comments(
     configuration: &configuration::Configuration,
     post_id: &str,
@@ -351,7 +371,7 @@ pub async fn get_inbox_post_comments(
     }
 }
 
-/// Hide a comment on a post. Supported by Facebook, Instagram, Threads, and X. Hidden comments are only visible to the commenter and page admin. For X, the reply must belong to a conversation started by the authenticated user.
+/// Hide a comment on a post. Supported by Facebook, Instagram, Threads, X, and TikTok (accounts connected through the TikTok for Business app). Hidden comments are only visible to the commenter and page admin. For X, the reply must belong to a conversation started by the authenticated user.
 pub async fn hide_inbox_comment(
     configuration: &configuration::Configuration,
     post_id: &str,
@@ -615,6 +635,65 @@ pub async fn list_inbox_comments(
     }
 }
 
+/// Pin a top-level comment to the top of a post's comment section. TikTok accounts connected through the TikTok for Business app only; every other platform returns 400.
+pub async fn pin_inbox_comment(
+    configuration: &configuration::Configuration,
+    post_id: &str,
+    comment_id: &str,
+    pin_inbox_comment_request: models::PinInboxCommentRequest,
+) -> Result<models::PinInboxComment200Response, Error<PinInboxCommentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_post_id = post_id;
+    let p_path_comment_id = comment_id;
+    let p_body_pin_inbox_comment_request = pin_inbox_comment_request;
+
+    let uri_str = format!(
+        "{}/v1/inbox/comments/{postId}/{commentId}/pin",
+        configuration.base_path,
+        postId = crate::apis::urlencode(p_path_post_id),
+        commentId = crate::apis::urlencode(p_path_comment_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_pin_inbox_comment_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PinInboxComment200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PinInboxComment200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<PinInboxCommentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
 /// Post a reply to a post or specific comment. Requires accountId in request body.  **Idempotency:** send an `Idempotency-Key` header to make retries safe (e.g. after a client-side timeout where delivery is unknown): same key + same body replays the original response (with `Idempotent-Replayed: true`) instead of posting the comment a second time; same key + different body returns 422; a key still in flight returns 409. Keys are retained for 24 hours and are scoped to the credential and to this exact path, so reusing a key against a different postId returns 422 rather than replaying the other post's response.  Only successful (2xx) responses are stored for replay. If the request throws or returns a non-2xx status the key is released, so the header protects the \"request succeeded but the response was lost\" case. After an ambiguous failure (a 5xx or a network timeout) list the post's comments before retrying with the same key, and treat an empty result as inconclusive rather than as proof nothing was posted.
 pub async fn reply_to_inbox_post(
     configuration: &configuration::Configuration,
@@ -794,7 +873,7 @@ pub async fn set_comment_moderation(
     }
 }
 
-/// Unhide a previously hidden comment. Supported by Facebook, Instagram, Threads, and X.
+/// Unhide a previously hidden comment. Supported by Facebook, Instagram, Threads, X, and TikTok (accounts connected through the TikTok for Business app).
 pub async fn unhide_inbox_comment(
     configuration: &configuration::Configuration,
     post_id: &str,
@@ -970,6 +1049,65 @@ pub async fn unlike_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<UnlikePostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Unpin a previously pinned comment. TikTok accounts connected through the TikTok for Business app only.
+pub async fn unpin_inbox_comment(
+    configuration: &configuration::Configuration,
+    post_id: &str,
+    comment_id: &str,
+    account_id: &str,
+) -> Result<models::PinInboxComment200Response, Error<UnpinInboxCommentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_post_id = post_id;
+    let p_path_comment_id = comment_id;
+    let p_query_account_id = account_id;
+
+    let uri_str = format!(
+        "{}/v1/inbox/comments/{postId}/{commentId}/pin",
+        configuration.base_path,
+        postId = crate::apis::urlencode(p_path_post_id),
+        commentId = crate::apis::urlencode(p_path_comment_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PinInboxComment200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PinInboxComment200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UnpinInboxCommentError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

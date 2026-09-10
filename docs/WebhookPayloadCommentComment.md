@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **id** | **String** | Platform comment ID | 
 **post_id** | Option<**String**> | Internal post ID (null for posts not published through Zernio) | 
 **platform_post_id** | **String** | Platform's post ID | 
-**platform** | **Platform** |  (enum: instagram, facebook, twitter, youtube, linkedin, bluesky, reddit) | 
+**platform** | **Platform** |  (enum: instagram, facebook, twitter, youtube, linkedin, bluesky, reddit, tiktok) | 
 **text** | **String** | Comment text content | 
 **author** | [**models::WebhookPayloadCommentCommentAuthor**](WebhookPayloadCommentCommentAuthor.md) |  | 
 **created_at** | **String** |  | 

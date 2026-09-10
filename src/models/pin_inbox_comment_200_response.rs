@@ -12,24 +12,24 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct SyncExternalPosts200ResponseSynced {
-    /// Posts returned by the platform listing during the on-demand sync
-    #[serde(rename = "postsFound", skip_serializing_if = "Option::is_none")]
-    pub posts_found: Option<i32>,
-    /// Posts inserted or updated in Zernio
-    #[serde(rename = "postsSynced", skip_serializing_if = "Option::is_none")]
-    pub posts_synced: Option<i32>,
-    /// True when the account was synced within the debounce window and no live fetch ran.
-    #[serde(rename = "skipped", skip_serializing_if = "Option::is_none")]
-    pub skipped: Option<bool>,
+pub struct PinInboxComment200Response {
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<String>,
+    #[serde(rename = "commentId", skip_serializing_if = "Option::is_none")]
+    pub comment_id: Option<String>,
+    #[serde(rename = "pinned", skip_serializing_if = "Option::is_none")]
+    pub pinned: Option<bool>,
+    #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
+    pub platform: Option<String>,
 }
 
-impl SyncExternalPosts200ResponseSynced {
-    pub fn new() -> SyncExternalPosts200ResponseSynced {
-        SyncExternalPosts200ResponseSynced {
-            posts_found: None,
-            posts_synced: None,
-            skipped: None,
+impl PinInboxComment200Response {
+    pub fn new() -> PinInboxComment200Response {
+        PinInboxComment200Response {
+            status: None,
+            comment_id: None,
+            pinned: None,
+            platform: None,
         }
     }
 }

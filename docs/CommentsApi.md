@@ -11,12 +11,14 @@ Method | HTTP request | Description
 [**like_inbox_comment**](CommentsApi.md#like_inbox_comment) | **POST** /v1/inbox/comments/{postId}/{commentId}/like | Like comment
 [**like_post**](CommentsApi.md#like_post) | **POST** /v1/inbox/posts/{postId}/like | Like post
 [**list_inbox_comments**](CommentsApi.md#list_inbox_comments) | **GET** /v1/inbox/comments | List commented posts
+[**pin_inbox_comment**](CommentsApi.md#pin_inbox_comment) | **POST** /v1/inbox/comments/{postId}/{commentId}/pin | Pin comment
 [**reply_to_inbox_post**](CommentsApi.md#reply_to_inbox_post) | **POST** /v1/inbox/comments/{postId} | Reply to comment
 [**send_private_reply_to_comment**](CommentsApi.md#send_private_reply_to_comment) | **POST** /v1/inbox/comments/{postId}/{commentId}/private-reply | Send private reply
 [**set_comment_moderation**](CommentsApi.md#set_comment_moderation) | **POST** /v1/inbox/comments/{postId}/{commentId}/moderation | Set comment moderation status
 [**unhide_inbox_comment**](CommentsApi.md#unhide_inbox_comment) | **DELETE** /v1/inbox/comments/{postId}/{commentId}/hide | Unhide comment
 [**unlike_inbox_comment**](CommentsApi.md#unlike_inbox_comment) | **DELETE** /v1/inbox/comments/{postId}/{commentId}/like | Unlike comment
 [**unlike_post**](CommentsApi.md#unlike_post) | **DELETE** /v1/inbox/posts/{postId}/like | Unlike post
+[**unpin_inbox_comment**](CommentsApi.md#unpin_inbox_comment) | **DELETE** /v1/inbox/comments/{postId}/{commentId}/pin | Unpin comment
 
 
 
@@ -89,7 +91,7 @@ Name | Type | Description  | Required | Notes
 > models::GetInboxPostComments200Response get_inbox_post_comments(post_id, account_id, subreddit, limit, cursor, comment_id)
 Get post comments
 
-Fetch comments for a specific post. Requires accountId query parameter.  On Facebook and Instagram, passing a COMMENT id as `postId` is also supported and returns that comment's replies instead of the post's top-level comments. This is not available on YouTube, where `postId` must be a video id.  Responses are cached for up to 10 minutes, so a page may lag new comments by that window. Do not poll this endpoint for real-time updates: subscribe to the `comment.received` webhook, which delivers new comments as they arrive. Your own writes (creating, replying to, or deleting a comment) refresh the cache immediately. 
+Fetch comments for a specific post. Requires accountId query parameter.  On Facebook and Instagram, passing a COMMENT id as `postId` is also supported and returns that comment's replies instead of the post's top-level comments. This is not available on YouTube, where `postId` must be a video id.  Responses are cached for up to 10 minutes, so a page may lag new comments by that window. Do not poll this endpoint for real-time updates: subscribe to the `comment.received` webhook, which delivers new comments as they arrive. Your own writes (creating, replying to, or deleting a comment) refresh the cache immediately.  TikTok is served for accounts connected through the TikTok for Business app: `postId` is the TikTok video id, each top-level comment carries up to three inline replies, and `commentId` pages the full reply list of one comment. Developer-app TikTok accounts return 400 with code `PLATFORM_LIMITATION`. 
 
 ### Parameters
 
@@ -101,7 +103,7 @@ Name | Type | Description  | Required | Notes
 **subreddit** | Option<**String**> | (Reddit only) Subreddit name |  |
 **limit** | Option<**i32**> | Maximum number of comments to return |  |[default to 25]
 **cursor** | Option<**String**> | Pagination cursor, returned by a previous call as `pagination.cursor`. This is the platform's own opaque paging value passed through verbatim: never construct, decode or validate it client-side. |  |
-**comment_id** | Option<**String**> | (Reddit only) Get replies to a specific comment |  |
+**comment_id** | Option<**String**> | (Reddit and TikTok only) Get replies to a specific comment |  |
 
 ### Return type
 
@@ -124,7 +126,7 @@ Name | Type | Description  | Required | Notes
 > models::HideInboxComment200Response hide_inbox_comment(post_id, comment_id, hide_inbox_comment_request)
 Hide comment
 
-Hide a comment on a post. Supported by Facebook, Instagram, Threads, and X. Hidden comments are only visible to the commenter and page admin. For X, the reply must belong to a conversation started by the authenticated user. 
+Hide a comment on a post. Supported by Facebook, Instagram, Threads, X, and TikTok (accounts connected through the TikTok for Business app). Hidden comments are only visible to the commenter and page admin. For X, the reply must belong to a conversation started by the authenticated user. 
 
 ### Parameters
 
@@ -252,6 +254,38 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## pin_inbox_comment
+
+> models::PinInboxComment200Response pin_inbox_comment(post_id, comment_id, pin_inbox_comment_request)
+Pin comment
+
+Pin a top-level comment to the top of a post's comment section. TikTok accounts connected through the TikTok for Business app only; every other platform returns 400. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**post_id** | **String** |  | [required] |
+**comment_id** | **String** |  | [required] |
+**pin_inbox_comment_request** | [**PinInboxCommentRequest**](PinInboxCommentRequest.md) |  | [required] |
+
+### Return type
+
+[**models::PinInboxComment200Response**](pinInboxComment_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## reply_to_inbox_post
 
 > models::ReplyToInboxPost200Response reply_to_inbox_post(post_id, reply_to_inbox_post_request, idempotency_key)
@@ -353,7 +387,7 @@ Name | Type | Description  | Required | Notes
 > models::HideInboxComment200Response unhide_inbox_comment(post_id, comment_id, account_id)
 Unhide comment
 
-Unhide a previously hidden comment. Supported by Facebook, Instagram, Threads, and X. 
+Unhide a previously hidden comment. Supported by Facebook, Instagram, Threads, X, and TikTok (accounts connected through the TikTok for Business app). 
 
 ### Parameters
 
@@ -432,6 +466,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UnlikePost200Response**](unlikePost_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## unpin_inbox_comment
+
+> models::PinInboxComment200Response unpin_inbox_comment(post_id, comment_id, account_id)
+Unpin comment
+
+Unpin a previously pinned comment. TikTok accounts connected through the TikTok for Business app only. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**post_id** | **String** |  | [required] |
+**comment_id** | **String** |  | [required] |
+**account_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::PinInboxComment200Response**](pinInboxComment_200_response.md)
 
 ### Authorization
 

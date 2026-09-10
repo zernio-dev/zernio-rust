@@ -87,6 +87,8 @@ pub enum Platform {
     Bluesky,
     #[serde(rename = "reddit")]
     Reddit,
+    #[serde(rename = "tiktok")]
+    Tiktok,
 }
 
 impl Default for Platform {

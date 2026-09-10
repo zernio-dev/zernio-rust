@@ -1307,6 +1307,8 @@ docs/Pending.md
 docs/PhoneNumberStockWatch.md
 docs/PhoneNumbersApi.md
 docs/PinDiscordMessage200Response.md
+docs/PinInboxComment200Response.md
+docs/PinInboxCommentRequest.md
 docs/PinterestPlatformData.md
 docs/PlatformAnalytics.md
 docs/PlatformTarget.md
@@ -3422,6 +3424,8 @@ src/models/pause_workflow_200_response.rs
 src/models/pending.rs
 src/models/phone_number_stock_watch.rs
 src/models/pin_discord_message_200_response.rs
+src/models/pin_inbox_comment_200_response.rs
+src/models/pin_inbox_comment_request.rs
 src/models/pinterest_platform_data.rs
 src/models/platform_analytics.rs
 src/models/platform_target.rs

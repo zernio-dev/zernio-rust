@@ -12,24 +12,14 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct SyncExternalPosts200ResponseSynced {
-    /// Posts returned by the platform listing during the on-demand sync
-    #[serde(rename = "postsFound", skip_serializing_if = "Option::is_none")]
-    pub posts_found: Option<i32>,
-    /// Posts inserted or updated in Zernio
-    #[serde(rename = "postsSynced", skip_serializing_if = "Option::is_none")]
-    pub posts_synced: Option<i32>,
-    /// True when the account was synced within the debounce window and no live fetch ran.
-    #[serde(rename = "skipped", skip_serializing_if = "Option::is_none")]
-    pub skipped: Option<bool>,
+pub struct PinInboxCommentRequest {
+    /// The social account ID
+    #[serde(rename = "accountId")]
+    pub account_id: String,
 }
 
-impl SyncExternalPosts200ResponseSynced {
-    pub fn new() -> SyncExternalPosts200ResponseSynced {
-        SyncExternalPosts200ResponseSynced {
-            posts_found: None,
-            posts_synced: None,
-            skipped: None,
-        }
+impl PinInboxCommentRequest {
+    pub fn new(account_id: String) -> PinInboxCommentRequest {
+        PinInboxCommentRequest { account_id }
     }
 }
