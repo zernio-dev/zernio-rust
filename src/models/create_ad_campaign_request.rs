@@ -32,7 +32,7 @@ pub struct CreateAdCampaignRequest {
     pub is_skadnetwork_attribution: Option<bool>,
     #[serde(rename = "promotedObject", skip_serializing_if = "Option::is_none")]
     pub promoted_object: Option<Box<models::AdPromotedObject>>,
-    /// Meta only. SKAdNetwork app promotion requires AUCTION.
+    /// Meta only. Defaults to AUCTION and is explicitly sent on new campaigns, including validateOnly. SKAdNetwork app promotion requires AUCTION.
     #[serde(rename = "buyingType", skip_serializing_if = "Option::is_none")]
     pub buying_type: Option<BuyingType>,
     /// Meta only. Runs campaign validation without creating or persisting a campaign; Idempotency-Key storage is bypassed. Returns HTTP 200 with validateOnly true and status VALIDATED.
@@ -126,7 +126,7 @@ impl Default for Goal {
         Self::Engagement
     }
 }
-/// Meta only. SKAdNetwork app promotion requires AUCTION.
+/// Meta only. Defaults to AUCTION and is explicitly sent on new campaigns, including validateOnly. SKAdNetwork app promotion requires AUCTION.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum BuyingType {
     #[serde(rename = "AUCTION")]
