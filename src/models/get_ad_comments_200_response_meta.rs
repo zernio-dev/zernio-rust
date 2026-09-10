@@ -28,7 +28,7 @@ pub struct GetAdComments200ResponseMeta {
     /// Underlying post ID the comments belong to. effective_object_story_id for the Facebook side, effective_instagram_media_id for the Instagram side.
     #[serde(rename = "effectiveStoryId", skip_serializing_if = "Option::is_none")]
     pub effective_story_id: Option<String>,
-    /// TikTok-only video item ID. Null when the ad and comments do not expose it.
+    /// TikTok-only video item ID from stored ad fields or returned comments. Null does not prevent listing; ad details are not fetched to populate it.
     #[serde(
         rename = "tiktokItemId",
         default,
