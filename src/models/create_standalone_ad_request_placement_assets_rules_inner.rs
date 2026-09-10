@@ -22,6 +22,15 @@ pub struct CreateStandaloneAdRequestPlacementAssetsRulesInner {
     /// Video mode (optional). Poster image for this rule's video; auto-generated when omitted.
     #[serde(rename = "thumbnailUrl", skip_serializing_if = "Option::is_none")]
     pub thumbnail_url: Option<String>,
+    /// One headline pinned to this rule. Omit to inherit the top-level headline.
+    #[serde(rename = "headline", skip_serializing_if = "Option::is_none")]
+    pub headline: Option<String>,
+    /// One primary text pinned to this rule. Omit to inherit the top-level body.
+    #[serde(rename = "body", skip_serializing_if = "Option::is_none")]
+    pub body: Option<String>,
+    /// One link description pinned to this rule. Omit to inherit the top-level description.
+    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
     #[serde(rename = "placements")]
     pub placements: Box<models::CreateStandaloneAdRequestPlacementAssetsRulesInnerPlacements>,
 }
@@ -34,6 +43,9 @@ impl CreateStandaloneAdRequestPlacementAssetsRulesInner {
             image_url: None,
             video_url: None,
             thumbnail_url: None,
+            headline: None,
+            body: None,
+            description: None,
             placements: Box::new(placements),
         }
     }
