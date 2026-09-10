@@ -46,6 +46,12 @@ pub struct AnalyticsDeltaEntryMetrics {
     /// Instagram Reels skip rate, 0 to 1
     #[serde(rename = "reelsSkipRate")]
     pub reels_skip_rate: f64,
+    /// TikTok business lane: share of viewers who watched to the end, 0 to 1
+    #[serde(rename = "completionRate")]
+    pub completion_rate: f64,
+    /// TikTok business lane: profile views attributed to the post
+    #[serde(rename = "profileViews")]
+    pub profile_views: i32,
 }
 
 impl AnalyticsDeltaEntryMetrics {
@@ -65,6 +71,8 @@ impl AnalyticsDeltaEntryMetrics {
         ig_reels_video_view_total_time: i32,
         reposts: i32,
         reels_skip_rate: f64,
+        completion_rate: f64,
+        profile_views: i32,
     ) -> AnalyticsDeltaEntryMetrics {
         AnalyticsDeltaEntryMetrics {
             impressions,
@@ -81,6 +89,8 @@ impl AnalyticsDeltaEntryMetrics {
             ig_reels_video_view_total_time,
             reposts,
             reels_skip_rate,
+            completion_rate,
+            profile_views,
         }
     }
 }

@@ -18,6 +18,8 @@ Name | Type | Description | Notes
 **ig_reels_video_view_total_time** | **i32** | Instagram Reels total watch time, in milliseconds | 
 **reposts** | **i32** |  | 
 **reels_skip_rate** | **f64** | Instagram Reels skip rate, 0 to 1 | 
+**completion_rate** | **f64** | TikTok business lane: share of viewers who watched to the end, 0 to 1 | 
+**profile_views** | **i32** | TikTok business lane: profile views attributed to the post | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

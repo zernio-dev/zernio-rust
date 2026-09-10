@@ -53,6 +53,12 @@ pub struct PostAnalytics {
     /// Instagram Reels only: percentage (0-100) of initial views that skipped the reel within its first 3 seconds, as reported by Meta. Meta labels the metric estimated and in development, so it can move between syncs. 0 for non-Reels media and other platforms. When a post is published to several accounts, the aggregate is weighted by views.
     #[serde(rename = "reelsSkipRate", skip_serializing_if = "Option::is_none")]
     pub reels_skip_rate: Option<f64>,
+    /// TikTok accounts connected through the TikTok for Business app only: share of viewers who watched the video to the end, 0 to 1, as TikTok reports it (T+24-48h, only for posts active in the last 7 days). 0 for other platforms. When a post is published to several accounts, the aggregate is weighted by views.
+    #[serde(rename = "completionRate", skip_serializing_if = "Option::is_none")]
+    pub completion_rate: Option<f64>,
+    /// TikTok accounts connected through the TikTok for Business app only: profile views from users who reached the profile through this post (T+24-48h). 0 for other platforms.
+    #[serde(rename = "profileViews", skip_serializing_if = "Option::is_none")]
+    pub profile_views: Option<i32>,
     /// Instagram accounts connected with Facebook Login only: reposts of the media by other users, minus deleted reposts, on feed posts, reels and stories. Meta does not expose this metric for accounts connected with Instagram Login, so those always report 0. 0 for other platforms, including Threads, where reposts are counted in shares instead.
     #[serde(rename = "reposts", skip_serializing_if = "Option::is_none")]
     pub reposts: Option<i32>,
@@ -86,6 +92,8 @@ impl PostAnalytics {
             ig_reels_avg_watch_time: None,
             ig_reels_video_view_total_time: None,
             reels_skip_rate: None,
+            completion_rate: None,
+            profile_views: None,
             reposts: None,
             video_duration_seconds: None,
             engagement_rate: None,
