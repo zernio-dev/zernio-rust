@@ -53,6 +53,8 @@ pub enum GetGoogleBusinessReviewsError {
     Status403(models::ErrorResponse),
     Status404(models::InlineObject2),
     Status500(models::ErrorResponse),
+    Status503(models::ErrorResponse),
+    Status502(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 

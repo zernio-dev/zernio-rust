@@ -599,6 +599,7 @@ Class | Method | HTTP request | Description
 *SequencesApi* | [**unenroll_contact**](docs/SequencesApi.md#unenroll_contact) | **DELETE** /v1/sequences/{sequenceId}/enroll/{contactId} | Unenroll contact
 *SequencesApi* | [**update_sequence**](docs/SequencesApi.md#update_sequence) | **PATCH** /v1/sequences/{sequenceId} | Update sequence
 *SlackApi* | [**list_slack_members**](docs/SlackApi.md#list_slack_members) | **GET** /v1/accounts/{accountId}/slack-members | List Slack workspace members
+*ToolsApi* | [**download_tik_tok_video**](docs/ToolsApi.md#download_tik_tok_video) | **GET** /v1/tools/tiktok/download | Download a TikTok video
 *TrackingTagsApi* | [**add_tracking_tag_shared_account**](docs/TrackingTagsApi.md#add_tracking_tag_shared_account) | **POST** /v1/accounts/{accountId}/tracking-tags/{tagId}/shared-accounts | Share with an ad account
 *TrackingTagsApi* | [**create_tracking_tag**](docs/TrackingTagsApi.md#create_tracking_tag) | **POST** /v1/accounts/{accountId}/tracking-tags | Create a tracking tag
 *TrackingTagsApi* | [**get_ad_tracking_tags**](docs/TrackingTagsApi.md#get_ad_tracking_tags) | **GET** /v1/ads/{adId}/tracking-tags | Get ad tracking tags
@@ -1247,6 +1248,8 @@ Class | Method | HTTP request | Description
  - [DiscordScheduledEvent](docs/DiscordScheduledEvent.md)
  - [DiscordScheduledEventEntityMetadata](docs/DiscordScheduledEventEntityMetadata.md)
  - [DmButton](docs/DmButton.md)
+ - [DownloadTikTokVideo200Response](docs/DownloadTikTokVideo200Response.md)
+ - [DownloadTikTokVideo200ResponseFormatsInner](docs/DownloadTikTokVideo200ResponseFormatsInner.md)
  - [DuplicateAd200Response](docs/DuplicateAd200Response.md)
  - [DuplicateAdCampaign200Response](docs/DuplicateAdCampaign200Response.md)
  - [DuplicateAdCampaignRequest](docs/DuplicateAdCampaignRequest.md)

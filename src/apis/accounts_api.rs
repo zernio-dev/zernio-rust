@@ -40,6 +40,8 @@ pub enum GetAccountPostsError {
     Status401(models::InlineObject1),
     Status403(),
     Status404(models::InlineObject2),
+    Status503(models::ErrorResponse),
+    Status502(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -108,6 +110,7 @@ pub enum GetTikTokCreatorInfoError {
 pub enum ListAccountsError {
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 

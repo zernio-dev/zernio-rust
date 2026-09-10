@@ -77,6 +77,8 @@ pub enum GetInboxConversationMessagesError {
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
+    Status503(models::ErrorResponse),
+    Status502(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -141,6 +143,8 @@ pub enum SendInboxMessageError {
     Status403(models::ErrorResponse),
     Status409(),
     Status422(),
+    Status503(models::ErrorResponse),
+    Status502(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 

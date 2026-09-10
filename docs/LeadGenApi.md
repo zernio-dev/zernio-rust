@@ -218,7 +218,7 @@ Name | Type | Description  | Required | Notes
 **account_id** | Option<**String**> | Filter to a single connected account. LinkedIn ads accounts switch to the live fetch. |  |
 **ad_account_id** | Option<**String**> | LinkedIn only: the LinkedIn ad account id whose responses to read (owner-scoped finder). |  |
 **limit** | Option<**i32**> |  |  |[default to 25]
-**since** | Option<**i32**> | Unix seconds; only leads created at/after this timestamp. |  |
+**since** | Option<**i32**> | Unix seconds; only leads created at/after this timestamp. Millisecond timestamps return 400 with instructions to divide by 1000. |  |
 **cursor** | Option<**String**> | Keyset cursor from a previous response's pagination.cursor (Meta: AdLead id; LinkedIn: numeric start offset). |  |
 
 ### Return type

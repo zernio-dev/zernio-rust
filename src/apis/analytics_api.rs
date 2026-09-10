@@ -118,6 +118,8 @@ pub enum GetGoogleBusinessPerformanceError {
     Status401(models::InlineObject1),
     Status402(models::GetAnalytics402Response),
     Status403(models::GetYouTubeDailyViews403Response),
+    Status503(models::ErrorResponse),
+    Status502(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -129,6 +131,8 @@ pub enum GetGoogleBusinessSearchKeywordsError {
     Status401(models::InlineObject1),
     Status402(models::GetAnalytics402Response),
     Status403(models::GetYouTubeDailyViews403Response),
+    Status503(models::ErrorResponse),
+    Status502(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -201,6 +205,8 @@ pub enum GetLinkedInPostAnalyticsError {
     Status402(),
     Status403(models::GetLinkedInPostAnalytics403Response),
     Status404(models::GetLinkedInAggregateAnalytics402Response),
+    Status503(models::ErrorResponse),
+    Status502(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -258,6 +264,8 @@ pub enum GetYouTubeChannelInsightsError {
     Status402(),
     Status404(),
     Status412(models::YouTubeScopeMissingResponse),
+    Status503(models::ErrorResponse),
+    Status502(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -284,6 +292,8 @@ pub enum GetYouTubeDemographicsError {
     Status403(models::GetYouTubeDailyViews403Response),
     Status404(models::GetInstagramAccountInsights404Response),
     Status412(models::GetYouTubeDemographics412Response),
+    Status503(models::ErrorResponse),
+    Status502(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -307,6 +317,10 @@ pub enum GetYouTubeVideoRetentionError {
 pub enum SyncExternalPostsError {
     Status400(models::ErrorResponse),
     Status404(models::ErrorResponse),
+    Status503(models::ErrorResponse),
+    Status502(models::ErrorResponse),
+    Status401(),
+    Status403(),
     UnknownValue(serde_json::Value),
 }
 

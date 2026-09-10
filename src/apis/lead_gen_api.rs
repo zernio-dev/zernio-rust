@@ -79,6 +79,8 @@ pub enum ListLeadsError {
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
+    Status503(models::ErrorResponse),
+    Status502(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 

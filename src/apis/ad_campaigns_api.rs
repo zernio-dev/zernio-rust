@@ -127,6 +127,7 @@ pub enum CreateStandaloneAdError {
     Status422(),
     Status501(),
     Status502(),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 

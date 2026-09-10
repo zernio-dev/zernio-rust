@@ -20,6 +20,7 @@ pub enum CreateCommentAutomationError {
     Status400(),
     Status401(models::InlineObject1),
     Status409(),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -57,6 +58,7 @@ pub enum ListCommentAutomationLogsError {
 pub enum ListCommentAutomationsError {
     Status400(),
     Status401(models::InlineObject1),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
