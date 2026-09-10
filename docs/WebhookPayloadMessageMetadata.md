@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **nfm_reply_name** | Option<**String**> | WhatsApp only. `nfm_reply.name` as Meta sent it, e.g. `flow` or `address_message`. Address submissions share the `nfm_reply` envelope with Flow submissions and are otherwise indistinguishable in `flowResponseData`; use this field to tell them apart.  | [optional]
 **order** | Option<[**models::WebhookPayloadMessageMetadataOrder**](WebhookPayloadMessageMetadataOrder.md)> |  | [optional]
 **referred_product** | Option<[**models::WebhookPayloadMessageMetadataReferredProduct**](WebhookPayloadMessageMetadataReferredProduct.md)> |  | [optional]
+**location** | Option<[**models::WebhookPayloadMessageMetadataLocation**](WebhookPayloadMessageMetadataLocation.md)> |  | [optional]
 **contacts** | Option<**Vec<std::collections::HashMap<String, serde_json::Value>>**> | WhatsApp only. Contact cards the user shared, forwarded verbatim from Meta. Read `contactsOrigin` before treating any number here as the sender's own.  | [optional]
 **contacts_origin** | Option<**ContactsOrigin**> | WhatsApp only. How the contact card was shared. `contact_request` means the user tapped a `request_contact_info` button, so the number is their own and consented. `other` means they picked a card from their address book: it may be anyone's, and must NOT be stored as the sender's identity. Omitted when Meta sends no origin.  (enum: contact_request, other) | [optional]
 **story_reply** | Option<[**models::WebhookPayloadMessageMetadataStoryReply**](WebhookPayloadMessageMetadataStoryReply.md)> |  | [optional]

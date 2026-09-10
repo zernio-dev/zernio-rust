@@ -11,9 +11,14 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookPayloadMessageSentMetadata : Platform-specific context for the sent message. The key is present only when the send carried some context, and absent otherwise: it is never null and never an empty object.
+/// WebhookPayloadMessageSentMetadata : Platform-specific context for the sent message: a quote-reply reference, a WhatsApp location pin or WhatsApp contact cards. The key is present only when the send carried some context, and absent otherwise: it is never null and never an empty object. Read it to tell a location or contact-card message from a text one without a GET on the message.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadMessageSentMetadata {
+    #[serde(rename = "location", skip_serializing_if = "Option::is_none")]
+    pub location: Option<Box<models::WebhookPayloadMessageSentMetadataLocation>>,
+    /// WhatsApp only. The contact cards this message carries. On API sends this is the `contacts` array exactly as given to the inbox send API (`name`, `phones[].phone` / `type`, `emails[]`); on Coexistence echoes of a card shared from the WhatsApp Business app it is Meta's shape (`phones[].wa_id`, `vcard`). The message `text` is only the emoji preview (`👤 <name>`); the cards live here.
+    #[serde(rename = "contacts", skip_serializing_if = "Option::is_none")]
+    pub contacts: Option<Vec<std::collections::HashMap<String, serde_json::Value>>>,
     /// `platformMessageId` of the message this send is a quote-reply to.  Present when the reply was sent through Zernio with `replyTo` on the inbox send API (WhatsApp and Telegram). A WhatsApp API send fires its `message.sent` off the delivery status, and the quote reference is forwarded from the stored send there, so it arrives on the same `message.sent` as any other WhatsApp send.  Not delivered on Instagram echoes. Zernio forwards `reply_to.mid` whenever Meta puts it on an echo, but on Instagram Meta does not send it, so a reply the operator quoted in the Instagram app arrives with no `quotedMessageId`. Facebook Messenger rides a separate subscription (`message_echoes`) and has not been measured, so treat it as unverified rather than supported.  Absent on WhatsApp Coexistence echoes. Meta omits the quote context from `smb_message_echoes`, so a reply the operator sent from the WhatsApp Business app arrives with no `quotedMessageId` even though WhatsApp shows it as a quote-reply. Do not read the absence of this field as \"not a reply\".
     #[serde(rename = "quotedMessageId", skip_serializing_if = "Option::is_none")]
     pub quoted_message_id: Option<String>,
@@ -23,9 +28,11 @@ pub struct WebhookPayloadMessageSentMetadata {
 }
 
 impl WebhookPayloadMessageSentMetadata {
-    /// Platform-specific context for the sent message. The key is present only when the send carried some context, and absent otherwise: it is never null and never an empty object.
+    /// Platform-specific context for the sent message: a quote-reply reference, a WhatsApp location pin or WhatsApp contact cards. The key is present only when the send carried some context, and absent otherwise: it is never null and never an empty object. Read it to tell a location or contact-card message from a text one without a GET on the message.
     pub fn new() -> WebhookPayloadMessageSentMetadata {
         WebhookPayloadMessageSentMetadata {
+            location: None,
+            contacts: None,
             quoted_message_id: None,
             thread_ts: None,
         }

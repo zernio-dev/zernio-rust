@@ -56,6 +56,8 @@ pub struct WebhookPayloadMessageMetadata {
     pub order: Option<Box<models::WebhookPayloadMessageMetadataOrder>>,
     #[serde(rename = "referredProduct", skip_serializing_if = "Option::is_none")]
     pub referred_product: Option<Box<models::WebhookPayloadMessageMetadataReferredProduct>>,
+    #[serde(rename = "location", skip_serializing_if = "Option::is_none")]
+    pub location: Option<Box<models::WebhookPayloadMessageMetadataLocation>>,
     /// WhatsApp only. Contact cards the user shared, forwarded verbatim from Meta. Read `contactsOrigin` before treating any number here as the sender's own.
     #[serde(rename = "contacts", skip_serializing_if = "Option::is_none")]
     pub contacts: Option<Vec<std::collections::HashMap<String, serde_json::Value>>>,
@@ -98,6 +100,7 @@ impl WebhookPayloadMessageMetadata {
             nfm_reply_name: None,
             order: None,
             referred_product: None,
+            location: None,
             contacts: None,
             contacts_origin: None,
             story_reply: None,
