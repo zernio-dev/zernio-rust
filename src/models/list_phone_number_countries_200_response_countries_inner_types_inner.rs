@@ -40,7 +40,7 @@ pub struct ListPhoneNumberCountries200ResponseCountriesInnerTypesInner {
     /// `request`: the carrier stocks this type nowhere and only sources it to order, so it is always a pre-order.
     #[serde(rename = "fulfilment", skip_serializing_if = "Option::is_none")]
     pub fulfilment: Option<Fulfilment>,
-    /// Out of stock but orderable anyway. Submit KYC as usual (POST /v1/phone-numbers/kyc) and the carrier sources the number after review, usually about 3 weeks and never guaranteed. Only document tiers (3/4) qualify, and nothing is billed until the number is active.
+    /// Out of stock but orderable anyway. Submit KYC as usual (POST /v1/phone-numbers/kyc): we buy regular stock the moment it returns, otherwise the carrier sources the number. Usually 2 to 4 weeks, never guaranteed. Only document tiers (3/4) qualify, and nothing is billed until the number is active.
     #[serde(rename = "preOrderable", skip_serializing_if = "Option::is_none")]
     pub pre_orderable: Option<bool>,
 }

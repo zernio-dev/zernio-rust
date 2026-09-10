@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **calls_available** | Option<**bool**> |  | [optional]
 **in_stock** | Option<**bool**> |  | [optional]
 **fulfilment** | Option<**Fulfilment**> | `request`: the carrier stocks this type nowhere and only sources it to order, so it is always a pre-order. (enum: instant, request) | [optional]
-**pre_orderable** | Option<**bool**> | Out of stock but orderable anyway. Submit KYC as usual (POST /v1/phone-numbers/kyc) and the carrier sources the number after review, usually about 3 weeks and never guaranteed. Only document tiers (3/4) qualify, and nothing is billed until the number is active. | [optional]
+**pre_orderable** | Option<**bool**> | Out of stock but orderable anyway. Submit KYC as usual (POST /v1/phone-numbers/kyc): we buy regular stock the moment it returns, otherwise the carrier sources the number. Usually 2 to 4 weeks, never guaranteed. Only document tiers (3/4) qualify, and nothing is billed until the number is active. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
