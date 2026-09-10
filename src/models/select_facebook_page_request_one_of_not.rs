@@ -12,22 +12,13 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct SelectFacebookPage200Response {
-    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
-    pub message: Option<String>,
-    /// Redirect URL when a custom redirect_url was provided or a business Page was selected.
-    #[serde(rename = "redirect_url", skip_serializing_if = "Option::is_none")]
-    pub redirect_url: Option<String>,
-    #[serde(rename = "account", skip_serializing_if = "Option::is_none")]
-    pub account: Option<Box<models::SelectFacebookPage200ResponseAccount>>,
+pub struct SelectFacebookPageRequestOneOfNot {
+    #[serde(rename = "selectionToken", deserialize_with = "Option::deserialize")]
+    pub selection_token: Option<serde_json::Value>,
 }
 
-impl SelectFacebookPage200Response {
-    pub fn new() -> SelectFacebookPage200Response {
-        SelectFacebookPage200Response {
-            message: None,
-            redirect_url: None,
-            account: None,
-        }
+impl SelectFacebookPageRequestOneOfNot {
+    pub fn new(selection_token: Option<serde_json::Value>) -> SelectFacebookPageRequestOneOfNot {
+        SelectFacebookPageRequestOneOfNot { selection_token }
     }
 }

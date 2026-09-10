@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **message** | Option<**String**> |  | [optional]
-**redirect_url** | Option<**String**> | Redirect URL if custom redirect_url was provided | [optional]
+**redirect_url** | Option<**String**> | Redirect URL when a custom redirect_url was provided or a business Page was selected. | [optional]
 **account** | Option<[**models::SelectFacebookPage200ResponseAccount**](SelectFacebookPage200ResponseAccount.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

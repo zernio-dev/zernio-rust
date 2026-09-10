@@ -11,23 +11,24 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// SelectFacebookPageRequestOneOfUserProfile : Decoded user profile object from the OAuth callback.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct SelectFacebookPage200Response {
-    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
-    pub message: Option<String>,
-    /// Redirect URL when a custom redirect_url was provided or a business Page was selected.
-    #[serde(rename = "redirect_url", skip_serializing_if = "Option::is_none")]
-    pub redirect_url: Option<String>,
-    #[serde(rename = "account", skip_serializing_if = "Option::is_none")]
-    pub account: Option<Box<models::SelectFacebookPage200ResponseAccount>>,
+pub struct SelectFacebookPageRequestOneOfUserProfile {
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[serde(rename = "profilePicture", skip_serializing_if = "Option::is_none")]
+    pub profile_picture: Option<String>,
 }
 
-impl SelectFacebookPage200Response {
-    pub fn new() -> SelectFacebookPage200Response {
-        SelectFacebookPage200Response {
-            message: None,
-            redirect_url: None,
-            account: None,
+impl SelectFacebookPageRequestOneOfUserProfile {
+    /// Decoded user profile object from the OAuth callback.
+    pub fn new() -> SelectFacebookPageRequestOneOfUserProfile {
+        SelectFacebookPageRequestOneOfUserProfile {
+            id: None,
+            name: None,
+            profile_picture: None,
         }
     }
 }

@@ -11,37 +11,15 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct SelectFacebookPageRequest {
-    /// Profile ID from your connection flow
-    #[serde(rename = "profileId")]
-    pub profile_id: String,
-    /// The Facebook Page ID selected by the user
-    #[serde(rename = "pageId")]
-    pub page_id: String,
-    /// Temporary Facebook access token from OAuth
-    #[serde(rename = "tempToken")]
-    pub temp_token: String,
-    #[serde(rename = "userProfile")]
-    pub user_profile: Box<models::SelectFacebookPageRequestUserProfile>,
-    /// Optional custom redirect URL to return to after selection
-    #[serde(rename = "redirect_url", skip_serializing_if = "Option::is_none")]
-    pub redirect_url: Option<String>,
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SelectFacebookPageRequest {
+    SelectFacebookPageRequestOneOf(Box<models::SelectFacebookPageRequestOneOf>),
+    SelectFacebookPageRequestOneOf1(Box<models::SelectFacebookPageRequestOneOf1>),
 }
 
-impl SelectFacebookPageRequest {
-    pub fn new(
-        profile_id: String,
-        page_id: String,
-        temp_token: String,
-        user_profile: models::SelectFacebookPageRequestUserProfile,
-    ) -> SelectFacebookPageRequest {
-        SelectFacebookPageRequest {
-            profile_id,
-            page_id,
-            temp_token,
-            user_profile: Box::new(user_profile),
-            redirect_url: None,
-        }
+impl Default for SelectFacebookPageRequest {
+    fn default() -> Self {
+        Self::SelectFacebookPageRequestOneOf(Default::default())
     }
 }

@@ -1472,7 +1472,10 @@ docs/SelectFacebookPage200Response.md
 docs/SelectFacebookPage200ResponseAccount.md
 docs/SelectFacebookPage409Response.md
 docs/SelectFacebookPageRequest.md
-docs/SelectFacebookPageRequestUserProfile.md
+docs/SelectFacebookPageRequestOneOf.md
+docs/SelectFacebookPageRequestOneOf1.md
+docs/SelectFacebookPageRequestOneOfNot.md
+docs/SelectFacebookPageRequestOneOfUserProfile.md
 docs/SelectGoogleBusinessLocation200Response.md
 docs/SelectGoogleBusinessLocation200ResponseAccount.md
 docs/SelectGoogleBusinessLocationRequest.md
@@ -3583,7 +3586,10 @@ src/models/select_facebook_page_200_response.rs
 src/models/select_facebook_page_200_response_account.rs
 src/models/select_facebook_page_409_response.rs
 src/models/select_facebook_page_request.rs
-src/models/select_facebook_page_request_user_profile.rs
+src/models/select_facebook_page_request_one_of.rs
+src/models/select_facebook_page_request_one_of_1.rs
+src/models/select_facebook_page_request_one_of_not.rs
+src/models/select_facebook_page_request_one_of_user_profile.rs
 src/models/select_google_business_location_200_response.rs
 src/models/select_google_business_location_200_response_account.rs
 src/models/select_google_business_location_request.rs
