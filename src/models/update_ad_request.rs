@@ -13,15 +13,18 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAdRequest {
-    /// Google RSA only. Replaces the complete headline list. No padding or truncation on update.
+    /// Google Search and Display only. Replaces the complete headline list. Search takes 3-15, Display 1-5 and rejects pinnedField; the count is checked once the ad's channel is known. No padding or truncation on update.
     #[serde(rename = "headlines", skip_serializing_if = "Option::is_none")]
     pub headlines: Option<Vec<models::GoogleRsaHeadline>>,
-    /// Google RSA only. Replaces the complete description list. No padding or truncation on update.
+    /// Google Search and Display only. Replaces the complete description list. Search takes 2-4, Display 1-5 and rejects pinnedField. No padding or truncation on update.
     #[serde(rename = "descriptions", skip_serializing_if = "Option::is_none")]
     pub descriptions: Option<Vec<models::GoogleRsaDescription>>,
-    /// Google RSA only. Replaces final URLs. Omitted lists stay unchanged.
+    /// Google Search and Display only. Replaces final URLs. Omitted lists stay unchanged. For Performance Max use assetGroup.finalUrl.
     #[serde(rename = "finalUrls", skip_serializing_if = "Option::is_none")]
     pub final_urls: Option<Vec<String>>,
+    /// Google Performance Max only. Replaces whole asset roles on the ad's asset group. Returns 422 on any other platform or channel.
+    #[serde(rename = "assetGroup", skip_serializing_if = "Option::is_none")]
+    pub asset_group: Option<Box<models::GooglePmaxAssetGroupUpdate>>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
     #[serde(rename = "budget", skip_serializing_if = "Option::is_none")]
@@ -41,6 +44,7 @@ impl UpdateAdRequest {
             headlines: None,
             descriptions: None,
             final_urls: None,
+            asset_group: None,
             status: None,
             budget: None,
             targeting: None,

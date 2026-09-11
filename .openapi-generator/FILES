@@ -951,6 +951,8 @@ docs/GooglePmaxAssetGroup.md
 docs/GooglePmaxAssetGroupAssetsInner.md
 docs/GooglePmaxAssetGroupInput.md
 docs/GooglePmaxAssetGroupInputImages.md
+docs/GooglePmaxAssetGroupUpdate.md
+docs/GooglePmaxAssetGroupUpdateImages.md
 docs/GoogleRsaDescription.md
 docs/GoogleRsaHeadline.md
 docs/GoogleSitelink.md
@@ -3086,6 +3088,8 @@ src/models/google_pmax_asset_group.rs
 src/models/google_pmax_asset_group_assets_inner.rs
 src/models/google_pmax_asset_group_input.rs
 src/models/google_pmax_asset_group_input_images.rs
+src/models/google_pmax_asset_group_update.rs
+src/models/google_pmax_asset_group_update_images.rs
 src/models/google_rsa_description.rs
 src/models/google_rsa_headline.rs
 src/models/google_sitelink.rs

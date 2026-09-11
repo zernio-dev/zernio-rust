@@ -22,6 +22,15 @@ pub struct UpdateAdRequestCreative {
     /// Meta and LinkedIn (TikTok has no headline slot)
     #[serde(rename = "headline", skip_serializing_if = "Option::is_none")]
     pub headline: Option<String>,
+    /// Google Display only. Replaces the responsive display ad's long headline.
+    #[serde(rename = "longHeadline", skip_serializing_if = "Option::is_none")]
+    pub long_headline: Option<String>,
+    /// Google Display only. Replaces the responsive display ad's business name.
+    #[serde(rename = "businessName", skip_serializing_if = "Option::is_none")]
+    pub business_name: Option<String>,
+    /// Google Display only. Uploaded as a new square (1:1) marketing image asset that replaces the current one.
+    #[serde(rename = "squareImageUrl", skip_serializing_if = "Option::is_none")]
+    pub square_image_url: Option<String>,
     #[serde(rename = "body", skip_serializing_if = "Option::is_none")]
     pub body: Option<String>,
     /// Link description slot (Meta `link_data.description` / `video_data.link_description`, LinkedIn creative description).
@@ -50,6 +59,9 @@ impl UpdateAdRequestCreative {
             promotion: None,
             creative_features: None,
             headline: None,
+            long_headline: None,
+            business_name: None,
+            square_image_url: None,
             body: None,
             description: None,
             call_to_action: None,
