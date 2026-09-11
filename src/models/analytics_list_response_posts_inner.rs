@@ -41,6 +41,9 @@ pub struct AnalyticsListResponsePostsInner {
     pub platform_post_url: Option<String>,
     #[serde(rename = "isExternal", skip_serializing_if = "Option::is_none")]
     pub is_external: Option<bool>,
+    /// True when this post's metrics include paid delivery, so organic reporting should exclude it. Set for LinkedIn dark posts and for TikTok posts that one of your TikTok ads promotes (Spark / boosted). TikTok exposes no ad flag of its own, so a video created by an uploaded-asset (non-Spark) TikTok ad is posted to the profile with a fresh organic id and cannot be detected: those still report as false.
+    #[serde(rename = "isAd", skip_serializing_if = "Option::is_none")]
+    pub is_ad: Option<bool>,
     #[serde(
         rename = "profileId",
         default,
@@ -83,6 +86,7 @@ impl AnalyticsListResponsePostsInner {
             platform: None,
             platform_post_url: None,
             is_external: None,
+            is_ad: None,
             profile_id: None,
             thumbnail_url: None,
             media_type: None,
