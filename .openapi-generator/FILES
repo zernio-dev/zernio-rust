@@ -593,6 +593,7 @@ docs/GetAdAccountFinance200Response.md
 docs/GetAdAccountFinance200ResponseFundingSource.md
 docs/GetAdAnalytics202Response.md
 docs/GetAdAudience200Response.md
+docs/GetAdCampaignDetails200Response.md
 docs/GetAdComments200Response.md
 docs/GetAdComments200ResponseMeta.md
 docs/GetAdComments200ResponsePagination.md
@@ -2745,6 +2746,7 @@ src/models/get_ad_account_finance_200_response.rs
 src/models/get_ad_account_finance_200_response_funding_source.rs
 src/models/get_ad_analytics_202_response.rs
 src/models/get_ad_audience_200_response.rs
+src/models/get_ad_campaign_details_200_response.rs
 src/models/get_ad_comments_200_response.rs
 src/models/get_ad_comments_200_response_meta.rs
 src/models/get_ad_comments_200_response_pagination.rs

@@ -1132,6 +1132,8 @@ pub mod get_ad_analytics_202_response;
 pub use self::get_ad_analytics_202_response::GetAdAnalytics202Response;
 pub mod get_ad_audience_200_response;
 pub use self::get_ad_audience_200_response::GetAdAudience200Response;
+pub mod get_ad_campaign_details_200_response;
+pub use self::get_ad_campaign_details_200_response::GetAdCampaignDetails200Response;
 pub mod get_ad_comments_200_response;
 pub use self::get_ad_comments_200_response::GetAdComments200Response;
 pub mod get_ad_comments_200_response_meta;
