@@ -14,9 +14,6 @@ use serde::{Deserialize, Serialize};
 /// CreateStandaloneAdRequestCreativesInner : Each creative must supply EXACTLY ONE of `imageUrl` (image creative) or `video` (video creative).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateStandaloneAdRequestCreativesInner {
-    /// Overrides the top-level offer for this item. Omit to inherit; null disables the inherited offer.
-    #[serde(rename = "promotion", skip_serializing_if = "Option::is_none")]
-    pub promotion: Option<Box<models::MetaPromotion>>,
     /// Replaces the entire top-level creativeFeatures map for this item. Omit to inherit; an empty map clears these defaults.
     #[serde(rename = "creativeFeatures", skip_serializing_if = "Option::is_none")]
     pub creative_features: Option<CreativeFeatures>,
@@ -50,7 +47,6 @@ impl CreateStandaloneAdRequestCreativesInner {
         call_to_action: CallToAction,
     ) -> CreateStandaloneAdRequestCreativesInner {
         CreateStandaloneAdRequestCreativesInner {
-            promotion: None,
             creative_features: None,
             name: None,
             headline,

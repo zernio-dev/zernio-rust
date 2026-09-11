@@ -794,6 +794,7 @@ docs/GetMediaPresignedUrl200Response.md
 docs/GetMediaPresignedUrlRequest.md
 docs/GetMessageAttachment200Response.md
 docs/GetMessengerMenu200Response.md
+docs/GetPageWebhookSubscription200Response.md
 docs/GetPendingOAuthData200Response.md
 docs/GetPendingOAuthData200ResponseOrganizationsInner.md
 docs/GetPhoneNumber200Response.md
@@ -1281,8 +1282,6 @@ docs/MetaAdsPlatformData.md
 docs/MetaInstagramIdentityRef.md
 docs/MetaLeadFormPlatformData.md
 docs/MetaLeadFormPlatformDataContextCard.md
-docs/MetaPromotion.md
-docs/MetaPromotionStatus.md
 docs/Money.md
 docs/MoneyAmount.md
 docs/MoveAccountToProfile200Response.md
@@ -1430,6 +1429,7 @@ docs/RespondToSmsRegistrationReview200Response.md
 docs/RespondToSmsRegistrationReviewRequest.md
 docs/RestoreWorkflowVersion200Response.md
 docs/RestoreWorkflowVersion200ResponseWorkflow.md
+docs/ResyncPageWebhookSubscription200Response.md
 docs/RetryPost207Response.md
 docs/RetweetPost200Response.md
 docs/RetweetPostRequest.md
@@ -2939,6 +2939,7 @@ src/models/get_media_presigned_url_200_response.rs
 src/models/get_media_presigned_url_request.rs
 src/models/get_message_attachment_200_response.rs
 src/models/get_messenger_menu_200_response.rs
+src/models/get_page_webhook_subscription_200_response.rs
 src/models/get_pending_o_auth_data_200_response.rs
 src/models/get_pending_o_auth_data_200_response_organizations_inner.rs
 src/models/get_phone_number_200_response.rs
@@ -3408,8 +3409,6 @@ src/models/meta_ads_platform_data.rs
 src/models/meta_instagram_identity_ref.rs
 src/models/meta_lead_form_platform_data.rs
 src/models/meta_lead_form_platform_data_context_card.rs
-src/models/meta_promotion.rs
-src/models/meta_promotion_status.rs
 src/models/mod.rs
 src/models/money.rs
 src/models/money_amount.rs
@@ -3552,6 +3551,7 @@ src/models/respond_to_sms_registration_review_200_response.rs
 src/models/respond_to_sms_registration_review_request.rs
 src/models/restore_workflow_version_200_response.rs
 src/models/restore_workflow_version_200_response_workflow.rs
+src/models/resync_page_webhook_subscription_200_response.rs
 src/models/retry_post_207_response.rs
 src/models/retweet_post_200_response.rs
 src/models/retweet_post_request.rs

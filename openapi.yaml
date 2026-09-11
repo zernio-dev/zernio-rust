@@ -113,7 +113,7 @@ x-documentation:
     | Instagram | Yes | Yes | Yes | Yes |
     | Facebook | Yes | Stories | Yes | Yes |
     | LinkedIn | Yes | - | Partial | - |
-    | TikTok | Yes | - | Yes | - |
+    | TikTok | Yes | - | Yes | Comments |
     | YouTube | Yes | Shorts | Yes | Yes |
     | Pinterest | Yes | - | Yes | - |
     | Reddit | Yes | - | Partial | Yes |
@@ -129,6 +129,8 @@ x-documentation:
 
     > **Google Business Profile Analytics Note:** Per-post analytics for Google Business Profile are deprecated by Google with no replacement, so Google Business Profile posts always report `syncStatus: "unavailable"` with an explanatory `errorMessage`. Location-level metrics (impressions, clicks, calls, directions, bookings) are available via the dedicated `/v1/analytics/googlebusiness/performance` endpoint.
 
+    > **TikTok Inbox Note:** Comment management (read, reply, hide, pin, like, delete) needs an account connected through the TikTok for Business app, which is what every new TikTok connection now uses. It does not require the TikTok account itself to be a Business Account. An account connected earlier through the TikTok developer app returns 400 `PLATFORM_LIMITATION` on the comment routes until it is reconnected. TikTok direct messages are not generally available: on top of the same connection they need a real TikTok Business Account whose sign-up region is outside the EEA, Switzerland and the UK, plus TikTok messaging approval for the calling app, and TikTok reports every one of those as a misleading "access token is invalid". Do not treat that as an expired token.
+
     ## Rate Limits
 
     API request throughput is rate-limited per minute on a sliding window. Limits scale with your team's total connected accounts:
@@ -140,6 +142,8 @@ x-documentation:
     Legacy AppSumo lifetime tiers get a flat 600 req/min regardless of tier.
 
     Posts themselves are unlimited on every connected account; the rate limit applies only to API request throughput. Zernio also applies per-account daily publish caps as an anti-abuse safeguard (Instagram 100/day, Facebook 100/day, Threads 250/day, X 50/day, Pinterest 25/day, 50/day for every other platform), plus a 25-posts-per-hour per-account velocity cap.
+
+    TikTok caps accounts connected through the TikTok for Business app lower than any of those: 15 videos and 15 photo posts per account per day, counted separately. Zernio enforces it as a trailing 24 hour window rather than a calendar day, and a post over the cap is not rejected. It is held and published automatically once the oldest post of the same kind leaves the window, so `scheduledFor` on that platform entry moves to the time it will go out.
 
     All responses include `X-RateLimit-Limit`, `X-RateLimit-Remaining`, and `X-RateLimit-Reset` headers. Read these instead of hard-coding limits, since your tier may be configured higher than the default.
 
@@ -5455,7 +5459,7 @@ components:
         errorCategory:
           type: string
           enum: [auth_expired, user_content, user_abuse, account_issue, platform_rejected, platform_error, platform_rate_limit, quota_exhausted, system_error, unknown]
-          description: "Error category for programmatic handling: auth_expired (token expired/revoked), user_content (wrong format/too long), user_abuse (rate limits/spam), account_issue (config problems), platform_rejected (policy violation), platform_error (5xx/maintenance), platform_rate_limit (platform throttling, retried automatically), quota_exhausted (shared daily API quota empty, resumes at the platform's reset), system_error (Zernio infra), unknown"
+          description: "Error category for programmatic handling: auth_expired (token expired/revoked), user_content (wrong format/too long), user_abuse (rate limits/spam), account_issue (config problems), platform_rejected (policy violation), platform_error (5xx/maintenance), platform_rate_limit (platform throttling, retried automatically), quota_exhausted (a shared quota pool the integration draws on is empty, including our own capacity gate in front of one; not caused by your content or account, and safe to retry once the pool frees up), system_error (Zernio infra), unknown"
         errorSource:
           type: string
           enum: [user, platform, system]
@@ -6813,7 +6817,7 @@ components:
         videoCoverImageUrl:
           type: string
           format: uri
-          description: 'Optional for video posts. URL of a custom thumbnail image (JPG, PNG, or WebP, max 20MB). The image is stitched as a single frame at the start of the video and used as the cover. Accounts connected through the TikTok for Business app instead pass the URL to TikTok as the cover directly, with no stitching, and the URL must resolve on a domain we have verified with TikTok. Overrides videoCoverTimestampMs when provided.'
+          description: 'Optional for video posts. URL of a custom thumbnail image (JPG, PNG, or WebP, max 20MB). Any downloadable URL works: we rehost it ourselves. The image is stitched as a single frame at the start of the video to serve as the cover. Accounts connected through the TikTok for Business app hand it to TikTok as the cover instead, with no stitching, falling back to videoCoverTimestampMs without it. Overrides videoCoverTimestampMs when provided.'
         photoCoverIndex:
           type: integer
           description: Optional for photo carousels. Index of image to use as cover, 0-based (defaults to 0/first image).
@@ -9256,32 +9260,12 @@ components:
       type: object
       additionalProperties: { type: string, enum: [OPT_IN, OPT_OUT] }
       propertyNames: { pattern: '^[a-z0-9_]+$' }
-      description: 'Meta Advantage+ creative enhancements. Map snake_case feature names to OPT_IN or OPT_OUT; Meta validates supported keys and unspecified features default to OPT_OUT. auto_promotion_tag is an enhancement; use the separate promotion field for an explicit offer. The deprecated standard_enhancements bundle is rejected by Meta.'
+      description: 'Meta Advantage+ creative enhancements. Map snake_case feature names to OPT_IN or OPT_OUT; Meta validates supported keys and unspecified features default to OPT_OUT. auto_promotion_tag is an Advantage+ enhancement, not the Ads Manager Promotion setting. The deprecated standard_enhancements bundle is rejected by Meta.'
       example: { auto_promotion_tag: OPT_IN }
     MetaPromotion:
       type: [object, "null"]
-      description: 'Meta explicit Promotion offer. Maps to creative_sourcing_spec.promotion_metadata_spec with promotion_source ADVERTISER_INPUT. Dates become Unix seconds. Send null to omit an explicit offer on a new creative or remove it when rebuilding. Creation success alone does not confirm application: inspect promotionStatus in the response.'
-      required: [type, value]
-      properties:
-        type:
-          type: string
-          enum: [AMOUNT_OFF, FREE_RETURN, FREE_SHIPPING, PERCENTAGE_OFF, PROMO_CODE]
-          description: 'Promotion type accepted by Meta. PERCENTAGE_OFF values cannot exceed 100.'
-        value: { type: number, minimum: 0, description: 'Nonnegative promotion value passed to Meta unchanged. AMOUNT_OFF units are not confirmed, including major versus minor currency units. For PERCENTAGE_OFF this is the percentage discount, at most 100.' }
-        code: { type: string, minLength: 1, description: 'Optional promotion code.' }
-        startDate: { type: string, format: date-time, description: 'Optional ISO 8601 start timestamp with a timezone offset or Z.' }
-        endDate: { type: string, format: date-time, description: 'Optional ISO 8601 end timestamp with a timezone offset or Z. Must be after startDate when both are set.' }
-      example:
-        type: PERCENTAGE_OFF
-        value: 20
-        code: SAVE20
-        startDate: '2026-10-01T00:00:00Z'
-        endDate: '2026-10-31T23:59:59Z'
-    MetaPromotionStatus:
-      type: string
-      enum: [applied, not_returned, unavailable]
-      description: 'Meta creative readback result. applied means Meta returned promotion metadata; not_returned means the read succeeded without promotion metadata; unavailable means the read failed. Only applied confirms the returned offer. Missing metadata is not proof that Ads Manager displays the requested Promotion.'
-      example: not_returned
+      description: 'Not supported. Meta validates creative_sourcing_spec.promotion_metadata_spec on the create call and then discards it, so a Promotion set through the Marketing API never reaches the creative. Any object is rejected with 400 invalid_field_value. Send null or omit the field, and set the Promotion on the ad in Ads Manager. Verified on 2026-09-11 across Graph v19.0 to v25.0 and every write path.'
+      example: null
     GoogleSitelink:
       type: object
       required:
@@ -9745,10 +9729,6 @@ components:
             imageUrl: { type: string, description: Alternative image URL }
             videoId: { type: [string, "null"], description: "Meta video ID for VIDEO-type ads. Null for non-video ads. Callers that need an embeddable MP4 can call GET /{videoId}?fields=source with the page access token." }
             videoUrl: { type: [string, "null"], description: "Public Facebook watch URL for VIDEO-type ads (https://www.facebook.com/watch/?v={videoId}). Null for non-video ads." }
-            promotion:
-              $ref: '#/components/schemas/MetaPromotion'
-              description: 'Meta offer read from the live creative on creation or GET /v1/ads/{adId}. Null when metadata is not returned or cannot be read. Requested values are never echoed as applied.'
-            promotionStatus: { $ref: '#/components/schemas/MetaPromotionStatus' }
             creativeId: { type: [string, "null"], description: "Meta ad creative id backing this ad. Reusable via existingCreativeId on POST /v1/ads/create." }
             objectType: { type: string, description: "Meta creative object_type (e.g. SHARE, VIDEO, PRIVACY_CHECK_FAIL, POST_DELETED). Use this to render state-aware previews: when Meta moderation strips image/video fields, only thumbnailUrl at 64x64 is available." }
             objectStoryId: { type: [string, "null"], description: "Meta creative `object_story_id` (the SHARE reference). Frequently absent, because Meta omits it for SHARE creatives. Use effectiveObjectStoryId instead." }
@@ -16394,7 +16374,7 @@ paths:
                 dryRun:
                   type: boolean
                   default: false
-                  description: 'TikTok only. Preview whether each `tiktok` entry in `platforms` could publish right now under the TikTok Direct Post daily limits, without creating, scheduling or publishing anything: no post is persisted and no upload slot is claimed, so it can be repeated freely. The request still goes through auth, the payment gate and body validation, then returns HTTP 200 with `{ dryRun: true, canPublish, tiktok: [...] }` instead of 201. Only `tiktok` entries are evaluated; other platforms in the body are ignored, and a body with no `tiktok` entry is rejected with 400 `invalid_field_value` on `platforms`. An entry with `platformSpecificData.tiktokSettings.draft: true` (Creator Inbox upload) is not subject to the limit and always reports `canPublish: true`.'
+                  description: 'TikTok only. Preview whether each `tiktok` entry in `platforms` could publish right now under the TikTok Direct Post daily limits, without creating, scheduling or publishing anything: no post is persisted and no upload slot is claimed, so it can be repeated freely. The request still goes through auth, the payment gate and body validation, then returns HTTP 200 with `{ dryRun: true, canPublish, tiktok: [...] }` instead of 201. Only `tiktok` entries are evaluated; other platforms in the body are ignored, and a body with no `tiktok` entry is rejected with 400 `invalid_field_value` on `platforms`. An entry with `platformSpecificData.tiktokSettings.draft: true` (Creator Inbox upload) is not subject to the limit and always reports `canPublish: true`. Accounts connected through the TikTok for Business app do not go through these limits at all and also always report `canPublish: true`, so on those accounts a dry run confirms the request is well-formed rather than gating it.'
                 timezone:
                   type: string
                   default: UTC
@@ -19469,6 +19449,15 @@ paths:
       description: |
         Initiate an OAuth connection flow. Returns an authUrl to redirect the user to.
         Standard flow: Zernio hosts the selection UI, then redirects to your redirect_url. Headless mode (headless=true): user is redirected to your redirect_url with OAuth data for custom UI. Use the platform-specific selection endpoints to complete.
+
+        TikTok: every connection now goes through the TikTok for Business app. One TikTok account per
+        profile, so connecting on a profile that already holds one replaces it. Reconnecting the SAME
+        account keeps it and all of its history; authorizing a DIFFERENT TikTok account takes the slot
+        over and permanently deletes the previous account's analytics, inbox and DM history. The two
+        are told apart by the `@handle` stored at the last connect, so an account whose handle has
+        been renamed on TikTok since then reads as a different account. An authorization that leaves
+        out a permission the connected account needs changes nothing at all and comes back as
+        `missing_tiktok_permissions`; connect again and accept every permission on TikTok's screen.
       parameters:
         - name: platform
           in: path
@@ -19499,8 +19488,8 @@ paths:
             OAuth and callback:
               oauth_denied, invalid_callback, invalid_state, unsupported_platform, connection_failed,
               internal_error, token_exchange_failed, byok_config_error, personal_account_not_supported,
-              missing_google_permissions, platform_requires_destination, reconnect_account_mismatch,
-              invalid_request
+              missing_google_permissions, missing_tiktok_permissions, platform_requires_destination,
+              reconnect_account_mismatch, invalid_request
 
             Access and limits:
               profile_not_found, invalid_profile_id, access_denied, account_limit_exceeded,
@@ -19540,6 +19529,10 @@ paths:
             2. On the tiktok and twitter ads flows `platform` carries the ads platform id
             (`tiktokads`, `xads`), not the value used in the request path. The googleads and shopify
             flows report `googleads` and `shopify`.
+
+            3. `missing_tiktok_permissions` means the TikTok authorization left out a permission the
+            already-connected account needs, so nothing was changed and it keeps working as before.
+            It is user-fixable: connect again and accept every permission on TikTok's screen.
         - name: headless
           in: query
           schema: { type: boolean, default: false }
@@ -24234,6 +24227,73 @@ paths:
         '404': { description: Code not found }
         '500': { description: Internal error }
 
+  /v1/accounts/{accountId}/webhook-subscription:
+    get:
+      x-resource-group: "accounts"
+      operationId: getPageWebhookSubscription
+      tags: [Connect]
+      summary: Read a Facebook Page's webhook subscription
+      description: |
+        Returns the webhook fields Zernio's app is subscribed to on the connected Page, read live from Meta.
+        Use it to confirm `leadgen` is present: a Page missing it keeps delivering every other event while
+        lead ads stop arriving, with nothing to indicate it.
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: The Page's current subscription
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pageId: { type: string }
+                  appSubscribed: { type: boolean, description: 'False when the Page carries no subscription for our app at all.' }
+                  leadgen: { type: boolean, description: 'Whether lead ads submitted on this Page reach Zernio in real time.' }
+                  subscribedFields: { type: array, items: { type: string } }
+                  warning: { type: [string, 'null'], description: 'Present only when leadgen is missing.' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409':
+          description: The connection has no selected Page
+    post:
+      x-resource-group: "accounts"
+      operationId: resyncPageWebhookSubscription
+      tags: [Connect]
+      summary: Re-subscribe a Facebook Page to Zernio's webhooks
+      description: |
+        Re-sends the full field set to Meta and returns the subscription read back afterwards.
+        Meta only honours the field set sent at subscribe time, so a Page connected before a field
+        existed stays without it until this runs. The response reflects what Meta actually granted,
+        not what was requested.
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: The subscription after re-subscribing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resubscribed: { type: boolean }
+                  pageId: { type: string }
+                  appSubscribed: { type: boolean }
+                  leadgen: { type: boolean }
+                  subscribedFields: { type: array, items: { type: string } }
+                  warning: { type: [string, 'null'] }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409':
+          description: The connection has no selected Page
+        '502':
+          description: Meta rejected the subscription
   /v1/accounts/{accountId}/facebook-page:
     get:
       x-resource-group: "accounts"
@@ -43945,6 +44005,12 @@ paths:
 
         On Meta this flips the campaign only. An ad set paused in its own right stays paused, so pair this with
         PUT /v1/ads/ad-sets/{adSetId}/status when you also need the ad set switched back on.
+
+        Google keeps an independent on/off switch at campaign, ad group and ad level and the most restrictive
+        one wins, so `active` switches the campaign on TOGETHER with the ad groups and ads Zernio tracks under
+        it, in one mutate. Without that the campaign reads ENABLED while a paused ad group or ad keeps it from
+        serving. `paused` writes the campaign alone, which already stops delivery and leaves each ad's own
+        switch as you set it.
       security:
         - bearerAuth: []
       parameters:
@@ -44455,10 +44521,11 @@ paths:
         (10 minutes fresh, up to 7 days last-good), not always a live read. Google
         only; every other platform returns 501.
 
-        `devices` always lists all four device types with `included` reflecting
-        Google's negative device criteria (a device absent from any negative
-        criterion is included by default). This read has no bid-modifier source,
-        so `bidModifier` is always `null` even for a device with one configured.
+        `devices` lists the device criteria the campaign carries, which depends on
+        its channel: Search campaigns have MOBILE, DESKTOP and TABLET, Display
+        campaigns also have CONNECTED_TV. `bidModifier` is Google's bid adjustment
+        for that device, `null` when it has none, and `0` when the device is
+        switched off; `included` is false for exactly that case.
       security:
         - bearerAuth: []
       parameters:
@@ -44479,7 +44546,7 @@ paths:
                       properties:
                         device: { type: string, enum: [MOBILE, DESKTOP, TABLET, CONNECTED_TV] }
                         included: { type: boolean }
-                        bidModifier: { type: [number, "null"], description: "Always null on this read (see description)." }
+                        bidModifier: { type: [number, "null"], description: "Google's bid adjustment for this device: null when it has none, 0 when the device is switched off, otherwise 0.1 to 10." }
                   locations:
                     type: array
                     items:
@@ -44520,6 +44587,11 @@ paths:
         existing criteria on the campaign (a full set, not a delta). Fields left
         out of the body are untouched. Google only; every other platform returns
         501.
+
+        `devices` is the full set of device bid modifiers: a supported device you
+        leave out is switched off with a bid modifier of 0, since Google cannot
+        remove a device criterion. A device the campaign's channel does not carry,
+        and a set that switches every device off, both return 422.
 
         `locations` accepts the same shapes as campaign creation: a bare array of
         ISO country codes, or an object with `countries`/`regions`/`cities`/`zips`/`metros`
@@ -45321,19 +45393,11 @@ paths:
         - the creative's `effective_instagram_media_id` (Instagram side)
 
         Any of the four resolve to the same ad. Caller doesn't need a translation step.
-        By default, creative.promotion and creative.creativeFeatures contain stored requested
-        settings, which do not confirm platform application. With `refreshPromotion=true`,
-        Meta promotion metadata is read live and exposed as `ad.creative.promotion`
-        with `promotionStatus`. Only `applied` confirms an offer; `not_returned` means the
-        creative read succeeded without promotion metadata, and `unavailable` means it failed.
+        `creative.creativeFeatures` holds the stored requested settings, which do not confirm
+        platform application.
       security:
         - bearerAuth: []
       parameters:
-        - name: refreshPromotion
-          in: query
-          required: false
-          schema: { type: boolean, default: false }
-          description: 'Meta only. Read current promotion metadata from Meta and include promotionStatus. Omit for stored creative settings with no promotion-specific Graph call.'
         - name: adId
           in: path
           required: true
@@ -45388,7 +45452,9 @@ paths:
           `targeting.countries` / `regions` / `cities` / `zips` / `metros`), and LANGUAGE
           edits via `targeting.languages`.
           Each list you send becomes the FULL new set of its kind (criteria not in the
-          list are removed); a kind left out is untouched. Any other `targeting` field
+          list are removed, except devices, which Google cannot remove and which are
+          switched off with a bid modifier of 0 instead); a kind left out is untouched.
+          Any other `targeting` field
           returns 400: Google cannot mutate it post-create without recreating
           the campaign. Creative edits are dispatched on the ad's `advertisingChannelType`,
           and every supported field replaces a whole set; a field you omit is preserved.
@@ -45494,11 +45560,10 @@ paths:
                     longHeadline: Schedule social content from your app with Zernio
                     imageUrl: 'https://example.com/new-landscape.png'
                     squareImageUrl: 'https://example.com/new-square.png'
-              metaPromotion:
-                summary: "Remove a Meta promotion."
+              metaCreativeFeatures:
+                summary: "Opt a Meta creative out of an Advantage+ enhancement."
                 value:
                   creative:
-                    promotion: null
                     creativeFeatures: { auto_promotion_tag: OPT_OUT }
             schema:
               type: object
@@ -45570,7 +45635,7 @@ paths:
                           - { type: object, required: [text], properties: { text: { type: string, maxLength: 80 }, matchType: { type: string, enum: [exact, phrase, broad] } } }
                     devices:
                       type: array
-                      description: "Google only. The FULL new set of device criteria for the campaign; devices not listed are excluded. Entries are a device name alone (included, no bid adjustment) or { device, bidModifier }."
+                      description: "Google only. The FULL new set of device bid modifiers for the campaign. Entries are a device name alone (targeted, bid modifier reset to 1) or { device, bidModifier }. A supported device you leave out is switched off, written as a bid modifier of 0. Google never removes a device criterion, so an excluded device reads back as bidModifier 0 rather than disappearing, and a set that switches every device off returns 422. Which devices a campaign carries depends on its channel: Search campaigns have MOBILE, DESKTOP and TABLET, Display campaigns also have CONNECTED_TV, and sending a device the campaign does not carry returns 422."
                       items:
                         oneOf:
                           - { type: string, enum: [MOBILE, DESKTOP, TABLET, CONNECTED_TV] }
@@ -45578,7 +45643,7 @@ paths:
                             required: [device]
                             properties:
                               device: { type: string, enum: [MOBILE, DESKTOP, TABLET, CONNECTED_TV] }
-                              bidModifier: { type: number, minimum: 0.1, maximum: 10, description: 'Google device bid modifier, 0.1 to 10 (minus 90% to plus 900%). Omit a device to exclude it.' }
+                              bidModifier: { type: number, minimum: 0, maximum: 10, description: 'Google device bid modifier. 0 switches the device off (minus 100%); otherwise 0.1 to 10 (minus 90% to plus 900%). Google rejects any value between 0 and 0.1.' }
                     ageMin: { type: integer, minimum: 13, maximum: 65 }
                     ageMax: { type: integer, minimum: 13, maximum: 65 }
                     countries: { type: array, items: { type: string }, description: "ISO 3166-1 alpha-2 codes. On Google this is the FULL new country set for the campaign (same contract as `locations`); on LinkedIn it replaces the campaign's geo criteria." }
@@ -45629,10 +45694,9 @@ paths:
                       GET /v1/ads/creatives and ignores every other field. Meta creatives are
                       immutable, so any change creates a new creative and repoints the ad; the old
                       creative is retained on the ad account for historical reporting.
-                      `promotion` and `creativeFeatures` are Meta-only. Omitted settings are
-                      preserved from the live creative, including full rebuilds. Send
-                      `promotion: null` to remove the explicit offer from the replacement.
-                      A supplied creativeFeatures map overrides individual existing keys.
+                      `creativeFeatures` is Meta-only. Omitted settings are preserved from the
+                      live creative, including full rebuilds. A supplied creativeFeatures map
+                      overrides individual existing keys.
                     - **TikTok**: patch-style. Pass any subset; `headline` is ignored (TikTok creatives
                       have no headline slot). `body` becomes the in-feed `ad_text`; `linkUrl` becomes
                       `landing_page_url`; `videoUrl` triggers a fresh upload. `description`, `videoId`
@@ -45643,7 +45707,9 @@ paths:
                       The old creative is retained for historical reporting. `videoId` and
                       `existingCreativeId` are Meta-only and return 400.
                   properties:
-                    promotion: { $ref: '#/components/schemas/MetaPromotion' }
+                    promotion:
+                      $ref: '#/components/schemas/MetaPromotion'
+                      description: 'Not supported. Meta validates creative_sourcing_spec.promotion_metadata_spec on the create call and then discards it, so a Promotion set through the Marketing API never reaches the creative. Any object is rejected with 400 invalid_field_value. Send null or omit the field, and set the Promotion on the ad in Ads Manager. Verified on 2026-09-11 across Graph v19.0 to v25.0 and every write path.'
                     creativeFeatures: { $ref: '#/components/schemas/MetaCreativeFeatures' }
                     headline: { type: string, description: "Meta and LinkedIn (TikTok has no headline slot)" }
                     longHeadline: { type: string, minLength: 1, maxLength: 90, description: "Google Display only. Replaces the responsive display ad's long headline." }
@@ -48175,11 +48241,8 @@ paths:
         `existingCreativeId`. Provide exactly one of `imageUrl` (uploaded server-side),
         `imageHash` (from POST /v1/ads/images or the library list), or `carouselCards` (2-10
         hand-built cards). The Page (and linked Instagram account, when present) is resolved
-        from `accountId` as the story actor. `promotion` configures an explicit offer separately
-        from Advantage+ `creativeFeatures`. Only when `promotion` is supplied does the response
-        read the creative back from Meta;
-        `promotionStatus: not_returned` means Meta accepted creation but omitted promotion
-        metadata, so the requested offer is not confirmed as applied.
+        from `accountId` as the story actor. `creativeFeatures` configures Advantage+
+        enhancements. `promotion` is not supported and any object is rejected with 400.
       security:
         - bearerAuth: []
       requestBody:
@@ -48213,10 +48276,12 @@ paths:
                       description: { type: string, maxLength: 255 }
                       callToAction: { type: string }
                 urlTags: { type: string, description: "Appended to every outbound URL (e.g. utm_source=fb)." }
-                promotion: { $ref: '#/components/schemas/MetaPromotion' }
+                promotion:
+                  $ref: '#/components/schemas/MetaPromotion'
+                  description: 'Not supported. Meta validates creative_sourcing_spec.promotion_metadata_spec on the create call and then discards it, so a Promotion set through the Marketing API never reaches the creative. Any object is rejected with 400 invalid_field_value. Send null or omit the field, and set the Promotion on the ad in Ads Manager. Verified on 2026-09-11 across Graph v19.0 to v25.0 and every write path.'
                 creativeFeatures:
                   $ref: '#/components/schemas/MetaCreativeFeatures'
-                  description: 'Meta only. Applied to each new creative, including standalone and attach shapes. With creatives[], these are defaults; an item replaces the whole feature map, including an empty map. auto_promotion_tag is an enhancement; an explicit offer uses promotion.'
+                  description: 'Meta only. Applied to each new creative, including standalone and attach shapes. With creatives[], these are defaults; an item replaces the whole feature map, including an empty map. auto_promotion_tag is an Advantage+ enhancement, not the Ads Manager Promotion setting.'
                 multiAdvertiser:
                   type: string
                   enum: [OPT_IN, OPT_OUT]
@@ -48228,7 +48293,6 @@ paths:
               body: Use SAVE20 at checkout.
               linkUrl: https://example.com/shop
               imageUrl: https://example.com/ad.jpg
-              promotion: { type: PERCENTAGE_OFF, value: 20, code: SAVE20 }
               creativeFeatures: { auto_promotion_tag: OPT_OUT }
       responses:
         '409': { $ref: '#/components/responses/AccountConnectionRequired' }
@@ -48242,13 +48306,9 @@ paths:
                 properties:
                   adAccountId: { type: string }
                   creativeId: { type: string, description: "Platform creative id, reusable via existingCreativeId." }
-                  promotion: { $ref: '#/components/schemas/MetaPromotion' }
-                  promotionStatus: { $ref: '#/components/schemas/MetaPromotionStatus' }
               example:
                 adAccountId: act_123456789
                 creativeId: '123456789012345'
-                promotion: null
-                promotionStatus: not_returned
         '400': { description: "Invalid input, or Meta rejected the create" }
         '401': { $ref: '#/components/responses/Unauthorized' }
         '422': { description: No Facebook Page found to act as the story actor }
@@ -51142,15 +51202,11 @@ paths:
         - Meta-only multi-creative shape via the creatives array: one ad set with N ads sharing budget and targeting.
         - Attach shape via adSetId: adds one new ad to an existing ad set, inheriting its budget, targeting, and schedule (Meta, Google Ads, TikTok, and LinkedIn). On LinkedIn adSetId is the existing Campaign id, and the budget, schedule, targeting and bidding fields must be omitted.
 
-        Meta accepts `promotion` and `creativeFeatures` on the single and attach shapes and
-        as defaults for `creatives[]`. An item replaces the whole feature map; its `promotion`
-        replaces the default offer, and `promotion: null` disables that default for the item.
+        Meta accepts `creativeFeatures` on the single and attach shapes and as defaults for
+        `creatives[]`; an item replaces the whole feature map. `promotion` is not supported on any
+        shape and any object is rejected with 400.
         Reusing `existingCreativeId` uses the existing creative settings instead of new settings.
         Requested settings are persisted for lists, exports, and default ad-detail reads.
-        Only ads supplied a `promotion` receive live readback; multi-create batches those reads
-        in groups of up to 50 IDs without per-ad fallback. Inspect `ad.creative.promotionStatus` (or
-        `ads[].creative.promotionStatus`). `not_returned` means Meta omitted the metadata;
-        successful creation does not by itself prove the offer was applied or will display.
 
         Per-platform required fields, budget minimums, and video-ad rules are documented on each property below.
 
@@ -51205,10 +51261,12 @@ paths:
                 billingEvent: { type: string, description: "Meta only. Explicit ad-set `billing_event`. Defaults to `IMPRESSIONS`. Forwarded verbatim to Meta, which validates compatibility with the optimization goal." }
                 buyingType: { type: string, enum: [AUCTION, RESERVED], default: AUCTION, description: "Meta only. Defaults to AUCTION and is explicitly sent on new campaigns, including validateOnly. Reusing existingCampaignId does not change the campaign. RESERVED = Reach & Frequency: requires `rfPredictionId` (a RESERVED prediction from /v1/ads/rf-predictions + /reserve). Budget, schedule and pricing come from the reservation, so budgetAmount/budgetType are not required and bid fields are ignored. Only the plain single-ad shape (no creatives[], adSetId, existingCampaignId or dynamicCreative)." }
                 rfPredictionId: { type: string, description: "Meta only. The RESERVED prediction id the R&F ad set runs on (reserving mints a new id, so pass that one). Requires buyingType RESERVED." }
-                promotion: { $ref: '#/components/schemas/MetaPromotion' }
+                promotion:
+                  $ref: '#/components/schemas/MetaPromotion'
+                  description: 'Not supported. Meta validates creative_sourcing_spec.promotion_metadata_spec on the create call and then discards it, so a Promotion set through the Marketing API never reaches the creative. Any object is rejected with 400 invalid_field_value. Send null or omit the field, and set the Promotion on the ad in Ads Manager. Verified on 2026-09-11 across Graph v19.0 to v25.0 and every write path.'
                 creativeFeatures:
                   $ref: '#/components/schemas/MetaCreativeFeatures'
-                  description: 'Meta only. Applied to each new creative, including standalone and attach shapes. With creatives[], these are defaults; an item replaces the whole feature map, including an empty map. auto_promotion_tag is an enhancement; an explicit offer uses promotion.'
+                  description: 'Meta only. Applied to each new creative, including standalone and attach shapes. With creatives[], these are defaults; an item replaces the whole feature map, including an empty map. auto_promotion_tag is an Advantage+ enhancement, not the Ads Manager Promotion setting.'
                 multiAdvertiser:
                   type: string
                   enum: [OPT_IN, OPT_OUT]
@@ -51221,11 +51279,11 @@ paths:
                 status:
                   type: string
                   enum: [ACTIVE, PAUSED]
-                  description: "Google Performance Max accepts PAUSED only and always creates a paused campaign. Meta, TikTok, and LinkedIn: publish state of the created entities. Omitted or ACTIVE publishes live (default, back-compat); PAUSED creates them paused so you can review before they spend. On Meta the pause is held on the campaign this call creates, leaving the ad set and ad switched on, so a single PUT /v1/ads/campaigns/{campaignId}/status with `active` brings the whole thing live. It is held at every level instead when the pause cannot rely on the campaign: `existingCampaignId` (that campaign may be running and is never touched) or `campaignStatus: ACTIVE`. On TikTok the whole campaign > ad group > ad hierarchy stays paused. On LinkedIn the whole campaign group, campaign, and creative hierarchy stays PAUSED (intendedStatus PAUSED on each)."
+                  description: "Google Performance Max accepts PAUSED only and always creates a paused campaign. Google Search and Display, Meta, TikTok, and LinkedIn: publish state of the created entities. Omitted or ACTIVE publishes live (default, back-compat); PAUSED creates them paused so you can review before they spend. On Meta the pause is held on the campaign this call creates, leaving the ad set and ad switched on, so a single PUT /v1/ads/campaigns/{campaignId}/status with `active` brings the whole thing live. It is held at every level instead when the pause cannot rely on the campaign: `existingCampaignId` (that campaign may be running and is never touched) or `campaignStatus: ACTIVE`. Google Search and Display follow the same rule, and because Google keeps an independent switch at campaign, ad group and ad level, a PAUSED create leaves the campaign it creates PAUSED at Google. On TikTok the whole campaign > ad group > ad hierarchy stays paused. On LinkedIn the whole campaign group, campaign, and creative hierarchy stays PAUSED (intendedStatus PAUSED on each)."
                 campaignStatus:
                   type: string
                   enum: [ACTIVE, PAUSED]
-                  description: "Meta only. Overrides `status` for the campaign level alone, so you can create a live campaign whose ad set and ad stay paused, or the reverse. Omitted, it follows `status`."
+                  description: "Meta and Google. Overrides `status` for the campaign level alone, so you can create a live campaign whose ad set and ad stay paused, or the reverse. Omitted, it follows `status`."
                 budgetLevel:
                   type: string
                   enum: [adset, campaign]
@@ -51308,9 +51366,6 @@ paths:
                     required: [headline, body, linkUrl, callToAction]
                     description: "Each creative must supply EXACTLY ONE of `imageUrl` (image creative) or `video` (video creative)."
                     properties:
-                      promotion:
-                        $ref: '#/components/schemas/MetaPromotion'
-                        description: 'Overrides the top-level offer for this item. Omit to inherit; null disables the inherited offer.'
                       creativeFeatures:
                         $ref: '#/components/schemas/MetaCreativeFeatures'
                         description: 'Replaces the entire top-level creativeFeatures map for this item. Omit to inherit; an empty map clears these defaults.'
@@ -52233,7 +52288,6 @@ paths:
                   callToAction: SHOP_NOW
                   linkUrl: https://example.com/shop
                   imageUrl: https://example.com/ad.jpg
-                  promotion: { type: PERCENTAGE_OFF, value: 20, code: SAVE20 }
                   creativeFeatures: { auto_promotion_tag: OPT_OUT }
       responses:
         '409': { $ref: '#/components/responses/AccountConnectionRequired' }
@@ -52253,7 +52307,7 @@ paths:
                       properties:
                         node: { type: string, enum: [campaign, adSet, creative, ad, performanceMaxCampaign] }
                         status: { type: string, enum: [validated, skipped] }
-                        reason: { type: string, description: "Why the node could not be validated (only on skipped)." }
+                        reason: { type: string, description: "Why the node could not be validated (on skipped), or what the dry run could not check and what the request would do as sent (on validated). A Performance Max validation with no location targeting reports here that the campaign would run worldwide." }
                   message: { type: string }
         '201':
           description: Ad(s) created

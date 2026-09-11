@@ -17,7 +17,7 @@ pub struct CreateStandaloneAd200ResponseResultsInner {
     pub node: Option<Node>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
-    /// Why the node could not be validated (only on skipped).
+    /// Why the node could not be validated (on skipped), or what the dry run could not check and what the request would do as sent (on validated). A Performance Max validation with no location targeting reports here that the campaign would run worldwide.
     #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
     pub reason: Option<String>,
 }

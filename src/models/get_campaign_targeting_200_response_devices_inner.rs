@@ -17,7 +17,7 @@ pub struct GetCampaignTargeting200ResponseDevicesInner {
     pub device: Option<Device>,
     #[serde(rename = "included", skip_serializing_if = "Option::is_none")]
     pub included: Option<bool>,
-    /// Always null on this read (see description).
+    /// Google's bid adjustment for this device: null when it has none, 0 when the device is switched off, otherwise 0.1 to 10.
     #[serde(
         rename = "bidModifier",
         default,

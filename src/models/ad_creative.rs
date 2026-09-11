@@ -59,11 +59,6 @@ pub struct AdCreative {
         skip_serializing_if = "Option::is_none"
     )]
     pub video_url: Option<Option<String>>,
-    /// Meta offer read from the live creative on creation or GET /v1/ads/{adId}. Null when metadata is not returned or cannot be read. Requested values are never echoed as applied.
-    #[serde(rename = "promotion", skip_serializing_if = "Option::is_none")]
-    pub promotion: Option<Box<models::MetaPromotion>>,
-    #[serde(rename = "promotionStatus", skip_serializing_if = "Option::is_none")]
-    pub promotion_status: Option<models::MetaPromotionStatus>,
     /// Meta ad creative id backing this ad. Reusable via existingCreativeId on POST /v1/ads/create.
     #[serde(
         rename = "creativeId",
@@ -179,8 +174,6 @@ impl AdCreative {
             image_url: None,
             video_id: None,
             video_url: None,
-            promotion: None,
-            promotion_status: None,
             creative_id: None,
             object_type: None,
             object_story_id: None,

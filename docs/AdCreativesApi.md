@@ -30,7 +30,7 @@ Method | HTTP request | Description
 > models::CreateAdCreative201Response create_ad_creative(create_ad_creative_request)
 Create a standalone creative
 
-Creates a creative in the library WITHOUT an ad, reusable on the create endpoints via `existingCreativeId`. Provide exactly one of `imageUrl` (uploaded server-side), `imageHash` (from POST /v1/ads/images or the library list), or `carouselCards` (2-10 hand-built cards). The Page (and linked Instagram account, when present) is resolved from `accountId` as the story actor. `promotion` configures an explicit offer separately from Advantage+ `creativeFeatures`. Only when `promotion` is supplied does the response read the creative back from Meta; `promotionStatus: not_returned` means Meta accepted creation but omitted promotion metadata, so the requested offer is not confirmed as applied.
+Creates a creative in the library WITHOUT an ad, reusable on the create endpoints via `existingCreativeId`. Provide exactly one of `imageUrl` (uploaded server-side), `imageHash` (from POST /v1/ads/images or the library list), or `carouselCards` (2-10 hand-built cards). The Page (and linked Instagram account, when present) is resolved from `accountId` as the story actor. `creativeFeatures` configures Advantage+ enhancements. `promotion` is not supported and any object is rejected with 400.
 
 ### Parameters
 
