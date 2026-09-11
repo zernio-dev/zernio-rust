@@ -562,7 +562,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **ad_set_id** | **String** | Meta ad set id (platformAdSetId). | [required] |
 **account_id** | **String** | Zernio SocialAccount id (posting or ads variant) used to resolve the Meta token. | [required] |
-**fields** | Option<**String**> | Comma-separated Graph field override (supports nested {} projections). |  |
+**fields** | Option<**String**> | Comma-separated Graph field override. Supports nested {} projections and Graph field modifiers, so a nested edge can be paged explicitly: without a .limit() modifier the expansion runs at the Meta default page size and the tail is dropped silently. |  |
 
 ### Return type
 

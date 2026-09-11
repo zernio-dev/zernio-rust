@@ -34,7 +34,7 @@ Name | Type | Description  | Required | Notes
 **since** | Option<**String**> | Earliest delivery date (YYYY-MM-DD). |  |
 **until** | Option<**String**> | Latest delivery date (YYYY-MM-DD). |  |
 **search_type** | Option<**String**> | Meta only. Whether q matches words in any order or as an exact phrase (comma-separate phrases to match all of them). |  |[default to KEYWORD_UNORDERED]
-**fields** | Option<**String**> | Meta only. Raw Graph projection override, e.g. add spend,impressions,demographic_distribution for political ads. |  |
+**fields** | Option<**String**> | Meta only. Comma-separated Graph field override. Supports nested {} projections and Graph field modifiers, so a nested edge can be paged explicitly: without a .limit() modifier the expansion runs at the Meta default page size and the tail is dropped silently. |  |
 **limit** | Option<**i32**> | Rows per page. LinkedIn accepts at most 25. |  |[default to 25]
 **after** | Option<**String**> | paging.after of the previous page. |  |
 
