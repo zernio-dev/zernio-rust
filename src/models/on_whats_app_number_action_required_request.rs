@@ -22,6 +22,12 @@ pub struct OnWhatsAppNumberActionRequiredRequest {
     pub timestamp: Option<String>,
     #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
     pub reason: Option<String>,
+    /// Every requirement on the order with the reviewer's current verdict. Omitted when the order's requirements could not be read.
+    #[serde(rename = "requirements", skip_serializing_if = "Option::is_none")]
+    pub requirements: Option<Vec<models::OnWhatsAppNumberActionRequiredRequestRequirementsInner>>,
+    /// When the reviewer last commented on the order. Omitted when there is no reviewer comment.
+    #[serde(rename = "reviewedAt", skip_serializing_if = "Option::is_none")]
+    pub reviewed_at: Option<String>,
     #[serde(rename = "number", skip_serializing_if = "Option::is_none")]
     pub number: Option<Box<models::OnWhatsAppNumberDeclinedRequestNumber>>,
 }
@@ -33,6 +39,8 @@ impl OnWhatsAppNumberActionRequiredRequest {
             event: None,
             timestamp: None,
             reason: None,
+            requirements: None,
+            reviewed_at: None,
             number: None,
         }
     }

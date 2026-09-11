@@ -1677,7 +1677,7 @@ pub async fn on_whats_app_automatic_event(configuration: &configuration::Configu
     }
 }
 
-/// Fired when the regulator asks for more information on an already-placed regulated number order. The number stays pending (nothing was rejected); the customer can provide the missing information from the dashboard, or via the remediation endpoint. `reason` carries the regulator's request verbatim when available. 
+/// Fired when the regulator asks for more information on an already-placed regulated number order. The number stays pending (nothing was rejected); the customer can provide the missing information from the dashboard, or via the remediation endpoint. `reason` carries the regulator's request verbatim when available. `requirements` lists every requirement on the order with the reviewer's current verdict; the `declined` ones are what to fix, keyed by the same `requirementId` the remediation endpoint uses. Verdicts only change when a reviewer acts, so they describe the review at `reviewedAt`, the time of the reviewer's last comment. 
 pub async fn on_whats_app_number_action_required(configuration: &configuration::Configuration, on_whats_app_number_action_required_request: models::OnWhatsAppNumberActionRequiredRequest) -> Result<(), Error<OnWhatsAppNumberActionRequiredError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_on_whats_app_number_action_required_request = on_whats_app_number_action_required_request;

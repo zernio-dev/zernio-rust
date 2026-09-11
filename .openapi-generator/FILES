@@ -1294,6 +1294,7 @@ docs/OnVerificationFailedRequestVerification.md
 docs/OnWhatsAppAutomaticEventRequest.md
 docs/OnWhatsAppAutomaticEventRequestCustomData.md
 docs/OnWhatsAppNumberActionRequiredRequest.md
+docs/OnWhatsAppNumberActionRequiredRequestRequirementsInner.md
 docs/OnWhatsAppNumberActivatedRequest.md
 docs/OnWhatsAppNumberActivatedRequestNumber.md
 docs/OnWhatsAppNumberDeclinedRequest.md
@@ -3418,6 +3419,7 @@ src/models/on_verification_failed_request_verification.rs
 src/models/on_whats_app_automatic_event_request.rs
 src/models/on_whats_app_automatic_event_request_custom_data.rs
 src/models/on_whats_app_number_action_required_request.rs
+src/models/on_whats_app_number_action_required_request_requirements_inner.rs
 src/models/on_whats_app_number_activated_request.rs
 src/models/on_whats_app_number_activated_request_number.rs
 src/models/on_whats_app_number_declined_request.rs
