@@ -12,18 +12,18 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetLeadForm200Response {
-    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<String>,
-    #[serde(rename = "form", skip_serializing_if = "Option::is_none")]
-    pub form: Option<Box<models::GetLeadForm200ResponseForm>>,
+pub struct MetaLeadFormLegalContentPrivacyPolicy {
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "link_text", skip_serializing_if = "Option::is_none")]
+    pub link_text: Option<String>,
 }
 
-impl GetLeadForm200Response {
-    pub fn new() -> GetLeadForm200Response {
-        GetLeadForm200Response {
-            status: None,
-            form: None,
+impl MetaLeadFormLegalContentPrivacyPolicy {
+    pub fn new() -> MetaLeadFormLegalContentPrivacyPolicy {
+        MetaLeadFormLegalContentPrivacyPolicy {
+            url: None,
+            link_text: None,
         }
     }
 }

@@ -1,7 +1,7 @@
 /*
  * Zernio API
  *
- * API reference for Zernio. Authenticate with a Bearer API key. Base URL: https://zernio.com/api
+ * API reference for Zernio. Authenticate with a Bearer API key. Base URL: https://zernio.com/api  Versioning and deprecation: all endpoints are versioned in the URL path (current version: /v1). Breaking changes only ship in a new path version; existing versions keep working. Deprecated operations are marked 'deprecated: true' in this spec and announced in the changelog (https://zernio.com/changelog) before removal.  Errors: every 4xx/5xx response is application/json with a machine-readable 'code' and a human-readable 'error' message (see the ErrorResponse schema).
  *
  * The version of the OpenAPI document: 1.0.4
  * Contact: support@zernio.com
@@ -11,67 +11,15 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// GetLeadForm200ResponseForm : Full form config — sufficient to duplicate the form via POST /v1/ads/lead-forms.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetLeadForm200ResponseForm {
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
-    /// ARCHIVED forms can't receive new leads.
-    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<Status>,
-    #[serde(rename = "locale", skip_serializing_if = "Option::is_none")]
-    pub locale: Option<String>,
-    #[serde(rename = "created_time", skip_serializing_if = "Option::is_none")]
-    pub created_time: Option<String>,
-    #[serde(rename = "leads_count", skip_serializing_if = "Option::is_none")]
-    pub leads_count: Option<i32>,
-    #[serde(rename = "privacy_policy_url", skip_serializing_if = "Option::is_none")]
-    pub privacy_policy_url: Option<String>,
-    #[serde(
-        rename = "follow_up_action_url",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub follow_up_action_url: Option<String>,
-    #[serde(rename = "questions", skip_serializing_if = "Option::is_none")]
-    pub questions: Option<Vec<models::GetLeadForm200ResponseFormQuestionsInner>>,
-    #[serde(rename = "thank_you_page", skip_serializing_if = "Option::is_none")]
-    pub thank_you_page: Option<Box<models::GetLeadForm200ResponseFormThankYouPage>>,
-    /// Intro card shown before the form questions (title, content, button label).
-    #[serde(rename = "context_card", skip_serializing_if = "Option::is_none")]
-    pub context_card: Option<serde_json::Value>,
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetLeadForm200ResponseForm {
+    MetaLeadForm(Box<models::MetaLeadForm>),
+    Object(serde_json::Value),
 }
 
-impl GetLeadForm200ResponseForm {
-    /// Full form config — sufficient to duplicate the form via POST /v1/ads/lead-forms.
-    pub fn new() -> GetLeadForm200ResponseForm {
-        GetLeadForm200ResponseForm {
-            id: None,
-            name: None,
-            status: None,
-            locale: None,
-            created_time: None,
-            leads_count: None,
-            privacy_policy_url: None,
-            follow_up_action_url: None,
-            questions: None,
-            thank_you_page: None,
-            context_card: None,
-        }
-    }
-}
-/// ARCHIVED forms can't receive new leads.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "ACTIVE")]
-    Active,
-    #[serde(rename = "ARCHIVED")]
-    Archived,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::Active
+impl Default for GetLeadForm200ResponseForm {
+    fn default() -> Self {
+        Self::MetaLeadForm(Default::default())
     }
 }

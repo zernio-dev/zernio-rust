@@ -764,6 +764,7 @@ docs/GetInstagramStoryInsights200ResponseDataMetrics.md
 docs/GetIosFourteenCampaignLimits200Response.md
 docs/GetIosFourteenCampaignLimits200ResponseLimits.md
 docs/GetLeadForm200Response.md
+docs/GetLeadForm200ResponseForm.md
 docs/GetLinkedInAggregateAnalytics200Response.md
 docs/GetLinkedInAggregateAnalytics400Response.md
 docs/GetLinkedInAggregateAnalytics402Response.md
@@ -1280,8 +1281,14 @@ docs/MessagesApi.md
 docs/MessagingAdsApi.md
 docs/MetaAdsPlatformData.md
 docs/MetaInstagramIdentityRef.md
+docs/MetaLeadForm.md
+docs/MetaLeadFormContextCard.md
+docs/MetaLeadFormLegalContent.md
+docs/MetaLeadFormLegalContentPrivacyPolicy.md
 docs/MetaLeadFormPlatformData.md
 docs/MetaLeadFormPlatformDataContextCard.md
+docs/MetaLeadFormQuestionsInner.md
+docs/MetaLeadFormThankYouPage.md
 docs/Money.md
 docs/MoneyAmount.md
 docs/MoveAccountToProfile200Response.md
@@ -2909,6 +2916,7 @@ src/models/get_instagram_story_insights_200_response_data_metrics.rs
 src/models/get_ios_fourteen_campaign_limits_200_response.rs
 src/models/get_ios_fourteen_campaign_limits_200_response_limits.rs
 src/models/get_lead_form_200_response.rs
+src/models/get_lead_form_200_response_form.rs
 src/models/get_linked_in_aggregate_analytics_200_response.rs
 src/models/get_linked_in_aggregate_analytics_400_response.rs
 src/models/get_linked_in_aggregate_analytics_402_response.rs
@@ -3407,8 +3415,14 @@ src/models/media_item.rs
 src/models/media_upload_response.rs
 src/models/meta_ads_platform_data.rs
 src/models/meta_instagram_identity_ref.rs
+src/models/meta_lead_form.rs
+src/models/meta_lead_form_context_card.rs
+src/models/meta_lead_form_legal_content.rs
+src/models/meta_lead_form_legal_content_privacy_policy.rs
 src/models/meta_lead_form_platform_data.rs
 src/models/meta_lead_form_platform_data_context_card.rs
+src/models/meta_lead_form_questions_inner.rs
+src/models/meta_lead_form_thank_you_page.rs
 src/models/mod.rs
 src/models/money.rs
 src/models/money_amount.rs

@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 pub enum ArchiveLeadFormError {
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
+    Status404(),
     UnknownValue(serde_json::Value),
 }
 
@@ -48,6 +49,7 @@ pub enum CreateTestLeadError {
 pub enum GetLeadFormError {
     Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
+    Status404(),
     UnknownValue(serde_json::Value),
 }
 
@@ -84,7 +86,7 @@ pub enum ListLeadsError {
     UnknownValue(serde_json::Value),
 }
 
-/// Neither platform hard-deletes a form; this archives it (Meta status=ARCHIVED; LinkedIn state=ARCHIVED via PARTIAL_UPDATE).
+/// Neither platform hard-deletes a form; this archives it (Meta status=ARCHIVED; LinkedIn state=ARCHIVED via PARTIAL_UPDATE). Meta forms must belong to the Page the accountId manages.
 pub async fn archive_lead_form(
     configuration: &configuration::Configuration,
     form_id: &str,
@@ -246,14 +248,17 @@ pub async fn create_test_lead(
     }
 }
 
+/// Returns the full form, including the thank-you page, so a form can be diffed against what was created. Meta forms are scoped to the Page the accountId manages: a form on any other Page is a 404, never a read.
 pub async fn get_lead_form(
     configuration: &configuration::Configuration,
     form_id: &str,
     account_id: &str,
+    fields: Option<&str>,
 ) -> Result<models::GetLeadForm200Response, Error<GetLeadFormError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_form_id = form_id;
     let p_query_account_id = account_id;
+    let p_query_fields = fields;
 
     let uri_str = format!(
         "{}/v1/ads/lead-forms/{formId}",
@@ -263,6 +268,9 @@ pub async fn get_lead_form(
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("accountId", &p_query_account_id.to_string())]);
+    if let Some(ref param_value) = p_query_fields {
+        req_builder = req_builder.query(&[("fields", &param_value.to_string())]);
+    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }

@@ -19,7 +19,7 @@ Method | HTTP request | Description
 > models::ArchiveLeadForm200Response archive_lead_form(form_id, account_id)
 Archive a lead form
 
-Neither platform hard-deletes a form; this archives it (Meta status=ARCHIVED; LinkedIn state=ARCHIVED via PARTIAL_UPDATE).
+Neither platform hard-deletes a form; this archives it (Meta status=ARCHIVED; LinkedIn state=ARCHIVED via PARTIAL_UPDATE). Meta forms must belong to the Page the accountId manages.
 
 ### Parameters
 
@@ -108,8 +108,10 @@ Name | Type | Description  | Required | Notes
 
 ## get_lead_form
 
-> models::GetLeadForm200Response get_lead_form(form_id, account_id)
+> models::GetLeadForm200Response get_lead_form(form_id, account_id, fields)
 Get a lead form
+
+Returns the full form, including the thank-you page, so a form can be diffed against what was created. Meta forms are scoped to the Page the accountId manages: a form on any other Page is a 404, never a read. 
 
 ### Parameters
 
@@ -118,6 +120,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **form_id** | **String** | Numeric form id (Meta leadgen_form id or LinkedIn leadForm id). | [required] |
 **account_id** | **String** | Connected facebook or linkedin ads account id (selects the platform). | [required] |
+**fields** | Option<**String**> | Meta only. A Graph field selection passed through verbatim to GET /{form-id}, replacing the default projection, so fields Meta adds later are reachable without an API change. Field names, commas and {} expansion only; anything else (Graph field modifiers such as .limit(), or characters that could open another query parameter) is a 400. Ownership of the form is verified before the selection runs, so this cannot reach any Page but the one accountId manages. Unknown field names are rejected by Meta as a 400.  |  |
 
 ### Return type
 
