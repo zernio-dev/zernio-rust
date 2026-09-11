@@ -1709,6 +1709,7 @@ docs/UpdateAdRequestTargetingDevicesInnerOneOf.md
 docs/UpdateAdRequestTargetingInterestsInner.md
 docs/UpdateAdRequestTargetingKeywordsInner.md
 docs/UpdateAdRequestTargetingKeywordsInnerOneOf.md
+docs/UpdateAdRequestTargetingLocations.md
 docs/UpdateAdSet200Response.md
 docs/UpdateAdSetRequest.md
 docs/UpdateAdSetRequestBudget.md
@@ -3821,6 +3822,7 @@ src/models/update_ad_request_targeting_devices_inner_one_of.rs
 src/models/update_ad_request_targeting_interests_inner.rs
 src/models/update_ad_request_targeting_keywords_inner.rs
 src/models/update_ad_request_targeting_keywords_inner_one_of.rs
+src/models/update_ad_request_targeting_locations.rs
 src/models/update_ad_set_200_response.rs
 src/models/update_ad_set_request.rs
 src/models/update_ad_set_request_budget.rs

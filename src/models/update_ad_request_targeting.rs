@@ -27,8 +27,14 @@ pub struct UpdateAdRequestTargeting {
     pub age_min: Option<i32>,
     #[serde(rename = "ageMax", skip_serializing_if = "Option::is_none")]
     pub age_max: Option<i32>,
+    /// ISO 3166-1 alpha-2 codes. On Google this is the FULL new country set for the campaign (same contract as `locations`); on LinkedIn it replaces the campaign's geo criteria.
     #[serde(rename = "countries", skip_serializing_if = "Option::is_none")]
     pub countries: Option<Vec<String>>,
+    #[serde(rename = "locations", skip_serializing_if = "Option::is_none")]
+    pub locations: Option<Box<models::UpdateAdRequestTargetingLocations>>,
+    /// Google only. The FULL new language set for the campaign, as Google language codes (ISO 639-1, plus variants such as `zh_CN`). An unknown code returns 400.
+    #[serde(rename = "languages", skip_serializing_if = "Option::is_none")]
+    pub languages: Option<Vec<String>>,
     /// Interest objects from /v1/ads/interests. Each must include id and name.
     #[serde(rename = "interests", skip_serializing_if = "Option::is_none")]
     pub interests: Option<Vec<models::UpdateAdRequestTargetingInterestsInner>>,
@@ -47,6 +53,8 @@ impl UpdateAdRequestTargeting {
             age_min: None,
             age_max: None,
             countries: None,
+            locations: None,
+            languages: None,
             interests: None,
             advantage_audience: None,
         }

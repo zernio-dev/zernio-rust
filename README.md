@@ -2422,6 +2422,7 @@ Class | Method | HTTP request | Description
  - [UpdateAdRequestTargetingInterestsInner](docs/UpdateAdRequestTargetingInterestsInner.md)
  - [UpdateAdRequestTargetingKeywordsInner](docs/UpdateAdRequestTargetingKeywordsInner.md)
  - [UpdateAdRequestTargetingKeywordsInnerOneOf](docs/UpdateAdRequestTargetingKeywordsInnerOneOf.md)
+ - [UpdateAdRequestTargetingLocations](docs/UpdateAdRequestTargetingLocations.md)
  - [UpdateAdSet200Response](docs/UpdateAdSet200Response.md)
  - [UpdateAdSetRequest](docs/UpdateAdSetRequest.md)
  - [UpdateAdSetRequestBudget](docs/UpdateAdSetRequestBudget.md)

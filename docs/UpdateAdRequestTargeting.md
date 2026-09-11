@@ -9,7 +9,9 @@ Name | Type | Description | Notes
 **devices** | Option<[**Vec<models::UpdateAdRequestTargetingDevicesInner>**](UpdateAdRequestTargetingDevicesInner.md)> | Google only. The FULL new set of device criteria for the campaign; devices not listed are excluded. Entries are a device name alone (included, no bid adjustment) or { device, bidModifier }. | [optional]
 **age_min** | Option<**i32**> |  | [optional]
 **age_max** | Option<**i32**> |  | [optional]
-**countries** | Option<**Vec<String>**> |  | [optional]
+**countries** | Option<**Vec<String>**> | ISO 3166-1 alpha-2 codes. On Google this is the FULL new country set for the campaign (same contract as `locations`); on LinkedIn it replaces the campaign's geo criteria. | [optional]
+**locations** | Option<[**models::UpdateAdRequestTargetingLocations**](UpdateAdRequestTargetingLocations.md)> |  | [optional]
+**languages** | Option<**Vec<String>**> | Google only. The FULL new language set for the campaign, as Google language codes (ISO 639-1, plus variants such as `zh_CN`). An unknown code returns 400. | [optional]
 **interests** | Option<[**Vec<models::UpdateAdRequestTargetingInterestsInner>**](UpdateAdRequestTargetingInterestsInner.md)> | Interest objects from /v1/ads/interests. Each must include id and name. | [optional]
 **advantage_audience** | Option<**AdvantageAudience**> | Meta only. Omit to preserve the existing setting on update. 0 = disabled, 1 = enabled. (enum: 0, 1) | [optional]
 

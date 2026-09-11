@@ -3302,6 +3302,8 @@ pub mod update_ad_request_targeting_keywords_inner;
 pub use self::update_ad_request_targeting_keywords_inner::UpdateAdRequestTargetingKeywordsInner;
 pub mod update_ad_request_targeting_keywords_inner_one_of;
 pub use self::update_ad_request_targeting_keywords_inner_one_of::UpdateAdRequestTargetingKeywordsInnerOneOf;
+pub mod update_ad_request_targeting_locations;
+pub use self::update_ad_request_targeting_locations::UpdateAdRequestTargetingLocations;
 pub mod update_ad_set_200_response;
 pub use self::update_ad_set_200_response::UpdateAdSet200Response;
 pub mod update_ad_set_request;
