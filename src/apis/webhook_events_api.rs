@@ -657,7 +657,7 @@ pub async fn on_call_received(configuration: &configuration::Configuration, webh
     }
 }
 
-/// Fired when a new comment is received on a tracked post.
+/// Fired when a new comment is received on a tracked post. Delivered for Instagram, Facebook, Threads, YouTube, LinkedIn, Bluesky, Reddit and TikTok. X/Twitter does NOT fire this event. Instagram, Facebook and TikTok arrive in real time from the platform's own webhook; the rest are poll-driven, so delivery is not instant. TikTok needs an account connected through the TikTok for Business app. 
 pub async fn on_comment_received(configuration: &configuration::Configuration, webhook_payload_comment: models::WebhookPayloadComment) -> Result<(), Error<OnCommentReceivedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_payload_comment = webhook_payload_comment;

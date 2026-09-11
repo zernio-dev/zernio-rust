@@ -77,8 +77,8 @@ pub enum Platform {
     Instagram,
     #[serde(rename = "facebook")]
     Facebook,
-    #[serde(rename = "twitter")]
-    Twitter,
+    #[serde(rename = "threads")]
+    Threads,
     #[serde(rename = "youtube")]
     Youtube,
     #[serde(rename = "linkedin")]

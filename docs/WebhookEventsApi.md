@@ -335,7 +335,7 @@ Name | Type | Description  | Required | Notes
 > on_comment_received(webhook_payload_comment)
 Comment received event
 
-Fired when a new comment is received on a tracked post.
+Fired when a new comment is received on a tracked post. Delivered for Instagram, Facebook, Threads, YouTube, LinkedIn, Bluesky, Reddit and TikTok. X/Twitter does NOT fire this event. Instagram, Facebook and TikTok arrive in real time from the platform's own webhook; the rest are poll-driven, so delivery is not instant. TikTok needs an account connected through the TikTok for Business app. 
 
 ### Parameters
 
