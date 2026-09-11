@@ -73,16 +73,16 @@ pub struct TargetingSpec {
     /// Meta only. Work-industry entities from /v1/ads/targeting/search?dimension=workIndustry. Not interchangeable with the LinkedIn `industries` URN fragments.
     #[serde(rename = "workIndustries", skip_serializing_if = "Option::is_none")]
     pub work_industries: Option<Vec<models::CreateStandaloneAdRequestBehaviorsInner>>,
-    /// LinkedIn B2B only. Industry URN id fragments.
+    /// LinkedIn B2B only. Industry URN id fragments, or the full urn:li:industry:* URN from /v1/ads/targeting/search?dimension=industry.
     #[serde(rename = "industries", skip_serializing_if = "Option::is_none")]
     pub industries: Option<Vec<String>>,
-    /// LinkedIn B2B only.
+    /// LinkedIn B2B only. Single-letter size codes (A to I), or the full urn:li:staffCountRange:* URN from /v1/ads/targeting/search?dimension=companySize.
     #[serde(rename = "companySizes", skip_serializing_if = "Option::is_none")]
     pub company_sizes: Option<Vec<String>>,
-    /// LinkedIn B2B only.
+    /// LinkedIn B2B only. Seniority URN id fragments, or the full urn:li:seniority:* URN from /v1/ads/targeting/search?dimension=seniority.
     #[serde(rename = "seniorities", skip_serializing_if = "Option::is_none")]
     pub seniorities: Option<Vec<String>>,
-    /// LinkedIn B2B only.
+    /// LinkedIn B2B only. Function URN id fragments, or the full urn:li:function:* URN from /v1/ads/targeting/search?dimension=jobFunction.
     #[serde(rename = "jobFunctions", skip_serializing_if = "Option::is_none")]
     pub job_functions: Option<Vec<String>>,
     /// Platform audience IDs to include, as returned by GET /v1/ads/audiences (Meta custom audience ids, TikTok audience ids, Pinterest customer list ids, LinkedIn segment ids (the platformAudienceId from GET /v1/ads/audiences; Zernio resolves it to the targetable LinkedIn ad segment, an unknown id returns 400), Google user list ids, X custom audience ids). Not supported on OpenAI (400).

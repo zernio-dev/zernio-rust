@@ -19,7 +19,7 @@ pub struct SearchAdTargeting200ResponseResultsInner {
     /// Human-readable label.
     #[serde(rename = "name")]
     pub name: String,
-    /// What the result is (e.g. city, region, country, zip, metro, location, interest, behavior, income).
+    /// What the result is (e.g. city, region, country, zip, metro, location, interest, behavior, income, industry, jobFunction, seniority, companySize).
     #[serde(rename = "type")]
     pub r#type: String,
     /// Optional breadcrumb of parent labels (e.g. ['United States', 'California', 'Los Angeles']). Disambiguates same-named results.
