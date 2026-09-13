@@ -451,6 +451,9 @@ docs/CreateWhatsAppTemplateRequestLibraryTemplateButtonInputsInnerUrl.md
 docs/CreateWorkflow200Response.md
 docs/CreateWorkflow200ResponseWorkflow.md
 docs/CreateWorkflowRequest.md
+docs/CreateYoutubePlaylist201Response.md
+docs/CreateYoutubePlaylist201ResponsePlaylist.md
+docs/CreateYoutubePlaylistRequest.md
 docs/CrosspostDiscordMessage200Response.md
 docs/CtwaAdRequestBody.md
 docs/CtwaAdRequestBodyCitiesInner.md
@@ -2606,6 +2609,9 @@ src/models/create_whats_app_template_request_library_template_button_inputs_inne
 src/models/create_workflow_200_response.rs
 src/models/create_workflow_200_response_workflow.rs
 src/models/create_workflow_request.rs
+src/models/create_youtube_playlist_201_response.rs
+src/models/create_youtube_playlist_201_response_playlist.rs
+src/models/create_youtube_playlist_request.rs
 src/models/crosspost_discord_message_200_response.rs
 src/models/ctwa_ad_request_body.rs
 src/models/ctwa_ad_request_body_cities_inner.rs
