@@ -144,6 +144,9 @@ pub struct CreateStandaloneAdRequest {
     /// ISO 3166-1 alpha-2 country codes (e.g. ['NL']). Defaults to ['US'] when no other geo targeting (flat or nested `targeting`) is provided. (LinkedIn and OpenAI Ads currently honour country-level targeting only; any other targeting field returns 400 for OpenAI Ads.)
     #[serde(rename = "countries", skip_serializing_if = "Option::is_none")]
     pub countries: Option<Vec<String>>,
+    /// Meta only. Continents and trade blocs (`geo_locations.country_groups`), for targeting a whole region without listing its countries. Combines with `countries` rather than replacing it. Discoverable via `GET /v1/ads/targeting/search?dimension=geo&geoType=country_group`.
+    #[serde(rename = "countryGroups", skip_serializing_if = "Option::is_none")]
+    pub country_groups: Option<Vec<CountryGroups>>,
     /// City-level geo targeting (Meta and TikTok). Each city is targeted by the platform's opaque `key` (the city ID) which can be looked up via `GET /v1/ads/targeting/search?dimension=geo&q=<name>&countryCode=<ISO>`. Optional `radius` + `distance_unit` (Meta only) extend the targeting beyond the city limits (e.g. radius 25 km around the city center). Both must be set together, or both omitted (Meta defaults to ~16 km when omitted).  On Meta, cannot overlap with the same country in `countries` (Meta returns a \"locations overlap\" error). Either drop the country or scope it to a different country. On TikTok, keys are numeric location ids and can be sent without `countries`.
     #[serde(rename = "cities", skip_serializing_if = "Option::is_none")]
     pub cities: Option<Vec<models::CreateStandaloneAdRequestCitiesInner>>,
@@ -405,6 +408,7 @@ impl CreateStandaloneAdRequest {
             organization_id: None,
             targeting: None,
             countries: None,
+            country_groups: None,
             cities: None,
             regions: None,
             age_min: None,
@@ -674,6 +678,56 @@ pub enum CallToAction {
 impl Default for CallToAction {
     fn default() -> CallToAction {
         Self::LearnMore
+    }
+}
+/// Meta only. Continents and trade blocs (`geo_locations.country_groups`), for targeting a whole region without listing its countries. Combines with `countries` rather than replacing it. Discoverable via `GET /v1/ads/targeting/search?dimension=geo&geoType=country_group`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum CountryGroups {
+    #[serde(rename = "africa")]
+    Africa,
+    #[serde(rename = "asia")]
+    Asia,
+    #[serde(rename = "europe")]
+    Europe,
+    #[serde(rename = "north_america")]
+    NorthAmerica,
+    #[serde(rename = "south_america")]
+    SouthAmerica,
+    #[serde(rename = "oceania")]
+    Oceania,
+    #[serde(rename = "central_america")]
+    CentralAmerica,
+    #[serde(rename = "caribbean")]
+    Caribbean,
+    #[serde(rename = "eea")]
+    Eea,
+    #[serde(rename = "euro_area")]
+    EuroArea,
+    #[serde(rename = "nafta")]
+    Nafta,
+    #[serde(rename = "mercosur")]
+    Mercosur,
+    #[serde(rename = "afta")]
+    Afta,
+    #[serde(rename = "apec")]
+    Apec,
+    #[serde(rename = "gcc")]
+    Gcc,
+    #[serde(rename = "cisfta")]
+    Cisfta,
+    #[serde(rename = "emerging_markets")]
+    EmergingMarkets,
+    #[serde(rename = "itunes_app_store")]
+    ItunesAppStore,
+    #[serde(rename = "android_free_store")]
+    AndroidFreeStore,
+    #[serde(rename = "android_paid_store")]
+    AndroidPaidStore,
+}
+
+impl Default for CountryGroups {
+    fn default() -> CountryGroups {
+        Self::Africa
     }
 }
 /// Normalized household-income tier. Meta and TikTok express all four; Google maps only `top_10`; rejected on LinkedIn, X, and Pinterest. On Meta, income targeting is incompatible with housing/employment/credit `specialAdCategories`.

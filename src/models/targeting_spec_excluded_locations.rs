@@ -16,6 +16,9 @@ use serde::{Deserialize, Serialize};
 pub struct TargetingSpecExcludedLocations {
     #[serde(rename = "countries", skip_serializing_if = "Option::is_none")]
     pub countries: Option<Vec<String>>,
+    /// Meta only. Continents and trade blocs to exclude (`excluded_geo_locations.country_groups`).
+    #[serde(rename = "countryGroups", skip_serializing_if = "Option::is_none")]
+    pub country_groups: Option<Vec<CountryGroups>>,
     #[serde(rename = "regions", skip_serializing_if = "Option::is_none")]
     pub regions:
         Option<Vec<models::UpdateCampaignTargetingRequestTargetingLocationsOneOfRegionsInner>>,
@@ -41,6 +44,7 @@ impl TargetingSpecExcludedLocations {
     pub fn new() -> TargetingSpecExcludedLocations {
         TargetingSpecExcludedLocations {
             countries: None,
+            country_groups: None,
             regions: None,
             cities: None,
             zips: None,
@@ -48,5 +52,55 @@ impl TargetingSpecExcludedLocations {
             neighborhoods: None,
             custom_locations: None,
         }
+    }
+}
+/// Meta only. Continents and trade blocs to exclude (`excluded_geo_locations.country_groups`).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum CountryGroups {
+    #[serde(rename = "africa")]
+    Africa,
+    #[serde(rename = "asia")]
+    Asia,
+    #[serde(rename = "europe")]
+    Europe,
+    #[serde(rename = "north_america")]
+    NorthAmerica,
+    #[serde(rename = "south_america")]
+    SouthAmerica,
+    #[serde(rename = "oceania")]
+    Oceania,
+    #[serde(rename = "central_america")]
+    CentralAmerica,
+    #[serde(rename = "caribbean")]
+    Caribbean,
+    #[serde(rename = "eea")]
+    Eea,
+    #[serde(rename = "euro_area")]
+    EuroArea,
+    #[serde(rename = "nafta")]
+    Nafta,
+    #[serde(rename = "mercosur")]
+    Mercosur,
+    #[serde(rename = "afta")]
+    Afta,
+    #[serde(rename = "apec")]
+    Apec,
+    #[serde(rename = "gcc")]
+    Gcc,
+    #[serde(rename = "cisfta")]
+    Cisfta,
+    #[serde(rename = "emerging_markets")]
+    EmergingMarkets,
+    #[serde(rename = "itunes_app_store")]
+    ItunesAppStore,
+    #[serde(rename = "android_free_store")]
+    AndroidFreeStore,
+    #[serde(rename = "android_paid_store")]
+    AndroidPaidStore,
+}
+
+impl Default for CountryGroups {
+    fn default() -> CountryGroups {
+        Self::Africa
     }
 }
