@@ -20315,8 +20315,11 @@ paths:
               tempToken: "EAAxxxxx..."
               userProfile:
                 id: "987654321"
-                name: "John Doe"
+                username: "john.doe"
+                displayName: "John Doe"
                 profilePicture: "https://..."
+                profileUrl: "https://facebook.com/987654321"
+                bio: null
               redirect_url: "https://yourdomain.com/integrations/callback"
       security:
         - bearerAuth: []
