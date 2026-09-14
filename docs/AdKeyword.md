@@ -19,7 +19,8 @@ Name | Type | Description | Notes
 **match_type** | Option<**MatchType**> |  (enum: exact, phrase, broad, unknown) | [optional]
 **status** | Option<**Status**> |  (enum: active, paused) | [optional]
 **negative** | Option<**bool**> |  | [optional]
-**quality_score** | Option<**i32**> | Google Quality Score, 1-10. Null when unrated. | [optional]
+**quality_score** | Option<**i32**> | Deprecated, use `quality.score`. Google Quality Score, 1-10. Null when unrated. | [optional]
+**quality** | Option<[**models::AdKeywordQuality**](AdKeywordQuality.md)> |  | [optional]
 **synced_at** | Option<**String**> |  | [optional]
 **metrics** | Option<[**models::AdKeywordMetrics**](AdKeywordMetrics.md)> |  | [optional]
 

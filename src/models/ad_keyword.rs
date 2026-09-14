@@ -66,7 +66,7 @@ pub struct AdKeyword {
     pub status: Option<Status>,
     #[serde(rename = "negative", skip_serializing_if = "Option::is_none")]
     pub negative: Option<bool>,
-    /// Google Quality Score, 1-10. Null when unrated.
+    /// Deprecated, use `quality.score`. Google Quality Score, 1-10. Null when unrated.
     #[serde(
         rename = "qualityScore",
         default,
@@ -74,6 +74,8 @@ pub struct AdKeyword {
         skip_serializing_if = "Option::is_none"
     )]
     pub quality_score: Option<Option<i32>>,
+    #[serde(rename = "quality", skip_serializing_if = "Option::is_none")]
+    pub quality: Option<Box<models::AdKeywordQuality>>,
     #[serde(
         rename = "syncedAt",
         default,
@@ -104,6 +106,7 @@ impl AdKeyword {
             status: None,
             negative: None,
             quality_score: None,
+            quality: None,
             synced_at: None,
             metrics: None,
         }

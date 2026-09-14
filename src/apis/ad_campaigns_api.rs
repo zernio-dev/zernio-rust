@@ -251,6 +251,18 @@ pub enum GetAdsTimelineError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_campaign_ad_schedule`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetCampaignAdScheduleError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::ErrorResponse),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_campaign_bidding`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -573,6 +585,19 @@ pub enum UpdateBidStrategyError {
     Status401(models::InlineObject1),
     Status404(models::ErrorResponse),
     Status429(),
+    Status501(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_campaign_ad_schedule`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateCampaignAdScheduleError {
+    Status400(models::ErrorResponse),
+    Status401(models::InlineObject1),
+    Status403(),
+    Status404(models::ErrorResponse),
+    Status422(),
     Status501(),
     UnknownValue(serde_json::Value),
 }
@@ -1789,6 +1814,82 @@ pub async fn get_ads_timeline(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetAdsTimelineError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// The windows a Google campaign serves in, with the bid modifier on each, plus the criterion ids Google minted for them.  An EMPTY `schedule` is meaningful and is not a failed lookup: Google has no \"all day\" criterion, so a campaign with no ad schedule serves around the clock. `servesAroundTheClock` states that explicitly.  Set `includePerformance=true` to also get delivery split by day of week and by hour, which is the evidence for deciding what the schedule should be. It is one extra Google call segmented by both dimensions at once, so the two views always agree.  Google Ads only. The response carries `cachedAt` and `stale`, set when a quota-exhausted call falls back to the last-good copy instead of a live read.
+pub async fn get_campaign_ad_schedule(
+    configuration: &configuration::Configuration,
+    campaign_id: &str,
+    platform: Option<&str>,
+    include_performance: Option<bool>,
+    window_days: Option<i32>,
+    from_date: Option<String>,
+    to_date: Option<String>,
+) -> Result<models::GetCampaignAdSchedule200Response, Error<GetCampaignAdScheduleError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_campaign_id = campaign_id;
+    let p_query_platform = platform;
+    let p_query_include_performance = include_performance;
+    let p_query_window_days = window_days;
+    let p_query_from_date = from_date;
+    let p_query_to_date = to_date;
+
+    let uri_str = format!(
+        "{}/v1/ads/campaigns/{campaignId}/ad-schedule",
+        configuration.base_path,
+        campaignId = crate::apis::urlencode(p_path_campaign_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_platform {
+        req_builder = req_builder.query(&[("platform", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_include_performance {
+        req_builder = req_builder.query(&[("includePerformance", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_window_days {
+        req_builder = req_builder.query(&[("windowDays", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_from_date {
+        req_builder = req_builder.query(&[("fromDate", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_to_date {
+        req_builder = req_builder.query(&[("toDate", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetCampaignAdSchedule200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCampaignAdSchedule200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetCampaignAdScheduleError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -3429,6 +3530,60 @@ pub async fn update_bid_strategy(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateBidStrategyError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Replaces the campaign's whole ad schedule with the windows you send. This is a REPLACE, not a merge: windows you leave out stop serving.  Send `schedule: []` to clear dayparting, which returns the campaign to serving around the clock.  Google rules enforced here, so you get a named field instead of a criterion error: at most 6 windows per day, a window must end after it starts, windows on the same day may not overlap, `endHour` 24 is midnight and cannot carry minutes, and minutes are quarter-hours only (0, 15, 30, 45). `bidModifier` is 0.1-10.0; Google's 0 means \"off\" for devices only, so a window is switched off by leaving it out.  Windows are half-open (Google is exclusive of the end minute), so 09:00-12:00 and 12:00-17:00 on the same day are adjacent and both valid.  Google cannot edit an ad schedule in place (every AdScheduleInfo field is prohibited on update), so this removes the live criteria and creates the new ones in a single atomic mutate. The response is read back from Google and carries the new criterion ids.
+pub async fn update_campaign_ad_schedule(
+    configuration: &configuration::Configuration,
+    campaign_id: &str,
+    update_campaign_ad_schedule_request: models::UpdateCampaignAdScheduleRequest,
+) -> Result<models::UpdateCampaignAdSchedule200Response, Error<UpdateCampaignAdScheduleError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_campaign_id = campaign_id;
+    let p_body_update_campaign_ad_schedule_request = update_campaign_ad_schedule_request;
+
+    let uri_str = format!(
+        "{}/v1/ads/campaigns/{campaignId}/ad-schedule",
+        configuration.base_path,
+        campaignId = crate::apis::urlencode(p_path_campaign_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_campaign_ad_schedule_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UpdateCampaignAdSchedule200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UpdateCampaignAdSchedule200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateCampaignAdScheduleError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

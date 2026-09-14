@@ -29,6 +29,7 @@ docs/AdFunnelCounts.md
 docs/AdInsightsApi.md
 docs/AdKeyword.md
 docs/AdKeywordMetrics.md
+docs/AdKeywordQuality.md
 docs/AdLibraryApi.md
 docs/AdMetrics.md
 docs/AdNegativeKeywordList.md
@@ -36,6 +37,7 @@ docs/AdNegativeKeywordListKeyword.md
 docs/AdPromotedObject.md
 docs/AdReviewStatus.md
 docs/AdSchedule.md
+docs/AdScheduleWindow.md
 docs/AdStatus.md
 docs/AdTargetingApi.md
 docs/AdTracking.md
@@ -642,6 +644,10 @@ docs/GetCall200Response.md
 docs/GetCallsUsage200Response.md
 docs/GetCallsUsage200ResponseGroupsInner.md
 docs/GetCallsUsage200ResponseTotals.md
+docs/GetCampaignAdSchedule200Response.md
+docs/GetCampaignAdSchedule200ResponsePerformance.md
+docs/GetCampaignAdSchedule200ResponsePerformanceByDayOfWeekInner.md
+docs/GetCampaignAdSchedule200ResponsePerformanceByHourInner.md
 docs/GetCampaignAnalytics202Response.md
 docs/GetCampaignBidding200Response.md
 docs/GetCampaignTargeting200Response.md
@@ -1760,6 +1766,9 @@ docs/UpdateBusinessAgentSettingsRequest.md
 docs/UpdateBusinessAgentSettingsRequestFollowup.md
 docs/UpdateBusinessAgentSettingsRequestHandoff.md
 docs/UpdateBusinessAgentSettingsRequestRollout.md
+docs/UpdateCampaignAdSchedule200Response.md
+docs/UpdateCampaignAdScheduleRequest.md
+docs/UpdateCampaignAdScheduleRequestScheduleInner.md
 docs/UpdateCampaignAssets200Response.md
 docs/UpdateCampaignAssetsRequest.md
 docs/UpdateCampaignTargeting200Response.md
@@ -2216,12 +2225,14 @@ src/models/ad_engagement_counts.rs
 src/models/ad_funnel_counts.rs
 src/models/ad_keyword.rs
 src/models/ad_keyword_metrics.rs
+src/models/ad_keyword_quality.rs
 src/models/ad_metrics.rs
 src/models/ad_negative_keyword_list.rs
 src/models/ad_negative_keyword_list_keyword.rs
 src/models/ad_promoted_object.rs
 src/models/ad_review_status.rs
 src/models/ad_schedule.rs
+src/models/ad_schedule_window.rs
 src/models/ad_status.rs
 src/models/ad_tracking.rs
 src/models/ad_tree_ad_set.rs
@@ -2813,6 +2824,10 @@ src/models/get_call_200_response.rs
 src/models/get_calls_usage_200_response.rs
 src/models/get_calls_usage_200_response_groups_inner.rs
 src/models/get_calls_usage_200_response_totals.rs
+src/models/get_campaign_ad_schedule_200_response.rs
+src/models/get_campaign_ad_schedule_200_response_performance.rs
+src/models/get_campaign_ad_schedule_200_response_performance_by_day_of_week_inner.rs
+src/models/get_campaign_ad_schedule_200_response_performance_by_hour_inner.rs
 src/models/get_campaign_analytics_202_response.rs
 src/models/get_campaign_bidding_200_response.rs
 src/models/get_campaign_targeting_200_response.rs
@@ -3901,6 +3916,9 @@ src/models/update_business_agent_settings_request.rs
 src/models/update_business_agent_settings_request_followup.rs
 src/models/update_business_agent_settings_request_handoff.rs
 src/models/update_business_agent_settings_request_rollout.rs
+src/models/update_campaign_ad_schedule_200_response.rs
+src/models/update_campaign_ad_schedule_request.rs
+src/models/update_campaign_ad_schedule_request_schedule_inner.rs
 src/models/update_campaign_assets_200_response.rs
 src/models/update_campaign_assets_request.rs
 src/models/update_campaign_targeting_200_response.rs

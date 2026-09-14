@@ -24,6 +24,7 @@ Method | HTTP request | Description
 [**get_ad_set_details**](AdCampaignsApi.md#get_ad_set_details) | **GET** /v1/ads/ad-sets/{adSetId} | Get live ad-set details
 [**get_ad_tree**](AdCampaignsApi.md#get_ad_tree) | **GET** /v1/ads/tree | Get campaign tree
 [**get_ads_timeline**](AdCampaignsApi.md#get_ads_timeline) | **GET** /v1/ads/timeline | Get daily account metrics
+[**get_campaign_ad_schedule**](AdCampaignsApi.md#get_campaign_ad_schedule) | **GET** /v1/ads/campaigns/{campaignId}/ad-schedule | Read a campaign's ad schedule (dayparting)
 [**get_campaign_bidding**](AdCampaignsApi.md#get_campaign_bidding) | **GET** /v1/ads/campaigns/{campaignId}/bidding | Read a campaign's current bidding
 [**get_campaign_targeting**](AdCampaignsApi.md#get_campaign_targeting) | **GET** /v1/ads/campaigns/{campaignId}/targeting | Read a Google campaign's device, location, and language targeting
 [**list_ad_campaigns**](AdCampaignsApi.md#list_ad_campaigns) | **GET** /v1/ads/campaigns | List campaigns
@@ -50,6 +51,7 @@ Method | HTTP request | Description
 [**update_ad_set_status**](AdCampaignsApi.md#update_ad_set_status) | **PUT** /v1/ads/ad-sets/{adSetId}/status | Pause or resume a single ad set
 [**update_ad_status**](AdCampaignsApi.md#update_ad_status) | **PUT** /v1/ads/{adId}/status | Pause or resume a single ad
 [**update_bid_strategy**](AdCampaignsApi.md#update_bid_strategy) | **PATCH** /v1/ads/bid-strategies/{strategyId} | Update portfolio bid strategy
+[**update_campaign_ad_schedule**](AdCampaignsApi.md#update_campaign_ad_schedule) | **PUT** /v1/ads/campaigns/{campaignId}/ad-schedule | Replace a campaign's ad schedule (dayparting)
 [**update_campaign_assets**](AdCampaignsApi.md#update_campaign_assets) | **PUT** /v1/ads/campaigns/{campaignId}/assets | Update campaign assets
 [**update_campaign_targeting**](AdCampaignsApi.md#update_campaign_targeting) | **PUT** /v1/ads/campaigns/{campaignId}/targeting | Edit a Google campaign's device, location, or language targeting
 
@@ -679,6 +681,41 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::AdsTimelineResponse**](AdsTimelineResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_campaign_ad_schedule
+
+> models::GetCampaignAdSchedule200Response get_campaign_ad_schedule(campaign_id, platform, include_performance, window_days, from_date, to_date)
+Read a campaign's ad schedule (dayparting)
+
+The windows a Google campaign serves in, with the bid modifier on each, plus the criterion ids Google minted for them.  An EMPTY `schedule` is meaningful and is not a failed lookup: Google has no \"all day\" criterion, so a campaign with no ad schedule serves around the clock. `servesAroundTheClock` states that explicitly.  Set `includePerformance=true` to also get delivery split by day of week and by hour, which is the evidence for deciding what the schedule should be. It is one extra Google call segmented by both dimensions at once, so the two views always agree.  Google Ads only. The response carries `cachedAt` and `stale`, set when a quota-exhausted call falls back to the last-good copy instead of a live read. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Numeric Google platform campaign id. | [required] |
+**platform** | Option<**String**> | Disambiguates the campaign id when the connection spans platforms. |  |
+**include_performance** | Option<**bool**> | Also return delivery by day of week and by hour. Costs one extra Google call. |  |
+**window_days** | Option<**i32**> | Trailing window for the performance split. Ignored when fromDate and toDate are both given. |  |[default to 30]
+**from_date** | Option<**String**> | Start of an explicit performance range (YYYY-MM-DD). Use together with toDate. |  |
+**to_date** | Option<**String**> | End of an explicit performance range (YYYY-MM-DD). Must be on or after fromDate. |  |
+
+### Return type
+
+[**models::GetCampaignAdSchedule200Response**](getCampaignAdSchedule_200_response.md)
 
 ### Authorization
 
@@ -1525,6 +1562,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UpdateBidStrategy200Response**](updateBidStrategy_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_campaign_ad_schedule
+
+> models::UpdateCampaignAdSchedule200Response update_campaign_ad_schedule(campaign_id, update_campaign_ad_schedule_request)
+Replace a campaign's ad schedule (dayparting)
+
+Replaces the campaign's whole ad schedule with the windows you send. This is a REPLACE, not a merge: windows you leave out stop serving.  Send `schedule: []` to clear dayparting, which returns the campaign to serving around the clock.  Google rules enforced here, so you get a named field instead of a criterion error: at most 6 windows per day, a window must end after it starts, windows on the same day may not overlap, `endHour` 24 is midnight and cannot carry minutes, and minutes are quarter-hours only (0, 15, 30, 45). `bidModifier` is 0.1-10.0; Google's 0 means \"off\" for devices only, so a window is switched off by leaving it out.  Windows are half-open (Google is exclusive of the end minute), so 09:00-12:00 and 12:00-17:00 on the same day are adjacent and both valid.  Google cannot edit an ad schedule in place (every AdScheduleInfo field is prohibited on update), so this removes the live criteria and creates the new ones in a single atomic mutate. The response is read back from Google and carries the new criterion ids. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Numeric Google platform campaign id. | [required] |
+**update_campaign_ad_schedule_request** | [**UpdateCampaignAdScheduleRequest**](UpdateCampaignAdScheduleRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateCampaignAdSchedule200Response**](updateCampaignAdSchedule_200_response.md)
 
 ### Authorization
 
