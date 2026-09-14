@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// TikTokPlatformDataMusicSoundInfo : Commercial Music Library track to attach. Accounts connected through the TikTok for Business app only: a developer-app account rejects the post at publish time with a message that says so. Pick musicSoundId from GET /v1/accounts/{accountId}/tiktok/commercial-music. Ignored on drafts, where TikTok ignores every post_info field.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TikTokPlatformDataMusicSoundInfo {
-    /// The commercial_music_id of the track.
+    /// The id field of a track from GET /v1/accounts/{accountId}/tiktok/commercial-music (a song clip id). TikTok fails the publish with a generic 51065 when given the commercial music id instead.
     #[serde(rename = "musicSoundId")]
     pub music_sound_id: String,
     /// Track volume. TikTok defaults an omitted volume to 0, which publishes the track silently, so we default to the app's 50. Video posts only.

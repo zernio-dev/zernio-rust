@@ -13,9 +13,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ListTikTokCommercialMusic200ResponseTracksInner {
-    /// The commercial_music_id to send as musicSoundId
+    /// The id to send as musicSoundId (the full track's song clip id). TikTok rejects the commercial music id itself at publish time.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
+    /// TikTok's commercial_music_id, for reference only
+    #[serde(rename = "commercialMusicId", skip_serializing_if = "Option::is_none")]
+    pub commercial_music_id: Option<String>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(rename = "artist", skip_serializing_if = "Option::is_none")]
@@ -40,6 +43,7 @@ impl ListTikTokCommercialMusic200ResponseTracksInner {
     pub fn new() -> ListTikTokCommercialMusic200ResponseTracksInner {
         ListTikTokCommercialMusic200ResponseTracksInner {
             id: None,
+            commercial_music_id: None,
             name: None,
             artist: None,
             duration_sec: None,

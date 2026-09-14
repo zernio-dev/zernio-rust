@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | Option<**String**> |  | [optional]
 **duration_sec** | Option<**i32**> |  | [optional]
 **preview_url** | Option<**String**> |  | [optional]
 

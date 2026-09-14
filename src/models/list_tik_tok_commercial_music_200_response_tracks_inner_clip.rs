@@ -11,9 +11,11 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ListTikTokCommercialMusic200ResponseTracksInnerClip : The trending excerpt of the track, when TikTok provides one
+/// ListTikTokCommercialMusic200ResponseTracksInnerClip : The trending excerpt of the track, when TikTok provides one. Its id is also accepted as musicSoundId.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ListTikTokCommercialMusic200ResponseTracksInnerClip {
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
     #[serde(rename = "durationSec", skip_serializing_if = "Option::is_none")]
     pub duration_sec: Option<i32>,
     #[serde(rename = "previewUrl", skip_serializing_if = "Option::is_none")]
@@ -21,9 +23,10 @@ pub struct ListTikTokCommercialMusic200ResponseTracksInnerClip {
 }
 
 impl ListTikTokCommercialMusic200ResponseTracksInnerClip {
-    /// The trending excerpt of the track, when TikTok provides one
+    /// The trending excerpt of the track, when TikTok provides one. Its id is also accepted as musicSoundId.
     pub fn new() -> ListTikTokCommercialMusic200ResponseTracksInnerClip {
         ListTikTokCommercialMusic200ResponseTracksInnerClip {
+            id: None,
             duration_sec: None,
             preview_url: None,
         }
