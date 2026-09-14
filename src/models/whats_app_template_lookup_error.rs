@@ -12,13 +12,13 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct CreateInboxConversation422Response {
+pub struct WhatsAppTemplateLookupError {
     #[serde(rename = "error")]
     pub error: String,
-    #[serde(rename = "code")]
-    pub code: Code,
     #[serde(rename = "type")]
     pub r#type: Type,
+    #[serde(rename = "code")]
+    pub code: Code,
     #[serde(rename = "platform")]
     pub platform: Platform,
     #[serde(rename = "platformError", skip_serializing_if = "Option::is_none")]
@@ -27,34 +27,22 @@ pub struct CreateInboxConversation422Response {
     pub details: Box<models::WhatsAppTemplateLookupErrorDetails>,
 }
 
-impl CreateInboxConversation422Response {
+impl WhatsAppTemplateLookupError {
     pub fn new(
         error: String,
-        code: Code,
         r#type: Type,
+        code: Code,
         platform: Platform,
         details: models::WhatsAppTemplateLookupErrorDetails,
-    ) -> CreateInboxConversation422Response {
-        CreateInboxConversation422Response {
+    ) -> WhatsAppTemplateLookupError {
+        WhatsAppTemplateLookupError {
             error,
-            code,
             r#type,
+            code,
             platform,
             platform_error: None,
             details: Box::new(details),
         }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Code {
-    #[serde(rename = "platform_api_error")]
-    PlatformApiError,
-}
-
-impl Default for Code {
-    fn default() -> Code {
-        Self::PlatformApiError
     }
 }
 ///
@@ -67,6 +55,18 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::PlatformError
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Code {
+    #[serde(rename = "platform_api_error")]
+    PlatformApiError,
+}
+
+impl Default for Code {
+    fn default() -> Code {
+        Self::PlatformApiError
     }
 }
 ///

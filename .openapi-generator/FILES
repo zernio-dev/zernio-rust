@@ -338,9 +338,13 @@ docs/CreateHighDemandPeriodRequest.md
 docs/CreateInboxConversation201Response.md
 docs/CreateInboxConversation201ResponseData.md
 docs/CreateInboxConversation400Response.md
+docs/CreateInboxConversation400ResponseAnyOf.md
 docs/CreateInboxConversation404Response.md
+docs/CreateInboxConversation404ResponseAnyOf.md
 docs/CreateInboxConversation422Response.md
+docs/CreateInboxConversation422ResponseAnyOf.md
 docs/CreateInboxConversation429Response.md
+docs/CreateInboxConversation429ResponseAnyOf.md
 docs/CreateInboxConversationRequest.md
 docs/CreateInboxConversationRequestHeaderLocation.md
 docs/CreateInboxConversationRequestHeaderMedia.md
@@ -1537,6 +1541,7 @@ docs/SendInboxMessage200ResponseDataPartialFailurePlatformError.md
 docs/SendInboxMessage200ResponseWarningsInner.md
 docs/SendInboxMessage400Response.md
 docs/SendInboxMessage400ResponsePlatformError.md
+docs/SendInboxMessage502Response.md
 docs/SendInboxMessageRequest.md
 docs/SendInboxMessageRequestButtonsInner.md
 docs/SendInboxMessageRequestContactsInner.md
@@ -2066,6 +2071,11 @@ docs/WhatsAppSandboxApi.md
 docs/WhatsAppSandboxSession.md
 docs/WhatsAppTemplateButton.md
 docs/WhatsAppTemplateComponent.md
+docs/WhatsAppTemplateLookupError.md
+docs/WhatsAppTemplateLookupErrorDetails.md
+docs/WhatsAppTemplateLookupErrorDetailsProviderHeaders.md
+docs/WhatsAppTemplateLookupErrorPlatformError.md
+docs/WhatsAppTemplateLookupErrorPlatformErrorErrorData.md
 docs/WhatsAppTemplatesApi.md
 docs/WorkflowEdge.md
 docs/WorkflowExecutionEvent.md
@@ -2501,9 +2511,13 @@ src/models/create_high_demand_period_request.rs
 src/models/create_inbox_conversation_201_response.rs
 src/models/create_inbox_conversation_201_response_data.rs
 src/models/create_inbox_conversation_400_response.rs
+src/models/create_inbox_conversation_400_response_any_of.rs
 src/models/create_inbox_conversation_404_response.rs
+src/models/create_inbox_conversation_404_response_any_of.rs
 src/models/create_inbox_conversation_422_response.rs
+src/models/create_inbox_conversation_422_response_any_of.rs
 src/models/create_inbox_conversation_429_response.rs
+src/models/create_inbox_conversation_429_response_any_of.rs
 src/models/create_inbox_conversation_request.rs
 src/models/create_inbox_conversation_request_header_location.rs
 src/models/create_inbox_conversation_request_header_media.rs
@@ -3674,6 +3688,7 @@ src/models/send_inbox_message_200_response_data_partial_failure_platform_error.r
 src/models/send_inbox_message_200_response_warnings_inner.rs
 src/models/send_inbox_message_400_response.rs
 src/models/send_inbox_message_400_response_platform_error.rs
+src/models/send_inbox_message_502_response.rs
 src/models/send_inbox_message_request.rs
 src/models/send_inbox_message_request_buttons_inner.rs
 src/models/send_inbox_message_request_contacts_inner.rs
@@ -4185,6 +4200,11 @@ src/models/whats_app_named_param_example.rs
 src/models/whats_app_sandbox_session.rs
 src/models/whats_app_template_button.rs
 src/models/whats_app_template_component.rs
+src/models/whats_app_template_lookup_error.rs
+src/models/whats_app_template_lookup_error_details.rs
+src/models/whats_app_template_lookup_error_details_provider_headers.rs
+src/models/whats_app_template_lookup_error_platform_error.rs
+src/models/whats_app_template_lookup_error_platform_error_error_data.rs
 src/models/workflow_edge.rs
 src/models/workflow_execution_event.rs
 src/models/workflow_node.rs

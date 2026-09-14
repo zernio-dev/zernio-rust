@@ -12,13 +12,17 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct CreateInboxConversation422Response {
+pub struct SendInboxMessage502Response {
     #[serde(rename = "error")]
     pub error: String,
-    #[serde(rename = "code")]
-    pub code: Code,
+    /// Error class for programmatic handling.
     #[serde(rename = "type")]
     pub r#type: Type,
+    #[serde(rename = "code")]
+    pub code: Code,
+    /// The request field that caused the error, when applicable.
+    #[serde(rename = "param", skip_serializing_if = "Option::is_none")]
+    pub param: Option<String>,
     #[serde(rename = "platform")]
     pub platform: Platform,
     #[serde(rename = "platformError", skip_serializing_if = "Option::is_none")]
@@ -27,22 +31,47 @@ pub struct CreateInboxConversation422Response {
     pub details: Box<models::WhatsAppTemplateLookupErrorDetails>,
 }
 
-impl CreateInboxConversation422Response {
+impl SendInboxMessage502Response {
     pub fn new(
         error: String,
-        code: Code,
         r#type: Type,
+        code: Code,
         platform: Platform,
         details: models::WhatsAppTemplateLookupErrorDetails,
-    ) -> CreateInboxConversation422Response {
-        CreateInboxConversation422Response {
+    ) -> SendInboxMessage502Response {
+        SendInboxMessage502Response {
             error,
-            code,
             r#type,
+            code,
+            param: None,
             platform,
             platform_error: None,
             details: Box::new(details),
         }
+    }
+}
+/// Error class for programmatic handling.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "invalid_request_error")]
+    InvalidRequestError,
+    #[serde(rename = "authentication_error")]
+    AuthenticationError,
+    #[serde(rename = "permission_error")]
+    PermissionError,
+    #[serde(rename = "not_found")]
+    NotFound,
+    #[serde(rename = "rate_limit_error")]
+    RateLimitError,
+    #[serde(rename = "platform_error")]
+    PlatformError,
+    #[serde(rename = "api_error")]
+    ApiError,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::InvalidRequestError
     }
 }
 ///
@@ -55,18 +84,6 @@ pub enum Code {
 impl Default for Code {
     fn default() -> Code {
         Self::PlatformApiError
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "platform_error")]
-    PlatformError,
-}
-
-impl Default for Type {
-    fn default() -> Type {
-        Self::PlatformError
     }
 }
 ///

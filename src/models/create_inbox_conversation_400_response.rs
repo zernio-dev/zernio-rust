@@ -13,45 +13,71 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateInboxConversation400Response {
-    #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
-    pub error: Option<String>,
-    #[serde(rename = "code", skip_serializing_if = "Option::is_none")]
-    pub code: Option<Code>,
+    #[serde(rename = "error")]
+    pub error: String,
+    #[serde(rename = "code")]
+    pub code: Code,
+    #[serde(rename = "type")]
+    pub r#type: Type,
+    #[serde(rename = "platform")]
+    pub platform: Platform,
+    #[serde(rename = "platformError", skip_serializing_if = "Option::is_none")]
+    pub platform_error: Option<Box<models::WhatsAppTemplateLookupErrorPlatformError>>,
+    #[serde(rename = "details")]
+    pub details: Box<models::WhatsAppTemplateLookupErrorDetails>,
 }
 
 impl CreateInboxConversation400Response {
-    pub fn new() -> CreateInboxConversation400Response {
+    pub fn new(
+        error: String,
+        code: Code,
+        r#type: Type,
+        platform: Platform,
+        details: models::WhatsAppTemplateLookupErrorDetails,
+    ) -> CreateInboxConversation400Response {
         CreateInboxConversation400Response {
-            error: None,
-            code: None,
+            error,
+            code,
+            r#type,
+            platform,
+            platform_error: None,
+            details: Box::new(details),
         }
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Code {
-    #[serde(rename = "PLATFORM_NOT_SUPPORTED")]
-    PlatformNotSupported,
-    #[serde(rename = "PLATFORM_LIMITATION")]
-    PlatformLimitation,
-    #[serde(rename = "TEMPLATE_REQUIRED")]
-    TemplateRequired,
-    #[serde(rename = "INVALID_TEMPLATE_PARAMS")]
-    InvalidTemplateParams,
-    #[serde(rename = "INVALID_TEMPLATE_BUTTON_PARAM")]
-    InvalidTemplateButtonParam,
-    #[serde(rename = "INVALID_TEMPLATE_CARD_PARAM")]
-    InvalidTemplateCardParam,
-    #[serde(rename = "DIRECT_SEND_NOT_ELIGIBLE")]
-    DirectSendNotEligible,
-    #[serde(rename = "DIRECT_SEND_LIMITED")]
-    DirectSendLimited,
-    #[serde(rename = "DIRECT_SEND_BLOCKED")]
-    DirectSendBlocked,
+    #[serde(rename = "platform_api_error")]
+    PlatformApiError,
 }
 
 impl Default for Code {
     fn default() -> Code {
-        Self::PlatformNotSupported
+        Self::PlatformApiError
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "platform_error")]
+    PlatformError,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::PlatformError
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Platform {
+    #[serde(rename = "whatsapp")]
+    Whatsapp,
+}
+
+impl Default for Platform {
+    fn default() -> Platform {
+        Self::Whatsapp
     }
 }
