@@ -38,6 +38,9 @@ pub struct TargetingSpec {
     #[serde(rename = "metros", skip_serializing_if = "Option::is_none")]
     pub metros:
         Option<Vec<models::UpdateCampaignTargetingRequestTargetingLocationsOneOfRegionsInner>>,
+    /// Meta only. Continents and trade blocs (`geo_locations.country_groups`), for targeting a whole region without listing its countries. Combines with `countries` rather than replacing it, and is also accepted under `excludedLocations`. Discoverable via `GET /v1/ads/targeting/search?dimension=geo&geoType=country_group`.
+    #[serde(rename = "countryGroups", skip_serializing_if = "Option::is_none")]
+    pub country_groups: Option<Vec<CountryGroups>>,
     /// Point-radius (lat/lng) targeting (Meta custom_locations / Google proximity). Honoured on Meta and Google; ignored on platforms without radius support.
     #[serde(rename = "customLocations", skip_serializing_if = "Option::is_none")]
     pub custom_locations: Option<Vec<models::TargetingSpecCustomLocationsInner>>,
@@ -104,6 +107,7 @@ impl TargetingSpec {
             cities: None,
             zips: None,
             metros: None,
+            country_groups: None,
             custom_locations: None,
             excluded_locations: None,
             age_min: None,
@@ -123,6 +127,56 @@ impl TargetingSpec {
             audience_include: None,
             audience_exclude: None,
         }
+    }
+}
+/// Meta only. Continents and trade blocs (`geo_locations.country_groups`), for targeting a whole region without listing its countries. Combines with `countries` rather than replacing it, and is also accepted under `excludedLocations`. Discoverable via `GET /v1/ads/targeting/search?dimension=geo&geoType=country_group`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum CountryGroups {
+    #[serde(rename = "africa")]
+    Africa,
+    #[serde(rename = "asia")]
+    Asia,
+    #[serde(rename = "europe")]
+    Europe,
+    #[serde(rename = "north_america")]
+    NorthAmerica,
+    #[serde(rename = "south_america")]
+    SouthAmerica,
+    #[serde(rename = "oceania")]
+    Oceania,
+    #[serde(rename = "central_america")]
+    CentralAmerica,
+    #[serde(rename = "caribbean")]
+    Caribbean,
+    #[serde(rename = "eea")]
+    Eea,
+    #[serde(rename = "euro_area")]
+    EuroArea,
+    #[serde(rename = "nafta")]
+    Nafta,
+    #[serde(rename = "mercosur")]
+    Mercosur,
+    #[serde(rename = "afta")]
+    Afta,
+    #[serde(rename = "apec")]
+    Apec,
+    #[serde(rename = "gcc")]
+    Gcc,
+    #[serde(rename = "cisfta")]
+    Cisfta,
+    #[serde(rename = "emerging_markets")]
+    EmergingMarkets,
+    #[serde(rename = "itunes_app_store")]
+    ItunesAppStore,
+    #[serde(rename = "android_free_store")]
+    AndroidFreeStore,
+    #[serde(rename = "android_paid_store")]
+    AndroidPaidStore,
+}
+
+impl Default for CountryGroups {
+    fn default() -> CountryGroups {
+        Self::Africa
     }
 }
 /// Restrict by gender. 'all' (default) targets everyone. Applied on Meta, TikTok and Pinterest. Ignored on Google, LinkedIn and X.
