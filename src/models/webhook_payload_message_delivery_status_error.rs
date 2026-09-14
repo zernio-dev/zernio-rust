@@ -20,7 +20,13 @@ pub struct WebhookPayloadMessageDeliveryStatusError {
     pub title: Option<String>,
     #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
-    /// Plain-language translation of `code` (e.g. for 131026, that the recipient has likely opted out of marketing messages while utility templates are unaffected). Null for unmapped codes; fall back to title/message.
+    /// Platform's extended detail for `code` (WhatsApp: Meta's `error_data.details`), when the platform sent one. Absent on SMS.
+    #[serde(rename = "details", skip_serializing_if = "Option::is_none")]
+    pub details: Option<String>,
+    /// Link to the platform's documentation for `code`, when the platform sent one.
+    #[serde(rename = "href", skip_serializing_if = "Option::is_none")]
+    pub href: Option<String>,
+    /// Plain-language translation of `code` (e.g. for 131026, that the recipient has likely opted out of marketing messages while utility templates are unaffected, or for 131031, that Meta restricted the WhatsApp Business Account). Null for unmapped codes; fall back to title/message.
     #[serde(
         rename = "explanation",
         default,
@@ -37,6 +43,8 @@ impl WebhookPayloadMessageDeliveryStatusError {
             code: None,
             title: None,
             message: None,
+            details: None,
+            href: None,
             explanation: None,
         }
     }

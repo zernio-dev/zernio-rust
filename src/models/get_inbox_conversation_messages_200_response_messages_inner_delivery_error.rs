@@ -20,6 +20,12 @@ pub struct GetInboxConversationMessages200ResponseMessagesInnerDeliveryError {
     pub title: Option<String>,
     #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
+    /// Platform's extended detail for `code` (WhatsApp: Meta's `error_data.details`), when the platform sent one. Absent on SMS.
+    #[serde(rename = "details", skip_serializing_if = "Option::is_none")]
+    pub details: Option<String>,
+    /// Link to the platform's documentation for `code`, when the platform sent one.
+    #[serde(rename = "href", skip_serializing_if = "Option::is_none")]
+    pub href: Option<String>,
 }
 
 impl GetInboxConversationMessages200ResponseMessagesInnerDeliveryError {
@@ -29,6 +35,8 @@ impl GetInboxConversationMessages200ResponseMessagesInnerDeliveryError {
             code: None,
             title: None,
             message: None,
+            details: None,
+            href: None,
         }
     }
 }
