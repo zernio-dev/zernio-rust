@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**get_slack_settings**](AccountsApi.md#get_slack_settings) | **GET** /v1/accounts/{accountId}/slack-settings | Get Slack account settings
 [**get_tik_tok_creator_info**](AccountsApi.md#get_tik_tok_creator_info) | **GET** /v1/accounts/{accountId}/tiktok/creator-info | Get TikTok creator info
 [**list_accounts**](AccountsApi.md#list_accounts) | **GET** /v1/accounts | List accounts
+[**list_tik_tok_commercial_music**](AccountsApi.md#list_tik_tok_commercial_music) | **GET** /v1/accounts/{accountId}/tiktok/commercial-music | List trending commercial music
 [**move_account_to_profile**](AccountsApi.md#move_account_to_profile) | **PATCH** /v1/accounts/{accountId} | Move account to another profile
 [**update_account**](AccountsApi.md#update_account) | **PUT** /v1/accounts/{accountId} | Update account
 [**update_bluesky_settings**](AccountsApi.md#update_bluesky_settings) | **PATCH** /v1/accounts/{accountId}/bluesky-settings | Update Bluesky account settings
@@ -322,6 +323,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::AccountsListResponse**](AccountsListResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_tik_tok_commercial_music
+
+> models::ListTikTokCommercialMusic200Response list_tik_tok_commercial_music(account_id, country_code)
+List trending commercial music
+
+Returns the 100 currently trending tracks of TikTok's Commercial Music Library for a TikTok account connected through the TikTok for Business app. Use a track id as tiktokSettings.musicSoundInfo.musicSoundId when creating a post. The list is not paged; countryCode selects the country chart.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The TikTok account ID | [required] |
+**country_code** | Option<**String**> | Two-letter ISO 3166-1 country code of the chart to read (for example ES). Defaults to TikTok's global chart. |  |
+
+### Return type
+
+[**models::ListTikTokCommercialMusic200Response**](listTikTokCommercialMusic_200_response.md)
 
 ### Authorization
 

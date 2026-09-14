@@ -1234,6 +1234,9 @@ docs/ListSnapchatProfiles200ResponsePublicProfilesInner.md
 docs/ListTikTokAdPixels200Response.md
 docs/ListTikTokAdPixels200ResponsePixelsInner.md
 docs/ListTikTokAdPixels200ResponsePixelsInnerEventDetailsInner.md
+docs/ListTikTokCommercialMusic200Response.md
+docs/ListTikTokCommercialMusic200ResponseTracksInner.md
+docs/ListTikTokCommercialMusic200ResponseTracksInnerClip.md
 docs/ListTrackingTagSharedAccounts200Response.md
 docs/ListTrackingTags200Response.md
 docs/ListUsers200Response.md
@@ -1660,6 +1663,7 @@ docs/ThreadsPlatformData.md
 docs/TikTokDryRunVerdict.md
 docs/TikTokDryRunVerdictTiktokInner.md
 docs/TikTokPlatformData.md
+docs/TikTokPlatformDataMusicSoundInfo.md
 docs/ToolsApi.md
 docs/TrackingTag.md
 docs/TrackingTagsApi.md
@@ -3378,6 +3382,9 @@ src/models/list_snapchat_profiles_200_response_public_profiles_inner.rs
 src/models/list_tik_tok_ad_pixels_200_response.rs
 src/models/list_tik_tok_ad_pixels_200_response_pixels_inner.rs
 src/models/list_tik_tok_ad_pixels_200_response_pixels_inner_event_details_inner.rs
+src/models/list_tik_tok_commercial_music_200_response.rs
+src/models/list_tik_tok_commercial_music_200_response_tracks_inner.rs
+src/models/list_tik_tok_commercial_music_200_response_tracks_inner_clip.rs
 src/models/list_tracking_tag_shared_accounts_200_response.rs
 src/models/list_tracking_tags_200_response.rs
 src/models/list_users_200_response.rs
@@ -3790,6 +3797,7 @@ src/models/threads_platform_data.rs
 src/models/tik_tok_dry_run_verdict.rs
 src/models/tik_tok_dry_run_verdict_tiktok_inner.rs
 src/models/tik_tok_platform_data.rs
+src/models/tik_tok_platform_data_music_sound_info.rs
 src/models/tracking_tag.rs
 src/models/transfer_voice_call_200_response.rs
 src/models/transfer_voice_call_request.rs

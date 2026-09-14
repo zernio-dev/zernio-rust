@@ -71,9 +71,17 @@ pub struct TikTokPlatformData {
     /// Optional for photo carousels. Index of image to use as cover, 0-based (defaults to 0/first image).
     #[serde(rename = "photoCoverIndex", skip_serializing_if = "Option::is_none")]
     pub photo_cover_index: Option<i32>,
-    /// When true, TikTok may add recommended music (photos only)
+    /// When true, TikTok may add recommended music (photos only). With the brand-organic or branded-content toggle on, TikTok allows Commercial Music Library tracks only, so this attaches nothing there; use musicSoundInfo instead.
     #[serde(rename = "autoAddMusic", skip_serializing_if = "Option::is_none")]
     pub auto_add_music: Option<bool>,
+    #[serde(rename = "musicSoundInfo", skip_serializing_if = "Option::is_none")]
+    pub music_sound_info: Option<Box<models::TikTokPlatformDataMusicSoundInfo>>,
+    /// Volume of the video's own sound when a commercial track is attached (0 to 100). Requires musicSoundInfo. Video posts only.
+    #[serde(
+        rename = "videoOriginalSoundVolume",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub video_original_sound_volume: Option<i32>,
     /// Set true to disclose AI-generated content. Accounts connected through the TikTok for Business app carry the disclosure on video posts only: the business photo endpoint has no AI disclosure field, so true on a direct photo post is rejected at creation rather than published undisclosed. Send draft true to publish such a photo post and set the disclosure in the TikTok app.
     #[serde(rename = "videoMadeWithAi", skip_serializing_if = "Option::is_none")]
     pub video_made_with_ai: Option<bool>,
@@ -101,6 +109,8 @@ impl TikTokPlatformData {
             video_cover_image_url: None,
             photo_cover_index: None,
             auto_add_music: None,
+            music_sound_info: None,
+            video_original_sound_volume: None,
             video_made_with_ai: None,
             description: None,
         }

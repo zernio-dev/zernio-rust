@@ -114,6 +114,15 @@ pub enum ListAccountsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_tik_tok_commercial_music`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListTikTokCommercialMusicError {
+    Status400(models::ErrorResponse),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`move_account_to_profile`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -724,6 +733,62 @@ pub async fn list_accounts(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListAccountsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns the 100 currently trending tracks of TikTok's Commercial Music Library for a TikTok account connected through the TikTok for Business app. Use a track id as tiktokSettings.musicSoundInfo.musicSoundId when creating a post. The list is not paged; countryCode selects the country chart.
+pub async fn list_tik_tok_commercial_music(
+    configuration: &configuration::Configuration,
+    account_id: &str,
+    country_code: Option<&str>,
+) -> Result<models::ListTikTokCommercialMusic200Response, Error<ListTikTokCommercialMusicError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_account_id = account_id;
+    let p_query_country_code = country_code;
+
+    let uri_str = format!(
+        "{}/v1/accounts/{accountId}/tiktok/commercial-music",
+        configuration.base_path,
+        accountId = crate::apis::urlencode(p_path_account_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_country_code {
+        req_builder = req_builder.query(&[("countryCode", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListTikTokCommercialMusic200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListTikTokCommercialMusic200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListTikTokCommercialMusicError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
