@@ -229,7 +229,7 @@ Returns posts with comment counts from all connected accounts. Aggregates data a
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **profile_id** | Option<**String**> | Filter by profile ID |  |
-**platform** | Option<**String**> | Filter by platform. `metaads` is a synthetic value meaning the user's ads (boosted/dark posts) only; `facebook`/`instagram` return organic posts only. |  |
+**platform** | Option<**String**> | Filter by platform. `metaads` is a synthetic value meaning the user's ads (boosted/dark posts) only; `facebook`/`instagram` return organic posts only. `tiktok` covers accounts connected through the TikTok Business app only; developer-app TikTok accounts are returned under `meta.accountsSkipped`. |  |
 **min_comments** | Option<**i32**> | Minimum comment count |  |
 **since** | Option<**String**> | Posts created after this date |  |
 **sort_by** | Option<**String**> | Sort field |  |[default to date]
