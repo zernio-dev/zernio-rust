@@ -46,6 +46,14 @@ pub struct GetCommentAutomation200ResponseLogsInner {
     /// DM error message if status is failed
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
     pub error: Option<String>,
+    #[serde(rename = "platformError", skip_serializing_if = "Option::is_none")]
+    pub platform_error: Option<Box<models::GetCommentAutomation200ResponseLogsInnerPlatformError>>,
+    /// True when the failed send spent the comment's single Instagram private reply (subcode 1545133 or 2534023), the same rule as `details.privateReplyConsumed` on the private-reply endpoint. Absent on direct DMs, on Facebook, and on rows written before this field existed.
+    #[serde(
+        rename = "privateReplyConsumed",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub private_reply_consumed: Option<bool>,
     /// Outcome of the optional public reply on the triggering comment. 'skipped' if no commentReply was configured or if the DM failed (the public reply is not attempted in that case).
     #[serde(rename = "commentReplyStatus", skip_serializing_if = "Option::is_none")]
     pub comment_reply_status: Option<CommentReplyStatus>,
@@ -73,6 +81,8 @@ impl GetCommentAutomation200ResponseLogsInner {
             commenter_is_follower: None,
             commenter_follower_count: None,
             error: None,
+            platform_error: None,
+            private_reply_consumed: None,
             comment_reply_status: None,
             comment_reply_error: None,
             next_due_at: None,

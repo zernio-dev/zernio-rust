@@ -647,6 +647,7 @@ docs/GetCampaignTargeting200ResponseLocationsInner.md
 docs/GetCommentAutomation200Response.md
 docs/GetCommentAutomation200ResponseAutomation.md
 docs/GetCommentAutomation200ResponseLogsInner.md
+docs/GetCommentAutomation200ResponseLogsInnerPlatformError.md
 docs/GetConnectUrl200Response.md
 docs/GetContact200Response.md
 docs/GetContact200ResponseChannelsInner.md
@@ -2803,6 +2804,7 @@ src/models/get_campaign_targeting_200_response_locations_inner.rs
 src/models/get_comment_automation_200_response.rs
 src/models/get_comment_automation_200_response_automation.rs
 src/models/get_comment_automation_200_response_logs_inner.rs
+src/models/get_comment_automation_200_response_logs_inner_platform_error.rs
 src/models/get_connect_url_200_response.rs
 src/models/get_contact_200_response.rs
 src/models/get_contact_200_response_channels_inner.rs

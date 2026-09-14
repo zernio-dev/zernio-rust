@@ -1240,6 +1240,8 @@ pub mod get_comment_automation_200_response_automation;
 pub use self::get_comment_automation_200_response_automation::GetCommentAutomation200ResponseAutomation;
 pub mod get_comment_automation_200_response_logs_inner;
 pub use self::get_comment_automation_200_response_logs_inner::GetCommentAutomation200ResponseLogsInner;
+pub mod get_comment_automation_200_response_logs_inner_platform_error;
+pub use self::get_comment_automation_200_response_logs_inner_platform_error::GetCommentAutomation200ResponseLogsInnerPlatformError;
 pub mod get_connect_url_200_response;
 pub use self::get_connect_url_200_response::GetConnectUrl200Response;
 pub mod get_contact_200_response;
