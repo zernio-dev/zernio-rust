@@ -139,6 +139,7 @@ docs/BookmarkPostRequest.md
 docs/BoostPostRequest.md
 docs/BoostPostRequestBudget.md
 docs/BoostPostRequestPlatformSpecificData.md
+docs/BoostPostRequestPromotedObject.md
 docs/BoostPostRequestSchedule.md
 docs/BoostPostRequestTargeting.md
 docs/BoostPostRequestTargetingCitiesInner.md
@@ -2330,6 +2331,7 @@ src/models/bookmark_post_request.rs
 src/models/boost_post_request.rs
 src/models/boost_post_request_budget.rs
 src/models/boost_post_request_platform_specific_data.rs
+src/models/boost_post_request_promoted_object.rs
 src/models/boost_post_request_schedule.rs
 src/models/boost_post_request_targeting.rs
 src/models/boost_post_request_targeting_cities_inner.rs

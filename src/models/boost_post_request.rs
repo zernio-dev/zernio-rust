@@ -109,6 +109,8 @@ pub struct BoostPostRequest {
     /// TikTok-only. Spark Code (creator's `auth_code`) authorizing cross-creator Spark Ads: the advertiser can boost a video owned by a DIFFERENT TikTok account. Without this, boosts are limited to videos owned by the same account running the ads (same-BC creators only). The creator generates the code in their TikTok app's Promote settings and shares it with the advertiser. Maps to `auth_code` on the creative entry of /v2/ad/create/.
     #[serde(rename = "sparkAuthCode", skip_serializing_if = "Option::is_none")]
     pub spark_auth_code: Option<String>,
+    #[serde(rename = "promotedObject", skip_serializing_if = "Option::is_none")]
+    pub promoted_object: Option<Box<models::BoostPostRequestPromotedObject>>,
     /// Legal entity that benefits from the ad. Required when targeting EU users (EU DSA, Article 26). Optional if the ad account has a default beneficiary: set it once via `PATCH /v1/ads/accounts` or in Meta Ads Manager, and Meta fills it in whenever the field is omitted.
     #[serde(rename = "dsaBeneficiary", skip_serializing_if = "Option::is_none")]
     pub dsa_beneficiary: Option<String>,
@@ -162,6 +164,7 @@ impl BoostPostRequest {
             link_url: None,
             call_to_action: None,
             spark_auth_code: None,
+            promoted_object: None,
             dsa_beneficiary: None,
             dsa_payor: None,
             lead_gen_form_id: None,
