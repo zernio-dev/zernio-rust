@@ -19,6 +19,9 @@ pub struct CreatePhoneNumberStockWatchRequest {
     /// Narrow the watch to one number type. Omit to be notified when any type in the country is back.
     #[serde(rename = "numberType", skip_serializing_if = "Option::is_none")]
     pub number_type: Option<NumberType>,
+    /// Narrow the watch to one area code (NDC). Requires numberType.
+    #[serde(rename = "areaCode", skip_serializing_if = "Option::is_none")]
+    pub area_code: Option<String>,
 }
 
 impl CreatePhoneNumberStockWatchRequest {
@@ -26,6 +29,7 @@ impl CreatePhoneNumberStockWatchRequest {
         CreatePhoneNumberStockWatchRequest {
             country,
             number_type: None,
+            area_code: None,
         }
     }
 }

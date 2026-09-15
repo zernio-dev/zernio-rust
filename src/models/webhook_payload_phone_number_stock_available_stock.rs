@@ -19,6 +19,12 @@ pub struct WebhookPayloadPhoneNumberStockAvailableStock {
     /// Number types deliverable at sweep time. Only types with stock are listed.
     #[serde(rename = "types")]
     pub types: Vec<models::WebhookPayloadPhoneNumberStockAvailableStockTypesInner>,
+    /// Set when the watch named an area: the area code (NDC) that is back in stock.
+    #[serde(rename = "areaCode", skip_serializing_if = "Option::is_none")]
+    pub area_code: Option<String>,
+    /// The name of that area, when known.
+    #[serde(rename = "areaName", skip_serializing_if = "Option::is_none")]
+    pub area_name: Option<String>,
 }
 
 impl WebhookPayloadPhoneNumberStockAvailableStock {
@@ -26,6 +32,11 @@ impl WebhookPayloadPhoneNumberStockAvailableStock {
         country: String,
         types: Vec<models::WebhookPayloadPhoneNumberStockAvailableStockTypesInner>,
     ) -> WebhookPayloadPhoneNumberStockAvailableStock {
-        WebhookPayloadPhoneNumberStockAvailableStock { country, types }
+        WebhookPayloadPhoneNumberStockAvailableStock {
+            country,
+            types,
+            area_code: None,
+            area_name: None,
+        }
     }
 }

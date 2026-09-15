@@ -213,6 +213,7 @@ docs/ChannelPickerChannelsInner.md
 docs/ChannelPickerTeam.md
 docs/CheckPhoneNumberAvailability200Response.md
 docs/CheckPhoneNumberAvailability200ResponseAreaOptionsInner.md
+docs/CheckPhoneNumberAvailability200ResponseSoldOutAreasInner.md
 docs/CheckPhoneNumberPortability200Response.md
 docs/CheckPhoneNumberPortability200ResponseResultsInner.md
 docs/CheckPhoneNumberPortabilityRequest.md
@@ -2405,6 +2406,7 @@ src/models/channel_picker_channels_inner.rs
 src/models/channel_picker_team.rs
 src/models/check_phone_number_availability_200_response.rs
 src/models/check_phone_number_availability_200_response_area_options_inner.rs
+src/models/check_phone_number_availability_200_response_sold_out_areas_inner.rs
 src/models/check_phone_number_portability_200_response.rs
 src/models/check_phone_number_portability_200_response_results_inner.rs
 src/models/check_phone_number_portability_request.rs

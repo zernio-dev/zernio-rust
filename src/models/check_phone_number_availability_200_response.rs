@@ -31,6 +31,10 @@ pub struct CheckPhoneNumberAvailability200Response {
     /// Live inventory grouped by area code. For US and CA this is the full country inventory (every area code with stock, recognizable metros listed first, then alphabetical); other countries are ordered largest stock first; they list the areas in the latest inventory page (up to 500 numbers, which for most countries is the entire pool). Empty when out of stock (or the area lookup failed). Pass a chosen `ndc` as `areaCode` on POST /v1/phone-numbers/purchase (or on the KYC submit for regulated countries) to require that area.
     #[serde(rename = "areaOptions", skip_serializing_if = "Option::is_none")]
     pub area_options: Option<Vec<models::CheckPhoneNumberAvailability200ResponseAreaOptionsInner>>,
+    /// Areas that had stock in the last 90 days and have none now. Pass one as `areaCode` with `preOrder: true` on the KYC submit when `preOrderable` is true, or watch it with POST /v1/phone-numbers/stock-watches.
+    #[serde(rename = "soldOutAreas", skip_serializing_if = "Option::is_none")]
+    pub sold_out_areas:
+        Option<Vec<models::CheckPhoneNumberAvailability200ResponseSoldOutAreasInner>>,
 }
 
 impl CheckPhoneNumberAvailability200Response {
@@ -43,6 +47,7 @@ impl CheckPhoneNumberAvailability200Response {
             address_constraint: None,
             areas: None,
             area_options: None,
+            sold_out_areas: None,
         }
     }
 }

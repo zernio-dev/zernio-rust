@@ -23,6 +23,14 @@ pub struct PhoneNumberStockWatch {
     /// The watched number type, or null when the watch covers every type in the country.
     #[serde(rename = "numberType", deserialize_with = "Option::deserialize")]
     pub number_type: Option<NumberType>,
+    /// The watched area code (NDC), or null when the watch covers every area.
+    #[serde(
+        rename = "areaCode",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub area_code: Option<Option<String>>,
     #[serde(rename = "createdAt")]
     pub created_at: String,
 }
@@ -40,6 +48,7 @@ impl PhoneNumberStockWatch {
             country,
             country_name,
             number_type,
+            area_code: None,
             created_at,
         }
     }

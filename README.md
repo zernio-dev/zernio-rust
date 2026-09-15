@@ -973,6 +973,7 @@ Class | Method | HTTP request | Description
  - [ChannelPickerTeam](docs/ChannelPickerTeam.md)
  - [CheckPhoneNumberAvailability200Response](docs/CheckPhoneNumberAvailability200Response.md)
  - [CheckPhoneNumberAvailability200ResponseAreaOptionsInner](docs/CheckPhoneNumberAvailability200ResponseAreaOptionsInner.md)
+ - [CheckPhoneNumberAvailability200ResponseSoldOutAreasInner](docs/CheckPhoneNumberAvailability200ResponseSoldOutAreasInner.md)
  - [CheckPhoneNumberPortability200Response](docs/CheckPhoneNumberPortability200Response.md)
  - [CheckPhoneNumberPortability200ResponseResultsInner](docs/CheckPhoneNumberPortability200ResponseResultsInner.md)
  - [CheckPhoneNumberPortabilityRequest](docs/CheckPhoneNumberPortabilityRequest.md)

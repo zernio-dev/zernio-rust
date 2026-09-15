@@ -35,6 +35,9 @@ pub struct SubmitWhatsAppNumberKycRequest {
     /// Area code (NDC) the number must be in. Hard constraint: an empty area pool fails with 409 code AREA_CODE_UNAVAILABLE instead of ordering from another area. Omit for any area. Options come from GET /v1/phone-numbers/availability (areaOptions); the purchase 202 kycUrl echoes the areaCode picked at purchase time so it can be passed here.
     #[serde(rename = "areaCode", skip_serializing_if = "Option::is_none")]
     pub area_code: Option<String>,
+    /// With areaCode: pre-order that area when it has no stock (an area listed in soldOutAreas with preOrderable true) instead of failing with AREA_CODE_UNAVAILABLE. The carrier sources a number in that area.
+    #[serde(rename = "preOrder", skip_serializing_if = "Option::is_none")]
+    pub pre_order: Option<bool>,
     /// End user's legal first name. Required when the country has an action/ID-verification (Onfido) requirement.
     #[serde(rename = "endUserFirstName", skip_serializing_if = "Option::is_none")]
     pub end_user_first_name: Option<String>,
@@ -62,6 +65,7 @@ impl SubmitWhatsAppNumberKycRequest {
             reuse_option_id: None,
             reuse_from: None,
             area_code: None,
+            pre_order: None,
             end_user_first_name: None,
             end_user_last_name: None,
             values: None,
