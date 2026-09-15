@@ -23,6 +23,9 @@ pub struct RespondToPhoneNumberReviewerRequestDocumentsInner {
     /// Id of a document already uploaded out-of-band.
     #[serde(rename = "documentId", skip_serializing_if = "Option::is_none")]
     pub document_id: Option<String>,
+    /// Date printed on the document (YYYY-MM-DD), for slots the regulator windows such as proof of address. The pre-submit review trusts it over its own read of the PDF.
+    #[serde(rename = "issuedAt", skip_serializing_if = "Option::is_none")]
+    pub issued_at: Option<String>,
 }
 
 impl RespondToPhoneNumberReviewerRequestDocumentsInner {
@@ -32,6 +35,7 @@ impl RespondToPhoneNumberReviewerRequestDocumentsInner {
             filename: None,
             base64: None,
             document_id: None,
+            issued_at: None,
         }
     }
 }

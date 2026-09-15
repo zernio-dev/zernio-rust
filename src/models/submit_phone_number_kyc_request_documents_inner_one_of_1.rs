@@ -18,6 +18,9 @@ pub struct SubmitPhoneNumberKycRequestDocumentsInnerOneOf1 {
     /// Id from POST /v1/phone-numbers/kyc/upload-document.
     #[serde(rename = "documentId")]
     pub document_id: String,
+    /// Date printed on the document (YYYY-MM-DD), for slots the regulator windows such as proof of address. The pre-submit review trusts it over its own read of the PDF.
+    #[serde(rename = "issuedAt", skip_serializing_if = "Option::is_none")]
+    pub issued_at: Option<String>,
 }
 
 impl SubmitPhoneNumberKycRequestDocumentsInnerOneOf1 {
@@ -28,6 +31,7 @@ impl SubmitPhoneNumberKycRequestDocumentsInnerOneOf1 {
         SubmitPhoneNumberKycRequestDocumentsInnerOneOf1 {
             requirement_id,
             document_id,
+            issued_at: None,
         }
     }
 }
