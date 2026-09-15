@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ErrorResponseDetails : Additional structured context (e.g. field-level validation errors), for example `privateReplyConsumed` on the private-reply endpoint's 400 when the comment's single reply is already spent.  On a Google Ads 429 it carries `quotaExhausted: true`, which marks the failure as Google's own ads quota rather than a Zernio rate limit, so you can keep calling other platforms instead of backing off everywhere. When Google names the scope it also carries `quotaScope`: `DEVELOPER` means the shared developer-token budget (every Google account is affected and there is nothing to change on your side), `ACCOUNT` means your own ad account. A Meta 429 carries neither field.
+/// ErrorResponseDetails : Additional structured context (e.g. field-level validation errors), for example `privateReplyConsumed` on the private-reply endpoint's 400 when the comment's single reply is already spent.  On a Google Ads 429 it carries `quotaExhausted: true`, which marks the failure as Google's own ads quota rather than a Zernio rate limit, so you can keep calling other platforms instead of backing off everywhere. When Google names the scope it also carries `quotaScope`: `DEVELOPER` means the shared developer-token budget (every Google account is affected and there is nothing to change on your side), `ACCOUNT` means your own ad account. A Meta 429 carries neither field.  A Zernio Google Ads budget 429 carries `budgetScope` instead, and never `quotaExhausted`: these are Zernio's own limits, applied before the call reaches Google. `user` is your own burst or daily allowance, so the work is yours to reschedule; `platform` is the fleet-wide daily budget shared with every other customer, so only waiting for the reset clears it. The two scopes are separate axes from `quotaScope`, not the same pool named twice.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ErrorResponseDetails {
     /// Google Ads 429 only. True when the upstream Google Ads quota is spent rather than a Zernio limit.
@@ -20,14 +20,18 @@ pub struct ErrorResponseDetails {
     /// Google Ads 429 only, when Google names the scope. DEVELOPER is the shared developer-token budget; ACCOUNT is your ad account.
     #[serde(rename = "quotaScope", skip_serializing_if = "Option::is_none")]
     pub quota_scope: Option<QuotaScope>,
+    /// Zernio Google Ads operations-budget 429 only (never set alongside `quotaExhausted`). `user` is your own burst/daily allowance; `platform` is the fleet-wide daily budget shared across customers.
+    #[serde(rename = "budgetScope", skip_serializing_if = "Option::is_none")]
+    pub budget_scope: Option<BudgetScope>,
 }
 
 impl ErrorResponseDetails {
-    /// Additional structured context (e.g. field-level validation errors), for example `privateReplyConsumed` on the private-reply endpoint's 400 when the comment's single reply is already spent.  On a Google Ads 429 it carries `quotaExhausted: true`, which marks the failure as Google's own ads quota rather than a Zernio rate limit, so you can keep calling other platforms instead of backing off everywhere. When Google names the scope it also carries `quotaScope`: `DEVELOPER` means the shared developer-token budget (every Google account is affected and there is nothing to change on your side), `ACCOUNT` means your own ad account. A Meta 429 carries neither field.
+    /// Additional structured context (e.g. field-level validation errors), for example `privateReplyConsumed` on the private-reply endpoint's 400 when the comment's single reply is already spent.  On a Google Ads 429 it carries `quotaExhausted: true`, which marks the failure as Google's own ads quota rather than a Zernio rate limit, so you can keep calling other platforms instead of backing off everywhere. When Google names the scope it also carries `quotaScope`: `DEVELOPER` means the shared developer-token budget (every Google account is affected and there is nothing to change on your side), `ACCOUNT` means your own ad account. A Meta 429 carries neither field.  A Zernio Google Ads budget 429 carries `budgetScope` instead, and never `quotaExhausted`: these are Zernio's own limits, applied before the call reaches Google. `user` is your own burst or daily allowance, so the work is yours to reschedule; `platform` is the fleet-wide daily budget shared with every other customer, so only waiting for the reset clears it. The two scopes are separate axes from `quotaScope`, not the same pool named twice.
     pub fn new() -> ErrorResponseDetails {
         ErrorResponseDetails {
             quota_exhausted: None,
             quota_scope: None,
+            budget_scope: None,
         }
     }
 }
@@ -43,5 +47,19 @@ pub enum QuotaScope {
 impl Default for QuotaScope {
     fn default() -> QuotaScope {
         Self::Developer
+    }
+}
+/// Zernio Google Ads operations-budget 429 only (never set alongside `quotaExhausted`). `user` is your own burst/daily allowance; `platform` is the fleet-wide daily budget shared across customers.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum BudgetScope {
+    #[serde(rename = "user")]
+    User,
+    #[serde(rename = "platform")]
+    Platform,
+}
+
+impl Default for BudgetScope {
+    fn default() -> BudgetScope {
+        Self::User
     }
 }
