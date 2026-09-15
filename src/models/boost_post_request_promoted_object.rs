@@ -11,23 +11,23 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BoostPostRequestPromotedObject : TikTok-only on this endpoint. The pixel a Website Conversion ad group optimizes toward, so a Spark Ad built from an existing organic post can optimize for a conversion instead of only engagement or traffic. Required when `goal` is `conversions`; ignored on every other goal, because only a WEB_CONVERSIONS ad group accepts these fields.  Combine freely with `platformPostId` + `sparkAuthCode`: the pixel lives on the ad group and the Spark item on the creative, so they never conflict.
+/// BoostPostRequestPromotedObject : TikTok-only on this endpoint. The pixel a Website Conversion ad group optimizes toward, so a Spark Ad built from an existing organic post can optimize for a conversion instead of only engagement or traffic.  Required when `goal` is `conversions`, and BOTH fields are required: TikTok refuses a conversion ad group with no pixel (\"Please select a pixel\") and equally one that has a pixel but no event (\"Select a pixel event.\"), because the event is what the ad group optimizes toward. Ignored on every other goal, since only a WEB_CONVERSIONS ad group accepts them.  Combine freely with `platformPostId` + `sparkAuthCode`: the pixel lives on the ad group and the Spark item on the creative, so they never conflict.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BoostPostRequestPromotedObject {
     /// TikTok Pixel. Either the numeric pixel id or the alphanumeric pixel code from Events Manager, which is resolved for you.
-    #[serde(rename = "pixelId", skip_serializing_if = "Option::is_none")]
-    pub pixel_id: Option<String>,
-    /// Optimization event, as a TikTok optimization_event code (e.g. ON_WEB_ORDER, SHOPPING, FORM) or the exact event name shown in Events Manager, which is resolved to its code. Omit to let TikTok optimize for the ad group default.
-    #[serde(rename = "customEventType", skip_serializing_if = "Option::is_none")]
-    pub custom_event_type: Option<String>,
+    #[serde(rename = "pixelId")]
+    pub pixel_id: String,
+    /// Optimization event, as a TikTok optimization_event code (e.g. ON_WEB_ORDER, SHOPPING, FORM) or the exact event name shown in Events Manager, which is resolved to its code. The event must already exist on that pixel, or TikTok rejects the ad group.
+    #[serde(rename = "customEventType")]
+    pub custom_event_type: String,
 }
 
 impl BoostPostRequestPromotedObject {
-    /// TikTok-only on this endpoint. The pixel a Website Conversion ad group optimizes toward, so a Spark Ad built from an existing organic post can optimize for a conversion instead of only engagement or traffic. Required when `goal` is `conversions`; ignored on every other goal, because only a WEB_CONVERSIONS ad group accepts these fields.  Combine freely with `platformPostId` + `sparkAuthCode`: the pixel lives on the ad group and the Spark item on the creative, so they never conflict.
-    pub fn new() -> BoostPostRequestPromotedObject {
+    /// TikTok-only on this endpoint. The pixel a Website Conversion ad group optimizes toward, so a Spark Ad built from an existing organic post can optimize for a conversion instead of only engagement or traffic.  Required when `goal` is `conversions`, and BOTH fields are required: TikTok refuses a conversion ad group with no pixel (\"Please select a pixel\") and equally one that has a pixel but no event (\"Select a pixel event.\"), because the event is what the ad group optimizes toward. Ignored on every other goal, since only a WEB_CONVERSIONS ad group accepts them.  Combine freely with `platformPostId` + `sparkAuthCode`: the pixel lives on the ad group and the Spark item on the creative, so they never conflict.
+    pub fn new(pixel_id: String, custom_event_type: String) -> BoostPostRequestPromotedObject {
         BoostPostRequestPromotedObject {
-            pixel_id: None,
-            custom_event_type: None,
+            pixel_id,
+            custom_event_type,
         }
     }
 }
