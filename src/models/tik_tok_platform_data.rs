@@ -85,6 +85,15 @@ pub struct TikTokPlatformData {
     /// Set true to disclose AI-generated content. Accounts connected through the TikTok for Business app carry the disclosure on video posts only: the business photo endpoint has no AI disclosure field, so true on a direct photo post is rejected at creation rather than published undisclosed. Send draft true to publish such a photo post and set the disclosure in the TikTok app.
     #[serde(rename = "videoMadeWithAi", skip_serializing_if = "Option::is_none")]
     pub video_made_with_ai: Option<bool>,
+    /// Location tag to attach, as the id of a result from GET /v1/accounts/{accountId}/tiktok/locations. Accounts connected through the TikTok for Business app and video posts only: a developer-app account rejects the post at publish time with a message that says so, and a direct photo post is rejected at creation since the business photo endpoint has no location field. Requires locationName. Ignored on drafts, where TikTok ignores every post_info field.
+    #[serde(rename = "locationId", skip_serializing_if = "Option::is_none")]
+    pub location_id: Option<String>,
+    /// Display name of the location tag, as returned next to its id. Required with locationId; a locationId without it is rejected at creation.
+    #[serde(rename = "locationName", skip_serializing_if = "Option::is_none")]
+    pub location_name: Option<String>,
+    /// Set true to publish the video as an \"Only show in ads\" post: it is kept off the profile and exists to be used as a Spark Ad. Accounts connected through the TikTok for Business app and video posts only, with the same rejections as locationId. Ignored on drafts.
+    #[serde(rename = "isAdsOnly", skip_serializing_if = "Option::is_none")]
+    pub is_ads_only: Option<bool>,
     /// Optional long-form caption for photo posts (max 4000 chars). Recommended when content exceeds 90 chars, as photo titles are auto-truncated. Falls back to the post content when omitted.
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -112,6 +121,9 @@ impl TikTokPlatformData {
             music_sound_info: None,
             video_original_sound_volume: None,
             video_made_with_ai: None,
+            location_id: None,
+            location_name: None,
+            is_ads_only: None,
             description: None,
         }
     }

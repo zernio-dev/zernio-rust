@@ -16,6 +16,7 @@ Method | HTTP request | Description
 [**list_accounts**](AccountsApi.md#list_accounts) | **GET** /v1/accounts | List accounts
 [**list_tik_tok_commercial_music**](AccountsApi.md#list_tik_tok_commercial_music) | **GET** /v1/accounts/{accountId}/tiktok/commercial-music | List trending commercial music
 [**move_account_to_profile**](AccountsApi.md#move_account_to_profile) | **PATCH** /v1/accounts/{accountId} | Move account to another profile
+[**search_tik_tok_locations**](AccountsApi.md#search_tik_tok_locations) | **GET** /v1/accounts/{accountId}/tiktok/locations | Search TikTok location tags
 [**update_account**](AccountsApi.md#update_account) | **PUT** /v1/accounts/{accountId} | Update account
 [**update_bluesky_settings**](AccountsApi.md#update_bluesky_settings) | **PATCH** /v1/accounts/{accountId}/bluesky-settings | Update Bluesky account settings
 [**update_slack_settings**](AccountsApi.md#update_slack_settings) | **PATCH** /v1/accounts/{accountId}/slack-settings | Update Slack account settings
@@ -393,6 +394,37 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## search_tik_tok_locations
+
+> models::SearchTikTokLocations200Response search_tik_tok_locations(account_id, query)
+Search TikTok location tags
+
+Searches the location tags a TikTok account connected through the TikTok for Business app can attach to a video post. Send a result's id and name as tiktokSettings.locationId and locationName when creating a post. TikTok answers the 20 closest matches and fills the list with fuzzy matches when nothing matches, so an unrelated result does not mean the place is missing.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The TikTok account ID | [required] |
+**query** | **String** | Place name to search, for example a city, a venue or an address | [required] |
+
+### Return type
+
+[**models::SearchTikTokLocations200Response**](searchTikTokLocations_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

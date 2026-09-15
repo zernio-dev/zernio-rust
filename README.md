@@ -75,6 +75,7 @@ Class | Method | HTTP request | Description
 *AccountsApi* | [**list_accounts**](docs/AccountsApi.md#list_accounts) | **GET** /v1/accounts | List accounts
 *AccountsApi* | [**list_tik_tok_commercial_music**](docs/AccountsApi.md#list_tik_tok_commercial_music) | **GET** /v1/accounts/{accountId}/tiktok/commercial-music | List trending commercial music
 *AccountsApi* | [**move_account_to_profile**](docs/AccountsApi.md#move_account_to_profile) | **PATCH** /v1/accounts/{accountId} | Move account to another profile
+*AccountsApi* | [**search_tik_tok_locations**](docs/AccountsApi.md#search_tik_tok_locations) | **GET** /v1/accounts/{accountId}/tiktok/locations | Search TikTok location tags
 *AccountsApi* | [**update_account**](docs/AccountsApi.md#update_account) | **PUT** /v1/accounts/{accountId} | Update account
 *AccountsApi* | [**update_bluesky_settings**](docs/AccountsApi.md#update_bluesky_settings) | **PATCH** /v1/accounts/{accountId}/bluesky-settings | Update Bluesky account settings
 *AccountsApi* | [**update_slack_settings**](docs/AccountsApi.md#update_slack_settings) | **PATCH** /v1/accounts/{accountId}/slack-settings | Update Slack account settings
@@ -2221,6 +2222,8 @@ Class | Method | HTTP request | Description
  - [SearchInboxConversations200ResponseMetaFailedAccountsInner](docs/SearchInboxConversations200ResponseMetaFailedAccountsInner.md)
  - [SearchInstagramAudio200Response](docs/SearchInstagramAudio200Response.md)
  - [SearchReddit200Response](docs/SearchReddit200Response.md)
+ - [SearchTikTokLocations200Response](docs/SearchTikTokLocations200Response.md)
+ - [SearchTikTokLocations200ResponseLocationsInner](docs/SearchTikTokLocations200ResponseLocationsInner.md)
  - [SearchTweets200Response](docs/SearchTweets200Response.md)
  - [SearchTweets200ResponseMeta](docs/SearchTweets200ResponseMeta.md)
  - [SearchTweets200ResponsePagination](docs/SearchTweets200ResponsePagination.md)
