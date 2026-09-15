@@ -35,6 +35,7 @@ pub enum ListInboxReviewsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ReplyToInboxReviewError {
+    Status400(models::ErrorResponse),
     Status401(models::InlineObject1),
     Status403(),
     Status409(),
