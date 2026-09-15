@@ -1054,6 +1054,8 @@ pub mod enroll_contacts_request;
 pub use self::enroll_contacts_request::EnrollContactsRequest;
 pub mod error_response;
 pub use self::error_response::ErrorResponse;
+pub mod error_response_details;
+pub use self::error_response_details::ErrorResponseDetails;
 pub mod estimate_ad_reach_200_response;
 pub use self::estimate_ad_reach_200_response::EstimateAdReach200Response;
 pub mod estimate_ad_reach_request;

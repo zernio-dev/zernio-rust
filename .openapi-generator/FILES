@@ -554,6 +554,7 @@ docs/EnrollContacts200Response.md
 docs/EnrollContacts200ResponseResultsInner.md
 docs/EnrollContactsRequest.md
 docs/ErrorResponse.md
+docs/ErrorResponseDetails.md
 docs/EstimateAdReach200Response.md
 docs/EstimateAdReachRequest.md
 docs/Expired.md
@@ -2737,6 +2738,7 @@ src/models/enroll_contacts_200_response.rs
 src/models/enroll_contacts_200_response_results_inner.rs
 src/models/enroll_contacts_request.rs
 src/models/error_response.rs
+src/models/error_response_details.rs
 src/models/estimate_ad_reach_200_response.rs
 src/models/estimate_ad_reach_request.rs
 src/models/expired.rs

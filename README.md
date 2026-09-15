@@ -1306,6 +1306,7 @@ Class | Method | HTTP request | Description
  - [EnrollContacts200ResponseResultsInner](docs/EnrollContacts200ResponseResultsInner.md)
  - [EnrollContactsRequest](docs/EnrollContactsRequest.md)
  - [ErrorResponse](docs/ErrorResponse.md)
+ - [ErrorResponseDetails](docs/ErrorResponseDetails.md)
  - [EstimateAdReach200Response](docs/EstimateAdReach200Response.md)
  - [EstimateAdReachRequest](docs/EstimateAdReachRequest.md)
  - [Expired](docs/Expired.md)
