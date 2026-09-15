@@ -27,7 +27,7 @@ pub struct WebhookPayloadCommentCommentAuthor {
         skip_serializing_if = "Option::is_none"
     )]
     pub picture: Option<Option<String>>,
-    /// True when this comment was authored by the connected account itself (Meta re-delivers the account's own replies as comments events). Populated on the Instagram and Facebook realtime webhooks only; absent means not evaluated, never \"not the account\".
+    /// True when this comment was authored by the connected account itself. Populated on the Instagram and Facebook realtime webhooks (Meta re-delivers the account's own replies as comments events) and on TikTok, where it is inferred: comments created through this API are always flagged, and once the account's own author identifier is known (from one of those or from a comments listing) every author is compared against it. Absent means not evaluated, never \"not the account\".
     #[serde(rename = "isOwnAccount", skip_serializing_if = "Option::is_none")]
     pub is_own_account: Option<bool>,
     #[serde(rename = "instagramProfile", skip_serializing_if = "Option::is_none")]
