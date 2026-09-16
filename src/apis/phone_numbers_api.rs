@@ -171,6 +171,7 @@ pub enum PurchasePhoneNumberError {
     Status401(models::InlineObject1),
     Status403(),
     Status409(models::PurchasePhoneNumber409Response),
+    Status503(models::PurchasePhoneNumber503Response),
     Status402(),
     Status422(),
     UnknownValue(serde_json::Value),

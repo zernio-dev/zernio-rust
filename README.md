@@ -2108,6 +2108,7 @@ Class | Method | HTTP request | Description
  - [PurchasePhoneNumber200ResponseOneOf2](docs/PurchasePhoneNumber200ResponseOneOf2.md)
  - [PurchasePhoneNumber202Response](docs/PurchasePhoneNumber202Response.md)
  - [PurchasePhoneNumber409Response](docs/PurchasePhoneNumber409Response.md)
+ - [PurchasePhoneNumber503Response](docs/PurchasePhoneNumber503Response.md)
  - [PurchasePhoneNumberRequest](docs/PurchasePhoneNumberRequest.md)
  - [PurchaseWhatsAppPhoneNumber200Response](docs/PurchaseWhatsAppPhoneNumber200Response.md)
  - [PurchaseWhatsAppPhoneNumber200ResponseOneOf](docs/PurchaseWhatsAppPhoneNumber200ResponseOneOf.md)

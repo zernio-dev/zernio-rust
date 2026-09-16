@@ -2658,6 +2658,8 @@ pub mod purchase_phone_number_202_response;
 pub use self::purchase_phone_number_202_response::PurchasePhoneNumber202Response;
 pub mod purchase_phone_number_409_response;
 pub use self::purchase_phone_number_409_response::PurchasePhoneNumber409Response;
+pub mod purchase_phone_number_503_response;
+pub use self::purchase_phone_number_503_response::PurchasePhoneNumber503Response;
 pub mod purchase_phone_number_request;
 pub use self::purchase_phone_number_request::PurchasePhoneNumberRequest;
 pub mod purchase_whats_app_phone_number_200_response;
