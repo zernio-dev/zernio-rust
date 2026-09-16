@@ -32,7 +32,7 @@ pub struct CreateAdCampaignRequest {
     pub is_skadnetwork_attribution: Option<bool>,
     #[serde(rename = "promotedObject", skip_serializing_if = "Option::is_none")]
     pub promoted_object: Option<Box<models::AdPromotedObject>>,
-    /// Meta only. OMIT on non-Meta platforms (Google Ads, etc.): any value is rejected with a 400. On Meta the server applies AUCTION when omitted, so it does not need to be sent; RESERVED = Reach & Frequency. SKAdNetwork app promotion requires AUCTION.
+    /// Every platform buys at auction by default, so this only needs sending on Meta, and only to choose RESERVED. `AUCTION` is accepted on every platform and changes nothing. `RESERVED` (Reach & Frequency) is Meta-only and is rejected with a 400 elsewhere. SKAdNetwork app promotion requires AUCTION.
     #[serde(rename = "buyingType", skip_serializing_if = "Option::is_none")]
     pub buying_type: Option<BuyingType>,
     /// Meta only. Runs campaign validation without creating or persisting a campaign; Idempotency-Key storage is bypassed. Returns HTTP 200 with validateOnly true and status VALIDATED.
@@ -126,7 +126,7 @@ impl Default for Goal {
         Self::Engagement
     }
 }
-/// Meta only. OMIT on non-Meta platforms (Google Ads, etc.): any value is rejected with a 400. On Meta the server applies AUCTION when omitted, so it does not need to be sent; RESERVED = Reach & Frequency. SKAdNetwork app promotion requires AUCTION.
+/// Every platform buys at auction by default, so this only needs sending on Meta, and only to choose RESERVED. `AUCTION` is accepted on every platform and changes nothing. `RESERVED` (Reach & Frequency) is Meta-only and is rejected with a 400 elsewhere. SKAdNetwork app promotion requires AUCTION.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum BuyingType {
     #[serde(rename = "AUCTION")]
