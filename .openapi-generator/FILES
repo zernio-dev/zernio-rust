@@ -838,6 +838,7 @@ docs/GetPostTimeline403Response.md
 docs/GetPostTimeline404Response.md
 docs/GetPostingFrequency200Response.md
 docs/GetPostingFrequency200ResponseFrequencyInner.md
+docs/GetProduct200Response.md
 docs/GetRedditFlairs200Response.md
 docs/GetRedditFlairs200ResponseFlairsInner.md
 docs/GetRedditSubreddits200Response.md
@@ -1221,6 +1222,7 @@ docs/ListPhoneNumbers200ResponseSandbox.md
 docs/ListPhoneNumbers200ResponseSandboxTemplate.md
 docs/ListPinterestBoardsForSelection200Response.md
 docs/ListPinterestBoardsForSelection200ResponseBoardsInner.md
+docs/ListProducts200Response.md
 docs/ListQueueSlots200Response.md
 docs/ListQueueSlots200ResponseOneOf.md
 docs/ListSequenceEnrollments200Response.md
@@ -1363,6 +1365,13 @@ docs/PreflightSmsRegistration200Response.md
 docs/PreflightSmsRegistration200ResponseAdvisoriesInner.md
 docs/PreflightSmsRegistration200ResponseComposed.md
 docs/PreflightSmsRegistrationRequest.md
+docs/Product.md
+docs/ProductImage.md
+docs/ProductOptionsInner.md
+docs/ProductSeo.md
+docs/ProductVariant.md
+docs/ProductVariantSelectedOptionsInner.md
+docs/ProductsApi.md
 docs/Profile.md
 docs/ProfileCreateResponse.md
 docs/ProfileDeleteResponse.md
@@ -1854,6 +1863,11 @@ docs/UpdatePostMetadata200Response.md
 docs/UpdatePostMetadataRequest.md
 docs/UpdatePostRequest.md
 docs/UpdatePostRequestPlatformsInner.md
+docs/UpdateProductRequest.md
+docs/UpdateProductRequestSeo.md
+docs/UpdateProductRequestVariantsInner.md
+docs/UpdateProductRequestVariantsInnerCompareAtPrice.md
+docs/UpdateProductRequestVariantsInnerPrice.md
 docs/UpdateProfileRequest.md
 docs/UpdateQueueSlotRequest.md
 docs/UpdateRedditSubredditsRequest.md
@@ -2186,6 +2200,7 @@ src/apis/messaging_ads_api.rs
 src/apis/mod.rs
 src/apis/phone_numbers_api.rs
 src/apis/posts_api.rs
+src/apis/products_api.rs
 src/apis/profiles_api.rs
 src/apis/queue_api.rs
 src/apis/reach_and_frequency_api.rs
@@ -3024,6 +3039,7 @@ src/models/get_post_timeline_403_response.rs
 src/models/get_post_timeline_404_response.rs
 src/models/get_posting_frequency_200_response.rs
 src/models/get_posting_frequency_200_response_frequency_inner.rs
+src/models/get_product_200_response.rs
 src/models/get_reddit_flairs_200_response.rs
 src/models/get_reddit_flairs_200_response_flairs_inner.rs
 src/models/get_reddit_subreddits_200_response.rs
@@ -3394,6 +3410,7 @@ src/models/list_phone_numbers_200_response_sandbox.rs
 src/models/list_phone_numbers_200_response_sandbox_template.rs
 src/models/list_pinterest_boards_for_selection_200_response.rs
 src/models/list_pinterest_boards_for_selection_200_response_boards_inner.rs
+src/models/list_products_200_response.rs
 src/models/list_queue_slots_200_response.rs
 src/models/list_queue_slots_200_response_one_of.rs
 src/models/list_sequence_enrollments_200_response.rs
@@ -3530,6 +3547,12 @@ src/models/preflight_sms_registration_200_response.rs
 src/models/preflight_sms_registration_200_response_advisories_inner.rs
 src/models/preflight_sms_registration_200_response_composed.rs
 src/models/preflight_sms_registration_request.rs
+src/models/product.rs
+src/models/product_image.rs
+src/models/product_options_inner.rs
+src/models/product_seo.rs
+src/models/product_variant.rs
+src/models/product_variant_selected_options_inner.rs
 src/models/profile.rs
 src/models/profile_create_response.rs
 src/models/profile_delete_response.rs
@@ -4010,6 +4033,11 @@ src/models/update_post_metadata_200_response.rs
 src/models/update_post_metadata_request.rs
 src/models/update_post_request.rs
 src/models/update_post_request_platforms_inner.rs
+src/models/update_product_request.rs
+src/models/update_product_request_seo.rs
+src/models/update_product_request_variants_inner.rs
+src/models/update_product_request_variants_inner_compare_at_price.rs
+src/models/update_product_request_variants_inner_price.rs
 src/models/update_profile_request.rs
 src/models/update_queue_slot_request.rs
 src/models/update_reddit_subreddits_request.rs

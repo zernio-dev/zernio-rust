@@ -157,6 +157,7 @@ pub mod messages_api;
 pub mod messaging_ads_api;
 pub mod phone_numbers_api;
 pub mod posts_api;
+pub mod products_api;
 pub mod profiles_api;
 pub mod queue_api;
 pub mod reach_and_frequency_api;
