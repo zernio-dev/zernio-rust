@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **analytics** | Option<[**models::PostAnalytics**](PostAnalytics.md)> |  | [optional]
 **sync_status** | Option<**SyncStatus**> | Sync state of analytics for this platform (enum: synced, pending, unavailable) | [optional]
 **platform_post_url** | Option<**String**> |  | [optional]
-**error_message** | Option<**String**> | Error details when status is failed | [optional]
+**error_message** | Option<**String**> | Error details when status is failed, or why analytics are unavailable for a published entry (e.g. Google Business Profile, a TikTok upload that never received a video id) | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
