@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **creative_features** | Option<**std::collections::HashMap<String, Inner>**> | Meta Advantage+ creative enhancements. Map snake_case feature names to OPT_IN or OPT_OUT; Meta validates supported keys and unspecified features default to OPT_OUT. auto_promotion_tag is an Advantage+ enhancement, not the Ads Manager Promotion setting. The deprecated standard_enhancements bundle is rejected by Meta. (enum: OPT_IN, OPT_OUT) | [optional]
 **post_id** | Option<**String**> | Zernio post ID (provide this or platformPostId) | [optional]
 **platform_post_id** | Option<**String**> | Platform post ID (alternative to postId) | [optional]
-**account_id** | **String** | Account ID | 
+**account_id** | **String** | Zernio account id. Normally the connected posting account (facebook, instagram, tiktok, linkedin, pinterest, twitter) or a googleads account. TikTok: the TikTok Ads connection (platform tiktokads) is accepted too when the post brings its own authorization (sparkAuthCode or sparkPosts), so Spark ads need no organic TikTok account connected; such a call must use platformPostId, not postId. | 
 **ad_account_id** | **String** | Platform ad account ID | 
 **name** | **String** |  | 
 **campaign_name** | Option<**String**> | Exact name for the campaign this boost provisions. Omitted keeps the default `<name> - Campaign`. Every platform: on LinkedIn it names the campaign group. Ignored on the Meta attach shape (`adSetId`), which creates no campaign. | [optional]
