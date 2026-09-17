@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**platform** | Option<**Platform**> |  (enum: shopify) | [optional]
+**platform** | Option<**Platform**> |  (enum: shopify, wordpress) | [optional]
 **blogs** | Option<[**Vec<models::Blog>**](Blog.md)> |  | [optional]
 **next_cursor** | Option<**String**> | Cursor for the next page; null when there are no more pages. | [optional]
 

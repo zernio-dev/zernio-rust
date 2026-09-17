@@ -252,6 +252,9 @@ docs/ConnectWhatsAppCredentialsRequest.md
 docs/ConnectWhatsAppEmbeddedSignup200Response.md
 docs/ConnectWhatsAppEmbeddedSignup200ResponseAccount.md
 docs/ConnectWhatsAppEmbeddedSignupRequest.md
+docs/ConnectWordPressWithApplicationPassword200Response.md
+docs/ConnectWordPressWithApplicationPassword200ResponseAccount.md
+docs/ConnectWordPressWithApplicationPasswordRequest.md
 docs/Connected.md
 docs/ConnectedAccount.md
 docs/ConnectedApp.md
@@ -636,6 +639,7 @@ docs/GetAnalytics402Response.md
 docs/GetBestTimeToPost200Response.md
 docs/GetBestTimeToPost200ResponseSlotsInner.md
 docs/GetBestTimeToPost403Response.md
+docs/GetBlog200Response.md
 docs/GetBlueskySettings200Response.md
 docs/GetBroadcast200Response.md
 docs/GetBroadcast200ResponseBroadcast.md
@@ -932,6 +936,7 @@ docs/GetWhatsAppTemplates200Response.md
 docs/GetWhatsAppTemplates200ResponseTemplatesInner.md
 docs/GetWhatsappBusinessUsername200Response.md
 docs/GetWhatsappBusinessUsernameSuggestions200Response.md
+docs/GetWordPressAuthUrl200Response.md
 docs/GetWorkflow200Response.md
 docs/GetWorkflow200ResponseWorkflow.md
 docs/GetWorkflowVersion200Response.md
@@ -1769,6 +1774,7 @@ docs/UpdateBidStrategy200Response.md
 docs/UpdateBidStrategy200ResponseStrategy.md
 docs/UpdateBidStrategyRequest.md
 docs/UpdateBlogArticleRequest.md
+docs/UpdateBlogArticleRequestImage.md
 docs/UpdateBlogRequest.md
 docs/UpdateBlueskySettingsRequest.md
 docs/UpdateBroadcast200Response.md
@@ -2458,6 +2464,9 @@ src/models/connect_whats_app_credentials_request.rs
 src/models/connect_whats_app_embedded_signup_200_response.rs
 src/models/connect_whats_app_embedded_signup_200_response_account.rs
 src/models/connect_whats_app_embedded_signup_request.rs
+src/models/connect_word_press_with_application_password_200_response.rs
+src/models/connect_word_press_with_application_password_200_response_account.rs
+src/models/connect_word_press_with_application_password_request.rs
 src/models/connected.rs
 src/models/connected_account.rs
 src/models/connected_app.rs
@@ -2837,6 +2846,7 @@ src/models/get_analytics_402_response.rs
 src/models/get_best_time_to_post_200_response.rs
 src/models/get_best_time_to_post_200_response_slots_inner.rs
 src/models/get_best_time_to_post_403_response.rs
+src/models/get_blog_200_response.rs
 src/models/get_bluesky_settings_200_response.rs
 src/models/get_broadcast_200_response.rs
 src/models/get_broadcast_200_response_broadcast.rs
@@ -3133,6 +3143,7 @@ src/models/get_whats_app_templates_200_response.rs
 src/models/get_whats_app_templates_200_response_templates_inner.rs
 src/models/get_whatsapp_business_username_200_response.rs
 src/models/get_whatsapp_business_username_suggestions_200_response.rs
+src/models/get_word_press_auth_url_200_response.rs
 src/models/get_workflow_200_response.rs
 src/models/get_workflow_200_response_workflow.rs
 src/models/get_workflow_version_200_response.rs
@@ -3939,6 +3950,7 @@ src/models/update_bid_strategy_200_response.rs
 src/models/update_bid_strategy_200_response_strategy.rs
 src/models/update_bid_strategy_request.rs
 src/models/update_blog_article_request.rs
+src/models/update_blog_article_request_image.rs
 src/models/update_blog_request.rs
 src/models/update_bluesky_settings_request.rs
 src/models/update_broadcast_200_response.rs
