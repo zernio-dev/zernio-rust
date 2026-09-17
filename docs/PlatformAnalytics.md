@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **analytics** | Option<[**models::PostAnalytics**](PostAnalytics.md)> |  | [optional]
 **sync_status** | Option<**SyncStatus**> | Sync state of analytics for this platform (enum: synced, pending, unavailable) | [optional]
 **platform_post_url** | Option<**String**> |  | [optional]
-**error_message** | Option<**String**> | Error details when status is failed, or why analytics are unavailable for a published entry (e.g. Google Business Profile, a TikTok upload that never received a video id) | [optional]
+**error_message** | Option<**String**> | Failure detail. On failed entries, why the post failed to publish. On unavailable entries, why analytics cannot be synced (e.g. Google Business Profile, a TikTok upload that never received a video id). On pending entries, the most recent analytics sync error for the account (null while no sync has failed), cleared after the next successful sync. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
