@@ -250,6 +250,8 @@ pub mod boost_post_request_promoted_object;
 pub use self::boost_post_request_promoted_object::BoostPostRequestPromotedObject;
 pub mod boost_post_request_schedule;
 pub use self::boost_post_request_schedule::BoostPostRequestSchedule;
+pub mod boost_post_request_spark_posts_inner;
+pub use self::boost_post_request_spark_posts_inner::BoostPostRequestSparkPostsInner;
 pub mod boost_post_request_targeting;
 pub use self::boost_post_request_targeting::BoostPostRequestTargeting;
 pub mod boost_post_request_targeting_cities_inner;
