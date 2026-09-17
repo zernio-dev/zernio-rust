@@ -2046,6 +2046,10 @@ pub mod linked_in_lead_form_platform_data_questions_inner_one_of_1_choices_inner
 pub use self::linked_in_lead_form_platform_data_questions_inner_one_of_1_choices_inner::LinkedInLeadFormPlatformDataQuestionsInnerOneOf1ChoicesInner;
 pub mod linked_in_platform_data;
 pub use self::linked_in_platform_data::LinkedInPlatformData;
+pub mod linked_in_platform_data_audience;
+pub use self::linked_in_platform_data_audience::LinkedInPlatformDataAudience;
+pub mod linked_in_platform_data_audience_interface_locales_inner;
+pub use self::linked_in_platform_data_audience_interface_locales_inner::LinkedInPlatformDataAudienceInterfaceLocalesInner;
 pub mod linked_in_platform_data_poll;
 pub use self::linked_in_platform_data_poll::LinkedInPlatformDataPoll;
 pub mod list_account_callouts_200_response;

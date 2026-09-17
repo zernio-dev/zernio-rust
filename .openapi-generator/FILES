@@ -1063,6 +1063,8 @@ docs/LinkedInLeadFormPlatformDataQuestionsInnerOneOf1.md
 docs/LinkedInLeadFormPlatformDataQuestionsInnerOneOf1ChoicesInner.md
 docs/LinkedInMentionsApi.md
 docs/LinkedInPlatformData.md
+docs/LinkedInPlatformDataAudience.md
+docs/LinkedInPlatformDataAudienceInterfaceLocalesInner.md
 docs/LinkedInPlatformDataPoll.md
 docs/ListAccountCallouts200Response.md
 docs/ListAccountCallouts200ResponseCalloutsInner.md
@@ -3259,6 +3261,8 @@ src/models/linked_in_lead_form_platform_data_questions_inner_one_of.rs
 src/models/linked_in_lead_form_platform_data_questions_inner_one_of_1.rs
 src/models/linked_in_lead_form_platform_data_questions_inner_one_of_1_choices_inner.rs
 src/models/linked_in_platform_data.rs
+src/models/linked_in_platform_data_audience.rs
+src/models/linked_in_platform_data_audience_interface_locales_inner.rs
 src/models/linked_in_platform_data_poll.rs
 src/models/list_account_callouts_200_response.rs
 src/models/list_account_callouts_200_response_callouts_inner.rs
