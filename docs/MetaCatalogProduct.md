@@ -20,7 +20,6 @@ Name | Type | Description | Notes
 **category** | Option<**String**> |  | [optional]
 **product_type** | Option<**String**> |  | [optional]
 **gtin** | Option<**String**> |  | [optional]
-**mpn** | Option<**String**> |  | [optional]
 **inventory** | Option<**i32**> |  | [optional]
 **visibility** | Option<**String**> |  | [optional]
 **color** | Option<**String**> |  | [optional]
