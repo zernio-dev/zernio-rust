@@ -246,6 +246,8 @@ pub mod boost_post_request_budget;
 pub use self::boost_post_request_budget::BoostPostRequestBudget;
 pub mod boost_post_request_platform_specific_data;
 pub use self::boost_post_request_platform_specific_data::BoostPostRequestPlatformSpecificData;
+pub mod boost_post_request_promo_codes_inner;
+pub use self::boost_post_request_promo_codes_inner::BoostPostRequestPromoCodesInner;
 pub mod boost_post_request_promoted_object;
 pub use self::boost_post_request_promoted_object::BoostPostRequestPromotedObject;
 pub mod boost_post_request_schedule;
