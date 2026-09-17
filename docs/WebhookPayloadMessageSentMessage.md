@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | Internal message ID | 
 **conversation_id** | **String** | Internal conversation ID | 
-**platform** | **Platform** | Every platform whose outgoing messages Zernio observes. sms is absent on purpose: its carrier receipts update delivery status and never raise message.sent. (enum: instagram, facebook, telegram, whatsapp, twitter, reddit, bluesky, slack) | 
+**platform** | **Platform** | Every platform whose outgoing messages Zernio observes. sms is absent on purpose: its carrier receipts update delivery status and never raise message.sent. (enum: instagram, facebook, telegram, whatsapp, twitter, reddit, bluesky, slack, tiktok) | 
 **platform_message_id** | **String** | Platform's message ID | 
 **direction** | **Direction** |  (enum: incoming, outgoing) | 
 **text** | Option<**String**> | Message text content | 

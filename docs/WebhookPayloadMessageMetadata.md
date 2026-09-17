@@ -27,6 +27,7 @@ Name | Type | Description | Notes
 **referral** | Option<[**models::WebhookPayloadMessageMetadataReferral**](WebhookPayloadMessageMetadataReferral.md)> |  | [optional]
 **unsupported** | Option<[**models::WebhookPayloadMessageMetadataUnsupported**](WebhookPayloadMessageMetadataUnsupported.md)> |  | [optional]
 **no_renderable_content** | Option<**bool**> | Instagram / Facebook Messenger only. Set when the message carries nothing an integrator can render (a `template` attachment with no text and no parseable content, or Meta's own `is_unsupported` flag). Sibling of `unsupported` above (WhatsApp only, carries Meta's error code/title/details): this field has no error envelope, only the boolean. Absence means \"not flagged\", never \"checked and renderable\".  | [optional]
+**tiktok_message_type** | Option<**String**> | TikTok only. The message type as TikTok reports it, forwarded verbatim (for example image, video, sticker, share_post, emoji, reaction, template). Present on every TikTok DM that is not plain text; those arrive with text empty and, for image and video, an attachment. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
