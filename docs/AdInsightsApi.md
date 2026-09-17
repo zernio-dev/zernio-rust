@@ -333,7 +333,7 @@ Name | Type | Description  | Required | Notes
 **level** | Option<**String**> | Row granularity |  |
 **fields** | Option<**String**> | Comma-separated Graph insights fields (e.g. spend,impressions,frequency,website_purchase_roas). Omitted = Meta's default set. |  |
 **breakdowns** | Option<**String**> | Comma-separated Graph breakdowns (e.g. age,gender or publisher_platform). |  |
-**action_breakdowns** | Option<**String**> | Comma-separated Graph action breakdowns. Segments the actions[] arrays in each row. |  |
+**action_breakdowns** | Option<**String**> | Comma-separated Graph action breakdowns; segments the actions[] arrays in each row. Pass `none` to clear Meta's default action_type breakdown, required to combine some non-action breakdowns such as instagram_ads_follow_type (otherwise Meta returns a (#100) invalid-combination error). |  |
 **action_attribution_windows** | Option<**String**> | Comma-separated Meta attribution windows. Action values are returned keyed per window. |  |
 **action_report_time** | Option<**String**> | When actions are counted: impression, conversion or mixed. |  |
 **use_unified_attribution_setting** | Option<**bool**> | Use the ad sets' own attribution settings for action counting. |  |
