@@ -11,8 +11,6 @@ Method | HTTP request | Description
 [**get_ad_creative**](AdCreativesApi.md#get_ad_creative) | **GET** /v1/ads/creatives/{creativeId} | Creative details
 [**get_ad_media**](AdCreativesApi.md#get_ad_media) | **GET** /v1/ads/{adId}/media | Direct video and image URLs for an ad
 [**get_ad_previews**](AdCreativesApi.md#get_ad_previews) | **GET** /v1/ads/{adId}/preview | Render previews of an existing ad
-[**list_ad_catalog_product_sets**](AdCreativesApi.md#list_ad_catalog_product_sets) | **GET** /v1/ads/catalogs/{catalogId}/product-sets | List a catalog's product sets
-[**list_ad_catalogs**](AdCreativesApi.md#list_ad_catalogs) | **GET** /v1/ads/catalogs | List Meta product catalogs
 [**list_ad_creatives**](AdCreativesApi.md#list_ad_creatives) | **GET** /v1/ads/creatives | Creative library
 [**list_ad_images**](AdCreativesApi.md#list_ad_images) | **GET** /v1/ads/images | Ad image library
 [**list_ad_videos**](AdCreativesApi.md#list_ad_videos) | **GET** /v1/ads/videos | Ad video library
@@ -228,68 +226,6 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetAdPreviews200Response**](getAdPreviews_200_response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## list_ad_catalog_product_sets
-
-> models::ListAdCatalogProductSets200Response list_ad_catalog_product_sets(catalog_id, account_id)
-List a catalog's product sets
-
-Lists a Meta product catalog's product sets, the unit a catalog ad promotes. Pass the chosen set id, not the parent catalog id, as `promotedObject.productSetId` on POST /v1/ads/create with `goal: catalog_sales`. Creation verifies set visibility and returns 400 for a catalog id or an inaccessible set.
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**catalog_id** | **String** | Meta product catalog ID (from GET /v1/ads/catalogs) | [required] |
-**account_id** | **String** | A facebook, instagram, or metaads account ID | [required] |
-
-### Return type
-
-[**models::ListAdCatalogProductSets200Response**](listAdCatalogProductSets_200_response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## list_ad_catalogs
-
-> models::ListAdCatalogs200Response list_ad_catalogs(account_id, ad_account_id)
-List Meta product catalogs
-
-Lists the Meta product catalogs reachable from an ad account (owned + agency-shared catalogs of the ad account's business), for Advantage+ catalog ads (`goal: catalog_sales` on POST /v1/ads/create, e.g. vehicle inventory catalogs). Read-only; uses scopes customers already granted (no reconnect needed). Catalog contents (items, feeds) are managed in Meta Commerce Manager, not through this API.
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | A facebook, instagram, or metaads account ID | [required] |
-**ad_account_id** | **String** | Meta ad account ID (act_...) | [required] |
-
-### Return type
-
-[**models::ListAdCatalogs200Response**](listAdCatalogs_200_response.md)
 
 ### Authorization
 

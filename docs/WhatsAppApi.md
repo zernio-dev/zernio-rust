@@ -18,6 +18,7 @@ Method | HTTP request | Description
 [**get_whats_app_block_status**](WhatsAppApi.md#get_whats_app_block_status) | **GET** /v1/whatsapp/block-users/status | Check if a user is blocked
 [**get_whats_app_blocked_users**](WhatsAppApi.md#get_whats_app_blocked_users) | **GET** /v1/whatsapp/block-users | List blocked users
 [**get_whats_app_business_profile**](WhatsAppApi.md#get_whats_app_business_profile) | **GET** /v1/whatsapp/business-profile | Get business profile
+[**get_whats_app_commerce_settings**](WhatsAppApi.md#get_whats_app_commerce_settings) | **GET** /v1/whatsapp/commerce-settings | Get a number's commerce settings
 [**get_whats_app_dataset**](WhatsAppApi.md#get_whats_app_dataset) | **GET** /v1/whatsapp/dataset | Get CTWA conversions dataset
 [**get_whats_app_display_name**](WhatsAppApi.md#get_whats_app_display_name) | **GET** /v1/whatsapp/business-profile/display-name | Get display name status
 [**get_whats_app_group_chat**](WhatsAppApi.md#get_whats_app_group_chat) | **GET** /v1/whatsapp/wa-groups/{groupId} | Get group info
@@ -27,7 +28,9 @@ Method | HTTP request | Description
 [**get_whats_app_templates**](WhatsAppApi.md#get_whats_app_templates) | **GET** /v1/whatsapp/templates | List templates
 [**get_whatsapp_business_username**](WhatsAppApi.md#get_whatsapp_business_username) | **GET** /v1/whatsapp/business-profile/username | Get business username
 [**get_whatsapp_business_username_suggestions**](WhatsAppApi.md#get_whatsapp_business_username_suggestions) | **GET** /v1/whatsapp/business-profile/username/suggestions | Get username suggestions
+[**link_whats_app_catalog**](WhatsAppApi.md#link_whats_app_catalog) | **POST** /v1/whatsapp/catalogs | Link a catalog to a WhatsApp number
 [**list_whats_app_account_events**](WhatsAppApi.md#list_whats_app_account_events) | **GET** /v1/whatsapp/account-events | List account notifications
+[**list_whats_app_catalogs**](WhatsAppApi.md#list_whats_app_catalogs) | **GET** /v1/whatsapp/catalogs | List the catalogs linked to a WhatsApp number
 [**list_whats_app_conversions**](WhatsAppApi.md#list_whats_app_conversions) | **GET** /v1/whatsapp/conversions | List conversion events
 [**list_whats_app_group_chats**](WhatsAppApi.md#list_whats_app_group_chats) | **GET** /v1/whatsapp/wa-groups | List active groups
 [**list_whats_app_group_join_requests**](WhatsAppApi.md#list_whats_app_group_join_requests) | **GET** /v1/whatsapp/wa-groups/{groupId}/join-requests | List join requests
@@ -38,7 +41,9 @@ Method | HTTP request | Description
 [**send_whats_app_conversion**](WhatsAppApi.md#send_whats_app_conversion) | **POST** /v1/whatsapp/conversions | Send WhatsApp conversion event
 [**set_whatsapp_business_username**](WhatsAppApi.md#set_whatsapp_business_username) | **POST** /v1/whatsapp/business-profile/username | Set business username
 [**unblock_whats_app_users**](WhatsAppApi.md#unblock_whats_app_users) | **DELETE** /v1/whatsapp/block-users | Unblock users
+[**unlink_whats_app_catalog**](WhatsAppApi.md#unlink_whats_app_catalog) | **DELETE** /v1/whatsapp/catalogs | Unlink a catalog from a WhatsApp number
 [**update_whats_app_business_profile**](WhatsAppApi.md#update_whats_app_business_profile) | **POST** /v1/whatsapp/business-profile | Update business profile
+[**update_whats_app_commerce_settings**](WhatsAppApi.md#update_whats_app_commerce_settings) | **PUT** /v1/whatsapp/commerce-settings | Update a number's commerce settings
 [**update_whats_app_display_name**](WhatsAppApi.md#update_whats_app_display_name) | **POST** /v1/whatsapp/business-profile/display-name | Request display name change
 [**update_whats_app_group_chat**](WhatsAppApi.md#update_whats_app_group_chat) | **POST** /v1/whatsapp/wa-groups/{groupId} | Update group settings
 [**update_whats_app_template**](WhatsAppApi.md#update_whats_app_template) | **PATCH** /v1/whatsapp/templates/{templateName} | Update template
@@ -480,6 +485,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_whats_app_commerce_settings
+
+> models::GetWhatsAppCommerceSettings200Response get_whats_app_commerce_settings(account_id, catalog_account_id)
+Get a number's commerce settings
+
+Whether the linked catalog is shown on the business profile (`isCatalogVisible`) and whether customers can build a cart (`isCartEnabled`).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | WhatsApp account ID | [required] |
+**catalog_account_id** | Option<**String**> | A facebook, instagram or metaads account whose Meta login carries catalog_management; its token performs the call instead of the account's own |  |
+
+### Return type
+
+[**models::GetWhatsAppCommerceSettings200Response**](getWhatsAppCommerceSettings_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_whats_app_dataset
 
 > models::GetWhatsAppDataset200Response get_whats_app_dataset(account_id)
@@ -758,6 +794,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## link_whats_app_catalog
+
+> models::ListWhatsAppCatalogs200Response link_whats_app_catalog(link_whats_app_catalog_request)
+Link a catalog to a WhatsApp number
+
+Connects a Meta Commerce catalog (owned by the same business portfolio as the WhatsApp Business Account) to the number's WABA. The WhatsApp connection's own token cannot do this, so pass `catalogAccountId` naming a facebook, instagram or metaads account whose Meta login carries catalog_management.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**link_whats_app_catalog_request** | [**LinkWhatsAppCatalogRequest**](LinkWhatsAppCatalogRequest.md) |  | [required] |
+
+### Return type
+
+[**models::ListWhatsAppCatalogs200Response**](listWhatsAppCatalogs_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_whats_app_account_events
 
 > models::ListWhatsAppAccountEvents200Response list_whats_app_account_events(account_id, limit)
@@ -776,6 +842,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListWhatsAppAccountEvents200Response**](listWhatsAppAccountEvents_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_whats_app_catalogs
+
+> models::ListWhatsAppCatalogs200Response list_whats_app_catalogs(account_id, catalog_account_id)
+List the catalogs linked to a WhatsApp number
+
+The Meta Commerce catalogs connected to the number's WhatsApp Business Account. A linked catalog is what product, product_list and catalog_message interactive messages sell from (see POST /v1/inbox/conversations/{conversationId}/messages) and what customers browse in the WhatsApp app. Create and fill catalogs with the /v1/ads/catalogs endpoints.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | WhatsApp account ID | [required] |
+**catalog_account_id** | Option<**String**> | A facebook, instagram or metaads account whose Meta login carries catalog_management; its token performs the call instead of the account's own |  |
+
+### Return type
+
+[**models::ListWhatsAppCatalogs200Response**](listWhatsAppCatalogs_200_response.md)
 
 ### Authorization
 
@@ -1099,6 +1196,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## unlink_whats_app_catalog
+
+> models::UnlinkWhatsAppCatalog200Response unlink_whats_app_catalog(account_id, catalog_id, catalog_account_id)
+Unlink a catalog from a WhatsApp number
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | WhatsApp account ID | [required] |
+**catalog_id** | **String** | Meta catalog ID | [required] |
+**catalog_account_id** | Option<**String**> | A facebook, instagram or metaads account whose Meta login carries catalog_management; its token performs the call instead of the account's own |  |
+
+### Return type
+
+[**models::UnlinkWhatsAppCatalog200Response**](unlinkWhatsAppCatalog_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## update_whats_app_business_profile
 
 > models::UnpublishPost200Response update_whats_app_business_profile(update_whats_app_business_profile_request)
@@ -1116,6 +1243,34 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UnpublishPost200Response**](unpublishPost_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_whats_app_commerce_settings
+
+> models::GetWhatsAppCommerceSettings200Response update_whats_app_commerce_settings(update_whats_app_commerce_settings_request)
+Update a number's commerce settings
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**update_whats_app_commerce_settings_request** | [**UpdateWhatsAppCommerceSettingsRequest**](UpdateWhatsAppCommerceSettingsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::GetWhatsAppCommerceSettings200Response**](getWhatsAppCommerceSettings_200_response.md)
 
 ### Authorization
 

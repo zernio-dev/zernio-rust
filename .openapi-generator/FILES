@@ -113,6 +113,10 @@ docs/AttachCampaignAssets201Response.md
 docs/AttachCampaignAssetsRequest.md
 docs/AttachNumberToSipTrunk200Response.md
 docs/AttachNumberToSipTrunkRequest.md
+docs/BatchAdCatalogProducts202Response.md
+docs/BatchAdCatalogProductsRequest.md
+docs/BatchAdCatalogProductsRequestRequestsInner.md
+docs/BatchAdCatalogProductsRequestRequestsInnerProduct.md
 docs/BatchGetGoogleBusinessReviews200Response.md
 docs/BatchGetGoogleBusinessReviews200ResponseLocationReviewsInner.md
 docs/BatchGetGoogleBusinessReviewsRequest.md
@@ -280,6 +284,18 @@ docs/CreateAdAudienceRequest.md
 docs/CreateAdCampaign200Response.md
 docs/CreateAdCampaign201Response.md
 docs/CreateAdCampaignRequest.md
+docs/CreateAdCatalog201Response.md
+docs/CreateAdCatalogFeed201Response.md
+docs/CreateAdCatalogFeedRequest.md
+docs/CreateAdCatalogFeedRequestSchedule.md
+docs/CreateAdCatalogFeedUpload202Response.md
+docs/CreateAdCatalogFeedUploadRequest.md
+docs/CreateAdCatalogProduct201Response.md
+docs/CreateAdCatalogProductRequest.md
+docs/CreateAdCatalogProductRequestProduct.md
+docs/CreateAdCatalogProductSet201Response.md
+docs/CreateAdCatalogProductSetRequest.md
+docs/CreateAdCatalogRequest.md
 docs/CreateAdCreative201Response.md
 docs/CreateAdCreativeRequest.md
 docs/CreateAdCreativeRequestCarouselCardsInner.md
@@ -487,6 +503,9 @@ docs/DeactivateSmsRegistration200Response.md
 docs/DeleteAccountGroup200Response.md
 docs/DeleteAdCampaign200Response.md
 docs/DeleteAdCampaignRequest.md
+docs/DeleteAdCatalog200Response.md
+docs/DeleteAdCatalogProduct200Response.md
+docs/DeleteAdCatalogProductSet200Response.md
 docs/DeleteAdCreative200Response.md
 docs/DeleteAdNegativeKeywordList200Response.md
 docs/DeleteAdSet200Response.md
@@ -611,6 +630,9 @@ docs/GetAdAccountFinance200ResponseFundingSource.md
 docs/GetAdAnalytics202Response.md
 docs/GetAdAudience200Response.md
 docs/GetAdCampaignDetails200Response.md
+docs/GetAdCatalogBatch200Response.md
+docs/GetAdCatalogBatch200ResponseBatch.md
+docs/GetAdCatalogBatch200ResponseBatchErrorsInner.md
 docs/GetAdComments200Response.md
 docs/GetAdComments200ResponseMeta.md
 docs/GetAdComments200ResponsePagination.md
@@ -905,6 +927,7 @@ docs/GetWhatsAppCallPermissions200ResponsePermission.md
 docs/GetWhatsAppCallRecording200Response.md
 docs/GetWhatsAppCalling200Response.md
 docs/GetWhatsAppCallingConfig200Response.md
+docs/GetWhatsAppCommerceSettings200Response.md
 docs/GetWhatsAppDataset200Response.md
 docs/GetWhatsAppDisplayName200Response.md
 docs/GetWhatsAppDisplayName200ResponseDisplayName.md
@@ -1032,6 +1055,7 @@ docs/LikeInboxComment200Response.md
 docs/LikeInboxCommentRequest.md
 docs/LikePost200Response.md
 docs/LikePostRequest.md
+docs/LinkWhatsAppCatalogRequest.md
 docs/LinkedInAdsPlatformData.md
 docs/LinkedInAdsPlatformDataCarousel.md
 docs/LinkedInAdsPlatformDataCarouselCardsInner.md
@@ -1079,10 +1103,12 @@ docs/ListAdAccounts200ResponseAccountsInner.md
 docs/ListAdAudiences200Response.md
 docs/ListAdAudiences200ResponseAudiencesInner.md
 docs/ListAdCampaigns200Response.md
+docs/ListAdCatalogFeedUploads200Response.md
+docs/ListAdCatalogFeeds200Response.md
 docs/ListAdCatalogProductSets200Response.md
 docs/ListAdCatalogProductSets200ResponseProductSetsInner.md
+docs/ListAdCatalogProducts200Response.md
 docs/ListAdCatalogs200Response.md
-docs/ListAdCatalogs200ResponseCatalogsInner.md
 docs/ListAdCreatives200Response.md
 docs/ListAdGroupAssets200Response.md
 docs/ListAdGroupAssets200ResponseCalloutsInner.md
@@ -1273,6 +1299,7 @@ docs/ListWhatsAppAccountEvents200ResponseEventsInner.md
 docs/ListWhatsAppCalls200Response.md
 docs/ListWhatsAppCalls200ResponseCallsInner.md
 docs/ListWhatsAppCalls200ResponseCallsInnerBilling.md
+docs/ListWhatsAppCatalogs200Response.md
 docs/ListWhatsAppConversions200Response.md
 docs/ListWhatsAppConversions200ResponseEventsInner.md
 docs/ListWhatsAppFlowResponses200Response.md
@@ -1312,6 +1339,9 @@ docs/MentionsApi.md
 docs/MessagesApi.md
 docs/MessagingAdsApi.md
 docs/MetaAdsPlatformData.md
+docs/MetaCatalogProduct.md
+docs/MetaCatalogProductInput.md
+docs/MetaFeedUpload.md
 docs/MetaInstagramIdentityRef.md
 docs/MetaLeadForm.md
 docs/MetaLeadFormContextCard.md
@@ -1321,6 +1351,10 @@ docs/MetaLeadFormPlatformData.md
 docs/MetaLeadFormPlatformDataContextCard.md
 docs/MetaLeadFormQuestionsInner.md
 docs/MetaLeadFormThankYouPage.md
+docs/MetaProductCatalog.md
+docs/MetaProductFeed.md
+docs/MetaProductFeedSchedule.md
+docs/MetaProductSet.md
 docs/Money.md
 docs/MoneyAmount.md
 docs/MoveAccountToProfile200Response.md
@@ -1375,6 +1409,7 @@ docs/PreflightSmsRegistration200ResponseAdvisoriesInner.md
 docs/PreflightSmsRegistration200ResponseComposed.md
 docs/PreflightSmsRegistrationRequest.md
 docs/Product.md
+docs/ProductCatalogsApi.md
 docs/ProductImage.md
 docs/ProductOptionsInner.md
 docs/ProductSeo.md
@@ -1718,6 +1753,7 @@ docs/UndoRetweet200Response.md
 docs/UnfollowUser200Response.md
 docs/UnlikeInboxComment200Response.md
 docs/UnlikePost200Response.md
+docs/UnlinkWhatsAppCatalog200Response.md
 docs/UnpinDiscordMessage200Response.md
 docs/UnpublishPost200Response.md
 docs/UnpublishPostRequest.md
@@ -1747,6 +1783,8 @@ docs/UpdateAdCampaignRequestBudget.md
 docs/UpdateAdCampaignRequestPlatformSpecificData.md
 docs/UpdateAdCampaignStatus200Response.md
 docs/UpdateAdCampaignStatusRequest.md
+docs/UpdateAdCatalogProductRequest.md
+docs/UpdateAdCatalogProductSetRequest.md
 docs/UpdateAdCreative200Response.md
 docs/UpdateAdCreativeRequest.md
 docs/UpdateAdKeyword200Response.md
@@ -1894,6 +1932,7 @@ docs/UpdateWebhookSettings200Response.md
 docs/UpdateWebhookSettingsRequest.md
 docs/UpdateWhatsAppBusinessProfileRequest.md
 docs/UpdateWhatsAppCallingLegacyRequest.md
+docs/UpdateWhatsAppCommerceSettingsRequest.md
 docs/UpdateWhatsAppDisplayName200Response.md
 docs/UpdateWhatsAppDisplayName200ResponseDisplayName.md
 docs/UpdateWhatsAppDisplayNameRequest.md
@@ -2098,6 +2137,7 @@ docs/WhatsAppCallingApi.md
 docs/WhatsAppCarouselCardComponent.md
 docs/WhatsAppCarouselComponent.md
 docs/WhatsAppCarouselComponentCardsInner.md
+docs/WhatsAppCommerceSettings.md
 docs/WhatsAppFlowsApi.md
 docs/WhatsAppFooterComponent.md
 docs/WhatsAppHeaderComponent.md
@@ -2210,6 +2250,7 @@ src/apis/messaging_ads_api.rs
 src/apis/mod.rs
 src/apis/phone_numbers_api.rs
 src/apis/posts_api.rs
+src/apis/product_catalogs_api.rs
 src/apis/products_api.rs
 src/apis/profiles_api.rs
 src/apis/queue_api.rs
@@ -2336,6 +2377,10 @@ src/models/attach_campaign_assets_201_response.rs
 src/models/attach_campaign_assets_request.rs
 src/models/attach_number_to_sip_trunk_200_response.rs
 src/models/attach_number_to_sip_trunk_request.rs
+src/models/batch_ad_catalog_products_202_response.rs
+src/models/batch_ad_catalog_products_request.rs
+src/models/batch_ad_catalog_products_request_requests_inner.rs
+src/models/batch_ad_catalog_products_request_requests_inner_product.rs
 src/models/batch_get_google_business_reviews_200_response.rs
 src/models/batch_get_google_business_reviews_200_response_location_reviews_inner.rs
 src/models/batch_get_google_business_reviews_request.rs
@@ -2493,6 +2538,18 @@ src/models/create_ad_audience_request.rs
 src/models/create_ad_campaign_200_response.rs
 src/models/create_ad_campaign_201_response.rs
 src/models/create_ad_campaign_request.rs
+src/models/create_ad_catalog_201_response.rs
+src/models/create_ad_catalog_feed_201_response.rs
+src/models/create_ad_catalog_feed_request.rs
+src/models/create_ad_catalog_feed_request_schedule.rs
+src/models/create_ad_catalog_feed_upload_202_response.rs
+src/models/create_ad_catalog_feed_upload_request.rs
+src/models/create_ad_catalog_product_201_response.rs
+src/models/create_ad_catalog_product_request.rs
+src/models/create_ad_catalog_product_request_product.rs
+src/models/create_ad_catalog_product_set_201_response.rs
+src/models/create_ad_catalog_product_set_request.rs
+src/models/create_ad_catalog_request.rs
 src/models/create_ad_creative_201_response.rs
 src/models/create_ad_creative_request.rs
 src/models/create_ad_creative_request_carousel_cards_inner.rs
@@ -2699,6 +2756,9 @@ src/models/deactivate_sms_registration_200_response.rs
 src/models/delete_account_group_200_response.rs
 src/models/delete_ad_campaign_200_response.rs
 src/models/delete_ad_campaign_request.rs
+src/models/delete_ad_catalog_200_response.rs
+src/models/delete_ad_catalog_product_200_response.rs
+src/models/delete_ad_catalog_product_set_200_response.rs
 src/models/delete_ad_creative_200_response.rs
 src/models/delete_ad_negative_keyword_list_200_response.rs
 src/models/delete_ad_set_200_response.rs
@@ -2822,6 +2882,9 @@ src/models/get_ad_account_finance_200_response_funding_source.rs
 src/models/get_ad_analytics_202_response.rs
 src/models/get_ad_audience_200_response.rs
 src/models/get_ad_campaign_details_200_response.rs
+src/models/get_ad_catalog_batch_200_response.rs
+src/models/get_ad_catalog_batch_200_response_batch.rs
+src/models/get_ad_catalog_batch_200_response_batch_errors_inner.rs
 src/models/get_ad_comments_200_response.rs
 src/models/get_ad_comments_200_response_meta.rs
 src/models/get_ad_comments_200_response_pagination.rs
@@ -3116,6 +3179,7 @@ src/models/get_whats_app_call_permissions_200_response_permission.rs
 src/models/get_whats_app_call_recording_200_response.rs
 src/models/get_whats_app_calling_200_response.rs
 src/models/get_whats_app_calling_config_200_response.rs
+src/models/get_whats_app_commerce_settings_200_response.rs
 src/models/get_whats_app_dataset_200_response.rs
 src/models/get_whats_app_display_name_200_response.rs
 src/models/get_whats_app_display_name_200_response_display_name.rs
@@ -3231,6 +3295,7 @@ src/models/like_inbox_comment_200_response.rs
 src/models/like_inbox_comment_request.rs
 src/models/like_post_200_response.rs
 src/models/like_post_request.rs
+src/models/link_whats_app_catalog_request.rs
 src/models/linked_in_ads_platform_data.rs
 src/models/linked_in_ads_platform_data_carousel.rs
 src/models/linked_in_ads_platform_data_carousel_cards_inner.rs
@@ -3277,10 +3342,12 @@ src/models/list_ad_accounts_200_response_accounts_inner.rs
 src/models/list_ad_audiences_200_response.rs
 src/models/list_ad_audiences_200_response_audiences_inner.rs
 src/models/list_ad_campaigns_200_response.rs
+src/models/list_ad_catalog_feed_uploads_200_response.rs
+src/models/list_ad_catalog_feeds_200_response.rs
 src/models/list_ad_catalog_product_sets_200_response.rs
 src/models/list_ad_catalog_product_sets_200_response_product_sets_inner.rs
+src/models/list_ad_catalog_products_200_response.rs
 src/models/list_ad_catalogs_200_response.rs
-src/models/list_ad_catalogs_200_response_catalogs_inner.rs
 src/models/list_ad_creatives_200_response.rs
 src/models/list_ad_group_assets_200_response.rs
 src/models/list_ad_group_assets_200_response_callouts_inner.rs
@@ -3471,6 +3538,7 @@ src/models/list_whats_app_account_events_200_response_events_inner.rs
 src/models/list_whats_app_calls_200_response.rs
 src/models/list_whats_app_calls_200_response_calls_inner.rs
 src/models/list_whats_app_calls_200_response_calls_inner_billing.rs
+src/models/list_whats_app_catalogs_200_response.rs
 src/models/list_whats_app_conversions_200_response.rs
 src/models/list_whats_app_conversions_200_response_events_inner.rs
 src/models/list_whats_app_flow_responses_200_response.rs
@@ -3505,6 +3573,9 @@ src/models/media_content_type.rs
 src/models/media_item.rs
 src/models/media_upload_response.rs
 src/models/meta_ads_platform_data.rs
+src/models/meta_catalog_product.rs
+src/models/meta_catalog_product_input.rs
+src/models/meta_feed_upload.rs
 src/models/meta_instagram_identity_ref.rs
 src/models/meta_lead_form.rs
 src/models/meta_lead_form_context_card.rs
@@ -3514,6 +3585,10 @@ src/models/meta_lead_form_platform_data.rs
 src/models/meta_lead_form_platform_data_context_card.rs
 src/models/meta_lead_form_questions_inner.rs
 src/models/meta_lead_form_thank_you_page.rs
+src/models/meta_product_catalog.rs
+src/models/meta_product_feed.rs
+src/models/meta_product_feed_schedule.rs
+src/models/meta_product_set.rs
 src/models/mod.rs
 src/models/money.rs
 src/models/money_amount.rs
@@ -3898,6 +3973,7 @@ src/models/undo_retweet_200_response.rs
 src/models/unfollow_user_200_response.rs
 src/models/unlike_inbox_comment_200_response.rs
 src/models/unlike_post_200_response.rs
+src/models/unlink_whats_app_catalog_200_response.rs
 src/models/unpin_discord_message_200_response.rs
 src/models/unpublish_post_200_response.rs
 src/models/unpublish_post_request.rs
@@ -3927,6 +4003,8 @@ src/models/update_ad_campaign_request_budget.rs
 src/models/update_ad_campaign_request_platform_specific_data.rs
 src/models/update_ad_campaign_status_200_response.rs
 src/models/update_ad_campaign_status_request.rs
+src/models/update_ad_catalog_product_request.rs
+src/models/update_ad_catalog_product_set_request.rs
 src/models/update_ad_creative_200_response.rs
 src/models/update_ad_creative_request.rs
 src/models/update_ad_keyword_200_response.rs
@@ -4074,6 +4152,7 @@ src/models/update_webhook_settings_200_response.rs
 src/models/update_webhook_settings_request.rs
 src/models/update_whats_app_business_profile_request.rs
 src/models/update_whats_app_calling_legacy_request.rs
+src/models/update_whats_app_commerce_settings_request.rs
 src/models/update_whats_app_display_name_200_response.rs
 src/models/update_whats_app_display_name_200_response_display_name.rs
 src/models/update_whats_app_display_name_request.rs
@@ -4269,6 +4348,7 @@ src/models/whats_app_buttons_component.rs
 src/models/whats_app_carousel_card_component.rs
 src/models/whats_app_carousel_component.rs
 src/models/whats_app_carousel_component_cards_inner.rs
+src/models/whats_app_commerce_settings.rs
 src/models/whats_app_footer_component.rs
 src/models/whats_app_header_component.rs
 src/models/whats_app_header_component_example.rs
