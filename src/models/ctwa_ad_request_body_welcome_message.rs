@@ -17,14 +17,21 @@ pub struct CtwaAdRequestBodyWelcomeMessage {
     /// Greeting shown when the chat opens. Replaces Meta's default (\"Hi! Can we help you?\").
     #[serde(rename = "text")]
     pub text: String,
-    /// Message put into the user's text input, ready to send. Replaces Meta's default (\"Hi! I want more info.\"). Lets one ad steer the opening message toward what it promotes (e.g. a specific product).
-    #[serde(rename = "prefillText")]
-    pub prefill_text: String,
+    /// Message put into the user's text input, ready to send. Replaces Meta's default (\"Hi! I want more info.\"). Lets one ad steer the opening message toward what it promotes (e.g. a specific product). Exactly one of prefillText or quickReplies.
+    #[serde(rename = "prefillText", skip_serializing_if = "Option::is_none")]
+    pub prefill_text: Option<String>,
+    /// Tappable chips under the greeting instead of a prefilled message. Exactly one of prefillText or quickReplies. Put your own campaign or ad key in each payload: the tap arrives on the messages webhook with that payload even where Meta delivers no ad referral (Pages owned by an EU business under the Europe/Japan Messenger restrictions).
+    #[serde(rename = "quickReplies", skip_serializing_if = "Option::is_none")]
+    pub quick_replies: Option<Vec<models::CtwaAdRequestBodyWelcomeMessageQuickRepliesInner>>,
 }
 
 impl CtwaAdRequestBodyWelcomeMessage {
     /// Custom chat welcome message (Meta's `page_welcome_message`, \"Mensaje de bienvenida\" / \"Mensaje predefinido\" in Ads Manager). Single-creative shape only; for `creatives[]` set it per entry.
-    pub fn new(text: String, prefill_text: String) -> CtwaAdRequestBodyWelcomeMessage {
-        CtwaAdRequestBodyWelcomeMessage { text, prefill_text }
+    pub fn new(text: String) -> CtwaAdRequestBodyWelcomeMessage {
+        CtwaAdRequestBodyWelcomeMessage {
+            text,
+            prefill_text: None,
+            quick_replies: None,
+        }
     }
 }

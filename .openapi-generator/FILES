@@ -493,6 +493,7 @@ docs/CtwaAdRequestBodyPlacements.md
 docs/CtwaAdRequestBodyRegionsInner.md
 docs/CtwaAdRequestBodyVideo.md
 docs/CtwaAdRequestBodyWelcomeMessage.md
+docs/CtwaAdRequestBodyWelcomeMessageQuickRepliesInner.md
 docs/CtwaAdRequestBodyZipsInner.md
 docs/CtwaMultiResponse.md
 docs/CtwaSingleResponse.md
@@ -2749,6 +2750,7 @@ src/models/ctwa_ad_request_body_placements.rs
 src/models/ctwa_ad_request_body_regions_inner.rs
 src/models/ctwa_ad_request_body_video.rs
 src/models/ctwa_ad_request_body_welcome_message.rs
+src/models/ctwa_ad_request_body_welcome_message_quick_replies_inner.rs
 src/models/ctwa_ad_request_body_zips_inner.rs
 src/models/ctwa_multi_response.rs
 src/models/ctwa_single_response.rs

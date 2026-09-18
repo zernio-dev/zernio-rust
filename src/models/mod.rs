@@ -936,6 +936,8 @@ pub mod ctwa_ad_request_body_video;
 pub use self::ctwa_ad_request_body_video::CtwaAdRequestBodyVideo;
 pub mod ctwa_ad_request_body_welcome_message;
 pub use self::ctwa_ad_request_body_welcome_message::CtwaAdRequestBodyWelcomeMessage;
+pub mod ctwa_ad_request_body_welcome_message_quick_replies_inner;
+pub use self::ctwa_ad_request_body_welcome_message_quick_replies_inner::CtwaAdRequestBodyWelcomeMessageQuickRepliesInner;
 pub mod ctwa_ad_request_body_zips_inner;
 pub use self::ctwa_ad_request_body_zips_inner::CtwaAdRequestBodyZipsInner;
 pub mod ctwa_multi_response;
