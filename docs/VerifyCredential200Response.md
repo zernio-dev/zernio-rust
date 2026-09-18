@@ -6,6 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **valid** | Option<**bool**> |  | [optional]
 **user_id** | Option<**String**> |  | [optional]
+**name** | Option<**String**> | Display name of the credential's owner. | [optional]
+**email** | Option<**String**> | Email of the credential's owner. | [optional]
 **auth_type** | Option<**AuthType**> |  (enum: api_key, oauth, session) | [optional]
 **scope** | Option<**String**> | Granted OAuth scopes, space-separated. Null for API keys. | [optional]
 
