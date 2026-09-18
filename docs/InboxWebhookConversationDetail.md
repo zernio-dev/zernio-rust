@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | Internal conversation ID | 
+**id** | **String** | The platform's conversation id, equal to `conversation.platformConversationId` on inbox webhooks (whose `conversation.id` is Zernio's internal id). Both are accepted by the conversation endpoints. | 
 **platform** | **Platform** |  (enum: instagram, facebook, telegram, whatsapp, twitter, reddit, bluesky, sms, slack, tiktok) | 
-**platform_conversation_id** | **String** |  | 
+**platform_conversation_id** | **String** | Same value as `id`. | 
 **participant_id** | Option<**String**> | Contact's platform identifier (IGSID, PSID, wa_id, etc.) | [optional]
 **participant_name** | **String** |  | 
 **participant_username** | Option<**String**> | Contact's handle when the platform exposes one | [optional]
