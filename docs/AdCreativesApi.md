@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**list_ad_creatives**](AdCreativesApi.md#list_ad_creatives) | **GET** /v1/ads/creatives | Creative library
 [**list_ad_images**](AdCreativesApi.md#list_ad_images) | **GET** /v1/ads/images | Ad image library
 [**list_ad_videos**](AdCreativesApi.md#list_ad_videos) | **GET** /v1/ads/videos | Ad video library
+[**list_ads_tik_tok_identities**](AdCreativesApi.md#list_ads_tik_tok_identities) | **GET** /v1/ads/tiktok-identities | List TikTok ad identities
 [**list_partnership_ad_content**](AdCreativesApi.md#list_partnership_ad_content) | **GET** /v1/ads/partnership-content | List partnership ad content
 [**list_partnership_ad_permissions**](AdCreativesApi.md#list_partnership_ad_permissions) | **GET** /v1/ads/partnership-permissions | List partnership permissions
 [**set_partnership_ad_permission**](AdCreativesApi.md#set_partnership_ad_permission) | **POST** /v1/ads/partnership-permissions | Set partnership permission
@@ -328,6 +329,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListAdVideos200Response**](listAdVideos_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_ads_tik_tok_identities
+
+> models::ListAdsTikTokIdentities200Response list_ads_tik_tok_identities(account_id, ad_account_id)
+List TikTok ad identities
+
+The identities an ad on this TikTok advertiser may run as (the profile shown on the ad): the advertiser's own TikTok accounts (TT_USER), Business Center authorized accounts (BC_AUTH_TT) and custom brand identities (CUSTOMIZED_USER). Pass the chosen `identityId` on POST /v1/ads/create or POST /v1/ads/boost. Spark-post identities (AUTH_CODE) are not listed; a Spark code creates its own.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | A tiktok or tiktokads account ID | [required] |
+**ad_account_id** | **String** | TikTok advertiser ID | [required] |
+
+### Return type
+
+[**models::ListAdsTikTokIdentities200Response**](listAdsTikTokIdentities_200_response.md)
 
 ### Authorization
 
