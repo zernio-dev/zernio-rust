@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **account_id** | Option<**String**> |  | [optional]
 **platform** | Option<**String**> |  | [optional]
+**integration_lane** | Option<**IntegrationLane**> | TikTok only. The TikTok integration the account is connected through: business (TikTok for Business, Accounts API) or developer (the original integration). Absent on other platforms. (enum: business, developer) | [optional]
 **username** | Option<**String**> |  | [optional]
 **display_name** | Option<**String**> |  | [optional]
 **status** | Option<**Status**> | Overall health status (enum: healthy, warning, error) | [optional]
