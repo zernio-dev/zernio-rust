@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **timezone_name** | Option<**String**> | IANA timezone of the ad account (Meta only). Drives daily-budget reset and Insights day boundaries. | [optional]
 **timezone_offset_hours_utc** | Option<**f64**> | Signed UTC offset in hours, reflecting current DST (Meta only). | [optional]
 **minimum_daily_budget** | Option<**f64**> | Meta only. Minimum daily budget for the account, in the account currency's major units. This is the impressions-billed minimum; other billing events have higher minimums. Absent when the connected token cannot read it. | [optional]
+**funding_source** | Option<**String**> | Meta only. Meta's `funding_source` ID for the ad account, forwarded unchanged. ABSENT when this connection's token cannot see billing on the account, which is not the same as the account having no payment method: never read the missing key as `no payment method configured`. | [optional]
+**funding_source_details** | Option<[**models::ListAdAccounts200ResponseAccountsInnerFundingSourceDetails**](ListAdAccounts200ResponseAccountsInnerFundingSourceDetails.md)> |  | [optional]
 **selectable** | Option<**bool**> | Meta and X only. Whether the account can create/run ads now. Absent (treat as true) on other platforms. | [optional]
 **unusable_reason** | Option<**String**> | Meta and X only. Human-readable reason when selectable is false; null when selectable. | [optional]
 

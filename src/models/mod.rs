@@ -2152,6 +2152,8 @@ pub mod list_ad_accounts_200_response;
 pub use self::list_ad_accounts_200_response::ListAdAccounts200Response;
 pub mod list_ad_accounts_200_response_accounts_inner;
 pub use self::list_ad_accounts_200_response_accounts_inner::ListAdAccounts200ResponseAccountsInner;
+pub mod list_ad_accounts_200_response_accounts_inner_funding_source_details;
+pub use self::list_ad_accounts_200_response_accounts_inner_funding_source_details::ListAdAccounts200ResponseAccountsInnerFundingSourceDetails;
 pub mod list_ad_audiences_200_response;
 pub use self::list_ad_audiences_200_response::ListAdAudiences200Response;
 pub mod list_ad_audiences_200_response_audiences_inner;

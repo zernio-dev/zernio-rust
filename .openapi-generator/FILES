@@ -1117,6 +1117,7 @@ docs/ListAccountStructuredSnippets200Response.md
 docs/ListAccountStructuredSnippets200ResponseStructuredSnippetsInner.md
 docs/ListAdAccounts200Response.md
 docs/ListAdAccounts200ResponseAccountsInner.md
+docs/ListAdAccounts200ResponseAccountsInnerFundingSourceDetails.md
 docs/ListAdAudiences200Response.md
 docs/ListAdAudiences200ResponseAudiencesInner.md
 docs/ListAdCampaigns200Response.md
@@ -3398,6 +3399,7 @@ src/models/list_account_structured_snippets_200_response.rs
 src/models/list_account_structured_snippets_200_response_structured_snippets_inner.rs
 src/models/list_ad_accounts_200_response.rs
 src/models/list_ad_accounts_200_response_accounts_inner.rs
+src/models/list_ad_accounts_200_response_accounts_inner_funding_source_details.rs
 src/models/list_ad_audiences_200_response.rs
 src/models/list_ad_audiences_200_response_audiences_inner.rs
 src/models/list_ad_campaigns_200_response.rs
