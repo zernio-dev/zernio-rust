@@ -33,6 +33,7 @@ Method | HTTP request | Description
 [**list_ad_studies**](AdAccountsApi.md#list_ad_studies) | **GET** /v1/ads/studies | A/B tests and lift studies
 [**list_ads_business_centers**](AdAccountsApi.md#list_ads_business_centers) | **GET** /v1/ads/business-centers | List TikTok Business Centers
 [**list_ads_instagram_accounts**](AdAccountsApi.md#list_ads_instagram_accounts) | **GET** /v1/ads/instagram-accounts | List Instagram ad identities
+[**list_ads_instagram_posts**](AdAccountsApi.md#list_ads_instagram_posts) | **GET** /v1/ads/instagram-posts | List Instagram posts to boost
 [**list_advertisable_applications**](AdAccountsApi.md#list_advertisable_applications) | **GET** /v1/ads/advertisable-applications | List advertisable apps
 [**list_custom_conversions**](AdAccountsApi.md#list_custom_conversions) | **GET** /v1/accounts/{accountId}/custom-conversions | List custom conversions
 [**list_high_demand_periods**](AdAccountsApi.md#list_high_demand_periods) | **GET** /v1/ads/high-demand-periods | List high-demand periods
@@ -957,6 +958,40 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListAdsInstagramAccounts200Response**](listAdsInstagramAccounts_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_ads_instagram_posts
+
+> models::ListAdsInstagramPosts200Response list_ads_instagram_posts(account_id, ad_account_id, ig_user_id, limit, after)
+List Instagram posts to boost
+
+Lists the media of the Instagram account this Meta connection can reach, so an existing Instagram post can be boosted without connecting the Instagram account separately. Each `posts[].id` is the existing-post id to send as `platformPostId` when creating the ad; Meta turns it into `source_instagram_media_id` on the creative. Identity resolution reuses the same resolver as `/v1/ads/instagram-accounts`. `igUserId` is always checked against the identities the connection can reach and is never trusted as sent. When no identity is reachable the endpoint fails instead of returning an empty list, and the two causes stay apart: `403 reconnect_required` means the connection predates Instagram access (Meta then omits `instagram_business_account` from the Page read rather than erroring, so it looks identical to having no data) and the account must be reconnected granting Instagram access, while `422 instagram_business_account_unresolved` means the Page genuinely has no Instagram professional account linked.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Zernio Meta Ads, Facebook or Instagram SocialAccount ID. | [required] |
+**ad_account_id** | Option<**String**> | Meta ad account ID including the act_ prefix. Narrows identity resolution to the Instagram accounts reachable from this ad account. |  |
+**ig_user_id** | Option<**String**> | Instagram identity to list. Must be one this connection can reach, otherwise the request is rejected with a 400. |  |
+**limit** | Option<**i32**> | Number of posts to return per page. |  |[default to 25]
+**after** | Option<**String**> | Opaque Meta cursor from a previous response's paging.after. |  |
+
+### Return type
+
+[**models::ListAdsInstagramPosts200Response**](listAdsInstagramPosts_200_response.md)
 
 ### Authorization
 
