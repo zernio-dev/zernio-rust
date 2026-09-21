@@ -145,6 +145,7 @@ pub mod gmb_place_actions_api;
 pub mod gmb_reviews_api;
 pub mod gmb_services_api;
 pub mod gmb_verifications_api;
+pub mod i_message_api;
 pub mod inbox_analytics_api;
 pub mod instagram_api;
 pub mod invites_api;
