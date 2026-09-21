@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **shares** | Option<**i32**> | Shares of the ad's post. Meta reports these under the action type literally named `post`; TikTok under `share`. | [optional]
 **saves** | Option<**i32**> | Saves of the ad's post (`onsite_conversion.post_save`). | [optional]
 **page_likes** | Option<**i32**> | New Page likes attributed to the ad (`like`). | [optional]
-**video_views** | Option<**i32**> | 3-second video views (`video_view`). For completion-based counts use `videoThruplayWatchedActions`. | [optional]
+**video_views** | Option<**i32**> | Video views, from the `video_view` action. Meta counts a 3-second view; LinkedIn's own `videoViews` threshold (2 continuous seconds, or 25% of the video) lands under the same key, so compare across platforms with care. For completion-based counts use `videoThruplayWatchedActions`. | [optional]
 **link_clicks** | Option<**i32**> | Attributed link clicks (`link_click`). This is the attribution-window count, which differs from the in-session count in the sibling `inlineLinkClicks` field. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

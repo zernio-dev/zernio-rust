@@ -14,7 +14,9 @@ Name | Type | Description | Notes
 **account_id** | Option<**String**> |  | [optional]
 **profile_id** | Option<**String**> |  | [optional]
 **currency** | Option<**String**> |  | [optional]
-**budget** | Option<**serde_json::Value**> |  | [optional]
+**budget** | Option<[**models::ListAdSets200ResponseAdSetsInnerBudget**](ListAdSets200ResponseAdSetsInnerBudget.md)> |  | [optional]
+**schedule** | Option<[**models::ListAdSets200ResponseAdSetsInnerSchedule**](ListAdSets200ResponseAdSetsInnerSchedule.md)> |  | [optional]
+**targeting** | Option<[**models::ListAdSets200ResponseAdSetsInnerTargeting**](ListAdSets200ResponseAdSetsInnerTargeting.md)> |  | [optional]
 **is_external** | Option<**bool**> |  | [optional]
 **platform_created_at** | Option<**String**> |  | [optional]
 
