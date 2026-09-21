@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **website_clicks** | **i32** | TikTok business lane: website-link clicks attributed to the post (also inside clicks) | 
 **impression_sources** | **std::collections::HashMap<String, f64>** | TikTok business lane: share of views by surface (forYou, follow, search, personalProfile, sound, directMessage, other), fractions 0 to 1. Empty object elsewhere. | 
 **audience_types** | **std::collections::HashMap<String, f64>** | TikTok business lane: follower / nonFollower and newViewer / returnViewer shares, fractions 0 to 1. Empty object elsewhere. | 
+**audience_countries** | **std::collections::HashMap<String, f64>** | TikTok business lane: viewer-country shares keyed by ISO-3166 alpha-2, fractions 0 to 1, top 20 with the tail in `other`. Empty object elsewhere. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
