@@ -692,7 +692,7 @@ Name | Type | Description  | Required | Notes
 
 ## search_available_phone_numbers
 
-> models::SearchAvailablePhoneNumbers200Response search_available_phone_numbers(country, r#type, prefix, locality, contains, sms, limit)
+> models::SearchAvailablePhoneNumbers200Response search_available_phone_numbers(country, number_type, area_code, r#type, prefix, locality, contains, sms, limit)
 Search available numbers
 
 Search the provider's inventory for numbers available to purchase in a country (default US). Optional filters narrow the results. The country must be offerable (see GET /v1/phone-numbers/countries). Voice capability is always required; pass `sms=true` to only see numbers that can also text (SMS support is per-number, not per-country). Numbers a purchase would refuse are left out, and any result's `phoneNumber` can be bought exactly by passing it to POST /v1/phone-numbers/purchase. 
@@ -703,8 +703,10 @@ Search the provider's inventory for numbers available to purchase in a country (
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **country** | Option<**String**> |  |  |[default to US]
-**r#type** | Option<**String**> | Number type; defaults to the country's WhatsApp-safe type |  |
-**prefix** | Option<**String**> | Area code |  |
+**number_type** | Option<**String**> | Number type; defaults to the country's WhatsApp-safe type (the same name as on purchase, availability and kyc) |  |
+**area_code** | Option<**String**> | Area code or national dialing code the number must start with, e.g. 415 or 91 |  |
+**r#type** | Option<**String**> | Alias of numberType, kept for existing callers |  |
+**prefix** | Option<**String**> | Alias of areaCode, kept for existing callers |  |
 **locality** | Option<**String**> | City |  |
 **contains** | Option<**String**> | Pattern to match within the number |  |
 **sms** | Option<**bool**> | true narrows the pool to SMS-capable numbers. Each result still carries its full `features` list for per-number capability badging. |  |

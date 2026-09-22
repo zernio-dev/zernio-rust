@@ -388,7 +388,7 @@ Name | Type | Description  | Required | Notes
 
 ## search_available_whats_app_numbers
 
-> models::SearchAvailableWhatsAppNumbers200Response search_available_whats_app_numbers(country, r#type, prefix, locality, contains, limit)
+> models::SearchAvailableWhatsAppNumbers200Response search_available_whats_app_numbers(country, number_type, area_code, r#type, prefix, locality, contains, limit)
 Search available numbers
 
 Deprecated alias of `/v1/phone-numbers/available`; same contract. New integrations should use that path.  Search the provider's inventory for numbers available to purchase in a country (default US). Optional filters narrow the results. The country must be offerable (see GET /v1/whatsapp/phone-numbers/countries). 
@@ -399,8 +399,10 @@ Deprecated alias of `/v1/phone-numbers/available`; same contract. New integratio
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **country** | Option<**String**> |  |  |[default to US]
-**r#type** | Option<**String**> | Number type; defaults to the country's WhatsApp-safe type |  |
-**prefix** | Option<**String**> | Area code |  |
+**number_type** | Option<**String**> | Number type; defaults to the country's WhatsApp-safe type (the same name as on purchase, availability and kyc) |  |
+**area_code** | Option<**String**> | Area code or national dialing code the number must start with, e.g. 415 or 91 |  |
+**r#type** | Option<**String**> | Alias of numberType, kept for existing callers |  |
+**prefix** | Option<**String**> | Alias of areaCode, kept for existing callers |  |
 **locality** | Option<**String**> | City |  |
 **contains** | Option<**String**> | Pattern to match within the number |  |
 **limit** | Option<**i32**> |  |  |[default to 20]
