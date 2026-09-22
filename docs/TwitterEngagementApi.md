@@ -77,7 +77,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_tweet
 
-> models::GetTweet200Response get_tweet(account_id, id)
+> models::GetTweet200Response get_tweet(account_id, tweet_id, id)
 Look up a tweet
 
 Resolve a single tweet by ID or URL into its text, author and public metrics.  Use this to render a post you are referencing, e.g. the tweet quoted by a quote-style post. Unlike `/v1/twitter/search` this is not limited to the last 7 days and works for any tweet visible to the connected account.  Billed as an X posts read ($0.005). Repeat lookups of the same tweet within the same UTC day are charged once. 
@@ -88,7 +88,8 @@ Resolve a single tweet by ID or URL into its text, author and public metrics.  U
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** | The account ID whose X token is used for the lookup | [required] |
-**id** | **String** | Numeric tweet ID or a tweet URL (e.g. https://x.com/user/status/123...) | [required] |
+**tweet_id** | **String** | Numeric tweet ID or a tweet URL (e.g. https://x.com/user/status/123...). The same name the other /v1/twitter operations use (retweet, bookmark). | [required] |
+**id** | Option<**String**> | Alias of tweetId, kept for existing callers |  |
 
 ### Return type
 
