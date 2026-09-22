@@ -175,7 +175,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_ads_search_terms
 
-> models::GetAdsSearchTerms200Response get_ads_search_terms(account_id, customer_id, from_date, to_date, campaign_id, ad_group_id, page_token)
+> models::GetAdsSearchTerms200Response get_ads_search_terms(account_id, customer_id, from_date, to_date, campaign_id, ad_set_id, ad_group_id, page_token)
 Google Ads search terms report
 
 The actual search queries that triggered your ads, with matched-keyword status and spend metrics, the raw material for wasted-spend analysis and negative-keyword lists. Reads Google's `search_term_view`, cached for the quota window; defaults to the last 30 days. Rows are ordered by cost, descending. Draws on the shared Google Ads operations budget. The response carries `cachedAt` and `stale`, set when a quota-exhausted call falls back to the last-good copy instead of a live read.
@@ -190,7 +190,8 @@ Name | Type | Description  | Required | Notes
 **from_date** | Option<**String**> | Defaults to 30 days ago. |  |
 **to_date** | Option<**String**> | Defaults to today. |  |
 **campaign_id** | Option<**String**> | Numeric Google campaign id filter. |  |
-**ad_group_id** | Option<**String**> | Numeric Google ad group id filter. |  |
+**ad_set_id** | Option<**String**> | Platform ad set ID (Google ad group). Same value as adSetId on listAdKeywords and /ad-sets/{adSetId}/assets. |  |
+**ad_group_id** | Option<**String**> | Alias of adSetId, kept for existing callers. |  |
 **page_token** | Option<**String**> | Cursor from paging.nextPageToken of the previous page. |  |
 
 ### Return type

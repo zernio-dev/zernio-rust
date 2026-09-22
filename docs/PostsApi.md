@@ -172,10 +172,10 @@ Name | Type | Description  | Required | Notes
 
 ## list_posts
 
-> models::PostsListResponse list_posts(page, limit, source, status, platform, profile_id, created_by, date_from, date_to, include_hidden, search, sort_by, account_id)
+> models::PostsListResponse list_posts(page, limit, offset, source, status, platform, profile_id, created_by, from_date, to_date, date_from, date_to, include_hidden, search, sort_by, account_id)
 List posts
 
-Returns a paginated list of posts. Published posts include platformPostUrl with the public URL on each platform.
+Returns a paginated list of posts. Published posts include platformPostUrl with the public URL on each platform. A query parameter that is not listed here returns 400 naming it and the accepted parameters, so a misspelled filter never silently returns the unfiltered list.
 
 ### Parameters
 
@@ -184,13 +184,16 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **page** | Option<**i32**> | Page number (1-based) |  |[default to 1]
 **limit** | Option<**i32**> | Page size. Values above the maximum return 400 rather than being clamped. |  |[default to 10]
+**offset** | Option<**i32**> | Row offset. Takes precedence over page when both are sent; the response pagination.page is derived from it. |  |
 **source** | Option<**String**> | Which collection to read. `zernio` (default) returns posts authored through Zernio. `external` returns posts synced from the platform (existing/historical posts that were published outside Zernio). Combine with `accountId` and paginate via `page`/`limit` to walk the full synced history (we keep up to the last ~12 months per account). |  |[default to zernio]
 **status** | Option<**String**> |  |  |
 **platform** | Option<**String**> |  |  |
 **profile_id** | Option<**String**> | Filter posts to a specific profile (24-char hex ObjectId). Omit it, or send `all` or an empty value, to list posts across every profile. |  |
 **created_by** | Option<**String**> | Filter posts to those created by a specific team user (24-char hex ObjectId). |  |
-**date_from** | Option<**String**> | Zero-padded YYYY-MM-DD, or a full ISO 8601 datetime. An empty value means no date filter; any other malformed value returns 400. |  |
-**date_to** | Option<**String**> | Zero-padded YYYY-MM-DD, or a full ISO 8601 datetime. An empty value means no date filter; any other malformed value returns 400. |  |
+**from_date** | Option<**String**> | Zero-padded YYYY-MM-DD, or a full ISO 8601 datetime. An empty value means no date filter; any other malformed value returns 400. The same name the other date-window filters use (ads, analytics). |  |
+**to_date** | Option<**String**> | Zero-padded YYYY-MM-DD, or a full ISO 8601 datetime. An empty value means no date filter; any other malformed value returns 400. The same name the other date-window filters use (ads, analytics). |  |
+**date_from** | Option<**String**> | Alias of fromDate, kept for existing callers |  |
+**date_to** | Option<**String**> | Alias of toDate, kept for existing callers |  |
 **include_hidden** | Option<**bool**> |  |  |[default to false]
 **search** | Option<**String**> | Search posts by text content. |  |
 **sort_by** | Option<**String**> | Sort order for results. |  |[default to scheduled-desc]
