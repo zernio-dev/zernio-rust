@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **location_name** | Option<**String**> | Human-readable Google Business Profile location display name. Google Business Profile only; absent for other platforms. | [optional]
 **reviewer** | Option<[**models::ListInboxReviews200ResponseDataInnerReviewer**](ListInboxReviews200ResponseDataInnerReviewer.md)> |  | [optional]
 **rating** | Option<**i32**> |  | [optional]
+**recommendation_type** | Option<**RecommendationType**> | Facebook recommendation: positive means recommends, negative means does not recommend. Null or absent when unavailable; absent for other platforms. Independent of the numeric rating. (enum: positive, negative, ) | [optional]
 **text** | Option<**String**> |  | [optional]
 **created** | Option<**String**> |  | [optional]
 **has_reply** | Option<**bool**> |  | [optional]
