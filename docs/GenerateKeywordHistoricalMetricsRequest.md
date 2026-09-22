@@ -5,7 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **account_id** | **String** | Zernio googleads SocialAccount id. | 
-**customer_id** | Option<**String**> | Numeric Google Ads customer id (no dashes); only needed when the connection has several accounts. | [optional]
+**ad_account_id** | Option<**String**> | Platform ad account ID (Google customer ID, digits only). | [optional]
+**customer_id** | Option<**String**> | Alias of adAccountId, kept for existing callers | [optional]
 **keywords** | **Vec<String>** |  | 
 **countries** | Option<**Vec<String>**> | ISO 3166-1 alpha-2 country codes. Omitted = worldwide. | [optional]
 **language_constant_id** | Option<**String**> | Google languageConstant id (1000 = English). | [optional][default to 1000]

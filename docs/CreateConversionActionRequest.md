@@ -5,7 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **account_id** | **String** | SocialAccount ID. Must be a `googleads` account. | 
-**customer_id** | Option<**String**> | Google Ads customer id (digits only). Resolved automatically when the connection has exactly one accessible customer. | [optional]
+**ad_account_id** | Option<**String**> | Platform ad account ID (Google customer ID, digits only). Resolved automatically when the connection has exactly one accessible customer. | [optional]
+**customer_id** | Option<**String**> | Alias of adAccountId, kept for existing callers | [optional]
 **name** | **String** |  | 
 **r#type** | **Type** | Only WEBPAGE is supported for creation today. (enum: WEBPAGE) | 
 **default_value** | Option<**f64**> | Default conversion value used when an event doesn't carry its own value. | [optional]

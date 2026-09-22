@@ -330,7 +330,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_ad_negative_keyword_list
 
-> models::DeleteAdNegativeKeywordList200Response delete_ad_negative_keyword_list(list_id, account_id, customer_id, platform)
+> models::DeleteAdNegativeKeywordList200Response delete_ad_negative_keyword_list(list_id, account_id, ad_account_id, customer_id, platform)
 Delete a negative keyword list
 
 Removes the Google shared negative keyword list. Detach it from all campaigns first; an in-use list is rejected. Only NEGATIVE_KEYWORDS shared sets are supported.
@@ -342,6 +342,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **list_id** | **String** |  | [required] |
 **account_id** | **String** |  | [required] |
+**ad_account_id** | Option<**String**> |  |  |
 **customer_id** | Option<**String**> |  |  |
 **platform** | Option<**String**> |  |  |
 
@@ -460,7 +461,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_ad_negative_keyword_list
 
-> models::GetAdNegativeKeywordList200Response get_ad_negative_keyword_list(list_id, account_id, customer_id, platform)
+> models::GetAdNegativeKeywordList200Response get_ad_negative_keyword_list(list_id, account_id, ad_account_id, customer_id, platform)
 Get a negative keyword list
 
 Google Ads shared negative keyword lists (shared_set type NEGATIVE_KEYWORDS). Reads are cached for 10 minutes; quota exhaustion may return the last successful result for up to 7 days with stale=true. Customer selection is limited to this connection and its account scope. Includes the keywords and their criterion ids.
@@ -472,6 +473,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **list_id** | **String** |  | [required] |
 **account_id** | **String** |  | [required] |
+**ad_account_id** | Option<**String**> |  |  |
 **customer_id** | Option<**String**> |  |  |
 **platform** | Option<**String**> |  |  |
 
@@ -688,7 +690,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_account_callouts
 
-> models::ListAccountCallouts200Response list_account_callouts(account_id, customer_id)
+> models::ListAccountCallouts200Response list_account_callouts(account_id, ad_account_id, customer_id)
 List account callouts
 
 Lists directly attached Google assets. Fresh reads are cached for 10 minutes; exhausted quota may return the last successful read with stale=true. Inherited assets are not included. Preserves Google RMF C.75 account-level callouts.
@@ -699,6 +701,7 @@ Lists directly attached Google assets. Fresh reads are cached for 10 minutes; ex
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** |  | [required] |
+**ad_account_id** | Option<**String**> |  |  |
 **customer_id** | Option<**String**> |  |  |
 
 ### Return type
@@ -719,7 +722,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_account_sitelinks
 
-> models::ListAccountSitelinks200Response list_account_sitelinks(account_id, customer_id)
+> models::ListAccountSitelinks200Response list_account_sitelinks(account_id, ad_account_id, customer_id)
 List account sitelinks
 
 Lists directly attached Google assets. Fresh reads are cached for 10 minutes; exhausted quota may return the last successful read with stale=true. Inherited assets are not included.
@@ -730,6 +733,7 @@ Lists directly attached Google assets. Fresh reads are cached for 10 minutes; ex
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** |  | [required] |
+**ad_account_id** | Option<**String**> |  |  |
 **customer_id** | Option<**String**> |  |  |
 
 ### Return type
@@ -750,7 +754,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_account_structured_snippets
 
-> models::ListAccountStructuredSnippets200Response list_account_structured_snippets(account_id, customer_id)
+> models::ListAccountStructuredSnippets200Response list_account_structured_snippets(account_id, ad_account_id, customer_id)
 List account snippets
 
 Lists directly attached Google assets. Fresh reads are cached for 10 minutes; exhausted quota may return the last successful read with stale=true. Inherited assets are not included.
@@ -761,6 +765,7 @@ Lists directly attached Google assets. Fresh reads are cached for 10 minutes; ex
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** |  | [required] |
+**ad_account_id** | Option<**String**> |  |  |
 **customer_id** | Option<**String**> |  |  |
 
 ### Return type
@@ -846,7 +851,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_ad_negative_keyword_lists
 
-> models::ListAdNegativeKeywordLists200Response list_ad_negative_keyword_lists(account_id, customer_id, platform)
+> models::ListAdNegativeKeywordLists200Response list_ad_negative_keyword_lists(account_id, ad_account_id, customer_id, platform)
 List negative keyword lists
 
 Google Ads shared negative keyword lists (shared_set type NEGATIVE_KEYWORDS). Reads are cached for 10 minutes; quota exhaustion may return the last successful result for up to 7 days with stale=true. Customer selection is limited to this connection and its account scope.
@@ -857,6 +862,7 @@ Google Ads shared negative keyword lists (shared_set type NEGATIVE_KEYWORDS). Re
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** |  | [required] |
+**ad_account_id** | Option<**String**> |  |  |
 **customer_id** | Option<**String**> |  |  |
 **platform** | Option<**String**> |  |  |
 
@@ -1135,7 +1141,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_tik_tok_ad_pixels
 
-> models::ListTikTokAdPixels200Response list_tik_tok_ad_pixels(account_id, advertiser_id, code)
+> models::ListTikTokAdPixels200Response list_tik_tok_ad_pixels(account_id, ad_account_id, advertiser_id, code)
 List TikTok ad pixels
 
 Lists pixels and their supported optimization events for a connected TikTok Ads account. The advertiser defaults to the first advertiser on the connection. Reconnect if Pixel Management permission has not been granted.
@@ -1146,7 +1152,8 @@ Lists pixels and their supported optimization events for a connected TikTok Ads 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** | Zernio SocialAccount ID. | [required] |
-**advertiser_id** | Option<**String**> | Advertiser belonging to this connection. |  |
+**ad_account_id** | Option<**String**> | Platform ad account ID (TikTok advertiser id, digits only). Defaults to the first advertiser on the connection. |  |
+**advertiser_id** | Option<**String**> | Alias of adAccountId, kept for existing callers |  |
 **code** | Option<**String**> | Filter by a Pixel Code. |  |
 
 ### Return type

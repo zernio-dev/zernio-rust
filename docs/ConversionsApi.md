@@ -276,10 +276,10 @@ Name | Type | Description  | Required | Notes
 
 ## list_conversion_actions
 
-> models::ListConversionActions200Response list_conversion_actions(account_id, customer_id, r#type)
+> models::ListConversionActions200Response list_conversion_actions(account_id, ad_account_id, customer_id, r#type)
 List conversion actions
 
-Lists Google Ads conversion actions on the resolved customer, all types by default. Each action's `tagSnippets` (global site tag + event snippet) is included when Google has them for that action's type, e.g. `WEBPAGE`. Google-only; other platforms return `501`. Requires the Ads add-on.  `customerId` is optional: when omitted, it is resolved from the connection's accessible Google Ads customers, and the call fails with `400` when more than one is accessible (pass `customerId` to disambiguate).  The list itself is cached for the quota window (1 hour fresh, up to 7 days last-good; the cache key does not vary on `type`). The response carries `cachedAt` and `stale`, set when a quota-exhausted call falls back to the last-good copy instead of a live read. 
+Lists Google Ads conversion actions on the resolved customer, all types by default. Each action's `tagSnippets` (global site tag + event snippet) is included when Google has them for that action's type, e.g. `WEBPAGE`. Google-only; other platforms return `501`. Requires the Ads add-on.  `adAccountId` (alias `customerId`) is optional: when omitted, it is resolved from the connection's accessible Google Ads customers, and the call fails with `400` when more than one is accessible (pass `adAccountId` to disambiguate).  The list itself is cached for the quota window (1 hour fresh, up to 7 days last-good; the cache key does not vary on `type`). The response carries `cachedAt` and `stale`, set when a quota-exhausted call falls back to the last-good copy instead of a live read. 
 
 ### Parameters
 
@@ -287,7 +287,8 @@ Lists Google Ads conversion actions on the resolved customer, all types by defau
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** | SocialAccount _id (must be a googleads account). | [required] |
-**customer_id** | Option<**String**> | Google Ads customer id (digits only). Resolved automatically when the connection has exactly one accessible customer. |  |
+**ad_account_id** | Option<**String**> | Platform ad account ID (Google customer ID, digits only). Resolved automatically when the connection has exactly one accessible customer. |  |
+**customer_id** | Option<**String**> | Alias of adAccountId, kept for existing callers |  |
 **r#type** | Option<**String**> | Filter by Google's ConversionActionType enum (e.g. WEBPAGE, UPLOAD_CLICKS). |  |
 
 ### Return type

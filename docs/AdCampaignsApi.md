@@ -731,7 +731,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_campaign_bidding
 
-> models::GetCampaignBidding200Response get_campaign_bidding(campaign_id, account_id, platform, customer_id)
+> models::GetCampaignBidding200Response get_campaign_bidding(campaign_id, account_id, platform, ad_account_id, customer_id)
 Read a campaign's current bidding
 
 Read of the campaign's bidding strategy on Google, cached for the quota window, for pre-filling the bid strategy block before a PUT to /v1/ads/campaigns/{campaignId}. Google Ads only; `platform` is required and rejected when it is anything else, since a `campaignId` is not globally unique. The response carries `cachedAt` and `stale`, set when a quota-exhausted call falls back to the last-good copy instead of a live read.  Maps Google's bidding strategy onto the same triplet PUT accepts: `LOWEST_COST_WITHOUT_CAP` (Maximize Conversions, no target), `COST_CAP` + `bidAmount` (Target CPA), `LOWEST_COST_WITH_MIN_ROAS` + `roasAverageFloor` (Target ROAS), `LOWEST_COST_WITH_BID_CAP` + `bidAmount` (Maximize Clicks with a CPC ceiling). A campaign on a portfolio strategy returns `portfolio` (id + name) and `bidSpec.portfolioBidStrategyId` instead of the triplet. Anything else (Manual CPC, Target Impression Share, ...) returns `bidSpec: null`; show `biddingStrategyType` as-is. 
@@ -744,7 +744,8 @@ Name | Type | Description  | Required | Notes
 **campaign_id** | **String** | Numeric Google platform campaign id. | [required] |
 **account_id** | **String** | Zernio Google Ads SocialAccount id: resolves the customer id + refresh token. | [required] |
 **platform** | **String** | Required: campaign IDs are not globally unique. Only \"google\" is supported today. | [required] |
-**customer_id** | Option<**String**> | Numeric Google Ads customer id (no dashes). Required when the connection has multiple Google Ads accounts; optional (and inferred) when it has only one. |  |
+**ad_account_id** | Option<**String**> | Platform ad account ID (Google customer ID, digits only). Required when the connection has multiple Google Ads accounts; optional (and inferred) when it has only one. |  |
+**customer_id** | Option<**String**> | Alias of adAccountId, kept for existing callers |  |
 
 ### Return type
 
@@ -838,7 +839,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_ad_group_assets
 
-> models::ListAdGroupAssets200Response list_ad_group_assets(ad_set_id, account_id, customer_id)
+> models::ListAdGroupAssets200Response list_ad_group_assets(ad_set_id, account_id, ad_account_id, customer_id)
 List ad-group assets
 
 Lists directly attached Google assets. Fresh reads are cached for 10 minutes; exhausted quota may return the last successful read with stale=true. Inherited assets are not included.
@@ -850,6 +851,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **ad_set_id** | **String** | Numeric Google platform id. | [required] |
 **account_id** | **String** |  | [required] |
+**ad_account_id** | Option<**String**> |  |  |
 **customer_id** | Option<**String**> |  |  |
 
 ### Return type
@@ -987,7 +989,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_bid_strategies
 
-> models::ListBidStrategies200Response list_bid_strategies(account_id, customer_id, from_date, to_date)
+> models::ListBidStrategies200Response list_bid_strategies(account_id, ad_account_id, customer_id, from_date, to_date)
 List portfolio bid strategies
 
 Bidding strategy report: type, status, campaign count, clicks, cost, cost per conversion, impressions, average CPC and conversions over the date range (default last 30 days). Reads Google's `bidding_strategy` resource, cached for the quota window. Draws on the shared Google Ads operations budget. The response carries `cachedAt` and `stale`, set when a quota-exhausted call falls back to the last-good copy instead of a live read.
@@ -998,7 +1000,8 @@ Bidding strategy report: type, status, campaign count, clicks, cost, cost per co
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** | Google ads SocialAccount id. | [required] |
-**customer_id** | Option<**String**> | Numeric Google Ads customer id (no dashes). Defaults to the account's connected customer. |  |
+**ad_account_id** | Option<**String**> | Platform ad account ID (Google customer ID, digits only). Defaults to the account's connected customer. |  |
+**customer_id** | Option<**String**> | Alias of adAccountId, kept for existing callers |  |
 **from_date** | Option<**String**> | Defaults to 30 days ago. |  |
 **to_date** | Option<**String**> | Defaults to today. |  |
 
@@ -1020,7 +1023,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_campaign_assets
 
-> models::ListCampaignAssets200Response list_campaign_assets(campaign_id, account_id, customer_id)
+> models::ListCampaignAssets200Response list_campaign_assets(campaign_id, account_id, ad_account_id, customer_id)
 List campaign assets
 
 Lists directly attached Google assets. Fresh reads are cached for 10 minutes; exhausted quota may return the last successful read with stale=true. Inherited assets are not included.
@@ -1032,6 +1035,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **campaign_id** | **String** | Numeric Google platform id. | [required] |
 **account_id** | **String** |  | [required] |
+**ad_account_id** | Option<**String**> |  |  |
 **customer_id** | Option<**String**> |  |  |
 
 ### Return type

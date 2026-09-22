@@ -5,7 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **account_id** | **String** | Google ads SocialAccount id. | 
-**customer_id** | Option<**String**> | Numeric Google Ads customer id (no dashes). Defaults to the account's connected customer. | [optional]
+**ad_account_id** | Option<**String**> | Platform ad account ID (Google customer ID, digits only). Defaults to the account's connected customer. | [optional]
+**customer_id** | Option<**String**> | Alias of adAccountId, kept for existing callers | [optional]
 **name** | **String** |  | 
 **r#type** | **Type** |  (enum: TARGET_CPA, TARGET_ROAS, MAXIMIZE_CONVERSIONS, MAXIMIZE_CONVERSION_VALUE) | 
 **target_cpa** | Option<**f64**> | Required when type is TARGET_CPA, in the account's currency units. | [optional]

@@ -210,7 +210,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_facebook_page_insights
 
-> models::InstagramAccountInsightsResponse get_facebook_page_insights(account_id, metrics, since, until, metric_type)
+> models::InstagramAccountInsightsResponse get_facebook_page_insights(account_id, metrics, from_date, to_date, since, until, metric_type)
 Get Facebook Page insights
 
 Returns page-level Facebook insights (media views, views, post engagements, video metrics, follower counts). Response shape matches /v1/analytics/instagram/account-insights so the same client handling works across platforms.  Metric names track the current (post-November 2025) Meta Graph API. The legacy page_impressions / page_fans / page_fan_adds / page_fan_removes metrics were deprecated by Meta on November 15, 2025 and are NOT accepted by this endpoint. Use the replacements below. Because Meta did not provide direct adds/removes replacements, Zernio synthesizes followers_gained / followers_lost from the daily follower snapshotter.  Max 89 days, defaults to last 30 days. Requires the Analytics add-on. 
@@ -222,8 +222,10 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** | The Zernio SocialAccount ID for the connected Facebook Page. | [required] |
 **metrics** | Option<**String**> | Comma-separated list of metrics. Defaults to \"page_media_view,page_post_engagements,page_follows,followers_gained,followers_lost\".  Live Meta metrics (current names, post-Nov-2025):   - page_media_view       (replaces deprecated page_impressions)   - page_views_total   - page_post_engagements   - page_video_views   - page_video_view_time   - page_follows          (replaces deprecated page_fans)  Zernio-synthesized from daily follower snapshots (filling the Nov-2025 gap left by the page_fan_adds / page_fan_removes deprecation):   - followers_gained   - followers_lost  Monetization (opt-in, not in the defaults):   - content_monetization_earnings   - monetization_approximate_earnings  Each monetization metric is fetched with its own separate Graph call, so requesting both adds two calls. Values are approximate and Meta restates them after the fact.  content_monetization_earnings returns an object per day and always carries unit \"micro_amount\" plus an ISO 4217 \"currency\". monetization_approximate_earnings returns a bare number per day, so its unit is always \"unspecified\" and its \"currency\" is always null. The two are on different scales and are not comparable to each other. Both keep their daily \"values\" on every metricType and are never rescaled by Zernio.  Earnings here are Page-level daily buckets and \"total\" is their sum. Meta does not document whether a bucket carries that day's earnings or a running total, and every Page measured so far earned exactly 0, so reconcile \"total\" against the Page's own Meta export before relying on it; the daily \"values\" are always returned for that purpose. Per-post lifetime earnings are served by GET /v1/analytics/facebook/post-earnings.  A Page that is not enrolled in monetization, or that earned nothing, returns normal daily buckets of 0 in \"metrics\": Meta does not distinguish the two, so a 0 total here does NOT mean the Page is enrolled. \"unavailableMetrics\" covers the narrower case where Meta returned no bucket for the metric at all (\"no_data\") or rejected the request outright, and the metric is then omitted from \"metrics\" rather than reported as 0.  |  |
-**since** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to 30 days ago. |  |
-**until** | Option<**String**> | End date (YYYY-MM-DD). Defaults to today. |  |
+**from_date** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to 30 days ago. |  |
+**to_date** | Option<**String**> | End date (YYYY-MM-DD). Defaults to today. |  |
+**since** | Option<**String**> | Alias of fromDate, kept for existing callers |  |
+**until** | Option<**String**> | Alias of toDate, kept for existing callers |  |
 **metric_type** | Option<**String**> | \"total_value\" (default) returns aggregated totals only. \"time_series\" returns daily values in the \"values\" array.  |  |[default to total_value]
 
 ### Return type
@@ -341,7 +343,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_google_business_performance
 
-> models::GetGoogleBusinessPerformance200Response get_google_business_performance(account_id, metrics, start_date, end_date)
+> models::GetGoogleBusinessPerformance200Response get_google_business_performance(account_id, metrics, from_date, to_date, start_date, end_date)
 Get Google Business Profile performance metrics
 
 Returns daily performance metrics for a Google Business Profile location. Metrics include impressions (Maps/Search, desktop/mobile), website clicks, call clicks, direction requests, conversations, bookings, and food orders. Data may be delayed 2-3 days. Max 18 months of historical data. Requires the Analytics add-on. 
@@ -353,8 +355,10 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** | The Zernio SocialAccount ID for the Google Business Profile account. | [required] |
 **metrics** | Option<**String**> | Comma-separated metric names. Defaults to all available metrics. Valid values: BUSINESS_IMPRESSIONS_DESKTOP_MAPS, BUSINESS_IMPRESSIONS_DESKTOP_SEARCH, BUSINESS_IMPRESSIONS_MOBILE_MAPS, BUSINESS_IMPRESSIONS_MOBILE_SEARCH, BUSINESS_CONVERSATIONS, BUSINESS_DIRECTION_REQUESTS, CALL_CLICKS, WEBSITE_CLICKS, BUSINESS_BOOKINGS, BUSINESS_FOOD_ORDERS, BUSINESS_FOOD_MENU_CLICKS  |  |
-**start_date** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to 30 days ago. Max 18 months back. |  |
-**end_date** | Option<**String**> | End date (YYYY-MM-DD). Defaults to today. |  |
+**from_date** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to 30 days ago. Max 18 months back. |  |
+**to_date** | Option<**String**> | End date (YYYY-MM-DD). Defaults to today. |  |
+**start_date** | Option<**String**> | Alias of fromDate, kept for existing callers |  |
+**end_date** | Option<**String**> | Alias of toDate, kept for existing callers |  |
 
 ### Return type
 
@@ -406,7 +410,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_instagram_account_insights
 
-> models::InstagramAccountInsightsResponse get_instagram_account_insights(account_id, metrics, since, until, metric_type, breakdown)
+> models::InstagramAccountInsightsResponse get_instagram_account_insights(account_id, metrics, from_date, to_date, since, until, metric_type, breakdown)
 Get Instagram insights
 
 Returns account-level Instagram insights such as reach, views, accounts engaged, and total interactions. These metrics reflect the entire account's performance across all content surfaces (feed, stories, explore, profile), and are fundamentally different from post-level metrics. Data may be delayed up to 48 hours. Max 90 days, defaults to last 30 days. Requires the Analytics add-on. 
@@ -418,8 +422,10 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** | The Zernio SocialAccount ID for the Instagram account | [required] |
 **metrics** | Option<**String**> | Comma-separated list of metrics. Defaults to \"reach,views,accounts_engaged,total_interactions\". Valid metrics: reach, views, accounts_engaged, total_interactions, comments, likes, saves, shares, replies, reposts, follows_and_unfollows, profile_links_taps. Note: only \"reach\" supports metricType=time_series. All other metrics (including follows_and_unfollows) are total_value only. This is an Instagram Graph API limitation, not a Zernio limitation - the IG API does not return time-series data for these metrics. For a daily running follower count, use /v1/analytics/instagram/follower-history instead.  |  |
-**since** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to 30 days ago. |  |
-**until** | Option<**String**> | End date (YYYY-MM-DD). Defaults to today. |  |
+**from_date** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to 30 days ago. |  |
+**to_date** | Option<**String**> | End date (YYYY-MM-DD). Defaults to today. |  |
+**since** | Option<**String**> | Alias of fromDate, kept for existing callers |  |
+**until** | Option<**String**> | Alias of toDate, kept for existing callers |  |
 **metric_type** | Option<**String**> | \"total_value\" (default) returns aggregated totals and supports breakdowns. \"time_series\" returns daily values but only works with the \"reach\" metric.  |  |[default to total_value]
 **breakdown** | Option<**String**> | Breakdown dimension (only valid with metricType=total_value). Valid values depend on the metric: media_product_type, follow_type, follower_type, contact_button_type.  |  |
 
@@ -474,7 +480,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_instagram_follower_history
 
-> models::InstagramAccountInsightsResponse get_instagram_follower_history(account_id, metrics, since, until, metric_type)
+> models::InstagramAccountInsightsResponse get_instagram_follower_history(account_id, metrics, from_date, to_date, since, until, metric_type)
 Get Instagram follower history
 
 Returns a daily running Instagram follower count time series, served from Zernio's cross-platform daily snapshotter. Exists because Meta removed follower_count from the /insights endpoint in Graph API v22+ and never exposed a historical daily series via any public API.  Response envelope matches /v1/analytics/instagram/account-insights so the same client handling works. Max 89 days, defaults to last 30 days. Requires the Analytics add-on. 
@@ -486,8 +492,10 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** | The Zernio SocialAccount ID for the Instagram account. | [required] |
 **metrics** | Option<**String**> | Comma-separated list. Defaults to \"follower_count,followers_gained,followers_lost\".   - follower_count   : per-day raw follower count   - followers_gained : sum of positive daily deltas   - followers_lost   : sum of absolute negative daily deltas  |  |
-**since** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to 30 days ago. |  |
-**until** | Option<**String**> | End date (YYYY-MM-DD). Defaults to today. |  |
+**from_date** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to 30 days ago. |  |
+**to_date** | Option<**String**> | End date (YYYY-MM-DD). Defaults to today. |  |
+**since** | Option<**String**> | Alias of fromDate, kept for existing callers |  |
+**until** | Option<**String**> | Alias of toDate, kept for existing callers |  |
 **metric_type** | Option<**String**> | \"total_value\" returns aggregated totals (latest for follower_count, sum for gained/lost). \"time_series\" returns per-day values in the \"values\" array.  |  |[default to total_value]
 
 ### Return type
@@ -508,7 +516,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_linked_in_aggregate_analytics
 
-> models::GetLinkedInAggregateAnalytics200Response get_linked_in_aggregate_analytics(account_id, aggregation, start_date, end_date, metrics)
+> models::GetLinkedInAggregateAnalytics200Response get_linked_in_aggregate_analytics(account_id, aggregation, from_date, to_date, start_date, end_date, metrics)
 Get LinkedIn aggregate stats
 
 Returns aggregate analytics across all posts for a LinkedIn personal account. Only includes posts published through Zernio (LinkedIn API limitation). Org accounts should use /v1/analytics instead. Requires r_member_postAnalytics scope. Saves (POST_SAVE) and sends (POST_SEND) are available for personal accounts; organization pages always return 0 for these two metrics because LinkedIn does not expose them on the organization analytics endpoint.
@@ -520,8 +528,10 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** | The ID of the LinkedIn personal account | [required] |
 **aggregation** | Option<**String**> | TOTAL (default, lifetime totals) or DAILY (time series). MEMBERS_REACHED not available with DAILY. |  |[default to TOTAL]
-**start_date** | Option<**String**> | Start date (YYYY-MM-DD). If omitted, returns lifetime analytics. |  |
-**end_date** | Option<**String**> | End date (YYYY-MM-DD, exclusive). Defaults to today if omitted. |  |
+**from_date** | Option<**String**> | Start date (YYYY-MM-DD). If omitted, returns lifetime analytics. |  |
+**to_date** | Option<**String**> | End date (YYYY-MM-DD, exclusive). Defaults to today if omitted. |  |
+**start_date** | Option<**String**> | Alias of fromDate, kept for existing callers |  |
+**end_date** | Option<**String**> | Alias of toDate, kept for existing callers |  |
 **metrics** | Option<**String**> | Comma-separated metrics: IMPRESSION, MEMBERS_REACHED, REACTION, COMMENT, RESHARE, POST_SAVE, POST_SEND. Omit for all. |  |
 
 ### Return type
@@ -542,7 +552,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_linked_in_org_aggregate_analytics
 
-> models::InstagramAccountInsightsResponse get_linked_in_org_aggregate_analytics(account_id, metrics, since, until, metric_type)
+> models::InstagramAccountInsightsResponse get_linked_in_org_aggregate_analytics(account_id, metrics, from_date, to_date, since, until, metric_type)
 Get LinkedIn org analytics
 
 Returns aggregate analytics for a LinkedIn organization page. Parallel to /v1/accounts/{id}/linkedin-aggregate-analytics (which handles personal accounts only). Backed by LinkedIn's organizationalEntityShareStatistics, organizationalEntityFollowerStatistics, and organizationPageStatistics endpoints.  Response shape matches /v1/analytics/instagram/account-insights. Max 89 days, defaults to last 30 days. Requires the Analytics add-on.  Scope requirements: r_organization_social, r_organization_followers, and r_organization_admin must all be present on the account. Accounts connected before these scopes were included in the OAuth flow will return 412 with a reauth hint.  Enforced by this endpoint:   - Page-view metrics accept only metricType=total_value (LinkedIn omits per-day     segmentation even when the API is called with DAY granularity, so a time-series     response would be meaningless).   - Date range capped at 89 days.  LinkedIn-side platform limits (not re-enforced here, but worth knowing for larger ranges in a future release):   - Follower stats: rolling 12-month window, end must be no later than 2 days ago.   - Share stats: rolling 12-month window. 
@@ -554,8 +564,10 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** | The Zernio SocialAccount ID for the LinkedIn organization account. | [required] |
 **metrics** | Option<**String**> | Comma-separated list. Defaults to \"impressions,clicks,engagement_rate,organic_followers_gained,followers_gained,followers_lost\".  Share statistics (support both total_value and time_series):   - impressions   - unique_impressions   - clicks   - likes   - comments   - shares   - engagement_rate       (0..1, LinkedIn-computed)  Follower-gain statistics (support total_value and time_series):   - organic_followers_gained   (per-day organic gains for time_series; sum of organic gains over the range for total_value)   - paid_followers_gained      (per-day paid gains for time_series; sum of paid gains over the range for total_value)  Page-view statistics (total_value ONLY - LinkedIn platform limit):   - page_views_total   - page_views_overview   - page_views_careers   - page_views_jobs   - page_views_life  Zernio-synthesized from daily follower snapshots:   - followers_gained   - followers_lost  |  |
-**since** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to 30 days ago. |  |
-**until** | Option<**String**> | End date (YYYY-MM-DD). Defaults to today. |  |
+**from_date** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to 30 days ago. |  |
+**to_date** | Option<**String**> | End date (YYYY-MM-DD). Defaults to today. |  |
+**since** | Option<**String**> | Alias of fromDate, kept for existing callers |  |
+**until** | Option<**String**> | Alias of toDate, kept for existing callers |  |
 **metric_type** | Option<**String**> |  |  |[default to total_value]
 
 ### Return type
@@ -705,7 +717,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_tik_tok_account_insights
 
-> models::InstagramAccountInsightsResponse get_tik_tok_account_insights(account_id, metrics, since, until, metric_type)
+> models::InstagramAccountInsightsResponse get_tik_tok_account_insights(account_id, metrics, from_date, to_date, since, until, metric_type)
 Get TikTok account-level insights
 
 Returns account-level TikTok insights from /v2/user/info/ (live) plus historical time series joined from Zernio's daily snapshotter (AccountStats).  Response shape matches /v1/analytics/instagram/account-insights. Max 89 days, defaults to last 30 days. Requires the Analytics add-on and the user.info.stats scope on the account (412 if missing).  Scope intentionally narrow: this ACCOUNT-level endpoint exposes only the four counter metrics below. These account-level figures are not on any public TikTok API, for any account type:   - account-level impressions / reach   - follower inflow / outflow breakdown   - account-level watch time and audience demographics  TikTok's Research API doesn't expose them either, and is restricted to non-commercial academic use per TikTok's eligibility policy.  PER-VIDEO is a different story on the Business lane. An account connected through the TikTok for Business app reports profile views, website clicks, follows, full-watched rate, watch time, impression sources, viewer types and viewer countries per video on GET /v1/analytics?postId=..., roughly 24-48h after publishing and only for posts active in the last 7 days. Accounts on the original TikTok integration get the basic counters there (views, likes, comments, shares) and zeros for the rest; they must reconnect through the Business app. 
@@ -717,8 +729,10 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** | The Zernio SocialAccount ID for the TikTok account. | [required] |
 **metrics** | Option<**String**> | Comma-separated list. Defaults to \"follower_count,likes_count,video_count,followers_gained,followers_lost\".  Live from /v2/user/info/ (requires user.info.stats scope):   - follower_count  (cumulative; time series joined from AccountStats)   - following_count (cumulative; time series joined from AccountStats.metadata)   - likes_count     (cumulative; time series joined from AccountStats.metadata)   - video_count     (cumulative; time series joined from AccountStats.metadata)  Zernio-synthesized:   - followers_gained  (sum of positive daily follower deltas)   - followers_lost    (sum of absolute negative daily deltas)  |  |
-**since** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to 30 days ago. |  |
-**until** | Option<**String**> | End date (YYYY-MM-DD). Defaults to today. |  |
+**from_date** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to 30 days ago. |  |
+**to_date** | Option<**String**> | End date (YYYY-MM-DD). Defaults to today. |  |
+**since** | Option<**String**> | Alias of fromDate, kept for existing callers |  |
+**until** | Option<**String**> | Alias of toDate, kept for existing callers |  |
 **metric_type** | Option<**String**> | \"total_value\" returns the latest cumulative counter value. \"time_series\" returns daily values joined from AccountStats snapshots.  |  |[default to total_value]
 
 ### Return type
@@ -739,7 +753,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_you_tube_channel_insights
 
-> models::InstagramAccountInsightsResponse get_you_tube_channel_insights(account_id, metrics, since, until, metric_type)
+> models::InstagramAccountInsightsResponse get_you_tube_channel_insights(account_id, metrics, from_date, to_date, since, until, metric_type)
 Get YouTube channel insights
 
 Returns channel-scoped aggregate metrics from YouTube Analytics API v2. Saves you from looping /v1/analytics/youtube/daily-views over every video when you only need channel totals.  Response shape matches /v1/analytics/instagram/account-insights so the same client handling works. Requires yt-analytics.readonly scope (412 with reauthorizeUrl if missing). Data has a 2-3 day delay (endDate is clamped accordingly). Max 89 days, defaults to last 30 days. Requires the Analytics add-on.  NOT exposed: impressions (Studio thumbnail impressions) and impressionsClickThroughRate. YouTube Analytics API v2 does not expose these for any principal type, not channel owners, not Partner Program channels, not content owners with CMS access. The only way to get them is Studio CSV export. This is a Google-side limitation. 
@@ -751,8 +765,10 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** | The Zernio SocialAccount ID for the YouTube account. | [required] |
 **metrics** | Option<**String**> | Comma-separated list. Defaults to \"views,estimatedMinutesWatched,subscribersGained,subscribersLost\".  Live YouTube Analytics v2 metrics:   - views   - estimatedMinutesWatched   - averageViewDuration          (ratio - weighted mean computed across days)   - subscribersGained   - subscribersLost  Zernio-synthesized from daily follower snapshots (cross-platform parity):   - followers_gained   - followers_lost  |  |
-**since** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to 30 days ago. |  |
-**until** | Option<**String**> | End date (YYYY-MM-DD). Defaults to today. YouTube Analytics has a 2-3 day delay, so the fetch is internally clamped to 3 days ago; any requested range extending beyond that returns zero values for the tail days. The response's dateRange.until field reflects your requested value.  |  |
+**from_date** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to 30 days ago. |  |
+**to_date** | Option<**String**> | End date (YYYY-MM-DD). Defaults to today. YouTube Analytics has a 2-3 day delay, so the fetch is internally clamped to 3 days ago; any requested range extending beyond that returns zero values for the tail days. The response's dateRange.until field reflects your requested value.  |  |
+**since** | Option<**String**> | Alias of fromDate, kept for existing callers |  |
+**until** | Option<**String**> | Alias of toDate, kept for existing callers |  |
 **metric_type** | Option<**String**> | \"total_value\" (default) returns aggregated totals. \"time_series\" returns per-day values in the \"values\" array.  |  |[default to total_value]
 
 ### Return type
@@ -773,7 +789,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_you_tube_daily_views
 
-> models::YouTubeDailyViewsResponse get_you_tube_daily_views(video_id, account_id, start_date, end_date)
+> models::YouTubeDailyViewsResponse get_you_tube_daily_views(video_id, account_id, from_date, to_date, start_date, end_date)
 Get YouTube daily views
 
 Returns daily view counts for a YouTube video including views, watch time, and subscriber changes. Requires yt-analytics.readonly scope (re-authorization may be needed). YouTube finalizes analytics with a ~3-day delay; by default only finalized days are returned, and an explicit endDate can reach into the delay window (see the endDate parameter). Max 90 days, defaults to last 30 days. 
@@ -785,8 +801,10 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **video_id** | **String** | The YouTube video ID (e.g., \"dQw4w9WgXcQ\") | [required] |
 **account_id** | **String** | The Zernio account ID for the YouTube account | [required] |
-**start_date** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to 30 days ago. |  |
-**end_date** | Option<**String**> | End date (YYYY-MM-DD). Defaults to 3 days ago, the newest fully finalized day (YouTube finalizes analytics with a ~3-day delay). An explicit endDate is honored up to today: days inside the delay window are provisional and may still be revised by YouTube (see provisionalSince in the response), and days YouTube has not processed yet are omitted from dailyViews.  |  |
+**from_date** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to 30 days ago. |  |
+**to_date** | Option<**String**> | End date (YYYY-MM-DD). Defaults to 3 days ago, the newest fully finalized day (YouTube finalizes analytics with a ~3-day delay). An explicit toDate is honored up to today: days inside the delay window are provisional and may still be revised by YouTube (see provisionalSince in the response), and days YouTube has not processed yet are omitted from dailyViews.  |  |
+**start_date** | Option<**String**> | Alias of fromDate, kept for existing callers |  |
+**end_date** | Option<**String**> | Alias of toDate, kept for existing callers |  |
 
 ### Return type
 
@@ -806,7 +824,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_you_tube_demographics
 
-> models::YouTubeDemographicsResponse get_you_tube_demographics(account_id, video_id, breakdown, start_date, end_date)
+> models::YouTubeDemographicsResponse get_you_tube_demographics(account_id, video_id, breakdown, from_date, to_date, start_date, end_date)
 Get YouTube demographics
 
 Returns audience demographic insights for a YouTube channel, broken down by age, gender, and/or country. Pass videoId to get the audience profile of a single video instead of the whole channel. Age and gender values are viewer percentages (0-100). Country values are view counts. Data is based on signed-in viewers only, with a 2-3 day delay. YouTube suppresses demographics for videos with too few signed-in views, so low-traffic videos can return empty breakdowns. Requires the Analytics add-on. 
@@ -819,8 +837,10 @@ Name | Type | Description  | Required | Notes
 **account_id** | **String** | The Zernio SocialAccount ID for the YouTube account | [required] |
 **video_id** | Option<**String**> | YouTube video ID. When provided, demographics are scoped to this single video (must belong to the connected channel; otherwise 404 video_not_found).  |  |
 **breakdown** | Option<**String**> | Comma-separated list of demographic dimensions: age, gender, country. Defaults to all three if omitted.  |  |
-**start_date** | Option<**String**> | Start date in YYYY-MM-DD format. Defaults to 90 days ago, or to the video's publish date (lifetime) when videoId is provided.  |  |
-**end_date** | Option<**String**> | End date (YYYY-MM-DD). Defaults to 3 days ago, the newest fully finalized day (YouTube finalizes analytics with a ~3-day delay). An explicit endDate is honored up to today: days inside the delay window are provisional and may still be revised by YouTube (see provisionalSince in the response).  |  |
+**from_date** | Option<**String**> | Start date in YYYY-MM-DD format. Defaults to 90 days ago, or to the video's publish date (lifetime) when videoId is provided.  |  |
+**to_date** | Option<**String**> | End date (YYYY-MM-DD). Defaults to 3 days ago, the newest fully finalized day (YouTube finalizes analytics with a ~3-day delay). An explicit toDate is honored up to today: days inside the delay window are provisional and may still be revised by YouTube (see provisionalSince in the response).  |  |
+**start_date** | Option<**String**> | Alias of fromDate, kept for existing callers |  |
+**end_date** | Option<**String**> | Alias of toDate, kept for existing callers |  |
 
 ### Return type
 
@@ -840,7 +860,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_you_tube_video_retention
 
-> models::YouTubeVideoRetentionResponse get_you_tube_video_retention(video_id, account_id, start_date, end_date)
+> models::YouTubeVideoRetentionResponse get_you_tube_video_retention(video_id, account_id, from_date, to_date, start_date, end_date)
 Get YouTube video retention curve
 
 Returns the audience retention curve for a single YouTube video, plus the video's duration for rendering the curve on a time axis. The curve has up to 100 points (elapsedVideoTimeRatio 0.01-1.0) aggregated over the whole date range; YouTube does not support per-day retention breakdowns.  audienceWatchRatio is the absolute share of viewers watching at that point in the video and can exceed 1 (rewinds and looping, common on Shorts). relativeRetentionPerformance compares against videos of similar length (0 = worst, 0.5 = median, 1 = best). YouTube returns an empty curve for videos with very few views or before analytics processing completes (2-3 day delay).  Requires yt-analytics.readonly scope (re-authorization may be needed). 
@@ -852,8 +872,10 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **video_id** | **String** | The YouTube video ID (e.g., \"dQw4w9WgXcQ\") | [required] |
 **account_id** | **String** | The Zernio account ID for the YouTube account | [required] |
-**start_date** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to the video's publish date (lifetime curve). |  |
-**end_date** | Option<**String**> | End date (YYYY-MM-DD). Defaults to 3 days ago, the newest fully finalized day (YouTube finalizes analytics with a ~3-day delay). An explicit endDate is honored up to today: days inside the delay window are provisional and may still be revised by YouTube (see provisionalSince in the response).  |  |
+**from_date** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to the video's publish date (lifetime curve). |  |
+**to_date** | Option<**String**> | End date (YYYY-MM-DD). Defaults to 3 days ago, the newest fully finalized day (YouTube finalizes analytics with a ~3-day delay). An explicit toDate is honored up to today: days inside the delay window are provisional and may still be revised by YouTube (see provisionalSince in the response).  |  |
+**start_date** | Option<**String**> | Alias of fromDate, kept for existing callers |  |
+**end_date** | Option<**String**> | Alias of toDate, kept for existing callers |  |
 
 ### Return type
 

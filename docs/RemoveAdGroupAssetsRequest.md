@@ -5,7 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **account_id** | **String** | Zernio Google Ads connection id. | 
-**customer_id** | Option<**String**> | Google customer id without dashes. Required when the connection has multiple customers. | [optional]
+**ad_account_id** | Option<**String**> | Platform ad account ID (Google customer ID, digits only). Required when the connection has multiple customers. | [optional]
+**customer_id** | Option<**String**> | Alias of adAccountId, kept for existing callers | [optional]
 **asset_resource_names** | **Vec<String>** |  | 
 **ad_group_asset_resource_names** | **Vec<String>** |  | 
 
