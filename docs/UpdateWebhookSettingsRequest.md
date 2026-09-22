@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | Webhook ID to update (required) | 
+**webhook_id** | Option<**String**> | Webhook ID to update. Required unless the deprecated `_id` is sent instead. | [optional]
+**_id** | Option<**String**> | Alias of webhookId, kept for existing callers | [optional]
 **name** | Option<**String**> | Webhook name (1-50 characters). Must be non-empty if provided. | [optional]
 **url** | Option<**String**> | Webhook endpoint URL (must be a valid URL, whitespace trimmed). Must be a valid URL if provided. | [optional]
 **secret** | Option<**String**> | Secret key for HMAC-SHA256 signature verification | [optional]
