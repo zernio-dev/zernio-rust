@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **error** | **String** | Human-readable error message suitable for end-user display. | 
 **code** | **Code** | Machine-readable error code. Stable across versions. (enum: PAYMENT_REQUIRED) | 
-**reason** | **Reason** | Discriminator for which gate fired. (enum: free_tier_exceeded, twitter_passthrough, enterprise_required) | 
+**reason** | **Reason** | Discriminator for which gate fired. (enum: free_tier_exceeded, twitter_passthrough, enterprise_required, card_verification_required) | 
 **documentation_url** | Option<**String**> | Link to the relevant documentation page. | [optional]
 **dashboard_url** | Option<**String**> | Deep-link to send the end-user to. For `free_tier_exceeded` and `twitter_passthrough` this opens the add-payment-method drawer on the Zernio billing page. For `enterprise_required` this is the Zernio enterprise contact page.  | [optional]
 **details** | Option<[**models::InlineObject4Details**](InlineObject4Details.md)> |  | [optional]
