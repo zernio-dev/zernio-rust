@@ -144,6 +144,7 @@ docs/BlueskyPlatformData.md
 docs/BookmarkPost200Response.md
 docs/BookmarkPostRequest.md
 docs/BoostPostRequest.md
+docs/BoostPostRequestAttributionSpecInner.md
 docs/BoostPostRequestBudget.md
 docs/BoostPostRequestPlatformSpecificData.md
 docs/BoostPostRequestPromoCodesInner.md
@@ -437,7 +438,6 @@ docs/CreateStandaloneAd201ResponseOneOf1.md
 docs/CreateStandaloneAdRequest.md
 docs/CreateStandaloneAdRequestAdditionalDescriptionsInner.md
 docs/CreateStandaloneAdRequestAdditionalHeadlinesInner.md
-docs/CreateStandaloneAdRequestAttributionSpecInner.md
 docs/CreateStandaloneAdRequestBehaviorsInner.md
 docs/CreateStandaloneAdRequestBrandIdentity.md
 docs/CreateStandaloneAdRequestCarouselCardsInner.md
@@ -2452,6 +2452,7 @@ src/models/bluesky_platform_data.rs
 src/models/bookmark_post_200_response.rs
 src/models/bookmark_post_request.rs
 src/models/boost_post_request.rs
+src/models/boost_post_request_attribution_spec_inner.rs
 src/models/boost_post_request_budget.rs
 src/models/boost_post_request_platform_specific_data.rs
 src/models/boost_post_request_promo_codes_inner.rs
@@ -2736,7 +2737,6 @@ src/models/create_standalone_ad_201_response_one_of_1.rs
 src/models/create_standalone_ad_request.rs
 src/models/create_standalone_ad_request_additional_descriptions_inner.rs
 src/models/create_standalone_ad_request_additional_headlines_inner.rs
-src/models/create_standalone_ad_request_attribution_spec_inner.rs
 src/models/create_standalone_ad_request_behaviors_inner.rs
 src/models/create_standalone_ad_request_brand_identity.rs
 src/models/create_standalone_ad_request_carousel_cards_inner.rs
