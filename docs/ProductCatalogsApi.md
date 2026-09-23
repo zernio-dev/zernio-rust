@@ -541,7 +541,7 @@ Name | Type | Description  | Required | Notes
 **account_id** | **String** | A facebook, instagram, metaads or whatsapp account ID | [required] |
 **catalog_account_id** | Option<**String**> | A facebook, instagram or metaads account whose Meta login carries catalog_management; its token is used instead of the account's own (needed for WhatsApp connections, whose token cannot manage catalogs). |  |
 **ad_account_id** | Option<**String**> | Meta ad account ID (act_...) whose owner business to list |  |
-**business_id** | Option<**String**> | Meta business portfolio ID to list |  |
+**business_id** | Option<**String**> | Meta business portfolio ID to list. When it is omitted and the Meta login can see several portfolios, the 400 carries `details.businesses` (id + name) so a client can offer the choice. |  |
 
 ### Return type
 
