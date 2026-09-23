@@ -1002,6 +1002,8 @@ pub mod delete_inbox_review_reply_request;
 pub use self::delete_inbox_review_reply_request::DeleteInboxReviewReplyRequest;
 pub mod delete_sms_sender_id_200_response;
 pub use self::delete_sms_sender_id_200_response::DeleteSmsSenderId200Response;
+pub mod delete_test_lead_200_response;
+pub use self::delete_test_lead_200_response::DeleteTestLead200Response;
 pub mod delete_value_rule_set_200_response;
 pub use self::delete_value_rule_set_200_response::DeleteValueRuleSet200Response;
 pub mod delete_whats_app_template_200_response;

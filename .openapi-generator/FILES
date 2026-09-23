@@ -527,6 +527,7 @@ docs/DeleteInboxComment200Response.md
 docs/DeleteInboxReviewReply200Response.md
 docs/DeleteInboxReviewReplyRequest.md
 docs/DeleteSmsSenderId200Response.md
+docs/DeleteTestLead200Response.md
 docs/DeleteValueRuleSet200Response.md
 docs/DeleteWhatsAppTemplate200Response.md
 docs/DeleteWhatsAppTemplateById200Response.md
@@ -2825,6 +2826,7 @@ src/models/delete_inbox_comment_200_response.rs
 src/models/delete_inbox_review_reply_200_response.rs
 src/models/delete_inbox_review_reply_request.rs
 src/models/delete_sms_sender_id_200_response.rs
+src/models/delete_test_lead_200_response.rs
 src/models/delete_value_rule_set_200_response.rs
 src/models/delete_whats_app_template_200_response.rs
 src/models/delete_whats_app_template_by_id_200_response.rs

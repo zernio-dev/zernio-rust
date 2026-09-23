@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**archive_lead_form**](LeadGenApi.md#archive_lead_form) | **DELETE** /v1/ads/lead-forms/{formId} | Archive a lead form
 [**create_lead_form**](LeadGenApi.md#create_lead_form) | **POST** /v1/ads/lead-forms | Create a lead form
 [**create_test_lead**](LeadGenApi.md#create_test_lead) | **POST** /v1/ads/lead-forms/{formId}/test-leads | Create a test lead
+[**delete_test_lead**](LeadGenApi.md#delete_test_lead) | **DELETE** /v1/ads/lead-forms/{formId}/test-leads | Delete a test lead
 [**get_lead_form**](LeadGenApi.md#get_lead_form) | **GET** /v1/ads/lead-forms/{formId} | Get a lead form
 [**list_form_leads**](LeadGenApi.md#list_form_leads) | **GET** /v1/ads/lead-forms/{formId}/leads | List leads for a single form
 [**list_lead_forms**](LeadGenApi.md#list_lead_forms) | **GET** /v1/ads/lead-forms | List lead forms
@@ -101,6 +102,38 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_test_lead
+
+> models::DeleteTestLead200Response delete_test_lead(form_id, account_id, lead_id)
+Delete a test lead
+
+Removes a test lead created for the form (DELETE /{leadgen_id}), so a new one can be submitted: Meta keeps one test lead per form and refuses a second until the first is gone. The same test lead appears in Meta's Lead Ads Testing Tool. Meta only deletes test leads; a real lead is refused. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**form_id** | **String** |  | [required] |
+**account_id** | **String** | The facebook or metaads account whose Page owns the form. | [required] |
+**lead_id** | Option<**String**> | The test lead id returned by createTestLead (or shown in the Testing Tool). Omitted = the test lead currently on the form. |  |
+
+### Return type
+
+[**models::DeleteTestLead200Response**](deleteTestLead_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
