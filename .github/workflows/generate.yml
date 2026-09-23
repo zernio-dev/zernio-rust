@@ -141,10 +141,13 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "chore: regenerate from OpenAPI spec
+          # A failed publish may already have committed this exact version.
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: regenerate from OpenAPI spec
 
           - Auto-generated SDK updates
           - Version: ${{ steps.version.outputs.new_version }}"
+          fi
           # Retry with rebase to survive concurrent dispatches that land
           # back-to-back pushes to main. -X theirs: the replayed commit is a
           # full regeneration from a fresher spec fetch, so on conflicting
