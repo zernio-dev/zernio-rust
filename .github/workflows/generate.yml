@@ -4,6 +4,9 @@ on:
   repository_dispatch:
     types: [openapi-updated]
   workflow_dispatch:
+  # Coalesce spec bursts to stay below crates.io's rolling daily version cap.
+  schedule:
+    - cron: '17 1-23/2 * * *'
 
 # Serialize runs: two dispatches computing the same next version from the same
 # tag state double-publish (2026-08-21: two runs both computed 0.0.723 and the
@@ -13,7 +16,19 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  defer:
+    if: github.event_name == 'repository_dispatch'
+    name: Queue update for scheduled release
+    runs-on: ubuntu-latest
+    permissions: {}
+    steps:
+      - name: Report deferred publication
+        run: |
+          echo "Rust SDK regeneration and publication will run on the next two-hour schedule." >> "$GITHUB_STEP_SUMMARY"
+          echo "Spec updates are batched to respect crates.io's daily version limit. Use workflow_dispatch for manual recovery." >> "$GITHUB_STEP_SUMMARY"
+
   generate:
+    if: github.event_name != 'repository_dispatch'
     name: Regenerate from OpenAPI
     runs-on: ubuntu-latest
     permissions:
