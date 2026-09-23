@@ -700,6 +700,8 @@ pub mod create_inbox_conversation_404_response;
 pub use self::create_inbox_conversation_404_response::CreateInboxConversation404Response;
 pub mod create_inbox_conversation_404_response_any_of;
 pub use self::create_inbox_conversation_404_response_any_of::CreateInboxConversation404ResponseAnyOf;
+pub mod create_inbox_conversation_409_response;
+pub use self::create_inbox_conversation_409_response::CreateInboxConversation409Response;
 pub mod create_inbox_conversation_422_response;
 pub use self::create_inbox_conversation_422_response::CreateInboxConversation422Response;
 pub mod create_inbox_conversation_422_response_any_of;

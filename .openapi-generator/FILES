@@ -375,6 +375,7 @@ docs/CreateInboxConversation400Response.md
 docs/CreateInboxConversation400ResponseAnyOf.md
 docs/CreateInboxConversation404Response.md
 docs/CreateInboxConversation404ResponseAnyOf.md
+docs/CreateInboxConversation409Response.md
 docs/CreateInboxConversation422Response.md
 docs/CreateInboxConversation422ResponseAnyOf.md
 docs/CreateInboxConversation429Response.md
@@ -2675,6 +2676,7 @@ src/models/create_inbox_conversation_400_response.rs
 src/models/create_inbox_conversation_400_response_any_of.rs
 src/models/create_inbox_conversation_404_response.rs
 src/models/create_inbox_conversation_404_response_any_of.rs
+src/models/create_inbox_conversation_409_response.rs
 src/models/create_inbox_conversation_422_response.rs
 src/models/create_inbox_conversation_422_response_any_of.rs
 src/models/create_inbox_conversation_429_response.rs
