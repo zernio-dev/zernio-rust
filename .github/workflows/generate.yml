@@ -8,13 +8,6 @@ on:
   schedule:
     - cron: '17 1-23/2 * * *'
 
-# Serialize runs: two dispatches computing the same next version from the same
-# tag state double-publish (2026-08-21: two runs both computed 0.0.723 and the
-# second was rejected by crates.io).
-concurrency:
-  group: ${{ github.workflow }}
-  cancel-in-progress: false
-
 jobs:
   defer:
     if: github.event_name == 'repository_dispatch'
@@ -29,6 +22,12 @@ jobs:
 
   generate:
     if: github.event_name != 'repository_dispatch'
+    # Serialize runs: two dispatches computing the same next version from the same
+    # tag state double-publish (2026-08-21: two runs both computed 0.0.723 and the
+    # second was rejected by crates.io).
+    concurrency:
+      group: ${{ github.workflow }}
+      cancel-in-progress: false
     name: Regenerate from OpenAPI
     runs-on: ubuntu-latest
     permissions:
