@@ -443,6 +443,7 @@ docs/CreateStandaloneAdRequestBehaviorsInner.md
 docs/CreateStandaloneAdRequestBrandIdentity.md
 docs/CreateStandaloneAdRequestCarouselCardsInner.md
 docs/CreateStandaloneAdRequestCitiesInner.md
+docs/CreateStandaloneAdRequestCitiesInnerOneOf.md
 docs/CreateStandaloneAdRequestCreativesInner.md
 docs/CreateStandaloneAdRequestCreativesInnerVideo.md
 docs/CreateStandaloneAdRequestCustomLocationsInner.md
@@ -454,10 +455,12 @@ docs/CreateStandaloneAdRequestPlacementAssetsRulesInnerPlacements.md
 docs/CreateStandaloneAdRequestPlacements.md
 docs/CreateStandaloneAdRequestPlatformSpecificData.md
 docs/CreateStandaloneAdRequestRegionsInner.md
+docs/CreateStandaloneAdRequestRegionsInnerOneOf.md
 docs/CreateStandaloneAdRequestSitelinksInner.md
 docs/CreateStandaloneAdRequestStructuredSnippetsInner.md
 docs/CreateStandaloneAdRequestTranslationsInner.md
 docs/CreateStandaloneAdRequestVideo.md
+docs/CreateStandaloneAdRequestZipsInner.md
 docs/CreateTestLead200Response.md
 docs/CreateTestLead200ResponseTestLead.md
 docs/CreateTestLeadRequest.md
@@ -864,6 +867,9 @@ docs/GetPendingOAuthData200Response.md
 docs/GetPendingOAuthData200ResponseOrganizationsInner.md
 docs/GetPhoneNumber200Response.md
 docs/GetPhoneNumber200ResponsePhoneNumber.md
+docs/GetPhoneNumberClaim200Response.md
+docs/GetPhoneNumberClaim200ResponseArea.md
+docs/GetPhoneNumberClaim200ResponseCountry.md
 docs/GetPhoneNumberKycForm200Response.md
 docs/GetPhoneNumberKycForm200ResponseFieldsInner.md
 docs/GetPhoneNumberKycForm200ResponseReusable.md
@@ -1019,6 +1025,7 @@ docs/GoogleBusinessPlatformDataOffer.md
 docs/GoogleBusinessReview.md
 docs/GoogleBusinessReviewReviewReply.md
 docs/GoogleBusinessReviewReviewer.md
+docs/GoogleLocationTargetingType.md
 docs/GooglePmaxAssetGroup.md
 docs/GooglePmaxAssetGroupAssetsInner.md
 docs/GooglePmaxAssetGroupInput.md
@@ -1473,6 +1480,8 @@ docs/PurchasePhoneNumber200ResponseOneOf1.md
 docs/PurchasePhoneNumber200ResponseOneOf1PhoneNumber.md
 docs/PurchasePhoneNumber200ResponseOneOf2.md
 docs/PurchasePhoneNumber202Response.md
+docs/PurchasePhoneNumber401Response.md
+docs/PurchasePhoneNumber401ResponseDetails.md
 docs/PurchasePhoneNumber409Response.md
 docs/PurchasePhoneNumber503Response.md
 docs/PurchasePhoneNumberRequest.md
@@ -1771,6 +1780,7 @@ docs/SyncExternalPosts200ResponseSynced.md
 docs/SyncExternalPostsRequest.md
 docs/TargetingSpec.md
 docs/TargetingSpecCitiesInner.md
+docs/TargetingSpecCitiesInnerOneOf.md
 docs/TargetingSpecCustomLocationsInner.md
 docs/TargetingSpecExcludedLocations.md
 docs/TargetingSpecExcludedLocationsCitiesInner.md
@@ -1849,6 +1859,7 @@ docs/UpdateAdRequestTargetingInterestsInner.md
 docs/UpdateAdRequestTargetingKeywordsInner.md
 docs/UpdateAdRequestTargetingKeywordsInnerOneOf.md
 docs/UpdateAdRequestTargetingLocations.md
+docs/UpdateAdRequestTargetingLocationsOneOf.md
 docs/UpdateAdSet200Response.md
 docs/UpdateAdSetRequest.md
 docs/UpdateAdSetRequestBudget.md
@@ -1893,6 +1904,7 @@ docs/UpdateCampaignTargetingRequestTargetingDevicesInnerOneOf.md
 docs/UpdateCampaignTargetingRequestTargetingLocations.md
 docs/UpdateCampaignTargetingRequestTargetingLocationsOneOf.md
 docs/UpdateCampaignTargetingRequestTargetingLocationsOneOfRegionsInner.md
+docs/UpdateCampaignTargetingRequestTargetingLocationsOneOfRegionsInnerOneOf.md
 docs/UpdateCommentAutomation200Response.md
 docs/UpdateCommentAutomation200ResponseAutomation.md
 docs/UpdateCommentAutomationRequest.md
@@ -2750,6 +2762,7 @@ src/models/create_standalone_ad_request_behaviors_inner.rs
 src/models/create_standalone_ad_request_brand_identity.rs
 src/models/create_standalone_ad_request_carousel_cards_inner.rs
 src/models/create_standalone_ad_request_cities_inner.rs
+src/models/create_standalone_ad_request_cities_inner_one_of.rs
 src/models/create_standalone_ad_request_creatives_inner.rs
 src/models/create_standalone_ad_request_creatives_inner_video.rs
 src/models/create_standalone_ad_request_custom_locations_inner.rs
@@ -2761,10 +2774,12 @@ src/models/create_standalone_ad_request_placement_assets_rules_inner_placements.
 src/models/create_standalone_ad_request_placements.rs
 src/models/create_standalone_ad_request_platform_specific_data.rs
 src/models/create_standalone_ad_request_regions_inner.rs
+src/models/create_standalone_ad_request_regions_inner_one_of.rs
 src/models/create_standalone_ad_request_sitelinks_inner.rs
 src/models/create_standalone_ad_request_structured_snippets_inner.rs
 src/models/create_standalone_ad_request_translations_inner.rs
 src/models/create_standalone_ad_request_video.rs
+src/models/create_standalone_ad_request_zips_inner.rs
 src/models/create_test_lead_200_response.rs
 src/models/create_test_lead_200_response_test_lead.rs
 src/models/create_test_lead_request.rs
@@ -3169,6 +3184,9 @@ src/models/get_pending_o_auth_data_200_response.rs
 src/models/get_pending_o_auth_data_200_response_organizations_inner.rs
 src/models/get_phone_number_200_response.rs
 src/models/get_phone_number_200_response_phone_number.rs
+src/models/get_phone_number_claim_200_response.rs
+src/models/get_phone_number_claim_200_response_area.rs
+src/models/get_phone_number_claim_200_response_country.rs
 src/models/get_phone_number_kyc_form_200_response.rs
 src/models/get_phone_number_kyc_form_200_response_fields_inner.rs
 src/models/get_phone_number_kyc_form_200_response_reusable.rs
@@ -3316,6 +3334,7 @@ src/models/google_business_platform_data_offer.rs
 src/models/google_business_review.rs
 src/models/google_business_review_review_reply.rs
 src/models/google_business_review_reviewer.rs
+src/models/google_location_targeting_type.rs
 src/models/google_pmax_asset_group.rs
 src/models/google_pmax_asset_group_assets_inner.rs
 src/models/google_pmax_asset_group_input.rs
@@ -3755,6 +3774,8 @@ src/models/purchase_phone_number_200_response_one_of_1.rs
 src/models/purchase_phone_number_200_response_one_of_1_phone_number.rs
 src/models/purchase_phone_number_200_response_one_of_2.rs
 src/models/purchase_phone_number_202_response.rs
+src/models/purchase_phone_number_401_response.rs
+src/models/purchase_phone_number_401_response_details.rs
 src/models/purchase_phone_number_409_response.rs
 src/models/purchase_phone_number_503_response.rs
 src/models/purchase_phone_number_request.rs
@@ -4046,6 +4067,7 @@ src/models/sync_external_posts_200_response_synced.rs
 src/models/sync_external_posts_request.rs
 src/models/targeting_spec.rs
 src/models/targeting_spec_cities_inner.rs
+src/models/targeting_spec_cities_inner_one_of.rs
 src/models/targeting_spec_custom_locations_inner.rs
 src/models/targeting_spec_excluded_locations.rs
 src/models/targeting_spec_excluded_locations_cities_inner.rs
@@ -4121,6 +4143,7 @@ src/models/update_ad_request_targeting_interests_inner.rs
 src/models/update_ad_request_targeting_keywords_inner.rs
 src/models/update_ad_request_targeting_keywords_inner_one_of.rs
 src/models/update_ad_request_targeting_locations.rs
+src/models/update_ad_request_targeting_locations_one_of.rs
 src/models/update_ad_set_200_response.rs
 src/models/update_ad_set_request.rs
 src/models/update_ad_set_request_budget.rs
@@ -4165,6 +4188,7 @@ src/models/update_campaign_targeting_request_targeting_devices_inner_one_of.rs
 src/models/update_campaign_targeting_request_targeting_locations.rs
 src/models/update_campaign_targeting_request_targeting_locations_one_of.rs
 src/models/update_campaign_targeting_request_targeting_locations_one_of_regions_inner.rs
+src/models/update_campaign_targeting_request_targeting_locations_one_of_regions_inner_one_of.rs
 src/models/update_comment_automation_200_response.rs
 src/models/update_comment_automation_200_response_automation.rs
 src/models/update_comment_automation_request.rs

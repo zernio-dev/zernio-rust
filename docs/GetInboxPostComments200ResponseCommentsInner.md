@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **platform** | Option<**String**> | The platform this comment is from | [optional]
 **url** | Option<**String**> | Direct link to the comment on the platform (if available) | [optional]
 **replies** | Option<**Vec<serde_json::Value>**> |  | [optional]
-**replies_has_more** | Option<**bool**> | Facebook only. True when replies[] (capped at 10) does not hold the comment's full reply thread; fetch the rest by passing the comment id as postId to GET /v1/inbox/comments/{postId}. Absent (not false) on every other platform, including Instagram, which has no equivalent signal. | [optional]
+**replies_has_more** | Option<**bool**> | Facebook only. True when replies[] (capped at 10) does not hold the comment's full reply thread; fetch the rest by passing the comment id as the `commentId` query parameter to GET /v1/inbox/comments/{postId} (or, for backwards compatibility, as `postId`). Absent (not false) on every other platform, including Instagram, which has no equivalent signal. | [optional]
 **can_reply** | Option<**bool**> |  | [optional]
 **can_delete** | Option<**bool**> |  | [optional]
 **can_hide** | Option<**bool**> | Whether this comment can be hidden (Facebook, Instagram, Threads) | [optional]

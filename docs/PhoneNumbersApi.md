@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**create_phone_number_stock_watch**](PhoneNumbersApi.md#create_phone_number_stock_watch) | **POST** /v1/phone-numbers/stock-watches | Watch an out-of-stock country
 [**delete_phone_number_stock_watch**](PhoneNumbersApi.md#delete_phone_number_stock_watch) | **DELETE** /v1/phone-numbers/stock-watches/{id} | Stop watching a country
 [**get_phone_number**](PhoneNumbersApi.md#get_phone_number) | **GET** /v1/phone-numbers/{id} | Get phone number
+[**get_phone_number_claim**](PhoneNumbersApi.md#get_phone_number_claim) | **GET** /v1/phone-numbers/claims/{claimId} | Resolve a number claim
 [**get_phone_number_kyc_form**](PhoneNumbersApi.md#get_phone_number_kyc_form) | **GET** /v1/phone-numbers/kyc | Get KYC form spec
 [**get_phone_number_port_in_order_requirements**](PhoneNumbersApi.md#get_phone_number_port_in_order_requirements) | **GET** /v1/phone-numbers/port-in/{id}/requirements | A port-in order's pending requirements
 [**get_phone_number_port_in_requirements**](PhoneNumbersApi.md#get_phone_number_port_in_requirements) | **GET** /v1/phone-numbers/port-in/requirements | Country porting requirements
@@ -70,7 +71,7 @@ Name | Type | Description  | Required | Notes
 > models::CheckPhoneNumberAvailability200Response check_phone_number_availability(country, number_type, sms)
 Check country availability
 
-Pre-purchase check, so you can warn BEFORE a customer invests in KYC (regulated review is async, 1-3 days). Tells you whether we have deliverable inventory, and what address the customer needs:   - `addressConstraint: geo`  → the registered address MUST be in one of     the returned `areas` (the only place we have stock). A different-area     address passes pre-approval but the number can never be assigned.   - `addressConstraint: country` → any in-country address works.   - `addressConstraint: none` → field-only / instant country, no address. Call this before starting the KYC form for regulated countries. 
+Pre-purchase check, so you can warn BEFORE a customer invests in KYC (regulated review is async, 1-3 days). Tells you whether we have deliverable inventory, and what address the customer needs:   - `addressConstraint: geo`  → the registered address MUST be in one of     the returned `areas` (the only place we have stock). A different-area     address passes pre-approval but the number can never be assigned.   - `addressConstraint: country` → any in-country address works.   - `addressConstraint: none` → field-only / instant country, no address. Call this before starting the KYC form for regulated countries.  Without an API key it answers from cache only and returns just `country`, `numberType` and `areaOptions`, for building an area picker before signup. 
 
 ### Parameters
 
@@ -275,6 +276,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_phone_number_claim
+
+> models::GetPhoneNumberClaim200Response get_phone_number_claim(claim_id)
+Resolve a number claim
+
+Resolves a `claimId` from a keyless search or purchase into the selection it carries (country, number type, area and exact number) priced at today's rate. The dashboard calls it when a person lands from a `claimUrl`. The number is not held, so buying it can still fail with 409 PHONE_NUMBER_UNAVAILABLE. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**claim_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::GetPhoneNumberClaim200Response**](getPhoneNumberClaim_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_phone_number_kyc_form
 
 > models::GetPhoneNumberKycForm200Response get_phone_number_kyc_form(country, number_type)
@@ -402,7 +433,7 @@ Name | Type | Description  | Required | Notes
 > models::ListPhoneNumberCountries200Response list_phone_number_countries()
 List offerable number countries
 
-The phone number countries available to purchase, each with its flat monthly price (cents), regulatory tier, whether it needs end-user KYC (Tier 3/4), and per-feature availability (PSTN calls, WhatsApp, SMS, and WhatsApp Business Calling outbound). Drives the country picker. Tier-4 countries appear only when enabled. 
+The phone number countries available to purchase, each with its flat monthly price (cents), regulatory tier, whether it needs end-user KYC (Tier 3/4), and per-feature availability (PSTN calls, WhatsApp, SMS, and WhatsApp Business Calling outbound). Drives the country picker. Tier-4 countries appear only when enabled. No API key needed: the catalog is public so you can browse it before you have an account. 
 
 ### Parameters
 
@@ -414,7 +445,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -692,17 +723,17 @@ Name | Type | Description  | Required | Notes
 
 ## search_available_phone_numbers
 
-> models::SearchAvailablePhoneNumbers200Response search_available_phone_numbers(country, number_type, area_code, r#type, prefix, locality, contains, sms, limit)
+> models::SearchAvailablePhoneNumbers200Response search_available_phone_numbers(country, number_type, area_code, r#type, prefix, locality, contains, sms, limit, masked)
 Search available numbers
 
-Search the provider's inventory for numbers available to purchase in a country (default US). Optional filters narrow the results. The country must be offerable (see GET /v1/phone-numbers/countries). Voice capability is always required; pass `sms=true` to only see numbers that can also text (SMS support is per-number, not per-country). Numbers a purchase would refuse are left out, and any result's `phoneNumber` can be bought exactly by passing it to POST /v1/phone-numbers/purchase. 
+Search the provider's inventory for numbers available to purchase in a country (default US). Optional filters narrow the results. The country must be offerable (see GET /v1/phone-numbers/countries). Voice capability is always required; pass `sms=true` to only see numbers that can also text (SMS support is per-number, not per-country). Numbers a purchase would refuse are left out, and any result's `phoneNumber` can be bought exactly by passing it to POST /v1/phone-numbers/purchase.  Works without an API key. Keyless calls get up to 12 results with the middle digits masked (`maskedNumber`), each with a `claimId` and a `claimUrl`: a signup link that lands a person on the dashboard's confirm step with that number picked, so an agent can search for a user and hand them one link. Keyless calls are rate limited per IP and results are cached for a few minutes. With an API key you get full numbers and no claim fields. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**country** | Option<**String**> |  |  |[default to US]
+**country** | Option<**String**> | ISO code, or `auto` on the keyless shape to search the caller's own country (from their IP) near their city, falling back to US. |  |[default to US]
 **number_type** | Option<**String**> | Number type; defaults to the country's WhatsApp-safe type (the same name as on purchase, availability and kyc) |  |
 **area_code** | Option<**String**> | Area code or national dialing code the number must start with, e.g. 415 or 91 |  |
 **r#type** | Option<**String**> | Alias of numberType, kept for existing callers |  |
@@ -711,6 +742,7 @@ Name | Type | Description  | Required | Notes
 **contains** | Option<**String**> | Pattern to match within the number |  |
 **sms** | Option<**bool**> | true narrows the pool to SMS-capable numbers. Each result still carries its full `features` list for per-number capability badging. |  |
 **limit** | Option<**i32**> |  |  |[default to 20]
+**masked** | Option<**bool**> | true returns the keyless shape (masked numbers with claimId and claimUrl) even when you send an API key, e.g. to hand a user a signup link for a number. |  |
 
 ### Return type
 

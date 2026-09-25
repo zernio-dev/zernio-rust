@@ -8,6 +8,10 @@ Name | Type | Description | Notes
 **features** | Option<**Vec<String>**> | Provider capability list for this number (e.g. voice, sms, mms). | [optional]
 **locality** | Option<**String**> | Town or rate center the number belongs to, as the carrier names it (e.g. WACO). | [optional]
 **best_effort** | Option<**bool**> | true when the carrier added this number because too few matched your filters, so it may be outside the requested prefix or locality. | [optional]
+**masked_number** | Option<**String**> | Keyless calls only, in place of `phoneNumber`: the number with its middle digits masked, e.g. +44 20 •••• 0123. | [optional]
+**number_type** | Option<**String**> | Keyless calls only. Without a `numberType` filter a keyless search mixes every type the country sells, so each result names its own. | [optional]
+**claim_id** | Option<**String**> | Keyless calls only. Opaque, expires after 7 days. Pass it as `claimId` on a keyless POST /v1/phone-numbers/purchase. | [optional]
+**claim_url** | Option<**String**> | Keyless calls only. Signup link that opens the dashboard's confirm step for this number. The number is not held: if it is gone by then, the buyer picks another in the same area. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **comments** | Option<**i32**> |  | [optional]
 **shares** | Option<**i32**> |  | [optional]
 **saves** | Option<**i32**> | Number of saves/bookmarks (Instagram, Pinterest, X) | [optional]
-**clicks** | Option<**i32**> |  | [optional]
+**clicks** | Option<**i32**> | Link clicks where the platform reports them. Always 0 on Facebook Page stories: Meta exposes no link-click metric for stories. | [optional]
 **views** | Option<**i32**> |  | [optional]
 **follows** | Option<**i32**> | Instagram feed posts and stories only: organic accounts that started following from this post. Null on Instagram Reels and non-Reels video, where Meta does not expose this metric for the media. 0 for other platforms. | [optional]
 **ig_reels_avg_watch_time** | Option<**i32**> | Instagram Reels only: average watch time per play, in milliseconds. 0 for non-Reels media and other platforms. | [optional]
