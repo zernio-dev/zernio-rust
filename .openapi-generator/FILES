@@ -876,6 +876,7 @@ docs/GetPhoneNumberKycForm200ResponseReusable.md
 docs/GetPhoneNumberKycForm200ResponseReusableDetailsInner.md
 docs/GetPhoneNumberKycForm200ResponseReusableOptionsInner.md
 docs/GetPhoneNumberKycForm200ResponseReusableOptionsInnerDetailsInner.md
+docs/GetPhoneNumberPortClaim200Response.md
 docs/GetPhoneNumberPortInOrderRequirements200Response.md
 docs/GetPhoneNumberPortInOrderRequirements200ResponseRequirementsInner.md
 docs/GetPhoneNumberPortInRequirements200Response.md
@@ -1299,7 +1300,6 @@ docs/ListPhoneNumberPortIns200ResponseOrdersInner.md
 docs/ListPhoneNumberStockWatches200Response.md
 docs/ListPhoneNumbers200Response.md
 docs/ListPhoneNumbers200ResponseConnectedInner.md
-docs/ListPhoneNumbers200ResponseNumbersInner.md
 docs/ListPhoneNumbers200ResponseSandbox.md
 docs/ListPhoneNumbers200ResponseSandboxTemplate.md
 docs/ListPinterestBoardsForSelection200Response.md
@@ -1433,6 +1433,10 @@ docs/OnboardBusinessAgent201Response.md
 docs/OrderImessageSender202Response.md
 docs/OrderImessageSenderRequest.md
 docs/OrderImessageSenderRequestContact.md
+docs/OwnedPhoneNumber.md
+docs/OwnedPhoneNumberFeatures.md
+docs/OwnedPhoneNumberProfileId.md
+docs/OwnedPhoneNumberProfileIdOneOf.md
 docs/Pagination.md
 docs/PauseWorkflow200Response.md
 docs/Pending.md
@@ -3200,6 +3204,7 @@ src/models/get_phone_number_kyc_form_200_response_reusable.rs
 src/models/get_phone_number_kyc_form_200_response_reusable_details_inner.rs
 src/models/get_phone_number_kyc_form_200_response_reusable_options_inner.rs
 src/models/get_phone_number_kyc_form_200_response_reusable_options_inner_details_inner.rs
+src/models/get_phone_number_port_claim_200_response.rs
 src/models/get_phone_number_port_in_order_requirements_200_response.rs
 src/models/get_phone_number_port_in_order_requirements_200_response_requirements_inner.rs
 src/models/get_phone_number_port_in_requirements_200_response.rs
@@ -3609,7 +3614,6 @@ src/models/list_phone_number_port_ins_200_response_orders_inner.rs
 src/models/list_phone_number_stock_watches_200_response.rs
 src/models/list_phone_numbers_200_response.rs
 src/models/list_phone_numbers_200_response_connected_inner.rs
-src/models/list_phone_numbers_200_response_numbers_inner.rs
 src/models/list_phone_numbers_200_response_sandbox.rs
 src/models/list_phone_numbers_200_response_sandbox_template.rs
 src/models/list_pinterest_boards_for_selection_200_response.rs
@@ -3739,6 +3743,10 @@ src/models/onboard_business_agent_201_response.rs
 src/models/order_imessage_sender_202_response.rs
 src/models/order_imessage_sender_request.rs
 src/models/order_imessage_sender_request_contact.rs
+src/models/owned_phone_number.rs
+src/models/owned_phone_number_features.rs
+src/models/owned_phone_number_profile_id.rs
+src/models/owned_phone_number_profile_id_one_of.rs
 src/models/pagination.rs
 src/models/pause_workflow_200_response.rs
 src/models/pending.rs

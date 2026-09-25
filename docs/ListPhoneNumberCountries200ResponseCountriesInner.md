@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **monthly_cents** | Option<**i32**> | Price a NEW number in this country costs per month, in cents, for the default (first) type. 1.5x the carrier's monthly cost, rounded up to a whole dollar, minimum $3. | [optional]
 **needs_kyc** | Option<**bool**> |  | [optional]
 **calls_available** | Option<**bool**> | Regular phone (PSTN) calling on the number, inbound + outbound. Available on every offerable country. | [optional]
-**whatsapp_available** | Option<**bool**> | WhatsApp can be enabled on numbers from this country. | [optional]
+**whatsapp_available** | Option<**bool**> | WhatsApp can be enabled on at least one number type from this country; types[].whatsappAvailable says which. | [optional]
 **sms_available** | Option<**bool**> | Whether this country's number type can do SMS. Use it to filter the picker when the buyer wants SMS (pair with `wantsSms` on purchase). | [optional]
 **outbound_calling_available** | Option<**bool**> | WhatsApp Business Calling (BIC) outbound availability, a Meta feature blocked in some countries. NOT the PSTN Calls feature (`callsAvailable`). | [optional]
 **in_stock** | Option<**bool**> | Live carrier-stock snapshot (refreshed every 6h + on availability checks): false when NO offered type currently has deliverable inventory, so a purchase would fail. Treat as advisory; the purchase itself re-checks. | [optional]

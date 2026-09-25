@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **tier** | Option<**Tier**> | Null on a `fulfilment: request` type, whose document tier is only known once its requirements are read. (enum: 1, 2, 3, 4, ) | [optional]
 **needs_kyc** | Option<**bool**> |  | [optional]
 **monthly_cents** | Option<**i32**> | Price a NEW number of this type costs per month, in cents. | [optional]
-**whatsapp_available** | Option<**bool**> | Always false for toll_free (WhatsApp does not reliably register toll-free numbers). | [optional]
+**whatsapp_available** | Option<**bool**> | False for toll_free (WhatsApp does not reliably register toll-free numbers) and for pairs Meta refuses, such as Chilean local (+56 2). | [optional]
 **sms_available** | Option<**bool**> |  | [optional]
 **calls_available** | Option<**bool**> |  | [optional]
 **in_stock** | Option<**bool**> |  | [optional]

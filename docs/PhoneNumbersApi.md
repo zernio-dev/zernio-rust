@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**get_phone_number**](PhoneNumbersApi.md#get_phone_number) | **GET** /v1/phone-numbers/{id} | Get phone number
 [**get_phone_number_claim**](PhoneNumbersApi.md#get_phone_number_claim) | **GET** /v1/phone-numbers/claims/{claimId} | Resolve a number claim
 [**get_phone_number_kyc_form**](PhoneNumbersApi.md#get_phone_number_kyc_form) | **GET** /v1/phone-numbers/kyc | Get KYC form spec
+[**get_phone_number_port_claim**](PhoneNumbersApi.md#get_phone_number_port_claim) | **GET** /v1/phone-numbers/port-in/claims/{claimId} | Resolve a port claim
 [**get_phone_number_port_in_order_requirements**](PhoneNumbersApi.md#get_phone_number_port_in_order_requirements) | **GET** /v1/phone-numbers/port-in/{id}/requirements | A port-in order's pending requirements
 [**get_phone_number_port_in_requirements**](PhoneNumbersApi.md#get_phone_number_port_in_requirements) | **GET** /v1/phone-numbers/port-in/requirements | Country porting requirements
 [**get_phone_number_remediation**](PhoneNumbersApi.md#get_phone_number_remediation) | **GET** /v1/phone-numbers/{id}/remediate | Get declined requirements
@@ -103,7 +104,7 @@ Name | Type | Description  | Required | Notes
 > models::CheckPhoneNumberPortability200Response check_phone_number_portability(check_phone_number_portability_request)
 Check portability
 
-Pre-flight portability check: whether each number can be ported in and whether it qualifies for FastPort, BEFORE the user commits to a port order (LOA, invoice, service address). Read-only; creates no order and bills nothing. 
+Pre-flight portability check: whether each number can be ported in, whether it qualifies for FastPort, and its current carrier and line type where the carrier lookup knows them, BEFORE the user commits to a port order (LOA, invoice, service address). Read-only; creates no order and bills nothing.  Works without an API key for one number per request. Keyless calls are what the checker at https://zernio.com/port-your-number makes: they must come from that page (a browser bot check rejects scripted callers with 401), are limited per IP (3 a minute, 10 a day) and by a shared daily budget (429 once spent), because each check runs a paid carrier lookup. Each portable keyless result carries a `claimId` and a `claimUrl`: a signup link that opens the dashboard's port form with the number filled in. Send an API key to check up to 50 numbers without those limits. 
 
 ### Parameters
 
@@ -324,6 +325,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetPhoneNumberKycForm200Response**](getPhoneNumberKycForm_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_phone_number_port_claim
+
+> models::GetPhoneNumberPortClaim200Response get_phone_number_port_claim(claim_id)
+Resolve a port claim
+
+Resolves a `claimId` from a keyless portability check into the number it carries. The dashboard calls it when a person lands from a port `claimUrl`, to open the port form with that number filled in. It does not start a port. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**claim_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::GetPhoneNumberPortClaim200Response**](getPhoneNumberPortClaim_200_response.md)
 
 ### Authorization
 
