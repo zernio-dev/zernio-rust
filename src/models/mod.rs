@@ -2782,6 +2782,8 @@ pub mod post_delete_response;
 pub use self::post_delete_response::PostDeleteResponse;
 pub mod post_get_response;
 pub use self::post_get_response::PostGetResponse;
+pub mod post_platform_error;
+pub use self::post_platform_error::PostPlatformError;
 pub mod post_publish_incomplete_response;
 pub use self::post_publish_incomplete_response::PostPublishIncompleteResponse;
 pub mod post_publish_incomplete_response_platform_results_inner;

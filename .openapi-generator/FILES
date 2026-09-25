@@ -1438,6 +1438,7 @@ docs/PostAnalytics.md
 docs/PostCreateResponse.md
 docs/PostDeleteResponse.md
 docs/PostGetResponse.md
+docs/PostPlatformError.md
 docs/PostPublishIncompleteResponse.md
 docs/PostPublishIncompleteResponsePlatformResultsInner.md
 docs/PostRetryResponse.md
@@ -3722,6 +3723,7 @@ src/models/post_analytics.rs
 src/models/post_create_response.rs
 src/models/post_delete_response.rs
 src/models/post_get_response.rs
+src/models/post_platform_error.rs
 src/models/post_publish_incomplete_response.rs
 src/models/post_publish_incomplete_response_platform_results_inner.rs
 src/models/post_retry_response.rs

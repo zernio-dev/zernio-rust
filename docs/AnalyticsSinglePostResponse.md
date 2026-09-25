@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **post_id** | Option<**String**> |  | [optional]
 **late_post_id** | Option<**String**> | Original Zernio post ID if scheduled via Zernio | [optional]
-**status** | Option<**Status**> | Overall post status. \"partial\" when some platforms published and others failed. (enum: published, failed, partial) | [optional]
+**status** | Option<**Status**> | Overall post status. \"partial\" when some platforms published and others failed. While any platform is still pending or processing, the post's own status is returned instead (usually scheduled or publishing), even if another platform already published. (enum: published, failed, partial, scheduled, publishing, draft, cancelled) | [optional]
 **content** | Option<**String**> |  | [optional]
 **scheduled_for** | Option<**String**> |  | [optional]
 **published_at** | Option<**String**> |  | [optional]
