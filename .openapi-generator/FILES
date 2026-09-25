@@ -1408,6 +1408,10 @@ docs/MoveAccountToProfile200Response.md
 docs/MoveAccountToProfileRequest.md
 docs/MoveWhatsAppNumberToProfile200Response.md
 docs/MoveWhatsAppNumberToProfileRequest.md
+docs/OnSmsRegistrationActionRequiredRequest.md
+docs/OnSmsRegistrationActionRequiredRequestRegistration.md
+docs/OnSmsRegistrationStatusUpdatedRequest.md
+docs/OnSmsRegistrationStatusUpdatedRequestRegistration.md
 docs/OnVerificationApprovedRequest.md
 docs/OnVerificationApprovedRequestVerification.md
 docs/OnVerificationFailedRequest.md
@@ -1565,6 +1569,7 @@ docs/RespondToPhoneNumberReviewerRequest.md
 docs/RespondToPhoneNumberReviewerRequestDocumentsInner.md
 docs/RespondToSmsRegistrationReview200Response.md
 docs/RespondToSmsRegistrationReviewRequest.md
+docs/RespondToSmsRegistrationReviewRequestAnswersInner.md
 docs/RestoreWorkflowVersion200Response.md
 docs/RestoreWorkflowVersion200ResponseWorkflow.md
 docs/ResyncPageWebhookSubscription200Response.md
@@ -1748,6 +1753,8 @@ docs/SharedAdAccount.md
 docs/SlackApi.md
 docs/SlackPlatformData.md
 docs/SmsApi.md
+docs/SmsRegistrationReviewRequest.md
+docs/SmsRegistrationReviewRequestPointsInner.md
 docs/SnapchatPlatformData.md
 docs/SocialAccount.md
 docs/SocialAccountProfileId.md
@@ -3707,6 +3714,10 @@ src/models/move_account_to_profile_200_response.rs
 src/models/move_account_to_profile_request.rs
 src/models/move_whats_app_number_to_profile_200_response.rs
 src/models/move_whats_app_number_to_profile_request.rs
+src/models/on_sms_registration_action_required_request.rs
+src/models/on_sms_registration_action_required_request_registration.rs
+src/models/on_sms_registration_status_updated_request.rs
+src/models/on_sms_registration_status_updated_request_registration.rs
 src/models/on_verification_approved_request.rs
 src/models/on_verification_approved_request_verification.rs
 src/models/on_verification_failed_request.rs
@@ -3856,6 +3867,7 @@ src/models/respond_to_phone_number_reviewer_request.rs
 src/models/respond_to_phone_number_reviewer_request_documents_inner.rs
 src/models/respond_to_sms_registration_review_200_response.rs
 src/models/respond_to_sms_registration_review_request.rs
+src/models/respond_to_sms_registration_review_request_answers_inner.rs
 src/models/restore_workflow_version_200_response.rs
 src/models/restore_workflow_version_200_response_workflow.rs
 src/models/resync_page_webhook_subscription_200_response.rs
@@ -4035,6 +4047,8 @@ src/models/share_sms_registration_200_response.rs
 src/models/share_sms_registration_request.rs
 src/models/shared_ad_account.rs
 src/models/slack_platform_data.rs
+src/models/sms_registration_review_request.rs
+src/models/sms_registration_review_request_points_inner.rs
 src/models/snapchat_platform_data.rs
 src/models/social_account.rs
 src/models/social_account_profile_id.rs

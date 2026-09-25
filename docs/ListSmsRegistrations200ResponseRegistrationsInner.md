@@ -16,6 +16,13 @@ Name | Type | Description | Notes
 **tf_action_required_at** | Option<**String**> | Toll-free only: when the carrier requested changes (\"Waiting For Customer\"). The request must be resubmitted within 7 days of this timestamp or it expires. | [optional]
 **phone_numbers** | Option<**Vec<String>**> |  | [optional]
 **awaiting_otp** | Option<**bool**> | Sole-prop 10DLC only; the OTP step is still pending. | [optional]
+**admin_review_note** | Option<**String**> | The open change request as text (status changes_requested). | [optional]
+**last_response_at** | Option<**String**> | When you last answered a change request. | [optional]
+**previously_rejected** | Option<**bool**> | Rejected by the carriers at least once. A pending registration with this set is our fix, back with the carriers. | [optional]
+**last_rejected_at** | Option<**String**> | When the carriers last rejected it. | [optional]
+**rejected_before_submission** | Option<**bool**> | Rejected in our review before anything was filed with the carriers (not a carrier rejection; nothing to fix or appeal). | [optional]
+**otp_expired** | Option<**bool**> | Sole proprietor only: the verification code was never entered within 30 days. Start SMS setup again; it revives the same brand with no second brand fee. | [optional]
+**review_request** | Option<[**models::SmsRegistrationReviewRequest**](SmsRegistrationReviewRequest.md)> |  | [optional]
 **trust_score** | Option<**f64**> | Carrier-assigned brand trust score; drives throughput. | [optional]
 **throughput** | Option<[**models::ListSmsRegistrations200ResponseRegistrationsInnerThroughput**](ListSmsRegistrations200ResponseRegistrationsInnerThroughput.md)> |  | [optional]
 

@@ -42,6 +42,8 @@ Method | HTTP request | Description
 [**on_referral_received**](WebhookEventsApi.md#on_referral_received) | **POST** /referral.received | Referral received event
 [**on_review_new**](WebhookEventsApi.md#on_review_new) | **POST** /review.new | Review new event
 [**on_review_updated**](WebhookEventsApi.md#on_review_updated) | **POST** /review.updated | Review updated event
+[**on_sms_registration_action_required**](WebhookEventsApi.md#on_sms_registration_action_required) | **POST** /sms.registration.action_required | SMS registration action required event
+[**on_sms_registration_status_updated**](WebhookEventsApi.md#on_sms_registration_status_updated) | **POST** /sms.registration.status_updated | SMS registration status updated event
 [**on_verification_approved**](WebhookEventsApi.md#on_verification_approved) | **POST** /verification.approved | Verification approved event
 [**on_verification_failed**](WebhookEventsApi.md#on_verification_failed) | **POST** /verification.failed | Verification failed event
 [**on_webhook_test**](WebhookEventsApi.md#on_webhook_test) | **POST** /webhook.test | Webhook test event
@@ -1183,6 +1185,66 @@ Fired when a Google Business Profile reviewer edits their review text or rating,
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_review_updated** | [**WebhookPayloadReviewUpdated**](WebhookPayloadReviewUpdated.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_sms_registration_action_required
+
+> on_sms_registration_action_required(on_sms_registration_action_required_request)
+SMS registration action required event
+
+Fired when an SMS registration starts waiting on its owner. `reason` says why: `changes_requested` (we need answers to some points, before submission or to fix a carrier rejection; `message` is the request, answer with POST /v1/sms/registrations/{id}/respond), `otp_required` (a sole-proprietor brand needs the code texted to its mobile, submit it with POST /v1/sms/registrations/{id}/verify-otp) or `carrier_info_required` (the toll-free carrier asked for more information; the request expires after 7 days). A carrier rejection alone does not fire it: we handle the fix, see `sms.registration.status_updated`. Fires once per new request (not on follow-up messages) and once per OTP or carrier request. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**on_sms_registration_action_required_request** | [**OnSmsRegistrationActionRequiredRequest**](OnSmsRegistrationActionRequiredRequest.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_sms_registration_status_updated
+
+> on_sms_registration_status_updated(on_sms_registration_status_updated_request)
+SMS registration status updated event
+
+Fired on every status change of an SMS registration: `changes_requested` (we need answers, see `sms.registration.action_required`), `requested` (a new submission or resubmit, or your answers are back in our review), `pending` (with the carriers, including after we fixed and resent a rejection), `approved` (live: attach numbers and send), `rejected` (the carriers declined it; `reason` is their words and we handle the fix) and `deactivated`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**on_sms_registration_status_updated_request** | [**OnSmsRegistrationStatusUpdatedRequest**](OnSmsRegistrationStatusUpdatedRequest.md) |  | [required] |
 
 ### Return type
 
