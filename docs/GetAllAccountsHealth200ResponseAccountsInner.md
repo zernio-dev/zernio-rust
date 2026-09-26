@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **can_fetch_analytics** | Option<**bool**> |  | [optional]
 **token_valid** | Option<**bool**> |  | [optional]
 **token_expires_at** | Option<**String**> |  | [optional]
-**needs_reconnect** | Option<**bool**> |  | [optional]
+**needs_reconnect** | Option<**bool**> | True when the token is expired or revoked, permissions are missing, the account is inactive, or the platform rejected its stored credentials (the same flag the account listing reports as needsReconnection). | [optional]
 **issues** | Option<**Vec<String>**> |  | [optional]
 **messaging_restriction** | Option<[**models::GetAllAccountsHealth200ResponseAccountsInnerMessagingRestriction**](GetAllAccountsHealth200ResponseAccountsInnerMessagingRestriction.md)> |  | [optional]
 

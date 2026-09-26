@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**emoji** | **String** | The emoji reacted with. May be an empty string when `action` is `removed` on WhatsApp (Meta does not report which emoji was removed).  | 
+**emoji** | **String** | The emoji reacted with. May be an empty string when `action` is `removed` on WhatsApp (Meta does not report which emoji was removed), and on TikTok for an AI emoji reaction (TikTok sends no unicode for it).  | 
 **action** | **Action** |  (enum: added, removed) | 
 **message_id** | Option<**String**> | Internal Zernio message ID of the reacted-to message, when resolvable from the platform ID. | [optional]
 **platform_message_id** | **String** | Platform-native ID of the reacted-to message (e.g. WhatsApp wamid). | 
