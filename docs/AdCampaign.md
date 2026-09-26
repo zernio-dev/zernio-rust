@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **campaign_name** | Option<**String**> |  | [optional]
 **status** | Option<[**models::AdStatus**](AdStatus.md)> | Delivery status derived from child ad statuses. Distinct from `reviewStatus`. | [optional]
 **review_status** | Option<[**models::AdReviewStatus**](AdReviewStatus.md)> |  | [optional]
-**platform_campaign_status** | Option<**String**> | Raw platform-level campaign status (Meta `effective_status`). | [optional]
+**platform_campaign_status** | Option<**String**> | Raw platform-level campaign status (Meta `effective_status`; ChatGPT (OpenAI): the campaign's own switch, active / paused / archived). | [optional]
 **campaign_issues_info** | Option<**Vec<serde_json::Value>**> | Platform-reported campaign issues (Meta `issues_info[]`). | [optional]
 **ad_count** | Option<**i32**> |  | [optional]
 **budget** | Option<[**models::AdCampaignBudget**](AdCampaignBudget.md)> |  | [optional]
