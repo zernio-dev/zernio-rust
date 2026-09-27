@@ -8,16 +8,23 @@ Method | HTTP request | Description
 [**adjust_conversions**](ConversionsApi.md#adjust_conversions) | **POST** /v1/ads/conversions/adjustments | Adjust uploaded conversions
 [**create_conversion_action**](ConversionsApi.md#create_conversion_action) | **POST** /v1/ads/conversions/actions | Create website conversion action
 [**create_conversion_destination**](ConversionsApi.md#create_conversion_destination) | **POST** /v1/accounts/{accountId}/conversion-destinations | Create a conversion destination
+[**create_custom_conversion_goal**](ConversionsApi.md#create_custom_conversion_goal) | **POST** /v1/ads/conversions/custom-goals | Create a custom conversion goal
 [**delete_conversion_destination**](ConversionsApi.md#delete_conversion_destination) | **DELETE** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Delete a conversion destination
 [**get_conversion_destination**](ConversionsApi.md#get_conversion_destination) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Get a conversion destination
 [**get_conversion_metrics**](ConversionsApi.md#get_conversion_metrics) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/metrics | Get attribution metrics
 [**get_conversions_quality**](ConversionsApi.md#get_conversions_quality) | **GET** /v1/ads/conversions/quality | Get Event Match Quality
+[**list_ad_conversion_goals**](ConversionsApi.md#list_ad_conversion_goals) | **GET** /v1/ads/conversions/goals | List account conversion goals
 [**list_conversion_actions**](ConversionsApi.md#list_conversion_actions) | **GET** /v1/ads/conversions/actions | List conversion actions
 [**list_conversion_associations**](ConversionsApi.md#list_conversion_associations) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | List associated campaigns
 [**list_conversion_destinations**](ConversionsApi.md#list_conversion_destinations) | **GET** /v1/accounts/{accountId}/conversion-destinations | List conversion destinations
+[**list_custom_conversion_goals**](ConversionsApi.md#list_custom_conversion_goals) | **GET** /v1/ads/conversions/custom-goals | List custom conversion goals
 [**remove_conversion_associations**](ConversionsApi.md#remove_conversion_associations) | **DELETE** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | Remove associated campaigns
+[**remove_custom_conversion_goal**](ConversionsApi.md#remove_custom_conversion_goal) | **DELETE** /v1/ads/conversions/custom-goals/{goalId} | Remove a custom conversion goal
 [**send_conversions**](ConversionsApi.md#send_conversions) | **POST** /v1/ads/conversions | Send conversion events
+[**update_ad_conversion_goals**](ConversionsApi.md#update_ad_conversion_goals) | **PATCH** /v1/ads/conversions/goals | Update account conversion goals
+[**update_conversion_action**](ConversionsApi.md#update_conversion_action) | **PATCH** /v1/ads/conversions/actions/{actionId} | Set a conversion action primary or secondary
 [**update_conversion_destination**](ConversionsApi.md#update_conversion_destination) | **PATCH** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Update a conversion destination
+[**update_custom_conversion_goal**](ConversionsApi.md#update_custom_conversion_goal) | **PATCH** /v1/ads/conversions/custom-goals/{goalId} | Update a custom conversion goal
 
 
 
@@ -131,6 +138,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::CreateConversionDestination201Response**](createConversionDestination_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_custom_conversion_goal
+
+> models::CreateCustomConversionGoal201Response create_custom_conversion_goal(create_custom_conversion_goal_request)
+Create a custom conversion goal
+
+Creates a custom conversion goal from conversion action ids. Point a campaign at it with `PATCH /v1/ads/campaigns/{campaignId}/conversion-goals`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_custom_conversion_goal_request** | [**CreateCustomConversionGoalRequest**](CreateCustomConversionGoalRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateCustomConversionGoal201Response**](createCustomConversionGoal_201_response.md)
 
 ### Authorization
 
@@ -274,6 +311,38 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_ad_conversion_goals
+
+> models::ListAdConversionGoals200Response list_ad_conversion_goals(account_id, ad_account_id, customer_id)
+List account conversion goals
+
+Google Ads account-default conversion goals (CustomerConversionGoal), one per category and origin, with `biddable` (whether the goal is used for bidding and reported in the Conversions column) and the conversion actions that belong to it, each flagged `primaryForGoal` (primary) or not (secondary). Reads are cached for 10 minutes; when the shared Google quota is exhausted the last successful result is served with `stale: true`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Zernio SocialAccount id (Google Ads) | [required] |
+**ad_account_id** | Option<**String**> | Google customer id. Required when the connection has multiple customers. |  |
+**customer_id** | Option<**String**> | Alias of adAccountId |  |
+
+### Return type
+
+[**models::ListAdConversionGoals200Response**](listAdConversionGoals_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_conversion_actions
 
 > models::ListConversionActions200Response list_conversion_actions(account_id, ad_account_id, customer_id, r#type)
@@ -369,6 +438,38 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_custom_conversion_goals
+
+> models::ListCustomConversionGoals200Response list_custom_conversion_goals(account_id, ad_account_id, customer_id)
+List custom conversion goals
+
+Google Ads custom conversion goals (a named set of conversion actions a campaign can bid on). Removed goals are excluded. Cached like the other Google reads.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Zernio SocialAccount id (Google Ads) | [required] |
+**ad_account_id** | Option<**String**> | Google customer id. Required when the connection has multiple customers. |  |
+**customer_id** | Option<**String**> | Alias of adAccountId |  |
+
+### Return type
+
+[**models::ListCustomConversionGoals200Response**](listCustomConversionGoals_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## remove_conversion_associations
 
 > models::RemoveConversionAssociations200Response remove_conversion_associations(account_id, destination_id, ad_account_id, campaign_ids)
@@ -389,6 +490,39 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::RemoveConversionAssociations200Response**](removeConversionAssociations_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## remove_custom_conversion_goal
+
+> models::RemoveCustomConversionGoal200Response remove_custom_conversion_goal(goal_id, account_id, ad_account_id, customer_id)
+Remove a custom conversion goal
+
+Removes the goal. Google refuses (400) while any campaign still uses it: switch those campaigns to another goal first.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**goal_id** | **String** | Google custom conversion goal id | [required] |
+**account_id** | **String** | Zernio SocialAccount id (Google Ads) | [required] |
+**ad_account_id** | Option<**String**> | Google customer id. Required when the connection has multiple customers. |  |
+**customer_id** | Option<**String**> | Alias of adAccountId |  |
+
+### Return type
+
+[**models::RemoveCustomConversionGoal200Response**](removeCustomConversionGoal_200_response.md)
 
 ### Authorization
 
@@ -432,6 +566,67 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## update_ad_conversion_goals
+
+> models::UpdateAdConversionGoals200Response update_ad_conversion_goals(update_ad_conversion_goals_request)
+Update account conversion goals
+
+Sets `biddable` on one or more account-default goals, addressed by category and origin, in one mutate. Campaigns that use account-level goals (`goalConfigLevel: CUSTOMER`) follow the change. Returns the re-read goal list.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**update_ad_conversion_goals_request** | [**UpdateAdConversionGoalsRequest**](UpdateAdConversionGoalsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateAdConversionGoals200Response**](updateAdConversionGoals_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_conversion_action
+
+> models::UpdateConversionAction200Response update_conversion_action(action_id, update_conversion_action_request)
+Set a conversion action primary or secondary
+
+Sets `primary_for_goal` on a Google Ads conversion action. A primary action counts toward its goal's bidding and the Conversions column; a secondary one is observation-only (All conversions).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**action_id** | **String** | Google conversion action id | [required] |
+**update_conversion_action_request** | [**UpdateConversionActionRequest**](UpdateConversionActionRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateConversionAction200Response**](updateConversionAction_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## update_conversion_destination
 
 > models::GetConversionDestination200Response update_conversion_destination(account_id, destination_id, update_conversion_destination_request)
@@ -451,6 +646,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetConversionDestination200Response**](getConversionDestination_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_custom_conversion_goal
+
+> models::UpdateCustomConversionGoal200Response update_custom_conversion_goal(goal_id, update_custom_conversion_goal_request)
+Update a custom conversion goal
+
+Renames the goal and/or replaces its conversion actions. Returns the re-read goal.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**goal_id** | **String** | Google custom conversion goal id | [required] |
+**update_custom_conversion_goal_request** | [**UpdateCustomConversionGoalRequest**](UpdateCustomConversionGoalRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateCustomConversionGoal200Response**](updateCustomConversionGoal_200_response.md)
 
 ### Authorization
 

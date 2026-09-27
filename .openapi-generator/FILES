@@ -106,9 +106,6 @@ docs/ApiKeyProfileIdsInner.md
 docs/ApiKeysApi.md
 docs/AppealSmsRegistration200Response.md
 docs/AppealSmsRegistrationRequest.md
-docs/ApplyGoogleRecommendations200Response.md
-docs/ApplyGoogleRecommendationsRequest.md
-docs/ApplyGoogleRecommendationsRequestRecommendationsInner.md
 docs/ApproveWhatsAppGroupJoinRequestsRequest.md
 docs/ArchiveLeadForm200Response.md
 docs/AssignGoogleBusinessLocation200Response.md
@@ -350,6 +347,8 @@ docs/CreateConversionActionRequest.md
 docs/CreateConversionDestination201Response.md
 docs/CreateConversionDestinationRequest.md
 docs/CreateConversionDestinationRequestValue.md
+docs/CreateCustomConversionGoal201Response.md
+docs/CreateCustomConversionGoalRequest.md
 docs/CreateCustomConversionRequest.md
 docs/CreateCustomField200Response.md
 docs/CreateCustomFieldRequest.md
@@ -568,7 +567,6 @@ docs/DiscordPlatformDataThreadFromMessage.md
 docs/DiscordRole.md
 docs/DiscordScheduledEvent.md
 docs/DiscordScheduledEventEntityMetadata.md
-docs/DismissGoogleRecommendationsRequest.md
 docs/DmButton.md
 docs/DownloadTikTokVideo200Response.md
 docs/DownloadTikTokVideo200ResponseFormatsInner.md
@@ -657,6 +655,12 @@ docs/GetAccountPosts200ResponsePostsInner.md
 docs/GetAd200Response.md
 docs/GetAdAccountFinance200Response.md
 docs/GetAdAccountFinance200ResponseFundingSource.md
+docs/GetAdAccountHierarchy200Response.md
+docs/GetAdAccountHierarchy200ResponseDirectCustomersInner.md
+docs/GetAdAccountHierarchy200ResponseDirectCustomersInnerPendingInvitationsInner.md
+docs/GetAdAccountHierarchy200ResponseRootsInner.md
+docs/GetAdAccountHierarchy200ResponseRootsInnerManagerLinksInner.md
+docs/GetAdAccountHierarchy200ResponseUnavailableInner.md
 docs/GetAdAnalytics202Response.md
 docs/GetAdAudience200Response.md
 docs/GetAdCampaignDetails200Response.md
@@ -711,6 +715,7 @@ docs/GetCampaignAdSchedule200ResponsePerformanceByDayOfWeekInner.md
 docs/GetCampaignAdSchedule200ResponsePerformanceByHourInner.md
 docs/GetCampaignAnalytics202Response.md
 docs/GetCampaignBidding200Response.md
+docs/GetCampaignConversionGoals200Response.md
 docs/GetCampaignTargeting200Response.md
 docs/GetCampaignTargeting200ResponseDevicesInner.md
 docs/GetCampaignTargeting200ResponseLanguagesInner.md
@@ -1030,9 +1035,12 @@ docs/GmbServicesApi.md
 docs/GmbVerificationsApi.md
 docs/GoogleAdLabel.md
 docs/GoogleAdLabelAssignments.md
+docs/GoogleAdsHierarchyClient.md
+docs/GoogleAdsManagerLink.md
 docs/GoogleAssetGroupAssetLink.md
 docs/GoogleAssetGroupAssetUnlink.md
 docs/GoogleAssetUpdate.md
+docs/GoogleBiddableGoalInput.md
 docs/GoogleBusinessPlatformData.md
 docs/GoogleBusinessPlatformDataCallToAction.md
 docs/GoogleBusinessPlatformDataEvent.md
@@ -1045,6 +1053,19 @@ docs/GoogleBusinessPlatformDataOffer.md
 docs/GoogleBusinessReview.md
 docs/GoogleBusinessReviewReviewReply.md
 docs/GoogleBusinessReviewReviewer.md
+docs/GoogleCampaignConversionGoals.md
+docs/GoogleCampaignConversionGoalsGoalsInner.md
+docs/GoogleCustomConversionGoal.md
+docs/GoogleCustomerConversionGoal.md
+docs/GoogleCustomerConversionGoalConversionActionsInner.md
+docs/GoogleDemandGenAudience.md
+docs/GoogleDemandGenAudienceAgeRangesInner.md
+docs/GoogleDemandGenInput.md
+docs/GoogleDemandGenInputCarouselCardsInner.md
+docs/GoogleDemandGenInputCarouselCardsInnerImages.md
+docs/GoogleDemandGenInputImages.md
+docs/GoogleDemandGenUpdate.md
+docs/GoogleDemandGenUpdateImages.md
 docs/GoogleListingGroupDimension.md
 docs/GoogleListingGroupDimensionProductBrand.md
 docs/GoogleListingGroupDimensionProductCategory.md
@@ -1063,10 +1084,6 @@ docs/GooglePmaxAssetGroupInput.md
 docs/GooglePmaxAssetGroupInputImages.md
 docs/GooglePmaxAssetGroupUpdate.md
 docs/GooglePmaxAssetGroupUpdateImages.md
-docs/GoogleRecommendation.md
-docs/GoogleRecommendationImpact.md
-docs/GoogleRecommendationMetrics.md
-docs/GoogleRecommendationResult.md
 docs/GoogleRsaDescription.md
 docs/GoogleRsaHeadline.md
 docs/GoogleSitelink.md
@@ -1116,6 +1133,7 @@ docs/InstagramPlatformData.md
 docs/InstagramPlatformDataAudioConfiguration.md
 docs/InstagramPlatformDataTrialParams.md
 docs/InstagramPlatformDataUserTagsInner.md
+docs/InviteAdAccountToManagerRequest.md
 docs/InvitesApi.md
 docs/KeywordEntry.md
 docs/LeadGenApi.md
@@ -1178,6 +1196,7 @@ docs/ListAdCatalogProductSets200Response.md
 docs/ListAdCatalogProductSets200ResponseProductSetsInner.md
 docs/ListAdCatalogProducts200Response.md
 docs/ListAdCatalogs200Response.md
+docs/ListAdConversionGoals200Response.md
 docs/ListAdCreatives200Response.md
 docs/ListAdGroupAssets200Response.md
 docs/ListAdGroupAssets200ResponseCalloutsInner.md
@@ -1252,6 +1271,7 @@ docs/ListConversionAssociations200ResponseAssociationsInner.md
 docs/ListConversionDestinations200Response.md
 docs/ListConversionDestinations200ResponseDestinationsInner.md
 docs/ListConversionDestinations200ResponseDestinationsInnerConversionEventsInner.md
+docs/ListCustomConversionGoals200Response.md
 docs/ListCustomConversions200Response.md
 docs/ListCustomFields200Response.md
 docs/ListCustomFields200ResponseFieldsInner.md
@@ -1274,7 +1294,6 @@ docs/ListGoogleBusinessMedia200ResponseMediaItemsInner.md
 docs/ListGoogleBusinessMedia200ResponseMediaItemsInnerLocationAssociation.md
 docs/ListGoogleBusinessPlaceActions200Response.md
 docs/ListGoogleBusinessPlaceActions200ResponsePlaceActionLinksInner.md
-docs/ListGoogleRecommendations200Response.md
 docs/ListHighDemandPeriods200Response.md
 docs/ListImessageAudience200Response.md
 docs/ListImessageAvailableNumbers200Response.md
@@ -1574,6 +1593,7 @@ docs/RemoveBookmark200Response.md
 docs/RemoveCampaignAssets200Response.md
 docs/RemoveCampaignAssetsRequest.md
 docs/RemoveConversionAssociations200Response.md
+docs/RemoveCustomConversionGoal200Response.md
 docs/RemoveDiscordMemberRole200Response.md
 docs/RemoveGoogleAssetGroup200Response.md
 docs/RemoveMessageReaction200Response.md
@@ -1886,6 +1906,7 @@ docs/UpdateAccountStructuredSnippetsRequestUpdatesInner.md
 docs/UpdateAd200Response.md
 docs/UpdateAdAccount200Response.md
 docs/UpdateAdAccount200ResponseDsaDefaults.md
+docs/UpdateAdAccountManagerLinkRequest.md
 docs/UpdateAdAccountRequest.md
 docs/UpdateAdAudienceRequest.md
 docs/UpdateAdCampaign200Response.md
@@ -1896,6 +1917,8 @@ docs/UpdateAdCampaignStatus200Response.md
 docs/UpdateAdCampaignStatusRequest.md
 docs/UpdateAdCatalogProductRequest.md
 docs/UpdateAdCatalogProductSetRequest.md
+docs/UpdateAdConversionGoals200Response.md
+docs/UpdateAdConversionGoalsRequest.md
 docs/UpdateAdCreative200Response.md
 docs/UpdateAdCreativeRequest.md
 docs/UpdateAdKeyword200Response.md
@@ -1948,6 +1971,8 @@ docs/UpdateCampaignAdScheduleRequest.md
 docs/UpdateCampaignAdScheduleRequestScheduleInner.md
 docs/UpdateCampaignAssets200Response.md
 docs/UpdateCampaignAssetsRequest.md
+docs/UpdateCampaignConversionGoals200Response.md
+docs/UpdateCampaignConversionGoalsRequest.md
 docs/UpdateCampaignTargeting200Response.md
 docs/UpdateCampaignTargeting200ResponseDevicesInner.md
 docs/UpdateCampaignTargeting200ResponseLanguagesInner.md
@@ -1966,8 +1991,13 @@ docs/UpdateCommentAutomationRequest.md
 docs/UpdateContact200Response.md
 docs/UpdateContact200ResponseContact.md
 docs/UpdateContactRequest.md
+docs/UpdateConversionAction200Response.md
+docs/UpdateConversionAction200ResponseAction.md
+docs/UpdateConversionActionRequest.md
 docs/UpdateConversionDestinationRequest.md
 docs/UpdateConversionDestinationRequestValue.md
+docs/UpdateCustomConversionGoal200Response.md
+docs/UpdateCustomConversionGoalRequest.md
 docs/UpdateCustomField200Response.md
 docs/UpdateCustomField200ResponseField.md
 docs/UpdateCustomFieldRequest.md
@@ -2492,9 +2522,6 @@ src/models/api_key_created_by.rs
 src/models/api_key_profile_ids_inner.rs
 src/models/appeal_sms_registration_200_response.rs
 src/models/appeal_sms_registration_request.rs
-src/models/apply_google_recommendations_200_response.rs
-src/models/apply_google_recommendations_request.rs
-src/models/apply_google_recommendations_request_recommendations_inner.rs
 src/models/approve_whats_app_group_join_requests_request.rs
 src/models/archive_lead_form_200_response.rs
 src/models/assign_google_business_location_200_response.rs
@@ -2726,6 +2753,8 @@ src/models/create_conversion_action_request.rs
 src/models/create_conversion_destination_201_response.rs
 src/models/create_conversion_destination_request.rs
 src/models/create_conversion_destination_request_value.rs
+src/models/create_custom_conversion_goal_201_response.rs
+src/models/create_custom_conversion_goal_request.rs
 src/models/create_custom_conversion_request.rs
 src/models/create_custom_field_200_response.rs
 src/models/create_custom_field_request.rs
@@ -2942,7 +2971,6 @@ src/models/discord_platform_data_thread_from_message.rs
 src/models/discord_role.rs
 src/models/discord_scheduled_event.rs
 src/models/discord_scheduled_event_entity_metadata.rs
-src/models/dismiss_google_recommendations_request.rs
 src/models/dm_button.rs
 src/models/download_tik_tok_video_200_response.rs
 src/models/download_tik_tok_video_200_response_formats_inner.rs
@@ -3031,6 +3059,12 @@ src/models/get_account_posts_200_response_posts_inner.rs
 src/models/get_ad_200_response.rs
 src/models/get_ad_account_finance_200_response.rs
 src/models/get_ad_account_finance_200_response_funding_source.rs
+src/models/get_ad_account_hierarchy_200_response.rs
+src/models/get_ad_account_hierarchy_200_response_direct_customers_inner.rs
+src/models/get_ad_account_hierarchy_200_response_direct_customers_inner_pending_invitations_inner.rs
+src/models/get_ad_account_hierarchy_200_response_roots_inner.rs
+src/models/get_ad_account_hierarchy_200_response_roots_inner_manager_links_inner.rs
+src/models/get_ad_account_hierarchy_200_response_unavailable_inner.rs
 src/models/get_ad_analytics_202_response.rs
 src/models/get_ad_audience_200_response.rs
 src/models/get_ad_campaign_details_200_response.rs
@@ -3085,6 +3119,7 @@ src/models/get_campaign_ad_schedule_200_response_performance_by_day_of_week_inne
 src/models/get_campaign_ad_schedule_200_response_performance_by_hour_inner.rs
 src/models/get_campaign_analytics_202_response.rs
 src/models/get_campaign_bidding_200_response.rs
+src/models/get_campaign_conversion_goals_200_response.rs
 src/models/get_campaign_targeting_200_response.rs
 src/models/get_campaign_targeting_200_response_devices_inner.rs
 src/models/get_campaign_targeting_200_response_languages_inner.rs
@@ -3396,9 +3431,12 @@ src/models/get_youtube_playlists_200_response.rs
 src/models/get_youtube_playlists_200_response_playlists_inner.rs
 src/models/google_ad_label.rs
 src/models/google_ad_label_assignments.rs
+src/models/google_ads_hierarchy_client.rs
+src/models/google_ads_manager_link.rs
 src/models/google_asset_group_asset_link.rs
 src/models/google_asset_group_asset_unlink.rs
 src/models/google_asset_update.rs
+src/models/google_biddable_goal_input.rs
 src/models/google_business_platform_data.rs
 src/models/google_business_platform_data_call_to_action.rs
 src/models/google_business_platform_data_event.rs
@@ -3411,6 +3449,19 @@ src/models/google_business_platform_data_offer.rs
 src/models/google_business_review.rs
 src/models/google_business_review_review_reply.rs
 src/models/google_business_review_reviewer.rs
+src/models/google_campaign_conversion_goals.rs
+src/models/google_campaign_conversion_goals_goals_inner.rs
+src/models/google_custom_conversion_goal.rs
+src/models/google_customer_conversion_goal.rs
+src/models/google_customer_conversion_goal_conversion_actions_inner.rs
+src/models/google_demand_gen_audience.rs
+src/models/google_demand_gen_audience_age_ranges_inner.rs
+src/models/google_demand_gen_input.rs
+src/models/google_demand_gen_input_carousel_cards_inner.rs
+src/models/google_demand_gen_input_carousel_cards_inner_images.rs
+src/models/google_demand_gen_input_images.rs
+src/models/google_demand_gen_update.rs
+src/models/google_demand_gen_update_images.rs
 src/models/google_listing_group_dimension.rs
 src/models/google_listing_group_dimension_product_brand.rs
 src/models/google_listing_group_dimension_product_category.rs
@@ -3429,10 +3480,6 @@ src/models/google_pmax_asset_group_input.rs
 src/models/google_pmax_asset_group_input_images.rs
 src/models/google_pmax_asset_group_update.rs
 src/models/google_pmax_asset_group_update_images.rs
-src/models/google_recommendation.rs
-src/models/google_recommendation_impact.rs
-src/models/google_recommendation_metrics.rs
-src/models/google_recommendation_result.rs
 src/models/google_rsa_description.rs
 src/models/google_rsa_headline.rs
 src/models/google_sitelink.rs
@@ -3479,6 +3526,7 @@ src/models/instagram_platform_data.rs
 src/models/instagram_platform_data_audio_configuration.rs
 src/models/instagram_platform_data_trial_params.rs
 src/models/instagram_platform_data_user_tags_inner.rs
+src/models/invite_ad_account_to_manager_request.rs
 src/models/keyword_entry.rs
 src/models/like_inbox_comment_200_response.rs
 src/models/like_inbox_comment_request.rs
@@ -3538,6 +3586,7 @@ src/models/list_ad_catalog_product_sets_200_response.rs
 src/models/list_ad_catalog_product_sets_200_response_product_sets_inner.rs
 src/models/list_ad_catalog_products_200_response.rs
 src/models/list_ad_catalogs_200_response.rs
+src/models/list_ad_conversion_goals_200_response.rs
 src/models/list_ad_creatives_200_response.rs
 src/models/list_ad_group_assets_200_response.rs
 src/models/list_ad_group_assets_200_response_callouts_inner.rs
@@ -3612,6 +3661,7 @@ src/models/list_conversion_associations_200_response_associations_inner.rs
 src/models/list_conversion_destinations_200_response.rs
 src/models/list_conversion_destinations_200_response_destinations_inner.rs
 src/models/list_conversion_destinations_200_response_destinations_inner_conversion_events_inner.rs
+src/models/list_custom_conversion_goals_200_response.rs
 src/models/list_custom_conversions_200_response.rs
 src/models/list_custom_fields_200_response.rs
 src/models/list_custom_fields_200_response_fields_inner.rs
@@ -3634,7 +3684,6 @@ src/models/list_google_business_media_200_response_media_items_inner.rs
 src/models/list_google_business_media_200_response_media_items_inner_location_association.rs
 src/models/list_google_business_place_actions_200_response.rs
 src/models/list_google_business_place_actions_200_response_place_action_links_inner.rs
-src/models/list_google_recommendations_200_response.rs
 src/models/list_high_demand_periods_200_response.rs
 src/models/list_imessage_audience_200_response.rs
 src/models/list_imessage_available_numbers_200_response.rs
@@ -3922,6 +3971,7 @@ src/models/remove_bookmark_200_response.rs
 src/models/remove_campaign_assets_200_response.rs
 src/models/remove_campaign_assets_request.rs
 src/models/remove_conversion_associations_200_response.rs
+src/models/remove_custom_conversion_goal_200_response.rs
 src/models/remove_discord_member_role_200_response.rs
 src/models/remove_google_asset_group_200_response.rs
 src/models/remove_message_reaction_200_response.rs
@@ -4227,6 +4277,7 @@ src/models/update_account_structured_snippets_request_updates_inner.rs
 src/models/update_ad_200_response.rs
 src/models/update_ad_account_200_response.rs
 src/models/update_ad_account_200_response_dsa_defaults.rs
+src/models/update_ad_account_manager_link_request.rs
 src/models/update_ad_account_request.rs
 src/models/update_ad_audience_request.rs
 src/models/update_ad_campaign_200_response.rs
@@ -4237,6 +4288,8 @@ src/models/update_ad_campaign_status_200_response.rs
 src/models/update_ad_campaign_status_request.rs
 src/models/update_ad_catalog_product_request.rs
 src/models/update_ad_catalog_product_set_request.rs
+src/models/update_ad_conversion_goals_200_response.rs
+src/models/update_ad_conversion_goals_request.rs
 src/models/update_ad_creative_200_response.rs
 src/models/update_ad_creative_request.rs
 src/models/update_ad_keyword_200_response.rs
@@ -4289,6 +4342,8 @@ src/models/update_campaign_ad_schedule_request.rs
 src/models/update_campaign_ad_schedule_request_schedule_inner.rs
 src/models/update_campaign_assets_200_response.rs
 src/models/update_campaign_assets_request.rs
+src/models/update_campaign_conversion_goals_200_response.rs
+src/models/update_campaign_conversion_goals_request.rs
 src/models/update_campaign_targeting_200_response.rs
 src/models/update_campaign_targeting_200_response_devices_inner.rs
 src/models/update_campaign_targeting_200_response_languages_inner.rs
@@ -4307,8 +4362,13 @@ src/models/update_comment_automation_request.rs
 src/models/update_contact_200_response.rs
 src/models/update_contact_200_response_contact.rs
 src/models/update_contact_request.rs
+src/models/update_conversion_action_200_response.rs
+src/models/update_conversion_action_200_response_action.rs
+src/models/update_conversion_action_request.rs
 src/models/update_conversion_destination_request.rs
 src/models/update_conversion_destination_request_value.rs
+src/models/update_custom_conversion_goal_200_response.rs
+src/models/update_custom_conversion_goal_request.rs
 src/models/update_custom_field_200_response.rs
 src/models/update_custom_field_200_response_field.rs
 src/models/update_custom_field_request.rs

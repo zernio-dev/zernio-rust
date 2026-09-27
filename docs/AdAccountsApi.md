@@ -19,6 +19,7 @@ Method | HTTP request | Description
 [**delete_value_rule_set**](AdAccountsApi.md#delete_value_rule_set) | **DELETE** /v1/ads/value-rule-sets/{valueRuleSetId} | Delete a value rule set
 [**detach_ad_label**](AdAccountsApi.md#detach_ad_label) | **DELETE** /v1/ads/labels/{labelId}/assignments | Detach a Google Ads label
 [**get_ad_account_finance**](AdAccountsApi.md#get_ad_account_finance) | **GET** /v1/ads/accounts/finance | Ad account finances
+[**get_ad_account_hierarchy**](AdAccountsApi.md#get_ad_account_hierarchy) | **GET** /v1/ads/accounts/hierarchy | Get manager account hierarchy
 [**get_ad_comments**](AdAccountsApi.md#get_ad_comments) | **GET** /v1/ads/{adId}/comments | List comments on an ad
 [**get_ad_negative_keyword_list**](AdAccountsApi.md#get_ad_negative_keyword_list) | **GET** /v1/ads/accounts/negative-keyword-lists/{listId} | Get a negative keyword list
 [**get_ads_activity_log**](AdAccountsApi.md#get_ads_activity_log) | **GET** /v1/ads/activity | Ad account change / audit log
@@ -27,6 +28,7 @@ Method | HTTP request | Description
 [**get_ios_fourteen_campaign_limits**](AdAccountsApi.md#get_ios_fourteen_campaign_limits) | **GET** /v1/ads/ios-fourteen-campaign-limits | Get iOS 14 campaign limits
 [**get_value_rule_set**](AdAccountsApi.md#get_value_rule_set) | **GET** /v1/ads/value-rule-sets/{valueRuleSetId} | Read a value rule set
 [**hide_ad_comment**](AdAccountsApi.md#hide_ad_comment) | **POST** /v1/ads/{adId}/comments/{commentId}/hide | Hide or unhide an ad comment
+[**invite_ad_account_to_manager**](AdAccountsApi.md#invite_ad_account_to_manager) | **POST** /v1/ads/accounts/manager-links | Invite a client account to a manager
 [**list_account_callouts**](AdAccountsApi.md#list_account_callouts) | **GET** /v1/ads/accounts/callouts | List account callouts
 [**list_account_sitelinks**](AdAccountsApi.md#list_account_sitelinks) | **GET** /v1/ads/accounts/sitelinks | List account sitelinks
 [**list_account_structured_snippets**](AdAccountsApi.md#list_account_structured_snippets) | **GET** /v1/ads/accounts/structured-snippets | List account snippets
@@ -53,6 +55,7 @@ Method | HTTP request | Description
 [**update_account_sitelinks**](AdAccountsApi.md#update_account_sitelinks) | **PUT** /v1/ads/accounts/sitelinks | Update account sitelinks
 [**update_account_structured_snippets**](AdAccountsApi.md#update_account_structured_snippets) | **PUT** /v1/ads/accounts/structured-snippets | Update account snippets
 [**update_ad_account**](AdAccountsApi.md#update_ad_account) | **PATCH** /v1/ads/accounts | Update ad account settings
+[**update_ad_account_manager_link**](AdAccountsApi.md#update_ad_account_manager_link) | **PATCH** /v1/ads/accounts/manager-links | Accept, decline, cancel or end a manager link
 [**update_ad_label**](AdAccountsApi.md#update_ad_label) | **PATCH** /v1/ads/labels/{labelId} | Update a Google Ads label
 [**update_ad_negative_keyword_list**](AdAccountsApi.md#update_ad_negative_keyword_list) | **PUT** /v1/ads/accounts/negative-keyword-lists/{listId} | Rename a negative keyword list
 [**update_value_rule_set**](AdAccountsApi.md#update_value_rule_set) | **PUT** /v1/ads/value-rule-sets/{valueRuleSetId} | Replace a value rule set
@@ -521,6 +524,38 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_ad_account_hierarchy
+
+> models::GetAdAccountHierarchy200Response get_ad_account_hierarchy(account_id, ad_account_id, customer_id)
+Get manager account hierarchy
+
+Live manager (MCC) and client tree for a Google Ads connection. Starts from every customer the Google user behind the connection can access directly and walks each tree to any depth with `customer_client`, then reads each manager's own client links so every client carries its direct parent, the `managerLinkId` and the link status. Invitations a manager sent that the client has not accepted yet appear as clients with `linkStatus: PENDING` (Google returns no name or currency for them). Refused, canceled and ended links are history and are omitted. `managerLinks` on a root lists the managers linked to that account, including invitations it can still accept with PATCH /v1/ads/accounts/manager-links. A directly accessible account that is also nested in another tree appears only once, inside that tree. `directCustomers` lists every account the Google user accesses directly (the ones this connection can accept or decline invitations for) with their pending invitations, including accounts that are also nested in a tree. Customers Google refuses to read (for example a cancelled account) are listed in `unavailable` with Google's reason instead of failing the call. Up to 50 roots and 50 managers per root are read; `truncated` is true when more exist. Cached for 10 minutes per connection; the response carries `cachedAt` and `stale`. When the connection is scoped to specific ad accounts, client accounts outside that scope are hidden (managers stay visible).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Google ads SocialAccount id. | [required] |
+**ad_account_id** | Option<**String**> | Only return the tree rooted at this customer id (digits only). It must be an account the Google user accesses directly. Omit to list every tree. |  |
+**customer_id** | Option<**String**> | Alias of adAccountId, kept for consistency with the other Google Ads account endpoints. |  |
+
+### Return type
+
+[**models::GetAdAccountHierarchy200Response**](getAdAccountHierarchy_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_ad_comments
 
 > models::GetAdComments200Response get_ad_comments(ad_id, placement, limit, since, until, cursor)
@@ -772,6 +807,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::HideAdComment200Response**](hideAdComment_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## invite_ad_account_to_manager
+
+> models::GoogleAdsManagerLink invite_ad_account_to_manager(invite_ad_account_to_manager_request)
+Invite a client account to a manager
+
+Sends a manager-to-client link invitation from `managerCustomerId` to `clientCustomerId` (Google's CustomerClientLinkService). The manager must be one the connection's Google user reaches, directly or under another manager (see GET /v1/ads/accounts/hierarchy); the client can be any Google Ads account. The link stays `PENDING` until someone with access to the client accepts it in Google Ads or through PATCH on this path. Not idempotent: Google refuses a second invitation while one is pending. Send `validateOnly: true` to have Google check the request without sending anything.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**invite_ad_account_to_manager_request** | [**InviteAdAccountToManagerRequest**](InviteAdAccountToManagerRequest.md) |  | [required] |
+
+### Return type
+
+[**models::GoogleAdsManagerLink**](GoogleAdsManagerLink.md)
 
 ### Authorization
 
@@ -1598,6 +1663,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UpdateAdAccount200Response**](updateAdAccount_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_ad_account_manager_link
+
+> models::GoogleAdsManagerLink update_ad_account_manager_link(update_ad_account_manager_link_request)
+Accept, decline, cancel or end a manager link
+
+Changes one manager-client link, identified by `managerCustomerId`, `clientCustomerId` and `managerLinkId` (all from GET /v1/ads/accounts/hierarchy). `accept` and `decline` answer a pending invitation as the client (CustomerManagerLinkService), so the connection's Google user needs direct access to the client account; access through a manager is not enough, because the link does not exist yet. `cancel` withdraws a pending invitation and `unlink` ends an active link, both as the manager (CustomerClientLinkService). Send `validateOnly: true` to have Google check the change without applying it.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**update_ad_account_manager_link_request** | [**UpdateAdAccountManagerLinkRequest**](UpdateAdAccountManagerLinkRequest.md) |  | [required] |
+
+### Return type
+
+[**models::GoogleAdsManagerLink**](GoogleAdsManagerLink.md)
 
 ### Authorization
 

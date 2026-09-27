@@ -5,7 +5,6 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**add_ad_keywords**](AdCampaignsApi.md#add_ad_keywords) | **POST** /v1/ads/keywords | Add Search ad-group keywords
-[**apply_google_recommendations**](AdCampaignsApi.md#apply_google_recommendations) | **POST** /v1/ads/recommendations/apply | Apply Google Ads recommendations
 [**attach_ad_group_assets**](AdCampaignsApi.md#attach_ad_group_assets) | **POST** /v1/ads/ad-sets/{adSetId}/assets | Attach ad-group assets
 [**attach_campaign_assets**](AdCampaignsApi.md#attach_campaign_assets) | **POST** /v1/ads/campaigns/{campaignId}/assets | Attach campaign assets
 [**boost_post**](AdCampaignsApi.md#boost_post) | **POST** /v1/ads/boost | Boost post as ad
@@ -18,7 +17,6 @@ Method | HTTP request | Description
 [**delete_ad**](AdCampaignsApi.md#delete_ad) | **DELETE** /v1/ads/{adId} | Cancel an ad
 [**delete_ad_campaign**](AdCampaignsApi.md#delete_ad_campaign) | **DELETE** /v1/ads/campaigns/{campaignId} | Delete a campaign
 [**delete_ad_set**](AdCampaignsApi.md#delete_ad_set) | **DELETE** /v1/ads/ad-sets/{adSetId} | Delete an ad set
-[**dismiss_google_recommendations**](AdCampaignsApi.md#dismiss_google_recommendations) | **POST** /v1/ads/recommendations/dismiss | Dismiss Google Ads recommendations
 [**duplicate_ad**](AdCampaignsApi.md#duplicate_ad) | **POST** /v1/ads/{adId}/duplicate | Duplicate an ad
 [**duplicate_ad_campaign**](AdCampaignsApi.md#duplicate_ad_campaign) | **POST** /v1/ads/campaigns/{campaignId}/duplicate | Duplicate a campaign
 [**duplicate_ad_set**](AdCampaignsApi.md#duplicate_ad_set) | **POST** /v1/ads/ad-sets/{adSetId}/duplicate | Duplicate an ad set
@@ -30,6 +28,7 @@ Method | HTTP request | Description
 [**get_ads_timeline**](AdCampaignsApi.md#get_ads_timeline) | **GET** /v1/ads/timeline | Get daily account metrics
 [**get_campaign_ad_schedule**](AdCampaignsApi.md#get_campaign_ad_schedule) | **GET** /v1/ads/campaigns/{campaignId}/ad-schedule | Read a campaign's ad schedule (dayparting)
 [**get_campaign_bidding**](AdCampaignsApi.md#get_campaign_bidding) | **GET** /v1/ads/campaigns/{campaignId}/bidding | Read a campaign's current bidding
+[**get_campaign_conversion_goals**](AdCampaignsApi.md#get_campaign_conversion_goals) | **GET** /v1/ads/campaigns/{campaignId}/conversion-goals | Get campaign conversion goals
 [**get_campaign_targeting**](AdCampaignsApi.md#get_campaign_targeting) | **GET** /v1/ads/campaigns/{campaignId}/targeting | Read a Google campaign's device, location, and language targeting
 [**get_google_asset_group**](AdCampaignsApi.md#get_google_asset_group) | **GET** /v1/ads/campaigns/{campaignId}/asset-groups/{assetGroupId} | Get a Performance Max asset group
 [**list_ad_campaigns**](AdCampaignsApi.md#list_ad_campaigns) | **GET** /v1/ads/campaigns | List campaigns
@@ -42,7 +41,6 @@ Method | HTTP request | Description
 [**list_campaign_negative_keyword_lists**](AdCampaignsApi.md#list_campaign_negative_keyword_lists) | **GET** /v1/ads/campaigns/{campaignId}/negative-keyword-lists | List campaign negative lists
 [**list_campaign_negative_keywords**](AdCampaignsApi.md#list_campaign_negative_keywords) | **GET** /v1/ads/campaigns/{campaignId}/negative-keywords | List campaign-level negative keywords
 [**list_google_asset_groups**](AdCampaignsApi.md#list_google_asset_groups) | **GET** /v1/ads/campaigns/{campaignId}/asset-groups | List Performance Max asset groups
-[**list_google_recommendations**](AdCampaignsApi.md#list_google_recommendations) | **GET** /v1/ads/recommendations | List Google Ads recommendations
 [**remove_ad_group_assets**](AdCampaignsApi.md#remove_ad_group_assets) | **DELETE** /v1/ads/ad-sets/{adSetId}/assets | Remove ad-group assets
 [**remove_ad_keyword**](AdCampaignsApi.md#remove_ad_keyword) | **DELETE** /v1/ads/keywords/{keywordId} | Remove a Search keyword
 [**remove_campaign_assets**](AdCampaignsApi.md#remove_campaign_assets) | **DELETE** /v1/ads/campaigns/{campaignId}/assets | Remove campaign assets
@@ -61,6 +59,7 @@ Method | HTTP request | Description
 [**update_bid_strategy**](AdCampaignsApi.md#update_bid_strategy) | **PATCH** /v1/ads/bid-strategies/{strategyId} | Update portfolio bid strategy
 [**update_campaign_ad_schedule**](AdCampaignsApi.md#update_campaign_ad_schedule) | **PUT** /v1/ads/campaigns/{campaignId}/ad-schedule | Replace a campaign's ad schedule (dayparting)
 [**update_campaign_assets**](AdCampaignsApi.md#update_campaign_assets) | **PUT** /v1/ads/campaigns/{campaignId}/assets | Update campaign assets
+[**update_campaign_conversion_goals**](AdCampaignsApi.md#update_campaign_conversion_goals) | **PATCH** /v1/ads/campaigns/{campaignId}/conversion-goals | Update campaign conversion goals
 [**update_campaign_targeting**](AdCampaignsApi.md#update_campaign_targeting) | **PUT** /v1/ads/campaigns/{campaignId}/targeting | Edit a Google campaign's device, location, or language targeting
 [**update_google_asset_group**](AdCampaignsApi.md#update_google_asset_group) | **PATCH** /v1/ads/campaigns/{campaignId}/asset-groups/{assetGroupId} | Update a Performance Max asset group
 
@@ -83,36 +82,6 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::AddAdKeywords201Response**](addAdKeywords_201_response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## apply_google_recommendations
-
-> models::ApplyGoogleRecommendations200Response apply_google_recommendations(apply_google_recommendations_request)
-Apply Google Ads recommendations
-
-Apply up to 100 recommendations. This changes the account (budgets, bidding, keywords, assets) and is not reversible or idempotent; Google offers no validate-only mode for it. Items run in partial-failure mode, so one stale recommendation does not block the rest. `parameters` is optional and takes exactly one key named for the recommendation type, in Google's ApplyRecommendationOperation shape (for example `campaignBudget: { newBudgetAmountMicros }` or `keyword: { matchType, cpcBidMicros }`); omit it to apply Google's suggested values.
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**apply_google_recommendations_request** | [**ApplyGoogleRecommendationsRequest**](ApplyGoogleRecommendationsRequest.md) |  | [required] |
-
-### Return type
-
-[**models::ApplyGoogleRecommendations200Response**](applyGoogleRecommendations_200_response.md)
 
 ### Authorization
 
@@ -377,7 +346,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateStandaloneAd200Response create_standalone_ad(create_standalone_ad_request, idempotency_key)
 Create standalone ad
 
-Create a paid ad with custom creative across Meta, Google Ads, Pinterest, TikTok, X, LinkedIn, and OpenAI Ads (ChatGPT Ads).  Google Performance Max: set `campaignType: \"pmax\"` and supply `assetGroup` with text, images by role, business name and finalUrl. Creates a daily budget, PAUSED campaign and asset group atomically. `validateOnly: true` validates the complete request with Google without creating or persisting resources. Read assets with `GET /v1/ads/campaigns/{campaignId}/asset-groups`. The logo is required; video is optional via `assetGroup.youtubeVideoId`. Brand guidelines are disabled at creation. All supplied asset links are validated together against Google's minimum asset requirements. PMax rejects ACTIVE creation, portfolio bidding, bid caps, legacy creative fields and attach shapes. Geo and language targeting are supported; omitted geo targets all locations. PMax does not require top-level goal, headline, body or linkUrl. Supported bidding: omitted or LOWEST_COST_WITHOUT_CAP for Maximize Conversions, COST_CAP plus bidAmount for target CPA, LOWEST_COST_WITH_MIN_ROAS plus roasAverageFloor for Maximize Conversion Value with target ROAS.  Other mutually-exclusive request shapes are selected by the body:  - Legacy single-creative shape (all platforms, the default). - Meta-only multi-creative shape via the creatives array: one ad set with N ads sharing budget and targeting. - Attach shape via adSetId: adds one new ad to an existing ad set, inheriting its budget, targeting, and schedule (Meta, Google Ads, TikTok, and LinkedIn). On LinkedIn adSetId is the existing Campaign id, and the budget, schedule, targeting and bidding fields must be omitted. On LinkedIn `goal` may be omitted too (taken from the Campaign's objective), and the created ad's `targeting` echoes the Campaign's audience.  Meta accepts `creativeFeatures` on the single and attach shapes and as defaults for `creatives[]`; an item replaces the whole feature map. `promotion` is not supported on any shape and any object is rejected with 400. Reusing `existingCreativeId` uses the existing creative settings instead of new settings. Requested settings are persisted for lists, exports, and default ad-detail reads.  Per-platform required fields, budget minimums, and video-ad rules are documented on each property below.  LinkedIn creates a Single Image or Single Video Ad backed by a Direct Sponsored Content \"dark post\" authored by a Company Page (see `organizationId`). Supported goals are engagement, traffic, awareness, and video_views (video ads use the `video` field; video_views requires a video), and traffic ads require `linkUrl`.  **Idempotency:** this endpoint is not idempotent at the platform level (a blind retry creates a second campaign/ad set/ad). Send an `Idempotency-Key` header to make retries safe: the first request with a given key creates the ad and we store the response; a retry with the same key replays that exact response (with `Idempotent-Replayed: true`) instead of creating duplicates. Reusing a key with a different body returns 422; a key whose first request is still in flight returns 409 (retry after a short backoff). Keys are scoped to your credential and expire after 24h. 
+Create a paid ad with custom creative across Meta, Google Ads, Pinterest, TikTok, X, LinkedIn, and OpenAI Ads (ChatGPT Ads).  Google Performance Max: set `campaignType: \"pmax\"` and supply `assetGroup` with text, images by role, business name and finalUrl. Creates a daily budget, PAUSED campaign and asset group atomically. `validateOnly: true` validates the complete request with Google without creating or persisting resources. Read assets with `GET /v1/ads/campaigns/{campaignId}/asset-groups`. The logo is required; video is optional via `assetGroup.youtubeVideoId`. Brand guidelines are disabled at creation. All supplied asset links are validated together against Google's minimum asset requirements. PMax rejects ACTIVE creation, portfolio bidding, bid caps, legacy creative fields and attach shapes. Geo and language targeting are supported; omitted geo targets all locations. PMax does not require top-level goal, headline, body or linkUrl. Supported bidding: omitted or LOWEST_COST_WITHOUT_CAP for Maximize Conversions, COST_CAP plus bidAmount for target CPA, LOWEST_COST_WITH_MIN_ROAS plus roasAverageFloor for Maximize Conversion Value with target ROAS.  Google Demand Gen: set `campaignType: \"demand_gen\"` and supply `demandGen`. Creates a daily budget, PAUSED campaign, one ad group and one ad in a single atomic request: a multi-asset image ad, a video responsive ad when `demandGen.youtubeVideoIds` is sent, or a carousel ad (2 to 10 cards) when `demandGen.carouselCards` is sent. Geo (countries, regions, cities, zips, metros) and languages go on the ad group, as Demand Gen requires. `demandGen.channels` sets the ad group's channel controls and `demandGen.audience` builds a Google Audience (user lists, interests, custom audiences, age ranges, genders) attached to the ad group, or `demandGen.audienceId` attaches an existing one. `validateOnly: true` validates everything with Google without creating resources. Supported bidding: omitted or LOWEST_COST_WITHOUT_CAP for Maximize Conversions, COST_CAP plus bidAmount for target CPA, LOWEST_COST_WITH_MIN_ROAS plus roasAverageFloor for target ROAS, LOWEST_COST_WITH_BID_CAP plus bidAmount for target CPC. The created ad carries the native `platformCampaignId`, `platformAdSetId` (ad group) and `platformAdId`. Activate with PUT /v1/ads/campaigns/{campaignId}/status; budget, bidding and name are edited with the regular campaign endpoints; creative, channels, audience and ad group targeting with PUT /v1/ads/{adId} (`demandGen`, `targeting`). To grow an existing Demand Gen campaign, send `existingCampaignId` (adds a PAUSED ad group, with its own geo, languages, channels and audience, plus its ad) or `adSetId` (adds a PAUSED ad to that ad group); neither takes budget, bidding or schedule fields, and both support `validateOnly`.  Other mutually-exclusive request shapes are selected by the body:  - Legacy single-creative shape (all platforms, the default). - Meta-only multi-creative shape via the creatives array: one ad set with N ads sharing budget and targeting. - Attach shape via adSetId: adds one new ad to an existing ad set, inheriting its budget, targeting, and schedule (Meta, Google Ads, TikTok, and LinkedIn). On LinkedIn adSetId is the existing Campaign id, and the budget, schedule, targeting and bidding fields must be omitted. On LinkedIn `goal` may be omitted too (taken from the Campaign's objective), and the created ad's `targeting` echoes the Campaign's audience.  Meta accepts `creativeFeatures` on the single and attach shapes and as defaults for `creatives[]`; an item replaces the whole feature map. `promotion` is not supported on any shape and any object is rejected with 400. Reusing `existingCreativeId` uses the existing creative settings instead of new settings. Requested settings are persisted for lists, exports, and default ad-detail reads.  Per-platform required fields, budget minimums, and video-ad rules are documented on each property below.  LinkedIn creates a Single Image or Single Video Ad backed by a Direct Sponsored Content \"dark post\" authored by a Company Page (see `organizationId`). Supported goals are engagement, traffic, awareness, and video_views (video ads use the `video` field; video_views requires a video), and traffic ads require `linkUrl`.  **Idempotency:** this endpoint is not idempotent at the platform level (a blind retry creates a second campaign/ad set/ad). Send an `Idempotency-Key` header to make retries safe: the first request with a given key creates the ad and we store the response; a retry with the same key replays that exact response (with `Idempotent-Replayed: true`) instead of creating duplicates. Reusing a key with a different body returns 422; a key whose first request is still in flight returns 409 (retry after a short backoff). Keys are scoped to your credential and expire after 24h. 
 
 ### Parameters
 
@@ -489,36 +458,6 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## dismiss_google_recommendations
-
-> models::ApplyGoogleRecommendations200Response dismiss_google_recommendations(dismiss_google_recommendations_request)
-Dismiss Google Ads recommendations
-
-Dismiss up to 100 recommendations so Google stops suggesting them. Items run in partial-failure mode.
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**dismiss_google_recommendations_request** | [**DismissGoogleRecommendationsRequest**](DismissGoogleRecommendationsRequest.md) |  | [required] |
-
-### Return type
-
-[**models::ApplyGoogleRecommendations200Response**](applyGoogleRecommendations_200_response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -882,6 +821,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetCampaignBidding200Response**](getCampaignBidding_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_campaign_conversion_goals
+
+> models::GetCampaignConversionGoals200Response get_campaign_conversion_goals(campaign_id)
+Get campaign conversion goals
+
+A Google campaign's conversion goals (CampaignConversionGoal, `biddable` per category and origin) and its goal config (ConversionGoalCampaignConfig): `goalConfigLevel` CUSTOMER means the campaign follows the account-default goals, CAMPAIGN means it uses its own goals or `customConversionGoalId`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Google campaign id | [required] |
+
+### Return type
+
+[**models::GetCampaignConversionGoals200Response**](getCampaignConversionGoals_200_response.md)
 
 ### Authorization
 
@@ -1309,40 +1278,6 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## list_google_recommendations
-
-> models::ListGoogleRecommendations200Response list_google_recommendations(account_id, ad_account_id, customer_id, campaign_id, types)
-List Google Ads recommendations
-
-Google's optimization recommendations for one ad account: type, estimated impact (base vs potential metrics, cost in account currency units), the campaign, ad group or budget they target, and the type-specific payload Google returns (`details`, in Google's own shape with micros). Filter by campaignId and types. Cached for 10 minutes and cleared by apply or dismiss; served stale when Google quota is exhausted.
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | Google ads SocialAccount id. | [required] |
-**ad_account_id** | Option<**String**> | Google customer id, digits only. Defaults to the connection's only customer. |  |
-**customer_id** | Option<**String**> | Alias of adAccountId, kept for consistency with other Google endpoints. |  |
-**campaign_id** | Option<**String**> | Only recommendations targeting this campaign. |  |
-**types** | Option<**String**> | Comma-separated Google RecommendationType values, for example CAMPAIGN_BUDGET,KEYWORD,SET_TARGET_CPA. |  |
-
-### Return type
-
-[**models::ListGoogleRecommendations200Response**](listGoogleRecommendations_200_response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
 ## remove_ad_group_assets
 
 > models::RemoveCampaignAssets200Response remove_ad_group_assets(ad_set_id, remove_ad_group_assets_request)
@@ -1566,7 +1501,7 @@ Name | Type | Description  | Required | Notes
 > models::UpdateAd200Response update_ad(ad_id, update_ad_request)
 Update ad
 
-Patch one or more fields on an ad. Status, budget, targeting, and creative changes are propagated to the platform.  Per-platform support: - **Meta** (Facebook + Instagram): all fields supported. - **TikTok**: status, budget, `name` (renames the ad), targeting (via `/v2/adgroup/update/`), and creative   (via `/v2/ad/update/` patch-style: `headline` is ignored, `body` becomes `ad_text`). - **Google**: status, budget, KEYWORD edits via `targeting.keywords` /   `targeting.negativeKeywords`, DEVICE bid adjustments via `targeting.devices`,   LOCATION edits via `targeting.locations` (or the equivalent top-level   `targeting.countries` / `regions` / `cities` / `zips` / `metros`), and LANGUAGE   edits via `targeting.languages`.   Each list you send becomes the FULL new set of its kind (criteria not in the   list are removed, except devices, which Google cannot remove and which are   switched off with a bid modifier of 0 instead); a kind left out is untouched.   Any other `targeting` field   returns 400: Google cannot mutate it post-create without recreating   the campaign. Creative edits are dispatched on the ad's `advertisingChannelType`,   and every supported field replaces a whole set; a field you omit is preserved.   - **Search**: top-level `headlines`, `descriptions` and `finalUrls`. Use 3-15 headlines     (1-30 characters) and 2-4 descriptions (1-90 characters). Omit an asset to remove it;     omit pinnedField on an included asset to unpin it. Updates do not pad or truncate text.     The legacy creative fields remain unsupported.   - **Display**: top-level `headlines` (1-5, no pinnedField, display ads have no pinned     positions), `descriptions` (1-5) and `finalUrls`, plus `creative.longHeadline`,     `creative.businessName`, `creative.imageUrl` (the landscape marketing image) and     `creative.squareImageUrl`. Each image URL is uploaded as a new Google asset and the ad     is pointed at it; Google assets are immutable, so the previous asset stays in the     account's asset library.   - **Performance Max**: top-level `assetGroup`, which swaps asset roles on the ad's asset     group. The other creative fields return 422 for this channel, and `assetGroup` returns     422 on any other channel. - **LinkedIn**: status, budget, targeting (countries or regions, excludedLocations (countries),   the B2B facets, and audience segments; applied to the LinkedIn Campaign via   PARTIAL_UPDATE, and REPLACES the campaign's entire targetingCriteria, not a merge),   and creative (uploads new media, creates a replacement inline creative on the same   campaign, pauses the old one). - **Pinterest / X / OpenAI Ads**: status + budget only. Sending   `targeting` or `creative` returns 501 with code `unsupported_platform_operation`.   OpenAI Ads budget is the campaign's spend cap, daily or lifetime (see `budget.type` below).  **Google location and language replacement:** locations, languages and devices are campaign-level criteria on Google, so these edits apply to every ad group and ad in the ad's campaign. Send the complete list you want to keep. Zernio diffs it against the campaign's live criteria and sends the removes and the creates in ONE `googleAds:mutate`, so the campaign is never left with a half-applied set; criteria already in the list keep their criterion ID and history. Excluded (negative) locations are left untouched. An empty location list returns 400 (a Google campaign with no location criteria targets every country, which is never what \"remove my locations\" means, so omit the field instead). Send either `targeting.locations` or the top-level geo fields, not both: mixing them returns 400.  **Google radius targeting:** `customLocations` is editable and is replaced the same way, but as its OWN set. Google models a place (LOCATION) and a point plus radius (PROXIMITY) as different criterion types, so the two are independent: sending `customLocations` replaces every radius and leaves the cities and countries alone, and sending places replaces those and leaves the radius alone. Send `customLocations: []` to drop radius targeting entirely. A circle you re-send unchanged keeps its criterion ID rather than being removed and recreated.  **Google keyword replacement:** These edits affect the ad's entire ad group, including sibling ads. Positive (`targeting.keywords`) and negative (`targeting.negativeKeywords`) sets are independent: omit a field to leave that set unchanged, or send `[]` to remove every keyword of that kind.  Zernio compares each supplied set with Google's live criteria by case-insensitive keyword text and match type. A matching criterion is left untouched, retaining its criterion ID, enabled/paused status, keyword-level bid overrides, labels, and criterion-associated history/statistics. Zernio does not reset its quality score; Google continues to calculate scores and statistics normally. Text comparison does not trim whitespace.  A bare string or an object without `matchType` means `broad`, not the existing criterion's match type. For example, resending an existing `{ \"text\": \"plumber\", \"matchType\": \"exact\" }` preserves it; sending `\"plumber\"` instead removes that EXACT criterion and requests a BROAD one. Changing text or match type removes criteria no longer requested and creates any missing criteria. New criteria get new IDs and do not inherit removed criteria's bid overrides, labels, or history. Historical reporting for a removed criterion is not transferred to its replacement.  To add keywords without replacing a set, use [POST /v1/ads/keywords](https://docs.zernio.com/ad-campaigns/add-ad-keywords). Use `PATCH /v1/ads/keywords/{keywordId}` to pause/enable one keyword, or `DELETE /v1/ads/keywords/{keywordId}` to remove it. 
+Patch one or more fields on an ad. Status, budget, targeting, and creative changes are propagated to the platform.  Per-platform support: - **Meta** (Facebook + Instagram): all fields supported. - **TikTok**: status, budget, `name` (renames the ad), targeting (via `/v2/adgroup/update/`), and creative   (via `/v2/ad/update/` patch-style: `headline` is ignored, `body` becomes `ad_text`). - **Google**: status, budget, KEYWORD edits via `targeting.keywords` /   `targeting.negativeKeywords`, DEVICE bid adjustments via `targeting.devices`,   LOCATION edits via `targeting.locations` (or the equivalent top-level   `targeting.countries` / `regions` / `cities` / `zips` / `metros`), and LANGUAGE   edits via `targeting.languages`.   Each list you send becomes the FULL new set of its kind (criteria not in the   list are removed, except devices, which Google cannot remove and which are   switched off with a bid modifier of 0 instead); a kind left out is untouched.   Any other `targeting` field   returns 400: Google cannot mutate it post-create without recreating   the campaign. Creative edits are dispatched on the ad's `advertisingChannelType`,   and every supported field replaces a whole set; a field you omit is preserved.   - **Search**: top-level `headlines`, `descriptions` and `finalUrls`. Use 3-15 headlines     (1-30 characters) and 2-4 descriptions (1-90 characters). Omit an asset to remove it;     omit pinnedField on an included asset to unpin it. Updates do not pad or truncate text.     The legacy creative fields remain unsupported.   - **Display**: top-level `headlines` (1-5, no pinnedField, display ads have no pinned     positions), `descriptions` (1-5) and `finalUrls`, plus `creative.longHeadline`,     `creative.businessName`, `creative.imageUrl` (the landscape marketing image) and     `creative.squareImageUrl`. Each image URL is uploaded as a new Google asset and the ad     is pointed at it; Google assets are immutable, so the previous asset stays in the     account's asset library.   - **Performance Max**: top-level `assetGroup`, which swaps asset roles on the ad's asset     group. The other creative fields return 422 for this channel, and `assetGroup` returns     422 on any other channel.   - **Demand Gen**: top-level `demandGen` (see GoogleDemandGenUpdate): creative, channel     and audience changes in one atomic Google request. The other creative fields return     422 for this channel. `targeting` takes locations, languages, `locationTargetingType`     and `devices`; locations and languages are written to the ad's ad group, which     Demand Gen requires (campaigns migrated from Discovery that still target on the     campaign keep being written there), so they apply to every ad in that ad group. - **LinkedIn**: status, budget, targeting (countries or regions, excludedLocations (countries),   the B2B facets, and audience segments; applied to the LinkedIn Campaign via   PARTIAL_UPDATE, and REPLACES the campaign's entire targetingCriteria, not a merge),   and creative (uploads new media, creates a replacement inline creative on the same   campaign, pauses the old one). - **Pinterest / X / OpenAI Ads**: status + budget only. Sending   `targeting` or `creative` returns 501 with code `unsupported_platform_operation`.   OpenAI Ads budget is the campaign's spend cap, daily or lifetime (see `budget.type` below).  **Google location and language replacement:** locations, languages and devices are campaign-level criteria on Google, so these edits apply to every ad group and ad in the ad's campaign. Send the complete list you want to keep. Zernio diffs it against the campaign's live criteria and sends the removes and the creates in ONE `googleAds:mutate`, so the campaign is never left with a half-applied set; criteria already in the list keep their criterion ID and history. Excluded (negative) locations are left untouched. An empty location list returns 400 (a Google campaign with no location criteria targets every country, which is never what \"remove my locations\" means, so omit the field instead). Send either `targeting.locations` or the top-level geo fields, not both: mixing them returns 400.  **Google radius targeting:** `customLocations` is editable and is replaced the same way, but as its OWN set. Google models a place (LOCATION) and a point plus radius (PROXIMITY) as different criterion types, so the two are independent: sending `customLocations` replaces every radius and leaves the cities and countries alone, and sending places replaces those and leaves the radius alone. Send `customLocations: []` to drop radius targeting entirely. A circle you re-send unchanged keeps its criterion ID rather than being removed and recreated.  **Google keyword replacement:** These edits affect the ad's entire ad group, including sibling ads. Positive (`targeting.keywords`) and negative (`targeting.negativeKeywords`) sets are independent: omit a field to leave that set unchanged, or send `[]` to remove every keyword of that kind.  Zernio compares each supplied set with Google's live criteria by case-insensitive keyword text and match type. A matching criterion is left untouched, retaining its criterion ID, enabled/paused status, keyword-level bid overrides, labels, and criterion-associated history/statistics. Zernio does not reset its quality score; Google continues to calculate scores and statistics normally. Text comparison does not trim whitespace.  A bare string or an object without `matchType` means `broad`, not the existing criterion's match type. For example, resending an existing `{ \"text\": \"plumber\", \"matchType\": \"exact\" }` preserves it; sending `\"plumber\"` instead removes that EXACT criterion and requests a BROAD one. Changing text or match type removes criteria no longer requested and creates any missing criteria. New criteria get new IDs and do not inherit removed criteria's bid overrides, labels, or history. Historical reporting for a removed criterion is not transferred to its replacement.  To add keywords without replacing a set, use [POST /v1/ads/keywords](https://docs.zernio.com/ad-campaigns/add-ad-keywords). Use `PATCH /v1/ads/keywords/{keywordId}` to pause/enable one keyword, or `DELETE /v1/ads/keywords/{keywordId}` to remove it. 
 
 ### Parameters
 
@@ -1902,12 +1837,43 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## update_campaign_conversion_goals
+
+> models::UpdateCampaignConversionGoals200Response update_campaign_conversion_goals(campaign_id, update_campaign_conversion_goals_request)
+Update campaign conversion goals
+
+Sets `biddable` on campaign goals, switches `goalConfigLevel`, and/or points the campaign at a custom conversion goal, in one mutate. `customConversionGoalId: null` clears it; Google refuses that (400) while the campaign stays at CAMPAIGN level with no biddable goals, so send `goalConfigLevel: CUSTOMER` with it to fall back to the account goals. Returns the re-read campaign goals.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Google campaign id | [required] |
+**update_campaign_conversion_goals_request** | [**UpdateCampaignConversionGoalsRequest**](UpdateCampaignConversionGoalsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateCampaignConversionGoals200Response**](updateCampaignConversionGoals_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## update_campaign_targeting
 
 > models::UpdateCampaignTargeting200Response update_campaign_targeting(campaign_id, update_campaign_targeting_request)
 Edit a Google campaign's device, location, or language targeting
 
-Google Ads compliance row M.10: geo and language targeting set at creation must stay editable afterwards. Send at least one of `devices`, `locations`, `languages`, `locationTargetingType`; each provided field REPLACES that field's existing criteria on the campaign (a full set, not a delta). Fields left out of the body are untouched. Google only; every other platform returns 501.  `devices` is the full set of device bid modifiers: a supported device you leave out is switched off with a bid modifier of 0, since Google cannot remove a device criterion. A device the campaign's channel does not carry, and a set that switches every device off, both return 422.  `locations` accepts the same shapes as campaign creation: a bare array of ISO country codes, or an object with `countries`/`regions`/`cities`/`zips`/`metros` key lists (`key` from GET /v1/ads/targeting/search?dimension=geo). Negative (excluded) locations are left untouched by this endpoint. An empty location list returns 400 instead of removing every criterion: a Google campaign with no location criteria targets every country, so omit `locations` to leave targeting alone.  The removes and the creates go out in ONE Google `googleAds:mutate`, so a failed edit leaves the campaign's previous set intact rather than a half-applied one.  `languages` is an array of Google's language codes (ISO 639-1, plus variants such as `zh_CN`); an unknown code returns 400.  `locationTargetingType` switches who the location targeting reaches: `presence` (people in or regularly in the locations) or `presence_or_interest` (also people searching for or interested in them). Example: `{ \"platform\": \"google\", \"targeting\": { \"locationTargetingType\": \"presence\" } }`.  The response includes the refreshed `devices`/`locations`/`languages` state read back from Google after the edit, and invalidates the cached copy `GET` on this campaign would otherwise keep serving. 
+Google Ads compliance row M.10: geo and language targeting set at creation must stay editable afterwards. Send at least one of `devices`, `locations`, `languages`, `locationTargetingType`; each provided field REPLACES that field's existing criteria on the campaign (a full set, not a delta). Fields left out of the body are untouched. Google only; every other platform returns 501.  `devices` is the full set of device bid modifiers: a supported device you leave out is switched off with a bid modifier of 0, since Google cannot remove a device criterion. A device the campaign's channel does not carry, and a set that switches every device off, both return 422.  `locations` accepts the same shapes as campaign creation: a bare array of ISO country codes, or an object with `countries`/`regions`/`cities`/`zips`/`metros` key lists (`key` from GET /v1/ads/targeting/search?dimension=geo). Negative (excluded) locations are left untouched by this endpoint. An empty location list returns 400 instead of removing every criterion: a Google campaign with no location criteria targets every country, so omit `locations` to leave targeting alone.  The removes and the creates go out in ONE Google `googleAds:mutate`, so a failed edit leaves the campaign's previous set intact rather than a half-applied one.  `languages` is an array of Google's language codes (ISO 639-1, plus variants such as `zh_CN`); an unknown code returns 400.  `locationTargetingType` switches who the location targeting reaches: `presence` (people in or regularly in the locations) or `presence_or_interest` (also people searching for or interested in them). Example: `{ \"platform\": \"google\", \"targeting\": { \"locationTargetingType\": \"presence\" } }`.  The response includes the refreshed `devices`/`locations`/`languages` state read back from Google after the edit, and invalidates the cached copy `GET` on this campaign would otherwise keep serving.  **Demand Gen:** Google keeps a Demand Gen campaign's locations and languages on its ad groups and refuses them on the campaign. When the campaign has one ad group they are written there and the response carries its `adGroupId` (the campaign-level `locations`/`languages` read back then stay empty). With several ad groups the call returns 400 naming them: edit each one with PUT /v1/ads/{adId} `targeting` on an ad of that ad group. Campaigns migrated from Discovery that still target on the campaign keep being written there. `devices` and `locationTargetingType` stay campaign-level. 
 
 ### Parameters
 
