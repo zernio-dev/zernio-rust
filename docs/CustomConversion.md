@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **custom_event_type** | Option<**String**> |  | [optional]
 **pixel_id** | Option<**String**> | Meta's event_source_id, the pixel the rule reads from. | [optional]
 **is_archived** | Option<**bool**> |  | [optional]
+**default_conversion_value** | Option<**f64**> | Value Meta assigns a conversion that carries none, in the ad account's currency. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

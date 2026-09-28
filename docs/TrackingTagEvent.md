@@ -14,6 +14,10 @@ Name | Type | Description | Notes
 **currency** | Option<**String**> |  | [optional]
 **click_window_days** | Option<**i32**> |  | [optional]
 **view_window_days** | Option<**i32**> |  | [optional]
+**url_contains** | Option<**String**> | Fires only on pages whose URL contains this text (case-insensitive). | [optional]
+**always_use_default_value** | Option<**bool**> | `defaultValue` is recorded even when the conversion sends its own value. | [optional]
+**primary** | Option<**bool**> | Primary conversions count toward bidding and the Conversions column; secondary ones are observation only (Google `primary_for_goal`). | [optional]
+**counting_type** | Option<**CountingType**> | `one` counts at most one conversion per ad interaction (leads), `every` counts each (purchases). (enum: one, every) | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

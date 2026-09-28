@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **automatic_matching_fields** | Option<**Vec<AutomaticMatchingFields>**> | Which user fields Advanced Matching may collect. Meta's terse codes: em=email, ph=phone, fn=first name, ln=last name, ge=gender, db=date of birth, ct=city, st=state, zp=zip.  (enum: em, ph, fn, ln, ge, db, ct, st, zp, country, external_id) | [optional]
 **first_party_cookie_status** | Option<**FirstPartyCookieStatus**> |  (enum: empty, first_party_cookie_disabled, first_party_cookie_enabled) | [optional]
 **data_use_setting** | Option<**DataUseSetting**> |  (enum: advertising_and_analytics, analytics_only, empty) | [optional]
+**enable_first_party_cookies** | Option<**bool**> | First-party cookie on or off (TikTok, LinkedIn). Platform-neutral alternative to `firstPartyCookieStatus`. | [optional]
+**auto_tagging** | Option<**bool**> | Google Ads: turn gclid auto-tagging on or off for the ad account. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

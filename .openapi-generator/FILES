@@ -121,6 +121,8 @@ docs/AssignGoogleBusinessLocationRequest.md
 docs/AssignPageUser201Response.md
 docs/AssignPageUser201ResponseUser.md
 docs/AssignPageUserRequest.md
+docs/AssignTrackingTagUser200Response.md
+docs/AssignTrackingTagUserRequest.md
 docs/AttachAdGroupAssets201Response.md
 docs/AttachAdLabel200Response.md
 docs/AttachBrandedCallingNumbersRequest.md
@@ -989,6 +991,7 @@ docs/GetTikTokSmartPlusMaterialReport200Response.md
 docs/GetTikTokSmartPlusMaterialReport200ResponseRowsInner.md
 docs/GetTikTokSmartPlusMaterialReport200ResponseRowsInnerMetrics.md
 docs/GetTrackingTag200Response.md
+docs/GetTrackingTagDiagnostics200Response.md
 docs/GetTrackingTagStats200Response.md
 docs/GetTrackingTagStats200ResponseStats.md
 docs/GetTrackingTagStoreInstall200Response.md
@@ -1463,7 +1466,9 @@ docs/ListTikTokCommercialMusic200Response.md
 docs/ListTikTokCommercialMusic200ResponseTracksInner.md
 docs/ListTikTokCommercialMusic200ResponseTracksInnerClip.md
 docs/ListTrackingTagEvents200Response.md
+docs/ListTrackingTagPartners200Response.md
 docs/ListTrackingTagSharedAccounts200Response.md
+docs/ListTrackingTagUsers200Response.md
 docs/ListTrackingTags200Response.md
 docs/ListUsers200Response.md
 docs/ListUsers200ResponseUsersInner.md
@@ -1726,6 +1731,7 @@ docs/RemoveMessageReaction200Response.md
 docs/RemovePageUser200Response.md
 docs/RemoveTrackingTagFromStore200Response.md
 docs/RemoveTrackingTagFromStore200ResponseInstall.md
+docs/RemoveTrackingTagUser200Response.md
 docs/RemoveWhatsAppGroupParticipantsRequest.md
 docs/ReplaceAdAudienceCompanies200Response.md
 docs/ReplaceAdAudienceCompaniesRequest.md
@@ -2005,9 +2011,12 @@ docs/TikTokPlatformData.md
 docs/TikTokPlatformDataMusicSoundInfo.md
 docs/ToolsApi.md
 docs/TrackingTag.md
+docs/TrackingTagDiagnostic.md
 docs/TrackingTagEvent.md
 docs/TrackingTagEventInput.md
 docs/TrackingTagInstallBlockedReason.md
+docs/TrackingTagPartner.md
+docs/TrackingTagUser.md
 docs/TrackingTagsApi.md
 docs/TransferVoiceCall200Response.md
 docs/TransferVoiceCallRequest.md
@@ -2692,6 +2701,8 @@ src/models/assign_google_business_location_request.rs
 src/models/assign_page_user_201_response.rs
 src/models/assign_page_user_201_response_user.rs
 src/models/assign_page_user_request.rs
+src/models/assign_tracking_tag_user_200_response.rs
+src/models/assign_tracking_tag_user_request.rs
 src/models/attach_ad_group_assets_201_response.rs
 src/models/attach_ad_label_200_response.rs
 src/models/attach_branded_calling_numbers_request.rs
@@ -3546,6 +3557,7 @@ src/models/get_tik_tok_smart_plus_material_report_200_response.rs
 src/models/get_tik_tok_smart_plus_material_report_200_response_rows_inner.rs
 src/models/get_tik_tok_smart_plus_material_report_200_response_rows_inner_metrics.rs
 src/models/get_tracking_tag_200_response.rs
+src/models/get_tracking_tag_diagnostics_200_response.rs
 src/models/get_tracking_tag_stats_200_response.rs
 src/models/get_tracking_tag_stats_200_response_stats.rs
 src/models/get_tracking_tag_store_install_200_response.rs
@@ -4006,7 +4018,9 @@ src/models/list_tik_tok_commercial_music_200_response.rs
 src/models/list_tik_tok_commercial_music_200_response_tracks_inner.rs
 src/models/list_tik_tok_commercial_music_200_response_tracks_inner_clip.rs
 src/models/list_tracking_tag_events_200_response.rs
+src/models/list_tracking_tag_partners_200_response.rs
 src/models/list_tracking_tag_shared_accounts_200_response.rs
+src/models/list_tracking_tag_users_200_response.rs
 src/models/list_tracking_tags_200_response.rs
 src/models/list_users_200_response.rs
 src/models/list_users_200_response_users_inner.rs
@@ -4256,6 +4270,7 @@ src/models/remove_message_reaction_200_response.rs
 src/models/remove_page_user_200_response.rs
 src/models/remove_tracking_tag_from_store_200_response.rs
 src/models/remove_tracking_tag_from_store_200_response_install.rs
+src/models/remove_tracking_tag_user_200_response.rs
 src/models/remove_whats_app_group_participants_request.rs
 src/models/replace_ad_audience_companies_200_response.rs
 src/models/replace_ad_audience_companies_request.rs
@@ -4530,9 +4545,12 @@ src/models/tik_tok_dry_run_verdict_tiktok_inner.rs
 src/models/tik_tok_platform_data.rs
 src/models/tik_tok_platform_data_music_sound_info.rs
 src/models/tracking_tag.rs
+src/models/tracking_tag_diagnostic.rs
 src/models/tracking_tag_event.rs
 src/models/tracking_tag_event_input.rs
 src/models/tracking_tag_install_blocked_reason.rs
+src/models/tracking_tag_partner.rs
+src/models/tracking_tag_user.rs
 src/models/transfer_voice_call_200_response.rs
 src/models/transfer_voice_call_request.rs
 src/models/trigger_workflow_200_response.rs
