@@ -7,6 +7,8 @@ Method | HTTP request | Description
 [**add_account_callouts**](AdAccountsApi.md#add_account_callouts) | **POST** /v1/ads/accounts/callouts | Add account callouts
 [**add_account_sitelinks**](AdAccountsApi.md#add_account_sitelinks) | **POST** /v1/ads/accounts/sitelinks | Add account sitelinks
 [**add_account_structured_snippets**](AdAccountsApi.md#add_account_structured_snippets) | **POST** /v1/ads/accounts/structured-snippets | Add account snippets
+[**assign_ad_account_user**](AdAccountsApi.md#assign_ad_account_user) | **POST** /v1/ads/accounts/users | Assign a user to an ad account
+[**assign_page_user**](AdAccountsApi.md#assign_page_user) | **POST** /v1/ads/page-users | Assign a user to a Page
 [**attach_ad_label**](AdAccountsApi.md#attach_ad_label) | **POST** /v1/ads/labels/{labelId}/assignments | Attach a Google Ads label
 [**create_ad_account**](AdAccountsApi.md#create_ad_account) | **POST** /v1/ads/accounts | Create Meta ad account
 [**create_ad_label**](AdAccountsApi.md#create_ad_label) | **POST** /v1/ads/labels | Create a Google Ads label
@@ -32,6 +34,7 @@ Method | HTTP request | Description
 [**list_account_callouts**](AdAccountsApi.md#list_account_callouts) | **GET** /v1/ads/accounts/callouts | List account callouts
 [**list_account_sitelinks**](AdAccountsApi.md#list_account_sitelinks) | **GET** /v1/ads/accounts/sitelinks | List account sitelinks
 [**list_account_structured_snippets**](AdAccountsApi.md#list_account_structured_snippets) | **GET** /v1/ads/accounts/structured-snippets | List account snippets
+[**list_ad_account_users**](AdAccountsApi.md#list_ad_account_users) | **GET** /v1/ads/accounts/users | Ad account users
 [**list_ad_accounts**](AdAccountsApi.md#list_ad_accounts) | **GET** /v1/ads/accounts | List ad accounts
 [**list_ad_labels**](AdAccountsApi.md#list_ad_labels) | **GET** /v1/ads/labels | List ad labels
 [**list_ad_negative_keyword_lists**](AdAccountsApi.md#list_ad_negative_keyword_lists) | **GET** /v1/ads/accounts/negative-keyword-lists | List negative keyword lists
@@ -42,13 +45,17 @@ Method | HTTP request | Description
 [**list_advertisable_applications**](AdAccountsApi.md#list_advertisable_applications) | **GET** /v1/ads/advertisable-applications | List advertisable apps
 [**list_custom_conversions**](AdAccountsApi.md#list_custom_conversions) | **GET** /v1/accounts/{accountId}/custom-conversions | List custom conversions
 [**list_high_demand_periods**](AdAccountsApi.md#list_high_demand_periods) | **GET** /v1/ads/high-demand-periods | List high-demand periods
+[**list_meta_business_users**](AdAccountsApi.md#list_meta_business_users) | **GET** /v1/ads/businesses/users | Business users
 [**list_meta_businesses**](AdAccountsApi.md#list_meta_businesses) | **GET** /v1/ads/businesses | Businesses list
+[**list_page_users**](AdAccountsApi.md#list_page_users) | **GET** /v1/ads/page-users | Page users of a business
 [**list_tik_tok_ad_pixels**](AdAccountsApi.md#list_tik_tok_ad_pixels) | **GET** /v1/ads/pixels | List TikTok ad pixels
 [**list_value_rule_sets**](AdAccountsApi.md#list_value_rule_sets) | **GET** /v1/ads/value-rule-sets | List value rule sets
 [**remove_account_callout**](AdAccountsApi.md#remove_account_callout) | **DELETE** /v1/ads/accounts/callouts | Remove account callout
 [**remove_account_sitelink**](AdAccountsApi.md#remove_account_sitelink) | **DELETE** /v1/ads/accounts/sitelinks | Remove account sitelink
 [**remove_account_structured_snippet**](AdAccountsApi.md#remove_account_structured_snippet) | **DELETE** /v1/ads/accounts/structured-snippets | Remove account snippet
+[**remove_ad_account_user**](AdAccountsApi.md#remove_ad_account_user) | **DELETE** /v1/ads/accounts/users | Remove a user from an ad account
 [**remove_ad_label**](AdAccountsApi.md#remove_ad_label) | **DELETE** /v1/ads/labels/{labelId} | Remove a Google Ads label
+[**remove_page_user**](AdAccountsApi.md#remove_page_user) | **DELETE** /v1/ads/page-users | Remove a user from a Page
 [**replace_ad_negative_keyword_list_keywords**](AdAccountsApi.md#replace_ad_negative_keyword_list_keywords) | **PUT** /v1/ads/accounts/negative-keyword-lists/{listId}/keywords | Replace negative list keywords
 [**reply_to_ad_comment**](AdAccountsApi.md#reply_to_ad_comment) | **POST** /v1/ads/{adId}/comments/{commentId}/reply | Reply to an ad comment
 [**update_account_callouts**](AdAccountsApi.md#update_account_callouts) | **PUT** /v1/ads/accounts/callouts | Update account callouts
@@ -139,6 +146,66 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::AddAccountStructuredSnippets201Response**](addAccountStructuredSnippets_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## assign_ad_account_user
+
+> models::AssignAdAccountUser201Response assign_ad_account_user(assign_ad_account_user_request)
+Assign a user to an ad account
+
+Gives a person of the portfolio tasks on the ad account. `MANAGE` is admin, `ADVERTISE` creates and edits ads, `ANALYZE` reads reports, `DRAFT` edits drafts only. Assigning an already assigned user replaces their task set.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**assign_ad_account_user_request** | [**AssignAdAccountUserRequest**](AssignAdAccountUserRequest.md) |  | [required] |
+
+### Return type
+
+[**models::AssignAdAccountUser201Response**](assignAdAccountUser_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## assign_page_user
+
+> models::AssignPageUser201Response assign_page_user(assign_page_user_request)
+Assign a user to a Page
+
+Gives a person of the portfolio tasks on a Page the portfolio owns or was granted as a partner. Meta does not assign partner admins automatically, so after an owner shares a Page the partner calls this for the people whose tokens will advertise for it. `ADVERTISE` is what ad creation needs. Assigning an already assigned user replaces their task set.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**assign_page_user_request** | [**AssignPageUserRequest**](AssignPageUserRequest.md) |  | [required] |
+
+### Return type
+
+[**models::AssignPageUser201Response**](assignPageUser_201_response.md)
 
 ### Authorization
 
@@ -663,7 +730,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_dsa_defaults
 
-> models::UpdateAdAccount200Response get_dsa_defaults(account_id, ad_account_id)
+> models::GetDsaDefaults200Response get_dsa_defaults(account_id, ad_account_id)
 Get ad account DSA defaults
 
 Returns the default DSA beneficiary and payor currently set on a Meta ad account, whether they were set via `PATCH /v1/ads/accounts` or in Meta Ads Manager. Fields are omitted when no default is configured. Meta accounts only. 
@@ -678,7 +745,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::UpdateAdAccount200Response**](updateAdAccount_200_response.md)
+[**models::GetDsaDefaults200Response**](getDsaDefaults_200_response.md)
 
 ### Authorization
 
@@ -933,6 +1000,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListAccountStructuredSnippets200Response**](listAccountStructuredSnippets_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_ad_account_users
+
+> models::ListAdAccountUsers200Response list_ad_account_users(account_id, ad_account_id, business_id)
+Ad account users
+
+People of a business portfolio assigned to a Meta ad account, with their tasks. Ids are business-scoped user ids (see `GET /v1/ads/businesses/users`).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Zernio SocialAccount id (posting or ads variant) used to resolve the Meta token. | [required] |
+**ad_account_id** | **String** | Meta ad account id (act_<n>). | [required] |
+**business_id** | **String** | Business portfolio whose people to list. | [required] |
+
+### Return type
+
+[**models::ListAdAccountUsers200Response**](listAdAccountUsers_200_response.md)
 
 ### Authorization
 
@@ -1270,6 +1369,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_meta_business_users
+
+> models::ListMetaBusinessUsers200Response list_meta_business_users(account_id, business_id)
+Business users
+
+People and system users of a Meta business portfolio, with the business-scoped ids that `POST /v1/ads/accounts/users` and `POST /v1/ads/page-users` take. The connected Meta user must be an admin of the portfolio.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Zernio SocialAccount id (posting or ads variant) used to resolve the Meta token. | [required] |
+**business_id** | **String** | Meta business portfolio id. | [required] |
+
+### Return type
+
+[**models::ListMetaBusinessUsers200Response**](listMetaBusinessUsers_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_meta_businesses
 
 > models::ListMetaBusinesses200Response list_meta_businesses(account_id, limit, after)
@@ -1289,6 +1419,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListMetaBusinesses200Response**](listMetaBusinesses_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_page_users
+
+> models::ListPageUsers200Response list_page_users(account_id, page_id, business_id)
+Page users of a business
+
+People of a business portfolio assigned to a Facebook Page the portfolio owns or was granted as a partner (`POST /v1/accounts/{accountId}/business-partners` on the owner side).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Zernio SocialAccount id (posting or ads variant) used to resolve the Meta token. | [required] |
+**page_id** | **String** | Facebook Page id. | [required] |
+**business_id** | **String** | Business portfolio whose people to list. | [required] |
+
+### Return type
+
+[**models::ListPageUsers200Response**](listPageUsers_200_response.md)
 
 ### Authorization
 
@@ -1458,6 +1620,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## remove_ad_account_user
+
+> models::RemoveAdAccountUser200Response remove_ad_account_user(account_id, ad_account_id, user_id)
+Remove a user from an ad account
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Zernio SocialAccount id used to resolve the Meta token. | [required] |
+**ad_account_id** | **String** | Meta ad account id (act_<n>). | [required] |
+**user_id** | **String** | Business-scoped user id. | [required] |
+
+### Return type
+
+[**models::RemoveAdAccountUser200Response**](removeAdAccountUser_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## remove_ad_label
 
 > models::RemoveAdLabel200Response remove_ad_label(label_id, account_id, ad_account_id, customer_id)
@@ -1478,6 +1670,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::RemoveAdLabel200Response**](removeAdLabel_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## remove_page_user
+
+> models::RemovePageUser200Response remove_page_user(account_id, page_id, user_id)
+Remove a user from a Page
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Zernio SocialAccount id used to resolve the Meta token. | [required] |
+**page_id** | **String** | Facebook Page id. | [required] |
+**user_id** | **String** | Business-scoped user id. | [required] |
+
+### Return type
+
+[**models::RemovePageUser200Response**](removePageUser_200_response.md)
 
 ### Authorization
 
@@ -1651,7 +1873,7 @@ Name | Type | Description  | Required | Notes
 > models::UpdateAdAccount200Response update_ad_account(update_ad_account_request)
 Update ad account settings
 
-Sets the default DSA beneficiary and payor on a Meta ad account (EU DSA, Article 26). Set them once and every EU-targeted call to `/v1/ads/create`, `/v1/ads/boost` and `/v1/ads/ctwa` on that ad account can omit `dsaBeneficiary`/`dsaPayor`: Meta applies the defaults automatically.  The values are written to the ad account on Meta, the same setting Ads Manager edits. Nothing is stored in Zernio, and defaults already set in Ads Manager work identically. Zernio never guesses these values for you. Beneficiary and payor are legal disclosures shown to EU users, so you must provide the entity names explicitly. Use `GET /v1/ads/dsa-recommendations` to offer suggestions in your UI.  If `defaultDsaPayor` is omitted, the beneficiary is also set as the payor, which covers the common case where the same entity benefits from and pays for the ads. Read the current values back with `GET /v1/ads/dsa-defaults`.  Currently supported for Meta accounts only; other platforms return 400. 
+Updates a Meta ad account in place: its name, its account-level spend cap, and its default DSA beneficiary and payor. Pass any combination of fields.  **Spend cap.** `spendCap` is the total the account may spend before Meta pauses every campaign in it, in whole units of the account currency. `spendCap: null` removes the cap and `resetAmountSpent: true` restarts the amount counted against it from zero. When `name`, `spendCap` or `resetAmountSpent` is passed, the response carries `settings`, the account's finances re-read after the write (same shape as `GET /v1/ads/accounts/finance`), so the effective cap can be confirmed in one call.  **DSA defaults.** Sets the default DSA beneficiary and payor on the ad account (EU DSA, Article 26). Set them once and every EU-targeted call to `/v1/ads/create`, `/v1/ads/boost` and `/v1/ads/ctwa` on that ad account can omit `dsaBeneficiary`/`dsaPayor`: Meta applies the defaults automatically.  The values are written to the ad account on Meta, the same setting Ads Manager edits. Nothing is stored in Zernio, and defaults already set in Ads Manager work identically. Zernio never guesses these values for you. Beneficiary and payor are legal disclosures shown to EU users, so you must provide the entity names explicitly. Use `GET /v1/ads/dsa-recommendations` to offer suggestions in your UI.  If `defaultDsaPayor` is omitted, the beneficiary is also set as the payor, which covers the common case where the same entity benefits from and pays for the ads. Read the current values back with `GET /v1/ads/dsa-defaults`.  Currently supported for Meta accounts only; other platforms return 400. 
 
 ### Parameters
 

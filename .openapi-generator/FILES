@@ -111,9 +111,14 @@ docs/ApplyGoogleRecommendationsRequest.md
 docs/ApplyGoogleRecommendationsRequestRecommendationsInner.md
 docs/ApproveWhatsAppGroupJoinRequestsRequest.md
 docs/ArchiveLeadForm200Response.md
+docs/AssignAdAccountUser201Response.md
+docs/AssignAdAccountUserRequest.md
 docs/AssignGoogleBusinessLocation200Response.md
 docs/AssignGoogleBusinessLocation200ResponseAccount.md
 docs/AssignGoogleBusinessLocationRequest.md
+docs/AssignPageUser201Response.md
+docs/AssignPageUser201ResponseUser.md
+docs/AssignPageUserRequest.md
 docs/AttachAdGroupAssets201Response.md
 docs/AttachAdLabel200Response.md
 docs/AttachBrandedCallingNumbersRequest.md
@@ -775,6 +780,8 @@ docs/GetDiscordChannels200ResponseChannelsInner.md
 docs/GetDiscordGuildMember200Response.md
 docs/GetDiscordSettings200Response.md
 docs/GetDiscordSettings200ResponseAccount.md
+docs/GetDsaDefaults200Response.md
+docs/GetDsaDefaults200ResponseDsaDefaults.md
 docs/GetDsaRecommendations200Response.md
 docs/GetFacebookPages200Response.md
 docs/GetFacebookPages200ResponsePagesInner.md
@@ -1122,6 +1129,9 @@ docs/GoogleRsaDescription.md
 docs/GoogleRsaHeadline.md
 docs/GoogleSitelink.md
 docs/GoogleStructuredSnippet.md
+docs/GrantBusinessPartner201Response.md
+docs/GrantBusinessPartner201ResponsePartner.md
+docs/GrantBusinessPartnerRequest.md
 docs/HandleOAuthCallbackRequest.md
 docs/HideAdComment200Response.md
 docs/HideAdCommentRequest.md
@@ -1223,6 +1233,7 @@ docs/ListAccountSitelinks200Response.md
 docs/ListAccountSitelinks200ResponseSitelinksInner.md
 docs/ListAccountStructuredSnippets200Response.md
 docs/ListAccountStructuredSnippets200ResponseStructuredSnippetsInner.md
+docs/ListAdAccountUsers200Response.md
 docs/ListAdAccounts200Response.md
 docs/ListAdAccounts200ResponseAccountsInner.md
 docs/ListAdAccounts200ResponseAccountsInnerFundingSourceDetails.md
@@ -1289,6 +1300,7 @@ docs/ListBusinessAgentSettings200Response.md
 docs/ListBusinessAgentSkills200Response.md
 docs/ListBusinessAgentUiSkills200Response.md
 docs/ListBusinessAgentWebsites200Response.md
+docs/ListBusinessPartners200Response.md
 docs/ListCalls200Response.md
 docs/ListCalls200ResponseCallsInner.md
 docs/ListCampaignAssets200Response.md
@@ -1388,7 +1400,9 @@ docs/ListLocalServicesLeads200ResponseDataInnerContact.md
 docs/ListLogs200Response.md
 docs/ListLogs200ResponseLogsInner.md
 docs/ListLogs200ResponsePagination.md
+docs/ListMetaBusinessUsers200Response.md
 docs/ListMetaBusinesses200Response.md
+docs/ListPageUsers200Response.md
 docs/ListPartnershipAdContent200Response.md
 docs/ListPartnershipAdContent200ResponseMediaInner.md
 docs/ListPartnershipAdPermissions200Response.md
@@ -1487,6 +1501,8 @@ docs/MentionsApi.md
 docs/MessagesApi.md
 docs/MessagingAdsApi.md
 docs/MetaAdsPlatformData.md
+docs/MetaAssignedUser.md
+docs/MetaBusinessUser.md
 docs/MetaCatalogProduct.md
 docs/MetaCatalogProductInput.md
 docs/MetaFeedUpload.md
@@ -1499,6 +1515,10 @@ docs/MetaLeadFormPlatformData.md
 docs/MetaLeadFormPlatformDataContextCard.md
 docs/MetaLeadFormQuestionsInner.md
 docs/MetaLeadFormThankYouPage.md
+docs/MetaPageOwnership.md
+docs/MetaPageOwnershipBusiness.md
+docs/MetaPageOwnershipInstagramBusinessAccount.md
+docs/MetaPagePartner.md
 docs/MetaPlacementAssets.md
 docs/MetaPlacementAssetsRulesInner.md
 docs/MetaPlacementAssetsRulesInnerPlacements.md
@@ -1644,6 +1664,7 @@ docs/RemediatePhoneNumberRequestDocumentsInner.md
 docs/RemediatePhoneNumberRequestDocumentsInnerOneOf.md
 docs/RemoveAccountCallout200Response.md
 docs/RemoveAccountCalloutRequest.md
+docs/RemoveAdAccountUser200Response.md
 docs/RemoveAdGroupAssetsRequest.md
 docs/RemoveAdKeyword200Response.md
 docs/RemoveAdLabel200Response.md
@@ -1655,6 +1676,7 @@ docs/RemoveCustomConversionGoal200Response.md
 docs/RemoveDiscordMemberRole200Response.md
 docs/RemoveGoogleAssetGroup200Response.md
 docs/RemoveMessageReaction200Response.md
+docs/RemovePageUser200Response.md
 docs/RemoveTrackingTagFromStore200Response.md
 docs/RemoveTrackingTagFromStore200ResponseInstall.md
 docs/RemoveWhatsAppGroupParticipantsRequest.md
@@ -1711,6 +1733,7 @@ docs/ReviewWebhookReview.md
 docs/ReviewWebhookReviewReply.md
 docs/ReviewWebhookReviewReviewer.md
 docs/ReviewsApi.md
+docs/RevokeBusinessPartner200Response.md
 docs/RevokeConnectedApp200Response.md
 docs/RfPrediction.md
 docs/RotateSipTrunkCredentials200Response.md
@@ -1972,6 +1995,8 @@ docs/UpdateAccountStructuredSnippetsRequestUpdatesInner.md
 docs/UpdateAd200Response.md
 docs/UpdateAdAccount200Response.md
 docs/UpdateAdAccount200ResponseDsaDefaults.md
+docs/UpdateAdAccount200ResponseSettings.md
+docs/UpdateAdAccount200ResponseSettingsFundingSource.md
 docs/UpdateAdAccountManagerLinkRequest.md
 docs/UpdateAdAccountRequest.md
 docs/UpdateAdAudienceRequest.md
@@ -2603,9 +2628,14 @@ src/models/apply_google_recommendations_request.rs
 src/models/apply_google_recommendations_request_recommendations_inner.rs
 src/models/approve_whats_app_group_join_requests_request.rs
 src/models/archive_lead_form_200_response.rs
+src/models/assign_ad_account_user_201_response.rs
+src/models/assign_ad_account_user_request.rs
 src/models/assign_google_business_location_200_response.rs
 src/models/assign_google_business_location_200_response_account.rs
 src/models/assign_google_business_location_request.rs
+src/models/assign_page_user_201_response.rs
+src/models/assign_page_user_201_response_user.rs
+src/models/assign_page_user_request.rs
 src/models/attach_ad_group_assets_201_response.rs
 src/models/attach_ad_label_200_response.rs
 src/models/attach_branded_calling_numbers_request.rs
@@ -3253,6 +3283,8 @@ src/models/get_discord_channels_200_response_channels_inner.rs
 src/models/get_discord_guild_member_200_response.rs
 src/models/get_discord_settings_200_response.rs
 src/models/get_discord_settings_200_response_account.rs
+src/models/get_dsa_defaults_200_response.rs
+src/models/get_dsa_defaults_200_response_dsa_defaults.rs
 src/models/get_dsa_recommendations_200_response.rs
 src/models/get_facebook_pages_200_response.rs
 src/models/get_facebook_pages_200_response_pages_inner.rs
@@ -3592,6 +3624,9 @@ src/models/google_rsa_description.rs
 src/models/google_rsa_headline.rs
 src/models/google_sitelink.rs
 src/models/google_structured_snippet.rs
+src/models/grant_business_partner_201_response.rs
+src/models/grant_business_partner_201_response_partner.rs
+src/models/grant_business_partner_request.rs
 src/models/handle_o_auth_callback_request.rs
 src/models/hide_ad_comment_200_response.rs
 src/models/hide_ad_comment_request.rs
@@ -3687,6 +3722,7 @@ src/models/list_account_sitelinks_200_response.rs
 src/models/list_account_sitelinks_200_response_sitelinks_inner.rs
 src/models/list_account_structured_snippets_200_response.rs
 src/models/list_account_structured_snippets_200_response_structured_snippets_inner.rs
+src/models/list_ad_account_users_200_response.rs
 src/models/list_ad_accounts_200_response.rs
 src/models/list_ad_accounts_200_response_accounts_inner.rs
 src/models/list_ad_accounts_200_response_accounts_inner_funding_source_details.rs
@@ -3753,6 +3789,7 @@ src/models/list_business_agent_settings_200_response.rs
 src/models/list_business_agent_skills_200_response.rs
 src/models/list_business_agent_ui_skills_200_response.rs
 src/models/list_business_agent_websites_200_response.rs
+src/models/list_business_partners_200_response.rs
 src/models/list_calls_200_response.rs
 src/models/list_calls_200_response_calls_inner.rs
 src/models/list_campaign_assets_200_response.rs
@@ -3852,7 +3889,9 @@ src/models/list_local_services_leads_200_response_data_inner_contact.rs
 src/models/list_logs_200_response.rs
 src/models/list_logs_200_response_logs_inner.rs
 src/models/list_logs_200_response_pagination.rs
+src/models/list_meta_business_users_200_response.rs
 src/models/list_meta_businesses_200_response.rs
+src/models/list_page_users_200_response.rs
 src/models/list_partnership_ad_content_200_response.rs
 src/models/list_partnership_ad_content_200_response_media_inner.rs
 src/models/list_partnership_ad_permissions_200_response.rs
@@ -3946,6 +3985,8 @@ src/models/media_content_type.rs
 src/models/media_item.rs
 src/models/media_upload_response.rs
 src/models/meta_ads_platform_data.rs
+src/models/meta_assigned_user.rs
+src/models/meta_business_user.rs
 src/models/meta_catalog_product.rs
 src/models/meta_catalog_product_input.rs
 src/models/meta_feed_upload.rs
@@ -3958,6 +3999,10 @@ src/models/meta_lead_form_platform_data.rs
 src/models/meta_lead_form_platform_data_context_card.rs
 src/models/meta_lead_form_questions_inner.rs
 src/models/meta_lead_form_thank_you_page.rs
+src/models/meta_page_ownership.rs
+src/models/meta_page_ownership_business.rs
+src/models/meta_page_ownership_instagram_business_account.rs
+src/models/meta_page_partner.rs
 src/models/meta_placement_assets.rs
 src/models/meta_placement_assets_rules_inner.rs
 src/models/meta_placement_assets_rules_inner_placements.rs
@@ -4096,6 +4141,7 @@ src/models/remediate_phone_number_request_documents_inner.rs
 src/models/remediate_phone_number_request_documents_inner_one_of.rs
 src/models/remove_account_callout_200_response.rs
 src/models/remove_account_callout_request.rs
+src/models/remove_ad_account_user_200_response.rs
 src/models/remove_ad_group_assets_request.rs
 src/models/remove_ad_keyword_200_response.rs
 src/models/remove_ad_label_200_response.rs
@@ -4107,6 +4153,7 @@ src/models/remove_custom_conversion_goal_200_response.rs
 src/models/remove_discord_member_role_200_response.rs
 src/models/remove_google_asset_group_200_response.rs
 src/models/remove_message_reaction_200_response.rs
+src/models/remove_page_user_200_response.rs
 src/models/remove_tracking_tag_from_store_200_response.rs
 src/models/remove_tracking_tag_from_store_200_response_install.rs
 src/models/remove_whats_app_group_participants_request.rs
@@ -4162,6 +4209,7 @@ src/models/review_phone_number_kyc_packet_request.rs
 src/models/review_webhook_review.rs
 src/models/review_webhook_review_reply.rs
 src/models/review_webhook_review_reviewer.rs
+src/models/revoke_business_partner_200_response.rs
 src/models/revoke_connected_app_200_response.rs
 src/models/rf_prediction.rs
 src/models/rotate_sip_trunk_credentials_200_response.rs
@@ -4417,6 +4465,8 @@ src/models/update_account_structured_snippets_request_updates_inner.rs
 src/models/update_ad_200_response.rs
 src/models/update_ad_account_200_response.rs
 src/models/update_ad_account_200_response_dsa_defaults.rs
+src/models/update_ad_account_200_response_settings.rs
+src/models/update_ad_account_200_response_settings_funding_source.rs
 src/models/update_ad_account_manager_link_request.rs
 src/models/update_ad_account_request.rs
 src/models/update_ad_audience_request.rs
