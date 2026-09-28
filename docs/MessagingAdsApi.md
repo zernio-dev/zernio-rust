@@ -74,7 +74,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_messaging_ad
 
-> models::CreateMessagingAd201Response create_messaging_ad(create_messaging_ad_request, idempotency_key)
+> models::CreateMessagingAd200Response create_messaging_ad(create_messaging_ad_request, idempotency_key)
 Create messaging ad
 
 Creates a click-to-message ad; `destination` selects where the tapped ad opens a conversation: WhatsApp, the Page's Messenger inbox or the linked Instagram account's Direct inbox. `destinations` puts two or three of them on one ad set and lets Meta pick the app per viewer. The ad set is created with the matching destination_type and CONVERSATIONS optimization; the campaign objective defaults to OUTCOME_ENGAGEMENT. Supports single-creative and multi-creative shapes. Supersedes POST /v1/ads/ctwa (deprecated, equivalent to `destination: whatsapp`). Existing posts and reels are supported through `platformPostId` (alias `existingPostId`) or `objectStoryId`, either per creative or at the top level. Omit fresh media and copy for that creative. Optional `whatsappPhoneNumber` selects a number already paired with the Page (WhatsApp destination only). `accountId` is a Facebook, Instagram or Meta ads (business login) connection; `pageId` picks the Page when that connection was granted several.  **Idempotency:** this endpoint is not idempotent at the platform level (a blind retry creates a second campaign/ad set/ad). Send an `Idempotency-Key` header to make retries safe: the first request with a given key creates the ad and we store the response; a retry with the same key replays that exact response (with `Idempotent-Replayed: true`) instead of creating duplicates. Reusing a key with a different body returns 422; a key whose first request is still in flight returns 409 (retry after a short backoff). Keys are scoped to your credential and expire after 24h.
@@ -89,7 +89,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::CreateMessagingAd201Response**](createMessagingAd_201_response.md)
+[**models::CreateMessagingAd200Response**](createMessagingAd_200_response.md)
 
 ### Authorization
 

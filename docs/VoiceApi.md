@@ -300,7 +300,7 @@ Name | Type | Description  | Required | Notes
 > models::EndVoiceCall200Response end_voice_call(id)
 Hang up a live call
 
-Hangs up a live call on demand, including an outbound call that is still ringing and has not been answered yet (the callee stops ringing immediately). Idempotent: ending a call that already ended (or never connected) returns success with the call's current status. Final duration/cost are written asynchronously when the hangup event lands, so the call doc may briefly still show its prior status. 
+Hangs up a live call on demand, including an outbound call that is still ringing and has not been answered yet (the callee stops ringing immediately). Works for PSTN calls and for WhatsApp calls (the `callId` returned by `POST /v1/whatsapp/calls`, or an inbound WhatsApp call id). A WhatsApp call forwarded to a `wss://` destination also ends automatically when that WebSocket closes. Idempotent: ending a call that already ended (or never connected) returns success with the call's current status. Final duration/cost are written asynchronously when the hangup event lands, so the call doc may briefly still show its prior status. 
 
 ### Parameters
 
@@ -385,7 +385,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_voice_call_estimate
 
-> models::GetVoiceCallEstimate200Response get_voice_call_estimate(to, minutes, recording, transcription)
+> models::GetVoiceCallEstimate200Response get_voice_call_estimate(to, from, minutes, recording, transcription)
 Estimate call cost
 
 Pre-call cost estimate for a PSTN call: the carrier leg plus optional recording and transcription add-ons. Same billing formula as the post-call invoice, so the quote and the final charge can't disagree. The per-minute figure is deliberately conservative (the real cost comes from the settled carrier record after the call), so estimates trend slightly over the actual invoice. Parity endpoint of `GET /v1/whatsapp/calls/estimate`, minus the Meta line (PSTN calls have no separate Meta bill, so `totalCostUSD` equals `billableCostUSD`). 
@@ -396,6 +396,7 @@ Pre-call cost estimate for a PSTN call: the carrier leg plus optional recording 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **to** | **String** | Destination number, E.164 (leading + optional). | [required] |
+**from** | Option<**String**> | The number the call would dial from, E.164. When it is verified on a Branded Calling identity and `to` is a US number, the estimate includes the per-call Branded Calling surcharge. |  |
 **minutes** | Option<**i32**> |  |  |[default to 1]
 **recording** | Option<**bool**> |  |  |
 **transcription** | Option<**bool**> |  |  |

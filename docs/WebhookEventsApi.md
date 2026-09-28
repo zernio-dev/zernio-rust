@@ -11,6 +11,9 @@ Method | HTTP request | Description
 [**on_account_disconnected**](WebhookEventsApi.md#on_account_disconnected) | **POST** /account.disconnected | Account disconnected event
 [**on_ad_status_changed**](WebhookEventsApi.md#on_ad_status_changed) | **POST** /ad.status_changed | Ad status changed event
 [**on_analytics_synced**](WebhookEventsApi.md#on_analytics_synced) | **POST** /analytics.synced | Analytics synced event
+[**on_branded_calling_identity_action_required**](WebhookEventsApi.md#on_branded_calling_identity_action_required) | **POST** /branded_calling.identity.action_required | Caller identity action required event
+[**on_branded_calling_identity_status_updated**](WebhookEventsApi.md#on_branded_calling_identity_status_updated) | **POST** /branded_calling.identity.status_updated | Caller identity status updated event
+[**on_branded_calling_number_status_updated**](WebhookEventsApi.md#on_branded_calling_number_status_updated) | **POST** /branded_calling.number.status_updated | Branded number status updated event
 [**on_call_ended**](WebhookEventsApi.md#on_call_ended) | **POST** /call.ended | Call ended event
 [**on_call_failed**](WebhookEventsApi.md#on_call_failed) | **POST** /call.failed | Call failed event
 [**on_call_permission_request**](WebhookEventsApi.md#on_call_permission_request) | **POST** /call.permission_request | Call permission request reply event
@@ -257,6 +260,96 @@ Fired once per connected account each time its analytics sync cycle completes su
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_analytics_synced** | [**WebhookPayloadAnalyticsSynced**](WebhookPayloadAnalyticsSynced.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_branded_calling_identity_action_required
+
+> on_branded_calling_identity_action_required(on_branded_calling_identity_action_required_request)
+Caller identity action required event
+
+Fired when a caller identity waits on you. `reason` says what: `changes_requested` (answer the review with PATCH), `email_code` (the authorizer got a 6-digit code from the carrier; confirm it with the verify-email endpoint), `rejected` (the carrier rejected it; fix and PATCH), `infringement_claim` (a third party disputes the name or logo; reply to our email with evidence) or `expired` (resubmit). 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**on_branded_calling_identity_action_required_request** | [**OnBrandedCallingIdentityActionRequiredRequest**](OnBrandedCallingIdentityActionRequiredRequest.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_branded_calling_identity_status_updated
+
+> on_branded_calling_identity_status_updated(on_branded_calling_identity_status_updated_request)
+Caller identity status updated event
+
+Fired on every status change of a Branded Calling caller identity: `requested` (a new submission or resubmit, in our review), `changes_requested` (we need answers, see `branded_calling.identity.action_required`), `rejected` (by our review or by the carrier; `reason` says why), `pending_email_verification` (filed with the carrier; the authorizer enters the emailed code), `in_review` (carrier vetting), `verified` (live for a year: attach numbers), `suspended` (an infringement claim is open), `expired` and `permanently_rejected`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**on_branded_calling_identity_status_updated_request** | [**OnBrandedCallingIdentityStatusUpdatedRequest**](OnBrandedCallingIdentityStatusUpdatedRequest.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_branded_calling_number_status_updated
+
+> on_branded_calling_number_status_updated(on_branded_calling_number_status_updated_request)
+Branded number status updated event
+
+Fired when a number attached to a caller identity changes vetting status: `in_review`, `verified` (calls from it now show the identity), `unsuccessful` (refused; detach and re-add to retry), `suspended`, `expired` or `permanently_rejected` (can never be branded again). 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**on_branded_calling_number_status_updated_request** | [**OnBrandedCallingNumberStatusUpdatedRequest**](OnBrandedCallingNumberStatusUpdatedRequest.md) |  | [required] |
 
 ### Return type
 

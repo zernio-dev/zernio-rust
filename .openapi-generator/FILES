@@ -116,6 +116,8 @@ docs/AssignGoogleBusinessLocation200ResponseAccount.md
 docs/AssignGoogleBusinessLocationRequest.md
 docs/AttachAdGroupAssets201Response.md
 docs/AttachAdLabel200Response.md
+docs/AttachBrandedCallingNumbersRequest.md
+docs/AttachBrandedCallingNumbersRequestSignature.md
 docs/AttachCampaignAssets201Response.md
 docs/AttachCampaignAssetsRequest.md
 docs/AttachNumberToSipTrunk200Response.md
@@ -160,6 +162,19 @@ docs/BoostPostRequestTargetingCitiesInner.md
 docs/BoostPostRequestTargetingCustomLocationsInner.md
 docs/BoostPostRequestTracking.md
 docs/BoostPostRequestTrackingUrlTagsInner.md
+docs/BrandedCallingAddress.md
+docs/BrandedCallingApi.md
+docs/BrandedCallingContact.md
+docs/BrandedCallingEnterprise.md
+docs/BrandedCallingIdentity.md
+docs/BrandedCallingIdentityAuthorizer.md
+docs/BrandedCallingIdentityNumber.md
+docs/BrandedCallingIdentityNumberRejectionReason.md
+docs/BrandedCallingIdentityRejectionReasonsInner.md
+docs/BrandedCallingIdentityReviewRequest.md
+docs/BrandedCallingIdentityReviewRequestPointsInner.md
+docs/BrandedCallingReference.md
+docs/BrandedCallingReferences.md
 docs/BroadcastsApi.md
 docs/BulkCreateContacts200Response.md
 docs/BulkCreateContactsRequest.md
@@ -247,6 +262,7 @@ docs/CompleteWhatsAppPhoneSelection200ResponseAccount.md
 docs/CompleteWhatsAppPhoneSelectionRequest.md
 docs/ConfigureTikTokAdsBrandIdentity200Response.md
 docs/ConfigureTikTokAdsBrandIdentityRequest.md
+docs/ConfirmBrandedCallingAuthorizerEmailRequest.md
 docs/ConnectAds200Response.md
 docs/ConnectAds200ResponseOneOf.md
 docs/ConnectAds200ResponseOneOf1.md
@@ -328,6 +344,9 @@ docs/CreateBlogArticleRequest.md
 docs/CreateBlogArticleRequestImage.md
 docs/CreateBlogArticleRequestSeo.md
 docs/CreateBlogRequest.md
+docs/CreateBrandedCallingEnterpriseRequest.md
+docs/CreateBrandedCallingIdentityRequest.md
+docs/CreateBrandedCallingIdentityRequestAuthorizer.md
 docs/CreateBroadcast200Response.md
 docs/CreateBroadcast200ResponseBroadcast.md
 docs/CreateBroadcastRequest.md
@@ -405,6 +424,8 @@ docs/CreateLeadForm200Response.md
 docs/CreateLeadFormRequest.md
 docs/CreateLeadFormRequestPlatformSpecificData.md
 docs/CreateLeadFormRequestQuestionsInner.md
+docs/CreateMessagingAd200Response.md
+docs/CreateMessagingAd200ResponseResultsInner.md
 docs/CreateMessagingAd201Response.md
 docs/CreateMessagingAdRequest.md
 docs/CreatePhoneNumberKycLink200Response.md
@@ -461,9 +482,6 @@ docs/CreateStandaloneAdRequestCreativesInnerVideo.md
 docs/CreateStandaloneAdRequestCustomLocationsInner.md
 docs/CreateStandaloneAdRequestDynamicCreative.md
 docs/CreateStandaloneAdRequestImages.md
-docs/CreateStandaloneAdRequestPlacementAssets.md
-docs/CreateStandaloneAdRequestPlacementAssetsRulesInner.md
-docs/CreateStandaloneAdRequestPlacementAssetsRulesInnerPlacements.md
 docs/CreateStandaloneAdRequestPlacements.md
 docs/CreateStandaloneAdRequestPlatformSpecificData.md
 docs/CreateStandaloneAdRequestRegionsInner.md
@@ -535,6 +553,7 @@ docs/DeleteAdCreative200Response.md
 docs/DeleteAdNegativeKeywordList200Response.md
 docs/DeleteAdSet200Response.md
 docs/DeleteAdVideo200Response.md
+docs/DeleteBrandedCallingEnterprise200Response.md
 docs/DeleteDiscordScheduledEvent200Response.md
 docs/DeleteGoogleBusinessMedia200Response.md
 docs/DeleteGoogleBusinessPlaceAction200Response.md
@@ -549,6 +568,8 @@ docs/DeleteWhatsAppTemplate200Response.md
 docs/DeleteWhatsAppTemplateById200Response.md
 docs/DeleteWhatsappBusinessUsernameRequest.md
 docs/DetachAdLabel200Response.md
+docs/DetachBrandedCallingNumbers200Response.md
+docs/DetachBrandedCallingNumbersRequest.md
 docs/DetachNumberFromSipTrunk200Response.md
 docs/DialVoiceWebCall200Response.md
 docs/DialVoiceWebCallRequest.md
@@ -1242,6 +1263,10 @@ docs/ListApiKeys200Response.md
 docs/ListBidStrategies200Response.md
 docs/ListBlogArticles200Response.md
 docs/ListBlogs200Response.md
+docs/ListBrandedCallingCallReasons200Response.md
+docs/ListBrandedCallingEnterprises200Response.md
+docs/ListBrandedCallingIdentities200Response.md
+docs/ListBrandedCallingIdentityNumbers200Response.md
 docs/ListBroadcastRecipients200Response.md
 docs/ListBroadcastRecipients200ResponseRecipientsInner.md
 docs/ListBroadcastRecipients200ResponseSummary.md
@@ -1466,6 +1491,9 @@ docs/MetaLeadFormPlatformData.md
 docs/MetaLeadFormPlatformDataContextCard.md
 docs/MetaLeadFormQuestionsInner.md
 docs/MetaLeadFormThankYouPage.md
+docs/MetaPlacementAssets.md
+docs/MetaPlacementAssetsRulesInner.md
+docs/MetaPlacementAssetsRulesInnerPlacements.md
 docs/MetaProductCatalog.md
 docs/MetaProductFeed.md
 docs/MetaProductFeedSchedule.md
@@ -1476,6 +1504,13 @@ docs/MoveAccountToProfile200Response.md
 docs/MoveAccountToProfileRequest.md
 docs/MoveWhatsAppNumberToProfile200Response.md
 docs/MoveWhatsAppNumberToProfileRequest.md
+docs/OnBrandedCallingIdentityActionRequiredRequest.md
+docs/OnBrandedCallingIdentityActionRequiredRequestIdentity.md
+docs/OnBrandedCallingIdentityStatusUpdatedRequest.md
+docs/OnBrandedCallingIdentityStatusUpdatedRequestIdentity.md
+docs/OnBrandedCallingNumberStatusUpdatedRequest.md
+docs/OnBrandedCallingNumberStatusUpdatedRequestIdentity.md
+docs/OnBrandedCallingNumberStatusUpdatedRequestNumber.md
 docs/OnSmsRegistrationActionRequiredRequest.md
 docs/OnSmsRegistrationActionRequiredRequestRegistration.md
 docs/OnSmsRegistrationStatusUpdatedRequest.md
@@ -1637,6 +1672,7 @@ docs/RequestSmsSenderIdLimitIncrease200Response.md
 docs/RequestSmsSenderIdLimitIncreaseRequest.md
 docs/RequestWhatsAppVerificationCode200Response.md
 docs/RequestWhatsAppVerificationCodeRequest.md
+docs/ResendBrandedCallingAuthorizerCode200Response.md
 docs/ResendSmsRegistrationOtp200Response.md
 docs/ReserveImessageAvailableNumber200Response.md
 docs/ReserveRfPrediction201Response.md
@@ -1969,6 +2005,8 @@ docs/UpdateBlogArticleRequest.md
 docs/UpdateBlogArticleRequestImage.md
 docs/UpdateBlogRequest.md
 docs/UpdateBlueskySettingsRequest.md
+docs/UpdateBrandedCallingIdentityRequest.md
+docs/UpdateBrandedCallingIdentityRequestReviewAnswersValue.md
 docs/UpdateBroadcast200Response.md
 docs/UpdateBroadcast200ResponseBroadcast.md
 docs/UpdateBroadcastRequest.md
@@ -2387,6 +2425,7 @@ src/apis/ad_targeting_api.rs
 src/apis/analytics_api.rs
 src/apis/api_keys_api.rs
 src/apis/blogs_api.rs
+src/apis/branded_calling_api.rs
 src/apis/broadcasts_api.rs
 src/apis/business_agent_api.rs
 src/apis/calls_api.rs
@@ -2552,6 +2591,8 @@ src/models/assign_google_business_location_200_response_account.rs
 src/models/assign_google_business_location_request.rs
 src/models/attach_ad_group_assets_201_response.rs
 src/models/attach_ad_label_200_response.rs
+src/models/attach_branded_calling_numbers_request.rs
+src/models/attach_branded_calling_numbers_request_signature.rs
 src/models/attach_campaign_assets_201_response.rs
 src/models/attach_campaign_assets_request.rs
 src/models/attach_number_to_sip_trunk_200_response.rs
@@ -2595,6 +2636,18 @@ src/models/boost_post_request_targeting_cities_inner.rs
 src/models/boost_post_request_targeting_custom_locations_inner.rs
 src/models/boost_post_request_tracking.rs
 src/models/boost_post_request_tracking_url_tags_inner.rs
+src/models/branded_calling_address.rs
+src/models/branded_calling_contact.rs
+src/models/branded_calling_enterprise.rs
+src/models/branded_calling_identity.rs
+src/models/branded_calling_identity_authorizer.rs
+src/models/branded_calling_identity_number.rs
+src/models/branded_calling_identity_number_rejection_reason.rs
+src/models/branded_calling_identity_rejection_reasons_inner.rs
+src/models/branded_calling_identity_review_request.rs
+src/models/branded_calling_identity_review_request_points_inner.rs
+src/models/branded_calling_reference.rs
+src/models/branded_calling_references.rs
 src/models/bulk_create_contacts_200_response.rs
 src/models/bulk_create_contacts_request.rs
 src/models/bulk_create_contacts_request_contacts_inner.rs
@@ -2677,6 +2730,7 @@ src/models/complete_whats_app_phone_selection_200_response_account.rs
 src/models/complete_whats_app_phone_selection_request.rs
 src/models/configure_tik_tok_ads_brand_identity_200_response.rs
 src/models/configure_tik_tok_ads_brand_identity_request.rs
+src/models/confirm_branded_calling_authorizer_email_request.rs
 src/models/connect_ads_200_response.rs
 src/models/connect_ads_200_response_one_of.rs
 src/models/connect_ads_200_response_one_of_1.rs
@@ -2754,6 +2808,9 @@ src/models/create_blog_article_request.rs
 src/models/create_blog_article_request_image.rs
 src/models/create_blog_article_request_seo.rs
 src/models/create_blog_request.rs
+src/models/create_branded_calling_enterprise_request.rs
+src/models/create_branded_calling_identity_request.rs
+src/models/create_branded_calling_identity_request_authorizer.rs
 src/models/create_broadcast_200_response.rs
 src/models/create_broadcast_200_response_broadcast.rs
 src/models/create_broadcast_request.rs
@@ -2831,6 +2888,8 @@ src/models/create_lead_form_200_response.rs
 src/models/create_lead_form_request.rs
 src/models/create_lead_form_request_platform_specific_data.rs
 src/models/create_lead_form_request_questions_inner.rs
+src/models/create_messaging_ad_200_response.rs
+src/models/create_messaging_ad_200_response_results_inner.rs
 src/models/create_messaging_ad_201_response.rs
 src/models/create_messaging_ad_request.rs
 src/models/create_phone_number_kyc_link_200_response.rs
@@ -2887,9 +2946,6 @@ src/models/create_standalone_ad_request_creatives_inner_video.rs
 src/models/create_standalone_ad_request_custom_locations_inner.rs
 src/models/create_standalone_ad_request_dynamic_creative.rs
 src/models/create_standalone_ad_request_images.rs
-src/models/create_standalone_ad_request_placement_assets.rs
-src/models/create_standalone_ad_request_placement_assets_rules_inner.rs
-src/models/create_standalone_ad_request_placement_assets_rules_inner_placements.rs
 src/models/create_standalone_ad_request_placements.rs
 src/models/create_standalone_ad_request_platform_specific_data.rs
 src/models/create_standalone_ad_request_regions_inner.rs
@@ -2960,6 +3016,7 @@ src/models/delete_ad_creative_200_response.rs
 src/models/delete_ad_negative_keyword_list_200_response.rs
 src/models/delete_ad_set_200_response.rs
 src/models/delete_ad_video_200_response.rs
+src/models/delete_branded_calling_enterprise_200_response.rs
 src/models/delete_discord_scheduled_event_200_response.rs
 src/models/delete_google_business_media_200_response.rs
 src/models/delete_google_business_place_action_200_response.rs
@@ -2974,6 +3031,8 @@ src/models/delete_whats_app_template_200_response.rs
 src/models/delete_whats_app_template_by_id_200_response.rs
 src/models/delete_whatsapp_business_username_request.rs
 src/models/detach_ad_label_200_response.rs
+src/models/detach_branded_calling_numbers_200_response.rs
+src/models/detach_branded_calling_numbers_request.rs
 src/models/detach_number_from_sip_trunk_200_response.rs
 src/models/dial_voice_web_call_200_response.rs
 src/models/dial_voice_web_call_request.rs
@@ -3651,6 +3710,10 @@ src/models/list_api_keys_200_response.rs
 src/models/list_bid_strategies_200_response.rs
 src/models/list_blog_articles_200_response.rs
 src/models/list_blogs_200_response.rs
+src/models/list_branded_calling_call_reasons_200_response.rs
+src/models/list_branded_calling_enterprises_200_response.rs
+src/models/list_branded_calling_identities_200_response.rs
+src/models/list_branded_calling_identity_numbers_200_response.rs
 src/models/list_broadcast_recipients_200_response.rs
 src/models/list_broadcast_recipients_200_response_recipients_inner.rs
 src/models/list_broadcast_recipients_200_response_summary.rs
@@ -3870,6 +3933,9 @@ src/models/meta_lead_form_platform_data.rs
 src/models/meta_lead_form_platform_data_context_card.rs
 src/models/meta_lead_form_questions_inner.rs
 src/models/meta_lead_form_thank_you_page.rs
+src/models/meta_placement_assets.rs
+src/models/meta_placement_assets_rules_inner.rs
+src/models/meta_placement_assets_rules_inner_placements.rs
 src/models/meta_product_catalog.rs
 src/models/meta_product_feed.rs
 src/models/meta_product_feed_schedule.rs
@@ -3881,6 +3947,13 @@ src/models/move_account_to_profile_200_response.rs
 src/models/move_account_to_profile_request.rs
 src/models/move_whats_app_number_to_profile_200_response.rs
 src/models/move_whats_app_number_to_profile_request.rs
+src/models/on_branded_calling_identity_action_required_request.rs
+src/models/on_branded_calling_identity_action_required_request_identity.rs
+src/models/on_branded_calling_identity_status_updated_request.rs
+src/models/on_branded_calling_identity_status_updated_request_identity.rs
+src/models/on_branded_calling_number_status_updated_request.rs
+src/models/on_branded_calling_number_status_updated_request_identity.rs
+src/models/on_branded_calling_number_status_updated_request_number.rs
 src/models/on_sms_registration_action_required_request.rs
 src/models/on_sms_registration_action_required_request_registration.rs
 src/models/on_sms_registration_status_updated_request.rs
@@ -4034,6 +4107,7 @@ src/models/request_sms_sender_id_limit_increase_200_response.rs
 src/models/request_sms_sender_id_limit_increase_request.rs
 src/models/request_whats_app_verification_code_200_response.rs
 src/models/request_whats_app_verification_code_request.rs
+src/models/resend_branded_calling_authorizer_code_200_response.rs
 src/models/resend_sms_registration_otp_200_response.rs
 src/models/reserve_imessage_available_number_200_response.rs
 src/models/reserve_rf_prediction_201_response.rs
@@ -4359,6 +4433,8 @@ src/models/update_blog_article_request.rs
 src/models/update_blog_article_request_image.rs
 src/models/update_blog_request.rs
 src/models/update_bluesky_settings_request.rs
+src/models/update_branded_calling_identity_request.rs
+src/models/update_branded_calling_identity_request_review_answers_value.rs
 src/models/update_broadcast_200_response.rs
 src/models/update_broadcast_200_response_broadcast.rs
 src/models/update_broadcast_request.rs
