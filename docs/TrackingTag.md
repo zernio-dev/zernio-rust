@@ -4,12 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | Platform-native tag id. Meta: numeric pixel id, as a string. | 
+**id** | **String** | Platform-native tag id, the `{tagId}` of the per-tag routes. Meta: numeric pixel id, as a string. OpenAI: the pixel resource id. | 
+**site_tag_id** | Option<**String**> | The id the on-site code carries. Equals `id` on Meta; differs on platforms with separate API and site ids (OpenAI `pixel_id`). | [optional]
+**events** | Option<[**Vec<models::TrackingTagEvent>**](TrackingTagEvent.md)> | Platforms where each conversion is its own object: the tag's conversion events, with the id a site sends for each. | [optional]
 **name** | **String** |  | 
-**platform** | **Platform** |  (enum: metaads) | 
+**platform** | **Platform** |  (enum: metaads, openaiads, tiktokads, googleads, xads) | 
 **kind** | **Kind** | Platform-native flavor of the tag (Meta: `pixel`). (enum: pixel, tag, insight_tag) | 
 **status** | **Status** | `inactive` when the platform reports the tag as broken/unavailable. (enum: active, inactive) | 
-**code** | Option<**String**> | The base-code `<script>` snippet to install on the site. Meta only; populated by `getTrackingTag`, omitted from the list view.  | [optional]
+**code** | Option<**String**> | The base-code `<script>` snippet to install on the site, including the page-view call. Populated by `getTrackingTag`, omitted from the list view.  | [optional]
 **last_fired_time** | Option<**i32**> | Unix seconds of the last event the tag received, or `null` if it never fired. The practical \"is it installed and working\" signal.  | [optional]
 **is_unavailable** | Option<**bool**> | Whether the tag is in a broken/unavailable state (Meta `is_unavailable`). | [optional]
 **installed** | Option<**bool**> | Convenience flag derived from `lastFiredTime`: has the tag ever fired. | [optional]

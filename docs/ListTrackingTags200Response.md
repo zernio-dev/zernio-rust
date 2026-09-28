@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**platform** | Option<**Platform**> |  (enum: metaads, openaiads) | [optional]
+**platform** | Option<**Platform**> |  (enum: metaads, openaiads, tiktokads, googleads, xads) | [optional]
 **tags** | Option<[**Vec<models::TrackingTag>**](TrackingTag.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

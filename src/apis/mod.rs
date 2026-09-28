@@ -164,6 +164,7 @@ pub mod product_catalogs_api;
 pub mod products_api;
 pub mod profiles_api;
 pub mod queue_api;
+pub mod rcs_api;
 pub mod reach_and_frequency_api;
 pub mod reddit_search_api;
 pub mod reviews_api;

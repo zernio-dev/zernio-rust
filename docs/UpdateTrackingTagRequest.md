@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ad_account_id** | Option<**String**> | Scopes the lookup on platforms whose tag ids live inside an ad account. Ignored elsewhere. | [optional]
 **name** | Option<**String**> |  | [optional]
 **enable_automatic_matching** | Option<**bool**> | Meta Advanced Matching toggle (`enable_automatic_matching`). | [optional]
 **automatic_matching_fields** | Option<**Vec<AutomaticMatchingFields>**> | Which user fields Advanced Matching may collect. Meta's terse codes: em=email, ph=phone, fn=first name, ln=last name, ge=gender, db=date of birth, ct=city, st=state, zp=zip.  (enum: em, ph, fn, ln, ge, db, ct, st, zp, country, external_id) | [optional]

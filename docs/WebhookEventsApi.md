@@ -43,6 +43,7 @@ Method | HTTP request | Description
 [**on_post_recycled**](WebhookEventsApi.md#on_post_recycled) | **POST** /post.recycled | Post recycled event
 [**on_post_scheduled**](WebhookEventsApi.md#on_post_scheduled) | **POST** /post.scheduled | Post scheduled event
 [**on_post_tik_tok_url_resolved**](WebhookEventsApi.md#on_post_tik_tok_url_resolved) | **POST** /post.tiktok.url_resolved | TikTok post URL resolved event
+[**on_rcs_agent_status_updated**](WebhookEventsApi.md#on_rcs_agent_status_updated) | **POST** /rcs.agent.status_updated | RCS agent status updated event
 [**on_reaction_received**](WebhookEventsApi.md#on_reaction_received) | **POST** /reaction.received | Reaction received event
 [**on_referral_received**](WebhookEventsApi.md#on_referral_received) | **POST** /referral.received | Referral received event
 [**on_review_new**](WebhookEventsApi.md#on_review_new) | **POST** /review.new | Review new event
@@ -732,7 +733,7 @@ Name | Type | Description  | Required | Notes
 > on_message_read(webhook_payload_message_delivery_status)
 Message read event
 
-Fired when an outgoing message is read by the recipient. Supported on WhatsApp, Facebook Messenger, and Instagram. 
+Fired when an outgoing message is read by the recipient. Supported on WhatsApp, Facebook Messenger, Instagram, and RCS. 
 
 ### Parameters
 
@@ -1220,6 +1221,36 @@ Fired when an already-published TikTok platform entry gets its public URL backfi
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_post_platform** | [**WebhookPayloadPostPlatform**](WebhookPayloadPostPlatform.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_rcs_agent_status_updated
+
+> on_rcs_agent_status_updated(on_rcs_agent_status_updated_request)
+RCS agent status updated event
+
+Fired on every customer-visible status change of an RCS agent: `changes_requested` (we need changes before filing, `reason` is our note), `brand_vetting`, `agent_review`, `testing` (add test phones, then send the launch filing; with a `reason` the launch filing bounced), `launch_review`, `launching`, `live` (the agent can message any RCS-capable phone), `rejected` (`reason` says why) and `deactivated`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**on_rcs_agent_status_updated_request** | [**OnRcsAgentStatusUpdatedRequest**](OnRcsAgentStatusUpdatedRequest.md) |  | [required] |
 
 ### Return type
 

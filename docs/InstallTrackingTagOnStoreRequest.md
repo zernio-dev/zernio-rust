@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **store_account_id** | **String** | The connected Shopify (`shopify`) or WordPress (`wordpress`) account id. | 
+**ad_account_id** | Option<**String**> | Scopes the tag lookup on platforms whose tag ids live inside an ad account. Ignored elsewhere. | [optional]
 **sidebar_id** | Option<**String**> | WordPress only: widget area to use (see `install.preflight.sidebars` from GET). Defaults to a footer area. | [optional]
 **verify_homepage** | Option<**bool**> | WordPress only: fetch the homepage afterwards and report `homepageCheck`. | [optional][default to true]
 
