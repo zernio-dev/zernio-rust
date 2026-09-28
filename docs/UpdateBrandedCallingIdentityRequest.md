@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **logo_url** | Option<**String**> | HTTPS URL of a PNG, JPEG, WebP or SVG logo. Zernio converts it to the 256x256 BMP the carriers require and hosts it. | [optional]
 **authorizer** | Option<[**models::CreateBrandedCallingIdentityRequestAuthorizer**](CreateBrandedCallingIdentityRequestAuthorizer.md)> |  | [optional]
 **references** | Option<[**models::BrandedCallingReferences**](BrandedCallingReferences.md)> |  | [optional]
-**review_answers** | Option<[**std::collections::HashMap<String, models::UpdateBrandedCallingIdentityRequestReviewAnswersValue>**](UpdateBrandedCallingIdentityRequestReviewAnswersValue.md)> | One entry per point id of the open reviewRequest. | [optional]
+**review_answers** | Option<[**std::collections::HashMap<String, models::UpdateBrandedCallingIdentityRequestReviewAnswersValue>**](UpdateBrandedCallingIdentityRequestReviewAnswersValue.md)> | One entry per point id of the open reviewRequest. A text point takes text; a link point takes url; file and link_or_file points take url set to the URL of a file you uploaded first (POST /v1/media/upload). A point id that is not on the open request is a 422. | [optional]
 **review_note** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

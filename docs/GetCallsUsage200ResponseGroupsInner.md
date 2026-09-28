@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **minutes** | Option<**f64**> |  | [optional]
 **billable_usd** | Option<**f64**> |  | [optional]
 **meta_usd** | Option<**f64**> |  | [optional]
+**branded_calls** | Option<**i32**> |  | [optional]
+**branded_call_usd** | Option<**f64**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

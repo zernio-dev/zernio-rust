@@ -17,7 +17,9 @@ Method | HTTP request | Description
 [**list_branded_calling_enterprises**](BrandedCallingApi.md#list_branded_calling_enterprises) | **GET** /v1/branded-calling/enterprises | List registered businesses
 [**list_branded_calling_identities**](BrandedCallingApi.md#list_branded_calling_identities) | **GET** /v1/branded-calling/identities | List caller identities
 [**list_branded_calling_identity_numbers**](BrandedCallingApi.md#list_branded_calling_identity_numbers) | **GET** /v1/branded-calling/identities/{id}/numbers | List the numbers on a caller identity
+[**preflight_branded_calling_identity**](BrandedCallingApi.md#preflight_branded_calling_identity) | **POST** /v1/branded-calling/identities/preflight | Dry-run a caller identity before creating it
 [**resend_branded_calling_authorizer_code**](BrandedCallingApi.md#resend_branded_calling_authorizer_code) | **POST** /v1/branded-calling/identities/{id}/verify-email | Resend the authorizer's code
+[**share_branded_calling_identity_form**](BrandedCallingApi.md#share_branded_calling_identity_form) | **POST** /v1/branded-calling/share | Create a caller identity share link
 [**update_branded_calling_identity**](BrandedCallingApi.md#update_branded_calling_identity) | **PATCH** /v1/branded-calling/identities/{id} | Edit or resubmit a caller identity
 
 
@@ -86,10 +88,10 @@ Name | Type | Description  | Required | Notes
 
 ## create_branded_calling_enterprise
 
-> models::BrandedCallingEnterprise create_branded_calling_enterprise(create_branded_calling_enterprise_request)
+> models::BrandedCallingEnterprise create_branded_calling_enterprise(create_branded_calling_enterprise_request, idempotency_key)
 Register a business for Branded Calling
 
-Stores the legal entity behind your caller identities. Nothing is filed with the carrier until the business's first identity passes review. Only businesses registered in the US or Canada qualify (a FEIN or Canadian equivalent is required); any other country returns `422`. 
+Stores the legal entity behind your caller identities. Nothing is filed with the carrier until the business's first identity passes review. Only businesses registered in the US or Canada qualify (a FEIN or Canadian equivalent is required); any other country returns `422`. Send an `Idempotency-Key` so a retry replays the original response instead of registering the business twice. 
 
 ### Parameters
 
@@ -97,6 +99,7 @@ Stores the legal entity behind your caller identities. Nothing is filed with the
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_branded_calling_enterprise_request** | [**CreateBrandedCallingEnterpriseRequest**](CreateBrandedCallingEnterpriseRequest.md) |  | [required] |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe. Same key + same body replays the original response; same key + different body → 422; key still processing → 409. |  |
 
 ### Return type
 
@@ -116,10 +119,10 @@ Name | Type | Description  | Required | Notes
 
 ## create_branded_calling_identity
 
-> models::BrandedCallingIdentity create_branded_calling_identity(create_branded_calling_identity_request)
+> models::BrandedCallingIdentity create_branded_calling_identity(create_branded_calling_identity_request, idempotency_key)
 Create a caller identity
 
-A caller identity is what the callee sees: display name, logo and call reasons, backed by a registered business and three references the carrier vetting team phones. It starts in Zernio review (`requested`). Once approved, the carrier emails the authorizer a 6-digit code; confirm it with the verify-email endpoint and the identity goes into carrier vetting on its own. Track it with `GET` or the `branded_calling.identity.status_updated` webhook.  Billing: $100 per identity per month, the first month charged when the identity is filed with the carrier and not refunded if the carrier rejects it, then monthly while the identity exists. Branded calls add $0.10 each, counted on every outbound call from a verified branded number to a US destination (whether or not the callee's carrier displayed the branding); the surcharge shows as `brandedCallUSD` on the call's billing and in `GET /v1/voice/calls/estimate` when you pass `from`. 
+A caller identity is what the callee sees: display name, logo and call reasons, backed by a registered business and three references the carrier vetting team phones. It starts in Zernio review (`requested`). Once approved, the carrier emails the authorizer a 6-digit code; confirm it with the verify-email endpoint and the identity goes into carrier vetting on its own. Track it with `GET` or the `branded_calling.identity.status_updated` webhook.  Billing: $100 per identity per month, the first month charged when the identity is filed with the carrier and not refunded if the carrier rejects it, then monthly while the identity exists. Branded calls add $0.10 each, counted on every outbound call from a verified branded number to a US destination (whether or not the callee's carrier displayed the branding); the surcharge shows as `brandedCallUSD` on the call's billing and in `GET /v1/voice/calls/estimate` when you pass `from`.  Run `POST /v1/branded-calling/identities/preflight` with the same body first to catch what the review would bounce. Send an `Idempotency-Key` so a retry replays the original response instead of creating a second identity. 
 
 ### Parameters
 
@@ -127,6 +130,7 @@ A caller identity is what the callee sees: display name, logo and call reasons, 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_branded_calling_identity_request** | [**CreateBrandedCallingIdentityRequest**](CreateBrandedCallingIdentityRequest.md) |  | [required] |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe. Same key + same body replays the original response; same key + different body → 422; key still processing → 409. |  |
 
 ### Return type
 
@@ -398,6 +402,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## preflight_branded_calling_identity
+
+> models::PreflightBrandedCallingIdentity200Response preflight_branded_calling_identity(preflight_branded_calling_identity_request)
+Dry-run a caller identity before creating it
+
+Validates the exact body `POST /v1/branded-calling/identities` takes and runs the same deterministic lints the review runs on it without creating anything, with the same codes and fields the queued identity's findings carry. A `block` finding is what the review would bounce (two references sharing a phone, a reference inside the business, an invalid timezone); a `warn` finding slows vetting (a display name that does not read as the business, a call reason outside the carrier catalogue, a public-mailbox authorizer, a logo that does not answer). `ok` is true when there is no `block`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**preflight_branded_calling_identity_request** | [**PreflightBrandedCallingIdentityRequest**](PreflightBrandedCallingIdentityRequest.md) |  | [required] |
+
+### Return type
+
+[**models::PreflightBrandedCallingIdentity200Response**](preflightBrandedCallingIdentity_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## resend_branded_calling_authorizer_code
 
 > models::ResendBrandedCallingAuthorizerCode200Response resend_branded_calling_authorizer_code(id)
@@ -423,6 +457,36 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## share_branded_calling_identity_form
+
+> models::ShareBrandedCallingIdentityForm200Response share_branded_calling_identity_form(share_branded_calling_identity_form_request)
+Create a caller identity share link
+
+Creates a single-use link (valid 7 days) where the end business fills in the caller identity itself, with no Zernio login: display name, logo, call reasons, the authorizer and the three references. What it submits lands under your team as `requested`, the same review as an API submission, and `branded_calling.identity.status_updated` fires. Scope the link with `identityId` (complete an identity that is `requested` or `changes_requested`), with `enterpriseId` (a new identity for a registered business), or with neither (the business registers itself and its first identity). The person opening the link can forward a fresh one to someone else, which retires theirs. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**share_branded_calling_identity_form_request** | Option<[**ShareBrandedCallingIdentityFormRequest**](ShareBrandedCallingIdentityFormRequest.md)> |  |  |
+
+### Return type
+
+[**models::ShareBrandedCallingIdentityForm200Response**](shareBrandedCallingIdentityForm_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **minutes** | Option<**f64**> |  | [optional]
 **billable_usd** | Option<**f64**> | What Zernio bills for these calls. | [optional]
 **meta_usd** | Option<**f64**> | WhatsApp only: Meta's per-minute charge, billed by Meta directly to your WABA. Display only. | [optional]
+**branded_calls** | Option<**i32**> | Outbound calls that carried a Branded Calling surcharge. | [optional]
+**branded_call_usd** | Option<**f64**> | The Branded Calling surcharge on those calls, already inside billableUSD. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

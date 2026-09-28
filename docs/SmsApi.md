@@ -538,7 +538,7 @@ Name | Type | Description  | Required | Notes
 
 ## share_sms_registration
 
-> models::ShareSmsRegistration200Response share_sms_registration(share_sms_registration_request)
+> models::ShareBrandedCallingIdentityForm200Response share_sms_registration(share_sms_registration_request)
 Create a registration share link
 
 Creates a single-use, expiring link (valid 7 days) that lets someone else (whoever has the legal business details) fill in the carrier registration form for one of your numbers, without a Zernio login. The registration is created under your account once the form is submitted. 
@@ -552,7 +552,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::ShareSmsRegistration200Response**](shareSmsRegistration_200_response.md)
+[**models::ShareBrandedCallingIdentityForm200Response**](shareBrandedCallingIdentityForm_200_response.md)
 
 ### Authorization
 
