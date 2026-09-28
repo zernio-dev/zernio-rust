@@ -108,6 +108,14 @@ jobs:
         run: |
           sed -i 's/default = \["native-tls"\]/default = ["rustls-tls"]/' Cargo.toml
 
+      # The generator stamps its own package version into Cargo.toml, which made
+      # every run look changed and publish a no-op release (2026-09-27: 9 of 12).
+      # Restore the committed version so only real code changes count.
+      - name: Keep the committed package version
+        run: |
+          committed=$(git show HEAD:Cargo.toml | grep -m1 '^version = ')
+          sed -i "0,/^version = .*/s//${committed}/" Cargo.toml
+
       - name: Format code
         run: cargo fmt || true
 
