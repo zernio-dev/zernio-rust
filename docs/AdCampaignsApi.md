@@ -5,6 +5,7 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**add_ad_keywords**](AdCampaignsApi.md#add_ad_keywords) | **POST** /v1/ads/keywords | Add Search ad-group keywords
+[**apply_google_recommendations**](AdCampaignsApi.md#apply_google_recommendations) | **POST** /v1/ads/recommendations/apply | Apply Google Ads recommendations
 [**attach_ad_group_assets**](AdCampaignsApi.md#attach_ad_group_assets) | **POST** /v1/ads/ad-sets/{adSetId}/assets | Attach ad-group assets
 [**attach_campaign_assets**](AdCampaignsApi.md#attach_campaign_assets) | **POST** /v1/ads/campaigns/{campaignId}/assets | Attach campaign assets
 [**boost_post**](AdCampaignsApi.md#boost_post) | **POST** /v1/ads/boost | Boost post as ad
@@ -17,6 +18,7 @@ Method | HTTP request | Description
 [**delete_ad**](AdCampaignsApi.md#delete_ad) | **DELETE** /v1/ads/{adId} | Cancel an ad
 [**delete_ad_campaign**](AdCampaignsApi.md#delete_ad_campaign) | **DELETE** /v1/ads/campaigns/{campaignId} | Delete a campaign
 [**delete_ad_set**](AdCampaignsApi.md#delete_ad_set) | **DELETE** /v1/ads/ad-sets/{adSetId} | Delete an ad set
+[**dismiss_google_recommendations**](AdCampaignsApi.md#dismiss_google_recommendations) | **POST** /v1/ads/recommendations/dismiss | Dismiss Google Ads recommendations
 [**duplicate_ad**](AdCampaignsApi.md#duplicate_ad) | **POST** /v1/ads/{adId}/duplicate | Duplicate an ad
 [**duplicate_ad_campaign**](AdCampaignsApi.md#duplicate_ad_campaign) | **POST** /v1/ads/campaigns/{campaignId}/duplicate | Duplicate a campaign
 [**duplicate_ad_set**](AdCampaignsApi.md#duplicate_ad_set) | **POST** /v1/ads/ad-sets/{adSetId}/duplicate | Duplicate an ad set
@@ -41,6 +43,7 @@ Method | HTTP request | Description
 [**list_campaign_negative_keyword_lists**](AdCampaignsApi.md#list_campaign_negative_keyword_lists) | **GET** /v1/ads/campaigns/{campaignId}/negative-keyword-lists | List campaign negative lists
 [**list_campaign_negative_keywords**](AdCampaignsApi.md#list_campaign_negative_keywords) | **GET** /v1/ads/campaigns/{campaignId}/negative-keywords | List campaign-level negative keywords
 [**list_google_asset_groups**](AdCampaignsApi.md#list_google_asset_groups) | **GET** /v1/ads/campaigns/{campaignId}/asset-groups | List Performance Max asset groups
+[**list_google_recommendations**](AdCampaignsApi.md#list_google_recommendations) | **GET** /v1/ads/recommendations | List Google Ads recommendations
 [**remove_ad_group_assets**](AdCampaignsApi.md#remove_ad_group_assets) | **DELETE** /v1/ads/ad-sets/{adSetId}/assets | Remove ad-group assets
 [**remove_ad_keyword**](AdCampaignsApi.md#remove_ad_keyword) | **DELETE** /v1/ads/keywords/{keywordId} | Remove a Search keyword
 [**remove_campaign_assets**](AdCampaignsApi.md#remove_campaign_assets) | **DELETE** /v1/ads/campaigns/{campaignId}/assets | Remove campaign assets
@@ -82,6 +85,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::AddAdKeywords201Response**](addAdKeywords_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## apply_google_recommendations
+
+> models::ApplyGoogleRecommendations200Response apply_google_recommendations(apply_google_recommendations_request)
+Apply Google Ads recommendations
+
+Apply up to 100 recommendations. This changes the account (budgets, bidding, keywords, assets) and is not reversible or idempotent; Google offers no validate-only mode for it. Items run in partial-failure mode, so one stale recommendation does not block the rest. `parameters` is optional and takes exactly one key named for the recommendation type, in Google's ApplyRecommendationOperation shape (for example `campaignBudget: { newBudgetAmountMicros }` or `keyword: { matchType, cpcBidMicros }`); omit it to apply Google's suggested values.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**apply_google_recommendations_request** | [**ApplyGoogleRecommendationsRequest**](ApplyGoogleRecommendationsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::ApplyGoogleRecommendations200Response**](applyGoogleRecommendations_200_response.md)
 
 ### Authorization
 
@@ -458,6 +491,36 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## dismiss_google_recommendations
+
+> models::ApplyGoogleRecommendations200Response dismiss_google_recommendations(dismiss_google_recommendations_request)
+Dismiss Google Ads recommendations
+
+Dismiss up to 100 recommendations so Google stops suggesting them. Items run in partial-failure mode.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**dismiss_google_recommendations_request** | [**DismissGoogleRecommendationsRequest**](DismissGoogleRecommendationsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::ApplyGoogleRecommendations200Response**](applyGoogleRecommendations_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1266,6 +1329,40 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListGoogleAssetGroups200Response**](listGoogleAssetGroups_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_google_recommendations
+
+> models::ListGoogleRecommendations200Response list_google_recommendations(account_id, ad_account_id, customer_id, campaign_id, types)
+List Google Ads recommendations
+
+Google's optimization recommendations for one ad account: type, estimated impact (base vs potential metrics, cost in account currency units), the campaign, ad group or budget they target, and the type-specific payload Google returns (`details`, in Google's own shape with micros). Filter by campaignId and types. Cached for 10 minutes and cleared by apply or dismiss; served stale when Google quota is exhausted.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Google ads SocialAccount id. | [required] |
+**ad_account_id** | Option<**String**> | Google customer id, digits only. Defaults to the connection's only customer. |  |
+**customer_id** | Option<**String**> | Alias of adAccountId, kept for consistency with other Google endpoints. |  |
+**campaign_id** | Option<**String**> | Only recommendations targeting this campaign. |  |
+**types** | Option<**String**> | Comma-separated Google RecommendationType values, for example CAMPAIGN_BUDGET,KEYWORD,SET_TARGET_CPA. |  |
+
+### Return type
+
+[**models::ListGoogleRecommendations200Response**](listGoogleRecommendations_200_response.md)
 
 ### Authorization
 

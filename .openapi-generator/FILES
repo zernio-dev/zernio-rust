@@ -106,6 +106,9 @@ docs/ApiKeyProfileIdsInner.md
 docs/ApiKeysApi.md
 docs/AppealSmsRegistration200Response.md
 docs/AppealSmsRegistrationRequest.md
+docs/ApplyGoogleRecommendations200Response.md
+docs/ApplyGoogleRecommendationsRequest.md
+docs/ApplyGoogleRecommendationsRequestRecommendationsInner.md
 docs/ApproveWhatsAppGroupJoinRequestsRequest.md
 docs/ArchiveLeadForm200Response.md
 docs/AssignGoogleBusinessLocation200Response.md
@@ -567,6 +570,7 @@ docs/DiscordPlatformDataThreadFromMessage.md
 docs/DiscordRole.md
 docs/DiscordScheduledEvent.md
 docs/DiscordScheduledEventEntityMetadata.md
+docs/DismissGoogleRecommendationsRequest.md
 docs/DmButton.md
 docs/DownloadTikTokVideo200Response.md
 docs/DownloadTikTokVideo200ResponseFormatsInner.md
@@ -621,6 +625,8 @@ docs/FacebookPostEarningsResponseMetricsValue.md
 docs/FacebookPostEarningsResponseUnavailableMetricsInner.md
 docs/FacebookSettings.md
 docs/FacebookSettingsCarouselCardsInner.md
+docs/FeedbackApi.md
+docs/FeedbackReceipt.md
 docs/FetchGoogleBusinessVerificationOptions200Response.md
 docs/FetchGoogleBusinessVerificationOptions200ResponseOptionsInner.md
 docs/FetchGoogleBusinessVerificationOptionsRequest.md
@@ -1084,6 +1090,10 @@ docs/GooglePmaxAssetGroupInput.md
 docs/GooglePmaxAssetGroupInputImages.md
 docs/GooglePmaxAssetGroupUpdate.md
 docs/GooglePmaxAssetGroupUpdateImages.md
+docs/GoogleRecommendation.md
+docs/GoogleRecommendationImpact.md
+docs/GoogleRecommendationMetrics.md
+docs/GoogleRecommendationResult.md
 docs/GoogleRsaDescription.md
 docs/GoogleRsaHeadline.md
 docs/GoogleSitelink.md
@@ -1294,6 +1304,7 @@ docs/ListGoogleBusinessMedia200ResponseMediaItemsInner.md
 docs/ListGoogleBusinessMedia200ResponseMediaItemsInnerLocationAssociation.md
 docs/ListGoogleBusinessPlaceActions200Response.md
 docs/ListGoogleBusinessPlaceActions200ResponsePlaceActionLinksInner.md
+docs/ListGoogleRecommendations200Response.md
 docs/ListHighDemandPeriods200Response.md
 docs/ListImessageAudience200Response.md
 docs/ListImessageAvailableNumbers200Response.md
@@ -1837,6 +1848,8 @@ docs/StartSmsRegistrationRequestCampaign.md
 docs/StartSmsRegistrationRequestTollFree.md
 docs/StartWhatsAppCallerIdVerification200Response.md
 docs/StartWhatsAppCallerIdVerificationRequest.md
+docs/SubmitFeedbackRequest.md
+docs/SubmitFeedbackRequestAgent.md
 docs/SubmitPhoneNumberKyc200Response.md
 docs/SubmitPhoneNumberKyc200ResponseNumbersInner.md
 docs/SubmitPhoneNumberKyc200ResponsePhoneNumber.md
@@ -2184,11 +2197,17 @@ docs/VerifyWhatsAppNumberRequest.md
 docs/VoiceApi.md
 docs/VoteRedditThingRequest.md
 docs/Webhook.md
+docs/WebhookAdsSyncAccount.md
+docs/WebhookAdsSyncAdAccount.md
 docs/WebhookEventsApi.md
 docs/WebhookLog.md
 docs/WebhookPayloadAccountAdsInitialSyncCompleted.md
 docs/WebhookPayloadAccountAdsInitialSyncCompletedAccount.md
 docs/WebhookPayloadAccountAdsInitialSyncCompletedSync.md
+docs/WebhookPayloadAccountAdsSyncFailed.md
+docs/WebhookPayloadAccountAdsSyncFailedSync.md
+docs/WebhookPayloadAccountAdsSyncRecovered.md
+docs/WebhookPayloadAccountAdsSyncRecoveredSync.md
 docs/WebhookPayloadAccountConnected.md
 docs/WebhookPayloadAccountConnectedAccount.md
 docs/WebhookPayloadAccountDisconnected.md
@@ -2380,6 +2399,7 @@ src/apis/contacts_api.rs
 src/apis/conversions_api.rs
 src/apis/custom_fields_api.rs
 src/apis/discord_api.rs
+src/apis/feedback_api.rs
 src/apis/gmb_attributes_api.rs
 src/apis/gmb_food_menus_api.rs
 src/apis/gmb_location_details_api.rs
@@ -2522,6 +2542,9 @@ src/models/api_key_created_by.rs
 src/models/api_key_profile_ids_inner.rs
 src/models/appeal_sms_registration_200_response.rs
 src/models/appeal_sms_registration_request.rs
+src/models/apply_google_recommendations_200_response.rs
+src/models/apply_google_recommendations_request.rs
+src/models/apply_google_recommendations_request_recommendations_inner.rs
 src/models/approve_whats_app_group_join_requests_request.rs
 src/models/archive_lead_form_200_response.rs
 src/models/assign_google_business_location_200_response.rs
@@ -2971,6 +2994,7 @@ src/models/discord_platform_data_thread_from_message.rs
 src/models/discord_role.rs
 src/models/discord_scheduled_event.rs
 src/models/discord_scheduled_event_entity_metadata.rs
+src/models/dismiss_google_recommendations_request.rs
 src/models/dm_button.rs
 src/models/download_tik_tok_video_200_response.rs
 src/models/download_tik_tok_video_200_response_formats_inner.rs
@@ -3025,6 +3049,7 @@ src/models/facebook_post_earnings_response_metrics_value.rs
 src/models/facebook_post_earnings_response_unavailable_metrics_inner.rs
 src/models/facebook_settings.rs
 src/models/facebook_settings_carousel_cards_inner.rs
+src/models/feedback_receipt.rs
 src/models/fetch_google_business_verification_options_200_response.rs
 src/models/fetch_google_business_verification_options_200_response_options_inner.rs
 src/models/fetch_google_business_verification_options_request.rs
@@ -3480,6 +3505,10 @@ src/models/google_pmax_asset_group_input.rs
 src/models/google_pmax_asset_group_input_images.rs
 src/models/google_pmax_asset_group_update.rs
 src/models/google_pmax_asset_group_update_images.rs
+src/models/google_recommendation.rs
+src/models/google_recommendation_impact.rs
+src/models/google_recommendation_metrics.rs
+src/models/google_recommendation_result.rs
 src/models/google_rsa_description.rs
 src/models/google_rsa_headline.rs
 src/models/google_sitelink.rs
@@ -3684,6 +3713,7 @@ src/models/list_google_business_media_200_response_media_items_inner.rs
 src/models/list_google_business_media_200_response_media_items_inner_location_association.rs
 src/models/list_google_business_place_actions_200_response.rs
 src/models/list_google_business_place_actions_200_response_place_action_links_inner.rs
+src/models/list_google_recommendations_200_response.rs
 src/models/list_high_demand_periods_200_response.rs
 src/models/list_imessage_audience_200_response.rs
 src/models/list_imessage_available_numbers_200_response.rs
@@ -4211,6 +4241,8 @@ src/models/start_sms_registration_request_campaign.rs
 src/models/start_sms_registration_request_toll_free.rs
 src/models/start_whats_app_caller_id_verification_200_response.rs
 src/models/start_whats_app_caller_id_verification_request.rs
+src/models/submit_feedback_request.rs
+src/models/submit_feedback_request_agent.rs
 src/models/submit_phone_number_kyc_200_response.rs
 src/models/submit_phone_number_kyc_200_response_numbers_inner.rs
 src/models/submit_phone_number_kyc_200_response_phone_number.rs
@@ -4550,10 +4582,16 @@ src/models/verify_whats_app_number_200_response.rs
 src/models/verify_whats_app_number_request.rs
 src/models/vote_reddit_thing_request.rs
 src/models/webhook.rs
+src/models/webhook_ads_sync_account.rs
+src/models/webhook_ads_sync_ad_account.rs
 src/models/webhook_log.rs
 src/models/webhook_payload_account_ads_initial_sync_completed.rs
 src/models/webhook_payload_account_ads_initial_sync_completed_account.rs
 src/models/webhook_payload_account_ads_initial_sync_completed_sync.rs
+src/models/webhook_payload_account_ads_sync_failed.rs
+src/models/webhook_payload_account_ads_sync_failed_sync.rs
+src/models/webhook_payload_account_ads_sync_recovered.rs
+src/models/webhook_payload_account_ads_sync_recovered_sync.rs
 src/models/webhook_payload_account_connected.rs
 src/models/webhook_payload_account_connected_account.rs
 src/models/webhook_payload_account_disconnected.rs

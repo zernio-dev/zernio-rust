@@ -137,6 +137,7 @@ pub mod contacts_api;
 pub mod conversions_api;
 pub mod custom_fields_api;
 pub mod discord_api;
+pub mod feedback_api;
 pub mod gmb_attributes_api;
 pub mod gmb_food_menus_api;
 pub mod gmb_location_details_api;

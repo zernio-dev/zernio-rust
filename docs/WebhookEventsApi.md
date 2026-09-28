@@ -5,6 +5,8 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**on_account_ads_initial_sync_completed**](WebhookEventsApi.md#on_account_ads_initial_sync_completed) | **POST** /account.ads.initial_sync_completed | Ads initial sync completed event
+[**on_account_ads_sync_failed**](WebhookEventsApi.md#on_account_ads_sync_failed) | **POST** /account.ads.sync_failed | Ads sync failed event
+[**on_account_ads_sync_recovered**](WebhookEventsApi.md#on_account_ads_sync_recovered) | **POST** /account.ads.sync_recovered | Ads sync recovered event
 [**on_account_connected**](WebhookEventsApi.md#on_account_connected) | **POST** /account.connected | Account connected event
 [**on_account_disconnected**](WebhookEventsApi.md#on_account_disconnected) | **POST** /account.disconnected | Account disconnected event
 [**on_ad_status_changed**](WebhookEventsApi.md#on_ad_status_changed) | **POST** /ad.status_changed | Ad status changed event
@@ -75,6 +77,66 @@ Fired once per ads-enabled account when the initial sync (ad-account discovery +
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_account_ads_initial_sync_completed** | [**WebhookPayloadAccountAdsInitialSyncCompleted**](WebhookPayloadAccountAdsInitialSyncCompleted.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_account_ads_sync_failed
+
+> on_account_ads_sync_failed(webhook_payload_account_ads_sync_failed)
+Ads sync failed event
+
+Fired once per ad account when its ads stop syncing (no successful sync for 24 hours, or every live ad at the retry cap). Checked hourly. Metrics for the ad account are stale until `account.ads.sync_recovered` fires for it. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_account_ads_sync_failed** | [**WebhookPayloadAccountAdsSyncFailed**](WebhookPayloadAccountAdsSyncFailed.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_account_ads_sync_recovered
+
+> on_account_ads_sync_recovered(webhook_payload_account_ads_sync_recovered)
+Ads sync recovered event
+
+Fired once when an ad account previously reported by `account.ads.sync_failed` syncs successfully again. Checked hourly. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_account_ads_sync_recovered** | [**WebhookPayloadAccountAdsSyncRecovered**](WebhookPayloadAccountAdsSyncRecovered.md) |  | [required] |
 
 ### Return type
 
