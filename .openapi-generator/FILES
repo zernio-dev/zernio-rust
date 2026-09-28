@@ -1129,6 +1129,8 @@ docs/GoogleRsaDescription.md
 docs/GoogleRsaHeadline.md
 docs/GoogleSitelink.md
 docs/GoogleStructuredSnippet.md
+docs/GrantBusinessPartner200Response.md
+docs/GrantBusinessPartner200ResponsePartner.md
 docs/GrantBusinessPartner201Response.md
 docs/GrantBusinessPartner201ResponsePartner.md
 docs/GrantBusinessPartnerRequest.md
@@ -3624,6 +3626,8 @@ src/models/google_rsa_description.rs
 src/models/google_rsa_headline.rs
 src/models/google_sitelink.rs
 src/models/google_structured_snippet.rs
+src/models/grant_business_partner_200_response.rs
+src/models/grant_business_partner_200_response_partner.rs
 src/models/grant_business_partner_201_response.rs
 src/models/grant_business_partner_201_response_partner.rs
 src/models/grant_business_partner_request.rs
