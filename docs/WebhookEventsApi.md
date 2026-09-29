@@ -19,6 +19,9 @@ Method | HTTP request | Description
 [**on_call_permission_request**](WebhookEventsApi.md#on_call_permission_request) | **POST** /call.permission_request | Call permission request reply event
 [**on_call_received**](WebhookEventsApi.md#on_call_received) | **POST** /call.received | Call received event
 [**on_comment_received**](WebhookEventsApi.md#on_comment_received) | **POST** /comment.received | Comment received event
+[**on_commerce_product_created**](WebhookEventsApi.md#on_commerce_product_created) | **POST** /commerce.product.created | Commerce product created event
+[**on_commerce_product_deleted**](WebhookEventsApi.md#on_commerce_product_deleted) | **POST** /commerce.product.deleted | Commerce product deleted event
+[**on_commerce_product_updated**](WebhookEventsApi.md#on_commerce_product_updated) | **POST** /commerce.product.updated | Commerce product updated event
 [**on_conversation_control_changed**](WebhookEventsApi.md#on_conversation_control_changed) | **POST** /conversation.control_changed | Conversation control changed event
 [**on_conversation_started**](WebhookEventsApi.md#on_conversation_started) | **POST** /conversation.started | Conversation started event
 [**on_lead_received**](WebhookEventsApi.md#on_lead_received) | **POST** /lead.received | Lead received event
@@ -501,6 +504,96 @@ Fired when a new comment is received on a tracked post. Delivered for Instagram,
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_comment** | [**WebhookPayloadComment**](WebhookPayloadComment.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_commerce_product_created
+
+> on_commerce_product_created(webhook_payload_commerce_product)
+Commerce product created event
+
+Fired when a product is created on a connected store. The payload carries identifiers only; read the product with `GET /v1/commerce/products/{productId}?accountId=...`. Fired once per Zernio account connected to the store. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_commerce_product** | [**WebhookPayloadCommerceProduct**](WebhookPayloadCommerceProduct.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_commerce_product_deleted
+
+> on_commerce_product_deleted(webhook_payload_commerce_product)
+Commerce product deleted event
+
+Fired when a product is deleted from a connected store. `status` and `platformStatus` are null. The payload carries identifiers only; read the product with `GET /v1/commerce/products/{productId}?accountId=...`. Fired once per Zernio account connected to the store. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_commerce_product** | [**WebhookPayloadCommerceProduct**](WebhookPayloadCommerceProduct.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_commerce_product_updated
+
+> on_commerce_product_updated(webhook_payload_commerce_product)
+Commerce product updated event
+
+Fired when a product on a connected store changes: its fields, status, variants or prices. The payload carries identifiers only; read the product with `GET /v1/commerce/products/{productId}?accountId=...`. Fired once per Zernio account connected to the store. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_commerce_product** | [**WebhookPayloadCommerceProduct**](WebhookPayloadCommerceProduct.md) |  | [required] |
 
 ### Return type
 

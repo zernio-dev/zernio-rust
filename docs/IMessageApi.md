@@ -5,6 +5,7 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**add_imessage_group_participant**](IMessageApi.md#add_imessage_group_participant) | **POST** /v1/imessage/groups/{conversationId}/participants | Add a participant to an iMessage group
+[**add_imessage_sandbox_contact**](IMessageApi.md#add_imessage_sandbox_contact) | **POST** /v1/imessage/sandbox/contacts | Add an iMessage sandbox contact
 [**cancel_imessage_sender**](IMessageApi.md#cancel_imessage_sender) | **DELETE** /v1/imessage/senders/{senderId} | Cancel an iMessage sender
 [**create_imessage_group**](IMessageApi.md#create_imessage_group) | **POST** /v1/imessage/groups | Start an iMessage group chat
 [**create_imessage_opt_in_link**](IMessageApi.md#create_imessage_opt_in_link) | **POST** /v1/imessage/senders/{senderId}/opt-in-links | Create a tracked iMessage opt-in link
@@ -12,11 +13,13 @@ Method | HTTP request | Description
 [**get_imessage_sender**](IMessageApi.md#get_imessage_sender) | **GET** /v1/imessage/senders/{senderId} | Get iMessage sender status
 [**list_imessage_audience**](IMessageApi.md#list_imessage_audience) | **GET** /v1/imessage/audience | List iMessage audience
 [**list_imessage_available_numbers**](IMessageApi.md#list_imessage_available_numbers) | **GET** /v1/imessage/senders/available-numbers | List instantly available iMessage numbers
+[**list_imessage_sandbox_contacts**](IMessageApi.md#list_imessage_sandbox_contacts) | **GET** /v1/imessage/sandbox/contacts | List iMessage sandbox contacts
 [**list_imessage_sender_orders**](IMessageApi.md#list_imessage_sender_orders) | **GET** /v1/imessage/senders/order | List iMessage sender orders
 [**list_imessage_senders**](IMessageApi.md#list_imessage_senders) | **GET** /v1/imessage/senders | List iMessage senders
 [**order_imessage_sender**](IMessageApi.md#order_imessage_sender) | **POST** /v1/imessage/senders/order | Order a new iMessage sender
 [**register_imessage_sender**](IMessageApi.md#register_imessage_sender) | **POST** /v1/imessage/senders | Register an iMessage sender
 [**remove_imessage_group_participant**](IMessageApi.md#remove_imessage_group_participant) | **DELETE** /v1/imessage/groups/{conversationId}/participants | Remove a participant from an iMessage group
+[**remove_imessage_sandbox_contact**](IMessageApi.md#remove_imessage_sandbox_contact) | **DELETE** /v1/imessage/sandbox/contacts/{contactId} | Remove an iMessage sandbox contact
 [**reserve_imessage_available_number**](IMessageApi.md#reserve_imessage_available_number) | **POST** /v1/imessage/senders/available-numbers/{numberId}/reserve | Reserve an available iMessage number
 [**set_imessage_subscription**](IMessageApi.md#set_imessage_subscription) | **POST** /v1/imessage/audience/subscription | Subscribe or opt out an iMessage contact
 [**update_imessage_group**](IMessageApi.md#update_imessage_group) | **PATCH** /v1/imessage/groups/{conversationId} | Rename an iMessage group or change its photo
@@ -42,6 +45,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::AddImessageGroupParticipant200Response**](addImessageGroupParticipant_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## add_imessage_sandbox_contact
+
+> models::AddImessageSandboxContact201Response add_imessage_sandbox_contact(add_imessage_sandbox_contact_request)
+Add an iMessage sandbox contact
+
+Adds your own phone (E.164) or Apple ID email. The contact starts as pending; it becomes active when its joinText arrives at the sandbox line from that handle (joinLink opens Messages with it prefilled). Adding a handle that is already on your list returns it unchanged.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**add_imessage_sandbox_contact_request** | [**AddImessageSandboxContactRequest**](AddImessageSandboxContactRequest.md) |  | [required] |
+
+### Return type
+
+[**models::AddImessageSandboxContact201Response**](addImessageSandboxContact_201_response.md)
 
 ### Authorization
 
@@ -271,6 +304,33 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_imessage_sandbox_contacts
+
+> models::ListImessageSandboxContacts200Response list_imessage_sandbox_contacts()
+List iMessage sandbox contacts
+
+The shared sandbox line and your sandbox contacts. The sandbox lets you test iMessage without ordering a sender: add your own phone or Apple ID email, send its join code to the sandbox line from that phone, and your messages reach your inbox and webhooks. Replies are allowed for 24 hours after each message from the contact. Group chats and starting conversations are not supported.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::ListImessageSandboxContacts200Response**](listImessageSandboxContacts_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_imessage_sender_orders
 
 > models::ListImessageSenderOrders200Response list_imessage_sender_orders(include_canceled)
@@ -407,6 +467,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::AddImessageGroupParticipant200Response**](addImessageGroupParticipant_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## remove_imessage_sandbox_contact
+
+> models::UpdateYoutubeDefaultPlaylist200Response remove_imessage_sandbox_contact(contact_id)
+Remove an iMessage sandbox contact
+
+Removes the contact and its sandbox conversation. Messages from that handle to the sandbox line are no longer delivered to you.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**contact_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::UpdateYoutubeDefaultPlaylist200Response**](updateYoutubeDefaultPlaylist_200_response.md)
 
 ### Authorization
 

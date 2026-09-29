@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **compare_at_price** | Option<**String**> | Strike-through price; null when the variant is not on sale. | [optional]
 **inventory_quantity** | Option<**i32**> | Units on hand across locations; null when inventory is not tracked. | [optional]
 **available_for_sale** | Option<**bool**> |  | [optional]
-**selected_options** | Option<[**Vec<models::ProductVariantSelectedOptionsInner>**](ProductVariantSelectedOptionsInner.md)> |  | [optional]
+**selected_options** | Option<[**Vec<models::CreateCommerceProductVariantsRequestVariantsInnerOptionsInner>**](CreateCommerceProductVariantsRequestVariantsInnerOptionsInner.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

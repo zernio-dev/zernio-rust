@@ -132,6 +132,7 @@ pub mod business_agent_api;
 pub mod calls_api;
 pub mod comment_automations_api;
 pub mod comments_api;
+pub mod commerce_api;
 pub mod connect_api;
 pub mod connected_apps_api;
 pub mod contacts_api;
