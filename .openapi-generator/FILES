@@ -252,19 +252,19 @@ docs/CampaignBiddingBidSpec.md
 docs/CampaignBiddingPortfolio.md
 docs/CancelBroadcast200Response.md
 docs/CancelPhoneNumberPortIn200Response.md
-docs/ChangeCollectionChannels200Response.md
+docs/ChangeCommerceCollectionChannels200Response.md
 docs/ChangeCommerceCollectionProducts200Response.md
 docs/ChangeCommerceCollectionProductsRequest.md
 docs/ChangeCommerceInventoryRequest.md
 docs/ChangeCommerceInventoryRequestChangesInner.md
+docs/ChangeCommerceProductChannels200Response.md
+docs/ChangeCommerceProductChannelsRequest.md
 docs/ChangeCommerceProductState200Response.md
 docs/ChangeCommerceProductState200ResponseFailedInner.md
 docs/ChangeCommerceProductStateRequest.md
 docs/ChangeCommerceProductTags200Response.md
 docs/ChangeCommerceProductTags200ResponseFailedInner.md
 docs/ChangeCommerceProductTagsRequest.md
-docs/ChangeProductChannels200Response.md
-docs/ChangeProductChannelsRequest.md
 docs/ChannelPicker.md
 docs/ChannelPickerChannelsInner.md
 docs/ChannelPickerTeam.md
@@ -624,6 +624,7 @@ docs/CtwaAdRequestBodyCreativesInner.md
 docs/CtwaAdRequestBodyCreativesInnerVideo.md
 docs/CtwaAdRequestBodyCreativesInnerWelcomeMessage.md
 docs/CtwaAdRequestBodyPlacements.md
+docs/CtwaAdRequestBodyPlacesInner.md
 docs/CtwaAdRequestBodyRegionsInner.md
 docs/CtwaAdRequestBodyVideo.md
 docs/CtwaAdRequestBodyWelcomeMessage.md
@@ -654,6 +655,7 @@ docs/DeleteCommerceMenu200Response.md
 docs/DeleteCommerceMetaobject200Response.md
 docs/DeleteCommercePage200Response.md
 docs/DeleteCommercePriceListPrices200Response.md
+docs/DeleteCommerceProductMetafields200Response.md
 docs/DeleteCommerceRedirect200Response.md
 docs/DeleteDiscordScheduledEvent200Response.md
 docs/DeleteGoogleBusinessMedia200Response.md
@@ -662,7 +664,6 @@ docs/DeleteGoogleBusinessReviewReply200Response.md
 docs/DeleteInboxComment200Response.md
 docs/DeleteInboxReviewReply200Response.md
 docs/DeleteInboxReviewReplyRequest.md
-docs/DeleteProductMetafields200Response.md
 docs/DeleteSmsSenderId200Response.md
 docs/DeleteTestLead200Response.md
 docs/DeleteTrackingTagEvent200Response.md
@@ -1434,6 +1435,7 @@ docs/ListCommerceMetaobjectDefinitions200Response.md
 docs/ListCommerceMetaobjects200Response.md
 docs/ListCommercePages200Response.md
 docs/ListCommercePriceLists200Response.md
+docs/ListCommerceProductMetafields200Response.md
 docs/ListCommerceProducts200Response.md
 docs/ListCommerceRedirects200Response.md
 docs/ListConnectedApps200Response.md
@@ -1542,7 +1544,6 @@ docs/ListPhoneNumbers200ResponseSandbox.md
 docs/ListPhoneNumbers200ResponseSandboxTemplate.md
 docs/ListPinterestBoardsForSelection200Response.md
 docs/ListPinterestBoardsForSelection200ResponseBoardsInner.md
-docs/ListProductMetafields200Response.md
 docs/ListProducts200Response.md
 docs/ListQueueSlots200Response.md
 docs/ListQueueSlots200ResponseOneOf.md
@@ -2053,6 +2054,7 @@ docs/SetCommerceDiscountActiveRequest.md
 docs/SetCommercePriceListPrices200Response.md
 docs/SetCommercePriceListPricesRequest.md
 docs/SetCommercePriceListPricesRequestPricesInner.md
+docs/SetCommerceProductMetafieldsRequest.md
 docs/SetContactFieldValueRequest.md
 docs/SetConversationThreadControl200Response.md
 docs/SetConversationThreadControl200ResponseControl.md
@@ -2065,7 +2067,6 @@ docs/SetMessengerGetStartedRequest.md
 docs/SetMessengerMenuRequest.md
 docs/SetPartnershipAdPermission200Response.md
 docs/SetPartnershipAdPermissionRequest.md
-docs/SetProductMetafieldsRequest.md
 docs/SetRedditPostFlairRequest.md
 docs/SetTelegramCommandsRequest.md
 docs/SetTelegramCommandsRequestCommandsInner.md
@@ -2121,7 +2122,6 @@ docs/TargetingSpecCitiesInnerOneOf.md
 docs/TargetingSpecCustomLocationsInner.md
 docs/TargetingSpecExcludedLocations.md
 docs/TargetingSpecExcludedLocationsCitiesInner.md
-docs/TargetingSpecExcludedLocationsPlacesInner.md
 docs/TelegramPlatformData.md
 docs/TestWebhookRequest.md
 docs/ThreadsPlatformData.md
@@ -2966,19 +2966,19 @@ src/models/campaign_bidding_bid_spec.rs
 src/models/campaign_bidding_portfolio.rs
 src/models/cancel_broadcast_200_response.rs
 src/models/cancel_phone_number_port_in_200_response.rs
-src/models/change_collection_channels_200_response.rs
+src/models/change_commerce_collection_channels_200_response.rs
 src/models/change_commerce_collection_products_200_response.rs
 src/models/change_commerce_collection_products_request.rs
 src/models/change_commerce_inventory_request.rs
 src/models/change_commerce_inventory_request_changes_inner.rs
+src/models/change_commerce_product_channels_200_response.rs
+src/models/change_commerce_product_channels_request.rs
 src/models/change_commerce_product_state_200_response.rs
 src/models/change_commerce_product_state_200_response_failed_inner.rs
 src/models/change_commerce_product_state_request.rs
 src/models/change_commerce_product_tags_200_response.rs
 src/models/change_commerce_product_tags_200_response_failed_inner.rs
 src/models/change_commerce_product_tags_request.rs
-src/models/change_product_channels_200_response.rs
-src/models/change_product_channels_request.rs
 src/models/channel_picker.rs
 src/models/channel_picker_channels_inner.rs
 src/models/channel_picker_team.rs
@@ -3331,6 +3331,7 @@ src/models/ctwa_ad_request_body_creatives_inner.rs
 src/models/ctwa_ad_request_body_creatives_inner_video.rs
 src/models/ctwa_ad_request_body_creatives_inner_welcome_message.rs
 src/models/ctwa_ad_request_body_placements.rs
+src/models/ctwa_ad_request_body_places_inner.rs
 src/models/ctwa_ad_request_body_regions_inner.rs
 src/models/ctwa_ad_request_body_video.rs
 src/models/ctwa_ad_request_body_welcome_message.rs
@@ -3360,6 +3361,7 @@ src/models/delete_commerce_menu_200_response.rs
 src/models/delete_commerce_metaobject_200_response.rs
 src/models/delete_commerce_page_200_response.rs
 src/models/delete_commerce_price_list_prices_200_response.rs
+src/models/delete_commerce_product_metafields_200_response.rs
 src/models/delete_commerce_redirect_200_response.rs
 src/models/delete_discord_scheduled_event_200_response.rs
 src/models/delete_google_business_media_200_response.rs
@@ -3368,7 +3370,6 @@ src/models/delete_google_business_review_reply_200_response.rs
 src/models/delete_inbox_comment_200_response.rs
 src/models/delete_inbox_review_reply_200_response.rs
 src/models/delete_inbox_review_reply_request.rs
-src/models/delete_product_metafields_200_response.rs
 src/models/delete_sms_sender_id_200_response.rs
 src/models/delete_test_lead_200_response.rs
 src/models/delete_tracking_tag_event_200_response.rs
@@ -4124,6 +4125,7 @@ src/models/list_commerce_metaobject_definitions_200_response.rs
 src/models/list_commerce_metaobjects_200_response.rs
 src/models/list_commerce_pages_200_response.rs
 src/models/list_commerce_price_lists_200_response.rs
+src/models/list_commerce_product_metafields_200_response.rs
 src/models/list_commerce_products_200_response.rs
 src/models/list_commerce_redirects_200_response.rs
 src/models/list_connected_apps_200_response.rs
@@ -4232,7 +4234,6 @@ src/models/list_phone_numbers_200_response_sandbox.rs
 src/models/list_phone_numbers_200_response_sandbox_template.rs
 src/models/list_pinterest_boards_for_selection_200_response.rs
 src/models/list_pinterest_boards_for_selection_200_response_boards_inner.rs
-src/models/list_product_metafields_200_response.rs
 src/models/list_products_200_response.rs
 src/models/list_queue_slots_200_response.rs
 src/models/list_queue_slots_200_response_one_of.rs
@@ -4728,6 +4729,7 @@ src/models/set_commerce_discount_active_request.rs
 src/models/set_commerce_price_list_prices_200_response.rs
 src/models/set_commerce_price_list_prices_request.rs
 src/models/set_commerce_price_list_prices_request_prices_inner.rs
+src/models/set_commerce_product_metafields_request.rs
 src/models/set_contact_field_value_request.rs
 src/models/set_conversation_thread_control_200_response.rs
 src/models/set_conversation_thread_control_200_response_control.rs
@@ -4740,7 +4742,6 @@ src/models/set_messenger_get_started_request.rs
 src/models/set_messenger_menu_request.rs
 src/models/set_partnership_ad_permission_200_response.rs
 src/models/set_partnership_ad_permission_request.rs
-src/models/set_product_metafields_request.rs
 src/models/set_reddit_post_flair_request.rs
 src/models/set_telegram_commands_request.rs
 src/models/set_telegram_commands_request_commands_inner.rs
@@ -4794,7 +4795,6 @@ src/models/targeting_spec_cities_inner_one_of.rs
 src/models/targeting_spec_custom_locations_inner.rs
 src/models/targeting_spec_excluded_locations.rs
 src/models/targeting_spec_excluded_locations_cities_inner.rs
-src/models/targeting_spec_excluded_locations_places_inner.rs
 src/models/telegram_platform_data.rs
 src/models/test_webhook_request.rs
 src/models/threads_platform_data.rs

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**String**> |  | [optional]
 **status** | Option<**Status**> |  (enum: pending, approved, expired, max_attempts_reached, canceled, delivery_failed) | [optional]
-**channel** | Option<**Channel**> |  (enum: sms) | [optional]
+**channel** | Option<**Channel**> |  (enum: sms, whatsapp) | [optional]
 **to** | Option<**String**> |  | [optional]
 **expires_at** | Option<**String**> |  | [optional]
 **attempts** | Option<**i32**> |  | [optional]

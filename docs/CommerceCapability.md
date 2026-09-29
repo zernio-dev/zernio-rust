@@ -14,6 +14,7 @@
 | ProductsImagesRemove | products.images_remove |
 | CollectionsRead | collections.read |
 | CollectionsWrite | collections.write |
+| CollectionsMetafields | collections.metafields |
 | MetafieldsRead | metafields.read |
 | MetafieldsWrite | metafields.write |
 | PagesRead | pages.read |
@@ -24,6 +25,7 @@
 | ChannelsWrite | channels.write |
 | DiscountsRead | discounts.read |
 | DiscountsWrite | discounts.write |
+| DiscountsCodes | discounts.codes |
 | NavigationRead | navigation.read |
 | NavigationWrite | navigation.write |
 | MetaobjectsRead | metaobjects.read |

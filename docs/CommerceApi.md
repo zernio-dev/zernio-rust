@@ -7,12 +7,12 @@ Method | HTTP request | Description
 [**add_commerce_discount_codes**](CommerceApi.md#add_commerce_discount_codes) | **POST** /v1/commerce/discounts/{discountId}/codes | Add codes to a discount
 [**add_commerce_marketing_engagement**](CommerceApi.md#add_commerce_marketing_engagement) | **POST** /v1/commerce/marketing-activities/{remoteId}/engagements | Report daily engagement
 [**add_commerce_product_images**](CommerceApi.md#add_commerce_product_images) | **POST** /v1/commerce/products/{productId}/images | Add images
-[**change_collection_channels**](CommerceApi.md#change_collection_channels) | **POST** /v1/commerce/collections/{collectionId}/channels | Publish or unpublish a collection
+[**change_commerce_collection_channels**](CommerceApi.md#change_commerce_collection_channels) | **POST** /v1/commerce/collections/{collectionId}/channels | Publish or unpublish a collection
 [**change_commerce_collection_products**](CommerceApi.md#change_commerce_collection_products) | **POST** /v1/commerce/collections/{collectionId}/products | Add or remove products in a collection
 [**change_commerce_inventory**](CommerceApi.md#change_commerce_inventory) | **POST** /v1/commerce/products/{productId}/inventory | Set or adjust stock
+[**change_commerce_product_channels**](CommerceApi.md#change_commerce_product_channels) | **POST** /v1/commerce/products/{productId}/channels | Publish or unpublish a product
 [**change_commerce_product_state**](CommerceApi.md#change_commerce_product_state) | **POST** /v1/commerce/products/state | Activate, deactivate, archive or delete products
 [**change_commerce_product_tags**](CommerceApi.md#change_commerce_product_tags) | **POST** /v1/commerce/products/tags | Add or remove tags in bulk
-[**change_product_channels**](CommerceApi.md#change_product_channels) | **POST** /v1/commerce/products/{productId}/channels | Publish or unpublish a product
 [**create_commerce_catalog_sync**](CommerceApi.md#create_commerce_catalog_sync) | **POST** /v1/commerce/catalog-syncs | Sync a store into a Meta catalog
 [**create_commerce_collection**](CommerceApi.md#create_commerce_collection) | **POST** /v1/commerce/collections | Create a collection
 [**create_commerce_discount**](CommerceApi.md#create_commerce_discount) | **POST** /v1/commerce/discounts | Create a discount
@@ -23,19 +23,19 @@ Method | HTTP request | Description
 [**create_commerce_product_options**](CommerceApi.md#create_commerce_product_options) | **POST** /v1/commerce/products/{productId}/options | Add options
 [**create_commerce_product_variants**](CommerceApi.md#create_commerce_product_variants) | **POST** /v1/commerce/products/{productId}/variants | Add variants
 [**create_commerce_redirect**](CommerceApi.md#create_commerce_redirect) | **POST** /v1/commerce/redirects | Create a URL redirect
-[**delete_collection_metafields**](CommerceApi.md#delete_collection_metafields) | **DELETE** /v1/commerce/collections/{collectionId}/metafields | Delete collection metafields
 [**delete_commerce_catalog_sync**](CommerceApi.md#delete_commerce_catalog_sync) | **DELETE** /v1/commerce/catalog-syncs/{syncId} | Stop a catalog sync
 [**delete_commerce_collection**](CommerceApi.md#delete_commerce_collection) | **DELETE** /v1/commerce/collections/{collectionId} | Delete a collection
+[**delete_commerce_collection_metafields**](CommerceApi.md#delete_commerce_collection_metafields) | **DELETE** /v1/commerce/collections/{collectionId}/metafields | Delete collection metafields
 [**delete_commerce_discount**](CommerceApi.md#delete_commerce_discount) | **DELETE** /v1/commerce/discounts/{discountId} | Delete a discount
 [**delete_commerce_marketing_activity**](CommerceApi.md#delete_commerce_marketing_activity) | **DELETE** /v1/commerce/marketing-activities/{remoteId} | Delete a marketing activity
 [**delete_commerce_menu**](CommerceApi.md#delete_commerce_menu) | **DELETE** /v1/commerce/menus/{menuId} | Delete a navigation menu
 [**delete_commerce_metaobject**](CommerceApi.md#delete_commerce_metaobject) | **DELETE** /v1/commerce/metaobjects/{metaobjectId} | Delete a metaobject
 [**delete_commerce_page**](CommerceApi.md#delete_commerce_page) | **DELETE** /v1/commerce/pages/{pageId} | Delete a page
 [**delete_commerce_price_list_prices**](CommerceApi.md#delete_commerce_price_list_prices) | **DELETE** /v1/commerce/price-lists/{priceListId}/prices | Remove fixed prices
+[**delete_commerce_product_metafields**](CommerceApi.md#delete_commerce_product_metafields) | **DELETE** /v1/commerce/products/{productId}/metafields | Delete product metafields
 [**delete_commerce_product_options**](CommerceApi.md#delete_commerce_product_options) | **DELETE** /v1/commerce/products/{productId}/options | Delete options
 [**delete_commerce_product_variants**](CommerceApi.md#delete_commerce_product_variants) | **DELETE** /v1/commerce/products/{productId}/variants | Delete variants
 [**delete_commerce_redirect**](CommerceApi.md#delete_commerce_redirect) | **DELETE** /v1/commerce/redirects/{redirectId} | Delete a URL redirect
-[**delete_product_metafields**](CommerceApi.md#delete_product_metafields) | **DELETE** /v1/commerce/products/{productId}/metafields | Delete product metafields
 [**duplicate_commerce_product**](CommerceApi.md#duplicate_commerce_product) | **POST** /v1/commerce/products/{productId}/duplicate | Duplicate a product
 [**get_commerce_catalog_sync**](CommerceApi.md#get_commerce_catalog_sync) | **GET** /v1/commerce/catalog-syncs/{syncId} | Get a catalog sync
 [**get_commerce_collection**](CommerceApi.md#get_commerce_collection) | **GET** /v1/commerce/collections/{collectionId} | Get a collection
@@ -45,9 +45,9 @@ Method | HTTP request | Description
 [**get_commerce_page**](CommerceApi.md#get_commerce_page) | **GET** /v1/commerce/pages/{pageId} | Get a page
 [**get_commerce_product**](CommerceApi.md#get_commerce_product) | **GET** /v1/commerce/products/{productId} | Get a product
 [**get_commerce_store**](CommerceApi.md#get_commerce_store) | **GET** /v1/commerce/store | Get a store
-[**list_collection_metafields**](CommerceApi.md#list_collection_metafields) | **GET** /v1/commerce/collections/{collectionId}/metafields | List collection metafields
 [**list_commerce_catalog_syncs**](CommerceApi.md#list_commerce_catalog_syncs) | **GET** /v1/commerce/catalog-syncs | List catalog syncs
 [**list_commerce_channels**](CommerceApi.md#list_commerce_channels) | **GET** /v1/commerce/channels | List sales channels
+[**list_commerce_collection_metafields**](CommerceApi.md#list_commerce_collection_metafields) | **GET** /v1/commerce/collections/{collectionId}/metafields | List collection metafields
 [**list_commerce_collections**](CommerceApi.md#list_commerce_collections) | **GET** /v1/commerce/collections | List collections
 [**list_commerce_discounts**](CommerceApi.md#list_commerce_discounts) | **GET** /v1/commerce/discounts | List discounts
 [**list_commerce_inventory**](CommerceApi.md#list_commerce_inventory) | **GET** /v1/commerce/inventory | Get a product's stock
@@ -58,17 +58,17 @@ Method | HTTP request | Description
 [**list_commerce_metaobjects**](CommerceApi.md#list_commerce_metaobjects) | **GET** /v1/commerce/metaobjects | List metaobjects of a type
 [**list_commerce_pages**](CommerceApi.md#list_commerce_pages) | **GET** /v1/commerce/pages | List pages
 [**list_commerce_price_lists**](CommerceApi.md#list_commerce_price_lists) | **GET** /v1/commerce/price-lists | List price lists
+[**list_commerce_product_metafields**](CommerceApi.md#list_commerce_product_metafields) | **GET** /v1/commerce/products/{productId}/metafields | List product metafields
 [**list_commerce_products**](CommerceApi.md#list_commerce_products) | **GET** /v1/commerce/products | List products
 [**list_commerce_redirects**](CommerceApi.md#list_commerce_redirects) | **GET** /v1/commerce/redirects | List URL redirects
-[**list_product_metafields**](CommerceApi.md#list_product_metafields) | **GET** /v1/commerce/products/{productId}/metafields | List product metafields
 [**remove_commerce_product_images**](CommerceApi.md#remove_commerce_product_images) | **DELETE** /v1/commerce/products/{productId}/images | Remove images
 [**reorder_commerce_collection_products**](CommerceApi.md#reorder_commerce_collection_products) | **POST** /v1/commerce/collections/{collectionId}/reorder | Reorder products in a collection
 [**reorder_commerce_product_images**](CommerceApi.md#reorder_commerce_product_images) | **POST** /v1/commerce/products/{productId}/images/reorder | Reorder images
 [**run_commerce_catalog_sync**](CommerceApi.md#run_commerce_catalog_sync) | **POST** /v1/commerce/catalog-syncs/{syncId}/run | Run a catalog sync now
-[**set_collection_metafields**](CommerceApi.md#set_collection_metafields) | **PUT** /v1/commerce/collections/{collectionId}/metafields | Set collection metafields
+[**set_commerce_collection_metafields**](CommerceApi.md#set_commerce_collection_metafields) | **PUT** /v1/commerce/collections/{collectionId}/metafields | Set collection metafields
 [**set_commerce_discount_active**](CommerceApi.md#set_commerce_discount_active) | **POST** /v1/commerce/discounts/{discountId}/state | Activate or deactivate a discount
 [**set_commerce_price_list_prices**](CommerceApi.md#set_commerce_price_list_prices) | **PUT** /v1/commerce/price-lists/{priceListId}/prices | Set fixed prices
-[**set_product_metafields**](CommerceApi.md#set_product_metafields) | **PUT** /v1/commerce/products/{productId}/metafields | Set product metafields
+[**set_commerce_product_metafields**](CommerceApi.md#set_commerce_product_metafields) | **PUT** /v1/commerce/products/{productId}/metafields | Set product metafields
 [**update_commerce_collection**](CommerceApi.md#update_commerce_collection) | **PATCH** /v1/commerce/collections/{collectionId} | Update a collection
 [**update_commerce_discount**](CommerceApi.md#update_commerce_discount) | **PATCH** /v1/commerce/discounts/{discountId} | Update a discount
 [**update_commerce_menu**](CommerceApi.md#update_commerce_menu) | **PUT** /v1/commerce/menus/{menuId} | Replace a navigation menu
@@ -86,7 +86,7 @@ Method | HTTP request | Description
 > models::ReorderCommerceProductImages200Response add_commerce_discount_codes(discount_id, add_commerce_discount_codes_request)
 Add codes to a discount
 
-Adds up to 250 more codes to a code discount, for example one per influencer. The platform adds them in the background. 
+Adds up to 250 more codes to a code discount, for example one per influencer. The platform adds them in the background. Needs discounts.codes, which WooCommerce stores do not have. 
 
 ### Parameters
 
@@ -174,9 +174,9 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## change_collection_channels
+## change_commerce_collection_channels
 
-> models::ChangeCollectionChannels200Response change_collection_channels(collection_id, change_product_channels_request)
+> models::ChangeCommerceCollectionChannels200Response change_commerce_collection_channels(collection_id, change_commerce_product_channels_request)
 Publish or unpublish a collection
 
 Publishes to and/or unpublishes from sales channels (the online store, Shop, POS and others). List channels with GET /v1/commerce/channels. 
@@ -187,11 +187,11 @@ Publishes to and/or unpublishes from sales channels (the online store, Shop, POS
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **collection_id** | **String** | Platform-native id. | [required] |
-**change_product_channels_request** | [**ChangeProductChannelsRequest**](ChangeProductChannelsRequest.md) |  | [required] |
+**change_commerce_product_channels_request** | [**ChangeCommerceProductChannelsRequest**](ChangeCommerceProductChannelsRequest.md) |  | [required] |
 
 ### Return type
 
-[**models::ChangeCollectionChannels200Response**](changeCollectionChannels_200_response.md)
+[**models::ChangeCommerceCollectionChannels200Response**](changeCommerceCollectionChannels_200_response.md)
 
 ### Authorization
 
@@ -267,6 +267,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## change_commerce_product_channels
+
+> models::ChangeCommerceProductChannels200Response change_commerce_product_channels(product_id, change_commerce_product_channels_request)
+Publish or unpublish a product
+
+Publishes to and/or unpublishes from sales channels (the online store, Shop, POS and others). List channels with GET /v1/commerce/channels. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**product_id** | **String** | Platform-native id. | [required] |
+**change_commerce_product_channels_request** | [**ChangeCommerceProductChannelsRequest**](ChangeCommerceProductChannelsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::ChangeCommerceProductChannels200Response**](changeCommerceProductChannels_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## change_commerce_product_state
 
 > models::ChangeCommerceProductState200Response change_commerce_product_state(change_commerce_product_state_request)
@@ -314,37 +345,6 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ChangeCommerceProductTags200Response**](changeCommerceProductTags_200_response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## change_product_channels
-
-> models::ChangeProductChannels200Response change_product_channels(product_id, change_product_channels_request)
-Publish or unpublish a product
-
-Publishes to and/or unpublishes from sales channels (the online store, Shop, POS and others). List channels with GET /v1/commerce/channels. 
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**product_id** | **String** | Platform-native id. | [required] |
-**change_product_channels_request** | [**ChangeProductChannelsRequest**](ChangeProductChannelsRequest.md) |  | [required] |
-
-### Return type
-
-[**models::ChangeProductChannels200Response**](changeProductChannels_200_response.md)
 
 ### Authorization
 
@@ -453,6 +453,8 @@ Name | Type | Description  | Required | Notes
 > models::CreateCommerceMenu201Response create_commerce_menu(create_commerce_menu_request)
 Create a navigation menu
 
+Creates a navigation menu from `title`, `handle` and up to 100 `items`, and returns it with status 201. Shopify only. Needs navigation.write.
+
 ### Parameters
 
 
@@ -481,6 +483,8 @@ Name | Type | Description  | Required | Notes
 > models::CreateCommerceMetaobject201Response create_commerce_metaobject(create_commerce_metaobject_request)
 Create a metaobject
 
+Creates a metaobject of `type` with its `fields` (key and string value, up to 100) and an optional `handle`, and returns it with status 201. Shopify only. Needs metaobjects.write.
+
 ### Parameters
 
 
@@ -508,6 +512,8 @@ Name | Type | Description  | Required | Notes
 
 > models::CreateCommercePage201Response create_commerce_page(create_commerce_page_request)
 Create a page
+
+Creates a content page from `title`, optional `handle`, `bodyHtml` and `isPublished`, and returns it with status 201. Needs pages.write.
 
 ### Parameters
 
@@ -629,6 +635,8 @@ Name | Type | Description  | Required | Notes
 > models::CreateCommerceRedirect201Response create_commerce_redirect(create_commerce_redirect_request)
 Create a URL redirect
 
+Creates a redirect from `path` (starting with `/`) to `target` (a path or a full URL) and returns it with status 201. Shopify only. Needs navigation.write.
+
 ### Parameters
 
 
@@ -647,36 +655,6 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## delete_collection_metafields
-
-> models::DeleteProductMetafields200Response delete_collection_metafields(collection_id, account_id, keys)
-Delete collection metafields
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**collection_id** | **String** | Platform-native id. | [required] |
-**account_id** | **String** | Connected store SocialAccount id. | [required] |
-**keys** | **String** | Comma-separated namespace.key pairs. | [required] |
-
-### Return type
-
-[**models::DeleteProductMetafields200Response**](deleteProductMetafields_200_response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -743,10 +721,44 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## delete_commerce_collection_metafields
+
+> models::DeleteCommerceProductMetafields200Response delete_commerce_collection_metafields(collection_id, account_id, keys)
+Delete collection metafields
+
+Deletes the collection metafields named in `keys` (comma-separated `namespace.key`, up to 25). Needs collections.metafields: WooCommerce answers 400 platform_not_supported.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**collection_id** | **String** | Platform-native id. | [required] |
+**account_id** | **String** | Connected store SocialAccount id. | [required] |
+**keys** | **String** | Comma-separated namespace.key pairs. | [required] |
+
+### Return type
+
+[**models::DeleteCommerceProductMetafields200Response**](deleteCommerceProductMetafields_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## delete_commerce_discount
 
 > models::DeleteCommerceDiscount200Response delete_commerce_discount(discount_id, account_id)
 Delete a discount
+
+Deletes the discount; its codes stop working at checkout. This cannot be undone. Needs discounts.write.
 
 ### Parameters
 
@@ -777,6 +789,8 @@ Name | Type | Description  | Required | Notes
 > models::DeleteCommerceMarketingActivity200Response delete_commerce_marketing_activity(remote_id, account_id)
 Delete a marketing activity
 
+Deletes the marketing activity you created with PUT /v1/commerce/marketing-activities, identified by the `remoteId` you gave it. Shopify only. Needs marketing.write.
+
 ### Parameters
 
 
@@ -805,6 +819,8 @@ Name | Type | Description  | Required | Notes
 
 > models::DeleteCommerceMenu200Response delete_commerce_menu(menu_id, account_id)
 Delete a navigation menu
+
+Deletes the navigation menu. Shopify only. Needs navigation.write.
 
 ### Parameters
 
@@ -835,6 +851,8 @@ Name | Type | Description  | Required | Notes
 > models::DeleteCommerceMetaobject200Response delete_commerce_metaobject(metaobject_id, account_id)
 Delete a metaobject
 
+Deletes the metaobject. References to it from metafields stop resolving. Shopify only. Needs metaobjects.write.
+
 ### Parameters
 
 
@@ -863,6 +881,8 @@ Name | Type | Description  | Required | Notes
 
 > models::DeleteCommercePage200Response delete_commerce_page(page_id, account_id)
 Delete a page
+
+Deletes the page from the store. This cannot be undone. Needs pages.write.
 
 ### Parameters
 
@@ -920,6 +940,38 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## delete_commerce_product_metafields
+
+> models::DeleteCommerceProductMetafields200Response delete_commerce_product_metafields(product_id, account_id, keys)
+Delete product metafields
+
+Deletes the product custom fields named in `keys` (comma-separated `namespace.key`, up to 25) and returns how many were deleted. Needs metafields.write.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**product_id** | **String** | Platform-native id. | [required] |
+**account_id** | **String** | Connected store SocialAccount id. | [required] |
+**keys** | **String** | Comma-separated namespace.key pairs. | [required] |
+
+### Return type
+
+[**models::DeleteCommerceProductMetafields200Response**](deleteCommerceProductMetafields_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## delete_commerce_product_options
 
 > models::CreateCommerceProduct201Response delete_commerce_product_options(product_id, account_id, names)
@@ -957,6 +1009,8 @@ Name | Type | Description  | Required | Notes
 > models::CreateCommerceProduct201Response delete_commerce_product_variants(product_id, account_id, variant_ids)
 Delete variants
 
+Deletes the variants in `variantIds` (comma-separated, up to 100) and returns the updated product. A product keeps at least one variant, so deleting every variant is refused by the platform. Needs products.variants.
+
 ### Parameters
 
 
@@ -987,6 +1041,8 @@ Name | Type | Description  | Required | Notes
 > models::DeleteCommerceRedirect200Response delete_commerce_redirect(redirect_id, account_id)
 Delete a URL redirect
 
+Deletes the redirect; the old path answers 404 again. Shopify only. Needs navigation.write.
+
 ### Parameters
 
 
@@ -998,36 +1054,6 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::DeleteCommerceRedirect200Response**](deleteCommerceRedirect_200_response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## delete_product_metafields
-
-> models::DeleteProductMetafields200Response delete_product_metafields(product_id, account_id, keys)
-Delete product metafields
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**product_id** | **String** | Platform-native id. | [required] |
-**account_id** | **String** | Connected store SocialAccount id. | [required] |
-**keys** | **String** | Comma-separated namespace.key pairs. | [required] |
-
-### Return type
-
-[**models::DeleteProductMetafields200Response**](deleteProductMetafields_200_response.md)
 
 ### Authorization
 
@@ -1077,6 +1103,8 @@ Name | Type | Description  | Required | Notes
 > models::CreateCommerceCatalogSync202Response get_commerce_catalog_sync(sync_id)
 Get a catalog sync
 
+One catalog sync with the status and counts of its last run (`itemsSent`, `itemsSkipped`, `itemsDeleted`, `lastError`). Poll it after POST /v1/commerce/catalog-syncs/{syncId}/run to follow a run.
+
 ### Parameters
 
 
@@ -1104,6 +1132,8 @@ Name | Type | Description  | Required | Notes
 
 > models::CreateCommerceCollection201Response get_commerce_collection(collection_id, account_id)
 Get a collection
+
+One collection (a category on WooCommerce) with its image, sort order and product count. List its products with GET /v1/commerce/products?collectionId=. Needs collections.read.
 
 ### Parameters
 
@@ -1134,6 +1164,8 @@ Name | Type | Description  | Required | Notes
 > models::CreateCommerceDiscount201Response get_commerce_discount(discount_id, account_id)
 Get a discount
 
+One discount with its value, targets, minimum, usage and schedule. Needs discounts.read.
+
 ### Parameters
 
 
@@ -1162,6 +1194,8 @@ Name | Type | Description  | Required | Notes
 
 > models::CreateCommerceMenu201Response get_commerce_menu(menu_id, account_id)
 Get a navigation menu
+
+One navigation menu with its nested items. Shopify only. Needs navigation.read.
 
 ### Parameters
 
@@ -1192,6 +1226,8 @@ Name | Type | Description  | Required | Notes
 > models::CreateCommerceMetaobject201Response get_commerce_metaobject(metaobject_id, account_id)
 Get a metaobject
 
+One metaobject with its fields. Shopify only. Needs metaobjects.read.
+
 ### Parameters
 
 
@@ -1221,6 +1257,8 @@ Name | Type | Description  | Required | Notes
 > models::CreateCommercePage201Response get_commerce_page(page_id, account_id)
 Get a page
 
+One content page with its body. Needs pages.read.
+
 ### Parameters
 
 
@@ -1249,6 +1287,8 @@ Name | Type | Description  | Required | Notes
 
 > models::CreateCommerceProduct201Response get_commerce_product(product_id, account_id)
 Get a product
+
+One product with all its variants, options and images. Needs products.read. 404 product_not_found when the id does not exist in the store.
 
 ### Parameters
 
@@ -1291,35 +1331,6 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetCommerceStore200Response**](getCommerceStore_200_response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## list_collection_metafields
-
-> models::ListProductMetafields200Response list_collection_metafields(collection_id, account_id)
-List collection metafields
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**collection_id** | **String** | Platform-native id. | [required] |
-**account_id** | **String** | Connected store SocialAccount id. | [required] |
-
-### Return type
-
-[**models::ListProductMetafields200Response**](listProductMetafields_200_response.md)
 
 ### Authorization
 
@@ -1393,6 +1404,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_commerce_collection_metafields
+
+> models::ListCommerceProductMetafields200Response list_commerce_collection_metafields(collection_id, account_id)
+List collection metafields
+
+The collection's metafields as namespace, key, type and value. Needs collections.metafields: WooCommerce keeps custom fields on products only and answers 400 platform_not_supported.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**collection_id** | **String** | Platform-native id. | [required] |
+**account_id** | **String** | Connected store SocialAccount id. | [required] |
+
+### Return type
+
+[**models::ListCommerceProductMetafields200Response**](listCommerceProductMetafields_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_commerce_collections
 
 > models::ListCommerceCollections200Response list_commerce_collections(account_id, limit, cursor, query)
@@ -1430,6 +1472,8 @@ Name | Type | Description  | Required | Notes
 
 > models::ListCommerceDiscounts200Response list_commerce_discounts(account_id, limit, cursor, query)
 List discounts
+
+The store's discounts (Shopify code and automatic discounts, WooCommerce coupons), cursor-paginated with `limit`, `cursor` and an optional `query`. Each discount lists its first 10 codes; `codeCount` has the total. Needs discounts.read.
 
 ### Parameters
 
@@ -1553,6 +1597,8 @@ Name | Type | Description  | Required | Notes
 > models::ListCommerceMenus200Response list_commerce_menus(account_id)
 List navigation menus
 
+The store's navigation menus with their items. Shopify only. Needs navigation.read.
+
 ### Parameters
 
 
@@ -1611,6 +1657,8 @@ Name | Type | Description  | Required | Notes
 > models::ListCommerceMetaobjects200Response list_commerce_metaobjects(account_id, r#type, limit, cursor)
 List metaobjects of a type
 
+The metaobjects of one `type` (a definition handle from GET /v1/commerce/metaobject-definitions), cursor-paginated with `limit` and `cursor`. Shopify only. Needs metaobjects.read.
+
 ### Parameters
 
 
@@ -1641,6 +1689,8 @@ Name | Type | Description  | Required | Notes
 
 > models::ListCommercePages200Response list_commerce_pages(account_id, limit, cursor, query)
 List pages
+
+The store's content pages (Shopify online store pages, WordPress pages), cursor-paginated with `limit`, `cursor` and an optional `query`. Needs pages.read.
 
 ### Parameters
 
@@ -1698,6 +1748,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_commerce_product_metafields
+
+> models::ListCommerceProductMetafields200Response list_commerce_product_metafields(product_id, account_id)
+List product metafields
+
+The product's custom fields (metafields on Shopify, public meta on WooCommerce) as namespace, key, type and value. Needs metafields.read.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**product_id** | **String** | Platform-native id. | [required] |
+**account_id** | **String** | Connected store SocialAccount id. | [required] |
+
+### Return type
+
+[**models::ListCommerceProductMetafields200Response**](listCommerceProductMetafields_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_commerce_products
 
 > models::ListCommerceProducts200Response list_commerce_products(account_id, limit, cursor, status, query, collection_id)
@@ -1738,6 +1819,8 @@ Name | Type | Description  | Required | Notes
 > models::ListCommerceRedirects200Response list_commerce_redirects(account_id, limit, cursor, query)
 List URL redirects
 
+The store's URL redirects (old path to new target), cursor-paginated with `limit`, `cursor` and an optional `query` on the path. Shopify only. Needs navigation.read.
+
 ### Parameters
 
 
@@ -1751,35 +1834,6 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListCommerceRedirects200Response**](listCommerceRedirects_200_response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## list_product_metafields
-
-> models::ListProductMetafields200Response list_product_metafields(product_id, account_id)
-List product metafields
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**product_id** | **String** | Platform-native id. | [required] |
-**account_id** | **String** | Connected store SocialAccount id. | [required] |
-
-### Return type
-
-[**models::ListProductMetafields200Response**](listProductMetafields_200_response.md)
 
 ### Authorization
 
@@ -1917,12 +1971,12 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## set_collection_metafields
+## set_commerce_collection_metafields
 
-> models::ListProductMetafields200Response set_collection_metafields(collection_id, set_product_metafields_request)
+> models::ListCommerceProductMetafields200Response set_commerce_collection_metafields(collection_id, set_commerce_product_metafields_request)
 Set collection metafields
 
-Creates or updates custom fields by namespace and key. 
+Creates or updates custom fields by namespace and key. Needs collections.metafields: WooCommerce keeps custom fields on products only and answers 400 platform_not_supported. 
 
 ### Parameters
 
@@ -1930,11 +1984,11 @@ Creates or updates custom fields by namespace and key.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **collection_id** | **String** | Platform-native id. | [required] |
-**set_product_metafields_request** | [**SetProductMetafieldsRequest**](SetProductMetafieldsRequest.md) |  | [required] |
+**set_commerce_product_metafields_request** | [**SetCommerceProductMetafieldsRequest**](SetCommerceProductMetafieldsRequest.md) |  | [required] |
 
 ### Return type
 
-[**models::ListProductMetafields200Response**](listProductMetafields_200_response.md)
+[**models::ListCommerceProductMetafields200Response**](listCommerceProductMetafields_200_response.md)
 
 ### Authorization
 
@@ -2010,9 +2064,9 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## set_product_metafields
+## set_commerce_product_metafields
 
-> models::ListProductMetafields200Response set_product_metafields(product_id, set_product_metafields_request)
+> models::ListCommerceProductMetafields200Response set_commerce_product_metafields(product_id, set_commerce_product_metafields_request)
 Set product metafields
 
 Creates or updates custom fields by namespace and key. 
@@ -2023,11 +2077,11 @@ Creates or updates custom fields by namespace and key.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **product_id** | **String** | Platform-native id. | [required] |
-**set_product_metafields_request** | [**SetProductMetafieldsRequest**](SetProductMetafieldsRequest.md) |  | [required] |
+**set_commerce_product_metafields_request** | [**SetCommerceProductMetafieldsRequest**](SetCommerceProductMetafieldsRequest.md) |  | [required] |
 
 ### Return type
 
-[**models::ListProductMetafields200Response**](listProductMetafields_200_response.md)
+[**models::ListCommerceProductMetafields200Response**](listCommerceProductMetafields_200_response.md)
 
 ### Authorization
 
@@ -2170,6 +2224,8 @@ Name | Type | Description  | Required | Notes
 > models::CreateCommercePage201Response update_commerce_page(page_id, update_commerce_page_request)
 Update a page
 
+Updates the fields you pass (`title`, `handle`, `bodyHtml`, `isPublished`) and returns the page. Needs pages.write.
+
 ### Parameters
 
 
@@ -2260,6 +2316,8 @@ Name | Type | Description  | Required | Notes
 
 > models::CreateCommerceRedirect201Response update_commerce_redirect(redirect_id, update_commerce_redirect_request)
 Update a URL redirect
+
+Changes the redirect's `path` and/or `target`. Shopify only. Needs navigation.write.
 
 ### Parameters
 
