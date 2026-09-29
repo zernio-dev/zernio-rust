@@ -403,7 +403,7 @@ Name | Type | Description  | Required | Notes
 **area_code** | Option<**String**> | Area code or national dialing code the number must start with, e.g. 415 or 91 |  |
 **r#type** | Option<**String**> | Alias of numberType, kept for existing callers |  |
 **prefix** | Option<**String**> | Alias of areaCode, kept for existing callers |  |
-**locality** | Option<**String**> | City |  |
+**locality** | Option<**String**> | A city name, matched against the numbering plan (accents and common aliases allowed) and searched by that city's area codes; a name no city of the plan matches returns no numbers. `areaCode` takes a city name too. |  |
 **contains** | Option<**String**> | Pattern to match within the number |  |
 **limit** | Option<**i32**> |  |  |[default to 20]
 

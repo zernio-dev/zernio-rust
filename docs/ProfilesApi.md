@@ -141,7 +141,7 @@ Name | Type | Description  | Required | Notes
 > models::ProfileUpdateResponse update_profile(profile_id, update_profile_request)
 Update profile
 
-Updates a profile's name, description, color, or default status.
+Updates a profile's name, description, color, default timezone, or default status.
 
 ### Parameters
 
