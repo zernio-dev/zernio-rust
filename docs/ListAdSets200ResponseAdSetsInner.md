@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **targeting** | Option<[**models::ListAdSets200ResponseAdSetsInnerTargeting**](ListAdSets200ResponseAdSetsInnerTargeting.md)> |  | [optional]
 **is_external** | Option<**bool**> |  | [optional]
 **platform_created_at** | Option<**String**> |  | [optional]
+**status_read_at** | Option<**String**> | Only with `live=true`. When `platformAdSetStatus` was read from the platform; null when this row was not read live. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
