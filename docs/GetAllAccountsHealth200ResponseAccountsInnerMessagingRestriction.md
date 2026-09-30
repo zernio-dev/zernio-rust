@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **message** | Option<**String**> |  | [optional]
 **first_seen_at** | Option<**String**> |  | [optional]
 **last_seen_at** | Option<**String**> |  | [optional]
+**paused_until** | Option<**String**> | When held automation DMs are next retried. Null when nothing is held. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
