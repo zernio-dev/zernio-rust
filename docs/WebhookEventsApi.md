@@ -29,6 +29,7 @@ Method | HTTP request | Description
 [**on_message_delivered**](WebhookEventsApi.md#on_message_delivered) | **POST** /message.delivered | Message delivered event
 [**on_message_edited**](WebhookEventsApi.md#on_message_edited) | **POST** /message.edited | Message edited event
 [**on_message_failed**](WebhookEventsApi.md#on_message_failed) | **POST** /message.failed | Message delivery failed event
+[**on_message_played**](WebhookEventsApi.md#on_message_played) | **POST** /message.played | Message played event
 [**on_message_read**](WebhookEventsApi.md#on_message_read) | **POST** /message.read | Message read event
 [**on_message_received**](WebhookEventsApi.md#on_message_received) | **POST** /message.received | Message received event
 [**on_message_sent**](WebhookEventsApi.md#on_message_sent) | **POST** /message.sent | Message sent event
@@ -801,6 +802,36 @@ Name | Type | Description  | Required | Notes
 Message delivery failed event
 
 Fired when an outgoing message fails to deliver. Currently only emitted for WhatsApp (other platforms don't expose per-message failure via webhook). The payload error object contains code, title, and message from the platform. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_message_delivery_status** | [**WebhookPayloadMessageDeliveryStatus**](WebhookPayloadMessageDeliveryStatus.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_message_played
+
+> on_message_played(webhook_payload_message_delivery_status)
+Message played event
+
+Fires the first time the recipient plays a voice message you sent on WhatsApp.
 
 ### Parameters
 

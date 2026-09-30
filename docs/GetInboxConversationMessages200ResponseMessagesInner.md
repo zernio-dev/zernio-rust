@@ -25,7 +25,7 @@ Name | Type | Description | Notes
 **edit_history** | Option<[**Vec<models::InboxMessageEditHistoryEntry>**](InboxMessageEditHistoryEntry.md)> | Every prior version of the message, oldest first. | [optional]
 **is_deleted** | Option<**bool**> | True if the sender has deleted (unsent) this message. The original message and attachments fields remain populated. | [optional]
 **deleted_at** | Option<**String**> |  | [optional]
-**delivery_status** | Option<**DeliveryStatus**> | Lifecycle status for outgoing messages. Not all platforms emit every state (see webhook support matrix). (enum: sent, delivered, read, failed, deleted) | [optional]
+**delivery_status** | Option<**DeliveryStatus**> | Lifecycle status for outgoing messages. Not all platforms emit every state (see webhook support matrix). (enum: sent, delivered, read, played, failed, deleted) | [optional]
 **delivered_at** | Option<**String**> |  | [optional]
 **read_at** | Option<**String**> |  | [optional]
 **sent_at** | Option<**String**> | Original send time for outgoing messages (used for Messenger watermark queries). | [optional]

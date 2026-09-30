@@ -48,7 +48,7 @@ Name | Type | Description | Notes
 **places** | Option<[**Vec<models::CtwaAdRequestBodyPlacesInner>**](CtwaAdRequestBodyPlacesInner.md)> | Meta place keys (from GET /v1/ads/targeting/search). | [optional]
 **neighborhoods** | Option<[**Vec<models::CtwaAdRequestBodyPlacesInner>**](CtwaAdRequestBodyPlacesInner.md)> | Meta neighborhood keys (from GET /v1/ads/targeting/search). | [optional]
 **excluded_locations** | Option<**std::collections::HashMap<String, serde_json::Value>**> | Geo to exclude, same shape as POST /v1/ads/create (countries, countryGroups, regions, cities, zips, places, neighborhoods, customLocations). | [optional]
-**behaviors** | Option<[**Vec<models::CreateStandaloneAdRequestBehaviorsInner>**](CreateStandaloneAdRequestBehaviorsInner.md)> | Meta behavior ids. Each dimension is its own flexible_spec entry: OR within, AND across. | [optional]
+**behaviors** | Option<[**Vec<models::CreateStandaloneAdRequestBehaviorsInner>**](CreateStandaloneAdRequestBehaviorsInner.md)> | Behavior ids from /v1/ads/targeting/search?dimension=behavior. Meta: each dimension is its own flexible_spec entry (OR within, AND across). TikTok: video/creator interaction categories, sent as the ad group's actions. | [optional]
 **work_positions** | Option<[**Vec<models::CreateStandaloneAdRequestBehaviorsInner>**](CreateStandaloneAdRequestBehaviorsInner.md)> |  | [optional]
 **work_employers** | Option<[**Vec<models::CreateStandaloneAdRequestBehaviorsInner>**](CreateStandaloneAdRequestBehaviorsInner.md)> |  | [optional]
 **work_industries** | Option<[**Vec<models::CreateStandaloneAdRequestBehaviorsInner>**](CreateStandaloneAdRequestBehaviorsInner.md)> |  | [optional]
