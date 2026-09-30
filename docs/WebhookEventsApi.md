@@ -58,6 +58,7 @@ Method | HTTP request | Description
 [**on_webhook_test**](WebhookEventsApi.md#on_webhook_test) | **POST** /webhook.test | Webhook test event
 [**on_whats_app_account_name_status_updated**](WebhookEventsApi.md#on_whats_app_account_name_status_updated) | **POST** /whatsapp.account.name_status_updated | WhatsApp display-name review outcome event
 [**on_whats_app_automatic_event**](WebhookEventsApi.md#on_whats_app_automatic_event) | **POST** /whatsapp.automatic_event | WhatsApp automatic event detected
+[**on_whats_app_contact_identity_changed**](WebhookEventsApi.md#on_whats_app_contact_identity_changed) | **POST** /whatsapp.contact.identity_changed | WhatsApp contact identity changed event
 [**on_whats_app_number_action_required**](WebhookEventsApi.md#on_whats_app_number_action_required) | **POST** /whatsapp.number.action_required | WhatsApp number action required event
 [**on_whats_app_number_activated**](WebhookEventsApi.md#on_whats_app_number_activated) | **POST** /whatsapp.number.activated | WhatsApp number activated event
 [**on_whats_app_number_declined**](WebhookEventsApi.md#on_whats_app_number_declined) | **POST** /whatsapp.number.declined | WhatsApp number declined event
@@ -736,7 +737,7 @@ Name | Type | Description  | Required | Notes
 > on_message_delivered(webhook_payload_message_delivery_status)
 Message delivered event
 
-Fired when an outgoing message is delivered to the recipient. Supported on WhatsApp and Facebook Messenger. 
+Fired when an outgoing message is delivered to the recipient. Supported on WhatsApp and Facebook Messenger. On WhatsApp, `pricing` and `billingConversation` carry Meta's billing context for the message (also on `message.sent`, `message.read` and `message.failed`). 
 
 ### Parameters
 
@@ -1674,6 +1675,36 @@ Fired when Meta's automatic event identification (opt-in during Embedded Signup;
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **on_whats_app_automatic_event_request** | [**OnWhatsAppAutomaticEventRequest**](OnWhatsAppAutomaticEventRequest.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_whats_app_contact_identity_changed
+
+> on_whats_app_contact_identity_changed(webhook_payload_whats_app_contact_identity_changed)
+WhatsApp contact identity changed event
+
+Fired when a WhatsApp user changes phone number or Meta regenerates their business-scoped user id (BSUID). Carries the previous and current identifiers so you can re-key records stored against the old phone number or BSUID. Delivery is at-least-once; dedupe on the event `id`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_whats_app_contact_identity_changed** | [**WebhookPayloadWhatsAppContactIdentityChanged**](WebhookPayloadWhatsAppContactIdentityChanged.md) |  | [required] |
 
 ### Return type
 
