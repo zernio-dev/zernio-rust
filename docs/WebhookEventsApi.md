@@ -56,7 +56,10 @@ Method | HTTP request | Description
 [**on_verification_approved**](WebhookEventsApi.md#on_verification_approved) | **POST** /verification.approved | Verification approved event
 [**on_verification_failed**](WebhookEventsApi.md#on_verification_failed) | **POST** /verification.failed | Verification failed event
 [**on_webhook_test**](WebhookEventsApi.md#on_webhook_test) | **POST** /webhook.test | Webhook test event
+[**on_whats_app_account_alert_received**](WebhookEventsApi.md#on_whats_app_account_alert_received) | **POST** /whatsapp.account.alert_received | WhatsApp account alert received
 [**on_whats_app_account_name_status_updated**](WebhookEventsApi.md#on_whats_app_account_name_status_updated) | **POST** /whatsapp.account.name_status_updated | WhatsApp display-name review outcome event
+[**on_whats_app_account_quality_updated**](WebhookEventsApi.md#on_whats_app_account_quality_updated) | **POST** /whatsapp.account.quality_updated | WhatsApp quality rating or messaging limit changed
+[**on_whats_app_account_status_updated**](WebhookEventsApi.md#on_whats_app_account_status_updated) | **POST** /whatsapp.account.status_updated | WhatsApp Business Account restricted or reinstated
 [**on_whats_app_automatic_event**](WebhookEventsApi.md#on_whats_app_automatic_event) | **POST** /whatsapp.automatic_event | WhatsApp automatic event detected
 [**on_whats_app_contact_identity_changed**](WebhookEventsApi.md#on_whats_app_contact_identity_changed) | **POST** /whatsapp.contact.identity_changed | WhatsApp contact identity changed event
 [**on_whats_app_number_action_required**](WebhookEventsApi.md#on_whats_app_number_action_required) | **POST** /whatsapp.number.action_required | WhatsApp number action required event
@@ -1632,6 +1635,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## on_whats_app_account_alert_received
+
+> on_whats_app_account_alert_received(webhook_payload_whats_app_account_alert_received)
+WhatsApp account alert received
+
+Fired for each Meta `account_alerts` notification on a connected WhatsApp Business Account. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_whats_app_account_alert_received** | [**WebhookPayloadWhatsAppAccountAlertReceived**](WebhookPayloadWhatsAppAccountAlertReceived.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## on_whats_app_account_name_status_updated
 
 > on_whats_app_account_name_status_updated(webhook_payload_whats_app_account_name_status_updated)
@@ -1645,6 +1678,66 @@ Fired when Meta finishes reviewing a WhatsApp Business display-name change. Forw
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_whats_app_account_name_status_updated** | [**WebhookPayloadWhatsAppAccountNameStatusUpdated**](WebhookPayloadWhatsAppAccountNameStatusUpdated.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_whats_app_account_quality_updated
+
+> on_whats_app_account_quality_updated(webhook_payload_whats_app_account_quality_updated)
+WhatsApp quality rating or messaging limit changed
+
+Fired when a connected WhatsApp number's quality rating or messaging limit tier changes. Delivery is at-least-once; dedupe on the event `id`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_whats_app_account_quality_updated** | [**WebhookPayloadWhatsAppAccountQualityUpdated**](WebhookPayloadWhatsAppAccountQualityUpdated.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_whats_app_account_status_updated
+
+> on_whats_app_account_status_updated(webhook_payload_whats_app_account_status_updated)
+WhatsApp Business Account restricted or reinstated
+
+Fired when Meta restricts, disables, deletes or reinstates the WhatsApp Business Account, once per connected number on it. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_whats_app_account_status_updated** | [**WebhookPayloadWhatsAppAccountStatusUpdated**](WebhookPayloadWhatsAppAccountStatusUpdated.md) |  | [required] |
 
 ### Return type
 

@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**get_whats_app_number_remediation**](WhatsAppPhoneNumbersApi.md#get_whats_app_number_remediation) | **GET** /v1/whatsapp/phone-numbers/{id}/remediate | Get declined requirements
 [**get_whats_app_phone_number**](WhatsAppPhoneNumbersApi.md#get_whats_app_phone_number) | **GET** /v1/whatsapp/phone-numbers/{phoneNumberId} | Get phone number
 [**get_whats_app_phone_numbers**](WhatsAppPhoneNumbersApi.md#get_whats_app_phone_numbers) | **GET** /v1/whatsapp/phone-numbers | List phone numbers
+[**get_whats_app_pricing_analytics**](WhatsAppPhoneNumbersApi.md#get_whats_app_pricing_analytics) | **GET** /v1/whatsapp/pricing-analytics | Get pricing analytics
 [**list_whats_app_number_countries**](WhatsAppPhoneNumbersApi.md#list_whats_app_number_countries) | **GET** /v1/whatsapp/phone-numbers/countries | List offerable number countries
 [**move_whats_app_number_to_profile**](WhatsAppPhoneNumbersApi.md#move_whats_app_number_to_profile) | **PATCH** /v1/whatsapp/phone-numbers/{id}/profile | Move a number to another profile
 [**purchase_whats_app_phone_number**](WhatsAppPhoneNumbersApi.md#purchase_whats_app_phone_number) | **POST** /v1/whatsapp/phone-numbers/purchase | Purchase phone number
@@ -224,6 +225,44 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListPhoneNumbers200Response**](listPhoneNumbers_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_whats_app_pricing_analytics
+
+> models::GetWhatsAppPricingAnalytics200Response get_whats_app_pricing_analytics(account_id, start, end, granularity, dimensions, metric_types, pricing_types, pricing_categories, country_codes)
+Get pricing analytics
+
+Message volume and approximate cost for one connected WhatsApp number, read live from Meta's `pricing_analytics` on the WhatsApp Business Account and scoped to that account's phone number. Meta's figures are approximate and can lag; Meta bills from its own invoice. Meta limits how far back and how fine the data goes (for example HALF_HOUR only over short ranges) and answers out-of-range requests with an error. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | WhatsApp account ID | [required] |
+**start** | **String** | Range start, ISO 8601 date or date-time. | [required] |
+**end** | **String** | Range end, ISO 8601 date or date-time. Must be after start. | [required] |
+**granularity** | **String** |  | [required] |
+**dimensions** | Option<**String**> | Comma-separated breakdowns: COUNTRY, PHONE, PRICING_CATEGORY, PRICING_TYPE, TIER. Without it each data point is a total for the interval. |  |
+**metric_types** | Option<**String**> | Comma-separated: COST, VOLUME. Defaults to both. |  |
+**pricing_types** | Option<**String**> | Comma-separated filter: REGULAR, FREE_CUSTOMER_SERVICE, FREE_ENTRY_POINT. |  |
+**pricing_categories** | Option<**String**> | Comma-separated filter of Meta pricing categories, for example MARKETING, MARKETING_LITE, UTILITY, AUTHENTICATION, AUTHENTICATION_INTERNATIONAL, SERVICE, REFERRAL_CONVERSION. |  |
+**country_codes** | Option<**String**> | Comma-separated ISO 3166-1 alpha-2 country codes to filter on. |  |
+
+### Return type
+
+[**models::GetWhatsAppPricingAnalytics200Response**](getWhatsAppPricingAnalytics_200_response.md)
 
 ### Authorization
 
