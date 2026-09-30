@@ -43,7 +43,7 @@ Name | Type | Description | Notes
 **interests** | Option<[**Vec<models::CreateStandaloneAdRequestBehaviorsInner>**](CreateStandaloneAdRequestBehaviorsInner.md)> |  | [optional]
 **audience_id** | Option<**String**> | Custom audience ID to target. | [optional]
 **placements** | Option<[**models::CtwaAdRequestBodyPlacements**](CtwaAdRequestBodyPlacements.md)> |  | [optional]
-**gender** | Option<**Gender**> | Restrict the audience by gender (Meta `genders`). Stored on the ad and read back in `targeting.gender`. (enum: all, male, female) | [optional][default to All]
+**gender** | Option<**Gender**> | Restrict the audience by gender (Meta `genders`). Omit or send all for everyone; all is ignored in adSetId attach mode. Stored on the ad and read back in `targeting.gender`. (enum: all, male, female) | [optional]
 **languages** | Option<**Vec<String>**> | Audience languages (Meta `locales`). A bare ISO 639-1 code targets all regional variants (\"en\" = all English), a region-qualified code a specific one (\"en_GB\", \"pt_BR\"); unknown codes are rejected. | [optional]
 **places** | Option<[**Vec<models::CtwaAdRequestBodyPlacesInner>**](CtwaAdRequestBodyPlacesInner.md)> | Meta place keys (from GET /v1/ads/targeting/search). | [optional]
 **neighborhoods** | Option<[**Vec<models::CtwaAdRequestBodyPlacesInner>**](CtwaAdRequestBodyPlacesInner.md)> | Meta neighborhood keys (from GET /v1/ads/targeting/search). | [optional]
