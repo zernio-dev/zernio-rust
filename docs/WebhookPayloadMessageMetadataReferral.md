@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **image_url** | Option<**String**> |  | [optional]
 **video_url** | Option<**String**> |  | [optional]
 **thumbnail_url** | Option<**String**> |  | [optional]
+**welcome_message** | Option<[**models::WebhookPayloadMessageMetadataReferralWelcomeMessage**](WebhookPayloadMessageMetadataReferralWelcomeMessage.md)> |  | [optional]
 **ad_id** | Option<**String**> | Facebook Messenger CTM / Instagram CTD only. The Meta ad ID the user clicked to start the conversation.  | [optional]
 **r#ref** | Option<**String**> | The `ref` parameter passed through from the Meta ad creative or from an ig.me / m.me link. Instagram / Facebook Messenger only.  | [optional]
 **source** | Option<**String**> | Meta-supplied source identifier (`ADS` for ad clicks; `SHORTLINK`, `SHORTLINKS` or `IGME-SOURCE-LINK` for ref links). Instagram / Facebook Messenger only.  | [optional]

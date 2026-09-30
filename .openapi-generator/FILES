@@ -1266,6 +1266,7 @@ docs/InboxWebhookConversation.md
 docs/InboxWebhookConversationDetail.md
 docs/InboxWebhookMessage.md
 docs/InboxWebhookMessageAttachmentsInner.md
+docs/InboxWebhookMessageAttachmentsInnerPayload.md
 docs/InboxWebhookMessageSender.md
 docs/InboxWebhookMessageSenderInstagramProfile.md
 docs/InitiateTelegramConnect200Response.md
@@ -2549,6 +2550,7 @@ docs/WebhookPayloadMessageMetadataOrderProductItemsInner.md
 docs/WebhookPayloadMessageMetadataQuotedMessage.md
 docs/WebhookPayloadMessageMetadataReferral.md
 docs/WebhookPayloadMessageMetadataReferralAdsContextData.md
+docs/WebhookPayloadMessageMetadataReferralWelcomeMessage.md
 docs/WebhookPayloadMessageMetadataReferredProduct.md
 docs/WebhookPayloadMessageMetadataStoryReply.md
 docs/WebhookPayloadMessageMetadataUnsupported.md
@@ -3981,6 +3983,7 @@ src/models/inbox_webhook_conversation.rs
 src/models/inbox_webhook_conversation_detail.rs
 src/models/inbox_webhook_message.rs
 src/models/inbox_webhook_message_attachments_inner.rs
+src/models/inbox_webhook_message_attachments_inner_payload.rs
 src/models/inbox_webhook_message_sender.rs
 src/models/inbox_webhook_message_sender_instagram_profile.rs
 src/models/initiate_telegram_connect_200_response.rs
@@ -5234,6 +5237,7 @@ src/models/webhook_payload_message_metadata_order_product_items_inner.rs
 src/models/webhook_payload_message_metadata_quoted_message.rs
 src/models/webhook_payload_message_metadata_referral.rs
 src/models/webhook_payload_message_metadata_referral_ads_context_data.rs
+src/models/webhook_payload_message_metadata_referral_welcome_message.rs
 src/models/webhook_payload_message_metadata_referred_product.rs
 src/models/webhook_payload_message_metadata_story_reply.rs
 src/models/webhook_payload_message_metadata_unsupported.rs
