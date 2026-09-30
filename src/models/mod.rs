@@ -3186,6 +3186,8 @@ pub mod meta_catalog_product;
 pub use self::meta_catalog_product::MetaCatalogProduct;
 pub mod meta_catalog_product_input;
 pub use self::meta_catalog_product_input::MetaCatalogProductInput;
+pub mod meta_customer_lifecycle;
+pub use self::meta_customer_lifecycle::MetaCustomerLifecycle;
 pub mod meta_feed_upload;
 pub use self::meta_feed_upload::MetaFeedUpload;
 pub mod meta_instagram_identity_ref;

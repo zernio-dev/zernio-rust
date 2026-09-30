@@ -1642,6 +1642,7 @@ docs/MetaAssignedUser.md
 docs/MetaBusinessUser.md
 docs/MetaCatalogProduct.md
 docs/MetaCatalogProductInput.md
+docs/MetaCustomerLifecycle.md
 docs/MetaFeedUpload.md
 docs/MetaInstagramIdentityRef.md
 docs/MetaLeadForm.md
@@ -4333,6 +4334,7 @@ src/models/meta_assigned_user.rs
 src/models/meta_business_user.rs
 src/models/meta_catalog_product.rs
 src/models/meta_catalog_product_input.rs
+src/models/meta_customer_lifecycle.rs
 src/models/meta_feed_upload.rs
 src/models/meta_instagram_identity_ref.rs
 src/models/meta_lead_form.rs
