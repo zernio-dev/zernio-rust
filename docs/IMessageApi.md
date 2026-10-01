@@ -423,7 +423,7 @@ Name | Type | Description  | Required | Notes
 > models::RegisterImessageSender200Response register_imessage_sender(register_imessage_sender_request)
 Register an iMessage sender
 
-Registers a provider-provisioned iMessage sender (a phone number or an email handle) that YOU already own on a profile, creating an `imessage` account that sends and receives through the inbox conversation endpoints. To have Zernio order a new sender for you, use POST /v1/imessage/senders/order instead. Registration attaches the monthly sender fee (billed while active) and requires a payment method (402 without one). One sender per profile: re-registering the SAME handle refreshes it; a different handle returns 409 until the existing sender is canceled. 
+Registers a provider-provisioned iMessage sender (a phone number or an email handle) that YOU already own on a profile, creating an `imessage` account that sends and receives through the inbox conversation endpoints. To have Zernio order a new sender for you, use POST /v1/imessage/senders/order instead. Registration attaches the monthly sender fee (billed while active) and requires a payment method (402 without one). Re-registering the SAME handle refreshes its account; a different handle is added as another sender, and a profile can hold several. 
 
 ### Parameters
 

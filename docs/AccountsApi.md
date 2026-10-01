@@ -338,7 +338,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_accounts
 
-> models::AccountsListResponse list_accounts(profile_id, platform, status, include_over_limit, page, limit)
+> models::AccountsListResponse list_accounts(profile_id, platform, status, include_over_limit, page, limit, profile_ids, per_profile)
 List accounts
 
 Returns connected accounts. Only includes accounts within the plan limit by default. Follower data requires analytics add-on. Supports optional server-side pagination via page/limit params. When omitted, returns all accounts (backward-compatible). page and limit must be supplied together; out-of-range page/limit values are rejected with 400 rather than silently clamped. 
@@ -354,6 +354,8 @@ Name | Type | Description  | Required | Notes
 **include_over_limit** | Option<**bool**> | When true, includes accounts from over-limit profiles. |  |[default to false]
 **page** | Option<**i32**> | Page number (1-based). Must be provided together with limit to enable server-side pagination; sending only one of the two returns 400. Omit both for all accounts.  |  |
 **limit** | Option<**i32**> | Page size. Must be provided together with page; sending only one of the two returns 400.  |  |
+**profile_ids** | Option<**String**> | Comma-separated profile IDs (up to 50) to preview, together with perProfile. The response then also carries `profileTotals`. |  |
+**per_profile** | Option<**i32**> | Return a preview of each profile in profileIds: the newest account of every platform it has, topped up to at least N. Requires profileIds; cannot be combined with page and limit. |  |
 
 ### Return type
 
