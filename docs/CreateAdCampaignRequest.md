@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **account_id** | **String** | Zernio SocialAccount id (posting or ads variant); its platform decides where the campaign is created. | 
 **ad_account_id** | **String** | Platform ad account id (Meta act_<n>, Google customer id, LinkedIn account id, ...). | 
 **name** | **String** |  | 
-**goal** | **Goal** | Mapped to the ODAX objective (same mapping as POST /v1/ads/create). (enum: engagement, traffic, awareness, video_views, lead_generation, lead_conversion, job_applicants, conversions, app_promotion, catalog_sales, page_likes) | 
+**goal** | **Goal** | Mapped to the ODAX objective (same mapping as POST /v1/ads/create). (enum: engagement, traffic, awareness, video_views, lead_generation, lead_conversion, job_applicants, conversions, app_promotion, catalog_sales, page_likes, page_visits) | 
 **is_skadnetwork_attribution** | Option<**bool**> | Meta app promotion only. Immutable campaign flag. Set true for iOS 14+ SKAdNetwork campaigns and supply promotedObject.applicationId plus promotedObject.objectStoreUrl. The campaign receives promotedObject only when this flag is true. Cannot be changed on an existing campaign. | [optional]
 **promoted_object** | Option<[**models::AdPromotedObject**](AdPromotedObject.md)> |  | [optional]
 **buying_type** | Option<**BuyingType**> | Every platform buys at auction by default, so this only needs sending on Meta, and only to choose RESERVED. `AUCTION` is accepted on every platform and changes nothing. `RESERVED` (Reach & Frequency) is Meta-only and is rejected with a 400 elsewhere. SKAdNetwork app promotion requires AUCTION. (enum: AUCTION, RESERVED) | [optional]
