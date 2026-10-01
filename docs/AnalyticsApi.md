@@ -5,6 +5,7 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**get_analytics**](AnalyticsApi.md#get_analytics) | **GET** /v1/analytics | Get post analytics
+[**get_analytics_dashboard**](AnalyticsApi.md#get_analytics_dashboard) | **GET** /v1/analytics/dashboard | Get an analytics dashboard
 [**get_analytics_delta**](AnalyticsApi.md#get_analytics_delta) | **GET** /v1/analytics/delta | Analytics changed since a cursor
 [**get_best_time_to_post**](AnalyticsApi.md#get_best_time_to_post) | **GET** /v1/analytics/best-time | Get best times to post
 [**get_content_decay**](AnalyticsApi.md#get_content_decay) | **GET** /v1/analytics/content-decay | Get content performance decay
@@ -60,6 +61,42 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetAnalytics200Response**](getAnalytics_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_analytics_dashboard
+
+> models::GetAnalyticsDashboard200Response get_analytics_dashboard(from_date, to_date, profile_id, platform, compare, top_posts, recent_posts)
+Get an analytics dashboard
+
+Everything an analytics dashboard needs in one call: window totals, follower growth, a per-day series, top posts, recent posts and, optionally, the same figures for the previous period. Daily and total metrics use received attribution: each day holds the engagement that arrived that day, on any post, so `totals` is always the sum of `daily`. `topPosts` and `recentPosts` list posts published in the window with their lifetime metrics. A post cross-posted to several platforms appears once per platform. All dates are UTC days. Requires the Analytics add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**from_date** | **String** | First day of the window (YYYY-MM-DD, inclusive). | [required] |
+**to_date** | **String** | Last day of the window (YYYY-MM-DD, inclusive). May equal fromDate. The window covers at most 366 days. | [required] |
+**profile_id** | Option<**String**> | Profile ID, or \"all\" for every profile you can access. |  |[default to all]
+**platform** | Option<**String**> | Platform to cover (e.g. \"instagram\"), or \"all\". |  |[default to all]
+**compare** | Option<**String**> | Set to \"previous_period\" to also return previousTotals and previousFollowers for the window of the same length that ends the day before fromDate. |  |
+**top_posts** | Option<**i32**> | How many top posts to return, ranked by engagement (likes, comments, shares and saves, the same sum as daily engagement). |  |[default to 5]
+**recent_posts** | Option<**i32**> | How many of the most recently published posts to return. |  |[default to 10]
+
+### Return type
+
+[**models::GetAnalyticsDashboard200Response**](getAnalyticsDashboard_200_response.md)
 
 ### Authorization
 

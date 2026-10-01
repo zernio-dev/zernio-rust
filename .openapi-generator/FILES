@@ -98,6 +98,11 @@ docs/AdsListResponse.md
 docs/AdsTimelineResponse.md
 docs/AdsTimelineResponseRowsInner.md
 docs/AnalyticsApi.md
+docs/AnalyticsDashboardFollowers.md
+docs/AnalyticsDashboardFollowersByAccountInner.md
+docs/AnalyticsDashboardPost.md
+docs/AnalyticsDashboardPostMetrics.md
+docs/AnalyticsDashboardTotals.md
 docs/AnalyticsDeltaEntry.md
 docs/AnalyticsDeltaEntryMetrics.md
 docs/AnalyticsDeltaResponse.md
@@ -832,6 +837,9 @@ docs/GetAllAccountsHealth200ResponseSummary.md
 docs/GetAnalytics200Response.md
 docs/GetAnalytics400Response.md
 docs/GetAnalytics402Response.md
+docs/GetAnalyticsDashboard200Response.md
+docs/GetAnalyticsDashboard200ResponseDailyInner.md
+docs/GetAnalyticsDashboard200ResponseDateRange.md
 docs/GetBestTimeToPost200Response.md
 docs/GetBestTimeToPost200ResponseSlotsInner.md
 docs/GetBestTimeToPost403Response.md
@@ -1949,6 +1957,7 @@ docs/SearchTweets200ResponseTweetsInner.md
 docs/SearchTweets200ResponseTweetsInnerAuthor.md
 docs/SelectFacebookPage200Response.md
 docs/SelectFacebookPage200ResponseAccount.md
+docs/SelectFacebookPage200ResponseFailedInner.md
 docs/SelectFacebookPageRequest.md
 docs/SelectFacebookPageRequestOneOf.md
 docs/SelectFacebookPageRequestOneOf1.md
@@ -1963,8 +1972,10 @@ docs/SelectInstagramAccountRequest.md
 docs/SelectLinkedInOrganization200Response.md
 docs/SelectLinkedInOrganization200ResponseAccount.md
 docs/SelectLinkedInOrganization200ResponseBulkRefresh.md
+docs/SelectLinkedInOrganization200ResponseFailedInner.md
 docs/SelectLinkedInOrganizationRequest.md
 docs/SelectLinkedInOrganizationRequestSelectedOrganization.md
+docs/SelectLinkedInOrganizationRequestSelectionsInner.md
 docs/SelectPinterestBoard200Response.md
 docs/SelectPinterestBoard200ResponseAccount.md
 docs/SelectPinterestBoardRequest.md
@@ -2841,6 +2852,11 @@ src/models/adjust_conversions_request_adjustments_inner_user.rs
 src/models/ads_list_response.rs
 src/models/ads_timeline_response.rs
 src/models/ads_timeline_response_rows_inner.rs
+src/models/analytics_dashboard_followers.rs
+src/models/analytics_dashboard_followers_by_account_inner.rs
+src/models/analytics_dashboard_post.rs
+src/models/analytics_dashboard_post_metrics.rs
+src/models/analytics_dashboard_totals.rs
 src/models/analytics_delta_entry.rs
 src/models/analytics_delta_entry_metrics.rs
 src/models/analytics_delta_response.rs
@@ -3559,6 +3575,9 @@ src/models/get_all_accounts_health_200_response_summary.rs
 src/models/get_analytics_200_response.rs
 src/models/get_analytics_400_response.rs
 src/models/get_analytics_402_response.rs
+src/models/get_analytics_dashboard_200_response.rs
+src/models/get_analytics_dashboard_200_response_daily_inner.rs
+src/models/get_analytics_dashboard_200_response_date_range.rs
 src/models/get_best_time_to_post_200_response.rs
 src/models/get_best_time_to_post_200_response_slots_inner.rs
 src/models/get_best_time_to_post_403_response.rs
@@ -4648,6 +4667,7 @@ src/models/search_tweets_200_response_tweets_inner.rs
 src/models/search_tweets_200_response_tweets_inner_author.rs
 src/models/select_facebook_page_200_response.rs
 src/models/select_facebook_page_200_response_account.rs
+src/models/select_facebook_page_200_response_failed_inner.rs
 src/models/select_facebook_page_request.rs
 src/models/select_facebook_page_request_one_of.rs
 src/models/select_facebook_page_request_one_of_1.rs
@@ -4662,8 +4682,10 @@ src/models/select_instagram_account_request.rs
 src/models/select_linked_in_organization_200_response.rs
 src/models/select_linked_in_organization_200_response_account.rs
 src/models/select_linked_in_organization_200_response_bulk_refresh.rs
+src/models/select_linked_in_organization_200_response_failed_inner.rs
 src/models/select_linked_in_organization_request.rs
 src/models/select_linked_in_organization_request_selected_organization.rs
+src/models/select_linked_in_organization_request_selections_inner.rs
 src/models/select_pinterest_board_200_response.rs
 src/models/select_pinterest_board_200_response_account.rs
 src/models/select_pinterest_board_request.rs

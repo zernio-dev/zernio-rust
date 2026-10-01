@@ -1,0 +1,19 @@
+# AnalyticsDashboardTotals
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**impressions** | Option<**i32**> |  | [optional]
+**reach** | Option<**i32**> |  | [optional]
+**likes** | Option<**i32**> |  | [optional]
+**comments** | Option<**i32**> |  | [optional]
+**shares** | Option<**i32**> |  | [optional]
+**saves** | Option<**i32**> |  | [optional]
+**clicks** | Option<**i32**> |  | [optional]
+**views** | Option<**i32**> |  | [optional]
+**engagement_rate** | Option<**f64**> | Percentage. Likes, comments, shares and saves over impressions, pooled per platform (reach, then views, when a platform has no impressions). | [optional]
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
