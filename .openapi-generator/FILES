@@ -113,6 +113,11 @@ docs/AnalyticsOverview.md
 docs/AnalyticsOverviewDataStaleness.md
 docs/AnalyticsSinglePostResponse.md
 docs/AnalyticsSinglePostResponseMediaItemsInner.md
+docs/ApiChangelogEntry.md
+docs/ApiChangelogEntryChanges.md
+docs/ApiChangelogEntryChangesEndpoints.md
+docs/ApiChangelogEntryChangesSchemas.md
+docs/ApiChangelogOperationRef.md
 docs/ApiKey.md
 docs/ApiKeyCreatedBy.md
 docs/ApiKeyProfileIdsInner.md
@@ -270,6 +275,7 @@ docs/ChangeCommerceProductStateRequest.md
 docs/ChangeCommerceProductTags200Response.md
 docs/ChangeCommerceProductTags200ResponseFailedInner.md
 docs/ChangeCommerceProductTagsRequest.md
+docs/ChangelogApi.md
 docs/ChannelPicker.md
 docs/ChannelPickerChannelsInner.md
 docs/ChannelPickerTeam.md
@@ -1434,6 +1440,7 @@ docs/ListCampaignAssets200ResponseSitelinksInner.md
 docs/ListCampaignAssets200ResponseStructuredSnippetsInner.md
 docs/ListCampaignNegativeKeywords200Response.md
 docs/ListCampaignNegativeKeywords200ResponseKeywordsInner.md
+docs/ListChangelog200Response.md
 docs/ListCommentAutomationLogs200Response.md
 docs/ListCommentAutomationLogs200ResponseMisses.md
 docs/ListCommentAutomationLogs200ResponseMissesSamplesInner.md
@@ -2518,6 +2525,7 @@ docs/WebhookPayloadAdStatusChangedStatus.md
 docs/WebhookPayloadAnalyticsSynced.md
 docs/WebhookPayloadAnalyticsSyncedAccount.md
 docs/WebhookPayloadAnalyticsSyncedSync.md
+docs/WebhookPayloadApiChangelogPublished.md
 docs/WebhookPayloadCallEnded.md
 docs/WebhookPayloadCallEndedCall.md
 docs/WebhookPayloadCallEndedCallBilling.md
@@ -2705,6 +2713,7 @@ src/apis/branded_calling_api.rs
 src/apis/broadcasts_api.rs
 src/apis/business_agent_api.rs
 src/apis/calls_api.rs
+src/apis/changelog_api.rs
 src/apis/comment_automations_api.rs
 src/apis/comments_api.rs
 src/apis/commerce_api.rs
@@ -2867,6 +2876,11 @@ src/models/analytics_overview.rs
 src/models/analytics_overview_data_staleness.rs
 src/models/analytics_single_post_response.rs
 src/models/analytics_single_post_response_media_items_inner.rs
+src/models/api_changelog_entry.rs
+src/models/api_changelog_entry_changes.rs
+src/models/api_changelog_entry_changes_endpoints.rs
+src/models/api_changelog_entry_changes_schemas.rs
+src/models/api_changelog_operation_ref.rs
 src/models/api_key.rs
 src/models/api_key_created_by.rs
 src/models/api_key_profile_ids_inner.rs
@@ -4158,6 +4172,7 @@ src/models/list_campaign_assets_200_response_sitelinks_inner.rs
 src/models/list_campaign_assets_200_response_structured_snippets_inner.rs
 src/models/list_campaign_negative_keywords_200_response.rs
 src/models/list_campaign_negative_keywords_200_response_keywords_inner.rs
+src/models/list_changelog_200_response.rs
 src/models/list_comment_automation_logs_200_response.rs
 src/models/list_comment_automation_logs_200_response_misses.rs
 src/models/list_comment_automation_logs_200_response_misses_samples_inner.rs
@@ -5216,6 +5231,7 @@ src/models/webhook_payload_ad_status_changed_status.rs
 src/models/webhook_payload_analytics_synced.rs
 src/models/webhook_payload_analytics_synced_account.rs
 src/models/webhook_payload_analytics_synced_sync.rs
+src/models/webhook_payload_api_changelog_published.rs
 src/models/webhook_payload_call_ended.rs
 src/models/webhook_payload_call_ended_call.rs
 src/models/webhook_payload_call_ended_call_billing.rs

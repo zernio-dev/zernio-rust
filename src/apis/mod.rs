@@ -130,6 +130,7 @@ pub mod branded_calling_api;
 pub mod broadcasts_api;
 pub mod business_agent_api;
 pub mod calls_api;
+pub mod changelog_api;
 pub mod comment_automations_api;
 pub mod comments_api;
 pub mod commerce_api;
