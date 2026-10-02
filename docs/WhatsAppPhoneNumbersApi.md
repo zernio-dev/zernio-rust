@@ -253,7 +253,7 @@ Name | Type | Description  | Required | Notes
 **account_id** | **String** | WhatsApp account ID | [required] |
 **start** | **String** | Range start, ISO 8601 date or date-time. | [required] |
 **end** | **String** | Range end, ISO 8601 date or date-time. Must be after start. | [required] |
-**granularity** | **String** |  | [required] |
+**granularity** | **String** | Size of each data point. Meta refuses MONTHLY when the range is too short for a monthly bucket (for example a range that starts at the beginning of the current month and ends today); that is a 400 with `param: granularity` and Meta's reason in `error`. Use DAILY for short or month-to-date ranges.  | [required] |
 **dimensions** | Option<**String**> | Comma-separated breakdowns: COUNTRY, PHONE, PRICING_CATEGORY, PRICING_TYPE, TIER. Without it each data point is a total for the interval. |  |
 **metric_types** | Option<**String**> | Comma-separated: COST, VOLUME. Defaults to both. |  |
 **pricing_types** | Option<**String**> | Comma-separated filter: REGULAR, FREE_CUSTOMER_SERVICE, FREE_ENTRY_POINT. |  |
