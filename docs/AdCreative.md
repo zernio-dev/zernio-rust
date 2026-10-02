@@ -28,6 +28,7 @@ Name | Type | Description | Notes
 **body** | Option<**String**> | Ad copy/text | [optional]
 **google_headline** | Option<**String**> | Google Ads headline | [optional]
 **google_description** | Option<**String**> | Google Ads description | [optional]
+**youtube_video_ids** | Option<**Vec<String>**> | Google only. YouTube video ids behind a Video campaign ad (video and responsive video ads) or a Demand Gen video ad, same id as `youtubeVideoId` on Performance Max asset groups. When the ad has no image, `thumbnailUrl` is the first video's YouTube thumbnail. Absent on ads without a video. | [optional]
 **link_url** | Option<**String**> | Destination URL | [optional]
 **whatsapp_phone_number** | Option<**String**> | Explicit E.164 WhatsApp number supplied when creating a Meta boost or messaging ad. Absent when omitted by the caller or on older records. | [optional]
 **pinterest_image_url** | Option<**String**> |  | [optional]
