@@ -26,6 +26,7 @@ Method | HTTP request | Description
 [**release_phone_number**](PhoneNumbersApi.md#release_phone_number) | **DELETE** /v1/phone-numbers/{id} | Release phone number
 [**remediate_phone_number**](PhoneNumbersApi.md#remediate_phone_number) | **POST** /v1/phone-numbers/{id}/remediate | Resubmit a declined number
 [**reply_to_phone_number_reviewer**](PhoneNumbersApi.md#reply_to_phone_number_reviewer) | **POST** /v1/phone-numbers/{id}/remediate/reply | Reply to the regulatory reviewer
+[**request_phone_number_whats_app_code**](PhoneNumbersApi.md#request_phone_number_whats_app_code) | **POST** /v1/phone-numbers/{id}/whatsapp/request-code | Request the WhatsApp verification code for a number
 [**respond_to_phone_number_reviewer**](PhoneNumbersApi.md#respond_to_phone_number_reviewer) | **POST** /v1/phone-numbers/{id}/remediate/respond | Respond to the regulatory reviewer (message + corrections)
 [**review_phone_number_kyc_packet**](PhoneNumbersApi.md#review_phone_number_kyc_packet) | **POST** /v1/phone-numbers/kyc/review-packet | Pre-review a KYC packet
 [**search_available_phone_numbers**](PhoneNumbersApi.md#search_available_phone_numbers) | **GET** /v1/phone-numbers/available | Search available numbers
@@ -678,6 +679,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ReplyToPhoneNumberReviewer200Response**](replyToPhoneNumberReviewer_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## request_phone_number_whats_app_code
+
+> models::RequestPhoneNumberWhatsAppCode200Response request_phone_number_whats_app_code(id, request_phone_number_whats_app_code_request)
+Request the WhatsApp verification code for a number
+
+Starts (or restarts) WhatsApp verification of a Zernio-hosted number: adds it to Meta's pre-verified pool when needed and asks Meta to send the verification code, which Zernio captures on the number itself. Used to connect WhatsApp on a number bought for calls or SMS. `/v1/whatsapp/phone-numbers/{id}/request-code` is a deprecated alias with the same contract.  When Meta refuses the number for WhatsApp (Meta error 136021): a number that is already live (`active` or `suspended`) is left untouched and keeps working for calls and SMS, and the call answers 409 `number_not_whatsapp_eligible`; buy a new number with WhatsApp enabled instead. A number that was never live (still verifying) is replaced at no extra cost with a WhatsApp-eligible number on the same record, answered as 200 with `replaced: true`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | Phone number record ID (from GET /v1/phone-numbers). | [required] |
+**request_phone_number_whats_app_code_request** | Option<[**RequestPhoneNumberWhatsAppCodeRequest**](RequestPhoneNumberWhatsAppCodeRequest.md)> |  |  |
+
+### Return type
+
+[**models::RequestPhoneNumberWhatsAppCode200Response**](requestPhoneNumberWhatsAppCode_200_response.md)
 
 ### Authorization
 

@@ -4,9 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**error** | Option<**String**> |  | [optional]
-**code** | Option<**Code**> |  (enum: insufficient_permissions, unclassified_resource) | [optional]
-**required_group** | Option<**RequiredGroup**> | The resource group the key needs for this operation. Absent on admin-plane and unclassified-path denials. (enum: publishing, engagement, messages, contacts, analytics, ads, telephony, accounts, billing, webhooks) | [optional]
+**error** | **String** | Human-readable error message suitable for end-user display. | 
+**code** | **Code** | Machine-readable error code. Stable across versions. (enum: PAYMENT_REQUIRED) | 
+**reason** | **Reason** | Discriminator for which gate fired. (enum: free_tier_exceeded, twitter_passthrough, enterprise_required, card_verification_required) | 
+**documentation_url** | Option<**String**> | Link to the relevant documentation page. | [optional]
+**dashboard_url** | Option<**String**> | Deep-link to send the end-user to. For `free_tier_exceeded` and `twitter_passthrough` this opens the add-payment-method drawer on the Zernio billing page. For `enterprise_required` this is the Zernio enterprise contact page.  | [optional]
+**details** | Option<[**models::InlineObject3Details**](InlineObject3Details.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

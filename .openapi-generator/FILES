@@ -1292,8 +1292,7 @@ docs/InlineObject.md
 docs/InlineObject1.md
 docs/InlineObject2.md
 docs/InlineObject3.md
-docs/InlineObject4.md
-docs/InlineObject4Details.md
+docs/InlineObject3Details.md
 docs/InstagramAccountInsightsResponse.md
 docs/InstagramAccountInsightsResponseDateRange.md
 docs/InstagramAccountInsightsResponseMetricsValue.md
@@ -1897,6 +1896,8 @@ docs/ReplyToMentionRequest.md
 docs/ReplyToPhoneNumberReviewer200Response.md
 docs/ReplyToPhoneNumberReviewerRequest.md
 docs/ReplyToPhoneNumberReviewerRequestAttachmentsInner.md
+docs/RequestPhoneNumberWhatsAppCode200Response.md
+docs/RequestPhoneNumberWhatsAppCodeRequest.md
 docs/RequestSmsSenderIdLimitIncrease200Response.md
 docs/RequestSmsSenderIdLimitIncreaseRequest.md
 docs/RequestWhatsAppVerificationCode200Response.md
@@ -4028,8 +4029,7 @@ src/models/inline_object.rs
 src/models/inline_object_1.rs
 src/models/inline_object_2.rs
 src/models/inline_object_3.rs
-src/models/inline_object_4.rs
-src/models/inline_object_4_details.rs
+src/models/inline_object_3_details.rs
 src/models/instagram_account_insights_response.rs
 src/models/instagram_account_insights_response_date_range.rs
 src/models/instagram_account_insights_response_metrics_value.rs
@@ -4616,6 +4616,8 @@ src/models/reply_to_mention_request.rs
 src/models/reply_to_phone_number_reviewer_200_response.rs
 src/models/reply_to_phone_number_reviewer_request.rs
 src/models/reply_to_phone_number_reviewer_request_attachments_inner.rs
+src/models/request_phone_number_whats_app_code_200_response.rs
+src/models/request_phone_number_whats_app_code_request.rs
 src/models/request_sms_sender_id_limit_increase_200_response.rs
 src/models/request_sms_sender_id_limit_increase_request.rs
 src/models/request_whats_app_verification_code_200_response.rs

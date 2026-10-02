@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **r#type** | **Type** | Error class for programmatic handling. (enum: invalid_request_error, authentication_error, permission_error, not_found, rate_limit_error, platform_error, api_error) | 
 **code** | **Code** |  (enum: platform_api_error) | 
 **param** | Option<**String**> | The request field that caused the error, when applicable. | [optional]
+**doc_url** | Option<**String**> | Documentation page for resolving the error, when one applies. | [optional]
 **platform** | **Platform** |  (enum: whatsapp) | 
 **platform_error** | Option<[**models::WhatsAppTemplateLookupErrorPlatformError**](WhatsAppTemplateLookupErrorPlatformError.md)> |  | [optional]
 **details** | [**models::WhatsAppTemplateLookupErrorDetails**](WhatsAppTemplateLookupErrorDetails.md) |  | 
