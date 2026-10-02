@@ -827,6 +827,10 @@ docs/GetAdMedia200ResponseMediaInner.md
 docs/GetAdNegativeKeywordList200Response.md
 docs/GetAdNegativeKeywordList200ResponseList.md
 docs/GetAdPreviews200Response.md
+docs/GetAdReview200Response.md
+docs/GetAdReview200ResponseReview.md
+docs/GetAdReview200ResponseReviewRejectionsInner.md
+docs/GetAdReview200ResponseReviewRejectionsInnerContent.md
 docs/GetAdSetDetails200Response.md
 docs/GetAdTrackingTags200Response.md
 docs/GetAdTree202Response.md
@@ -3576,6 +3580,10 @@ src/models/get_ad_media_200_response_media_inner.rs
 src/models/get_ad_negative_keyword_list_200_response.rs
 src/models/get_ad_negative_keyword_list_200_response_list.rs
 src/models/get_ad_previews_200_response.rs
+src/models/get_ad_review_200_response.rs
+src/models/get_ad_review_200_response_review.rs
+src/models/get_ad_review_200_response_review_rejections_inner.rs
+src/models/get_ad_review_200_response_review_rejections_inner_content.rs
 src/models/get_ad_set_details_200_response.rs
 src/models/get_ad_tracking_tags_200_response.rs
 src/models/get_ad_tree_202_response.rs

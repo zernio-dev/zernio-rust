@@ -25,6 +25,7 @@ Method | HTTP request | Description
 [**edit_google_asset_group_assets**](AdCampaignsApi.md#edit_google_asset_group_assets) | **POST** /v1/ads/campaigns/{campaignId}/asset-groups/{assetGroupId}/assets | Link or unlink asset group assets
 [**get_ad**](AdCampaignsApi.md#get_ad) | **GET** /v1/ads/{adId} | Get ad details
 [**get_ad_campaign_details**](AdCampaignsApi.md#get_ad_campaign_details) | **GET** /v1/ads/campaigns/{campaignId} | Get live campaign details
+[**get_ad_review**](AdCampaignsApi.md#get_ad_review) | **GET** /v1/ads/{adId}/review | Read the platform's review verdict for an ad
 [**get_ad_set_details**](AdCampaignsApi.md#get_ad_set_details) | **GET** /v1/ads/ad-sets/{adSetId} | Get live ad-set details
 [**get_ad_tree**](AdCampaignsApi.md#get_ad_tree) | **GET** /v1/ads/tree | Get campaign tree
 [**get_ads_timeline**](AdCampaignsApi.md#get_ads_timeline) | **GET** /v1/ads/timeline | Get daily account metrics
@@ -704,6 +705,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetAdCampaignDetails200Response**](getAdCampaignDetails_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_ad_review
+
+> models::GetAdReview200Response get_ad_review(ad_id)
+Read the platform's review verdict for an ad
+
+Reads the ad's review verdict from the platform now: whether it was approved, where it may not deliver, and every rejection reason with TikTok's suggestion and the piece of content it refers to. Read-only, so it works on a paused ad without re-enabling it.  TikTok only (`/ad/review_info/`); every other platform returns 501. Use it alongside the ad's `platformStatus`: TikTok reports `AD_STATUS_AUDIT` while the ad is in review and `AD_STATUS_AD_PRE_ONLINE` once it passed and is about to deliver (both map to `status: pending_review`); `AD_STATUS_AUDIT_DENY` maps to `rejected`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**ad_id** | **String** | Zernio ad id (24-char hex) or the platform ad id. | [required] |
+
+### Return type
+
+[**models::GetAdReview200Response**](getAdReview_200_response.md)
 
 ### Authorization
 
