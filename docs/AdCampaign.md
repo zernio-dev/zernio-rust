@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **review_status** | Option<[**models::AdReviewStatus**](AdReviewStatus.md)> |  | [optional]
 **platform_campaign_status** | Option<**String**> | Raw platform-level campaign status (Meta `effective_status`; ChatGPT (OpenAI): the campaign's own switch, active / paused / archived; TikTok: the campaign's own switch `operation_status`, ENABLE / DISABLE). | [optional]
 **status_read_at** | Option<**String**> | Only on GET /v1/ads/campaigns with `live=true`. When `platformCampaignStatus` was read from the platform; null when this campaign could not be read live. | [optional]
+**native_settings** | Option<**std::collections::HashMap<String, serde_json::Value>**> | TikTok only, only on GET /v1/ads/campaigns with `live=true` and only on campaigns read live. TikTok's campaign/get record verbatim: operation_status, objective_type, budget_mode (BUDGET_MODE_INFINITE means no campaign budget, so budget lives on the ad groups), budget, and budget_optimize_on when TikTok returns it. Plus advertiser_currency and advertiser_timezone from TikTok's advertiser/info. | [optional]
+**config_read_at** | Option<**String**> | Only on GET /v1/ads/campaigns with `live=true`. When `nativeSettings` was read from the platform. Null whenever native settings were not read now. | [optional]
 **campaign_issues_info** | Option<**Vec<serde_json::Value>**> | Platform-reported campaign issues (Meta `issues_info[]`). | [optional]
 **ad_count** | Option<**i32**> |  | [optional]
 **budget** | Option<[**models::AdCampaignBudget**](AdCampaignBudget.md)> |  | [optional]

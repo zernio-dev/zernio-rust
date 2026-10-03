@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **path** | Option<**Vec<String>**> | Optional breadcrumb of parent labels (e.g. ['United States', 'California', 'Los Angeles']). Disambiguates same-named results. | [optional]
 **audience_size** | Option<**i32**> | Optional estimated reachable users for this option, when the platform returns it. | [optional]
 **country_code** | Option<**String**> | ISO-3166 alpha-2 of the country a sub-country geo result (city, region, zip, metro) belongs to, when the platform reports it (Meta does). Useful to know whether a location falls under the EU DSA disclosure rules before creating the ad. | [optional]
+**platform_id** | Option<**String**> | Only on `country` results: the platform's own id for the country, which `id` replaced with the ISO code (TikTok's native location_id, a GeoNames id such as 2635167 for GB; Meta's country key; Google's geo target constant id; X's targeting value; LinkedIn's geo URN). Use it to match a country against what the platform reports back, e.g. `location_ids` in a TikTok `nativeSettings` read. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

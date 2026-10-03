@@ -181,6 +181,7 @@ docs/BoostPostRequestPlatformSpecificData.md
 docs/BoostPostRequestPromoCodesInner.md
 docs/BoostPostRequestPromotedObject.md
 docs/BoostPostRequestSchedule.md
+docs/BoostPostRequestSmartTargeting.md
 docs/BoostPostRequestSparkPostsInner.md
 docs/BoostPostRequestTargeting.md
 docs/BoostPostRequestTargetingCitiesInner.md
@@ -2250,6 +2251,7 @@ docs/UpdateAdSetRequest.md
 docs/UpdateAdSetRequestBudget.md
 docs/UpdateAdSetRequestPlatformSpecificData.md
 docs/UpdateAdSetRequestPlatformSpecificDataPromotedObject.md
+docs/UpdateAdSetRequestSmartTargeting.md
 docs/UpdateAdSetStatus200Response.md
 docs/UpdateAdStatus200Response.md
 docs/UpdateAdTrackingTags200Response.md
@@ -2949,6 +2951,7 @@ src/models/boost_post_request_platform_specific_data.rs
 src/models/boost_post_request_promo_codes_inner.rs
 src/models/boost_post_request_promoted_object.rs
 src/models/boost_post_request_schedule.rs
+src/models/boost_post_request_smart_targeting.rs
 src/models/boost_post_request_spark_posts_inner.rs
 src/models/boost_post_request_targeting.rs
 src/models/boost_post_request_targeting_cities_inner.rs
@@ -4969,6 +4972,7 @@ src/models/update_ad_set_request.rs
 src/models/update_ad_set_request_budget.rs
 src/models/update_ad_set_request_platform_specific_data.rs
 src/models/update_ad_set_request_platform_specific_data_promoted_object.rs
+src/models/update_ad_set_request_smart_targeting.rs
 src/models/update_ad_set_status_200_response.rs
 src/models/update_ad_status_200_response.rs
 src/models/update_ad_tracking_tags_200_response.rs
