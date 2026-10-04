@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**get_best_time_to_post**](AnalyticsApi.md#get_best_time_to_post) | **GET** /v1/analytics/best-time | Get best times to post
 [**get_content_decay**](AnalyticsApi.md#get_content_decay) | **GET** /v1/analytics/content-decay | Get content performance decay
 [**get_daily_metrics**](AnalyticsApi.md#get_daily_metrics) | **GET** /v1/analytics/daily-metrics | Get daily aggregated metrics
+[**get_facebook_demographics**](AnalyticsApi.md#get_facebook_demographics) | **GET** /v1/analytics/facebook/demographics | Get Facebook Page demographics
 [**get_facebook_page_insights**](AnalyticsApi.md#get_facebook_page_insights) | **GET** /v1/analytics/facebook/page-insights | Get Facebook Page insights
 [**get_facebook_post_earnings**](AnalyticsApi.md#get_facebook_post_earnings) | **GET** /v1/analytics/facebook/post-earnings | Get Facebook post monetization earnings
 [**get_facebook_post_reactions**](AnalyticsApi.md#get_facebook_post_reactions) | **GET** /v1/accounts/{accountId}/facebook-post-reactions | Get Facebook post reactions
@@ -232,6 +233,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetDailyMetrics200Response**](getDailyMetrics_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_facebook_demographics
+
+> models::GetFacebookDemographics200Response get_facebook_demographics(account_id, breakdown)
+Get Facebook Page demographics
+
+Returns the follower breakdown of a connected Facebook Page by country and/or city, from Meta's latest daily snapshot. Country keys are ISO 3166-1 alpha-2 codes; city keys are \"City, Region, Country\" strings as Meta returns them. Meta removed age and gender demographics for Pages (page_fans_gender_age) on November 15 2025 with no replacement, so only country and city are available. Meta reports small counts at a privacy floor, so the long tail can show identical low values. Requires the Analytics add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The Zernio SocialAccount ID for the Facebook account | [required] |
+**breakdown** | Option<**String**> | Comma-separated list of demographic dimensions: country, city. Defaults to both if omitted.  |  |
+
+### Return type
+
+[**models::GetFacebookDemographics200Response**](getFacebookDemographics_200_response.md)
 
 ### Authorization
 

@@ -25,7 +25,7 @@ Name | Type | Description | Notes
 **audience_types** | **std::collections::HashMap<String, f64>** | TikTok business lane: follower / nonFollower and newViewer / returnViewer shares, fractions 0 to 1. Empty object elsewhere. | 
 **audience_countries** | **std::collections::HashMap<String, f64>** | TikTok business lane: viewer-country shares keyed by ISO-3166 alpha-2, fractions 0 to 1, top 20 with the tail in `other`. Empty object elsewhere. | 
 **replays** | Option<**i32**> | Facebook Reels only: plays that were replays. 0 elsewhere. | [optional]
-**retention_curve** | Option<**std::collections::HashMap<String, f64>**> | Facebook Reels only: share of plays still watching at each second, keyed by the second, fractions 0 to 1. Empty object elsewhere. | [optional]
+**retention_curve** | Option<**std::collections::HashMap<String, f64>**> | Facebook Reels only: share of plays still watching at each second of playback, fractions 0 to 1 (Meta post_video_retention_graph). Keys are whole seconds from the start of a play (\"3\" is the share still watching at 3 s). Loops count as continued playback, so a short Reels curve runs past its length (an 8 s Reel has keys \"0\" to \"12\"); Meta returns at most 41 points, so a long Reel covers only its first 40 s. Empty object elsewhere. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
