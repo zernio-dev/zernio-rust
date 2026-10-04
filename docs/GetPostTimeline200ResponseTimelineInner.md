@@ -22,6 +22,8 @@ Name | Type | Description | Notes
 **impression_sources** | Option<**std::collections::HashMap<String, f64>**> | TikTok business lane: share of views by surface on this date (forYou, follow, search, personalProfile, sound, directMessage, other), fractions 0 to 1; empty object elsewhere | [optional]
 **audience_types** | Option<**std::collections::HashMap<String, f64>**> | TikTok business lane: follower / nonFollower and newViewer / returnViewer shares on this date, fractions 0 to 1; empty object elsewhere | [optional]
 **audience_countries** | Option<**std::collections::HashMap<String, f64>**> | TikTok business lane: viewer-country shares on this date keyed by ISO-3166 alpha-2, fractions 0 to 1, top 20 with the tail in `other`; empty object elsewhere | [optional]
+**replays** | Option<**i32**> | Facebook Reels only: plays that were replays, as of this date; 0 elsewhere | [optional]
+**retention_curve** | Option<**std::collections::HashMap<String, f64>**> | Facebook Reels only: share of plays still watching at each second as of this date, keyed by the second, fractions 0 to 1; empty object elsewhere | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
