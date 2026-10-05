@@ -128,7 +128,7 @@ Deprecated alias of `/v1/phone-numbers/{id}/whatsapp/calling`; same contract. Ne
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**id** | **String** | WhatsAppPhoneNumber Mongo ID | [required] |
+**id** | **String** | WhatsApp phone number id | [required] |
 **enable_whats_app_calling_legacy_request** | [**EnableWhatsAppCallingLegacyRequest**](EnableWhatsAppCallingLegacyRequest.md) |  | [required] |
 
 ### Return type

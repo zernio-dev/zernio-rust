@@ -19,14 +19,14 @@ Method | HTTP request | Description
 > models::GetInboxConversationAnalytics200Response get_inbox_conversation_analytics(conversation_id, from_date, to_date)
 Get conversation analytics
 
-Per-conversation inbox analytics. The inbox analog of /v1/analytics/post-timeline: one conversation, daily totals, source mix.  The {conversationId} path param accepts EITHER the Mongo `_id` of the Conversation document OR its `platformConversationId` (the same identity used by metadata.conversationId at ingest time). Ownership is verified in MongoDB against the caller's team before the Tinybird query fires.  Max date range is 365 days. 
+Per-conversation inbox analytics. The inbox analog of /v1/analytics/post-timeline: one conversation, daily totals, source mix.  The {conversationId} path param accepts EITHER the Zernio conversation id OR its `platformConversationId` (the same identity used by metadata.conversationId at ingest time). Ownership is verified against the caller's team before the Tinybird query fires.  Max date range is 365 days. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**conversation_id** | **String** | Mongo _id or platformConversationId. | [required] |
+**conversation_id** | **String** | Zernio conversation id or platformConversationId. | [required] |
 **from_date** | **String** |  | [required] |
 **to_date** | Option<**String**> |  |  |
 
@@ -167,7 +167,7 @@ Name | Type | Description  | Required | Notes
 **profile_id** | Option<**String**> |  |  |
 **platform** | Option<**String**> |  |  |
 **source** | Option<**String**> |  |  |
-**limit** | Option<**i32**> | Cap on returned rows. Lower than the posting listing's 100 because each row triggers a SocialAccount Mongo lookup. |  |[default to 10]
+**limit** | Option<**i32**> | Cap on returned rows. Lower than the posting listing's 100 because each row triggers a social account lookup. |  |[default to 10]
 
 ### Return type
 

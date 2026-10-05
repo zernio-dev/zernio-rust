@@ -1766,6 +1766,8 @@ pub mod get_facebook_pages_200_response;
 pub use self::get_facebook_pages_200_response::GetFacebookPages200Response;
 pub mod get_facebook_pages_200_response_pages_inner;
 pub use self::get_facebook_pages_200_response_pages_inner::GetFacebookPages200ResponsePagesInner;
+pub mod get_facebook_pages_200_response_pages_inner_instagram_account;
+pub use self::get_facebook_pages_200_response_pages_inner_instagram_account::GetFacebookPages200ResponsePagesInnerInstagramAccount;
 pub mod get_facebook_post_reactions_200_response;
 pub use self::get_facebook_post_reactions_200_response::GetFacebookPostReactions200Response;
 pub mod get_facebook_post_reactions_200_response_breakdown;
