@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookPayloadCommentCommentAd : Ad context. Present only when the comment was made on paid content. Instagram: populated from the webhook payload's value.media.ad_id and value.media.ad_title. Facebook: populated via a Graph API lookup of the parent post's promotion_status. Absent for comments on organic posts that are not currently promoted.
+/// WebhookPayloadCommentCommentAd : Ad context. Present only when the comment was made on paid content. Instagram: populated from the webhook payload's value.media.ad_id, value.media.ad_title and value.media.original_media_id, each only when Meta includes it. Facebook: populated via a Graph API lookup of the parent post's promotion_status. Absent for comments on organic posts that are not currently promoted.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookPayloadCommentCommentAd {
     /// Meta ad ID (Instagram only).
@@ -20,17 +20,21 @@ pub struct WebhookPayloadCommentCommentAd {
     /// Ad creative title (Instagram only).
     #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
+    /// Original media ID that Meta reports for the ad (Instagram only).
+    #[serde(rename = "originalMediaId", skip_serializing_if = "Option::is_none")]
+    pub original_media_id: Option<String>,
     /// Facebook promotion status returned by Graph API. Common values: \"active\" (organic post currently boosted), \"ineligible\" (dark post or ad creative, not promotable because it already is an ad).
     #[serde(rename = "promotionStatus", skip_serializing_if = "Option::is_none")]
     pub promotion_status: Option<String>,
 }
 
 impl WebhookPayloadCommentCommentAd {
-    /// Ad context. Present only when the comment was made on paid content. Instagram: populated from the webhook payload's value.media.ad_id and value.media.ad_title. Facebook: populated via a Graph API lookup of the parent post's promotion_status. Absent for comments on organic posts that are not currently promoted.
+    /// Ad context. Present only when the comment was made on paid content. Instagram: populated from the webhook payload's value.media.ad_id, value.media.ad_title and value.media.original_media_id, each only when Meta includes it. Facebook: populated via a Graph API lookup of the parent post's promotion_status. Absent for comments on organic posts that are not currently promoted.
     pub fn new() -> WebhookPayloadCommentCommentAd {
         WebhookPayloadCommentCommentAd {
             id: None,
             title: None,
+            original_media_id: None,
             promotion_status: None,
         }
     }
