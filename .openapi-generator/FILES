@@ -13,6 +13,7 @@ docs/ActivateWorkflow200Response.md
 docs/ActivateWorkflow200ResponseWorkflow.md
 docs/Ad.md
 docs/AdAccountsApi.md
+docs/AdActivationStatus.md
 docs/AdAnalyticsResponse.md
 docs/AdAnalyticsResponseAd.md
 docs/AdAnalyticsResponseAnalytics.md
@@ -811,6 +812,13 @@ docs/GetAdAccountHierarchy200ResponseDirectCustomersInnerPendingInvitationsInner
 docs/GetAdAccountHierarchy200ResponseRootsInner.md
 docs/GetAdAccountHierarchy200ResponseRootsInnerManagerLinksInner.md
 docs/GetAdAccountHierarchy200ResponseUnavailableInner.md
+docs/GetAdAccountLiveEntities200Response.md
+docs/GetAdAccountLiveEntities200ResponseAdSetsInner.md
+docs/GetAdAccountLiveEntities200ResponseAdSetsInnerBudget.md
+docs/GetAdAccountLiveEntities200ResponseAdSetsInnerSchedule.md
+docs/GetAdAccountLiveEntities200ResponseCampaignsInner.md
+docs/GetAdAccountLiveEntities200ResponseCampaignsInnerBudget.md
+docs/GetAdAccountLiveEntities200ResponsePaging.md
 docs/GetAdAnalytics202Response.md
 docs/GetAdAudience200Response.md
 docs/GetAdCampaignDetails200Response.md
@@ -835,6 +843,8 @@ docs/GetAdReview200ResponseReviewRejectionsInnerContent.md
 docs/GetAdSetDetails200Response.md
 docs/GetAdTrackingTags200Response.md
 docs/GetAdTree202Response.md
+docs/GetAdVideoStatus200Response.md
+docs/GetAdVideoStatus200ResponseVideo.md
 docs/GetAdsActivityLog200Response.md
 docs/GetAdsActivityLog200ResponsePaging.md
 docs/GetAdsSearchTerms200Response.md
@@ -2434,6 +2444,8 @@ docs/UploadAdImage201ResponseImage.md
 docs/UploadAdImageRequest.md
 docs/UploadAdVideo201Response.md
 docs/UploadAdVideo201ResponseVideo.md
+docs/UploadAdVideo202Response.md
+docs/UploadAdVideo202ResponseVideo.md
 docs/UploadAdVideoRequest.md
 docs/UploadBusinessAgentFileRequest.md
 docs/UploadMediaDirect200Response.md
@@ -2538,6 +2550,9 @@ docs/WebhookPayloadAdStatusChangedAccount.md
 docs/WebhookPayloadAdStatusChangedAdObject.md
 docs/WebhookPayloadAdStatusChangedError.md
 docs/WebhookPayloadAdStatusChangedStatus.md
+docs/WebhookPayloadAdVideoProcessed.md
+docs/WebhookPayloadAdVideoProcessedAccount.md
+docs/WebhookPayloadAdVideoProcessedVideo.md
 docs/WebhookPayloadAnalyticsSynced.md
 docs/WebhookPayloadAnalyticsSyncedAccount.md
 docs/WebhookPayloadAnalyticsSyncedSync.md
@@ -2799,6 +2814,7 @@ src/models/activate_sequence_200_response.rs
 src/models/activate_workflow_200_response.rs
 src/models/activate_workflow_200_response_workflow.rs
 src/models/ad.rs
+src/models/ad_activation_status.rs
 src/models/ad_analytics_response.rs
 src/models/ad_analytics_response_ad.rs
 src/models/ad_analytics_response_analytics.rs
@@ -3573,6 +3589,13 @@ src/models/get_ad_account_hierarchy_200_response_direct_customers_inner_pending_
 src/models/get_ad_account_hierarchy_200_response_roots_inner.rs
 src/models/get_ad_account_hierarchy_200_response_roots_inner_manager_links_inner.rs
 src/models/get_ad_account_hierarchy_200_response_unavailable_inner.rs
+src/models/get_ad_account_live_entities_200_response.rs
+src/models/get_ad_account_live_entities_200_response_ad_sets_inner.rs
+src/models/get_ad_account_live_entities_200_response_ad_sets_inner_budget.rs
+src/models/get_ad_account_live_entities_200_response_ad_sets_inner_schedule.rs
+src/models/get_ad_account_live_entities_200_response_campaigns_inner.rs
+src/models/get_ad_account_live_entities_200_response_campaigns_inner_budget.rs
+src/models/get_ad_account_live_entities_200_response_paging.rs
 src/models/get_ad_analytics_202_response.rs
 src/models/get_ad_audience_200_response.rs
 src/models/get_ad_campaign_details_200_response.rs
@@ -3597,6 +3620,8 @@ src/models/get_ad_review_200_response_review_rejections_inner_content.rs
 src/models/get_ad_set_details_200_response.rs
 src/models/get_ad_tracking_tags_200_response.rs
 src/models/get_ad_tree_202_response.rs
+src/models/get_ad_video_status_200_response.rs
+src/models/get_ad_video_status_200_response_video.rs
 src/models/get_ads_activity_log_200_response.rs
 src/models/get_ads_activity_log_200_response_paging.rs
 src/models/get_ads_search_terms_200_response.rs
@@ -5162,6 +5187,8 @@ src/models/upload_ad_image_201_response_image.rs
 src/models/upload_ad_image_request.rs
 src/models/upload_ad_video_201_response.rs
 src/models/upload_ad_video_201_response_video.rs
+src/models/upload_ad_video_202_response.rs
+src/models/upload_ad_video_202_response_video.rs
 src/models/upload_ad_video_request.rs
 src/models/upload_business_agent_file_request.rs
 src/models/upload_media_direct_200_response.rs
@@ -5260,6 +5287,9 @@ src/models/webhook_payload_ad_status_changed_account.rs
 src/models/webhook_payload_ad_status_changed_ad_object.rs
 src/models/webhook_payload_ad_status_changed_error.rs
 src/models/webhook_payload_ad_status_changed_status.rs
+src/models/webhook_payload_ad_video_processed.rs
+src/models/webhook_payload_ad_video_processed_account.rs
+src/models/webhook_payload_ad_video_processed_video.rs
 src/models/webhook_payload_analytics_synced.rs
 src/models/webhook_payload_analytics_synced_account.rs
 src/models/webhook_payload_analytics_synced_sync.rs

@@ -22,6 +22,7 @@ Method | HTTP request | Description
 [**detach_ad_label**](AdAccountsApi.md#detach_ad_label) | **DELETE** /v1/ads/labels/{labelId}/assignments | Detach a Google Ads label
 [**get_ad_account_finance**](AdAccountsApi.md#get_ad_account_finance) | **GET** /v1/ads/accounts/finance | Ad account finances
 [**get_ad_account_hierarchy**](AdAccountsApi.md#get_ad_account_hierarchy) | **GET** /v1/ads/accounts/hierarchy | Get manager account hierarchy
+[**get_ad_account_live_entities**](AdAccountsApi.md#get_ad_account_live_entities) | **GET** /v1/ads/accounts/live | Read an ad account's campaigns and ad sets live
 [**get_ad_comments**](AdAccountsApi.md#get_ad_comments) | **GET** /v1/ads/{adId}/comments | List comments on an ad
 [**get_ad_negative_keyword_list**](AdAccountsApi.md#get_ad_negative_keyword_list) | **GET** /v1/ads/accounts/negative-keyword-lists/{listId} | Get a negative keyword list
 [**get_ads_activity_log**](AdAccountsApi.md#get_ads_activity_log) | **GET** /v1/ads/activity | Ad account change / audit log
@@ -610,6 +611,41 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetAdAccountHierarchy200Response**](getAdAccountHierarchy_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_ad_account_live_entities
+
+> models::GetAdAccountLiveEntities200Response get_ad_account_live_entities(account_id, ad_account_id, status, level, limit, after)
+Read an ad account's campaigns and ad sets live
+
+Reads the campaigns and ad sets of one Meta ad account **live from Meta**, in a single Graph call per request (the account's `/campaigns` and `/adsets` edges, filtered by `effective_status`), so it is cheap enough to run before every write: for example a per-ad-account spend ceiling that must see the current `daily_budget` / `lifetime_budget` rather than the synced copy.  **Live vs synced.** GET /v1/ads/campaigns and GET /v1/ads/ad-sets serve Zernio's synced store, refreshed by background sync (typically 15 to 60 minutes behind Meta), and their `live=true` re-reads only the on/off switches of at most 20 objects. This endpoint returns what Meta reports at `readAt`, for every matching campaign and ad set, and stores nothing.  Budgets and bid amounts are converted from Meta's minor units to whole units of `currency`, the same units as the synced rows. A campaign with a campaign budget (Advantage+ campaign budget) carries `budget` and its ad sets have `budget: null`; otherwise each ad set carries its own.  Each level returns at most `limit` rows. When more match, `paging.<level>.after` is a cursor: pass it back as `after` together with `level` to read the next page of that level only. Other platforms answer 501 rather than serving synced data.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Zernio SocialAccount id (posting or ads variant) used to resolve the Meta token. | [required] |
+**ad_account_id** | **String** | Meta ad account id (act_<n>). | [required] |
+**status** | Option<**String**> | Comma-separated Meta `effective_status` values to keep: ACTIVE, PAUSED, IN_PROCESS, WITH_ISSUES, DELETED, ARCHIVED, and CAMPAIGN_PAUSED (ad sets only; the campaigns level ignores it). Defaults to every status except DELETED and ARCHIVED. An unknown value is a 400. |  |
+**level** | Option<**String**> | Read only one level. Required with `after`. Both levels are read when omitted. |  |
+**limit** | Option<**i32**> | Maximum rows per level in this response. |  |[default to 200]
+**after** | Option<**String**> | Cursor from `paging.campaigns.after` or `paging.adSets.after` of a previous response. Requires `level`. |  |
+
+### Return type
+
+[**models::GetAdAccountLiveEntities200Response**](getAdAccountLiveEntities_200_response.md)
 
 ### Authorization
 

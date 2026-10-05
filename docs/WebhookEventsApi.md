@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**on_account_connected**](WebhookEventsApi.md#on_account_connected) | **POST** /account.connected | Account connected event
 [**on_account_disconnected**](WebhookEventsApi.md#on_account_disconnected) | **POST** /account.disconnected | Account disconnected event
 [**on_ad_status_changed**](WebhookEventsApi.md#on_ad_status_changed) | **POST** /ad.status_changed | Ad status changed event
+[**on_ad_video_processed**](WebhookEventsApi.md#on_ad_video_processed) | **POST** /ad.video.processed | Ad video processed event
 [**on_analytics_synced**](WebhookEventsApi.md#on_analytics_synced) | **POST** /analytics.synced | Analytics synced event
 [**on_api_changelog_published**](WebhookEventsApi.md#on_api_changelog_published) | **POST** /api.changelog.published | API changelog entry published event
 [**on_branded_calling_identity_action_required**](WebhookEventsApi.md#on_branded_calling_identity_action_required) | **POST** /branded_calling.identity.action_required | Caller identity action required event
@@ -240,6 +241,36 @@ Fired when a campaign, ad set, or ad on a connected ad platform changes status. 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_ad_status_changed** | [**WebhookPayloadAdStatusChanged**](WebhookPayloadAdStatusChanged.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_ad_video_processed
+
+> on_ad_video_processed(webhook_payload_ad_video_processed)
+Ad video processed event
+
+Fired once per `POST /v1/ads/videos` call made with `async: true`, when Meta finishes processing the uploaded video. `video.status` is `ready` (reference it as `video.id` on the create endpoints) or `error` (Meta could not process it; `video.error` carries the reason).  Zernio watches the video for up to about 13 minutes after the upload request. A video still processing after that sends no event, so keep `GET /v1/ads/videos/{videoId}` as the source of truth for long videos. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_ad_video_processed** | [**WebhookPayloadAdVideoProcessed**](WebhookPayloadAdVideoProcessed.md) |  | [required] |
 
 ### Return type
 

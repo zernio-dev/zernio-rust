@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**get_ad_creative**](AdCreativesApi.md#get_ad_creative) | **GET** /v1/ads/creatives/{creativeId} | Creative details
 [**get_ad_media**](AdCreativesApi.md#get_ad_media) | **GET** /v1/ads/{adId}/media | Direct video and image URLs for an ad
 [**get_ad_previews**](AdCreativesApi.md#get_ad_previews) | **GET** /v1/ads/{adId}/preview | Render previews of an existing ad
+[**get_ad_video_status**](AdCreativesApi.md#get_ad_video_status) | **GET** /v1/ads/videos/{videoId} | Get ad video processing status
 [**list_ad_creatives**](AdCreativesApi.md#list_ad_creatives) | **GET** /v1/ads/creatives | Creative library
 [**list_ad_images**](AdCreativesApi.md#list_ad_images) | **GET** /v1/ads/images | Ad image library
 [**list_ad_videos**](AdCreativesApi.md#list_ad_videos) | **GET** /v1/ads/videos | Ad video library
@@ -227,6 +228,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetAdPreviews200Response**](getAdPreviews_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_ad_video_status
+
+> models::GetAdVideoStatus200Response get_ad_video_status(video_id, account_id, ad_account_id)
+Get ad video processing status
+
+Reads a video's processing state live from Meta (`GET /{video-id}?fields=status`). Poll this after `POST /v1/ads/videos` with `async: true` until `status` is `ready`; the video is only usable as `video.id` on the create endpoints from then on.  `status` is normalised: `ready`, `error` (Meta's `error` or `expired`), and `processing` for every other Meta state. `platformStatus` carries Meta's raw `video_status` and `processingProgress` Meta's 0-100 percentage when it reports one. Polling every 5 to 10 seconds is plenty.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**video_id** | **String** | Meta ad video id (numeric). | [required] |
+**account_id** | **String** | Zernio SocialAccount id (posting or ads variant) used to resolve the Meta token. | [required] |
+**ad_account_id** | **String** | Meta ad account id (act_<n>) the video was uploaded to. | [required] |
+
+### Return type
+
+[**models::GetAdVideoStatus200Response**](getAdVideoStatus_200_response.md)
 
 ### Authorization
 
@@ -533,7 +566,7 @@ Name | Type | Description  | Required | Notes
 > models::UploadAdVideo201Response upload_ad_video(upload_ad_video_request)
 Upload an ad video
 
-Standalone ad-video upload (parallel to POST /v1/ads/images), so a video creative can be rendered via POST /v1/ads/preview or attached via `video.id` on POST /v1/ads/create before an ad exists.  Accepts either an https `videoUrl` we download server-side (SSRF-guarded) or raw `videoBase64` bytes; exactly one is required. `videoBase64` is capped by Vercel's body limit, around 4.5 MB payload in practice, so larger videos must come via `videoUrl`.  Returns the Meta `video.id` (reusable wherever `video.id` is accepted) plus Meta's auto-generated poster URL when available. The endpoint waits until Meta reports the video ready (chunked upload + transcode can take minutes; the handler runs up to 800 s).
+Standalone ad-video upload (parallel to POST /v1/ads/images), so a video creative can be rendered via POST /v1/ads/preview or attached via `video.id` on POST /v1/ads/create before an ad exists.  Accepts either an https `videoUrl` we download server-side (SSRF-guarded) or raw `videoBase64` bytes; exactly one is required. `videoBase64` is capped by Vercel's body limit, around 4.5 MB payload in practice, so larger videos must come via `videoUrl`.  Returns the Meta `video.id` (reusable wherever `video.id` is accepted) plus Meta's auto-generated poster URL when available. By default the endpoint waits until Meta reports the video ready (chunked upload + transcode can take minutes; the handler runs up to 800 s) and answers 201.  **Async mode.** Send `async: true` to get a 202 as soon as Meta has accepted the bytes, with `video.status: processing`. Then either poll `GET /v1/ads/videos/{videoId}` until `status` is `ready`, or subscribe to the `ad.video.processed` webhook. A create call that references the video while it is still processing waits up to 30 s, then answers 409 `invalid_resource_state` naming the status endpoint. With `videoUrl` the download and byte transfer still happen inside the request; only Meta's transcode is skipped.
 
 ### Parameters
 
