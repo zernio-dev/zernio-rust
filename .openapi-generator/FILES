@@ -1309,6 +1309,9 @@ docs/InstagramAccountInsightsResponseMetricsValueValuesInner.md
 docs/InstagramAccountInsightsResponseUnavailableMetricsInner.md
 docs/InstagramApi.md
 docs/InstagramAudioAsset.md
+docs/InstagramBusinessDiscovery.md
+docs/InstagramBusinessDiscoveryMediaInner.md
+docs/InstagramBusinessDiscoveryProfile.md
 docs/InstagramDemographicsResponse.md
 docs/InstagramDemographicsResponseDemographicsValueInner.md
 docs/InstagramPlatformData.md
@@ -4056,6 +4059,9 @@ src/models/instagram_account_insights_response_metrics_value_breakdowns_inner.rs
 src/models/instagram_account_insights_response_metrics_value_values_inner.rs
 src/models/instagram_account_insights_response_unavailable_metrics_inner.rs
 src/models/instagram_audio_asset.rs
+src/models/instagram_business_discovery.rs
+src/models/instagram_business_discovery_media_inner.rs
+src/models/instagram_business_discovery_profile.rs
 src/models/instagram_demographics_response.rs
 src/models/instagram_demographics_response_demographics_value_inner.rs
 src/models/instagram_platform_data.rs

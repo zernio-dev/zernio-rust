@@ -5,6 +5,7 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**get_instagram_audio**](InstagramApi.md#get_instagram_audio) | **GET** /v1/accounts/{accountId}/instagram/audio/{audioId} | Get Instagram audio metadata
+[**get_instagram_business_discovery**](InstagramApi.md#get_instagram_business_discovery) | **GET** /v1/accounts/{accountId}/instagram/business-discovery | Look up a public Instagram Business account
 [**get_instagram_publishing_limit**](InstagramApi.md#get_instagram_publishing_limit) | **GET** /v1/accounts/{accountId}/instagram/publishing-limit | Get Instagram publishing limit
 [**get_instagram_story_insights**](InstagramApi.md#get_instagram_story_insights) | **GET** /v1/accounts/{accountId}/instagram/stories/{storyId}/insights | Get Instagram story insights
 [**list_instagram_stories**](InstagramApi.md#list_instagram_stories) | **GET** /v1/accounts/{accountId}/instagram/stories | List active Instagram stories
@@ -30,6 +31,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetInstagramAudio200Response**](getInstagramAudio_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_instagram_business_discovery
+
+> models::InstagramBusinessDiscovery get_instagram_business_discovery(account_id, username, limit)
+Look up a public Instagram Business account
+
+Returns the public profile and most recent media of any Instagram Business or Creator account, looked up by username through one of your connected Instagram accounts. Useful for competitor and market research. Personal accounts and private accounts cannot be looked up.  Requires an Instagram account connected via **Facebook Login**. Meta serves business discovery on graph.facebook.com only, so accounts connected with classic Instagram Login receive a 400 (`instagram_business_discovery_requires_facebook_login`) and must be reconnected choosing the Facebook option. Any one such account can look up any public Business or Creator handle.  `likeCount` is null when the owner hides like counts. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The ID of a connected Instagram account (Facebook Login). | [required] |
+**username** | **String** | Instagram handle to look up, with or without the leading @. Case-insensitive. | [required] |
+**limit** | Option<**i32**> | How many of the most recent media to return. |  |[default to 12]
+
+### Return type
+
+[**models::InstagramBusinessDiscovery**](InstagramBusinessDiscovery.md)
 
 ### Authorization
 
