@@ -24,6 +24,8 @@
 | AudioSlashWav | audio/wav |
 | AudioSlashWebm | audio/webm |
 | AudioSlashXM4a | audio/x-m4a |
+| ApplicationSlashXSubrip | application/x-subrip |
+| TextSlashVtt | text/vtt |
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

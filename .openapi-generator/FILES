@@ -1018,6 +1018,8 @@ docs/GetInboxVolume400Response.md
 docs/GetInstagramAccountInsights404Response.md
 docs/GetInstagramAudio200Response.md
 docs/GetInstagramFollowStatus200Response.md
+docs/GetInstagramOnlineFollowers200Response.md
+docs/GetInstagramOnlineFollowers200ResponseDaysInner.md
 docs/GetInstagramPublishingLimit200Response.md
 docs/GetInstagramStoryInsights200Response.md
 docs/GetInstagramStoryInsights200ResponseData.md
@@ -1672,6 +1674,7 @@ docs/MarkConversationRead200Response.md
 docs/MediaApi.md
 docs/MediaContentType.md
 docs/MediaItem.md
+docs/MediaSubtitle.md
 docs/MediaUploadResponse.md
 docs/MentionsApi.md
 docs/MessagesApi.md
@@ -3796,6 +3799,8 @@ src/models/get_inbox_volume_400_response.rs
 src/models/get_instagram_account_insights_404_response.rs
 src/models/get_instagram_audio_200_response.rs
 src/models/get_instagram_follow_status_200_response.rs
+src/models/get_instagram_online_followers_200_response.rs
+src/models/get_instagram_online_followers_200_response_days_inner.rs
 src/models/get_instagram_publishing_limit_200_response.rs
 src/models/get_instagram_story_insights_200_response.rs
 src/models/get_instagram_story_insights_200_response_data.rs
@@ -4434,6 +4439,7 @@ src/models/lookup_sms_number_200_response.rs
 src/models/mark_conversation_read_200_response.rs
 src/models/media_content_type.rs
 src/models/media_item.rs
+src/models/media_subtitle.rs
 src/models/media_upload_response.rs
 src/models/messaging_carousel_card.rs
 src/models/meta_ads_platform_data.rs

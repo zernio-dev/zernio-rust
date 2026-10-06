@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**get_instagram_account_insights**](AnalyticsApi.md#get_instagram_account_insights) | **GET** /v1/analytics/instagram/account-insights | Get Instagram insights
 [**get_instagram_demographics**](AnalyticsApi.md#get_instagram_demographics) | **GET** /v1/analytics/instagram/demographics | Get Instagram demographics
 [**get_instagram_follower_history**](AnalyticsApi.md#get_instagram_follower_history) | **GET** /v1/analytics/instagram/follower-history | Get Instagram follower history
+[**get_instagram_online_followers**](AnalyticsApi.md#get_instagram_online_followers) | **GET** /v1/analytics/instagram/online-followers | Get Instagram online followers
 [**get_linked_in_aggregate_analytics**](AnalyticsApi.md#get_linked_in_aggregate_analytics) | **GET** /v1/accounts/{accountId}/linkedin-aggregate-analytics | Get LinkedIn aggregate stats
 [**get_linked_in_org_aggregate_analytics**](AnalyticsApi.md#get_linked_in_org_aggregate_analytics) | **GET** /v1/analytics/linkedin/org-aggregate-analytics | Get LinkedIn org analytics
 [**get_linked_in_post_analytics**](AnalyticsApi.md#get_linked_in_post_analytics) | **GET** /v1/accounts/{accountId}/linkedin-post-analytics | Get LinkedIn post stats
@@ -570,6 +571,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::InstagramAccountInsightsResponse**](InstagramAccountInsightsResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_instagram_online_followers
+
+> models::GetInstagramOnlineFollowers200Response get_instagram_online_followers(account_id)
+Get Instagram online followers
+
+Returns how many of an Instagram account's followers were online in each hour, for every day of the last 30 days that Meta has data for. Hour keys are \"0\" to \"23\" as Meta returns them. endTime is the end_time Meta returns for that day. Meta does not document the timezone of the hour keys. Data is delayed up to 48 hours, so the most recent days are left out until Meta fills them. Requires at least 100 followers; for smaller accounts days is empty. Requires the Analytics add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The Zernio SocialAccount ID for the Instagram account | [required] |
+
+### Return type
+
+[**models::GetInstagramOnlineFollowers200Response**](getInstagramOnlineFollowers_200_response.md)
 
 ### Authorization
 
