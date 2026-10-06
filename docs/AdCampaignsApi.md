@@ -1121,7 +1121,7 @@ Name | Type | Description  | Required | Notes
 **campaign_id** | Option<**String**> | Platform campaign ID |  |
 **ad_set_id** | Option<**String**> | Platform ad group ID (Google ad group) |  |
 **status** | Option<**String**> | Keyword criterion status |  |
-**match_type** | Option<**String**> |  |  |
+**match_type** | Option<**String**> | Accepted in any case. |  |
 **negative** | Option<**bool**> | true = negative keywords only, false = positive only. Omit for both. |  |
 **search** | Option<**String**> | Case-insensitive substring match on the keyword text |  |
 
@@ -1416,10 +1416,10 @@ Name | Type | Description  | Required | Notes
 
 ## remove_ad_group_assets
 
-> models::RemoveCampaignAssets200Response remove_ad_group_assets(ad_set_id, remove_ad_group_assets_request)
+> models::RemoveCampaignAssets200Response remove_ad_group_assets(ad_set_id, account_id, asset_resource_names, ad_group_asset_resource_names, ad_account_id, customer_id)
 Remove ad-group assets
 
-Removes the specified attachments only. Google assets cannot be deleted. Other attachments remain. assetResourceNames is retained for compatibility.
+Removes the specified attachments only. Google assets cannot be deleted. Other attachments remain. assetResourceNames is retained for compatibility. Fields go in the query string. A JSON body with the same fields is also accepted and, when sent, the query string is ignored.
 
 ### Parameters
 
@@ -1427,7 +1427,11 @@ Removes the specified attachments only. Google assets cannot be deleted. Other a
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **ad_set_id** | **String** | Numeric Google platform id. | [required] |
-**remove_ad_group_assets_request** | [**RemoveAdGroupAssetsRequest**](RemoveAdGroupAssetsRequest.md) |  | [required] |
+**account_id** | **String** | Zernio Google Ads connection id. | [required] |
+**asset_resource_names** | [**Vec<String>**](String.md) | Asset resource names, retained for compatibility. Repeat the parameter or pass a comma-separated list. | [required] |
+**ad_group_asset_resource_names** | [**Vec<String>**](String.md) | ad_group_asset resource names to remove, e.g. customers/1234567890/adGroupAssets/456~123~CALLOUT. Repeat the parameter or pass a comma-separated list. | [required] |
+**ad_account_id** | Option<**String**> | Platform ad account ID (Google customer ID, digits only). Required when the connection has multiple customers. |  |
+**customer_id** | Option<**String**> | Alias of adAccountId, kept for existing callers |  |
 
 ### Return type
 
@@ -1439,7 +1443,7 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1477,10 +1481,10 @@ Name | Type | Description  | Required | Notes
 
 ## remove_campaign_assets
 
-> models::RemoveCampaignAssets200Response remove_campaign_assets(campaign_id, remove_campaign_assets_request)
+> models::RemoveCampaignAssets200Response remove_campaign_assets(campaign_id, account_id, asset_resource_names, campaign_asset_resource_names, ad_account_id, customer_id)
 Remove campaign assets
 
-Removes the specified attachments only. Google assets cannot be deleted. Other attachments remain. assetResourceNames is retained for compatibility.
+Removes the specified attachments only. Google assets cannot be deleted. Other attachments remain. assetResourceNames is retained for compatibility. Fields go in the query string. A JSON body with the same fields is also accepted and, when sent, the query string is ignored.
 
 ### Parameters
 
@@ -1488,7 +1492,11 @@ Removes the specified attachments only. Google assets cannot be deleted. Other a
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **campaign_id** | **String** | Numeric Google platform id. | [required] |
-**remove_campaign_assets_request** | [**RemoveCampaignAssetsRequest**](RemoveCampaignAssetsRequest.md) |  | [required] |
+**account_id** | **String** | Zernio Google Ads connection id. | [required] |
+**asset_resource_names** | [**Vec<String>**](String.md) | Asset resource names, retained for compatibility. Repeat the parameter or pass a comma-separated list. | [required] |
+**campaign_asset_resource_names** | [**Vec<String>**](String.md) | campaign_asset resource names to remove, e.g. customers/1234567890/campaignAssets/456~123~CALLOUT. Repeat the parameter or pass a comma-separated list. | [required] |
+**ad_account_id** | Option<**String**> | Platform ad account ID (Google customer ID, digits only). Required when the connection has multiple customers. |  |
+**customer_id** | Option<**String**> | Alias of adAccountId, kept for existing callers |  |
 
 ### Return type
 
@@ -1500,7 +1508,7 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -532,10 +532,10 @@ Name | Type | Description  | Required | Notes
 
 ## detach_ad_label
 
-> models::DetachAdLabel200Response detach_ad_label(label_id, google_ad_label_assignments)
+> models::DetachAdLabel200Response detach_ad_label(label_id, account_id, ad_account_id, customer_id, campaign_ids, ad_set_ids, ad_ids, keyword_ids)
 Detach a Google Ads label
 
-Removes the label from the given targets. Idempotent; a target without the label is counted in `unchanged`.
+Removes the label from the given targets. Idempotent; a target without the label is counted in `unchanged`. Fields go in the query string. A JSON body with the same fields is also accepted and, when sent, the query string is ignored.
 
 ### Parameters
 
@@ -543,7 +543,13 @@ Removes the label from the given targets. Idempotent; a target without the label
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **label_id** | **String** | Google label id | [required] |
-**google_ad_label_assignments** | [**GoogleAdLabelAssignments**](GoogleAdLabelAssignments.md) |  | [required] |
+**account_id** | **String** | Zernio Google Ads connection id. | [required] |
+**ad_account_id** | Option<**String**> | Platform ad account ID (Google customer ID, digits only). Required when the connection has multiple customers. |  |
+**customer_id** | Option<**String**> | Alias of adAccountId, kept for existing callers |  |
+**campaign_ids** | Option<[**Vec<String>**](String.md)> | Google campaign ids. Repeat the parameter or pass a comma-separated list. |  |
+**ad_set_ids** | Option<[**Vec<String>**](String.md)> | Google ad group ids. Repeat the parameter or pass a comma-separated list. |  |
+**ad_ids** | Option<[**Vec<String>**](String.md)> | Google ad group ad ids, {adGroupId}~{adId}. Repeat the parameter or pass a comma-separated list. |  |
+**keyword_ids** | Option<[**Vec<String>**](String.md)> | Google keyword criterion ids, {adGroupId}~{criterionId}. Repeat the parameter or pass a comma-separated list. |  |
 
 ### Return type
 
@@ -555,7 +561,7 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1568,17 +1574,20 @@ Name | Type | Description  | Required | Notes
 
 ## remove_account_callout
 
-> models::RemoveAccountCallout200Response remove_account_callout(remove_account_callout_request)
+> models::RemoveAccountCallout200Response remove_account_callout(account_id, asset_id, ad_account_id, customer_id)
 Remove account callout
 
-Removes the customer_asset attachment only. The underlying shared asset and its campaign or ad-group attachments remain.
+Removes the customer_asset attachment only. The underlying shared asset and its campaign or ad-group attachments remain. Fields go in the query string. A JSON body with the same fields is also accepted and, when sent, the query string is ignored.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**remove_account_callout_request** | [**RemoveAccountCalloutRequest**](RemoveAccountCalloutRequest.md) |  | [required] |
+**account_id** | **String** | Zernio Google Ads connection id. | [required] |
+**asset_id** | **String** | Numeric Google Ads asset id. | [required] |
+**ad_account_id** | Option<**String**> | Platform ad account ID (Google customer ID, digits only). Required when the connection has multiple customers. |  |
+**customer_id** | Option<**String**> | Alias of adAccountId, kept for existing callers |  |
 
 ### Return type
 
@@ -1590,7 +1599,7 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1598,17 +1607,20 @@ Name | Type | Description  | Required | Notes
 
 ## remove_account_sitelink
 
-> models::RemoveAccountCallout200Response remove_account_sitelink(remove_account_callout_request)
+> models::RemoveAccountCallout200Response remove_account_sitelink(account_id, asset_id, ad_account_id, customer_id)
 Remove account sitelink
 
-Removes the customer_asset attachment only. The underlying shared asset and its campaign or ad-group attachments remain.
+Removes the customer_asset attachment only. The underlying shared asset and its campaign or ad-group attachments remain. Fields go in the query string. A JSON body with the same fields is also accepted and, when sent, the query string is ignored.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**remove_account_callout_request** | [**RemoveAccountCalloutRequest**](RemoveAccountCalloutRequest.md) |  | [required] |
+**account_id** | **String** | Zernio Google Ads connection id. | [required] |
+**asset_id** | **String** | Numeric Google Ads asset id. | [required] |
+**ad_account_id** | Option<**String**> | Platform ad account ID (Google customer ID, digits only). Required when the connection has multiple customers. |  |
+**customer_id** | Option<**String**> | Alias of adAccountId, kept for existing callers |  |
 
 ### Return type
 
@@ -1620,7 +1632,7 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1628,17 +1640,20 @@ Name | Type | Description  | Required | Notes
 
 ## remove_account_structured_snippet
 
-> models::RemoveAccountCallout200Response remove_account_structured_snippet(remove_account_callout_request)
+> models::RemoveAccountCallout200Response remove_account_structured_snippet(account_id, asset_id, ad_account_id, customer_id)
 Remove account snippet
 
-Removes the customer_asset attachment only. The underlying shared asset and its campaign or ad-group attachments remain.
+Removes the customer_asset attachment only. The underlying shared asset and its campaign or ad-group attachments remain. Fields go in the query string. A JSON body with the same fields is also accepted and, when sent, the query string is ignored.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**remove_account_callout_request** | [**RemoveAccountCalloutRequest**](RemoveAccountCalloutRequest.md) |  | [required] |
+**account_id** | **String** | Zernio Google Ads connection id. | [required] |
+**asset_id** | **String** | Numeric Google Ads asset id. | [required] |
+**ad_account_id** | Option<**String**> | Platform ad account ID (Google customer ID, digits only). Required when the connection has multiple customers. |  |
+**customer_id** | Option<**String**> | Alias of adAccountId, kept for existing callers |  |
 
 ### Return type
 
@@ -1650,7 +1665,7 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

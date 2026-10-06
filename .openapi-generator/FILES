@@ -1353,6 +1353,7 @@ docs/InstallTrackingTagOnStoreRequest.md
 docs/InviteAdAccountToManagerRequest.md
 docs/InvitesApi.md
 docs/KeywordEntry.md
+docs/KeywordEntryOneOf.md
 docs/LeadGenApi.md
 docs/LikeInboxComment200Response.md
 docs/LikeInboxCommentRequest.md
@@ -1892,14 +1893,11 @@ docs/RemediatePhoneNumberRequest.md
 docs/RemediatePhoneNumberRequestDocumentsInner.md
 docs/RemediatePhoneNumberRequestDocumentsInnerOneOf.md
 docs/RemoveAccountCallout200Response.md
-docs/RemoveAccountCalloutRequest.md
 docs/RemoveAdAccountUser200Response.md
-docs/RemoveAdGroupAssetsRequest.md
 docs/RemoveAdKeyword200Response.md
 docs/RemoveAdLabel200Response.md
 docs/RemoveBookmark200Response.md
 docs/RemoveCampaignAssets200Response.md
-docs/RemoveCampaignAssetsRequest.md
 docs/RemoveConversionAssociations200Response.md
 docs/RemoveCustomConversionGoal200Response.md
 docs/RemoveDiscordMemberRole200Response.md
@@ -4154,6 +4152,7 @@ src/models/install_tracking_tag_on_store_422_response_details.rs
 src/models/install_tracking_tag_on_store_request.rs
 src/models/invite_ad_account_to_manager_request.rs
 src/models/keyword_entry.rs
+src/models/keyword_entry_one_of.rs
 src/models/like_inbox_comment_200_response.rs
 src/models/like_inbox_comment_request.rs
 src/models/like_post_200_response.rs
@@ -4678,14 +4677,11 @@ src/models/remediate_phone_number_request.rs
 src/models/remediate_phone_number_request_documents_inner.rs
 src/models/remediate_phone_number_request_documents_inner_one_of.rs
 src/models/remove_account_callout_200_response.rs
-src/models/remove_account_callout_request.rs
 src/models/remove_ad_account_user_200_response.rs
-src/models/remove_ad_group_assets_request.rs
 src/models/remove_ad_keyword_200_response.rs
 src/models/remove_ad_label_200_response.rs
 src/models/remove_bookmark_200_response.rs
 src/models/remove_campaign_assets_200_response.rs
-src/models/remove_campaign_assets_request.rs
 src/models/remove_conversion_associations_200_response.rs
 src/models/remove_custom_conversion_goal_200_response.rs
 src/models/remove_discord_member_role_200_response.rs
