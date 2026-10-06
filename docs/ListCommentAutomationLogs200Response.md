@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **success** | Option<**bool**> |  | [optional]
-**logs** | Option<[**Vec<models::GetCommentAutomation200ResponseLogsInner>**](GetCommentAutomation200ResponseLogsInner.md)> |  | [optional]
+**logs** | Option<[**Vec<models::CommentAutomationLog>**](CommentAutomationLog.md)> |  | [optional]
 **pagination** | Option<[**models::ListContacts200ResponsePagination**](ListContacts200ResponsePagination.md)> |  | [optional]
 **misses** | Option<[**models::ListCommentAutomationLogs200ResponseMisses**](ListCommentAutomationLogs200ResponseMisses.md)> |  | [optional]
 

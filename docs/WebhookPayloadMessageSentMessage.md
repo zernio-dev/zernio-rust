@@ -16,6 +16,11 @@ Name | Type | Description | Notes
 **is_read** | **bool** |  | 
 **source** | Option<**Source**> | WhatsApp send origin. whatsapp_business_app when sent from the WhatsApp Business phone app on a Coexistence number; cloud_api when sent through Zernio (dashboard, API, or broadcasts); meta_business_agent when Meta Business Agent answered on the number. Absent on non-WhatsApp platforms. Says where WhatsApp saw the send come from, not which Zernio surface produced it: read sentVia for that. (enum: whatsapp_business_app, cloud_api, meta_business_agent) | [optional]
 **sent_via** | Option<**SentVia**> | Which Zernio surface produced this message: `human` (an operator in the Zernio inbox), `api` (a call to this API), `broadcast`, `sequence`, `workflow`, `comment_automation`, or `bulk-api` (POST /v1/whatsapp/bulk). Same vocabulary as the `source` filter on the inbox analytics endpoints, and the same value a later GET on this message returns.  Always present, and `null` whenever the lineage is unknown: a message sent from the platform's own app, and every message stored before this field shipped (2026-08). Existing messages are NOT backfilled, so treat `null` as \"unknown\", never as \"sent by a human\".  (enum: human, api, broadcast, sequence, workflow, comment_automation, bulk-api, ) | [optional]
+**automation_id** | Option<**String**> | The comment automation that sent this DM (sentVia comment_automation). Null otherwise. | [optional]
+**workflow_id** | Option<**String**> | The workflow whose run sent this message (sentVia workflow). Null otherwise. | [optional]
+**execution_id** | Option<**String**> | The workflow run (execution) that sent this message, as returned by the workflow executions endpoints. Null when workflowId is null. | [optional]
+**broadcast_id** | Option<**String**> | The broadcast that sent this message (sentVia broadcast). Null otherwise. | [optional]
+**sequence_id** | Option<**String**> | The sequence whose step sent this message (sentVia sequence). Null otherwise. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

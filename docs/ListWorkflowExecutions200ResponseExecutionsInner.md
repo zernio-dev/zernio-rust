@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **waiting_for** | Option<[**models::ListWorkflowExecutions200ResponseExecutionsInnerWaitingFor**](ListWorkflowExecutions200ResponseExecutionsInnerWaitingFor.md)> |  | [optional]
 **variables** | Option<**std::collections::HashMap<String, serde_json::Value>**> |  | [optional]
 **platform_identifier** | Option<**String**> |  | [optional]
-**conversation_id** | Option<**String**> |  | [optional]
+**conversation_id** | Option<**String**> | Null only while a comment-triggered run has not sent its private reply yet. | [optional]
 **step_count** | Option<**i32**> |  | [optional]
 **last_error** | Option<**String**> |  | [optional]
 **resume_at** | Option<**String**> |  | [optional]

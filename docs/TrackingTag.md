@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **site_tag_id** | Option<**String**> | The id the on-site code carries. Equals `id` on Meta; differs on platforms with separate API and site ids (OpenAI `pixel_id`, Google `AW-...` conversion id, the manager's under cross-account conversion tracking). | [optional]
 **events** | Option<[**Vec<models::TrackingTagEvent>**](TrackingTagEvent.md)> | Platforms where each conversion is its own object: the tag's conversion events, with the id a site sends for each. | [optional]
 **name** | **String** |  | 
-**platform** | **Platform** |  (enum: metaads, openaiads, tiktokads, googleads, xads, linkedinads, pinterestads) | 
+**platform** | **Platform** |  (enum: metaads, openaiads, tiktokads, googleads, xads, linkedinads, pinterestads, whopads) | 
 **kind** | **Kind** | Platform-native flavor of the tag (Meta: `pixel`). (enum: pixel, tag, insight_tag) | 
 **status** | **Status** | `inactive` when the platform reports the tag as broken/unavailable. (enum: active, inactive) | 
 **code** | Option<**String**> | The base-code `<script>` snippet to install on the site, including the page-view call. Populated by `getTrackingTag`, omitted from the list view.  | [optional]

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **match_mode** | Option<**MatchMode**> | How a keyword is compared with the comment. 'contains' (default) matches anywhere, even inside another word (keyword 'app' fires on 'happy'). 'word' matches the keyword only as a standalone word. 'exact' requires the whole comment to be exactly the keyword. (enum: exact, contains, word) | [optional]
 **exclude_keywords** | Option<**Vec<String>**> | Comments containing one of these never trigger the automation, even when a trigger keyword also matches. Compared using the same matchMode. | [optional]
 **typo_tolerance** | Option<**bool**> | Only with matchMode=word: also fire on close misspellings of a keyword (one edit for 4-7 character keywords, two from 8 up). Keywords shorter than 4 characters are never fuzzy-matched. | [optional]
-**dm_message** | Option<**String**> |  | [optional]
+**dm_message** | Option<**String**> | Omitted on reply-only platforms (tiktok, threads, linkedin, youtube), together with every other DM-leg field. | [optional]
 **buttons** | Option<[**Vec<models::DmButton>**](DmButton.md)> | Inline DM buttons (up to 3). Omitted when none are set. | [optional]
 **template** | Option<[**models::CommentAutomationTemplate**](CommentAutomationTemplate.md)> |  | [optional]
 **comment_reply** | Option<**String**> |  | [optional]
@@ -19,7 +19,14 @@ Name | Type | Description | Notes
 **audience** | Option<[**models::CommentAutomationAudience**](CommentAutomationAudience.md)> |  | [optional]
 **follow_gate** | Option<[**models::CommentAutomationFollowGate**](CommentAutomationFollowGate.md)> |  | [optional]
 **also_match_in_dms** | Option<**bool**> | Whether these keywords also fire on a plain inbound DM. | [optional]
+**repeat_policy** | Option<[**models::CommentAutomationRepeatPolicy**](CommentAutomationRepeatPolicy.md)> |  | [optional]
+**dedupe_same_text_hours** | Option<**i32**> | Same-text dedupe window in hours. Omitted when off. | [optional]
+**public_reply_policy** | Option<**PublicReplyPolicy**> |  (enum: after_dm, always) | [optional]
+**actions** | Option<[**models::CommentAutomationActions**](CommentAutomationActions.md)> |  | [optional]
+**quick_replies** | Option<[**Vec<models::CommentAutomationQuickReply>**](CommentAutomationQuickReply.md)> |  | [optional]
+**dm_media** | Option<[**models::CommentAutomationDmMedia**](CommentAutomationDmMedia.md)> |  | [optional]
 **is_active** | Option<**bool**> |  | [optional]
+**stats** | Option<[**models::CommentAutomationStats**](CommentAutomationStats.md)> |  | [optional]
 **updated_at** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

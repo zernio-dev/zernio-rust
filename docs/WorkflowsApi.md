@@ -16,6 +16,7 @@ Method | HTTP request | Description
 [**list_workflows**](WorkflowsApi.md#list_workflows) | **GET** /v1/workflows | List workflows
 [**pause_workflow**](WorkflowsApi.md#pause_workflow) | **POST** /v1/workflows/{workflowId}/pause | Pause workflow
 [**restore_workflow_version**](WorkflowsApi.md#restore_workflow_version) | **POST** /v1/workflows/{workflowId}/versions/{version}/restore | Restore a workflow version
+[**trigger_api_call_workflow**](WorkflowsApi.md#trigger_api_call_workflow) | **POST** /v1/workflows/{workflowId}/trigger | Start an API-triggered workflow
 [**trigger_workflow**](WorkflowsApi.md#trigger_workflow) | **POST** /v1/workflows/{workflowId}/executions | Manually start a workflow run
 [**update_workflow**](WorkflowsApi.md#update_workflow) | **PATCH** /v1/workflows/{workflowId} | Update workflow
 
@@ -385,6 +386,37 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## trigger_api_call_workflow
+
+> models::TriggerApiCallWorkflow201Response trigger_api_call_workflow(workflow_id, trigger_api_call_workflow_request)
+Start an API-triggered workflow
+
+Starts a run of an active workflow whose trigger type is `api_call`. Pass exactly one target: `conversationId` (a conversation on the workflow's account), `contactId` (resolved to that contact's conversation on the workflow's account), or `to` (WhatsApp workflows only: a phone number, whose conversation is found or created). `variables` are merged over the standard run variables, so each key is available as `{{key}}`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**workflow_id** | **String** |  | [required] |
+**trigger_api_call_workflow_request** | [**TriggerApiCallWorkflowRequest**](TriggerApiCallWorkflowRequest.md) |  | [required] |
+
+### Return type
+
+[**models::TriggerApiCallWorkflow201Response**](triggerApiCallWorkflow_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

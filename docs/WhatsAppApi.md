@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**create_whats_app_group_chat**](WhatsAppApi.md#create_whats_app_group_chat) | **POST** /v1/whatsapp/wa-groups | Create group
 [**create_whats_app_group_invite_link**](WhatsAppApi.md#create_whats_app_group_invite_link) | **POST** /v1/whatsapp/wa-groups/{groupId}/invite-link | Create invite link
 [**create_whats_app_template**](WhatsAppApi.md#create_whats_app_template) | **POST** /v1/whatsapp/templates | Create template
+[**delete_whats_app_conversational_automation**](WhatsAppApi.md#delete_whats_app_conversational_automation) | **DELETE** /v1/whatsapp/conversational-automation | Clear ice breakers and commands
 [**delete_whats_app_group_chat**](WhatsAppApi.md#delete_whats_app_group_chat) | **DELETE** /v1/whatsapp/wa-groups/{groupId} | Delete group
 [**delete_whats_app_template**](WhatsAppApi.md#delete_whats_app_template) | **DELETE** /v1/whatsapp/templates/{templateName} | Delete template
 [**delete_whats_app_template_by_id**](WhatsAppApi.md#delete_whats_app_template_by_id) | **DELETE** /v1/whatsapp/templates/id/{templateId} | Delete template by id
@@ -19,6 +20,7 @@ Method | HTTP request | Description
 [**get_whats_app_blocked_users**](WhatsAppApi.md#get_whats_app_blocked_users) | **GET** /v1/whatsapp/block-users | List blocked users
 [**get_whats_app_business_profile**](WhatsAppApi.md#get_whats_app_business_profile) | **GET** /v1/whatsapp/business-profile | Get business profile
 [**get_whats_app_commerce_settings**](WhatsAppApi.md#get_whats_app_commerce_settings) | **GET** /v1/whatsapp/commerce-settings | Get a number's commerce settings
+[**get_whats_app_conversational_automation**](WhatsAppApi.md#get_whats_app_conversational_automation) | **GET** /v1/whatsapp/conversational-automation | Get ice breakers and commands
 [**get_whats_app_dataset**](WhatsAppApi.md#get_whats_app_dataset) | **GET** /v1/whatsapp/dataset | Get CTWA conversions dataset
 [**get_whats_app_display_name**](WhatsAppApi.md#get_whats_app_display_name) | **GET** /v1/whatsapp/business-profile/display-name | Get display name status
 [**get_whats_app_group_chat**](WhatsAppApi.md#get_whats_app_group_chat) | **GET** /v1/whatsapp/wa-groups/{groupId} | Get group info
@@ -39,6 +41,7 @@ Method | HTTP request | Description
 [**remove_whats_app_group_participants**](WhatsAppApi.md#remove_whats_app_group_participants) | **DELETE** /v1/whatsapp/wa-groups/{groupId}/participants | Remove participants
 [**request_whats_app_verification_code**](WhatsAppApi.md#request_whats_app_verification_code) | **POST** /v1/accounts/{accountId}/whatsapp/request-code | Request a Meta re-verification code for a BYO WhatsApp number
 [**send_whats_app_conversion**](WhatsAppApi.md#send_whats_app_conversion) | **POST** /v1/whatsapp/conversions | Send WhatsApp conversion event
+[**set_whats_app_conversational_automation**](WhatsAppApi.md#set_whats_app_conversational_automation) | **POST** /v1/whatsapp/conversational-automation | Set ice breakers and commands
 [**set_whatsapp_business_username**](WhatsAppApi.md#set_whatsapp_business_username) | **POST** /v1/whatsapp/business-profile/username | Set business username
 [**unblock_whats_app_users**](WhatsAppApi.md#unblock_whats_app_users) | **DELETE** /v1/whatsapp/block-users | Unblock users
 [**unlink_whats_app_catalog**](WhatsAppApi.md#unlink_whats_app_catalog) | **DELETE** /v1/whatsapp/catalogs | Unlink a catalog from a WhatsApp number
@@ -263,6 +266,36 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_whats_app_conversational_automation
+
+> models::UpdateYoutubeDefaultPlaylist200Response delete_whats_app_conversational_automation(account_id)
+Clear ice breakers and commands
+
+Remove every prompt and command and turn the welcome message off.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | WhatsApp account ID | [required] |
+
+### Return type
+
+[**models::UpdateYoutubeDefaultPlaylist200Response**](updateYoutubeDefaultPlaylist_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -503,6 +536,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetWhatsAppCommerceSettings200Response**](getWhatsAppCommerceSettings_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_whats_app_conversational_automation
+
+> models::GetWhatsAppConversationalAutomation200Response get_whats_app_conversational_automation(account_id)
+Get ice breakers and commands
+
+Read the number's conversational automation (Meta's `conversational_automation`): ice breaker prompts, slash commands and the welcome-message flag. A number with none set returns the empty configuration.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | WhatsApp account ID | [required] |
+
+### Return type
+
+[**models::GetWhatsAppConversationalAutomation200Response**](getWhatsAppConversationalAutomation_200_response.md)
 
 ### Authorization
 
@@ -1123,6 +1186,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::SendWhatsAppConversion200Response**](sendWhatsAppConversion_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## set_whats_app_conversational_automation
+
+> models::UpdateYoutubeDefaultPlaylist200Response set_whats_app_conversational_automation(set_whats_app_conversational_automation_request)
+Set ice breakers and commands
+
+Set ice breaker prompts (up to 3, 80 characters each), slash commands (up to 30) and the welcome-message flag on the number. Only the fields you send are changed. A tapped prompt arrives as a normal `message.received` carrying its text.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**set_whats_app_conversational_automation_request** | [**SetWhatsAppConversationalAutomationRequest**](SetWhatsAppConversationalAutomationRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateYoutubeDefaultPlaylist200Response**](updateYoutubeDefaultPlaylist_200_response.md)
 
 ### Authorization
 

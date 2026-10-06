@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **created_at** | **String** |  | 
 **is_reply** | **bool** | Whether this is a reply to another comment | 
 **parent_comment_id** | Option<**String**> | Parent comment ID if this is a reply | 
+**is_live** | Option<**bool**> | Instagram only: true when the comment was made on a live broadcast (the live_comments webhook field). Absent on every other comment. | [optional]
 **ad** | Option<[**models::WebhookPayloadCommentCommentAd**](WebhookPayloadCommentCommentAd.md)> |  | [optional]
 **attachment** | Option<[**models::WebhookPayloadCommentCommentAttachment**](WebhookPayloadCommentCommentAttachment.md)> |  | [optional]
 

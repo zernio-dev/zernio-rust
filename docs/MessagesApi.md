@@ -4,6 +4,7 @@ All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**accept_conversation_request**](MessagesApi.md#accept_conversation_request) | **POST** /v1/inbox/conversations/{conversationId}/accept | Accept a message request
 [**add_message_reaction**](MessagesApi.md#add_message_reaction) | **POST** /v1/inbox/conversations/{conversationId}/messages/{messageId}/reactions | Add reaction
 [**create_inbox_conversation**](MessagesApi.md#create_inbox_conversation) | **POST** /v1/inbox/conversations | Create conversation
 [**delete_inbox_message**](MessagesApi.md#delete_inbox_message) | **DELETE** /v1/inbox/conversations/{conversationId}/messages/{messageId} | Delete message
@@ -17,10 +18,41 @@ Method | HTTP request | Description
 [**search_inbox_conversations**](MessagesApi.md#search_inbox_conversations) | **GET** /v1/inbox/conversations/search | Search conversations
 [**send_inbox_message**](MessagesApi.md#send_inbox_message) | **POST** /v1/inbox/conversations/{conversationId}/messages | Send message
 [**send_typing_indicator**](MessagesApi.md#send_typing_indicator) | **POST** /v1/inbox/conversations/{conversationId}/typing | Send typing indicator
-[**set_conversation_thread_control**](MessagesApi.md#set_conversation_thread_control) | **POST** /v1/inbox/conversations/{conversationId}/thread-control | Hand a conversation to or from Meta Business Agent
+[**set_conversation_thread_control**](MessagesApi.md#set_conversation_thread_control) | **POST** /v1/inbox/conversations/{conversationId}/thread-control | Change who answers a conversation (handover)
 [**update_inbox_conversation**](MessagesApi.md#update_inbox_conversation) | **PUT** /v1/inbox/conversations/{conversationId} | Update conversation status
 [**upload_media_direct**](MessagesApi.md#upload_media_direct) | **POST** /v1/media/upload-direct | Upload media file
 
+
+
+## accept_conversation_request
+
+> models::AcceptConversationRequest200Response accept_conversation_request(conversation_id, accept_conversation_request_request)
+Accept a message request
+
+Accept a Facebook or Instagram Message Request (listed with `GET /v1/inbox/conversations?folder=requests`) by replying to it. Meta has no separate accept call: the first reply is what moves the thread into the inbox, so this sends `message` through the same path, checks and webhooks as `POST /v1/inbox/conversations/{conversationId}/messages`, and answers the same way. Supports the `Idempotency-Key` header. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**conversation_id** | **String** | The `id` of the request item from the requests folder. | [required] |
+**accept_conversation_request_request** | [**AcceptConversationRequestRequest**](AcceptConversationRequestRequest.md) |  | [required] |
+
+### Return type
+
+[**models::AcceptConversationRequest200Response**](acceptConversationRequest_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## add_message_reaction
@@ -250,7 +282,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_inbox_conversations
 
-> models::ListInboxConversations200Response list_inbox_conversations(profile_id, platform, status, sort_order, limit, cursor, account_id)
+> models::ListInboxConversations200Response list_inbox_conversations(profile_id, platform, status, folder, sort_order, limit, cursor, account_id)
 List conversations
 
 Fetch conversations (DMs) from all connected messaging accounts in a single API call. Supports filtering by profile and platform. Results are aggregated and deduplicated.  Supported platforms: Facebook, Instagram, X, Bluesky, Reddit, Telegram.  **X limitation.** X has replaced traditional DMs with encrypted \"X Chat\" for many accounts. Messages sent or received through encrypted X Chat are not accessible via X's API (the /2/dm_events endpoint only returns legacy unencrypted DMs). This means some X conversations may show only outgoing messages or appear empty. This is an X platform limitation that affects all third-party applications. See X's docs on encrypted messaging for more details.  **Instagram and Facebook pre-connect history.** When one of these accounts is connected, Zernio replays the DM history the account already holds on Meta, so conversations that began before the account was connected appear here. Up to 500 conversations per account are replayed.  - The replay runs in the background and can finish after a listing you have already taken, and replayed conversations keep their original lastMessageAt, so they sort into date order rather than appearing at the top. If you mirror this endpoint into your own store, re-run the sweep rather than relying on a single pass at connect time. - Replayed history emits no webhooks and is stored as already read, so it never affects unread counts. - Threads that Meta refuses to serve are skipped, and an account whose Instagram \"connected tools\" message access is turned off is not replayed at all. 
@@ -263,6 +295,7 @@ Name | Type | Description  | Required | Notes
 **profile_id** | Option<**String**> | Filter by profile ID |  |
 **platform** | Option<**String**> | Filter by platform |  |
 **status** | Option<**String**> | Filter by conversation status |  |
+**folder** | Option<**String**> | requests lists Facebook and Instagram Message Requests (threads from people the account has not accepted) live from Meta, first page only, each item with `folder: requests`. Meta has no accept call: replying moves a thread to the inbox, which is what POST /v1/inbox/conversations/{conversationId}/accept does. When Meta will not list the folder for the one account asked (`accountId`), the call answers 400 PLATFORM_LIMITATION; across several accounts the refusal is reported per account in meta.failedAccounts. |  |[default to inbox]
 **sort_order** | Option<**String**> | Sort order by updated time |  |[default to desc]
 **limit** | Option<**i32**> | Maximum number of conversations to return |  |[default to 50]
 **cursor** | Option<**String**> | Pagination cursor for next page |  |
@@ -449,9 +482,9 @@ Name | Type | Description  | Required | Notes
 ## set_conversation_thread_control
 
 > models::SetConversationThreadControl200Response set_conversation_thread_control(conversation_id, set_conversation_thread_control_request)
-Hand a conversation to or from Meta Business Agent
+Change who answers a conversation (handover)
 
-WhatsApp only, on numbers with Meta Business Agent enabled. Wraps Meta's thread control: - `release`: hand the conversation back to the agent so it resumes answering. You must currently hold control (sending any message takes it implicitly). - `take`: take control before sending anything, so the agent stops replying while an operator reads the thread. Meta accepts this only from the business configured as the number's escalation partner; other apps take control by sending a message. - `pass`: transfer control to the number's configured escalation partner, or to the agent with `target: ai_agent`. Meta's Cloud API currently rejects it (\"Pass action is not supported\", verified 2026-09-08); use `release` to hand a thread back to the agent.  The conversation's `threadControl` follows the result; a `conversation.control_changed` webhook fires when Meta later reports the change. 
+Meta's handover protocol on WhatsApp, Facebook and Instagram.  **WhatsApp**, on numbers with Meta Business Agent enabled: - `release`: hand the conversation back to the agent so it resumes answering. You must currently hold control (sending any message takes it implicitly). - `take`: take control before sending anything, so the agent stops replying while an operator reads the thread. Meta accepts this only from the business configured as the number's escalation partner; other apps take control by sending a message. - `pass`: transfer control to the number's configured escalation partner, or to the agent with `target: ai_agent`. Meta's Cloud API currently rejects it (\"Pass action is not supported\", verified 2026-09-08); use `release` to hand a thread back to the agent.  **Facebook and Instagram** (Messenger Platform handover between the apps on the Page, such as Page Inbox): - `pass` with `targetAppId`: give the thread to another app (`pass_thread_control`). Page Inbox is 263902037430900. - `take`: take the thread back (`take_thread_control`); Meta allows it only to the Page's primary receiver. - `request`: ask the current owner to pass the thread (`request_thread_control`); nothing changes until it does. - `release`: give the thread back to the primary receiver (`release_thread_control`).  While another app owns a Facebook or Instagram thread, inbound arrive with `metadata.standby: true` and a send answers 409 `not_thread_owner`. The conversation's `threadControl` follows the result; a `conversation.control_changed` webhook fires when Meta later reports the change. 
 
 ### Parameters
 

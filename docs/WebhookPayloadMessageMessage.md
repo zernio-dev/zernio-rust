@@ -15,6 +15,11 @@ Name | Type | Description | Notes
 **sent_at** | **String** | When the message was sent, as reported by the platform and passed through unmodified. Full ISO 8601 date-time: Instagram and Facebook carry millisecond precision, while some platforms (for example WhatsApp and Telegram) report whole seconds. Use this field as the chronological ordering key. If two messages share the same value, fetch the conversation messages with sortOrder=desc for the deterministic order. | 
 **is_read** | **bool** |  | 
 **sent_via** | Option<**SentVia**> | Which Zernio surface produced the message. Always present and always `null` on this event, since nobody on our side produced an inbound message; it is only informative on `message.sent`, which documents the vocabulary.  (enum: human, api, broadcast, sequence, workflow, comment_automation, bulk-api, ) | [optional]
+**automation_id** | Option<**String**> | Always null on this event; see message.sent. | [optional]
+**workflow_id** | Option<**String**> | Always null on this event; see message.sent. | [optional]
+**execution_id** | Option<**String**> | Always null on this event; see message.sent. | [optional]
+**broadcast_id** | Option<**String**> | Always null on this event; see message.sent. | [optional]
+**sequence_id** | Option<**String**> | Always null on this event; see message.sent. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
