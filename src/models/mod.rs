@@ -3252,6 +3252,8 @@ pub mod media_item;
 pub use self::media_item::MediaItem;
 pub mod media_upload_response;
 pub use self::media_upload_response::MediaUploadResponse;
+pub mod messaging_carousel_card;
+pub use self::messaging_carousel_card::MessagingCarouselCard;
 pub mod meta_ads_platform_data;
 pub use self::meta_ads_platform_data::MetaAdsPlatformData;
 pub mod meta_assigned_user;

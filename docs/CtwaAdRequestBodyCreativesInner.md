@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **image_url** | Option<**String**> | Image asset. Mutually exclusive with this entry's `video`. Required if neither `video` nor an existing post reference is supplied.  | [optional]
 **video** | Option<[**models::CtwaAdRequestBodyCreativesInnerVideo**](CtwaAdRequestBodyCreativesInnerVideo.md)> |  | [optional]
 **welcome_message** | Option<[**models::CtwaAdRequestBodyCreativesInnerWelcomeMessage**](CtwaAdRequestBodyCreativesInnerWelcomeMessage.md)> |  | [optional]
+**carousel_cards** | Option<[**Vec<models::MessagingCarouselCard>**](MessagingCarouselCard.md)> | A 2-10 card carousel for this entry instead of `imageUrl` / `video`; `body` is required. Same rules as the top-level `carouselCards`. Carousel and single-media entries can be mixed on one ad set. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

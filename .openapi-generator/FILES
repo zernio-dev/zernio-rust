@@ -1676,6 +1676,7 @@ docs/MediaUploadResponse.md
 docs/MentionsApi.md
 docs/MessagesApi.md
 docs/MessagingAdsApi.md
+docs/MessagingCarouselCard.md
 docs/MetaAdsPlatformData.md
 docs/MetaAssignedUser.md
 docs/MetaBusinessUser.md
@@ -4434,6 +4435,7 @@ src/models/mark_conversation_read_200_response.rs
 src/models/media_content_type.rs
 src/models/media_item.rs
 src/models/media_upload_response.rs
+src/models/messaging_carousel_card.rs
 src/models/meta_ads_platform_data.rs
 src/models/meta_assigned_user.rs
 src/models/meta_business_user.rs
