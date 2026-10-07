@@ -1111,6 +1111,7 @@ docs/GetProduct200Response.md
 docs/GetRcsCapabilities200Response.md
 docs/GetRedditFlairs200Response.md
 docs/GetRedditFlairs200ResponseFlairsInner.md
+docs/GetRedditPostComments200Response.md
 docs/GetRedditSubreddits200Response.md
 docs/GetRedditSubreddits200ResponseSubredditsInner.md
 docs/GetSequence200Response.md
@@ -1888,6 +1889,7 @@ docs/RcsTestDevice.md
 docs/ReachAndFrequencyApi.md
 docs/RecyclingConfig.md
 docs/RecyclingState.md
+docs/RedditComment.md
 docs/RedditPlatformData.md
 docs/RedditPost.md
 docs/RedditSearchApi.md
@@ -3938,6 +3940,7 @@ src/models/get_product_200_response.rs
 src/models/get_rcs_capabilities_200_response.rs
 src/models/get_reddit_flairs_200_response.rs
 src/models/get_reddit_flairs_200_response_flairs_inner.rs
+src/models/get_reddit_post_comments_200_response.rs
 src/models/get_reddit_subreddits_200_response.rs
 src/models/get_reddit_subreddits_200_response_subreddits_inner.rs
 src/models/get_sequence_200_response.rs
@@ -4689,6 +4692,7 @@ src/models/rcs_suggestion_one_of_5.rs
 src/models/rcs_test_device.rs
 src/models/recycling_config.rs
 src/models/recycling_state.rs
+src/models/reddit_comment.rs
 src/models/reddit_platform_data.rs
 src/models/reddit_post.rs
 src/models/redeliver_webhook_event_request.rs
