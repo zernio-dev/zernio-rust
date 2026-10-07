@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **transcription_language** | Option<**TranscriptionLanguage**> | 'auto' derives from the callee's country; 'en'/'es' force it. (enum: auto, en, es) | [optional]
 **amd** | Option<**bool**> | Answering-machine detection; defers the bridge until human vs machine is known. | [optional]
 **voicemail_drop_message** | Option<**String**> | Spoken to a detected machine, then hang up (implies `amd`). For outbound voicemail drops. | [optional]
+**ring_timeout_seconds** | Option<**i32**> | Seconds to let the callee's phone ring before the call ends as no_answer. The destination carrier can end it sooner. | [optional][default to 30]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
