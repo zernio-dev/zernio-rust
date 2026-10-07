@@ -11,6 +11,7 @@ docs/AccountWithFollowerStats.md
 docs/AccountWithFollowerStatsAllOfAccountStats.md
 docs/AccountsApi.md
 docs/AccountsListResponse.md
+docs/AccountsListResponseStatusCounts.md
 docs/ActivateSequence200Response.md
 docs/ActivateWorkflow200Response.md
 docs/ActivateWorkflow200ResponseWorkflow.md
@@ -486,7 +487,6 @@ docs/CreateConversionActionRequest.md
 docs/CreateConversionDestination201Response.md
 docs/CreateConversionDestinationRequest.md
 docs/CreateConversionDestinationRequestValue.md
-docs/CreateCustomConversionGoal201Response.md
 docs/CreateCustomConversionGoalRequest.md
 docs/CreateCustomConversionRequest.md
 docs/CreateCustomField200Response.md
@@ -580,6 +580,9 @@ docs/CreateSequenceRequest.md
 docs/CreateSequenceRequestStepsInner.md
 docs/CreateSequenceRequestStepsInnerTemplate.md
 docs/CreateSequenceRequestStepsInnerTemplateVariableMappingValue.md
+docs/CreateSharedBudget201Response.md
+docs/CreateSharedBudget201ResponseBudget.md
+docs/CreateSharedBudgetRequest.md
 docs/CreateSipTrunk201Response.md
 docs/CreateSipTrunk201ResponseTermination.md
 docs/CreateSipTrunkRequest.md
@@ -850,6 +853,7 @@ docs/GetAdNegativeKeywordList200ResponseList.md
 docs/GetAdPreviews200Response.md
 docs/GetAdReview200Response.md
 docs/GetAdReview200ResponseReview.md
+docs/GetAdReview200ResponseReviewPolicyTopicsInner.md
 docs/GetAdReview200ResponseReviewRejectionsInner.md
 docs/GetAdReview200ResponseReviewRejectionsInnerContent.md
 docs/GetAdSetDetails200Response.md
@@ -898,6 +902,7 @@ docs/GetCampaignBidding200Response.md
 docs/GetCampaignConversionGoals200Response.md
 docs/GetCampaignTargeting200Response.md
 docs/GetCampaignTargeting200ResponseDevicesInner.md
+docs/GetCampaignTargeting200ResponseExcludedLocationsInner.md
 docs/GetCampaignTargeting200ResponseLanguagesInner.md
 docs/GetCampaignTargeting200ResponseLocationsInner.md
 docs/GetCommentAutomation200Response.md
@@ -1276,6 +1281,8 @@ docs/GoogleListingGroupFilterNode.md
 docs/GoogleListingGroupNode.md
 docs/GoogleListingGroupTree.md
 docs/GoogleLocationTargetingType.md
+docs/GoogleManualCpc.md
+docs/GoogleNetworkSettings.md
 docs/GooglePmaxAssetGroup.md
 docs/GooglePmaxAssetGroupAssetsInner.md
 docs/GooglePmaxAssetGroupDetail.md
@@ -1291,6 +1298,7 @@ docs/GoogleRsaDescription.md
 docs/GoogleRsaHeadline.md
 docs/GoogleSitelink.md
 docs/GoogleStructuredSnippet.md
+docs/GoogleTargetImpressionShare.md
 docs/GrantBusinessPartner200Response.md
 docs/GrantBusinessPartner200ResponsePartner.md
 docs/GrantBusinessPartner201Response.md
@@ -1617,6 +1625,8 @@ docs/ListSequenceEnrollments200Response.md
 docs/ListSequenceEnrollments200ResponseEnrollmentsInner.md
 docs/ListSequences200Response.md
 docs/ListSequences200ResponseSequencesInner.md
+docs/ListSharedBudgets200Response.md
+docs/ListSharedBudgets200ResponseBudgetsInner.md
 docs/ListSipTrunks200Response.md
 docs/ListSipTrunks200ResponseTrunksInner.md
 docs/ListSipTrunks200ResponseTrunksInnerTermination.md
@@ -2256,6 +2266,7 @@ docs/UpdateAdAccount200Response.md
 docs/UpdateAdAccount200ResponseDsaDefaults.md
 docs/UpdateAdAccount200ResponseSettings.md
 docs/UpdateAdAccount200ResponseSettingsFundingSource.md
+docs/UpdateAdAccount200ResponseUrlTracking.md
 docs/UpdateAdAccountManagerLinkRequest.md
 docs/UpdateAdAccountRequest.md
 docs/UpdateAdAudienceRequest.md
@@ -2328,12 +2339,15 @@ docs/UpdateCampaignConversionGoals200Response.md
 docs/UpdateCampaignConversionGoalsRequest.md
 docs/UpdateCampaignTargeting200Response.md
 docs/UpdateCampaignTargeting200ResponseDevicesInner.md
+docs/UpdateCampaignTargeting200ResponseExcludedLocationsInner.md
 docs/UpdateCampaignTargeting200ResponseLanguagesInner.md
 docs/UpdateCampaignTargeting200ResponseLocationsInner.md
 docs/UpdateCampaignTargetingRequest.md
 docs/UpdateCampaignTargetingRequestTargeting.md
 docs/UpdateCampaignTargetingRequestTargetingDevicesInner.md
 docs/UpdateCampaignTargetingRequestTargetingDevicesInnerOneOf.md
+docs/UpdateCampaignTargetingRequestTargetingExcludedLocations.md
+docs/UpdateCampaignTargetingRequestTargetingExcludedLocationsOneOf.md
 docs/UpdateCampaignTargetingRequestTargetingLocations.md
 docs/UpdateCampaignTargetingRequestTargetingLocationsOneOf.md
 docs/UpdateCampaignTargetingRequestTargetingLocationsOneOfRegionsInner.md
@@ -2849,6 +2863,7 @@ src/models/accept_conversation_request_request.rs
 src/models/account_with_follower_stats.rs
 src/models/account_with_follower_stats_all_of_account_stats.rs
 src/models/accounts_list_response.rs
+src/models/accounts_list_response_status_counts.rs
 src/models/activate_sequence_200_response.rs
 src/models/activate_workflow_200_response.rs
 src/models/activate_workflow_200_response_workflow.rs
@@ -3302,7 +3317,6 @@ src/models/create_conversion_action_request.rs
 src/models/create_conversion_destination_201_response.rs
 src/models/create_conversion_destination_request.rs
 src/models/create_conversion_destination_request_value.rs
-src/models/create_custom_conversion_goal_201_response.rs
 src/models/create_custom_conversion_goal_request.rs
 src/models/create_custom_conversion_request.rs
 src/models/create_custom_field_200_response.rs
@@ -3396,6 +3410,9 @@ src/models/create_sequence_request.rs
 src/models/create_sequence_request_steps_inner.rs
 src/models/create_sequence_request_steps_inner_template.rs
 src/models/create_sequence_request_steps_inner_template_variable_mapping_value.rs
+src/models/create_shared_budget_201_response.rs
+src/models/create_shared_budget_201_response_budget.rs
+src/models/create_shared_budget_request.rs
 src/models/create_sip_trunk_201_response.rs
 src/models/create_sip_trunk_201_response_termination.rs
 src/models/create_sip_trunk_request.rs
@@ -3663,6 +3680,7 @@ src/models/get_ad_negative_keyword_list_200_response_list.rs
 src/models/get_ad_previews_200_response.rs
 src/models/get_ad_review_200_response.rs
 src/models/get_ad_review_200_response_review.rs
+src/models/get_ad_review_200_response_review_policy_topics_inner.rs
 src/models/get_ad_review_200_response_review_rejections_inner.rs
 src/models/get_ad_review_200_response_review_rejections_inner_content.rs
 src/models/get_ad_set_details_200_response.rs
@@ -3711,6 +3729,7 @@ src/models/get_campaign_bidding_200_response.rs
 src/models/get_campaign_conversion_goals_200_response.rs
 src/models/get_campaign_targeting_200_response.rs
 src/models/get_campaign_targeting_200_response_devices_inner.rs
+src/models/get_campaign_targeting_200_response_excluded_locations_inner.rs
 src/models/get_campaign_targeting_200_response_languages_inner.rs
 src/models/get_campaign_targeting_200_response_locations_inner.rs
 src/models/get_comment_automation_200_response.rs
@@ -4081,6 +4100,8 @@ src/models/google_listing_group_filter_node.rs
 src/models/google_listing_group_node.rs
 src/models/google_listing_group_tree.rs
 src/models/google_location_targeting_type.rs
+src/models/google_manual_cpc.rs
+src/models/google_network_settings.rs
 src/models/google_pmax_asset_group.rs
 src/models/google_pmax_asset_group_assets_inner.rs
 src/models/google_pmax_asset_group_detail.rs
@@ -4096,6 +4117,7 @@ src/models/google_rsa_description.rs
 src/models/google_rsa_headline.rs
 src/models/google_sitelink.rs
 src/models/google_structured_snippet.rs
+src/models/google_target_impression_share.rs
 src/models/grant_business_partner_200_response.rs
 src/models/grant_business_partner_200_response_partner.rs
 src/models/grant_business_partner_201_response.rs
@@ -4416,6 +4438,8 @@ src/models/list_sequence_enrollments_200_response.rs
 src/models/list_sequence_enrollments_200_response_enrollments_inner.rs
 src/models/list_sequences_200_response.rs
 src/models/list_sequences_200_response_sequences_inner.rs
+src/models/list_shared_budgets_200_response.rs
+src/models/list_shared_budgets_200_response_budgets_inner.rs
 src/models/list_sip_trunks_200_response.rs
 src/models/list_sip_trunks_200_response_trunks_inner.rs
 src/models/list_sip_trunks_200_response_trunks_inner_termination.rs
@@ -5035,6 +5059,7 @@ src/models/update_ad_account_200_response.rs
 src/models/update_ad_account_200_response_dsa_defaults.rs
 src/models/update_ad_account_200_response_settings.rs
 src/models/update_ad_account_200_response_settings_funding_source.rs
+src/models/update_ad_account_200_response_url_tracking.rs
 src/models/update_ad_account_manager_link_request.rs
 src/models/update_ad_account_request.rs
 src/models/update_ad_audience_request.rs
@@ -5107,12 +5132,15 @@ src/models/update_campaign_conversion_goals_200_response.rs
 src/models/update_campaign_conversion_goals_request.rs
 src/models/update_campaign_targeting_200_response.rs
 src/models/update_campaign_targeting_200_response_devices_inner.rs
+src/models/update_campaign_targeting_200_response_excluded_locations_inner.rs
 src/models/update_campaign_targeting_200_response_languages_inner.rs
 src/models/update_campaign_targeting_200_response_locations_inner.rs
 src/models/update_campaign_targeting_request.rs
 src/models/update_campaign_targeting_request_targeting.rs
 src/models/update_campaign_targeting_request_targeting_devices_inner.rs
 src/models/update_campaign_targeting_request_targeting_devices_inner_one_of.rs
+src/models/update_campaign_targeting_request_targeting_excluded_locations.rs
+src/models/update_campaign_targeting_request_targeting_excluded_locations_one_of.rs
 src/models/update_campaign_targeting_request_targeting_locations.rs
 src/models/update_campaign_targeting_request_targeting_locations_one_of.rs
 src/models/update_campaign_targeting_request_targeting_locations_one_of_regions_inner.rs

@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ad_account_id** | Option<**String**> |  | [optional]
+**url_tracking** | Option<[**models::UpdateAdAccount200ResponseUrlTracking**](UpdateAdAccount200ResponseUrlTracking.md)> |  | [optional]
 **dsa_defaults** | Option<[**models::UpdateAdAccount200ResponseDsaDefaults**](UpdateAdAccount200ResponseDsaDefaults.md)> |  | [optional]
 **settings** | Option<[**models::UpdateAdAccount200ResponseSettings**](UpdateAdAccount200ResponseSettings.md)> |  | [optional]
 

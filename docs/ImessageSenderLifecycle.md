@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **region** | Option<**Region**> |  (enum: US, GB, ) | [optional]
 **handle** | Option<**String**> | The sender handle once activation assigns it | [optional]
 **opt_in_link** | Option<**String**> | imessage:// deep link that opens Messages on this sender with a prefilled text. Share it so contacts message you first (Apple only lets a sender reach contacts who wrote to it first); null until the handle is assigned. | [optional]
-**status** | Option<**Status**> |  (enum: ordering, activating, active, suspended, canceled, failed) | [optional]
+**status** | Option<**Status**> | `awaiting_payment`: the first-month charge is still being confirmed by the card; the number is ordered automatically once it is paid (usually under 5 minutes), or the order fails with `failureReason` when the card declines or nothing confirms within 30 minutes. (enum: ordering, awaiting_payment, activating, active, suspended, canceled, failed) | [optional]
 **price_cents** | Option<**i32**> | Monthly price billed while the sender is active | [optional]
 **provider** | Option<**String**> |  | [optional]
 **profile_id** | Option<**String**> |  | [optional]

@@ -338,7 +338,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_accounts
 
-> models::AccountsListResponse list_accounts(profile_id, platform, status, search, category, sort, order, include_over_limit, page, limit, profile_ids, per_profile)
+> models::AccountsListResponse list_accounts(profile_id, platform, status, search, category, sort, order, include_over_limit, exclude_hidden, include_sandbox, include_status_counts, page, limit, profile_ids, per_profile)
 List accounts
 
 Returns connected accounts. Only includes accounts within the plan limit by default. Follower data requires analytics add-on. Supports optional server-side pagination via page/limit params. When omitted, returns all accounts (backward-compatible). page and limit must be supplied together; out-of-range page/limit values are rejected with 400 rather than silently clamped. 
@@ -356,6 +356,9 @@ Name | Type | Description  | Required | Notes
 **sort** | Option<**String**> | Sort a paginated listing (page/limit) by account name, platform, profile name, status (accounts needing a reconnect first when ascending) or connection date. Ties keep the default order: platform, then newest first. |  |
 **order** | Option<**String**> | Direction for `sort`. |  |[default to asc]
 **include_over_limit** | Option<**bool**> | When true, includes accounts from over-limit profiles. |  |[default to false]
+**exclude_hidden** | Option<**bool**> | When true, leaves out accounts the dashboard does not show as connections: posting accounts with `enabled: false` (ads accounts are always kept, whatever their `enabled` value) and the internal `sms` and `phone` accounts behind each phone number. Applied before pagination, so page totals and `statusCounts` count only the remaining accounts. Sandbox accounts added by `includeSandbox` are appended after this filter. Accepts `true` or `false` in any letter case; any other value returns 400.  |  |[default to false]
+**include_sandbox** | Option<**bool**> | When true, appends the shared WhatsApp sandbox account and the iMessage sandbox account to the list when they are active, honouring `platform` but no other filter. Ignored on a paginated request (page/limit) and together with `perProfile`. Accepts `true` or `false` in any letter case; any other value returns 400.  |  |[default to false]
+**include_status_counts** | Option<**bool**> | When true, the response carries `statusCounts`: how many accounts match every other filter of the request (with `status` lifted) in total and how many of those need a reconnection. Accepts `true` or `false` in any letter case; any other value returns 400.  |  |[default to false]
 **page** | Option<**i32**> | Page number (1-based). Must be provided together with limit to enable server-side pagination; sending only one of the two returns 400. Omit both for all accounts.  |  |
 **limit** | Option<**i32**> | Page size. Must be provided together with page; sending only one of the two returns 400.  |  |
 **profile_ids** | Option<**String**> | Comma-separated profile IDs (up to 50) to preview, together with perProfile. The response then also carries `profileTotals`. |  |

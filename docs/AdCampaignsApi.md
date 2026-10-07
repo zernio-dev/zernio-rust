@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**create_ad_set**](AdCampaignsApi.md#create_ad_set) | **POST** /v1/ads/ad-sets | Create a standalone ad group
 [**create_bid_strategy**](AdCampaignsApi.md#create_bid_strategy) | **POST** /v1/ads/bid-strategies | Create portfolio bid strategy
 [**create_google_asset_group**](AdCampaignsApi.md#create_google_asset_group) | **POST** /v1/ads/campaigns/{campaignId}/asset-groups | Create a Performance Max asset group
+[**create_shared_budget**](AdCampaignsApi.md#create_shared_budget) | **POST** /v1/ads/shared-budgets | Create a shared budget
 [**create_standalone_ad**](AdCampaignsApi.md#create_standalone_ad) | **POST** /v1/ads/create | Create standalone ad
 [**delete_ad**](AdCampaignsApi.md#delete_ad) | **DELETE** /v1/ads/{adId} | Cancel an ad
 [**delete_ad_campaign**](AdCampaignsApi.md#delete_ad_campaign) | **DELETE** /v1/ads/campaigns/{campaignId} | Delete a campaign
@@ -32,7 +33,7 @@ Method | HTTP request | Description
 [**get_campaign_ad_schedule**](AdCampaignsApi.md#get_campaign_ad_schedule) | **GET** /v1/ads/campaigns/{campaignId}/ad-schedule | Read a campaign's ad schedule (dayparting)
 [**get_campaign_bidding**](AdCampaignsApi.md#get_campaign_bidding) | **GET** /v1/ads/campaigns/{campaignId}/bidding | Read a campaign's current bidding
 [**get_campaign_conversion_goals**](AdCampaignsApi.md#get_campaign_conversion_goals) | **GET** /v1/ads/campaigns/{campaignId}/conversion-goals | Get campaign conversion goals
-[**get_campaign_targeting**](AdCampaignsApi.md#get_campaign_targeting) | **GET** /v1/ads/campaigns/{campaignId}/targeting | Read a Google campaign's device, location, and language targeting
+[**get_campaign_targeting**](AdCampaignsApi.md#get_campaign_targeting) | **GET** /v1/ads/campaigns/{campaignId}/targeting | Read a Google campaign's device, location, excluded location, and language targeting
 [**get_google_asset_group**](AdCampaignsApi.md#get_google_asset_group) | **GET** /v1/ads/campaigns/{campaignId}/asset-groups/{assetGroupId} | Get a Performance Max asset group
 [**list_ad_campaigns**](AdCampaignsApi.md#list_ad_campaigns) | **GET** /v1/ads/campaigns | List campaigns
 [**list_ad_group_assets**](AdCampaignsApi.md#list_ad_group_assets) | **GET** /v1/ads/ad-sets/{adSetId}/assets | List ad-group assets
@@ -45,6 +46,7 @@ Method | HTTP request | Description
 [**list_campaign_negative_keywords**](AdCampaignsApi.md#list_campaign_negative_keywords) | **GET** /v1/ads/campaigns/{campaignId}/negative-keywords | List campaign-level negative keywords
 [**list_google_asset_groups**](AdCampaignsApi.md#list_google_asset_groups) | **GET** /v1/ads/campaigns/{campaignId}/asset-groups | List Performance Max asset groups
 [**list_google_recommendations**](AdCampaignsApi.md#list_google_recommendations) | **GET** /v1/ads/recommendations | List Google Ads recommendations
+[**list_shared_budgets**](AdCampaignsApi.md#list_shared_budgets) | **GET** /v1/ads/shared-budgets | List shared budgets
 [**remove_ad_group_assets**](AdCampaignsApi.md#remove_ad_group_assets) | **DELETE** /v1/ads/ad-sets/{adSetId}/assets | Remove ad-group assets
 [**remove_ad_keyword**](AdCampaignsApi.md#remove_ad_keyword) | **DELETE** /v1/ads/keywords/{keywordId} | Remove a Search keyword
 [**remove_campaign_assets**](AdCampaignsApi.md#remove_campaign_assets) | **DELETE** /v1/ads/campaigns/{campaignId}/assets | Remove campaign assets
@@ -64,7 +66,7 @@ Method | HTTP request | Description
 [**update_campaign_ad_schedule**](AdCampaignsApi.md#update_campaign_ad_schedule) | **PUT** /v1/ads/campaigns/{campaignId}/ad-schedule | Replace a campaign's ad schedule (dayparting)
 [**update_campaign_assets**](AdCampaignsApi.md#update_campaign_assets) | **PUT** /v1/ads/campaigns/{campaignId}/assets | Update campaign assets
 [**update_campaign_conversion_goals**](AdCampaignsApi.md#update_campaign_conversion_goals) | **PATCH** /v1/ads/campaigns/{campaignId}/conversion-goals | Update campaign conversion goals
-[**update_campaign_targeting**](AdCampaignsApi.md#update_campaign_targeting) | **PUT** /v1/ads/campaigns/{campaignId}/targeting | Edit a Google campaign's device, location, or language targeting
+[**update_campaign_targeting**](AdCampaignsApi.md#update_campaign_targeting) | **PUT** /v1/ads/campaigns/{campaignId}/targeting | Edit a Google campaign's device, location, excluded location, or language targeting
 [**update_google_asset_group**](AdCampaignsApi.md#update_google_asset_group) | **PATCH** /v1/ads/campaigns/{campaignId}/asset-groups/{assetGroupId} | Update a Performance Max asset group
 
 
@@ -362,6 +364,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::CreateGoogleAssetGroup200Response**](createGoogleAssetGroup_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_shared_budget
+
+> models::CreateSharedBudget201Response create_shared_budget(create_shared_budget_request)
+Create a shared budget
+
+Creates a daily shared campaign budget (`explicitly_shared: true`, standard delivery) that several campaigns can draw from. A lifetime budget returns 422, like every Google budget. Google refuses some bidding strategies on a shared budget; that error surfaces when a campaign is moved onto it. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_shared_budget_request** | [**CreateSharedBudgetRequest**](CreateSharedBudgetRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateSharedBudget201Response**](createSharedBudget_201_response.md)
 
 ### Authorization
 
@@ -723,7 +755,7 @@ Name | Type | Description  | Required | Notes
 > models::GetAdReview200Response get_ad_review(ad_id)
 Read the platform's review verdict for an ad
 
-Reads the ad's review verdict from the platform now: whether it was approved, where it may not deliver, and every rejection reason with TikTok's suggestion and the piece of content it refers to. Read-only, so it works on a paused ad without re-enabling it.  TikTok only (`/ad/review_info/`); every other platform returns 501. Use it alongside the ad's `platformStatus`: TikTok reports `AD_STATUS_AUDIT` while the ad is in review and `AD_STATUS_AD_PRE_ONLINE` once it passed and is about to deliver (both map to `status: pending_review`); `AD_STATUS_AUDIT_DENY` maps to `rejected`.
+Reads the ad's review verdict from the platform now: whether it was approved, where it may not deliver, and every rejection reason with TikTok's suggestion and the piece of content it refers to. Read-only, so it works on a paused ad without re-enabling it.  **Google**: reads `ad_group_ad.policy_summary` live. `approvalStatus` and `reviewStatus` are Google's verbatim (`approvalStatus`: APPROVED, APPROVED_LIMITED, AREA_OF_INTEREST_ONLY, DISAPPROVED, UNKNOWN; `reviewStatus`: REVIEW_IN_PROGRESS, REVIEWED, UNDER_APPEAL, ELIGIBLE_MAY_SERVE); `approved` is true for the three approved statuses, false for DISAPPROVED, null otherwise. `policyTopics` carries every policy topic entry with its `type` (PROHIBITED, LIMITED, ...) and Google's `evidences` and `constraints` verbatim; each PROHIBITED topic is also listed in `rejections` (reason = the topic). The `forbidden*` arrays are TikTok-only and always empty on Google.  TikTok uses `/ad/review_info/`; every other platform returns 501. On TikTok, use it alongside the ad's `platformStatus`: TikTok reports `AD_STATUS_AUDIT` while the ad is in review and `AD_STATUS_AD_PRE_ONLINE` once it passed and is about to deliver (both map to `status: pending_review`); `AD_STATUS_AUDIT_DENY` maps to `rejected`.
 
 ### Parameters
 
@@ -964,9 +996,9 @@ Name | Type | Description  | Required | Notes
 ## get_campaign_targeting
 
 > models::GetCampaignTargeting200Response get_campaign_targeting(campaign_id, platform)
-Read a Google campaign's device, location, and language targeting
+Read a Google campaign's device, location, excluded location, and language targeting
 
-Google Ads compliance requires geo, language, budget, and bidding targeting set at creation to stay editable afterwards; this reads the campaign state so an integrator can build an editor around it. Cached for the quota window (10 minutes fresh, up to 7 days last-good), not always a live read. Google only; every other platform returns 501.  `devices` lists the device criteria the campaign carries, which depends on its channel: Search campaigns have MOBILE, DESKTOP and TABLET, Display campaigns also have CONNECTED_TV. `bidModifier` is Google's bid adjustment for that device, `null` when it has none, and `0` when the device is switched off; `included` is false for exactly that case. 
+Google Ads compliance requires geo, language, budget, and bidding targeting set at creation to stay editable afterwards; this reads the campaign state so an integrator can build an editor around it. Cached for the quota window (10 minutes fresh, up to 7 days last-good), not always a live read. Google only; every other platform returns 501.  `devices` lists the device criteria the campaign carries, which depends on its channel: Search campaigns have MOBILE, DESKTOP and TABLET, Display campaigns also have CONNECTED_TV. `bidModifier` is Google's bid adjustment for that device, `null` when it has none, and `0` when the device is switched off; `included` is false for exactly that case.  `excludedLocations` lists the campaign's negative location criteria (the places it never serves in). `locations` still lists every location criterion, each flagged with `negative`, so a client reading the targeted set filters `negative: false`. 
 
 ### Parameters
 
@@ -1414,6 +1446,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_shared_budgets
+
+> models::ListSharedBudgets200Response list_shared_budgets(account_id, ad_account_id)
+List shared budgets
+
+Lists the Google Ads customer's shared campaign budgets (`campaign_budget.explicitly_shared` = true, not removed), with how many campaigns use each. Move a campaign onto one with `sharedBudgetId` on PUT /v1/ads/campaigns/{campaignId}. Google only; other platforms return 501. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Google ads SocialAccount id. | [required] |
+**ad_account_id** | Option<**String**> | Platform ad account ID (Google customer ID, digits only). Defaults to the account's connected customer. |  |
+
+### Return type
+
+[**models::ListSharedBudgets200Response**](listSharedBudgets_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## remove_ad_group_assets
 
 > models::RemoveCampaignAssets200Response remove_ad_group_assets(ad_set_id, account_id, asset_resource_names, ad_group_asset_resource_names, ad_account_id, customer_id)
@@ -1676,7 +1739,7 @@ Name | Type | Description  | Required | Notes
 > models::UpdateAdCampaign200Response update_ad_campaign(campaign_id, update_ad_campaign_request)
 Update a campaign
 
-Campaign-level edits. Send at least one of `budget`, `bidStrategy`, `portfolioBidStrategyId`, `name` or `platformSpecificData`. An unsupported field is always an error, never a silent drop.  | Body field | Meta | Google | Others | |---|---|---|---| | `bidStrategy` | Yes | Yes | 501 | | `bidAmount`, `roasAverageFloor` | 400 (ad-set level) | Yes | 400 | | `portfolioBidStrategyId` | 400 | Yes | 400 | | `budget` (CBO; ABO returns 409) | Yes | Daily only | OpenAI: daily or lifetime; others 501 | | `name` | Yes | 501 | 501 | | `platformSpecificData.spendCap` | Yes | 400 | 400 | | `accountId` (empty campaigns) | Yes | - | - |  Meta budget edits check the live campaign budget, so an older local ABO stamp cannot block a CBO campaign. A successful edit repairs local ad budget fields. A live ABO campaign still returns 409 with the ad-set budget endpoint.  On Google: `LOWEST_COST_WITHOUT_CAP` = Maximize Conversions, `COST_CAP` + `bidAmount` = Target CPA, `LOWEST_COST_WITH_MIN_ROAS` + `roasAverageFloor` = Target ROAS, `LOWEST_COST_WITH_BID_CAP` + `bidAmount` = Maximize Clicks with a CPC ceiling; `portfolioBidStrategyId` attaches a portfolio strategy instead (exclusive with `bidStrategy`). Setting the standard triplet on a campaign that is currently on a PORTFOLIO strategy is rejected: detach it in Google Ads first, since it is shared across campaigns.  Google budget updates read the current budget before mutation. Shared budgets return 409 unless allowSharedBudgetUpdate=true is explicitly supplied, because the change affects every campaign using that budget. Unknown sharing state also returns 409.  OpenAI Ads campaigns carry exactly one spend cap: `budget.type` daily or lifetime replaces whichever cap the campaign had, with a minimum of 1 in the ad account's currency (422 below it). Lifetime can switch to daily, but OpenAI never switches a daily cap back to lifetime (422).  `accountId` forwards the update straight to Meta for a campaign with zero ads, which would otherwise 404; the response then carries `updated: 0`. 
+Campaign-level edits. Send at least one of `budget`, `bidStrategy`, `portfolioBidStrategyId`, `targetImpressionShare`, `manualCpc`, `networkSettings`, `trackingUrlTemplate`, `finalUrlSuffix`, `sharedBudgetId`, `name` or `platformSpecificData`. An unsupported field is always an error, never a silent drop.  | Body field | Meta | Google | Others | |---|---|---|---| | `bidStrategy` | Yes | Yes | 501 | | `bidAmount`, `roasAverageFloor` | 400 (ad-set level) | Yes | 400 | | `portfolioBidStrategyId` | 400 | Yes | 400 | | `targetImpressionShare` | 400 | Search only | 400 | | `manualCpc` | 400 | Search and Display | 400 | | `networkSettings` | 400 | Search only | 400 | | `trackingUrlTemplate`, `finalUrlSuffix` | 400 | Yes | 400 | | `sharedBudgetId` | 400 | Yes | 400 | | `budget` (CBO; ABO returns 409) | Yes | Daily only | OpenAI: daily or lifetime; others 501 | | `name` | Yes | 501 | 501 | | `platformSpecificData.spendCap` | Yes | 400 | 400 | | `accountId` (empty campaigns) | Yes | - | - |  Meta budget edits check the live campaign budget, so an older local ABO stamp cannot block a CBO campaign. A successful edit repairs local ad budget fields. A live ABO campaign still returns 409 with the ad-set budget endpoint.  On Google: `LOWEST_COST_WITHOUT_CAP` = Maximize Conversions, `COST_CAP` + `bidAmount` = Target CPA, `LOWEST_COST_WITH_MIN_ROAS` + `roasAverageFloor` = Target ROAS, `LOWEST_COST_WITH_BID_CAP` + `bidAmount` = Maximize Clicks with a CPC ceiling; `portfolioBidStrategyId` attaches a portfolio strategy instead (exclusive with `bidStrategy`). `targetImpressionShare` switches the campaign to Target impression share and `manualCpc: { maxCpc }` to Manual CPC (every ad group of the campaign gets `maxCpc` as its bid, in the same mutate); each is exclusive with every other strategy field. `networkSettings`, `trackingUrlTemplate` and `finalUrlSuffix` go out in one campaign update, each field sent written on its own leaf, so an omitted one keeps its current value; an empty string clears a URL field. Setting the standard triplet on a campaign that is currently on a PORTFOLIO strategy is rejected: detach it in Google Ads first, since it is shared across campaigns.  Google budget updates read the current budget before mutation. Shared budgets return 409 unless allowSharedBudgetUpdate=true is explicitly supplied, because the change affects every campaign using that budget. A budget counts as shared when Google flags it as shared or when more than one campaign uses it (older budgets can serve several campaigns without the flag). Unknown sharing state also returns 409.  `sharedBudgetId` (Google) moves the campaign onto a shared budget from GET /v1/ads/shared-budgets, which also needs `allowSharedBudgetUpdate: true` (409 otherwise) because the campaign then splits that budget with every campaign on it; `budget` cannot ride along. `sharedBudgetId: null` moves it back onto a new budget of its own, sized by `budget` (required, daily); the new budget and the switch go out in one atomic Google mutate. A campaign that already has its own budget returns 409 for null. The budget a campaign leaves is not removed. The response carries the budget the campaign now uses.  OpenAI Ads campaigns carry exactly one spend cap: `budget.type` daily or lifetime replaces whichever cap the campaign had, with a minimum of 1 in the ad account's currency (422 below it). Lifetime can switch to daily, but OpenAI never switches a daily cap back to lifetime (422).  `accountId` forwards the update straight to Meta for a campaign with zero ads, which would otherwise 404; the response then carries `updated: 0`. 
 
 ### Parameters
 
@@ -2015,9 +2078,9 @@ Name | Type | Description  | Required | Notes
 ## update_campaign_targeting
 
 > models::UpdateCampaignTargeting200Response update_campaign_targeting(campaign_id, update_campaign_targeting_request)
-Edit a Google campaign's device, location, or language targeting
+Edit a Google campaign's device, location, excluded location, or language targeting
 
-Google Ads compliance row M.10: geo and language targeting set at creation must stay editable afterwards. Send at least one of `devices`, `locations`, `languages`, `locationTargetingType`; each provided field REPLACES that field's existing criteria on the campaign (a full set, not a delta). Fields left out of the body are untouched. Google only; every other platform returns 501.  `devices` is the full set of device bid modifiers: a supported device you leave out is switched off with a bid modifier of 0, since Google cannot remove a device criterion. A device the campaign's channel does not carry, and a set that switches every device off, both return 422.  `locations` accepts the same shapes as campaign creation: a bare array of ISO country codes, or an object with `countries`/`regions`/`cities`/`zips`/`metros` key lists (`key` from GET /v1/ads/targeting/search?dimension=geo). Negative (excluded) locations are left untouched by this endpoint. An empty location list returns 400 instead of removing every criterion: a Google campaign with no location criteria targets every country, so omit `locations` to leave targeting alone.  The removes and the creates go out in ONE Google `googleAds:mutate`, so a failed edit leaves the campaign's previous set intact rather than a half-applied one.  `languages` is an array of Google's language codes (ISO 639-1, plus variants such as `zh_CN`); an unknown code returns 400.  `locationTargetingType` switches who the location targeting reaches: `presence` (people in or regularly in the locations) or `presence_or_interest` (also people searching for or interested in them). Example: `{ \"platform\": \"google\", \"targeting\": { \"locationTargetingType\": \"presence\" } }`.  The response includes the refreshed `devices`/`locations`/`languages` state read back from Google after the edit, and invalidates the cached copy `GET` on this campaign would otherwise keep serving.  **Demand Gen:** Google keeps a Demand Gen campaign's locations and languages on its ad groups and refuses them on the campaign. When the campaign has one ad group they are written there and the response carries its `adGroupId` (the campaign-level `locations`/`languages` read back then stay empty). With several ad groups the call returns 400 naming them: edit each one with PUT /v1/ads/{adId} `targeting` on an ad of that ad group. Campaigns migrated from Discovery that still target on the campaign keep being written there. `devices` and `locationTargetingType` stay campaign-level. 
+Google Ads compliance row M.10: geo and language targeting set at creation must stay editable afterwards. Send at least one of `devices`, `locations`, `excludedLocations`, `languages`, `locationTargetingType`; each provided field REPLACES that field's existing criteria on the campaign (a full set, not a delta). Fields left out of the body are untouched. Google only; every other platform returns 501.  `devices` is the full set of device bid modifiers: a supported device you leave out is switched off with a bid modifier of 0, since Google cannot remove a device criterion. A device the campaign's channel does not carry, and a set that switches every device off, both return 422.  `locations` accepts the same shapes as campaign creation: a bare array of ISO country codes, or an object with `countries`/`regions`/`cities`/`zips`/`metros` key lists (`key` from GET /v1/ads/targeting/search?dimension=geo). Excluded locations are left untouched by `locations`. An empty location list returns 400 instead of removing every criterion: a Google campaign with no location criteria targets every country, so omit `locations` to leave targeting alone.  `excludedLocations` takes the same two shapes and replaces the campaign's negative location criteria (the places it never serves in), leaving the targeted `locations` untouched. An empty list (or `{}`) removes every exclusion. Radius exclusions are not supported. A place cannot be both targeted and excluded: a request whose result would leave one on both sides returns 400 before anything is written, and moving a place from one side to the other in the same request is applied atomically. Example: `{ \"platform\": \"google\", \"targeting\": { \"excludedLocations\": { \"countries\": [\"CA\"], \"regions\": [\"21137\"] } } }`.  The removes and the creates go out in ONE Google `googleAds:mutate`, so a failed edit leaves the campaign's previous set intact rather than a half-applied one.  `languages` is an array of Google's language codes (ISO 639-1, plus variants such as `zh_CN`); an unknown code returns 400.  `locationTargetingType` switches who the location targeting reaches: `presence` (people in or regularly in the locations) or `presence_or_interest` (also people searching for or interested in them). Example: `{ \"platform\": \"google\", \"targeting\": { \"locationTargetingType\": \"presence\" } }`.  The response includes the refreshed `devices`/`locations`/`excludedLocations`/`languages` state read back from Google after the edit, and invalidates the cached copy `GET` on this campaign would otherwise keep serving.  **Demand Gen:** Google keeps a Demand Gen campaign's locations and languages on its ad groups and refuses them on the campaign. When the campaign has one ad group they are written there and the response carries its `adGroupId` (the campaign-level `locations`/`languages` read back then stay empty). With several ad groups the call returns 400 naming them: edit each one with PUT /v1/ads/{adId} `targeting` on an ad of that ad group. Campaigns migrated from Discovery that still target on the campaign keep being written there. `devices` and `locationTargetingType` stay campaign-level. `excludedLocations` is not available on Demand Gen yet and returns 400. 
 
 ### Parameters
 

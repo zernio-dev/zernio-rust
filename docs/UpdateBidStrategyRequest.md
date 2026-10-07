@@ -8,9 +8,10 @@ Name | Type | Description | Notes
 **ad_account_id** | Option<**String**> | Platform ad account ID (Google customer ID, digits only). Defaults to the account's connected customer. | [optional]
 **customer_id** | Option<**String**> | Alias of adAccountId, kept for existing callers | [optional]
 **name** | Option<**String**> |  | [optional]
-**r#type** | Option<**Type**> |  (enum: TARGET_CPA, TARGET_ROAS, MAXIMIZE_CONVERSIONS, MAXIMIZE_CONVERSION_VALUE) | [optional]
+**r#type** | Option<**Type**> |  (enum: TARGET_CPA, TARGET_ROAS, MAXIMIZE_CONVERSIONS, MAXIMIZE_CONVERSION_VALUE, TARGET_IMPRESSION_SHARE) | [optional]
 **target_cpa** | Option<**f64**> |  | [optional]
 **target_roas** | Option<**f64**> |  | [optional]
+**target_impression_share** | Option<[**models::GoogleTargetImpressionShare**](GoogleTargetImpressionShare.md)> | Retargets a TARGET_IMPRESSION_SHARE strategy; location, percent and maxCpc are all written. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

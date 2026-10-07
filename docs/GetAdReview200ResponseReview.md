@@ -11,7 +11,9 @@ Name | Type | Description | Notes
 **forbidden_locations** | Option<**Vec<String>**> |  | [optional]
 **forbidden_operating_systems** | Option<**Vec<String>**> |  | [optional]
 **rejections** | Option<[**Vec<models::GetAdReview200ResponseReviewRejectionsInner>**](GetAdReview200ResponseReviewRejectionsInner.md)> | One entry per rejected piece of content (TikTok `reject_info`). Empty when the ad was approved. | [optional]
-**read_at** | Option<**String**> | When the verdict was read from TikTok. | [optional]
+**approval_status** | Option<**String**> | Google only. ad_group_ad.policy_summary.approval_status, verbatim. | [optional]
+**policy_topics** | Option<[**Vec<models::GetAdReview200ResponseReviewPolicyTopicsInner>**](GetAdReview200ResponseReviewPolicyTopicsInner.md)> | Google only. ad_group_ad.policy_summary.policy_topic_entries. | [optional]
+**read_at** | Option<**String**> | When the verdict was read from the platform. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

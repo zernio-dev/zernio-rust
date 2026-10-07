@@ -22,7 +22,7 @@ Method | HTTP request | Description
 [**remove_custom_conversion_goal**](ConversionsApi.md#remove_custom_conversion_goal) | **DELETE** /v1/ads/conversions/custom-goals/{goalId} | Remove a custom conversion goal
 [**send_conversions**](ConversionsApi.md#send_conversions) | **POST** /v1/ads/conversions | Send conversion events
 [**update_ad_conversion_goals**](ConversionsApi.md#update_ad_conversion_goals) | **PATCH** /v1/ads/conversions/goals | Update account conversion goals
-[**update_conversion_action**](ConversionsApi.md#update_conversion_action) | **PATCH** /v1/ads/conversions/actions/{actionId} | Set a conversion action primary or secondary
+[**update_conversion_action**](ConversionsApi.md#update_conversion_action) | **PATCH** /v1/ads/conversions/actions/{actionId} | Update a conversion action's settings
 [**update_conversion_destination**](ConversionsApi.md#update_conversion_destination) | **PATCH** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Update a conversion destination
 [**update_custom_conversion_goal**](ConversionsApi.md#update_custom_conversion_goal) | **PATCH** /v1/ads/conversions/custom-goals/{goalId} | Update a custom conversion goal
 
@@ -153,7 +153,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_custom_conversion_goal
 
-> models::CreateCustomConversionGoal201Response create_custom_conversion_goal(create_custom_conversion_goal_request)
+> models::CreateSharedBudget201ResponseBudget create_custom_conversion_goal(create_custom_conversion_goal_request)
 Create a custom conversion goal
 
 Creates a custom conversion goal from conversion action ids. Point a campaign at it with `PATCH /v1/ads/campaigns/{campaignId}/conversion-goals`.
@@ -167,7 +167,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::CreateCustomConversionGoal201Response**](createCustomConversionGoal_201_response.md)
+[**models::CreateSharedBudget201ResponseBudget**](createSharedBudget_201_response_budget.md)
 
 ### Authorization
 
@@ -599,9 +599,9 @@ Name | Type | Description  | Required | Notes
 ## update_conversion_action
 
 > models::UpdateConversionAction200Response update_conversion_action(action_id, update_conversion_action_request)
-Set a conversion action primary or secondary
+Update a conversion action's settings
 
-Sets `primary_for_goal` on a Google Ads conversion action. A primary action counts toward its goal's bidding and the Conversions column; a secondary one is observation-only (All conversions).
+Updates a Google Ads conversion action in one mutate, each field sent written on its own update mask leaf so omitted fields keep their value. Send at least one field.  `primaryForGoal` sets `primary_for_goal`: a primary action counts toward its goal's bidding and the Conversions column; a secondary one is observation-only (All conversions). `countingType`, `category`, the value settings (`defaultValue`, `defaultCurrency`, `alwaysUseDefaultValue`) and the click-through / view-through lookback windows map to the same-named conversion_action fields.  `status: REMOVED` removes the action (Google keeps it, with its history, as REMOVED) and must be sent alone; `status: ENABLED` restores a removed action. Google refuses HIDDEN on website actions, so it is not offered.
 
 ### Parameters
 
