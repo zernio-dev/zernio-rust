@@ -150,7 +150,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_ad_creative
 
-> models::GetAdCreative200Response get_ad_creative(creative_id, account_id, fields)
+> models::GetAdCreative200Response get_ad_creative(creative_id, account_id, fields, thumbnail_width, thumbnail_height)
 Creative details
 
 One creative's details, verbatim from Meta. `fields` is a raw-passthrough override of the default projection.
@@ -163,6 +163,8 @@ Name | Type | Description  | Required | Notes
 **creative_id** | **String** | Platform creative id | [required] |
 **account_id** | **String** | Zernio SocialAccount id (posting or ads variant) used to resolve the Meta token. | [required] |
 **fields** | Option<**String**> | Comma-separated Graph field override. Supports nested {} projections and Graph field modifiers, so a nested edge can be paged explicitly: without a .limit() modifier the expansion runs at the Meta default page size and the tail is dropped silently. |  |
+**thumbnail_width** | Option<**i32**> | Width in pixels of the `thumbnail_url` rendering, forwarded to Meta as `thumbnail_width`. Without it Meta returns a 64x64 thumbnail. |  |
+**thumbnail_height** | Option<**i32**> | Height in pixels of the `thumbnail_url` rendering, forwarded to Meta as `thumbnail_height`. Without it Meta returns a 64x64 thumbnail. |  |
 
 ### Return type
 
