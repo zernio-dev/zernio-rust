@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **sitelinks** | Option<[**Vec<models::GoogleSitelink>**](GoogleSitelink.md)> |  | [optional]
 **callouts** | Option<**Vec<String>**> |  | [optional]
 **structured_snippets** | Option<[**Vec<models::GoogleStructuredSnippet>**](GoogleStructuredSnippet.md)> |  | [optional]
+**images** | Option<**Vec<String>**> | Public image URLs, uploaded to Google as image assets. Landscape 1.91:1 (min 600x314) or square 1:1 (min 300x300), up to 5 MB each. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

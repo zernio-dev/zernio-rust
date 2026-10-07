@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **sitelinks** | Option<[**Vec<models::ListAdGroupAssets200ResponseSitelinksInner>**](ListAdGroupAssets200ResponseSitelinksInner.md)> |  | [optional]
 **callouts** | Option<[**Vec<models::ListAdGroupAssets200ResponseCalloutsInner>**](ListAdGroupAssets200ResponseCalloutsInner.md)> |  | [optional]
 **structured_snippets** | Option<[**Vec<models::ListAdGroupAssets200ResponseStructuredSnippetsInner>**](ListAdGroupAssets200ResponseStructuredSnippetsInner.md)> |  | [optional]
+**images** | Option<[**Vec<models::ListAdGroupAssets200ResponseImagesInner>**](ListAdGroupAssets200ResponseImagesInner.md)> |  | [optional]
 **cached_at** | Option<**String**> | Time of the cached Google read. Null when no cache was used. | [optional]
 **stale** | Option<**bool**> | True when exhausted quota required returning the last successful read. | [optional]
 

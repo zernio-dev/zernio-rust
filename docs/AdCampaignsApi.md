@@ -134,7 +134,7 @@ Name | Type | Description  | Required | Notes
 > models::AttachAdGroupAssets201Response attach_ad_group_assets(ad_set_id, attach_campaign_assets_request)
 Attach ad-group assets
 
-Creates and attaches sitelinks, callouts and structured snippets in one Google mutation.
+Creates and attaches sitelinks, callouts, structured snippets and image assets in one Google mutation. Google shows images only on accounts it deems eligible (account age, policy history, vertical).
 
 ### Parameters
 
@@ -165,7 +165,7 @@ Name | Type | Description  | Required | Notes
 > models::AttachCampaignAssets201Response attach_campaign_assets(campaign_id, attach_campaign_assets_request)
 Attach campaign assets
 
-Creates and attaches sitelinks, callouts and structured snippets in one Google mutation.
+Creates and attaches sitelinks, callouts, structured snippets and image assets in one Google mutation. Google shows images only on accounts it deems eligible (account age, policy history, vertical).
 
 ### Parameters
 

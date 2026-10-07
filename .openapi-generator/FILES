@@ -1419,6 +1419,7 @@ docs/ListAdConversionGoals200Response.md
 docs/ListAdCreatives200Response.md
 docs/ListAdGroupAssets200Response.md
 docs/ListAdGroupAssets200ResponseCalloutsInner.md
+docs/ListAdGroupAssets200ResponseImagesInner.md
 docs/ListAdGroupAssets200ResponseSitelinksInner.md
 docs/ListAdGroupAssets200ResponseStructuredSnippetsInner.md
 docs/ListAdImages200Response.md
@@ -1474,6 +1475,7 @@ docs/ListCalls200Response.md
 docs/ListCalls200ResponseCallsInner.md
 docs/ListCampaignAssets200Response.md
 docs/ListCampaignAssets200ResponseCalloutsInner.md
+docs/ListCampaignAssets200ResponseImagesInner.md
 docs/ListCampaignAssets200ResponseSitelinksInner.md
 docs/ListCampaignAssets200ResponseStructuredSnippetsInner.md
 docs/ListCampaignNegativeKeywords200Response.md
@@ -4216,6 +4218,7 @@ src/models/list_ad_conversion_goals_200_response.rs
 src/models/list_ad_creatives_200_response.rs
 src/models/list_ad_group_assets_200_response.rs
 src/models/list_ad_group_assets_200_response_callouts_inner.rs
+src/models/list_ad_group_assets_200_response_images_inner.rs
 src/models/list_ad_group_assets_200_response_sitelinks_inner.rs
 src/models/list_ad_group_assets_200_response_structured_snippets_inner.rs
 src/models/list_ad_images_200_response.rs
@@ -4271,6 +4274,7 @@ src/models/list_calls_200_response.rs
 src/models/list_calls_200_response_calls_inner.rs
 src/models/list_campaign_assets_200_response.rs
 src/models/list_campaign_assets_200_response_callouts_inner.rs
+src/models/list_campaign_assets_200_response_images_inner.rs
 src/models/list_campaign_assets_200_response_sitelinks_inner.rs
 src/models/list_campaign_assets_200_response_structured_snippets_inner.rs
 src/models/list_campaign_negative_keywords_200_response.rs
