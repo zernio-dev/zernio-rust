@@ -120,6 +120,24 @@ pub struct CampaignAnalyticsResponseAnalyticsDailyInner {
         skip_serializing_if = "Option::is_none"
     )]
     pub video_p100_watched_actions: Option<i32>,
+    /// Plays of at least 2 seconds, replays excluded. Hook rate = video2SecWatchedActions / impressions. Sources: TikTok `video_watched_2s` (TikTok only; Meta's closest field, 2-second continuous plays, is not synced). TikTok history note: added 2026-10, and each sync re-fetches only the last 7 days, so older days read 0.
+    #[serde(
+        rename = "video2SecWatchedActions",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub video2_sec_watched_actions: Option<i32>,
+    /// Plays of at least 6 seconds, replays excluded. Hold rate = video6SecWatchedActions / video2SecWatchedActions. Sources: TikTok `video_watched_6s` (TikTok only). Same history note as `video2SecWatchedActions`.
+    #[serde(
+        rename = "video6SecWatchedActions",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub video6_sec_watched_actions: Option<i32>,
+    /// TikTok's 6-second focused views: plays of at least 6 seconds (or to the end, for shorter videos) or with an interaction in the first 6 seconds, so it is at least `video6SecWatchedActions`. Sources: TikTok `engaged_view` (TikTok only). Same history note as `video2SecWatchedActions`.
+    #[serde(
+        rename = "video6SecFocusedViews",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub video6_sec_focused_views: Option<i32>,
     /// Average seconds watched per play. Aggregated over date ranges and across children as a play-weighted average (total watch time / total plays), never a plain average of averages. Sources: Meta `video_avg_time_watched_actions`, TikTok `average_video_play`.
     #[serde(
         rename = "videoAvgTimeWatchedActions",
@@ -176,6 +194,9 @@ impl CampaignAnalyticsResponseAnalyticsDailyInner {
             video_p75_watched_actions: None,
             video_p95_watched_actions: None,
             video_p100_watched_actions: None,
+            video2_sec_watched_actions: None,
+            video6_sec_watched_actions: None,
+            video6_sec_focused_views: None,
             video_avg_time_watched_actions: None,
             cost_per_thruplay: None,
             funnel: None,
