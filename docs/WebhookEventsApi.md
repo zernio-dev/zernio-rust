@@ -61,6 +61,8 @@ Method | HTTP request | Description
 [**on_sequence_exited**](WebhookEventsApi.md#on_sequence_exited) | **POST** /sequence.exited | Sequence exited event
 [**on_sms_registration_action_required**](WebhookEventsApi.md#on_sms_registration_action_required) | **POST** /sms.registration.action_required | SMS registration action required event
 [**on_sms_registration_status_updated**](WebhookEventsApi.md#on_sms_registration_status_updated) | **POST** /sms.registration.status_updated | SMS registration status updated event
+[**on_support_run_completed**](WebhookEventsApi.md#on_support_run_completed) | **POST** /support.run.completed | Support run completed event
+[**on_support_run_failed**](WebhookEventsApi.md#on_support_run_failed) | **POST** /support.run.failed | Support run failed event
 [**on_verification_approved**](WebhookEventsApi.md#on_verification_approved) | **POST** /verification.approved | Verification approved event
 [**on_verification_failed**](WebhookEventsApi.md#on_verification_failed) | **POST** /verification.failed | Verification failed event
 [**on_webhook_test**](WebhookEventsApi.md#on_webhook_test) | **POST** /webhook.test | Webhook test event
@@ -1779,6 +1781,66 @@ Fired on every status change of an SMS registration: `changes_requested` (we nee
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **on_sms_registration_status_updated_request** | [**OnSmsRegistrationStatusUpdatedRequest**](OnSmsRegistrationStatusUpdatedRequest.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_support_run_completed
+
+> on_support_run_completed(webhook_payload_support_run)
+Support run completed event
+
+Fired when an Ana support run finishes (private beta). run.status is completed, or needs_human when Ana handed the question to a person. The run object matches GET /v1/support/runs/{runId}.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_support_run** | [**WebhookPayloadSupportRun**](WebhookPayloadSupportRun.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_support_run_failed
+
+> on_support_run_failed(webhook_payload_support_run)
+Support run failed event
+
+Fired when an Ana support run fails or expires (private beta). Failed runs are not billed.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_support_run** | [**WebhookPayloadSupportRun**](WebhookPayloadSupportRun.md) |  | [required] |
 
 ### Return type
 

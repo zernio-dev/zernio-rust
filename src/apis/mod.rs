@@ -173,6 +173,7 @@ pub mod reviews_api;
 pub mod sequences_api;
 pub mod slack_api;
 pub mod sms_api;
+pub mod support_runs_api;
 pub mod tools_api;
 pub mod tracking_tags_api;
 pub mod twitter_engagement_api;
