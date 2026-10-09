@@ -10,10 +10,10 @@ Method | HTTP request | Description
 
 ## list_changelog
 
-> models::ListChangelog200Response list_changelog(r#type, platform, before, limit)
+> models::ListChangelog200Response list_changelog(r#type, impact, platform, before, limit)
 List API changelog entries
 
-The API changelog, newest first. No API key needed; one address may make 120 requests a minute. Each entry is what the `api.changelog.published` webhook delivered: the announcement in `message`, and in `changes` the deterministic diff of the OpenAPI spec (operations and schemas added, removed and modified) for automation to act on. Page with `before` set to the previous page's `nextCursor`. 
+The API changelog, newest first. No API key needed; one address may make 120 requests a minute. Each entry is what the `api.changelog.published` webhook delivered: the announcement in `message`, its `impact` on existing integrations, and in `changes` the deterministic diff of the OpenAPI spec (operations and schemas added, removed and modified) for automation to act on. Page with `before` set to the previous page's `nextCursor`. 
 
 ### Parameters
 
@@ -21,6 +21,7 @@ The API changelog, newest first. No API key needed; one address may make 120 req
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **r#type** | Option<**String**> | Only entries of this type. |  |
+**impact** | Option<**String**> | Only entries with this impact. `action_required` lists the changes an integration may need to act on. |  |
 **platform** | Option<**String**> | Only entries tagged with this platform or area slug (see `platforms` on the entry). One slug per request. |  |
 **before** | Option<**String**> | Only entries published strictly before this instant. Pass the previous page's `nextCursor`. |  |
 **limit** | Option<**i32**> |  |  |[default to 20]
