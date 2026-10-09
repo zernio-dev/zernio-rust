@@ -4,22 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | Option<**String**> | Reddit post ID (without type prefix) | [optional]
-**fullname** | Option<**String**> | Reddit fullname (e.g. t3_abc123) | [optional]
+**id** | Option<**String**> | Reddit post base36 id (e.g. \"1tjtj26\") | [optional]
+**fullname** | Option<**String**> | Fullname with type prefix (e.g. \"t3_1tjtj26\") | [optional]
 **title** | Option<**String**> |  | [optional]
-**author** | Option<**String**> |  | [optional]
-**subreddit** | Option<**String**> |  | [optional]
-**url** | Option<**String**> | Post URL (may be a gallery URL, external link, or self-post URL) | [optional]
-**permalink** | Option<**String**> | Full permalink to the Reddit post | [optional]
-**selftext** | Option<**String**> | Self-post body text (empty string for link posts) | [optional]
-**created_utc** | Option<**f64**> | Unix timestamp of post creation | [optional]
-**score** | Option<**i32**> |  | [optional]
+**selftext** | Option<**String**> | Body text for self-posts (empty for link posts) | [optional]
+**author** | Option<**String**> | Reddit username, without the u/ prefix | [optional]
+**subreddit** | Option<**String**> | Subreddit name, without the r/ prefix | [optional]
+**permalink** | Option<**String**> | Absolute URL to the post on reddit.com | [optional]
+**url** | Option<**String**> | For link posts, the external URL; for self-posts, the Reddit permalink | [optional]
+**score** | Option<**i32**> | Net upvotes (upvotes minus downvotes) | [optional]
 **num_comments** | Option<**i32**> |  | [optional]
-**over18** | Option<**bool**> | Whether the post is marked NSFW | [optional]
+**created_utc** | Option<**i32**> | Unix timestamp in seconds | [optional]
+**over18** | Option<**bool**> |  | [optional]
 **stickied** | Option<**bool**> |  | [optional]
-**flair_text** | Option<**String**> | Link flair text if set | [optional]
-**is_gallery** | Option<**bool**> | Whether the post is a gallery with multiple images | [optional]
-**gallery_images** | Option<**Vec<String>**> | Individual image URLs for gallery posts (only present when isGallery is true) | [optional]
+**flair_text** | Option<**String**> | Link flair text if any | [optional]
+**is_gallery** | Option<**bool**> | True if the post is a Reddit gallery (multiple images) | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

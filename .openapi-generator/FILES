@@ -208,6 +208,8 @@ docs/BrandedCallingIdentityReviewRequestPointsInner.md
 docs/BrandedCallingReference.md
 docs/BrandedCallingReferences.md
 docs/BroadcastsApi.md
+docs/BrowseAdTargeting200Response.md
+docs/BrowseAdTargeting200ResponseNodesInner.md
 docs/BulkCreateContacts200Response.md
 docs/BulkCreateContactsRequest.md
 docs/BulkCreateContactsRequestContactsInner.md
@@ -782,6 +784,7 @@ docs/ExternalPostMediaItem.md
 docs/ExternalPostSummary.md
 docs/ExternalPostSummaryAnalytics.md
 docs/ExternalPostWebhookPost.md
+docs/FacebookOrInstagramPost.md
 docs/FacebookPlatformData.md
 docs/FacebookPostEarningsResponse.md
 docs/FacebookPostEarningsResponseMetricsValue.md
@@ -3058,6 +3061,8 @@ src/models/branded_calling_identity_review_request.rs
 src/models/branded_calling_identity_review_request_points_inner.rs
 src/models/branded_calling_reference.rs
 src/models/branded_calling_references.rs
+src/models/browse_ad_targeting_200_response.rs
+src/models/browse_ad_targeting_200_response_nodes_inner.rs
 src/models/bulk_create_contacts_200_response.rs
 src/models/bulk_create_contacts_request.rs
 src/models/bulk_create_contacts_request_contacts_inner.rs
@@ -3620,6 +3625,7 @@ src/models/external_post_media_item.rs
 src/models/external_post_summary.rs
 src/models/external_post_summary_analytics.rs
 src/models/external_post_webhook_post.rs
+src/models/facebook_or_instagram_post.rs
 src/models/facebook_platform_data.rs
 src/models/facebook_post_earnings_response.rs
 src/models/facebook_post_earnings_response_metrics_value.rs
