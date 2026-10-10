@@ -875,6 +875,7 @@ docs/GetAdsSearchTerms200ResponsePaging.md
 docs/GetAdsTimeline202Response.md
 docs/GetAllAccountsHealth200Response.md
 docs/GetAllAccountsHealth200ResponseAccountsInner.md
+docs/GetAllAccountsHealth200ResponseAccountsInnerAnalyticsSync.md
 docs/GetAllAccountsHealth200ResponseAccountsInnerMessagingRestriction.md
 docs/GetAllAccountsHealth200ResponseSummary.md
 docs/GetAnalytics200Response.md
@@ -3715,6 +3716,7 @@ src/models/get_ads_search_terms_200_response_paging.rs
 src/models/get_ads_timeline_202_response.rs
 src/models/get_all_accounts_health_200_response.rs
 src/models/get_all_accounts_health_200_response_accounts_inner.rs
+src/models/get_all_accounts_health_200_response_accounts_inner_analytics_sync.rs
 src/models/get_all_accounts_health_200_response_accounts_inner_messaging_restriction.rs
 src/models/get_all_accounts_health_200_response_summary.rs
 src/models/get_analytics_200_response.rs
