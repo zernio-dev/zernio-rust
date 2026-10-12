@@ -6,11 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **run_id** | **String** | Run id, a 24-character hex string. | 
 **thread_id** | **String** | Conversation thread id. Send it back as `threadId` to ask a follow-up in the same thread. | 
-**status** | **Status** | queued and running are in progress. needs_human means Ana handed the question to a person instead of answering; when `supportTicket` is set, a Zernio teammate has been notified and will follow up by email. (enum: queued, running, completed, needs_human, failed) | 
+**status** | **Status** | queued and running are in progress. needs_human means the assistant handed the question to a person instead of answering; when `supportTicket` is set, a Zernio teammate has been notified and will follow up by email. (enum: queued, running, completed, needs_human, failed) | 
 **stop_reason** | Option<**StopReason**> | Why the run stopped. Null while it is in progress. (enum: answered, human_review, cost_cap, deadline, max_iterations, error, expired, ) | 
-**answer** | Option<**String**> | Ana's answer. Null while the run is in progress or when it failed. | 
+**answer** | Option<**String**> | The assistant's answer. Null while the run is in progress or when it failed. | 
 **usage** | [**models::SupportRunUsage**](SupportRunUsage.md) |  | 
-**cost_usd** | **f64** | The amount billed for the run, in USD: the model cost plus 20%, never above `maxCostUsd`. 0 for a failed run. | 
+**cost_usd** | **f64** | The exact amount charged for the question, in USD, never above `maxCostUsd`. 0 for a failed run. | 
 **max_cost_usd** | **f64** | The cost cap this run was started with, in USD. | 
 **created_at** | **String** |  | 
 **started_at** | Option<**String**> |  | 

@@ -1803,7 +1803,7 @@ Name | Type | Description  | Required | Notes
 > on_support_run_completed(webhook_payload_support_run)
 Support Assistant finished event
 
-Fired when the Support Assistant finishes a question (private beta). run.status is completed, or needs_human when Ana handed the question to a person. The run object matches GET /v1/support/runs/{runId}.
+Fired when the Support Assistant finishes a question. run.status is completed, or needs_human when the assistant handed the question to a person. The run object matches GET /v1/support/runs/{runId}.
 
 ### Parameters
 
@@ -1833,7 +1833,7 @@ Name | Type | Description  | Required | Notes
 > on_support_run_failed(webhook_payload_support_run)
 Support Assistant failed event
 
-Fired when a Support Assistant question fails or expires (private beta). Failed runs are not billed.
+Fired when a Support Assistant question fails or expires. Failed runs are not billed.
 
 ### Parameters
 

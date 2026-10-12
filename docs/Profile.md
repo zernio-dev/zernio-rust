@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **description** | Option<**String**> |  | [optional]
 **color** | Option<**String**> |  | [optional]
 **timezone** | Option<**String**> | IANA timezone new posts on this profile use when the request names no `timezone`. Null means UTC. | [optional]
+**external_id** | Option<**String**> | Your own identifier for this profile, set on create or update. Null when none is set. | [optional]
 **is_default** | Option<**bool**> |  | [optional]
 **is_over_limit** | Option<**bool**> | Only present when includeOverLimit=true. Indicates if this profile exceeds the plan limit. | [optional]
 **account_count** | Option<**i32**> | In the profile list. Connected accounts on the profile, including ones that need reconnecting; phone and SMS number internals and posting accounts hidden by an ads connect are not counted. | [optional]

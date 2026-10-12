@@ -17,7 +17,7 @@ Method | HTTP request | Description
 > models::ProfileCreateResponse create_profile(create_profile_request, idempotency_key)
 Create profile
 
-Creates a new profile with a name, optional description, and color. Names are unique per team: a duplicate returns a 409 whose details.existingProfileId carries the id of the existing profile. Send an Idempotency-Key header to make retries safe: a retried create with the same key and body replays the original 201 (same _id) instead of conflicting.
+Creates a new profile with a name, optional description, and color. Names are unique per team: a duplicate returns a 409 whose details.existingProfileId carries the id of the existing profile. Set externalId to your own tenant or client id to find the profile later without storing its Zernio id. A duplicate externalId returns the same kind of 409, with code profile_external_id_conflict. Send an Idempotency-Key header to make retries safe: a retried create with the same key and body replays the original 201 (same _id) instead of conflicting.
 
 ### Parameters
 
@@ -105,10 +105,10 @@ Name | Type | Description  | Required | Notes
 
 ## list_profiles
 
-> models::ProfilesListResponse list_profiles(include_over_limit, name, limit, skip)
+> models::ProfilesListResponse list_profiles(include_over_limit, name, external_id, limit, skip)
 List profiles
 
-Returns profiles sorted default-first, then by creation date. Filter with name (exact match) and paginate with limit/skip; without those params the full list is returned unchanged. Use includeOverLimit=true to include profiles that exceed the plan limit.
+Returns profiles sorted default-first, then by creation date. Filter with name or externalId (exact match) and paginate with limit/skip; without those params the full list is returned unchanged. Use includeOverLimit=true to include profiles that exceed the plan limit.
 
 ### Parameters
 
@@ -117,6 +117,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **include_over_limit** | Option<**bool**> | When true, includes over-limit profiles (marked with isOverLimit: true). |  |[default to false]
 **name** | Option<**String**> | Exact-match filter on the profile name. Useful to recover a profile id after an ambiguous create (timeout followed by a 409 on retry). |  |
+**external_id** | Option<**String**> | Exact-match filter on the externalId you set on the profile, to find the profile of one of your tenants without storing its Zernio id. Team members can each own a profile with the same externalId, so the result is a list. |  |
 **limit** | Option<**i32**> | Page size. When limit or skip is present, the response includes total and skip (and echoes limit). |  |
 **skip** | Option<**i32**> | Number of profiles to skip, applied after sorting and filtering. |  |
 
@@ -141,7 +142,7 @@ Name | Type | Description  | Required | Notes
 > models::ProfileUpdateResponse update_profile(profile_id, update_profile_request)
 Update profile
 
-Updates a profile's name, description, color, default timezone, or default status.
+Updates a profile's name, description, color, default timezone, externalId, or default status.
 
 ### Parameters
 
