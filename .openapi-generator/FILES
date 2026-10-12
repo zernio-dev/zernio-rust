@@ -135,6 +135,9 @@ docs/ApplyGoogleRecommendationsRequest.md
 docs/ApplyGoogleRecommendationsRequestRecommendationsInner.md
 docs/ApproveWhatsAppGroupJoinRequestsRequest.md
 docs/ArchiveLeadForm200Response.md
+docs/AskSupportQuestion202Response.md
+docs/AskSupportQuestionRequest.md
+docs/AskSupportQuestionRequestContext.md
 docs/AssignAdAccountUser201Response.md
 docs/AssignAdAccountUserRequest.md
 docs/AssignGoogleBusinessLocation200Response.md
@@ -617,9 +620,6 @@ docs/CreateStandaloneAdRequestStructuredSnippetsInner.md
 docs/CreateStandaloneAdRequestTranslationsInner.md
 docs/CreateStandaloneAdRequestVideo.md
 docs/CreateStandaloneAdRequestZipsInner.md
-docs/CreateSupportRun202Response.md
-docs/CreateSupportRunRequest.md
-docs/CreateSupportRunRequestContext.md
 docs/CreateTestLead200Response.md
 docs/CreateTestLead200ResponseTestLead.md
 docs/CreateTestLeadRequest.md
@@ -862,6 +862,7 @@ docs/GetAdReview200ResponseReview.md
 docs/GetAdReview200ResponseReviewPolicyTopicsInner.md
 docs/GetAdReview200ResponseReviewRejectionsInner.md
 docs/GetAdReview200ResponseReviewRejectionsInnerContent.md
+docs/GetAdReview200ResponseReviewReviewFeedback.md
 docs/GetAdSetDetails200Response.md
 docs/GetAdTrackingTags200Response.md
 docs/GetAdTree202Response.md
@@ -2208,10 +2209,10 @@ docs/SubmitPhoneNumberKycRequestDocumentsInnerOneOf1.md
 docs/SubmitWhatsAppNumberKycRequest.md
 docs/SubmitWhatsAppNumberKycRequestDocumentsInner.md
 docs/SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf.md
+docs/SupportAssistantApi.md
 docs/SupportRun.md
 docs/SupportRunSupportTicket.md
 docs/SupportRunUsage.md
-docs/SupportRunsApi.md
 docs/SyncExternalPosts200Response.md
 docs/SyncExternalPosts200ResponseSynced.md
 docs/SyncExternalPostsRequest.md
@@ -2853,7 +2854,7 @@ src/apis/reviews_api.rs
 src/apis/sequences_api.rs
 src/apis/slack_api.rs
 src/apis/sms_api.rs
-src/apis/support_runs_api.rs
+src/apis/support_assistant_api.rs
 src/apis/tools_api.rs
 src/apis/tracking_tags_api.rs
 src/apis/twitter_engagement_api.rs
@@ -2993,6 +2994,9 @@ src/models/apply_google_recommendations_request.rs
 src/models/apply_google_recommendations_request_recommendations_inner.rs
 src/models/approve_whats_app_group_join_requests_request.rs
 src/models/archive_lead_form_200_response.rs
+src/models/ask_support_question_202_response.rs
+src/models/ask_support_question_request.rs
+src/models/ask_support_question_request_context.rs
 src/models/assign_ad_account_user_201_response.rs
 src/models/assign_ad_account_user_request.rs
 src/models/assign_google_business_location_200_response.rs
@@ -3462,9 +3466,6 @@ src/models/create_standalone_ad_request_structured_snippets_inner.rs
 src/models/create_standalone_ad_request_translations_inner.rs
 src/models/create_standalone_ad_request_video.rs
 src/models/create_standalone_ad_request_zips_inner.rs
-src/models/create_support_run_202_response.rs
-src/models/create_support_run_request.rs
-src/models/create_support_run_request_context.rs
 src/models/create_test_lead_200_response.rs
 src/models/create_test_lead_200_response_test_lead.rs
 src/models/create_test_lead_request.rs
@@ -3704,6 +3705,7 @@ src/models/get_ad_review_200_response_review.rs
 src/models/get_ad_review_200_response_review_policy_topics_inner.rs
 src/models/get_ad_review_200_response_review_rejections_inner.rs
 src/models/get_ad_review_200_response_review_rejections_inner_content.rs
+src/models/get_ad_review_200_response_review_review_feedback.rs
 src/models/get_ad_set_details_200_response.rs
 src/models/get_ad_tracking_tags_200_response.rs
 src/models/get_ad_tree_202_response.rs

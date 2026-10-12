@@ -61,8 +61,8 @@ Method | HTTP request | Description
 [**on_sequence_exited**](WebhookEventsApi.md#on_sequence_exited) | **POST** /sequence.exited | Sequence exited event
 [**on_sms_registration_action_required**](WebhookEventsApi.md#on_sms_registration_action_required) | **POST** /sms.registration.action_required | SMS registration action required event
 [**on_sms_registration_status_updated**](WebhookEventsApi.md#on_sms_registration_status_updated) | **POST** /sms.registration.status_updated | SMS registration status updated event
-[**on_support_run_completed**](WebhookEventsApi.md#on_support_run_completed) | **POST** /support.run.completed | Support run completed event
-[**on_support_run_failed**](WebhookEventsApi.md#on_support_run_failed) | **POST** /support.run.failed | Support run failed event
+[**on_support_run_completed**](WebhookEventsApi.md#on_support_run_completed) | **POST** /support.run.completed | Support Assistant finished event
+[**on_support_run_failed**](WebhookEventsApi.md#on_support_run_failed) | **POST** /support.run.failed | Support Assistant failed event
 [**on_verification_approved**](WebhookEventsApi.md#on_verification_approved) | **POST** /verification.approved | Verification approved event
 [**on_verification_failed**](WebhookEventsApi.md#on_verification_failed) | **POST** /verification.failed | Verification failed event
 [**on_webhook_test**](WebhookEventsApi.md#on_webhook_test) | **POST** /webhook.test | Webhook test event
@@ -1801,9 +1801,9 @@ Name | Type | Description  | Required | Notes
 ## on_support_run_completed
 
 > on_support_run_completed(webhook_payload_support_run)
-Support run completed event
+Support Assistant finished event
 
-Fired when an Ana support run finishes (private beta). run.status is completed, or needs_human when Ana handed the question to a person. The run object matches GET /v1/support/runs/{runId}.
+Fired when the Support Assistant finishes a question (private beta). run.status is completed, or needs_human when Ana handed the question to a person. The run object matches GET /v1/support/runs/{runId}.
 
 ### Parameters
 
@@ -1831,9 +1831,9 @@ Name | Type | Description  | Required | Notes
 ## on_support_run_failed
 
 > on_support_run_failed(webhook_payload_support_run)
-Support run failed event
+Support Assistant failed event
 
-Fired when an Ana support run fails or expires (private beta). Failed runs are not billed.
+Fired when a Support Assistant question fails or expires (private beta). Failed runs are not billed.
 
 ### Parameters
 

@@ -16,7 +16,7 @@ Method | HTTP request | Description
 > cancel_rf_reservation(prediction_id, account_id, ad_account_id)
 Cancel reach-frequency booking
 
-Releases a RESERVATION's locked price and inventory. Unreserved predictions expire on their own.
+Cancels a Meta reach and frequency reservation, releasing its locked price and inventory.  Unreserved predictions expire on their own. 
 
 ### Parameters
 
@@ -48,7 +48,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateRfPrediction201Response create_rf_prediction(create_rf_prediction_request)
 Create reach-frequency prediction
 
-Creates an R&F prediction. This is a QUOTE, nothing is bought and no ad entities are created. Provide a date range plus exactly one of `budgetAmount` (Meta predicts reach) or `reach` (Meta predicts the budget). The response carries the estimate and its allowed bounds (min/max budget and reach). Predictions expire on their own; to buy, reserve one via POST /v1/ads/rf-predictions/{predictionId}/reserve and pass the RESERVED id to POST /v1/ads/create with `buyingType: \"RESERVED\"`.  Reservation campaigns reject automatic placements. Top-level `placements` wins; when it is omitted, `targeting.placements` is used; when neither is set, placements default to Facebook feed (+ Instagram stream when a linked IG professional account resolves). Instagram placements require that IG account.
+Quotes the reach or budget for a Meta reach and frequency campaign over a date range, without buying anything.  This is a QUOTE, nothing is bought and no ad entities are created. Provide a date range plus exactly one of `budgetAmount` (Meta predicts reach) or `reach` (Meta predicts the budget). The response carries the estimate and its allowed bounds (min/max budget and reach). Predictions expire on their own; to buy, reserve one via POST /v1/ads/rf-predictions/{predictionId}/reserve and pass the RESERVED id to POST /v1/ads/create with `buyingType: \"RESERVED\"`.  Reservation campaigns reject automatic placements. Top-level `placements` wins; when it is omitted, `targeting.placements` is used; when neither is set, placements default to Facebook feed (+ Instagram stream when a linked IG professional account resolves). Instagram placements require that IG account. 
 
 ### Parameters
 
@@ -77,6 +77,8 @@ Name | Type | Description  | Required | Notes
 
 > models::CreateRfPrediction201Response get_rf_prediction(prediction_id, account_id, ad_account_id)
 Get reach-frequency prediction
+
+Shows a Meta reach and frequency prediction, with its estimate and status. 
 
 ### Parameters
 
@@ -108,7 +110,7 @@ Name | Type | Description  | Required | Notes
 > models::ReserveRfPrediction201Response reserve_rf_prediction(prediction_id, reserve_rf_prediction_request)
 Reserve reach-frequency inventory
 
-Locks the quoted price + inventory until the returned `expiresAt` and mints a NEW prediction id. Pass that RESERVED id (not the original) as `rfPredictionId` on POST /v1/ads/create. Release an unused reservation via DELETE.
+Locks the quoted price and inventory of a Meta reach and frequency prediction so you can launch a campaign on it.  Locks the quoted price + inventory until the returned `expiresAt` and mints a NEW prediction id. Pass that RESERVED id (not the original) as `rfPredictionId` on POST /v1/ads/create. Release an unused reservation via DELETE.
 
 ### Parameters
 
