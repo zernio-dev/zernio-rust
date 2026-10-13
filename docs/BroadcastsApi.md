@@ -240,7 +240,7 @@ Name | Type | Description  | Required | Notes
 > models::ScheduleBroadcast200Response schedule_broadcast(broadcast_id, schedule_broadcast_request)
 Schedule broadcast for later
 
-Schedule a draft broadcast to be sent at a future date and time.
+Schedule a draft broadcast, or move the date of an already scheduled one, to a future date and time.
 
 ### Parameters
 
