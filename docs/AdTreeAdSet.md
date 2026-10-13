@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **status** | Option<[**models::AdStatus**](AdStatus.md)> | Derived from child ad statuses | [optional]
 **created_time** | Option<**String**> | Earliest `platformCreatedAt` (platform ad creation time; falls back to `createdAt`, Zernio's sync time, for ads synced before that field existed) across this ad set's ads. Not the ad set's own creation time on the platform, but a proxy usable for sorting. | [optional]
 **ad_count** | Option<**i32**> |  | [optional]
+**is_smart_plus** | Option<**bool**> | TikTok only. true when this ad group belongs to an Upgraded Smart+ campaign. See AdTreeCampaign.isSmartPlus. | [optional]
 **budget** | Option<[**models::AdTreeAdSetBudget**](AdTreeAdSetBudget.md)> |  | [optional]
 **ad_set_budget** | Option<[**models::AdTreeAdSetAdSetBudget**](AdTreeAdSetAdSetBudget.md)> |  | [optional]
 **metrics** | Option<[**models::AdMetrics**](AdMetrics.md)> |  | [optional]
