@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **account_id** | **String** | Zernio SocialAccount id owning the Google Ads connection. | 
-**platform** | **Platform** | Only \"google\" is implemented today; every other value returns 501. (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter, openai) | 
+**platform** | **Platform** | Only \"google\" is implemented today; every other value returns 501. (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter, openai, reddit) | 
 **campaign_id** | **String** | Google platform campaign ID (numeric) the ad group is created under. | 
 **name** | **String** |  | 
 **status** | Option<**Status**> |  (enum: ACTIVE, PAUSED) | [optional][default to Paused]

@@ -173,7 +173,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_posts
 
-> models::PostsListResponse list_posts(page, limit, offset, source, status, platform, profile_id, created_by, from_date, to_date, date_from, date_to, include_hidden, search, sort_by, account_id)
+> models::PostsListResponse list_posts(page, limit, offset, source, status, platform, profile_id, created_by, from_date, to_date, date_from, date_to, include_hidden, search, tags, sort_by, account_id)
 List posts
 
 Returns a paginated list of posts. Published posts include platformPostUrl with the public URL on each platform. A query parameter that is not listed here returns 400 naming it and the accepted parameters, so a misspelled filter never silently returns the unfiltered list.
@@ -197,6 +197,7 @@ Name | Type | Description  | Required | Notes
 **date_to** | Option<**String**> | Alias of toDate, kept for existing callers |  |
 **include_hidden** | Option<**bool**> |  |  |[default to false]
 **search** | Option<**String**> | Search posts by text content. |  |
+**tags** | Option<**String**> | Comma-separated tags (at most 20). Returns only posts carrying every listed tag, matched exactly and case-sensitively against the tags set when the post was created. An empty value means no tag filter. `tag` is accepted as an alias. |  |
 **sort_by** | Option<**String**> | Sort order for results. |  |[default to scheduled-desc]
 **account_id** | Option<**String**> | Filter posts to those published via a specific account (24-char hex ObjectId). |  |
 

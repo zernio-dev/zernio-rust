@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | Option<**Status**> | The ad set's delivery status derived from the switches read back: `paused` when its own switch or its campaign's switch is off. Echoes the request when the platform could not be read. (enum: active, paused) | [optional]
-**platform_ad_set_status** | Option<**String**> | The ad set's own switch as read back from the platform, in the raw platform vocabulary (Meta effective_status, TikTok ENABLE / DISABLE, Google ENABLED / PAUSED, LinkedIn and Pinterest ACTIVE / PAUSED, ChatGPT (OpenAI) status). Null when the platform could not be read, which is always the case on X. | [optional]
+**platform_ad_set_status** | Option<**String**> | The ad set's own switch as read back from the platform, in the raw platform vocabulary (Meta effective_status, TikTok ENABLE / DISABLE, Google ENABLED / PAUSED, LinkedIn and Pinterest ACTIVE / PAUSED, ChatGPT (OpenAI) status, Reddit configured_status). Null when the platform could not be read, which is always the case on X. | [optional]
 **platform_campaign_status** | Option<**String**> | The parent campaign's switch, read in the same call where the platform returns it, otherwise the stored value. | [optional]
 **status_read_at** | Option<**String**> | When the ad set switch was read back. Null when it could not be read. | [optional]
 **updated** | Option<**Updated**> | 1 when the ad set's switch was written. (enum: 0, 1) | [optional]
