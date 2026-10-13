@@ -430,7 +430,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **conversation_id** | **String** | Opaque conversation identifier, accepted verbatim from the list endpoint or from the conversationId on inbox webhooks. Format not to be assumed. | [required] |
 **send_inbox_message_request** | [**SendInboxMessageRequest**](SendInboxMessageRequest.md) |  | [required] |
-**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe. Same key + same body replays the original response; same key + different body → 422; key still processing → 409. |  |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe. Same key + same body replays the original response; same key + different body → 422; key still processing → 409. A request cut off mid-handler (for example by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours. |  |
 
 ### Return type
 
@@ -546,14 +546,14 @@ Name | Type | Description  | Required | Notes
 > models::UploadMediaDirect200Response upload_media_direct(file, content_type)
 Upload media file
 
-Upload a media file using API key authentication and get back a publicly accessible URL. The URL can be used as attachmentUrl when sending inbox messages.  Files are stored in temporary storage and auto-delete after 7 days. Maximum file size is 25MB.  Unlike /v1/media/upload (which uses upload tokens for end-user flows), this endpoint takes your API key in the Authorization header, for programmatic use. 
+Upload a media file using API key authentication and get back a publicly accessible URL. The URL can be used as attachmentUrl when sending inbox messages.  Files are stored in temporary storage and auto-delete after 7 days. The effective maximum is about 4.5 MB: the multipart body goes through the hosting platform's request body limit, which answers 413 before the endpoint's own 25 MB check is reached. For larger files use POST /v1/media/presign and upload straight to storage.  Unlike /v1/media/upload (which uses upload tokens for end-user flows), this endpoint takes your API key in the Authorization header, for programmatic use. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**file** | **std::path::PathBuf** | The file to upload (max 25MB) | [required] |
+**file** | **std::path::PathBuf** | The file to upload (about 4.5 MB at most in practice; use POST /v1/media/presign for larger files) | [required] |
 **content_type** | Option<**String**> | Override MIME type (e.g. \\\"image/jpeg\\\"). Auto-detected from file if not provided. |  |
 
 ### Return type
