@@ -2212,6 +2212,7 @@ docs/SubmitWhatsAppNumberKycRequestDocumentsInner.md
 docs/SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf.md
 docs/SupportAssistantApi.md
 docs/SupportRun.md
+docs/SupportRunDiagnosis.md
 docs/SupportRunSupportTicket.md
 docs/SupportRunUsage.md
 docs/SyncExternalPosts200Response.md
@@ -5025,6 +5026,7 @@ src/models/submit_whats_app_number_kyc_request.rs
 src/models/submit_whats_app_number_kyc_request_documents_inner.rs
 src/models/submit_whats_app_number_kyc_request_documents_inner_one_of.rs
 src/models/support_run.rs
+src/models/support_run_diagnosis.rs
 src/models/support_run_support_ticket.rs
 src/models/support_run_usage.rs
 src/models/sync_external_posts_200_response.rs

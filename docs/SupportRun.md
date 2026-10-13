@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **stop_reason** | Option<**StopReason**> | Why the run stopped. Null while it is in progress. (enum: answered, human_review, cost_cap, deadline, max_iterations, error, expired, ) | 
 **question** | Option<**String**> | The question as asked, with leading and trailing whitespace trimmed. Null only on runs created before this field was added. | 
 **answer** | Option<**String**> | The assistant's answer. Null while the run is in progress or when it failed. | 
+**diagnosis** | Option<[**models::SupportRunDiagnosis**](SupportRunDiagnosis.md)> |  | 
 **usage** | [**models::SupportRunUsage**](SupportRunUsage.md) |  | 
 **cost_usd** | **f64** | The exact amount charged for the question, in USD, never above `maxCostUsd`. 0 for a failed run. | 
 **max_cost_usd** | **f64** | The cost cap this run was started with, in USD. | 

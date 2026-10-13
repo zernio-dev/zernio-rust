@@ -4296,6 +4296,8 @@ pub mod submit_whats_app_number_kyc_request_documents_inner_one_of;
 pub use self::submit_whats_app_number_kyc_request_documents_inner_one_of::SubmitWhatsAppNumberKycRequestDocumentsInnerOneOf;
 pub mod support_run;
 pub use self::support_run::SupportRun;
+pub mod support_run_diagnosis;
+pub use self::support_run_diagnosis::SupportRunDiagnosis;
 pub mod support_run_support_ticket;
 pub use self::support_run_support_ticket::SupportRunSupportTicket;
 pub mod support_run_usage;

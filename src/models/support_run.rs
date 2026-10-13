@@ -31,6 +31,8 @@ pub struct SupportRun {
     /// The assistant's answer. Null while the run is in progress or when it failed.
     #[serde(rename = "answer", deserialize_with = "Option::deserialize")]
     pub answer: Option<String>,
+    #[serde(rename = "diagnosis", deserialize_with = "Option::deserialize")]
+    pub diagnosis: Option<Box<models::SupportRunDiagnosis>>,
     #[serde(rename = "usage")]
     pub usage: Box<models::SupportRunUsage>,
     /// The exact amount charged for the question, in USD, never above `maxCostUsd`. 0 for a failed run.
@@ -60,6 +62,7 @@ impl SupportRun {
         stop_reason: Option<StopReason>,
         question: Option<String>,
         answer: Option<String>,
+        diagnosis: Option<models::SupportRunDiagnosis>,
         usage: models::SupportRunUsage,
         cost_usd: f64,
         max_cost_usd: f64,
@@ -75,6 +78,11 @@ impl SupportRun {
             stop_reason,
             question,
             answer,
+            diagnosis: if let Some(x) = diagnosis {
+                Some(Box::new(x))
+            } else {
+                None
+            },
             usage: Box::new(usage),
             cost_usd,
             max_cost_usd,
