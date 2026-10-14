@@ -1592,6 +1592,8 @@ pub mod get_account_posts_200_response_posts_inner;
 pub use self::get_account_posts_200_response_posts_inner::GetAccountPosts200ResponsePostsInner;
 pub mod get_ad_200_response;
 pub use self::get_ad_200_response::GetAd200Response;
+pub mod get_ad_200_response_dark_post;
+pub use self::get_ad_200_response_dark_post::GetAd200ResponseDarkPost;
 pub mod get_ad_account_finance_200_response;
 pub use self::get_ad_account_finance_200_response::GetAdAccountFinance200Response;
 pub mod get_ad_account_finance_200_response_funding_source;

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | Option<**String**> | Meta ad ID (Instagram only). | [optional]
+**id** | Option<**String**> | Meta ad ID. Instagram: from the webhook. Facebook: only on a dark post matched to a single ad by its copy. | [optional]
 **title** | Option<**String**> | Ad creative title (Instagram only). | [optional]
 **original_media_id** | Option<**String**> | Original media ID that Meta reports for the ad (Instagram only). | [optional]
 **promotion_status** | Option<**String**> | Facebook only. The parent post's promotion_status as the Graph API returns it, for example \"active\" (organic post currently boosted). Ad dark posts usually report \"inactive\" and sometimes \"ineligible\", so use isDarkPost, not this value, to tell an ad comment apart.  | [optional]
