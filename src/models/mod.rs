@@ -2630,6 +2630,8 @@ pub mod instagram_business_discovery;
 pub use self::instagram_business_discovery::InstagramBusinessDiscovery;
 pub mod instagram_business_discovery_media_inner;
 pub use self::instagram_business_discovery_media_inner::InstagramBusinessDiscoveryMediaInner;
+pub mod instagram_business_discovery_media_inner_children_inner;
+pub use self::instagram_business_discovery_media_inner_children_inner::InstagramBusinessDiscoveryMediaInnerChildrenInner;
 pub mod instagram_business_discovery_profile;
 pub use self::instagram_business_discovery_profile::InstagramBusinessDiscoveryProfile;
 pub mod instagram_demographics_response;
