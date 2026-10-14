@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **platform_campaign_id** | Option<**String**> |  | [optional]
 **platform_ad_account_id** | Option<**String**> |  | [optional]
 **account_id** | Option<**String**> |  | [optional]
-**profile_id** | Option<**String**> |  | [optional]
+**profile_id** | Option<**String**> | Profile the row belongs to: the profile of its owning connection (`accountId`); when that connection no longer exists, the requested profile (`profileId` filter) that reaches the row ad account, else the profile of the oldest connection of the row owner that reaches it. | [optional]
 **currency** | Option<**String**> |  | [optional]
 **budget** | Option<[**models::ListAdSets200ResponseAdSetsInnerBudget**](ListAdSets200ResponseAdSetsInnerBudget.md)> |  | [optional]
 **schedule** | Option<[**models::ListAdSets200ResponseAdSetsInnerSchedule**](ListAdSets200ResponseAdSetsInnerSchedule.md)> |  | [optional]

@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 **platform_ad_account_id** | Option<**String**> |  | [optional]
 **platform_ad_account_name** | Option<**String**> | Human-readable advertiser/account name from the platform. Refreshed on every sync. | [optional]
 **account_id** | Option<**String**> |  | [optional]
-**profile_id** | Option<**String**> |  | [optional]
+**profile_id** | Option<**String**> | Profile the row belongs to: the profile of its owning connection (`accountId`); when that connection no longer exists, the requested profile (`profileId` filter) that reaches the row ad account, else the profile of the oldest connection of the row owner that reaches it. | [optional]
 **is_smart_plus** | Option<**bool**> | TikTok only. true when the campaign is an Upgraded Smart+ campaign. See AdTreeCampaign.isSmartPlus. | [optional]
 **advertising_channel_type** | Option<**String**> | Google-only. Raw campaign.advertising_channel_type. See AdTreeCampaign.advertisingChannelType. | [optional]
 **platform_objective** | Option<**String**> | Raw Meta campaign objective (e.g. OUTCOME_SALES, OUTCOME_LEADS, OUTCOME_TRAFFIC) | [optional]
