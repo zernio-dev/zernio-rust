@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **reposts** | **i32** |  | 
 **reels_skip_rate** | **f64** | Instagram Reels skip rate, 0 to 1 | 
 **completion_rate** | **f64** | TikTok business lane: share of viewers who watched to the end, 0 to 1 | 
-**profile_views** | **i32** | TikTok business lane: profile views attributed to the post | 
+**profile_views** | **i32** | Instagram feed posts (images and carousels; 0 on Reels and Stories) and TikTok business lane: profile views attributed to the post | 
 **website_clicks** | **i32** | TikTok business lane: website-link clicks attributed to the post (also inside clicks) | 
 **impression_sources** | **std::collections::HashMap<String, f64>** | TikTok business lane: share of views by surface (forYou, follow, search, personalProfile, sound, directMessage, other), fractions 0 to 1. Empty object elsewhere. | 
 **audience_types** | **std::collections::HashMap<String, f64>** | TikTok business lane: follower / nonFollower and newViewer / returnViewer shares, fractions 0 to 1. Empty object elsewhere. | 
