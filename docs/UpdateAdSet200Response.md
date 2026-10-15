@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **budget** | Option<[**models::AdBudget**](AdBudget.md)> |  | [optional]
 **budget_level** | Option<**BudgetLevel**> |  (enum: adset) | [optional]
 **status** | Option<**Status**> | As in PUT /v1/ads/ad-sets/{adSetId}/status: delivery derived from the switches read back. (enum: active, paused) | [optional]
-**platform_ad_set_status** | Option<**String**> | The ad set's own switch read back from the platform; null when it could not be read. | [optional]
+**platform_ad_set_status** | Option<**String**> | The ad set's status read back from the platform, as in PUT /v1/ads/ad-sets/{adSetId}/status (Meta and Reddit return the ad set's effective_status); null when it could not be read. | [optional]
 **platform_campaign_status** | Option<**String**> |  | [optional]
 **status_read_at** | Option<**String**> |  | [optional]
 **status_updated** | Option<**StatusUpdated**> | 1 when the ad set's switch was written. (enum: 0, 1) | [optional]
