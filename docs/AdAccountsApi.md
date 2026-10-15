@@ -1089,7 +1089,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_ad_accounts
 
-> models::ListAdAccounts200Response list_ad_accounts(account_id, ad_account_id, limit)
+> models::ListAdAccounts200Response list_ad_accounts(account_id, ad_account_id, limit, in_scope_only)
 List ad accounts
 
 Lists the ad accounts a connection can manage, such as Meta ad accounts, TikTok advertisers or Google Ads customers.  Returns the platform ad accounts available for the given account (e.g. Meta ad accounts, TikTok advertiser IDs, Google Ads customer IDs). Meta business-login accounts use their own system-user token. Fresh Meta discovery includes businessId and businessName from the owning Business Manager when available; cached entries gain these fields after the next discovery refresh.  For TikTok agencies: enumerates every advertiser under every Business Center the token can read (paginated server-side), then chunks the lookup against TikTok's `/advertiser/info/` endpoint (which has a per-call cap of ≤100 IDs). Solo advertisers without a BC fall back to the OAuth-time `advertiser_ids` list. Cached for 1h on the SocialAccount; lazy-refreshed on first call after expiry.  For Google Ads: responds `429` when Google's API quota is temporarily exhausted (instead of an empty list). Retry after a delay.  For Reddit Ads (`redditads`): every Reddit ad account the connected Reddit user can reach, with `businessId`, `approvalStatus` (Reddit's `admin_approval`), `timezone` and `type`. 
@@ -1102,6 +1102,7 @@ Name | Type | Description  | Required | Notes
 **account_id** | **String** | Account ID | [required] |
 **ad_account_id** | Option<**String**> | Filter response to a single platform ad account ID (e.g. `act_123` for Meta, advertiser_id for TikTok). Returns at most one item. |  |
 **limit** | Option<**i32**> | Clamp the returned `accounts[]` length. Useful for typeahead pickers on agency tokens with hundreds of advertisers. |  |
+**in_scope_only** | Option<**bool**> | Google Ads only. `true` returns only the customers this connection accepts as `adAccountId` (or `customerId`) on the other /v1/ads endpoints, i.e. those inside its ad-account selection. Without it every customer the Google login can reach is listed, including ones selected on another connection of the same login, which those endpoints answer with a 400. Ignored on other platforms. |  |[default to false]
 
 ### Return type
 
