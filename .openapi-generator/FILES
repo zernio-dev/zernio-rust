@@ -703,6 +703,8 @@ docs/DeleteGoogleBusinessMedia200Response.md
 docs/DeleteGoogleBusinessPlaceAction200Response.md
 docs/DeleteGoogleBusinessReviewReply200Response.md
 docs/DeleteInboxComment200Response.md
+docs/DeleteInboxConversation200Response.md
+docs/DeleteInboxConversation200ResponseData.md
 docs/DeleteInboxReviewReply200Response.md
 docs/DeleteInboxReviewReplyRequest.md
 docs/DeleteSmsSenderId200Response.md
@@ -3555,6 +3557,8 @@ src/models/delete_google_business_media_200_response.rs
 src/models/delete_google_business_place_action_200_response.rs
 src/models/delete_google_business_review_reply_200_response.rs
 src/models/delete_inbox_comment_200_response.rs
+src/models/delete_inbox_conversation_200_response.rs
+src/models/delete_inbox_conversation_200_response_data.rs
 src/models/delete_inbox_review_reply_200_response.rs
 src/models/delete_inbox_review_reply_request.rs
 src/models/delete_sms_sender_id_200_response.rs
