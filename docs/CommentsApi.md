@@ -34,7 +34,7 @@ Delete a comment on a post. Supported by Facebook, Instagram, Threads, LinkedIn,
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**post_id** | **String** | Zernio post ID or platform-specific post ID. LinkedIn third-party posts accept full activity URN or numeric ID. | [required] |
+**post_id** | **String** | Zernio post ID or platform-specific post ID. On LinkedIn, pass the post id exactly as the feed returns it (urn:li:share:<id> or urn:li:ugcPost:<id>); a bare number is read as an activity id (urn:li:activity:<n>). | [required] |
 **account_id** | **String** |  | [required] |
 **comment_id** | **String** | For LinkedIn, accepts either the numeric comment ID or the composite comment URN returned by the comments listing (e.g. urn:li:comment:(threadUrn,id)) | [required] |
 
@@ -98,7 +98,7 @@ Fetch comments for a specific post. Requires accountId query parameter.  Pass `c
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**post_id** | **String** | Zernio post ID or platform-specific post ID. Zernio IDs are auto-resolved. LinkedIn third-party posts accept full activity URN or numeric ID. On Facebook, a comment ID is also accepted here and returns that comment's replies, kept for backwards compatibility; prefer the `commentId` query parameter, which also works on Instagram. | [required] |
+**post_id** | **String** | Zernio post ID or platform-specific post ID. Zernio IDs are auto-resolved. On LinkedIn, pass the post id exactly as the feed returns it (urn:li:share:<id> or urn:li:ugcPost:<id>). A bare number is read as an activity id (urn:li:activity:<n>, the number in a linkedin.com/feed/update URL); a share or ugcPost number passed bare returns an empty list. On Facebook, a comment ID is also accepted here and returns that comment's replies, kept for backwards compatibility; prefer the `commentId` query parameter, which also works on Instagram. | [required] |
 **account_id** | **String** |  | [required] |
 **subreddit** | Option<**String**> | (Reddit only) Subreddit name |  |
 **limit** | Option<**i32**> | Maximum number of comments to return |  |[default to 25]
@@ -298,7 +298,7 @@ Post a reply to a post or specific comment. Requires accountId in request body. 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**post_id** | **String** | Zernio post ID or platform-specific post ID. LinkedIn third-party posts accept full activity URN or numeric ID. | [required] |
+**post_id** | **String** | Zernio post ID or platform-specific post ID. On LinkedIn, pass the post id exactly as the feed returns it (urn:li:share:<id> or urn:li:ugcPost:<id>); a bare number is read as an activity id (urn:li:activity:<n>). | [required] |
 **reply_to_inbox_post_request** | [**ReplyToInboxPostRequest**](ReplyToInboxPostRequest.md) |  | [required] |
 **idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe. Same key + same body replays the original response; same key + different body → 422; key still processing → 409. A request cut off mid-handler (for example by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours. |  |
 
