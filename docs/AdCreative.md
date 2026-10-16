@@ -14,6 +14,8 @@ Name | Type | Description | Notes
 **video_id** | Option<**String**> | Meta video ID for VIDEO-type ads. Null for non-video ads. Callers that need an embeddable MP4 can call GET /{videoId}?fields=source with the page access token. | [optional]
 **video_url** | Option<**String**> | Public Facebook watch URL for VIDEO-type ads (https://www.facebook.com/watch/?v={videoId}). Null for non-video ads. | [optional]
 **creative_id** | Option<**String**> | Meta ad creative id backing this ad. Reusable via existingCreativeId on POST /v1/ads/create. | [optional]
+**creative_features** | Option<**std::collections::HashMap<String, Inner>**> | Meta only. The creativeFeatures map sent at creation (degrees_of_freedom_spec.creative_features_spec). Absent on ads synced from Meta. (enum: OPT_IN, OPT_OUT) | [optional]
+**catalog** | Option<[**models::AdCreativeCatalog**](AdCreativeCatalog.md)> |  | [optional]
 **object_type** | Option<**String**> | Meta creative object_type (e.g. SHARE, VIDEO, PRIVACY_CHECK_FAIL, POST_DELETED). Use this to render state-aware previews: when Meta moderation strips image/video fields, only thumbnailUrl at 64x64 is available. | [optional]
 **object_story_id** | Option<**String**> | Meta creative `object_story_id` (the SHARE reference). Frequently absent, because Meta omits it for SHARE creatives. Use effectiveObjectStoryId instead. | [optional]
 **effective_object_story_id** | Option<**String**> | Meta `effective_object_story_id`, the `{pageId}_{postId}` of the Facebook post the ad's engagement (comments) lives on. Pass to GET /v1/ads?effectiveObjectStoryId= to map a Business-Manager-visible post back to this ad; GET /v1/ads/{adId}/comments resolves comments against it. | [optional]
