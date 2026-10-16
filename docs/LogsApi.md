@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## list_logs
 
-> models::ListLogs200Response list_logs(r#type, status, platform, action, search, days, limit, skip, account_id, event, request_id, from, to, status_code, api_key_id, include_read_receipts)
+> models::ListLogs200Response list_logs(r#type, status, platform, action, search, days, limit, skip, account_id, event, request_id, from, to, status_code, api_key_id, profile_id, include_read_receipts)
 List activity logs
 
 Unified logs endpoint. Returns logs for publishing, connections, webhooks, and messaging. Filter by type, platform, status, and time range. Logs are retained for 90 days. Legacy query aliases remain accepted: `account_id` for `accountId`, `request_id` for `requestId`, `status_code` for `statusCode`, `api_key_id` for `apiKeyId`, and `include_read_receipts` for `includeReadReceipts`. 
@@ -35,6 +35,7 @@ Name | Type | Description  | Required | Notes
 **to** | Option<**String**> | Precise end instant (ISO 8601) |  |
 **status_code** | Option<**i32**> | Filter by exact HTTP status code (api_request logs) |  |
 **api_key_id** | Option<**String**> | Filter by the API key that made the request (api_request logs) |  |
+**profile_id** | Option<**String**> | Filter by profile: every log type carries the profile it belongs to, and an API request log carries the profileId the call named |  |
 **include_read_receipts** | Option<**bool**> | Include message.read / message.delivered events (hidden by default for messaging logs) |  |[default to false]
 
 ### Return type

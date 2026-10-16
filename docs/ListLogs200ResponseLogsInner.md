@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **user_id** | Option<**String**> |  | [optional]
 **platform** | Option<**String**> |  | [optional]
 **account_id** | Option<**String**> |  | [optional]
+**profile_id** | Option<**String**> | The profile the entry belongs to; on API request logs, the profileId the call named in its query or body | [optional]
+**operation_id** | Option<**String**> | API request logs only: the operationId of the public operation the request hit (e.g. createPost), absent for routes outside this spec | [optional]
 **status** | Option<**Status**> |  (enum: success, failed, pending, skipped) | [optional]
 **status_code** | Option<**i32**> |  | [optional]
 **error_message** | Option<**String**> |  | [optional]
