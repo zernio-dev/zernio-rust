@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **final_urls** | Option<**Vec<String>**> | Google RSA only. Replaces final URLs. Omitted lists stay unchanged. | [optional]
 **thumbnail_url** | Option<**String**> | Primary thumbnail/image URL | [optional]
 **image_url** | Option<**String**> | Alternative image URL | [optional]
+**asset_resource_name** | Option<**String**> | Google Display only. Resource name of the landscape marketing image asset (`creative.imageUrl`), for example customers/1234567890/assets/123. Set at creation and updated when PUT /v1/ads/{adId} replaces `creative.imageUrl`; replacing only `creative.squareImageUrl` leaves it unchanged. | [optional]
 **video_id** | Option<**String**> | Meta video ID for VIDEO-type ads. Null for non-video ads. Callers that need an embeddable MP4 can call GET /{videoId}?fields=source with the page access token. | [optional]
 **video_url** | Option<**String**> | Public Facebook watch URL for VIDEO-type ads (https://www.facebook.com/watch/?v={videoId}). Null for non-video ads. | [optional]
 **creative_id** | Option<**String**> | Meta ad creative id backing this ad. Reusable via existingCreativeId on POST /v1/ads/create. | [optional]
