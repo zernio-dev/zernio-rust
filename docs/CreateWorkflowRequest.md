@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **profile_id** | **String** |  | 
 **account_id** | **String** |  | 
-**platform** | Option<**Platform**> |  (enum: whatsapp, instagram, facebook, telegram, twitter, bluesky, reddit) | [optional][default to Whatsapp]
+**platform** | Option<**Platform**> |  (enum: whatsapp, instagram, facebook, telegram, twitter, bluesky, reddit, tiktok) | [optional][default to Whatsapp]
 **name** | **String** |  | 
 **description** | Option<**String**> |  | [optional]
 **nodes** | Option<[**Vec<models::WorkflowNode>**](WorkflowNode.md)> |  | [optional]
