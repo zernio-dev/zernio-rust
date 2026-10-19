@@ -22,6 +22,7 @@ Method | HTTP request | Description
 [**get_instagram_follower_history**](AnalyticsApi.md#get_instagram_follower_history) | **GET** /v1/analytics/instagram/follower-history | Get Instagram follower history
 [**get_instagram_online_followers**](AnalyticsApi.md#get_instagram_online_followers) | **GET** /v1/analytics/instagram/online-followers | Get Instagram online followers
 [**get_linked_in_aggregate_analytics**](AnalyticsApi.md#get_linked_in_aggregate_analytics) | **GET** /v1/accounts/{accountId}/linkedin-aggregate-analytics | Get LinkedIn aggregate stats
+[**get_linked_in_demographics**](AnalyticsApi.md#get_linked_in_demographics) | **GET** /v1/analytics/linkedin/demographics | Get LinkedIn organization follower demographics
 [**get_linked_in_org_aggregate_analytics**](AnalyticsApi.md#get_linked_in_org_aggregate_analytics) | **GET** /v1/analytics/linkedin/org-aggregate-analytics | Get LinkedIn org analytics
 [**get_linked_in_post_analytics**](AnalyticsApi.md#get_linked_in_post_analytics) | **GET** /v1/accounts/{accountId}/linkedin-post-analytics | Get LinkedIn post stats
 [**get_linked_in_post_reactions**](AnalyticsApi.md#get_linked_in_post_reactions) | **GET** /v1/accounts/{accountId}/linkedin-post-reactions | Get LinkedIn post reactions
@@ -638,6 +639,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetLinkedInAggregateAnalytics200Response**](getLinkedInAggregateAnalytics_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_linked_in_demographics
+
+> models::GetLinkedInDemographics200Response get_linked_in_demographics(account_id, breakdown)
+Get LinkedIn organization follower demographics
+
+Returns the lifetime follower breakdown of a connected LinkedIn organization page by job function, seniority, industry and company size. Function, seniority and industry are labelled with LinkedIn's standardized names (English) and keep the LinkedIn URN in `id`. Company size is labelled as a range such as `2-10` or `10001+`. LinkedIn returns at most the top 100 values per breakdown and leaves out followers whose profile lacks that field, so a breakdown does not add up to the follower count. Organization accounts only: a personal LinkedIn account answers 400 `personal_account_not_supported`. Requires the r_organization_social, r_organization_followers and r_organization_admin scopes (412 otherwise) and the Analytics add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The Zernio SocialAccount ID of the LinkedIn organization account | [required] |
+**breakdown** | Option<**String**> | Comma-separated list of demographic dimensions: function, seniority, industry, company_size. Defaults to all four if omitted.  |  |
+
+### Return type
+
+[**models::GetLinkedInDemographics200Response**](getLinkedInDemographics_200_response.md)
 
 ### Authorization
 
