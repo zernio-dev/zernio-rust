@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **bid_amount** | Option<**f64**> |  | [optional]
 **roas_average_floor** | Option<**f64**> |  | [optional]
 **platform_specific_data** | Option<**serde_json::Value**> |  | [optional]
+**targeting** | Option<**serde_json::Value**> | Present when `placements` or `targeting` was sent. The ad set's full Meta targeting as written (Meta snake_case). The same snake_case object is stored as the ad set's and its ads' `targeting`. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The platform's opaque id. Use as a geo `key` (regions/cities/zips/metros) or an entity `id` (interests/behaviors) in TargetingSpec. A `country` result is the exception on every platform: its id is the ISO 3166-1 alpha-2 code, which is what `targeting.countries` takes. | 
 **name** | **String** | Human-readable label. | 
-**r#type** | **String** | What the result is. Equals the requested dimension (interest, interestKeyword, behavior, hashtag, income, language, workPosition, workEmployer, workIndustry, industry, jobFunction, seniority, companySize, community, conversationKeyword), or the location level for geo (country, region, city, zip, metro, ...). | 
+**r#type** | **String** | What the result is. Equals the requested dimension (interest, interestSuggestion, interestKeyword, behavior, hashtag, income, language, workPosition, workEmployer, workIndustry, industry, jobFunction, seniority, companySize, community, conversationKeyword), or the location level for geo (country, region, city, zip, metro, ...). | 
 **path** | Option<**Vec<String>**> | Optional breadcrumb of parent labels (e.g. ['United States', 'California', 'Los Angeles']). Disambiguates same-named results. | [optional]
 **audience_size** | Option<**i32**> | Optional estimated reachable users for this option, when the platform returns it. | [optional]
 **status** | Option<**String**> | TikTok `interestKeyword` and `hashtag` results only: TikTok's availability status. `EFFECTIVE` / `INEFFECTIVE` for additional interests, `ONLINE` / `OFFLINE` for hashtags. Only `EFFECTIVE` and `ONLINE` ids can be targeted. | [optional]

@@ -4518,6 +4518,8 @@ pub mod update_ad_set_request;
 pub use self::update_ad_set_request::UpdateAdSetRequest;
 pub mod update_ad_set_request_budget;
 pub use self::update_ad_set_request_budget::UpdateAdSetRequestBudget;
+pub mod update_ad_set_request_placements;
+pub use self::update_ad_set_request_placements::UpdateAdSetRequestPlacements;
 pub mod update_ad_set_request_platform_specific_data;
 pub use self::update_ad_set_request_platform_specific_data::UpdateAdSetRequestPlatformSpecificData;
 pub mod update_ad_set_request_platform_specific_data_promoted_object;
