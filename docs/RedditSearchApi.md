@@ -15,7 +15,7 @@ Method | HTTP request | Description
 > models::SearchReddit200Response get_reddit_feed(account_id, subreddit, sort, limit, after, t)
 Get subreddit feed
 
-Fetch posts from a subreddit feed. Supports sorting, time filtering, and cursor-based pagination.
+Temporarily unavailable: Reddit has blocked third-party apps from its API, so this endpoint returns 503 `PLATFORM_DISABLED` until Reddit restores access. Reddit Ads is not affected.  Fetch posts from a subreddit feed. Supports sorting, time filtering, and cursor-based pagination. 
 
 ### Parameters
 
@@ -50,7 +50,7 @@ Name | Type | Description  | Required | Notes
 > models::GetRedditPostComments200Response get_reddit_post_comments(post_id, account_id, sort, limit, comment_id)
 Get the comments of a Reddit post
 
-Reads the comments of any Reddit post the connected account can see, for example one found through `/v1/reddit/feed` or `/v1/reddit/search`, straight from Reddit on every call. The tree comes flattened in thread order (a reply follows its parent); rebuild it from `parentId`, which is `t3_…` for a reply to the post and `t1_…` for a reply to a comment. Deleted and removed comments are passed through as Reddit sends them (`[deleted]` / `[removed]`). Where Reddit truncates a thread, the ids it left out are listed in `more`; `commentId` fetches one such comment with its replies. A post Reddit no longer serves answers 404 and a private subreddit 403, both with `platform_api_error`. For comments on posts published through Zernio, `/v1/inbox/comments/{postId}` adds caching, moderation and replies. 
+Temporarily unavailable: Reddit has blocked third-party apps from its API, so this endpoint returns 503 `PLATFORM_DISABLED` until Reddit restores access. Reddit Ads is not affected.  Reads the comments of any Reddit post the connected account can see, for example one found through `/v1/reddit/feed` or `/v1/reddit/search`, straight from Reddit on every call. The tree comes flattened in thread order (a reply follows its parent); rebuild it from `parentId`, which is `t3_…` for a reply to the post and `t1_…` for a reply to a comment. Deleted and removed comments are passed through as Reddit sends them (`[deleted]` / `[removed]`). Where Reddit truncates a thread, the ids it left out are listed in `more`; `commentId` fetches one such comment with its replies. A post Reddit no longer serves answers 404 and a private subreddit 403, both with `platform_api_error`. For comments on posts published through Zernio, `/v1/inbox/comments/{postId}` adds caching, moderation and replies. 
 
 ### Parameters
 
@@ -84,7 +84,7 @@ Name | Type | Description  | Required | Notes
 > models::SearchReddit200Response search_reddit(account_id, q, subreddit, restrict_sr, sort, limit, after)
 Search posts
 
-Search Reddit posts using a connected account. Optionally scope to a specific subreddit.
+Temporarily unavailable: Reddit has blocked third-party apps from its API, so this endpoint returns 503 `PLATFORM_DISABLED` until Reddit restores access. Reddit Ads is not affected.  Search Reddit posts using a connected account. Optionally scope to a specific subreddit. 
 
 ### Parameters
 

@@ -829,7 +829,7 @@ Name | Type | Description  | Required | Notes
 > models::GetRedditFlairs200Response get_reddit_flairs(account_id, subreddit)
 List subreddit flairs
 
-Returns available post flairs for a subreddit. Some subreddits require a flair when posting.
+Temporarily unavailable: Reddit has blocked third-party apps from its API, so this endpoint returns 503 `PLATFORM_DISABLED` until Reddit restores access. Reddit Ads is not affected.  Returns available post flairs for a subreddit. Some subreddits require a flair when posting. 
 
 ### Parameters
 
@@ -860,7 +860,7 @@ Name | Type | Description  | Required | Notes
 > models::GetRedditSubreddits200Response get_reddit_subreddits(account_id)
 List Reddit subreddits
 
-Returns the subreddits the connected Reddit account can post to. Use this to get a subreddit name when creating a Reddit post.
+Temporarily unavailable: Reddit has blocked third-party apps from its API, so this endpoint returns 503 `PLATFORM_DISABLED` until Reddit restores access. Reddit Ads is not affected.  Returns the subreddits the connected Reddit account can post to. Use this to get a subreddit name when creating a Reddit post. 
 
 ### Parameters
 
@@ -922,7 +922,7 @@ Name | Type | Description  | Required | Notes
 > models::GetSubredditRules200Response get_subreddit_rules(account_id, subreddit)
 Get subreddit rules
 
-Returns a subreddit's posting rules plus Reddit's site-wide rules, so you can check them before submitting and avoid a removal.  Use this alongside `POST /v1/tools/validate/subreddit`, which only confirms that a subreddit exists and reports its basic posting settings. 
+Temporarily unavailable: Reddit has blocked third-party apps from its API, so this endpoint returns 503 `PLATFORM_DISABLED` until Reddit restores access. Reddit Ads is not affected.  Returns a subreddit's posting rules plus Reddit's site-wide rules, so you can check them before submitting and avoid a removal.  Use this alongside `POST /v1/tools/validate/subreddit`, which only confirms that a subreddit exists and reports its basic posting settings. 
 
 ### Parameters
 
@@ -1673,7 +1673,7 @@ Name | Type | Description  | Required | Notes
 > models::UpdateYoutubeDefaultPlaylist200Response set_reddit_post_flair(account_id, set_reddit_post_flair_request)
 Set Reddit post flair
 
-Applies a flair to a post the connected account already published. Use the GET on this path to list the available `flairTemplateId` values for the subreddit.  Flair can also be set at submit time by passing `flairId` in `platformSpecificData` when creating the post. This endpoint is for changing it afterwards.  The subreddit must allow users to select their own post flair. Setting flair on another user's post requires moderator permissions, which Zernio does not request. 
+Temporarily unavailable: Reddit has blocked third-party apps from its API, so this endpoint returns 503 `PLATFORM_DISABLED` until Reddit restores access. Reddit Ads is not affected.  Applies a flair to a post the connected account already published. Use the GET on this path to list the available `flairTemplateId` values for the subreddit.  Flair can also be set at submit time by passing `flairId` in `platformSpecificData` when creating the post. This endpoint is for changing it afterwards.  The subreddit must allow users to select their own post flair. Setting flair on another user's post requires moderator permissions, which Zernio does not request. 
 
 ### Parameters
 
@@ -1828,7 +1828,7 @@ Name | Type | Description  | Required | Notes
 > models::UpdateYoutubeDefaultPlaylist200Response update_reddit_subreddits(account_id, update_reddit_subreddits_request)
 Set default subreddit
 
-Sets the default subreddit used when publishing posts for this Reddit account.
+Temporarily unavailable: Reddit has blocked third-party apps from its API, so this endpoint returns 503 `PLATFORM_DISABLED` until Reddit restores access. Reddit Ads is not affected.  Sets the default subreddit used when publishing posts for this Reddit account. 
 
 ### Parameters
 
@@ -1890,7 +1890,7 @@ Name | Type | Description  | Required | Notes
 > models::UpdateYoutubeDefaultPlaylist200Response vote_reddit_thing(account_id, vote_reddit_thing_request)
 Vote on a Reddit post or comment
 
-Cast, change, or clear the connected account's vote on a Reddit post or comment.  **Reddit requires that votes be cast by humans.** Reddit's API terms permit a client to proxy a human's action one-for-one, and prohibit a bot from deciding how to vote or from amplifying a human's vote. Call this endpoint only in direct response to an explicit action by the account owner. Automated or agent-decided voting is vote manipulation and puts API access at risk. 
+Temporarily unavailable: Reddit has blocked third-party apps from its API, so this endpoint returns 503 `PLATFORM_DISABLED` until Reddit restores access. Reddit Ads is not affected.  Cast, change, or clear the connected account's vote on a Reddit post or comment.  **Reddit requires that votes be cast by humans.** Reddit's API terms permit a client to proxy a human's action one-for-one, and prohibit a bot from deciding how to vote or from amplifying a human's vote. Call this endpoint only in direct response to an explicit action by the account owner. Automated or agent-decided voting is vote manipulation and puts API access at risk. 
 
 ### Parameters
 
