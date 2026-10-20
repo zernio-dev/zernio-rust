@@ -3582,6 +3582,8 @@ pub mod post_user_id;
 pub use self::post_user_id::PostUserId;
 pub mod posts_list_response;
 pub use self::posts_list_response::PostsListResponse;
+pub mod posts_list_response_pagination;
+pub use self::posts_list_response_pagination::PostsListResponsePagination;
 pub mod preflight_branded_calling_identity_200_response;
 pub use self::preflight_branded_calling_identity_200_response::PreflightBrandedCallingIdentity200Response;
 pub mod preflight_branded_calling_identity_200_response_findings_inner;

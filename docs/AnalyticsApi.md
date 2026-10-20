@@ -450,10 +450,10 @@ Name | Type | Description  | Required | Notes
 
 ## get_google_business_search_keywords
 
-> models::GetGoogleBusinessSearchKeywords200Response get_google_business_search_keywords(account_id, start_month, end_month)
+> models::GetGoogleBusinessSearchKeywords200Response get_google_business_search_keywords(account_id, start_month, end_month, page_token)
 Get Google Business Profile search keywords
 
-Returns search keywords that triggered impressions for a Google Business Profile location. Data is aggregated monthly. Keywords below a minimum impression threshold set by Google are excluded. Max 18 months of historical data. Requires the Analytics add-on. 
+Returns search keywords that triggered impressions for a Google Business Profile location. Data is aggregated monthly. Keywords Google reports only as below a threshold have `impressions` 0 and `impressionsThreshold` set to that threshold. Returns up to 100 keywords per page. When `nextPageToken` is not null, pass it as `pageToken` with the same `startMonth` and `endMonth` to get the next page. Max 18 months of historical data. Requires the Analytics add-on. 
 
 ### Parameters
 
@@ -463,6 +463,7 @@ Name | Type | Description  | Required | Notes
 **account_id** | **String** | The Zernio SocialAccount ID for the Google Business Profile account. | [required] |
 **start_month** | Option<**String**> | Start month (YYYY-MM). Defaults to 3 months ago. |  |
 **end_month** | Option<**String**> | End month (YYYY-MM). Defaults to current month. |  |
+**page_token** | Option<**String**> | The nextPageToken from the previous page. Valid only with the same startMonth and endMonth as the request that returned it. |  |
 
 ### Return type
 

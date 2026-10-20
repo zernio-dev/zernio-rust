@@ -173,7 +173,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_posts
 
-> models::PostsListResponse list_posts(page, limit, offset, source, status, platform, profile_id, created_by, from_date, to_date, date_from, date_to, include_hidden, search, tags, sort_by, account_id)
+> models::PostsListResponse list_posts(page, limit, offset, cursor, fields, source, status, platform, profile_id, created_by, from_date, to_date, date_from, date_to, include_hidden, search, tags, sort_by, account_id)
 List posts
 
 Returns a paginated list of posts. Published posts include platformPostUrl with the public URL on each platform. A query parameter that is not listed here returns 400 naming it and the accepted parameters, so a misspelled filter never silently returns the unfiltered list.
@@ -186,6 +186,8 @@ Name | Type | Description  | Required | Notes
 **page** | Option<**i32**> | Page number (1-based) |  |[default to 1]
 **limit** | Option<**i32**> | Page size. Values above the maximum return 400 rather than being clamped. |  |[default to 10]
 **offset** | Option<**i32**> | Row offset. Takes precedence over page when both are sent; the response pagination.page is derived from it. |  |
+**cursor** | Option<**String**> | Opaque cursor from a previous response's `pagination.nextCursor`. Returns the page that follows it in the same `sortBy` order, and takes precedence over `page` and `offset`. Each cursor page costs the same however deep it is, unlike `page`/`offset`, which get slower the further you go; prefer it to walk a long history. Send the same filters and `sortBy` as the request that issued it: a cursor from another `sortBy` returns 400. Not available with `sortBy=status` or `sortBy=platform`, or with `source=external`. |  |
+**fields** | Option<**String**> | Comma-separated list of post fields to return. Each post then carries `_id` plus only these fields, which makes large pages much cheaper: leave out `platforms`, `content`, `mediaItems` or `metadata` when you do not need them. Accepted: `userId`, `title`, `content`, `mediaItems`, `platforms`, `scheduledFor`, `timezone`, `status`, `tags`, `hashtags`, `mentions`, `visibility`, `metadata`, `recycling`, `recycledFromPostId`, `queuedFromProfile`, `queueId`, `createdAt`, `updatedAt`. An unknown field returns 400 naming it. `fields=_id` returns ids only. Omit it (or send it empty) for the full post. Not available with `source=external`. |  |
 **source** | Option<**String**> | Which collection to read. `zernio` (default) returns posts authored through Zernio. `external` returns posts synced from the platform (existing/historical posts that were published outside Zernio). Combine with `accountId` and paginate via `page`/`limit` to walk the full synced history (we keep up to the last ~12 months per account). |  |[default to zernio]
 **status** | Option<**String**> |  |  |
 **platform** | Option<**String**> |  |  |

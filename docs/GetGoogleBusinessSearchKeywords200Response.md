@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **platform** | Option<**String**> |  | [optional]
 **month_range** | Option<[**models::GetGoogleBusinessSearchKeywords200ResponseMonthRange**](GetGoogleBusinessSearchKeywords200ResponseMonthRange.md)> |  | [optional]
 **keywords** | Option<[**Vec<models::GetGoogleBusinessSearchKeywords200ResponseKeywordsInner>**](GetGoogleBusinessSearchKeywords200ResponseKeywordsInner.md)> |  | [optional]
+**next_page_token** | Option<**String**> | Pass as pageToken to fetch the next page. null on the last page. | [optional]
 **note** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

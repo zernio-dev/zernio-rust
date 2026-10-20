@@ -1843,6 +1843,7 @@ docs/PostUpdateResponse.md
 docs/PostUserId.md
 docs/PostsApi.md
 docs/PostsListResponse.md
+docs/PostsListResponsePagination.md
 docs/PreflightBrandedCallingIdentity200Response.md
 docs/PreflightBrandedCallingIdentity200ResponseFindingsInner.md
 docs/PreflightBrandedCallingIdentityRequest.md
@@ -4699,6 +4700,7 @@ src/models/post_retry_response.rs
 src/models/post_update_response.rs
 src/models/post_user_id.rs
 src/models/posts_list_response.rs
+src/models/posts_list_response_pagination.rs
 src/models/preflight_branded_calling_identity_200_response.rs
 src/models/preflight_branded_calling_identity_200_response_findings_inner.rs
 src/models/preflight_branded_calling_identity_request.rs
