@@ -34,6 +34,7 @@ Method | HTTP request | Description
 [**get_subreddit_rules**](ConnectApi.md#get_subreddit_rules) | **GET** /v1/accounts/{accountId}/reddit-subreddits/{subreddit}/rules | Get subreddit rules
 [**get_telegram_connect_status**](ConnectApi.md#get_telegram_connect_status) | **GET** /v1/connect/telegram | Generate Telegram code
 [**get_whats_app_sdk_config**](ConnectApi.md#get_whats_app_sdk_config) | **GET** /v1/connect/whatsapp/sdk-config | Get Embedded Signup SDK config
+[**get_wix_connect_url**](ConnectApi.md#get_wix_connect_url) | **GET** /v1/connect/wix | Get Wix site install URL
 [**get_word_press_auth_url**](ConnectApi.md#get_word_press_auth_url) | **GET** /v1/connect/wordpress | Get WordPress.com OAuth connect URL
 [**get_youtube_captions**](ConnectApi.md#get_youtube_captions) | **GET** /v1/accounts/{accountId}/youtube-captions | Get a YouTube video transcript
 [**get_youtube_playlists**](ConnectApi.md#get_youtube_playlists) | **GET** /v1/accounts/{accountId}/youtube-playlists | List YouTube playlists
@@ -998,6 +999,37 @@ Name | Type | Description  | Required | Notes
 ### Authorization
 
 [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_wix_connect_url
+
+> models::GetWixConnectUrl200Response get_wix_connect_url(profile_id, redirect_url)
+Get Wix site install URL
+
+Returns the Wix installer link for the Zernio app. The user picks one of their Wix sites there and approves the app; Wix then returns the browser to Zernio's internal callback, which connects that site and redirects to `redirect_url` (or the dashboard when omitted). Wix is a connect-only blog platform: the connected account powers the Blogs API (`/v1/accounts/{accountId}/blogs`) and does not support social posts, inbox, analytics or ads. The site needs the Wix Blog app. Access tokens renew by themselves; removing the Zernio app from the site in Wix disconnects the account. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**profile_id** | **String** | Your Zernio profile ID (get from /v1/profiles). | [required] |
+**redirect_url** | Option<**String**> | Custom redirect after connection. Must be an absolute http(s) URL or custom app scheme such as `myapp://callback`; relative and unsafe URLs return 400. |  |
+
+### Return type
+
+[**models::GetWixConnectUrl200Response**](getWixConnectUrl_200_response.md)
+
+### Authorization
+
+[connectToken](../README.md#connectToken), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 

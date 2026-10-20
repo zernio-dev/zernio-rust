@@ -321,6 +321,7 @@ docs/CommentAutomationTemplateElement.md
 docs/CommentAutomationTemplateElementButtonsInner.md
 docs/CommentAutomationsApi.md
 docs/CommentsApi.md
+docs/CommerceAddress.md
 docs/CommerceApi.md
 docs/CommerceCapability.md
 docs/CommerceCatalogSync.md
@@ -347,12 +348,21 @@ docs/CommerceMetaobjectDefinition.md
 docs/CommerceMetaobjectDefinitionFieldsInner.md
 docs/CommerceMetaobjectFieldsInner.md
 docs/CommerceMoney.md
+docs/CommerceOrder.md
+docs/CommerceOrderChargeLine.md
+docs/CommerceOrderCustomer.md
+docs/CommerceOrderFulfillmentsInner.md
+docs/CommerceOrderLineItemsInner.md
+docs/CommerceOrderRefundsInner.md
+docs/CommerceOrderRefundsInnerLineItemsInner.md
+docs/CommerceOrderStatus.md
 docs/CommercePage.md
 docs/CommercePriceList.md
 docs/CommerceProduct.md
 docs/CommerceProductStatus.md
 docs/CommerceRedirect.md
 docs/CommerceStore.md
+docs/CommerceTaxLine.md
 docs/CommerceVariant.md
 docs/CompleteGoogleBusinessVerificationRequest.md
 docs/CompleteTelegramConnect200Response.md
@@ -922,6 +932,7 @@ docs/GetCampaignTargeting200ResponseLanguagesInner.md
 docs/GetCampaignTargeting200ResponseLocationsInner.md
 docs/GetCommentAutomation200Response.md
 docs/GetCommentAutomation200ResponseAutomation.md
+docs/GetCommerceOrder200Response.md
 docs/GetCommerceStore200Response.md
 docs/GetConnectUrl200Response.md
 docs/GetContact200Response.md
@@ -1232,6 +1243,7 @@ docs/GetWhatsAppTemplates200Response.md
 docs/GetWhatsAppTemplates200ResponseTemplatesInner.md
 docs/GetWhatsappBusinessUsername200Response.md
 docs/GetWhatsappBusinessUsernameSuggestions200Response.md
+docs/GetWixConnectUrl200Response.md
 docs/GetWordPressAuthUrl200Response.md
 docs/GetWorkflow200Response.md
 docs/GetWorkflow200ResponseWorkflow.md
@@ -1524,6 +1536,7 @@ docs/ListCommerceMarkets200Response.md
 docs/ListCommerceMenus200Response.md
 docs/ListCommerceMetaobjectDefinitions200Response.md
 docs/ListCommerceMetaobjects200Response.md
+docs/ListCommerceOrders200Response.md
 docs/ListCommercePages200Response.md
 docs/ListCommercePriceLists200Response.md
 docs/ListCommerceProductMetafields200Response.md
@@ -2641,6 +2654,8 @@ docs/WebhookPayloadCommentCommentAttachment.md
 docs/WebhookPayloadCommentCommentAuthor.md
 docs/WebhookPayloadCommentCommentAuthorInstagramProfile.md
 docs/WebhookPayloadCommentPost.md
+docs/WebhookPayloadCommerceOrder.md
+docs/WebhookPayloadCommerceOrderResource.md
 docs/WebhookPayloadCommerceProduct.md
 docs/WebhookPayloadCommerceProductResource.md
 docs/WebhookPayloadCommerceProductStore.md
@@ -3187,6 +3202,7 @@ src/models/comment_automation_stats.rs
 src/models/comment_automation_template.rs
 src/models/comment_automation_template_element.rs
 src/models/comment_automation_template_element_buttons_inner.rs
+src/models/commerce_address.rs
 src/models/commerce_capability.rs
 src/models/commerce_catalog_sync.rs
 src/models/commerce_channel.rs
@@ -3212,12 +3228,21 @@ src/models/commerce_metaobject_definition.rs
 src/models/commerce_metaobject_definition_fields_inner.rs
 src/models/commerce_metaobject_fields_inner.rs
 src/models/commerce_money.rs
+src/models/commerce_order.rs
+src/models/commerce_order_charge_line.rs
+src/models/commerce_order_customer.rs
+src/models/commerce_order_fulfillments_inner.rs
+src/models/commerce_order_line_items_inner.rs
+src/models/commerce_order_refunds_inner.rs
+src/models/commerce_order_refunds_inner_line_items_inner.rs
+src/models/commerce_order_status.rs
 src/models/commerce_page.rs
 src/models/commerce_price_list.rs
 src/models/commerce_product.rs
 src/models/commerce_product_status.rs
 src/models/commerce_redirect.rs
 src/models/commerce_store.rs
+src/models/commerce_tax_line.rs
 src/models/commerce_variant.rs
 src/models/complete_google_business_verification_request.rs
 src/models/complete_telegram_connect_200_response.rs
@@ -3780,6 +3805,7 @@ src/models/get_campaign_targeting_200_response_languages_inner.rs
 src/models/get_campaign_targeting_200_response_locations_inner.rs
 src/models/get_comment_automation_200_response.rs
 src/models/get_comment_automation_200_response_automation.rs
+src/models/get_commerce_order_200_response.rs
 src/models/get_commerce_store_200_response.rs
 src/models/get_connect_url_200_response.rs
 src/models/get_contact_200_response.rs
@@ -4090,6 +4116,7 @@ src/models/get_whats_app_templates_200_response.rs
 src/models/get_whats_app_templates_200_response_templates_inner.rs
 src/models/get_whatsapp_business_username_200_response.rs
 src/models/get_whatsapp_business_username_suggestions_200_response.rs
+src/models/get_wix_connect_url_200_response.rs
 src/models/get_word_press_auth_url_200_response.rs
 src/models/get_workflow_200_response.rs
 src/models/get_workflow_200_response_workflow.rs
@@ -4368,6 +4395,7 @@ src/models/list_commerce_markets_200_response.rs
 src/models/list_commerce_menus_200_response.rs
 src/models/list_commerce_metaobject_definitions_200_response.rs
 src/models/list_commerce_metaobjects_200_response.rs
+src/models/list_commerce_orders_200_response.rs
 src/models/list_commerce_pages_200_response.rs
 src/models/list_commerce_price_lists_200_response.rs
 src/models/list_commerce_product_metafields_200_response.rs
@@ -5458,6 +5486,8 @@ src/models/webhook_payload_comment_comment_attachment.rs
 src/models/webhook_payload_comment_comment_author.rs
 src/models/webhook_payload_comment_comment_author_instagram_profile.rs
 src/models/webhook_payload_comment_post.rs
+src/models/webhook_payload_commerce_order.rs
+src/models/webhook_payload_commerce_order_resource.rs
 src/models/webhook_payload_commerce_product.rs
 src/models/webhook_payload_commerce_product_resource.rs
 src/models/webhook_payload_commerce_product_store.rs

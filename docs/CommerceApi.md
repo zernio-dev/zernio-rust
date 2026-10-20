@@ -42,6 +42,7 @@ Method | HTTP request | Description
 [**get_commerce_discount**](CommerceApi.md#get_commerce_discount) | **GET** /v1/commerce/discounts/{discountId} | Get a discount
 [**get_commerce_menu**](CommerceApi.md#get_commerce_menu) | **GET** /v1/commerce/menus/{menuId} | Get a navigation menu
 [**get_commerce_metaobject**](CommerceApi.md#get_commerce_metaobject) | **GET** /v1/commerce/metaobjects/{metaobjectId} | Get a metaobject
+[**get_commerce_order**](CommerceApi.md#get_commerce_order) | **GET** /v1/commerce/orders/{orderId} | Get an order
 [**get_commerce_page**](CommerceApi.md#get_commerce_page) | **GET** /v1/commerce/pages/{pageId} | Get a page
 [**get_commerce_product**](CommerceApi.md#get_commerce_product) | **GET** /v1/commerce/products/{productId} | Get a product
 [**get_commerce_store**](CommerceApi.md#get_commerce_store) | **GET** /v1/commerce/store | Get a store
@@ -56,6 +57,7 @@ Method | HTTP request | Description
 [**list_commerce_menus**](CommerceApi.md#list_commerce_menus) | **GET** /v1/commerce/menus | List navigation menus
 [**list_commerce_metaobject_definitions**](CommerceApi.md#list_commerce_metaobject_definitions) | **GET** /v1/commerce/metaobject-definitions | List metaobject definitions
 [**list_commerce_metaobjects**](CommerceApi.md#list_commerce_metaobjects) | **GET** /v1/commerce/metaobjects | List metaobjects of a type
+[**list_commerce_orders**](CommerceApi.md#list_commerce_orders) | **GET** /v1/commerce/orders | List orders
 [**list_commerce_pages**](CommerceApi.md#list_commerce_pages) | **GET** /v1/commerce/pages | List pages
 [**list_commerce_price_lists**](CommerceApi.md#list_commerce_price_lists) | **GET** /v1/commerce/price-lists | List price lists
 [**list_commerce_product_metafields**](CommerceApi.md#list_commerce_product_metafields) | **GET** /v1/commerce/products/{productId}/metafields | List product metafields
@@ -1252,6 +1254,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_commerce_order
+
+> models::GetCommerceOrder200Response get_commerce_order(order_id, account_id)
+Get an order
+
+One order with every line item, tax line and refund. Needs orders.read.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**order_id** | **String** | Platform-native order id. | [required] |
+**account_id** | **String** | Connected store SocialAccount id. | [required] |
+
+### Return type
+
+[**models::GetCommerceOrder200Response**](getCommerceOrder_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_commerce_page
 
 > models::CreateCommercePage201Response get_commerce_page(page_id, account_id)
@@ -1672,6 +1705,41 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListCommerceMetaobjects200Response**](listCommerceMetaobjects_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_commerce_orders
+
+> models::ListCommerceOrders200Response list_commerce_orders(account_id, limit, cursor, created_after, created_before, updated_after)
+List orders
+
+The store's orders in one format for every platform, with what an invoice needs: line items with unit prices, discounts and tax per line, shipping and fee lines, billing details, payment status and refunds. Newest order first; with `updatedAfter`, oldest change first, so a sync can page forward from its last seen `updatedAt`. Start each sync a few minutes before the last `updatedAt` you saw and drop duplicates by `id`, since an order edited while you page can shift the list. Shopify returns at most 25 orders per page and, unless the store was granted access to all orders, only the last 60 days. Buyer fields (`customer` and addresses) are null when the store's approval does not cover buyer data. Needs orders.read.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Connected store SocialAccount id. | [required] |
+**limit** | Option<**i32**> |  |  |[default to 20]
+**cursor** | Option<**String**> |  |  |
+**created_after** | Option<**String**> |  |  |
+**created_before** | Option<**String**> |  |  |
+**updated_after** | Option<**String**> | Only orders changed after this time, oldest change first. |  |
+
+### Return type
+
+[**models::ListCommerceOrders200Response**](listCommerceOrders_200_response.md)
 
 ### Authorization
 
