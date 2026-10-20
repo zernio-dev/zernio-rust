@@ -409,12 +409,14 @@ docs/ConversionActionTagSnippetsInner.md
 docs/ConversionDestination.md
 docs/ConversionEvent.md
 docs/ConversionEventItemsInner.md
+docs/ConversionEventMessaging.md
 docs/ConversionEventUser.md
 docs/ConversionEventUserClickIds.md
 docs/ConversionsApi.md
 docs/CreateAccountGroup201Response.md
 docs/CreateAccountGroup201ResponseGroup.md
 docs/CreateAccountGroupRequest.md
+docs/CreateAdAccount200Response.md
 docs/CreateAdAccount201Response.md
 docs/CreateAdAccountRequest.md
 docs/CreateAdAudience201Response.md
@@ -524,6 +526,7 @@ docs/CreateDiscordScheduledEventRequestEntityOneOf2.md
 docs/CreateDiscordThread200Response.md
 docs/CreateDiscordThread200ResponseData.md
 docs/CreateDiscordThreadRequest.md
+docs/CreateGoogleAdAccountRequest.md
 docs/CreateGoogleAssetGroup200Response.md
 docs/CreateGoogleAssetGroup201Response.md
 docs/CreateGoogleAssetGroup201ResponseAssetGroup.md
@@ -567,6 +570,7 @@ docs/CreateMessagingAd200Response.md
 docs/CreateMessagingAd200ResponseResultsInner.md
 docs/CreateMessagingAd201Response.md
 docs/CreateMessagingAdRequest.md
+docs/CreateMetaAdAccountRequest.md
 docs/CreatePhoneNumberKycLink200Response.md
 docs/CreatePhoneNumberKycLinkRequest.md
 docs/CreatePhoneNumberKycLinkRequestBranding.md
@@ -673,6 +677,8 @@ docs/CreateWorkflowRequest.md
 docs/CreateYoutubePlaylist201Response.md
 docs/CreateYoutubePlaylist201ResponsePlaylist.md
 docs/CreateYoutubePlaylistRequest.md
+docs/CreatedGoogleAdAccount.md
+docs/CreatedMetaAdAccount.md
 docs/CrosspostDiscordMessage200Response.md
 docs/CtwaAdRequestBody.md
 docs/CtwaAdRequestBodyCitiesInner.md
@@ -1020,6 +1026,8 @@ docs/GetGoogleBusinessVerifications200Response.md
 docs/GetGoogleBusinessVerifications200ResponseVerificationsInner.md
 docs/GetGoogleBusinessVerifications200ResponseVoiceOfMerchantState.md
 docs/GetGoogleBusinessVerifications200ResponseVoiceOfMerchantStateVerify.md
+docs/GetHubSpotConnectUrl200Response.md
+docs/GetHubSpotSettings200Response.md
 docs/GetImessageGroup200Response.md
 docs/GetImessageGroup200ResponseGroup.md
 docs/GetImessageSender200Response.md
@@ -1343,6 +1351,7 @@ docs/HideAdComment200Response.md
 docs/HideAdCommentRequest.md
 docs/HideInboxComment200Response.md
 docs/HideInboxCommentRequest.md
+docs/HubSpotSettings.md
 docs/IMessageApi.md
 docs/ImessageAudienceContact.md
 docs/ImessageAudienceContactOptIn.md
@@ -1384,6 +1393,7 @@ docs/InstagramBusinessDiscoveryMediaInnerChildrenInner.md
 docs/InstagramBusinessDiscoveryProfile.md
 docs/InstagramDemographicsResponse.md
 docs/InstagramDemographicsResponseDemographicsValueInner.md
+docs/InstagramMediaCollaborator.md
 docs/InstagramPlatformData.md
 docs/InstagramPlatformDataAudioConfiguration.md
 docs/InstagramPlatformDataTrialParams.md
@@ -1613,6 +1623,7 @@ docs/ListInboxReviews200ResponseDataInnerPhotosInner.md
 docs/ListInboxReviews200ResponseDataInnerReply.md
 docs/ListInboxReviews200ResponseDataInnerReviewer.md
 docs/ListInboxReviews200ResponseSummary.md
+docs/ListInstagramMediaCollaborators200Response.md
 docs/ListInstagramPages200Response.md
 docs/ListInstagramPages200ResponsePagesInner.md
 docs/ListInstagramPages200ResponsePagesInnerInstagramBusinessAccount.md
@@ -2472,6 +2483,8 @@ docs/UpdateGoogleBusinessServicesRequestServiceItemsInnerFreeFormServiceItem.md
 docs/UpdateGoogleBusinessServicesRequestServiceItemsInnerFreeFormServiceItemLabel.md
 docs/UpdateGoogleBusinessServicesRequestServiceItemsInnerPrice.md
 docs/UpdateGoogleBusinessServicesRequestServiceItemsInnerStructuredServiceItem.md
+docs/UpdateHubSpotSettings200Response.md
+docs/UpdateHubSpotSettingsRequest.md
 docs/UpdateImessageGroup200Response.md
 docs/UpdateImessageGroupRequest.md
 docs/UpdateImessageSenderRequest.md
@@ -3292,11 +3305,13 @@ src/models/conversion_action_tag_snippets_inner.rs
 src/models/conversion_destination.rs
 src/models/conversion_event.rs
 src/models/conversion_event_items_inner.rs
+src/models/conversion_event_messaging.rs
 src/models/conversion_event_user.rs
 src/models/conversion_event_user_click_ids.rs
 src/models/create_account_group_201_response.rs
 src/models/create_account_group_201_response_group.rs
 src/models/create_account_group_request.rs
+src/models/create_ad_account_200_response.rs
 src/models/create_ad_account_201_response.rs
 src/models/create_ad_account_request.rs
 src/models/create_ad_audience_201_response.rs
@@ -3406,6 +3421,7 @@ src/models/create_discord_scheduled_event_request_entity_one_of_2.rs
 src/models/create_discord_thread_200_response.rs
 src/models/create_discord_thread_200_response_data.rs
 src/models/create_discord_thread_request.rs
+src/models/create_google_ad_account_request.rs
 src/models/create_google_asset_group_200_response.rs
 src/models/create_google_asset_group_201_response.rs
 src/models/create_google_asset_group_201_response_asset_group.rs
@@ -3449,6 +3465,7 @@ src/models/create_messaging_ad_200_response.rs
 src/models/create_messaging_ad_200_response_results_inner.rs
 src/models/create_messaging_ad_201_response.rs
 src/models/create_messaging_ad_request.rs
+src/models/create_meta_ad_account_request.rs
 src/models/create_phone_number_kyc_link_200_response.rs
 src/models/create_phone_number_kyc_link_request.rs
 src/models/create_phone_number_kyc_link_request_branding.rs
@@ -3555,6 +3572,8 @@ src/models/create_workflow_request.rs
 src/models/create_youtube_playlist_201_response.rs
 src/models/create_youtube_playlist_201_response_playlist.rs
 src/models/create_youtube_playlist_request.rs
+src/models/created_google_ad_account.rs
+src/models/created_meta_ad_account.rs
 src/models/crosspost_discord_message_200_response.rs
 src/models/ctwa_ad_request_body.rs
 src/models/ctwa_ad_request_body_cities_inner.rs
@@ -3899,6 +3918,8 @@ src/models/get_google_business_verifications_200_response.rs
 src/models/get_google_business_verifications_200_response_verifications_inner.rs
 src/models/get_google_business_verifications_200_response_voice_of_merchant_state.rs
 src/models/get_google_business_verifications_200_response_voice_of_merchant_state_verify.rs
+src/models/get_hub_spot_connect_url_200_response.rs
+src/models/get_hub_spot_settings_200_response.rs
 src/models/get_imessage_group_200_response.rs
 src/models/get_imessage_group_200_response_group.rs
 src/models/get_imessage_sender_200_response.rs
@@ -4214,6 +4235,7 @@ src/models/hide_ad_comment_200_response.rs
 src/models/hide_ad_comment_request.rs
 src/models/hide_inbox_comment_200_response.rs
 src/models/hide_inbox_comment_request.rs
+src/models/hub_spot_settings.rs
 src/models/imessage_audience_contact.rs
 src/models/imessage_audience_contact_opt_in.rs
 src/models/imessage_sandbox_contact.rs
@@ -4252,6 +4274,7 @@ src/models/instagram_business_discovery_media_inner_children_inner.rs
 src/models/instagram_business_discovery_profile.rs
 src/models/instagram_demographics_response.rs
 src/models/instagram_demographics_response_demographics_value_inner.rs
+src/models/instagram_media_collaborator.rs
 src/models/instagram_platform_data.rs
 src/models/instagram_platform_data_audio_configuration.rs
 src/models/instagram_platform_data_trial_params.rs
@@ -4478,6 +4501,7 @@ src/models/list_inbox_reviews_200_response_data_inner_photos_inner.rs
 src/models/list_inbox_reviews_200_response_data_inner_reply.rs
 src/models/list_inbox_reviews_200_response_data_inner_reviewer.rs
 src/models/list_inbox_reviews_200_response_summary.rs
+src/models/list_instagram_media_collaborators_200_response.rs
 src/models/list_instagram_pages_200_response.rs
 src/models/list_instagram_pages_200_response_pages_inner.rs
 src/models/list_instagram_pages_200_response_pages_inner_instagram_business_account.rs
@@ -5316,6 +5340,8 @@ src/models/update_google_business_services_request_service_items_inner_free_form
 src/models/update_google_business_services_request_service_items_inner_free_form_service_item_label.rs
 src/models/update_google_business_services_request_service_items_inner_price.rs
 src/models/update_google_business_services_request_service_items_inner_structured_service_item.rs
+src/models/update_hub_spot_settings_200_response.rs
+src/models/update_hub_spot_settings_request.rs
 src/models/update_imessage_group_200_response.rs
 src/models/update_imessage_group_request.rs
 src/models/update_imessage_sender_request.rs
