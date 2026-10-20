@@ -27,6 +27,9 @@ docs/AdCampaign.md
 docs/AdCampaignBudget.md
 docs/AdCampaignsApi.md
 docs/AdCreative.md
+docs/AdCreativeAssets.md
+docs/AdCreativeAssetsMarketingImagesInner.md
+docs/AdCreativeAssetsSquareMarketingImagesInner.md
 docs/AdCreativeCarouselCardsInner.md
 docs/AdCreativeCatalog.md
 docs/AdCreativeCatalogFormatTransformationSpecInner.md
@@ -2922,6 +2925,9 @@ src/models/ad_budget.rs
 src/models/ad_campaign.rs
 src/models/ad_campaign_budget.rs
 src/models/ad_creative.rs
+src/models/ad_creative_assets.rs
+src/models/ad_creative_assets_marketing_images_inner.rs
+src/models/ad_creative_assets_square_marketing_images_inner.rs
 src/models/ad_creative_carousel_cards_inner.rs
 src/models/ad_creative_catalog.rs
 src/models/ad_creative_catalog_format_transformation_spec_inner.rs
