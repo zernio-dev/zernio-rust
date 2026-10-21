@@ -32,9 +32,12 @@ Method | HTTP request | Description
 [**get_value_rule_set**](AdAccountsApi.md#get_value_rule_set) | **GET** /v1/ads/value-rule-sets/{valueRuleSetId} | Read a value rule set
 [**hide_ad_comment**](AdAccountsApi.md#hide_ad_comment) | **POST** /v1/ads/{adId}/comments/{commentId}/hide | Hide or unhide an ad comment
 [**invite_ad_account_to_manager**](AdAccountsApi.md#invite_ad_account_to_manager) | **POST** /v1/ads/accounts/manager-links | Invite a client account to a manager
+[**invite_ad_account_user**](AdAccountsApi.md#invite_ad_account_user) | **POST** /v1/ads/accounts/user-invitations | Invite a user to an ad account by email
 [**list_account_callouts**](AdAccountsApi.md#list_account_callouts) | **GET** /v1/ads/accounts/callouts | List account callouts
 [**list_account_sitelinks**](AdAccountsApi.md#list_account_sitelinks) | **GET** /v1/ads/accounts/sitelinks | List account sitelinks
 [**list_account_structured_snippets**](AdAccountsApi.md#list_account_structured_snippets) | **GET** /v1/ads/accounts/structured-snippets | List account snippets
+[**list_ad_account_user_invitation_approvals**](AdAccountsApi.md#list_ad_account_user_invitation_approvals) | **GET** /v1/ads/accounts/user-invitations/pending-approvals | List invitations awaiting multi-party approval
+[**list_ad_account_user_invitations**](AdAccountsApi.md#list_ad_account_user_invitations) | **GET** /v1/ads/accounts/user-invitations | List user access invitations
 [**list_ad_account_users**](AdAccountsApi.md#list_ad_account_users) | **GET** /v1/ads/accounts/users | Ad account users
 [**list_ad_accounts**](AdAccountsApi.md#list_ad_accounts) | **GET** /v1/ads/accounts | List ad accounts
 [**list_ad_labels**](AdAccountsApi.md#list_ad_labels) | **GET** /v1/ads/labels | List ad labels
@@ -59,6 +62,7 @@ Method | HTTP request | Description
 [**remove_page_user**](AdAccountsApi.md#remove_page_user) | **DELETE** /v1/ads/page-users | Remove a user from a Page
 [**replace_ad_negative_keyword_list_keywords**](AdAccountsApi.md#replace_ad_negative_keyword_list_keywords) | **PUT** /v1/ads/accounts/negative-keyword-lists/{listId}/keywords | Replace negative list keywords
 [**reply_to_ad_comment**](AdAccountsApi.md#reply_to_ad_comment) | **POST** /v1/ads/{adId}/comments/{commentId}/reply | Reply to an ad comment
+[**revoke_ad_account_user_invitation**](AdAccountsApi.md#revoke_ad_account_user_invitation) | **DELETE** /v1/ads/accounts/user-invitations | Revoke a user access invitation
 [**update_account_callouts**](AdAccountsApi.md#update_account_callouts) | **PUT** /v1/ads/accounts/callouts | Update account callouts
 [**update_account_sitelinks**](AdAccountsApi.md#update_account_sitelinks) | **PUT** /v1/ads/accounts/sitelinks | Update account sitelinks
 [**update_account_structured_snippets**](AdAccountsApi.md#update_account_structured_snippets) | **PUT** /v1/ads/accounts/structured-snippets | Update account snippets
@@ -67,6 +71,7 @@ Method | HTTP request | Description
 [**update_ad_label**](AdAccountsApi.md#update_ad_label) | **PATCH** /v1/ads/labels/{labelId} | Update a Google Ads label
 [**update_ad_negative_keyword_list**](AdAccountsApi.md#update_ad_negative_keyword_list) | **PUT** /v1/ads/accounts/negative-keyword-lists/{listId} | Rename a negative keyword list
 [**update_value_rule_set**](AdAccountsApi.md#update_value_rule_set) | **PUT** /v1/ads/value-rule-sets/{valueRuleSetId} | Replace a value rule set
+[**withdraw_ad_account_user_invitation_approval**](AdAccountsApi.md#withdraw_ad_account_user_invitation_approval) | **DELETE** /v1/ads/accounts/user-invitations/pending-approvals | Withdraw an invitation awaiting multi-party approval
 
 
 
@@ -959,6 +964,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## invite_ad_account_user
+
+> models::GoogleAdsUserAccessInvitationResult invite_ad_account_user(invite_ad_account_user_request)
+Invite a user to an ad account by email
+
+Emails someone an invitation to a Google Ads account with the access role you choose, for example to hand a client account you created under your manager to its owner.  Creates a user access invitation (Google's CustomerUserAccessInvitationService) on `adAccountId`. The connection's Google user needs admin access to that account, directly or through a manager above it, which is the case for an account created with POST /v1/ads/accounts. The recipient accepts from the email, possibly with another Google account. When Google requires multi-party approval, nothing is sent until a second admin of the account approves the request in Google Ads: the response then has `status: PENDING_APPROVAL` and a `multiPartyAuthReviewId` instead of an `invitationId`, which DELETE /v1/ads/accounts/user-invitations/pending-approvals withdraws. Not idempotent: Google refuses a second invitation while the email has one pending or awaiting approval. Google has no server-side check for this call, so `validateOnly: true` reads the account's invitations with the same credentials (proving the account is reachable) and fails if the email already has a pending one, without sending anything.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**invite_ad_account_user_request** | [**InviteAdAccountUserRequest**](InviteAdAccountUserRequest.md) |  | [required] |
+
+### Return type
+
+[**models::GoogleAdsUserAccessInvitationResult**](GoogleAdsUserAccessInvitationResult.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_account_callouts
 
 > models::ListAccountCallouts200Response list_account_callouts(account_id, ad_account_id, customer_id)
@@ -1042,6 +1077,68 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListAccountStructuredSnippets200Response**](listAccountStructuredSnippets_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_ad_account_user_invitation_approvals
+
+> models::ListAdAccountUserInvitationApprovals200Response list_ad_account_user_invitation_approvals(account_id, ad_account_id)
+List invitations awaiting multi-party approval
+
+Lists the email invitations to a Google Ads account that Google is holding until a second admin approves them.  When Google requires multi-party approval, POST /v1/ads/accounts/user-invitations answers `status: PENDING_APPROVAL` and sends nothing. Those requests are not in GET /v1/ads/accounts/user-invitations; this reads Google's `multi_party_auth_review` resource for the ones still `PENDING` that target an invitation. Approved, rejected, revoked and expired reviews are not listed. Results are cached for 10 minutes and dropped on every invite or withdrawal through Zernio, but an approval or rejection made in Google Ads can take that long to show.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Google ads SocialAccount id. | [required] |
+**ad_account_id** | Option<**String**> | Google Ads customer id, digits only. Defaults to the connection's selected customer. |  |
+
+### Return type
+
+[**models::ListAdAccountUserInvitationApprovals200Response**](listAdAccountUserInvitationApprovals_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_ad_account_user_invitations
+
+> models::ListAdAccountUserInvitations200Response list_ad_account_user_invitations(account_id, ad_account_id)
+List user access invitations
+
+Lists the email invitations to a Google Ads account, with their role and status.  Reads Google's `customer_user_access_invitation` resource for one customer: invitations that are `PENDING`, `DECLINED` or `EXPIRED` (Google expires them 20 days after sending). An accepted invitation becomes a user of the account and leaves this list, which can take Google up to 24 hours. An invitation still waiting for multi-party approval is not listed until a second admin approves it; GET /v1/ads/accounts/user-invitations/pending-approvals lists those. Results are cached for 10 minutes and dropped on every invite or revoke through Zernio.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Google ads SocialAccount id. | [required] |
+**ad_account_id** | Option<**String**> | Google Ads customer id, digits only. Defaults to the connection's selected customer. |  |
+
+### Return type
+
+[**models::ListAdAccountUserInvitations200Response**](listAdAccountUserInvitations_200_response.md)
 
 ### Authorization
 
@@ -1834,6 +1931,38 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## revoke_ad_account_user_invitation
+
+> models::RevokeAdAccountUserInvitation200Response revoke_ad_account_user_invitation(account_id, ad_account_id, invitation_id)
+Revoke a user access invitation
+
+Withdraws an email invitation to a Google Ads account that has not been accepted yet.  Removes the invitation `invitationId` (from GET on this path) from `adAccountId`. It no longer works from the email, and the address can be invited again.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Google ads SocialAccount id. | [required] |
+**ad_account_id** | **String** | Google Ads customer id, digits only. | [required] |
+**invitation_id** | **String** | Numeric invitation id from GET /v1/ads/accounts/user-invitations. | [required] |
+
+### Return type
+
+[**models::RevokeAdAccountUserInvitation200Response**](revokeAdAccountUserInvitation_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## update_account_callouts
 
 > models::UpdateAccountCallouts200Response update_account_callouts(update_account_callouts_request)
@@ -2072,6 +2201,38 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## withdraw_ad_account_user_invitation_approval
+
+> models::WithdrawAdAccountUserInvitationApproval200Response withdraw_ad_account_user_invitation_approval(account_id, ad_account_id, multi_party_auth_review_id)
+Withdraw an invitation awaiting multi-party approval
+
+Cancels an email invitation that Google is still holding for a second admin's approval, so the same address can be invited again right away.  Resolves the review `multiPartyAuthReviewId` (from POST /v1/ads/accounts/user-invitations or GET on this path) to `REVOKED` through Google's MultiPartyAuthReviewService. Only the Google user who sent the invitation can withdraw it, and only while no admin has approved or rejected it; otherwise Google refuses and this returns a 400. Without a withdrawal, Google refuses a new invitation to the address until the review is resolved or expires.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Google ads SocialAccount id. | [required] |
+**ad_account_id** | **String** | Google Ads customer id, digits only. | [required] |
+**multi_party_auth_review_id** | **String** | Numeric review id from POST /v1/ads/accounts/user-invitations or GET /v1/ads/accounts/user-invitations/pending-approvals. | [required] |
+
+### Return type
+
+[**models::WithdrawAdAccountUserInvitationApproval200Response**](withdrawAdAccountUserInvitationApproval_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

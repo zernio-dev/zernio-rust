@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**backfill_pending** | Option<**bool**> | Present and true while historical data is being backfilled. | [optional]
+**backfill_pending** | Option<**bool**> | Meta only. Present and true while historical data is being backfilled. | [optional]
 **campaign** | Option<[**models::CampaignAnalyticsResponseCampaign**](CampaignAnalyticsResponseCampaign.md)> |  | [optional]
 **analytics** | Option<[**models::CampaignAnalyticsResponseAnalytics**](CampaignAnalyticsResponseAnalytics.md)> |  | [optional]
 

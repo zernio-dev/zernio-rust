@@ -388,6 +388,7 @@ docs/ConnectShopifyWithToken200Response.md
 docs/ConnectShopifyWithToken200ResponseAccount.md
 docs/ConnectShopifyWithTokenRequest.md
 docs/ConnectSlackChannelRequest.md
+docs/ConnectWelcomeScreen.md
 docs/ConnectWhatsAppCredentials200Response.md
 docs/ConnectWhatsAppCredentials200ResponseAccount.md
 docs/ConnectWhatsAppCredentialsRequest.md
@@ -1281,8 +1282,12 @@ docs/GmbServicesApi.md
 docs/GmbVerificationsApi.md
 docs/GoogleAdLabel.md
 docs/GoogleAdLabelAssignments.md
+docs/GoogleAdsAccessRole.md
 docs/GoogleAdsHierarchyClient.md
 docs/GoogleAdsManagerLink.md
+docs/GoogleAdsUserAccessInvitation.md
+docs/GoogleAdsUserAccessInvitationResult.md
+docs/GoogleAdsUserInvitationApproval.md
 docs/GoogleAssetGroupAssetLink.md
 docs/GoogleAssetGroupAssetUnlink.md
 docs/GoogleAssetUpdate.md
@@ -1404,6 +1409,7 @@ docs/InstallTrackingTagOnStore422Response.md
 docs/InstallTrackingTagOnStore422ResponseDetails.md
 docs/InstallTrackingTagOnStoreRequest.md
 docs/InviteAdAccountToManagerRequest.md
+docs/InviteAdAccountUserRequest.md
 docs/InvitesApi.md
 docs/KeywordEntry.md
 docs/KeywordEntryOneOf.md
@@ -1455,6 +1461,8 @@ docs/ListAccountSitelinks200Response.md
 docs/ListAccountSitelinks200ResponseSitelinksInner.md
 docs/ListAccountStructuredSnippets200Response.md
 docs/ListAccountStructuredSnippets200ResponseStructuredSnippetsInner.md
+docs/ListAdAccountUserInvitationApprovals200Response.md
+docs/ListAdAccountUserInvitations200Response.md
 docs/ListAdAccountUsers200Response.md
 docs/ListAdAccounts200Response.md
 docs/ListAdAccounts200ResponseAccountsInner.md
@@ -2031,6 +2039,7 @@ docs/ReviewWebhookReview.md
 docs/ReviewWebhookReviewReply.md
 docs/ReviewWebhookReviewReviewer.md
 docs/ReviewsApi.md
+docs/RevokeAdAccountUserInvitation200Response.md
 docs/RevokeBusinessPartner200Response.md
 docs/RevokeConnectedApp200Response.md
 docs/RfPrediction.md
@@ -2423,6 +2432,7 @@ docs/UpdateCommerceProductPricesRequestVariantsInner.md
 docs/UpdateCommerceProductPricesRequestVariantsInnerPrice.md
 docs/UpdateCommerceProductRequest.md
 docs/UpdateCommerceRedirectRequest.md
+docs/UpdateConnectWelcomeScreenRequest.md
 docs/UpdateContact200Response.md
 docs/UpdateContact200ResponseContact.md
 docs/UpdateContactRequest.md
@@ -2793,6 +2803,7 @@ docs/WhatsAppTemplateLookupErrorDetailsProviderHeaders.md
 docs/WhatsAppTemplateLookupErrorPlatformError.md
 docs/WhatsAppTemplateLookupErrorPlatformErrorErrorData.md
 docs/WhatsAppTemplatesApi.md
+docs/WithdrawAdAccountUserInvitationApproval200Response.md
 docs/WorkflowEdge.md
 docs/WorkflowExecutionEvent.md
 docs/WorkflowNode.md
@@ -3286,6 +3297,7 @@ src/models/connect_shopify_with_token_200_response.rs
 src/models/connect_shopify_with_token_200_response_account.rs
 src/models/connect_shopify_with_token_request.rs
 src/models/connect_slack_channel_request.rs
+src/models/connect_welcome_screen.rs
 src/models/connect_whats_app_credentials_200_response.rs
 src/models/connect_whats_app_credentials_200_response_account.rs
 src/models/connect_whats_app_credentials_request.rs
@@ -4165,8 +4177,12 @@ src/models/get_youtube_playlists_200_response.rs
 src/models/get_youtube_playlists_200_response_playlists_inner.rs
 src/models/google_ad_label.rs
 src/models/google_ad_label_assignments.rs
+src/models/google_ads_access_role.rs
 src/models/google_ads_hierarchy_client.rs
 src/models/google_ads_manager_link.rs
+src/models/google_ads_user_access_invitation.rs
+src/models/google_ads_user_access_invitation_result.rs
+src/models/google_ads_user_invitation_approval.rs
 src/models/google_asset_group_asset_link.rs
 src/models/google_asset_group_asset_unlink.rs
 src/models/google_asset_update.rs
@@ -4285,6 +4301,7 @@ src/models/install_tracking_tag_on_store_422_response.rs
 src/models/install_tracking_tag_on_store_422_response_details.rs
 src/models/install_tracking_tag_on_store_request.rs
 src/models/invite_ad_account_to_manager_request.rs
+src/models/invite_ad_account_user_request.rs
 src/models/keyword_entry.rs
 src/models/keyword_entry_one_of.rs
 src/models/like_inbox_comment_200_response.rs
@@ -4333,6 +4350,8 @@ src/models/list_account_sitelinks_200_response.rs
 src/models/list_account_sitelinks_200_response_sitelinks_inner.rs
 src/models/list_account_structured_snippets_200_response.rs
 src/models/list_account_structured_snippets_200_response_structured_snippets_inner.rs
+src/models/list_ad_account_user_invitation_approvals_200_response.rs
+src/models/list_ad_account_user_invitations_200_response.rs
 src/models/list_ad_account_users_200_response.rs
 src/models/list_ad_accounts_200_response.rs
 src/models/list_ad_accounts_200_response_accounts_inner.rs
@@ -4895,6 +4914,7 @@ src/models/review_phone_number_kyc_packet_request.rs
 src/models/review_webhook_review.rs
 src/models/review_webhook_review_reply.rs
 src/models/review_webhook_review_reviewer.rs
+src/models/revoke_ad_account_user_invitation_200_response.rs
 src/models/revoke_business_partner_200_response.rs
 src/models/revoke_connected_app_200_response.rs
 src/models/rf_prediction.rs
@@ -5280,6 +5300,7 @@ src/models/update_commerce_product_prices_request_variants_inner.rs
 src/models/update_commerce_product_prices_request_variants_inner_price.rs
 src/models/update_commerce_product_request.rs
 src/models/update_commerce_redirect_request.rs
+src/models/update_connect_welcome_screen_request.rs
 src/models/update_contact_200_response.rs
 src/models/update_contact_200_response_contact.rs
 src/models/update_contact_request.rs
@@ -5637,6 +5658,7 @@ src/models/whats_app_template_lookup_error_details.rs
 src/models/whats_app_template_lookup_error_details_provider_headers.rs
 src/models/whats_app_template_lookup_error_platform_error.rs
 src/models/whats_app_template_lookup_error_platform_error_error_data.rs
+src/models/withdraw_ad_account_user_invitation_approval_200_response.rs
 src/models/workflow_edge.rs
 src/models/workflow_execution_event.rs
 src/models/workflow_node.rs
