@@ -1398,6 +1398,7 @@ docs/InstagramBusinessDiscoveryMediaInnerChildrenInner.md
 docs/InstagramBusinessDiscoveryProfile.md
 docs/InstagramDemographicsResponse.md
 docs/InstagramDemographicsResponseDemographicsValueInner.md
+docs/InstagramLiveMedia.md
 docs/InstagramMediaCollaborator.md
 docs/InstagramPlatformData.md
 docs/InstagramPlatformDataAudioConfiguration.md
@@ -1631,6 +1632,7 @@ docs/ListInboxReviews200ResponseDataInnerPhotosInner.md
 docs/ListInboxReviews200ResponseDataInnerReply.md
 docs/ListInboxReviews200ResponseDataInnerReviewer.md
 docs/ListInboxReviews200ResponseSummary.md
+docs/ListInstagramLiveMedia200Response.md
 docs/ListInstagramMediaCollaborators200Response.md
 docs/ListInstagramPages200Response.md
 docs/ListInstagramPages200ResponsePagesInner.md
@@ -2183,6 +2185,7 @@ docs/SendSms200Response.md
 docs/SendSmsRequest.md
 docs/SendTypingIndicatorRequest.md
 docs/SendWhatsAppConversion200Response.md
+docs/SendWhatsAppConversion200ResponseFailuresInner.md
 docs/SendWhatsAppConversionRequest.md
 docs/SendWhatsAppFlowMessage200Response.md
 docs/SendWhatsAppFlowMessageRequest.md
@@ -4290,6 +4293,7 @@ src/models/instagram_business_discovery_media_inner_children_inner.rs
 src/models/instagram_business_discovery_profile.rs
 src/models/instagram_demographics_response.rs
 src/models/instagram_demographics_response_demographics_value_inner.rs
+src/models/instagram_live_media.rs
 src/models/instagram_media_collaborator.rs
 src/models/instagram_platform_data.rs
 src/models/instagram_platform_data_audio_configuration.rs
@@ -4520,6 +4524,7 @@ src/models/list_inbox_reviews_200_response_data_inner_photos_inner.rs
 src/models/list_inbox_reviews_200_response_data_inner_reply.rs
 src/models/list_inbox_reviews_200_response_data_inner_reviewer.rs
 src/models/list_inbox_reviews_200_response_summary.rs
+src/models/list_instagram_live_media_200_response.rs
 src/models/list_instagram_media_collaborators_200_response.rs
 src/models/list_instagram_pages_200_response.rs
 src/models/list_instagram_pages_200_response_pages_inner.rs
@@ -5058,6 +5063,7 @@ src/models/send_sms_200_response.rs
 src/models/send_sms_request.rs
 src/models/send_typing_indicator_request.rs
 src/models/send_whats_app_conversion_200_response.rs
+src/models/send_whats_app_conversion_200_response_failures_inner.rs
 src/models/send_whats_app_conversion_request.rs
 src/models/send_whats_app_flow_message_200_response.rs
 src/models/send_whats_app_flow_message_request.rs
