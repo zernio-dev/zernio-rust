@@ -388,6 +388,9 @@ docs/ConnectShopifyWithToken200Response.md
 docs/ConnectShopifyWithToken200ResponseAccount.md
 docs/ConnectShopifyWithTokenRequest.md
 docs/ConnectSlackChannelRequest.md
+docs/ConnectWebflowWithSiteToken200Response.md
+docs/ConnectWebflowWithSiteToken200ResponseAccount.md
+docs/ConnectWebflowWithSiteTokenRequest.md
 docs/ConnectWelcomeScreen.md
 docs/ConnectWhatsAppCredentials200Response.md
 docs/ConnectWhatsAppCredentials200ResponseAccount.md
@@ -3308,6 +3311,9 @@ src/models/connect_shopify_with_token_200_response.rs
 src/models/connect_shopify_with_token_200_response_account.rs
 src/models/connect_shopify_with_token_request.rs
 src/models/connect_slack_channel_request.rs
+src/models/connect_webflow_with_site_token_200_response.rs
+src/models/connect_webflow_with_site_token_200_response_account.rs
+src/models/connect_webflow_with_site_token_request.rs
 src/models/connect_welcome_screen.rs
 src/models/connect_whats_app_credentials_200_response.rs
 src/models/connect_whats_app_credentials_200_response_account.rs

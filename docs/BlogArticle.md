@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | Option<**String**> | Platform-native article/post id: numeric on Shopify and WordPress, a GUID on Wix. | [optional]
+**id** | Option<**String**> | Platform-native article/post id: numeric on Shopify and WordPress, a GUID on Wix, a hex item id on Webflow. | [optional]
 **blog_id** | Option<**String**> | Platform-native id of the blog the article belongs to. | [optional]
-**platform** | Option<**Platform**> |  (enum: shopify, wordpress, wix) | [optional]
+**platform** | Option<**Platform**> |  (enum: shopify, wordpress, wix, webflow) | [optional]
 **title** | Option<**String**> |  | [optional]
 **body_html** | Option<**String**> | Article body as HTML. Wix stores rich content, converted from and to HTML; Wix lists return null (get the article for its body). | [optional]
 **handle** | Option<**String**> | URL slug of the article. | [optional]
