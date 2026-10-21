@@ -872,7 +872,7 @@ Returns an ads account's spend, results and other metrics day by day, ready for 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | Account ID. Sibling-expanded to its linked posting↔ads pair. | [required] |
+**account_id** | **String** | Account ID. Sibling-expanded to its linked posting↔ads pair. An id that does not exist or sits on a profile the API key cannot reach answers 404 (code: account_not_found). | [required] |
 **ad_account_id** | Option<**String**> | Optional platform-native ad account ID (e.g. Meta `act_…`, TikTok advertiser ID). Use when the connection wraps multiple platform ad accounts and the chart should show one only. Note: rows ingested before 2026-05-13 don't carry this column; the recurring 7-day re-sync repopulates them naturally. |  |
 **from_date** | Option<**String**> | Inclusive start of metrics range (YYYY-MM-DD). Defaults to 90 days ago. |  |
 **to_date** | Option<**String**> | Inclusive end of metrics range (YYYY-MM-DD). Defaults to today. Max 730-day range. |  |
