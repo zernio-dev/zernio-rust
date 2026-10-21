@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**list_instagram_live_media**](InstagramApi.md#list_instagram_live_media) | **GET** /v1/accounts/{accountId}/instagram/live-media | List the live broadcasts of an Instagram account
 [**list_instagram_media_collaborators**](InstagramApi.md#list_instagram_media_collaborators) | **GET** /v1/accounts/{accountId}/instagram/media/{mediaId}/collaborators | List the collaborators of an Instagram post
 [**list_instagram_stories**](InstagramApi.md#list_instagram_stories) | **GET** /v1/accounts/{accountId}/instagram/stories | List active Instagram stories
+[**list_instagram_tagged_media**](InstagramApi.md#list_instagram_tagged_media) | **GET** /v1/accounts/{accountId}/instagram/tags | List the posts an Instagram account is tagged in
 [**search_instagram_audio**](InstagramApi.md#search_instagram_audio) | **GET** /v1/accounts/{accountId}/instagram/audio | Search Instagram audio
 
 
@@ -217,6 +218,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListInstagramStories200Response**](listInstagramStories_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_instagram_tagged_media
+
+> models::ListInstagramTaggedMedia200Response list_instagram_tagged_media(account_id, limit, cursor)
+List the posts an Instagram account is tagged in
+
+Returns the media where other Instagram users photo-tagged the connected account, newest first. Private media is never returned.  Cursor-paginated: pass `nextCursor` from the previous response as `cursor` to read the next page. `nextCursor` is null when there are no more pages. Meta does not say whether a page is the last one, so the final page can come back empty with `nextCursor` null.  Requires an Instagram account connected via **Facebook Login**. Meta does not give Instagram Login access to tagging, so accounts connected with classic Instagram Login receive a 400 (`instagram_tagged_media_requires_facebook_login`) and must be reconnected choosing the Facebook option. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The ID of a connected Instagram account (Facebook Login). | [required] |
+**limit** | Option<**i32**> | Page size. |  |[default to 25]
+**cursor** | Option<**String**> | The `nextCursor` of the previous page. |  |
+
+### Return type
+
+[**models::ListInstagramTaggedMedia200Response**](listInstagramTaggedMedia_200_response.md)
 
 ### Authorization
 

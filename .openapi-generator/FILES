@@ -1404,6 +1404,7 @@ docs/InstagramPlatformData.md
 docs/InstagramPlatformDataAudioConfiguration.md
 docs/InstagramPlatformDataTrialParams.md
 docs/InstagramPlatformDataUserTagsInner.md
+docs/InstagramTaggedMedia.md
 docs/InstallTrackingTagOnStore200Response.md
 docs/InstallTrackingTagOnStore200ResponseInstall.md
 docs/InstallTrackingTagOnStore422Response.md
@@ -1639,6 +1640,7 @@ docs/ListInstagramPages200ResponsePagesInner.md
 docs/ListInstagramPages200ResponsePagesInnerInstagramBusinessAccount.md
 docs/ListInstagramStories200Response.md
 docs/ListInstagramStories200ResponseDataInner.md
+docs/ListInstagramTaggedMedia200Response.md
 docs/ListLeadForms200Response.md
 docs/ListLeads200Response.md
 docs/ListLeads200ResponseLeadsInner.md
@@ -4299,6 +4301,7 @@ src/models/instagram_platform_data.rs
 src/models/instagram_platform_data_audio_configuration.rs
 src/models/instagram_platform_data_trial_params.rs
 src/models/instagram_platform_data_user_tags_inner.rs
+src/models/instagram_tagged_media.rs
 src/models/install_tracking_tag_on_store_200_response.rs
 src/models/install_tracking_tag_on_store_200_response_install.rs
 src/models/install_tracking_tag_on_store_422_response.rs
@@ -4531,6 +4534,7 @@ src/models/list_instagram_pages_200_response_pages_inner.rs
 src/models/list_instagram_pages_200_response_pages_inner_instagram_business_account.rs
 src/models/list_instagram_stories_200_response.rs
 src/models/list_instagram_stories_200_response_data_inner.rs
+src/models/list_instagram_tagged_media_200_response.rs
 src/models/list_lead_forms_200_response.rs
 src/models/list_leads_200_response.rs
 src/models/list_leads_200_response_leads_inner.rs
