@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **cart_adds** | Option<**i32**> | Adds to cart (Meta `AddToCart` pixel event). | [optional]
 **checkouts_initiated** | Option<**i32**> | Checkouts started (Meta `InitiateCheckout` pixel event). | [optional]
 **payment_info_adds** | Option<**i32**> | Payment details added at checkout (Meta `AddPaymentInfo` pixel event). | [optional]
-**purchases** | Option<**i32**> | Purchases (Meta `Purchase` pixel event). Pair with `purchaseValue` for revenue. | [optional]
+**purchases** | Option<**i32**> | Purchases. Meta reports one purchase under several action types at once, so this takes the FIRST one present, in this order, never a sum: `offsite_conversion.fb_pixel_purchase`, `omni_purchase`, `app_custom_event.fb_mobile_purchase`, `onsite_conversion.purchase`, `purchase`. It always counts purchases, whatever the ad set optimizes for. `conversions` instead follows the ad set's optimization event (PURCHASE when the ad set names none), so the two can differ on any other goal. TikTok: app purchases (`purchase`), else website complete payments (`complete_payment`), else Place an Order (`place_order`). Pair with `purchaseValue` for revenue.  | [optional]
 **leads** | Option<**i32**> | Leads, from either the website pixel or an instant form, whichever the ad uses. | [optional]
 **registrations_completed** | Option<**i32**> | Completed registrations (Meta `CompleteRegistration` pixel event). | [optional]
 **app_installs** | Option<**i32**> | Mobile app installs attributed to the ad. | [optional]
