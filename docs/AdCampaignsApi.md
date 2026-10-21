@@ -35,6 +35,7 @@ Method | HTTP request | Description
 [**get_campaign_conversion_goals**](AdCampaignsApi.md#get_campaign_conversion_goals) | **GET** /v1/ads/campaigns/{campaignId}/conversion-goals | Get campaign conversion goals
 [**get_campaign_targeting**](AdCampaignsApi.md#get_campaign_targeting) | **GET** /v1/ads/campaigns/{campaignId}/targeting | Read a Google campaign's device, location, excluded location, and language targeting
 [**get_google_asset_group**](AdCampaignsApi.md#get_google_asset_group) | **GET** /v1/ads/campaigns/{campaignId}/asset-groups/{assetGroupId} | Get a Performance Max asset group
+[**get_tik_tok_smart_plus_ad_review**](AdCampaignsApi.md#get_tik_tok_smart_plus_ad_review) | **GET** /v1/ads/{adId}/tiktok-smart-plus-review | Review status of each creative in a TikTok Smart+ ad
 [**list_ad_campaigns**](AdCampaignsApi.md#list_ad_campaigns) | **GET** /v1/ads/campaigns | List campaigns
 [**list_ad_group_assets**](AdCampaignsApi.md#list_ad_group_assets) | **GET** /v1/ads/ad-sets/{adSetId}/assets | List ad-group assets
 [**list_ad_keywords**](AdCampaignsApi.md#list_ad_keywords) | **GET** /v1/ads/keywords | List Search keywords
@@ -1042,6 +1043,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetGoogleAssetGroup200Response**](getGoogleAssetGroup_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_tik_tok_smart_plus_ad_review
+
+> models::GetTikTokSmartPlusAdReview200Response get_tik_tok_smart_plus_ad_review(ad_id)
+Review status of each creative in a TikTok Smart+ ad
+
+Shows which Spark post, video or carousel of an Upgraded Smart+ ad TikTok approved or rejected, with every rejection reason, keyed by the TikTok post id for a Spark post.  Reads TikTok's `/smart_plus/ad/review_info/` live (read-only, works on a paused ad) for the Smart+ ad that holds `adId`, and returns the ad-level verdict plus one entry per creative. `adId` may be the Smart+ ad itself or any creative of it synced as its own ad: Zernio finds the Smart+ ad in the ad's ad group through `/smart_plus/ad/get/`, and uses the ad group's only Smart+ ad when no creative list names the ad.  `materialType`, `tiktokItemId`, `videoId`, `name` and `operationStatus` come from the Smart+ ad's `creative_list`. TikTok leaves out of that list the creatives it added on its own (creator content, authorized TikTok posts, Creative Library content) and lists each image of a carousel under its own material id, so those entries come back with the review verdict and null descriptive fields. TikTok returns no review timestamp; `readAt` is when Zernio read it.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**ad_id** | **String** | Zernio ad id (24-char hex) or the TikTok ad id: the Smart+ ad id or the ad id of one of its creatives. | [required] |
+
+### Return type
+
+[**models::GetTikTokSmartPlusAdReview200Response**](getTikTokSmartPlusAdReview_200_response.md)
 
 ### Authorization
 
