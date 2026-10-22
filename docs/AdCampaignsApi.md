@@ -48,6 +48,7 @@ Method | HTTP request | Description
 [**list_google_asset_groups**](AdCampaignsApi.md#list_google_asset_groups) | **GET** /v1/ads/campaigns/{campaignId}/asset-groups | List Performance Max asset groups
 [**list_google_recommendations**](AdCampaignsApi.md#list_google_recommendations) | **GET** /v1/ads/recommendations | List Google Ads recommendations
 [**list_shared_budgets**](AdCampaignsApi.md#list_shared_budgets) | **GET** /v1/ads/shared-budgets | List shared budgets
+[**list_tik_tok_smart_plus_reviews**](AdCampaignsApi.md#list_tik_tok_smart_plus_reviews) | **GET** /v1/ads/tiktok-smart-plus-reviews | Review status of every TikTok Smart+ ad of an advertiser
 [**remove_ad_group_assets**](AdCampaignsApi.md#remove_ad_group_assets) | **DELETE** /v1/ads/ad-sets/{adSetId}/assets | Remove ad-group assets
 [**remove_ad_keyword**](AdCampaignsApi.md#remove_ad_keyword) | **DELETE** /v1/ads/keywords/{keywordId} | Remove a Search keyword
 [**remove_campaign_assets**](AdCampaignsApi.md#remove_campaign_assets) | **DELETE** /v1/ads/campaigns/{campaignId}/assets | Remove campaign assets
@@ -1495,6 +1496,40 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListSharedBudgets200Response**](listSharedBudgets_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_tik_tok_smart_plus_reviews
+
+> models::ListTikTokSmartPlusReviews200Response list_tik_tok_smart_plus_reviews(account_id, ad_account_id, include_deleted, page, page_size)
+Review status of every TikTok Smart+ ad of an advertiser
+
+Returns the review verdict of every Upgraded Smart+ ad of one TikTok advertiser, with each creative's verdict, in one paginated read. Use it to refresh reviews periodically: one call (plus its pages) per advertiser per refresh, instead of `GET /v1/ads/{adId}/tiktok-smart-plus-review` per ad.  Zernio lists the advertiser's Smart+ ads with `/smart_plus/ad/get/` (deleted ones only with `includeDeleted=true`; the listing is cached for 5 minutes) and reads `/smart_plus/ad/review_info/` for up to 100 Smart+ ads per call, across ad groups, one call after another. A full refresh of N Smart+ ads costs about `ceil(N / 100)` listing calls and `ceil(N / 100)` review calls on TikTok. Each review is cached for 10 minutes per connection, advertiser and Smart+ ad, shared with the single-ad read, so cached reviews are served without calling TikTok and `readAt` can be up to 10 minutes old.  TikTok's review endpoint has a strict quota of its own. When it is over quota (or Zernio is holding review reads for this advertiser and connection after an overage), Zernio stops calling TikTok and answers 200 with the reviews it has: `incomplete: true`, the Smart+ ads still to read in `pendingSmartPlusAdIds`, and `retryAfterSeconds` (also in the `Retry-After` header). Every Smart+ ad of the page is in `items`, `failedSmartPlusAds` or `pendingSmartPlusAdIds`. Wait `retryAfterSeconds` and read the same page again: only the pending ads reach TikTok.  A Smart+ ad whose review TikTok refuses on its own (for example one deleted on TikTok since the listing was cached) is returned in `failedSmartPlusAds` with TikTok's error, and the rest of the page is still read. Zernio finds it by splitting the refused batch in halves, at most 16 extra TikTok calls per page; ads still unresolved after that come back in `failedSmartPlusAds` with the batch error. A refusal of a single ad is remembered for 10 minutes. When both halves of a refused batch are refused with the same TikTok error (for example a permission error), the whole request fails with that error instead.  Items are sorted by `adGroupId`, then `smartPlusAdId`, so pages are stable. Read the pages of one advertiser one after another, not in parallel: parallel pages spend the review quota at the same time and come back incomplete.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | A tiktok or tiktokads account ID | [required] |
+**ad_account_id** | **String** | TikTok advertiser ID | [required] |
+**include_deleted** | Option<**bool**> | Also return Smart+ ads deleted on TikTok (listed with `primary_status: STATUS_ALL`). |  |[default to false]
+**page** | Option<**i32**> |  |  |[default to 1]
+**page_size** | Option<**i32**> |  |  |[default to 500]
+
+### Return type
+
+[**models::ListTikTokSmartPlusReviews200Response**](listTikTokSmartPlusReviews_200_response.md)
 
 ### Authorization
 

@@ -353,6 +353,7 @@ docs/CommerceMetaobjectDefinitionFieldsInner.md
 docs/CommerceMetaobjectFieldsInner.md
 docs/CommerceMoney.md
 docs/CommerceOrder.md
+docs/CommerceOrderAttribution.md
 docs/CommerceOrderChargeLine.md
 docs/CommerceOrderCustomer.md
 docs/CommerceOrderFulfillmentsInner.md
@@ -360,6 +361,8 @@ docs/CommerceOrderLineItemsInner.md
 docs/CommerceOrderRefundsInner.md
 docs/CommerceOrderRefundsInnerLineItemsInner.md
 docs/CommerceOrderStatus.md
+docs/CommerceOrderVisit.md
+docs/CommerceOrderVisitUtm.md
 docs/CommercePage.md
 docs/CommercePriceList.md
 docs/CommerceProduct.md
@@ -1192,8 +1195,6 @@ docs/GetTikTokCreatorInfo200ResponsePostingLimitsInteractionSettingsAllowDuet.md
 docs/GetTikTokCreatorInfo200ResponsePostingLimitsInteractionSettingsAllowStitch.md
 docs/GetTikTokCreatorInfo200ResponsePrivacyLevelsInner.md
 docs/GetTikTokSmartPlusAdReview200Response.md
-docs/GetTikTokSmartPlusAdReview200ResponseMaterialsInner.md
-docs/GetTikTokSmartPlusAdReview200ResponseReview.md
 docs/GetTikTokSmartPlusMaterialReport200Response.md
 docs/GetTikTokSmartPlusMaterialReport200ResponseRowsInner.md
 docs/GetTikTokSmartPlusMaterialReport200ResponseRowsInnerMetrics.md
@@ -1727,6 +1728,10 @@ docs/ListTikTokAdPixels200ResponsePixelsInnerEventDetailsInner.md
 docs/ListTikTokCommercialMusic200Response.md
 docs/ListTikTokCommercialMusic200ResponseTracksInner.md
 docs/ListTikTokCommercialMusic200ResponseTracksInnerClip.md
+docs/ListTikTokSmartPlusReviews200Response.md
+docs/ListTikTokSmartPlusReviews200ResponseFailedSmartPlusAdsInner.md
+docs/ListTikTokSmartPlusReviews200ResponseFailedSmartPlusAdsInnerError.md
+docs/ListTikTokSmartPlusReviews200ResponseItemsInner.md
 docs/ListTrackingTagEvents200Response.md
 docs/ListTrackingTagPartners200Response.md
 docs/ListTrackingTagSharedAccounts200Response.md
@@ -2311,6 +2316,8 @@ docs/TikTokPlatformData.md
 docs/TikTokPlatformDataMusicSoundInfo.md
 docs/TikTokReviewRejection.md
 docs/TikTokReviewRejectionContent.md
+docs/TikTokSmartPlusAdLevelReview.md
+docs/TikTokSmartPlusMaterialReview.md
 docs/TikTokSmartPlusReviewStatus.md
 docs/ToolsApi.md
 docs/TrackingTag.md
@@ -2687,6 +2694,11 @@ docs/WebhookPayloadAccountConnected.md
 docs/WebhookPayloadAccountConnectedAccount.md
 docs/WebhookPayloadAccountDisconnected.md
 docs/WebhookPayloadAccountDisconnectedAccount.md
+docs/WebhookPayloadAdReview.md
+docs/WebhookPayloadAdReviewAccount.md
+docs/WebhookPayloadAdReviewAdObject.md
+docs/WebhookPayloadAdReviewReview.md
+docs/WebhookPayloadAdReviewReviewReasonsInner.md
 docs/WebhookPayloadAdStatusChanged.md
 docs/WebhookPayloadAdStatusChangedAccount.md
 docs/WebhookPayloadAdStatusChangedAdObject.md
@@ -3296,6 +3308,7 @@ src/models/commerce_metaobject_definition_fields_inner.rs
 src/models/commerce_metaobject_fields_inner.rs
 src/models/commerce_money.rs
 src/models/commerce_order.rs
+src/models/commerce_order_attribution.rs
 src/models/commerce_order_charge_line.rs
 src/models/commerce_order_customer.rs
 src/models/commerce_order_fulfillments_inner.rs
@@ -3303,6 +3316,8 @@ src/models/commerce_order_line_items_inner.rs
 src/models/commerce_order_refunds_inner.rs
 src/models/commerce_order_refunds_inner_line_items_inner.rs
 src/models/commerce_order_status.rs
+src/models/commerce_order_visit.rs
+src/models/commerce_order_visit_utm.rs
 src/models/commerce_page.rs
 src/models/commerce_price_list.rs
 src/models/commerce_product.rs
@@ -4128,8 +4143,6 @@ src/models/get_tik_tok_creator_info_200_response_posting_limits_interaction_sett
 src/models/get_tik_tok_creator_info_200_response_posting_limits_interaction_settings_allow_stitch.rs
 src/models/get_tik_tok_creator_info_200_response_privacy_levels_inner.rs
 src/models/get_tik_tok_smart_plus_ad_review_200_response.rs
-src/models/get_tik_tok_smart_plus_ad_review_200_response_materials_inner.rs
-src/models/get_tik_tok_smart_plus_ad_review_200_response_review.rs
 src/models/get_tik_tok_smart_plus_material_report_200_response.rs
 src/models/get_tik_tok_smart_plus_material_report_200_response_rows_inner.rs
 src/models/get_tik_tok_smart_plus_material_report_200_response_rows_inner_metrics.rs
@@ -4649,6 +4662,10 @@ src/models/list_tik_tok_ad_pixels_200_response_pixels_inner_event_details_inner.
 src/models/list_tik_tok_commercial_music_200_response.rs
 src/models/list_tik_tok_commercial_music_200_response_tracks_inner.rs
 src/models/list_tik_tok_commercial_music_200_response_tracks_inner_clip.rs
+src/models/list_tik_tok_smart_plus_reviews_200_response.rs
+src/models/list_tik_tok_smart_plus_reviews_200_response_failed_smart_plus_ads_inner.rs
+src/models/list_tik_tok_smart_plus_reviews_200_response_failed_smart_plus_ads_inner_error.rs
+src/models/list_tik_tok_smart_plus_reviews_200_response_items_inner.rs
 src/models/list_tracking_tag_events_200_response.rs
 src/models/list_tracking_tag_partners_200_response.rs
 src/models/list_tracking_tag_shared_accounts_200_response.rs
@@ -5215,6 +5232,8 @@ src/models/tik_tok_platform_data.rs
 src/models/tik_tok_platform_data_music_sound_info.rs
 src/models/tik_tok_review_rejection.rs
 src/models/tik_tok_review_rejection_content.rs
+src/models/tik_tok_smart_plus_ad_level_review.rs
+src/models/tik_tok_smart_plus_material_review.rs
 src/models/tik_tok_smart_plus_review_status.rs
 src/models/tracking_tag.rs
 src/models/tracking_tag_diagnostic.rs
@@ -5582,6 +5601,11 @@ src/models/webhook_payload_account_connected.rs
 src/models/webhook_payload_account_connected_account.rs
 src/models/webhook_payload_account_disconnected.rs
 src/models/webhook_payload_account_disconnected_account.rs
+src/models/webhook_payload_ad_review.rs
+src/models/webhook_payload_ad_review_account.rs
+src/models/webhook_payload_ad_review_ad_object.rs
+src/models/webhook_payload_ad_review_review.rs
+src/models/webhook_payload_ad_review_review_reasons_inner.rs
 src/models/webhook_payload_ad_status_changed.rs
 src/models/webhook_payload_ad_status_changed_account.rs
 src/models/webhook_payload_ad_status_changed_ad_object.rs

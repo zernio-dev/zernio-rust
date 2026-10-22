@@ -9,6 +9,8 @@ Method | HTTP request | Description
 [**on_account_ads_sync_recovered**](WebhookEventsApi.md#on_account_ads_sync_recovered) | **POST** /account.ads.sync_recovered | Ads sync recovered event
 [**on_account_connected**](WebhookEventsApi.md#on_account_connected) | **POST** /account.connected | Account connected event
 [**on_account_disconnected**](WebhookEventsApi.md#on_account_disconnected) | **POST** /account.disconnected | Account disconnected event
+[**on_ad_review_approved**](WebhookEventsApi.md#on_ad_review_approved) | **POST** /ad.review.approved | Ad review approved event
+[**on_ad_review_rejected**](WebhookEventsApi.md#on_ad_review_rejected) | **POST** /ad.review.rejected | Ad review rejected event
 [**on_ad_status_changed**](WebhookEventsApi.md#on_ad_status_changed) | **POST** /ad.status_changed | Ad status changed event
 [**on_ad_video_processed**](WebhookEventsApi.md#on_ad_video_processed) | **POST** /ad.video.processed | Ad video processed event
 [**on_analytics_synced**](WebhookEventsApi.md#on_analytics_synced) | **POST** /analytics.synced | Analytics synced event
@@ -224,6 +226,66 @@ Fired when a connected account becomes disconnected.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_account_disconnected** | [**WebhookPayloadAccountDisconnected**](WebhookPayloadAccountDisconnected.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_ad_review_approved
+
+> on_ad_review_approved(webhook_payload_ad_review)
+Ad review approved event
+
+Fired when an ad Zernio already tracked passes platform review, or a rejection is overturned on appeal. Every ad network. See `WebhookPayloadAdReview` for when it fires and when it does not. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_ad_review** | [**WebhookPayloadAdReview**](WebhookPayloadAdReview.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_ad_review_rejected
+
+> on_ad_review_rejected(webhook_payload_ad_review)
+Ad review rejected event
+
+Fired when the platform rejects an ad Zernio already tracked. Every ad network. See `WebhookPayloadAdReview` for when it fires and when it does not. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_ad_review** | [**WebhookPayloadAdReview**](WebhookPayloadAdReview.md) |  | [required] |
 
 ### Return type
 

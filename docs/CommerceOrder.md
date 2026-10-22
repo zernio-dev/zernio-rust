@@ -31,6 +31,7 @@ Name | Type | Description | Notes
 **billing_address** | Option<[**models::CommerceAddress**](CommerceAddress.md)> |  | [optional]
 **shipping_address** | Option<[**models::CommerceAddress**](CommerceAddress.md)> |  | [optional]
 **buyer_note** | Option<**String**> |  | [optional]
+**attribution** | Option<[**models::CommerceOrderAttribution**](CommerceOrderAttribution.md)> |  | [optional]
 **line_items** | Option<[**Vec<models::CommerceOrderLineItemsInner>**](CommerceOrderLineItemsInner.md)> |  | [optional]
 **shipping_lines** | Option<[**Vec<models::CommerceOrderChargeLine>**](CommerceOrderChargeLine.md)> |  | [optional]
 **fee_lines** | Option<[**Vec<models::CommerceOrderChargeLine>**](CommerceOrderChargeLine.md)> | WooCommerce fees. Always empty on Shopify. | [optional]
