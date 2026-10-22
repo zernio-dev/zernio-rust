@@ -1891,6 +1891,8 @@ docs/PreflightSmsRegistration200Response.md
 docs/PreflightSmsRegistration200ResponseAdvisoriesInner.md
 docs/PreflightSmsRegistration200ResponseComposed.md
 docs/PreflightSmsRegistrationRequest.md
+docs/PrepareMedia200Response.md
+docs/PrepareMediaRequest.md
 docs/Product.md
 docs/ProductCatalogsApi.md
 docs/ProductImage.md
@@ -4802,6 +4804,8 @@ src/models/preflight_sms_registration_200_response.rs
 src/models/preflight_sms_registration_200_response_advisories_inner.rs
 src/models/preflight_sms_registration_200_response_composed.rs
 src/models/preflight_sms_registration_request.rs
+src/models/prepare_media_200_response.rs
+src/models/prepare_media_request.rs
 src/models/product.rs
 src/models/product_image.rs
 src/models/product_options_inner.rs
