@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **block_display_for_non_targeted_viewer** | Option<**bool**> |  | [optional]
 **question_page_custom_headline** | Option<**String**> |  | [optional]
 **context_card** | Option<[**models::MetaLeadFormPlatformDataContextCard**](MetaLeadFormPlatformDataContextCard.md)> |  | [optional]
+**custom_disclaimer** | Option<[**models::MetaLeadFormPlatformDataCustomDisclaimer**](MetaLeadFormPlatformDataCustomDisclaimer.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

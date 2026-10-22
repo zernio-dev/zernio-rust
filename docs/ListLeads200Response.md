@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | Option<**String**> |  | [optional]
-**leads** | Option<[**Vec<models::ListLeads200ResponseLeadsInner>**](ListLeads200ResponseLeadsInner.md)> |  | [optional]
+**leads** | Option<[**Vec<models::AdLead>**](AdLead.md)> |  | [optional]
 **pagination** | Option<[**models::SearchTweets200ResponsePagination**](SearchTweets200ResponsePagination.md)> |  | [optional]
 **meta** | Option<[**models::ListLeads200ResponseMeta**](ListLeads200ResponseMeta.md)> |  | [optional]
 

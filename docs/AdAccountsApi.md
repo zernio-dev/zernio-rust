@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**delete_ad_negative_keyword_list**](AdAccountsApi.md#delete_ad_negative_keyword_list) | **DELETE** /v1/ads/accounts/negative-keyword-lists/{listId} | Delete a negative keyword list
 [**delete_value_rule_set**](AdAccountsApi.md#delete_value_rule_set) | **DELETE** /v1/ads/value-rule-sets/{valueRuleSetId} | Delete a value rule set
 [**detach_ad_label**](AdAccountsApi.md#detach_ad_label) | **DELETE** /v1/ads/labels/{labelId}/assignments | Detach a Google Ads label
+[**get_ad_account_billing**](AdAccountsApi.md#get_ad_account_billing) | **GET** /v1/ads/accounts/billing | Get ad account billing
 [**get_ad_account_finance**](AdAccountsApi.md#get_ad_account_finance) | **GET** /v1/ads/accounts/finance | Ad account finances
 [**get_ad_account_hierarchy**](AdAccountsApi.md#get_ad_account_hierarchy) | **GET** /v1/ads/accounts/hierarchy | Get manager account hierarchy
 [**get_ad_account_live_entities**](AdAccountsApi.md#get_ad_account_live_entities) | **GET** /v1/ads/accounts/live | Read an ad account's campaigns and ad sets live
@@ -63,6 +64,7 @@ Method | HTTP request | Description
 [**replace_ad_negative_keyword_list_keywords**](AdAccountsApi.md#replace_ad_negative_keyword_list_keywords) | **PUT** /v1/ads/accounts/negative-keyword-lists/{listId}/keywords | Replace negative list keywords
 [**reply_to_ad_comment**](AdAccountsApi.md#reply_to_ad_comment) | **POST** /v1/ads/{adId}/comments/{commentId}/reply | Reply to an ad comment
 [**revoke_ad_account_user_invitation**](AdAccountsApi.md#revoke_ad_account_user_invitation) | **DELETE** /v1/ads/accounts/user-invitations | Revoke a user access invitation
+[**set_up_ad_account_billing**](AdAccountsApi.md#set_up_ad_account_billing) | **POST** /v1/ads/accounts/billing | Set up ad account billing (monthly invoicing)
 [**update_account_callouts**](AdAccountsApi.md#update_account_callouts) | **PUT** /v1/ads/accounts/callouts | Update account callouts
 [**update_account_sitelinks**](AdAccountsApi.md#update_account_sitelinks) | **PUT** /v1/ads/accounts/sitelinks | Update account sitelinks
 [**update_account_structured_snippets**](AdAccountsApi.md#update_account_structured_snippets) | **PUT** /v1/ads/accounts/structured-snippets | Update account snippets
@@ -559,6 +561,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::DetachAdLabel200Response**](detachAdLabel_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_ad_account_billing
+
+> models::GetAdAccountBilling200Response get_ad_account_billing(account_id, ad_account_id)
+Get ad account billing
+
+Reads the payments accounts a Google Ads account can be billed to, plus its billing setups and account budgets.  Payments accounts come from Google's PaymentsAccountService, read as the manager above the customer: they are the monthly invoicing (consolidated billing) accounts of that manager. An empty `paymentsAccounts` means the manager has no monthly invoicing, so billing cannot be set up through the API and has to be added in Google Ads. Billing setups and account budgets are read live from Google with their status. Results are cached for 10 minutes and dropped on every setup through Zernio.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Google ads SocialAccount id. | [required] |
+**ad_account_id** | Option<**String**> | Google Ads customer id, digits only. Defaults to the connection's selected customer. |  |
+
+### Return type
+
+[**models::GetAdAccountBilling200Response**](getAdAccountBilling_200_response.md)
 
 ### Authorization
 
@@ -1958,6 +1991,36 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## set_up_ad_account_billing
+
+> models::SetUpAdAccountBilling200Response set_up_ad_account_billing(set_up_ad_account_billing_request)
+Set up ad account billing (monthly invoicing)
+
+Bills a Google Ads account to a monthly invoicing payments account of a manager above it, and proposes its account budget, so the account can serve without anyone opening Google Ads.  Monthly invoicing only. Google's API cannot add a card or other payment method, so `paymentsAccountId` must be one of the manager's monthly invoicing (consolidated billing) payments accounts listed by GET /v1/ads/accounts/billing. A manager without monthly invoicing has none, and billing has to be added in Google Ads instead.  Creates a billing setup (Google's BillingSetupService) that starts now on that payments account, then an account budget proposal that starts now and never ends: unlimited by default, or capped at `spendingLimit` in the account currency. Google reviews the budget offline, usually within an hour; until then the setup reads `APPROVED_HELD` and ads do not serve. A customer whose current billing setup already has a budget is refused with 409, and so is one billed to another payments account: this call never replaces existing billing. A current setup on the same payments account without a budget (for example after a budget rejection) is reused, so resending the same request finishes it.  Not idempotent and never retried: after a 502 with details.creationStatus=unknown, read GET /v1/ads/accounts/billing before retrying. Google has no dry run for billing setups, so `validateOnly: true` checks the payments account and the existing billing without creating anything (and asks Google to validate the budget when a setup would be reused).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**set_up_ad_account_billing_request** | [**SetUpAdAccountBillingRequest**](SetUpAdAccountBillingRequest.md) |  | [required] |
+
+### Return type
+
+[**models::SetUpAdAccountBilling200Response**](setUpAdAccountBilling_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -36,6 +36,7 @@ Method | HTTP request | Description
 [**get_shopify_connect_url**](ConnectApi.md#get_shopify_connect_url) | **GET** /v1/connect/shopify | Get Shopify OAuth connect URL
 [**get_subreddit_rules**](ConnectApi.md#get_subreddit_rules) | **GET** /v1/accounts/{accountId}/reddit-subreddits/{subreddit}/rules | Get subreddit rules
 [**get_telegram_connect_status**](ConnectApi.md#get_telegram_connect_status) | **GET** /v1/connect/telegram | Generate Telegram code
+[**get_webflow_connect_url**](ConnectApi.md#get_webflow_connect_url) | **GET** /v1/connect/webflow | Get Webflow OAuth URL
 [**get_whats_app_sdk_config**](ConnectApi.md#get_whats_app_sdk_config) | **GET** /v1/connect/whatsapp/sdk-config | Get Embedded Signup SDK config
 [**get_wix_connect_url**](ConnectApi.md#get_wix_connect_url) | **GET** /v1/connect/wix | Get Wix site install URL
 [**get_word_press_auth_url**](ConnectApi.md#get_word_press_auth_url) | **GET** /v1/connect/wordpress | Get WordPress.com OAuth connect URL
@@ -653,8 +654,8 @@ Name | Type | Description  | Required | Notes
 **signup** | Option<**String**> | WhatsApp only. Rejected with 400 `INVALID_FIELD_VALUE` on any other platform.  `hosted`: `authUrl` points at a Zernio-hosted page on zernio.com instead of Meta's OAuth dialog, and the response carries `authUrl` only (no `state`). That page opens Meta's Embedded Signup popup itself, so it learns which WhatsApp Business Account and number the user picked inside the popup and connects exactly that one. Use it when your users' Facebook logins manage several WhatsApp accounts: on the default redirect flow Meta only returns an authorization code, so when that login can see more than one number the user lands on Zernio's number picker and has to choose again. Nothing to embed on your side and no domain setup: send the user to `authUrl`, and they come back to `redirect_url` with the same params as the redirect flow. Success: `connected=whatsapp`, `profileId`, `accountId`, `username` (plus `connect_token` for API-key callers). Failure: `error` and `platform=whatsapp`, with the same values and extras as the redirect flow (`one_whatsapp_per_profile`, `whatsapp_number_already_connected`, `whatsapp_number_pinned_to_profile` and `whatsapp_coexistence_not_registered` with `is_user_fixable=true`; `payment_required` with `reason` and `dashboard_url`; `whatsapp_error` with `error_message` when Meta reported one), plus two of its own: `connection_cancelled` when the popup was closed before finishing (`error_message` carries Meta's last reported step or error when there is one) and `session_expired` when the user took longer than the 60 minute window the hosted page is valid for; restart the flow with a new call in that case. `onboarding` is carried through and a pre-verified Zernio-provisioned number is attached like on the redirect flow. `headless` has no effect here because there is no selection step left to hand you. When a previously disconnected account for this profile can simply be re-enabled, this endpoint re-enables it and returns the account directly instead of a URL, exactly like the redirect flow. The page shows the same guidance as the Zernio dashboard: a pre-verified Zernio-provisioned number is called out by name (\"choose it in Meta's list, no code will be asked\"), coexistence and standard signups get their explainer video, and a step-by-step follow-along checklist stays visible while Meta's popup is open. Skin it with `brandName`, `primaryColor` and `language` below.  |  |
 **brand_name** | Option<**String**> | Your product name, for the two branded pages. With `signup=hosted` (WhatsApp) it replaces Zernio in the page title (\"Connect your WhatsApp number to <brandName>\"). With `welcome=true` it fills the heading (\"<brandName> wants to connect to your <platform>\"); without it the screen shows Zernio and the Zernio mark. Both pages keep a Zernio mark: they are co-branded, not white-label. Trimmed; 1 to 60 characters. Rejected with 400 `INVALID_FIELD_VALUE` without `signup=hosted` or `welcome=true`. Sealed into the page link at issue time, so editing the URL cannot change it. |  |
 **primary_color** | Option<**String**> | Hex colour (`#RRGGBB`) for the primary button on the hosted WhatsApp signup page (`signup=hosted`) or the welcome screen (`welcome=true`). Validated server-side; anything else is a 400 `INVALID_FIELD_VALUE`. Rejected without one of the two. |  |
-**welcome** | Option<**bool**> | Any platform. When `true`, `authUrl` points to a Zernio-hosted welcome screen that shows your brand next to the platform (\"<brandName> wants to connect to your <platform>\") whose button fills for about a second and then sends the user on to the platform's own authorization screen, with no click; the rest of the flow is unchanged. `brandName`, `logoUrl`, `primaryColor` and `welcomeTheme` are optional and default to Zernio's own name, mark and look. The link is valid for 30 minutes, after which the page asks the user to start again. The brand also carries to the account and channel pickers Zernio shows after authorization, and when you pass no `redirect_url` the flow ends on a branded Zernio-hosted page saying whether the account connected, instead of the Zernio dashboard. Cannot be combined with `headless=true` or `signup=hosted` (400 `INVALID_FIELD_VALUE`). The platform's authorization screen still names the Zernio app. Recommended. When left out, the screen is shown if the workspace saved it as on by default (`PUT /v1/connect/welcome-screen`), except with `headless=true` or `signup=hosted`; pass `false` to skip it. Branding you leave out of the call comes from those saved settings, and a `welcomeTheme` you send is merged key by key over the saved theme. |  |
-**welcome_theme** | Option<**String**> | Welcome screen only (`welcome=true`): a URL-encoded JSON object that restyles and rewords the screen. All keys are optional. Copy: `heading` (up to 120 characters), `trustLine` and `consentLine` (up to 200 each), `buttonLabel` (up to 30, the label on that button); each may contain the placeholders `{brand}` and `{platform}`. Style: `primaryColor`, `pageColor`, `cardColor` and `textColor` as `#RRGGBB`, `cornerRadius` as an integer from 0 to 24 (pixels), `font` as `sans`, `serif` or `mono`. A `primaryColor` here wins over the `primaryColor` parameter. Unknown keys, invalid JSON or an invalid value are a 400 `INVALID_FIELD_VALUE`. Rejected when the welcome screen is not shown. Example: `{\"heading\":\"Link your {platform} to {brand}\",\"cardColor\":\"#FFF7ED\",\"cornerRadius\":12}`. |  |
+**welcome** | Option<**bool**> | Any platform. When `true`, `authUrl` points to a Zernio-hosted welcome screen that shows your brand next to the platform (\"<brandName> wants to connect to your <platform>\") whose button reads Connecting for about a second and then sends the user on to the platform's own authorization screen, with no click; the rest of the flow is unchanged. `brandName`, `logoUrl`, `primaryColor` and `welcomeTheme` are optional and default to Zernio's own name, mark and look. The link is valid for 30 minutes, after which the page asks the user to start again. The brand also carries to the account and channel pickers Zernio shows after authorization, and when you pass no `redirect_url` the flow ends on a branded Zernio-hosted page saying whether the account connected, instead of the Zernio dashboard. Cannot be combined with `headless=true` or `signup=hosted` (400 `INVALID_FIELD_VALUE`). The platform's authorization screen still names the Zernio app. Recommended. When left out, the screen is shown if the workspace saved it as on by default (`PUT /v1/connect/welcome-screen`), except with `headless=true` or `signup=hosted`; pass `false` to skip it. Branding you leave out of the call comes from those saved settings, and a `welcomeTheme` you send is merged key by key over the saved theme. |  |
+**welcome_theme** | Option<**String**> | Welcome screen only (`welcome=true`): a URL-encoded JSON object that restyles and rewords the screen. All keys are optional. Copy: `heading` (up to 120 characters), `trustLine`, `consentLine` and `statusLine` (up to 200 each, `statusLine` being the line above the button), `buttonLabel` (up to 30, the label of the link the button becomes if the redirect stalls); each may contain the placeholders `{brand}` and `{platform}`. Style: `primaryColor` (the button), `accentColor` (the header gradient, built as a scale of that colour, and the icons), `pageColor`, `cardColor` and `textColor` as `#RRGGBB`, `cornerRadius` as an integer from 0 to 24 (pixels), `font` as `sans`, `serif` or `mono`. A `primaryColor` here wins over the `primaryColor` parameter. Unknown keys, invalid JSON or an invalid value are a 400 `INVALID_FIELD_VALUE`. Rejected when the welcome screen is not shown. Example: `{\"heading\":\"Link your {platform} to {brand}\",\"cardColor\":\"#FFF7ED\",\"cornerRadius\":12}`. |  |
 **logo_url** | Option<**String**> | Welcome screen only (`welcome=true`): https URL of your logo, shown in a square tile, so use a square image. Without it the tile shows the first letter of `brandName`, or the Zernio mark when there is no `brandName` either. Rejected with 400 `INVALID_FIELD_VALUE` when the welcome screen is not shown. |  |
 **language** | Option<**String**> | Hosted signup page only (`signup=hosted`, WhatsApp): language of the page and its follow-along guide. Explainer videos stay in English. Default `en`. Rejected without `signup=hosted`. |  |
 
@@ -1061,6 +1062,37 @@ Name | Type | Description  | Required | Notes
 ### Authorization
 
 [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_webflow_connect_url
+
+> models::GetWebflowConnectUrl200Response get_webflow_connect_url(profile_id, redirect_url)
+Get Webflow OAuth URL
+
+Returns Webflow's consent URL for the Zernio Webflow app. The user picks exactly one site there; Webflow then returns the browser to Zernio's internal callback, which connects that site and redirects to `redirect_url` (or the dashboard when omitted). Picking several sites connects none and redirects with `error=webflow_pick_one_site`. Connecting a site already connected with a site token upgrades the same account. Only an OAuth connection can install tracking tags on the site (`installTrackingTagOnStore`); blogs work with either. The token does not expire. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**profile_id** | **String** | Your Zernio profile ID (get from /v1/profiles). | [required] |
+**redirect_url** | Option<**String**> | Custom redirect after connection. Must be an absolute http(s) URL or custom app scheme such as `myapp://callback`; relative and unsafe URLs return 400. |  |
+
+### Return type
+
+[**models::GetWebflowConnectUrl200Response**](getWebflowConnectUrl_200_response.md)
+
+### Authorization
+
+[connectToken](../README.md#connectToken), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 

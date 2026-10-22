@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**get_post**](PostsApi.md#get_post) | **GET** /v1/posts/{postId} | Get post
 [**list_posts**](PostsApi.md#list_posts) | **GET** /v1/posts | List posts
 [**retry_post**](PostsApi.md#retry_post) | **POST** /v1/posts/{postId}/retry | Retry failed post
+[**review_post**](PostsApi.md#review_post) | **POST** /v1/posts/{postId}/review | Approve or reject a post
 [**unpublish_post**](PostsApi.md#unpublish_post) | **POST** /v1/posts/{postId}/unpublish | Unpublish post
 [**update_post**](PostsApi.md#update_post) | **PUT** /v1/posts/{postId} | Update post
 [**update_post_metadata**](PostsApi.md#update_post_metadata) | **POST** /v1/posts/{postId}/update-metadata | Update post metadata
@@ -244,6 +245,37 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## review_post
+
+> models::PostGetResponse review_post(post_id, review_post_request)
+Approve or reject a post
+
+Approves or rejects a post saved with `requiresApproval: true` (status `pending_approval`). `approve` schedules the post for its `scheduledFor` and fires the `post.scheduled` webhook. When that time has already passed, the post publishes within a couple of minutes. `reject` returns the post to `draft`. Returns 409 when the post is not `pending_approval`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**post_id** | **String** |  | [required] |
+**review_post_request** | [**ReviewPostRequest**](ReviewPostRequest.md) |  | [required] |
+
+### Return type
+
+[**models::PostGetResponse**](PostGetResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

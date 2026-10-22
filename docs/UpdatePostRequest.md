@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **scheduled_for** | Option<**String**> |  | [optional]
 **publish_now** | Option<**bool**> |  | [optional][default to false]
 **is_draft** | Option<**bool**> | When omitted, the post keeps its current draft status. Send `false` to promote a draft to scheduled (combined with `scheduledFor`, `publishNow`, or a queue). | [optional]
+**requires_approval** | Option<**bool**> | Send true on a draft to submit it for approval: it becomes pending_approval and publishes only after POST /v1/posts/{postId}/review approves it. Cannot be combined with isDraft, publishNow, queuedFromProfile or queueId. Returns 409 when the post is not a draft. | [optional]
 **timezone** | Option<**String**> |  | [optional]
 **visibility** | Option<**Visibility**> |  (enum: public, private, unlisted) | [optional]
 **tags** | Option<**Vec<String>**> |  | [optional]

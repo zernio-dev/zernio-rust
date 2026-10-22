@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**list_form_leads**](LeadGenApi.md#list_form_leads) | **GET** /v1/ads/lead-forms/{formId}/leads | List leads for a single form
 [**list_lead_forms**](LeadGenApi.md#list_lead_forms) | **GET** /v1/ads/lead-forms | List lead forms
 [**list_leads**](LeadGenApi.md#list_leads) | **GET** /v1/ads/leads | List submitted leads
+[**update_lead**](LeadGenApi.md#update_lead) | **PATCH** /v1/ads/leads/{id} | Update a lead's status
 
 
 
@@ -268,6 +269,37 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_lead
+
+> models::UpdateLead200Response update_lead(id, update_lead_request)
+Update a lead's status
+
+Sets the status of a Meta lead (and optionally its value) so you can track it from lead to sale.  `{id}` is the Zernio lead id (`id` on `GET /v1/ads/leads`, `leadId` on `GET /v1/ads/lead-forms/{formId}/leads`) or the Meta `leadgenId` together with `accountId` in the body. Requires the Ads add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | Zernio lead id, or the Meta leadgenId (then accountId is required). | [required] |
+**update_lead_request** | [**UpdateLeadRequest**](UpdateLeadRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateLead200Response**](updateLead_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
