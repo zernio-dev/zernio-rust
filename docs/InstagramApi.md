@@ -6,6 +6,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**get_instagram_audio**](InstagramApi.md#get_instagram_audio) | **GET** /v1/accounts/{accountId}/instagram/audio/{audioId} | Get Instagram audio metadata
 [**get_instagram_business_discovery**](InstagramApi.md#get_instagram_business_discovery) | **GET** /v1/accounts/{accountId}/instagram/business-discovery | Look up a public Instagram Business account
+[**get_instagram_mentioned_comment**](InstagramApi.md#get_instagram_mentioned_comment) | **GET** /v1/accounts/{accountId}/instagram/mentions/comments/{commentId} | Get a comment that mentions an Instagram account
+[**get_instagram_mentioned_media**](InstagramApi.md#get_instagram_mentioned_media) | **GET** /v1/accounts/{accountId}/instagram/mentions/media/{mediaId} | Get a post that mentions an Instagram account in its caption
 [**get_instagram_publishing_limit**](InstagramApi.md#get_instagram_publishing_limit) | **GET** /v1/accounts/{accountId}/instagram/publishing-limit | Get Instagram publishing limit
 [**get_instagram_story_insights**](InstagramApi.md#get_instagram_story_insights) | **GET** /v1/accounts/{accountId}/instagram/stories/{storyId}/insights | Get Instagram story insights
 [**list_instagram_live_media**](InstagramApi.md#list_instagram_live_media) | **GET** /v1/accounts/{accountId}/instagram/live-media | List the live broadcasts of an Instagram account
@@ -66,6 +68,68 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::InstagramBusinessDiscovery**](InstagramBusinessDiscovery.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_instagram_mentioned_comment
+
+> models::InstagramMentionedComment get_instagram_mentioned_comment(account_id, comment_id)
+Get a comment that mentions an Instagram account
+
+Returns a comment in which another Instagram user @mentioned the connected account, with the post it was left on. Meta sends the comment ID in its mention notification and offers no list of mentions, so this reads one mention by ID. Meta answers an error when comments are disabled on that post.  Requires an Instagram account connected via **Facebook Login**. Meta serves mentions on graph.facebook.com only, so accounts connected with classic Instagram Login receive a 400 (`instagram_mentions_require_facebook_login`) and must be reconnected choosing the Facebook option. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The ID of a connected Instagram account (Facebook Login). | [required] |
+**comment_id** | **String** | Instagram comment ID of the comment that mentions the account (digits only). | [required] |
+
+### Return type
+
+[**models::InstagramMentionedComment**](InstagramMentionedComment.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_instagram_mentioned_media
+
+> models::InstagramMentionedMedia get_instagram_mentioned_media(account_id, media_id)
+Get a post that mentions an Instagram account in its caption
+
+Returns a post in which another Instagram user @mentioned the connected account in the caption. Meta sends the media ID in its mention notification and offers no list of mentions, so this reads one mention by ID. Mentions in Stories are not supported by Meta.  Requires an Instagram account connected via **Facebook Login**. Meta serves mentions on graph.facebook.com only, so accounts connected with classic Instagram Login receive a 400 (`instagram_mentions_require_facebook_login`) and must be reconnected choosing the Facebook option. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The ID of a connected Instagram account (Facebook Login). | [required] |
+**media_id** | **String** | Instagram media ID of the post that mentions the account (digits only). | [required] |
+
+### Return type
+
+[**models::InstagramMentionedMedia**](InstagramMentionedMedia.md)
 
 ### Authorization
 

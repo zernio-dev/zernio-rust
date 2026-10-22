@@ -1413,6 +1413,9 @@ docs/InstagramDemographicsResponse.md
 docs/InstagramDemographicsResponseDemographicsValueInner.md
 docs/InstagramLiveMedia.md
 docs/InstagramMediaCollaborator.md
+docs/InstagramMentionedComment.md
+docs/InstagramMentionedCommentMedia.md
+docs/InstagramMentionedMedia.md
 docs/InstagramPlatformData.md
 docs/InstagramPlatformDataAudioConfiguration.md
 docs/InstagramPlatformDataTrialParams.md
@@ -4335,6 +4338,9 @@ src/models/instagram_demographics_response.rs
 src/models/instagram_demographics_response_demographics_value_inner.rs
 src/models/instagram_live_media.rs
 src/models/instagram_media_collaborator.rs
+src/models/instagram_mentioned_comment.rs
+src/models/instagram_mentioned_comment_media.rs
+src/models/instagram_mentioned_media.rs
 src/models/instagram_platform_data.rs
 src/models/instagram_platform_data_audio_configuration.rs
 src/models/instagram_platform_data_trial_params.rs
