@@ -381,7 +381,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_follower_stats
 
-> models::FollowerStatsResponse get_follower_stats(account_ids, profile_id, from_date, to_date, granularity)
+> models::FollowerStatsResponse get_follower_stats(account_ids, profile_id, from_date, to_date, granularity, limit, cursor)
 Get follower stats
 
 Returns follower count history and growth metrics for connected accounts. Requires analytics add-on subscription. Follower counts are refreshed once per day. 
@@ -396,6 +396,8 @@ Name | Type | Description  | Required | Notes
 **from_date** | Option<**String**> | Start date in YYYY-MM-DD format (defaults to 30 days ago) |  |
 **to_date** | Option<**String**> | End date in YYYY-MM-DD format (defaults to today) |  |
 **granularity** | Option<**String**> | Data aggregation level |  |[default to daily]
+**limit** | Option<**i32**> | Accounts per page, ordered by account id. Send it to page through accounts; the response then carries `pagination.nextCursor`. Without limit or cursor every matching account is returned. |  |
+**cursor** | Option<**String**> | Opaque cursor from a previous response's `pagination.nextCursor`; returns the next page of `limit` accounts (25 when limit is omitted). A cursor we cannot parse returns 400. |  |
 
 ### Return type
 

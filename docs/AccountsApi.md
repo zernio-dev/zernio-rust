@@ -182,7 +182,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_follower_stats
 
-> models::FollowerStatsResponse get_follower_stats(account_ids, profile_id, from_date, to_date, granularity)
+> models::FollowerStatsResponse get_follower_stats(account_ids, profile_id, from_date, to_date, granularity, limit, cursor)
 Get follower stats
 
 Returns follower count history and growth metrics for connected accounts. Requires analytics add-on subscription. Follower counts are refreshed once per day. 
@@ -197,6 +197,8 @@ Name | Type | Description  | Required | Notes
 **from_date** | Option<**String**> | Start date in YYYY-MM-DD format (defaults to 30 days ago) |  |
 **to_date** | Option<**String**> | End date in YYYY-MM-DD format (defaults to today) |  |
 **granularity** | Option<**String**> | Data aggregation level |  |[default to daily]
+**limit** | Option<**i32**> | Accounts per page, ordered by account id. Send it to page through accounts; the response then carries `pagination.nextCursor`. Without limit or cursor every matching account is returned. |  |
+**cursor** | Option<**String**> | Opaque cursor from a previous response's `pagination.nextCursor`; returns the next page of `limit` accounts (25 when limit is omitted). A cursor we cannot parse returns 400. |  |
 
 ### Return type
 
@@ -370,10 +372,10 @@ Name | Type | Description  | Required | Notes
 
 ## list_accounts
 
-> models::AccountsListResponse list_accounts(profile_id, platform, status, search, category, sort, order, include_over_limit, exclude_hidden, include_sandbox, include_status_counts, page, limit, profile_ids, per_profile)
+> models::AccountsListResponse list_accounts(profile_id, platform, status, search, category, sort, order, include_over_limit, exclude_hidden, include_sandbox, include_status_counts, page, limit, cursor, profile_ids, per_profile)
 List accounts
 
-Returns connected accounts. Only includes accounts within the plan limit by default. Follower data requires analytics add-on. Supports optional server-side pagination via page/limit params. When omitted, returns all accounts (backward-compatible). page and limit must be supplied together; out-of-range page/limit values are rejected with 400 rather than silently clamped. 
+Returns connected accounts. Only includes accounts within the plan limit by default. Follower data requires analytics add-on. Supports optional server-side pagination. When omitted, returns all accounts (backward-compatible). Cursor paging: send `limit` alone for the first page, then pass `pagination.nextCursor` back as `cursor` until it is null. Pages are ordered by account id, so accounts added or removed between calls never shift a page. Cannot be combined with `page`, `sort` or `perProfile`. Offset paging: send `page` and `limit` together. Out-of-range page/limit values are rejected with 400 rather than silently clamped. 
 
 ### Parameters
 
@@ -385,16 +387,17 @@ Name | Type | Description  | Required | Notes
 **status** | Option<**String**> | Filter accounts by connection status. `connected` returns healthy accounts; `disconnected` returns accounts that need reconnection (per the same reconnection check surfaced in the dashboard). Omit to return accounts in any status. When combined with page/limit, pagination totals reflect the filtered result set.  |  |
 **search** | Option<**String**> | Case-insensitive match on the account username, display name or platform user id, or an exact account id. Combine with page/limit to paginate the matches. |  |
 **category** | Option<**String**> | Only accounts of this kind. ads = ad accounts (Meta, Google, LinkedIn, Pinterest, TikTok, X, OpenAI, Reddit), communication = WhatsApp, Telegram, Discord, Slack and iMessage, blogs = Shopify and WordPress, crm = HubSpot, social = every other platform. |  |
-**sort** | Option<**String**> | Sort a paginated listing (page/limit) by account name, platform, profile name, status (accounts needing a reconnect first when ascending) or connection date. Ties keep the default order: platform, then newest first. |  |
+**sort** | Option<**String**> | Sort an offset-paginated listing (page and limit) by account name, platform, profile name, status (accounts needing a reconnect first when ascending) or connection date. Ties keep the default order: platform, then newest first. |  |
 **order** | Option<**String**> | Direction for `sort`. |  |[default to asc]
 **include_over_limit** | Option<**bool**> | When true, includes accounts from over-limit profiles. |  |[default to false]
 **exclude_hidden** | Option<**bool**> | When true, leaves out accounts the dashboard does not show as connections: posting accounts with `enabled: false` (ads accounts are always kept, whatever their `enabled` value) and the internal `sms` and `phone` accounts behind each phone number. Applied before pagination, so page totals and `statusCounts` count only the remaining accounts. Sandbox accounts added by `includeSandbox` are appended after this filter. Accepts `true` or `false` in any letter case; any other value returns 400.  |  |[default to false]
-**include_sandbox** | Option<**bool**> | When true, appends the shared WhatsApp sandbox account and the iMessage sandbox account to the list when they are active, honouring `platform` but no other filter. Ignored on a paginated request (page/limit) and together with `perProfile`. Accepts `true` or `false` in any letter case; any other value returns 400.  |  |[default to false]
+**include_sandbox** | Option<**bool**> | When true, appends the shared WhatsApp sandbox account and the iMessage sandbox account to the list when they are active, honouring `platform` but no other filter. Ignored on a paginated request (page, limit or cursor) and together with `perProfile`. Accepts `true` or `false` in any letter case; any other value returns 400.  |  |[default to false]
 **include_status_counts** | Option<**bool**> | When true, the response carries `statusCounts`: how many accounts match every other filter of the request (with `status` lifted) in total and how many of those need a reconnection. Accepts `true` or `false` in any letter case; any other value returns 400.  |  |[default to false]
-**page** | Option<**i32**> | Page number (1-based). Must be provided together with limit to enable server-side pagination; sending only one of the two returns 400. Omit both for all accounts.  |  |
-**limit** | Option<**i32**> | Page size. Must be provided together with page; sending only one of the two returns 400.  |  |
+**page** | Option<**i32**> | Page number (1-based) for offset paging. Requires limit; omit page, limit and cursor for all accounts.  |  |
+**limit** | Option<**i32**> | Page size. With page, an offset page; alone or with cursor, a cursor page.  |  |
+**cursor** | Option<**String**> | Opaque cursor from a previous response's `pagination.nextCursor`; returns the next page of `limit` accounts (500 when limit is omitted). A cursor we cannot parse returns 400. Cannot be combined with page. |  |
 **profile_ids** | Option<**String**> | Comma-separated profile IDs (up to 50) to preview, together with perProfile. The response then also carries `profileTotals`. |  |
-**per_profile** | Option<**i32**> | Return a preview of each profile in profileIds: the newest account of every platform it has, topped up to at least N. Requires profileIds; cannot be combined with page and limit. |  |
+**per_profile** | Option<**i32**> | Return a preview of each profile in profileIds: the newest account of every platform it has, topped up to at least N. Requires profileIds; cannot be combined with page, limit or cursor. |  |
 
 ### Return type
 

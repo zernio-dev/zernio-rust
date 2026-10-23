@@ -22,6 +22,7 @@ Method | HTTP request | Description
 [**connect_word_press_with_application_password**](ConnectApi.md#connect_word_press_with_application_password) | **POST** /v1/connect/wordpress/token | Connect self-hosted WordPress with an application password
 [**create_pinterest_board**](ConnectApi.md#create_pinterest_board) | **POST** /v1/accounts/{accountId}/pinterest-boards | Create Pinterest board
 [**create_youtube_playlist**](ConnectApi.md#create_youtube_playlist) | **POST** /v1/accounts/{accountId}/youtube-playlists | Create YouTube playlist
+[**get_connect_handoff**](ConnectApi.md#get_connect_handoff) | **GET** /v1/connect/handoffs/{handoffId} | Get a phone handoff
 [**get_connect_url**](ConnectApi.md#get_connect_url) | **GET** /v1/connect/{platform} | Get OAuth connect URL
 [**get_connect_welcome_screen**](ConnectApi.md#get_connect_welcome_screen) | **GET** /v1/connect/welcome-screen | Get the saved welcome screen
 [**get_facebook_pages**](ConnectApi.md#get_facebook_pages) | **GET** /v1/accounts/{accountId}/facebook-page | List Facebook pages
@@ -628,9 +629,39 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_connect_handoff
+
+> models::ConnectHandoff get_connect_handoff(handoff_id)
+Get a phone handoff
+
+Where a connect started with `handoff=true` on `GET /v1/connect/{platform}` stands: `waiting` until the QR code is scanned, `opened` once the phone opened it, then `connected` with the new accounts or `failed` with the error the flow ended on (the same `error` codes as the redirect flow). `expired` when nobody opened the QR code within its 30 minutes. Poll it every 2 to 5 seconds while your QR code is shown, and stop once it is `connected`, `failed` or `expired`. Readable for 60 minutes after it was created, then 404, as is a handoff created by another workspace.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**handoff_id** | **uuid::Uuid** | `handoff.id` from the connect response. | [required] |
+
+### Return type
+
+[**models::ConnectHandoff**](ConnectHandoff.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_connect_url
 
-> models::GetConnectUrl200Response get_connect_url(platform, profile_id, reconnect_account_id, expected_platform_user_id, expected_username, force_reauth, redirect_url, scopes, headless, login_method, onboarding, signup, brand_name, primary_color, welcome, welcome_theme, logo_url, language)
+> models::GetConnectUrl200Response get_connect_url(platform, profile_id, reconnect_account_id, expected_platform_user_id, expected_username, force_reauth, redirect_url, scopes, headless, login_method, onboarding, signup, brand_name, primary_color, welcome, welcome_theme, logo_url, language, handoff)
 Get OAuth connect URL
 
 Initiate an OAuth connection flow. Returns an authUrl to redirect the user to. Standard flow: Zernio hosts the selection UI, then redirects to your redirect_url. Headless mode (headless=true): user is redirected to your redirect_url with OAuth data for custom UI. Use the platform-specific selection endpoints to complete.  A profile can hold several accounts of the same platform: connecting a different account adds it as a new account, and reconnecting the SAME account keeps it and all of its history. Ads connections stay one per profile. On a legacy plan limited to N profiles, a new account is refused with 403 `platform_account_limit` once N accounts of its platform are connected.  TikTok: every connection now goes through the TikTok for Business app. An authorization that leaves out a permission the connected account needs changes nothing at all and comes back as `missing_tiktok_permissions`; connect again and accept every permission on TikTok's screen. 
@@ -658,6 +689,7 @@ Name | Type | Description  | Required | Notes
 **welcome_theme** | Option<**String**> | Welcome screen only (`welcome=true`): a URL-encoded JSON object that restyles and rewords the screen. All keys are optional. Copy: `heading` (up to 120 characters), `trustLine`, `consentLine` and `statusLine` (up to 200 each, `statusLine` being the line above the button), `buttonLabel` (up to 30, the label of the link the button becomes if the redirect stalls); each may contain the placeholders `{brand}` and `{platform}`. Style: `primaryColor` (the button), `accentColor` (the header gradient, built as a scale of that colour, and the icons), `pageColor`, `cardColor` and `textColor` as `#RRGGBB`, `cornerRadius` as an integer from 0 to 24 (pixels), `font` as `sans`, `serif` or `mono`. A `primaryColor` here wins over the `primaryColor` parameter. Unknown keys, invalid JSON or an invalid value are a 400 `INVALID_FIELD_VALUE`. Rejected when the welcome screen is not shown. Example: `{\"heading\":\"Link your {platform} to {brand}\",\"cardColor\":\"#FFF7ED\",\"cornerRadius\":12}`. |  |
 **logo_url** | Option<**String**> | Welcome screen only (`welcome=true`): https URL of your logo, shown in a square tile, so use a square image. Without it the tile shows the first letter of `brandName`, or the Zernio mark when there is no `brandName` either. Rejected with 400 `INVALID_FIELD_VALUE` when the welcome screen is not shown. |  |
 **language** | Option<**String**> | Hosted signup page only (`signup=hosted`, WhatsApp): language of the page and its follow-along guide. Explainer videos stay in English. Default `en`. Rejected without `signup=hosted`. |  |
+**handoff** | Option<**bool**> | Let the user finish on their phone. When `true`, the response also carries `handoff`: show `handoff.url` as a QR code in your app (any QR library), the user scans it and the welcome screen opens on the phone, already carrying this connect, so they log in to the platform there without signing in to anything else. The phone ends on a Zernio result screen telling them to go back to their computer. Learn the outcome by polling `GET /v1/connect/handoffs/{handoffId}` (every 2 to 5 seconds is fine) or from the `account.connected` webhook. Shows the welcome screen with your branding parameters or saved settings. Cannot be combined with `welcome=false`, `headless=true`, `signup`, `redirect=true` or `redirect_url` (400 `INVALID_FIELD_VALUE`). `handoff.url` works for 30 minutes. When the account is re-enabled straight away the response carries `account` instead, as without `handoff`. |  |[default to false]
 
 ### Return type
 
@@ -980,7 +1012,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_shopify_connect_url
 
-> models::GetConnectUrl200Response get_shopify_connect_url(profile_id, shop, redirect_url)
+> models::GetShopifyConnectUrl200Response get_shopify_connect_url(profile_id, shop, redirect_url)
 Get Shopify OAuth connect URL
 
 Initiate the Shopify OAuth flow for a store. Shopify is a connect-only platform: the connected account does not publish social posts, it powers the Blogs API (`/v1/accounts/{accountId}/blogs`) and the Products API (`/v1/accounts/{accountId}/products`). Returns an `authUrl` to redirect the merchant to; after they approve the install, Shopify redirects their browser to Zernio's callback, the account is created on the profile (platform `shopify`), and the browser is redirected to `redirect_url` with `connected`, `profileId`, `accountId` and `username` (the store's myshopify.com domain) added, or to the Zernio dashboard when omitted. The account is the store the merchant approved, which can differ from `shop`, so bind on `accountId`. Requested scopes are `read_content`, `write_content`, `read_products` and `write_products` (content and products only; no customer or order data). Connecting the same profile to a store again refreshes the stored token in place, and is how a store connected under the older content-only grant picks up product access. 
@@ -996,7 +1028,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetConnectUrl200Response**](getConnectUrl_200_response.md)
+[**models::GetShopifyConnectUrl200Response**](getShopifyConnectUrl_200_response.md)
 
 ### Authorization
 

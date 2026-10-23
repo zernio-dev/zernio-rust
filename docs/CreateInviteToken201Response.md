@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **token** | Option<**String**> |  | [optional]
 **scope** | Option<**String**> |  | [optional]
 **invited_profile_ids** | Option<**Vec<String>**> |  | [optional]
+**disabled_resource_groups** | Option<**Vec<String>**> |  | [optional]
 **expires_at** | Option<**String**> |  | [optional]
 **invite_url** | Option<**String**> |  | [optional]
 

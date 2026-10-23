@@ -5,12 +5,14 @@ README.md
 docs/AcceptConversationRequest200Response.md
 docs/AcceptConversationRequest200ResponseData.md
 docs/AcceptConversationRequestRequest.md
+docs/AccountCursorPagination.md
 docs/AccountGroupsApi.md
 docs/AccountSettingsApi.md
 docs/AccountWithFollowerStats.md
 docs/AccountWithFollowerStatsAllOfAccountStats.md
 docs/AccountsApi.md
 docs/AccountsListResponse.md
+docs/AccountsListResponsePagination.md
 docs/AccountsListResponseStatusCounts.md
 docs/ActivateSequence200Response.md
 docs/ActivateWorkflow200Response.md
@@ -387,6 +389,10 @@ docs/ConnectApi.md
 docs/ConnectBlueskyCredentials200Response.md
 docs/ConnectBlueskyCredentialsRequest.md
 docs/ConnectDiscordChannelRequest.md
+docs/ConnectHandoff.md
+docs/ConnectHandoffAccountsInner.md
+docs/ConnectHandoffError.md
+docs/ConnectHandoffLink.md
 docs/ConnectOpenAiAdsCredentials200Response.md
 docs/ConnectOpenAiAdsCredentialsRequest.md
 docs/ConnectShopifyWithToken200Response.md
@@ -1172,6 +1178,7 @@ docs/GetSequence200Response.md
 docs/GetSequence200ResponseSequence.md
 docs/GetSequence200ResponseSequenceStepsInner.md
 docs/GetSequence200ResponseSequenceStepsInnerTemplate.md
+docs/GetShopifyConnectUrl200Response.md
 docs/GetSipTrunk200Response.md
 docs/GetSipTrunk200ResponseNumbersInner.md
 docs/GetSlackSettings200Response.md
@@ -2993,9 +3000,11 @@ src/lib.rs
 src/models/accept_conversation_request_200_response.rs
 src/models/accept_conversation_request_200_response_data.rs
 src/models/accept_conversation_request_request.rs
+src/models/account_cursor_pagination.rs
 src/models/account_with_follower_stats.rs
 src/models/account_with_follower_stats_all_of_account_stats.rs
 src/models/accounts_list_response.rs
+src/models/accounts_list_response_pagination.rs
 src/models/accounts_list_response_status_counts.rs
 src/models/activate_sequence_200_response.rs
 src/models/activate_workflow_200_response.rs
@@ -3353,6 +3362,10 @@ src/models/connect_ads_200_response_one_of_1.rs
 src/models/connect_bluesky_credentials_200_response.rs
 src/models/connect_bluesky_credentials_request.rs
 src/models/connect_discord_channel_request.rs
+src/models/connect_handoff.rs
+src/models/connect_handoff_accounts_inner.rs
+src/models/connect_handoff_error.rs
+src/models/connect_handoff_link.rs
 src/models/connect_open_ai_ads_credentials_200_response.rs
 src/models/connect_open_ai_ads_credentials_request.rs
 src/models/connect_shopify_with_token_200_response.rs
@@ -4132,6 +4145,7 @@ src/models/get_sequence_200_response.rs
 src/models/get_sequence_200_response_sequence.rs
 src/models/get_sequence_200_response_sequence_steps_inner.rs
 src/models/get_sequence_200_response_sequence_steps_inner_template.rs
+src/models/get_shopify_connect_url_200_response.rs
 src/models/get_sip_trunk_200_response.rs
 src/models/get_sip_trunk_200_response_numbers_inner.rs
 src/models/get_slack_settings_200_response.rs
