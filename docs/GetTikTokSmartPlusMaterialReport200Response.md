@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **page_size** | Option<**i32**> |  | [optional]
 **total_rows** | Option<**i32**> |  | [optional]
 **total_pages** | Option<**i32**> |  | [optional]
+**missing_rows** | Option<**i32**> | Rows TikTok declared that a read and its retry could not return. 0 when the result is complete. | [optional]
 **rows** | Option<[**Vec<models::GetTikTokSmartPlusMaterialReport200ResponseRowsInner>**](GetTikTokSmartPlusMaterialReport200ResponseRowsInner.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
