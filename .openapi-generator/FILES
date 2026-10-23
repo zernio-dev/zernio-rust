@@ -412,6 +412,7 @@ docs/ConnectedAccount.md
 docs/ConnectedApp.md
 docs/ConnectedAppsApi.md
 docs/ContactsApi.md
+docs/ConversationAdAttribution.md
 docs/ConversionAction.md
 docs/ConversionActionTagSnippetsInner.md
 docs/ConversionDestination.md
@@ -1047,7 +1048,6 @@ docs/GetImessageSender200Response.md
 docs/GetImessageSender200ResponseHealth.md
 docs/GetInboxConversation200Response.md
 docs/GetInboxConversation200ResponseData.md
-docs/GetInboxConversation200ResponseDataMetadata.md
 docs/GetInboxConversationAnalytics200Response.md
 docs/GetInboxConversationAnalytics200ResponseBySourceInner.md
 docs/GetInboxConversationAnalytics200ResponseSummary.md
@@ -1378,6 +1378,7 @@ docs/ImessageSandboxContact.md
 docs/ImessageSender.md
 docs/ImessageSenderLifecycle.md
 docs/InboxAnalyticsApi.md
+docs/InboxConversationAdMetadata.md
 docs/InboxMessageEditAttachment.md
 docs/InboxMessageEditHistoryEntry.md
 docs/InboxWebhookAccount.md
@@ -1636,7 +1637,6 @@ docs/ListInboxConversationAnalytics200ResponsePagination.md
 docs/ListInboxConversations200Response.md
 docs/ListInboxConversations200ResponseDataInner.md
 docs/ListInboxConversations200ResponseDataInnerInstagramProfile.md
-docs/ListInboxConversations200ResponseDataInnerMetadata.md
 docs/ListInboxConversations200ResponseMeta.md
 docs/ListInboxConversations200ResponseMetaAccountsSkippedInner.md
 docs/ListInboxConversations200ResponseMetaFailedAccountsInner.md
@@ -2679,6 +2679,7 @@ docs/VerifyWhatsAppNumberRequest.md
 docs/VoiceApi.md
 docs/VoteRedditThingRequest.md
 docs/Webhook.md
+docs/WebhookAdsAccount.md
 docs/WebhookAdsSyncAccount.md
 docs/WebhookAdsSyncAdAccount.md
 docs/WebhookEventsApi.md
@@ -2694,8 +2695,12 @@ docs/WebhookPayloadAccountConnected.md
 docs/WebhookPayloadAccountConnectedAccount.md
 docs/WebhookPayloadAccountDisconnected.md
 docs/WebhookPayloadAccountDisconnectedAccount.md
+docs/WebhookPayloadAdAccountStatusChanged.md
+docs/WebhookPayloadAdAccountStatusChangedAdAccount.md
+docs/WebhookPayloadAdAccountStatusChangedStatus.md
+docs/WebhookPayloadAdDeliveryIssue.md
+docs/WebhookPayloadAdDeliveryIssueIssue.md
 docs/WebhookPayloadAdReview.md
-docs/WebhookPayloadAdReviewAccount.md
 docs/WebhookPayloadAdReviewAdObject.md
 docs/WebhookPayloadAdReviewReview.md
 docs/WebhookPayloadAdReviewReviewReasonsInner.md
@@ -2720,6 +2725,9 @@ docs/WebhookPayloadCallPermissionRequest.md
 docs/WebhookPayloadCallPermissionRequestPermission.md
 docs/WebhookPayloadCallReceived.md
 docs/WebhookPayloadCallReceivedCall.md
+docs/WebhookPayloadCampaignBudgetDepleted.md
+docs/WebhookPayloadCampaignBudgetDepletedAdObject.md
+docs/WebhookPayloadCampaignBudgetDepletedBudget.md
 docs/WebhookPayloadComment.md
 docs/WebhookPayloadCommentAccount.md
 docs/WebhookPayloadCommentComment.md
@@ -2739,6 +2747,7 @@ docs/WebhookPayloadContactTagContact.md
 docs/WebhookPayloadConversationControlChanged.md
 docs/WebhookPayloadConversationControlChangedControl.md
 docs/WebhookPayloadConversationStarted.md
+docs/WebhookPayloadConversationStartedConversation.md
 docs/WebhookPayloadExternalPost.md
 docs/WebhookPayloadLead.md
 docs/WebhookPayloadLeadAccount.md
@@ -3364,6 +3373,7 @@ src/models/connect_word_press_with_application_password_request.rs
 src/models/connected.rs
 src/models/connected_account.rs
 src/models/connected_app.rs
+src/models/conversation_ad_attribution.rs
 src/models/conversion_action.rs
 src/models/conversion_action_tag_snippets_inner.rs
 src/models/conversion_destination.rs
@@ -3995,7 +4005,6 @@ src/models/get_imessage_sender_200_response.rs
 src/models/get_imessage_sender_200_response_health.rs
 src/models/get_inbox_conversation_200_response.rs
 src/models/get_inbox_conversation_200_response_data.rs
-src/models/get_inbox_conversation_200_response_data_metadata.rs
 src/models/get_inbox_conversation_analytics_200_response.rs
 src/models/get_inbox_conversation_analytics_200_response_by_source_inner.rs
 src/models/get_inbox_conversation_analytics_200_response_summary.rs
@@ -4316,6 +4325,7 @@ src/models/imessage_audience_contact_opt_in.rs
 src/models/imessage_sandbox_contact.rs
 src/models/imessage_sender.rs
 src/models/imessage_sender_lifecycle.rs
+src/models/inbox_conversation_ad_metadata.rs
 src/models/inbox_message_edit_attachment.rs
 src/models/inbox_message_edit_history_entry.rs
 src/models/inbox_webhook_account.rs
@@ -4570,7 +4580,6 @@ src/models/list_inbox_conversation_analytics_200_response_pagination.rs
 src/models/list_inbox_conversations_200_response.rs
 src/models/list_inbox_conversations_200_response_data_inner.rs
 src/models/list_inbox_conversations_200_response_data_inner_instagram_profile.rs
-src/models/list_inbox_conversations_200_response_data_inner_metadata.rs
 src/models/list_inbox_conversations_200_response_meta.rs
 src/models/list_inbox_conversations_200_response_meta_accounts_skipped_inner.rs
 src/models/list_inbox_conversations_200_response_meta_failed_accounts_inner.rs
@@ -5587,6 +5596,7 @@ src/models/verify_whats_app_number_200_response.rs
 src/models/verify_whats_app_number_request.rs
 src/models/vote_reddit_thing_request.rs
 src/models/webhook.rs
+src/models/webhook_ads_account.rs
 src/models/webhook_ads_sync_account.rs
 src/models/webhook_ads_sync_ad_account.rs
 src/models/webhook_log.rs
@@ -5601,8 +5611,12 @@ src/models/webhook_payload_account_connected.rs
 src/models/webhook_payload_account_connected_account.rs
 src/models/webhook_payload_account_disconnected.rs
 src/models/webhook_payload_account_disconnected_account.rs
+src/models/webhook_payload_ad_account_status_changed.rs
+src/models/webhook_payload_ad_account_status_changed_ad_account.rs
+src/models/webhook_payload_ad_account_status_changed_status.rs
+src/models/webhook_payload_ad_delivery_issue.rs
+src/models/webhook_payload_ad_delivery_issue_issue.rs
 src/models/webhook_payload_ad_review.rs
-src/models/webhook_payload_ad_review_account.rs
 src/models/webhook_payload_ad_review_ad_object.rs
 src/models/webhook_payload_ad_review_review.rs
 src/models/webhook_payload_ad_review_review_reasons_inner.rs
@@ -5627,6 +5641,9 @@ src/models/webhook_payload_call_permission_request.rs
 src/models/webhook_payload_call_permission_request_permission.rs
 src/models/webhook_payload_call_received.rs
 src/models/webhook_payload_call_received_call.rs
+src/models/webhook_payload_campaign_budget_depleted.rs
+src/models/webhook_payload_campaign_budget_depleted_ad_object.rs
+src/models/webhook_payload_campaign_budget_depleted_budget.rs
 src/models/webhook_payload_comment.rs
 src/models/webhook_payload_comment_account.rs
 src/models/webhook_payload_comment_comment.rs
@@ -5646,6 +5663,7 @@ src/models/webhook_payload_contact_tag_contact.rs
 src/models/webhook_payload_conversation_control_changed.rs
 src/models/webhook_payload_conversation_control_changed_control.rs
 src/models/webhook_payload_conversation_started.rs
+src/models/webhook_payload_conversation_started_conversation.rs
 src/models/webhook_payload_external_post.rs
 src/models/webhook_payload_lead.rs
 src/models/webhook_payload_lead_account.rs

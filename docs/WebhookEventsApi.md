@@ -9,6 +9,8 @@ Method | HTTP request | Description
 [**on_account_ads_sync_recovered**](WebhookEventsApi.md#on_account_ads_sync_recovered) | **POST** /account.ads.sync_recovered | Ads sync recovered event
 [**on_account_connected**](WebhookEventsApi.md#on_account_connected) | **POST** /account.connected | Account connected event
 [**on_account_disconnected**](WebhookEventsApi.md#on_account_disconnected) | **POST** /account.disconnected | Account disconnected event
+[**on_ad_account_status_changed**](WebhookEventsApi.md#on_ad_account_status_changed) | **POST** /ad_account.status_changed | Ad account status changed event
+[**on_ad_delivery_issue**](WebhookEventsApi.md#on_ad_delivery_issue) | **POST** /ad.delivery_issue | Ad delivery issue event
 [**on_ad_review_approved**](WebhookEventsApi.md#on_ad_review_approved) | **POST** /ad.review.approved | Ad review approved event
 [**on_ad_review_rejected**](WebhookEventsApi.md#on_ad_review_rejected) | **POST** /ad.review.rejected | Ad review rejected event
 [**on_ad_status_changed**](WebhookEventsApi.md#on_ad_status_changed) | **POST** /ad.status_changed | Ad status changed event
@@ -22,6 +24,7 @@ Method | HTTP request | Description
 [**on_call_failed**](WebhookEventsApi.md#on_call_failed) | **POST** /call.failed | Call failed event
 [**on_call_permission_request**](WebhookEventsApi.md#on_call_permission_request) | **POST** /call.permission_request | Call permission request reply event
 [**on_call_received**](WebhookEventsApi.md#on_call_received) | **POST** /call.received | Call received event
+[**on_campaign_budget_depleted**](WebhookEventsApi.md#on_campaign_budget_depleted) | **POST** /campaign.budget.depleted | Campaign budget depleted event
 [**on_comment_received**](WebhookEventsApi.md#on_comment_received) | **POST** /comment.received | Comment received event
 [**on_commerce_order_created**](WebhookEventsApi.md#on_commerce_order_created) | **POST** /commerce.order.created | Commerce order created event
 [**on_commerce_order_refunded**](WebhookEventsApi.md#on_commerce_order_refunded) | **POST** /commerce.order.refunded | Commerce order refunded event
@@ -226,6 +229,66 @@ Fired when a connected account becomes disconnected.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_account_disconnected** | [**WebhookPayloadAccountDisconnected**](WebhookPayloadAccountDisconnected.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_ad_account_status_changed
+
+> on_ad_account_status_changed(webhook_payload_ad_account_status_changed)
+Ad account status changed event
+
+Fired when an ad account Zernio already tracked changes status (Meta, Google, TikTok, X). See `WebhookPayloadAdAccountStatusChanged` for when it fires and when it does not. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_ad_account_status_changed** | [**WebhookPayloadAdAccountStatusChanged**](WebhookPayloadAdAccountStatusChanged.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_ad_delivery_issue
+
+> on_ad_delivery_issue(webhook_payload_ad_delivery_issue)
+Ad delivery issue event
+
+Fired when an ad Zernio already tracked stops delivering for a platform reason (Meta, TikTok, LinkedIn). See `WebhookPayloadAdDeliveryIssue` for when it fires and when it does not. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_ad_delivery_issue** | [**WebhookPayloadAdDeliveryIssue**](WebhookPayloadAdDeliveryIssue.md) |  | [required] |
 
 ### Return type
 
@@ -616,6 +679,36 @@ Fired when a WhatsApp Business Call connects. For inbound (UIC) calls the event 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_call_received** | [**WebhookPayloadCallReceived**](WebhookPayloadCallReceived.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_budget_depleted
+
+> on_campaign_budget_depleted(webhook_payload_campaign_budget_depleted)
+Campaign budget depleted event
+
+Fired when a campaign Zernio already tracked runs out of budget (TikTok). See `WebhookPayloadCampaignBudgetDepleted` for when it fires and when it does not. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_budget_depleted** | [**WebhookPayloadCampaignBudgetDepleted**](WebhookPayloadCampaignBudgetDepleted.md) |  | [required] |
 
 ### Return type
 
