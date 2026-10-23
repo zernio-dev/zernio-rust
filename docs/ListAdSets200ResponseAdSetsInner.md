@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **platform_ad_set_id** | Option<**String**> |  | [optional]
 **platform** | Option<**String**> |  | [optional]
 **ad_set_name** | Option<**String**> |  | [optional]
-**status** | Option<**String**> |  | [optional]
+**status** | Option<**String**> | Stored ad set status (active, paused, pending_review, rejected, completed, cancelled, error), as last synced. The `status` filter matches it. | [optional]
 **platform_ad_set_status** | Option<**String**> | Raw platform ad set status. On TikTok the ad group's own switch `operation_status` (ENABLE / DISABLE), independent of its campaign. On Meta and Reddit the ad set's `effective_status` (e.g. CAMPAIGN_PAUSED). | [optional]
 **platform_campaign_id** | Option<**String**> |  | [optional]
 **platform_ad_account_id** | Option<**String**> |  | [optional]
