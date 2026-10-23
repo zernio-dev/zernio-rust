@@ -2008,6 +2008,8 @@ docs/RemovePageUser200Response.md
 docs/RemoveTrackingTagFromStore200Response.md
 docs/RemoveTrackingTagFromStore200ResponseInstall.md
 docs/RemoveTrackingTagUser200Response.md
+docs/RemoveUsersFromAdAudience200Response.md
+docs/RemoveUsersFromAdAudienceRequest.md
 docs/RemoveWhatsAppGroupParticipantsRequest.md
 docs/ReorderCommerceCollectionProductsRequest.md
 docs/ReorderCommerceCollectionProductsRequestMovesInner.md
@@ -4939,6 +4941,8 @@ src/models/remove_page_user_200_response.rs
 src/models/remove_tracking_tag_from_store_200_response.rs
 src/models/remove_tracking_tag_from_store_200_response_install.rs
 src/models/remove_tracking_tag_user_200_response.rs
+src/models/remove_users_from_ad_audience_200_response.rs
+src/models/remove_users_from_ad_audience_request.rs
 src/models/remove_whats_app_group_participants_request.rs
 src/models/reorder_commerce_collection_products_request.rs
 src/models/reorder_commerce_collection_products_request_moves_inner.rs

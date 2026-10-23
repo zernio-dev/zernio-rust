@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**delete_ad_audience**](AdAudiencesApi.md#delete_ad_audience) | **DELETE** /v1/ads/audiences/{audienceId} | Delete custom audience
 [**get_ad_audience**](AdAudiencesApi.md#get_ad_audience) | **GET** /v1/ads/audiences/{audienceId} | Get audience details
 [**list_ad_audiences**](AdAudiencesApi.md#list_ad_audiences) | **GET** /v1/ads/audiences | List custom audiences
+[**remove_users_from_ad_audience**](AdAudiencesApi.md#remove_users_from_ad_audience) | **DELETE** /v1/ads/audiences/{audienceId}/users | Remove users from audience
 [**replace_ad_audience_companies**](AdAudiencesApi.md#replace_ad_audience_companies) | **POST** /v1/ads/audiences/{audienceId}/companies | Replace audience companies
 [**update_ad_audience**](AdAudiencesApi.md#update_ad_audience) | **PUT** /v1/ads/audiences/{audienceId} | Update an audience
 
@@ -163,6 +164,37 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## remove_users_from_ad_audience
+
+> models::RemoveUsersFromAdAudience200Response remove_users_from_ad_audience(audience_id, remove_users_from_ad_audience_request)
+Remove users from audience
+
+Removes customer emails and phone numbers from a Meta customer list audience. Same body as `POST /v1/ads/audiences/{audienceId}/users`: send plaintext rows, they are normalized and SHA256-hashed server-side exactly like an upload, so a row removes the person it added.  Meta only, customer_list only. Every other platform returns 422 with code `feature_not_available`, and every other audience type returns 422. Max 10,000 users per request. Meta applies the removal asynchronously, so the audience size does not drop immediately. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**audience_id** | **String** | The Zernio audience id (the id field of GET /v1/ads/audiences), not the platform segment id. | [required] |
+**remove_users_from_ad_audience_request** | [**RemoveUsersFromAdAudienceRequest**](RemoveUsersFromAdAudienceRequest.md) |  | [required] |
+
+### Return type
+
+[**models::RemoveUsersFromAdAudience200Response**](removeUsersFromAdAudience_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
