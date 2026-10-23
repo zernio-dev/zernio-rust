@@ -358,6 +358,8 @@ pub mod boost_post_request_promo_codes_inner;
 pub use self::boost_post_request_promo_codes_inner::BoostPostRequestPromoCodesInner;
 pub mod boost_post_request_promoted_object;
 pub use self::boost_post_request_promoted_object::BoostPostRequestPromotedObject;
+pub mod boost_post_request_regional_regulation_identities_value;
+pub use self::boost_post_request_regional_regulation_identities_value::BoostPostRequestRegionalRegulationIdentitiesValue;
 pub mod boost_post_request_schedule;
 pub use self::boost_post_request_schedule::BoostPostRequestSchedule;
 pub mod boost_post_request_smart_targeting;
