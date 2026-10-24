@@ -602,6 +602,8 @@ docs/CreatePinterestBoard201Response.md
 docs/CreatePinterestBoard201ResponseBoard.md
 docs/CreatePinterestBoardRequest.md
 docs/CreatePost200Response.md
+docs/CreatePost400Response.md
+docs/CreatePost400ResponseDetails.md
 docs/CreatePost403Response.md
 docs/CreatePost409Response.md
 docs/CreatePost409ResponseDetails.md
@@ -1478,6 +1480,7 @@ docs/LinkedInLeadFormPlatformDataQuestionsInner.md
 docs/LinkedInLeadFormPlatformDataQuestionsInnerOneOf.md
 docs/LinkedInLeadFormPlatformDataQuestionsInnerOneOf1.md
 docs/LinkedInLeadFormPlatformDataQuestionsInnerOneOf1ChoicesInner.md
+docs/LinkedInMentionIssue.md
 docs/LinkedInMentionsApi.md
 docs/LinkedInPlatformData.md
 docs/LinkedInPlatformDataAudience.md
@@ -3575,6 +3578,8 @@ src/models/create_pinterest_board_201_response.rs
 src/models/create_pinterest_board_201_response_board.rs
 src/models/create_pinterest_board_request.rs
 src/models/create_post_200_response.rs
+src/models/create_post_400_response.rs
+src/models/create_post_400_response_details.rs
 src/models/create_post_403_response.rs
 src/models/create_post_409_response.rs
 src/models/create_post_409_response_details.rs
@@ -4435,6 +4440,7 @@ src/models/linked_in_lead_form_platform_data_questions_inner.rs
 src/models/linked_in_lead_form_platform_data_questions_inner_one_of.rs
 src/models/linked_in_lead_form_platform_data_questions_inner_one_of_1.rs
 src/models/linked_in_lead_form_platform_data_questions_inner_one_of_1_choices_inner.rs
+src/models/linked_in_mention_issue.rs
 src/models/linked_in_platform_data.rs
 src/models/linked_in_platform_data_audience.rs
 src/models/linked_in_platform_data_audience_interface_locales_inner.rs
