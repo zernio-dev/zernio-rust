@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **message** | Option<**String**> | Confirmation DM sent when whenUnknown=verify or tapToUnlock=true. The default copy asks for a follow under whenUnknown=verify and only for the tap under tapToUnlock. | [optional]
 **button_label** | Option<**String**> | Confirm button label. Defaults to \"I'm following\" (whenUnknown=verify) or \"Unlock\" (tapToUnlock). | [optional]
+**profile_button_label** | Option<**String**> | Optional. When set, the follow gate DM and the not-following message with the confirm button also carry a URL button with this label that opens the connected Instagram account's profile. Omit for the confirm button only. Instagram only. | [optional]
 **not_following_message** | Option<**String**> | Sent to a commenter we know does not follow (followerStatus=follower), and after a confirm tap that does not unlock the DM. When following is what would unlock it, the message carries the confirm button so they can re-check once they follow; above 640 characters it goes out as plain text without the button. Omit to stay silent on a keyword comment; a confirm tap always gets an answer (a default message is used). | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
