@@ -10,8 +10,10 @@ Method | HTTP request | Description
 [**edit_post**](PostsApi.md#edit_post) | **POST** /v1/posts/{postId}/edit | Edit published post
 [**get_post**](PostsApi.md#get_post) | **GET** /v1/posts/{postId} | Get post
 [**list_posts**](PostsApi.md#list_posts) | **GET** /v1/posts | List posts
+[**pin_post**](PostsApi.md#pin_post) | **POST** /v1/posts/{postId}/pin | Pin post
 [**retry_post**](PostsApi.md#retry_post) | **POST** /v1/posts/{postId}/retry | Retry failed post
 [**review_post**](PostsApi.md#review_post) | **POST** /v1/posts/{postId}/review | Approve or reject a post
+[**unpin_post**](PostsApi.md#unpin_post) | **POST** /v1/posts/{postId}/unpin | Unpin post
 [**unpublish_post**](PostsApi.md#unpublish_post) | **POST** /v1/posts/{postId}/unpublish | Unpublish post
 [**update_post**](PostsApi.md#update_post) | **PUT** /v1/posts/{postId} | Update post
 [**update_post_metadata**](PostsApi.md#update_post_metadata) | **POST** /v1/posts/{postId}/update-metadata | Update post metadata
@@ -220,6 +222,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## pin_post
+
+> models::PinPostResponse pin_post(post_id, pin_post_request)
+Pin post
+
+Pins a published Facebook Page post to the top of its Page. Only Facebook posts can be pinned; any other platform answers 400 `platform_not_supported`. Works for posts on Pages connected through Facebook Login. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**post_id** | **String** |  | [required] |
+**pin_post_request** | [**PinPostRequest**](PinPostRequest.md) |  | [required] |
+
+### Return type
+
+[**models::PinPostResponse**](PinPostResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## retry_post
 
 > models::PostRetryResponse retry_post(post_id)
@@ -268,6 +301,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::PostGetResponse**](PostGetResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## unpin_post
+
+> models::PinPostResponse unpin_post(post_id, pin_post_request)
+Unpin post
+
+Unpins a published Facebook Page post from the top of its Page. Only Facebook posts can be unpinned; any other platform answers 400 `platform_not_supported`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**post_id** | **String** |  | [required] |
+**pin_post_request** | [**PinPostRequest**](PinPostRequest.md) |  | [required] |
+
+### Return type
+
+[**models::PinPostResponse**](PinPostResponse.md)
 
 ### Authorization
 

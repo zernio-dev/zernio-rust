@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **account_id** | **String** |  | 
 **custom_content** | Option<**String**> | Platform-specific text override. | [optional]
 **custom_media** | Option<[**Vec<models::MediaItem>**](MediaItem.md)> |  | [optional]
-**scheduled_for** | Option<**String**> | Optional per-platform scheduled time override. It is kept when a top-level scheduledFor is also sent, except a date sent back unchanged that matched the post scheduled time or is already past, which follows the new top-level scheduledFor. | [optional]
+**scheduled_for** | Option<**String**> | Optional per-platform scheduled time override. It is kept when a top-level scheduledFor is also sent, except a date sent back unchanged (same instant, or the same wall-clock time in the post's previous timezone) that matched the post scheduled time or is already past, which follows the new top-level scheduledFor. | [optional]
 **platform_specific_data** | Option<**std::collections::HashMap<String, serde_json::Value>**> | A <platform>Settings namespace (e.g. facebookSettings, tiktokSettings) omitted from the request is preserved from the stored post. Sending the key replaces the whole namespace; it is not deep-merged. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

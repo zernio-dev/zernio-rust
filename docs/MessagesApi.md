@@ -30,7 +30,7 @@ Method | HTTP request | Description
 > models::AcceptConversationRequest200Response accept_conversation_request(conversation_id, accept_conversation_request_request)
 Accept a message request
 
-Accept a Facebook or Instagram Message Request (listed with `GET /v1/inbox/conversations?folder=requests`) by replying to it. Meta has no separate accept call: the first reply is what moves the thread into the inbox, so this sends `message` through the same path, checks and webhooks as `POST /v1/inbox/conversations/{conversationId}/messages`, and answers the same way. Supports the `Idempotency-Key` header. 
+Accept a Facebook or Instagram Message Request by replying to it (Facebook Page requests are listed with `GET /v1/inbox/conversations?folder=requests`; Instagram answers PLATFORM_LIMITATION there). Meta has no separate accept call: the first reply is what moves the thread into the inbox, so this sends `message` through the same path, checks and webhooks as `POST /v1/inbox/conversations/{conversationId}/messages`, and answers the same way. Supports the `Idempotency-Key` header. 
 
 ### Parameters
 
@@ -327,7 +327,7 @@ Name | Type | Description  | Required | Notes
 **profile_id** | Option<**String**> | Filter by profile ID |  |
 **platform** | Option<**String**> | Filter by platform |  |
 **status** | Option<**String**> | Filter by conversation status |  |
-**folder** | Option<**String**> | requests lists Facebook and Instagram Message Requests (threads from people the account has not accepted) live from Meta, each item with `folder: requests`. Meta has no accept call: replying moves a thread to the inbox, which is what POST /v1/inbox/conversations/{conversationId}/accept does. When Meta will not list the folder for the one account asked (`accountId`), the call answers 400 PLATFORM_LIMITATION; across several accounts the refusal is reported per account in meta.failedAccounts. Instagram accounts connected with Instagram Login answer PLATFORM_LIMITATION (Meta does not expose the folder on that login); Facebook and Instagram via Facebook Login are served. One page of up to `limit` threads; `pagination.hasMore` is true when threads past `limit` were cut (narrow with `accountId`), `pagination.nextCursor` is always null and a `cursor` answers 400. |  |[default to inbox]
+**folder** | Option<**String**> | requests lists Facebook Page Message Requests (threads from people the account has not accepted) live from Meta, each item with `folder: requests`. Meta has no accept call: replying moves a thread to the inbox, which is what POST /v1/inbox/conversations/{conversationId}/accept does. When Meta will not list the folder for the one account asked (`accountId`), the call answers 400 PLATFORM_LIMITATION; across several accounts the refusal is reported per account in meta.failedAccounts. Instagram accounts (Instagram Login and Facebook Login) answer PLATFORM_LIMITATION, because Meta does not separate the folder on Instagram; only Facebook Pages are served. One page of up to `limit` threads; `pagination.hasMore` is true when threads past `limit` were cut (narrow with `accountId`), `pagination.nextCursor` is always null and a `cursor` answers 400. |  |[default to inbox]
 **sort_order** | Option<**String**> | Sort order by updated time |  |[default to desc]
 **limit** | Option<**i32**> | Maximum number of conversations to return; values above 100 are served as 100. |  |[default to 50]
 **cursor** | Option<**String**> | Pagination cursor for next page |  |
