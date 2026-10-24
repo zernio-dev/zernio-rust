@@ -828,6 +828,7 @@ docs/ExternalPostSummary.md
 docs/ExternalPostSummaryAnalytics.md
 docs/ExternalPostWebhookPost.md
 docs/FacebookOrInstagramPost.md
+docs/FacebookPageInfo.md
 docs/FacebookPlatformData.md
 docs/FacebookPostEarningsResponse.md
 docs/FacebookPostEarningsResponseMetricsValue.md
@@ -2513,6 +2514,7 @@ docs/UpdateDiscordSettings200ResponseAccount.md
 docs/UpdateDiscordSettingsRequest.md
 docs/UpdateFacebookPage200Response.md
 docs/UpdateFacebookPage200ResponseSelectedPage.md
+docs/UpdateFacebookPageInfoRequest.md
 docs/UpdateFacebookPageRequest.md
 docs/UpdateGmbLocation200Response.md
 docs/UpdateGmbLocationRequest.md
@@ -3809,6 +3811,7 @@ src/models/external_post_summary.rs
 src/models/external_post_summary_analytics.rs
 src/models/external_post_webhook_post.rs
 src/models/facebook_or_instagram_post.rs
+src/models/facebook_page_info.rs
 src/models/facebook_platform_data.rs
 src/models/facebook_post_earnings_response.rs
 src/models/facebook_post_earnings_response_metrics_value.rs
@@ -5458,6 +5461,7 @@ src/models/update_discord_settings_200_response_account.rs
 src/models/update_discord_settings_request.rs
 src/models/update_facebook_page_200_response.rs
 src/models/update_facebook_page_200_response_selected_page.rs
+src/models/update_facebook_page_info_request.rs
 src/models/update_facebook_page_request.rs
 src/models/update_gmb_location_200_response.rs
 src/models/update_gmb_location_request.rs

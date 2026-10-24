@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**delete_messenger_ice_breakers**](AccountSettingsApi.md#delete_messenger_ice_breakers) | **DELETE** /v1/accounts/{accountId}/messenger-ice-breakers | Delete FB ice breakers
 [**delete_messenger_menu**](AccountSettingsApi.md#delete_messenger_menu) | **DELETE** /v1/accounts/{accountId}/messenger-menu | Delete persistent menu
 [**delete_telegram_commands**](AccountSettingsApi.md#delete_telegram_commands) | **DELETE** /v1/accounts/{accountId}/telegram-commands | Delete TG bot commands
+[**get_facebook_page_info**](AccountSettingsApi.md#get_facebook_page_info) | **GET** /v1/accounts/{accountId}/facebook-page-info | Get a Facebook Page's public info
 [**get_instagram_ice_breakers**](AccountSettingsApi.md#get_instagram_ice_breakers) | **GET** /v1/accounts/{accountId}/instagram-ice-breakers | Get IG ice breakers
 [**get_messenger_get_started**](AccountSettingsApi.md#get_messenger_get_started) | **GET** /v1/accounts/{accountId}/messenger-get-started | Get FB Get Started button
 [**get_messenger_greeting**](AccountSettingsApi.md#get_messenger_greeting) | **GET** /v1/accounts/{accountId}/messenger-greeting | Get FB greeting text
@@ -22,6 +23,7 @@ Method | HTTP request | Description
 [**set_messenger_ice_breakers**](AccountSettingsApi.md#set_messenger_ice_breakers) | **PUT** /v1/accounts/{accountId}/messenger-ice-breakers | Set FB ice breakers
 [**set_messenger_menu**](AccountSettingsApi.md#set_messenger_menu) | **PUT** /v1/accounts/{accountId}/messenger-menu | Set persistent menu
 [**set_telegram_commands**](AccountSettingsApi.md#set_telegram_commands) | **PUT** /v1/accounts/{accountId}/telegram-commands | Set TG bot commands
+[**update_facebook_page_info**](AccountSettingsApi.md#update_facebook_page_info) | **PATCH** /v1/accounts/{accountId}/facebook-page-info | Update a Facebook Page's public info
 
 
 
@@ -192,6 +194,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
  (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_facebook_page_info
+
+> models::FacebookPageInfo get_facebook_page_info(account_id)
+Get a Facebook Page's public info
+
+Returns the public info of the Page selected on a `facebook` account: about, description, website, phone, emails and opening hours, as Meta returns them from the Page node. Text fields the Page never filled come back as null. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The ID of a connected Facebook account. | [required] |
+
+### Return type
+
+[**models::FacebookPageInfo**](FacebookPageInfo.md)
 
 ### Authorization
 
@@ -558,6 +590,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
  (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_facebook_page_info
+
+> models::FacebookPageInfo update_facebook_page_info(account_id, update_facebook_page_info_request)
+Update a Facebook Page's public info
+
+Updates the public info of the Page selected on a `facebook` account. Only the fields in the body are sent to Meta, every other field keeps its value. Send an empty string to clear a text field. Unknown fields are rejected with a 400.  Returns the Page info read back from Meta after the update. Meta needs the `pages_manage_metadata` permission and a Page role that can edit the Page: without them Meta's refusal comes back as `platform_api_error`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The ID of a connected Facebook account. | [required] |
+**update_facebook_page_info_request** | [**UpdateFacebookPageInfoRequest**](UpdateFacebookPageInfoRequest.md) |  | [required] |
+
+### Return type
+
+[**models::FacebookPageInfo**](FacebookPageInfo.md)
 
 ### Authorization
 
