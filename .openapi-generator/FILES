@@ -832,6 +832,8 @@ docs/FacebookPostEarningsResponseMetricsValue.md
 docs/FacebookPostEarningsResponseUnavailableMetricsInner.md
 docs/FacebookSettings.md
 docs/FacebookSettingsCarouselCardsInner.md
+docs/FacebookTaggedPost.md
+docs/FacebookTaggedPostFrom.md
 docs/FeedbackApi.md
 docs/FeedbackReceipt.md
 docs/FetchGoogleBusinessVerificationOptions200Response.md
@@ -1615,6 +1617,7 @@ docs/ListDiscordPinnedMessages200ResponseDataInner.md
 docs/ListDiscordScheduledEvents200Response.md
 docs/ListFacebookPages200Response.md
 docs/ListFacebookPages200ResponsePagesInner.md
+docs/ListFacebookTaggedPosts200Response.md
 docs/ListFormLeads200Response.md
 docs/ListFormLeads200ResponseLeadsInner.md
 docs/ListFormLeads200ResponseMeta.md
@@ -3800,6 +3803,8 @@ src/models/facebook_post_earnings_response_metrics_value.rs
 src/models/facebook_post_earnings_response_unavailable_metrics_inner.rs
 src/models/facebook_settings.rs
 src/models/facebook_settings_carousel_cards_inner.rs
+src/models/facebook_tagged_post.rs
+src/models/facebook_tagged_post_from.rs
 src/models/feedback_receipt.rs
 src/models/fetch_google_business_verification_options_200_response.rs
 src/models/fetch_google_business_verification_options_200_response_options_inner.rs
@@ -4568,6 +4573,7 @@ src/models/list_discord_pinned_messages_200_response_data_inner.rs
 src/models/list_discord_scheduled_events_200_response.rs
 src/models/list_facebook_pages_200_response.rs
 src/models/list_facebook_pages_200_response_pages_inner.rs
+src/models/list_facebook_tagged_posts_200_response.rs
 src/models/list_form_leads_200_response.rs
 src/models/list_form_leads_200_response_leads_inner.rs
 src/models/list_form_leads_200_response_meta.rs

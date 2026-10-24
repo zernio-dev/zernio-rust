@@ -33,6 +33,7 @@ Method | HTTP request | Description
 [**get_you_tube_daily_views**](AnalyticsApi.md#get_you_tube_daily_views) | **GET** /v1/analytics/youtube/daily-views | Get YouTube daily views
 [**get_you_tube_demographics**](AnalyticsApi.md#get_you_tube_demographics) | **GET** /v1/analytics/youtube/demographics | Get YouTube demographics
 [**get_you_tube_video_retention**](AnalyticsApi.md#get_you_tube_video_retention) | **GET** /v1/analytics/youtube/video-retention | Get YouTube video retention curve
+[**list_facebook_tagged_posts**](AnalyticsApi.md#list_facebook_tagged_posts) | **GET** /v1/accounts/{accountId}/facebook-tagged-posts | List the posts a Facebook Page is tagged in
 [**sync_external_posts**](AnalyticsApi.md#sync_external_posts) | **POST** /v1/posts/sync-external | Sync an external post
 
 
@@ -1016,6 +1017,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::YouTubeVideoRetentionResponse**](YouTubeVideoRetentionResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_facebook_tagged_posts
+
+> models::ListFacebookTaggedPosts200Response list_facebook_tagged_posts(account_id, limit, cursor)
+List the posts a Facebook Page is tagged in
+
+Returns the public posts where other people or Pages tagged the connected Facebook Page, as Meta returns them from the Page's `tagged` edge.  Cursor-paginated: pass `nextCursor` from the previous response as `cursor` to read the next page. `nextCursor` is null when there are no more pages. Meta does not say whether a page is the last one, so the final page can come back empty with `nextCursor` null.  Works for `facebook` accounts with a Page selected. Meta needs the `pages_read_user_content` permission on the connection: a connection made without it gets Meta's refusal back as `platform_api_error`, and reconnecting the account grants it. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The ID of a connected Facebook account. | [required] |
+**limit** | Option<**i32**> | Page size. |  |[default to 25]
+**cursor** | Option<**String**> | The `nextCursor` of the previous page. |  |
+
+### Return type
+
+[**models::ListFacebookTaggedPosts200Response**](listFacebookTaggedPosts_200_response.md)
 
 ### Authorization
 
