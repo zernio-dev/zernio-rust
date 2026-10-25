@@ -5,6 +5,7 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**accept_conversation_request**](MessagesApi.md#accept_conversation_request) | **POST** /v1/inbox/conversations/{conversationId}/accept | Accept a message request
+[**add_conversation_label**](MessagesApi.md#add_conversation_label) | **POST** /v1/inbox/conversations/{conversationId}/labels | Add a label to a conversation
 [**add_message_reaction**](MessagesApi.md#add_message_reaction) | **POST** /v1/inbox/conversations/{conversationId}/messages/{messageId}/reactions | Add reaction
 [**create_inbox_conversation**](MessagesApi.md#create_inbox_conversation) | **POST** /v1/inbox/conversations | Create conversation
 [**create_inbox_label**](MessagesApi.md#create_inbox_label) | **POST** /v1/inbox/labels | Create a conversation label
@@ -15,9 +16,11 @@ Method | HTTP request | Description
 [**get_inbox_conversation**](MessagesApi.md#get_inbox_conversation) | **GET** /v1/inbox/conversations/{conversationId} | Get conversation
 [**get_inbox_conversation_messages**](MessagesApi.md#get_inbox_conversation_messages) | **GET** /v1/inbox/conversations/{conversationId}/messages | List messages
 [**get_message_attachment**](MessagesApi.md#get_message_attachment) | **GET** /v1/inbox/conversations/{conversationId}/messages/{messageId}/attachments/{index} | Resolve message attachment
+[**list_conversation_labels**](MessagesApi.md#list_conversation_labels) | **GET** /v1/inbox/conversations/{conversationId}/labels | List the labels on a conversation
 [**list_inbox_conversations**](MessagesApi.md#list_inbox_conversations) | **GET** /v1/inbox/conversations | List conversations
 [**list_inbox_labels**](MessagesApi.md#list_inbox_labels) | **GET** /v1/inbox/labels | List the Page's conversation labels
 [**mark_conversation_read**](MessagesApi.md#mark_conversation_read) | **POST** /v1/inbox/conversations/{conversationId}/read | Mark a conversation as read
+[**remove_conversation_label**](MessagesApi.md#remove_conversation_label) | **DELETE** /v1/inbox/conversations/{conversationId}/labels/{labelId} | Remove a label from a conversation
 [**remove_message_reaction**](MessagesApi.md#remove_message_reaction) | **DELETE** /v1/inbox/conversations/{conversationId}/messages/{messageId}/reactions | Remove reaction
 [**search_inbox_conversations**](MessagesApi.md#search_inbox_conversations) | **GET** /v1/inbox/conversations/search | Search conversations
 [**send_inbox_message**](MessagesApi.md#send_inbox_message) | **POST** /v1/inbox/conversations/{conversationId}/messages | Send message
@@ -46,6 +49,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::AcceptConversationRequest200Response**](acceptConversationRequest_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## add_conversation_label
+
+> models::UpdateYoutubeDefaultPlaylist200Response add_conversation_label(conversation_id, add_conversation_label_request)
+Add a label to a conversation
+
+Facebook Messenger only. Applies one of the Page's custom labels to the person in this conversation (Graph `POST /{label-id}/label?user={psid}`). The id must be one of the Page's custom labels, otherwise 404 `resource_not_found`. Other platforms answer 400 `platform_not_supported`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**conversation_id** | **String** | Conversation ID (Zernio id or Meta platform conversation id) | [required] |
+**add_conversation_label_request** | [**AddConversationLabelRequest**](AddConversationLabelRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateYoutubeDefaultPlaylist200Response**](updateYoutubeDefaultPlaylist_200_response.md)
 
 ### Authorization
 
@@ -376,6 +410,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_conversation_labels
+
+> models::ListInboxLabels200Response list_conversation_labels(conversation_id, account_id)
+List the labels on a conversation
+
+Facebook Messenger only. Lists the Page's custom labels applied to the person in this conversation (Graph `/{psid}/custom_labels`). Other platforms answer 400 `platform_not_supported`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**conversation_id** | **String** | Conversation ID (Zernio id or Meta platform conversation id) | [required] |
+**account_id** | **String** | Facebook social account ID | [required] |
+
+### Return type
+
+[**models::ListInboxLabels200Response**](listInboxLabels_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_inbox_conversations
 
 > models::ListInboxConversations200Response list_inbox_conversations(profile_id, platform, status, folder, sort_order, limit, cursor, account_id)
@@ -469,6 +534,38 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## remove_conversation_label
+
+> models::UpdateYoutubeDefaultPlaylist200Response remove_conversation_label(conversation_id, label_id, account_id)
+Remove a label from a conversation
+
+Facebook Messenger only. Removes one of the Page's custom labels from the person in this conversation (Graph `DELETE /{label-id}/label?user={psid}`). The label itself stays on the Page. The id must be one of the Page's custom labels, otherwise 404 `resource_not_found`. Other platforms answer 400 `platform_not_supported`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**conversation_id** | **String** | Conversation ID (Zernio id or Meta platform conversation id) | [required] |
+**label_id** | **String** | Meta label id | [required] |
+**account_id** | **String** | Facebook social account ID | [required] |
+
+### Return type
+
+[**models::UpdateYoutubeDefaultPlaylist200Response**](updateYoutubeDefaultPlaylist_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

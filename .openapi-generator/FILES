@@ -85,6 +85,7 @@ docs/AddCommerceDiscountCodesRequest.md
 docs/AddCommerceMarketingEngagement201Response.md
 docs/AddCommerceMarketingEngagementRequest.md
 docs/AddCommerceProductImagesRequest.md
+docs/AddConversationLabelRequest.md
 docs/AddConversionAssociations200Response.md
 docs/AddConversionAssociations200ResponseFailedInner.md
 docs/AddConversionAssociationsRequest.md
@@ -3089,6 +3090,7 @@ src/models/add_commerce_discount_codes_request.rs
 src/models/add_commerce_marketing_engagement_201_response.rs
 src/models/add_commerce_marketing_engagement_request.rs
 src/models/add_commerce_product_images_request.rs
+src/models/add_conversation_label_request.rs
 src/models/add_conversion_associations_200_response.rs
 src/models/add_conversion_associations_200_response_failed_inner.rs
 src/models/add_conversion_associations_request.rs

@@ -144,6 +144,8 @@ pub mod add_commerce_marketing_engagement_request;
 pub use self::add_commerce_marketing_engagement_request::AddCommerceMarketingEngagementRequest;
 pub mod add_commerce_product_images_request;
 pub use self::add_commerce_product_images_request::AddCommerceProductImagesRequest;
+pub mod add_conversation_label_request;
+pub use self::add_conversation_label_request::AddConversationLabelRequest;
 pub mod add_conversion_associations_200_response;
 pub use self::add_conversion_associations_200_response::AddConversionAssociations200Response;
 pub mod add_conversion_associations_200_response_failed_inner;
