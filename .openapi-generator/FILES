@@ -65,6 +65,7 @@ docs/AdRuleObjectEvaluationConditionsInner.md
 docs/AdRuleRun.md
 docs/AdRuleRunEvaluation.md
 docs/AdRuleRunEvaluationActionsInner.md
+docs/AdRuleRunEvaluationNotification.md
 docs/AdRuleSchedule.md
 docs/AdRulesApi.md
 docs/AdSchedule.md
@@ -3104,6 +3105,7 @@ src/models/ad_rule_object_evaluation_conditions_inner.rs
 src/models/ad_rule_run.rs
 src/models/ad_rule_run_evaluation.rs
 src/models/ad_rule_run_evaluation_actions_inner.rs
+src/models/ad_rule_run_evaluation_notification.rs
 src/models/ad_rule_schedule.rs
 src/models/ad_schedule.rs
 src/models/ad_schedule_window.rs

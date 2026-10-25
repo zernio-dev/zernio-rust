@@ -106,6 +106,8 @@ pub mod ad_rule_run_evaluation;
 pub use self::ad_rule_run_evaluation::AdRuleRunEvaluation;
 pub mod ad_rule_run_evaluation_actions_inner;
 pub use self::ad_rule_run_evaluation_actions_inner::AdRuleRunEvaluationActionsInner;
+pub mod ad_rule_run_evaluation_notification;
+pub use self::ad_rule_run_evaluation_notification::AdRuleRunEvaluationNotification;
 pub mod ad_rule_schedule;
 pub use self::ad_rule_schedule::AdRuleSchedule;
 pub mod ad_schedule;
