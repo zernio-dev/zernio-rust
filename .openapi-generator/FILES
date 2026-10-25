@@ -576,6 +576,8 @@ docs/CreateInboxConversationRequestTemplateButtonParamsInner.md
 docs/CreateInboxConversationRequestTemplateCardsInner.md
 docs/CreateInboxConversationRequestTemplateCardsInnerButtonsInner.md
 docs/CreateInboxConversationRequestTemplateCardsInnerHeaderMedia.md
+docs/CreateInboxLabel201Response.md
+docs/CreateInboxLabelRequest.md
 docs/CreateInviteToken201Response.md
 docs/CreateInviteTokenRequest.md
 docs/CreateLeadForm200Response.md
@@ -1661,6 +1663,8 @@ docs/ListInboxConversations200ResponseMeta.md
 docs/ListInboxConversations200ResponseMetaAccountsSkippedInner.md
 docs/ListInboxConversations200ResponseMetaFailedAccountsInner.md
 docs/ListInboxConversations200ResponsePagination.md
+docs/ListInboxLabels200Response.md
+docs/ListInboxLabels200ResponseLabelsInner.md
 docs/ListInboxMentions200Response.md
 docs/ListInboxMentions200ResponseDataInner.md
 docs/ListInboxMentions200ResponseMeta.md
@@ -3561,6 +3565,8 @@ src/models/create_inbox_conversation_request_template_button_params_inner.rs
 src/models/create_inbox_conversation_request_template_cards_inner.rs
 src/models/create_inbox_conversation_request_template_cards_inner_buttons_inner.rs
 src/models/create_inbox_conversation_request_template_cards_inner_header_media.rs
+src/models/create_inbox_label_201_response.rs
+src/models/create_inbox_label_request.rs
 src/models/create_invite_token_201_response.rs
 src/models/create_invite_token_request.rs
 src/models/create_lead_form_200_response.rs
@@ -4629,6 +4635,8 @@ src/models/list_inbox_conversations_200_response_meta.rs
 src/models/list_inbox_conversations_200_response_meta_accounts_skipped_inner.rs
 src/models/list_inbox_conversations_200_response_meta_failed_accounts_inner.rs
 src/models/list_inbox_conversations_200_response_pagination.rs
+src/models/list_inbox_labels_200_response.rs
+src/models/list_inbox_labels_200_response_labels_inner.rs
 src/models/list_inbox_mentions_200_response.rs
 src/models/list_inbox_mentions_200_response_data_inner.rs
 src/models/list_inbox_mentions_200_response_meta.rs
