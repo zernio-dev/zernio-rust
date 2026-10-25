@@ -17,6 +17,11 @@ Name | Type | Description | Notes
 **share_count** | Option<**i32**> |  | [optional]
 **cid** | Option<**String**> | Bluesky content id, required to reply to the post | [optional]
 **subreddit** | Option<**String**> | Reddit only | [optional]
+**title** | Option<**String**> | Pinterest only: native Pin title | [optional]
+**description** | Option<**String**> | Pinterest only: full native Pin description (Pinterest caps it at 800 characters) | [optional]
+**link** | Option<**String**> | Pinterest only: destination URL of the Pin, not the Pin page (see permalink) | [optional]
+**board_id** | Option<**String**> | Pinterest only: id of the board holding the Pin | [optional]
+**board_owner_username** | Option<**String**> | Pinterest only: username of the board owner | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
