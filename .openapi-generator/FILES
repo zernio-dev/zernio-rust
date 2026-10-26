@@ -210,6 +210,7 @@ docs/BlogsApi.md
 docs/BlueskyPlatformData.md
 docs/BookmarkPost200Response.md
 docs/BookmarkPostRequest.md
+docs/BoostPost201Response.md
 docs/BoostPostRequest.md
 docs/BoostPostRequestAttributionSpecInner.md
 docs/BoostPostRequestBudget.md
@@ -1466,6 +1467,8 @@ docs/InstagramPlatformDataAudioConfiguration.md
 docs/InstagramPlatformDataTrialParams.md
 docs/InstagramPlatformDataUserTagsInner.md
 docs/InstagramTaggedMedia.md
+docs/InstagramVideoFallback.md
+docs/InstagramVideoFallbackPlatformError.md
 docs/InstallTrackingTagOnStore200Response.md
 docs/InstallTrackingTagOnStore200ResponseInstall.md
 docs/InstallTrackingTagOnStore422Response.md
@@ -3255,6 +3258,7 @@ src/models/blog_article_image.rs
 src/models/bluesky_platform_data.rs
 src/models/bookmark_post_200_response.rs
 src/models/bookmark_post_request.rs
+src/models/boost_post_201_response.rs
 src/models/boost_post_request.rs
 src/models/boost_post_request_attribution_spec_inner.rs
 src/models/boost_post_request_budget.rs
@@ -4485,6 +4489,8 @@ src/models/instagram_platform_data_audio_configuration.rs
 src/models/instagram_platform_data_trial_params.rs
 src/models/instagram_platform_data_user_tags_inner.rs
 src/models/instagram_tagged_media.rs
+src/models/instagram_video_fallback.rs
+src/models/instagram_video_fallback_platform_error.rs
 src/models/install_tracking_tag_on_store_200_response.rs
 src/models/install_tracking_tag_on_store_200_response_install.rs
 src/models/install_tracking_tag_on_store_422_response.rs
