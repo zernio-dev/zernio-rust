@@ -15,6 +15,7 @@ Method | HTTP request | Description
 [**get_facebook_post_earnings**](AnalyticsApi.md#get_facebook_post_earnings) | **GET** /v1/analytics/facebook/post-earnings | Get Facebook post monetization earnings
 [**get_facebook_post_reactions**](AnalyticsApi.md#get_facebook_post_reactions) | **GET** /v1/accounts/{accountId}/facebook-post-reactions | Get Facebook post reactions
 [**get_follower_stats**](AnalyticsApi.md#get_follower_stats) | **GET** /v1/accounts/follower-stats | Get follower stats
+[**get_google_analytics_metadata**](AnalyticsApi.md#get_google_analytics_metadata) | **GET** /v1/analytics/googleanalytics/metadata | List Google Analytics (GA4) dimensions and metrics
 [**get_google_business_performance**](AnalyticsApi.md#get_google_business_performance) | **GET** /v1/analytics/googlebusiness/performance | Get Google Business Profile performance metrics
 [**get_google_business_search_keywords**](AnalyticsApi.md#get_google_business_search_keywords) | **GET** /v1/analytics/googlebusiness/search-keywords | Get Google Business Profile search keywords
 [**get_instagram_account_insights**](AnalyticsApi.md#get_instagram_account_insights) | **GET** /v1/analytics/instagram/account-insights | Get Instagram insights
@@ -35,6 +36,8 @@ Method | HTTP request | Description
 [**get_you_tube_video_retention**](AnalyticsApi.md#get_you_tube_video_retention) | **GET** /v1/analytics/youtube/video-retention | Get YouTube video retention curve
 [**list_facebook_tagged_posts**](AnalyticsApi.md#list_facebook_tagged_posts) | **GET** /v1/accounts/{accountId}/facebook-tagged-posts | List the posts a Facebook Page is tagged in
 [**list_facebook_visitor_posts**](AnalyticsApi.md#list_facebook_visitor_posts) | **GET** /v1/accounts/{accountId}/facebook-visitor-posts | List visitor posts on a Facebook Page
+[**run_google_analytics_realtime_report**](AnalyticsApi.md#run_google_analytics_realtime_report) | **POST** /v1/analytics/googleanalytics/realtime | Run a Google Analytics (GA4) realtime report
+[**run_google_analytics_report**](AnalyticsApi.md#run_google_analytics_report) | **POST** /v1/analytics/googleanalytics/report | Run a Google Analytics (GA4) report
 [**sync_external_posts**](AnalyticsApi.md#sync_external_posts) | **POST** /v1/posts/sync-external | Sync an external post
 
 
@@ -404,6 +407,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::FollowerStatsResponse**](FollowerStatsResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_google_analytics_metadata
+
+> models::GetGoogleAnalyticsMetadata200Response get_google_analytics_metadata(account_id)
+List Google Analytics (GA4) dimensions and metrics
+
+Every dimension and metric the connected GA4 property accepts in a report, including its custom definitions. Cached for one hour. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Zernio account ID of the Google Analytics connection. | [required] |
+
+### Return type
+
+[**models::GetGoogleAnalyticsMetadata200Response**](getGoogleAnalyticsMetadata_200_response.md)
 
 ### Authorization
 
@@ -1090,6 +1123,66 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## run_google_analytics_realtime_report
+
+> models::GoogleAnalyticsReport run_google_analytics_realtime_report(run_google_analytics_realtime_report_request)
+Run a Google Analytics (GA4) realtime report
+
+Activity on a connected GA4 property in the last 30 minutes (up to 60 for Analytics 360), through Google's `runRealtimeReport`. Not cached. Only realtime dimensions and metrics are accepted, e.g. `country`, `unifiedScreenName` with `activeUsers`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**run_google_analytics_realtime_report_request** | [**RunGoogleAnalyticsRealtimeReportRequest**](RunGoogleAnalyticsRealtimeReportRequest.md) |  | [required] |
+
+### Return type
+
+[**models::GoogleAnalyticsReport**](GoogleAnalyticsReport.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## run_google_analytics_report
+
+> models::GoogleAnalyticsReport run_google_analytics_report(run_google_analytics_report_request)
+Run a Google Analytics (GA4) report
+
+Runs a report on a connected GA4 property through Google's Data API (`runReport`). Pick any GA4 dimensions and metrics; filters and ordering use Google's own shapes. Identical requests on the same property are cached for 10 minutes. Google meters each property by quota tokens; when it is used up the request returns 429 until Google refills it (hourly quotas within the hour, daily ones at midnight Pacific time). 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**run_google_analytics_report_request** | [**RunGoogleAnalyticsReportRequest**](RunGoogleAnalyticsReportRequest.md) |  | [required] |
+
+### Return type
+
+[**models::GoogleAnalyticsReport**](GoogleAnalyticsReport.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

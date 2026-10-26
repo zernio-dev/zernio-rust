@@ -1041,6 +1041,10 @@ docs/GetGmbAttributeMetadata200ResponseAttributeMetadataInner.md
 docs/GetGmbAttributeMetadata200ResponseAttributeMetadataInnerValueMetadataInner.md
 docs/GetGmbLocations200Response.md
 docs/GetGmbLocations200ResponseLocationsInner.md
+docs/GetGoogleAnalyticsConnectUrl200Response.md
+docs/GetGoogleAnalyticsMetadata200Response.md
+docs/GetGoogleAnalyticsMetadata200ResponseDimensionsInner.md
+docs/GetGoogleAnalyticsMetadata200ResponseMetricsInner.md
 docs/GetGoogleAssetGroup200Response.md
 docs/GetGoogleBusinessAttributes200Response.md
 docs/GetGoogleBusinessAttributes200ResponseAttributesInner.md
@@ -1346,6 +1350,12 @@ docs/GoogleAdsManagerLink.md
 docs/GoogleAdsUserAccessInvitation.md
 docs/GoogleAdsUserAccessInvitationResult.md
 docs/GoogleAdsUserInvitationApproval.md
+docs/GoogleAnalyticsReport.md
+docs/GoogleAnalyticsReportDimensionHeadersInner.md
+docs/GoogleAnalyticsReportFields.md
+docs/GoogleAnalyticsReportMetricHeadersInner.md
+docs/GoogleAnalyticsReportRowsInner.md
+docs/GoogleAnalyticsReportRowsInnerDimensionValuesInner.md
 docs/GoogleAssetGroupAssetLink.md
 docs/GoogleAssetGroupAssetUnlink.md
 docs/GoogleAssetUpdate.md
@@ -1376,7 +1386,6 @@ docs/GoogleDemandGenInputImages.md
 docs/GoogleDemandGenUpdate.md
 docs/GoogleDemandGenUpdateImages.md
 docs/GoogleListingGroupDimension.md
-docs/GoogleListingGroupDimensionProductBrand.md
 docs/GoogleListingGroupDimensionProductCategory.md
 docs/GoogleListingGroupDimensionProductChannel.md
 docs/GoogleListingGroupDimensionProductCondition.md
@@ -1662,6 +1671,8 @@ docs/ListFacebookVisitorPosts200Response.md
 docs/ListFormLeads200Response.md
 docs/ListFormLeads200ResponseLeadsInner.md
 docs/ListFormLeads200ResponseMeta.md
+docs/ListGoogleAnalyticsProperties200Response.md
+docs/ListGoogleAnalyticsProperties200ResponsePropertiesInner.md
 docs/ListGoogleAssetGroups200Response.md
 docs/ListGoogleBusinessLocations200Response.md
 docs/ListGoogleBusinessLocations200ResponseLocationsInner.md
@@ -2137,6 +2148,10 @@ docs/RfPrediction.md
 docs/RotateSipTrunkCredentials200Response.md
 docs/RunBusinessAgentConnectorTool200Response.md
 docs/RunBusinessAgentConnectorToolRequest.md
+docs/RunGoogleAnalyticsRealtimeReportRequest.md
+docs/RunGoogleAnalyticsRealtimeReportRequestAllOfMinuteRangesInner.md
+docs/RunGoogleAnalyticsReportRequest.md
+docs/RunGoogleAnalyticsReportRequestAllOfDateRangesInner.md
 docs/SavedTargetingAudience.md
 docs/ScheduleBroadcast200Response.md
 docs/ScheduleBroadcast200ResponseBroadcast.md
@@ -2175,6 +2190,9 @@ docs/SelectFacebookPageRequestOneOf.md
 docs/SelectFacebookPageRequestOneOf1.md
 docs/SelectFacebookPageRequestOneOfNot.md
 docs/SelectFacebookPageRequestOneOfUserProfile.md
+docs/SelectGoogleAnalyticsProperty200Response.md
+docs/SelectGoogleAnalyticsProperty200ResponseAccount.md
+docs/SelectGoogleAnalyticsPropertyRequest.md
 docs/SelectGoogleBusinessLocation200Response.md
 docs/SelectGoogleBusinessLocation200ResponseAccount.md
 docs/SelectGoogleBusinessLocation200ResponseFailedInner.md
@@ -4074,6 +4092,10 @@ src/models/get_gmb_attribute_metadata_200_response_attribute_metadata_inner.rs
 src/models/get_gmb_attribute_metadata_200_response_attribute_metadata_inner_value_metadata_inner.rs
 src/models/get_gmb_locations_200_response.rs
 src/models/get_gmb_locations_200_response_locations_inner.rs
+src/models/get_google_analytics_connect_url_200_response.rs
+src/models/get_google_analytics_metadata_200_response.rs
+src/models/get_google_analytics_metadata_200_response_dimensions_inner.rs
+src/models/get_google_analytics_metadata_200_response_metrics_inner.rs
 src/models/get_google_asset_group_200_response.rs
 src/models/get_google_business_attributes_200_response.rs
 src/models/get_google_business_attributes_200_response_attributes_inner.rs
@@ -4371,6 +4393,12 @@ src/models/google_ads_manager_link.rs
 src/models/google_ads_user_access_invitation.rs
 src/models/google_ads_user_access_invitation_result.rs
 src/models/google_ads_user_invitation_approval.rs
+src/models/google_analytics_report.rs
+src/models/google_analytics_report_dimension_headers_inner.rs
+src/models/google_analytics_report_fields.rs
+src/models/google_analytics_report_metric_headers_inner.rs
+src/models/google_analytics_report_rows_inner.rs
+src/models/google_analytics_report_rows_inner_dimension_values_inner.rs
 src/models/google_asset_group_asset_link.rs
 src/models/google_asset_group_asset_unlink.rs
 src/models/google_asset_update.rs
@@ -4401,7 +4429,6 @@ src/models/google_demand_gen_input_images.rs
 src/models/google_demand_gen_update.rs
 src/models/google_demand_gen_update_images.rs
 src/models/google_listing_group_dimension.rs
-src/models/google_listing_group_dimension_product_brand.rs
 src/models/google_listing_group_dimension_product_category.rs
 src/models/google_listing_group_dimension_product_channel.rs
 src/models/google_listing_group_dimension_product_condition.rs
@@ -4681,6 +4708,8 @@ src/models/list_facebook_visitor_posts_200_response.rs
 src/models/list_form_leads_200_response.rs
 src/models/list_form_leads_200_response_leads_inner.rs
 src/models/list_form_leads_200_response_meta.rs
+src/models/list_google_analytics_properties_200_response.rs
+src/models/list_google_analytics_properties_200_response_properties_inner.rs
 src/models/list_google_asset_groups_200_response.rs
 src/models/list_google_business_locations_200_response.rs
 src/models/list_google_business_locations_200_response_locations_inner.rs
@@ -5142,6 +5171,10 @@ src/models/rf_prediction.rs
 src/models/rotate_sip_trunk_credentials_200_response.rs
 src/models/run_business_agent_connector_tool_200_response.rs
 src/models/run_business_agent_connector_tool_request.rs
+src/models/run_google_analytics_realtime_report_request.rs
+src/models/run_google_analytics_realtime_report_request_all_of_minute_ranges_inner.rs
+src/models/run_google_analytics_report_request.rs
+src/models/run_google_analytics_report_request_all_of_date_ranges_inner.rs
 src/models/saved_targeting_audience.rs
 src/models/schedule_broadcast_200_response.rs
 src/models/schedule_broadcast_200_response_broadcast.rs
@@ -5180,6 +5213,9 @@ src/models/select_facebook_page_request_one_of.rs
 src/models/select_facebook_page_request_one_of_1.rs
 src/models/select_facebook_page_request_one_of_not.rs
 src/models/select_facebook_page_request_one_of_user_profile.rs
+src/models/select_google_analytics_property_200_response.rs
+src/models/select_google_analytics_property_200_response_account.rs
+src/models/select_google_analytics_property_request.rs
 src/models/select_google_business_location_200_response.rs
 src/models/select_google_business_location_200_response_account.rs
 src/models/select_google_business_location_200_response_failed_inner.rs
