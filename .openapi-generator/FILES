@@ -563,6 +563,8 @@ docs/CreateDiscordScheduledEventRequestEntityOneOf2.md
 docs/CreateDiscordThread200Response.md
 docs/CreateDiscordThread200ResponseData.md
 docs/CreateDiscordThreadRequest.md
+docs/CreateEventDestination201Response.md
+docs/CreateEventDestinationRequest.md
 docs/CreateGoogleAdAccountRequest.md
 docs/CreateGoogleAssetGroup200Response.md
 docs/CreateGoogleAssetGroup201Response.md
@@ -845,6 +847,7 @@ docs/ErrorResponseDetailsCreatedObjectsInner.md
 docs/ErrorResponseDetailsUnconfirmedWrite.md
 docs/EstimateAdReach200Response.md
 docs/EstimateAdReachRequest.md
+docs/EventDestination.md
 docs/Expired.md
 docs/ExternalPostMediaItem.md
 docs/ExternalPostSummary.md
@@ -1648,6 +1651,7 @@ docs/ListDiscordGuildRoles200ResponseDataInner.md
 docs/ListDiscordPinnedMessages200Response.md
 docs/ListDiscordPinnedMessages200ResponseDataInner.md
 docs/ListDiscordScheduledEvents200Response.md
+docs/ListEventDestinations200Response.md
 docs/ListFacebookPages200Response.md
 docs/ListFacebookPages200ResponsePagesInner.md
 docs/ListFacebookTaggedPosts200Response.md
@@ -2204,6 +2208,12 @@ docs/SendDiscordDirectMessage200ResponseAccount.md
 docs/SendDiscordDirectMessage200ResponseRecipient.md
 docs/SendDiscordDirectMessageRequest.md
 docs/SendDiscordDirectMessageRequestAttachmentsInner.md
+docs/SendEvents200Response.md
+docs/SendEvents200ResponseDestinationsInner.md
+docs/SendEvents200ResponseDestinationsInnerFailuresInner.md
+docs/SendEventsRequest.md
+docs/SendEventsRequestConsent.md
+docs/SendEventsRequestDestinationsInner.md
 docs/SendInboxMessage200Response.md
 docs/SendInboxMessage200ResponseData.md
 docs/SendInboxMessage200ResponseDataAttachmentsInner.md
@@ -3586,6 +3596,8 @@ src/models/create_discord_scheduled_event_request_entity_one_of_2.rs
 src/models/create_discord_thread_200_response.rs
 src/models/create_discord_thread_200_response_data.rs
 src/models/create_discord_thread_request.rs
+src/models/create_event_destination_201_response.rs
+src/models/create_event_destination_request.rs
 src/models/create_google_ad_account_request.rs
 src/models/create_google_asset_group_200_response.rs
 src/models/create_google_asset_group_201_response.rs
@@ -3866,6 +3878,7 @@ src/models/error_response_details_created_objects_inner.rs
 src/models/error_response_details_unconfirmed_write.rs
 src/models/estimate_ad_reach_200_response.rs
 src/models/estimate_ad_reach_request.rs
+src/models/event_destination.rs
 src/models/expired.rs
 src/models/external_post_media_item.rs
 src/models/external_post_summary.rs
@@ -4654,6 +4667,7 @@ src/models/list_discord_guild_roles_200_response_data_inner.rs
 src/models/list_discord_pinned_messages_200_response.rs
 src/models/list_discord_pinned_messages_200_response_data_inner.rs
 src/models/list_discord_scheduled_events_200_response.rs
+src/models/list_event_destinations_200_response.rs
 src/models/list_facebook_pages_200_response.rs
 src/models/list_facebook_pages_200_response_pages_inner.rs
 src/models/list_facebook_tagged_posts_200_response.rs
@@ -5196,6 +5210,12 @@ src/models/send_discord_direct_message_200_response_account.rs
 src/models/send_discord_direct_message_200_response_recipient.rs
 src/models/send_discord_direct_message_request.rs
 src/models/send_discord_direct_message_request_attachments_inner.rs
+src/models/send_events_200_response.rs
+src/models/send_events_200_response_destinations_inner.rs
+src/models/send_events_200_response_destinations_inner_failures_inner.rs
+src/models/send_events_request.rs
+src/models/send_events_request_consent.rs
+src/models/send_events_request_destinations_inner.rs
 src/models/send_inbox_message_200_response.rs
 src/models/send_inbox_message_200_response_data.rs
 src/models/send_inbox_message_200_response_data_attachments_inner.rs

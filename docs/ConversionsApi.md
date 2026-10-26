@@ -9,7 +9,9 @@ Method | HTTP request | Description
 [**create_conversion_action**](ConversionsApi.md#create_conversion_action) | **POST** /v1/ads/conversions/actions | Create website conversion action
 [**create_conversion_destination**](ConversionsApi.md#create_conversion_destination) | **POST** /v1/accounts/{accountId}/conversion-destinations | Create a conversion destination
 [**create_custom_conversion_goal**](ConversionsApi.md#create_custom_conversion_goal) | **POST** /v1/ads/conversions/custom-goals | Create a custom conversion goal
+[**create_event_destination**](ConversionsApi.md#create_event_destination) | **POST** /v1/events/destinations | Add an event destination
 [**delete_conversion_destination**](ConversionsApi.md#delete_conversion_destination) | **DELETE** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Delete a conversion destination
+[**delete_event_destination**](ConversionsApi.md#delete_event_destination) | **DELETE** /v1/events/destinations/{destinationId} | Remove an event destination
 [**get_conversion_destination**](ConversionsApi.md#get_conversion_destination) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Get a conversion destination
 [**get_conversion_metrics**](ConversionsApi.md#get_conversion_metrics) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/metrics | Get attribution metrics
 [**get_conversions_quality**](ConversionsApi.md#get_conversions_quality) | **GET** /v1/ads/conversions/quality | Get Event Match Quality
@@ -18,9 +20,11 @@ Method | HTTP request | Description
 [**list_conversion_associations**](ConversionsApi.md#list_conversion_associations) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | List associated campaigns
 [**list_conversion_destinations**](ConversionsApi.md#list_conversion_destinations) | **GET** /v1/accounts/{accountId}/conversion-destinations | List conversion destinations
 [**list_custom_conversion_goals**](ConversionsApi.md#list_custom_conversion_goals) | **GET** /v1/ads/conversions/custom-goals | List custom conversion goals
+[**list_event_destinations**](ConversionsApi.md#list_event_destinations) | **GET** /v1/events/destinations | List event destinations
 [**remove_conversion_associations**](ConversionsApi.md#remove_conversion_associations) | **DELETE** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | Remove associated campaigns
 [**remove_custom_conversion_goal**](ConversionsApi.md#remove_custom_conversion_goal) | **DELETE** /v1/ads/conversions/custom-goals/{goalId} | Remove a custom conversion goal
 [**send_conversions**](ConversionsApi.md#send_conversions) | **POST** /v1/ads/conversions | Send conversion events
+[**send_events**](ConversionsApi.md#send_events) | **POST** /v1/events | Send events to every destination
 [**update_ad_conversion_goals**](ConversionsApi.md#update_ad_conversion_goals) | **PATCH** /v1/ads/conversions/goals | Update account conversion goals
 [**update_conversion_action**](ConversionsApi.md#update_conversion_action) | **PATCH** /v1/ads/conversions/actions/{actionId} | Update a conversion action's settings
 [**update_conversion_destination**](ConversionsApi.md#update_conversion_destination) | **PATCH** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Update a conversion destination
@@ -181,6 +185,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## create_event_destination
+
+> models::CreateEventDestination201Response create_event_destination(create_event_destination_request)
+Add an event destination
+
+Saves an ad platform destination for a profile, so events sent to `POST /v1/events` for that profile are forwarded to it. Pick `destinationId` from `GET /v1/accounts/{accountId}/conversion-destinations`. Set `eventNames` to forward only those events (for example only `Purchase`); leave it out to forward every event. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_event_destination_request** | [**CreateEventDestinationRequest**](CreateEventDestinationRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateEventDestination201Response**](createEventDestination_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## delete_conversion_destination
 
 > delete_conversion_destination(account_id, destination_id, ad_account_id)
@@ -200,6 +234,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
  (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_event_destination
+
+> models::DeleteSmsSenderId200Response delete_event_destination(destination_id)
+Remove an event destination
+
+Stops forwarding events to this destination. `destinationId` is the event destination `id`, not the platform destination.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**destination_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::DeleteSmsSenderId200Response**](deleteSmsSenderId_200_response.md)
 
 ### Authorization
 
@@ -470,6 +534,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_event_destinations
+
+> models::ListEventDestinations200Response list_event_destinations(profile_id)
+List event destinations
+
+Lists the ad platform destinations that receive events sent to `POST /v1/events`, for one profile or every profile you can access.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**profile_id** | Option<**String**> |  |  |
+
+### Return type
+
+[**models::ListEventDestinations200Response**](listEventDestinations_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## remove_conversion_associations
 
 > models::RemoveConversionAssociations200Response remove_conversion_associations(account_id, destination_id, ad_account_id, campaign_ids)
@@ -553,6 +647,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::SendConversions200Response**](sendConversions_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## send_events
+
+> models::SendEvents200Response send_events(send_events_request)
+Send events to every destination
+
+Sends conversion events once and forwards them to every ad platform destination saved for the profile (see `POST /v1/events/destinations`), or to the `destinations` given in the request. Each destination receives the events exactly as `POST /v1/ads/conversions` would send them, so the per-platform notes there (hashing, batching, `eventName` semantics, dedup on `eventId`) apply here too. A destination saved with `eventNames` only receives events with those names.  Zernio also stores each event for the profile's reporting. Email, phone and `externalId` are stored only as SHA-256 hashes, and `sourceUrl` keeps only its origin, path and attribution parameters (`utm_*`, `gclid`, `fbclid`, `ttclid`, `li_fat_id`, `epik`, `rdt_cid`, `gbraid`, `wbraid`). Events sent with `testCode` are forwarded but not stored.  One destination failing never blocks the others: each one reports its own result. Requires the Ads add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**send_events_request** | [**SendEventsRequest**](SendEventsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::SendEvents200Response**](sendEvents_200_response.md)
 
 ### Authorization
 
