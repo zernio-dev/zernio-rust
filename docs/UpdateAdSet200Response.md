@@ -17,7 +17,9 @@ Name | Type | Description | Notes
 **bid_amount** | Option<**f64**> |  | [optional]
 **roas_average_floor** | Option<**f64**> |  | [optional]
 **platform_specific_data** | Option<**serde_json::Value**> |  | [optional]
-**targeting** | Option<**serde_json::Value**> | Present when `placements` or `targeting` was sent. The ad set's full Meta targeting as written (Meta snake_case). The same snake_case object is stored as the ad set's and its ads' `targeting`. | [optional]
+**targeting** | Option<**serde_json::Value**> | Present when `placements` or `targeting` was sent. The ad set's full targeting as written, in the platform's own vocabulary (Meta or Reddit snake_case). Stored as the ad set's `targeting`. Meta stores the same object on its ads; Reddit stores it on its ads in the create vocabulary (`countries`, `communities`, ...), as GET /v1/ads/ad-sets/{adSetId}/targeting returns it. | [optional]
+**start_date** | Option<**String**> | Reddit: the start_time written, a UTC instant. Present when `startDate` was sent. | [optional]
+**end_date** | Option<**String**> | Reddit: the end_time written, a UTC instant, or null when the end date was removed. Present when `endDate` was sent. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

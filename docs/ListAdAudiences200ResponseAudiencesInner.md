@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **platform_audience_id** | Option<**String**> |  | [optional]
 **name** | Option<**String**> |  | [optional]
 **description** | Option<**String**> |  | [optional]
-**r#type** | Option<**Type**> |  (enum: customer_list, company_list, engagement, meta_engagement, tiktok_engagement, pinterest_engagement, website, website_retargeting, lookalike, saved_targeting) | [optional]
+**r#type** | Option<**Type**> | `reddit_engagement`, `third_party` and `in_market` are listed from Reddit (engagement retargeting, and Reddit's own audiences) so they can be targeted. Zernio cannot create them. (enum: customer_list, company_list, engagement, meta_engagement, tiktok_engagement, pinterest_engagement, website, website_retargeting, lookalike, saved_targeting, reddit_engagement, third_party, in_market) | [optional]
 **spec** | Option<[**models::TargetingSpec**](TargetingSpec.md)> |  | [optional]
 **platform** | Option<**String**> |  | [optional]
 **size** | Option<**i32**> |  | [optional]

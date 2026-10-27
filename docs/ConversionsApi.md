@@ -21,6 +21,7 @@ Method | HTTP request | Description
 [**list_conversion_destinations**](ConversionsApi.md#list_conversion_destinations) | **GET** /v1/accounts/{accountId}/conversion-destinations | List conversion destinations
 [**list_custom_conversion_goals**](ConversionsApi.md#list_custom_conversion_goals) | **GET** /v1/ads/conversions/custom-goals | List custom conversion goals
 [**list_event_destinations**](ConversionsApi.md#list_event_destinations) | **GET** /v1/events/destinations | List event destinations
+[**list_events**](ConversionsApi.md#list_events) | **GET** /v1/events | List stored events
 [**remove_conversion_associations**](ConversionsApi.md#remove_conversion_associations) | **DELETE** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | Remove associated campaigns
 [**remove_custom_conversion_goal**](ConversionsApi.md#remove_custom_conversion_goal) | **DELETE** /v1/ads/conversions/custom-goals/{goalId} | Remove a custom conversion goal
 [**send_conversions**](ConversionsApi.md#send_conversions) | **POST** /v1/ads/conversions | Send conversion events
@@ -551,6 +552,41 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListEventDestinations200Response**](listEventDestinations_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_events
+
+> models::ListEvents200Response list_events(profile_id, limit, from, to, event_name, cursor)
+List stored events
+
+Lists the conversion events stored for a profile by `POST /v1/events`, newest first. Personal data is never returned: `hasEmail`, `hasPhone` and `hasExternalId` only say whether the event carried that identifier. Events sent with `testCode` are not stored, so they never appear here.  Paginate with `cursor`: pass the `nextCursor` of the previous page until it comes back `null`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**profile_id** | **String** |  | [required] |
+**limit** | Option<**i32**> |  |  |[default to 50]
+**from** | Option<**String**> | Only events at or after this time (ISO 8601, on the event time). |  |
+**to** | Option<**String**> | Only events before this time (ISO 8601, on the event time). |  |
+**event_name** | Option<**String**> | Only events with this name, such as `Purchase`. |  |
+**cursor** | Option<**String**> | `nextCursor` from the previous page. |  |
+
+### Return type
+
+[**models::ListEvents200Response**](listEvents_200_response.md)
 
 ### Authorization
 

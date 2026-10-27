@@ -516,6 +516,7 @@ docs/CreateAdRule201Response.md
 docs/CreateAdRuleRequest.md
 docs/CreateAdSet201Response.md
 docs/CreateAdSetRequest.md
+docs/CreateAdSetRequestPromotedObject.md
 docs/CreateApiKey201Response.md
 docs/CreateApiKeyRequest.md
 docs/CreateBidStrategy201Response.md
@@ -1001,6 +1002,7 @@ docs/GetAdReview200ResponseReviewRejectionsInner.md
 docs/GetAdReview200ResponseReviewRejectionsInnerContent.md
 docs/GetAdReview200ResponseReviewReviewFeedback.md
 docs/GetAdSetDetails200Response.md
+docs/GetAdSetTargeting200Response.md
 docs/GetAdTrackingTags200Response.md
 docs/GetAdTree202Response.md
 docs/GetAdVideoStatus200Response.md
@@ -1530,6 +1532,7 @@ docs/InstagramMentionedCommentMedia.md
 docs/InstagramMentionedMedia.md
 docs/InstagramPlatformData.md
 docs/InstagramPlatformDataAudioConfiguration.md
+docs/InstagramPlatformDataDroppedCollaboratorsInner.md
 docs/InstagramPlatformDataTrialParams.md
 docs/InstagramPlatformDataUserTagsInner.md
 docs/InstagramTaggedMedia.md
@@ -1728,6 +1731,10 @@ docs/ListEmailFolders200Response.md
 docs/ListEmailMessages200Response.md
 docs/ListEmailThreads200Response.md
 docs/ListEventDestinations200Response.md
+docs/ListEvents200Response.md
+docs/ListEvents200ResponseEventsInner.md
+docs/ListEvents200ResponseEventsInnerClickIds.md
+docs/ListEvents200ResponseEventsInnerUtm.md
 docs/ListFacebookPages200Response.md
 docs/ListFacebookPages200ResponsePagesInner.md
 docs/ListFacebookTaggedPosts200Response.md
@@ -3667,6 +3674,7 @@ src/models/create_ad_rule_201_response.rs
 src/models/create_ad_rule_request.rs
 src/models/create_ad_set_201_response.rs
 src/models/create_ad_set_request.rs
+src/models/create_ad_set_request_promoted_object.rs
 src/models/create_api_key_201_response.rs
 src/models/create_api_key_request.rs
 src/models/create_bid_strategy_201_response.rs
@@ -4147,6 +4155,7 @@ src/models/get_ad_review_200_response_review_rejections_inner.rs
 src/models/get_ad_review_200_response_review_rejections_inner_content.rs
 src/models/get_ad_review_200_response_review_review_feedback.rs
 src/models/get_ad_set_details_200_response.rs
+src/models/get_ad_set_targeting_200_response.rs
 src/models/get_ad_tracking_tags_200_response.rs
 src/models/get_ad_tree_202_response.rs
 src/models/get_ad_video_status_200_response.rs
@@ -4665,6 +4674,7 @@ src/models/instagram_mentioned_comment_media.rs
 src/models/instagram_mentioned_media.rs
 src/models/instagram_platform_data.rs
 src/models/instagram_platform_data_audio_configuration.rs
+src/models/instagram_platform_data_dropped_collaborators_inner.rs
 src/models/instagram_platform_data_trial_params.rs
 src/models/instagram_platform_data_user_tags_inner.rs
 src/models/instagram_tagged_media.rs
@@ -4860,6 +4870,10 @@ src/models/list_email_folders_200_response.rs
 src/models/list_email_messages_200_response.rs
 src/models/list_email_threads_200_response.rs
 src/models/list_event_destinations_200_response.rs
+src/models/list_events_200_response.rs
+src/models/list_events_200_response_events_inner.rs
+src/models/list_events_200_response_events_inner_click_ids.rs
+src/models/list_events_200_response_events_inner_utm.rs
 src/models/list_facebook_pages_200_response.rs
 src/models/list_facebook_pages_200_response_pages_inner.rs
 src/models/list_facebook_tagged_posts_200_response.rs
