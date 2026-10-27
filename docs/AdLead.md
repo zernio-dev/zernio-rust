@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **created_time** | Option<**String**> | ISO 8601. | [optional]
 **fields** | Option<**std::collections::HashMap<String, String>**> | Question key → answer. On LinkedIn, the key is the lowercased predefinedField, else the question name, else the numeric questionId; multiple-choice values are option labels (unlike Meta, which returns the option key). | [optional]
 **field_data** | Option<**Vec<serde_json::Value>**> | Raw Meta field_data. | [optional]
+**consents** | Option<[**Vec<models::AdLeadConsent>**](AdLeadConsent.md)> | Meta lead forms only: the answer to every custom disclaimer checkbox, required or optional. Empty when the form has none, and may be empty on leads stored before 2026-10-22. LinkedIn leads do not carry the field. | [optional]
 **status** | Option<**Status**> | Meta leads only. `contacted` is set when the first WhatsApp message of a lead_received workflow is delivered, `unreachable` when it fails or the phone number is not valid. (enum: new, contacted, unreachable, qualified, converted, disqualified) | [optional]
 **status_changed_at** | Option<**String**> |  | [optional]
 **value** | Option<**f64**> |  | [optional]

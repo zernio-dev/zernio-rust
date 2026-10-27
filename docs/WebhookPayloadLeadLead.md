@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **adset_id** | Option<**String**> |  | [optional]
 **campaign_id** | Option<**String**> |  | [optional]
 **fields** | **std::collections::HashMap<String, String>** | Flattened question key -> answer map. For multiple-choice questions the value is the option key (e.g. \"k1\"), not the display label.  | 
+**consents** | Option<[**Vec<models::AdLeadConsent>**](AdLeadConsent.md)> | Sent on every delivery since 2026-10-25. Absent when an older event is redelivered, since redeliveries replay the stored payload. | [optional]
 **is_organic** | **bool** | True when the lead came from an organic post rather than a paid ad | 
 **created_at** | **String** | Meta's lead creation time (ISO 8601) | 
 

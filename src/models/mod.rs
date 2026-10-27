@@ -66,6 +66,8 @@ pub mod ad_keyword_quality;
 pub use self::ad_keyword_quality::AdKeywordQuality;
 pub mod ad_lead;
 pub use self::ad_lead::AdLead;
+pub mod ad_lead_consent;
+pub use self::ad_lead_consent::AdLeadConsent;
 pub mod ad_metrics;
 pub use self::ad_metrics::AdMetrics;
 pub mod ad_negative_keyword_list;
