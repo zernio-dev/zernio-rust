@@ -1860,6 +1860,7 @@ docs/MessagingCarouselCard.md
 docs/MessengerGreeting.md
 docs/MessengerIceBreakerLocale.md
 docs/MessengerIceBreakerLocaleCallToActionsInner.md
+docs/MetaAdScheduleInner.md
 docs/MetaAdsPlatformData.md
 docs/MetaAssignedUser.md
 docs/MetaBusinessUser.md
@@ -4892,6 +4893,7 @@ src/models/messaging_carousel_card.rs
 src/models/messenger_greeting.rs
 src/models/messenger_ice_breaker_locale.rs
 src/models/messenger_ice_breaker_locale_call_to_actions_inner.rs
+src/models/meta_ad_schedule_inner.rs
 src/models/meta_ads_platform_data.rs
 src/models/meta_assigned_user.rs
 src/models/meta_business_user.rs

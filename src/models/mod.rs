@@ -3618,6 +3618,8 @@ pub mod messenger_ice_breaker_locale;
 pub use self::messenger_ice_breaker_locale::MessengerIceBreakerLocale;
 pub mod messenger_ice_breaker_locale_call_to_actions_inner;
 pub use self::messenger_ice_breaker_locale_call_to_actions_inner::MessengerIceBreakerLocaleCallToActionsInner;
+pub mod meta_ad_schedule_inner;
+pub use self::meta_ad_schedule_inner::MetaAdScheduleInner;
 pub mod meta_ads_platform_data;
 pub use self::meta_ads_platform_data::MetaAdsPlatformData;
 pub mod meta_assigned_user;
