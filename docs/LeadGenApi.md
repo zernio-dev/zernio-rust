@@ -5,6 +5,7 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**archive_lead_form**](LeadGenApi.md#archive_lead_form) | **DELETE** /v1/ads/lead-forms/{formId} | Archive a lead form
+[**count_leads**](LeadGenApi.md#count_leads) | **GET** /v1/ads/leads/counts | Count leads by status
 [**create_lead_form**](LeadGenApi.md#create_lead_form) | **POST** /v1/ads/lead-forms | Create a lead form
 [**create_test_lead**](LeadGenApi.md#create_test_lead) | **POST** /v1/ads/lead-forms/{formId}/test-leads | Create a test lead
 [**delete_test_lead**](LeadGenApi.md#delete_test_lead) | **DELETE** /v1/ads/lead-forms/{formId}/test-leads | Delete a test lead
@@ -34,6 +35,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ArchiveLeadForm200Response**](archiveLeadForm_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## count_leads
+
+> models::CountLeads200Response count_leads(account_id, campaign_id)
+Count leads by status
+
+Counts your team's stored Meta leads per status, for a status filter or a \"new leads\" badge.  Every status is present, with 0 when no lead has it. Requires the Ads add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | Option<**String**> | Count one connected account only. |  |
+**campaign_id** | Option<**String**> | The platform campaign id the leads came from. |  |
+
+### Return type
+
+[**models::CountLeads200Response**](countLeads_200_response.md)
 
 ### Authorization
 
@@ -241,7 +273,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_leads
 
-> models::ListLeads200Response list_leads(form_id, account_id, ad_account_id, limit, since, cursor)
+> models::ListLeads200Response list_leads(form_id, account_id, account_ids, status, campaign_id, platform, q, ad_account_id, limit, since, cursor)
 List submitted leads
 
 Lists the leads submitted through your Meta or LinkedIn lead forms, newest first.  Returns submitted Lead Gen leads for your team, newest-first, with keyset pagination on `cursor`. For Meta (default) leads are served from the persisted cache, ingested in real time from the `leadgen` webhook. When `accountId` is a LinkedIn ads account, leads are fetched live from LinkedIn's `leadFormResponses` (LinkedIn has no webhook and enforces 90-day retention, so nothing is persisted) and `adAccountId` is required. Reading LinkedIn responses needs the `r_marketing_leadgen_automation` permission; accounts connected before it was added must reconnect. Requires the Ads add-on. 
@@ -253,6 +285,11 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **form_id** | Option<**String**> | Filter to a single lead form. |  |
 **account_id** | Option<**String**> | Filter to a single connected account. LinkedIn ads accounts switch to the live fetch. |  |
+**account_ids** | Option<**String**> | Meta only. Comma-separated connected account ids, to list several accounts at once. Without accountId or accountIds every account of the team is listed. |  |
+**status** | Option<**String**> | Meta only. Comma-separated lead statuses: new, contacted, unreachable, qualified, converted, disqualified. |  |
+**campaign_id** | Option<**String**> | Meta only. The platform campaign id the lead came from. |  |
+**platform** | Option<**String**> | meta skips the LinkedIn live fetch; linkedin requires accountId to be a LinkedIn ads connection (400 otherwise). |  |
+**q** | Option<**String**> | Meta only. Case-insensitive text search over the lead's answers and the form name. |  |
 **ad_account_id** | Option<**String**> | LinkedIn only: the LinkedIn ad account id whose responses to read (owner-scoped finder). |  |
 **limit** | Option<**i32**> |  |  |[default to 25]
 **since** | Option<**i32**> | Unix seconds; only leads created at/after this timestamp. Millisecond timestamps return 400 with instructions to divide by 1000. |  |

@@ -22,6 +22,7 @@ Method | HTTP request | Description
 [**detach_ad_label**](AdAccountsApi.md#detach_ad_label) | **DELETE** /v1/ads/labels/{labelId}/assignments | Detach a Google Ads label
 [**get_ad_account_billing**](AdAccountsApi.md#get_ad_account_billing) | **GET** /v1/ads/accounts/billing | Get ad account billing
 [**get_ad_account_finance**](AdAccountsApi.md#get_ad_account_finance) | **GET** /v1/ads/accounts/finance | Ad account finances
+[**get_ad_account_health**](AdAccountsApi.md#get_ad_account_health) | **GET** /v1/ads/accounts/health | Check an ad account before creating ads
 [**get_ad_account_hierarchy**](AdAccountsApi.md#get_ad_account_hierarchy) | **GET** /v1/ads/accounts/hierarchy | Get manager account hierarchy
 [**get_ad_account_live_entities**](AdAccountsApi.md#get_ad_account_live_entities) | **GET** /v1/ads/accounts/live | Read an ad account's campaigns and ad sets live
 [**get_ad_comments**](AdAccountsApi.md#get_ad_comments) | **GET** /v1/ads/{adId}/comments | List comments on an ad
@@ -623,6 +624,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetAdAccountFinance200Response**](getAdAccountFinance_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_ad_account_health
+
+> models::GetAdAccountHealth200Response get_ad_account_health(account_id, ad_account_id)
+Check an ad account before creating ads
+
+Checks whether a Meta ad account can run ads right now, with a fix link for each problem.  Reads the account status, the payment method, the account spending limit, the Facebook Page and its Instagram account, the Page's Lead Ads terms, the newest pixel event and the WhatsApp number linked to the Page. Each check reads on its own: one this connection cannot see comes back `unknown` instead of failing the request.  `status` is `blocked` when any check is `error` (ads will be refused), `attention` when one is `warning`, else `ok`. `missing` marks an optional asset that is not set up (a pixel, a WhatsApp number): only the ads that need it are affected. A `fix.url` is either a Meta page or a Zernio dashboard path (starting with `/`).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Zernio SocialAccount id (posting or ads variant) used to resolve the Meta token. | [required] |
+**ad_account_id** | **String** | Meta ad account id (act_<n>). | [required] |
+
+### Return type
+
+[**models::GetAdAccountHealth200Response**](getAdAccountHealth_200_response.md)
 
 ### Authorization
 

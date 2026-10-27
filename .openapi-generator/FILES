@@ -211,6 +211,8 @@ docs/BlogsApi.md
 docs/BlueskyPlatformData.md
 docs/BookmarkPost200Response.md
 docs/BookmarkPostRequest.md
+docs/BoostPost200Response.md
+docs/BoostPost200ResponseResultsInner.md
 docs/BoostPost201Response.md
 docs/BoostPostRequest.md
 docs/BoostPostRequestAttributionSpecInner.md
@@ -450,6 +452,8 @@ docs/ConversionEventMessaging.md
 docs/ConversionEventUser.md
 docs/ConversionEventUserClickIds.md
 docs/ConversionsApi.md
+docs/CountLeads200Response.md
+docs/CountLeads200ResponseCounts.md
 docs/CreateAccountGroup201Response.md
 docs/CreateAccountGroup201ResponseGroup.md
 docs/CreateAccountGroupRequest.md
@@ -911,6 +915,9 @@ docs/GetAdAccountBilling200ResponsePaymentsAccountsInner.md
 docs/GetAdAccountBilling200ResponsePendingBudgetProposalsInner.md
 docs/GetAdAccountFinance200Response.md
 docs/GetAdAccountFinance200ResponseFundingSource.md
+docs/GetAdAccountHealth200Response.md
+docs/GetAdAccountHealth200ResponseChecksInner.md
+docs/GetAdAccountHealth200ResponseChecksInnerFix.md
 docs/GetAdAccountHierarchy200Response.md
 docs/GetAdAccountHierarchy200ResponseDirectCustomersInner.md
 docs/GetAdAccountHierarchy200ResponseDirectCustomersInnerPendingInvitationsInner.md
@@ -3279,6 +3286,8 @@ src/models/blog_article_image.rs
 src/models/bluesky_platform_data.rs
 src/models/bookmark_post_200_response.rs
 src/models/bookmark_post_request.rs
+src/models/boost_post_200_response.rs
+src/models/boost_post_200_response_results_inner.rs
 src/models/boost_post_201_response.rs
 src/models/boost_post_request.rs
 src/models/boost_post_request_attribution_spec_inner.rs
@@ -3506,6 +3515,8 @@ src/models/conversion_event_items_inner.rs
 src/models/conversion_event_messaging.rs
 src/models/conversion_event_user.rs
 src/models/conversion_event_user_click_ids.rs
+src/models/count_leads_200_response.rs
+src/models/count_leads_200_response_counts.rs
 src/models/create_account_group_201_response.rs
 src/models/create_account_group_201_response_group.rs
 src/models/create_account_group_request.rs
@@ -3964,6 +3975,9 @@ src/models/get_ad_account_billing_200_response_payments_accounts_inner.rs
 src/models/get_ad_account_billing_200_response_pending_budget_proposals_inner.rs
 src/models/get_ad_account_finance_200_response.rs
 src/models/get_ad_account_finance_200_response_funding_source.rs
+src/models/get_ad_account_health_200_response.rs
+src/models/get_ad_account_health_200_response_checks_inner.rs
+src/models/get_ad_account_health_200_response_checks_inner_fix.rs
 src/models/get_ad_account_hierarchy_200_response.rs
 src/models/get_ad_account_hierarchy_200_response_direct_customers_inner.rs
 src/models/get_ad_account_hierarchy_200_response_direct_customers_inner_pending_invitations_inner.rs
