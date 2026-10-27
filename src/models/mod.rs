@@ -3368,6 +3368,8 @@ pub mod list_events_200_response;
 pub use self::list_events_200_response::ListEvents200Response;
 pub mod list_events_200_response_events_inner;
 pub use self::list_events_200_response_events_inner::ListEvents200ResponseEventsInner;
+pub mod list_events_200_response_events_inner_ad;
+pub use self::list_events_200_response_events_inner_ad::ListEvents200ResponseEventsInnerAd;
 pub mod list_events_200_response_events_inner_click_ids;
 pub use self::list_events_200_response_events_inner_click_ids::ListEvents200ResponseEventsInnerClickIds;
 pub mod list_events_200_response_events_inner_utm;

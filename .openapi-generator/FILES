@@ -1733,6 +1733,7 @@ docs/ListEmailThreads200Response.md
 docs/ListEventDestinations200Response.md
 docs/ListEvents200Response.md
 docs/ListEvents200ResponseEventsInner.md
+docs/ListEvents200ResponseEventsInnerAd.md
 docs/ListEvents200ResponseEventsInnerClickIds.md
 docs/ListEvents200ResponseEventsInnerUtm.md
 docs/ListFacebookPages200Response.md
@@ -4872,6 +4873,7 @@ src/models/list_email_threads_200_response.rs
 src/models/list_event_destinations_200_response.rs
 src/models/list_events_200_response.rs
 src/models/list_events_200_response_events_inner.rs
+src/models/list_events_200_response_events_inner_ad.rs
 src/models/list_events_200_response_events_inner_click_ids.rs
 src/models/list_events_200_response_events_inner_utm.rs
 src/models/list_facebook_pages_200_response.rs

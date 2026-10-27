@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **has_email** | Option<**bool**> |  | [optional]
 **has_phone** | Option<**bool**> |  | [optional]
 **has_external_id** | Option<**bool**> |  | [optional]
+**ad** | Option<[**models::ListEvents200ResponseEventsInnerAd**](ListEvents200ResponseEventsInnerAd.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
