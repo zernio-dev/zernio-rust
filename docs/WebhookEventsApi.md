@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**on_account_ads_sync_recovered**](WebhookEventsApi.md#on_account_ads_sync_recovered) | **POST** /account.ads.sync_recovered | Ads sync recovered event
 [**on_account_connected**](WebhookEventsApi.md#on_account_connected) | **POST** /account.connected | Account connected event
 [**on_account_disconnected**](WebhookEventsApi.md#on_account_disconnected) | **POST** /account.disconnected | Account disconnected event
+[**on_account_rate_limited**](WebhookEventsApi.md#on_account_rate_limited) | **POST** /account.rate_limited | Mailbox sending cooldown started
 [**on_ad_account_status_changed**](WebhookEventsApi.md#on_ad_account_status_changed) | **POST** /ad_account.status_changed | Ad account status changed event
 [**on_ad_delivery_issue**](WebhookEventsApi.md#on_ad_delivery_issue) | **POST** /ad.delivery_issue | Ad delivery issue event
 [**on_ad_review_approved**](WebhookEventsApi.md#on_ad_review_approved) | **POST** /ad.review.approved | Ad review approved event
@@ -21,6 +22,9 @@ Method | HTTP request | Description
 [**on_branded_calling_identity_action_required**](WebhookEventsApi.md#on_branded_calling_identity_action_required) | **POST** /branded_calling.identity.action_required | Caller identity action required event
 [**on_branded_calling_identity_status_updated**](WebhookEventsApi.md#on_branded_calling_identity_status_updated) | **POST** /branded_calling.identity.status_updated | Caller identity status updated event
 [**on_branded_calling_number_status_updated**](WebhookEventsApi.md#on_branded_calling_number_status_updated) | **POST** /branded_calling.number.status_updated | Branded number status updated event
+[**on_calendar_event_created**](WebhookEventsApi.md#on_calendar_event_created) | **POST** /calendar.event.created | Calendar event created
+[**on_calendar_event_deleted**](WebhookEventsApi.md#on_calendar_event_deleted) | **POST** /calendar.event.deleted | Calendar event deleted
+[**on_calendar_event_updated**](WebhookEventsApi.md#on_calendar_event_updated) | **POST** /calendar.event.updated | Calendar event updated
 [**on_call_ended**](WebhookEventsApi.md#on_call_ended) | **POST** /call.ended | Call ended event
 [**on_call_failed**](WebhookEventsApi.md#on_call_failed) | **POST** /call.failed | Call failed event
 [**on_call_permission_request**](WebhookEventsApi.md#on_call_permission_request) | **POST** /call.permission_request | Call permission request reply event
@@ -33,11 +37,17 @@ Method | HTTP request | Description
 [**on_commerce_product_created**](WebhookEventsApi.md#on_commerce_product_created) | **POST** /commerce.product.created | Commerce product created event
 [**on_commerce_product_deleted**](WebhookEventsApi.md#on_commerce_product_deleted) | **POST** /commerce.product.deleted | Commerce product deleted event
 [**on_commerce_product_updated**](WebhookEventsApi.md#on_commerce_product_updated) | **POST** /commerce.product.updated | Commerce product updated event
+[**on_contact_deleted**](WebhookEventsApi.md#on_contact_deleted) | **POST** /contact.deleted | Contact deleted
 [**on_contact_field_changed**](WebhookEventsApi.md#on_contact_field_changed) | **POST** /contact.field_changed | Contact field changed event
 [**on_contact_tag_added**](WebhookEventsApi.md#on_contact_tag_added) | **POST** /contact.tag_added | Contact tag added event
 [**on_contact_tag_removed**](WebhookEventsApi.md#on_contact_tag_removed) | **POST** /contact.tag_removed | Contact tag removed event
+[**on_contact_updated**](WebhookEventsApi.md#on_contact_updated) | **POST** /contact.updated | Contact updated
 [**on_conversation_control_changed**](WebhookEventsApi.md#on_conversation_control_changed) | **POST** /conversation.control_changed | Conversation control changed event
 [**on_conversation_started**](WebhookEventsApi.md#on_conversation_started) | **POST** /conversation.started | Conversation started event
+[**on_file_created**](WebhookEventsApi.md#on_file_created) | **POST** /file.created | File created
+[**on_file_deleted**](WebhookEventsApi.md#on_file_deleted) | **POST** /file.deleted | File deleted
+[**on_file_picked**](WebhookEventsApi.md#on_file_picked) | **POST** /file.picked | Files picked
+[**on_file_updated**](WebhookEventsApi.md#on_file_updated) | **POST** /file.updated | File updated
 [**on_lead_received**](WebhookEventsApi.md#on_lead_received) | **POST** /lead.received | Lead received event
 [**on_message_deleted**](WebhookEventsApi.md#on_message_deleted) | **POST** /message.deleted | Message deleted event
 [**on_message_delivered**](WebhookEventsApi.md#on_message_delivered) | **POST** /message.delivered | Message delivered event
@@ -230,6 +240,36 @@ Fired when a connected account becomes disconnected.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_account_disconnected** | [**WebhookPayloadAccountDisconnected**](WebhookPayloadAccountDisconnected.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_account_rate_limited
+
+> on_account_rate_limited(webhook_payload_account_rate_limited)
+Mailbox sending cooldown started
+
+Fired when a Google or Microsoft mailbox enters a sending cooldown (same body to more than 50 recipients in an hour, or a later trigger). Sends answer 429 until `account.resetsAt`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_account_rate_limited** | [**WebhookPayloadAccountRateLimited**](WebhookPayloadAccountRateLimited.md) |  | [required] |
 
 ### Return type
 
@@ -607,6 +647,92 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## on_calendar_event_created
+
+> on_calendar_event_created(webhook_payload_calendar_event)
+Calendar event created
+
+A new event appeared on a connected Microsoft calendar (push, seconds after the change).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_calendar_event** | [**WebhookPayloadCalendarEvent**](WebhookPayloadCalendarEvent.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_calendar_event_deleted
+
+> on_calendar_event_deleted(webhook_payload_calendar_event)
+Calendar event deleted
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_calendar_event** | [**WebhookPayloadCalendarEvent**](WebhookPayloadCalendarEvent.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_calendar_event_updated
+
+> on_calendar_event_updated(webhook_payload_calendar_event)
+Calendar event updated
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_calendar_event** | [**WebhookPayloadCalendarEvent**](WebhookPayloadCalendarEvent.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## on_call_ended
 
 > on_call_ended(webhook_payload_call_ended)
@@ -967,6 +1093,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## on_contact_deleted
+
+> on_contact_deleted(webhook_payload_contact)
+Contact deleted
+
+The provider contact was deleted; its email channel is removed, the contact row stays when other channels remain.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_contact** | [**WebhookPayloadContact**](WebhookPayloadContact.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## on_contact_field_changed
 
 > on_contact_field_changed(webhook_payload_contact_field_changed)
@@ -1057,6 +1213,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## on_contact_updated
+
+> on_contact_updated(webhook_payload_contact)
+Contact updated
+
+A provider contacts sync created or changed a contact.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_contact** | [**WebhookPayloadContact**](WebhookPayloadContact.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## on_conversation_control_changed
 
 > on_conversation_control_changed(webhook_payload_conversation_control_changed)
@@ -1100,6 +1286,124 @@ Fired once when a new conversation begins between one of your connected accounts
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_conversation_started** | [**WebhookPayloadConversationStarted**](WebhookPayloadConversationStarted.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_file_created
+
+> on_file_created(webhook_payload_file)
+File created
+
+A file or folder appeared in a connected Drive or OneDrive (push, seconds after the change).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_file** | [**WebhookPayloadFile**](WebhookPayloadFile.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_file_deleted
+
+> on_file_deleted(webhook_payload_file)
+File deleted
+
+The item was trashed or removed on the provider.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_file** | [**WebhookPayloadFile**](WebhookPayloadFile.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_file_picked
+
+> on_file_picked(webhook_payload_file_picked)
+Files picked
+
+The user finished a hosted picker session (`POST /v1/files/picker-sessions`) and picked at least one file. The app can now open those files. Not sent on cancel.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_file_picked** | [**WebhookPayloadFilePicked**](WebhookPayloadFilePicked.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_file_updated
+
+> on_file_updated(webhook_payload_file)
+File updated
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_file** | [**WebhookPayloadFile**](WebhookPayloadFile.md) |  | [required] |
 
 ### Return type
 
@@ -1422,7 +1726,7 @@ Name | Type | Description  | Required | Notes
 > on_post_cancelled(webhook_payload_post)
 Post cancelled event
 
-Fired when a post publishing job is cancelled.
+Fired when a scheduled post is cancelled because its account was disconnected and nothing published. Not sent when a post is deleted.
 
 ### Parameters
 

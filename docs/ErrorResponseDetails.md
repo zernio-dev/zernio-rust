@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**stage** | Option<**Stage**> | Meta ad create failures only. The step that failed: `media` (image/video download or upload), `campaign`, `adset`, `creative`, `ad` (the ad POST itself, where Meta's code 31 / 3858385 hold and 100 / 1359188 payment rejections land), `activation` (switching the created objects on), or `other` (a read or check before any write). (enum: media, campaign, adset, creative, ad, activation, other) | [optional]
+**stage** | Option<**Stage**> | Meta ad create failures only. The step that failed: `media` (image/video download or upload), `campaign`, `adset`, `creative`, `ad` (the ad POST itself, where Meta's code 31 / 3858385 hold and 100 / 1359188 payment rejections land), `activation` (switching the created objects on; no longer returned, since a refused switch to ACTIVE now answers 201 with an `activation_failed:` warning and the objects kept PAUSED), or `other` (a read or check before any write). (enum: media, campaign, adset, creative, ad, activation, other) | [optional]
 **ad_account_id** | Option<**String**> | Meta ad create failures only. The ad account the request wrote to (`act_...`). | [optional]
 **created_objects** | Option<[**Vec<models::ErrorResponseDetailsCreatedObjectsInner>**](ErrorResponseDetailsCreatedObjectsInner.md)> | Meta ad create failures only. Every object this request created before failing, in creation order. Objects you referenced (an existing campaign, ad set, creative or video) are never listed and never deleted. | [optional]
 **unconfirmed_write** | Option<[**models::ErrorResponseDetailsUnconfirmedWrite**](ErrorResponseDetailsUnconfirmedWrite.md)> |  | [optional]

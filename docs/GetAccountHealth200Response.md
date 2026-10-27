@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **account_id** | Option<**String**> |  | [optional]
 **platform** | Option<**String**> |  | [optional]
 **integration_lane** | Option<**IntegrationLane**> | TikTok only. The TikTok integration the account is connected through: business (TikTok for Business, Accounts API) or developer (the original integration). Absent on other platforms. (enum: business, developer) | [optional]
+**send_cap** | Option<[**models::GetAccountHealth200ResponseSendCap**](GetAccountHealth200ResponseSendCap.md)> |  | [optional]
+**push** | Option<**Push**> | Google and Microsoft only: state of the provider change-notification subscriptions behind `message.received` and `calendar.event.*`. `pending` means a granted area has no live subscription yet (retried every 6 hours), `failed` that renewals keep failing (reconnect the account). (enum: active, pending, failed, not_applicable) | [optional]
 **username** | Option<**String**> |  | [optional]
 **display_name** | Option<**String**> |  | [optional]
 **status** | Option<**Status**> | Overall health status (enum: healthy, warning, error) | [optional]

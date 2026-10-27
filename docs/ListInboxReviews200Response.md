@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | Option<**String**> |  | [optional]
 **data** | Option<[**Vec<models::ListInboxReviews200ResponseDataInner>**](ListInboxReviews200ResponseDataInner.md)> |  | [optional]
-**pagination** | Option<[**models::ListInboxConversations200ResponsePagination**](ListInboxConversations200ResponsePagination.md)> |  | [optional]
+**pagination** | Option<[**models::ListFiles200ResponsePagination**](ListFiles200ResponsePagination.md)> |  | [optional]
 **meta** | Option<[**models::ListInboxConversations200ResponseMeta**](ListInboxConversations200ResponseMeta.md)> |  | [optional]
 **summary** | Option<[**models::ListInboxReviews200ResponseSummary**](ListInboxReviews200ResponseSummary.md)> |  | [optional]
 

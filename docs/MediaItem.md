@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | Option<**Type**> |  (enum: image, video, gif, document) | [optional]
-**url** | Option<**String**> | A media item with a null, missing or empty url is dropped. | [optional]
+**r#type** | Option<**Type**> | Optional when the item names a connected file (`fileId`): inferred from the file's MIME type. (enum: image, video, gif, document) | [optional]
+**url** | Option<**String**> | A media item with a null, missing or empty url is dropped, unless it names a connected file with `fileId` + `accountId`. | [optional]
+**file_id** | Option<**String**> | A file of a connected Google Drive or OneDrive account (see the Files endpoints). The file is copied into Zernio media storage when the post is created and the item is stored as a plain `url`; a folder, an undownloadable file or an unknown id fails the request with a 4xx naming `mediaItems[i].fileId`. Requires `accountId`. | [optional]
+**account_id** | Option<**String**> | The connected Google or Microsoft account the `fileId` belongs to (must have the `files` area). Required with `fileId`. | [optional]
 **title** | Option<**String**> | Optional title for the media item. Used as the document title for LinkedIn PDF/carousel posts. If omitted, falls back to the post title, then the filename. | [optional]
 **alt_text** | Option<**String**> | Accessibility alternative text for an image, applied on every platform that supports it: Instagram (feed images only, not Reels/Stories), Facebook, Threads, X (max 1000 chars), LinkedIn, Bluesky, and Pinterest (max 500 chars). Ignored on platforms without alt-text support (TikTok, YouTube, Snapchat, Telegram, Reddit, Google Business Profile, WhatsApp) and on video items where the platform does not accept it. Set once per image; the same value is sent to each selected platform. | [optional]
 **filename** | Option<**String**> |  | [optional]
