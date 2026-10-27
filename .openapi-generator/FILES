@@ -23,6 +23,7 @@ docs/AdActivationStatus.md
 docs/AdAnalyticsResponse.md
 docs/AdAnalyticsResponseAd.md
 docs/AdAnalyticsResponseAnalytics.md
+docs/AdAppliedDefaults.md
 docs/AdAudiencesApi.md
 docs/AdBudget.md
 docs/AdCampaign.md
@@ -84,6 +85,7 @@ docs/AdTreeCampaignCampaignBudget.md
 docs/AdTreeCampaignOptimizationGoal.md
 docs/AdTreeCampaignPromotedObject.md
 docs/AdTreeResponse.md
+docs/AdTreeResponsePreviousRange.md
 docs/AddAccountCallouts201Response.md
 docs/AddAccountCallouts201ResponseCalloutsInner.md
 docs/AddAccountCalloutsRequest.md
@@ -128,8 +130,12 @@ docs/AdjustConversions200ResponseFailuresInner.md
 docs/AdjustConversionsRequest.md
 docs/AdjustConversionsRequestAdjustmentsInner.md
 docs/AdjustConversionsRequestAdjustmentsInnerUser.md
+docs/AdsAlert.md
+docs/AdsAlertEntity.md
+docs/AdsAlertFix.md
 docs/AdsListResponse.md
 docs/AdsTimelineResponse.md
+docs/AdsTimelineResponsePreviousRange.md
 docs/AdsTimelineResponseRowsInner.md
 docs/AnalyticsApi.md
 docs/AnalyticsDashboardFollowers.md
@@ -808,6 +814,7 @@ docs/DiscordPlatformDataThreadFromMessage.md
 docs/DiscordRole.md
 docs/DiscordScheduledEvent.md
 docs/DiscordScheduledEventEntityMetadata.md
+docs/DismissAdsAlert200Response.md
 docs/DismissGoogleRecommendationsRequest.md
 docs/DmButton.md
 docs/DownloadTikTokVideo200Response.md
@@ -1583,6 +1590,8 @@ docs/ListAdSets200ResponseAdSetsInnerTargeting.md
 docs/ListAdStudies200Response.md
 docs/ListAdVideos200Response.md
 docs/ListAds202Response.md
+docs/ListAdsAlerts200Response.md
+docs/ListAdsAlerts200ResponseCounts.md
 docs/ListAdsBusinessCenters200Response.md
 docs/ListAdsInstagramAccounts200Response.md
 docs/ListAdsInstagramAccounts200ResponseAccountsInner.md
@@ -3108,6 +3117,7 @@ src/models/ad_activation_status.rs
 src/models/ad_analytics_response.rs
 src/models/ad_analytics_response_ad.rs
 src/models/ad_analytics_response_analytics.rs
+src/models/ad_applied_defaults.rs
 src/models/ad_budget.rs
 src/models/ad_campaign.rs
 src/models/ad_campaign_budget.rs
@@ -3162,6 +3172,7 @@ src/models/ad_tree_campaign_campaign_budget.rs
 src/models/ad_tree_campaign_optimization_goal.rs
 src/models/ad_tree_campaign_promoted_object.rs
 src/models/ad_tree_response.rs
+src/models/ad_tree_response_previous_range.rs
 src/models/add_account_callouts_201_response.rs
 src/models/add_account_callouts_201_response_callouts_inner.rs
 src/models/add_account_callouts_request.rs
@@ -3206,8 +3217,12 @@ src/models/adjust_conversions_200_response_failures_inner.rs
 src/models/adjust_conversions_request.rs
 src/models/adjust_conversions_request_adjustments_inner.rs
 src/models/adjust_conversions_request_adjustments_inner_user.rs
+src/models/ads_alert.rs
+src/models/ads_alert_entity.rs
+src/models/ads_alert_fix.rs
 src/models/ads_list_response.rs
 src/models/ads_timeline_response.rs
+src/models/ads_timeline_response_previous_range.rs
 src/models/ads_timeline_response_rows_inner.rs
 src/models/analytics_dashboard_followers.rs
 src/models/analytics_dashboard_followers_by_account_inner.rs
@@ -3869,6 +3884,7 @@ src/models/discord_platform_data_thread_from_message.rs
 src/models/discord_role.rs
 src/models/discord_scheduled_event.rs
 src/models/discord_scheduled_event_entity_metadata.rs
+src/models/dismiss_ads_alert_200_response.rs
 src/models/dismiss_google_recommendations_request.rs
 src/models/dm_button.rs
 src/models/download_tik_tok_video_200_response.rs
@@ -4629,6 +4645,8 @@ src/models/list_ad_sets_200_response_ad_sets_inner_targeting.rs
 src/models/list_ad_studies_200_response.rs
 src/models/list_ad_videos_200_response.rs
 src/models/list_ads_202_response.rs
+src/models/list_ads_alerts_200_response.rs
+src/models/list_ads_alerts_200_response_counts.rs
 src/models/list_ads_business_centers_200_response.rs
 src/models/list_ads_instagram_accounts_200_response.rs
 src/models/list_ads_instagram_accounts_200_response_accounts_inner.rs

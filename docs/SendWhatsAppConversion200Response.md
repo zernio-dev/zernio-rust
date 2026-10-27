@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **events_failed** | Option<**i32**> | Events rejected by Meta (see failures). | [optional]
 **failures** | Option<[**Vec<models::SendWhatsAppConversion200ResponseFailuresInner>**](SendWhatsAppConversion200ResponseFailuresInner.md)> | Per-event failure detail. Empty when all events were accepted.  | [optional]
 **trace_id** | Option<**String**> | Meta `fbtrace_id` for debugging. Surface in support tickets.  | [optional]
+**test_code** | Option<**String**> | The test code sent to Meta, or `null` when the request carried none. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

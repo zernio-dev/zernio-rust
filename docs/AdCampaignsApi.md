@@ -19,6 +19,7 @@ Method | HTTP request | Description
 [**delete_ad**](AdCampaignsApi.md#delete_ad) | **DELETE** /v1/ads/{adId} | Cancel an ad
 [**delete_ad_campaign**](AdCampaignsApi.md#delete_ad_campaign) | **DELETE** /v1/ads/campaigns/{campaignId} | Delete a campaign
 [**delete_ad_set**](AdCampaignsApi.md#delete_ad_set) | **DELETE** /v1/ads/ad-sets/{adSetId} | Delete an ad set
+[**dismiss_ads_alert**](AdCampaignsApi.md#dismiss_ads_alert) | **POST** /v1/ads/alerts/{alertId}/dismiss | Dismiss an ads alert
 [**dismiss_google_recommendations**](AdCampaignsApi.md#dismiss_google_recommendations) | **POST** /v1/ads/recommendations/dismiss | Dismiss Google Ads recommendations
 [**duplicate_ad**](AdCampaignsApi.md#duplicate_ad) | **POST** /v1/ads/{adId}/duplicate | Duplicate an ad
 [**duplicate_ad_campaign**](AdCampaignsApi.md#duplicate_ad_campaign) | **POST** /v1/ads/campaigns/{campaignId}/duplicate | Duplicate a campaign
@@ -41,6 +42,7 @@ Method | HTTP request | Description
 [**list_ad_keywords**](AdCampaignsApi.md#list_ad_keywords) | **GET** /v1/ads/keywords | List Search keywords
 [**list_ad_sets**](AdCampaignsApi.md#list_ad_sets) | **GET** /v1/ads/ad-sets | List ad sets
 [**list_ads**](AdCampaignsApi.md#list_ads) | **GET** /v1/ads | List ads
+[**list_ads_alerts**](AdCampaignsApi.md#list_ads_alerts) | **GET** /v1/ads/alerts | List ads that need attention
 [**list_bid_strategies**](AdCampaignsApi.md#list_bid_strategies) | **GET** /v1/ads/bid-strategies | List portfolio bid strategies
 [**list_campaign_assets**](AdCampaignsApi.md#list_campaign_assets) | **GET** /v1/ads/campaigns/{campaignId}/assets | List campaign assets
 [**list_campaign_negative_keyword_lists**](AdCampaignsApi.md#list_campaign_negative_keyword_lists) | **GET** /v1/ads/campaigns/{campaignId}/negative-keyword-lists | List campaign negative lists
@@ -414,7 +416,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateStandaloneAd200Response create_standalone_ad(create_standalone_ad_request, idempotency_key)
 Create standalone ad
 
-Creates a paid ad with your own creative, building the campaign and ad set it needs or adding it to existing ones.  Create a paid ad with custom creative across Meta, Google Ads, Pinterest, TikTok, X, LinkedIn, OpenAI Ads (ChatGPT Ads) and Reddit Ads.  Google Performance Max: set `campaignType: \"pmax\"` and supply `assetGroup` with text, images by role, business name and finalUrl. Creates a daily budget, PAUSED campaign and asset group atomically. `validateOnly: true` validates the complete request with Google without creating or persisting resources. Read assets with `GET /v1/ads/campaigns/{campaignId}/asset-groups`. The logo is required; video is optional via `assetGroup.youtubeVideoId`. Brand guidelines are disabled at creation. All supplied asset links are validated together against Google's minimum asset requirements. PMax rejects ACTIVE creation, portfolio bidding, bid caps, legacy creative fields and attach shapes. Geo and language targeting are supported; omitted geo targets all locations. PMax does not require top-level goal, headline, body or linkUrl. Supported bidding: omitted or LOWEST_COST_WITHOUT_CAP for Maximize Conversions, COST_CAP plus bidAmount for target CPA, LOWEST_COST_WITH_MIN_ROAS plus roasAverageFloor for Maximize Conversion Value with target ROAS.  Google Demand Gen: set `campaignType: \"demand_gen\"` and supply `demandGen`. Creates a daily budget, PAUSED campaign, one ad group and one ad in a single atomic request: a multi-asset image ad, a video responsive ad when `demandGen.youtubeVideoIds` is sent, or a carousel ad (2 to 10 cards) when `demandGen.carouselCards` is sent. Geo (countries, regions, cities, zips, metros) and languages go on the ad group, as Demand Gen requires. `demandGen.channels` sets the ad group's channel controls and `demandGen.audience` builds a Google Audience (user lists, interests, custom audiences, age ranges, genders) attached to the ad group, or `demandGen.audienceId` attaches an existing one. `validateOnly: true` validates everything with Google without creating resources. Supported bidding: omitted or LOWEST_COST_WITHOUT_CAP for Maximize Conversions, COST_CAP plus bidAmount for target CPA, LOWEST_COST_WITH_MIN_ROAS plus roasAverageFloor for target ROAS, LOWEST_COST_WITH_BID_CAP plus bidAmount for target CPC. The created ad carries the native `platformCampaignId`, `platformAdSetId` (ad group) and `platformAdId`. Activate with PUT /v1/ads/campaigns/{campaignId}/status; budget, bidding and name are edited with the regular campaign endpoints; creative, channels, audience and ad group targeting with PUT /v1/ads/{adId} (`demandGen`, `targeting`). To grow an existing Demand Gen campaign, send `existingCampaignId` (adds a PAUSED ad group, with its own geo, languages, channels and audience, plus its ad) or `adSetId` (adds a PAUSED ad to that ad group); neither takes budget, bidding or schedule fields, and both support `validateOnly`.  Other mutually-exclusive request shapes are selected by the body:  - Legacy single-creative shape (all platforms, the default). - Meta-only multi-creative shape via the creatives array: one ad set with N ads sharing budget and targeting. - Attach shape via adSetId: adds one new ad to an existing ad set, inheriting its budget, targeting, and schedule (Meta, Google Ads, TikTok, and LinkedIn). On LinkedIn adSetId is the existing Campaign id, and the budget, schedule, targeting and bidding fields must be omitted. On LinkedIn `goal` may be omitted too (taken from the Campaign's objective), and the created ad's `targeting` echoes the Campaign's audience.  Meta accepts `creativeFeatures` on the single and attach shapes and as defaults for `creatives[]`; an item replaces the whole feature map. `promotion` is not supported on any shape and any object is rejected with 400. Reusing `existingCreativeId` uses the existing creative settings instead of new settings. Requested settings are persisted for lists, exports, and default ad-detail reads.  Per-platform required fields, budget minimums, and video-ad rules are documented on each property below.  **Meta required fields per shape** (a missing one is a 400 naming it in `param`):  - Every shape that builds a new ad set (no `adSetId`, `existingCampaignId` or `buyingType: \"RESERVED\"`): `budgetAmount` and `budgetType`, plus `endDate` for a lifetime budget. - Single image or video (the default), also with `adSetId`: `headline` (max 255), `body`, `callToAction`, exactly one of `imageUrl` / `video` (none for a catalog template creative, which ignores and does not upload any sent), and `linkUrl` unless the goal is `lead_generation` or `page_visits` or `leadGenFormId` is set. - `bodies[]` / `headlines[]` text variations: `body`, one list with 2+ items, `callToAction`, `imageUrl` or `video`, and `linkUrl` unless the goal is `lead_generation` or `leadGenFormId` is set. `headline` is not required. - `placementAssets`: `headline`, `body`, `callToAction`, and `linkUrl` with the same exemptions as the single shape; the media comes from `placementAssets`. - `carouselCards`: `body`, `callToAction`, and `linkUrl` unless the goal is `lead_generation` or `leadGenFormId` is set. `headline` is not required. - `creatives[]`: per entry `headline`, `body`, `callToAction`, `imageUrl` or `video`, and `linkUrl` unless the goal is `lead_generation`. Top-level `body` is not required. - `dynamicCreative`: `imageUrls` or `videoUrls`, `callToActionTypes`, and `linkUrls` unless the goal is `lead_generation`. Top-level `body` is not required. - `existingCreativeId`: no creative fields. Goal `page_likes`: `body` only. - Goal `lead_generation` always needs `leadGenFormId`, except with `existingCreativeId`.  LinkedIn creates a Single Image or Single Video Ad backed by a Direct Sponsored Content \"dark post\" authored by a Company Page (see `organizationId`). Supported goals are engagement, traffic, awareness, and video_views (video ads use the `video` field; video_views requires a video), and traffic ads require `linkUrl`.  Reddit Ads (`accountId` of a `redditads` connection, `adAccountId` like `a2_abc123`) creates a campaign, an ad group carrying the budget, schedule, targeting and pixel, and an ad running a new promoted post authored by the ad account's first profile (422 when it has none). The creative format follows the body: `carouselCards` builds a carousel, `video` a video ad, `imageUrl` an image ad, and none of them a text ad, which cannot link out (`linkUrl` is a 400 there; `body` is required). Only the legacy single-creative shape is available: `creatives[]`, `adSetId`, `existingCampaignId` and `validateOnly` are refused. Reddit throttling surfaces as 429 `rate_limited` with `platform: reddit`; retry after a delay. To promote an existing Reddit post use POST /v1/ads/boost.  **Idempotency:** this endpoint is not idempotent at the platform level (a blind retry creates a second campaign/ad set/ad). Send an `Idempotency-Key` header to make retries safe: the first request with a given key creates the ad and we store the response; a retry with the same key replays that exact response (with `Idempotent-Replayed: true`) instead of creating duplicates. Reusing a key with a different body returns 422; a key whose first request is still in flight returns 409 (retry after a short backoff). If the first request is cut off mid-create (for example by a function timeout), its key can stay in progress and keep returning 409 until it expires; use a new key to retry sooner, after checking whether the ad was created. Keys are scoped to your credential and expire after 24h. 
+Creates a paid ad with your own creative, building the campaign and ad set it needs or adding it to existing ones.  Create a paid ad with custom creative across Meta, Google Ads, Pinterest, TikTok, X, LinkedIn, OpenAI Ads (ChatGPT Ads) and Reddit Ads.  Google Performance Max: set `campaignType: \"pmax\"` and supply `assetGroup` with text, images by role, business name and finalUrl. Creates a daily budget, PAUSED campaign and asset group atomically. `validateOnly: true` validates the complete request with Google without creating or persisting resources. Read assets with `GET /v1/ads/campaigns/{campaignId}/asset-groups`. The logo is required; video is optional via `assetGroup.youtubeVideoId`. Brand guidelines are disabled at creation. All supplied asset links are validated together against Google's minimum asset requirements. PMax rejects ACTIVE creation, portfolio bidding, bid caps, legacy creative fields and attach shapes. Geo and language targeting are supported; omitted geo targets all locations. PMax does not require top-level goal, headline, body or linkUrl. Supported bidding: omitted or LOWEST_COST_WITHOUT_CAP for Maximize Conversions, COST_CAP plus bidAmount for target CPA, LOWEST_COST_WITH_MIN_ROAS plus roasAverageFloor for Maximize Conversion Value with target ROAS.  Google Demand Gen: set `campaignType: \"demand_gen\"` and supply `demandGen`. Creates a daily budget, PAUSED campaign, one ad group and one ad in a single atomic request: a multi-asset image ad, a video responsive ad when `demandGen.youtubeVideoIds` is sent, or a carousel ad (2 to 10 cards) when `demandGen.carouselCards` is sent. Geo (countries, regions, cities, zips, metros) and languages go on the ad group, as Demand Gen requires. `demandGen.channels` sets the ad group's channel controls and `demandGen.audience` builds a Google Audience (user lists, interests, custom audiences, age ranges, genders) attached to the ad group, or `demandGen.audienceId` attaches an existing one. `validateOnly: true` validates everything with Google without creating resources. Supported bidding: omitted or LOWEST_COST_WITHOUT_CAP for Maximize Conversions, COST_CAP plus bidAmount for target CPA, LOWEST_COST_WITH_MIN_ROAS plus roasAverageFloor for target ROAS, LOWEST_COST_WITH_BID_CAP plus bidAmount for target CPC. The created ad carries the native `platformCampaignId`, `platformAdSetId` (ad group) and `platformAdId`. Activate with PUT /v1/ads/campaigns/{campaignId}/status; budget, bidding and name are edited with the regular campaign endpoints; creative, channels, audience and ad group targeting with PUT /v1/ads/{adId} (`demandGen`, `targeting`). To grow an existing Demand Gen campaign, send `existingCampaignId` (adds a PAUSED ad group, with its own geo, languages, channels and audience, plus its ad) or `adSetId` (adds a PAUSED ad to that ad group); neither takes budget, bidding or schedule fields, and both support `validateOnly`.  Other mutually-exclusive request shapes are selected by the body:  - Legacy single-creative shape (all platforms, the default). - Meta-only multi-creative shape via the creatives array: one ad set with N ads sharing budget and targeting. - Attach shape via adSetId: adds one new ad to an existing ad set, inheriting its budget, targeting, and schedule (Meta, Google Ads, TikTok, and LinkedIn). On LinkedIn adSetId is the existing Campaign id, and the budget, schedule, targeting and bidding fields must be omitted. On LinkedIn `goal` may be omitted too (taken from the Campaign's objective), and the created ad's `targeting` echoes the Campaign's audience.  Meta accepts `creativeFeatures` on the single and attach shapes and as defaults for `creatives[]`; an item replaces the whole feature map. `promotion` is not supported on any shape and any object is rejected with 400. Reusing `existingCreativeId` uses the existing creative settings instead of new settings. Requested settings are persisted for lists, exports, and default ad-detail reads.  Per-platform required fields, budget minimums, and video-ad rules are documented on each property below.  **Meta required fields per shape** (a missing one is a 400 naming it in `param`):  - Every shape that builds a new ad set (no `adSetId`, `existingCampaignId` or `buyingType: \"RESERVED\"`): `budgetAmount`. `budgetType` defaults to daily, and a lifetime budget without `endDate` ends 7 days after it starts (see `appliedDefaults`). - Single image or video (the default), also with `adSetId`: `headline` (max 255), `body`, `callToAction`, exactly one of `imageUrl` / `video` (none for a catalog template creative, which ignores and does not upload any sent), and `linkUrl` unless the goal is `lead_generation` or `page_visits` or `leadGenFormId` is set. - `bodies[]` / `headlines[]` text variations: `body`, one list with 2+ items, `callToAction`, `imageUrl` or `video`, and `linkUrl` unless the goal is `lead_generation` or `leadGenFormId` is set. `headline` is not required. - `placementAssets`: `headline`, `body`, `callToAction`, and `linkUrl` with the same exemptions as the single shape; the media comes from `placementAssets`. - `carouselCards`: `body`, `callToAction`, and `linkUrl` unless the goal is `lead_generation` or `leadGenFormId` is set. `headline` is not required. - `creatives[]`: per entry `headline`, `body`, `callToAction`, `imageUrl` or `video`, and `linkUrl` unless the goal is `lead_generation`. Top-level `body` is not required. - `dynamicCreative`: `imageUrls` or `videoUrls`, `callToActionTypes`, and `linkUrls` unless the goal is `lead_generation`. Top-level `body` is not required. - `existingCreativeId`: no creative fields. Goal `page_likes`: `body` only. - Goal `lead_generation` always needs `leadGenFormId`, except with `existingCreativeId`.  LinkedIn creates a Single Image or Single Video Ad backed by a Direct Sponsored Content \"dark post\" authored by a Company Page (see `organizationId`). Supported goals are engagement, traffic, awareness, and video_views (video ads use the `video` field; video_views requires a video), and traffic ads require `linkUrl`.  Reddit Ads (`accountId` of a `redditads` connection, `adAccountId` like `a2_abc123`) creates a campaign, an ad group carrying the budget, schedule, targeting and pixel, and an ad running a new promoted post authored by the ad account's first profile (422 when it has none). The creative format follows the body: `carouselCards` builds a carousel, `video` a video ad, `imageUrl` an image ad, and none of them a text ad, which cannot link out (`linkUrl` is a 400 there; `body` is required). Only the legacy single-creative shape is available: `creatives[]`, `adSetId`, `existingCampaignId` and `validateOnly` are refused. Reddit throttling surfaces as 429 `rate_limited` with `platform: reddit`; retry after a delay. To promote an existing Reddit post use POST /v1/ads/boost.  **Idempotency:** this endpoint is not idempotent at the platform level (a blind retry creates a second campaign/ad set/ad). Send an `Idempotency-Key` header to make retries safe: the first request with a given key creates the ad and we store the response; a retry with the same key replays that exact response (with `Idempotent-Replayed: true`) instead of creating duplicates. Reusing a key with a different body returns 422; a key whose first request is still in flight returns 409 (retry after a short backoff). If the first request is cut off mid-create (for example by a function timeout), its key can stay in progress and keep returning 409 until it expires; use a new key to retry sooner, after checking whether the ad was created. Keys are scoped to your credential and expire after 24h. 
 
 ### Parameters
 
@@ -518,6 +520,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::DeleteAdSet200Response**](deleteAdSet_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## dismiss_ads_alert
+
+> models::DismissAdsAlert200Response dismiss_ads_alert(alert_id)
+Dismiss an ads alert
+
+Hides an alert from `GET /v1/ads/alerts` for 30 days for the calling user. If the problem is still there after that, the alert comes back. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**alert_id** | **String** | The `id` of an alert from GET /v1/ads/alerts. | [required] |
+
+### Return type
+
+[**models::DismissAdsAlert200Response**](dismissAdsAlert_200_response.md)
 
 ### Authorization
 
@@ -816,7 +848,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_ad_tree
 
-> models::AdTreeResponse get_ad_tree(page, limit, source, platform, status, ad_account_id, page_id, account_id, profile_id, campaign_id, updated_since, search, from_date, to_date, has_delivery, min_spend, sort, time_increment, daily_level)
+> models::AdTreeResponse get_ad_tree(page, limit, source, platform, status, ad_account_id, page_id, account_id, profile_id, campaign_id, updated_since, search, from_date, to_date, has_delivery, min_spend, sort, time_increment, daily_level, compare)
 Get campaign tree
 
 Shows your campaigns with their ad sets and ads nested inside, with spend and results rolled up at every level.  Uses a two-stage aggregation: ads are grouped into ad sets, then ad sets into campaigns. Metrics are computed over an optional date range, then rolled up from ad level to ad set and campaign levels. Pagination is at the campaign level. Ads without a campaign or ad set ID are grouped into synthetic \"Ungrouped\" buckets. If no date range is provided, defaults to the last 90 days. Date range is capped at 730 days max.  History: when an ad account connects, Zernio imports its last 90 days of metrics, so the metrics hold no data for days before that. When `accountId` or `adAccountId` resolves to a Meta ad account, a range reaching further back answers `202` with `backfillPending: true` and the covered part while the older days (up to 730 days back) are imported in the background; repeat the request until it returns 200. A request scoped to no Meta account never returns `202`.  Pass `timeIncrement=1` to also get a daily breakdown: each node gains a `daily[]` array of per-day metrics (same fields as the aggregated `metrics`) in the same call. Use `dailyLevel` (`campaign` default, or `adset` / `ad`) to choose which levels carry the series. This replaces calling the tree once per day for per-campaign daily trends.  **Deleted objects stay in the tree.** Deleting an ad or a campaign is a soft delete: the Ad documents move to `status: cancelled` and are kept indefinitely, so their historical spend still counts toward the metrics of any date range they fall in. There is no pruning job and no retention window. Filter on `status` if your view should hide them, but do that after reading the totals, not before. 
@@ -845,6 +877,7 @@ Name | Type | Description  | Required | Notes
 **sort** | Option<**String**> | Campaign-level sort order. `newest` (default) / `oldest` order by the campaign's newest-ad createdAt. `spend_desc` / `spend_asc` order by aggregated spend in the requested date range; campaigns with no spend land at the end. |  |[default to newest]
 **time_increment** | Option<**i32**> | Set to `1` to also return a daily breakdown. Mirrors Meta Insights' `time_increment=1`: each node gains a `daily[]` array of per-day metrics (same fields as the aggregated `metrics`) alongside the range total, so you get per-entity daily trends in ONE call instead of calling the tree once per day. Only `1` (daily) is supported. The daily series covers the same date range and uses the same source data as `metrics`, except `reach` on Meta and TikTok: the range total is the platform's de-duplicated value, so daily reach does not sum to it. See `dailyLevel` to control which levels carry it. |  |
 **daily_level** | Option<**String**> | Which tree levels get the `daily[]` series when `timeIncrement=1`. `campaign` (default) attaches it on campaign nodes only: the common per-campaign-trend case, and the smallest payload. `adset` adds it on ad sets too; `ad` adds it on every ad in `ads[]` as well (heaviest: a long range × up to 100 ads per ad set). Scope with `campaignId` to keep `ad`-level responses small. Ignored when `timeIncrement` is unset. |  |[default to campaign]
+**compare** | Option<**String**> | Set to `previous` to also read the period of the same length that ends the day before `fromDate`. Every campaign, ad set and ad gains `previousMetrics` (same fields as `metrics`) and the response gains `previousRange`, so a table can show the change against the previous period in one call. |  |
 
 ### Return type
 
@@ -864,7 +897,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_ads_timeline
 
-> models::AdsTimelineResponse get_ads_timeline(account_id, ad_account_id, from_date, to_date, platform)
+> models::AdsTimelineResponse get_ads_timeline(account_id, ad_account_id, from_date, to_date, platform, compare)
 Get daily account metrics
 
 Returns an ads account's spend, results and other metrics day by day, ready for a daily performance chart.  Returns daily aggregate metrics across all ads in a SocialAccount as a single time series, one row per calendar day and currency in the requested range (one row per day unless the account's ad accounts bill in different currencies). Use this for dashboards that draw a daily-spend or daily-conversions chart, instead of calling `/v1/ads/tree` once per day.  `accountId` is required. The lookup is sibling-expanded so passing the `metaads` ID also includes ads under the linked `facebook` / `instagram` posting account (and vice-versa), the same convention as `/v1/ads/tree` and `/v1/ads`.  Date range defaults to the last 90 days. Capped at 730 days.  History: when an ad account connects, Zernio imports its last 90 days of metrics, so `rows` hold no data for days before that. When `accountId` or `adAccountId` resolves to a Meta ad account, a range reaching further back answers `202` with `backfillPending: true` and the covered part while the older days (up to 730 days back) are imported in the background; repeat the request until it returns 200. Other platforms never return `202`.  With adAccountId set to a Google customer id this is the customer-level performance report (clicks, cost, impressions, conversions, all conversions per day). 
@@ -879,6 +912,7 @@ Name | Type | Description  | Required | Notes
 **from_date** | Option<**String**> | Inclusive start of metrics range (YYYY-MM-DD). Defaults to 90 days ago. |  |
 **to_date** | Option<**String**> | Inclusive end of metrics range (YYYY-MM-DD). Defaults to today. Max 730-day range. |  |
 **platform** | Option<**String**> | Restrict to one platform. |  |
+**compare** | Option<**String**> | Set to `previous` to also return `previousRows` for the period of the same length that ends the day before `fromDate`, with that period as `previousRange`. Needs a `fromDate` (sent or defaulted); `toDate` alone answers 400. |  |
 
 ### Return type
 
@@ -1275,6 +1309,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::AdsListResponse**](AdsListResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_ads_alerts
+
+> models::ListAdsAlerts200Response list_ads_alerts(account_id, include_dismissed)
+List ads that need attention
+
+Lists what needs attention across your ads, most severe first: ads created in the last 90 days that were rejected, campaigns the platform reports delivery issues on, Meta ad accounts with a failed or overdue payment or disabled while holding live ads, campaigns that spent on 3 or more of the last 7 days without a result (conversion, lead, purchase or conversation goals), and budgets spent to their daily cap yesterday.  Built from stored data and the last 7 days of synced metrics, so it costs no platform call. Each alert has a stable `id`; dismiss one with `POST /v1/ads/alerts/{alertId}/dismiss` to hide it for 30 days. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | Option<**String**> | Only alerts of this ads connection (sibling-expanded like /v1/ads/tree). Omit for every ad account the API key can reach. |  |
+**include_dismissed** | Option<**bool**> | Also return dismissed alerts, with `dismissed: true`. |  |[default to false]
+
+### Return type
+
+[**models::ListAdsAlerts200Response**](listAdsAlerts_200_response.md)
 
 ### Authorization
 

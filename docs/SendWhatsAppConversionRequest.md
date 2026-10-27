@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **content_ids** | Option<**Vec<String>**> | Optional product / content identifiers. | [optional]
 **email** | Option<**String**> | User email. Normalized + SHA-256 hashed before sending to Meta. | [optional]
 **external_id** | Option<**String**> | Stable customer identifier. Lowercased + SHA-256 hashed before sending to Meta.  | [optional]
-**test_code** | Option<**String**> | Meta `test_event_code` passthrough. Routes the event to the Test Events tab in Events Manager instead of the production dataset, useful for development.  | [optional]
+**test_code** | Option<**String**> | Meta `test_event_code` passthrough, sent at the request root (a root-level `test_event_code` is accepted as an alias). The event shows in Events Manager's Test Events tab for the dataset whose current test code matches. Meta still processes it like any other event, so remove it in production.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

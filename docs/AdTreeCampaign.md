@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **is_budget_schedule_enabled** | Option<**bool**> | Meta-only. Mirrors Campaign.is_budget_schedule_enabled: true when the campaign uses budget scheduling (time-based budget changes). Independent of CBO/ABO. | [optional][default to false]
 **currency** | Option<**String**> | ISO 4217 currency code (e.g. USD, EUR, CLP, JPY) for all budget amounts in this campaign node. Budgets are NOT normalized to USD. | [optional]
 **metrics** | Option<[**models::AdMetrics**](AdMetrics.md)> |  | [optional]
+**previous_metrics** | Option<[**models::AdMetrics**](AdMetrics.md)> | Only with `compare=previous`. The same metrics over `previousRange`. | [optional]
 **platform_ad_account_id** | Option<**String**> |  | [optional]
 **platform_ad_account_name** | Option<**String**> | Human-readable advertiser/account name from the platform. Refreshed on every sync. | [optional]
 **account_id** | Option<**String**> |  | [optional]

@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **budget** | Option<[**models::AdTreeAdSetBudget**](AdTreeAdSetBudget.md)> |  | [optional]
 **ad_set_budget** | Option<[**models::AdTreeAdSetAdSetBudget**](AdTreeAdSetAdSetBudget.md)> |  | [optional]
 **metrics** | Option<[**models::AdMetrics**](AdMetrics.md)> |  | [optional]
+**previous_metrics** | Option<[**models::AdMetrics**](AdMetrics.md)> | Only with `compare=previous`. The same metrics over `previousRange`. | [optional]
 **optimization_goal** | Option<**String**> | What the delivery system optimizes for. Meta ad set optimization goal (e.g. OFFSITE_CONVERSIONS, VALUE, LEAD_GENERATION), or on LinkedIn the campaign's effective optimizationTargetType (NONE means manual bidding). See the `optimizationGoal` field on `Ad` for the full value spaces. | [optional]
 **bid_strategy** | Option<[**models::BidStrategy**](BidStrategy.md)> |  | [optional]
 **bid_amount** | Option<**f64**> | Bid amount in whole currency units. On Meta/TikTok populated when bidStrategy is LOWEST_COST_WITH_BID_CAP or COST_CAP; on LinkedIn it is the campaign's effective unitCost and pairs with `costType`, where 0 is a real, delivery-stopping value. | [optional]
