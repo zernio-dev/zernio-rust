@@ -809,6 +809,7 @@ docs/CreatorCampaignEconomicsCpm.md
 docs/CreatorCampaignEconomicsPerPost.md
 docs/CreatorCampaignEconomicsPool.md
 docs/CreatorCampaignsApi.md
+docs/CreatorPortalApi.md
 docs/CreatorPortalCampaign.md
 docs/CreatorPortalEconomics.md
 docs/CreatorPortalInvite.md
@@ -819,7 +820,6 @@ docs/CreatorPortalParticipantParticipant.md
 docs/CreatorPortalPayoutEntry.md
 docs/CreatorPortalPayoutSetup.md
 docs/CreatorPortalPayoutSetupTransfersInner.md
-docs/CreatorPortalPublicApi.md
 docs/CreatorPortalSubmission.md
 docs/CrosspostDiscordMessage200Response.md
 docs/CtwaAdRequestBody.md
@@ -3289,7 +3289,7 @@ src/apis/connected_apps_api.rs
 src/apis/contacts_api.rs
 src/apis/conversions_api.rs
 src/apis/creator_campaigns_api.rs
-src/apis/creator_portal_public_api.rs
+src/apis/creator_portal_api.rs
 src/apis/custom_fields_api.rs
 src/apis/discord_api.rs
 src/apis/email_api.rs

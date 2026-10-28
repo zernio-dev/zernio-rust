@@ -141,7 +141,7 @@ pub mod connected_apps_api;
 pub mod contacts_api;
 pub mod conversions_api;
 pub mod creator_campaigns_api;
-pub mod creator_portal_public_api;
+pub mod creator_portal_api;
 pub mod custom_fields_api;
 pub mod discord_api;
 pub mod email_api;

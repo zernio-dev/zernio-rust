@@ -22,6 +22,7 @@ pub struct CreateCreatorCampaignRequest {
     pub brand_name: String,
     #[serde(rename = "economics")]
     pub economics: Box<models::CreatorCampaignEconomics>,
+    /// Omitted, the campaign starts with authenticityThreshold 40 and no other caps.
     #[serde(rename = "caps", skip_serializing_if = "Option::is_none")]
     pub caps: Option<Box<models::CreatorCampaignCaps>>,
     /// Platforms creators may post on. At least one is needed to activate.

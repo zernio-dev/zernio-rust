@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **name** | **String** |  | 
 **brand_name** | **String** |  | 
 **economics** | [**models::CreatorCampaignEconomics**](CreatorCampaignEconomics.md) |  | 
-**caps** | Option<[**models::CreatorCampaignCaps**](CreatorCampaignCaps.md)> |  | [optional][default to {authenticityThreshold=40}]
+**caps** | Option<[**models::CreatorCampaignCaps**](CreatorCampaignCaps.md)> | Omitted, the campaign starts with authenticityThreshold 40 and no other caps. | [optional]
 **platforms** | Option<**Vec<Platforms>**> | Platforms creators may post on. At least one is needed to activate. (enum: tiktok, instagram, youtube) | [optional]
 **content_rules** | Option<**String**> |  | [optional]
 **starts_at** | Option<**String**> |  | [optional]
