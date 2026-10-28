@@ -31,6 +31,17 @@ Method | HTTP request | Description
 [**on_call_permission_request**](WebhookEventsApi.md#on_call_permission_request) | **POST** /call.permission_request | Call permission request reply event
 [**on_call_received**](WebhookEventsApi.md#on_call_received) | **POST** /call.received | Call received event
 [**on_campaign_budget_depleted**](WebhookEventsApi.md#on_campaign_budget_depleted) | **POST** /campaign.budget.depleted | Campaign budget depleted event
+[**on_campaign_participant_joined**](WebhookEventsApi.md#on_campaign_participant_joined) | **POST** /campaign_participant.joined | Campaign participant joined event
+[**on_campaign_participant_removed**](WebhookEventsApi.md#on_campaign_participant_removed) | **POST** /campaign_participant.removed | Campaign participant removed event
+[**on_campaign_participant_suspended**](WebhookEventsApi.md#on_campaign_participant_suspended) | **POST** /campaign_participant.suspended | Campaign participant suspended event
+[**on_campaign_payout_failed**](WebhookEventsApi.md#on_campaign_payout_failed) | **POST** /campaign_payout.failed | Campaign payout failed event
+[**on_campaign_payout_payable**](WebhookEventsApi.md#on_campaign_payout_payable) | **POST** /campaign_payout.payable | Campaign payout payable event
+[**on_campaign_payout_settled**](WebhookEventsApi.md#on_campaign_payout_settled) | **POST** /campaign_payout.settled | Campaign payout settled event
+[**on_campaign_submission_approved**](WebhookEventsApi.md#on_campaign_submission_approved) | **POST** /campaign_submission.approved | Campaign submission approved event
+[**on_campaign_submission_flagged**](WebhookEventsApi.md#on_campaign_submission_flagged) | **POST** /campaign_submission.flagged | Campaign submission flagged event
+[**on_campaign_submission_pending_review**](WebhookEventsApi.md#on_campaign_submission_pending_review) | **POST** /campaign_submission.pending_review | Campaign submission pending review event
+[**on_campaign_submission_received**](WebhookEventsApi.md#on_campaign_submission_received) | **POST** /campaign_submission.received | Campaign submission received event
+[**on_campaign_submission_rejected**](WebhookEventsApi.md#on_campaign_submission_rejected) | **POST** /campaign_submission.rejected | Campaign submission rejected event
 [**on_comment_received**](WebhookEventsApi.md#on_comment_received) | **POST** /comment.received | Comment received event
 [**on_commerce_order_created**](WebhookEventsApi.md#on_commerce_order_created) | **POST** /commerce.order.created | Commerce order created event
 [**on_commerce_order_refunded**](WebhookEventsApi.md#on_commerce_order_refunded) | **POST** /commerce.order.refunded | Commerce order refunded event
@@ -45,6 +56,8 @@ Method | HTTP request | Description
 [**on_contact_updated**](WebhookEventsApi.md#on_contact_updated) | **POST** /contact.updated | Contact updated
 [**on_conversation_control_changed**](WebhookEventsApi.md#on_conversation_control_changed) | **POST** /conversation.control_changed | Conversation control changed event
 [**on_conversation_started**](WebhookEventsApi.md#on_conversation_started) | **POST** /conversation.started | Conversation started event
+[**on_creator_campaign_budget_exhausted**](WebhookEventsApi.md#on_creator_campaign_budget_exhausted) | **POST** /creator_campaign.budget_exhausted | Creator campaign budget exhausted event
+[**on_creator_campaign_closed**](WebhookEventsApi.md#on_creator_campaign_closed) | **POST** /creator_campaign.closed | Creator campaign closed event
 [**on_file_created**](WebhookEventsApi.md#on_file_created) | **POST** /file.created | File created
 [**on_file_deleted**](WebhookEventsApi.md#on_file_deleted) | **POST** /file.deleted | File deleted
 [**on_file_picked**](WebhookEventsApi.md#on_file_picked) | **POST** /file.picked | Files picked
@@ -59,6 +72,7 @@ Method | HTTP request | Description
 [**on_message_received**](WebhookEventsApi.md#on_message_received) | **POST** /message.received | Message received event
 [**on_message_sent**](WebhookEventsApi.md#on_message_sent) | **POST** /message.sent | Message sent event
 [**on_phone_number_stock_available**](WebhookEventsApi.md#on_phone_number_stock_available) | **POST** /phone_number.stock_available | Phone-number stock available event
+[**on_post_authenticity_changed**](WebhookEventsApi.md#on_post_authenticity_changed) | **POST** /post.authenticity_changed | Post authenticity changed event
 [**on_post_cancelled**](WebhookEventsApi.md#on_post_cancelled) | **POST** /post.cancelled | Post cancelled event
 [**on_post_external_created**](WebhookEventsApi.md#on_post_external_created) | **POST** /post.external.created | External post created event
 [**on_post_external_deleted**](WebhookEventsApi.md#on_post_external_deleted) | **POST** /post.external.deleted | External post deleted event
@@ -72,6 +86,7 @@ Method | HTTP request | Description
 [**on_post_recycled**](WebhookEventsApi.md#on_post_recycled) | **POST** /post.recycled | Post recycled event
 [**on_post_scheduled**](WebhookEventsApi.md#on_post_scheduled) | **POST** /post.scheduled | Post scheduled event
 [**on_post_tik_tok_url_resolved**](WebhookEventsApi.md#on_post_tik_tok_url_resolved) | **POST** /post.tiktok.url_resolved | TikTok post URL resolved event
+[**on_post_tracking_completed**](WebhookEventsApi.md#on_post_tracking_completed) | **POST** /post.tracking_completed | Post tracking completed event
 [**on_rcs_agent_status_updated**](WebhookEventsApi.md#on_rcs_agent_status_updated) | **POST** /rcs.agent.status_updated | RCS agent status updated event
 [**on_reaction_received**](WebhookEventsApi.md#on_reaction_received) | **POST** /reaction.received | Reaction received event
 [**on_referral_received**](WebhookEventsApi.md#on_referral_received) | **POST** /referral.received | Referral received event
@@ -914,6 +929,336 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## on_campaign_participant_joined
+
+> on_campaign_participant_joined(webhook_payload_campaign_participant)
+Campaign participant joined event
+
+Fired once when a creator joins a campaign, from their invite link or the open link.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_participant** | [**WebhookPayloadCampaignParticipant**](WebhookPayloadCampaignParticipant.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_participant_removed
+
+> on_campaign_participant_removed(webhook_payload_campaign_participant)
+Campaign participant removed event
+
+Fired when an operator removes a participant.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_participant** | [**WebhookPayloadCampaignParticipant**](WebhookPayloadCampaignParticipant.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_participant_suspended
+
+> on_campaign_participant_suspended(webhook_payload_campaign_participant)
+Campaign participant suspended event
+
+Fired when an operator suspends a participant.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_participant** | [**WebhookPayloadCampaignParticipant**](WebhookPayloadCampaignParticipant.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_payout_failed
+
+> on_campaign_payout_failed(webhook_payload_campaign_payout)
+Campaign payout failed event
+
+Fired when a treasury payout to a participant is refused, cannot be confirmed, or is reversed. The amount returns to payable, minus anything a rejection claws back.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_payout** | [**WebhookPayloadCampaignPayout**](WebhookPayloadCampaignPayout.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_payout_payable
+
+> on_campaign_payout_payable(webhook_payload_campaign_payout)
+Campaign payout payable event
+
+Fired when a participant's held earnings mature and become payable.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_payout** | [**WebhookPayloadCampaignPayout**](WebhookPayloadCampaignPayout.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_payout_settled
+
+> on_campaign_payout_settled(webhook_payload_campaign_payout)
+Campaign payout settled event
+
+Fired when a settlement to a participant is recorded.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_payout** | [**WebhookPayloadCampaignPayout**](WebhookPayloadCampaignPayout.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_submission_approved
+
+> on_campaign_submission_approved(webhook_payload_campaign_submission)
+Campaign submission approved event
+
+Fired when an operator approves a submission.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_submission** | [**WebhookPayloadCampaignSubmission**](WebhookPayloadCampaignSubmission.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_submission_flagged
+
+> on_campaign_submission_flagged(webhook_payload_campaign_submission)
+Campaign submission flagged event
+
+Fired when a submission gains a fraud flag it did not carry before, at submission or on a later sync.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_submission** | [**WebhookPayloadCampaignSubmission**](WebhookPayloadCampaignSubmission.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_submission_pending_review
+
+> on_campaign_submission_pending_review(webhook_payload_campaign_submission)
+Campaign submission pending review event
+
+Fired when a submission becomes ready for review: a CPM submission reached minViewsToEarn or a pool submission minViewsToQualify; per-post submissions on the first accrual pass after submission.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_submission** | [**WebhookPayloadCampaignSubmission**](WebhookPayloadCampaignSubmission.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_submission_received
+
+> on_campaign_submission_received(webhook_payload_campaign_submission)
+Campaign submission received event
+
+Fired when a creator submits a post to a campaign and its tracking window opens.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_submission** | [**WebhookPayloadCampaignSubmission**](WebhookPayloadCampaignSubmission.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_submission_rejected
+
+> on_campaign_submission_rejected(webhook_payload_campaign_submission)
+Campaign submission rejected event
+
+Fired when an operator rejects a submission.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_submission** | [**WebhookPayloadCampaignSubmission**](WebhookPayloadCampaignSubmission.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## on_comment_received
 
 > on_comment_received(webhook_payload_comment)
@@ -1317,6 +1662,66 @@ Fired once when a new conversation begins between one of your connected accounts
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_conversation_started** | [**WebhookPayloadConversationStarted**](WebhookPayloadConversationStarted.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_creator_campaign_budget_exhausted
+
+> on_creator_campaign_budget_exhausted(webhook_payload_creator_campaign)
+Creator campaign budget exhausted event
+
+Fired once when a campaign's earnings reach its budget.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_creator_campaign** | [**WebhookPayloadCreatorCampaign**](WebhookPayloadCreatorCampaign.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_creator_campaign_closed
+
+> on_creator_campaign_closed(webhook_payload_creator_campaign)
+Creator campaign closed event
+
+Fired once when a campaign closes; a pool campaign is split among participants at this moment.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_creator_campaign** | [**WebhookPayloadCreatorCampaign**](WebhookPayloadCreatorCampaign.md) |  | [required] |
 
 ### Return type
 
@@ -1752,6 +2157,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## on_post_authenticity_changed
+
+> on_post_authenticity_changed(webhook_payload_post_authenticity_changed)
+Post authenticity changed event
+
+Fired when a tracked post's authenticity score crosses 40 in either direction. Carries the new and previous score, confidence and reasons. A first score never fires it. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_post_authenticity_changed** | [**WebhookPayloadPostAuthenticityChanged**](WebhookPayloadPostAuthenticityChanged.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## on_post_cancelled
 
 > on_post_cancelled(webhook_payload_post)
@@ -2125,6 +2560,36 @@ Fired when an already-published TikTok platform entry gets its public URL backfi
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_post_platform** | [**WebhookPayloadPostPlatform**](WebhookPayloadPostPlatform.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_post_tracking_completed
+
+> on_post_tracking_completed(webhook_payload_post_tracking_completed)
+Post tracking completed event
+
+Fired once when a post's tracking window ends and its final analytics read has run. `final` carries the closing metrics, or null when none could be read, and `window.completionReason` is `final_read`, `unreachable` or `post_deleted`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_post_tracking_completed** | [**WebhookPayloadPostTrackingCompleted**](WebhookPayloadPostTrackingCompleted.md) |  | [required] |
 
 ### Return type
 
