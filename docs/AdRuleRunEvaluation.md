@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**rule** | Option<[**models::AdRuleRunEvaluationRule**](AdRuleRunEvaluationRule.md)> |  | [optional]
 **today** | Option<[**String**](String.md)> |  | [optional]
 **timezone** | Option<**String**> |  | [optional]
 **timezone_assumed** | Option<**bool**> |  | [optional]

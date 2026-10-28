@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**create_ad_rule**](AdRulesApi.md#create_ad_rule) | **POST** /v1/ads/rules | Create an ad rule
 [**delete_ad_rule**](AdRulesApi.md#delete_ad_rule) | **DELETE** /v1/ads/rules/{ruleId} | Delete an ad rule
 [**get_ad_rule**](AdRulesApi.md#get_ad_rule) | **GET** /v1/ads/rules/{ruleId} | Get an ad rule
+[**list_ad_rule_activity**](AdRulesApi.md#list_ad_rule_activity) | **GET** /v1/ads/rules/activity | List every change ad rules made
 [**list_ad_rule_runs**](AdRulesApi.md#list_ad_rule_runs) | **GET** /v1/ads/rules/{ruleId}/runs | List an ad rule's runs
 [**list_ad_rules**](AdRulesApi.md#list_ad_rules) | **GET** /v1/ads/rules | List ad rules
 [**preview_ad_rule**](AdRulesApi.md#preview_ad_rule) | **POST** /v1/ads/rules/{ruleId}/preview | Preview an ad rule
@@ -104,12 +105,48 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_ad_rule_activity
+
+> models::ListAdRuleActivity200Response list_ad_rule_activity(rule_id, account_id, r#type, from, to, limit, cursor)
+List every change ad rules made
+
+The permanent record of what your rules did: one entry per pause, reactivation or budget change (including skipped and failed attempts), newest first, across all rules of the profiles the key can reach. Entries stay after a rule is renamed or deleted; `ruleName` is the rule's name when it acted. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**rule_id** | Option<**String**> |  |  |
+**account_id** | Option<**String**> | Only changes of rules on this ads connection. |  |
+**r#type** | Option<**String**> |  |  |
+**from** | Option<**String**> | ISO 8601 date-time, inclusive. |  |
+**to** | Option<**String**> | ISO 8601 date-time, inclusive. |  |
+**limit** | Option<**i32**> |  |  |[default to 50]
+**cursor** | Option<**String**> | `nextCursor` from the previous page. |  |
+
+### Return type
+
+[**models::ListAdRuleActivity200Response**](listAdRuleActivity_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_ad_rule_runs
 
 > models::ListAdRuleRuns200Response list_ad_rule_runs(rule_id, limit, skip)
 List an ad rule's runs
 
-Lists a rule's scheduled runs, newest first: what each run evaluated, matched and did. 
+Lists a rule's scheduled runs, newest first: what each run evaluated, matched and did. Runs that changed something (or tried to) are kept permanently, also after the rule is deleted; runs that changed nothing are dropped after about 31 days. For every change across all rules, use `GET /v1/ads/rules/activity`. 
 
 ### Parameters
 

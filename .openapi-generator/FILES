@@ -58,6 +58,7 @@ docs/AdRuleActionOneOf.md
 docs/AdRuleActionOneOf1.md
 docs/AdRuleActionOneOf2.md
 docs/AdRuleActionOneOf3.md
+docs/AdRuleActivityEntry.md
 docs/AdRuleCondition.md
 docs/AdRuleConditions.md
 docs/AdRuleEvaluation.md
@@ -68,6 +69,7 @@ docs/AdRuleRun.md
 docs/AdRuleRunEvaluation.md
 docs/AdRuleRunEvaluationActionsInner.md
 docs/AdRuleRunEvaluationNotification.md
+docs/AdRuleRunEvaluationRule.md
 docs/AdRuleSchedule.md
 docs/AdRulesApi.md
 docs/AdSchedule.md
@@ -1625,6 +1627,7 @@ docs/ListAdLabels200Response.md
 docs/ListAdLabels200ResponseDataInner.md
 docs/ListAdLabels200ResponsePaging.md
 docs/ListAdNegativeKeywordLists200Response.md
+docs/ListAdRuleActivity200Response.md
 docs/ListAdRuleRuns200Response.md
 docs/ListAdRules200Response.md
 docs/ListAdSets200Response.md
@@ -3235,6 +3238,7 @@ src/models/ad_rule_action_one_of.rs
 src/models/ad_rule_action_one_of_1.rs
 src/models/ad_rule_action_one_of_2.rs
 src/models/ad_rule_action_one_of_3.rs
+src/models/ad_rule_activity_entry.rs
 src/models/ad_rule_condition.rs
 src/models/ad_rule_conditions.rs
 src/models/ad_rule_evaluation.rs
@@ -3245,6 +3249,7 @@ src/models/ad_rule_run.rs
 src/models/ad_rule_run_evaluation.rs
 src/models/ad_rule_run_evaluation_actions_inner.rs
 src/models/ad_rule_run_evaluation_notification.rs
+src/models/ad_rule_run_evaluation_rule.rs
 src/models/ad_rule_schedule.rs
 src/models/ad_schedule.rs
 src/models/ad_schedule_window.rs
@@ -4765,6 +4770,7 @@ src/models/list_ad_labels_200_response.rs
 src/models/list_ad_labels_200_response_data_inner.rs
 src/models/list_ad_labels_200_response_paging.rs
 src/models/list_ad_negative_keyword_lists_200_response.rs
+src/models/list_ad_rule_activity_200_response.rs
 src/models/list_ad_rule_runs_200_response.rs
 src/models/list_ad_rules_200_response.rs
 src/models/list_ad_sets_200_response.rs
