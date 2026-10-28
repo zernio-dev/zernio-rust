@@ -650,6 +650,8 @@ docs/CreateMessagingAd200ResponseResultsInner.md
 docs/CreateMessagingAd201Response.md
 docs/CreateMessagingAdRequest.md
 docs/CreateMetaAdAccountRequest.md
+docs/CreateOAuthApp201Response.md
+docs/CreateOAuthAppRequest.md
 docs/CreatePhoneNumberKycLink200Response.md
 docs/CreatePhoneNumberKycLinkRequest.md
 docs/CreatePhoneNumberKycLinkRequestBranding.md
@@ -812,6 +814,7 @@ docs/DeleteInboxConversation200Response.md
 docs/DeleteInboxConversation200ResponseData.md
 docs/DeleteInboxReviewReply200Response.md
 docs/DeleteInboxReviewReplyRequest.md
+docs/DeleteOAuthApp200Response.md
 docs/DeleteSmsSenderId200Response.md
 docs/DeleteTestLead200Response.md
 docs/DeleteTrackingTagEvent200Response.md
@@ -1816,6 +1819,8 @@ docs/ListLogs200ResponseLogsInner.md
 docs/ListLogs200ResponsePagination.md
 docs/ListMetaBusinessUsers200Response.md
 docs/ListMetaBusinesses200Response.md
+docs/ListOAuthApps200Response.md
+docs/ListOAuthApps200ResponsePagination.md
 docs/ListPageUsers200Response.md
 docs/ListPartnershipAdContent200Response.md
 docs/ListPartnershipAdContent200ResponseMediaInner.md
@@ -1972,6 +1977,11 @@ docs/MoveAccountToProfile200Response.md
 docs/MoveAccountToProfileRequest.md
 docs/MoveWhatsAppNumberToProfile200Response.md
 docs/MoveWhatsAppNumberToProfileRequest.md
+docs/OAuthApp.md
+docs/OAuthAppSetup.md
+docs/OAuthAppSetupScopeAreasInner.md
+docs/OAuthAppWebhook.md
+docs/OAuthAppWebhookObject.md
 docs/OnBrandedCallingIdentityActionRequiredRequest.md
 docs/OnBrandedCallingIdentityActionRequiredRequestIdentity.md
 docs/OnBrandedCallingIdentityStatusUpdatedRequest.md
@@ -2725,6 +2735,7 @@ docs/UpdateLead200Response.md
 docs/UpdateLeadRequest.md
 docs/UpdateLinkedInOrganization200Response.md
 docs/UpdateLinkedInOrganizationRequest.md
+docs/UpdateOAuthAppRequest.md
 docs/UpdatePinterestBoardsRequest.md
 docs/UpdatePostMetadata200Response.md
 docs/UpdatePostMetadataRequest.md
@@ -2878,6 +2889,8 @@ docs/WebhookPayloadAccountConnected.md
 docs/WebhookPayloadAccountConnectedAccount.md
 docs/WebhookPayloadAccountDisconnected.md
 docs/WebhookPayloadAccountDisconnectedAccount.md
+docs/WebhookPayloadAccountPermissionsChanged.md
+docs/WebhookPayloadAccountPermissionsChangedAccount.md
 docs/WebhookPayloadAccountRateLimited.md
 docs/WebhookPayloadAccountRateLimitedAccount.md
 docs/WebhookPayloadAdAccountStatusChanged.md
@@ -3812,6 +3825,8 @@ src/models/create_messaging_ad_200_response_results_inner.rs
 src/models/create_messaging_ad_201_response.rs
 src/models/create_messaging_ad_request.rs
 src/models/create_meta_ad_account_request.rs
+src/models/create_o_auth_app_201_response.rs
+src/models/create_o_auth_app_request.rs
 src/models/create_phone_number_kyc_link_200_response.rs
 src/models/create_phone_number_kyc_link_request.rs
 src/models/create_phone_number_kyc_link_request_branding.rs
@@ -3973,6 +3988,7 @@ src/models/delete_inbox_conversation_200_response.rs
 src/models/delete_inbox_conversation_200_response_data.rs
 src/models/delete_inbox_review_reply_200_response.rs
 src/models/delete_inbox_review_reply_request.rs
+src/models/delete_o_auth_app_200_response.rs
 src/models/delete_sms_sender_id_200_response.rs
 src/models/delete_test_lead_200_response.rs
 src/models/delete_tracking_tag_event_200_response.rs
@@ -4959,6 +4975,8 @@ src/models/list_logs_200_response_logs_inner.rs
 src/models/list_logs_200_response_pagination.rs
 src/models/list_meta_business_users_200_response.rs
 src/models/list_meta_businesses_200_response.rs
+src/models/list_o_auth_apps_200_response.rs
+src/models/list_o_auth_apps_200_response_pagination.rs
 src/models/list_page_users_200_response.rs
 src/models/list_partnership_ad_content_200_response.rs
 src/models/list_partnership_ad_content_200_response_media_inner.rs
@@ -5111,6 +5129,11 @@ src/models/move_account_to_profile_200_response.rs
 src/models/move_account_to_profile_request.rs
 src/models/move_whats_app_number_to_profile_200_response.rs
 src/models/move_whats_app_number_to_profile_request.rs
+src/models/o_auth_app.rs
+src/models/o_auth_app_setup.rs
+src/models/o_auth_app_setup_scope_areas_inner.rs
+src/models/o_auth_app_webhook.rs
+src/models/o_auth_app_webhook_object.rs
 src/models/on_branded_calling_identity_action_required_request.rs
 src/models/on_branded_calling_identity_action_required_request_identity.rs
 src/models/on_branded_calling_identity_status_updated_request.rs
@@ -5847,6 +5870,7 @@ src/models/update_lead_200_response.rs
 src/models/update_lead_request.rs
 src/models/update_linked_in_organization_200_response.rs
 src/models/update_linked_in_organization_request.rs
+src/models/update_o_auth_app_request.rs
 src/models/update_pinterest_boards_request.rs
 src/models/update_post_metadata_200_response.rs
 src/models/update_post_metadata_request.rs
@@ -5994,6 +6018,8 @@ src/models/webhook_payload_account_connected.rs
 src/models/webhook_payload_account_connected_account.rs
 src/models/webhook_payload_account_disconnected.rs
 src/models/webhook_payload_account_disconnected_account.rs
+src/models/webhook_payload_account_permissions_changed.rs
+src/models/webhook_payload_account_permissions_changed_account.rs
 src/models/webhook_payload_account_rate_limited.rs
 src/models/webhook_payload_account_rate_limited_account.rs
 src/models/webhook_payload_ad_account_status_changed.rs
