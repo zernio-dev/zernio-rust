@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**String**> |  | [optional]
 **name** | Option<**String**> |  | [optional]
-**vertical** | Option<**String**> | Catalog vertical (e.g. commerce, vehicles, hotels) | [optional]
+**vertical** | Option<**String**> | Catalog vertical as Meta reports it (e.g. commerce, services, vehicles, hotels) | [optional]
 **product_count** | Option<**i32**> |  | [optional]
 **business_id** | Option<**String**> |  | [optional]
 
