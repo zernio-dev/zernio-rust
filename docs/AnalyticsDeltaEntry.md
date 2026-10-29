@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **platform** | **String** |  | 
 **platform_post_id** | **String** | Platform-side post ID (for example the YouTube video ID) | 
 **published_at** | **String** | When the post was published, ISO-8601 UTC | 
-**synced_at** | **String** | When the sync cycle that produced this snapshot STARTED, ISO-8601 UTC. This is NOT the order entries arrive in and it is not a resume point: a slow cycle writes its rows after a faster cycle that started later, so `syncedAt` can go backwards between consecutive entries. Use `nextCursor` to resume.  | 
+**synced_at** | **String** | When the sync cycle that produced this snapshot STARTED, ISO-8601 UTC.  This is NOT the order entries arrive in and not a resume point: a slow cycle writes its rows after a faster cycle that started later, so `syncedAt` can go backwards between consecutive entries. Use `nextCursor` to resume.  | 
 **is_deleted** | **bool** | True when the post was detected as deleted on the platform at this sync | 
 **metrics** | [**models::AnalyticsDeltaEntryMetrics**](AnalyticsDeltaEntryMetrics.md) |  | 
 

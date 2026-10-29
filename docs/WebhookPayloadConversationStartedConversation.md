@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **participant_username** | Option<**String**> | Contact's handle when the platform exposes one | [optional]
 **participant_picture** | Option<**String**> |  | [optional]
 **status** | **Status** |  (enum: active, archived) | 
-**contact_id** | Option<**String**> | Zernio CRM Contact ID for the participant, when one exists. Resolved by joining `participantId` to the ContactChannel collection (same join used by message.*, reaction.received, and call.* webhooks). Best-effort: omitted when no channel matches or `participantId` is absent. Lets integrators seed the CRM straight from `conversation.started` without waiting for the first `message.*` event.  | [optional]
+**contact_id** | Option<**String**> | Zernio CRM Contact ID for the participant, when one exists. Lets integrators seed the CRM straight from `conversation.started` without waiting for the first `message.*` event.  Resolved by joining `participantId` to the ContactChannel collection (the same join used by message.*, reaction.received, and call.* webhooks). Best-effort: omitted when no channel matches or `participantId` is absent.  | [optional]
 **metadata** | Option<[**models::InboxConversationAdMetadata**](InboxConversationAdMetadata.md)> |  | [optional]
 **ad_attribution** | [**models::ConversationAdAttribution**](ConversationAdAttribution.md) |  | 
 

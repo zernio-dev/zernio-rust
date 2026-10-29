@@ -56,7 +56,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateRcsAgent201Response create_rcs_agent(create_rcs_agent_request, idempotency_key)
 Request an RCS agent
 
-Requests a new agent for a profile, with a new company (`brand`) or an existing one (`brandId`, skips vetting when it is already verified). The request lands in our review: nothing is filed with the carriers or billed until we submit it. A profile can hold several agents. Requires usage-based billing and a card on file. Send an `Idempotency-Key` header to make retries safe. 
+Requests a new agent for a profile, with a new company (`brand`) or an existing one (`brandId`, skips vetting when it is already verified). A profile can hold several agents.  The request lands in our review: nothing is filed with the carriers or billed until we submit it.  - Requires usage-based billing and a card on file. - Send an `Idempotency-Key` header to make retries safe. 
 
 ### Parameters
 
@@ -64,7 +64,7 @@ Requests a new agent for a profile, with a new company (`brand`) or an existing 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_rcs_agent_request** | [**CreateRcsAgentRequest**](CreateRcsAgentRequest.md) |  | [required] |
-**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe. Same key + same body replays the original response; same key + different body → 422; key still processing → 409. A request cut off mid-handler (for example by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours. |  |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe.  - Same key + same body: replays the original response. - Same key + different body: 422. - Key still processing: 409.  A request cut off mid-handler (e.g. by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours.  |  |
 
 ### Return type
 
@@ -288,7 +288,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateRcsAgent201Response request_rcs_agent_launch(agent_id, rcs_launch_request)
 Send the launch filing
 
-Sends the launch details the carriers review (campaign, consent and a public test video). US agents send them once they are in `testing`; we review them before they reach the carriers. Agents in other markets send them while still in review (`requested`, `changes_requested` or `brand_vetting`), because we file everything with the carriers at once; this saves the details without changing the status. 
+Sends the launch details the carriers review (campaign, consent and a public test video).  ### When to send  - **US agents**: send them once they are in `testing`. We review them before they reach the carriers. - **Other markets**: send them while still in review (`requested`, `changes_requested` or `brand_vetting`), because we file everything with the carriers at once. This saves the details without changing the status. 
 
 ### Parameters
 
@@ -319,7 +319,7 @@ Name | Type | Description  | Required | Notes
 > models::SendRcsMessage200Response send_rcs_message(send_rcs_message_request, idempotency_key)
 Send an RCS message
 
-Sends from one of your agents. Use `text` for a plain message or `content` for rich content (card, carousel, media, suggestion chips). Before launch an agent only reaches test phones that accepted the invite. With the agent's `smsFallbackFrom` set, phones without RCS get `fallbackText` (default: the message's readable text) as SMS.  Replies and status arrive as webhooks with `platform: \"rcs\"`: `message.received` (a tapped chip carries its postback in `metadata.postbackPayload`), `message.delivered`, `message.read` and `message.failed`. Send an `Idempotency-Key` header to make retries safe. 
+Sends an RCS message from one of your agents.  - Use `text` for a plain message or `content` for rich content (card, carousel, media, suggestion chips). - Before launch an agent only reaches test phones that accepted the invite. - With the agent's `smsFallbackFrom` set, phones without RCS get `fallbackText` (default: the message's readable text) as SMS.  Send an `Idempotency-Key` header to make retries safe.  ### Webhooks  Replies and status arrive as webhooks with `platform: \"rcs\"`:  - `message.received` (a tapped chip carries its postback in `metadata.postbackPayload`) - `message.delivered` - `message.read` - `message.failed` 
 
 ### Parameters
 
@@ -327,7 +327,7 @@ Sends from one of your agents. Use `text` for a plain message or `content` for r
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **send_rcs_message_request** | [**SendRcsMessageRequest**](SendRcsMessageRequest.md) |  | [required] |
-**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe. Same key + same body replays the original response; same key + different body → 422; key still processing → 409. A request cut off mid-handler (for example by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours. |  |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe.  - Same key + same body: replays the original response. - Same key + different body: 422. - Key still processing: 409.  A request cut off mid-handler (e.g. by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours.  |  |
 
 ### Return type
 

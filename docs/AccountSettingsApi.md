@@ -453,7 +453,7 @@ Name | Type | Description  | Required | Notes
 > models::UpdateYoutubeDefaultPlaylist200Response set_messenger_get_started(account_id, set_messenger_get_started_request)
 Set FB Get Started button
 
-Set the Get Started button shown on a Facebook page's Messenger welcome screen. Meta requires it before a persistent menu can be set. Tapping it sends a postback with `payload`, which arrives as a `message.received` webhook carrying it in `metadata.postbackPayload`. Use `zernio:workflow:<workflowId>` to start a workflow on the tap; the workflow must be active on this account and profile.
+Set the Get Started button shown on a Facebook page's Messenger welcome screen. Meta requires it before a persistent menu can be set.  Tapping it sends a postback with `payload`, which arrives as a `message.received` webhook carrying it in `metadata.postbackPayload`.  Use `zernio:workflow:<workflowId>` to start a workflow on the tap; the workflow must be active on this account and profile. 
 
 ### Parameters
 
@@ -515,7 +515,7 @@ Name | Type | Description  | Required | Notes
 > models::UpdateYoutubeDefaultPlaylist200Response set_messenger_ice_breakers(account_id, set_messenger_ice_breakers_request)
 Set FB ice breakers
 
-Set up to 4 ice breakers per locale for a Facebook page (Meta's `ice_breakers` Messenger Profile field). One entry must use locale `default`. A tap sends a postback with the question's `payload`, which arrives as `message.received` with `metadata.postbackPayload`; use `zernio:workflow:<workflowId>` to start a workflow (it must be active on this account and profile). Replaces every locale already set.
+Set up to 4 ice breakers per locale for a Facebook page (Meta's `ice_breakers` Messenger Profile field). Replaces every locale already set.  - One entry must use locale `default`. - A tap sends a postback with the question's `payload`, which arrives as `message.received` with `metadata.postbackPayload`. - Use `zernio:workflow:<workflowId>` to start a workflow (it must be active on this account and profile). 
 
 ### Parameters
 
@@ -546,7 +546,7 @@ Name | Type | Description  | Required | Notes
 > set_messenger_menu(account_id, set_messenger_menu_request)
 Set persistent menu
 
-Set the persistent menu for a Facebook Messenger or Instagram account. Max 3 top-level items, max 5 nested items. On Facebook, Meta only shows a persistent menu on a page that has a Get Started button, so set one first with PUT /v1/accounts/{accountId}/messenger-get-started. A postback button whose payload is `zernio:workflow:<workflowId>` starts that workflow when tapped; the workflow must be active on this account and profile.
+Set the persistent menu for a Facebook Messenger or Instagram account. Max 3 top-level items, max 5 nested items.  - On Facebook, Meta only shows a persistent menu on a page that has a Get Started button. Set one first with PUT /v1/accounts/{accountId}/messenger-get-started. - A postback button whose payload is `zernio:workflow:<workflowId>` starts that workflow when tapped. The workflow must be active on this account and profile. 
 
 ### Parameters
 

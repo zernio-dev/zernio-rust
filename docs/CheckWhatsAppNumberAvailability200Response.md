@@ -7,8 +7,12 @@ Name | Type | Description | Notes
 **country** | Option<**String**> |  | [optional]
 **number_type** | Option<**String**> |  | [optional]
 **available** | Option<**bool**> | Whether deliverable voice inventory exists right now. | [optional]
+**pre_orderable** | Option<**bool**> | Nothing deliverable now, but this pair can be pre-ordered: submit KYC as usual and we buy regular stock the moment it returns, otherwise the carrier sources the number (usually 2 to 4 weeks, never guaranteed). Only document tiers (3/4) qualify. | [optional]
 **address_constraint** | Option<**AddressConstraint**> |  (enum: geo, country, none) | [optional]
-**areas** | Option<**Vec<String>**> | For `geo` only — the area(s) the registered address must be in. | [optional]
+**areas** | Option<**Vec<String>**> | For `geo` only: the area(s) the registered address must be in. | [optional]
+**area_options** | Option<[**Vec<models::CheckPhoneNumberAvailability200ResponseAreaOptionsInner>**](CheckPhoneNumberAvailability200ResponseAreaOptionsInner.md)> | Live inventory grouped by area code. Equal to `areaAvailability.inStock`. Empty when out of stock (or the area lookup failed).  - **US and CA:** the full country inventory (every area code with stock, recognizable metros first, then alphabetical). - **Other countries:** largest stock first, listing the areas in the latest inventory page (up to 500 numbers, for most countries the entire pool).  Pass a chosen `ndc` as `areaCode` on POST /v1/phone-numbers/purchase (or on the KYC submit for regulated countries) to require that area.  | [optional]
+**sold_out_areas** | Option<[**Vec<models::CheckPhoneNumberAvailability200ResponseSoldOutAreasInner>**](CheckPhoneNumberAvailability200ResponseSoldOutAreasInner.md)> | Every area of the country's numbering plan with nothing deliverable now: `areaAvailability.preOrder` plus `areaAvailability.outOfStock`, kept for older clients. Pass one as `areaCode` with `preOrder: true` on the KYC submit when `preOrderable` is true, or watch it with POST /v1/phone-numbers/stock-watches.  | [optional]
+**area_availability** | Option<[**models::CheckWhatsAppNumberAvailability200ResponseAreaAvailability**](CheckWhatsAppNumberAvailability200ResponseAreaAvailability.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

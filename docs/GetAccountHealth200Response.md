@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **issues** | Option<**Vec<String>**> | List of issues found | [optional]
 **recommendations** | Option<**Vec<String>**> | Actionable recommendations to fix issues | [optional]
 **analytics_sync** | Option<[**models::GetAllAccountsHealth200ResponseAccountsInnerAnalyticsSync**](GetAllAccountsHealth200ResponseAccountsInnerAnalyticsSync.md)> |  | [optional]
-**messaging_restriction** | Option<[**models::GetAllAccountsHealth200ResponseAccountsInnerMessagingRestriction**](GetAllAccountsHealth200ResponseAccountsInnerMessagingRestriction.md)> |  | [optional]
+**messaging_restriction** | Option<[**models::GetAccountHealth200ResponseMessagingRestriction**](GetAccountHealth200ResponseMessagingRestriction.md)> |  | [optional]
 **platform_connection** | Option<[**models::GetAccountHealth200ResponsePlatformConnection**](GetAccountHealth200ResponsePlatformConnection.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

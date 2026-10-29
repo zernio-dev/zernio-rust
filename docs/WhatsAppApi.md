@@ -125,7 +125,7 @@ Name | Type | Description  | Required | Notes
 > models::BlockWhatsAppUsers200Response block_whats_app_users(block_whats_app_users_request)
 Block users
 
-Block one or more WhatsApp users on this number. Blocked users cannot message your number or see that you are online, and your sends to them return an error.  Meta constraints, surfaced per-user in `failed` (the request itself still succeeds for the rest of the batch): - Only users who messaged your business within the last 24 hours can be   blocked (failures outside the window report \"Re-engagement required\"). - Up to 1,000 users per request; the blocklist caps at 64,000. - Other WhatsApp Business accounts cannot be blocked. 
+Block one or more WhatsApp users on this number. Blocked users cannot message your number or see that you are online, and your sends to them return an error.  ### Meta constraints  These are surfaced per-user in `failed`; the request itself still succeeds for the rest of the batch.  - Only users who messaged your business within the last 24 hours can be blocked (failures outside the window report \"Re-engagement required\"). - Up to 1,000 users per request; the blocklist caps at 64,000. - Other WhatsApp Business accounts cannot be blocked. 
 
 ### Parameters
 
@@ -675,7 +675,7 @@ Name | Type | Description  | Required | Notes
 > std::path::PathBuf get_whats_app_media(media_id, account_id)
 Download WhatsApp media
 
-Streams the binary for a WhatsApp attachment. This is the endpoint the `url` on a WhatsApp `attachments[]` entry points at, in both the `message.received` webhook and the List messages response.  **This is an authenticated endpoint, not a public link.** Send `Authorization: Bearer <your API key>` exactly as you would for any other call. Passing the URL straight to a browser, an LLM vision API, or a no-code \"download file\" step without the header returns `401`. This is the most common integration mistake on this endpoint, and it differs from Instagram, Facebook and Telegram, whose `attachments[].url` is a direct CDN link that needs no header.  **Fetch on receipt, not lazily.** WhatsApp media lives in Meta's media store, not ours, and it is removed after a limited retention window (currently 7 days, and Meta has been dropping some inbound media sooner). Once Meta drops it the media is unrecoverable and this endpoint answers `400` permanently, so retrying will never succeed. Download and store the bytes when the webhook arrives. 
+Streams the binary for a WhatsApp attachment. This is the endpoint the `url` on a WhatsApp `attachments[]` entry points at, in both the `message.received` webhook and the List messages response.  ### This is an authenticated endpoint, not a public link  Send `Authorization: Bearer <your API key>` exactly as you would for any other call. Passing the URL straight to a browser, an LLM vision API, or a no-code \"download file\" step without the header returns `401`.  This is the most common integration mistake on this endpoint. It differs from Instagram, Facebook and Telegram, whose `attachments[].url` is a direct CDN link that needs no header.  ### Fetch on receipt, not lazily  WhatsApp media lives in Meta's media store, not ours, and it is removed after a limited retention window (currently 7 days, and Meta has been dropping some inbound media sooner).  Once Meta drops it the media is unrecoverable and this endpoint answers `400` permanently, so retrying will never succeed. Download and store the bytes when the webhook arrives. 
 
 ### Parameters
 
@@ -706,7 +706,7 @@ Name | Type | Description  | Required | Notes
 > models::GetWhatsAppTemplate200Response get_whats_app_template(template_name, account_id, language)
 Get template
 
-Retrieve one message template variant by name.  Meta stores one template per **name + language**, so a name identifies a family of variants, each with its own Meta id. Pass `language` to address one variant. Without it, a name with a single variant resolves to that variant; a name with several returns `409 ambiguous_template` with `details.languages`. A bare language (`es`) matches a single regional variant (`es_ES`); if the family has several regional variants for it, that is also a 409. A full code (`es_ES`) must match exactly. Variants in `PENDING_DELETION` are not part of the family. 
+Retrieve one message template variant by name.  Meta stores one template per **name + language**, so a name identifies a family of variants, each with its own Meta id. Pass `language` to address one variant.  ### How the variant is resolved  - Without `language`, a name with a single variant resolves to that variant. - Without `language`, a name with several returns `409 ambiguous_template` with `details.languages`. - A bare language (`es`) matches a single regional variant (`es_ES`). If the family has several regional variants for it, that is also a 409. - A full code (`es_ES`) must match exactly.  Variants in `PENDING_DELETION` are not part of the family. 
 
 ### Parameters
 
@@ -892,7 +892,7 @@ Name | Type | Description  | Required | Notes
 > models::ListWhatsAppAccountEvents200Response list_whats_app_account_events(account_id, limit)
 List account notifications
 
-Returns Meta-originated events recorded for a WhatsApp account, newest first: template review outcomes (approved, rejected, paused, category changes) and WABA status changes (restricted, disabled, reinstated, disconnected). Events are captured from Meta webhooks as they happen; the feed starts at the account's first recorded event and is not backfilled. Complements the push events `whatsapp.template.status_updated` and `account.disconnected` with a pollable history. 
+Returns Meta-originated events recorded for a WhatsApp account, newest first:  - template review outcomes (approved, rejected, paused, category changes) - WABA status changes (restricted, disabled, reinstated, disconnected)  Events are captured from Meta webhooks as they happen. The feed starts at the account's first recorded event and is not backfilled.  Complements the push events `whatsapp.template.status_updated` and `account.disconnected` with a pollable history. 
 
 ### Parameters
 
@@ -923,7 +923,7 @@ Name | Type | Description  | Required | Notes
 > models::ListWhatsAppCatalogs200Response list_whats_app_catalogs(account_id, catalog_account_id)
 List the catalogs linked to a WhatsApp number
 
-The Meta Commerce catalogs connected to the number's WhatsApp Business Account. Pass `catalogAccountId`: the WhatsApp connection's own (embedded signup) token answers an empty list even when a catalog is linked, only a Meta login with catalog_management sees the link. A linked catalog is what product, product_list and catalog_message interactive messages sell from (see POST /v1/inbox/conversations/{conversationId}/messages) and what customers browse in the WhatsApp app. Create and fill catalogs with the /v1/ads/catalogs endpoints.
+Lists the Meta Commerce catalogs connected to the number's WhatsApp Business Account.  Pass `catalogAccountId`. The WhatsApp connection's own (embedded signup) token answers an empty list even when a catalog is linked; only a Meta login with catalog_management sees the link.  A linked catalog is what product, product_list and catalog_message interactive messages sell from (see POST /v1/inbox/conversations/{conversationId}/messages). It is also what customers browse in the WhatsApp app.  Create and fill catalogs with the /v1/ads/catalogs endpoints. 
 
 ### Parameters
 
@@ -954,7 +954,7 @@ Name | Type | Description  | Required | Notes
 > models::ListWhatsAppConversions200Response list_whats_app_conversions(account_id, limit)
 List conversion events
 
-Returns the most recent conversion events sent through `POST /v1/whatsapp/conversions` for the given WhatsApp account. Sourced from delivery logs (Axiom `late` dataset), so the visible window is bounded by log retention (about 30 days). Useful for rendering a \"recent activity\" panel on the conversions setup tab without standing up a parallel persistence layer.  Per-event payload mirrors the structured log we write on every successful send: `eventName`, `conversationId`, `eventsReceived`, `eventsFailed`, `traceId`, `durationMs`, and the wall-clock `timestamp`. 
+Returns the most recent conversion events sent through `POST /v1/whatsapp/conversions` for the given WhatsApp account.  It is sourced from delivery logs (Axiom `late` dataset), so the visible window is bounded by log retention (about 30 days). Useful for rendering a \"recent activity\" panel on the conversions setup tab without standing up a parallel persistence layer.  ### Per-event payload  It mirrors the structured log we write on every successful send:  - `eventName` - `conversationId` - `eventsReceived` - `eventsFailed` - `traceId` - `durationMs` - the wall-clock `timestamp` 
 
 ### Parameters
 
@@ -1048,7 +1048,7 @@ Name | Type | Description  | Required | Notes
 > models::RegisterWhatsAppNumber200Response register_whats_app_number(account_id, register_whats_app_number_request)
 Register a connected WhatsApp number on the Cloud API
 
-Re-runs Meta's Cloud API registration for a WhatsApp account that is already connected. Use it when the number has its own two-step verification PIN: the connect flows register with a default PIN, Meta rejects that with error 133005, and the number then fails every send with the misleading '(#200) You do not have the necessary permission to send messages' while the account still shows as connected. The PIN is used for this call only and is not stored. 
+Re-runs Meta's Cloud API registration for a WhatsApp account that is already connected.  Use it when the number has its own two-step verification PIN. The connect flows register with a default PIN, and Meta rejects that with error 133005.  The number then fails every send with the misleading '(#200) You do not have the necessary permission to send messages' while the account still shows as connected.  The PIN is used for this call only and is not stored. 
 
 ### Parameters
 
@@ -1143,7 +1143,7 @@ Name | Type | Description  | Required | Notes
 > models::RequestWhatsAppVerificationCode200Response request_whats_app_verification_code(account_id, request_whats_app_verification_code_request)
 Request a Meta re-verification code for a BYO WhatsApp number
 
-For a bring-your-own WhatsApp number (its own WABA, migrated off another BSP) that Meta demoted to re-verification, this requests a new OTP from Meta. The code lands on the customer's own handset, so verifying it is necessarily self-service; call POST /v1/accounts/{accountId}/whatsapp/verify-code with the code once it arrives. Rate-limited to one request per 10 minutes per account, and Meta enforces its own cooldown on top of that. 
+Requests a new OTP from Meta for a bring-your-own WhatsApp number (its own WABA, migrated off another BSP) that Meta demoted to re-verification.  The code lands on the customer's own handset, so verifying it is necessarily self-service. Call POST /v1/accounts/{accountId}/whatsapp/verify-code with the code once it arrives.  Rate-limited to one request per 10 minutes per account, and Meta enforces its own cooldown on top of that. 
 
 ### Parameters
 
@@ -1174,7 +1174,7 @@ Name | Type | Description  | Required | Notes
 > models::SendWhatsAppConversion200Response send_whats_app_conversion(send_whats_app_conversion_request)
 Send WhatsApp conversion event
 
-Forward a WhatsApp Business Messaging conversion event (`LeadSubmitted`, `QualifiedLead`, `Purchase`, `AddToCart`, `InitiateCheckout`, `ViewContent`, `OrderCreated`, `OrderCanceled`, `OrderReturned`) to Meta's Conversions API with `action_source = business_messaging` and `messaging_channel = whatsapp`. The endpoint looks up the originating CTWA click ID (`ctwa_clid`) captured on the first inbound message of the conversation and replays it on every event so Meta can attribute the conversion back to the Click-to-WhatsApp ad that drove the chat.  Configuration prerequisite on the WhatsApp account metadata:   - `metaCapiDatasetId`: the Meta dataset ID linked to the WABA.     Provision one with `POST /v1/whatsapp/dataset`.  The WABA ID (already set automatically at connect time) is forwarded as `user_data.whatsapp_business_account_id`, which is the per-channel attribution identifier Meta requires for WhatsApp events. No Facebook Page ID is needed (that field is the Messenger-branch identifier).  Identify the conversation by either `conversationId` (preferred) or `phoneE164` (digits only, no `+`). At least one is required. If the conversation has no captured `ctwa_clid`, the request returns 422 because there is nothing to attribute.  Token and dataset coupling: the WhatsApp account's accessToken must have access to the configured `metaCapiDatasetId`. By default a WABA's system-user token is scoped to the WABA's own Business Manager and cannot post to a pixel owned by a different Business; Meta returns code 100 in that case. Either share the dataset with the WhatsApp app's Business in BM, or use a dataset already in the same Business as the WABA. 
+Forward a WhatsApp Business Messaging conversion event to Meta's Conversions API with `action_source = business_messaging` and `messaging_channel = whatsapp`.  Supported events:  - `LeadSubmitted` - `QualifiedLead` - `Purchase` - `AddToCart` - `InitiateCheckout` - `ViewContent` - `OrderCreated` - `OrderCanceled` - `OrderReturned`  The endpoint looks up the originating CTWA click ID (`ctwa_clid`) captured on the first inbound message of the conversation. It replays it on every event so Meta can attribute the conversion back to the Click-to-WhatsApp ad that drove the chat.  ### Configuration prerequisite  On the WhatsApp account metadata:  - `metaCapiDatasetId`: the Meta dataset ID linked to the WABA. Provision one with `POST /v1/whatsapp/dataset`.  The WABA ID (already set automatically at connect time) is forwarded as `user_data.whatsapp_business_account_id`, the per-channel attribution identifier Meta requires for WhatsApp events. No Facebook Page ID is needed (that field is the Messenger-branch identifier).  ### Identifying the conversation  Identify the conversation by either `conversationId` (preferred) or `phoneE164` (digits only, no `+`). At least one is required.  If the conversation has no captured `ctwa_clid`, the request returns 422 because there is nothing to attribute.  ### Token and dataset coupling  The WhatsApp account's accessToken must have access to the configured `metaCapiDatasetId`. By default a WABA's system-user token is scoped to the WABA's own Business Manager and cannot post to a pixel owned by a different Business; Meta returns code 100 in that case.  To fix it, either:  - share the dataset with the WhatsApp app's Business in BM, or - use a dataset already in the same Business as the WABA. 
 
 ### Parameters
 
@@ -1234,7 +1234,7 @@ Name | Type | Description  | Required | Notes
 > models::SetWhatsappBusinessUsername200Response set_whatsapp_business_username(set_whatsapp_business_username_request)
 Set business username
 
-Claim or transfer a WhatsApp Business username for the account.  Username rules: 3-35 characters, letters/digits/period/underscore only, must contain at least one letter, no leading or trailing periods, no consecutive periods, no `www` prefix, no domain TLD suffix (e.g. `.com`).  If the desired username is currently held by another account, pass `transferAction: \"force_transfer\"` to request a transfer. On failure the API returns a standard error envelope with one of these codes: `whatsapp_username_unavailable` (already taken and transfer not requested), `whatsapp_username_ineligible` (account not eligible to claim a username), `whatsapp_username_transfer_required` (username is held elsewhere; retry with `force_transfer`), or `insufficient_permissions` (Meta has not granted username management for this WhatsApp Business Account). 
+Claim or transfer a WhatsApp Business username for the account.  ### Username rules  - 3-35 characters - letters/digits/period/underscore only - must contain at least one letter - no leading or trailing periods - no consecutive periods - no `www` prefix - no domain TLD suffix (e.g. `.com`)  ### Transfers  If the desired username is currently held by another account, pass `transferAction: \"force_transfer\"` to request a transfer.  ### Errors  On failure the API returns a standard error envelope with one of these codes:  - `whatsapp_username_unavailable`: already taken and transfer not requested - `whatsapp_username_ineligible`: account not eligible to claim a username - `whatsapp_username_transfer_required`: username is held elsewhere; retry with `force_transfer` - `insufficient_permissions`: Meta has not granted username management for this WhatsApp Business Account 
 
 ### Parameters
 
@@ -1444,7 +1444,7 @@ Name | Type | Description  | Required | Notes
 > models::UpdateWhatsAppTemplate200Response update_whats_app_template(template_name, update_whats_app_template_request)
 Update template
 
-Update one variant's components and/or its message_send_ttl_seconds. Name, language and category cannot change after creation.  Meta stores one template per **name + language**, so a name identifies a family of variants, each with its own Meta id. Pass `language` to address one variant. Without it, a name with a single variant resolves to that variant; a name with several returns `409 ambiguous_template` with `details.languages`. A bare language (`es`) matches a single regional variant (`es_ES`); if the family has several regional variants for it, that is also a 409. A full code (`es_ES`) must match exactly. Variants in `PENDING_DELETION` are not part of the family.  Meta only allows editing templates in `APPROVED`, `REJECTED` or `PAUSED` state; an approved template can be edited once per 24 hours and up to 10 times per 30 days. A component update sends the variant back to Meta for review, so the `status` returned here is normally `PENDING`; a TTL-only update keeps an APPROVED variant approved. The final outcome arrives on the `whatsapp.template.status_updated` webhook (which carries the variant's `templateId` and `language`). A variant already in `PENDING` cannot be edited again until Meta finishes reviewing it. 
+Update one variant's components and/or its message_send_ttl_seconds. Name, language and category cannot change after creation.  ### Choosing the variant  Meta stores one template per **name + language**, so a name identifies a family of variants, each with its own Meta id. Pass `language` to address one variant.  - Without `language`, a name with a single variant resolves to that variant. A name with several returns `409 ambiguous_template` with `details.languages`. - A bare language (`es`) matches a single regional variant (`es_ES`). If the family has several regional variants for it, that is also a 409. - A full code (`es_ES`) must match exactly. - Variants in `PENDING_DELETION` are not part of the family.  ### Editing rules  Meta only allows editing templates in `APPROVED`, `REJECTED` or `PAUSED` state. An approved template can be edited once per 24 hours and up to 10 times per 30 days.  - A component update sends the variant back to Meta for review, so the `status` returned here is normally `PENDING`. - A TTL-only update keeps an APPROVED variant approved. - A variant already in `PENDING` cannot be edited again until Meta finishes reviewing it.  The final outcome arrives on the `whatsapp.template.status_updated` webhook (which carries the variant's `templateId` and `language`). 
 
 ### Parameters
 
@@ -1475,7 +1475,7 @@ Name | Type | Description  | Required | Notes
 > models::UpdateWhatsAppTemplateById200Response update_whats_app_template_by_id(template_id, update_whats_app_template_by_id_request)
 Update template by id
 
-Update one variant's components and/or its message_send_ttl_seconds by its Meta id. Name, language and category cannot change.  Meta only allows editing templates in `APPROVED`, `REJECTED` or `PAUSED` state; an approved template can be edited once per 24 hours and up to 10 times per 30 days. A component update sends the variant back to Meta for review, so the `status` returned here is normally `PENDING`; a TTL-only update keeps an APPROVED variant approved. The final outcome arrives on the `whatsapp.template.status_updated` webhook (which carries the variant's `templateId` and `language`). A variant already in `PENDING` cannot be edited again until Meta finishes reviewing it. 
+Update one variant's components and/or its message_send_ttl_seconds by its Meta id. Name, language and category cannot change.  ### Editing limits  - Meta only allows editing templates in `APPROVED`, `REJECTED` or `PAUSED` state. - An approved template can be edited once per 24 hours and up to 10 times per 30 days. - A variant already in `PENDING` cannot be edited again until Meta finishes reviewing it.  ### Review  A component update sends the variant back to Meta for review, so the `status` returned here is normally `PENDING`. A TTL-only update keeps an APPROVED variant approved.  The final outcome arrives on the `whatsapp.template.status_updated` webhook (which carries the variant's `templateId` and `language`). 
 
 ### Parameters
 

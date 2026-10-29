@@ -28,6 +28,7 @@ docs/AdAudiencesApi.md
 docs/AdBudget.md
 docs/AdCampaign.md
 docs/AdCampaignBudget.md
+docs/AdCampaignOptimizationGoal.md
 docs/AdCampaignsApi.md
 docs/AdCreative.md
 docs/AdCreativeAssets.md
@@ -36,6 +37,8 @@ docs/AdCreativeAssetsSquareMarketingImagesInner.md
 docs/AdCreativeCarouselCardsInner.md
 docs/AdCreativeCatalog.md
 docs/AdCreativeCatalogFormatTransformationSpecInner.md
+docs/AdCreativeDescriptionsInner.md
+docs/AdCreativeHeadlinesInner.md
 docs/AdCreativesApi.md
 docs/AdDailyMetrics.md
 docs/AdEngagementCounts.md
@@ -388,6 +391,8 @@ docs/CheckPhoneNumberPortability200ResponseResultsInner.md
 docs/CheckPhoneNumberPortabilityRequest.md
 docs/CheckVerification200Response.md
 docs/CheckVerificationRequest.md
+docs/CheckWhatsAppNumberAvailability200Response.md
+docs/CheckWhatsAppNumberAvailability200ResponseAreaAvailability.md
 docs/CommentAutomationActions.md
 docs/CommentAutomationAudience.md
 docs/CommentAutomationDmMedia.md
@@ -756,6 +761,7 @@ docs/CreateStandaloneAdRequestPlatformSpecificData.md
 docs/CreateStandaloneAdRequestRegionsInner.md
 docs/CreateStandaloneAdRequestRegionsInnerOneOf.md
 docs/CreateStandaloneAdRequestSitelinksInner.md
+docs/CreateStandaloneAdRequestSmartTargeting.md
 docs/CreateStandaloneAdRequestStructuredSnippetsInner.md
 docs/CreateStandaloneAdRequestTranslationsInner.md
 docs/CreateStandaloneAdRequestVideo.md
@@ -787,6 +793,7 @@ docs/CreateWhatsAppGroupChat201Response.md
 docs/CreateWhatsAppGroupChat201ResponseGroup.md
 docs/CreateWhatsAppGroupChatRequest.md
 docs/CreateWhatsAppGroupInviteLink200Response.md
+docs/CreateWhatsAppNumberKycLinkRequest.md
 docs/CreateWhatsAppSandboxSession200Response.md
 docs/CreateWhatsAppSandboxSessionRequest.md
 docs/CreateWhatsAppTemplate200Response.md
@@ -1010,6 +1017,7 @@ docs/GenerateKeywordIdeas200ResponsePaging.md
 docs/GenerateKeywordIdeasRequest.md
 docs/GeoRestriction.md
 docs/GetAccountHealth200Response.md
+docs/GetAccountHealth200ResponseMessagingRestriction.md
 docs/GetAccountHealth200ResponsePermissions.md
 docs/GetAccountHealth200ResponsePermissionsPostingInner.md
 docs/GetAccountHealth200ResponsePlatformConnection.md
@@ -3371,6 +3379,7 @@ src/models/ad_applied_defaults.rs
 src/models/ad_budget.rs
 src/models/ad_campaign.rs
 src/models/ad_campaign_budget.rs
+src/models/ad_campaign_optimization_goal.rs
 src/models/ad_creative.rs
 src/models/ad_creative_assets.rs
 src/models/ad_creative_assets_marketing_images_inner.rs
@@ -3378,6 +3387,8 @@ src/models/ad_creative_assets_square_marketing_images_inner.rs
 src/models/ad_creative_carousel_cards_inner.rs
 src/models/ad_creative_catalog.rs
 src/models/ad_creative_catalog_format_transformation_spec_inner.rs
+src/models/ad_creative_descriptions_inner.rs
+src/models/ad_creative_headlines_inner.rs
 src/models/ad_daily_metrics.rs
 src/models/ad_engagement_counts.rs
 src/models/ad_funnel_counts.rs
@@ -3716,6 +3727,8 @@ src/models/check_phone_number_portability_200_response_results_inner.rs
 src/models/check_phone_number_portability_request.rs
 src/models/check_verification_200_response.rs
 src/models/check_verification_request.rs
+src/models/check_whats_app_number_availability_200_response.rs
+src/models/check_whats_app_number_availability_200_response_area_availability.rs
 src/models/comment_automation_actions.rs
 src/models/comment_automation_audience.rs
 src/models/comment_automation_dm_media.rs
@@ -4077,6 +4090,7 @@ src/models/create_standalone_ad_request_platform_specific_data.rs
 src/models/create_standalone_ad_request_regions_inner.rs
 src/models/create_standalone_ad_request_regions_inner_one_of.rs
 src/models/create_standalone_ad_request_sitelinks_inner.rs
+src/models/create_standalone_ad_request_smart_targeting.rs
 src/models/create_standalone_ad_request_structured_snippets_inner.rs
 src/models/create_standalone_ad_request_translations_inner.rs
 src/models/create_standalone_ad_request_video.rs
@@ -4108,6 +4122,7 @@ src/models/create_whats_app_group_chat_201_response.rs
 src/models/create_whats_app_group_chat_201_response_group.rs
 src/models/create_whats_app_group_chat_request.rs
 src/models/create_whats_app_group_invite_link_200_response.rs
+src/models/create_whats_app_number_kyc_link_request.rs
 src/models/create_whats_app_sandbox_session_200_response.rs
 src/models/create_whats_app_sandbox_session_request.rs
 src/models/create_whats_app_template_200_response.rs
@@ -4324,6 +4339,7 @@ src/models/generate_keyword_ideas_200_response_paging.rs
 src/models/generate_keyword_ideas_request.rs
 src/models/geo_restriction.rs
 src/models/get_account_health_200_response.rs
+src/models/get_account_health_200_response_messaging_restriction.rs
 src/models/get_account_health_200_response_permissions.rs
 src/models/get_account_health_200_response_permissions_posting_inner.rs
 src/models/get_account_health_200_response_platform_connection.rs

@@ -30,7 +30,7 @@ Archives a lead form so it can no longer be used (neither Meta nor LinkedIn allo
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **form_id** | **String** | Numeric form id (Meta leadgen_form id or LinkedIn leadForm id). | [required] |
-**account_id** | **String** | Connected Meta ads, facebook, instagram or linkedin ads account id (selects the platform). A Meta ads connection resolves its Page through the Facebook account linked to the same profile; an Instagram account uses the Page its ads run under (its own linked Page, else the Facebook or business-login Meta ads account on the same profile). | [required] |
+**account_id** | **String** | Connected Meta ads, facebook, instagram or linkedin ads account id (selects the platform).  - A Meta ads connection resolves its Page through the Facebook account linked to the same profile. - An Instagram account uses the Page its ads run under: its own linked Page, else the Facebook or business-login Meta ads account on the same profile. | [required] |
 
 ### Return type
 
@@ -84,7 +84,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateLeadForm200Response create_lead_form(create_lead_form_request)
 Create a lead form
 
-Creates a lead form on a Facebook Page or LinkedIn Company Page to collect contact details from ads.  The form content goes inside `platformSpecificData` for both platforms (the shape is selected by the accountId's platform). Meta: created on the connected Facebook Page (POST /{page-id}/leadgen_forms), where `accountId` may be the `metaads` ads connection (its Page comes from the Facebook account linked to the same profile), an Instagram account (the Page its ads run under: its own linked Page, else the Facebook or business-login Meta ads account on the same profile) or the Facebook account itself; the old top-level Meta fields (questions, thankYou*, contextCard, …) are DEPRECATED but still accepted while platformSpecificData is absent; mixing both shapes is a 400. thankYouEnableMessenger, isPhoneSmsVerifyEnabled and customDisclaimer are accepted only inside platformSpecificData (top-level is a 400). LinkedIn: created on the ad account's Company Page. NOT idempotent: a retry creates a second form. Meta prefilled question types (EMAIL, PHONE, FULL_NAME, …) must omit label/key; CUSTOM questions require both. LinkedIn exposes only free-text and multiple-choice questions via API (prefilled-from-profile fields are Campaign Manager UI-only). Requires the Ads add-on. 
+Creates a lead form on a Facebook Page or LinkedIn Company Page to collect contact details from ads.  The form content goes inside `platformSpecificData` for both platforms (the shape is selected by the accountId's platform). Requires the Ads add-on.  NOT idempotent: a retry creates a second form.  ### Meta  Created on the connected Facebook Page (POST /{page-id}/leadgen_forms). `accountId` may be:  - the `metaads` ads connection (its Page comes from the Facebook account linked to the same profile) - an Instagram account (the Page its ads run under: its own linked Page, else the Facebook or business-login Meta ads account on the same profile) - the Facebook account itself  The old top-level Meta fields (questions, thankYou*, contextCard, …) are DEPRECATED but still accepted while platformSpecificData is absent. Mixing both shapes is a 400.  thankYouEnableMessenger, isPhoneSmsVerifyEnabled and customDisclaimer are accepted only inside platformSpecificData (top-level is a 400).  Meta prefilled question types (EMAIL, PHONE, FULL_NAME, …) must omit label/key; CUSTOM questions require both.  ### LinkedIn  Created on the ad account's Company Page. LinkedIn exposes only free-text and multiple-choice questions via API (prefilled-from-profile fields are Campaign Manager UI-only). 
 
 ### Parameters
 
@@ -145,7 +145,7 @@ Name | Type | Description  | Required | Notes
 > models::DeleteTestLead200Response delete_test_lead(form_id, account_id, lead_id)
 Delete a test lead
 
-Deletes the test lead on a Meta lead form so you can submit a new one (Meta allows only one at a time).  Removes a test lead created for the form (DELETE /{leadgen_id}), so a new one can be submitted: Meta keeps one test lead per form and refuses a second until the first is gone. The same test lead appears in Meta's Lead Ads Testing Tool. Meta only deletes test leads; a real lead is refused. 
+Deletes the test lead on a Meta lead form so you can submit a new one (Meta allows only one at a time).  Removes a test lead created for the form (DELETE /{leadgen_id}). Meta keeps one test lead per form and refuses a second until the first is gone.  - The same test lead appears in Meta's Lead Ads Testing Tool. - Meta only deletes test leads; a real lead is refused. 
 
 ### Parameters
 
@@ -185,8 +185,8 @@ Shows a lead form in full, including its questions and thank-you page.  Returns 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **form_id** | **String** | Numeric form id (Meta leadgen_form id or LinkedIn leadForm id). | [required] |
-**account_id** | **String** | Connected Meta ads, facebook, instagram or linkedin ads account id (selects the platform). A Meta ads connection resolves its Page through the Facebook account linked to the same profile; an Instagram account uses the Page its ads run under (its own linked Page, else the Facebook or business-login Meta ads account on the same profile). | [required] |
-**fields** | Option<**String**> | Meta only. A Graph field selection passed through verbatim to GET /{form-id}, replacing the default projection, so fields Meta adds later are reachable without an API change. Field names, commas and {} expansion only; anything else (Graph field modifiers such as .limit(), or characters that could open another query parameter) is a 400. Ownership of the form is verified before the selection runs, so this cannot reach any Page but the one accountId manages. Unknown field names are rejected by Meta as a 400.  |  |
+**account_id** | **String** | Connected Meta ads, facebook, instagram or linkedin ads account id (selects the platform).  - Meta ads connection: resolves its Page through the Facebook account linked to the same profile. - Instagram account: uses the Page its ads run under (its own linked Page, else the Facebook or business-login Meta ads account on the same profile). | [required] |
+**fields** | Option<**String**> | Meta only. A Graph field selection passed through verbatim to GET /{form-id}, replacing the default projection, so fields Meta adds later are reachable without an API change.  - Field names, commas and {} expansion only. Anything else (Graph field modifiers such as .limit(), or characters that could open another query parameter) is a 400. - Unknown field names are rejected by Meta as a 400. - Ownership of the form is verified before the selection runs, so this cannot reach any Page but the one accountId manages.  |  |
 
 ### Return type
 
@@ -209,7 +209,7 @@ Name | Type | Description  | Required | Notes
 > models::ListFormLeads200Response list_form_leads(form_id, account_id, limit, cursor, since)
 List leads for a single form
 
-Lists the leads submitted through one Meta lead form.  Serves persisted leads (ingested via the leadgen webhook) when available, falling back to a live Graph read. Accepts a Facebook account or a metaads business-login account with leads_retrieval access to the form; the latter uses its system-user token without a posting parent.  Persisted leads arrive in real time through Meta's webhook, and a background pass re-reads every Page from Meta to catch the leads the webhook misses: every 15 minutes for Pages that received a lead in the last 7 days. `meta.lastCheckedAt` says when that pass last ran, so polling this endpoint faster than that returns nothing new; subscribe to the `lead.received` webhook instead. The live Graph read is cached for 5 minutes, and `meta.lastCheckedAt` is when it was read. 
+Lists the leads submitted through one Meta lead form.  It serves persisted leads (ingested via the leadgen webhook) when available, falling back to a live Graph read.  ### Accounts  Accepts either of these with leads_retrieval access to the form:  - a Facebook account - a metaads business-login account, which uses its system-user token without a posting parent  ### Freshness  Persisted leads arrive in real time through Meta's webhook. A background pass re-reads every Page from Meta to catch the leads the webhook misses: every 15 minutes for Pages that received a lead in the last 7 days.  `meta.lastCheckedAt` says when that pass last ran, so polling this endpoint faster than that returns nothing new. Subscribe to the `lead.received` webhook instead.  The live Graph read is cached for 5 minutes, and `meta.lastCheckedAt` is when it was read. 
 
 ### Parameters
 
@@ -250,7 +250,7 @@ Lists the lead forms on a Facebook Page or LinkedIn Company Page.  Meta: forms o
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | Connected Meta ads, Facebook, Instagram or LinkedIn ads account ID. A Meta ads connection resolves its Page through the Facebook account linked to the same profile; an Instagram account uses the Page its ads run under (its own linked Page, else the Facebook or business-login Meta ads account on the same profile). | [required] |
+**account_id** | **String** | Connected Meta ads, Facebook, Instagram or LinkedIn ads account ID.  - Meta ads connection: resolves its Page through the Facebook account linked to the same profile. - Instagram account: uses the Page its ads run under (its own linked Page, else the Facebook or business-login Meta ads account on the same profile). | [required] |
 **ad_account_id** | Option<**String**> | LinkedIn only: the LinkedIn ad account id (used to resolve the owning organization). Required for LinkedIn. |  |
 **limit** | Option<**i32**> |  |  |[default to 25]
 **cursor** | Option<**String**> |  |  |
@@ -276,7 +276,7 @@ Name | Type | Description  | Required | Notes
 > models::ListLeads200Response list_leads(form_id, account_id, account_ids, status, campaign_id, platform, q, ad_account_id, limit, since, cursor)
 List submitted leads
 
-Lists the leads submitted through your Meta or LinkedIn lead forms, newest first.  Returns submitted Lead Gen leads for your team, newest-first, with keyset pagination on `cursor`. For Meta (default) leads are served from the persisted cache, ingested in real time from the `leadgen` webhook. When `accountId` is a LinkedIn ads account, leads are fetched live from LinkedIn's `leadFormResponses` (LinkedIn has no webhook and enforces 90-day retention, so nothing is persisted) and `adAccountId` is required. Reading LinkedIn responses needs the `r_marketing_leadgen_automation` permission; accounts connected before it was added must reconnect. Requires the Ads add-on. 
+Lists the leads submitted through your Meta or LinkedIn lead forms, newest first.  Returns submitted Lead Gen leads for your team, newest-first, with keyset pagination on `cursor`. Requires the Ads add-on.  ### Meta (default)  Leads are served from the persisted cache, ingested in real time from the `leadgen` webhook.  ### LinkedIn  When `accountId` is a LinkedIn ads account, `adAccountId` is required. Leads are fetched live from LinkedIn's `leadFormResponses`: LinkedIn has no webhook and enforces 90-day retention, so nothing is persisted.  Reading LinkedIn responses needs the `r_marketing_leadgen_automation` permission. Accounts connected before it was added must reconnect. 
 
 ### Parameters
 

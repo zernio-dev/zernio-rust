@@ -91,7 +91,7 @@ Starts a Stripe Checkout session to fund your balance by card. Card top-ups pay 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_topup_request** | [**CreateTopupRequest**](CreateTopupRequest.md) |  | [required] |
-**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe. Same key + same body replays the original response; same key + different body → 422; key still processing → 409. A request cut off mid-handler (for example by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours. |  |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe.  - Same key + same body: replays the original response. - Same key + different body: 422. - Key still processing: 409.  A request cut off mid-handler (e.g. by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours.  |  |
 
 ### Return type
 
@@ -114,7 +114,7 @@ Name | Type | Description  | Required | Notes
 > models::TreasuryTransfer create_transfer(create_transfer_request, idempotency_key)
 Create a transfer
 
-Moves money from your balance to a payee. The payee receives the full `amountCents`; Zernio's fee (4%, 50 cent minimum) is added on top, so your balance is debited `totalCents` = `amountCents` + `feeCents`. Returns 402 when the balance does not cover the amount plus the fee, or when it is negative after a dispute or refund of a card top-up (\"Your balance is negative after a dispute or refund of a card top-up. Add funds to cover it before sending transfers.\"), and 409 when the payee has not finished onboarding or the Idempotency-Key is still processing. Needs an owner, admin or billing admin, signed in or through a full-access key they created: a profile-scoped key answers 403. A same-key retry never makes the transfer twice within Stripe's 24-hour idempotency window and answers 409 while another request is still waiting on Stripe for it; a transfer Stripe has not confirmed after 24 hours answers 409 until the daily reconciliation marks it paid (Stripe made it) or failed (it did not). 
+Moves money from your balance to a payee.  ### Fee  The payee receives the full `amountCents`. Zernio's fee (4%, 50 cent minimum) is added on top, so your balance is debited `totalCents` = `amountCents` + `feeCents`.  ### Who can call it  Needs an owner, admin or billing admin, signed in or through a full-access key they created. A profile-scoped key answers 403.  ### Errors  - 402: the balance does not cover the amount plus the fee. - 402: the balance is negative after a dispute or refund of a card top-up (\"Your balance is negative after a dispute or refund of a card top-up. Add funds to cover it before sending transfers.\"). - 409: the payee has not finished onboarding, or the Idempotency-Key is still processing.  ### Retries  A same-key retry never makes the transfer twice within Stripe's 24-hour idempotency window. It answers 409 while another request is still waiting on Stripe for it.  A transfer Stripe has not confirmed after 24 hours answers 409 until the daily reconciliation marks it paid (Stripe made it) or failed (it did not). 
 
 ### Parameters
 
@@ -122,7 +122,7 @@ Moves money from your balance to a payee. The payee receives the full `amountCen
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_transfer_request** | [**CreateTransferRequest**](CreateTransferRequest.md) |  | [required] |
-**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe. Same key + same body replays the original response; same key + different body → 422; key still processing → 409. A request cut off mid-handler (for example by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours. |  |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe.  - Same key + same body: replays the original response. - Same key + different body: 422. - Key still processing: 409.  A request cut off mid-handler (e.g. by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours.  |  |
 
 ### Return type
 
@@ -145,7 +145,7 @@ Name | Type | Description  | Required | Notes
 > models::GetBalance200Response get_balance()
 Get balance
 
-Returns the balance you can transfer, card top-ups still on hold, top-ups still waiting for payment, and your latest top-ups. Card top-ups become available after 7 days. A transfer debits its amount plus the fee added on top; the payee receives the full amount. A card dispute or refund on a top-up is debited from the available balance and can make it negative; transfers are refused until it is positive again. A profile-scoped key answers 403, since the balance belongs to the whole team.
+Returns your team's balance:  - the balance you can transfer - card top-ups still on hold - top-ups still waiting for payment - your latest top-ups  Card top-ups become available after 7 days.  A transfer debits its amount plus the fee added on top; the payee receives the full amount.  A card dispute or refund on a top-up is debited from the available balance and can make it negative. Transfers are refused until it is positive again.  A profile-scoped key answers 403, since the balance belongs to the whole team. 
 
 ### Parameters
 

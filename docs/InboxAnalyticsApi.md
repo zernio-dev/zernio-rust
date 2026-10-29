@@ -155,7 +155,7 @@ Name | Type | Description  | Required | Notes
 > models::GetInboxTopAccounts200Response get_inbox_top_accounts(from_date, to_date, profile_id, platform, source, limit)
 Get top accounts by inbox volume
 
-Leaderboard of accounts by inbox message volume. Decorates each row with display labels from the live SocialAccount record (so the UI shows username + displayName, not only an ID). Accounts that no longer map to a SocialAccount surface as \"(disconnected)\" so the row stays visible. Max date range is 365 days. 
+Leaderboard of accounts by inbox message volume. Max date range is 365 days.  - Each row is decorated with display labels from the live SocialAccount record (so the UI shows username + displayName, not only an ID). - Accounts that no longer map to a SocialAccount surface as \"(disconnected)\" so the row stays visible. 
 
 ### Parameters
 

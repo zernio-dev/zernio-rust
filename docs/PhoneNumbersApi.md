@@ -73,7 +73,7 @@ Name | Type | Description  | Required | Notes
 > models::CheckPhoneNumberAvailability200Response check_phone_number_availability(country, number_type, sms)
 Check country availability
 
-Pre-purchase check, so you can warn BEFORE a customer invests in KYC (regulated review is async, 1-3 days). Tells you whether we have deliverable inventory, and what address the customer needs:   - `addressConstraint: geo`  → the registered address MUST be in one of     the returned `areas` (the only place we have stock). A different-area     address passes pre-approval but the number can never be assigned.   - `addressConstraint: country` → any in-country address works.   - `addressConstraint: none` → field-only / instant country, no address. Call this before starting the KYC form for regulated countries.  Without an API key it answers from cache only and returns just `country`, `numberType` and `areaOptions`, for building an area picker before signup. 
+Pre-purchase check, so you can warn BEFORE a customer invests in KYC (regulated review is async, 1-3 days). Call this before starting the KYC form for regulated countries.  It tells you whether we have deliverable inventory, and what address the customer needs:  - `addressConstraint: geo`: the registered address MUST be in one of the returned `areas` (the only place we have stock). A different-area address passes pre-approval but the number can never be assigned. - `addressConstraint: country`: any in-country address works. - `addressConstraint: none`: field-only / instant country, no address.  ### Without an API key  It answers from cache only and returns just `country`, `numberType` and `areaOptions`, for building an area picker before signup. 
 
 ### Parameters
 
@@ -105,7 +105,7 @@ Name | Type | Description  | Required | Notes
 > models::CheckPhoneNumberPortability200Response check_phone_number_portability(check_phone_number_portability_request)
 Check portability
 
-Pre-flight portability check: whether each number can be ported in, whether it qualifies for FastPort, and its current carrier and line type where the carrier lookup knows them, BEFORE the user commits to a port order (LOA, invoice, service address). Read-only; creates no order and bills nothing.  Works without an API key for one number per request. Keyless calls are what the checker at https://zernio.com/port-your-number makes: they must come from that page (a browser bot check rejects scripted callers with 401), are limited per IP (3 a minute, 10 a day) and by a shared daily budget (429 once spent), because each check runs a paid carrier lookup. Each portable keyless result carries a `claimId` and a `claimUrl`: a signup link that opens the dashboard's port form with the number filled in. Send an API key to check up to 50 numbers without those limits. 
+Pre-flight portability check, BEFORE the user commits to a port order (LOA, invoice, service address). For each number it returns:  - whether it can be ported in - whether it qualifies for FastPort - its current carrier and line type, where the carrier lookup knows them  Read-only; creates no order and bills nothing.  ### Keyless calls  Works without an API key for one number per request. Keyless calls are what the checker at https://zernio.com/port-your-number makes. Because each check runs a paid carrier lookup, they are limited:  - they must come from that page (a browser bot check rejects scripted callers with 401) - per IP: 3 a minute, 10 a day - by a shared daily budget (429 once spent)  Each portable keyless result carries a `claimId` and a `claimUrl`: a signup link that opens the dashboard's port form with the number filled in.  ### With an API key  Send an API key to check up to 50 numbers without those limits. 
 
 ### Parameters
 
@@ -135,7 +135,7 @@ Name | Type | Description  | Required | Notes
 > models::CreatePhoneNumberKycLink200Response create_phone_number_kyc_link(create_phone_number_kyc_link_request)
 Create a hosted KYC link
 
-Create a single-use, 7-day hosted KYC link that your end customer completes WITHOUT a Zernio login. Useful when the person who holds the ID and address is not your team. They fill the regulated verification on a Zernio-hosted page; the number provisions under YOUR account once they submit. Only regulated (KYC) countries are valid: a country that does not require KYC returns 400.  Pass `numberType` (`local`, `mobile`, `national`, `toll_free`) to choose which of the country's offered types the shared form collects KYC for and eventually orders; omitted defaults to the country's default type (which may be `national` and therefore have no inventory in a geographic area code). Pass `areaCode` (NDC digits) to constrain the eventual order to a specific area; it is validated against the chosen `numberType`.  White-label the page with `branding` (your company name, logo, brand color). Supply `redirect_url` to send the end customer back to your own site after a successful submit (completion params are appended; see below). Listen for the `whatsapp.number.kyc_submitted` webhook to react when the form is completed. 
+Create a single-use, 7-day hosted KYC link that your end customer completes WITHOUT a Zernio login. Useful when the person who holds the ID and address is not your team.  They fill the regulated verification on a Zernio-hosted page, and the number provisions under YOUR account once they submit. Only regulated (KYC) countries are valid: a country that does not require KYC returns 400.  ### Choosing the number  - `numberType` (`local`, `mobile`, `national`, `toll_free`): which of the country's offered types the shared form collects KYC for and eventually orders. Omitted, it defaults to the country's default type, which may be `national` and therefore have no inventory in a geographic area code. - `areaCode` (NDC digits): constrains the eventual order to a specific area. It is validated against the chosen `numberType`.  ### Branding and completion  - White-label the page with `branding` (your company name, logo, brand color). - Supply `redirect_url` to send the end customer back to your own site after a successful submit (completion params are appended; see below). - Listen for the `whatsapp.number.kyc_submitted` webhook to react when the form is completed. 
 
 ### Parameters
 
@@ -165,7 +165,7 @@ Name | Type | Description  | Required | Notes
 > models::CreatePhoneNumberPortIn201Response create_phone_number_port_in(create_phone_number_port_in_request)
 Port numbers in
 
-Submit a port-in for one or more existing numbers from another carrier. Creates the carrier order(s), attaches the end-user (current account) info plus the LOA and invoice documents, and submits to the losing carrier. The transfer PIN is forwarded to the carrier and never stored. Ported numbers arrive voice-ready (and SMS-ready where the order supports messaging).  Run the portability check (POST /v1/phone-numbers/port-in/check) and upload the two documents (POST /v1/phone-numbers/port-in/documents) first. Uploaded documents must be attached to an order within 30 minutes or the carrier deletes them, so upload right before this call. The carrier may split the numbers into several orders (by country, number type, losing carrier); `orders` carries per-order results, and a partial failure still returns 201 with the failed orders' `error` set (they stay as cancellable drafts).  Non-US/CA numbers additionally need the country-specific values from GET /v1/phone-numbers/port-in/requirements, passed via `requirements`, and must be submitted one country per request. When required information is still missing after submission, the order is kept as a resumable draft whose `error` / `declineReason` names the gaps. 
+Submit a port-in for one or more existing numbers from another carrier.  The call creates the carrier order(s), attaches the end-user (current account) info plus the LOA and invoice documents, and submits to the losing carrier. The transfer PIN is forwarded to the carrier and never stored.  Ported numbers arrive voice-ready (and SMS-ready where the order supports messaging).  ### Before calling  1. Run the portability check (POST /v1/phone-numbers/port-in/check). 2. Upload the two documents (POST /v1/phone-numbers/port-in/documents) right before this call. Uploaded documents must be attached to an order within 30 minutes or the carrier deletes them.  ### Orders and partial failures  The carrier may split the numbers into several orders (by country, number type, losing carrier). `orders` carries per-order results.  A partial failure still returns 201 with the failed orders' `error` set (they stay as cancellable drafts).  ### Non-US/CA numbers  These additionally need the country-specific values from GET /v1/phone-numbers/port-in/requirements, passed via `requirements`, and must be submitted one country per request.  When required information is still missing after submission, the order is kept as a resumable draft whose `error` / `declineReason` names the gaps. 
 
 ### Parameters
 
@@ -195,7 +195,7 @@ Name | Type | Description  | Required | Notes
 > models::CreatePhoneNumberStockWatch200Response create_phone_number_stock_watch(create_phone_number_stock_watch_request)
 Watch an out-of-stock country
 
-Get notified the first time an out-of-stock country has deliverable numbers again: an email to the account holder plus the `phone_number.stock_available` webhook. Stock is re-checked every 6h. One watch per country and number type; a repeat request returns the existing watch (200). The watch is consumed when it fires, so re-create it if you miss the stock. Up to 20 watches at once.  Countries and types marked `fulfilment: request` by GET /v1/phone-numbers/countries can also be watched, but anything with `preOrderable: true` does not need a watch: submit KYC and the carrier sources the number to order.  Pass `areaCode` (with `numberType`) to watch one sold-out area, for example an entry of `soldOutAreas` from GET /v1/phone-numbers/availability. Area stock is checked live on the same 6h cadence. 
+Get notified the first time an out-of-stock country has deliverable numbers again: an email to the account holder plus the `phone_number.stock_available` webhook.  - Stock is re-checked every 6h. - One watch per country and number type; a repeat request returns the existing watch (200). - The watch is consumed when it fires, so re-create it if you miss the stock. - Up to 20 watches at once.  ### What can be watched  Countries and types marked `fulfilment: request` by GET /v1/phone-numbers/countries can also be watched. Anything with `preOrderable: true` does not need a watch: submit KYC and the carrier sources the number to order.  Pass `areaCode` (with `numberType`) to watch one sold-out area, for example an entry of `soldOutAreas` from GET /v1/phone-numbers/availability. Area stock is checked live on the same 6h cadence. 
 
 ### Parameters
 
@@ -253,7 +253,7 @@ Name | Type | Description  | Required | Notes
 > models::GetPhoneNumber200Response get_phone_number(id)
 Get phone number
 
-Retrieve the current status of a purchased phone number. Poll this to track Meta pre-verification (US sync path) and, for regulated (Tier 3/4) numbers, the async lifecycle: pending_regulatory → active (or regulatory_declined). When a regulated number has an Onfido ID step, `onfidoVerificationUrl` appears here once the order is placed. Forward it to the end user. (Or subscribe to the whatsapp.number.* webhooks instead of polling.) 
+Retrieve the current status of a purchased phone number. Poll this to track:  - Meta pre-verification (US sync path) - for regulated (Tier 3/4) numbers, the async lifecycle: pending_regulatory → active (or regulatory_declined)  When a regulated number has an Onfido ID step, `onfidoVerificationUrl` appears here once the order is placed. Forward it to the end user.  Or subscribe to the whatsapp.number.* webhooks instead of polling. 
 
 ### Parameters
 
@@ -404,7 +404,7 @@ Name | Type | Description  | Required | Notes
 > models::GetPhoneNumberPortInRequirements200Response get_phone_number_port_in_requirements(country, number_type)
 Country porting requirements
 
-The country-specific information a port-in needs BEYOND the LOA, invoice, and account/address details, such as an ID copy, proof of address, a tax id, or a porting code. Call it after the portability check (which returns each number's `countryCode` and `phoneNumberType`), render the fields, and pass the collected values as the create request's `requirements`. US/CA return an empty list. 
+The country-specific information a port-in needs BEYOND the LOA, invoice, and account/address details, such as an ID copy, proof of address, a tax id, or a porting code.  ### How to use it  1. Run the portability check, which returns each number's `countryCode` and `phoneNumberType`. 2. Call this endpoint and render the fields. 3. Pass the collected values as the create request's `requirements`.  US/CA return an empty list. 
 
 ### Parameters
 
@@ -435,7 +435,7 @@ Name | Type | Description  | Required | Notes
 > models::GetPhoneNumberRemediation200Response get_phone_number_remediation(id)
 Get declined requirements
 
-For a number in `regulatory_declined`, returns ONLY the requirements the reviewer flagged declined, as a form spec (same shape as the KYC form GET). The customer fixes only those, because Telnyx supports correcting a declined requirement group and re-submitting it (no new number/group). Falls back to the full spec if the provider exposes no per-requirement flags. 
+For a number in `regulatory_declined`, returns ONLY the requirements the reviewer flagged declined, as a form spec (same shape as the KYC form GET).  The customer fixes only those, because Telnyx supports correcting a declined requirement group and re-submitting it (no new number/group).  It falls back to the full spec if the provider exposes no per-requirement flags. 
 
 ### Parameters
 
@@ -465,7 +465,7 @@ Name | Type | Description  | Required | Notes
 > models::ListPhoneNumberCountries200Response list_phone_number_countries()
 List offerable number countries
 
-The phone number countries available to purchase, each with its flat monthly price (cents), regulatory tier, whether it needs end-user KYC (Tier 3/4), and per-feature availability (PSTN calls, WhatsApp, SMS, and WhatsApp Business Calling outbound). Drives the country picker. Tier-4 countries appear only when enabled. No API key needed: the catalog is public so you can browse it before you have an account. 
+The phone number countries available to purchase. Drives the country picker.  ### Per country  - flat monthly price (cents) - regulatory tier - whether it needs end-user KYC (Tier 3/4) - per-feature availability: PSTN calls, WhatsApp, SMS, and WhatsApp Business Calling outbound  Tier-4 countries appear only when enabled.  No API key needed: the catalog is public so you can browse it before you have an account. 
 
 ### Parameters
 
@@ -551,7 +551,7 @@ List all phone numbers purchased by the authenticated user. By default, released
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**status** | Option<**String**> | Filter by status (by default excludes released numbers). NOTE: `status=pending_regulatory` returns the \"provisioning\" view: numbers still in review PLUS recently-declined (last 30 days) ones, so a failed registration surfaces (with `regulatoryDeclineReason`) instead of silently disappearing. Declined numbers can be re-submitted via POST /v1/phone-numbers/{id}/remediate. `verifying` is the short-lived state after the number is provisioned on our side while WhatsApp confirms the activation code; the number is not billed until it reaches `active`.  |  |
+**status** | Option<**String**> | Filter by status. By default excludes released numbers.  - `status=pending_regulatory` returns the \"provisioning\" view: numbers still in review PLUS recently-declined (last 30 days) ones, so a failed registration surfaces (with `regulatoryDeclineReason`) instead of silently disappearing. Declined numbers can be re-submitted via POST /v1/phone-numbers/{id}/remediate. - `verifying` is the short-lived state after the number is provisioned on our side while WhatsApp confirms the activation code. The number is not billed until it reaches `active`.  |  |
 **profile_id** | Option<**String**> | Filter by profile |  |
 
 ### Return type
@@ -575,7 +575,7 @@ Name | Type | Description  | Required | Notes
 > models::PurchasePhoneNumber200Response purchase_phone_number(purchase_phone_number_request)
 Purchase phone number
 
-Payment-first: the system provisions a number and auto-assigns it, unless you pass `phoneNumber` to buy one exact number from `GET /v1/phone-numbers/available`. With usage-based billing active and a payment method on file, the number provisions inline and bills per month on your usage-based invoice (there is no checkout redirect). No payment method on file returns `402 PAYMENT_REQUIRED`; a regulated country returns `202` with `status: \"kyc_required\"` and a `kycUrl`.  The monthly price is the one `GET /v1/phone-numbers/countries` quotes for that country and `numberType` at the time of purchase, and it is stamped on the number: later rate-card changes never move a number you already own.  Requires usage-based billing (the Usage plan). The maximum number of phone numbers is determined by the user's plan. 
+Buys a phone number, payment-first. The system provisions a number and auto-assigns it, unless you pass `phoneNumber` to buy one exact number from `GET /v1/phone-numbers/available`.  Requires usage-based billing (the Usage plan). The maximum number of phone numbers is determined by the user's plan.  ### Outcomes  - Usage-based billing active and a payment method on file: the number provisions inline and bills per month on your usage-based invoice (there is no checkout redirect). - No payment method on file: `402 PAYMENT_REQUIRED`. - A regulated country: `202` with `status: \"kyc_required\"` and a `kycUrl`.  ### Price  The monthly price is the one `GET /v1/phone-numbers/countries` quotes for that country and `numberType` at the time of purchase, and it is stamped on the number. Later rate-card changes never move a number you already own. 
 
 ### Parameters
 
@@ -666,7 +666,7 @@ Name | Type | Description  | Required | Notes
 > models::ReplyToPhoneNumberReviewer200Response reply_to_phone_number_reviewer(id, reply_to_phone_number_reviewer_request)
 Reply to the regulatory reviewer
 
-Post a free-text reply (with optional file attachments) to the reviewer on a number awaiting remediation, for asks the structured form can't express (e.g. \"is this personal or business?\"). Attachments are stored by us and their links are added to the reviewer's comment thread (the carrier's number order takes no loose files). A reply to a comment-style ask moves the number back to \"in review\"; a reply on a formal decline is supplementary and you must still resubmit the fix. Requires text or at least one attachment. 
+Post a free-text reply (with optional file attachments) to the reviewer on a number awaiting remediation. Use it for asks the structured form can't express (e.g. \"is this personal or business?\").  Requires text or at least one attachment. Attachments are stored by us and their links are added to the reviewer's comment thread (the carrier's number order takes no loose files).  ### What happens next  - A reply to a comment-style ask moves the number back to \"in review\". - A reply on a formal decline is supplementary, and you must still resubmit the fix. 
 
 ### Parameters
 
@@ -697,7 +697,7 @@ Name | Type | Description  | Required | Notes
 > models::RequestPhoneNumberWhatsAppCode200Response request_phone_number_whats_app_code(id, request_phone_number_whats_app_code_request)
 Request the WhatsApp verification code for a number
 
-Starts (or restarts) WhatsApp verification of a Zernio-hosted number: adds it to Meta's pre-verified pool when needed and asks Meta to send the verification code, which Zernio captures on the number itself. Used to connect WhatsApp on a number bought for calls or SMS. `/v1/whatsapp/phone-numbers/{id}/request-code` is a deprecated alias with the same contract.  When Meta refuses the number for WhatsApp (Meta error 136021): a number that is already live (`active` or `suspended`) is left untouched and keeps working for calls and SMS, and the call answers 409 `number_not_whatsapp_eligible`; buy a new number with WhatsApp enabled instead. A number that was never live (still verifying) is replaced at no extra cost with a WhatsApp-eligible number on the same record, answered as 200 with `replaced: true`. 
+Starts (or restarts) WhatsApp verification of a Zernio-hosted number. Used to connect WhatsApp on a number bought for calls or SMS.  Zernio adds the number to Meta's pre-verified pool when needed and asks Meta to send the verification code, which Zernio captures on the number itself.  `/v1/whatsapp/phone-numbers/{id}/request-code` is a deprecated alias with the same contract.  ### When Meta refuses the number (Meta error 136021)  - A number that is already live (`active` or `suspended`) is left untouched and keeps working for calls and SMS. The call answers 409 `number_not_whatsapp_eligible`; buy a new number with WhatsApp enabled instead. - A number that was never live (still verifying) is replaced at no extra cost with a WhatsApp-eligible number on the same record, answered as 200 with `replaced: true`. 
 
 ### Parameters
 
@@ -728,7 +728,7 @@ Name | Type | Description  | Required | Notes
 > models::RespondToPhoneNumberReviewer200Response respond_to_phone_number_reviewer(id, respond_to_phone_number_reviewer_request)
 Respond to the regulatory reviewer (message + corrections)
 
-Send a single response to the reviewer on a number awaiting remediation: a free-text message and/or corrected requirement documents, in one call. If corrections are present they are PATCHed onto the requirement group and re-submitted (the number goes back to \"in review\"); if a message or file attachments are present they are posted to the reviewer's comment thread. When both are present, your message is the thread comment and the resubmit drives the state change. At least one of message, corrections, or attachments is required. `documents` correct requirement slots; `attachments` are loose files (their links are added to your message). 
+Send a single response to the reviewer on a number awaiting remediation: a free-text message and/or corrected requirement documents, in one call.  At least one of message, corrections, or attachments is required.  - Corrections: PATCHed onto the requirement group and re-submitted (the number goes back to \"in review\"). - Message or file attachments: posted to the reviewer's comment thread. - Both: your message is the thread comment and the resubmit drives the state change.  ### Field roles  - `documents` correct requirement slots. - `attachments` are loose files (their links are added to your message). 
 
 ### Parameters
 
@@ -759,7 +759,7 @@ Name | Type | Description  | Required | Notes
 > models::ReviewPhoneNumberKycPacket200Response review_phone_number_kyc_packet(review_phone_number_kyc_packet_request)
 Pre-review a KYC packet
 
-Advisory dry-run of a regulated-KYC packet before submitting: reviews the exact documents the regulator will see (referenced by the ids from POST /v1/phone-numbers/kyc/upload-document) against the declared values and address, and returns plain-language advisories for likely decline reasons (wrong document type, mismatched address, one-sided ID scans). Non-blocking: advisories are warnings, submitting anyway is always allowed, and any review failure degrades to an empty list. 
+Advisory dry-run of a regulated-KYC packet before submitting.  It reviews the exact documents the regulator will see (referenced by the ids from POST /v1/phone-numbers/kyc/upload-document) against the declared values and address. It returns plain-language advisories for likely decline reasons (wrong document type, mismatched address, one-sided ID scans).  Non-blocking: advisories are warnings, submitting anyway is always allowed, and any review failure degrades to an empty list. 
 
 ### Parameters
 
@@ -789,7 +789,7 @@ Name | Type | Description  | Required | Notes
 > models::SearchAvailablePhoneNumbers200Response search_available_phone_numbers(country, number_type, area_code, r#type, prefix, locality, contains, sms, limit, masked)
 Search available numbers
 
-Search the provider's inventory for numbers available to purchase in a country (default US). Optional filters narrow the results. The country must be offerable (see GET /v1/phone-numbers/countries). Voice capability is always required; pass `sms=true` to only see numbers that can also text (SMS support is per-number, not per-country). Numbers a purchase would refuse are left out, and any result's `phoneNumber` can be bought exactly by passing it to POST /v1/phone-numbers/purchase.  Works without an API key. Keyless calls get up to 12 results with the middle digits masked (`maskedNumber`), each with a `claimId` and a `claimUrl`: a signup link that lands a person on the dashboard's confirm step with that number picked, so an agent can search for a user and hand them one link. Keyless calls are rate limited per IP and results are cached for a few minutes. With an API key you get full numbers and no claim fields. 
+Search the provider's inventory for numbers available to purchase in a country (default US). Optional filters narrow the results.  - The country must be offerable (see GET /v1/phone-numbers/countries). - Voice capability is always required. Pass `sms=true` to only see numbers that can also text (SMS support is per-number, not per-country). - Numbers a purchase would refuse are left out. - Any result's `phoneNumber` can be bought exactly by passing it to POST /v1/phone-numbers/purchase.  ### Without an API key  The endpoint works without an API key. Keyless calls get up to 12 results with the middle digits masked (`maskedNumber`), each with a `claimId` and a `claimUrl`.  The `claimUrl` is a signup link that lands a person on the dashboard's confirm step with that number picked, so an agent can search for a user and hand them one link.  Keyless calls are rate limited per IP and results are cached for a few minutes. With an API key you get full numbers and no claim fields. 
 
 ### Parameters
 
@@ -828,7 +828,7 @@ Name | Type | Description  | Required | Notes
 > models::SubmitPhoneNumberKyc200Response submit_phone_number_kyc(submit_phone_number_kyc_request)
 Submit KYC
 
-Submit the end customer's KYC (textual values, uploaded documents, address) for a Tier 3/4 country. Documents are streamed straight to the number provider and are not stored by Zernio. Builds + submits a regulatory requirement group and claims a pending_regulatory slot; the number is ordered + activated once the provider approves (asynchronous). A customer may hold several same-country numbers in review at once; a double-submit of the SAME attempt is deduped via `submissionId`.  For an ID-card document requirement, carriers commonly require BOTH sides: combine the front and back into a single file before uploading (the dashboard does this automatically). A one-sided ID is a common decline reason; fix it via POST /v1/phone-numbers/{id}/remediate.  Before submitting, call GET /v1/phone-numbers/availability to check the country has deliverable inventory and, for geographic-match countries, which area the address must be in. Otherwise the submission can pass review yet never be assignable a number. 
+Submit the end customer's KYC (textual values, uploaded documents, address) for a Tier 3/4 country. Documents are streamed straight to the number provider and are not stored by Zernio.  The call builds + submits a regulatory requirement group and claims a pending_regulatory slot. The number is ordered + activated once the provider approves (asynchronous).  A customer may hold several same-country numbers in review at once. A double-submit of the SAME attempt is deduped via `submissionId`.  ### ID documents  For an ID-card document requirement, carriers commonly require BOTH sides. Combine the front and back into a single file before uploading (the dashboard does this automatically).  A one-sided ID is a common decline reason; fix it via POST /v1/phone-numbers/{id}/remediate.  ### Before submitting  Call GET /v1/phone-numbers/availability to check the country has deliverable inventory and, for geographic-match countries, which area the address must be in. Otherwise the submission can pass review yet never be assignable a number. 
 
 ### Parameters
 
@@ -858,7 +858,7 @@ Name | Type | Description  | Required | Notes
 > models::UploadPhoneNumberKycDocument200Response upload_phone_number_kyc_document(x_filename, body)
 Upload a KYC document
 
-Upload ONE document and get back its provider document id, to reference from POST /v1/phone-numbers/kyc via `documents[].documentId`. Send the RAW file bytes as the request body (not base64); put the filename in the `X-Filename` header. Uploading documents one-per-request keeps each request under the ~4.5MB body limit. The document streams straight to the number provider and is not stored by Zernio. 
+Upload ONE document and get back its provider document id, to reference from POST /v1/phone-numbers/kyc via `documents[].documentId`.  - Send the RAW file bytes as the request body (not base64). - Put the filename in the `X-Filename` header. - Uploading documents one-per-request keeps each request under the ~4.5MB body limit.  The document streams straight to the number provider and is not stored by Zernio. 
 
 ### Parameters
 
@@ -889,7 +889,7 @@ Name | Type | Description  | Required | Notes
 > models::UploadPhoneNumberPortInDocument200Response upload_phone_number_port_in_document(file, kind)
 Upload a porting document
 
-Upload ONE porting document and get back its `documentId`. For the signed LOA / carrier invoice the id goes to `loaDocumentId` / `invoiceDocumentId`; for a country-specific document requirement (international ports) it becomes that requirement's `fieldValue`. Requirement documents are normalized to PDF automatically (regulators reject raw images). PDF, JPEG, or PNG, 10MB max. Uploads must be attached to an order within 30 minutes or the carrier deletes them. 
+Upload ONE porting document and get back its `documentId`.  ### Where the id goes  - Signed LOA / carrier invoice: the id goes to `loaDocumentId` / `invoiceDocumentId`. - Country-specific document requirement (international ports): it becomes that requirement's `fieldValue`. Requirement documents are normalized to PDF automatically (regulators reject raw images).  ### Limits  - PDF, JPEG, or PNG, 10MB max. - Uploads must be attached to an order within 30 minutes or the carrier deletes them. 
 
 ### Parameters
 
@@ -920,7 +920,7 @@ Name | Type | Description  | Required | Notes
 > models::ValidatePhoneNumberKycAddress200Response validate_phone_number_kyc_address(validate_phone_number_kyc_address_request)
 Pre-validate KYC address
 
-Optional early check for the address step of a Tier 4 (end-user identity) registration: validates a postal address for deliverability BEFORE the full KYC submit, so it can be corrected before any documents are uploaded. The full submit (POST /v1/phone-numbers/kyc) re-validates the address, so this call is purely a fast feedback path and skipping it is safe. Only the postal address is sent (no documents, no gov-ID fields). A region (`administrative_area`) is required by the validator; when it is omitted the pre-check is skipped and `{ ok: true, skipped: true }` is returned (the final submit still validates). 
+Optional early check for the address step of a Tier 4 (end-user identity) registration. It validates a postal address for deliverability BEFORE the full KYC submit, so it can be corrected before any documents are uploaded.  The full submit (POST /v1/phone-numbers/kyc) re-validates the address, so this call is purely a fast feedback path and skipping it is safe.  Only the postal address is sent (no documents, no gov-ID fields).  A region (`administrative_area`) is required by the validator. When it is omitted the pre-check is skipped and `{ ok: true, skipped: true }` is returned (the final submit still validates). 
 
 ### Parameters
 
@@ -950,7 +950,7 @@ Name | Type | Description  | Required | Notes
 > std::path::PathBuf view_phone_number_kyc_document(document_id)
 View a KYC document on file
 
-Stream a document backing a reusable verification (the `documentId` values from GET /v1/phone-numbers/kyc `reusable.options[].details[]`), so the account holder can see what's on file before reusing it. Returned inline as `application/pdf` (uploads are normalized to PDF). Auth-scoped: a document is viewable only when its id is referenced by one of the caller's own numbers. Otherwise `404`. 
+Stream a document backing a reusable verification, so the account holder can see what's on file before reusing it. The ids are the `documentId` values from GET /v1/phone-numbers/kyc `reusable.options[].details[]`.  Returned inline as `application/pdf` (uploads are normalized to PDF).  Auth-scoped: a document is viewable only when its id is referenced by one of the caller's own numbers. Otherwise `404`. 
 
 ### Parameters
 
