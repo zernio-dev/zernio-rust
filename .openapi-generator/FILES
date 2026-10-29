@@ -581,6 +581,7 @@ docs/CreateCampaignInviteLink201Response.md
 docs/CreateCampaignParticipant201Response.md
 docs/CreateCampaignParticipantRequest.md
 docs/CreateCampaignPayoutBatch201Response.md
+docs/CreateCampaignPayoutBatch201ResponsePayment.md
 docs/CreateCampaignPayoutBatchRequest.md
 docs/CreateCommentAutomation200Response.md
 docs/CreateCommentAutomation200ResponseAutomation.md
@@ -1098,6 +1099,7 @@ docs/GetAnalyticsDashboard200Response.md
 docs/GetAnalyticsDashboard200ResponseDailyInner.md
 docs/GetAnalyticsDashboard200ResponseDateRange.md
 docs/GetBalance200Response.md
+docs/GetBalance200ResponsePayoutLocksInner.md
 docs/GetBalance200ResponsePendingReleasesInner.md
 docs/GetBestTimeToPost200Response.md
 docs/GetBestTimeToPost200ResponseSlotsInner.md
@@ -3911,6 +3913,7 @@ src/models/create_campaign_invite_link_201_response.rs
 src/models/create_campaign_participant_201_response.rs
 src/models/create_campaign_participant_request.rs
 src/models/create_campaign_payout_batch_201_response.rs
+src/models/create_campaign_payout_batch_201_response_payment.rs
 src/models/create_campaign_payout_batch_request.rs
 src/models/create_comment_automation_200_response.rs
 src/models/create_comment_automation_200_response_automation.rs
@@ -4421,6 +4424,7 @@ src/models/get_analytics_dashboard_200_response.rs
 src/models/get_analytics_dashboard_200_response_daily_inner.rs
 src/models/get_analytics_dashboard_200_response_date_range.rs
 src/models/get_balance_200_response.rs
+src/models/get_balance_200_response_payout_locks_inner.rs
 src/models/get_balance_200_response_pending_releases_inner.rs
 src/models/get_best_time_to_post_200_response.rs
 src/models/get_best_time_to_post_200_response_slots_inner.rs

@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **amount_cents** | Option<**i32**> | Gross amount charged | [optional]
 **stripe_fee_cents** | Option<**i32**> | Stripe processing fee you paid; null until Stripe reports it, 0 when Zernio covers it | [optional]
 **net_cents** | Option<**i32**> | Amount credited to your balance: gross minus the Stripe fee, or the whole charge when Zernio covers the fee; null until Stripe reports it | [optional]
-**status** | Option<**Status**> |  (enum: pending, succeeded, failed, expired) | [optional]
+**status** | Option<**Status**> | `pending` until the card is charged (or 3D Secure is finished) and credited. `expired` means it ended unpaid: cancelled, or 3D Secure left unfinished for 30 minutes. Only `pending` counts toward pendingTopupCents. (enum: pending, succeeded, failed, expired) | [optional]
 **created_at** | Option<**String**> |  | [optional]
 **succeeded_at** | Option<**String**> |  | [optional]
 

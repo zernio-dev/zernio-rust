@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
 **campaign_id** | Option<**String**> |  | 
-**status** | **Status** | `awaiting_payment` until the card payment completes; `paying` while transfers go out; then `paid`, `partially_failed` (some items failed or were skipped), `failed` (none paid) or `expired` (the Checkout expired unpaid, every amount is payable again). (enum: awaiting_payment, paying, paid, partially_failed, failed, expired) | 
+**status** | **Status** | `awaiting_payment` until the card charge succeeds (3D Secure included); `paying` while transfers go out; then `paid`, `partially_failed` (some items failed or were skipped), `failed` (the card was declined, or none paid) or `expired` (the payment was cancelled unpaid, every amount is payable again). (enum: awaiting_payment, paying, paid, partially_failed, failed, expired) | 
 **method** | **Method** |  (enum: card) | 
 **amount_cents** | **i32** | Total the creators receive. | 
 **fee_cents** | **i32** | Total Zernio fee. | 

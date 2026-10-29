@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **participant_id** | **String** |  | 
 **creator_id** | **String** |  | 
 **account_id** | **String** | The creator account the post was published from. | 
-**platform** | **Platform** |  (enum: tiktok, instagram, youtube) | 
+**platform** | **Platform** |  (enum: tiktok, instagram, youtube, threads, pinterest, facebook, twitter) | 
 **platform_post_id** | **String** |  | 
 **platform_post_url** | Option<**String**> |  | 
 **external_post_id** | Option<**String**> | The tracked external post (see /v1/external-posts). | 
@@ -22,9 +22,9 @@ Name | Type | Description | Notes
 **review_round** | **i32** | How many times the post was reopened after a reject. 0 until the first reopen. | 
 **reviewed_by** | Option<**String**> | User id of the reviewer. | 
 **reviewed_at** | Option<**String**> |  | 
-**views_at_submission** | Option<**i32**> | Views when the post was submitted; they never count toward earnings. | 
+**views_at_submission** | Option<**i32**> | Views when the post was submitted. They count toward earnings like every later view. | 
 **views_latest** | Option<**i32**> | Latest view count read for the post, frozen at the tracking window end. | 
-**views_eligible** | Option<**i32**> | Views gained after submission that count toward earnings, read at the tracking window end at the latest: once the window completes or is cancelled, the last read at or before its end is final and this value stops moving. | 
+**views_eligible** | Option<**i32**> | Views that count toward earnings: every view the platform reports for the post, including those before submission, read at the tracking window end at the latest: once the window completes or is cancelled, the last read at or before its end is final and this value stops moving. | 
 **last_accrued_views** | **i32** |  | 
 **accrued_cents** | **i32** |  | 
 **approved_cents** | **i32** |  | 
