@@ -79,6 +79,7 @@ docs/AdTargetingApi.md
 docs/AdTracking.md
 docs/AdTreeAdSet.md
 docs/AdTreeAdSetAdSetBudget.md
+docs/AdTreeAdSetAttributionSpecInner.md
 docs/AdTreeAdSetBudget.md
 docs/AdTreeAdSetPromotedObject.md
 docs/AdTreeCampaign.md
@@ -3415,6 +3416,7 @@ src/models/ad_status.rs
 src/models/ad_tracking.rs
 src/models/ad_tree_ad_set.rs
 src/models/ad_tree_ad_set_ad_set_budget.rs
+src/models/ad_tree_ad_set_attribution_spec_inner.rs
 src/models/ad_tree_ad_set_budget.rs
 src/models/ad_tree_ad_set_promoted_object.rs
 src/models/ad_tree_campaign.rs

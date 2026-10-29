@@ -130,6 +130,8 @@ pub mod ad_tree_ad_set;
 pub use self::ad_tree_ad_set::AdTreeAdSet;
 pub mod ad_tree_ad_set_ad_set_budget;
 pub use self::ad_tree_ad_set_ad_set_budget::AdTreeAdSetAdSetBudget;
+pub mod ad_tree_ad_set_attribution_spec_inner;
+pub use self::ad_tree_ad_set_attribution_spec_inner::AdTreeAdSetAttributionSpecInner;
 pub mod ad_tree_ad_set_budget;
 pub use self::ad_tree_ad_set_budget::AdTreeAdSetBudget;
 pub mod ad_tree_ad_set_promoted_object;
