@@ -443,7 +443,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_inbox_conversations
 
-> models::ListInboxConversations200Response list_inbox_conversations(profile_id, platform, status, folder, sort_order, limit, cursor, account_id)
+> models::ListInboxConversations200Response list_inbox_conversations(profile_id, platform, status, folder, sort_order, limit, cursor, account_id, tags)
 List conversations
 
 Fetch conversations (DMs) from all connected messaging accounts in a single API call. Supports filtering by profile and platform. Results are aggregated and deduplicated.  Supported platforms: Facebook, Instagram, X, Bluesky, Reddit, Telegram, WhatsApp, iMessage and SMS.  ### X limitation  X has replaced traditional DMs with encrypted \"X Chat\" for many accounts. Messages sent or received through encrypted X Chat are not accessible via X's API (the /2/dm_events endpoint only returns legacy unencrypted DMs).  This means some X conversations may show only outgoing messages or appear empty. This is an X platform limitation that affects all third-party applications. See X's docs on encrypted messaging for more details.  ### Instagram and Facebook pre-connect history  When one of these accounts is connected, Zernio replays the DM history the account already holds on Meta, so conversations that began before the account was connected appear here. Up to 500 conversations per account are replayed.  - The replay runs in the background and can finish after a listing you have already taken. - Replayed conversations keep their original lastMessageAt, so they sort into date order rather than appearing at the top. - If you mirror this endpoint into your own store, re-run the sweep rather than relying on a single pass at connect time. - Replayed history emits no webhooks and is stored as already read, so it never affects unread counts. - Threads that Meta refuses to serve are skipped. - An account whose Instagram \"connected tools\" message access is turned off is not replayed at all. 
@@ -461,6 +461,7 @@ Name | Type | Description  | Required | Notes
 **limit** | Option<**i32**> | Maximum number of conversations to return; values above 100 are served as 100. |  |[default to 50]
 **cursor** | Option<**String**> | Pagination cursor for next page |  |
 **account_id** | Option<**String**> | Filter by specific account ID |  |
+**tags** | Option<**String**> | Comma-separated contact tags. Returns only conversations whose contact has any of them. Cannot be combined with folder=requests. |  |
 
 ### Return type
 
