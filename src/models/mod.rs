@@ -4042,6 +4042,8 @@ pub mod o_auth_app_setup;
 pub use self::o_auth_app_setup::OAuthAppSetup;
 pub mod o_auth_app_setup_scope_areas_inner;
 pub use self::o_auth_app_setup_scope_areas_inner::OAuthAppSetupScopeAreasInner;
+pub mod o_auth_app_slack_events;
+pub use self::o_auth_app_slack_events::OAuthAppSlackEvents;
 pub mod o_auth_app_webhook;
 pub use self::o_auth_app_webhook::OAuthAppWebhook;
 pub mod o_auth_app_webhook_object;

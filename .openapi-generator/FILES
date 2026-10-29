@@ -2078,6 +2078,7 @@ docs/MoveWhatsAppNumberToProfileRequest.md
 docs/OAuthApp.md
 docs/OAuthAppSetup.md
 docs/OAuthAppSetupScopeAreasInner.md
+docs/OAuthAppSlackEvents.md
 docs/OAuthAppWebhook.md
 docs/OAuthAppWebhookObject.md
 docs/OnBrandedCallingIdentityActionRequiredRequest.md
@@ -5381,6 +5382,7 @@ src/models/move_whats_app_number_to_profile_request.rs
 src/models/o_auth_app.rs
 src/models/o_auth_app_setup.rs
 src/models/o_auth_app_setup_scope_areas_inner.rs
+src/models/o_auth_app_slack_events.rs
 src/models/o_auth_app_webhook.rs
 src/models/o_auth_app_webhook_object.rs
 src/models/on_branded_calling_identity_action_required_request.rs

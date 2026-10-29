@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **label** | **String** |  | 
 **client_id** | **String** |  | 
 **client_secret** | **String** |  | 
+**slack_signing_secret** | Option<**String**> | Slack only: the signing secret from the app's Basic Information page. Needed to receive events from your Slack app; any other platform is a 400. | [optional]
 **scope_areas** | Option<**Vec<ScopeAreas>**> | Areas this app requests. Defaults to every area the platform supports; an area the platform cannot request separately is a 400. (enum: posting, analytics, comments, messaging) | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
