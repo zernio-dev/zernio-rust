@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **bodies** | Option<**Vec<String>**> | Meta: every primary text variation of the creative (`asset_feed_spec.bodies`), the same shape as the `bodies` create input. Present only with 2 or more texts; a single text is `body`. | [optional]
 **description** | Option<**String**> | Meta: the creative's description under the title (`link_data.description`, `video_data.link_description`, or the first `asset_feed_spec.descriptions` entry). | [optional]
 **call_to_action** | Option<**String**> | Meta: the call to action type (`call_to_action.type`, or the first `asset_feed_spec.call_to_action_types` entry), e.g. LEARN_MORE or SIGN_UP. | [optional]
-**lead_gen_form_id** | Option<**String**> | Meta: the instant form the call to action opens (`call_to_action.value.lead_gen_form_id`), the same value as the `leadGenFormId` create input. Absent on ads without a lead form. | [optional]
+**lead_gen_form_id** | Option<**String**> | Meta: the instant form the call to action opens (`call_to_action.value.lead_gen_form_id`, or the asset feed's `call_to_actions` on a dynamic creative), the same value as the `leadGenFormId` create input. Absent on ads without a lead form. | [optional]
 **image_hash** | Option<**String**> | Meta: the ad image hash (`image_hash`), reusable as `imageHash` on POST /v1/ads/create within the same ad account. `thumbnailUrl` and `mediaUrls` carry its stable full resolution permalink when Meta resolves it. | [optional]
 **url_tags** | Option<**String**> | Meta: the creative's `url_tags` query string appended to the destination URL. | [optional]
 **final_urls** | Option<**Vec<String>**> | Google RSA only. Replaces final URLs. Omitted lists stay unchanged. | [optional]
