@@ -1358,10 +1358,10 @@ Name | Type | Description  | Required | Notes
 
 ## list_ads_alerts
 
-> models::ListAdsAlerts200Response list_ads_alerts(account_id, include_dismissed)
+> models::ListAdsAlerts200Response list_ads_alerts(account_id, profile_id, include_dismissed)
 List ads that need attention
 
-Lists what needs attention across your ads, most severe first:  - ads created in the last 90 days that were rejected - campaigns the platform reports delivery issues on - Meta ad accounts with a failed or overdue payment, or disabled while holding live ads - campaigns that spent on 3 or more of the last 7 days without a result (conversion, lead, purchase or conversation goals) - budgets spent to their daily cap yesterday  Built from stored data and the last 7 days of synced metrics, so it costs no platform call.  Each alert has a stable `id`. Dismiss one with `POST /v1/ads/alerts/{alertId}/dismiss` to hide it for 30 days. 
+Lists what needs attention across your ads, most severe first:  - ads created in the last 90 days that were rejected - campaigns the platform reports delivery issues on - Meta ad accounts with a failed or overdue payment, or disabled while holding live ads - campaigns that spent on 3 or more of the last 7 days without a result (conversion, lead, purchase or conversation goals) - budgets spent to their daily cap yesterday - ads connections that need reconnecting while they still hold live ads - ad accounts whose sync has been failing  Built from stored data and the last 7 days of synced metrics, so it costs no platform call.  Each alert has a stable `id`. Dismiss one with `POST /v1/ads/alerts/{alertId}/dismiss` to hide it for 30 days. 
 
 ### Parameters
 
@@ -1369,6 +1369,7 @@ Lists what needs attention across your ads, most severe first:  - ads created in
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | Option<**String**> | Only alerts of this ads connection (sibling-expanded like /v1/ads/tree). Omit for every ad account the API key can reach. |  |
+**profile_id** | Option<**String**> | Only alerts of the ads connections on this profile. Omit for every profile the API key can reach. |  |
 **include_dismissed** | Option<**bool**> | Also return dismissed alerts, with `dismissed: true`. |  |[default to false]
 
 ### Return type
