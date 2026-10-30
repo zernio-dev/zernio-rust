@@ -1128,6 +1128,7 @@ docs/GetCampaignBidding200Response.md
 docs/GetCampaignConversionGoals200Response.md
 docs/GetCampaignParticipant200Response.md
 docs/GetCampaignReport200Response.md
+docs/GetCampaignResultsTotals200Response.md
 docs/GetCampaignResultsUpload200Response.md
 docs/GetCampaignResultsUpload200ResponseUnmatchedInner.md
 docs/GetCampaignSubmission200Response.md
@@ -4470,6 +4471,7 @@ src/models/get_campaign_bidding_200_response.rs
 src/models/get_campaign_conversion_goals_200_response.rs
 src/models/get_campaign_participant_200_response.rs
 src/models/get_campaign_report_200_response.rs
+src/models/get_campaign_results_totals_200_response.rs
 src/models/get_campaign_results_upload_200_response.rs
 src/models/get_campaign_results_upload_200_response_unmatched_inner.rs
 src/models/get_campaign_submission_200_response.rs

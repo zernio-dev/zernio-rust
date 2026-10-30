@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **views_at_submission** | Option<**i32**> |  | 
 **views_eligible** | Option<**i32**> | Views that count toward earnings at the latest read. | 
 **engagements_latest** | Option<**i32**> | The campaign engagement types summed at the latest read. An engagements campaign earns on this count. | 
+**views_paid** | Option<**i32**> | Views from ads, on YouTube and X. Null elsewhere or before the first read. | 
 **flags** | [**Vec<models::WebhookPayloadCampaignSubmissionSubmissionFlagsInner>**](WebhookPayloadCampaignSubmissionSubmissionFlagsInner.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

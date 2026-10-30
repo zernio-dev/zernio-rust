@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**code** | **Code** |  (enum: duplicate_media, duplicate_post, view_spike, linked_accounts, cross_operator, unreachable, post_deleted, account_restricted, low_authenticity, x_read_cap) | 
+**code** | **Code** |  (enum: duplicate_media, duplicate_post, view_spike, linked_accounts, cross_operator, unreachable, post_deleted, account_restricted, low_authenticity, x_read_cap, paid_views, organic_unverified) | 
 **detail** | **String** |  | 
 **raised_at** | **String** |  | 
 

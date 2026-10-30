@@ -26,6 +26,8 @@ Name | Type | Description | Notes
 **views_latest** | **i32** | Latest view count read for the post, frozen at the tracking window end. | 
 **views_eligible** | **i32** | Views that count toward earnings: every view the platform reports for the post, including those before submission, read at the tracking window end at the latest: once the window completes or is cancelled, the last read at or before its end is final and this value stops moving. | 
 **engagements_latest** | **i32** | The campaign engagement types summed at the latest read (all four on a views campaign), frozen at the tracking window end like `viewsEligible`. An `engagements` campaign earns on this count. | 
+**views_paid** | **i32** | Views from ads the creator ran: YouTube views from the advertising traffic source, X impressions beyond the organic ones. Null on other platforms and before the first read. On an organic-only campaign `viewsEligible` is the latest views minus these. | 
+**paid_views_read_at** | **String** | When `viewsPaid` was last read. YouTube refreshes every 6 hours and reports ad views up to 2 days late; X about once a day while the post is under 30 days old. | 
 **last_accrued_views** | **i32** |  | 
 **accrued_cents** | **i32** |  | 
 **approved_cents** | **i32** |  | 

@@ -4,12 +4,45 @@ All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**get_campaign_results_totals**](AdCampaignResultsApi.md#get_campaign_results_totals) | **GET** /v1/ads/campaign-results/totals | Get your results totals
 [**get_campaign_results_upload**](AdCampaignResultsApi.md#get_campaign_results_upload) | **GET** /v1/ads/campaign-results/uploads/{uploadId} | Check a results upload
 [**list_campaign_result_metrics**](AdCampaignResultsApi.md#list_campaign_result_metrics) | **GET** /v1/ads/campaign-results/metrics | List your result metrics
 [**list_campaign_results**](AdCampaignResultsApi.md#list_campaign_results) | **GET** /v1/ads/campaign-results | List your results per campaign
-[**set_campaign_result_metric**](AdCampaignResultsApi.md#set_campaign_result_metric) | **PUT** /v1/ads/campaign-results/metrics/{key} | Name a result metric
+[**set_campaign_result_metric**](AdCampaignResultsApi.md#set_campaign_result_metric) | **PUT** /v1/ads/campaign-results/metrics/{key} | Name a result metric or define a formula
 [**upload_campaign_results**](AdCampaignResultsApi.md#upload_campaign_results) | **POST** /v1/ads/campaign-results | Upload your results per campaign
 
+
+
+## get_campaign_results_totals
+
+> models::GetCampaignResultsTotals200Response get_campaign_results_totals(from_date, to_date, ad_account_ids)
+Get your results totals
+
+Each metric you send summed over a date range across every campaign of the ad accounts your key can see, or of the ones you name. Each day counts its newest value only.  Formulas are not computed here, since they also read the platform's numbers: apply one to these totals and the account's spend for the same range, or read it per campaign from `GET /v1/ads/tree?results=true`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**from_date** | **String** |  | [required] |
+**to_date** | **String** | Inclusive. At most 400 days after `fromDate`. | [required] |
+**ad_account_ids** | Option<**String**> | Comma-separated platform ad account ids, at most 100. Omit for every ad account your key can see. |  |
+
+### Return type
+
+[**models::GetCampaignResultsTotals200Response**](getCampaignResultsTotals_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_campaign_results_upload
@@ -47,7 +80,7 @@ Name | Type | Description  | Required | Notes
 > models::ListCampaignResultMetrics200Response list_campaign_result_metrics()
 List your result metrics
 
-The metric keys your team has sent, with their label and kind. A new key appears as a `count` labelled from the key; name it with `PUT /v1/ads/campaign-results/metrics/{key}`. 
+The metric keys your team has sent, with their label and kind, then the formulas: your own and the built-in ones (`cac_percent`, `cost_per_sale`, `cost_per_qualified_lead`, `lead_to_sale`). A new key appears as a `count` labelled from the key; name it, or define a formula, with `PUT /v1/ads/campaign-results/metrics/{key}`. 
 
 ### Parameters
 
@@ -106,9 +139,9 @@ Name | Type | Description  | Required | Notes
 ## set_campaign_result_metric
 
 > models::SetCampaignResultMetric200Response set_campaign_result_metric(key, set_campaign_result_metric_request)
-Name a result metric
+Name a result metric or define a formula
 
-Sets a metric key's label and kind: `count` for things you count (leads, sales) or `money` with its currency (revenue). 
+Sets a metric key's label and kind: `count` for things you count (leads, sales), `money` with its currency (revenue), `percent` or `ratio`.  Send `formula` to make it a computed metric: `+ - * /` and parentheses over `spend`, `impressions`, `clicks`, `conversions`, `purchase_value` and the metrics you send, at most 200 characters. A formula cannot read another formula.  It is computed per campaign over the summed values of the range, and has no value when an input is missing or a division is by zero. 
 
 ### Parameters
 

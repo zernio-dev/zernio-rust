@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**results** | Option<**std::collections::HashMap<String, f64>**> | Only with `results=true`. The values you sent for this campaign over the range, plus each formula they allow, by metric key. A metric with no value is absent. | [optional]
 **platform_campaign_id** | Option<**String**> |  | [optional]
 **platform** | Option<**Platform**> |  (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter, openai, reddit) | [optional]
 **campaign_name** | Option<**String**> |  | [optional]

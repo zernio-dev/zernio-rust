@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **published_at** | Option<**String**> |  | 
 **views** | **i32** | Latest view count read for the post. | 
 **engagements** | Option<**i32**> | The campaign engagement types summed at the latest read. Null until the post is read. | 
+**views_from_ads** | Option<**i32**> | Views that came from ads the creator ran, on YouTube and X. Null where the platform does not report them or before the first read. | 
 **earned_cents** | **i32** |  | 
 **reject_reason** | Option<**String**> |  | 
 **flags** | **Vec<Flags>** | Creator-safe flags only. Every other review flag shows as `under_review`. (enum: unreachable, post_deleted, duplicate_post, under_review) | 

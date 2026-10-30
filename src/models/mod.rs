@@ -2180,6 +2180,8 @@ pub mod get_campaign_participant_200_response;
 pub use self::get_campaign_participant_200_response::GetCampaignParticipant200Response;
 pub mod get_campaign_report_200_response;
 pub use self::get_campaign_report_200_response::GetCampaignReport200Response;
+pub mod get_campaign_results_totals_200_response;
+pub use self::get_campaign_results_totals_200_response::GetCampaignResultsTotals200Response;
 pub mod get_campaign_results_upload_200_response;
 pub use self::get_campaign_results_upload_200_response::GetCampaignResultsUpload200Response;
 pub mod get_campaign_results_upload_200_response_unmatched_inner;

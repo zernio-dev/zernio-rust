@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **pagination** | Option<[**models::Pagination**](Pagination.md)> |  | [optional]
 **synced_at** | Option<**String**> | When the most recently synced ad on this page was last read from the platform. Null before the first sync. | [optional]
 **previous_range** | Option<[**models::AdTreeResponsePreviousRange**](AdTreeResponsePreviousRange.md)> |  | [optional]
+**result_metrics** | Option<[**Vec<models::CampaignResultMetric>**](CampaignResultMetric.md)> | Only with `results=true`. Your metrics and formulas, to label each campaign's `results`. | [optional]
 **backfill_pending** | Option<**bool**> | Meta only. Present and true while historical data is being backfilled. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
