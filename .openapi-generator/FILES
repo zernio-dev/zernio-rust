@@ -29,6 +29,7 @@ docs/AdBudget.md
 docs/AdCampaign.md
 docs/AdCampaignBudget.md
 docs/AdCampaignOptimizationGoal.md
+docs/AdCampaignResultsApi.md
 docs/AdCampaignsApi.md
 docs/AdCreative.md
 docs/AdCreativeAssets.md
@@ -351,6 +352,7 @@ docs/CampaignReportAuthenticityInner.md
 docs/CampaignReportParticipantsInner.md
 docs/CampaignReportSpend.md
 docs/CampaignReportViews.md
+docs/CampaignResultMetric.md
 docs/CampaignSettlement.md
 docs/CampaignSubmission.md
 docs/CampaignSubmissionAuthenticity.md
@@ -1126,6 +1128,8 @@ docs/GetCampaignBidding200Response.md
 docs/GetCampaignConversionGoals200Response.md
 docs/GetCampaignParticipant200Response.md
 docs/GetCampaignReport200Response.md
+docs/GetCampaignResultsUpload200Response.md
+docs/GetCampaignResultsUpload200ResponseUnmatchedInner.md
 docs/GetCampaignSubmission200Response.md
 docs/GetCampaignTargeting200Response.md
 docs/GetCampaignTargeting200ResponseDevicesInner.md
@@ -1717,6 +1721,8 @@ docs/ListAdLabels200ResponsePaging.md
 docs/ListAdNegativeKeywordLists200Response.md
 docs/ListAdRuleActivity200Response.md
 docs/ListAdRuleRuns200Response.md
+docs/ListAdRuleTemplates200Response.md
+docs/ListAdRuleTemplates200ResponseTemplatesInner.md
 docs/ListAdRules200Response.md
 docs/ListAdSets200Response.md
 docs/ListAdSets200ResponseAdSetsInner.md
@@ -1779,6 +1785,9 @@ docs/ListCampaignNegativeKeywords200ResponseKeywordsInner.md
 docs/ListCampaignParticipants200Response.md
 docs/ListCampaignPayables200Response.md
 docs/ListCampaignPayoutBatches200Response.md
+docs/ListCampaignResultMetrics200Response.md
+docs/ListCampaignResults200Response.md
+docs/ListCampaignResults200ResponseCampaignsInner.md
 docs/ListCampaignSubmissions200Response.md
 docs/ListChangelog200Response.md
 docs/ListCommentAutomationLogs200Response.md
@@ -2516,6 +2525,8 @@ docs/SetBusinessAgentConnectorCredentialsRequest.md
 docs/SetBusinessAgentConnectorCredentialsRequestOneOf.md
 docs/SetBusinessAgentConnectorCredentialsRequestOneOf1.md
 docs/SetBusinessAgentConnectorCredentialsRequestOneOf2.md
+docs/SetCampaignResultMetric200Response.md
+docs/SetCampaignResultMetricRequest.md
 docs/SetCommentModerationRequest.md
 docs/SetCommerceDiscountActiveRequest.md
 docs/SetCommercePriceListPrices200Response.md
@@ -2921,6 +2932,9 @@ docs/UploadAdVideo202Response.md
 docs/UploadAdVideo202ResponseVideo.md
 docs/UploadAdVideoRequest.md
 docs/UploadBusinessAgentFileRequest.md
+docs/UploadCampaignResults202Response.md
+docs/UploadCampaignResultsRequest.md
+docs/UploadCampaignResultsRequestRowsInner.md
 docs/UploadFile201Response.md
 docs/UploadFileRequest.md
 docs/UploadMediaDirect200Response.md
@@ -3280,6 +3294,7 @@ src/apis/account_settings_api.rs
 src/apis/accounts_api.rs
 src/apis/ad_accounts_api.rs
 src/apis/ad_audiences_api.rs
+src/apis/ad_campaign_results_api.rs
 src/apis/ad_campaigns_api.rs
 src/apis/ad_creatives_api.rs
 src/apis/ad_insights_api.rs
@@ -3694,6 +3709,7 @@ src/models/campaign_report_authenticity_inner.rs
 src/models/campaign_report_participants_inner.rs
 src/models/campaign_report_spend.rs
 src/models/campaign_report_views.rs
+src/models/campaign_result_metric.rs
 src/models/campaign_settlement.rs
 src/models/campaign_submission.rs
 src/models/campaign_submission_authenticity.rs
@@ -4454,6 +4470,8 @@ src/models/get_campaign_bidding_200_response.rs
 src/models/get_campaign_conversion_goals_200_response.rs
 src/models/get_campaign_participant_200_response.rs
 src/models/get_campaign_report_200_response.rs
+src/models/get_campaign_results_upload_200_response.rs
+src/models/get_campaign_results_upload_200_response_unmatched_inner.rs
 src/models/get_campaign_submission_200_response.rs
 src/models/get_campaign_targeting_200_response.rs
 src/models/get_campaign_targeting_200_response_devices_inner.rs
@@ -5030,6 +5048,8 @@ src/models/list_ad_labels_200_response_paging.rs
 src/models/list_ad_negative_keyword_lists_200_response.rs
 src/models/list_ad_rule_activity_200_response.rs
 src/models/list_ad_rule_runs_200_response.rs
+src/models/list_ad_rule_templates_200_response.rs
+src/models/list_ad_rule_templates_200_response_templates_inner.rs
 src/models/list_ad_rules_200_response.rs
 src/models/list_ad_sets_200_response.rs
 src/models/list_ad_sets_200_response_ad_sets_inner.rs
@@ -5092,6 +5112,9 @@ src/models/list_campaign_negative_keywords_200_response_keywords_inner.rs
 src/models/list_campaign_participants_200_response.rs
 src/models/list_campaign_payables_200_response.rs
 src/models/list_campaign_payout_batches_200_response.rs
+src/models/list_campaign_result_metrics_200_response.rs
+src/models/list_campaign_results_200_response.rs
+src/models/list_campaign_results_200_response_campaigns_inner.rs
 src/models/list_campaign_submissions_200_response.rs
 src/models/list_changelog_200_response.rs
 src/models/list_comment_automation_logs_200_response.rs
@@ -5814,6 +5837,8 @@ src/models/set_business_agent_connector_credentials_request.rs
 src/models/set_business_agent_connector_credentials_request_one_of.rs
 src/models/set_business_agent_connector_credentials_request_one_of_1.rs
 src/models/set_business_agent_connector_credentials_request_one_of_2.rs
+src/models/set_campaign_result_metric_200_response.rs
+src/models/set_campaign_result_metric_request.rs
 src/models/set_comment_moderation_request.rs
 src/models/set_commerce_discount_active_request.rs
 src/models/set_commerce_price_list_prices_200_response.rs
@@ -6212,6 +6237,9 @@ src/models/upload_ad_video_202_response.rs
 src/models/upload_ad_video_202_response_video.rs
 src/models/upload_ad_video_request.rs
 src/models/upload_business_agent_file_request.rs
+src/models/upload_campaign_results_202_response.rs
+src/models/upload_campaign_results_request.rs
+src/models/upload_campaign_results_request_rows_inner.rs
 src/models/upload_file_201_response.rs
 src/models/upload_file_request.rs
 src/models/upload_media_direct_200_response.rs

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **submitted_at** | **String** |  | 
 **published_at** | Option<**String**> |  | 
 **views** | **i32** | Latest view count read for the post. | 
+**engagements** | Option<**i32**> | The campaign engagement types summed at the latest read. Null until the post is read. | 
 **earned_cents** | **i32** |  | 
 **reject_reason** | Option<**String**> |  | 
 **flags** | **Vec<Flags>** | Creator-safe flags only. Every other review flag shows as `under_review`. (enum: unreachable, post_deleted, duplicate_post, under_review) | 

@@ -118,6 +118,7 @@ pub mod account_settings_api;
 pub mod accounts_api;
 pub mod ad_accounts_api;
 pub mod ad_audiences_api;
+pub mod ad_campaign_results_api;
 pub mod ad_campaigns_api;
 pub mod ad_creatives_api;
 pub mod ad_insights_api;

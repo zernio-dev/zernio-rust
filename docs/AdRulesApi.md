@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**get_ad_rule**](AdRulesApi.md#get_ad_rule) | **GET** /v1/ads/rules/{ruleId} | Get an ad rule
 [**list_ad_rule_activity**](AdRulesApi.md#list_ad_rule_activity) | **GET** /v1/ads/rules/activity | List every change ad rules made
 [**list_ad_rule_runs**](AdRulesApi.md#list_ad_rule_runs) | **GET** /v1/ads/rules/{ruleId}/runs | List an ad rule's runs
+[**list_ad_rule_templates**](AdRulesApi.md#list_ad_rule_templates) | **GET** /v1/ads/rules/templates | List ready-made ad rules
 [**list_ad_rules**](AdRulesApi.md#list_ad_rules) | **GET** /v1/ads/rules | List ad rules
 [**preview_ad_rule**](AdRulesApi.md#preview_ad_rule) | **POST** /v1/ads/rules/{ruleId}/preview | Preview an ad rule
 [**update_ad_rule**](AdRulesApi.md#update_ad_rule) | **PATCH** /v1/ads/rules/{ruleId} | Update an ad rule
@@ -160,6 +161,33 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListAdRuleRuns200Response**](listAdRuleRuns_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_ad_rule_templates
+
+> models::ListAdRuleTemplates200Response list_ad_rule_templates()
+List ready-made ad rules
+
+Common rules to start from: stop losers, scale winners, pause ads with no conversions, creative fatigue and spend spike alerts.  Each template is a complete rule body. Add `name`, `accountId` and `adAccountId`, adjust the thresholds to the ad account, and send it to `POST /v1/ads/rules`. Amounts are in the ad account currency. `platforms` lists the networks a template works on, or is null for all of them. 
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::ListAdRuleTemplates200Response**](listAdRuleTemplates_200_response.md)
 
 ### Authorization
 

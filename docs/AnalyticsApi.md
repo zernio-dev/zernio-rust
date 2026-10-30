@@ -91,10 +91,10 @@ Returns analytics for posts. With postId, returns a single post. Without it, ret
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**post_id** | Option<**String**> | Returns analytics for a single post. Accepts both Zernio Post IDs and External Post IDs. Zernio IDs are auto-resolved to External Post analytics. |  |
+**post_id** | Option<**String**> | Returns analytics for a single post. Accepts Zernio Post IDs, External Post IDs and the platform's native post ID. Zernio IDs are auto-resolved to External Post analytics. |  |
 **platform** | Option<**String**> | Filter by platform (default \"all\") |  |
-**profile_id** | Option<**String**> | Filter by profile ID (default \"all\") |  |
-**account_id** | Option<**String**> | Filter by account ID |  |
+**profile_id** | Option<**String**> | Filter by profile ID (default \"all\"). With a native postId, selects that profile's copy of the post. |  |
+**account_id** | Option<**String**> | Filter by account ID. With a native postId, selects that account's copy of the post. |  |
 **source** | Option<**String**> | Filter by post source: late (posted via Zernio API), external (synced from platform), all (default) |  |[default to all]
 **from_date** | Option<**String**> | Inclusive lower bound (YYYY-MM-DD). Defaults to 90 days ago if omitted. Max range is 366 days. |  |
 **to_date** | Option<**String**> | Inclusive upper bound (YYYY-MM-DD). Defaults to today if omitted. |  |
@@ -732,7 +732,7 @@ Name | Type | Description  | Required | Notes
 > models::GetLinkedInDemographics200Response get_linked_in_demographics(account_id, breakdown)
 Get LinkedIn organization follower demographics
 
-Returns the lifetime follower breakdown of a connected LinkedIn organization page by job function, seniority, industry and company size.  ### Labels  - Function, seniority and industry are labelled with LinkedIn's standardized names (English) and keep the LinkedIn URN in `id`. - Company size is labelled as a range such as `2-10` or `10001+`.  LinkedIn returns at most the top 100 values per breakdown and leaves out followers whose profile lacks that field, so a breakdown does not add up to the follower count.  ### Requirements  - Organization accounts only: a personal LinkedIn account answers 400 `personal_account_not_supported`. - Requires the r_organization_social, r_organization_followers and r_organization_admin scopes (412 otherwise). - Requires the Analytics add-on. 
+Returns the lifetime follower breakdown of a connected LinkedIn organization page by job function, seniority, industry, company size, country and region. Without `breakdown` it returns function, seniority, industry and company size; country and region are returned only when requested.  ### Labels  - Function, seniority and industry are labelled with LinkedIn's standardized names (English) and keep the LinkedIn URN in `id`. - Company size is labelled as a range such as `2-10` or `10001+`. - Country and region are labelled with LinkedIn's geo names (English) and keep `urn:li:geo:*` in `id`. A region is a LinkedIn market area, for example New York City Metropolitan Area.  LinkedIn returns at most the top 100 values per breakdown and leaves out followers whose profile lacks that field, so a breakdown does not add up to the follower count.  ### Requirements  - Organization accounts only: a personal LinkedIn account answers 400 `personal_account_not_supported`. - Requires the r_organization_social, r_organization_followers and r_organization_admin scopes (412 otherwise). - Requires the Analytics add-on. 
 
 ### Parameters
 
@@ -740,7 +740,7 @@ Returns the lifetime follower breakdown of a connected LinkedIn organization pag
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** | The Zernio SocialAccount ID of the LinkedIn organization account | [required] |
-**breakdown** | Option<**String**> | Comma-separated list of demographic dimensions: function, seniority, industry, company_size. Defaults to all four if omitted.  |  |
+**breakdown** | Option<**String**> | Comma-separated list of demographic dimensions: function, seniority, industry, company_size, country, region. Defaults to function, seniority, industry and company_size if omitted. Country and region are returned only when requested.  |  |
 
 ### Return type
 
