@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **label** | **String** |  | 
 **client_id** | **String** |  | 
 **client_secret** | **String** |  | 
+**meta_app_id** | Option<**String**> | Instagram only: the numeric ID of the Meta app your Instagram app lives in. Zernio uses it with `metaAppSecret` to register the webhook. Send both or neither. | [optional]
+**meta_app_secret** | Option<**String**> | Instagram only: the secret of that Meta app. Never returned. | [optional]
 **slack_signing_secret** | Option<**String**> | Slack only: the signing secret from the app's Basic Information page. Needed to receive events from your Slack app; any other platform is a 400. | [optional]
 **scope_areas** | Option<**Vec<ScopeAreas>**> | Areas this app requests. Defaults to every area the platform supports; an area the platform cannot request separately is a 400. (enum: posting, analytics, comments, messaging) | [optional]
 
