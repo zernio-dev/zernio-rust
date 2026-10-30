@@ -90,7 +90,9 @@ Method | HTTP request | Description
 [**on_rcs_agent_status_updated**](WebhookEventsApi.md#on_rcs_agent_status_updated) | **POST** /rcs.agent.status_updated | RCS agent status updated event
 [**on_reaction_received**](WebhookEventsApi.md#on_reaction_received) | **POST** /reaction.received | Reaction received event
 [**on_referral_received**](WebhookEventsApi.md#on_referral_received) | **POST** /referral.received | Referral received event
+[**on_review_deleted**](WebhookEventsApi.md#on_review_deleted) | **POST** /review.deleted | Review deleted event
 [**on_review_new**](WebhookEventsApi.md#on_review_new) | **POST** /review.new | Review new event
+[**on_review_restored**](WebhookEventsApi.md#on_review_restored) | **POST** /review.restored | Review restored event
 [**on_review_updated**](WebhookEventsApi.md#on_review_updated) | **POST** /review.updated | Review updated event
 [**on_sequence_enrolled**](WebhookEventsApi.md#on_sequence_enrolled) | **POST** /sequence.enrolled | Sequence enrolled event
 [**on_sequence_exited**](WebhookEventsApi.md#on_sequence_exited) | **POST** /sequence.exited | Sequence exited event
@@ -2697,6 +2699,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## on_review_deleted
+
+> on_review_deleted(webhook_payload_review_deleted)
+Review deleted event
+
+Google Business Profile stopped returning this review, for example after Google's spam filter removed it. Detected by polling, it usually fires 6 to 12 hours after the review disappears.  - Opt-in: only locations covered by a webhook subscribed to review.deleted or review.restored are checked. - If the review comes back, review.restored fires. A review Google hides and later restores produces review.deleted and then review.restored. - A review.updated can arrive for a review reported by review.deleted. The next check restores it. - It may arrive for a review id you never received review.new for. Ignore ids you do not know. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_review_deleted** | [**WebhookPayloadReviewDeleted**](WebhookPayloadReviewDeleted.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## on_review_new
 
 > on_review_new(webhook_payload_review_new)
@@ -2710,6 +2742,36 @@ Fired when a new review is posted on a connected account. Currently supported fo
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_review_new** | [**WebhookPayloadReviewNew**](WebhookPayloadReviewNew.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_review_restored
+
+> on_review_restored(webhook_payload_review_restored)
+Review restored event
+
+A review reported by review.deleted is returned by Google again. Same payload as review.new. Requires the Inbox add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_review_restored** | [**WebhookPayloadReviewRestored**](WebhookPayloadReviewRestored.md) |  | [required] |
 
 ### Return type
 

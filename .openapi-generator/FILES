@@ -3162,8 +3162,11 @@ docs/WebhookPayloadReferral.md
 docs/WebhookPayloadReferralReferral.md
 docs/WebhookPayloadReferralReferralAdsContextData.md
 docs/WebhookPayloadReferralSender.md
+docs/WebhookPayloadReviewDeleted.md
+docs/WebhookPayloadReviewDeletedReview.md
 docs/WebhookPayloadReviewNew.md
 docs/WebhookPayloadReviewNewAccount.md
+docs/WebhookPayloadReviewRestored.md
 docs/WebhookPayloadReviewUpdated.md
 docs/WebhookPayloadSequenceEnrollment.md
 docs/WebhookPayloadSupportRun.md
@@ -6444,8 +6447,11 @@ src/models/webhook_payload_referral.rs
 src/models/webhook_payload_referral_referral.rs
 src/models/webhook_payload_referral_referral_ads_context_data.rs
 src/models/webhook_payload_referral_sender.rs
+src/models/webhook_payload_review_deleted.rs
+src/models/webhook_payload_review_deleted_review.rs
 src/models/webhook_payload_review_new.rs
 src/models/webhook_payload_review_new_account.rs
+src/models/webhook_payload_review_restored.rs
 src/models/webhook_payload_review_updated.rs
 src/models/webhook_payload_sequence_enrollment.rs
 src/models/webhook_payload_support_run.rs
