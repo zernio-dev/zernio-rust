@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **posting** | Option<[**Vec<models::GetAccountHealth200ResponsePermissionsPostingInner>**](GetAccountHealth200ResponsePermissionsPostingInner.md)> |  | [optional]
 **analytics** | Option<[**Vec<models::GetAccountHealth200ResponsePermissionsPostingInner>**](GetAccountHealth200ResponsePermissionsPostingInner.md)> |  | [optional]
 **optional** | Option<[**Vec<models::GetAccountHealth200ResponsePermissionsPostingInner>**](GetAccountHealth200ResponsePermissionsPostingInner.md)> |  | [optional]
-**can_post** | Option<**bool**> |  | [optional]
+**can_post** | Option<**bool**> | Whether the granted OAuth scopes allow posting. Scopes only: for WhatsApp, whether Meta lets the number send is `platformConnection.phoneStatus` and the overall `status`. | [optional]
 **can_fetch_analytics** | Option<**bool**> |  | [optional]
 **missing_required** | Option<**Vec<String>**> |  | [optional]
 
