@@ -1886,6 +1886,8 @@ pub mod facebook_page_info;
 pub use self::facebook_page_info::FacebookPageInfo;
 pub mod facebook_platform_data;
 pub use self::facebook_platform_data::FacebookPlatformData;
+pub mod facebook_platform_data_failed_collaborators_inner;
+pub use self::facebook_platform_data_failed_collaborators_inner::FacebookPlatformDataFailedCollaboratorsInner;
 pub mod facebook_post_earnings_response;
 pub use self::facebook_post_earnings_response::FacebookPostEarningsResponse;
 pub mod facebook_post_earnings_response_metrics_value;

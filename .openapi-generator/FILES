@@ -979,6 +979,7 @@ docs/ExternalPostWebhookPost.md
 docs/FacebookOrInstagramPost.md
 docs/FacebookPageInfo.md
 docs/FacebookPlatformData.md
+docs/FacebookPlatformDataFailedCollaboratorsInner.md
 docs/FacebookPostEarningsResponse.md
 docs/FacebookPostEarningsResponseMetricsValue.md
 docs/FacebookPostEarningsResponseUnavailableMetricsInner.md
@@ -4324,6 +4325,7 @@ src/models/external_post_webhook_post.rs
 src/models/facebook_or_instagram_post.rs
 src/models/facebook_page_info.rs
 src/models/facebook_platform_data.rs
+src/models/facebook_platform_data_failed_collaborators_inner.rs
 src/models/facebook_post_earnings_response.rs
 src/models/facebook_post_earnings_response_metrics_value.rs
 src/models/facebook_post_earnings_response_unavailable_metrics_inner.rs
