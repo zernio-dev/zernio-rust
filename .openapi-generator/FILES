@@ -2085,6 +2085,9 @@ docs/Money.md
 docs/MoneyAmount.md
 docs/MoveAccountToProfile200Response.md
 docs/MoveAccountToProfileRequest.md
+docs/MoveCampaignParticipant200Response.md
+docs/MoveCampaignParticipant200ResponseSubmissions.md
+docs/MoveCampaignParticipantRequest.md
 docs/MoveWhatsAppNumberToProfile200Response.md
 docs/MoveWhatsAppNumberToProfileRequest.md
 docs/OAuthApp.md
@@ -5408,6 +5411,9 @@ src/models/money.rs
 src/models/money_amount.rs
 src/models/move_account_to_profile_200_response.rs
 src/models/move_account_to_profile_request.rs
+src/models/move_campaign_participant_200_response.rs
+src/models/move_campaign_participant_200_response_submissions.rs
+src/models/move_campaign_participant_request.rs
 src/models/move_whats_app_number_to_profile_200_response.rs
 src/models/move_whats_app_number_to_profile_request.rs
 src/models/o_auth_app.rs
