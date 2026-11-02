@@ -14,11 +14,13 @@ Name | Type | Description | Notes
 **content_rules** | Option<**String**> |  | 
 **starts_at** | Option<**String**> |  | 
 **ends_at** | Option<**String**> |  | 
+**started_at** | **String** | Posts published before this moment do not count: `startsAt`, else when the campaign went live. | 
 **currency** | **String** |  | 
 **economics** | [**models::CreatorPortalEconomics**](CreatorPortalEconomics.md) |  | 
 **max_post_age_minutes** | Option<**i32**> | A post must be submitted within this many minutes of publishing. Null means any age. Either way, only posts published after the campaign started are accepted. | 
 **hold_days** | **i32** | Days approved earnings stay owed before they become payable. | 
 **tracking_days** | **i32** | Days each submitted post is tracked for views. | 
+**max_accounts_per_participant** | Option<**i32**> | How many connected accounts can submit posts. Null means no limit. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

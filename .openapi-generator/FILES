@@ -1394,6 +1394,7 @@ docs/GetTikTokSmartPlusAdReview200Response.md
 docs/GetTikTokSmartPlusMaterialReport200Response.md
 docs/GetTikTokSmartPlusMaterialReport200ResponseRowsInner.md
 docs/GetTikTokSmartPlusMaterialReport200ResponseRowsInnerMetrics.md
+docs/GetTopupCardFee200Response.md
 docs/GetTopupReceipt200Response.md
 docs/GetTrackingTag200Response.md
 docs/GetTrackingTagDiagnostics200Response.md
@@ -2281,6 +2282,7 @@ docs/RemoveAdLabel200Response.md
 docs/RemoveBookmark200Response.md
 docs/RemoveCampaignAssets200Response.md
 docs/RemoveConversionAssociations200Response.md
+docs/RemoveCreatorAccount200Response.md
 docs/RemoveCustomConversionGoal200Response.md
 docs/RemoveDiscordMemberRole200Response.md
 docs/RemoveGoogleAssetGroup200Response.md
@@ -4734,6 +4736,7 @@ src/models/get_tik_tok_smart_plus_ad_review_200_response.rs
 src/models/get_tik_tok_smart_plus_material_report_200_response.rs
 src/models/get_tik_tok_smart_plus_material_report_200_response_rows_inner.rs
 src/models/get_tik_tok_smart_plus_material_report_200_response_rows_inner_metrics.rs
+src/models/get_topup_card_fee_200_response.rs
 src/models/get_topup_receipt_200_response.rs
 src/models/get_tracking_tag_200_response.rs
 src/models/get_tracking_tag_diagnostics_200_response.rs
@@ -5593,6 +5596,7 @@ src/models/remove_ad_label_200_response.rs
 src/models/remove_bookmark_200_response.rs
 src/models/remove_campaign_assets_200_response.rs
 src/models/remove_conversion_associations_200_response.rs
+src/models/remove_creator_account_200_response.rs
 src/models/remove_custom_conversion_goal_200_response.rs
 src/models/remove_discord_member_role_200_response.rs
 src/models/remove_google_asset_group_200_response.rs
