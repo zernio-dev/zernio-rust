@@ -385,10 +385,10 @@ Name | Type | Description  | Required | Notes
 
 ## get_voice_call_estimate
 
-> models::GetVoiceCallEstimate200Response get_voice_call_estimate(to, from, minutes, recording, transcription)
+> models::GetVoiceCallEstimate200Response get_voice_call_estimate(to, from, forward_to, minutes, recording, transcription)
 Estimate call cost
 
-Pre-call cost estimate for a PSTN call: the carrier leg plus optional recording and transcription add-ons.  It uses the same billing formula as the post-call invoice, so the quote and the final charge can't disagree. The per-minute figure is deliberately conservative (the real cost comes from the settled carrier record after the call), so estimates trend slightly over the actual invoice.  Parity endpoint of `GET /v1/whatsapp/calls/estimate`, minus the Meta line. PSTN calls have no separate Meta bill, so `totalCostUSD` equals `billableCostUSD`. 
+Pre-call cost estimate for a PSTN call: the carrier leg plus optional recording and transcription add-ons.  It uses the same billing formula as the post-call invoice, so the quote and the final charge can't disagree. The carrier figure follows the carrier's per-destination rate card: a call dialed from a number in the destination country uses the local mobile rate, and a `tel:` forward destination is quoted as a second carrier leg billed from the same number. The real cost comes from the settled carrier record after the call.  Parity endpoint of `GET /v1/whatsapp/calls/estimate`, minus the Meta line. PSTN calls have no separate Meta bill, so `totalCostUSD` equals `billableCostUSD`. 
 
 ### Parameters
 
@@ -397,6 +397,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **to** | **String** | Destination number, E.164 (leading + optional). | [required] |
 **from** | Option<**String**> | The number the call would dial from, E.164. When it is verified on a Branded Calling identity and `to` is a US number, the estimate includes the per-call Branded Calling surcharge. |  |
+**forward_to** | Option<**String**> | Destination the call bridges to: `tel:+E164`, `sip:...` or `wss://...`. Defaults to the dialing number's configured forward. A `tel:` destination adds a second carrier leg to the quote. Encode the `+` as `%2B`. |  |
 **minutes** | Option<**i32**> |  |  |[default to 1]
 **recording** | Option<**bool**> |  |  |
 **transcription** | Option<**bool**> |  |  |
