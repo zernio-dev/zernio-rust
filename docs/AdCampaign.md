@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **platform_campaign_id** | Option<**String**> |  | [optional]
-**platform** | Option<**Platform**> |  (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter, openai, reddit) | [optional]
+**platform** | Option<**Platform**> |  (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter, openai, reddit, microsoft) | [optional]
 **campaign_name** | Option<**String**> |  | [optional]
 **status** | Option<[**models::AdStatus**](AdStatus.md)> | Delivery status derived from child ad statuses. Distinct from `reviewStatus`. | [optional]
 **review_status** | Option<[**models::AdReviewStatus**](AdReviewStatus.md)> |  | [optional]

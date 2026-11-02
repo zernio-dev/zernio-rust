@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**platform** | **Platform** | Required: platform campaign IDs are not globally unique. (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter, openai, reddit) | 
+**platform** | **Platform** | Required: platform campaign IDs are not globally unique. (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter, openai, reddit, microsoft) | 
 **account_id** | Option<**String**> | **Meta only.** Zernio SocialAccount id owning the ad account. Needed only for an EMPTY campaign (zero ads); ignored otherwise. | [optional]
 **bid_strategy** | Option<[**models::BidStrategy**](BidStrategy.md)> | **Meta + Google.**  - Meta: the campaign default that ad sets inherit unless they override it. - Google: the campaign's own bidding strategy. LOWEST_COST_WITHOUT_CAP = Maximize Conversions, COST_CAP + bidAmount = Target CPA, LOWEST_COST_WITH_MIN_ROAS + roasAverageFloor = Target ROAS, LOWEST_COST_WITH_BID_CAP + bidAmount = Maximize Clicks with a CPC ceiling. - Google: portfolioBidStrategyId attaches a portfolio strategy instead.  | [optional]
 **bid_amount** | Option<**f64**> | **Google only.** Whole currency units (USD: 12 = $12.00). Max CPC for LOWEST_COST_WITH_BID_CAP, CPA target for COST_CAP; required for both. | [optional]

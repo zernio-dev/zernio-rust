@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **results** | Option<**std::collections::HashMap<String, f64>**> | Only with `results=true`. The values you sent for this campaign over the range, plus each formula they allow, by metric key. A metric with no value is absent. | [optional]
 **platform_campaign_id** | Option<**String**> |  | [optional]
-**platform** | Option<**Platform**> |  (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter, openai, reddit) | [optional]
+**platform** | Option<**Platform**> |  (enum: facebook, instagram, tiktok, linkedin, pinterest, google, twitter, openai, reddit, microsoft) | [optional]
 **campaign_name** | Option<**String**> |  | [optional]
 **created_time** | Option<**String**> | Earliest `platformCreatedAt` across every ad in the campaign (platform ad creation time; falls back to `createdAt`, Zernio's sync time, for ads synced before that field existed).  Not the platform campaign's own creation time (Meta's `Campaign.created_time` etc. is not synced). A campaign created empty and populated later shows its first ad's time, not the campaign's.  Usable for sorting \"most recently created\" without the numeric-campaign-id heuristic. Same source as `AdTreeAdSet.createdTime` and `Ad.platformCreatedAt`; mirrors `AdCampaign.earliestAd`.  | [optional]
 **status** | Option<[**models::AdStatus**](AdStatus.md)> | Delivery status derived from child ad statuses. Distinct from `reviewStatus`, which reflects the platform-side review state. | [optional]
