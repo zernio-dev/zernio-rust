@@ -560,7 +560,7 @@ Name | Type | Description  | Required | Notes
 > models::InstagramAccountInsightsResponse get_instagram_account_insights(account_id, metrics, from_date, to_date, since, until, metric_type, breakdown)
 Get Instagram insights
 
-Returns account-level Instagram insights such as reach, views, accounts engaged, and total interactions.  These metrics reflect the entire account's performance across all content surfaces (feed, stories, explore, profile), and are fundamentally different from post-level metrics.  - Data may be delayed up to 48 hours. - Max 90 days, defaults to last 30 days. 
+Returns account-level Instagram insights such as reach, views, accounts engaged, and total interactions.  These metrics reflect the entire account's performance across all content surfaces (feed, stories, explore, profile), and are fundamentally different from post-level metrics.  - Data may be delayed up to 48 hours. - Max 90 days (30 for accounts connected through Facebook Login), defaults to last 30 days. 
 
 ### Parameters
 

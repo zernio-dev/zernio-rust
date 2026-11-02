@@ -919,8 +919,6 @@ docs/DiscordScheduledEventEntityMetadata.md
 docs/DismissAdsAlert200Response.md
 docs/DismissGoogleRecommendationsRequest.md
 docs/DmButton.md
-docs/DownloadTikTokVideo200Response.md
-docs/DownloadTikTokVideo200ResponseFormatsInner.md
 docs/DuplicateAd200Response.md
 docs/DuplicateAdCampaign200Response.md
 docs/DuplicateAdCampaignRequest.md
@@ -2635,7 +2633,6 @@ docs/TikTokReviewRejectionContent.md
 docs/TikTokSmartPlusAdLevelReview.md
 docs/TikTokSmartPlusMaterialReview.md
 docs/TikTokSmartPlusReviewStatus.md
-docs/ToolsApi.md
 docs/TrackingTag.md
 docs/TrackingTagDiagnostic.md
 docs/TrackingTagEvent.md
@@ -3362,7 +3359,6 @@ src/apis/sequences_api.rs
 src/apis/slack_api.rs
 src/apis/sms_api.rs
 src/apis/support_assistant_api.rs
-src/apis/tools_api.rs
 src/apis/tracking_tags_api.rs
 src/apis/treasury_api.rs
 src/apis/twitter_engagement_api.rs
@@ -4266,8 +4262,6 @@ src/models/discord_scheduled_event_entity_metadata.rs
 src/models/dismiss_ads_alert_200_response.rs
 src/models/dismiss_google_recommendations_request.rs
 src/models/dm_button.rs
-src/models/download_tik_tok_video_200_response.rs
-src/models/download_tik_tok_video_200_response_formats_inner.rs
 src/models/duplicate_ad_200_response.rs
 src/models/duplicate_ad_campaign_200_response.rs
 src/models/duplicate_ad_campaign_request.rs
