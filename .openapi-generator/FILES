@@ -395,6 +395,7 @@ docs/CheckVerification200Response.md
 docs/CheckVerificationRequest.md
 docs/CheckWhatsAppNumberAvailability200Response.md
 docs/CheckWhatsAppNumberAvailability200ResponseAreaAvailability.md
+docs/CommentAttachment.md
 docs/CommentAutomationActions.md
 docs/CommentAutomationAudience.md
 docs/CommentAutomationDmMedia.md
@@ -1161,6 +1162,7 @@ docs/GetDailyMetrics200Response.md
 docs/GetDailyMetrics200ResponseDailyDataInner.md
 docs/GetDailyMetrics200ResponseDailyDataInnerMetrics.md
 docs/GetDailyMetrics200ResponsePlatformBreakdownInner.md
+docs/GetDailyMetrics200ResponseTotals.md
 docs/GetDiscordChannels200Response.md
 docs/GetDiscordChannels200ResponseChannelsInner.md
 docs/GetDiscordGuildMember200Response.md
@@ -3101,7 +3103,6 @@ docs/WebhookPayloadComment.md
 docs/WebhookPayloadCommentAccount.md
 docs/WebhookPayloadCommentComment.md
 docs/WebhookPayloadCommentCommentAd.md
-docs/WebhookPayloadCommentCommentAttachment.md
 docs/WebhookPayloadCommentCommentAuthor.md
 docs/WebhookPayloadCommentCommentAuthorInstagramProfile.md
 docs/WebhookPayloadCommentPost.md
@@ -3754,6 +3755,7 @@ src/models/check_verification_200_response.rs
 src/models/check_verification_request.rs
 src/models/check_whats_app_number_availability_200_response.rs
 src/models/check_whats_app_number_availability_200_response_area_availability.rs
+src/models/comment_attachment.rs
 src/models/comment_automation_actions.rs
 src/models/comment_automation_audience.rs
 src/models/comment_automation_dm_media.rs
@@ -4506,6 +4508,7 @@ src/models/get_daily_metrics_200_response.rs
 src/models/get_daily_metrics_200_response_daily_data_inner.rs
 src/models/get_daily_metrics_200_response_daily_data_inner_metrics.rs
 src/models/get_daily_metrics_200_response_platform_breakdown_inner.rs
+src/models/get_daily_metrics_200_response_totals.rs
 src/models/get_discord_channels_200_response.rs
 src/models/get_discord_channels_200_response_channels_inner.rs
 src/models/get_discord_guild_member_200_response.rs
@@ -6404,7 +6407,6 @@ src/models/webhook_payload_comment.rs
 src/models/webhook_payload_comment_account.rs
 src/models/webhook_payload_comment_comment.rs
 src/models/webhook_payload_comment_comment_ad.rs
-src/models/webhook_payload_comment_comment_attachment.rs
 src/models/webhook_payload_comment_comment_author.rs
 src/models/webhook_payload_comment_comment_author_instagram_profile.rs
 src/models/webhook_payload_comment_post.rs

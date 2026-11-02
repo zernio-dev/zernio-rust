@@ -260,7 +260,7 @@ Name | Type | Description  | Required | Notes
 > models::GetDailyMetrics200Response get_daily_metrics(platform, profile_id, account_id, from_date, to_date, source, attribution)
 Get daily aggregated metrics
 
-Returns daily aggregated analytics metrics and a per-platform breakdown. Each day includes post count, platform distribution, and summed metrics (impressions, reach, likes, comments, shares, saves, clicks, views). Defaults to the last 180 days. 
+Returns daily aggregated analytics metrics and a per-platform breakdown. Each day includes post count, platform distribution, and summed metrics (impressions, reach, likes, comments, shares, saves, clicks, views). Defaults to the last 180 days.  `totals` sums the whole range for the applied filters (pass `accountId` for one account). With attribution \"publish\" they are the lifetime metrics of posts published in the range, with \"received\" the engagement that arrived in the range. 
 
 ### Parameters
 
