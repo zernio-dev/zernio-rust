@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **metric** | **String** | `spend`, `impressions`, `clicks`, `conversions`, `ctr`, `cpc`, `cpm`, `cpa` or `roas`. New values may be added. | 
 **window** | **String** | `today`, `yesterday`, `last_3d`, `last_7d`, `last_14d` or `last_30d`, in the account's calendar (see `run.today`). New values may be added. | 
-**op** | **Op** |  (enum: >, >=, <, <=) | 
+**op** | **String** | `>`, `>=`, `<`, `<=`, or `top` and `bottom` for a rank condition, whose `actual` is the object's position (1 first). | 
 **value** | **f64** | The threshold set on the rule. | 
 **actual** | Option<**f64**> | The object's value for the metric over the window. Null when it cannot be computed, for example a cost per action with no actions. | 
 
