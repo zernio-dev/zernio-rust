@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **cpm** | Option<**f64**> | Cost per 1000 impressions in native currency. | [optional]
 **conversions** | Option<**f64**> | Sum of conversion events over the range. Fractional values are normal (attribution splitting + Google modeled conversions). Meta: the ad set Ads Manager Results (see AdMetrics.conversions). Google: tracked conversions. X / LinkedIn: reported website/lead conversions (added 2026-07). | [optional]
 **all_conversions** | Option<**f64**> | All conversions, including actions excluded from the Conversions column (Google metrics.all_conversions). 0 on platforms without the concept. | [optional]
+**conversions_by_type** | Option<**std::collections::HashMap<String, f64>**> | `conversions` split by what was counted. Keys are the Meta action_type (e.g. `offsite_conversion.fb_pixel_purchase`) or the Google conversion action name, so a goal change shows as one key ending and another starting. Meta and Google only; empty before 2026-11. | [optional]
 **cost_per_conversion** | Option<**f64**> |  | [optional]
 **actions** | Option<**std::collections::HashMap<String, f64>**> | Per-action-type counts merged across all ads on this day. Keys are platform-native action types. | [optional]
 **action_values** | Option<**std::collections::HashMap<String, f64>**> | Monetary mirror of `actions` in native currency. | [optional]

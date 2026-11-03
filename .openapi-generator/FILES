@@ -86,11 +86,13 @@ docs/AdTreeAdSetAdSetBudget.md
 docs/AdTreeAdSetAttributionSpecInner.md
 docs/AdTreeAdSetBudget.md
 docs/AdTreeAdSetPromotedObject.md
+docs/AdTreeAdSetSchedule.md
 docs/AdTreeCampaign.md
 docs/AdTreeCampaignBudget.md
 docs/AdTreeCampaignCampaignBudget.md
 docs/AdTreeCampaignOptimizationGoal.md
 docs/AdTreeCampaignPromotedObject.md
+docs/AdTreeCampaignSchedule.md
 docs/AdTreeResponse.md
 docs/AdTreeResponsePreviousRange.md
 docs/AddAccountCallouts201Response.md
@@ -3456,11 +3458,13 @@ src/models/ad_tree_ad_set_ad_set_budget.rs
 src/models/ad_tree_ad_set_attribution_spec_inner.rs
 src/models/ad_tree_ad_set_budget.rs
 src/models/ad_tree_ad_set_promoted_object.rs
+src/models/ad_tree_ad_set_schedule.rs
 src/models/ad_tree_campaign.rs
 src/models/ad_tree_campaign_budget.rs
 src/models/ad_tree_campaign_campaign_budget.rs
 src/models/ad_tree_campaign_optimization_goal.rs
 src/models/ad_tree_campaign_promoted_object.rs
+src/models/ad_tree_campaign_schedule.rs
 src/models/ad_tree_response.rs
 src/models/ad_tree_response_previous_range.rs
 src/models/add_account_callouts_201_response.rs

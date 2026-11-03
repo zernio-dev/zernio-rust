@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **app_installs** | Option<**i32**> | Mobile app installs attributed to the ad. | [optional]
 **messaging_conversations_started** | Option<**i32**> | Messaging conversations started within 7 days, the headline metric for click-to-WhatsApp and click-to-Messenger ads. | [optional]
 **messaging_first_replies** | Option<**i32**> | Messaging threads where the person sent a first reply. | [optional]
+**schedules** | Option<**i32**> | Booked appointments (Meta `Schedule` pixel event). Pair with `spend` for cost per booked meeting.  **Meta** reports Schedule in its `conversions` insight field, never in `actions`. This takes the FIRST present of `offsite_conversion.fb_pixel_schedule`, `omni_schedule`, `app_custom_event.fb_mobile_schedule`, `onsite_conversion.schedule`, `schedule`, `schedule_total`, `schedule_mobile_app`, `schedule_website`, `schedule_offline`. With none of those, a single `offsite_schedule_add_<dataset>` key counts. Two such keys (two datasets) leave it at 0, since one booking can reach both.  Added 2026-11-03. Days synced before then read 0 until re-fetched: each sync restates the last 30 days.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
