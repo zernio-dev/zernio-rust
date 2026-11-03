@@ -4,10 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**metric** | **Metric** |  (enum: spend, impressions, clicks, conversions, ctr, cpc, cpm, cpa, roas, reach, frequency) | 
-**window** | **Window** | Days in the ad account's own timezone. `last_7d` is the 7 full days before today; only `today` reads the day in progress. (enum: today, yesterday, last_3d, last_7d, last_14d, last_30d) | 
+**metric** | **Metric** |  (enum: spend, impressions, clicks, conversions, ctr, cpc, cpm, cpa, roas, reach, frequency, daily_budget, budget_used) | 
+**window** | **Window** |  (enum: today, yesterday, last_3d, last_7d, last_14d, last_30d) | 
 **op** | **Op** |  (enum: >, >=, <, <=) | 
 **value** | **f64** |  | 
+**compare_to** | Option<**String**> | Makes the condition relative: `value` becomes a ratio of the metric over `window` to the same metric over this window. `previous_period` is the same number of days just before `window`; any other value is a window, such as `30_to_2_days_ago`.  Spend, impressions, clicks, conversions and reach are compared per day, so windows of different lengths compare fairly; rates such as `cpc` compare as they are. A comparison window with no value never matches.  | [optional]
 **actual** | Option<**f64**> | The object's value over the window. Null when it cannot be computed. | 
 **met** | **bool** |  | 
 

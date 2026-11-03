@@ -64,7 +64,10 @@ docs/AdRuleActionOneOf2.md
 docs/AdRuleActionOneOf3.md
 docs/AdRuleActivityEntry.md
 docs/AdRuleCondition.md
+docs/AdRuleConditionItem.md
 docs/AdRuleConditions.md
+docs/AdRuleConditionsOneOf.md
+docs/AdRuleConditionsOneOf1.md
 docs/AdRuleEvaluation.md
 docs/AdRuleLevel.md
 docs/AdRuleObjectEvaluation.md
@@ -3445,7 +3448,10 @@ src/models/ad_rule_action_one_of_2.rs
 src/models/ad_rule_action_one_of_3.rs
 src/models/ad_rule_activity_entry.rs
 src/models/ad_rule_condition.rs
+src/models/ad_rule_condition_item.rs
 src/models/ad_rule_conditions.rs
+src/models/ad_rule_conditions_one_of.rs
+src/models/ad_rule_conditions_one_of_1.rs
 src/models/ad_rule_evaluation.rs
 src/models/ad_rule_level.rs
 src/models/ad_rule_object_evaluation.rs

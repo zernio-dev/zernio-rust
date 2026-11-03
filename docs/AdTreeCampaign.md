@@ -35,6 +35,7 @@ Name | Type | Description | Notes
 **bid_amount** | Option<**f64**> | Representative bid for the campaign, bubbled up from the top-spending ad set (whole currency units). Meta: populated when the ad-set bidStrategy is LOWEST_COST_WITH_BID_CAP or COST_CAP. LinkedIn: the campaign unitCost, which has no bidStrategy gate and where 0 is a real, delivery-stopping value rather than unset. | [optional]
 **roas_average_floor** | Option<**f64**> | Representative ROAS floor for the campaign, bubbled up from the top-spending ad set. Decimal multiplier (2.0 = 2.0x). | [optional]
 **promoted_object** | Option<[**models::AdTreeCampaignPromotedObject**](AdTreeCampaignPromotedObject.md)> |  | [optional]
+**special_ad_categories** | Option<**Vec<String>**> | Special ad categories declared when Zernio created the campaign, read from the ad that created it (its earliest ad), e.g. [\"HOUSING\"]. Absent when none was declared or the campaign was created outside Zernio. | [optional]
 **ad_sets** | Option<[**Vec<models::AdTreeAdSet>**](AdTreeAdSet.md)> |  | [optional]
 **daily** | Option<[**Vec<models::AdDailyMetrics>**](AdDailyMetrics.md)> | Per-day metric series for this campaign. Present only when `GET /v1/ads/tree` is called with `timeIncrement=1` (any `dailyLevel`). This is the per-campaign daily trend. Summing its additive fields reproduces the campaign `metrics` total, except `reach`: on Meta the range total is de-duplicated, so daily reach does not sum to it. | [optional]
 

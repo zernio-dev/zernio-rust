@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **rows_matched** | **i32** |  | 
 **rows_unmatched** | **i32** |  | 
 **unmatched** | [**Vec<models::GetCampaignResultsUpload200ResponseUnmatchedInner>**](GetCampaignResultsUpload200ResponseUnmatchedInner.md) |  | 
+**failure_reason** | Option<**FailureReason**> | Set when `status` is `failed`. `queue_unavailable`: the upload could not be queued. `processing_failed`: its rows could not be stored after several retries. Both are on our side. (enum: queue_unavailable, processing_failed, ) | 
 **created_at** | **String** |  | 
 **completed_at** | Option<**String**> |  | 
 

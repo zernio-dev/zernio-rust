@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **age_min** | Option<**i32**> |  | [optional]
 **age_max** | Option<**i32**> |  | [optional]
 **gender** | Option<**Gender**> | Applied on Meta, TikTok, Pinterest and Reddit. Ignored on Google, LinkedIn and X. (enum: all, male, female) | [optional]
-**languages** | Option<**Vec<String>**> | Meta locale ids (numeric), passed through as given. Reddit: language codes (e.g. `en`). | [optional]
+**languages** | Option<**Vec<String>**> | Language codes, the same format as `languages` on POST /v1/ads/create.  - Meta: ISO 639-1 codes. A bare code targets all regional variants (\"en\" = all English); use a region-qualified code for a specific one (\"en_GB\", \"pt_BR\"). Meta numeric locale ids (e.g. \"24\" for English UK) are also accepted. Unknown values are rejected. - Reddit: ISO 639-1 codes (e.g. `en`). | [optional]
 **countries** | Option<**Vec<String>**> | ISO country codes. Required for TikTok boosts (TikTok's ad group requires location_ids); optional on other platforms. | [optional]
 **regions** | Option<[**Vec<models::UpdateCampaignTargetingRequestTargetingLocationsOneOfRegionsInnerOneOf>**](UpdateCampaignTargetingRequestTargetingLocationsOneOfRegionsInnerOneOf.md)> | Region/state targeting. `key` from /v1/ads/targeting/search?dimension=geo&geoType=region. | [optional]
 **cities** | Option<[**Vec<models::BoostPostRequestTargetingCitiesInner>**](BoostPostRequestTargetingCitiesInner.md)> | City targeting. Optional `radius` + `distanceUnit` extend beyond the city limits (both set together, Meta only). | [optional]
