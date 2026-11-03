@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **spec** | Option<[**models::TargetingSpec**](TargetingSpec.md)> |  | [optional]
 **platform** | Option<**String**> |  | [optional]
 **size** | Option<**i32**> |  | [optional]
+**summary** | Option<**String**> | Who the audience contains, in one line (e.g. '1% lookalike of Customers in US' or 'All website visitors, last 30 days'). Meta only. | [optional]
 **status** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

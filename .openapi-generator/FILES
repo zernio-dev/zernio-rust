@@ -143,6 +143,10 @@ docs/AdsAlert.md
 docs/AdsAlertEntity.md
 docs/AdsAlertFix.md
 docs/AdsListResponse.md
+docs/AdsPerformanceResponse.md
+docs/AdsPerformanceResponseAdsInner.md
+docs/AdsPerformanceResponseAdsInnerCreative.md
+docs/AdsPerformanceResponseAdsInnerMetrics.md
 docs/AdsTimelineResponse.md
 docs/AdsTimelineResponsePreviousRange.md
 docs/AdsTimelineResponseRowsInner.md
@@ -1741,6 +1745,7 @@ docs/ListAds202Response.md
 docs/ListAdsAlerts200Response.md
 docs/ListAdsAlerts200ResponseCounts.md
 docs/ListAdsBusinessCenters200Response.md
+docs/ListAdsByPerformance202Response.md
 docs/ListAdsInstagramAccounts200Response.md
 docs/ListAdsInstagramAccounts200ResponseAccountsInner.md
 docs/ListAdsInstagramAccounts200ResponsePagesInner.md
@@ -3515,6 +3520,10 @@ src/models/ads_alert.rs
 src/models/ads_alert_entity.rs
 src/models/ads_alert_fix.rs
 src/models/ads_list_response.rs
+src/models/ads_performance_response.rs
+src/models/ads_performance_response_ads_inner.rs
+src/models/ads_performance_response_ads_inner_creative.rs
+src/models/ads_performance_response_ads_inner_metrics.rs
 src/models/ads_timeline_response.rs
 src/models/ads_timeline_response_previous_range.rs
 src/models/ads_timeline_response_rows_inner.rs
@@ -5075,6 +5084,7 @@ src/models/list_ads_202_response.rs
 src/models/list_ads_alerts_200_response.rs
 src/models/list_ads_alerts_200_response_counts.rs
 src/models/list_ads_business_centers_200_response.rs
+src/models/list_ads_by_performance_202_response.rs
 src/models/list_ads_instagram_accounts_200_response.rs
 src/models/list_ads_instagram_accounts_200_response_accounts_inner.rs
 src/models/list_ads_instagram_accounts_200_response_pages_inner.rs

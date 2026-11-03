@@ -44,6 +44,7 @@ Method | HTTP request | Description
 [**list_ad_sets**](AdCampaignsApi.md#list_ad_sets) | **GET** /v1/ads/ad-sets | List ad sets
 [**list_ads**](AdCampaignsApi.md#list_ads) | **GET** /v1/ads | List ads
 [**list_ads_alerts**](AdCampaignsApi.md#list_ads_alerts) | **GET** /v1/ads/alerts | List ads that need attention
+[**list_ads_by_performance**](AdCampaignsApi.md#list_ads_by_performance) | **GET** /v1/ads/performance | Rank ads by performance
 [**list_bid_strategies**](AdCampaignsApi.md#list_bid_strategies) | **GET** /v1/ads/bid-strategies | List portfolio bid strategies
 [**list_campaign_assets**](AdCampaignsApi.md#list_campaign_assets) | **GET** /v1/ads/campaigns/{campaignId}/assets | List campaign assets
 [**list_campaign_negative_keyword_lists**](AdCampaignsApi.md#list_campaign_negative_keyword_lists) | **GET** /v1/ads/campaigns/{campaignId}/negative-keyword-lists | List campaign negative lists
@@ -1376,6 +1377,42 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListAdsAlerts200Response**](listAdsAlerts_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_ads_by_performance
+
+> models::AdsPerformanceResponse list_ads_by_performance(account_id, from_date, to_date, ad_account_id, platform, sort_by, limit)
+Rank ads by performance
+
+Returns an ads account's ads ranked by spend, impressions, clicks, results or ROAS over a date range, each with its creative (type, thumbnail, headline, body, link) and campaign.  Use it to see which creatives perform best. `accountId` is sibling-expanded like `/v1/ads/timeline`.  Money is ranked by its raw amount, so pass `adAccountId` when the connection's ad accounts bill in different currencies.  A Meta range older than the imported history answers `202` with `backfillPending: true` and the covered part; repeat the request until it returns 200. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Account ID. Sibling-expanded to its linked posting and ads pair. An id the API key cannot reach answers 404. | [required] |
+**from_date** | **String** | Inclusive start of the range (YYYY-MM-DD). | [required] |
+**to_date** | **String** | Inclusive end of the range (YYYY-MM-DD). Max 730-day range. | [required] |
+**ad_account_id** | Option<**String**> | Optional platform-native ad account ID (e.g. Meta `act_…`) to rank one ad account only. |  |
+**platform** | Option<**String**> | Restrict to one platform. |  |
+**sort_by** | Option<**String**> | Metric the ads are ranked by, highest first. |  |[default to spend]
+**limit** | Option<**i32**> | How many ads to return. |  |[default to 50]
+
+### Return type
+
+[**models::AdsPerformanceResponse**](AdsPerformanceResponse.md)
 
 ### Authorization
 
