@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **disconnection_type** | Option<**DisconnectionType**> | intentional: deliberately disconnected by the user or by Zernio (for example a plan downgrade), not a token failure. unintentional: token expired or revoked, or an auth failure. Null when disconnectReason is null. (enum: intentional, unintentional, ) | [optional]
 **unhealthy_since** | Option<**String**> | When the earliest current stored cause was recorded (the start of the outage); for an intentional disconnect, when it was disconnected. Null when the connection is healthy, including when the account is unhealthy for another reason (analytics, messaging restriction, missing analytics scopes, Meta phone status), or when unknown. | [optional]
 **analytics_sync** | Option<[**models::GetAllAccountsHealth200ResponseAccountsInnerAnalyticsSync**](GetAllAccountsHealth200ResponseAccountsInnerAnalyticsSync.md)> |  | [optional]
+**inbound_activity** | Option<[**models::InboundActivity**](InboundActivity.md)> |  | [optional]
 **messaging_restriction** | Option<[**models::GetAccountHealth200ResponseMessagingRestriction**](GetAccountHealth200ResponseMessagingRestriction.md)> |  | [optional]
 **platform_connection** | Option<[**models::GetAccountHealth200ResponsePlatformConnection**](GetAccountHealth200ResponsePlatformConnection.md)> |  | [optional]
 

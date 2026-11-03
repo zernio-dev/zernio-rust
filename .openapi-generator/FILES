@@ -1589,6 +1589,7 @@ docs/ImessageAudienceContactOptIn.md
 docs/ImessageSandboxContact.md
 docs/ImessageSender.md
 docs/ImessageSenderLifecycle.md
+docs/InboundActivity.md
 docs/InboxAnalyticsApi.md
 docs/InboxConversationAdMetadata.md
 docs/InboxMessageEditAttachment.md
@@ -2046,6 +2047,7 @@ docs/ListWorkflowVersions200Response.md
 docs/ListWorkflowVersions200ResponseVersionsInner.md
 docs/ListWorkflows200Response.md
 docs/ListWorkflows200ResponseWorkflowsInner.md
+docs/ListedAccount.md
 docs/LogsApi.md
 docs/LookupSmsNumber200Response.md
 docs/MarkConversationRead200Response.md
@@ -4934,6 +4936,7 @@ src/models/imessage_audience_contact_opt_in.rs
 src/models/imessage_sandbox_contact.rs
 src/models/imessage_sender.rs
 src/models/imessage_sender_lifecycle.rs
+src/models/inbound_activity.rs
 src/models/inbox_conversation_ad_metadata.rs
 src/models/inbox_message_edit_attachment.rs
 src/models/inbox_message_edit_history_entry.rs
@@ -5385,6 +5388,7 @@ src/models/list_workflow_versions_200_response.rs
 src/models/list_workflow_versions_200_response_versions_inner.rs
 src/models/list_workflows_200_response.rs
 src/models/list_workflows_200_response_workflows_inner.rs
+src/models/listed_account.rs
 src/models/lookup_sms_number_200_response.rs
 src/models/mark_conversation_read_200_response.rs
 src/models/media_content_type.rs
