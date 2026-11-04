@@ -3080,6 +3080,10 @@ docs/WebhookPayloadAccountRateLimitedAccount.md
 docs/WebhookPayloadAdAccountStatusChanged.md
 docs/WebhookPayloadAdAccountStatusChangedAdAccount.md
 docs/WebhookPayloadAdAccountStatusChangedStatus.md
+docs/WebhookPayloadAdCreated.md
+docs/WebhookPayloadAdCreatedAdObject.md
+docs/WebhookPayloadAdCreatedAdObjectAdSet.md
+docs/WebhookPayloadAdCreatedAdObjectCampaign.md
 docs/WebhookPayloadAdDeliveryIssue.md
 docs/WebhookPayloadAdDeliveryIssueIssue.md
 docs/WebhookPayloadAdReview.md
@@ -3097,6 +3101,7 @@ docs/WebhookPayloadAdStatusChangedAccount.md
 docs/WebhookPayloadAdStatusChangedAdObject.md
 docs/WebhookPayloadAdStatusChangedError.md
 docs/WebhookPayloadAdStatusChangedStatus.md
+docs/WebhookPayloadAdUpdated.md
 docs/WebhookPayloadAdVideoProcessed.md
 docs/WebhookPayloadAdVideoProcessedAccount.md
 docs/WebhookPayloadAdVideoProcessedVideo.md
@@ -3125,6 +3130,8 @@ docs/WebhookPayloadCallReceivedCall.md
 docs/WebhookPayloadCampaignBudgetDepleted.md
 docs/WebhookPayloadCampaignBudgetDepletedAdObject.md
 docs/WebhookPayloadCampaignBudgetDepletedBudget.md
+docs/WebhookPayloadCampaignCreated.md
+docs/WebhookPayloadCampaignCreatedAdObject.md
 docs/WebhookPayloadCampaignParticipant.md
 docs/WebhookPayloadCampaignParticipantParticipant.md
 docs/WebhookPayloadCampaignPayout.md
@@ -3137,6 +3144,7 @@ docs/WebhookPayloadCampaignSubmissionCreator.md
 docs/WebhookPayloadCampaignSubmissionParticipant.md
 docs/WebhookPayloadCampaignSubmissionSubmission.md
 docs/WebhookPayloadCampaignSubmissionSubmissionFlagsInner.md
+docs/WebhookPayloadCampaignUpdated.md
 docs/WebhookPayloadComment.md
 docs/WebhookPayloadCommentAccount.md
 docs/WebhookPayloadCommentComment.md
@@ -6422,6 +6430,10 @@ src/models/webhook_payload_account_rate_limited_account.rs
 src/models/webhook_payload_ad_account_status_changed.rs
 src/models/webhook_payload_ad_account_status_changed_ad_account.rs
 src/models/webhook_payload_ad_account_status_changed_status.rs
+src/models/webhook_payload_ad_created.rs
+src/models/webhook_payload_ad_created_ad_object.rs
+src/models/webhook_payload_ad_created_ad_object_ad_set.rs
+src/models/webhook_payload_ad_created_ad_object_campaign.rs
 src/models/webhook_payload_ad_delivery_issue.rs
 src/models/webhook_payload_ad_delivery_issue_issue.rs
 src/models/webhook_payload_ad_review.rs
@@ -6439,6 +6451,7 @@ src/models/webhook_payload_ad_status_changed_account.rs
 src/models/webhook_payload_ad_status_changed_ad_object.rs
 src/models/webhook_payload_ad_status_changed_error.rs
 src/models/webhook_payload_ad_status_changed_status.rs
+src/models/webhook_payload_ad_updated.rs
 src/models/webhook_payload_ad_video_processed.rs
 src/models/webhook_payload_ad_video_processed_account.rs
 src/models/webhook_payload_ad_video_processed_video.rs
@@ -6467,6 +6480,8 @@ src/models/webhook_payload_call_received_call.rs
 src/models/webhook_payload_campaign_budget_depleted.rs
 src/models/webhook_payload_campaign_budget_depleted_ad_object.rs
 src/models/webhook_payload_campaign_budget_depleted_budget.rs
+src/models/webhook_payload_campaign_created.rs
+src/models/webhook_payload_campaign_created_ad_object.rs
 src/models/webhook_payload_campaign_participant.rs
 src/models/webhook_payload_campaign_participant_participant.rs
 src/models/webhook_payload_campaign_payout.rs
@@ -6479,6 +6494,7 @@ src/models/webhook_payload_campaign_submission_creator.rs
 src/models/webhook_payload_campaign_submission_participant.rs
 src/models/webhook_payload_campaign_submission_submission.rs
 src/models/webhook_payload_campaign_submission_submission_flags_inner.rs
+src/models/webhook_payload_campaign_updated.rs
 src/models/webhook_payload_comment.rs
 src/models/webhook_payload_comment_account.rs
 src/models/webhook_payload_comment_comment.rs

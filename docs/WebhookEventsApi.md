@@ -12,11 +12,13 @@ Method | HTTP request | Description
 [**on_account_permissions_changed**](WebhookEventsApi.md#on_account_permissions_changed) | **POST** /account.permissions_changed | Account permissions changed event
 [**on_account_rate_limited**](WebhookEventsApi.md#on_account_rate_limited) | **POST** /account.rate_limited | Mailbox sending cooldown started
 [**on_ad_account_status_changed**](WebhookEventsApi.md#on_ad_account_status_changed) | **POST** /ad_account.status_changed | Ad account status changed event
+[**on_ad_created**](WebhookEventsApi.md#on_ad_created) | **POST** /ad.created | Ad created event
 [**on_ad_delivery_issue**](WebhookEventsApi.md#on_ad_delivery_issue) | **POST** /ad.delivery_issue | Ad delivery issue event
 [**on_ad_review_approved**](WebhookEventsApi.md#on_ad_review_approved) | **POST** /ad.review.approved | Ad review approved event
 [**on_ad_review_rejected**](WebhookEventsApi.md#on_ad_review_rejected) | **POST** /ad.review.rejected | Ad review rejected event
 [**on_ad_rule_triggered**](WebhookEventsApi.md#on_ad_rule_triggered) | **POST** /ad_rule.triggered | Ad rule triggered event
 [**on_ad_status_changed**](WebhookEventsApi.md#on_ad_status_changed) | **POST** /ad.status_changed | Ad status changed event
+[**on_ad_updated**](WebhookEventsApi.md#on_ad_updated) | **POST** /ad.updated | Ad updated event
 [**on_ad_video_processed**](WebhookEventsApi.md#on_ad_video_processed) | **POST** /ad.video.processed | Ad video processed event
 [**on_analytics_synced**](WebhookEventsApi.md#on_analytics_synced) | **POST** /analytics.synced | Analytics synced event
 [**on_api_changelog_published**](WebhookEventsApi.md#on_api_changelog_published) | **POST** /api.changelog.published | API changelog entry published event
@@ -38,6 +40,7 @@ Method | HTTP request | Description
 [**on_call_permission_request**](WebhookEventsApi.md#on_call_permission_request) | **POST** /call.permission_request | Call permission request reply event
 [**on_call_received**](WebhookEventsApi.md#on_call_received) | **POST** /call.received | Call received event
 [**on_campaign_budget_depleted**](WebhookEventsApi.md#on_campaign_budget_depleted) | **POST** /campaign.budget.depleted | Campaign budget depleted event
+[**on_campaign_created**](WebhookEventsApi.md#on_campaign_created) | **POST** /campaign.created | Campaign created event
 [**on_campaign_participant_joined**](WebhookEventsApi.md#on_campaign_participant_joined) | **POST** /campaign_participant.joined | Campaign participant joined event
 [**on_campaign_participant_removed**](WebhookEventsApi.md#on_campaign_participant_removed) | **POST** /campaign_participant.removed | Campaign participant removed event
 [**on_campaign_participant_suspended**](WebhookEventsApi.md#on_campaign_participant_suspended) | **POST** /campaign_participant.suspended | Campaign participant suspended event
@@ -49,6 +52,7 @@ Method | HTTP request | Description
 [**on_campaign_submission_pending_review**](WebhookEventsApi.md#on_campaign_submission_pending_review) | **POST** /campaign_submission.pending_review | Campaign submission pending review event
 [**on_campaign_submission_received**](WebhookEventsApi.md#on_campaign_submission_received) | **POST** /campaign_submission.received | Campaign submission received event
 [**on_campaign_submission_rejected**](WebhookEventsApi.md#on_campaign_submission_rejected) | **POST** /campaign_submission.rejected | Campaign submission rejected event
+[**on_campaign_updated**](WebhookEventsApi.md#on_campaign_updated) | **POST** /campaign.updated | Campaign updated event
 [**on_comment_received**](WebhookEventsApi.md#on_comment_received) | **POST** /comment.received | Comment received event
 [**on_commerce_order_created**](WebhookEventsApi.md#on_commerce_order_created) | **POST** /commerce.order.created | Commerce order created event
 [**on_commerce_order_refunded**](WebhookEventsApi.md#on_commerce_order_refunded) | **POST** /commerce.order.refunded | Commerce order refunded event
@@ -372,6 +376,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## on_ad_created
+
+> on_ad_created(webhook_payload_ad_created)
+Ad created event
+
+Fired when an ad is created through Zernio (`source: \"zernio\"`) or detected by the sync (`source: \"platform\"`). Never for history loaded when an account connects, nor for ads older than 7 days. See `WebhookPayloadAdCreated`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_ad_created** | [**WebhookPayloadAdCreated**](WebhookPayloadAdCreated.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## on_ad_delivery_issue
 
 > on_ad_delivery_issue(webhook_payload_ad_delivery_issue)
@@ -505,6 +539,36 @@ Fired when a campaign, ad set, or ad on a connected ad platform changes status. 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_ad_status_changed** | [**WebhookPayloadAdStatusChanged**](WebhookPayloadAdStatusChanged.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_ad_updated
+
+> on_ad_updated(webhook_payload_ad_updated)
+Ad updated event
+
+Fired when an ad is edited through Zernio (`source: \"zernio\"`) or when the sync detects an edit made outside Zernio (`source: \"platform\"`). `changes` lists the edited fields. See `WebhookPayloadAdUpdated`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_ad_updated** | [**WebhookPayloadAdUpdated**](WebhookPayloadAdUpdated.md) |  | [required] |
 
 ### Return type
 
@@ -1148,6 +1212,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## on_campaign_created
+
+> on_campaign_created(webhook_payload_campaign_created)
+Campaign created event
+
+Fired when a campaign is created through Zernio (`source: \"zernio\"`) or detected by the sync (`source: \"platform\"`). Never for history loaded when an account connects, nor for campaigns older than 7 days. See `WebhookPayloadCampaignCreated`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_created** | [**WebhookPayloadCampaignCreated**](WebhookPayloadCampaignCreated.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## on_campaign_participant_joined
 
 > on_campaign_participant_joined(webhook_payload_campaign_participant)
@@ -1461,6 +1555,36 @@ Fired when an operator rejects a submission.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_campaign_submission** | [**WebhookPayloadCampaignSubmission**](WebhookPayloadCampaignSubmission.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_updated
+
+> on_campaign_updated(webhook_payload_campaign_updated)
+Campaign updated event
+
+Fired when a campaign is edited through Zernio (`source: \"zernio\"`) or when the sync detects an edit made outside Zernio (`source: \"platform\"`). `changes` lists the edited fields. See `WebhookPayloadCampaignUpdated`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_updated** | [**WebhookPayloadCampaignUpdated**](WebhookPayloadCampaignUpdated.md) |  | [required] |
 
 ### Return type
 
