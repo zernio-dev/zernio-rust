@@ -1937,7 +1937,7 @@ Name | Type | Description  | Required | Notes
 > on_contact_updated(webhook_payload_contact)
 Contact updated
 
-A provider contacts sync created or changed a contact.
+A provider contacts sync (Google Contacts, Outlook) or a WhatsApp coexistence address-book change created or changed a contact.
 
 ### Parameters
 
