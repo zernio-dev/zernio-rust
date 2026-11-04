@@ -195,7 +195,7 @@ Name | Type | Description  | Required | Notes
 **source** | Option<**String**> | Which collection to read. `zernio` (default) returns posts authored through Zernio. `external` returns posts synced from the platform (existing/historical posts that were published outside Zernio). Combine with `accountId` and paginate via `page`/`limit` to walk the full synced history (we keep up to the last ~12 months per account). |  |[default to zernio]
 **status** | Option<**String**> |  |  |
 **platform** | Option<**String**> |  |  |
-**profile_id** | Option<**String**> | Filter posts to a specific profile (24-char hex ObjectId). Omit it, or send `all` or an empty value, to list posts across every profile. |  |
+**profile_id** | Option<**String**> | Filter posts to a specific profile (24-char hex ObjectId), including drafts filed under it without platforms. Omit it, or send `all` or an empty value, to list posts across every profile. |  |
 **created_by** | Option<**String**> | Filter posts to those created by a specific team user (24-char hex ObjectId). |  |
 **from_date** | Option<**String**> | Zero-padded YYYY-MM-DD, or a full ISO 8601 datetime. An empty value means no date filter; any other malformed value returns 400. The same name the other date-window filters use (ads, analytics). |  |
 **to_date** | Option<**String**> | Zero-padded YYYY-MM-DD, or a full ISO 8601 datetime. An empty value means no date filter; any other malformed value returns 400. The same name the other date-window filters use (ads, analytics). |  |

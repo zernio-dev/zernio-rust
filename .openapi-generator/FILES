@@ -734,6 +734,9 @@ docs/CreatePhoneNumberStockWatchRequest.md
 docs/CreatePinterestBoard201Response.md
 docs/CreatePinterestBoard201ResponseBoard.md
 docs/CreatePinterestBoardRequest.md
+docs/CreatePlatformInvite200Response.md
+docs/CreatePlatformInvite200ResponseInvite.md
+docs/CreatePlatformInviteRequest.md
 docs/CreatePost200Response.md
 docs/CreatePost400Response.md
 docs/CreatePost400ResponseDetails.md
@@ -4140,6 +4143,9 @@ src/models/create_phone_number_stock_watch_request.rs
 src/models/create_pinterest_board_201_response.rs
 src/models/create_pinterest_board_201_response_board.rs
 src/models/create_pinterest_board_request.rs
+src/models/create_platform_invite_200_response.rs
+src/models/create_platform_invite_200_response_invite.rs
+src/models/create_platform_invite_request.rs
 src/models/create_post_200_response.rs
 src/models/create_post_400_response.rs
 src/models/create_post_400_response_details.rs

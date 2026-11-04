@@ -33,7 +33,7 @@ Method | HTTP request | Description
 > models::DeleteAccountGroup200Response delete_account(account_id)
 Disconnect account
 
-Disconnects and removes a connected account. Repeating the call for an account already disconnected returns 404, the account stays in its 1h grace window and the disconnect is not re-run.
+Disconnects and removes a connected account, and fires account.disconnected with disconnectionType intentional.  The account is kept for a 1h grace window. Reconnecting the same account within it restores it with the same accountId and its scheduled posts. After that it is deleted permanently.  Repeating the call for an account already disconnected returns 404, the account stays in its 1h grace window and the disconnect is not re-run.
 
 ### Parameters
 
@@ -577,7 +577,7 @@ Name | Type | Description  | Required | Notes
 > models::UpdateAccount200Response update_account(account_id, update_account_request)
 Update account
 
-Updates a connected account's display name or username override.  ### X capabilities  For X accounts on usage-based billing, also accepts an `xCapabilities` object to toggle background API operations that incur X API pass-through costs.  - Both fields are opt-in (default `false`). - When off, no analytics syncs or DM polling are performed for that account, and no API call is metered for those operations. - Publishing and deleting posts are always available regardless of these toggles. - Setting `xCapabilities` on a non-X account returns 400. 
+Updates a connected account's display name or username override.  ### X capabilities  For X accounts on usage-based billing, also accepts an `xCapabilities` object to toggle background API operations that incur X API pass-through costs.  - Both fields are opt-in (default `false`). - When off, no analytics syncs or DM polling are performed for that account, and no API call is metered for those operations. - Publishing and deleting posts are always available regardless of these toggles. - Setting `xCapabilities` on a non-X account returns 400.  ### Meta ads sync  For Facebook accounts, also accepts `metaAdsSyncEnabled` to sync the Meta ads of the ad accounts the account reaches without a Meta Ads connection. See the field for what turning it on and off does. 
 
 ### Parameters
 

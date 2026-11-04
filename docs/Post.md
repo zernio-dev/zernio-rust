@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **recycled_from_post_id** | Option<**String**> | ID of the original post if this post was created via recycling | [optional]
 **queued_from_profile** | Option<**String**> | Profile ID if the post was scheduled via the queue | [optional]
 **queue_id** | Option<**String**> | Queue ID if the post was scheduled via a specific queue | [optional]
+**profile_id** | Option<**String**> | Profile the post is filed under. Set only on drafts that have no platforms. | [optional]
 **created_at** | Option<**String**> |  | [optional]
 **updated_at** | Option<**String**> | Last change to the post or to any of its platforms (a publish, a failure, a resolved URL). | [optional]
 

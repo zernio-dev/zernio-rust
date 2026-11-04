@@ -22,6 +22,7 @@ Method | HTTP request | Description
 [**connect_word_press_with_application_password**](ConnectApi.md#connect_word_press_with_application_password) | **POST** /v1/connect/wordpress/token | Connect self-hosted WordPress with an application password
 [**create_o_auth_app**](ConnectApi.md#create_o_auth_app) | **POST** /v1/connect/oauth-apps | Add an OAuth app
 [**create_pinterest_board**](ConnectApi.md#create_pinterest_board) | **POST** /v1/accounts/{accountId}/pinterest-boards | Create Pinterest board
+[**create_platform_invite**](ConnectApi.md#create_platform_invite) | **POST** /v1/platform-invites | Create a connect link
 [**create_youtube_playlist**](ConnectApi.md#create_youtube_playlist) | **POST** /v1/accounts/{accountId}/youtube-playlists | Create YouTube playlist
 [**delete_o_auth_app**](ConnectApi.md#delete_o_auth_app) | **DELETE** /v1/connect/oauth-apps/{appId} | Remove an OAuth app
 [**get_connect_handoff**](ConnectApi.md#get_connect_handoff) | **GET** /v1/connect/handoffs/{handoffId} | Get a phone handoff
@@ -631,6 +632,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::CreatePinterestBoard201Response**](createPinterestBoard_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_platform_invite
+
+> models::CreatePlatformInvite200Response create_platform_invite(create_platform_invite_request)
+Create a connect link
+
+Create a single-use link that lets someone else connect their account to one of your profiles, without a Zernio login.  For Instagram, choose how they sign in with loginMethod. With facebook_login they sign in with Facebook and pick the Page linked to their Instagram account. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_platform_invite_request** | [**CreatePlatformInviteRequest**](CreatePlatformInviteRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreatePlatformInvite200Response**](createPlatformInvite_200_response.md)
 
 ### Authorization
 
