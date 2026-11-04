@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **name** | **String** |  | 
 **campaign_id** | Option<**String**> |  | 
 **matched** | **bool** | True when every condition holds. | 
+**group** | Option<**String**> | For a rule with groups: the group this campaign was judged in. `matched` and `conditions` are the group's. | [optional]
 **conditions** | [**Vec<models::AdRuleObjectEvaluationConditionsInner>**](AdRuleObjectEvaluationConditionsInner.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

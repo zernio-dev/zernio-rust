@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **currency** | Option<**String**> |  | 
 **matched** | **i32** | How many objects meet every condition. | 
 **objects** | [**Vec<models::AdRuleObjectEvaluation>**](AdRuleObjectEvaluation.md) | Every delivering campaign or ad set in scope (for an `activate` rule, the rule-paused ones it may reactivate). | 
+**groups** | Option<[**Vec<models::AdRuleEvaluationGroupsInner>**](AdRuleEvaluationGroupsInner.md)> | Each group's totals, for a rule with groups. Null otherwise. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

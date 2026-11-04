@@ -6,6 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **url** | **String** |  | 
 **format** | **Format** |  (enum: pdf, page) | 
+**invoice_url** | Option<**String**> | The invoice PDF; null when the payment made no invoice. | [optional]
+**receipt_url** | Option<**String**> | Stripe's card receipt page for the charge. | [optional]
 **amount_cents** | **i32** | As in the top-up list. | 
 **fee_cents** | Option<**i32**> | Card fee paid, as in the top-up list. | 
 **charged_cents** | **i32** | What the card was charged, the total on the receipt. | 
