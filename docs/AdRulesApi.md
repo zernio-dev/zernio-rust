@@ -8,10 +8,12 @@ Method | HTTP request | Description
 [**delete_ad_rule**](AdRulesApi.md#delete_ad_rule) | **DELETE** /v1/ads/rules/{ruleId} | Delete an ad rule
 [**get_ad_rule**](AdRulesApi.md#get_ad_rule) | **GET** /v1/ads/rules/{ruleId} | Get an ad rule
 [**list_ad_rule_activity**](AdRulesApi.md#list_ad_rule_activity) | **GET** /v1/ads/rules/activity | List every change ad rules made
+[**list_ad_rule_alerts**](AdRulesApi.md#list_ad_rule_alerts) | **GET** /v1/ads/rules/{ruleId}/alerts | List a rule's alerts
 [**list_ad_rule_runs**](AdRulesApi.md#list_ad_rule_runs) | **GET** /v1/ads/rules/{ruleId}/runs | List an ad rule's runs
 [**list_ad_rule_templates**](AdRulesApi.md#list_ad_rule_templates) | **GET** /v1/ads/rules/templates | List ready-made ad rules
 [**list_ad_rules**](AdRulesApi.md#list_ad_rules) | **GET** /v1/ads/rules | List ad rules
 [**preview_ad_rule**](AdRulesApi.md#preview_ad_rule) | **POST** /v1/ads/rules/{ruleId}/preview | Preview an ad rule
+[**undo_ad_rule_activity**](AdRulesApi.md#undo_ad_rule_activity) | **POST** /v1/ads/rules/activity/{activityId}/undo | Undo a change an ad rule made
 [**update_ad_rule**](AdRulesApi.md#update_ad_rule) | **PATCH** /v1/ads/rules/{ruleId} | Update an ad rule
 
 
@@ -142,6 +144,39 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_ad_rule_alerts
+
+> models::ListAdRuleAlerts200Response list_ad_rule_alerts(rule_id, state, limit, cursor)
+List a rule's alerts
+
+The alert episodes of a rule with a `lifecycle`, newest first. `pending` alerts are confirming, `open` ones were acted on, `resolved` ones ended, with `resolvedReason` saying why. Resolved alerts are kept 90 days. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**rule_id** | **String** |  | [required] |
+**state** | Option<**String**> |  |  |
+**limit** | Option<**i32**> |  |  |[default to 50]
+**cursor** | Option<**String**> | `nextCursor` from the previous page. |  |
+
+### Return type
+
+[**models::ListAdRuleAlerts200Response**](listAdRuleAlerts_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_ad_rule_runs
 
 > models::ListAdRuleRuns200Response list_ad_rule_runs(rule_id, limit, skip)
@@ -251,6 +286,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::AdRuleEvaluation**](AdRuleEvaluation.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## undo_ad_rule_activity
+
+> models::UndoAdRuleActivity200Response undo_ad_rule_activity(activity_id)
+Undo a change an ad rule made
+
+Puts back a pause, a reactivation or a budget change a rule applied, as a new change recorded in the activity feed. The rule's cooldown then covers the object. It is refused (409 `invalid_resource_state`) when the change was not applied, was already undone, is a copy, or when the object changed since: delivering again after a pause, paused again after a reactivation, or on another budget. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**activity_id** | **String** | The `id` of an entry from `GET /v1/ads/rules/activity`. | [required] |
+
+### Return type
+
+[**models::UndoAdRuleActivity200Response**](undoAdRuleActivity_200_response.md)
 
 ### Authorization
 

@@ -11,8 +11,10 @@ Name | Type | Description | Notes
 **ad_account_id** | **String** | Platform ad account ID. | 
 **level** | [**models::AdRuleLevel**](AdRuleLevel.md) |  | 
 **campaign_ids** | Option<**Vec<String>**> | Platform campaign IDs the rule is limited to. Null checks the whole ad account. | 
+**filters** | [**Vec<models::AdRuleFiltersInner>**](AdRuleFiltersInner.md) | Narrows the objects the rule checks. Every filter must hold. Text compares without case, and a missing field reads as empty. | 
+**lifecycle** | Option<[**models::AdRuleLifecycle**](AdRuleLifecycle.md)> |  | 
 **conditions** | [**models::AdRuleConditions**](AdRuleConditions.md) |  | 
-**actions** | [**Vec<models::AdRuleAction>**](AdRuleAction.md) | Each type at most once, and at most one of `pause`, `activate`, `adjust_budget` and `duplicate`. | 
+**actions** | [**Vec<models::AdRuleAction>**](AdRuleAction.md) | Each type at most once, and at most one of `pause`, `activate`, `adjust_budget`, `adjust_bid`, `duplicate` and `edit_name`. | 
 **schedule** | [**models::AdRuleSchedule**](AdRuleSchedule.md) |  | 
 **cooldown_minutes** | **i32** |  | 
 **enabled** | **bool** |  | 

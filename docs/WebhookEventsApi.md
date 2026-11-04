@@ -23,6 +23,9 @@ Method | HTTP request | Description
 [**on_automation_action_applied**](WebhookEventsApi.md#on_automation_action_applied) | **POST** /automation.action.applied | Automation action applied event
 [**on_automation_action_failed**](WebhookEventsApi.md#on_automation_action_failed) | **POST** /automation.action.failed | Automation action failed event
 [**on_automation_action_unknown**](WebhookEventsApi.md#on_automation_action_unknown) | **POST** /automation.action.unknown | Automation action unknown event
+[**on_automation_alert_escalated**](WebhookEventsApi.md#on_automation_alert_escalated) | **POST** /automation.alert.escalated | Automation alert escalated event
+[**on_automation_alert_opened**](WebhookEventsApi.md#on_automation_alert_opened) | **POST** /automation.alert.opened | Automation alert opened event
+[**on_automation_alert_resolved**](WebhookEventsApi.md#on_automation_alert_resolved) | **POST** /automation.alert.resolved | Automation alert resolved event
 [**on_automation_check_completed**](WebhookEventsApi.md#on_automation_check_completed) | **POST** /automation.check.completed | Automation check completed event
 [**on_branded_calling_identity_action_required**](WebhookEventsApi.md#on_branded_calling_identity_action_required) | **POST** /branded_calling.identity.action_required | Caller identity action required event
 [**on_branded_calling_identity_status_updated**](WebhookEventsApi.md#on_branded_calling_identity_status_updated) | **POST** /branded_calling.identity.status_updated | Caller identity status updated event
@@ -682,6 +685,96 @@ One change an automation made or tried, sent as it settles. See `WebhookPayloadA
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_automation_action** | [**WebhookPayloadAutomationAction**](WebhookPayloadAutomationAction.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_automation_alert_escalated
+
+> on_automation_alert_escalated(webhook_payload_automation_alert)
+Automation alert escalated event
+
+An alert episode of an automation with a lifecycle. See `WebhookPayloadAutomationAlert`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_automation_alert** | [**WebhookPayloadAutomationAlert**](WebhookPayloadAutomationAlert.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_automation_alert_opened
+
+> on_automation_alert_opened(webhook_payload_automation_alert)
+Automation alert opened event
+
+An alert episode of an automation with a lifecycle. See `WebhookPayloadAutomationAlert`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_automation_alert** | [**WebhookPayloadAutomationAlert**](WebhookPayloadAutomationAlert.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_automation_alert_resolved
+
+> on_automation_alert_resolved(webhook_payload_automation_alert)
+Automation alert resolved event
+
+An alert episode of an automation with a lifecycle. See `WebhookPayloadAutomationAlert`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_automation_alert** | [**WebhookPayloadAutomationAlert**](WebhookPayloadAutomationAlert.md) |  | [required] |
 
 ### Return type
 
