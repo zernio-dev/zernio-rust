@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **object_id** | **String** |  | 
-**r#type** | **Type** |  (enum: pause, activate, adjust_budget) | 
+**r#type** | **Type** |  (enum: pause, activate, adjust_budget, duplicate) | 
 **status** | **Status** |  (enum: done, skipped, failed) | 
 **reason** | Option<**String**> | Why it was skipped or failed, for example `already_paused`. | [optional]
 **previous_daily_budget** | Option<**f64**> |  | [optional]

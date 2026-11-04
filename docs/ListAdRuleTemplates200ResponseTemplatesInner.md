@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **description** | **String** |  | 
 **level** | [**models::AdRuleLevel**](AdRuleLevel.md) |  | 
 **conditions** | [**models::AdRuleConditions**](AdRuleConditions.md) |  | 
-**actions** | [**Vec<models::AdRuleAction>**](AdRuleAction.md) | Each type at most once, and at most one of `pause`, `activate` and `adjust_budget`. | 
+**actions** | [**Vec<models::AdRuleAction>**](AdRuleAction.md) | Each type at most once, and at most one of `pause`, `activate`, `adjust_budget` and `duplicate`. | 
 **schedule** | [**models::AdRuleSchedule**](AdRuleSchedule.md) |  | 
 **cooldown_minutes** | **i32** |  | 
 **platforms** | Option<**Vec<String>**> |  | 

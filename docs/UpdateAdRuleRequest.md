@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **level** | Option<[**models::AdRuleLevel**](AdRuleLevel.md)> |  | [optional]
 **campaign_ids** | Option<**Vec<String>**> |  | [optional]
 **conditions** | Option<[**models::AdRuleConditions**](AdRuleConditions.md)> |  | [optional]
-**actions** | Option<[**Vec<models::AdRuleAction>**](AdRuleAction.md)> | Each type at most once, and at most one of `pause`, `activate` and `adjust_budget`. | [optional]
+**actions** | Option<[**Vec<models::AdRuleAction>**](AdRuleAction.md)> | Each type at most once, and at most one of `pause`, `activate`, `adjust_budget` and `duplicate`. | [optional]
 **schedule** | Option<[**models::AdRuleSchedule**](AdRuleSchedule.md)> |  | [optional]
 **cooldown_minutes** | Option<**i32**> |  | [optional]
 **enabled** | Option<**bool**> |  | [optional]

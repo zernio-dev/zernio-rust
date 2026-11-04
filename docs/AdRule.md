@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **level** | [**models::AdRuleLevel**](AdRuleLevel.md) |  | 
 **campaign_ids** | Option<**Vec<String>**> | Platform campaign IDs the rule is limited to. Null checks the whole ad account. | 
 **conditions** | [**models::AdRuleConditions**](AdRuleConditions.md) |  | 
-**actions** | [**Vec<models::AdRuleAction>**](AdRuleAction.md) | Each type at most once, and at most one of `pause`, `activate` and `adjust_budget`. | 
+**actions** | [**Vec<models::AdRuleAction>**](AdRuleAction.md) | Each type at most once, and at most one of `pause`, `activate`, `adjust_budget` and `duplicate`. | 
 **schedule** | [**models::AdRuleSchedule**](AdRuleSchedule.md) |  | 
 **cooldown_minutes** | **i32** |  | 
 **enabled** | **bool** |  | 

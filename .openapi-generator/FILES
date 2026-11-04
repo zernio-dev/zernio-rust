@@ -62,6 +62,11 @@ docs/AdRuleActionOneOf.md
 docs/AdRuleActionOneOf1.md
 docs/AdRuleActionOneOf2.md
 docs/AdRuleActionOneOf3.md
+docs/AdRuleActionOneOf4.md
+docs/AdRuleActionOneOf5.md
+docs/AdRuleActionOneOfSendInner.md
+docs/AdRuleActionOneOfSendInnerOneOf.md
+docs/AdRuleActionOneOfSendInnerOneOf1.md
 docs/AdRuleActivityEntry.md
 docs/AdRuleCondition.md
 docs/AdRuleConditionItem.md
@@ -1402,6 +1407,10 @@ docs/GetTikTokCreatorInfo200ResponsePostingLimitsInteractionSettingsAllowComment
 docs/GetTikTokCreatorInfo200ResponsePostingLimitsInteractionSettingsAllowDuet.md
 docs/GetTikTokCreatorInfo200ResponsePostingLimitsInteractionSettingsAllowStitch.md
 docs/GetTikTokCreatorInfo200ResponsePrivacyLevelsInner.md
+docs/GetTikTokDemographics200Response.md
+docs/GetTikTokDemographics200ResponseDemographicsValueInner.md
+docs/GetTikTokDemographics412Response.md
+docs/GetTikTokDemographics412ResponseScopeStatus.md
 docs/GetTikTokSmartPlusAdReview200Response.md
 docs/GetTikTokSmartPlusMaterialReport200Response.md
 docs/GetTikTokSmartPlusMaterialReport200ResponseRowsInner.md
@@ -3041,6 +3050,7 @@ docs/Webhook.md
 docs/WebhookAdsAccount.md
 docs/WebhookAdsSyncAccount.md
 docs/WebhookAdsSyncAdAccount.md
+docs/WebhookAutomationRef.md
 docs/WebhookEventsApi.md
 docs/WebhookLog.md
 docs/WebhookPayloadAccountAdsInitialSyncCompleted.md
@@ -3085,6 +3095,10 @@ docs/WebhookPayloadAnalyticsSynced.md
 docs/WebhookPayloadAnalyticsSyncedAccount.md
 docs/WebhookPayloadAnalyticsSyncedSync.md
 docs/WebhookPayloadApiChangelogPublished.md
+docs/WebhookPayloadAutomationAction.md
+docs/WebhookPayloadAutomationActionAction.md
+docs/WebhookPayloadAutomationCheckCompleted.md
+docs/WebhookPayloadAutomationCheckCompletedCheck.md
 docs/WebhookPayloadCalendarEvent.md
 docs/WebhookPayloadCalendarEventAccount.md
 docs/WebhookPayloadCalendarEventCalendarEvent.md
@@ -3446,6 +3460,11 @@ src/models/ad_rule_action_one_of.rs
 src/models/ad_rule_action_one_of_1.rs
 src/models/ad_rule_action_one_of_2.rs
 src/models/ad_rule_action_one_of_3.rs
+src/models/ad_rule_action_one_of_4.rs
+src/models/ad_rule_action_one_of_5.rs
+src/models/ad_rule_action_one_of_send_inner.rs
+src/models/ad_rule_action_one_of_send_inner_one_of.rs
+src/models/ad_rule_action_one_of_send_inner_one_of_1.rs
 src/models/ad_rule_activity_entry.rs
 src/models/ad_rule_condition.rs
 src/models/ad_rule_condition_item.rs
@@ -4761,6 +4780,10 @@ src/models/get_tik_tok_creator_info_200_response_posting_limits_interaction_sett
 src/models/get_tik_tok_creator_info_200_response_posting_limits_interaction_settings_allow_duet.rs
 src/models/get_tik_tok_creator_info_200_response_posting_limits_interaction_settings_allow_stitch.rs
 src/models/get_tik_tok_creator_info_200_response_privacy_levels_inner.rs
+src/models/get_tik_tok_demographics_200_response.rs
+src/models/get_tik_tok_demographics_200_response_demographics_value_inner.rs
+src/models/get_tik_tok_demographics_412_response.rs
+src/models/get_tik_tok_demographics_412_response_scope_status.rs
 src/models/get_tik_tok_smart_plus_ad_review_200_response.rs
 src/models/get_tik_tok_smart_plus_material_report_200_response.rs
 src/models/get_tik_tok_smart_plus_material_report_200_response_rows_inner.rs
@@ -6359,6 +6382,7 @@ src/models/webhook.rs
 src/models/webhook_ads_account.rs
 src/models/webhook_ads_sync_account.rs
 src/models/webhook_ads_sync_ad_account.rs
+src/models/webhook_automation_ref.rs
 src/models/webhook_log.rs
 src/models/webhook_payload_account_ads_initial_sync_completed.rs
 src/models/webhook_payload_account_ads_initial_sync_completed_account.rs
@@ -6402,6 +6426,10 @@ src/models/webhook_payload_analytics_synced.rs
 src/models/webhook_payload_analytics_synced_account.rs
 src/models/webhook_payload_analytics_synced_sync.rs
 src/models/webhook_payload_api_changelog_published.rs
+src/models/webhook_payload_automation_action.rs
+src/models/webhook_payload_automation_action_action.rs
+src/models/webhook_payload_automation_check_completed.rs
+src/models/webhook_payload_automation_check_completed_check.rs
 src/models/webhook_payload_calendar_event.rs
 src/models/webhook_payload_calendar_event_account.rs
 src/models/webhook_payload_calendar_event_calendar_event.rs

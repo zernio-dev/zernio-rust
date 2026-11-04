@@ -20,6 +20,10 @@ Method | HTTP request | Description
 [**on_ad_video_processed**](WebhookEventsApi.md#on_ad_video_processed) | **POST** /ad.video.processed | Ad video processed event
 [**on_analytics_synced**](WebhookEventsApi.md#on_analytics_synced) | **POST** /analytics.synced | Analytics synced event
 [**on_api_changelog_published**](WebhookEventsApi.md#on_api_changelog_published) | **POST** /api.changelog.published | API changelog entry published event
+[**on_automation_action_applied**](WebhookEventsApi.md#on_automation_action_applied) | **POST** /automation.action.applied | Automation action applied event
+[**on_automation_action_failed**](WebhookEventsApi.md#on_automation_action_failed) | **POST** /automation.action.failed | Automation action failed event
+[**on_automation_action_unknown**](WebhookEventsApi.md#on_automation_action_unknown) | **POST** /automation.action.unknown | Automation action unknown event
+[**on_automation_check_completed**](WebhookEventsApi.md#on_automation_check_completed) | **POST** /automation.check.completed | Automation check completed event
 [**on_branded_calling_identity_action_required**](WebhookEventsApi.md#on_branded_calling_identity_action_required) | **POST** /branded_calling.identity.action_required | Caller identity action required event
 [**on_branded_calling_identity_status_updated**](WebhookEventsApi.md#on_branded_calling_identity_status_updated) | **POST** /branded_calling.identity.status_updated | Caller identity status updated event
 [**on_branded_calling_number_status_updated**](WebhookEventsApi.md#on_branded_calling_number_status_updated) | **POST** /branded_calling.number.status_updated | Branded number status updated event
@@ -588,6 +592,126 @@ Fired when an entry is published to the API changelog (https://docs.zernio.com/c
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_api_changelog_published** | [**WebhookPayloadApiChangelogPublished**](WebhookPayloadApiChangelogPublished.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_automation_action_applied
+
+> on_automation_action_applied(webhook_payload_automation_action)
+Automation action applied event
+
+One change an automation made or tried, sent as it settles. See `WebhookPayloadAutomationAction`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_automation_action** | [**WebhookPayloadAutomationAction**](WebhookPayloadAutomationAction.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_automation_action_failed
+
+> on_automation_action_failed(webhook_payload_automation_action)
+Automation action failed event
+
+One change an automation made or tried, sent as it settles. See `WebhookPayloadAutomationAction`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_automation_action** | [**WebhookPayloadAutomationAction**](WebhookPayloadAutomationAction.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_automation_action_unknown
+
+> on_automation_action_unknown(webhook_payload_automation_action)
+Automation action unknown event
+
+One change an automation made or tried, sent as it settles. See `WebhookPayloadAutomationAction`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_automation_action** | [**WebhookPayloadAutomationAction**](WebhookPayloadAutomationAction.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_automation_check_completed
+
+> on_automation_check_completed(webhook_payload_automation_check_completed)
+Automation check completed event
+
+Fired once per scheduled check of an automation, whatever its outcome. See `WebhookPayloadAutomationCheckCompleted`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_automation_check_completed** | [**WebhookPayloadAutomationCheckCompleted**](WebhookPayloadAutomationCheckCompleted.md) |  | [required] |
 
 ### Return type
 

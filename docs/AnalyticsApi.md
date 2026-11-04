@@ -33,6 +33,7 @@ Method | HTTP request | Description
 [**get_post_timeline**](AnalyticsApi.md#get_post_timeline) | **GET** /v1/analytics/post-timeline | Get post analytics timeline
 [**get_posting_frequency**](AnalyticsApi.md#get_posting_frequency) | **GET** /v1/analytics/posting-frequency | Get frequency vs engagement
 [**get_tik_tok_account_insights**](AnalyticsApi.md#get_tik_tok_account_insights) | **GET** /v1/analytics/tiktok/account-insights | Get TikTok account-level insights
+[**get_tik_tok_demographics**](AnalyticsApi.md#get_tik_tok_demographics) | **GET** /v1/analytics/tiktok/demographics | Get TikTok follower demographics
 [**get_tracking_window**](AnalyticsApi.md#get_tracking_window) | **GET** /v1/analytics/tracking/{windowId} | Get a tracking window
 [**get_you_tube_channel_insights**](AnalyticsApi.md#get_you_tube_channel_insights) | **GET** /v1/analytics/youtube/channel-insights | Get YouTube channel insights
 [**get_you_tube_daily_views**](AnalyticsApi.md#get_you_tube_daily_views) | **GET** /v1/analytics/youtube/daily-views | Get YouTube daily views
@@ -991,7 +992,7 @@ Name | Type | Description  | Required | Notes
 > models::InstagramAccountInsightsResponse get_tik_tok_account_insights(account_id, metrics, from_date, to_date, since, until, metric_type)
 Get TikTok account-level insights
 
-Returns account-level TikTok insights from /v2/user/info/ (live) plus historical time series joined from Zernio's daily snapshotter (AccountStats).  - Response shape matches /v1/analytics/instagram/account-insights. - Max 89 days, defaults to last 30 days. - Requires the user.info.stats scope on the account (412 if missing).  ### Why the scope is narrow  This ACCOUNT-level endpoint intentionally exposes only the four counter metrics below. These account-level figures are not on any public TikTok API, for any account type:  - account-level impressions / reach - follower inflow / outflow breakdown - account-level watch time and audience demographics  TikTok's Research API doesn't expose them either, and is restricted to non-commercial academic use per TikTok's eligibility policy.  ### Per-video metrics  PER-VIDEO is a different story on the Business lane. An account connected through the TikTok for Business app reports these per video on GET /v1/analytics?postId=...:  - profile views, website clicks, follows - full-watched rate, watch time - impression sources, viewer types and viewer countries  They arrive roughly 24-48h after publishing and only for posts active in the last 7 days.  Accounts on the original TikTok integration get the basic counters there (views, likes, comments, shares) and zeros for the rest. They must reconnect through the Business app. 
+Returns account-level TikTok insights from /v2/user/info/ (live) plus historical time series joined from Zernio's daily snapshotter (AccountStats).  - Response shape matches /v1/analytics/instagram/account-insights. - Max 89 days, defaults to last 30 days. - Requires the user.info.stats scope on the account (412 if missing).  ### Why the scope is narrow  This ACCOUNT-level endpoint intentionally exposes only the four counter metrics below. It does not return:  - account-level impressions / reach - follower inflow / outflow breakdown - account-level watch time  Follower age, gender, country and city are on GET /v1/analytics/tiktok/demographics.  ### Per-video metrics  PER-VIDEO is a different story on the Business lane. An account connected through the TikTok for Business app reports these per video on GET /v1/analytics?postId=...:  - profile views, website clicks, follows - full-watched rate, watch time - impression sources, viewer types and viewer countries  They arrive roughly 24-48h after publishing and only for posts active in the last 7 days.  Accounts on the original TikTok integration get the basic counters there (views, likes, comments, shares) and zeros for the rest. They must reconnect through the Business app. 
 
 ### Parameters
 
@@ -1009,6 +1010,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::InstagramAccountInsightsResponse**](InstagramAccountInsightsResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_tik_tok_demographics
+
+> models::GetTikTokDemographics200Response get_tik_tok_demographics(account_id, breakdown)
+Get TikTok follower demographics
+
+Returns the share of a TikTok account's followers by age, gender, country and city. Without `breakdown` it returns all four.  - Each value is a share of followers from 0 to 1, and each list is sorted largest first. It is not a follower count. - Age, gender and country lists add up to 1. The city list can add up to less, because TikTok does not place every follower in a listed city. - These are followers of the account, not the viewers of its videos. Viewer countries per video are on GET /v1/analytics?postId=... - TikTok updates this data every 24-48 hours.  ### Requirements  - The account needs at least 100 followers (400 `tiktok_insufficient_followers` otherwise). - The account owner must turn on Analytics in the TikTok app and have published at least one video. Until then an account with enough followers gets empty lists. - Requires the user.insights scope, which an account gets by connecting through the TikTok for Business app (412 `tiktok_insights_scope_missing` otherwise). Accounts on the original TikTok integration must reconnect. - Requires the Analytics add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The Zernio SocialAccount ID for the TikTok account. | [required] |
+**breakdown** | Option<**String**> | Comma-separated list of demographic dimensions: age, gender, country, city. Defaults to all four. |  |
+
+### Return type
+
+[**models::GetTikTokDemographics200Response**](getTikTokDemographics_200_response.md)
 
 ### Authorization
 

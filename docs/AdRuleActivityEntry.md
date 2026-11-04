@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **level** | **Level** |  (enum: campaign, adset) | 
 **object_id** | **String** | Platform ID of the campaign or ad set. | 
 **object_name** | Option<**String**> | Its name when the rule acted. | 
-**r#type** | **Type** |  (enum: pause, activate, adjust_budget) | 
+**r#type** | **Type** |  (enum: pause, activate, adjust_budget, duplicate) | 
 **status** | **Status** |  (enum: done, skipped, failed) | 
 **reason** | Option<**String**> | Why it was skipped or failed, for example `already_paused`. | 
 **previous_daily_budget** | Option<**f64**> |  | 
