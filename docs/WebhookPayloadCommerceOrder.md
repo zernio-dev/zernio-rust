@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **id** | Option<**String**> |  | [optional]
 **event** | Option<**Event**> |  (enum: commerce.order.created, commerce.order.updated, commerce.order.refunded) | [optional]
 **timestamp** | Option<**String**> | UTC time at which Zernio generated this event (set once when the event payload is built, before delivery is queued). Retries and redeliveries keep the original value, so it reflects the event, not the delivery attempt. | [optional]
+**profiles** | Option<[**Vec<models::WebhookProfilesInner>**](WebhookProfilesInner.md)> | The profiles this event belongs to, each with the externalId you set on it (null when none is set). Use it to route the event to your tenant without storing Zernio profile ids.  Present on every event tied to a profile, absent on events that belong to none. Events spanning several profiles (a post published to accounts of different profiles) list each once.  | [optional]
 **store** | Option<[**models::WebhookPayloadCommerceProductStore**](WebhookPayloadCommerceProductStore.md)> |  | [optional]
 **resource** | Option<[**models::WebhookPayloadCommerceOrderResource**](WebhookPayloadCommerceOrderResource.md)> |  | [optional]
 
