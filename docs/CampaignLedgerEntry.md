@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
-**kind** | **Kind** |  (enum: accrual, approval, hold_release, adjustment, settling, settlement, reversal, topup, transfer, fee) | 
+**kind** | **Kind** |  (enum: accrual, approval, hold_release, adjustment, settling, settlement, reversal, topup, transfer, fee, usage, grant) | 
 **amount_cents** | **i32** | Always positive; direction is given by debit and credit. | 
 **debit** | [**models::LedgerAccountSide**](LedgerAccountSide.md) |  | 
 **credit** | [**models::LedgerAccountSide**](LedgerAccountSide.md) |  | 

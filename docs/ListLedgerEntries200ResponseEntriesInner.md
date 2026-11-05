@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**String**> |  | [optional]
-**kind** | Option<**Kind**> |  (enum: accrual, approval, hold_release, adjustment, settling, settlement, reversal, topup, transfer, fee) | [optional]
+**kind** | Option<**Kind**> |  (enum: accrual, approval, hold_release, adjustment, settling, settlement, reversal, topup, transfer, fee, usage, grant) | [optional]
 **amount_cents** | Option<**i32**> | Always positive; direction is given by debit and credit | [optional]
 **debit** | Option<[**models::LedgerAccountSide**](LedgerAccountSide.md)> |  | [optional]
 **credit** | Option<[**models::LedgerAccountSide**](LedgerAccountSide.md)> |  | [optional]
