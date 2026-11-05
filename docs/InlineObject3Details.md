@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**free_tier_account_limit** | Option<**i32**> | How many accounts the free tier allows. Only set when reason=free_tier_exceeded. | [optional]
-**current_account_count** | Option<**i32**> | How many accounts the team currently has connected. Set when reason=free_tier_exceeded or reason=enterprise_required. | [optional]
-**has_payment_method** | Option<**bool**> | Whether the team currently has a card on file in Stripe. Set when reason=free_tier_exceeded or reason=twitter_passthrough. | [optional]
-**verification_amount_cents** | Option<**i32**> | One-time card verification charge in USD cents, credited to usage. Only set when reason=card_verification_required. | [optional]
-**effective_account_limit** | Option<**i32**> | The negotiated connected-account cap from the team's enterprise contract. Self-service teams have no cap and never receive this reason. Only set when reason=enterprise_required.  | [optional]
+**current_count** | Option<**i32**> |  | [optional]
+**limit** | Option<**i32**> |  | [optional]
+**retry_after_seconds** | Option<**i32**> |  | [optional]
+**scope** | Option<**Scope**> |  (enum: campaign-analytics, ad-analytics, ads-listings, post-analytics) | [optional]
+**window** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
