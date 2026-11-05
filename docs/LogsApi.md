@@ -23,7 +23,7 @@ Name | Type | Description  | Required | Notes
 **r#type** | Option<**String**> | Log category to query. Use `all` for the unified view across every category, or `api_request` for your API request logs (method, path, status, latency).  |  |[default to publishing]
 **status** | Option<**String**> | Filter by status |  |
 **platform** | Option<**String**> | Filter by platform |  |
-**action** | Option<**String**> | Filter by action (e.g., post.published, message.sent, account.connected, webhook.delivered) |  |
+**action** | Option<**String**> | Filter by action (e.g., post.published, message.sent, message.media_download_failed, account.connected, webhook.delivered) |  |
 **search** | Option<**String**> | Free-text search across log fields |  |
 **days** | Option<**i32**> | Number of days to look back (max 90) |  |[default to 90]
 **limit** | Option<**i32**> | Maximum number of logs to return (max 100) |  |[default to 50]
