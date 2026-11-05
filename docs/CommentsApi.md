@@ -27,7 +27,7 @@ Method | HTTP request | Description
 > models::DeleteInboxComment200Response delete_inbox_comment(post_id, account_id, comment_id)
 Delete comment
 
-Delete a comment on a post. Supported by Facebook, Instagram, Threads, LinkedIn, Reddit, Bluesky, X (Twitter), YouTube, and TikTok (accounts connected through the TikTok for Business app). Not supported on Google Business (reviews only). Requires accountId and commentId query parameters. 
+Delete a comment on a post. Supported by Facebook, Instagram, Threads, LinkedIn, Reddit, Bluesky, X (Twitter), YouTube, and TikTok (accounts connected through the TikTok for Business app). Not supported on Google Business (reviews only). Requires accountId and commentId query parameters.  Zernio does not check `canDelete` before calling the platform. When the platform refuses, the call fails with the platform's message, normally as `platform_api_error` with the platform's own 4xx status.  On Facebook, Instagram and LinkedIn organization accounts, the account can delete anyone's comment on its own posts. On Threads, Meta refuses deleting other people's replies; hide them instead. On TikTok only the account's own comments can be deleted; hide the others.  On YouTube, a comment the channel did not write is rejected instead, through the same moderation status as `setCommentModeration`, and the response still reports it as deleted. Use `setCommentModeration` directly to reverse the rejection later or to ban the author. 
 
 ### Parameters
 
@@ -126,7 +126,7 @@ Name | Type | Description  | Required | Notes
 > models::HideInboxComment200Response hide_inbox_comment(post_id, comment_id, hide_inbox_comment_request)
 Hide comment
 
-Hide a comment on a post. Supported by Facebook, Instagram, Threads, X, and TikTok (accounts connected through the TikTok for Business app). Hidden comments are only visible to the commenter and page admin. For X, the reply must belong to a conversation started by the authenticated user. 
+Hide a comment on a post. Supported by Facebook, Instagram, Threads, X, and TikTok (accounts connected through the TikTok for Business app). Hidden comments are only visible to the commenter and page admin.  For X, the reply must belong to a conversation started by the authenticated user.  On Threads only top-level replies can be hidden, and hiding one also hides its nested replies. 
 
 ### Parameters
 
