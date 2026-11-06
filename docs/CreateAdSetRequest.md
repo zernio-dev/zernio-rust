@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **budget_type** | Option<**BudgetType**> | Reddit only. Sent together with budgetAmount. (enum: daily, lifetime) | [optional]
 **start_date** | Option<**String**> | Reddit only. ISO 8601 start of the ad group. Defaults to now, or to the campaign start when it is in the future. | [optional]
 **end_date** | Option<**String**> | Reddit only. ISO 8601 end of the ad group. Defaults to the campaign end. | [optional]
-**targeting** | Option<[**models::TargetingSpec**](TargetingSpec.md)> |  | [optional]
+**targeting** | Option<[**models::TargetingSpec**](TargetingSpec.md)> | Reddit: the full targeting object. Google: locations and languages only, on a Demand Gen campaign. | [optional]
 **promoted_object** | Option<[**models::CreateAdSetRequestPromotedObject**](CreateAdSetRequestPromotedObject.md)> |  | [optional]
 **optimization_goal** | Option<**String**> | Reddit only. VIDEO_VIEW_6S (default) or VIDEO_VIEW_15S on a video views campaign. | [optional]
 **bid_strategy** | Option<**BidStrategy**> | Reddit only. Defaults to LOWEST_COST_WITHOUT_CAP. Not accepted under campaign budget optimization. (enum: LOWEST_COST_WITHOUT_CAP, LOWEST_COST_WITH_BID_CAP, COST_CAP) | [optional]
