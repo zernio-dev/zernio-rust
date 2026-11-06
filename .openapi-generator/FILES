@@ -65,7 +65,11 @@ docs/AdRuleActionOneOf3.md
 docs/AdRuleActionOneOf4.md
 docs/AdRuleActionOneOf5.md
 docs/AdRuleActionOneOf6.md
+docs/AdRuleActionOneOf6From.md
+docs/AdRuleActionOneOf6To.md
 docs/AdRuleActionOneOf7.md
+docs/AdRuleActionOneOf8.md
+docs/AdRuleActionOneOf9.md
 docs/AdRuleActionOneOfSendInner.md
 docs/AdRuleActionOneOfSendInnerOneOf.md
 docs/AdRuleActionOneOfSendInnerOneOf1.md
@@ -530,6 +534,7 @@ docs/ConversionAction.md
 docs/ConversionActionTagSnippetsInner.md
 docs/ConversionDestination.md
 docs/ConversionEvent.md
+docs/ConversionEventCampaign.md
 docs/ConversionEventItemsInner.md
 docs/ConversionEventMessaging.md
 docs/ConversionEventUser.md
@@ -3499,7 +3504,11 @@ src/models/ad_rule_action_one_of_3.rs
 src/models/ad_rule_action_one_of_4.rs
 src/models/ad_rule_action_one_of_5.rs
 src/models/ad_rule_action_one_of_6.rs
+src/models/ad_rule_action_one_of_6_from.rs
+src/models/ad_rule_action_one_of_6_to.rs
 src/models/ad_rule_action_one_of_7.rs
+src/models/ad_rule_action_one_of_8.rs
+src/models/ad_rule_action_one_of_9.rs
 src/models/ad_rule_action_one_of_send_inner.rs
 src/models/ad_rule_action_one_of_send_inner_one_of.rs
 src/models/ad_rule_action_one_of_send_inner_one_of_1.rs
@@ -3947,6 +3956,7 @@ src/models/conversion_action.rs
 src/models/conversion_action_tag_snippets_inner.rs
 src/models/conversion_destination.rs
 src/models/conversion_event.rs
+src/models/conversion_event_campaign.rs
 src/models/conversion_event_items_inner.rs
 src/models/conversion_event_messaging.rs
 src/models/conversion_event_user.rs

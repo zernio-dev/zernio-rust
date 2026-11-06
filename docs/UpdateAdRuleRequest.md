@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **groups** | Option<[**Vec<models::AdRuleGroupsInner>**](AdRuleGroupsInner.md)> | Null removes the groups; each campaign is then judged on its own. | [optional]
 **lifecycle** | Option<[**models::AdRuleLifecycle**](AdRuleLifecycle.md)> |  | [optional]
 **conditions** | Option<[**models::AdRuleConditions**](AdRuleConditions.md)> |  | [optional]
-**actions** | Option<[**Vec<models::AdRuleAction>**](AdRuleAction.md)> | Each type at most once, and at most one of `pause`, `activate`, `adjust_budget`, `adjust_bid`, `duplicate` and `edit_name`. | [optional]
+**actions** | Option<[**Vec<models::AdRuleAction>**](AdRuleAction.md)> | Each type at most once, and at most one of `pause`, `activate`, `adjust_budget`, `adjust_bid`, `adjust_target`, `reallocate_budget`, `duplicate` and `edit_name`. | [optional]
 **schedule** | Option<[**models::AdRuleSchedule**](AdRuleSchedule.md)> |  | [optional]
 **cooldown_minutes** | Option<**i32**> |  | [optional]
 **enabled** | Option<**bool**> |  | [optional]
