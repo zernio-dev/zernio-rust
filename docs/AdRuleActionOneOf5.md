@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | Move a Google campaign's target CPA or target ROAS inside the strategy it is on (Target CPA or Maximize conversions for `cpa`, Target ROAS or Maximize conversion value for `roas`), never switching strategies. Campaign rules on Google only. Skipped with `portfolio_bid_strategy` on a portfolio strategy, `unsupported_bid_strategy` on one with no target (Manual CPC, Maximize clicks), and `no_target_cpa` or `no_target_roas` when the strategy holds no such target. A target CPA in a zero-decimal currency is rounded to whole units. (enum: adjust_target) | 
+**r#type** | **Type** | Move a Google campaign's target CPA or target ROAS inside the strategy it is on (Target CPA or Maximize conversions for `cpa`, Target ROAS or Maximize conversion value for `roas`), never switching strategies. Campaign rules on Google only.  Skipped with `portfolio_bid_strategy` on a portfolio strategy, `unsupported_bid_strategy` on one with no target (Manual CPC, Maximize clicks), and `no_target_cpa` or `no_target_roas` when the strategy holds no such target. A target CPA in a zero-decimal currency is rounded to whole units. (enum: adjust_target) | 
 **target** | **Target** | Which target moves: `cpa` in the ad account currency, `roas` as a ratio (3 is 300%). (enum: cpa, roas) | 
 **amount** | Option<**f64**> | The target to set. | [optional]
 **direction** | Option<**Direction**> |  (enum: increase, decrease) | [optional]
