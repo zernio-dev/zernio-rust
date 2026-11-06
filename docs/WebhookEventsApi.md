@@ -17,6 +17,8 @@ Method | HTTP request | Description
 [**on_ad_review_approved**](WebhookEventsApi.md#on_ad_review_approved) | **POST** /ad.review.approved | Ad review approved event
 [**on_ad_review_rejected**](WebhookEventsApi.md#on_ad_review_rejected) | **POST** /ad.review.rejected | Ad review rejected event
 [**on_ad_rule_triggered**](WebhookEventsApi.md#on_ad_rule_triggered) | **POST** /ad_rule.triggered | Ad rule triggered event
+[**on_ad_set_created**](WebhookEventsApi.md#on_ad_set_created) | **POST** /ad_set.created | Ad set created event
+[**on_ad_set_updated**](WebhookEventsApi.md#on_ad_set_updated) | **POST** /ad_set.updated | Ad set updated event
 [**on_ad_status_changed**](WebhookEventsApi.md#on_ad_status_changed) | **POST** /ad.status_changed | Ad status changed event
 [**on_ad_updated**](WebhookEventsApi.md#on_ad_updated) | **POST** /ad.updated | Ad updated event
 [**on_ad_video_processed**](WebhookEventsApi.md#on_ad_video_processed) | **POST** /ad.video.processed | Ad video processed event
@@ -141,7 +143,7 @@ Method | HTTP request | Description
 > on_account_ads_initial_sync_completed(webhook_payload_account_ads_initial_sync_completed)
 Ads initial sync completed event
 
-Fired once per ads-enabled account when the initial sync (ad-account discovery + 90-day historical ad backfill) completes. The `sync` block reports whether the backfill succeeded and how many ads were synced. 
+The initial sync, ad-account discovery plus a 90-day ad backfill, completed for an ads-enabled account.  ### When it fires  Fires once per ads-enabled account. `sync` reports whether the backfill succeeded fully or partially, and how many ads were synced versus failed.  ### Scoped connects  When scoping was applied at connect time, `account.platformAdAccountId` echoes the chosen ad account when the scope is exactly one. `account.platformAdAccountIds` lists every `act_*` synced.  ### On failure  When `sync.status` is `\"failure\"`, the payload adds `sync.error` (raw platform error, about 2 KB), `sync.errorCode` and `sync.errorSubcode` when parseable, and `sync.errorCategory`.  ### Error categories  `sync.errorCategory` is `token_invalid`, `permission_denied`, `no_ad_accounts`, `rate_limited`, `discovery_failed` or `unknown`. New values may be added; existing ones are stable.  ### Retrying  Reconnecting re-queues the backfill and the event fires again. It fixes `token_invalid`, `permission_denied` and `rate_limited`; `no_ad_accounts` needs an ad account on the grant first.  ### When a retry is skipped  Zernio skips the re-queue only when a backfill already completed with at least one ad, or one started less than 20 minutes ago. 
 
 ### Parameters
 
@@ -171,7 +173,7 @@ Name | Type | Description  | Required | Notes
 > on_account_ads_sync_failed(webhook_payload_account_ads_sync_failed)
 Ads sync failed event
 
-Fired once per ad account when its ads stop syncing (no successful sync for 24 hours, or every live ad at the retry cap). Checked hourly. Metrics for the ad account are stale until `account.ads.sync_recovered` fires for it. 
+An ad account's ads stopped syncing: no success for 24 hours, or every live ad at the retry cap.  ### When it fires  An hourly check covers every ad account with live ads on a connected account, on any ads platform. Fires once per ad account until `account.ads.sync_recovered`.  ### Stale metrics  Metrics for the ad account are stale in between. Use this signal to flag the numbers in your UI rather than to poll.  ### Payload notes  `adAccount.platformAdAccountId` names the ad account (`act_*` on Meta). `account.accountId` names its connection, so one connection with several ad accounts reports each separately.  ### Sync fields  `sync.lastSuccessfulSyncAt` is the last good sync and `sync.failureCount` the consecutive failed attempts.  ### Error categories  Branch on `sync.errorCategory`: `ad_account_not_listed` (access removed or platform change; check permissions, reconnect), `sync_error` (see `sync.error`) or `stale` (no error recorded; retries usually clear it). New values may be added.  ### When it does not fire  A disconnected connection gets `account.disconnected` instead, and no recovery event follows. An ad account that never synced successfully, or whose last good sync is over 3 days old, is not announced. 
 
 ### Parameters
 
@@ -201,7 +203,7 @@ Name | Type | Description  | Required | Notes
 > on_account_ads_sync_recovered(webhook_payload_account_ads_sync_recovered)
 Ads sync recovered event
 
-Fired once when an ad account previously reported by `account.ads.sync_failed` syncs successfully again. Checked hourly. 
+An ad account previously reported by `account.ads.sync_failed` synced successfully again.  ### When it fires  Fires once when a sync succeeds again, found by an hourly check.  ### Payload notes  `sync.failingSince` is the last successful sync before the failure started. 
 
 ### Parameters
 
@@ -231,7 +233,7 @@ Name | Type | Description  | Required | Notes
 > on_account_connected(webhook_payload_account_connected)
 Account connected event
 
-Fired when a account is successfully connected.
+An account was connected to a profile, through OAuth or credentials.  ### Repeat events  Reconnecting an account you already hold fires it again with the same `accountId`, since the connect flow upserts per profile and platform. Key your upsert on `accountId`. 
 
 ### Parameters
 
@@ -261,7 +263,7 @@ Name | Type | Description  | Required | Notes
 > on_account_disconnected(webhook_payload_account_disconnected)
 Account disconnected event
 
-Fired when a connected account becomes disconnected: deactivated after an auth error, or flagged as needing reconnection (`needsReconnection: true` on GET /v1/accounts).  A flagged account that is later deactivated sends it again with the new reason. A deactivated account does not send it again until it is reconnected.  Requests that need the account answer 409 `account_disconnected` until then. A webhook only receives the events it lists, so subscribe to this one explicitly.
+A connected account stopped working or was removed.  ### Intentional  Removed on purpose, such as `DELETE /v1/accounts/{id}` or a switch to the Free plan. Kept 1 hour (`gracePeriodEndsAt`), then deleted with no further event. Reconnecting within the hour restores the same `accountId`.  ### Unintentional  The connection broke (token expired or revoked, access lost). The account stays inactive until reconnected, keeping its `accountId`. Removing it instead sends a second event with `intentional`.  ### Immediate paths  An API removal emits at once with `disconnectionType: \"intentional\"`. A phone-side WhatsApp disconnect emits within seconds of Meta's notification, with `unintentional`.  ### WhatsApp reason  `reason` carries Meta's explanation. Deliberate: `BUSINESS_DOWNGRADE`, `CHANGE_NUMBER`, `USER_RE_REGISTERED`. Idle number dropped by Meta: `PRIMARY_INACTIVITY` after about 14 days, `COMPANION_INACTIVITY` after about 30.  ### Expired or revoked grants  A publish or analytics sync getting a definitive auth error deactivates the account. Publish tries a token refresh first, so the event means the refresh failed too. `reason` carries the platform's message.  ### Reconnection flags  A dead token on an ads or blog call flags the account, and the posting account sharing its token (`needsReconnection: true`). Each flagged account emits once; a later deactivation emits again, then not until reconnected.  ### Lead forms while disconnected  While a Facebook Page is flagged or deactivated, `GET /v1/ads/lead-forms/{formId}/leads` answers `409` with `code: \"account_disconnected\"`.  ### Reconciliation  Anything else (a number deleted in WhatsApp Manager, a channel Meta silently stops serving) is caught by periodic reconciliation, not a notification. It lags minutes to about a day.  ### Do not rely on its absence  Meta's notifications are best-effort. For WhatsApp, poll `GET /v1/whatsapp/number-info` or account health, which runs a live Meta link probe.  ### Subscribing  A webhook only receives the events it lists, so add `account.disconnected` explicitly. 
 
 ### Parameters
 
@@ -291,7 +293,7 @@ Name | Type | Description  | Required | Notes
 > on_account_permissions_changed(webhook_payload_account_permissions_changed)
 Account permissions changed event
 
-Fired when a publish on an account connected through your own OAuth app fails for a missing permission. The account stays connected; only the missing area stops working until the permission is granted and the account reconnected.
+A publish on an account connected through your own OAuth app failed for a missing permission.  ### Behaviour  The account stays connected and its token still works. `account.missingScopeAreas` accumulates the affected areas, today `posting`. Each area sends one event, however many posts fail afterwards.  ### When it does not fire  Accounts not connected through your own OAuth app. 
 
 ### Parameters
 
@@ -321,7 +323,7 @@ Name | Type | Description  | Required | Notes
 > on_account_rate_limited(webhook_payload_account_rate_limited)
 Mailbox sending cooldown started
 
-Fired when a Google or Microsoft mailbox enters a sending cooldown (same body to more than 50 recipients in an hour, or a later trigger). Sends answer 429 until `account.resetsAt`.
+A Google or Microsoft mailbox was paused after sending one body to over 50 recipients in an hour.  ### Payload notes  `account.reason` says why and `account.resetsAt` says when sending resumes. Sends answer 429 until then. A later trigger can also start a cooldown. 
 
 ### Parameters
 
@@ -351,7 +353,7 @@ Name | Type | Description  | Required | Notes
 > on_ad_account_status_changed(webhook_payload_ad_account_status_changed)
 Ad account status changed event
 
-Fired when an ad account Zernio already tracked changes status (Meta, Google, TikTok, X). See `WebhookPayloadAdAccountStatusChanged` for when it fires and when it does not. 
+An ad account Zernio already tracked became `active`, `restricted`, `disabled` or `closed`.  ### When it fires  Fires when ad account discovery sees a tracked ad account change status, at most once per account per 24 hours. Covers Meta, Google, TikTok and X.  ### Status values  `restricted` needs something settled first (unpaid Meta balance, risk review, TikTok limit or pending verification, X review). `disabled` means the platform disabled or rejected it; `closed` means closed or pending closure.  ### Payload notes  `status.current` and `status.previous` use one vocabulary on every network. `status.raw` is the platform's own value, for example Meta's `account_status` code `2`.  ### When it does not fire  An account seen for the first time, an account Zernio has not seen in the last 48 hours, or a platform status Zernio does not recognize. 
 
 ### Parameters
 
@@ -381,7 +383,7 @@ Name | Type | Description  | Required | Notes
 > on_ad_created(webhook_payload_ad_created)
 Ad created event
 
-Fired when an ad is created through Zernio (`source: \"zernio\"`) or detected by the sync (`source: \"platform\"`). Never for history loaded when an account connects, nor for ads older than 7 days. See `WebhookPayloadAdCreated`. 
+An ad was created through Zernio (`source: \"zernio\"`) or detected by the sync (`source: \"platform\"`).  ### When it fires  Fires once the ad's campaign and ad set are recorded. A detected ad arrives up to one sync interval late; Meta ads entering review usually arrive within minutes.  ### When it does not fire  History loaded when an account connects, and ads created more than 7 days ago, are never announced. 
 
 ### Parameters
 
@@ -411,7 +413,7 @@ Name | Type | Description  | Required | Notes
 > on_ad_delivery_issue(webhook_payload_ad_delivery_issue)
 Ad delivery issue event
 
-Fired when an ad Zernio already tracked stops delivering for a platform reason (Meta, TikTok, LinkedIn). See `WebhookPayloadAdDeliveryIssue` for when it fires and when it does not. 
+An ad Zernio already tracked moved into the platform's error state and stopped delivering.  ### What triggers it  Meta `WITH_ISSUES` (payment, policy or account problems), TikTok account punishment or missing balance, or any platform status Zernio does not recognize yet (check `issue.raw`).  ### When it fires  Fires at most once per ad per 24 hours. Ads seen for the first time by a sync never fire it.  ### Payload notes  `issue.raw` is the platform's status string. On Meta, `issue.reasons` carries Meta's messages for the campaign; other networks send none, so it is empty.  ### Platform notes  On Meta the same problem can also arrive as `ad.status_changed` with `WITH_ISSUES`, straight from Meta's webhook and usually sooner. Pick one of the two to act on. 
 
 ### Parameters
 
@@ -441,7 +443,7 @@ Name | Type | Description  | Required | Notes
 > on_ad_review_approved(webhook_payload_ad_review)
 Ad review approved event
 
-Fired when an ad Zernio already tracked passes platform review, or a rejection is overturned on appeal. Every ad network. See `WebhookPayloadAdReview` for when it fires and when it does not. 
+An ad Zernio already tracked passed platform review, or a rejected ad was approved on appeal.  ### When it fires  Fires within one sync cycle of the platform's decision, not instantly; on Meta the review poll usually reports sooner. Each outcome is delivered at most once per ad per 24 hours.  ### When it does not fire  Ads seen for the first time by a sync never fire it, including history loaded at connect. On Meta, Google, TikTok and Reddit an ad that leaves review while paused sends no `approved`.  ### Platform notes  Covers every ad network Zernio syncs, with one payload shape. On X, Pinterest and LinkedIn the review is read apart from delivery status, so an ad leaving review while paused still sends `approved`.  ### Payload notes  `review.raw` is the platform's own status string. `adObject.adId` is the Zernio ad id, ready for `GET /v1/ads/{adId}`. Deduplicate on the event `id`. 
 
 ### Parameters
 
@@ -471,7 +473,7 @@ Name | Type | Description  | Required | Notes
 > on_ad_review_rejected(webhook_payload_ad_review)
 Ad review rejected event
 
-Fired when the platform rejects an ad Zernio already tracked. Every ad network. See `WebhookPayloadAdReview` for when it fires and when it does not. 
+The platform rejected an ad Zernio already tracked; `review.reasons` carries its reason when it gives one.  ### When it fires  Fires within one sync cycle of the platform's decision, not instantly; on Meta the review poll usually reports sooner. Each outcome is delivered at most once per ad per 24 hours.  ### When it does not fire  Ads seen for the first time by a sync never fire it, including history loaded at connect.  ### Platform notes  Covers every ad network Zernio syncs. Pinterest, LinkedIn and Reddit send their own reasons, X sends none, and most other networks return a generic message.  ### Payload notes  `review.raw` is the platform's own status string. Show `review.reasons` rather than branching on it. `adObject.adId` is the Zernio ad id. Deduplicate on the event `id`. 
 
 ### Parameters
 
@@ -501,7 +503,7 @@ Name | Type | Description  | Required | Notes
 > on_ad_rule_triggered(webhook_payload_ad_rule_triggered)
 Ad rule triggered event
 
-Fired when a scheduled ad rule run finds campaigns or ad sets meeting every condition, once per object per cooldown. See `WebhookPayloadAdRuleTriggered` for when it fires and when it does not. 
+A scheduled run of an ad rule with a `notify` action found campaigns or ad sets meeting every condition.  ### When it fires  Each object is announced at most once per rule cooldown. A run where every object is still in cooldown sends nothing.  ### Failed actions  An object whose action `failed` gets no cooldown, so the next run retries it and reports it again.  ### Payload notes  `objects` lists only the objects the run acted on. `objects[].conditions` repeats every condition of the rule with `actual`, the value the object reached.  ### Actions  `objects[].actions` says what the rule did: `done`, `skipped` (with a `reason` such as `already_paused` or `at_limit`) or `failed`. On `adjust_budget` it carries `previousDailyBudget` and `newDailyBudget`; empty on a notify-only rule.  ### Run context  `run.today` and `run.timezone` give the ad account's calendar date the windows used. `run.timezoneAssumed` is `true` when UTC was assumed. `run.currency` is the currency of money metrics, or `null` when unknown. 
 
 ### Parameters
 
@@ -526,12 +528,72 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## on_ad_set_created
+
+> on_ad_set_created(webhook_payload_ad_set_created)
+Ad set created event
+
+An ad set was created through Zernio (`source: \"zernio\"`) or detected by the sync (`source: \"platform\"`).  ### When it fires  Fires once the ad set row is recorded, so `GET /v1/ads/ad-sets/{adSetId}` finds it. A detected ad set arrives up to one sync interval late.  ### Payload notes  `adObject.campaign` is the campaign the ad set belongs to, or null when the platform has none.  ### When it does not fire  History loaded when an account connects, and ad sets created more than 7 days ago, are never announced. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_ad_set_created** | [**WebhookPayloadAdSetCreated**](WebhookPayloadAdSetCreated.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_ad_set_updated
+
+> on_ad_set_updated(webhook_payload_ad_set_updated)
+Ad set updated event
+
+An ad set was edited through Zernio (`source: \"zernio\"`), or outside Zernio and detected by the sync (`source: \"platform\"`).  ### When it fires  Fires after the platform and Zernio both accepted the edit. Outside edits arrive up to one sync interval late, and only to the user whose sync saw them.  ### Deduplication  Events are not deduplicated, so every edit is announced. Use the event `id` to drop repeats.  ### Payload notes  `changes` lists the edited fields: `name`, `status` (the ad set's own on/off switch), `budget`, `bid`, `schedule`, `targeting` or `settings`. Ignore unknown values. It never carries old or new values, so read the ad set.  ### What the sync detects  From the sync, `changes` covers only `name` and `status`. Status is not detected on Reddit.  ### When it does not fire  History loaded when an account connects is never announced. Budget and targeting edits made through `PUT /v1/ads/{adId}` arrive as `ad.updated`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_ad_set_updated** | [**WebhookPayloadAdSetUpdated**](WebhookPayloadAdSetUpdated.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## on_ad_status_changed
 
 > on_ad_status_changed(webhook_payload_ad_status_changed)
 Ad status changed event
 
-Fired when a campaign, ad set, or ad on a connected ad platform changes status. Currently emitted only for Meta (`metaads`).  It subscribes to two Meta `ad_account` webhook fields:  - `in_process_ad_objects`: the ad object finished processing and exited the `IN_PROCESS` state. `status.raw` carries Meta's `status_name` (e.g. `ACTIVE`, `PAUSED`, `ARCHIVED`, `DELETED`). - `with_issues_ad_objects`: the ad object entered the `WITH_ISSUES` state. `status.raw` is `WITH_ISSUES` and the `error` block is populated from Meta's `error_code` / `error_summary` / `error_message`.  `adObject.level` mirrors Meta's `level` and is one of `CAMPAIGN`, `AD_SET`, or `AD`. Creative-level events are not forwarded.  Branch on `status.raw` to handle each transition. Use `error.code` (when present) as the stable discriminator, since `error.summary` and `error.message` are localized to the ad-account owner's Meta locale.  The `error` block is optional:  - It is present on most `WITH_ISSUES` events but can be absent (Meta does not always include diagnostics). - It is never present on any other status. - Always null-check `error` before reading `error.code`.  **Fan-out:** matching is keyed on `adObject.platformAdAccountId`. When multiple connected Zernio `metaads` accounts are linked to the same Meta ad account, each receives its own delivery. 
+A campaign, ad set or ad on a connected Meta ad account (`metaads`) changed status.  ### Sources  Two Meta `ad_account` fields feed it: `in_process_ad_objects` (finished processing, `status.raw` is Meta's `status_name`) and `with_issues_ad_objects` (`status.raw` is `WITH_ISSUES`, `error` filled from Meta).  ### Payload notes  `adObject.level` is `CAMPAIGN`, `AD_SET` or `AD`; creative-level events are not forwarded. Branch on `status.raw`. Use `error.code` as the stable discriminator, since `error.summary` and `error.message` are localized to the owner's Meta locale.  ### The error block  `error` is present on most `WITH_ISSUES` events but can be absent, and never appears on any other status. Null-check it before reading `error.code`.  ### Fan-out  Matching is keyed on `adObject.platformAdAccountId`. When several connected `metaads` accounts point at the same Meta ad account, each receives its own delivery. 
 
 ### Parameters
 
@@ -561,7 +623,7 @@ Name | Type | Description  | Required | Notes
 > on_ad_updated(webhook_payload_ad_updated)
 Ad updated event
 
-Fired when an ad is edited through Zernio (`source: \"zernio\"`) or when the sync detects an edit made outside Zernio (`source: \"platform\"`). `changes` lists the edited fields. See `WebhookPayloadAdUpdated`. 
+An ad was edited through Zernio (`source: \"zernio\"`), or outside Zernio and detected by the sync (`source: \"platform\"`).  ### When it fires  Fires once, to the owner of the edited ad. Outside edits arrive up to one sync interval late. Every edit is announced, so use the event `id` to drop repeats.  ### Payload notes  `changes` lists the edited fields: `name`, `status` (the ad's own on/off switch), `budget`, `targeting` or `creative`. Ignore unknown values; new ones can be added.  ### Reading the change  The event never carries old or new values, so read the ad. `platformId` can change when a LinkedIn creative is replaced, while `adId` stays stable.  ### When it does not fire  From the sync, `changes` covers only `name` and `status`. Budget, bid, schedule and targeting edits made outside Zernio, tracking tag edits and history loaded at connect are not announced. Ad rule changes arrive as `ad_rule.triggered`. 
 
 ### Parameters
 
@@ -591,7 +653,7 @@ Name | Type | Description  | Required | Notes
 > on_ad_video_processed(webhook_payload_ad_video_processed)
 Ad video processed event
 
-Fired once per `POST /v1/ads/videos` call made with `async: true`, when Meta finishes processing the uploaded video. `video.status` is `ready` (reference it as `video.id` on the create endpoints) or `error` (Meta could not process it; `video.error` carries the reason).  Zernio watches the video for up to about 13 minutes after the upload request. A video still processing after that sends no event, so keep `GET /v1/ads/videos/{videoId}` as the source of truth for long videos. 
+Meta finished processing a video uploaded with `async: true` on `POST /v1/ads/videos`.  ### Payload notes  `video.status` is `ready` (reference it as `video.id` on the create endpoints) or `error`, with `video.error` carrying the reason.  ### When it fires  Fires once per upload, when the video leaves `processing`. Zernio polls every 10 seconds for about 13 minutes; after that no event is sent, so read `GET /v1/ads/videos/{videoId}` for long videos. 
 
 ### Parameters
 
@@ -621,7 +683,7 @@ Name | Type | Description  | Required | Notes
 > on_analytics_synced(webhook_payload_analytics_synced)
 Analytics synced event
 
-Fired once per connected account each time its analytics sync cycle completes successfully. Poll-driven (roughly hourly per account), not real-time, and never fired for a skipped or failed cycle.  A trigger, not a transport: the payload carries no metrics and no cursor. On receipt, call `GET /v1/analytics/delta` with your own last `nextCursor` to read every post whose analytics changed, across every account, in one paginated stream instead of polling analytics once per account.  The feed holds back its most recent few seconds of writes, so a read issued the instant this event lands often returns an empty page for that account. Poll again with the same cursor rather than reading an empty page as \"nothing changed\".  High volume (roughly one delivery per connected account per hour). Subscribe to it on a dedicated webhook endpoint: a subscription's consecutive-failure count is shared across all of its events, so an outage while this event is flowing can suppress the low-volume publishing events on the same subscription. 
+One connected account's analytics sync cycle completed successfully.  ### Payload notes  It is a trigger: no metrics and no cursor. On receipt, call `GET /v1/analytics/delta` with your own last `nextCursor` to read what changed across every account.  ### When it fires  Per account, per successful sync cycle, roughly hourly. It does not fire for a failed or skipped cycle, an inactive or disconnected account, or a platform without analytics sync.  ### Empty page  The feed is a materialized view, so an immediate read can return an empty `data` array. Re-poll with the same cursor. Advancing on an empty page can lose changes permanently.  ### Use a dedicated endpoint  Volume is about one event per account per hour. The consecutive-failure count is shared by every event on an endpoint, so an outage here can disable it and silence events like `post.published`. 
 
 ### Parameters
 
@@ -651,7 +713,7 @@ Name | Type | Description  | Required | Notes
 > on_api_changelog_published(webhook_payload_api_changelog_published)
 API changelog entry published event
 
-Fired when an entry is published to the API changelog (https://docs.zernio.com/changelog), which happens when a change to this OpenAPI spec goes live.  The event belongs to no profile or account. Every active subscription that opted in receives it; scoped subscriptions (`profileIds` / `accountIds`) do not.  - `entry.changes` is the deterministic diff of the spec (operations and schemas added, removed and modified). - `entry.impact` says whether an existing integration must act (`action_required`), only gained something (`additive`) or nothing changed beyond descriptions (`none`). - `entry.message` is the written announcement.  Act on `impact` and `changes`; read `message` for the why. Entries are listed by `GET /v1/changelog`. 
+An entry was published to the API changelog when a change to the OpenAPI spec went live.  ### Who receives it  It belongs to no profile or account. Every active endpoint subscribed to it receives it; endpoints scoped with `profileIds` or `accountIds` do not. One subscription per integration is enough.  ### Payload notes  `entry.type`, `entry.message` (the announcement), `entry.url`, `entry.specVersion`, `entry.impact` (`action_required`, `additive` or `none`) and `entry.changes` (the spec diff as data).  ### How to act  Automate on `impact`, `changes` and `type`; read `message` for the reason. `GET /v1/changelog` lists entries newest first, to back-fill after downtime. 
 
 ### Parameters
 
@@ -681,7 +743,7 @@ Name | Type | Description  | Required | Notes
 > on_automation_action_applied(webhook_payload_automation_action)
 Automation action applied event
 
-One change an automation made or tried, sent as it settles. See `WebhookPayloadAutomationAction`.
+An automation changed something, such as an ad set paused or a budget raised.  ### Payload notes  `previous` and `target` carry the value before and the value set. Each action sends one event; dedupe on `id`, which stays the same if the event is sent again. 
 
 ### Parameters
 
@@ -711,7 +773,7 @@ Name | Type | Description  | Required | Notes
 > on_automation_action_failed(webhook_payload_automation_action)
 Automation action failed event
 
-One change an automation made or tried, sent as it settles. See `WebhookPayloadAutomationAction`.
+An automation change failed or was refused; `reason` says why.  ### Skipped changes  A change refused before any platform call has `status: skipped`, for example no live ads or a budget at its limit. 
 
 ### Parameters
 
@@ -741,7 +803,7 @@ Name | Type | Description  | Required | Notes
 > on_automation_action_unknown(webhook_payload_automation_action)
 Automation action unknown event
 
-One change an automation made or tried, sent as it settles. See `WebhookPayloadAutomationAction`.
+The platform did not answer, so it is unknown whether the automation's change happened.  ### What happens next  The next check reads the object back and sends `applied` or `failed`. 
 
 ### Parameters
 
@@ -771,7 +833,7 @@ Name | Type | Description  | Required | Notes
 > on_automation_alert_escalated(webhook_payload_automation_alert)
 Automation alert escalated event
 
-An alert episode of an automation with a lifecycle. See `WebhookPayloadAutomationAlert`.
+An open alert's `critical` conditions held.  ### When it fires  Sent once per episode. 
 
 ### Parameters
 
@@ -801,7 +863,7 @@ Name | Type | Description  | Required | Notes
 > on_automation_alert_opened(webhook_payload_automation_alert)
 Automation alert opened event
 
-An alert episode of an automation with a lifecycle. See `WebhookPayloadAutomationAlert`.
+An object matched the rule's conditions for `confirmChecks` runs in a row and its action was recorded.  ### When it fires  Sent once per episode. 
 
 ### Parameters
 
@@ -831,7 +893,7 @@ Name | Type | Description  | Required | Notes
 > on_automation_alert_resolved(webhook_payload_automation_alert)
 Automation alert resolved event
 
-An alert episode of an automation with a lifecycle. See `WebhookPayloadAutomationAlert`.
+An open alert ended; `reason` says which way.  ### Reasons  Its conditions cleared, a pause or reactivation applied, the rule changed, or nothing checked the object for 7 days. 
 
 ### Parameters
 
@@ -861,7 +923,7 @@ Name | Type | Description  | Required | Notes
 > on_automation_check_completed(webhook_payload_automation_check_completed)
 Automation check completed event
 
-Fired once per scheduled check of an automation, whatever its outcome. See `WebhookPayloadAutomationCheckCompleted`.
+One scheduled check of an automation finished, including checks where nothing matched.  ### Payload notes  `automation.kind` names the product: `ad_rule` today, more as other automations move onto the same engine. 
 
 ### Parameters
 
@@ -891,7 +953,7 @@ Name | Type | Description  | Required | Notes
 > on_branded_calling_identity_action_required(on_branded_calling_identity_action_required_request)
 Caller identity action required event
 
-Fired when a caller identity waits on you. `reason` says what:  - `changes_requested`: answer the review with PATCH. - `email_code`: the authorizer got a 6-digit code from the carrier. Confirm it with the verify-email endpoint. - `rejected`: the carrier rejected it. Fix and PATCH. - `infringement_claim`: a third party disputes the name or logo. Reply to our email with evidence. - `expired`: resubmit. 
+A Branded Calling caller identity is waiting on you; `reason` says what.  ### When it fires  Every `action_required` is paired with a `status_updated`.  ### Reasons  - `changes_requested`: answer the review with `PATCH`. - `email_code`: confirm the code the carrier emailed the authorizer. - `rejected`: fix and `PATCH`. - `expired`: resubmit.  ### Infringement claim  `infringement_claim`: a third party filed a trademark or impersonation claim and the carrier suspended the identity. Calls show a plain number and the monthly fee pauses until it is resolved.  Reply to our email with evidence that the name and logo are yours. If the claim is upheld, the identity is rejected for good. 
 
 ### Parameters
 
@@ -921,7 +983,7 @@ Name | Type | Description  | Required | Notes
 > on_branded_calling_identity_status_updated(on_branded_calling_identity_status_updated_request)
 Caller identity status updated event
 
-Fired on every status change of a Branded Calling caller identity:  - `requested`: a new submission or resubmit, in our review. - `changes_requested`: we need answers, see `branded_calling.identity.action_required`. - `rejected`: by our review or by the carrier. `reason` says why. - `pending_email_verification`: filed with the carrier; the authorizer enters the emailed code. - `in_review`: carrier vetting. - `verified`: live for a year, attach numbers. - `suspended`: an infringement claim is open. - `expired`. - `permanently_rejected`. 
+A Branded Calling caller identity changed status.  ### When it fires  Fires once per transition of the identity's `status`, the value `GET /v1/branded-calling/identities/{id}` returns. Never on a re-check that found nothing new.  ### Statuses  `requested`, `changes_requested`, `rejected` (`reason` says why), `pending_email_verification`, `in_review`, `verified` (live for a year, attach numbers), `suspended` (infringement claim open), `expired`, `permanently_rejected`. 
 
 ### Parameters
 
@@ -951,7 +1013,7 @@ Name | Type | Description  | Required | Notes
 > on_branded_calling_number_status_updated(on_branded_calling_number_status_updated_request)
 Branded number status updated event
 
-Fired when a number attached to a caller identity changes vetting status: `in_review`, `verified` (calls from it now show the identity), `unsuccessful` (refused; detach and re-add to retry), `suspended`, `expired` or `permanently_rejected` (can never be branded again). 
+A number attached to a Branded Calling identity changed vetting status.  ### When it fires  Only starts once the identity is `verified` and you attached numbers. A batch is vetted as a unit; each number reports its own status.  ### Statuses  `submitted`, `in_review`, `verified` (calls from it show the identity), `unsuccessful` (refused; detach and re-add to retry), `suspended`, `expired`, `permanently_rejected` (can never be branded again). 
 
 ### Parameters
 
@@ -981,7 +1043,7 @@ Name | Type | Description  | Required | Notes
 > on_calendar_event_created(webhook_payload_calendar_event)
 Calendar event created
 
-A new event appeared on a connected Microsoft calendar (push, seconds after the change).
+An event was added to the primary calendar of a connected mailbox, by the user, an invitation or the API.  ### Platform notes  On Microsoft the change is pushed seconds after it happens. 
 
 ### Parameters
 
@@ -1011,6 +1073,8 @@ Name | Type | Description  | Required | Notes
 > on_calendar_event_deleted(webhook_payload_calendar_event)
 Calendar event deleted
 
+An event was deleted from the primary calendar.  ### Platform notes  On Google, a cancelled event counts as deleted. 
+
 ### Parameters
 
 
@@ -1038,6 +1102,8 @@ Name | Type | Description  | Required | Notes
 
 > on_calendar_event_updated(webhook_payload_calendar_event)
 Calendar event updated
+
+An event on the primary calendar changed: its time, details or participants' answers. 
 
 ### Parameters
 
@@ -1067,7 +1133,7 @@ Name | Type | Description  | Required | Notes
 > on_call_ended(webhook_payload_call_ended)
 Call ended event
 
-Fired on call hangup with the duration and a zero-markup billing breakdown (Meta cost, Telnyx cost, recording surcharge, total). Costs are pass-through; no margin is applied. 
+A phone or WhatsApp call ended; carries duration, end reason and a zero-markup cost breakdown.  ### Payload notes  `durationSeconds`; `endReason` is `hangup`, `no_answer`, `rejected` or `error`; `call.billing` holds Meta cost, Telnyx cost, recording surcharge and total. Costs are pass-through, with no margin.  ### When it fires  Unanswered, busy and rejected calls end here too. Branch on `endReason`; `call.failed` is for hard errors.  ### Recordings  With recording enabled, the payload carries `recordingUrl`, a signed URL expiring at `recordingExpiresAt`. Fetch a fresh one with `GET /v1/calls/{id}/recording` and `call.id`.  ### Missed-call follow-up  Check for `endReason: \"no_answer\"`, then text the caller over the linked `conversationId`. 
 
 ### Parameters
 
@@ -1097,7 +1163,7 @@ Name | Type | Description  | Required | Notes
 > on_call_failed(webhook_payload_call_failed)
 Call failed event
 
-Fired when a call setup or in-progress call fails (Meta rejected the connect, Telnyx returned an error, etc.). Payload carries the upstream error code and message. 
+A call failed with a hard error before or during bridging, for example the destination rejected the SIP INVITE.  ### Payload notes  Carries the upstream error `code` and `message`, for example when Meta rejected the connect or Telnyx returned an error. 
 
 ### Parameters
 
@@ -1127,7 +1193,7 @@ Name | Type | Description  | Required | Notes
 > on_call_permission_request(webhook_payload_call_permission_request)
 Call permission request reply event
 
-Fired when a consumer replies to a `call_permission_request` interactive message (or its marketing-template variant). Carries the response (`accept` / `reject`), whether the grant is permanent, and the expiration timestamp when it is temporary. 
+A WhatsApp user accepted or rejected your call-permission request.  ### When it fires  Independent of any call: it reports a reply to a permission prompt. Meta permits a business-initiated call only after the consumer taps Allow, and the accept can land days before the call.  ### Payload notes  `response` is `accept` or `reject`. Also carries the user's number, whether the grant is permanent, and the expiry when it is not. 
 
 ### Parameters
 
@@ -1157,7 +1223,7 @@ Name | Type | Description  | Required | Notes
 > on_call_received(webhook_payload_call_received)
 Call received event
 
-Fired when a WhatsApp Business Call connects. For inbound (UIC) calls the event fires at the moment our Telnyx trunk bridges the consumer leg to the customer&apos;s forward-to destination; for outbound (BIC) calls it fires immediately after Meta accepts the connect. Branch on `call.direction` to distinguish. 
+An inbound phone or WhatsApp call reached your number, or an outbound WhatsApp call was placed.  ### When it fires  Fires at ring time, before anyone answers; an unanswered call still emits it, then `call.ended` with `endReason: \"no_answer\"`. Outbound WhatsApp calls fire at origination with `direction: \"outbound\"`. Outbound phone calls never emit it.  ### Payload notes  Carries the Zernio call id, the caller and business numbers, the destination snapshot (`forwardTo`), and `contactId` and `conversationId` to message the caller with the regular send endpoints. 
 
 ### Parameters
 
@@ -1187,7 +1253,7 @@ Name | Type | Description  | Required | Notes
 > on_campaign_budget_depleted(webhook_payload_campaign_budget_depleted)
 Campaign budget depleted event
 
-Fired when a campaign Zernio already tracked runs out of budget (TikTok). See `WebhookPayloadCampaignBudgetDepleted` for when it fires and when it does not. 
+A campaign Zernio already tracked ran out of budget. TikTok only.  ### When it fires  Fires once per campaign when its budget runs out, at most once per 6 hours, so a daily budget that runs out again the next day is announced again.  ### When it does not fire  Ads seen for the first time by a sync never fire it.  ### Platform notes  Only TikTok reports this on the ad. Meta and Google keep such ads `ACTIVE`, so they never fire it. 
 
 ### Parameters
 
@@ -1217,7 +1283,7 @@ Name | Type | Description  | Required | Notes
 > on_campaign_created(webhook_payload_campaign_created)
 Campaign created event
 
-Fired when a campaign is created through Zernio (`source: \"zernio\"`) or detected by the sync (`source: \"platform\"`). Never for history loaded when an account connects, nor for campaigns older than 7 days. See `WebhookPayloadCampaignCreated`. 
+A campaign was created through Zernio (`source: \"zernio\"`) or detected by the sync (`source: \"platform\"`).  ### When it fires  Fires once the campaign row is recorded. A detected campaign arrives up to one sync interval late.  ### When it does not fire  History loaded when an account connects, and campaigns created more than 7 days ago, are never announced. 
 
 ### Parameters
 
@@ -1247,7 +1313,7 @@ Name | Type | Description  | Required | Notes
 > on_campaign_participant_joined(webhook_payload_campaign_participant)
 Campaign participant joined event
 
-Fired once when a creator joins a campaign, from their invite link or the open link.
+A creator joined a campaign from their invite link or the open link.  ### When it fires  It fires once per participant, and `participant.joinedAt` says when. 
 
 ### Parameters
 
@@ -1277,7 +1343,7 @@ Name | Type | Description  | Required | Notes
 > on_campaign_participant_removed(webhook_payload_campaign_participant)
 Campaign participant removed event
 
-Fired when an operator removes a participant.
+You removed a participant from the campaign.  ### When it does not fire  Removing a participant twice fires the event once. 
 
 ### Parameters
 
@@ -1307,7 +1373,7 @@ Name | Type | Description  | Required | Notes
 > on_campaign_participant_suspended(webhook_payload_campaign_participant)
 Campaign participant suspended event
 
-Fired when an operator suspends a participant.
+You suspended a participant.  ### Effect  They can no longer connect accounts or submit posts to this campaign. Posts they already submitted keep earning until you reject them. 
 
 ### Parameters
 
@@ -1337,7 +1403,7 @@ Name | Type | Description  | Required | Notes
 > on_campaign_payout_failed(webhook_payload_campaign_payout)
 Campaign payout failed event
 
-Fired when a treasury payout to a participant is refused, cannot be confirmed, or is reversed. The amount returns to payable, minus anything a rejection claws back.
+A payout through your Zernio balance did not reach the creator.  ### When it fires  Stripe refused it, it stayed unconfirmed for 24 hours, or it was reversed. The amount is payable again, minus anything a rejection claws back. 
 
 ### Parameters
 
@@ -1367,7 +1433,7 @@ Name | Type | Description  | Required | Notes
 > on_campaign_payout_payable(webhook_payload_campaign_payout)
 Campaign payout payable event
 
-Fired when a participant's held earnings mature and become payable.
+A participant's held earnings matured and became payable.  ### Payload notes  `payout.payableCents` is the participant's whole payable balance, the amount to pay when you pay from your own rails. 
 
 ### Parameters
 
@@ -1397,7 +1463,7 @@ Name | Type | Description  | Required | Notes
 > on_campaign_payout_settled(webhook_payload_campaign_payout)
 Campaign payout settled event
 
-Fired when a settlement to a participant is recorded.
+A payout to a participant was recorded.  ### Payload notes  `payout.settlement` holds the amount and the reference. `recorded` is true when the money moved outside Zernio. 
 
 ### Parameters
 
@@ -1427,7 +1493,7 @@ Name | Type | Description  | Required | Notes
 > on_campaign_submission_approved(webhook_payload_campaign_submission)
 Campaign submission approved event
 
-Fired when an operator approves a submission.
+You approved a submission.  ### Earnings  What the submission earned so far moves to owed with the campaign hold. Later earnings post straight to owed. 
 
 ### Parameters
 
@@ -1457,7 +1523,7 @@ Name | Type | Description  | Required | Notes
 > on_campaign_submission_flagged(webhook_payload_campaign_submission)
 Campaign submission flagged event
 
-Fired when a submission gains a fraud flag it did not carry before, at submission or on a later sync.
+A submission gained a fraud flag it did not carry before, at submission or on a later sync.  ### Flags  Flags include `duplicate_post`, `view_spike`, `low_authenticity` and `x_read_cap` (the campaign's X read budget is spent). `submission.flags` lists every flag it carries. Zernio never rejects on its own; the decision is yours. 
 
 ### Parameters
 
@@ -1487,7 +1553,7 @@ Name | Type | Description  | Required | Notes
 > on_campaign_submission_pending_review(webhook_payload_campaign_submission)
 Campaign submission pending review event
 
-Fired when a submission becomes ready for review: a CPM submission reached minViewsToEarn or a pool submission minViewsToQualify; per-post submissions on the first accrual pass after submission.
+A submission is ready for your review.  ### When it fires  A CPM submission reached `minViewsToEarn`, a pool submission reached `minViewsToQualify`, and per post submissions arrive here after their first accrual. 
 
 ### Parameters
 
@@ -1517,7 +1583,7 @@ Name | Type | Description  | Required | Notes
 > on_campaign_submission_received(webhook_payload_campaign_submission)
 Campaign submission received event
 
-Fired when a creator submits a post to a campaign and its tracking window opens.
+A creator submitted a post to a campaign, Zernio opened its tracking window and took the first view sample. 
 
 ### Parameters
 
@@ -1547,7 +1613,7 @@ Name | Type | Description  | Required | Notes
 > on_campaign_submission_rejected(webhook_payload_campaign_submission)
 Campaign submission rejected event
 
-Fired when an operator rejects a submission.
+You rejected a submission and its tracking window was cancelled.  ### Earnings  Its unsettled earnings go back to the campaign budget. 
 
 ### Parameters
 
@@ -1577,7 +1643,7 @@ Name | Type | Description  | Required | Notes
 > on_campaign_updated(webhook_payload_campaign_updated)
 Campaign updated event
 
-Fired when a campaign is edited through Zernio (`source: \"zernio\"`) or when the sync detects an edit made outside Zernio (`source: \"platform\"`). `changes` lists the edited fields. See `WebhookPayloadCampaignUpdated`. 
+A campaign was edited through Zernio (`source: \"zernio\"`), or outside Zernio and detected by the sync (`source: \"platform\"`).  ### When it fires  Fires after the platform and Zernio both accepted the edit. Outside edits arrive up to one sync interval late, and only to the user whose sync saw them.  ### Deduplication  Events are not deduplicated, so every edit is announced. Use the event `id` to drop repeats.  ### Payload notes  `changes` lists the edited fields: `name`, `status` (the campaign's own on/off switch), `budget`, `bid` or `settings`. Ignore unknown values. It never carries old or new values, so read the campaign.  ### What the sync detects  From the sync, `changes` covers only `name`, `status` and `schedule`. Schedule is detected only on Google, LinkedIn, Pinterest and OpenAI Ads.  ### When it does not fire  Budget edits made outside Zernio and history loaded at connect are not announced. Ad set edits arrive as `ad_set.updated`. Ad rule changes arrive as `ad_rule.triggered`.  ### Google sub-resources  Edits to ad schedule, targeting, negative keywords, conversion goals, assets, asset groups and listing group filters are not announced. 
 
 ### Parameters
 
@@ -1607,7 +1673,7 @@ Name | Type | Description  | Required | Notes
 > on_comment_received(webhook_payload_comment)
 Comment received event
 
-Fired when a new comment is received on a tracked post.  - Delivered for Instagram, Facebook, Threads, YouTube, LinkedIn, Bluesky, Reddit and TikTok. - X/Twitter does NOT fire this event. - Instagram, Facebook and TikTok arrive in real time from the platform's own webhook. The rest are poll-driven, so delivery is not instant. - TikTok needs an account connected through the TikTok for Business app. 
+A new comment arrived on a tracked post.  ### Platform notes  Delivered for Instagram, Facebook, Threads, YouTube, LinkedIn, Bluesky, Reddit and TikTok. X/Twitter does not fire it. TikTok needs an account connected through the TikTok for Business app.  ### Delivery timing  Instagram, Facebook, Threads and TikTok arrive in real time from the platform's webhook. The rest are poll-driven, so delivery is not instant.  ### Live comments  On Instagram, `comment.isLive: true` marks a comment made during a live broadcast. The key is absent on every other comment.  ### Ads  `comment.ad` is present only on comments made on paid content, so `if (comment.ad)` filters ad-driven comments.  ### Ad fields  Instagram carries `ad.id` and `ad.title`. Facebook carries `ad.promotionStatus`: `active` for boosted organic posts, `ineligible` for dark post creatives.  ### Instagram author profile  Comments may carry `comment.author.instagramProfile` (`isFollower`, `isFollowing`, `followerCount`, `isVerified`). An absent object means unknown, never \"not a follower\".  ### Why the profile is often absent  Meta reveals the follow relationship only for people who have messaged the account, and commenting does not grant that consent. The object is absent for most first-time commenters. 
 
 ### Parameters
 
@@ -1637,7 +1703,7 @@ Name | Type | Description  | Required | Notes
 > on_commerce_order_created(webhook_payload_commerce_order)
 Commerce order created event
 
-Fired when an order is placed on a connected store. The payload carries identifiers only; read the order with `GET /v1/commerce/orders/{orderId}?accountId=...`. Fired once per Zernio account connected to the store. 
+An order was placed in the store.  ### Payload notes  `resource.status` is its normalized state at that moment. Read the order with `GET /v1/commerce/orders/{orderId}?accountId=...`. Fires once per Zernio account. 
 
 ### Parameters
 
@@ -1667,7 +1733,7 @@ Name | Type | Description  | Required | Notes
 > on_commerce_order_refunded(webhook_payload_commerce_order)
 Commerce order refunded event
 
-Fired when a refund is issued on an order of a connected store. A commerce.order.updated usually follows for the same change. The payload carries identifiers only; read the order with `GET /v1/commerce/orders/{orderId}?accountId=...`. Fired once per Zernio account connected to the store. 
+A refund was issued on an order.  ### Payload notes  `resource.id` is the order id, not the refund id. `resource.status` and `resource.platformStatus` are `null`. A `commerce.order.updated` usually follows for the same change. 
 
 ### Parameters
 
@@ -1697,7 +1763,7 @@ Name | Type | Description  | Required | Notes
 > on_commerce_order_updated(webhook_payload_commerce_order)
 Commerce order updated event
 
-Fired when an order on a connected store changes: payment, fulfilment, cancellation, edits, and refunds too. The payload carries identifiers only; read the order with `GET /v1/commerce/orders/{orderId}?accountId=...`. Fired once per Zernio account connected to the store. 
+An order changed in the store, such as payment, fulfilment, cancellation or edits.  ### Payload notes  `resource.status` is the new state. Refunds also fire it. Fires once per Zernio account connected to the store. 
 
 ### Parameters
 
@@ -1727,7 +1793,7 @@ Name | Type | Description  | Required | Notes
 > on_commerce_product_created(webhook_payload_commerce_product)
 Commerce product created event
 
-Fired when a product is created on a connected store. The payload carries identifiers only; read the product with `GET /v1/commerce/products/{productId}?accountId=...`. Fired once per Zernio account connected to the store. 
+A product was created in a connected Shopify store or WooCommerce site.  ### Payload notes  `resource.id` is the store's product id. Read the product with `GET /v1/commerce/products/{productId}?accountId=...`. Fires once per Zernio account connected to the store. 
 
 ### Parameters
 
@@ -1757,7 +1823,7 @@ Name | Type | Description  | Required | Notes
 > on_commerce_product_deleted(webhook_payload_commerce_product)
 Commerce product deleted event
 
-Fired when a product is deleted from a connected store. `status` and `platformStatus` are null. The payload carries identifiers only; read the product with `GET /v1/commerce/products/{productId}?accountId=...`. Fired once per Zernio account connected to the store. 
+A product was deleted in the store.  ### Payload notes  `resource.status` and `resource.platformStatus` are `null`. Fires once per Zernio account connected to the store. 
 
 ### Parameters
 
@@ -1787,7 +1853,7 @@ Name | Type | Description  | Required | Notes
 > on_commerce_product_updated(webhook_payload_commerce_product)
 Commerce product updated event
 
-Fired when a product on a connected store changes: its fields, status, variants or prices. The payload carries identifiers only; read the product with `GET /v1/commerce/products/{productId}?accountId=...`. Fired once per Zernio account connected to the store. 
+A product changed in the store, or WooCommerce restored it from the trash.  ### Payload notes  Fields, status, variants or prices changed; read the product for what. There is no restored event. Fires once per Zernio account connected to the store. 
 
 ### Parameters
 
@@ -1817,7 +1883,7 @@ Name | Type | Description  | Required | Notes
 > on_contact_deleted(webhook_payload_contact)
 Contact deleted
 
-The provider contact was deleted; its email channel is removed, the contact row stays when other channels remain.
+A contact was deleted in Google Contacts or Outlook.  ### Effect  Zernio removes its email channel for that account; the contact stays when other channels remain. It arrives up to a day after the change, from the daily sync. 
 
 ### Parameters
 
@@ -1847,7 +1913,7 @@ Name | Type | Description  | Required | Notes
 > on_contact_field_changed(webhook_payload_contact_field_changed)
 Contact field changed event
 
-Fired once per custom field whose value a write changed, with the previous and new value.
+A contact custom field changed value; `field` is the field slug.  ### When it fires  Once per custom field whose value a write changed. Writing the current value fires nothing.  ### Payload notes  `previousValue` is `null` when the field was not set. `value` is `null` when it was removed. 
 
 ### Parameters
 
@@ -1877,7 +1943,7 @@ Name | Type | Description  | Required | Notes
 > on_contact_tag_added(webhook_payload_contact_tag)
 Contact tag added event
 
-Fired once per tag a write actually added to a contact, whether the API, a workflow add_tag node or a comment-automation click made it.
+A tag was added to a contact by the API, a workflow `add_tag` node or a comment-automation click.  ### When it fires  Once per tag a write actually added. Re-adding a tag the contact already has fires nothing.  ### When it does not fire  Creating a contact with tags fires nothing. Only changes to an existing contact do. 
 
 ### Parameters
 
@@ -1907,7 +1973,7 @@ Name | Type | Description  | Required | Notes
 > on_contact_tag_removed(webhook_payload_contact_tag)
 Contact tag removed event
 
-Fired once per tag a write actually removed from a contact.
+A tag was removed from a contact.  ### When it fires  Once per tag a write actually removed. 
 
 ### Parameters
 
@@ -1937,7 +2003,7 @@ Name | Type | Description  | Required | Notes
 > on_contact_updated(webhook_payload_contact)
 Contact updated
 
-A provider contacts sync (Google Contacts, Outlook) or a WhatsApp coexistence address-book change created or changed a contact.
+A contact sync added or changed a contact; `contact.id` is the Zernio contact id.  ### When it fires  It fires from the daily sync of a Google Contacts or Outlook account, so up to a day after the change. It also fires when a WhatsApp coexistence address book adds or renames a contact. 
 
 ### Parameters
 
@@ -1967,7 +2033,7 @@ Name | Type | Description  | Required | Notes
 > on_conversation_control_changed(webhook_payload_conversation_control_changed)
 Conversation control changed event
 
-Fired on Meta's handover protocol (`messaging_handovers`), when control of a conversation thread changes.  WhatsApp: control moves between Meta Business Agent and your app, or the agent is first seen answering a thread. While `control.owner` is `ai_agent`:  - Inbound messages arrive on `message.received` with `metadata.standby: true`. - The agent's replies arrive on `message.sent` with `source: meta_business_agent`. - Sending any message takes control back.  Facebook and Instagram: another app passed you the thread (`owner: app`), or took or received it (`owner: other`, with `ownerAppId`). While you are not the owner:  - Inbound messages arrive with `metadata.standby: true`. - No automation runs. - Sends fail with `not_thread_owner`.  Change control with `POST /v1/inbox/conversations/{conversationId}/thread-control`. `take` and `request` answer 400 `platform_not_supported` on Instagram Login connections. 
+Control of a conversation moved under Meta's handover protocol (`messaging_handovers`).  ### Owner values  `control.owner` is `ai_agent` (Meta Business Agent, WhatsApp), `app` (you) or `other` (a WhatsApp partner app, or a receiver such as Page Inbox on Messenger and Instagram).  ### Control fields  `control.previousOwner` is `null` when no handover touched the thread. `control.ownerAppId` is the new owner's Meta app id when named (Page Inbox is `263902037430900`). `control.metadata` is the transferring app's note, verbatim.  ### WhatsApp  Meta Business Agent took the conversation, handed it to you, or another partner app took it. While `ai_agent` owns it, its replies arrive on `message.sent` with `source: \"meta_business_agent\"`.  ### Taking control on WhatsApp  Sending any message through the inbox takes control back. To hand it to the agent without sending, call `POST /v1/inbox/conversations/{conversationId}/thread-control` with `action: \"release\"`.  ### Facebook and Instagram  Another app on the Page passed the thread to you, or took or received it. While you are not the owner, sends answer `409` `not_thread_owner`.  ### Taking control on Facebook and Instagram  Call `POST /v1/inbox/conversations/{conversationId}/thread-control` with `action: \"take\"`, or `\"request\"` to ask the owner to pass it. Both answer 400 `platform_not_supported` on Instagram Login connections.  ### When it does not fire  A repeat report of the same owner fires nothing. A `request` changes nothing until the owner passes the thread.  ### Standby messages  While another app owns the conversation, inbound messages arrive on `message.received` with `metadata.standby: true`. 
 
 ### Parameters
 
@@ -1997,7 +2063,7 @@ Name | Type | Description  | Required | Notes
 > on_conversation_started(webhook_payload_conversation_started)
 Conversation started event
 
-Fired once when a new conversation begins between one of your connected accounts and a contact, in either direction. Works across every DM platform (Instagram, Messenger/Facebook, Telegram, WhatsApp, X, Reddit, Bluesky, TikTok). Naturally deduped: a given conversation only fires this event the very first time it appears. 
+A new conversation began between a connected account and a contact, in either direction, on any DM platform.  ### When it fires  Once per conversation, the first time it appears. Covers Instagram, Messenger, WhatsApp, Telegram, X, Reddit, Bluesky, TikTok, SMS, RCS, iMessage, Slack and email.  ### When it does not fire  DM history replayed when an Instagram or Facebook account connects never fires it. 
 
 ### Parameters
 
@@ -2027,7 +2093,7 @@ Name | Type | Description  | Required | Notes
 > on_creator_campaign_budget_exhausted(webhook_payload_creator_campaign)
 Creator campaign budget exhausted event
 
-Fired once when a campaign's earnings reach its budget.
+A campaign's earnings reached its budget.  ### When it fires  Nothing more accrues until budget is freed. It fires once per campaign. 
 
 ### Parameters
 
@@ -2057,7 +2123,7 @@ Name | Type | Description  | Required | Notes
 > on_creator_campaign_closed(webhook_payload_creator_campaign)
 Creator campaign closed event
 
-Fired once when a campaign closes; a pool campaign is split among participants at this moment.
+A campaign closed, either because you closed it or because `endsAt` passed.  ### When it fires  After `endsAt`, the campaign closes once every tracking window had its final read. A pool campaign is split among participants at this moment. 
 
 ### Parameters
 
@@ -2087,7 +2153,7 @@ Name | Type | Description  | Required | Notes
 > on_file_created(webhook_payload_file)
 File created
 
-A file or folder appeared in a connected Drive or OneDrive (push, seconds after the change).
+A file the account can reach was created in Google Drive or OneDrive.  ### Platform notes  A folder counts as a file. The event is pushed seconds after the change. 
 
 ### Parameters
 
@@ -2117,7 +2183,7 @@ Name | Type | Description  | Required | Notes
 > on_file_deleted(webhook_payload_file)
 File deleted
 
-The item was trashed or removed on the provider.
+A file the account could reach was deleted or moved to the trash. 
 
 ### Parameters
 
@@ -2147,7 +2213,7 @@ Name | Type | Description  | Required | Notes
 > on_file_picked(webhook_payload_file_picked)
 Files picked
 
-The user finished a hosted picker session (`POST /v1/files/picker-sessions`) and picked at least one file. The app can now open those files. Not sent on cancel.
+The user picked files in a picker session; `picker.files` lists each one's `id`, `name`, `mimeType` and `kind`.  ### When it fires  It fires when the user finishes a hosted picker session (`POST /v1/files/picker-sessions`) and picks at least one file. Not sent on cancel. The files are readable from then on. 
 
 ### Parameters
 
@@ -2177,6 +2243,8 @@ Name | Type | Description  | Required | Notes
 > on_file_updated(webhook_payload_file)
 File updated
 
+A file the account can reach was changed, renamed or moved. 
+
 ### Parameters
 
 
@@ -2205,7 +2273,7 @@ Name | Type | Description  | Required | Notes
 > on_lead_received(webhook_payload_lead)
 Lead received event
 
-Fired when a new lead is submitted against a Meta Lead Gen (Instant) Form and ingested via the Page `leadgen` webhook. `lead.fields` is the question-key to answer map; `lead.formId` / `lead.adId` give provenance. Requires the Ads add-on. 
+A new lead was submitted against a Meta Lead Gen (Instant) form and ingested via the Page `leadgen` webhook.  ### Payload notes  `lead.fields` maps question key to answer; multiple-choice values are the option key (for example `k1`), not the display label.  ### Provenance  `lead.formId`, `lead.adId` and `lead.campaignId` give provenance. `lead.adId` is null for organic or test leads.  ### Consents  `lead.consents` lists the answer to every custom disclaimer checkbox, for example `{ \"checkboxKey\": \"call_consent\", \"isChecked\": true }`. Route call and SMS consent into your CRM from it. Empty when the form has no checkboxes.  ### Checkbox keys  When no key was set on the checkbox, Meta derives `checkboxKey` from its text, so match on the full key. `GET /v1/ads/leads` and `GET /v1/ads/lead-forms/{formId}/leads` return the same array.  ### Deduplication  Deduplicate on `lead.leadgenId` (Meta's lead id) or the event `id`.  ### Routing  `account.profileId` names the Zernio profile of the Facebook account that received the lead, for multi-tenant routing. Always present, `null` only when no profile is on record.  ### Requires ads enabled  Needs ads enabled on the team. Zernio asks for `leads_retrieval` at Facebook consent only then; without it Meta refuses the Page's `leadgen` subscription. Accounts connected earlier need a reconnect.  ### Lost subscription  A Page can lose its `leadgen` subscription while other events keep arriving. `leadgen: false` (with a `warning`) on the Page's webhook subscription means leads are not reaching Zernio; re-subscribe the Page. 
 
 ### Parameters
 
@@ -2235,7 +2303,7 @@ Name | Type | Description  | Required | Notes
 > on_message_deleted(webhook_payload_message_deleted)
 Message deleted event
 
-Fired when a sender deletes (unsends) a message.  - Instagram: incoming unsend. - WhatsApp, outgoing: a message the business deleted (via the Cloud API, or from the WhatsApp Business app on a Coexistence number). - WhatsApp, incoming: a message the customer deleted.  Read `message.direction` to tell the two directions apart.  The payload retains the pre-delete text and attachments so API consumers can access the original content for moderation or compliance. The Zernio dashboard UI hides it. 
+A sender deleted (unsent) a message on Instagram or WhatsApp.  ### Platform notes  Instagram reports incoming unsends. WhatsApp reports both directions, including business deletions through the Cloud API or a Coexistence app. `message.direction` tells them apart.  ### Payload notes  The payload keeps the pre-delete `text` and `attachments` for moderation, compliance or archival. The Zernio dashboard does not show this content. 
 
 ### Parameters
 
@@ -2265,7 +2333,7 @@ Name | Type | Description  | Required | Notes
 > on_message_delivered(webhook_payload_message_delivery_status)
 Message delivered event
 
-Fired when an outgoing message is delivered to the recipient. Supported on WhatsApp and Facebook Messenger. On WhatsApp, `pricing` and `billingConversation` carry Meta's billing context for the message (also on `message.sent`, `message.read` and `message.failed`). 
+An outgoing message was delivered to the recipient on WhatsApp, Facebook Messenger, SMS, RCS or iMessage.  ### Platform notes  On WhatsApp, `pricing` and `billingConversation` carry Meta's billing context for the message. 
 
 ### Parameters
 
@@ -2295,7 +2363,7 @@ Name | Type | Description  | Required | Notes
 > on_message_edited(webhook_payload_message_edited)
 Message edited event
 
-Fired when a sender edits a previously-sent message. Supported on Instagram, Facebook Messenger, Telegram, and WhatsApp. The payload includes the full editHistory so consumers can show prior versions. 
+A sender edited a previously sent message on Instagram, Facebook Messenger, Telegram or WhatsApp.  ### Payload notes  `editHistory` holds every prior version, oldest first. `message.text` is the latest version. 
 
 ### Parameters
 
@@ -2325,7 +2393,7 @@ Name | Type | Description  | Required | Notes
 > on_message_failed(webhook_payload_message_delivery_status)
 Message delivery failed event
 
-Fired when an outgoing message fails to deliver. Currently only emitted for WhatsApp (other platforms don't expose per-message failure via webhook). The payload error object contains code, title, and message from the platform. 
+An outgoing message failed to deliver on WhatsApp, SMS, RCS or iMessage.  ### Payload notes  `error` carries `code`, `title` and `message` from the platform, for example `131026` for an unreachable WhatsApp recipient. On SMS it carries the carrier's error code. 
 
 ### Parameters
 
@@ -2355,7 +2423,7 @@ Name | Type | Description  | Required | Notes
 > on_message_played(webhook_payload_message_delivery_status)
 Message played event
 
-Fires the first time the recipient plays a voice message you sent on WhatsApp.
+A WhatsApp recipient played a voice message you sent, reported the first time they play it. 
 
 ### Parameters
 
@@ -2385,7 +2453,7 @@ Name | Type | Description  | Required | Notes
 > on_message_read(webhook_payload_message_delivery_status)
 Message read event
 
-Fired when an outgoing message is read by the recipient. Supported on WhatsApp, Facebook Messenger, Instagram, and RCS. 
+An outgoing message was read by the recipient on WhatsApp, Facebook Messenger, Instagram or RCS. 
 
 ### Parameters
 
@@ -2415,7 +2483,7 @@ Name | Type | Description  | Required | Notes
 > on_message_received(webhook_payload_message)
 Message received event
 
-Fired when a new inbox message is received.
+A new message arrived in the inbox; `message.text`, `message.attachments[]` and `message.sender` describe it.  ### Standby  While another app owns the conversation it carries `metadata.standby: true`. Zernio runs no workflow or keyword automation on it. A bot must skip standby messages, or on WhatsApp it takes the conversation from the agent.  ### Interactive replies  Button and list taps, flow responses and orders arrive under `metadata` (`interactiveType`, `interactiveId`, `flowResponseData`, `order`). Only a referral that arrives without a message becomes `referral.received`.  ### Platform notes  New email from Google and Microsoft mailboxes arrives as this event. 
 
 ### Parameters
 
@@ -2445,7 +2513,7 @@ Name | Type | Description  | Required | Notes
 > on_message_sent(webhook_payload_message_sent)
 Message sent event
 
-Fired when a message is sent via the API, or from the WhatsApp Business app on Coexistence numbers.  Sends that carry platform-specific context deliver it under `metadata`. A quote-reply sent through the API arrives with `metadata.quotedMessageId`, so mirroring CRMs can thread it without a lookup.  Which surfaces carry that reference is documented on `WebhookPayloadMessageSent.metadata.quotedMessageId`. A quote-reply sent from the WhatsApp Business or Instagram app is not one of them. 
+A message was sent through the API, the dashboard, or the WhatsApp Business app on Coexistence numbers.  ### Sender  `message.sentVia` is one of `human`, `api`, `broadcast`, `sequence`, `workflow`, `comment_automation` or `bulk-api`. It is `null` for sends from the platform's own app and for older messages; treat `null` as unknown, never as human.  ### Attribution keys  `automationId`, `workflowId`, `executionId`, `broadcastId` and `sequenceId` are always present. Each is `null` unless that kind of sender produced the message.  ### Quote replies  A quote-reply sent through the API carries `metadata.quotedMessageId`. One sent from the WhatsApp Business or Instagram app does not.  ### Platform notes  On Instagram and Facebook the attribution can be missing when Meta's echo of a send reaches Zernio before the send is recorded. On WhatsApp, Meta Business Agent replies carry `source: \"meta_business_agent\"`. 
 
 ### Parameters
 
@@ -2475,7 +2543,7 @@ Name | Type | Description  | Required | Notes
 > on_phone_number_stock_available(webhook_payload_phone_number_stock_available)
 Phone-number stock available event
 
-Fired by the stock sweep (every 6h) the first time a country you watch via POST /v1/phone-numbers/stock-watches has deliverable numbers again. The watch is consumed, so the event fires once per watch; the stock counts are a snapshot and numbers are sold first come, first served. Buy with POST /v1/phone-numbers/purchase. 
+A country you watch has deliverable phone numbers again; fires once per watch.  ### When it fires  Fired by the 6-hourly stock sweep, before you own a number in that country. The watch (`POST /v1/phone-numbers/stock-watches`) is then consumed.  ### Payload notes  `stock.country` is the watched country. `stock.types[]` lists each number type in stock with its `availableCount` at sweep time. Numbers are first come, first served; buy with `POST /v1/phone-numbers/purchase`. 
 
 ### Parameters
 
@@ -2505,7 +2573,7 @@ Name | Type | Description  | Required | Notes
 > on_post_authenticity_changed(webhook_payload_post_authenticity_changed)
 Post authenticity changed event
 
-Fired when a tracked post's authenticity score crosses 40 in either direction. Carries the new and previous score, confidence and reasons. A first score never fires it. 
+A tracked post's authenticity score crossed 40, in either direction.  ### When it fires  Only while the tracking window is open. A post's first score never fires it.  ### Payload notes  Carries `score`, `previousScore`, `confidence` and `reasons`. 
 
 ### Parameters
 
@@ -2535,7 +2603,7 @@ Name | Type | Description  | Required | Notes
 > on_post_cancelled(webhook_payload_post)
 Post cancelled event
 
-Fired when a scheduled post is cancelled because its account was disconnected and nothing published. Not sent when a post is deleted.
+A scheduled post was cancelled because its account was disconnected, and nothing published.  ### When it fires  A multi-platform post fires it only once every platform entry is cancelled. If a platform already published, the rollup is `post.partial` instead.  ### When it does not fire  `DELETE /v1/posts/{postId}` removes the post without sending this event. 
 
 ### Parameters
 
@@ -2565,7 +2633,7 @@ Name | Type | Description  | Required | Notes
 > on_post_external_created(webhook_payload_external_post)
 External post created event
 
-Fired when Zernio's background sync detects a natively-authored post (created outside Zernio, e.g. a Google Business Profile localPost made in the Google UI) for the first time. Poll-driven (~hourly), not real-time. `post.source` is always \"external\". 
+A post authored natively on the platform, outside Zernio, was detected for the first time.  ### When it fires  Detected by a background sync roughly hourly, not in real time. Example: a Google Business Profile post created in the Google interface.  ### Payload notes  `post.source` is always `\"external\"` and `post.id` is the platform-native post id.  ### First sync backfill  On a freshly connected account, every existing native post fires it once. Treat it as an idempotent upsert keyed on `post.id`. 
 
 ### Parameters
 
@@ -2595,7 +2663,7 @@ Name | Type | Description  | Required | Notes
 > on_post_external_deleted(webhook_payload_external_post)
 External post deleted event
 
-Fired when a tracked native post is detected as removed from the platform.  - `post.deletedAt` carries the detection time. - Coverage is bounded to the most recent posts the platform listing returns. - Detection diffs against the posts a prior sync already indexed. An account with no indexed post can never emit this event, no matter how the subscription is configured. 
+A tracked native post was removed from the platform.  ### Payload notes  `post.deletedAt` is the detection time.  ### Detection limits  Coverage is bounded to the most recent posts the platform listing returns, so very old deletions may go undetected.  ### When it does not fire  Detection diffs against posts a prior sync already indexed. An account with no indexed post never emits it. 
 
 ### Parameters
 
@@ -2625,7 +2693,7 @@ Name | Type | Description  | Required | Notes
 > on_post_external_updated(webhook_payload_external_post)
 External post updated event
 
-Fired when a tracked native post's text or media changed on the platform. Detected by comparing text/media structure and, where available, the platform's own edit timestamp; a media-URL-only refresh does not fire this. 
+A tracked native post's text or media changed on the platform.  ### How edits are detected  Zernio compares text and media structure and, where available, the platform's own edit timestamp. A media-URL-only refresh (rotated CDN URLs) does not fire it. 
 
 ### Parameters
 
@@ -2655,7 +2723,7 @@ Name | Type | Description  | Required | Notes
 > on_post_failed(webhook_payload_post)
 Post failed event
 
-Fired when a post fails to publish on all target platforms.
+A post failed on every target platform.  ### When it fires  Once per publishing job, after every platform target ends. Exactly one of `post.published`, `post.partial` or `post.failed` fires.  ### Payload notes  Each `platforms[]` entry carries `error`, `errorCategory` and `errorSource`, the same taxonomy as `platforms[]` on Get post. Branch on `errorCategory`, not on the message text. 
 
 ### Parameters
 
@@ -2685,7 +2753,7 @@ Name | Type | Description  | Required | Notes
 > on_post_partial(webhook_payload_post)
 Post partial event
 
-Fired when a post publishes on some platforms and fails on others.
+A post published on some platforms and failed on others.  ### When it fires  Once per publishing job, after every platform target ends. Exactly one of `post.published`, `post.partial` or `post.failed` fires.  ### Payload notes  Read `platforms[].status` to tell them apart. Failed entries carry `error`, `errorCategory` and `errorSource`. 
 
 ### Parameters
 
@@ -2715,7 +2783,7 @@ Name | Type | Description  | Required | Notes
 > on_post_platform_deleted(webhook_payload_post_platform)
 Post platform deleted event
 
-Fired when Zernio's background sync detects that a platform target published through Zernio was later deleted on the platform (e.g. the user deleted the Instagram post natively).  - Detection is poll-driven (~hourly), not real-time, and fires once per platform target. - `platform.deletedAt` carries the detection time. - Detection is listing-based: a false positive self-heals in Zernio's data when the post reappears, but the event is not retracted. - Coverage is bounded to the posts the platform listing returns. - Detection diffs against the posts a prior sync already indexed. An account with no indexed post can never emit this event, no matter how the subscription is configured. 
+A published platform target was deleted on the platform.  ### When it fires  Detected by a background sync roughly hourly, once per platform target. Platforms push no deletion notice, so it can trail the rollup by days.  ### Payload notes  `platform.status` is `deleted`. `platform.deletedAt` is the detection time, not the moment of deletion.  ### Detection limits  Detection is listing-based: coverage is bounded to the posts the listing returns, and rare false positives happen. The event is not retracted when the post reappears. Re-check before deleting.  ### When it does not fire  Detection diffs against posts a prior sync already indexed. An account with no indexed post never emits it. 
 
 ### Parameters
 
@@ -2745,7 +2813,7 @@ Name | Type | Description  | Required | Notes
 > on_post_platform_failed(webhook_payload_post_platform)
 Post platform failed event
 
-Fired once per platform target inside a post when that platform fails permanently.  - Temporary/retryable failures do NOT fire this event, so retry loops stay quiet. - The envelope event (`post.failed` / `post.partial`) fires separately, AFTER all platforms have terminated. - It can fire for a target that already emitted `post.platform.published`, if background reconciliation later finds the publish never actually completed. 
+One platform target failed permanently.  ### When it fires  Only on permanent failure; retryable errors stay silent. The rollup (`post.failed` or `post.partial`) fires separately once every platform ends.  ### After a publish  It can fire for a target that already emitted `post.platform.published`, if background reconciliation finds the publish never completed.  ### Payload notes  `platform.error` carries the platform's message. `platform.errorCategory` and `platform.errorSource` classify it, so a reconnect (`auth_expired`) separates from a content fix (`user_content`). 
 
 ### Parameters
 
@@ -2775,7 +2843,7 @@ Name | Type | Description  | Required | Notes
 > on_post_platform_published(webhook_payload_post_platform)
 Post platform published event
 
-Fired once per platform target inside a post, as soon as that platform finishes publishing successfully.  It does NOT wait for the post-level rollup, so incremental UIs get notified immediately, even while other platforms on the same post are still processing.  - The envelope event (`post.published` / `post.partial`) fires separately, AFTER all platforms have terminated. - If a target later fails background reconciliation (e.g. a Facebook video Meta accepted but never actually published), `post.platform.failed` fires for the same target afterward. 
+One platform target finished publishing, without waiting for the other targets.  ### When it fires  Once per platform target, as soon as it finishes. A cross-post to 2 accounts on the same platform produces 2 events. Use `post.published` for the post-level rollup.  ### Payload notes  `platform` carries the platform post id and URL. `account` identifies the connected account.  ### Later reconciliation  If a target later fails background reconciliation, `post.platform.failed` fires for the same target afterward. 
 
 ### Parameters
 
@@ -2805,7 +2873,7 @@ Name | Type | Description  | Required | Notes
 > on_post_published(webhook_payload_post)
 Post published event
 
-Fired when a post is successfully published.
+Every platform target of a post published.  ### When it fires  Once per publishing job, after every platform target ends. Exactly one of `post.published`, `post.partial` or `post.failed` fires.  ### Payload notes  Each `platforms[]` entry carries the `platformPostId` and `publishedUrl`. 
 
 ### Parameters
 
@@ -2835,7 +2903,7 @@ Name | Type | Description  | Required | Notes
 > on_post_recycled(webhook_payload_post)
 Post recycled event
 
-Fired when a post is recycled (cloned and re-scheduled for publishing). The new clone also fires a post.scheduled event.
+A recycling schedule cloned a published post for republishing.  ### Payload notes  `post.id` is the new clone's id. The clone emits its own `post.scheduled`. 
 
 ### Parameters
 
@@ -2865,7 +2933,7 @@ Name | Type | Description  | Required | Notes
 > on_post_scheduled(webhook_payload_post)
 Post scheduled event
 
-Fired whenever a post enters the scheduled state: created with a schedule, added to a queue, a draft promoted to scheduled or queued, a failed or partial post retried, or a recycled clone created. Not fired when an already-scheduled post is edited or rescheduled.
+A post entered the scheduled state.  ### When it fires  Created with a schedule (with `publishNow`, accepted and queued), promoted from draft, added to a queue, retried after failing, or created as a recycled clone.  ### Approval and repeats  A post saved with `requiresApproval: true` fires it on approval, not at creation. One post can emit it more than once.  ### When it does not fire  Editing or moving an already-scheduled post to another time does not fire it. 
 
 ### Parameters
 
@@ -2895,7 +2963,7 @@ Name | Type | Description  | Required | Notes
 > on_post_tik_tok_url_resolved(webhook_payload_post_platform)
 TikTok post URL resolved event
 
-Fired when an already-published TikTok platform entry gets its public URL backfilled.  TikTok exposes the numeric video id asynchronously (often minutes after PUBLISH_COMPLETE), so the terminal events can carry an empty `publishedUrl` for TikTok. This event delivers `platform.publishedUrl` and the resolved `platform.platformPostId` once available.  - Fires at most once per platform target. - Never fires for drafts or private posts (no public URL exists). - The payload shape is identical to `post.platform.published`. 
+A published TikTok post's public URL became available.  ### When it fires  TikTok exposes the video id asynchronously, often minutes after upload, so `post.published` can carry an empty `publishedUrl`. Fires at most once per platform target. For a draft, it fires when the creator posts the draft publicly from the TikTok app.  ### Payload notes  Delivers `platform.publishedUrl` and the resolved `platform.platformPostId`. Same shape as `post.platform.published`.  ### When it does not fire  Private posts, which have no public URL, and drafts the creator never posts. 
 
 ### Parameters
 
@@ -2925,7 +2993,7 @@ Name | Type | Description  | Required | Notes
 > on_post_tracking_completed(webhook_payload_post_tracking_completed)
 Post tracking completed event
 
-Fired once when a post's tracking window ends and its final analytics read has run. `final` carries the closing metrics, or null when none could be read, and `window.completionReason` is `final_read`, `unreachable` or `post_deleted`. 
+A post's tracking window ended and its final analytics read finished.  ### When it fires  Once per window. A cancelled window never fires it.  ### Payload notes  `final` holds the closing metrics, or is null when no sample could be read. When the post was deleted, it is the last sample held, if any.  ### Completion reasons  `window.completionReason` is `final_read` (the read succeeded), `unreachable` (the sync failed or no sample exists) or `post_deleted` (the post is gone). 
 
 ### Parameters
 
@@ -2955,7 +3023,7 @@ Name | Type | Description  | Required | Notes
 > on_rcs_agent_status_updated(on_rcs_agent_status_updated_request)
 RCS agent status updated event
 
-Fired on every customer-visible status change of an RCS agent:  - `changes_requested`: we need changes before filing. `reason` is our note. - `brand_vetting`. - `agent_review`. - `testing`: add test phones, then send the launch filing. With a `reason`, the launch filing bounced. - `launch_review`. - `launching`. - `live`: the agent can message any RCS-capable phone. - `rejected`: `reason` says why. - `deactivated`. 
+An RCS agent moved into a new customer-visible status; `status` is the new one.  ### Statuses  `changes_requested` (note in `reason`), `brand_vetting`, `agent_review`, `testing`, `launch_review`, `launching`, `live`, `rejected` (`reason` says why), `deactivated`. In `testing`, add test phones, then file the launch; a `reason` means it bounced.  ### When it fires  Fires once per move into a status. `requested` sends nothing. Overlapping status checks never send the same status twice in a row.  ### Payload notes  `agent.profileId` is the owning profile. `agent.accountId` is `null` when the agent has no linked account. 
 
 ### Parameters
 
@@ -2985,7 +3053,7 @@ Name | Type | Description  | Required | Notes
 > on_reaction_received(webhook_payload_reaction)
 Reaction received event
 
-Fired when a participant adds or removes an emoji reaction on a message. Requires the Inbox add-on.  Supported on WhatsApp, Telegram, Slack, Instagram, Facebook Messenger and TikTok. It is distinct from message.received, so a reaction (e.g. a thumbs-up) is not mistaken for an inbound message.  - `reaction.action` is `added` or `removed`. - On WhatsApp and Meta removals, the platform does not report which emoji was removed, so `reaction.emoji` may be an empty string. - On TikTok, a like or emoji reaction on a DM arrives only as this event (never as an empty message.received), with `reaction.platformMessageId` set to the TikTok id of the liked message. - Instagram and Facebook accounts connected before reactions shipped only emit this event after their webhook subscription is refreshed. Reconnect the account if reactions never arrive. 
+A participant added or removed an emoji reaction on a message on Instagram, Facebook, WhatsApp, Telegram, Slack or TikTok.  ### Payload notes  Sent as its own event, never as `message.received`. `reaction.action` is `added` or `removed`. `reaction.platformMessageId` is always present; `reaction.messageId` is the Zernio id when resolvable.  ### Removals  On WhatsApp, Instagram and Facebook removals, `reaction.emoji` is an empty string because the platform does not say which emoji went away. Match on `platformMessageId` to clear a mirrored reaction.  ### TikTok  A like or emoji reaction on a DM arrives only as this event, never as an empty `message.received`. `platformMessageId` is the TikTok id of the liked message. AI emoji reactions can have an empty `emoji`.  ### Telegram  The bot must be an administrator in the chat. Reactions in private chats are never delivered to bots.  ### Accounts connected before August 2026  Instagram and Facebook accounts connected before August 2026 do not receive this event until their webhook subscription is refreshed. Reconnect them, or re-subscribe a Facebook Page without a reconnect. 
 
 ### Parameters
 
@@ -3015,7 +3083,7 @@ Name | Type | Description  | Required | Notes
 > on_referral_received(webhook_payload_referral)
 Referral received event
 
-Fired when someone opens an EXISTING Instagram or Messenger thread through an attributable entry point, which Meta delivers as a standalone referral with no message attached. Requires the Inbox add-on.  Entry points:  - An ig.me / m.me link with a `ref` parameter. - (Messenger) A returning Click-to-Message ad click.  A referral that rides an inbound message (first message of a thread, icebreaker taps, returning ad clicks on Instagram) arrives on `message.received` under `metadata.referral` instead. The two never fire for the same click.  The first referral captured on a conversation is also persisted on it (see `metadata` on `GET /v1/inbox/conversations`). 
+Someone opened an existing Instagram or Messenger thread through an ig.me or m.me `ref` link or returning ad click.  ### Payload notes  Meta's referral object is forwarded verbatim: `ref` and `source` for links, `ad_id` and `ads_context_data` for ad clicks.  ### When it does not fire  A referral that rides an inbound message arrives on `message.received` under `metadata.referral` instead. The two never fire for the same click.  ### Stored referral  The first referral captured on a conversation is also persisted on it (`metadata` on `GET /v1/inbox/conversations`). 
 
 ### Parameters
 
@@ -3045,7 +3113,7 @@ Name | Type | Description  | Required | Notes
 > on_review_deleted(webhook_payload_review_deleted)
 Review deleted event
 
-Google Business Profile stopped returning this review, for example after Google's spam filter removed it. Detected by polling, it usually fires 6 to 12 hours after the review disappears.  - Opt-in: only locations covered by a webhook subscribed to review.deleted or review.restored are checked. - If the review comes back, review.restored fires. A review Google hides and later restores produces review.deleted and then review.restored. - A review.updated can arrive for a review reported by review.deleted. The next check restores it. - It may arrive for a review id you never received review.new for. Ignore ids you do not know. 
+Google Business Profile stopped returning a review, for example after its spam filter removed it.  ### When it fires  Zernio detects it by polling, so it usually fires 6 to 12 hours after the review disappears. Only locations covered by a webhook subscribed to `review.deleted` or `review.restored` are checked.  ### Restores  If the review comes back, `review.restored` fires, so a hidden then restored review produces `review.deleted` then `review.restored`. A `review.updated` can arrive for a deleted review; the next check restores it.  ### Payload notes  `review.id` is the full review name, the same value `review.new` sent. It may arrive for a review id you never received `review.new` for, so ignore ids you do not know. 
 
 ### Parameters
 
@@ -3075,7 +3143,7 @@ Name | Type | Description  | Required | Notes
 > on_review_new(webhook_payload_review_new)
 Review new event
 
-Fired when a new review is posted on a connected account. Currently supported for Google Business Profile (real-time via Pub/Sub). Requires the Inbox add-on. 
+A new review was posted on a connected Google Business Profile account, in real time through Pub/Sub. 
 
 ### Parameters
 
@@ -3105,7 +3173,7 @@ Name | Type | Description  | Required | Notes
 > on_review_restored(webhook_payload_review_restored)
 Review restored event
 
-A review reported by review.deleted is returned by Google again. Same payload as review.new. Requires the Inbox add-on. 
+Google returned a review previously reported by `review.deleted`; the payload has the same shape as `review.new`.  ### When it fires  It may reach a webhook that subscribed after the deletion, so ignore ids you do not know. 
 
 ### Parameters
 
@@ -3135,7 +3203,7 @@ Name | Type | Description  | Required | Notes
 > on_review_updated(webhook_payload_review_updated)
 Review updated event
 
-Fired when a Google Business Profile reviewer edits their review text or rating, or when a reply is added, edited or removed. Payload shape matches review.new. Requires the Inbox add-on.  A reply posted through POST /v1/inbox/reviews/{reviewId}/reply fires immediately. The periodic check then reports it again with the full review payload, so expect a second delivery.  Replies written or removed in Google's own interface, and replies removed through the API, are reported by the periodic check.  For replies written in Google, that is usually within 6 hours for reviews updated in the last 30 days, and usually within about 7 days for older ones. Only locations covered by a webhook subscribed to review.updated are checked. A removed reply fires with hasReply false. 
+A Google Business Profile review changed: the reviewer edited it, or its reply was added, edited or removed.  ### Reply through the API  A reply sent through the Zernio API fires the event immediately. The periodic check then reports it again with the full review payload, so expect a second delivery.  ### Replies written in Google  Google sends no notification for replies written in its interface. The periodic check detects them, usually within 6 hours for reviews updated in the last 30 days, about 7 days for older.  ### Checks  Only teams with a webhook subscribed to `review.updated` are checked. A removed reply, through the API or in Google, fires from the periodic check with `review.hasReply` set to `false`.  ### Payload notes  Same shape as `review.new`. When a reply is present, `review.hasReply` is `true` and `review.reply` is populated. 
 
 ### Parameters
 
@@ -3165,7 +3233,7 @@ Name | Type | Description  | Required | Notes
 > on_sequence_enrolled(webhook_payload_sequence_enrollment)
 Sequence enrolled event
 
-Fired when a contact is enrolled in a sequence.
+A contact was enrolled in a sequence, through the API or a workflow `enroll_sequence` node. 
 
 ### Parameters
 
@@ -3195,7 +3263,7 @@ Name | Type | Description  | Required | Notes
 > on_sequence_exited(webhook_payload_sequence_enrollment)
 Sequence exited event
 
-Fired when a contact leaves a sequence, finished or not; exitReason says why.
+A contact left a sequence; `exitReason` says why.  ### Exit reasons  - `completed`: the last step was sent. - `replied` - `manual`: unenrolled through the API. - `failed`: the step kept failing to send. - `unsubscribed` 
 
 ### Parameters
 
@@ -3225,7 +3293,7 @@ Name | Type | Description  | Required | Notes
 > on_sms_registration_action_required(on_sms_registration_action_required_request)
 SMS registration action required event
 
-Fired when an SMS registration starts waiting on its owner. `reason` says why:  - `changes_requested`: we need answers to some points, before submission or to fix a carrier rejection. `message` is the request; answer with POST /v1/sms/registrations/{id}/respond. - `otp_required`: a sole-proprietor brand needs the code texted to its mobile. Submit it with POST /v1/sms/registrations/{id}/verify-otp. - `carrier_info_required`: the toll-free carrier asked for more information. The request expires after 7 days.  A carrier rejection alone does not fire it: we handle the fix, see `sms.registration.status_updated`.  It fires once per new request (not on follow-up messages) and once per OTP or carrier request. 
+An SMS registration is waiting on its owner; `reason` says why.  ### Reasons  - `changes_requested`: answer `message` via `POST /v1/sms/registrations/{id}/respond`. - `otp_required`: submit the texted code via `POST /v1/sms/registrations/{id}/verify-otp`; no `message`. - `carrier_info_required`: expires after 7 days.  ### When it fires  Fires once per new request and once per OTP or carrier request, not on follow-up messages. A carrier rejection alone does not fire it. 
 
 ### Parameters
 
@@ -3255,7 +3323,7 @@ Name | Type | Description  | Required | Notes
 > on_sms_registration_status_updated(on_sms_registration_status_updated_request)
 SMS registration status updated event
 
-Fired on every status change of an SMS registration:  - `changes_requested`: we need answers, see `sms.registration.action_required`. - `requested`: a new submission or resubmit, or your answers are back in our review. - `pending`: with the carriers, including after we fixed and resent a rejection. - `approved`: live, attach numbers and send. - `rejected`: the carriers declined it. `reason` is their words and we handle the fix. - `deactivated`. 
+An SMS registration changed status; `status` is the new one.  ### Statuses  - `changes_requested`: answers needed. - `requested`: submitted, resubmitted, or your answers are back in review. - `pending`: with the carriers. - `approved`: live, attach numbers. - `rejected`: `reason` is the carriers' words. - `deactivated`  ### Rejections  A carrier rejection needs nothing from you. Zernio handles the fix and resends it, so the status returns to `pending`. 
 
 ### Parameters
 
@@ -3285,7 +3353,7 @@ Name | Type | Description  | Required | Notes
 > on_support_run_completed(webhook_payload_support_run)
 Support Assistant finished event
 
-Fired when the Support Assistant finishes a question. run.status is completed, or needs_human when the assistant handed the question to a person. The run object matches GET /v1/support/runs/{runId}.
+A support run finished with an answer, or handed the question to a person.  ### Payload notes  `run.status` is `completed`, or `needs_human` when Ana handed the question to a person. `run.answer` holds the answer; `run.stopReason` says why it stopped (`answered` or `human_review`, among others). 
 
 ### Parameters
 
@@ -3315,7 +3383,7 @@ Name | Type | Description  | Required | Notes
 > on_support_run_failed(webhook_payload_support_run)
 Support Assistant failed event
 
-Fired when a Support Assistant question fails or expires. Failed runs are not billed.
+A support run failed or expired, and is not billed.  ### Payload notes  `run.status` is `failed` and `run.answer` is `null`. `run.stopReason` is `expired` when the run never finished. `run.costUsd` is 0. 
 
 ### Parameters
 
@@ -3345,7 +3413,7 @@ Name | Type | Description  | Required | Notes
 > on_verification_approved(on_verification_approved_request)
 Verification approved event
 
-Fired when a managed-OTP verification is approved (the user submitted the correct code to POST /v1/verify/verifications/{verificationId}/check). 
+The recipient submitted the right verification code.  ### Payload notes  Carries `verification.verificationId`, `verification.channel` (`sms`) and `verification.to`. 
 
 ### Parameters
 
@@ -3375,7 +3443,7 @@ Name | Type | Description  | Required | Notes
 > on_verification_failed(on_verification_failed_request)
 Verification failed event
 
-Fired when a managed-OTP verification is exhausted (the maximum number of wrong code attempts was reached). 
+A verification ran out of attempts without a correct code.  ### Payload notes  `reason` is `max_attempts_reached`. Carries the same `verification` fields as `verification.approved`. 
 
 ### Parameters
 
@@ -3405,7 +3473,7 @@ Name | Type | Description  | Required | Notes
 > on_webhook_test(webhook_payload_test)
 Webhook test event
 
-Fired when sending a test webhook to verify the endpoint configuration.
+Zernio sent a test event to an endpoint.  ### When it fires  Sent when you call Test webhook or press test in the dashboard, whatever events the endpoint subscribes to. Sent once, synchronously, and never retried. 
 
 ### Parameters
 
@@ -3435,7 +3503,7 @@ Name | Type | Description  | Required | Notes
 > on_whats_app_account_alert_received(webhook_payload_whats_app_account_alert_received)
 WhatsApp account alert received
 
-Fired for each Meta `account_alerts` notification on a connected WhatsApp Business Account. 
+Meta sent an account alert for a connected WhatsApp Business Account.  ### Payload notes  Forwards Meta's `account_alerts` as is. `alert.severity` is `CRITICAL`, `WARNING` or `INFORMATIONAL`; `alert.type` is Meta's alert type; `alert.description` is the text.  ### Who receives it  An alert about one number goes to that number's account. A business-level alert goes to every connected number on the WABA. 
 
 ### Parameters
 
@@ -3465,7 +3533,7 @@ Name | Type | Description  | Required | Notes
 > on_whats_app_account_name_status_updated(webhook_payload_whats_app_account_name_status_updated)
 WhatsApp display-name review outcome event
 
-Fired when Meta finishes reviewing a WhatsApp Business display-name change. Forwarded from Meta's `phone_number_name_update` webhook field on the WhatsApp Business Account.  - It fires only on a review outcome: `name.status` APPROVED, DECLINED, or PENDING_REVIEW. - A name applied without review reports `name_status: AVAILABLE_WITHOUT_REVIEW` on the phone node instead, and produces no event here. - `decision` REJECTED maps to DECLINED and DEFERRED maps to PENDING_REVIEW, matching the `name_status` vocabulary returned by `GET /v1/whatsapp/number-info`.  Delivery is at-least-once; dedupe on `(account.accountId, name.status, name.requestedName)`. 
+Meta finished reviewing a WhatsApp display-name change on a connected number.  ### When it fires  Fires only on a review outcome, forwarded from Meta's `phone_number_name_update` field. A name applied without review (`AVAILABLE_WITHOUT_REVIEW`) produces no event.  ### Payload notes  Branch on `name.status` (`APPROVED`, `DECLINED`, `PENDING_REVIEW`). Meta's `REJECTED` maps to `DECLINED` and `DEFERRED` to `PENDING_REVIEW`, because the review is still open. `name.requestedName` and `name.rejectionReason` are Meta's values or null.  ### Delivery  Delivery is at-least-once; dedupe on `(account.accountId, name.status, name.requestedName)`. 
 
 ### Parameters
 
@@ -3495,7 +3563,7 @@ Name | Type | Description  | Required | Notes
 > on_whats_app_account_quality_updated(webhook_payload_whats_app_account_quality_updated)
 WhatsApp quality rating or messaging limit changed
 
-Fired when a connected WhatsApp number's quality rating or messaging limit tier changes. Delivery is at-least-once; dedupe on the event `id`. 
+A connected number's quality rating or messaging limit tier changed.  ### When it fires  Fires only when the rating or tier differs from the value Zernio held. A tier change Meta applies to the whole business portfolio fires once per connected number.  ### Payload notes  `quality.source` says which Meta signal reported it. Compare `quality.previousQualityRating` with `quality.qualityRating`, and the previous and current messaging limit tier. `quality.qualityRating` is Meta's live value (`GREEN`, `YELLOW`, `RED`).  ### Delivery  Delivery is at-least-once; dedupe on the event `id`. 
 
 ### Parameters
 
@@ -3525,7 +3593,7 @@ Name | Type | Description  | Required | Notes
 > on_whats_app_account_status_updated(webhook_payload_whats_app_account_status_updated)
 WhatsApp Business Account restricted or reinstated
 
-Fired when Meta restricts, disables, deletes or reinstates the WhatsApp Business Account, once per connected number on it. 
+Meta restricted, disabled, deleted or reinstated a connected WhatsApp Business Account, or flagged a violation on it.  ### When it fires  Mirrors Meta's `account_update` events. They apply to the whole WhatsApp Business Account, so every connected number on it receives one event.  ### Payload notes  Branch on `status.status` (`restricted` or `active`) and `status.metaEvent`. `status.restrictions` lists what Meta restricted (for example `RESTRICTED_BIZ_INITIATED_MESSAGING`) and when each lifts. The same status is on the account as `platformStatus`. 
 
 ### Parameters
 
@@ -3555,7 +3623,7 @@ Name | Type | Description  | Required | Notes
 > on_whats_app_automatic_event(on_whats_app_automatic_event_request)
 WhatsApp automatic event detected
 
-Fired when Meta's automatic event identification detects a lead or purchase in a Click-to-WhatsApp conversation. The identification is opt-in during Embedded Signup and not available for EU/UK/JP businesses.  - Branch on `eventName` (`LeadSubmitted` | `Purchase`). - It carries the `ctwa_clid`.  Meta omits that clid on a minority of referrals on any number (coexistence or not, most often WhatsApp Status placements). When it does, this event can supply it and Zernio writes it back onto the conversation, so POST /v1/whatsapp/conversions becomes usable for the thread. 
+Meta's automatic event identification detected a lead or purchase in a Click-to-WhatsApp conversation.  ### Payload notes  Branch on `eventName` (`LeadSubmitted` or `Purchase`). `Purchase` may carry the detected amount in `customData` (`currency`, `value`). It carries the `ctwaClid`.  ### Conversions API match key  Meta omits the clid on a minority of referrals, most often WhatsApp Status placements; this event can supply it. Zernio writes it onto the conversation, so `POST /v1/whatsapp/conversions` becomes usable for it.  ### Availability  Detection is not available for EU, UK and JP businesses. Elsewhere the owner opts in during Embedded Signup. An endpoint subscribed on a number whose owner did not opt in receives nothing. 
 
 ### Parameters
 
@@ -3585,7 +3653,7 @@ Name | Type | Description  | Required | Notes
 > on_whats_app_contact_identity_changed(webhook_payload_whats_app_contact_identity_changed)
 WhatsApp contact identity changed event
 
-Fired when a WhatsApp user changes phone number or Meta regenerates their business-scoped user id (BSUID). Carries the previous and current identifiers so you can re-key records stored against the old phone number or BSUID. Delivery is at-least-once; dedupe on the event `id`. 
+A WhatsApp user changed phone number or Meta regenerated their business-scoped user id (BSUID).  ### When it fires  Fires when Meta reports the user under a new phone number (`reason: \"user_changed_number\"`) or a new BSUID (`user_changed_user_id`, `user_identity_changed` or `user_id_update`).  ### Payload notes  `previous` and `current` carry the phone number, BSUID, parent BSUID and username. Use them to re-key records stored against the old value.  ### Already applied  Zernio has already moved the inbox conversation and the contact when the event arrives. `conversationId` and `contactId` point at them, or are null when there was none.  ### Delivery  Delivery is at-least-once; dedupe on the event `id`. 
 
 ### Parameters
 
@@ -3615,7 +3683,7 @@ Name | Type | Description  | Required | Notes
 > on_whats_app_number_action_required(on_whats_app_number_action_required_request)
 WhatsApp number action required event
 
-Fired when the regulator asks for more information on an already-placed regulated number order.  The number stays pending (nothing was rejected). The customer can provide the missing information from the dashboard, or via the remediation endpoint.  - `reason` carries the regulator's request verbatim when available. - `requirements` lists every requirement on the order with the reviewer's current verdict. The `declined` ones are what to fix, keyed by the same `requirementId` the remediation endpoint uses. - Verdicts only change when a reviewer acts, so they describe the review at `reviewedAt`, the time of the reviewer's last comment. 
+The regulator asked for more information on a placed number order; nothing was rejected.  ### When it fires  The order stays pending, and the number stays `pending_regulatory`, until you provide the information. The status does not change.  ### Payload notes  `reason` carries the regulator's request verbatim when available. `requirements` lists every requirement with the reviewer's current verdict; the `declined` ones are what to fix, keyed by `requirementId`. Verdicts describe the review at `reviewedAt`.  ### How to resolve  Provide the missing details from the dashboard's phone-numbers page, or re-submit the fields through the remediation endpoint. The review resumes automatically. 
 
 ### Parameters
 
@@ -3645,7 +3713,7 @@ Name | Type | Description  | Required | Notes
 > on_whats_app_number_activated(on_whats_app_number_activated_request)
 WhatsApp number activated event
 
-Fired when a purchased WhatsApp number becomes active and usable. Both the synchronous (Tier 1/2) path and the asynchronous regulated (Tier 3/4) path land here. Lets integrators react without polling GET /v1/phone-numbers. 
+A number you provisioned through Zernio finished setup and is ready to connect.  ### When it fires  Regulated (non-US) numbers can take 1 to 3 business days after the order is approved. In instant-provisioning countries this is the first event, with no review states before it. 
 
 ### Parameters
 
@@ -3675,7 +3743,7 @@ Name | Type | Description  | Required | Notes
 > on_whats_app_number_declined(on_whats_app_number_declined_request)
 WhatsApp number declined event
 
-Fired when a regulated (Tier 3/4) number order is declined or fails review. The number is never billed. `reason` carries the reviewer's rejection reason when available. 
+A regulated number order was declined in regulatory review and no number was activated.  ### Payload notes  `reason` carries the reviewer's rejection reason when available. You are never billed for a declined number.  ### Remediation  Resubmit corrected details and the number returns to `pending_regulatory`. It is the same number, with no new billing. 
 
 ### Parameters
 
@@ -3705,7 +3773,7 @@ Name | Type | Description  | Required | Notes
 > on_whats_app_number_kyc_submitted(on_whats_app_number_kyc_submitted_request)
 WhatsApp number KYC submitted event
 
-Fired when an end customer completes a hosted KYC share link (POST /v1/phone-numbers/kyc/share). The number enters review (pending_regulatory) under your account; `whatsapp.number.activated` or `whatsapp.number.declined` follows once the provider rules on it. 
+An end customer completed a hosted KYC share link and the number entered regulatory review.  ### When it fires  Fires only for hosted share links (`POST /v1/phone-numbers/kyc/share`). When you submit KYC over the API, no event fires.  ### What follows  The number is `pending_regulatory` under your account. `whatsapp.number.activated` or `whatsapp.number.declined` follows once the provider rules on it. Update your own UI from this event instead of polling. 
 
 ### Parameters
 
@@ -3735,7 +3803,7 @@ Name | Type | Description  | Required | Notes
 > on_whats_app_number_reactivated(on_whats_app_number_reactivated_request)
 WhatsApp number reactivated event
 
-Fired when a suspended number is reactivated (e.g. the payment recovered) and is usable again. 
+A suspended number was reactivated, for example after the payment recovered, and is usable again. 
 
 ### Parameters
 
@@ -3765,7 +3833,7 @@ Name | Type | Description  | Required | Notes
 > on_whats_app_number_released(on_whats_app_number_released_request)
 WhatsApp number released event
 
-Fired when a number is released and is no longer usable (by the user, a billing cleanup, or an admin). Terminal. `reason` carries the cause (e.g. `user_requested`, `cleanup_suspended`). 
+A number was released and is no longer usable.  ### Payload notes  Released by you, a billing cleanup or an admin. `reason` is a value such as `user_requested` or `cleanup_suspended`. This is the only terminal status. 
 
 ### Parameters
 
@@ -3795,7 +3863,7 @@ Name | Type | Description  | Required | Notes
 > on_whats_app_number_suspended(on_whats_app_number_suspended_request)
 WhatsApp number suspended event
 
-Fired when an active number is suspended (e.g. a failed payment). The number stops working until the issue is resolved, after which a `whatsapp.number.reactivated` event is sent. `reason` carries the cause (e.g. `payment_failed`, `subscription_ended`). 
+An active number was suspended, for example after a failed payment.  ### Payload notes  `reason` is a value such as `payment_failed` or `subscription_ended`. The number stops working until the issue is resolved, then `whatsapp.number.reactivated` follows.  ### When it does not recover  A suspension left unresolved ends in release. 
 
 ### Parameters
 
@@ -3825,7 +3893,7 @@ Name | Type | Description  | Required | Notes
 > on_whats_app_number_verification_required(on_whats_app_number_verification_required_request)
 WhatsApp number verification-required event
 
-Fired when a regulated number has an out-of-band identity-verification step (e.g. Onfido). `verificationUrl` is the link to forward to the number's end user; the order completes once they pass. 
+A regulated number requires the end user to complete an identity check.  ### Payload notes  `verificationUrl` is a one-time link to forward to the person whose ID is on file, for example for Australian mobile numbers. The order completes once they pass. The number stays `pending_regulatory`. 
 
 ### Parameters
 
@@ -3855,7 +3923,7 @@ Name | Type | Description  | Required | Notes
 > on_whats_app_template_category_updated(webhook_payload_whats_app_template_category_updated)
 WhatsApp template category updated event
 
-Fired when Meta reclassifies a WhatsApp Business template's category after approval.  It is forwarded from Meta's `template_category_update` webhook field on the WhatsApp Business Account. Category drives Meta's per-conversation tariff and whether the template is subject to the recipient's marketing opt-out.  - `template.changeType` is `scheduled` (24h advance notice) or `applied`. - `template.category` is always the category right now. 
+Meta reclassified a WhatsApp template's category, first as a 24-hour advance notice and again when applied.  ### When it fires  Sent with `template.changeType: \"scheduled\"` for Meta's 24-hour advance notice, and again with `\"applied\"` when the change takes effect.  ### Payload notes  `template.category` is always the category right now. Meta clears a custom delivery window when it recategorises a template, so read `message_send_ttl_seconds` back after an `applied` change.  ### Platform notes  Forwarded from Meta's `template_category_update` field. The category decides Meta's per-delivery rate and the delivery window the template can carry. 
 
 ### Parameters
 
@@ -3885,7 +3953,7 @@ Name | Type | Description  | Required | Notes
 > on_whats_app_template_status_updated(webhook_payload_whats_app_template_status_updated)
 WhatsApp template status updated event
 
-Fired when Meta finishes (re)reviewing a WhatsApp Business template attached to a connected WABA. Forwarded from Meta's `message_template_status_update` webhook field on the WhatsApp Business Account. Consumers branch on `template.status` (APPROVED, REJECTED, PENDING, PAUSED, DISABLED, IN_APPEAL, PENDING_DELETION). Meta does not include the previous status or the template's category in this event. 
+Meta finished reviewing or re-reviewing a WhatsApp Business template on a connected WABA.  ### Payload notes  Branch on `template.status` (`APPROVED`, `REJECTED`, `PENDING`, `PAUSED`, `DISABLED`, `IN_APPEAL`, `PENDING_DELETION`). `template.reason` is Meta's free-form reason or `\"NONE\"`.  ### Platform notes  Forwarded from Meta's `message_template_status_update` field. Meta includes neither the previous status nor the template's category. 
 
 ### Parameters
 
@@ -3915,7 +3983,7 @@ Name | Type | Description  | Required | Notes
 > on_workflow_run_completed(webhook_payload_workflow_run)
 Workflow run completed event
 
-Fired when a workflow run ends; execution.status is completed, or exited for a run ended on purpose before its last node.
+A workflow run ended, with `execution.status` `completed`, or `exited` when it ended on purpose before its last node.  ### Exits  An exit is a handoff, or a button that switched the contact to another workflow. 
 
 ### Parameters
 
@@ -3945,7 +4013,7 @@ Name | Type | Description  | Required | Notes
 > on_workflow_run_failed(webhook_payload_workflow_run)
 Workflow run failed event
 
-Fired when a workflow run fails; error says which node failed and why.
+A workflow run failed; `error` names the node that failed and why. 
 
 ### Parameters
 
@@ -3975,7 +4043,7 @@ Name | Type | Description  | Required | Notes
 > on_workflow_run_started(webhook_payload_workflow_run)
 Workflow run started event
 
-Fired when a workflow run starts for a conversation.
+A workflow run started for a conversation; `trigger.type` is the trigger node's type.  ### Payload notes  `trigger.text` is the inbound message that started the run, when there was one. 
 
 ### Parameters
 

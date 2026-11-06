@@ -3259,6 +3259,10 @@ docs/WebhookPayloadAdRuleTriggeredObjectsInnerActionsInner.md
 docs/WebhookPayloadAdRuleTriggeredObjectsInnerConditionsInner.md
 docs/WebhookPayloadAdRuleTriggeredRule.md
 docs/WebhookPayloadAdRuleTriggeredRun.md
+docs/WebhookPayloadAdSetCreated.md
+docs/WebhookPayloadAdSetCreatedAdObject.md
+docs/WebhookPayloadAdSetCreatedAdObjectCampaign.md
+docs/WebhookPayloadAdSetUpdated.md
 docs/WebhookPayloadAdStatusChanged.md
 docs/WebhookPayloadAdStatusChangedAccount.md
 docs/WebhookPayloadAdStatusChangedAdObject.md
@@ -6772,6 +6776,10 @@ src/models/webhook_payload_ad_rule_triggered_objects_inner_actions_inner.rs
 src/models/webhook_payload_ad_rule_triggered_objects_inner_conditions_inner.rs
 src/models/webhook_payload_ad_rule_triggered_rule.rs
 src/models/webhook_payload_ad_rule_triggered_run.rs
+src/models/webhook_payload_ad_set_created.rs
+src/models/webhook_payload_ad_set_created_ad_object.rs
+src/models/webhook_payload_ad_set_created_ad_object_campaign.rs
+src/models/webhook_payload_ad_set_updated.rs
 src/models/webhook_payload_ad_status_changed.rs
 src/models/webhook_payload_ad_status_changed_account.rs
 src/models/webhook_payload_ad_status_changed_ad_object.rs
