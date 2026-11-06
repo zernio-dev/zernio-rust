@@ -11,14 +11,18 @@ Method | HTTP request | Description
 [**create_payee_onboarding_link**](TreasuryApi.md#create_payee_onboarding_link) | **POST** /v1/payees/{payeeId}/onboarding-link | Create a payee onboarding link
 [**create_topup**](TreasuryApi.md#create_topup) | **POST** /v1/balance/top-ups | Create a top-up
 [**create_transfer**](TreasuryApi.md#create_transfer) | **POST** /v1/transfers | Create a transfer
+[**get_auto_recharge**](TreasuryApi.md#get_auto_recharge) | **GET** /v1/balance/auto-recharge | Get auto-recharge settings
 [**get_balance**](TreasuryApi.md#get_balance) | **GET** /v1/balance | Get balance
 [**get_payout_batch**](TreasuryApi.md#get_payout_batch) | **GET** /v1/payout-batches/{batchId} | Get a payout batch
+[**get_topup_invoice**](TreasuryApi.md#get_topup_invoice) | **GET** /v1/balance/top-ups/{topupId}/invoice | Get a top-up invoice
 [**get_topup_receipt**](TreasuryApi.md#get_topup_receipt) | **GET** /v1/balance/top-ups/{topupId}/receipt | Get a top-up receipt
-[**get_topup_statement**](TreasuryApi.md#get_topup_statement) | **GET** /v1/balance/top-ups/{topupId}/statement | Get a top-up statement
+[**get_topup_statement**](TreasuryApi.md#get_topup_statement) | **GET** /v1/balance/top-ups/{topupId}/statement | Get a top-up invoice (alias)
 [**get_transfer**](TreasuryApi.md#get_transfer) | **GET** /v1/transfers/{transferId} | Get a transfer
 [**list_payees**](TreasuryApi.md#list_payees) | **GET** /v1/payees | List payees
 [**list_topups**](TreasuryApi.md#list_topups) | **GET** /v1/balance/top-ups | List top-ups
 [**list_transfers**](TreasuryApi.md#list_transfers) | **GET** /v1/transfers | List transfers
+[**preview_topup**](TreasuryApi.md#preview_topup) | **POST** /v1/balance/top-ups/preview | Preview a top-up's tax
+[**update_auto_recharge**](TreasuryApi.md#update_auto_recharge) | **PATCH** /v1/balance/auto-recharge | Update auto-recharge settings
 
 
 
@@ -177,7 +181,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateTopup201Response create_topup(create_topup_request, idempotency_key)
 Create a top-up
 
-Charges the billing owner's saved card (the default one, or `paymentMethodId`) exactly `amountCents`, while the payer is present, and credits your balance the same amount. There is no card fee.  Each top-up has a card receipt (`GET /v1/balance/top-ups/{topupId}/receipt`) and a top-up statement without VAT (`GET /v1/balance/top-ups/{topupId}/statement`): the balance is taxed when it is used, on your monthly invoice.  - `status: succeeded`: the card was charged. `amountCents` is credited to `availableCents` within seconds. Transfers to payees can use it from 7 days after the charge. - `status: requires_action`: the bank asked for 3D Secure. Complete it with Stripe.js `handleNextAction({ clientSecret })`, then call `POST /v1/balance/top-ups/{topupId}/confirm`. One left unconfirmed is cancelled after 30 minutes.  ### Errors  - 402 `payment_required`: no saved card. - 402 `card_declined`: the bank's reason. - 400: `method: bank_transfer` (bank transfers are not available yet).  Needs an owner, admin or billing admin, signed in or through a full-access key they created. 
+Charges the billing owner's saved card (the default one, or `paymentMethodId`) `amountCents` plus tax, while the payer is present, and credits your balance `amountCents`. There is no card fee.  Tax is added on top of the amount (`taxCents`, `totalCents`): VAT at 21% in Spain, at the customer's country rate for EU consumers; an EU business with a valid VAT id is reverse charged (no VAT, `reverseCharge: true`); outside the EU there is none.  Usage paid from the balance carries no further VAT. Get the figures before paying with `POST /v1/balance/top-ups/preview`.  Each top-up has an invoice, with VAT where it applies (`GET /v1/balance/top-ups/{topupId}/invoice`), and a card receipt (`GET /v1/balance/top-ups/{topupId}/receipt`).  - `status: succeeded`: the card was charged. `amountCents` is credited to `availableCents` within seconds. Transfers to payees can use it from 7 days after the charge. - `status: requires_action`: the bank asked for 3D Secure. Complete it with Stripe.js `handleNextAction({ clientSecret })`, then call `POST /v1/balance/top-ups/{topupId}/confirm`. One left unconfirmed is cancelled after 30 minutes.  ### Errors  - 402 `payment_required`: no saved card. - 402 `card_declined`: the bank's reason. - 400: `method: bank_transfer` (bank transfers are not available yet). - 400 `invalid_billing_address`: the billing address gives no tax location. Add it in Billing, then retry.  Needs an owner, admin or billing admin, signed in or through a full-access key they created. 
 
 ### Parameters
 
@@ -229,6 +233,33 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_auto_recharge
+
+> models::AutoRecharge get_auto_recharge()
+Get auto-recharge settings
+
+Your balance's auto-recharge rule: when the balance drops below `belowCents`, the billing owner's saved card is charged back up to `toCents`, tax added on top as for any top-up.  The first read gives the default rule, sized from your last 30 days of pay-per-use: below about a week of spend (at least $5), back up by about two more weeks (at least $20).  - 409 `balance_billing_required`: the account is not on the prepaid balance.  A profile-scoped key answers 403. 
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::AutoRecharge**](AutoRecharge.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -291,12 +322,42 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_topup_invoice
+
+> models::GetTopupInvoice200Response get_topup_invoice(topup_id)
+Get a top-up invoice
+
+The invoice for a paid balance top-up: the PDF of the Stripe invoice it was paid through.  It shows the amount added to your balance and the tax charged on top: VAT where it applies, or a reverse charge note for an EU business with a valid VAT id. Usage paid from the balance carries no further VAT.  - `format: pdf` is the invoice PDF; `format: page` is its Stripe-hosted page when the PDF is not ready. - 404 before the top-up is paid, and for a payment with no invoice (top-ups before 2026-11-05, creator payout payments). Its card receipt is at getTopupReceipt.  The link is short-lived, so fetch it when you need it. A profile-scoped key answers 403. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**topup_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::GetTopupInvoice200Response**](getTopupInvoice_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_topup_receipt
 
 > models::GetTopupReceipt200Response get_topup_receipt(topup_id)
 Get a top-up receipt
 
-The receipt for a paid top-up or creator payout payment (`purpose: payout_batch`). `format: pdf` is the Checkout invoice PDF (payments before 2026-10-29); `format: page` is Stripe's card receipt page. A top-up's statement is at getTopupStatement. The link is short-lived, so fetch it when you need it. A profile-scoped key answers 403.
+The receipt for a paid top-up or creator payout payment (`purpose: payout_batch`). `url` is the payment's invoice PDF when it has one (`format: pdf`), else Stripe's card receipt page (`format: page`); `invoiceUrl` and `receiptUrl` give each on its own.  The invoice alone is at getTopupInvoice. The link is short-lived, so fetch it when you need it. A profile-scoped key answers 403.
 
 ### Parameters
 
@@ -323,10 +384,10 @@ Name | Type | Description  | Required | Notes
 
 ## get_topup_statement
 
-> models::GetTopupStatement200Response get_topup_statement(topup_id)
-Get a top-up statement
+> models::GetTopupInvoice200Response get_topup_statement(topup_id)
+Get a top-up invoice (alias)
 
-The statement for a paid balance top-up: the PDF of the Stripe invoice it was paid through. It shows the amount added to your balance and no VAT: money added to the balance is taxed when it is used, on your monthly invoice.  - `format: pdf` is the statement PDF; `format: page` is its Stripe-hosted page when the PDF is not ready. - 404 before the top-up is paid, and for a payment with no statement (top-ups before 2026-11-05, creator payout payments). Its card receipt is at getTopupReceipt.  The link is short-lived, so fetch it when you need it. A profile-scoped key answers 403. 
+Alias of getTopupInvoice, kept for clients written against its first name.  The invoice for a paid balance top-up: the PDF of the Stripe invoice it was paid through.  It shows the amount added to your balance and the tax charged on top: VAT where it applies, or a reverse charge note for an EU business with a valid VAT id. Usage paid from the balance carries no further VAT.  - `format: pdf` is the invoice PDF; `format: page` is its Stripe-hosted page when the PDF is not ready. - 404 before the top-up is paid, and for a payment with no invoice (top-ups before 2026-11-05, creator payout payments). Its card receipt is at getTopupReceipt.  The link is short-lived, so fetch it when you need it. A profile-scoped key answers 403. 
 
 ### Parameters
 
@@ -337,7 +398,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTopupStatement200Response**](getTopupStatement_200_response.md)
+[**models::GetTopupInvoice200Response**](getTopupInvoice_200_response.md)
 
 ### Authorization
 
@@ -459,6 +520,66 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## preview_topup
+
+> models::PreviewTopup200Response preview_topup(preview_topup_request)
+Preview a top-up's tax
+
+The tax a top-up of `amountCents` will carry and the total the card is charged, calculated by Stripe Tax from the billing owner's billing address and tax ids, as the top-up's invoice will be. Charges nothing.  - 400 `invalid_billing_address`: the billing address gives no tax location, so a top-up would be refused too.  Needs a full-access key or a signed-in session; a profile-scoped key answers 403. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**preview_topup_request** | [**PreviewTopupRequest**](PreviewTopupRequest.md) |  | [required] |
+
+### Return type
+
+[**models::PreviewTopup200Response**](previewTopup_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_auto_recharge
+
+> models::AutoRecharge update_auto_recharge(update_auto_recharge_request)
+Update auto-recharge settings
+
+Changes the auto-recharge rule. Omitted fields keep their value.  A declined recharge is retried 1 hour, 1 day and 3 days later, with an email each time. After the last retry fails, auto-recharge switches off (`disabledReason: payment_failed`) until the card is updated. A top-up you make yourself resets the retries.  A bank asking for 3D Secure counts as a decline: the charge happens while you are away, so the email asks you to top up in Billing.  When this month's auto-recharges plus the next one would pass `monthlyLimitCents`, the card is not charged and you get one email that month. At $0, pay-per-use then answers 402 `usage_limit_reached`.  - 400: a field is out of range, or `toCents` is not more than $5 above `belowCents`. - 409 `balance_billing_required`: the account is not on the prepaid balance.  Needs an owner, admin or billing admin, signed in or through a full-access key they created. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**update_auto_recharge_request** | [**UpdateAutoRechargeRequest**](UpdateAutoRechargeRequest.md) |  | [required] |
+
+### Return type
+
+[**models::AutoRecharge**](AutoRecharge.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

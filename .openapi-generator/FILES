@@ -220,6 +220,7 @@ docs/AttachCampaignAssets201Response.md
 docs/AttachCampaignAssetsRequest.md
 docs/AttachNumberToSipTrunk200Response.md
 docs/AttachNumberToSipTrunkRequest.md
+docs/AutoRecharge.md
 docs/BatchAdCatalogProducts202Response.md
 docs/BatchAdCatalogProductsRequest.md
 docs/BatchAdCatalogProductsRequestRequestsInner.md
@@ -1428,8 +1429,8 @@ docs/GetTikTokSmartPlusAdReview200Response.md
 docs/GetTikTokSmartPlusMaterialReport200Response.md
 docs/GetTikTokSmartPlusMaterialReport200ResponseRowsInner.md
 docs/GetTikTokSmartPlusMaterialReport200ResponseRowsInnerMetrics.md
+docs/GetTopupInvoice200Response.md
 docs/GetTopupReceipt200Response.md
-docs/GetTopupStatement200Response.md
 docs/GetTrackingTag200Response.md
 docs/GetTrackingTagDiagnostics200Response.md
 docs/GetTrackingTagStats200Response.md
@@ -2226,6 +2227,8 @@ docs/PreflightSmsRegistration200ResponseComposed.md
 docs/PreflightSmsRegistrationRequest.md
 docs/PrepareMedia200Response.md
 docs/PrepareMediaRequest.md
+docs/PreviewTopup200Response.md
+docs/PreviewTopupRequest.md
 docs/Product.md
 docs/ProductCatalogsApi.md
 docs/ProductImage.md
@@ -2794,6 +2797,7 @@ docs/UpdateAdTrackingTags200Response.md
 docs/UpdateAdTrackingTagsRequest.md
 docs/UpdateAdTrackingTagsRequestCreative.md
 docs/UpdateAdTrackingTagsRequestUrlTagsInner.md
+docs/UpdateAutoRechargeRequest.md
 docs/UpdateBidStrategy200Response.md
 docs/UpdateBidStrategy200ResponseStrategy.md
 docs/UpdateBidStrategyRequest.md
@@ -3645,6 +3649,7 @@ src/models/attach_campaign_assets_201_response.rs
 src/models/attach_campaign_assets_request.rs
 src/models/attach_number_to_sip_trunk_200_response.rs
 src/models/attach_number_to_sip_trunk_request.rs
+src/models/auto_recharge.rs
 src/models/batch_ad_catalog_products_202_response.rs
 src/models/batch_ad_catalog_products_request.rs
 src/models/batch_ad_catalog_products_request_requests_inner.rs
@@ -4832,8 +4837,8 @@ src/models/get_tik_tok_smart_plus_ad_review_200_response.rs
 src/models/get_tik_tok_smart_plus_material_report_200_response.rs
 src/models/get_tik_tok_smart_plus_material_report_200_response_rows_inner.rs
 src/models/get_tik_tok_smart_plus_material_report_200_response_rows_inner_metrics.rs
+src/models/get_topup_invoice_200_response.rs
 src/models/get_topup_receipt_200_response.rs
-src/models/get_topup_statement_200_response.rs
 src/models/get_tracking_tag_200_response.rs
 src/models/get_tracking_tag_diagnostics_200_response.rs
 src/models/get_tracking_tag_stats_200_response.rs
@@ -5609,6 +5614,8 @@ src/models/preflight_sms_registration_200_response_composed.rs
 src/models/preflight_sms_registration_request.rs
 src/models/prepare_media_200_response.rs
 src/models/prepare_media_request.rs
+src/models/preview_topup_200_response.rs
+src/models/preview_topup_request.rs
 src/models/product.rs
 src/models/product_image.rs
 src/models/product_options_inner.rs
@@ -6162,6 +6169,7 @@ src/models/update_ad_tracking_tags_200_response.rs
 src/models/update_ad_tracking_tags_request.rs
 src/models/update_ad_tracking_tags_request_creative.rs
 src/models/update_ad_tracking_tags_request_url_tags_inner.rs
+src/models/update_auto_recharge_request.rs
 src/models/update_bid_strategy_200_response.rs
 src/models/update_bid_strategy_200_response_strategy.rs
 src/models/update_bid_strategy_request.rs
