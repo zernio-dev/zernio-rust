@@ -4132,6 +4132,8 @@ pub mod meta_product_feed_schedule;
 pub use self::meta_product_feed_schedule::MetaProductFeedSchedule;
 pub mod meta_product_set;
 pub use self::meta_product_set::MetaProductSet;
+pub mod meta_recovered_writes_inner;
+pub use self::meta_recovered_writes_inner::MetaRecoveredWritesInner;
 pub mod money;
 pub use self::money::Money;
 pub mod money_amount;

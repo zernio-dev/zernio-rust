@@ -2124,6 +2124,7 @@ docs/MetaProductCatalog.md
 docs/MetaProductFeed.md
 docs/MetaProductFeedSchedule.md
 docs/MetaProductSet.md
+docs/MetaRecoveredWritesInner.md
 docs/Money.md
 docs/MoneyAmount.md
 docs/MoveAccountToProfile200Response.md
@@ -5512,6 +5513,7 @@ src/models/meta_product_catalog.rs
 src/models/meta_product_feed.rs
 src/models/meta_product_feed_schedule.rs
 src/models/meta_product_set.rs
+src/models/meta_recovered_writes_inner.rs
 src/models/mod.rs
 src/models/money.rs
 src/models/money_amount.rs

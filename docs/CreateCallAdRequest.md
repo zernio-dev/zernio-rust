@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**retry_on_server_error** | Option<**bool**> | When Meta answers a create with a 5xx and reading the parent back by name finds no such object, Zernio sends the create again (at most 3 POSTs per object, never for an object created ACTIVE) and reports it in `recoveredWrites`.  `false` never sends it again: the request fails with 502 and `details.unconfirmedWrite`, so you can check the parent yourself. One object found by name is still reused.  | [optional][default to true]
 **creative_features** | Option<**std::collections::HashMap<String, Inner>**> | Meta enhancement settings for single or attached ads, and defaults for creatives[]. An item replaces the entire map, including with an empty object. (enum: OPT_IN, OPT_OUT) | [optional]
 **tracking** | Option<[**models::AdTracking**](AdTracking.md)> |  | [optional]
 **account_id** | **String** | Facebook or Instagram SocialAccount ID. | 
