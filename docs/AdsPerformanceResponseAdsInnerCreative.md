@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | Option<**Type**> |  (enum: image, video, carousel, document, ) | [optional]
+**r#type** | Option<**Type**> | Same classification as the ad `creativeType`. (enum: image, video, carousel, document, text, ) | [optional]
 **thumbnail_url** | Option<**String**> |  | [optional]
 **headline** | Option<**String**> |  | [optional]
 **body** | Option<**String**> |  | [optional]
