@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **pending_topup_cents** | Option<**i32**> | Top-ups started but not paid yet. | [optional]
 **currency** | Option<**Currency**> |  (enum: usd) | [optional]
 **recent_topups** | Option<[**Vec<models::TreasuryTopup>**](TreasuryTopup.md)> |  | [optional]
+**recent_credit_recharges** | Option<[**Vec<models::GetBalance200ResponseRecentCreditRechargesInner>**](GetBalance200ResponseRecentCreditRechargesInner.md)> | Balance billing only (absent otherwise). The 10 newest recharges paid from the account credit you held when you moved to the balance, newest first. Nothing was charged to your card and there is no invoice. The amount was added to promoCents with the credit's own expiry. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

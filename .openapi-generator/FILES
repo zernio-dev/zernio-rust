@@ -1257,6 +1257,7 @@ docs/GetAutomationControls200Response.md
 docs/GetBalance200Response.md
 docs/GetBalance200ResponsePayoutLocksInner.md
 docs/GetBalance200ResponsePendingReleasesInner.md
+docs/GetBalance200ResponseRecentCreditRechargesInner.md
 docs/GetBestTimeToPost200Response.md
 docs/GetBestTimeToPost200ResponseSlotsInner.md
 docs/GetBestTimeToPost403Response.md
@@ -4818,6 +4819,7 @@ src/models/get_automation_controls_200_response.rs
 src/models/get_balance_200_response.rs
 src/models/get_balance_200_response_payout_locks_inner.rs
 src/models/get_balance_200_response_pending_releases_inner.rs
+src/models/get_balance_200_response_recent_credit_recharges_inner.rs
 src/models/get_best_time_to_post_200_response.rs
 src/models/get_best_time_to_post_200_response_slots_inner.rs
 src/models/get_best_time_to_post_403_response.rs

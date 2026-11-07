@@ -2436,6 +2436,8 @@ pub mod get_balance_200_response_payout_locks_inner;
 pub use self::get_balance_200_response_payout_locks_inner::GetBalance200ResponsePayoutLocksInner;
 pub mod get_balance_200_response_pending_releases_inner;
 pub use self::get_balance_200_response_pending_releases_inner::GetBalance200ResponsePendingReleasesInner;
+pub mod get_balance_200_response_recent_credit_recharges_inner;
+pub use self::get_balance_200_response_recent_credit_recharges_inner::GetBalance200ResponseRecentCreditRechargesInner;
 pub mod get_best_time_to_post_200_response;
 pub use self::get_best_time_to_post_200_response::GetBestTimeToPost200Response;
 pub mod get_best_time_to_post_200_response_slots_inner;
