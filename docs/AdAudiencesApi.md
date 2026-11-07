@@ -151,7 +151,7 @@ Name | Type | Description  | Required | Notes
 **account_id** | **String** | Account ID | [required] |
 **ad_account_id** | **String** | Platform ad account ID | [required] |
 **platform** | Option<**String**> |  |  |
-**r#type** | Option<**String**> | Filter to one audience type. `saved_targeting` returns stored TargetingSpec audiences; the other types return uploaded/derived audiences. |  |
+**r#type** | Option<**String**> | Filter to one audience type. `saved_targeting` returns stored TargetingSpec audiences and needs no adAccountId; the other types keep only the platform audiences of that type (an empty list when the platform has none). Meta ENGAGEMENT audiences are `meta_engagement`. |  |
 
 ### Return type
 
