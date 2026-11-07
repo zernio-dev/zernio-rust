@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **destination_type** | Option<**DestinationType**> |  (enum: creator, ad_account) | [optional]
 **amount_cents** | Option<**i32**> | Amount the payee receives, in full | [optional]
 **fee_cents** | Option<**i32**> | Zernio fee added on top, 4% with a 50 cent minimum | [optional]
-**total_cents** | Option<**i32**> | Amount debited from your balance: amountCents plus feeCents | [optional]
+**total_cents** | Option<**i32**> | amountCents plus feeCents, both paid by the payout batch card charge | [optional]
 **currency** | Option<**String**> |  | [optional]
 **reference** | Option<[**models::TreasuryTransferReference**](TreasuryTransferReference.md)> |  | [optional]
 **status** | Option<**Status**> |  (enum: pending, paid, failed, reversed) | [optional]
