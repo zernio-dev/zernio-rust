@@ -16,6 +16,12 @@ pub struct GetBalance200Response {
     /// Your balance. It goes negative after a dispute or refund of a spent top-up, or when pay-per-use already in flight lands past zero. The next top-up covers it. New payout batches are refused while it is negative.
     #[serde(rename = "availableCents", skip_serializing_if = "Option::is_none")]
     pub available_cents: Option<i32>,
+    /// True when the account pays pay-per-use from this prepaid balance (new signups). Absent otherwise: that pay-per-use is on the monthly invoice.
+    #[serde(rename = "balanceBilling", skip_serializing_if = "Option::is_none")]
+    pub balance_billing: Option<bool>,
+    /// Balance billing only (absent otherwise). What pay-per-use can still spend: availableCents plus promoCents, minus usage not yet posted. At 0 or below, new pay-per-use answers 402 `insufficient_balance`.
+    #[serde(rename = "spendableCents", skip_serializing_if = "Option::is_none")]
+    pub spendable_cents: Option<i32>,
     /// Balance billing only (absent otherwise). Promotional and support credit Zernio added to your balance. Pay-per-use spends it before availableCents. It is never paid out to payees and is not part of availableCents.
     #[serde(rename = "promoCents", skip_serializing_if = "Option::is_none")]
     pub promo_cents: Option<i32>,
@@ -51,6 +57,8 @@ impl GetBalance200Response {
     pub fn new() -> GetBalance200Response {
         GetBalance200Response {
             available_cents: None,
+            balance_billing: None,
+            spendable_cents: None,
             promo_cents: None,
             payout_locked_cents: None,
             payout_locks: None,
