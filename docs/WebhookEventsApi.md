@@ -31,6 +31,9 @@ Method | HTTP request | Description
 [**on_automation_alert_opened**](WebhookEventsApi.md#on_automation_alert_opened) | **POST** /automation.alert.opened | Automation alert opened event
 [**on_automation_alert_resolved**](WebhookEventsApi.md#on_automation_alert_resolved) | **POST** /automation.alert.resolved | Automation alert resolved event
 [**on_automation_check_completed**](WebhookEventsApi.md#on_automation_check_completed) | **POST** /automation.check.completed | Automation check completed event
+[**on_balance_charged**](WebhookEventsApi.md#on_balance_charged) | **POST** /balance.charged | Balance charged event
+[**on_balance_empty**](WebhookEventsApi.md#on_balance_empty) | **POST** /balance.empty | Balance empty event
+[**on_balance_low**](WebhookEventsApi.md#on_balance_low) | **POST** /balance.low | Balance low event
 [**on_branded_calling_identity_action_required**](WebhookEventsApi.md#on_branded_calling_identity_action_required) | **POST** /branded_calling.identity.action_required | Caller identity action required event
 [**on_branded_calling_identity_status_updated**](WebhookEventsApi.md#on_branded_calling_identity_status_updated) | **POST** /branded_calling.identity.status_updated | Caller identity status updated event
 [**on_branded_calling_number_status_updated**](WebhookEventsApi.md#on_branded_calling_number_status_updated) | **POST** /branded_calling.number.status_updated | Branded number status updated event
@@ -931,6 +934,96 @@ One scheduled check of an automation finished, including checks where nothing ma
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_automation_check_completed** | [**WebhookPayloadAutomationCheckCompleted**](WebhookPayloadAutomationCheckCompleted.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_balance_charged
+
+> on_balance_charged(webhook_payload_balance_charged)
+Balance charged event
+
+Balance billing only. A card top-up of the balance succeeded: one someone made (`trigger: manual`) or one the auto top-up rule made (`trigger: auto_top_up`).  ### When it fires  Once per top-up, when the payment is credited to the balance. Stripe emails the billing owner its receipt for the charge.  ### Payload notes  `topup.amountCents` was added to the balance; the card was charged `topup.chargedCents`, which is that plus `topup.taxCents` (VAT, 0 when none applies). The invoice and receipt are at `GET /v1/balance/top-ups/{topupId}/invoice` and `/receipt`.  ### Who receives it  The billing owner's endpoints, like `balance.low`. Restricted keys need the `money` resource group. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_balance_charged** | [**WebhookPayloadBalanceCharged**](WebhookPayloadBalanceCharged.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_balance_empty
+
+> on_balance_empty(webhook_payload_balance_empty)
+Balance empty event
+
+Balance billing only. The balance reached $0 and no auto top-up covered it (auto top-up off, the card declined, or the monthly limit reached), so new pay-per-use (SMS, calls, numbers, X and the rest) answers 402 with `code` until the balance is funded.  ### When it fires  Once per time the balance runs out, within about a minute of the usage that emptied it. Funding the balance and running out again fires it again.  ### Who receives it  The billing owner's endpoints, like `balance.low`. Restricted keys need the `money` resource group.  ### How to act  Send the user to `fundingUrl`, or, for `usage_limit_reached`, raise `monthlyLimitCents` with `PATCH /v1/balance/auto-recharge`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_balance_empty** | [**WebhookPayloadBalanceEmpty**](WebhookPayloadBalanceEmpty.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_balance_low
+
+> on_balance_low(webhook_payload_balance_low)
+Balance low event
+
+Balance billing only. The balance dropped below the low-balance alert set on auto-recharge (`alertBelowCents` on `GET /v1/balance/auto-recharge`).  ### When it fires  Once per drop below the threshold; a balance back at or above it re-arms the next one. It does not fire when an auto top-up is already covering the drop, and never when no alert is set.  ### Who receives it  It belongs to the billing owner, not to a profile or account: endpoints scoped with `profileIds` or `accountIds` do not receive it. Restricted keys need the `money` resource group.  ### How to act  Send the user to `fundingUrl` (Billing with the top-up drawer open), or top up through the API. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_balance_low** | [**WebhookPayloadBalanceLow**](WebhookPayloadBalanceLow.md) |  | [required] |
 
 ### Return type
 

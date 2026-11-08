@@ -326,6 +326,7 @@ docs/AutomationTemplateTargetResult.md
 docs/AutomationTemplateTargetResultError.md
 docs/AutomationTrigger.md
 docs/AutomationsApi.md
+docs/BalanceRequiredError.md
 docs/BatchAdCatalogProducts202Response.md
 docs/BatchAdCatalogProductsRequest.md
 docs/BatchAdCatalogProductsRequestRequestsInner.md
@@ -2530,6 +2531,7 @@ docs/RestoreWorkflowVersion200Response.md
 docs/RestoreWorkflowVersion200ResponseWorkflow.md
 docs/ResyncPageWebhookSubscription200Response.md
 docs/RetryPost207Response.md
+docs/RetryPost402Response.md
 docs/RetweetPost200Response.md
 docs/RetweetPostRequest.md
 docs/ReuseSmsRegistrationForNumber200Response.md
@@ -3285,6 +3287,14 @@ docs/WebhookPayloadAutomationAlert.md
 docs/WebhookPayloadAutomationAlertAlert.md
 docs/WebhookPayloadAutomationCheckCompleted.md
 docs/WebhookPayloadAutomationCheckCompletedCheck.md
+docs/WebhookPayloadBalanceCharged.md
+docs/WebhookPayloadBalanceChargedBalance.md
+docs/WebhookPayloadBalanceChargedTopup.md
+docs/WebhookPayloadBalanceChargedTopupCard.md
+docs/WebhookPayloadBalanceEmpty.md
+docs/WebhookPayloadBalanceEmptyBalance.md
+docs/WebhookPayloadBalanceLow.md
+docs/WebhookPayloadBalanceLowBalance.md
 docs/WebhookPayloadCalendarEvent.md
 docs/WebhookPayloadCalendarEventAccount.md
 docs/WebhookPayloadCalendarEventCalendarEvent.md
@@ -3909,6 +3919,7 @@ src/models/automation_template_share.rs
 src/models/automation_template_target_result.rs
 src/models/automation_template_target_result_error.rs
 src/models/automation_trigger.rs
+src/models/balance_required_error.rs
 src/models/batch_ad_catalog_products_202_response.rs
 src/models/batch_ad_catalog_products_request.rs
 src/models/batch_ad_catalog_products_request_requests_inner.rs
@@ -6064,6 +6075,7 @@ src/models/restore_workflow_version_200_response.rs
 src/models/restore_workflow_version_200_response_workflow.rs
 src/models/resync_page_webhook_subscription_200_response.rs
 src/models/retry_post_207_response.rs
+src/models/retry_post_402_response.rs
 src/models/retweet_post_200_response.rs
 src/models/retweet_post_request.rs
 src/models/reuse_sms_registration_for_number_200_response.rs
@@ -6805,6 +6817,14 @@ src/models/webhook_payload_automation_alert.rs
 src/models/webhook_payload_automation_alert_alert.rs
 src/models/webhook_payload_automation_check_completed.rs
 src/models/webhook_payload_automation_check_completed_check.rs
+src/models/webhook_payload_balance_charged.rs
+src/models/webhook_payload_balance_charged_balance.rs
+src/models/webhook_payload_balance_charged_topup.rs
+src/models/webhook_payload_balance_charged_topup_card.rs
+src/models/webhook_payload_balance_empty.rs
+src/models/webhook_payload_balance_empty_balance.rs
+src/models/webhook_payload_balance_low.rs
+src/models/webhook_payload_balance_low_balance.rs
 src/models/webhook_payload_calendar_event.rs
 src/models/webhook_payload_calendar_event_account.rs
 src/models/webhook_payload_calendar_event_calendar_event.rs
