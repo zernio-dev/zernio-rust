@@ -354,7 +354,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_topup_receipt
 
-> models::GetTopupReceipt200Response get_topup_receipt(topup_id)
+> std::path::PathBuf get_topup_receipt(topup_id, download)
 Get a top-up receipt
 
 The receipt for a paid top-up or creator payout payment (`purpose: payout_batch`). `url` is the payment's invoice PDF when it has one (`format: pdf`), else Stripe's card receipt page (`format: page`); `invoiceUrl` and `receiptUrl` give each on its own.  The invoice alone is at getTopupInvoice. The link is short-lived, so fetch it when you need it. A profile-scoped key answers 403.
@@ -365,10 +365,11 @@ The receipt for a paid top-up or creator payout payment (`purpose: payout_batch`
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **topup_id** | **String** |  | [required] |
+**download** | Option<**bool**> | true answers the card receipt itself as a PDF file (application/pdf, as an attachment) instead of the JSON links. |  |
 
 ### Return type
 
-[**models::GetTopupReceipt200Response**](getTopupReceipt_200_response.md)
+[**std::path::PathBuf**](std::path::PathBuf.md)
 
 ### Authorization
 
@@ -377,7 +378,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/pdf, application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
