@@ -11,7 +11,7 @@ Method | HTTP request | Description
 [**create_payee_onboarding_link**](TreasuryApi.md#create_payee_onboarding_link) | **POST** /v1/payees/{payeeId}/onboarding-link | Create a payee onboarding link
 [**create_topup**](TreasuryApi.md#create_topup) | **POST** /v1/balance/top-ups | Create a top-up
 [**create_transfer**](TreasuryApi.md#create_transfer) | **POST** /v1/transfers | Create a transfer (removed)
-[**get_auto_recharge**](TreasuryApi.md#get_auto_recharge) | **GET** /v1/balance/auto-recharge | Get auto-recharge settings
+[**get_auto_recharge**](TreasuryApi.md#get_auto_recharge) | **GET** /v1/balance/auto-recharge | Get auto top-up settings
 [**get_balance**](TreasuryApi.md#get_balance) | **GET** /v1/balance | Get balance
 [**get_payout_batch**](TreasuryApi.md#get_payout_batch) | **GET** /v1/payout-batches/{batchId} | Get a payout batch
 [**get_topup_invoice**](TreasuryApi.md#get_topup_invoice) | **GET** /v1/balance/top-ups/{topupId}/invoice | Get a top-up invoice
@@ -22,7 +22,7 @@ Method | HTTP request | Description
 [**list_topups**](TreasuryApi.md#list_topups) | **GET** /v1/balance/top-ups | List top-ups
 [**list_transfers**](TreasuryApi.md#list_transfers) | **GET** /v1/transfers | List transfers
 [**preview_topup**](TreasuryApi.md#preview_topup) | **POST** /v1/balance/top-ups/preview | Preview a top-up's tax
-[**update_auto_recharge**](TreasuryApi.md#update_auto_recharge) | **PATCH** /v1/balance/auto-recharge | Update auto-recharge settings
+[**update_auto_recharge**](TreasuryApi.md#update_auto_recharge) | **PATCH** /v1/balance/auto-recharge | Update auto top-up settings
 
 
 
@@ -181,7 +181,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateTopup201Response create_topup(create_topup_request, idempotency_key)
 Create a top-up
 
-Charges the billing owner's saved card (the default one, or `paymentMethodId`) `amountCents` plus tax, while the payer is present, and credits your balance `amountCents`. There is no card fee.  Tax is added on top of the amount (`taxCents`, `totalCents`): VAT at 21% in Spain, at the customer's country rate for EU consumers; an EU business whose VAT id VIES confirms is reverse charged (no VAT, `reverseCharge: true`); outside the EU there is none.  The invoice also states the VAT in euros at the ECB rate of its date. Usage paid from the balance carries no further VAT. Get the figures before paying with `POST /v1/balance/top-ups/preview`.  Each top-up has an invoice, with VAT where it applies (`GET /v1/balance/top-ups/{topupId}/invoice`), and a card receipt (`GET /v1/balance/top-ups/{topupId}/receipt`).  - `status: succeeded`: the card was charged. `amountCents` is credited to `availableCents` within seconds. Transfers to payees can use it from 7 days after the charge. - `status: requires_action`: the bank asked for 3D Secure. Complete it with Stripe.js `handleNextAction({ clientSecret })`, then call `POST /v1/balance/top-ups/{topupId}/confirm`. One left unconfirmed is cancelled after 30 minutes.  ### Errors  - 402 `payment_required`: no saved card. - 402 `card_declined`: the bank's reason. - 400: `method: bank_transfer` (bank transfers are not available yet). - 400 `invalid_billing_address`: the billing address gives no tax location. Add it in Billing, then retry.  Needs an owner, admin or billing admin, signed in or through a full-access key they created. 
+Charges the billing owner's saved card (the default one, or `paymentMethodId`) `amountCents` plus tax, while the payer is present, and credits your balance `amountCents`. There is no card fee.  Tax is added on top of the amount (`taxCents`, `totalCents`): VAT at 21% in Spain, at the customer's country rate for EU consumers; an EU business whose VAT id VIES confirms is reverse charged (no VAT, `reverseCharge: true`); outside the EU there is none.  The invoice also states the VAT in euros at the ECB rate of its date. Usage paid from the balance carries no further VAT. Get the figures before paying with `POST /v1/balance/top-ups/preview`.  Each top-up has an invoice, with VAT where it applies (`GET /v1/balance/top-ups/{topupId}/invoice`), and a card receipt (`GET /v1/balance/top-ups/{topupId}/receipt`).  - `status: succeeded`: the card was charged. `amountCents` is credited to `availableCents` within seconds. Transfers to payees can use it from 7 days after the charge. - `status: requires_action`: the bank asked for 3D Secure. Complete it with Stripe.js `handleNextAction({ clientSecret })`, then call `POST /v1/balance/top-ups/{topupId}/confirm`. One left unconfirmed is cancelled after 30 minutes.  ### Errors  - 402 `payment_required`: no saved card. - 402 `card_declined`: the bank's reason. - 400: `method: bank_transfer` (bank transfers are not available yet). - 400 `invalid_billing_address`: the billing address gives no tax location. Add it in Billing, then retry. - 429 `payment_attempts_limited`: five card payments were declined in 24 hours. Nothing reaches the bank until `Retry-After` runs out.  Needs an owner, admin or billing admin, signed in or through a full-access key they created. 
 
 ### Parameters
 
@@ -241,9 +241,9 @@ Name | Type | Description  | Required | Notes
 ## get_auto_recharge
 
 > models::AutoRecharge get_auto_recharge()
-Get auto-recharge settings
+Get auto top-up settings
 
-Your balance's auto-recharge rule: when the balance drops below `belowCents`, the billing owner's saved card is charged back up to `toCents`, tax added on top as for any top-up.  Account credit you held when you moved to the balance pays a recharge first, without a card charge or invoice (see `recentCreditRecharges` on `GET /v1/balance`). The card is charged only once that credit is used up, and only while the balance is still below `belowCents`.  The first read gives the default rule, sized from your last 30 days of pay-per-use: below about a week of spend (at least $5), back up by about two more weeks (at least $20).  - 409 `balance_billing_required`: the account is not on the prepaid balance.  A profile-scoped key answers 403. 
+Your balance's auto top-up rule: when the balance drops below `belowCents`, the billing owner's saved card is charged back up to `toCents`, tax added on top as for any top-up.  Account credit you held when you moved to the balance pays an auto top-up first, without a card charge or invoice (see `recentCreditRecharges` on `GET /v1/balance`). The card is charged only once that credit is used up, and only while the balance is still below `belowCents`.  The first read gives the default rule, sized from your last 30 days of pay-per-use: below about a week of spend (at least $5), back up by about two more weeks (at least $20).  - 409 `balance_billing_required`: the account is not on the prepaid balance.  A profile-scoped key answers 403. 
 
 ### Parameters
 
@@ -559,9 +559,9 @@ Name | Type | Description  | Required | Notes
 ## update_auto_recharge
 
 > models::AutoRecharge update_auto_recharge(update_auto_recharge_request)
-Update auto-recharge settings
+Update auto top-up settings
 
-Changes the auto-recharge rule. Omitted fields keep their value.  A declined recharge is retried 1 hour, 1 day and 3 days later, with an email each time. After the last retry fails, auto-recharge switches off (`disabledReason: payment_failed`) until the card is updated. A top-up you make yourself resets the retries.  A bank asking for 3D Secure counts as a decline: the charge happens while you are away, so the email asks you to top up in Billing.  A pay-per-use request that finds the balance at $0 runs the recharge first (with the rule on, a saved card and no retry pending) and goes through when the charge lands, so a new balance at $0 is charged on first use.  When this month's auto-recharges plus the next one would pass `monthlyLimitCents`, the card is not charged and you get one email that month. At $0, pay-per-use then answers 402 `usage_limit_reached`.  - 400: a field is out of range, or `toCents` is not more than $5 above `belowCents`. - 409 `balance_billing_required`: the account is not on the prepaid balance.  Needs an owner, admin or billing admin, signed in or through a full-access key they created. 
+Changes the auto top-up rule. Omitted fields keep their value.  A declined auto top-up is retried 1 hour, 1 day and 3 days later, with an email each time. After the last retry fails, auto top-up switches off (`disabledReason: payment_failed`) until the card is updated. A top-up you make yourself resets the retries.  A bank asking for 3D Secure counts as a decline: the charge happens while you are away, so the email asks you to top up in Billing.  A pay-per-use request that finds the balance at $0 runs the auto top-up first (with the rule on, a saved card and no retry pending) and goes through when the charge lands, so a new balance at $0 is charged on first use.  When this month's auto top-ups plus the next one would pass `monthlyLimitCents`, the card is not charged and you get one email that month. At $0, pay-per-use then answers 402 `usage_limit_reached`.  - 400: a field is out of range, or `toCents` is not more than $5 above `belowCents`. - 409 `balance_billing_required`: the account is not on the prepaid balance.  Needs an owner, admin or billing admin, signed in or through a full-access key they created. 
 
 ### Parameters
 

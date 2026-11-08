@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **payee_name** | Option<**String**> | The payee's name when Zernio knows it, for example a creator's display name in one of your creator campaigns; null otherwise | [optional]
 **destination_type** | Option<**DestinationType**> |  (enum: creator, ad_account) | [optional]
 **amount_cents** | Option<**i32**> | Amount the payee receives, in full | [optional]
-**fee_cents** | Option<**i32**> | Zernio fee added on top, 4% with a 50 cent minimum | [optional]
+**fee_cents** | Option<**i32**> | Zernio fee added on top: 4%, 50 cents minimum per payout. | [optional]
 **total_cents** | Option<**i32**> | amountCents plus feeCents, both paid by the payout batch card charge | [optional]
 **currency** | Option<**String**> |  | [optional]
 **reference** | Option<[**models::TreasuryTransferReference**](TreasuryTransferReference.md)> |  | [optional]
