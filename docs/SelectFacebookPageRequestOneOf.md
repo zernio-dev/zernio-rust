@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **page_ids** | Option<**Vec<String>**> | Several Page IDs to connect from one sign-in, each as its own account. A single distinct ID behaves exactly like pageId.  With two or more distinct IDs:  - the response lists `accounts` and `failed` instead of `account`; - the request is refused with 400 on a reconnect or an ads connect, which pick exactly one Page.  | [optional]
 **temp_token** | Option<**String**> | Temporary Facebook access token from OAuth. Required unless sent in the X-Temp-Token header. | [optional]
 **connect_flow** | Option<**String**> | Set by the Zernio-hosted picker, whose user token stays in an httpOnly cookie. Integrators send tempToken instead. | [optional]
+**scopes** | Option<**String**> | The `scopes` the callback redirect carried, passed back unchanged so the account records the areas it requested. Omit it when the redirect had none. | [optional]
 **user_profile** | [**models::SelectFacebookPageRequestOneOfUserProfile**](SelectFacebookPageRequestOneOfUserProfile.md) |  | 
 **redirect_url** | Option<**String**> | Optional custom redirect URL to return to after selection. | [optional]
 

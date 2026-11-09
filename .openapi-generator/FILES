@@ -2500,6 +2500,8 @@ docs/ReplyToGoogleBusinessReview200Response.md
 docs/ReplyToGoogleBusinessReviewRequest.md
 docs/ReplyToInboxPost200Response.md
 docs/ReplyToInboxPost200ResponseData.md
+docs/ReplyToInboxPost400Response.md
+docs/ReplyToInboxPost400ResponseDetails.md
 docs/ReplyToInboxPostRequest.md
 docs/ReplyToInboxReview200Response.md
 docs/ReplyToInboxReviewRequest.md
@@ -6047,6 +6049,8 @@ src/models/reply_to_google_business_review_200_response.rs
 src/models/reply_to_google_business_review_request.rs
 src/models/reply_to_inbox_post_200_response.rs
 src/models/reply_to_inbox_post_200_response_data.rs
+src/models/reply_to_inbox_post_400_response.rs
+src/models/reply_to_inbox_post_400_response_details.rs
 src/models/reply_to_inbox_post_request.rs
 src/models/reply_to_inbox_review_200_response.rs
 src/models/reply_to_inbox_review_request.rs

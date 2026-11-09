@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **status** | Option<**Status**> |  (enum: healthy, warning, error) | [optional]
 **can_post** | Option<**bool**> |  | [optional]
 **can_fetch_analytics** | Option<**bool**> |  | [optional]
+**scope_areas** | Option<**std::collections::HashMap<String, Inner>**> | Present when the account connected with `scopes` or through your own OAuth app: each permission area the platform splits, as granted, missing or not_requested. An area never requested does not make the account unhealthy. (enum: granted, missing, not_requested) | [optional]
 **token_valid** | Option<**bool**> |  | [optional]
 **token_expires_at** | Option<**String**> |  | [optional]
 **needs_reconnect** | Option<**bool**> | True when the token is expired or revoked, permissions are missing, the account is inactive, or the platform rejected its stored credentials (the same flag the account listing reports as needsReconnection). | [optional]
