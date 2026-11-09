@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **platform** | Option<**String**> | Upstream platform (e.g. meta, google, tiktok), present when type is platform_error. | [optional]
 **platform_error** | Option<**std::collections::HashMap<String, serde_json::Value>**> | Raw error payload from the upstream platform, passed through verbatim so integrators can read provider-specific codes. For Meta this includes error_subcode, error_user_title, and error_user_msg.  | [optional]
 **details** | Option<[**models::ErrorResponseDetails**](ErrorResponseDetails.md)> |  | [optional]
-**funding_url** | **String** | Dashboard link to Billing that opens the top-up drawer (the add-card drawer first when there is no card). Send the user there, then retry. | 
+**funding_url** | **String** | Dashboard link to Billing that opens the Add funds drawer (the add-card drawer first when there is no card). Send the user there, then retry. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
