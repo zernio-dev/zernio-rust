@@ -185,19 +185,19 @@ Name | Type | Description  | Required | Notes
 > models::FollowerStatsResponse get_follower_stats(account_ids, profile_id, from_date, to_date, granularity, limit, cursor)
 Get follower stats
 
-Returns follower count history and growth metrics for connected accounts. Requires analytics add-on subscription. Follower counts are refreshed once per day. 
+Returns follower count history and growth metrics for connected accounts. Requires analytics add-on subscription. Follower counts are refreshed once per day.  ### Limits  - At most 25 accounts per request: up to 25 `accountIds`, or a page of accounts. More than 25 `accountIds` returns 400. - Without `accountIds`, the response is the first page of 25 accounts even when `limit` and `cursor` are omitted. Pass `pagination.nextCursor` back as `cursor` for the next one. - When that default page cuts the list, the response also carries a `warning` and the headers `X-Result-Truncated: true` and `X-Result-Limit: 25`. - At most 1 year between `fromDate` and `toDate`. A longer range returns 400. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_ids** | Option<**String**> | Comma-separated list of account IDs (optional, defaults to all user's accounts) |  |
+**account_ids** | Option<**String**> | Comma-separated list of up to 25 account IDs. Optional: without it, the response pages through all your accounts. |  |
 **profile_id** | Option<**String**> | Filter by profile ID |  |
-**from_date** | Option<**String**> | Start date in YYYY-MM-DD format (defaults to 30 days ago) |  |
+**from_date** | Option<**String**> | Start date in YYYY-MM-DD format (defaults to one year before toDate). At most one year before toDate. |  |
 **to_date** | Option<**String**> | End date in YYYY-MM-DD format (defaults to today) |  |
 **granularity** | Option<**String**> | Data aggregation level |  |[default to daily]
-**limit** | Option<**i32**> | Accounts per page, ordered by account id. Send it to page through accounts; the response then carries `pagination.nextCursor`. Without limit or cursor every matching account is returned. |  |
+**limit** | Option<**i32**> | Accounts per page, ordered by account id; the response carries `pagination.nextCursor`. Without limit or cursor, a request without accountIds still gets a first page of 25. |  |
 **cursor** | Option<**String**> | Opaque cursor from a previous response's `pagination.nextCursor`; returns the next page of `limit` accounts (25 when limit is omitted). A cursor we cannot parse returns 400. |  |
 
 ### Return type
@@ -375,7 +375,7 @@ Name | Type | Description  | Required | Notes
 > models::AccountsListResponse list_accounts(profile_id, platform, status, search, category, sort, order, include_over_limit, exclude_hidden, platforms, ad_account_rows, include_creator_accounts, include_sandbox, include_status_counts, page, limit, cursor, profile_ids, per_profile)
 List accounts
 
-Returns connected accounts. Only includes accounts within the plan limit by default. Follower data requires analytics add-on.  ### Pagination  Server-side pagination is optional. When omitted, returns all accounts (backward-compatible).  - Cursor paging: send `limit` alone for the first page, then pass `pagination.nextCursor` back as `cursor` until it is null. Pages are ordered by account id, so accounts added or removed between calls never shift a page. Cannot be combined with `page`, `sort` or `perProfile`. - Offset paging: send `page` and `limit` together. Out-of-range page/limit values are rejected with 400 rather than silently clamped. 
+Returns connected accounts. Only includes accounts within the plan limit by default. Follower data requires analytics add-on.  ### Pagination  Server-side pagination is optional. When omitted, the dashboard gets every account, while an API key or OAuth app gets at most 500: the first cursor page, ordered by account id.  When that cap cuts the list, the response carries `warning` and `pagination.nextCursor`, plus the `X-Result-Truncated: true` and `X-Result-Limit: 500` headers. Pass `nextCursor` back as `cursor` (with `limit`) to list the rest.  - Cursor paging: send `limit` alone for the first page, then pass `pagination.nextCursor` back as `cursor` until it is null. Pages are ordered by account id, so accounts added or removed between calls never shift a page. Cannot be combined with `page`, `sort` or `perProfile`. - Offset paging: send `page` and `limit` together. Out-of-range page/limit values are rejected with 400 rather than silently clamped. 
 
 ### Parameters
 
@@ -396,7 +396,7 @@ Name | Type | Description  | Required | Notes
 **include_creator_accounts** | Option<**bool**> | When true, also lists the accounts creators connected to your creator campaigns. They sit on creator profiles, which `GET /v1/profiles` does not list, and are left out by default.  Asking for one creator profile by `profileId` lists its accounts either way. Applied before pagination. Accepts `true` or `false` in any letter case; any other value returns 400.  |  |[default to false]
 **include_sandbox** | Option<**bool**> | When true, appends the shared WhatsApp sandbox account and the iMessage sandbox account to the list when they are active, honouring `platform` but no other filter.  Ignored on a paginated request (page, limit or cursor) and together with `perProfile`. Accepts `true` or `false` in any letter case; any other value returns 400.  |  |[default to false]
 **include_status_counts** | Option<**bool**> | When true, the response carries `statusCounts`: how many accounts match every other filter of the request (with `status` lifted) in total and how many of those need a reconnection. Accepts `true` or `false` in any letter case; any other value returns 400.  |  |[default to false]
-**page** | Option<**i32**> | Page number (1-based) for offset paging. Requires limit; omit page, limit and cursor for all accounts.  |  |
+**page** | Option<**i32**> | Page number (1-based) for offset paging. Requires limit; omit page, limit and cursor for an unpaged listing (at most 500 accounts for an API key or OAuth app).  |  |
 **limit** | Option<**i32**> | Page size. With page, an offset page; alone or with cursor, a cursor page.  |  |
 **cursor** | Option<**String**> | Opaque cursor from a previous response's `pagination.nextCursor`; returns the next page of `limit` accounts (500 when limit is omitted). A cursor we cannot parse returns 400. Cannot be combined with page. |  |
 **profile_ids** | Option<**String**> | Comma-separated profile IDs (up to 50) to preview, together with perProfile. The response then also carries `profileTotals`. |  |
