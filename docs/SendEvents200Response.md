@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **stored** | Option<**bool**> | Whether the events were stored for reporting (always false with testCode). | [optional]
 **test_code** | Option<**String**> | The test code forwarded to every destination, or `null` when the request carried none. | [optional]
 **destinations** | Option<[**Vec<models::SendEvents200ResponseDestinationsInner>**](SendEvents200ResponseDestinationsInner.md)> |  | [optional]
+**queued_destinations** | Option<**i32**> | Destinations whose sends were queued (all of them with `mode: async`, retries with `sync`). | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

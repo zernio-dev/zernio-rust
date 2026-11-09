@@ -1329,6 +1329,8 @@ docs/GetDsaDefaults200ResponseDsaDefaults.md
 docs/GetDsaRecommendations200Response.md
 docs/GetEmailThread200Response.md
 docs/GetEmailThread200ResponseData.md
+docs/GetEvent200Response.md
+docs/GetEvent200ResponseDeliveriesInner.md
 docs/GetFacebookDemographics200Response.md
 docs/GetFacebookDemographics200ResponseDemographics.md
 docs/GetFacebookDemographics200ResponseDemographicsCountryInner.md
@@ -2016,10 +2018,6 @@ docs/ListEmailMessages200Response.md
 docs/ListEmailThreads200Response.md
 docs/ListEventDestinations200Response.md
 docs/ListEvents200Response.md
-docs/ListEvents200ResponseEventsInner.md
-docs/ListEvents200ResponseEventsInnerAd.md
-docs/ListEvents200ResponseEventsInnerClickIds.md
-docs/ListEvents200ResponseEventsInnerUtm.md
 docs/ListFacebookPages200Response.md
 docs/ListFacebookPages200ResponsePagesInner.md
 docs/ListFacebookTaggedPosts200Response.md
@@ -2643,6 +2641,7 @@ docs/SendEmailRequestAttachmentsInner.md
 docs/SendEvents200Response.md
 docs/SendEvents200ResponseDestinationsInner.md
 docs/SendEvents200ResponseDestinationsInnerFailuresInner.md
+docs/SendEvents202Response.md
 docs/SendEventsRequest.md
 docs/SendEventsRequestConsent.md
 docs/SendEventsRequestDestinationsInner.md
@@ -2788,6 +2787,10 @@ docs/StartWhatsAppCallerIdVerification200Response.md
 docs/StartWhatsAppCallerIdVerificationRequest.md
 docs/StorePixelInstall.md
 docs/StorePixelInstallTagsInner.md
+docs/StoredEvent.md
+docs/StoredEventAd.md
+docs/StoredEventClickIds.md
+docs/StoredEventUtm.md
 docs/SubmitCreatorPost201Response.md
 docs/SubmitCreatorPostRequest.md
 docs/SubmitFeedbackRequest.md
@@ -4901,6 +4904,8 @@ src/models/get_dsa_defaults_200_response_dsa_defaults.rs
 src/models/get_dsa_recommendations_200_response.rs
 src/models/get_email_thread_200_response.rs
 src/models/get_email_thread_200_response_data.rs
+src/models/get_event_200_response.rs
+src/models/get_event_200_response_deliveries_inner.rs
 src/models/get_facebook_demographics_200_response.rs
 src/models/get_facebook_demographics_200_response_demographics.rs
 src/models/get_facebook_demographics_200_response_demographics_country_inner.rs
@@ -5573,10 +5578,6 @@ src/models/list_email_messages_200_response.rs
 src/models/list_email_threads_200_response.rs
 src/models/list_event_destinations_200_response.rs
 src/models/list_events_200_response.rs
-src/models/list_events_200_response_events_inner.rs
-src/models/list_events_200_response_events_inner_ad.rs
-src/models/list_events_200_response_events_inner_click_ids.rs
-src/models/list_events_200_response_events_inner_utm.rs
 src/models/list_facebook_pages_200_response.rs
 src/models/list_facebook_pages_200_response_pages_inner.rs
 src/models/list_facebook_tagged_posts_200_response.rs
@@ -6186,6 +6187,7 @@ src/models/send_email_request_attachments_inner.rs
 src/models/send_events_200_response.rs
 src/models/send_events_200_response_destinations_inner.rs
 src/models/send_events_200_response_destinations_inner_failures_inner.rs
+src/models/send_events_202_response.rs
 src/models/send_events_request.rs
 src/models/send_events_request_consent.rs
 src/models/send_events_request_destinations_inner.rs
@@ -6328,6 +6330,10 @@ src/models/start_whats_app_caller_id_verification_200_response.rs
 src/models/start_whats_app_caller_id_verification_request.rs
 src/models/store_pixel_install.rs
 src/models/store_pixel_install_tags_inner.rs
+src/models/stored_event.rs
+src/models/stored_event_ad.rs
+src/models/stored_event_click_ids.rs
+src/models/stored_event_utm.rs
 src/models/submit_creator_post_201_response.rs
 src/models/submit_creator_post_request.rs
 src/models/submit_feedback_request.rs

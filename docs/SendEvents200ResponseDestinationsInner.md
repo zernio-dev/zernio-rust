@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **events_failed** | Option<**i32**> |  | [optional]
 **failures** | Option<[**Vec<models::SendEvents200ResponseDestinationsInnerFailuresInner>**](SendEvents200ResponseDestinationsInnerFailuresInner.md)> |  | [optional]
 **error** | Option<**String**> | Set when the destination could not be reached at all (account disconnected, unsupported platform, platform error). | [optional]
+**retrying** | Option<**bool**> | The destination failed for now (platform error, timeout, rate limit) and the send is queued for retries; its outcome shows on GET /v1/events/{eventId}. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
