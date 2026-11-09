@@ -5,7 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | Zernio lead ID (AdLead document ID) | 
-**leadgen_id** | **String** | Meta lead ID (the platform's leadgen_id) | 
+**platform** | Option<**Platform**> | The ad network the lead came from. (enum: meta, google, linkedin, tiktok, ) | [optional]
+**leadgen_id** | **String** | The network's lead id: Meta's leadgen_id, or the Google lead form submission id | 
 **form_id** | **String** | Lead Gen form ID the lead was submitted against | 
 **form_name** | Option<**String**> | Human-readable form name (best-effort; may be null) | [optional]
 **ad_id** | Option<**String**> | Meta ad ID that drove the lead (null for organic/test leads) | [optional]

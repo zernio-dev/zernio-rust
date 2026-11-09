@@ -5,7 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**String**> | Zernio lead id. | [optional]
-**leadgen_id** | Option<**String**> | Meta lead id. On LinkedIn, the leadFormResponse id. | [optional]
+**platform** | Option<**Platform**> | The ad network the lead came from. (enum: meta, google, linkedin, tiktok, ) | [optional]
+**leadgen_id** | Option<**String**> | Meta lead id. On Google, the lead form submission id; on LinkedIn, the leadFormResponse id. | [optional]
 **form_id** | Option<**String**> |  | [optional]
 **form_name** | Option<**String**> |  | [optional]
 **account_id** | Option<**String**> |  | [optional]

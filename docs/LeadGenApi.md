@@ -276,7 +276,7 @@ Name | Type | Description  | Required | Notes
 > models::ListLeads200Response list_leads(form_id, account_id, account_ids, status, campaign_id, platform, q, ad_account_id, limit, since, cursor)
 List submitted leads
 
-Lists the leads submitted through your Meta or LinkedIn lead forms, newest first.  Returns submitted Lead Gen leads for your team, newest-first, with keyset pagination on `cursor`. Requires the Ads add-on.  ### Meta (default)  Leads are served from the persisted cache, ingested in real time from the `leadgen` webhook.  ### LinkedIn  When `accountId` is a LinkedIn ads account, `adAccountId` is required. Leads are fetched live from LinkedIn's `leadFormResponses`: LinkedIn has no webhook and enforces 90-day retention, so nothing is persisted.  Reading LinkedIn responses needs the `r_marketing_leadgen_automation` permission. Accounts connected before it was added must reconnect. 
+Lists the leads submitted through your Meta, Google or LinkedIn lead forms, newest first.  Returns submitted Lead Gen leads for your team, newest-first, with keyset pagination on `cursor`. Requires the Ads add-on.  ### Meta (default)  Leads are served from the persisted cache, ingested in real time from the `leadgen` webhook.  ### Google  Google lead form submissions are stored like Meta leads and listed with them, usually within 15 minutes of the submission.  - Each lead says its network in `platform` (`meta`, `google`, `linkedin`), and `platform=google` lists only Google leads. - `leadgenId` is the submission id and `formId` the lead form asset id. - Answers are keyed like Meta's (`email`, `phone_number`, `full_name`), custom questions by their text. - Statuses work as for Meta leads.  ### LinkedIn  When `accountId` is a LinkedIn ads account, `adAccountId` is required. Leads are fetched live from LinkedIn's `leadFormResponses`: LinkedIn has no webhook and enforces 90-day retention, so nothing is persisted.  Reading LinkedIn responses needs the `r_marketing_leadgen_automation` permission. Accounts connected before it was added must reconnect. 
 
 ### Parameters
 
@@ -288,7 +288,7 @@ Name | Type | Description  | Required | Notes
 **account_ids** | Option<**String**> | Meta only. Comma-separated connected account ids, to list several accounts at once. Without accountId or accountIds every account of the team is listed. |  |
 **status** | Option<**String**> | Meta only. Comma-separated lead statuses: new, contacted, unreachable, qualified, converted, disqualified. |  |
 **campaign_id** | Option<**String**> | Meta only. The platform campaign id the lead came from. |  |
-**platform** | Option<**String**> | meta skips the LinkedIn live fetch; linkedin requires accountId to be a LinkedIn ads connection (400 otherwise). |  |
+**platform** | Option<**String**> | Only leads of this network. meta and google list stored leads of that network (no LinkedIn live fetch); linkedin requires accountId to be a LinkedIn ads connection (400 otherwise). Without it, every stored network is listed, and an accountId that is a LinkedIn ads connection switches to the live fetch. |  |
 **q** | Option<**String**> | Meta only. Case-insensitive text search over the lead's answers and the form name. |  |
 **ad_account_id** | Option<**String**> | LinkedIn only: the LinkedIn ad account id whose responses to read (owner-scoped finder). |  |
 **limit** | Option<**i32**> |  |  |[default to 25]
