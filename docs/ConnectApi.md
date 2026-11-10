@@ -28,6 +28,7 @@ Method | HTTP request | Description
 [**get_connect_handoff**](ConnectApi.md#get_connect_handoff) | **GET** /v1/connect/handoffs/{handoffId} | Get a phone handoff
 [**get_connect_url**](ConnectApi.md#get_connect_url) | **GET** /v1/connect/{platform} | Get OAuth connect URL
 [**get_connect_welcome_screen**](ConnectApi.md#get_connect_welcome_screen) | **GET** /v1/connect/welcome-screen | Get the saved welcome screen
+[**get_email_connect_url**](ConnectApi.md#get_email_connect_url) | **GET** /v1/connect/email | Get a hosted link to connect any mailbox
 [**get_facebook_pages**](ConnectApi.md#get_facebook_pages) | **GET** /v1/accounts/{accountId}/facebook-page | List Facebook pages
 [**get_gmb_locations**](ConnectApi.md#get_gmb_locations) | **GET** /v1/accounts/{accountId}/gmb-locations | List Google Business Profile locations
 [**get_google_analytics_connect_url**](ConnectApi.md#get_google_analytics_connect_url) | **GET** /v1/connect/googleanalytics | Get Google Analytics OAuth connect URL
@@ -831,6 +832,40 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**models::ConnectWelcomeScreen**](ConnectWelcomeScreen.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_email_connect_url
+
+> models::GetEmailConnectUrl200Response get_email_connect_url(profile_id, redirect_url, email, name, reconnect_account_id)
+Get a hosted link to connect any mailbox
+
+One link for any address. The page asks for the email first, sends Gmail, Google Workspace, Outlook.com and Microsoft 365 (found by domain or MX) to their OAuth connect, and every other mailbox to IMAP with the provider's app-password steps. Valid for one hour.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**profile_id** | **String** |  | [required] |
+**redirect_url** | Option<**String**> | Where the page sends the user afterwards, with status, accountId, platform and email (or status=error and error). |  |
+**email** | Option<**String**> | Prefills the address and skips the first screen. |  |
+**name** | Option<**String**> | Display name for sent mail; the page asks for it when absent. |  |
+**reconnect_account_id** | Option<**String**> | Opens the reconnect variant for an IMAP account: only the new password is asked for, and the accountId stays the same. |  |
+
+### Return type
+
+[**models::GetEmailConnectUrl200Response**](getEmailConnectUrl_200_response.md)
 
 ### Authorization
 

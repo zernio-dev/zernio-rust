@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **name** | **String** |  | 
 **brand_name** | **String** |  | 
 **status** | **Status** | draft until activated; active accepts submissions and accrues; paused stops new submissions; closed is final. (enum: draft, active, paused, closed) | 
-**r#type** | **Type** | Same as economics.type. (enum: cpm, per_post, pool) | 
+**r#type** | **Type** | Same as economics.type. (enum: cpm, per_post, pool, retainer, commission, ad_performance) | 
 **currency** | **String** |  | 
 **platforms** | **Vec<Platforms>** |  (enum: tiktok, instagram, youtube, threads, pinterest, facebook, twitter) | 
 **content_rules** | Option<**String**> | Free-text rules shown to creators on the join page. | 
@@ -28,6 +28,11 @@ Name | Type | Description | Notes
 **budget_exhausted_at** | Option<**String**> |  | 
 **closed_at** | Option<**String**> |  | 
 **payable_scanned_at** | Option<**String**> | Internal watermark of the payable scan. | 
+**join_approval** | **JoinApproval** | auto: creators who join through the open link are active at once. manual: they land `pending` until you approve or deny them. Personal invites are never held. (enum: auto, manual) | 
+**require_draft_approval** | **bool** | Creators upload a draft for review first, and submit the live post for an approved draft (`draftId`). | 
+**store_account_id** | Option<**String**> | The connected store (Shopify or WooCommerce) whose orders pay commission and whose products creators can ask as samples. Null when the campaign has neither. | 
+**sample_products** | [**Vec<models::CreatorCampaignSampleProduct>**](CreatorCampaignSampleProduct.md) | Products creators can ask a free sample of. | 
+**sample_content_due_days** | **i32** | Days after a sample is approved before a creator with no post since shows as owing content (`contentOwed`). | 
 **created_at** | **String** |  | 
 **updated_at** | **String** |  | 
 **has_open_invite** | **bool** | True once an open invite link was created. The link itself is returned only when it is created. | 
@@ -35,6 +40,11 @@ Name | Type | Description | Notes
 **participant_count** | **i32** |  | 
 **submission_counts** | [**models::CampaignSubmissionCounts**](CampaignSubmissionCounts.md) |  | 
 **payable_cents** | **i32** | What the campaign's creators can be paid now, summed over every participant's payable balance. | 
+**landing_url** | Option<**String**> | The page creator tracking links open. | [optional]
+**code_discount_percent** | Option<**i32**> | What each creator discount code takes off. | [optional]
+**pending_participant_count** | **i32** | Creators who asked to join through the open link and wait for a decision. Not counted in `participantCount`. | 
+**draft_counts** | [**models::CampaignDraftCounts**](CampaignDraftCounts.md) |  | 
+**sample_counts** | [**models::CampaignSampleCounts**](CampaignSampleCounts.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

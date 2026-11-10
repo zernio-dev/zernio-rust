@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **id** | **String** |  | 
 **campaign_id** | **String** |  | 
 **creator** | [**models::CampaignParticipantCreator**](CampaignParticipantCreator.md) |  | 
-**status** | **Status** |  (enum: invited, active, suspended, removed) | 
+**status** | **Status** |  (enum: invited, pending, active, suspended, removed, denied) | 
 **joined_at** | Option<**String**> |  | 
 **accounts** | [**Vec<models::CampaignParticipantAccountsInner>**](CampaignParticipantAccountsInner.md) | Social accounts the creator connected, verified once Zernio confirmed the creator owns them. | 
 **balances** | [**models::CampaignParticipantBalances**](CampaignParticipantBalances.md) |  | 

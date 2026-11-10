@@ -21,6 +21,10 @@ Name | Type | Description | Notes
 **hold_days** | **i32** | Days approved earnings stay owed before they become payable. | 
 **tracking_days** | **i32** | Days each submitted post is tracked for views. | 
 **max_accounts_per_participant** | Option<**i32**> | How many connected accounts can submit posts. Null means no limit. | 
+**join_approval** | **JoinApproval** | manual: a creator who joins through the open link waits `pending` until the campaign team accepts them. (enum: auto, manual) | 
+**require_draft_approval** | **bool** | The creator uploads a draft for review first, and submits the live post for an approved draft. | 
+**sample_products** | [**Vec<models::CreatorCampaignSampleProduct>**](CreatorCampaignSampleProduct.md) | Products the creator can ask a free sample of; empty when the campaign offers none. | 
+**sample_content_due_days** | **i32** | Days after a sample is approved by which a post is expected. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

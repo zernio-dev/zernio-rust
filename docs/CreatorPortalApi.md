@@ -9,10 +9,14 @@ Method | HTTP request | Description
 [**get_creator_payouts**](CreatorPortalApi.md#get_creator_payouts) | **GET** /public/creator-campaigns/{token}/payouts | List a creator's earnings history
 [**get_creator_portal**](CreatorPortalApi.md#get_creator_portal) | **GET** /public/creator-campaigns/{token} | Read a creator invite or participant page
 [**join_creator_campaign**](CreatorPortalApi.md#join_creator_campaign) | **POST** /public/creator-campaigns/{token} | Join a campaign
+[**presign_creator_draft_upload**](CreatorPortalApi.md#presign_creator_draft_upload) | **POST** /public/creator-campaigns/{token}/drafts/upload | Get an upload URL for a draft
 [**recover_creator_portal_links**](CreatorPortalApi.md#recover_creator_portal_links) | **POST** /public/creator-campaigns/recover-link | Email a creator their campaign links
 [**remove_creator_account**](CreatorPortalApi.md#remove_creator_account) | **DELETE** /public/creator-campaigns/{token}/accounts/{accountId} | Remove a connected account
+[**request_creator_sample**](CreatorPortalApi.md#request_creator_sample) | **POST** /public/creator-campaigns/{token}/samples | Request a product sample
+[**set_creator_spark_code**](CreatorPortalApi.md#set_creator_spark_code) | **PUT** /public/creator-campaigns/{token}/submissions/{submissionId}/spark-code | Set a post's Spark code
 [**start_creator_connect**](CreatorPortalApi.md#start_creator_connect) | **POST** /public/creator-campaigns/{token}/connect | Start connecting a creator account
 [**start_creator_payouts**](CreatorPortalApi.md#start_creator_payouts) | **POST** /public/creator-campaigns/{token}/payouts | Start payout onboarding
+[**submit_creator_draft**](CreatorPortalApi.md#submit_creator_draft) | **POST** /public/creator-campaigns/{token}/drafts | Submit a draft for review
 [**submit_creator_post**](CreatorPortalApi.md#submit_creator_post) | **POST** /public/creator-campaigns/{token}/submissions | Submit a post
 
 
@@ -115,7 +119,7 @@ No authorization required
 > models::GetCreatorPortal200Response get_creator_portal(token)
 Read a creator invite or participant page
 
-What a creator sees behind a campaign link, with no API key. Never cached.  `token` is one of:  - An open invite token (from `POST /v1/creator-campaigns/{campaignId}/invite-link`): answers `kind: invite` with the campaign only. - A participant token (from an invite or a join): answers `kind: participant` with the creator's connected accounts, latest 100 submissions, earnings and payout setup.  Reading a participant page also re-checks the creator's connected accounts. 
+What a creator sees behind a campaign link, with no API key. Never cached.  `token` is one of:  - An open invite token (from `POST /v1/creator-campaigns/{campaignId}/invite-link`): answers `kind: invite` with the campaign only. - A participant token (from an invite or a join): answers `kind: participant` with the creator's connected accounts, latest 100 submissions, draft versions, sample requests, earnings and payout setup. A creator held for approval reads it with `participant.status` `pending` (or `denied` once turned away).  Reading a participant page also re-checks the creator's connected accounts. 
 
 ### Parameters
 
@@ -145,7 +149,7 @@ No authorization required
 > models::JoinCreatorCampaign201Response join_creator_campaign(token, join_creator_campaign_request)
 Join a campaign
 
-Accepts a participant invite, or joins through an open invite link.  - Participant token: the body is ignored and the invite is accepted. - Open invite token: a new participant is created from `displayName` (required) and `email` (optional), and a fresh participant token comes back. Keep it: it is the creator's only key to their page.  Open-link joins are limited to about 20 per IP address and 60 per link every 10 minutes. 
+Accepts a participant invite, or joins through an open invite link.  - Participant token: the body is ignored and the invite is accepted. - Open invite token: a new participant is created from `displayName` (required) and `email` (optional), and a fresh participant token comes back. Keep it: it is the creator's only key to their page. - On a campaign with `joinApproval: manual`, an open-link joiner lands `pending` and `campaign_participant.pending` fires instead of `campaign_participant.joined`. A pending creator holds no place under `caps.maxParticipants` (the limit is checked when the operator approves them) and cannot submit posts, drafts or sample requests until approved. Personal invites always get straight in.  Open-link joins are limited to about 20 per IP address and 60 per link every 10 minutes. 
 
 ### Parameters
 
@@ -158,6 +162,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::JoinCreatorCampaign201Response**](joinCreatorCampaign_201_response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## presign_creator_draft_upload
+
+> models::PresignCreatorDraftUpload200Response presign_creator_draft_upload(token, presign_creator_draft_upload_request)
+Get an upload URL for a draft
+
+Returns a presigned URL to upload one draft file to, on a campaign with `requireDraftApproval`. `PUT` the file to `uploadUrl` with the same `Content-Type`, then pass `publicUrl` as `mediaUrl` to `POST /public/creator-campaigns/{token}/drafts`. The URL expires after `expiresIn` seconds.  Accepted files: MP4, MOV or WebM video, JPG, PNG or WebP image, up to 500 MB. About 20 uploads per participant every 10 minutes. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**token** | **String** | A participant token or an open invite token. A malformed token answers 404 like an unknown one. | [required] |
+**presign_creator_draft_upload_request** | [**PresignCreatorDraftUploadRequest**](PresignCreatorDraftUploadRequest.md) |  | [required] |
+
+### Return type
+
+[**models::PresignCreatorDraftUpload200Response**](presignCreatorDraftUpload_200_response.md)
 
 ### Authorization
 
@@ -232,6 +267,69 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## request_creator_sample
+
+> models::RequestCreatorSample201Response request_creator_sample(token, request_creator_sample_request)
+Request a product sample
+
+Asks for a free sample of one of the campaign's `sampleProducts`, shipped to `shippingAddress`, and fires `campaign_sample.requested`. The request waits for the campaign team; on approval the creator gets a single-use discount code for the product.  - A product with `variants` needs `variantId`. - One open request per product: asking again while one is pending, approved or shipped answers 409. A declined product can be asked again.  About 10 requests per participant every 10 minutes. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**token** | **String** | A participant token or an open invite token. A malformed token answers 404 like an unknown one. | [required] |
+**request_creator_sample_request** | [**RequestCreatorSampleRequest**](RequestCreatorSampleRequest.md) |  | [required] |
+
+### Return type
+
+[**models::RequestCreatorSample201Response**](requestCreatorSample_201_response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## set_creator_spark_code
+
+> models::SetCreatorSparkCode200Response set_creator_spark_code(token, submission_id, set_creator_spark_code_request)
+Set a post's Spark code
+
+The creator pastes the Spark code of one of their TikTok posts (generated in the TikTok app under the post's ad settings), so the brand can run the post as a Spark Ad under the creator's handle.  Send `null` to clear it. The code is never returned: submissions only expose `hasSparkCode`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**token** | **String** | A participant token or an open invite token. A malformed token answers 404 like an unknown one. | [required] |
+**submission_id** | **String** | The `id` of one of the participant's `submissions`. | [required] |
+**set_creator_spark_code_request** | [**SetCreatorSparkCodeRequest**](SetCreatorSparkCodeRequest.md) |  | [required] |
+
+### Return type
+
+[**models::SetCreatorSparkCode200Response**](setCreatorSparkCode_200_response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## start_creator_connect
 
 > models::StartCreatorConnect200Response start_creator_connect(token, start_creator_connect_request)
@@ -281,6 +379,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::StartCreatorPayouts200Response**](startCreatorPayouts_200_response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## submit_creator_draft
+
+> models::SubmitCreatorDraft201Response submit_creator_draft(token, submit_creator_draft_request)
+Submit a draft for review
+
+Sends a draft for the campaign team to review before the creator publishes, on a campaign with `requireDraftApproval`, and fires `campaign_draft.submitted`. `mediaUrl` must be a `publicUrl` from `POST /public/creator-campaigns/{token}/drafts/upload`.  ### Revisions  - Without `revisionOf` the draft starts a new chain at version 1. - With `revisionOf` it is the next version of that chain. Only one of the creator's own versions marked `revision_requested` takes a new version, and only once.  About 20 drafts per participant every 10 minutes. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**token** | **String** | A participant token or an open invite token. A malformed token answers 404 like an unknown one. | [required] |
+**submit_creator_draft_request** | [**SubmitCreatorDraftRequest**](SubmitCreatorDraftRequest.md) |  | [required] |
+
+### Return type
+
+[**models::SubmitCreatorDraft201Response**](submitCreatorDraft_201_response.md)
 
 ### Authorization
 

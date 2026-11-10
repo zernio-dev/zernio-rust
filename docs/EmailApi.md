@@ -8,11 +8,13 @@ Method | HTTP request | Description
 [**create_email_draft**](EmailApi.md#create_email_draft) | **POST** /v1/email/drafts | Create a draft
 [**create_email_label**](EmailApi.md#create_email_label) | **POST** /v1/email/labels | Create a label
 [**create_email_signature**](EmailApi.md#create_email_signature) | **POST** /v1/email/signatures | Create a signature
+[**create_imap_account**](EmailApi.md#create_imap_account) | **POST** /v1/email/imap/accounts | Connect an IMAP mailbox
 [**declare_email_send_as**](EmailApi.md#declare_email_send_as) | **POST** /v1/email/send-as | Declare a send-as address
 [**delete_email_draft**](EmailApi.md#delete_email_draft) | **DELETE** /v1/email/drafts/{draftId} | Delete a draft
 [**delete_email_label**](EmailApi.md#delete_email_label) | **DELETE** /v1/email/labels/{labelId} | Delete a label
 [**delete_email_send_as**](EmailApi.md#delete_email_send_as) | **DELETE** /v1/email/send-as/{email} | Remove a declared send-as address
 [**delete_email_signature**](EmailApi.md#delete_email_signature) | **DELETE** /v1/email/signatures/{signatureId} | Delete a signature
+[**discover_imap_settings**](EmailApi.md#discover_imap_settings) | **POST** /v1/email/imap/discover | Find the mail settings for an address
 [**download_email_attachment**](EmailApi.md#download_email_attachment) | **GET** /v1/email/attachments/{attachmentId} | Download an attachment
 [**forward_email_message**](EmailApi.md#forward_email_message) | **POST** /v1/email/messages/{messageId}/forward | Forward a message
 [**get_email_draft**](EmailApi.md#get_email_draft) | **GET** /v1/email/drafts/{draftId} | Get a draft
@@ -149,6 +151,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::CreateEmailSignature201Response**](createEmailSignature_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_imap_account
+
+> models::ImapConnectResult create_imap_account(create_imap_account_request)
+Connect an IMAP mailbox
+
+Connects any IMAP/SMTP mailbox without the hosted page. Email and password are enough when discovery finds the servers. Every check runs before anything is stored; a failure answers 422 with the failing stage's code. An address already on the profile is updated in place and keeps its accountId.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_imap_account_request** | [**CreateImapAccountRequest**](CreateImapAccountRequest.md) |  | [required] |
+
+### Return type
+
+[**models::ImapConnectResult**](ImapConnectResult.md)
 
 ### Authorization
 
@@ -306,6 +338,36 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## discover_imap_settings
+
+> models::DiscoverImapSettings200Response discover_imap_settings(discover_imap_settings_request)
+Find the mail settings for an address
+
+The routing decision the hosted page makes, for your own connect form: Google or Microsoft OAuth, IMAP with the servers and the provider's app-password steps, or unsupported. Sources run in parallel inside 15 seconds: presets, MX, autoconfig, Thunderbird's ISPDB (sent the domain only), SRV records, then a probe.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**discover_imap_settings_request** | [**DiscoverImapSettingsRequest**](DiscoverImapSettingsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::DiscoverImapSettings200Response**](discoverImapSettings_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

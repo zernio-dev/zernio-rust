@@ -48,12 +48,23 @@ Method | HTTP request | Description
 [**on_call_transcript_segment**](WebhookEventsApi.md#on_call_transcript_segment) | **POST** /call.transcript_segment | Call transcript segment event
 [**on_campaign_budget_depleted**](WebhookEventsApi.md#on_campaign_budget_depleted) | **POST** /campaign.budget.depleted | Campaign budget depleted event
 [**on_campaign_created**](WebhookEventsApi.md#on_campaign_created) | **POST** /campaign.created | Campaign created event
+[**on_campaign_draft_approved**](WebhookEventsApi.md#on_campaign_draft_approved) | **POST** /campaign_draft.approved | Campaign draft approved event
+[**on_campaign_draft_rejected**](WebhookEventsApi.md#on_campaign_draft_rejected) | **POST** /campaign_draft.rejected | Campaign draft rejected event
+[**on_campaign_draft_revision_requested**](WebhookEventsApi.md#on_campaign_draft_revision_requested) | **POST** /campaign_draft.revision_requested | Campaign draft revision requested event
+[**on_campaign_draft_submitted**](WebhookEventsApi.md#on_campaign_draft_submitted) | **POST** /campaign_draft.submitted | Campaign draft submitted event
+[**on_campaign_participant_approved**](WebhookEventsApi.md#on_campaign_participant_approved) | **POST** /campaign_participant.approved | Campaign participant approved event
+[**on_campaign_participant_denied**](WebhookEventsApi.md#on_campaign_participant_denied) | **POST** /campaign_participant.denied | Campaign participant denied event
 [**on_campaign_participant_joined**](WebhookEventsApi.md#on_campaign_participant_joined) | **POST** /campaign_participant.joined | Campaign participant joined event
+[**on_campaign_participant_pending**](WebhookEventsApi.md#on_campaign_participant_pending) | **POST** /campaign_participant.pending | Campaign participant pending event
 [**on_campaign_participant_removed**](WebhookEventsApi.md#on_campaign_participant_removed) | **POST** /campaign_participant.removed | Campaign participant removed event
 [**on_campaign_participant_suspended**](WebhookEventsApi.md#on_campaign_participant_suspended) | **POST** /campaign_participant.suspended | Campaign participant suspended event
 [**on_campaign_payout_failed**](WebhookEventsApi.md#on_campaign_payout_failed) | **POST** /campaign_payout.failed | Campaign payout failed event
 [**on_campaign_payout_payable**](WebhookEventsApi.md#on_campaign_payout_payable) | **POST** /campaign_payout.payable | Campaign payout payable event
 [**on_campaign_payout_settled**](WebhookEventsApi.md#on_campaign_payout_settled) | **POST** /campaign_payout.settled | Campaign payout settled event
+[**on_campaign_sample_approved**](WebhookEventsApi.md#on_campaign_sample_approved) | **POST** /campaign_sample.approved | Campaign sample approved event
+[**on_campaign_sample_declined**](WebhookEventsApi.md#on_campaign_sample_declined) | **POST** /campaign_sample.declined | Campaign sample declined event
+[**on_campaign_sample_requested**](WebhookEventsApi.md#on_campaign_sample_requested) | **POST** /campaign_sample.requested | Campaign sample requested event
+[**on_campaign_sample_shipped**](WebhookEventsApi.md#on_campaign_sample_shipped) | **POST** /campaign_sample.shipped | Campaign sample shipped event
 [**on_campaign_submission_approved**](WebhookEventsApi.md#on_campaign_submission_approved) | **POST** /campaign_submission.approved | Campaign submission approved event
 [**on_campaign_submission_flagged**](WebhookEventsApi.md#on_campaign_submission_flagged) | **POST** /campaign_submission.flagged | Campaign submission flagged event
 [**on_campaign_submission_pending_review**](WebhookEventsApi.md#on_campaign_submission_pending_review) | **POST** /campaign_submission.pending_review | Campaign submission pending review event
@@ -1470,12 +1481,222 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## on_campaign_draft_approved
+
+> on_campaign_draft_approved(webhook_payload_campaign_draft)
+Campaign draft approved event
+
+You approved a draft version.  ### Effect  The creator can now publish it and submit the post with its `draftId`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_draft** | [**WebhookPayloadCampaignDraft**](WebhookPayloadCampaignDraft.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_draft_rejected
+
+> on_campaign_draft_rejected(webhook_payload_campaign_draft)
+Campaign draft rejected event
+
+You rejected a draft version.  ### Effect  It can never back a post, and it gets no new version. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_draft** | [**WebhookPayloadCampaignDraft**](WebhookPayloadCampaignDraft.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_draft_revision_requested
+
+> on_campaign_draft_revision_requested(webhook_payload_campaign_draft)
+Campaign draft revision requested event
+
+You asked for changes to a draft version.  ### Comments  `draft.comments` lists your notes, each with `atMs` for the moment of the video it points at, or null for a general note. The creator can upload one new version of it. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_draft** | [**WebhookPayloadCampaignDraft**](WebhookPayloadCampaignDraft.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_draft_submitted
+
+> on_campaign_draft_submitted(webhook_payload_campaign_draft)
+Campaign draft submitted event
+
+A creator uploaded a draft, or a new version of one, on a campaign with `requireDraftApproval`.  ### Versions  `draft.version` is 1 for a new draft, higher for a new version answering your requested changes, and `draft.revisionOf` names the version it answers. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_draft** | [**WebhookPayloadCampaignDraft**](WebhookPayloadCampaignDraft.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_participant_approved
+
+> on_campaign_participant_approved(webhook_payload_campaign_participant)
+Campaign participant approved event
+
+You accepted a creator who asked to join.  ### Effect  They are now `active` and `participant.joinedAt` is set. This event replaces `campaign_participant.joined` for them, so it fires instead of it, never with it. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_participant** | [**WebhookPayloadCampaignParticipant**](WebhookPayloadCampaignParticipant.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_participant_denied
+
+> on_campaign_participant_denied(webhook_payload_campaign_participant)
+Campaign participant denied event
+
+You turned down a creator who asked to join.  ### Effect  They cannot submit anything to this campaign. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_participant** | [**WebhookPayloadCampaignParticipant**](WebhookPayloadCampaignParticipant.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## on_campaign_participant_joined
 
 > on_campaign_participant_joined(webhook_payload_campaign_participant)
 Campaign participant joined event
 
 A creator joined a campaign from their invite link or the open link.  ### When it fires  It fires once per participant, and `participant.joinedAt` says when. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_participant** | [**WebhookPayloadCampaignParticipant**](WebhookPayloadCampaignParticipant.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_participant_pending
+
+> on_campaign_participant_pending(webhook_payload_campaign_participant)
+Campaign participant pending event
+
+A creator asked to join a campaign that reviews creators.  ### When it fires  A creator joined from the open link of a campaign whose `joinApproval` is `manual`. They wait as `pending` until you approve or deny them, and they do not take a place under `maxParticipants` while they wait. 
 
 ### Parameters
 
@@ -1633,6 +1854,126 @@ A payout to a participant was recorded.  ### Payload notes  `payout.settlement` 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_campaign_payout** | [**WebhookPayloadCampaignPayout**](WebhookPayloadCampaignPayout.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_sample_approved
+
+> on_campaign_sample_approved(webhook_payload_campaign_sample)
+Campaign sample approved event
+
+You approved a sample request.  ### Discount code  `sample.discountCode` is the single-use, 100% off code created in your store for that product. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_sample** | [**WebhookPayloadCampaignSample**](WebhookPayloadCampaignSample.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_sample_declined
+
+> on_campaign_sample_declined(webhook_payload_campaign_sample)
+Campaign sample declined event
+
+You declined a sample request.  ### Effect  `sample.declineReason` says why. The creator can ask for the same product again. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_sample** | [**WebhookPayloadCampaignSample**](WebhookPayloadCampaignSample.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_sample_requested
+
+> on_campaign_sample_requested(webhook_payload_campaign_sample)
+Campaign sample requested event
+
+A creator asked for one of the campaign's `sampleProducts`, with a shipping address. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_sample** | [**WebhookPayloadCampaignSample**](WebhookPayloadCampaignSample.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_campaign_sample_shipped
+
+> on_campaign_sample_shipped(webhook_payload_campaign_sample)
+Campaign sample shipped event
+
+You marked an approved sample as shipped.  ### Tracking  `sample.trackingUrl` is set when you gave one. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_sample** | [**WebhookPayloadCampaignSample**](WebhookPayloadCampaignSample.md) |  | [required] |
 
 ### Return type
 

@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **participant_id** | **String** |  | 
 **creator_id** | **String** |  | 
 **account_id** | **String** | The creator account the post was published from. | 
+**has_spark_code** | Option<**bool**> | The creator pasted a TikTok Spark code for this post, so it can launch as a Spark Ad. The code itself is never returned. | [optional]
 **platform** | **Platform** |  (enum: tiktok, instagram, youtube, threads, pinterest, facebook, twitter) | 
 **platform_post_id** | **String** |  | 
 **platform_post_url** | Option<**String**> |  | 
@@ -34,9 +35,10 @@ Name | Type | Description | Notes
 **authenticity_score** | Option<**i32**> |  | 
 **authenticity_confidence** | Option<**f64**> |  | 
 **flags** | [**Vec<models::CampaignSubmissionFlag>**](CampaignSubmissionFlag.md) |  | 
+**draft_id** | Option<**String**> | The approved draft this post publishes, on a campaign with `requireDraftApproval`. | 
 **created_at** | **String** |  | 
 **updated_at** | **String** |  | 
-**creator** | [**models::WebhookPayloadCampaignSubmissionCreator**](WebhookPayloadCampaignSubmissionCreator.md) |  | 
+**creator** | [**models::CreatorCampaignAdResultsSubmissionsInnerCreator**](CreatorCampaignAdResultsSubmissionsInnerCreator.md) |  | 
 **authenticity** | [**models::CampaignSubmissionAuthenticity**](CampaignSubmissionAuthenticity.md) |  | 
 **earned_cents** | **i32** | approvedCents once approved, otherwise accruedCents. | 
 **released_cents** | **i32** | Approved cents whose hold is over, so payable or already paid out. 0 unless approved. | 

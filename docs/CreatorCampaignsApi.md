@@ -5,6 +5,9 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**activate_creator_campaign**](CreatorCampaignsApi.md#activate_creator_campaign) | **POST** /v1/creator-campaigns/{campaignId}/activate | Activate creator campaign
+[**approve_campaign_draft**](CreatorCampaignsApi.md#approve_campaign_draft) | **POST** /v1/creator-campaigns/{campaignId}/drafts/{draftId}/approve | Approve campaign draft
+[**approve_campaign_participant**](CreatorCampaignsApi.md#approve_campaign_participant) | **POST** /v1/creator-campaigns/{campaignId}/participants/{participantId}/approve | Approve pending campaign participant
+[**approve_campaign_sample**](CreatorCampaignsApi.md#approve_campaign_sample) | **POST** /v1/creator-campaigns/{campaignId}/samples/{sampleId}/approve | Approve campaign sample request
 [**approve_campaign_submission**](CreatorCampaignsApi.md#approve_campaign_submission) | **POST** /v1/creator-campaigns/{campaignId}/submissions/{submissionId}/approve | Approve campaign submission
 [**close_creator_campaign**](CreatorCampaignsApi.md#close_creator_campaign) | **POST** /v1/creator-campaigns/{campaignId}/close | Close creator campaign
 [**create_campaign_adjustment**](CreatorCampaignsApi.md#create_campaign_adjustment) | **POST** /v1/creator-campaigns/{campaignId}/adjustments | Create campaign adjustment
@@ -12,14 +15,22 @@ Method | HTTP request | Description
 [**create_campaign_participant**](CreatorCampaignsApi.md#create_campaign_participant) | **POST** /v1/creator-campaigns/{campaignId}/participants | Invite campaign participant
 [**create_campaign_payout_batch**](CreatorCampaignsApi.md#create_campaign_payout_batch) | **POST** /v1/creator-campaigns/{campaignId}/payout-batches | Pay creators with one card payment
 [**create_creator_campaign**](CreatorCampaignsApi.md#create_creator_campaign) | **POST** /v1/creator-campaigns | Create creator campaign
+[**decline_campaign_sample**](CreatorCampaignsApi.md#decline_campaign_sample) | **POST** /v1/creator-campaigns/{campaignId}/samples/{sampleId}/decline | Decline campaign sample request
+[**deny_campaign_participant**](CreatorCampaignsApi.md#deny_campaign_participant) | **POST** /v1/creator-campaigns/{campaignId}/participants/{participantId}/deny | Deny pending campaign participant
+[**get_campaign_ad_results**](CreatorCampaignsApi.md#get_campaign_ad_results) | **GET** /v1/creator-campaigns/{campaignId}/ad-results | Get campaign ad results
+[**get_campaign_draft**](CreatorCampaignsApi.md#get_campaign_draft) | **GET** /v1/creator-campaigns/{campaignId}/drafts/{draftId} | Get campaign draft
 [**get_campaign_participant**](CreatorCampaignsApi.md#get_campaign_participant) | **GET** /v1/creator-campaigns/{campaignId}/participants/{participantId} | Get campaign participant
 [**get_campaign_report**](CreatorCampaignsApi.md#get_campaign_report) | **GET** /v1/creator-campaigns/{campaignId}/report | Get campaign report
 [**get_campaign_submission**](CreatorCampaignsApi.md#get_campaign_submission) | **GET** /v1/creator-campaigns/{campaignId}/submissions/{submissionId} | Get campaign submission
 [**get_creator_campaign**](CreatorCampaignsApi.md#get_creator_campaign) | **GET** /v1/creator-campaigns/{campaignId} | Get creator campaign
+[**launch_campaign_ads**](CreatorCampaignsApi.md#launch_campaign_ads) | **POST** /v1/creator-campaigns/{campaignId}/ads/launch | Launch campaign posts as ads
+[**list_campaign_drafts**](CreatorCampaignsApi.md#list_campaign_drafts) | **GET** /v1/creator-campaigns/{campaignId}/drafts | List campaign drafts
 [**list_campaign_ledger**](CreatorCampaignsApi.md#list_campaign_ledger) | **GET** /v1/creator-campaigns/{campaignId}/ledger | List campaign ledger
+[**list_campaign_orders**](CreatorCampaignsApi.md#list_campaign_orders) | **GET** /v1/creator-campaigns/{campaignId}/orders | List campaign orders
 [**list_campaign_participants**](CreatorCampaignsApi.md#list_campaign_participants) | **GET** /v1/creator-campaigns/{campaignId}/participants | List campaign participants
 [**list_campaign_payables**](CreatorCampaignsApi.md#list_campaign_payables) | **GET** /v1/creator-campaigns/{campaignId}/payables | List campaign payables
 [**list_campaign_payout_batches**](CreatorCampaignsApi.md#list_campaign_payout_batches) | **GET** /v1/creator-campaigns/{campaignId}/payout-batches | List payout batches
+[**list_campaign_samples**](CreatorCampaignsApi.md#list_campaign_samples) | **GET** /v1/creator-campaigns/{campaignId}/samples | List campaign sample requests
 [**list_campaign_submissions**](CreatorCampaignsApi.md#list_campaign_submissions) | **GET** /v1/creator-campaigns/{campaignId}/submissions | List campaign submissions
 [**list_creator_campaigns**](CreatorCampaignsApi.md#list_creator_campaigns) | **GET** /v1/creator-campaigns | List creator campaigns
 [**move_campaign_participant**](CreatorCampaignsApi.md#move_campaign_participant) | **POST** /v1/creator-campaigns/{campaignId}/participants/{participantId}/move | Move participant to another campaign
@@ -27,11 +38,14 @@ Method | HTTP request | Description
 [**preview_campaign_payout_batch**](CreatorCampaignsApi.md#preview_campaign_payout_batch) | **POST** /v1/creator-campaigns/{campaignId}/payout-batches/preview | Preview a payout batch
 [**raise_creator_campaign_budget**](CreatorCampaignsApi.md#raise_creator_campaign_budget) | **POST** /v1/creator-campaigns/{campaignId}/budget | Raise creator campaign budget
 [**reinstate_campaign_participant**](CreatorCampaignsApi.md#reinstate_campaign_participant) | **POST** /v1/creator-campaigns/{campaignId}/participants/{participantId}/reinstate | Reinstate campaign participant
+[**reject_campaign_draft**](CreatorCampaignsApi.md#reject_campaign_draft) | **POST** /v1/creator-campaigns/{campaignId}/drafts/{draftId}/reject | Reject campaign draft
 [**reject_campaign_submission**](CreatorCampaignsApi.md#reject_campaign_submission) | **POST** /v1/creator-campaigns/{campaignId}/submissions/{submissionId}/reject | Reject campaign submission
 [**remove_campaign_participant**](CreatorCampaignsApi.md#remove_campaign_participant) | **POST** /v1/creator-campaigns/{campaignId}/participants/{participantId}/remove | Remove campaign participant
 [**reopen_campaign_submission**](CreatorCampaignsApi.md#reopen_campaign_submission) | **POST** /v1/creator-campaigns/{campaignId}/submissions/{submissionId}/reopen | Reopen campaign submission
+[**request_campaign_draft_revision**](CreatorCampaignsApi.md#request_campaign_draft_revision) | **POST** /v1/creator-campaigns/{campaignId}/drafts/{draftId}/request-revision | Request changes on a campaign draft
 [**resend_campaign_participant_invite**](CreatorCampaignsApi.md#resend_campaign_participant_invite) | **POST** /v1/creator-campaigns/{campaignId}/participants/{participantId}/resend-invite | Resend campaign participant invite
 [**settle_campaign_participant**](CreatorCampaignsApi.md#settle_campaign_participant) | **POST** /v1/creator-campaigns/{campaignId}/participants/{participantId}/settle | Settle campaign participant
+[**ship_campaign_sample**](CreatorCampaignsApi.md#ship_campaign_sample) | **POST** /v1/creator-campaigns/{campaignId}/samples/{sampleId}/ship | Mark campaign sample shipped
 [**suspend_campaign_participant**](CreatorCampaignsApi.md#suspend_campaign_participant) | **POST** /v1/creator-campaigns/{campaignId}/participants/{participantId}/suspend | Suspend campaign participant
 [**update_creator_campaign**](CreatorCampaignsApi.md#update_creator_campaign) | **PATCH** /v1/creator-campaigns/{campaignId} | Update creator campaign
 
@@ -54,6 +68,102 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::CreateCreatorCampaign201Response**](createCreatorCampaign_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## approve_campaign_draft
+
+> models::ApproveCampaignDraft200Response approve_campaign_draft(campaign_id, draft_id, idempotency_key)
+Approve campaign draft
+
+Approves a `submitted` draft version, emails the creator and fires `campaign_draft.approved`. The creator can then publish it and submit the live post with this `draftId`; each approved draft backs one post only.  Each version is decided once: a version that is no longer `submitted` answers 409. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Campaign ID. | [required] |
+**draft_id** | **String** | Draft version ID. | [required] |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe.  - Same key + same body: replays the original response. - Same key + different body: 422. - Key still processing: 409.  A request cut off mid-handler (e.g. by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours.  On the Ads create, boost and duplicate endpoints, a same-body retry runs again once the cut-off request started more than 15 minutes ago.  |  |
+
+### Return type
+
+[**models::ApproveCampaignDraft200Response**](approveCampaignDraft_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## approve_campaign_participant
+
+> models::GetCampaignParticipant200Response approve_campaign_participant(campaign_id, participant_id, idempotency_key)
+Approve pending campaign participant
+
+Lets a `pending` creator into the campaign: they become `active`, `joinedAt` is set, the creator is emailed and `campaign_participant.approved` fires (not `campaign_participant.joined`).  A creator is `pending` when they joined through the open link of a campaign with `joinApproval: manual`. Personal invites are never held.  ### Creator limit  Pending creators do not count toward `caps.maxParticipants`; the limit is checked here instead. A full campaign refuses the approval with 403 `feature_not_available` and the creator stays `pending`.  ### Errors  - 403 `feature_not_available`: the campaign reached `caps.maxParticipants`. - 409 `invalid_resource_state`: the participant is not `pending`, or the campaign is closed. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Campaign ID. | [required] |
+**participant_id** | **String** | Participant ID. | [required] |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe.  - Same key + same body: replays the original response. - Same key + different body: 422. - Key still processing: 409.  A request cut off mid-handler (e.g. by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours.  On the Ads create, boost and duplicate endpoints, a same-body retry runs again once the cut-off request started more than 15 minutes ago.  |  |
+
+### Return type
+
+[**models::GetCampaignParticipant200Response**](getCampaignParticipant_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## approve_campaign_sample
+
+> models::ApproveCampaignSample200Response approve_campaign_sample(campaign_id, sample_id, idempotency_key)
+Approve campaign sample request
+
+Approves a `pending` sample request. Zernio creates a 100%-off, single-use discount code (`SAMPLE-XXXXXXXX`) limited to the requested product in the campaign's store (Shopify or WooCommerce), returns it as `discountCode`, emails it to the creator and fires `campaign_sample.approved`. The creator redeems it at checkout.  The code is created before the request changes, so when the store refuses (missing discount permission, an unsupported store, a store error) its error is returned and the request stays `pending`. The approval also starts the `sampleContentDueDays` clock behind `contentDueAt` and `contentOwed`.  ### Errors  - 400 `platform_not_supported`: the store cannot create discounts. - 403: the store has not granted the permission discounts need. - 409 `invalid_resource_state`: the request is not `pending`. - 502 `platform_api_error`: the store is unavailable. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Campaign ID. | [required] |
+**sample_id** | **String** | Sample request ID. | [required] |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe.  - Same key + same body: replays the original response. - Same key + different body: 422. - Key still processing: 409.  A request cut off mid-handler (e.g. by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours.  On the Ads create, boost and duplicate endpoints, a same-body retry runs again once the cut-off request started more than 15 minutes ago.  |  |
+
+### Return type
+
+[**models::ApproveCampaignSample200Response**](approveCampaignSample_200_response.md)
 
 ### Authorization
 
@@ -286,6 +396,135 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## decline_campaign_sample
+
+> models::ApproveCampaignSample200Response decline_campaign_sample(campaign_id, sample_id, decline_campaign_sample_request, idempotency_key)
+Decline campaign sample request
+
+Declines a `pending` sample request with a reason, emails the creator and fires `campaign_sample.declined`. The creator can ask for the same product again. Any other status answers 409. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Campaign ID. | [required] |
+**sample_id** | **String** | Sample request ID. | [required] |
+**decline_campaign_sample_request** | [**DeclineCampaignSampleRequest**](DeclineCampaignSampleRequest.md) |  | [required] |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe.  - Same key + same body: replays the original response. - Same key + different body: 422. - Key still processing: 409.  A request cut off mid-handler (e.g. by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours.  On the Ads create, boost and duplicate endpoints, a same-body retry runs again once the cut-off request started more than 15 minutes ago.  |  |
+
+### Return type
+
+[**models::ApproveCampaignSample200Response**](approveCampaignSample_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## deny_campaign_participant
+
+> models::GetCampaignParticipant200Response deny_campaign_participant(campaign_id, participant_id, idempotency_key)
+Deny pending campaign participant
+
+Turns a `pending` creator away: they become `denied`, the creator is emailed and `campaign_participant.denied` fires. A denied creator cannot submit posts, drafts or sample requests. Any status other than `pending` answers 409. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Campaign ID. | [required] |
+**participant_id** | **String** | Participant ID. | [required] |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe.  - Same key + same body: replays the original response. - Same key + different body: 422. - Key still processing: 409.  A request cut off mid-handler (e.g. by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours.  On the Ads create, boost and duplicate endpoints, a same-body retry runs again once the cut-off request started more than 15 minutes ago.  |  |
+
+### Return type
+
+[**models::GetCampaignParticipant200Response**](getCampaignParticipant_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_campaign_ad_results
+
+> models::GetCampaignAdResults200Response get_campaign_ad_results(campaign_id, rank_by, from, to)
+Get campaign ad results
+
+What the campaign's posts did as ads: totals, each post with its ads and launches, and the creators ranked by `rankBy`.  An ad counts for a post when it was launched from the post, or when it runs the post (a boosted post, the Instagram media it shows, or a TikTok Spark item).  Figures come from the ads' daily metrics; money is in the campaign currency, and ads billed in another currency are left out of money figures. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Campaign ID. | [required] |
+**rank_by** | Option<**String**> | How `creators` is ranked. |  |[default to spend]
+**from** | Option<**String**> | First day counted (YYYY-MM-DD, UTC). Omit to count from the first day of data. |  |
+**to** | Option<**String**> | Last day counted (YYYY-MM-DD, UTC). Omit to count through the latest day of data. |  |
+
+### Return type
+
+[**models::GetCampaignAdResults200Response**](getCampaignAdResults_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_campaign_draft
+
+> models::GetCampaignDraft200Response get_campaign_draft(campaign_id, draft_id)
+Get campaign draft
+
+Returns one draft version and every version of its chain (`versions`, newest first, including this one), each with its review comments. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Campaign ID. | [required] |
+**draft_id** | **String** | Draft version ID. | [required] |
+
+### Return type
+
+[**models::GetCampaignDraft200Response**](getCampaignDraft_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_campaign_participant
 
 > models::GetCampaignParticipant200Response get_campaign_participant(campaign_id, participant_id)
@@ -408,6 +647,72 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## launch_campaign_ads
+
+> models::LaunchCampaignAds200Response launch_campaign_ads(campaign_id, launch_campaign_ads_request, idempotency_key)
+Launch campaign posts as ads
+
+Runs approved posts of an active campaign as ads, each post on its own: a post that cannot run is reported in `results` and never stops the rest.  A post already launched (or launching) into the same placement is reported as `already_launched` or `in_progress` and never gets a second ad, so a retry is safe.  ### What each post becomes  - **Meta, `identity: brand`**: a new ad from the post media in the existing ad set `adSetId`, under the brand's Page. - **Meta, `identity: creator`**: a Partnership Ad of the Instagram post under the creator's handle. Partnership Ads are a limited release while Meta reviews the permission they need (`capabilities.partnershipAds` in `GET /v1/creator-campaigns/{campaignId}/ad-results`); without it these posts fail with a message to launch them with brand identity. Facebook posts only run with brand identity. - **TikTok** (`identity: creator` only): a Spark Ad of the creator's post in its own ad group with `dailyBudget`, inside the existing campaign `existingCampaignId`. Needs the Spark code the creator pasted on their campaign page (`hasSparkCode` on the submission).  One launch runs on one network: posts from the other network fail with a message to launch them separately. Needs ads access (403 `ads_addon_required`) and room in the managed ads allowance (403 `ads_allowance_exceeded`). 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Campaign ID. | [required] |
+**launch_campaign_ads_request** | [**LaunchCampaignAdsRequest**](LaunchCampaignAdsRequest.md) |  | [required] |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe.  - Same key + same body: replays the original response. - Same key + different body: 422. - Key still processing: 409.  A request cut off mid-handler (e.g. by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours.  On the Ads create, boost and duplicate endpoints, a same-body retry runs again once the cut-off request started more than 15 minutes ago.  |  |
+
+### Return type
+
+[**models::LaunchCampaignAds200Response**](launchCampaignAds_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_campaign_drafts
+
+> models::ListCampaignDrafts200Response list_campaign_drafts(campaign_id, status, participant_id, limit, skip)
+List campaign drafts
+
+Lists the drafts creators uploaded for review on a campaign with `requireDraftApproval`, newest first.  Each draft is a chain of versions: a revision is a new version in the same `chainId`. Only the latest version of each chain is listed, so `status` is the chain's current state and `total` counts chains. Earlier versions come with `GET /v1/creator-campaigns/{campaignId}/drafts/{draftId}`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Campaign ID. | [required] |
+**status** | Option<**String**> | Only drafts whose latest version is in this status. `submitted` is the review queue. |  |
+**participant_id** | Option<**String**> | Only drafts of this participant. |  |
+**limit** | Option<**i32**> |  |  |[default to 50]
+**skip** | Option<**i32**> |  |  |[default to 0]
+
+### Return type
+
+[**models::ListCampaignDrafts200Response**](listCampaignDrafts_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_campaign_ledger
 
 > models::ListCampaignLedger200Response list_campaign_ledger(campaign_id, participant_id, kind, limit, skip)
@@ -429,6 +734,40 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListCampaignLedger200Response**](listCampaignLedger_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_campaign_orders
+
+> models::ListCampaignOrders200Response list_campaign_orders(campaign_id, participant_id, status, limit, skip)
+List campaign orders
+
+Lists the store orders a commission or smart retainer campaign credited to its creators, newest first, and every active creator's discount code and tracking link.  An order is `pending` while the store is still attributing it (Shopify does so for a few minutes after checkout), `matched` once it is credited to a creator and `unmatched` when it never was. Commission is approved `holdDays` after the order was placed. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Campaign ID. | [required] |
+**participant_id** | Option<**String**> | Only this creator's orders. |  |
+**status** | Option<**String**> |  |  |
+**limit** | Option<**i32**> |  |  |[default to 50]
+**skip** | Option<**i32**> |  |  |[default to 0]
+
+### Return type
+
+[**models::ListCampaignOrders200Response**](listCampaignOrders_200_response.md)
 
 ### Authorization
 
@@ -524,6 +863,40 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListCampaignPayoutBatches200Response**](listCampaignPayoutBatches_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_campaign_samples
+
+> models::ListCampaignSamples200Response list_campaign_samples(campaign_id, status, participant_id, limit, skip)
+List campaign sample requests
+
+Lists the free product samples creators asked for, newest first. `contentOwed` marks an approved or shipped sample whose creator submitted no post in the `sampleContentDueDays` since the approval. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Campaign ID. | [required] |
+**status** | Option<**String**> | Only requests in this status. `pending` is the review queue. |  |
+**participant_id** | Option<**String**> | Only requests of this participant. |  |
+**limit** | Option<**i32**> |  |  |[default to 50]
+**skip** | Option<**i32**> |  |  |[default to 0]
+
+### Return type
+
+[**models::ListCampaignSamples200Response**](listCampaignSamples_200_response.md)
 
 ### Authorization
 
@@ -768,6 +1141,39 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## reject_campaign_draft
+
+> models::ApproveCampaignDraft200Response reject_campaign_draft(campaign_id, draft_id, reject_campaign_draft_request, idempotency_key)
+Reject campaign draft
+
+Rejects a `submitted` draft version for good, emails the creator and fires `campaign_draft.rejected`. The reason is stored as `reviewNote`. A rejected draft takes no new version and backs no post.  Each version is decided once: a version that is no longer `submitted` answers 409. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Campaign ID. | [required] |
+**draft_id** | **String** | Draft version ID. | [required] |
+**reject_campaign_draft_request** | [**RejectCampaignDraftRequest**](RejectCampaignDraftRequest.md) |  | [required] |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe.  - Same key + same body: replays the original response. - Same key + different body: 422. - Key still processing: 409.  A request cut off mid-handler (e.g. by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours.  On the Ads create, boost and duplicate endpoints, a same-body retry runs again once the cut-off request started more than 15 minutes ago.  |  |
+
+### Return type
+
+[**models::ApproveCampaignDraft200Response**](approveCampaignDraft_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## reject_campaign_submission
 
 > models::ApproveCampaignSubmission200Response reject_campaign_submission(campaign_id, submission_id, reject_campaign_submission_request, idempotency_key)
@@ -864,6 +1270,39 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## request_campaign_draft_revision
+
+> models::ApproveCampaignDraft200Response request_campaign_draft_revision(campaign_id, draft_id, request_campaign_draft_revision_request, idempotency_key)
+Request changes on a campaign draft
+
+Marks a `submitted` draft version `revision_requested`, emails the creator and fires `campaign_draft.revision_requested`. The creator answers with one new version (`revisionOf` set to this version).  Send a `note`, at least one entry in `comments`, or both; neither answers 400 `missing_required_field`. A comment with `atMs` is pinned to that moment of the video.  Each version is decided once: a version that is no longer `submitted` answers 409. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Campaign ID. | [required] |
+**draft_id** | **String** | Draft version ID. | [required] |
+**request_campaign_draft_revision_request** | [**RequestCampaignDraftRevisionRequest**](RequestCampaignDraftRevisionRequest.md) |  | [required] |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe.  - Same key + same body: replays the original response. - Same key + different body: 422. - Key still processing: 409.  A request cut off mid-handler (e.g. by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours.  On the Ads create, boost and duplicate endpoints, a same-body retry runs again once the cut-off request started more than 15 minutes ago.  |  |
+
+### Return type
+
+[**models::ApproveCampaignDraft200Response**](approveCampaignDraft_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## resend_campaign_participant_invite
 
 > models::GetCampaignParticipant200Response resend_campaign_participant_invite(campaign_id, participant_id, idempotency_key)
@@ -916,6 +1355,39 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::SettleCampaignParticipant201Response**](settleCampaignParticipant_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## ship_campaign_sample
+
+> models::ApproveCampaignSample200Response ship_campaign_sample(campaign_id, sample_id, idempotency_key, ship_campaign_sample_request)
+Mark campaign sample shipped
+
+Records that you sent an `approved` sample yourself, with an optional tracking link, emails the creator and fires `campaign_sample.shipped`. No store call or money is involved. Any other status answers 409. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**campaign_id** | **String** | Campaign ID. | [required] |
+**sample_id** | **String** | Sample request ID. | [required] |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe.  - Same key + same body: replays the original response. - Same key + different body: 422. - Key still processing: 409.  A request cut off mid-handler (e.g. by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours.  On the Ads create, boost and duplicate endpoints, a same-body retry runs again once the cut-off request started more than 15 minutes ago.  |  |
+**ship_campaign_sample_request** | Option<[**ShipCampaignSampleRequest**](ShipCampaignSampleRequest.md)> | Optional: no body marks the sample shipped without a tracking link. |  |
+
+### Return type
+
+[**models::ApproveCampaignSample200Response**](approveCampaignSample_200_response.md)
 
 ### Authorization
 
