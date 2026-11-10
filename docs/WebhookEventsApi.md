@@ -74,6 +74,10 @@ Method | HTTP request | Description
 [**on_conversation_started**](WebhookEventsApi.md#on_conversation_started) | **POST** /conversation.started | Conversation started event
 [**on_creator_campaign_budget_exhausted**](WebhookEventsApi.md#on_creator_campaign_budget_exhausted) | **POST** /creator_campaign.budget_exhausted | Creator campaign budget exhausted event
 [**on_creator_campaign_closed**](WebhookEventsApi.md#on_creator_campaign_closed) | **POST** /creator_campaign.closed | Creator campaign closed event
+[**on_email_link_clicked**](WebhookEventsApi.md#on_email_link_clicked) | **POST** /email.link_clicked | Email link clicked
+[**on_email_opened**](WebhookEventsApi.md#on_email_opened) | **POST** /email.opened | Email opened
+[**on_email_send_failed**](WebhookEventsApi.md#on_email_send_failed) | **POST** /email.send_failed | Scheduled email failed
+[**on_email_thread_replied**](WebhookEventsApi.md#on_email_thread_replied) | **POST** /email.thread_replied | Email thread replied
 [**on_file_created**](WebhookEventsApi.md#on_file_created) | **POST** /file.created | File created
 [**on_file_deleted**](WebhookEventsApi.md#on_file_deleted) | **POST** /file.deleted | File deleted
 [**on_file_picked**](WebhookEventsApi.md#on_file_picked) | **POST** /file.picked | Files picked
@@ -2241,6 +2245,126 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## on_email_link_clicked
+
+> on_email_link_clicked(webhook_payload_email_link_clicked)
+Email link clicked
+
+A recipient followed a link of a message sent with `trackLinks: true`. Every http(s) link in the html was rewritten to a Zernio redirect that records the click and sends the reader on to `click.url`.  Security scanners in corporate mail gateways sometimes follow links on delivery, which reports as a click. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_email_link_clicked** | [**WebhookPayloadEmailLinkClicked**](WebhookPayloadEmailLinkClicked.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_email_opened
+
+> on_email_opened(webhook_payload_email_opened)
+Email opened
+
+A mail client loaded the open pixel of a message sent with `trackOpens: true`.  Opens are a signal, not proof of reading:  - Gmail and Apple Mail fetch images through their own proxies, some as soon as the mail arrives. - Clients that block images never report an open. - The sender viewing the message in their own Sent folder counts too.  Repeat fetches within 10 seconds raise `count` without firing again. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_email_opened** | [**WebhookPayloadEmailOpened**](WebhookPayloadEmailOpened.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_email_send_failed
+
+> on_email_send_failed(webhook_payload_email_send_failed)
+Scheduled email failed
+
+A send scheduled with `scheduledFor` could not leave at its time. Nothing reached the recipients. `error` says why, for example the mailbox was disconnected, the daily send cap was reached or the provider refused the mail. The send stays listed with `status: failed`; schedule it again to retry. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_email_send_failed** | [**WebhookPayloadEmailSendFailed**](WebhookPayloadEmailSendFailed.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_email_thread_replied
+
+> on_email_thread_replied(webhook_payload_email_thread_replied)
+Email thread replied
+
+Mail from someone other than the mailbox arrived in the thread of a message sent with `trackReplies: true`. Works on text and html sends. Auto-replies and bounce reports in the thread count as replies.  The reply also arrives as `message.received` with its full content. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_email_thread_replied** | [**WebhookPayloadEmailThreadReplied**](WebhookPayloadEmailThreadReplied.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## on_file_created
 
 > on_file_created(webhook_payload_file)
@@ -3146,7 +3270,7 @@ Name | Type | Description  | Required | Notes
 > on_reaction_received(webhook_payload_reaction)
 Reaction received event
 
-A participant added or removed an emoji reaction on a message on Instagram, Facebook, WhatsApp, Telegram, Slack or TikTok.  ### Payload notes  Sent as its own event, never as `message.received`. `reaction.action` is `added` or `removed`. `reaction.platformMessageId` is always present; `reaction.messageId` is the Zernio id when resolvable.  ### Removals  On WhatsApp, Instagram and Facebook removals, `reaction.emoji` is an empty string because the platform does not say which emoji went away. Match on `platformMessageId` to clear a mirrored reaction.  ### TikTok  A like or emoji reaction on a DM arrives only as this event, never as an empty `message.received`. `platformMessageId` is the TikTok id of the liked message. AI emoji reactions can have an empty `emoji`.  ### Telegram  The bot must be an administrator in the chat. Reactions in private chats are never delivered to bots.  ### Accounts connected before August 2026  Instagram and Facebook accounts connected before August 2026 do not receive this event until their webhook subscription is refreshed. Reconnect them, or re-subscribe a Facebook Page without a reconnect. 
+A participant added or removed an emoji reaction on a message on Instagram, Facebook, WhatsApp, Telegram, Slack or TikTok.  ### Payload notes  Sent as its own event, never as `message.received`. `reaction.action` is `added` or `removed`. `reaction.platformMessageId` is always present; `reaction.messageId` is the Zernio id when resolvable.  ### Removals  On WhatsApp, Instagram and Facebook removals, `reaction.emoji` is an empty string because the platform does not say which emoji went away. Match on `platformMessageId` to clear a mirrored reaction.  ### TikTok  A like or emoji reaction on a DM arrives only as this event, never as an empty `message.received`. `platformMessageId` is the TikTok id of the liked message. AI emoji reactions can have an empty `emoji`.  ### Telegram  The bot must be an administrator in the chat. Telegram does not send reactions in private chats to bots.  ### Accounts connected before August 2026  Instagram and Facebook accounts connected before August 2026 do not receive this event until their webhook subscription is refreshed. Reconnect them, or re-subscribe a Facebook Page without a reconnect. 
 
 ### Parameters
 

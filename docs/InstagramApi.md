@@ -178,7 +178,7 @@ Name | Type | Description  | Required | Notes
 > models::GetInstagramStoryInsights200Response get_instagram_story_insights(account_id, story_id)
 Get Instagram story insights
 
-Returns metrics for a single story. The `source` field discriminates between three states:  - `live`: fetched from Meta in real time (story is still active) - `cached`: fetched from a persisted `story_insights` webhook payload (story has expired but we received its final-state metrics from Meta) - `unavailable`: story has expired and Meta sent no `story_insights` webhook for it  Meta sends that webhook most reliably for accounts connected with Facebook Login or with their linked Facebook Page connected. So read insights while the story is live if you need final numbers.  Meta can report an expired story as an empty successful result rather than an error. So an expired story resolves to `cached` or `unavailable` even though the upstream request itself succeeded.  ### Field semantics  Field semantics follow Meta's API.  - Counts below 5 may be returned as 0 due to Meta's privacy floor on small audiences. - The `navigation` field is the sum of `tapsForward + tapsBack + exits + swipesForward`. 
+Returns metrics for a single story. The `source` field discriminates between four states:  - `live`: fetched from Meta in real time (story is still active) - `archived`: the story has expired and Zernio archived it while it was live. Metrics are the last archived reading, raised to Meta's final numbers when its `story_insights` webhook arrived (which also adds the tap breakdown). - `cached`: fetched from a persisted `story_insights` webhook payload (story has expired and was not archived) - `unavailable`: story has expired, was not archived, and Meta sent no `story_insights` webhook for it  Meta sends that webhook most reliably for accounts connected with Facebook Login or with their linked Facebook Page connected. So read insights while the story is live if you need final numbers.  Meta can report an expired story as an empty successful result rather than an error. So an expired story resolves to `archived`, `cached` or `unavailable` even though the upstream request itself succeeded.  ### Field semantics  Field semantics follow Meta's API.  - Counts below 5 may be returned as 0 due to Meta's privacy floor on small audiences. - The `navigation` field is the sum of `tapsForward + tapsBack + exits + swipesForward`. 
 
 ### Parameters
 
@@ -267,10 +267,10 @@ Name | Type | Description  | Required | Notes
 
 ## list_instagram_stories
 
-> models::ListInstagramStories200Response list_instagram_stories(account_id)
+> models::ListInstagramStories200Response list_instagram_stories(account_id, include_expired, limit)
 List active Instagram stories
 
-Returns the IG Business/Creator account's currently-active stories. Meta keeps stories live for 24h; expired stories are not returned.  Limitations propagated from Meta (these are NOT bugs): - 24h window only - Live videos excluded - Reshared stories not returned - `mediaUrl` may be null if Meta flagged the story for copyright - `caption`, `likeCount`, `commentsCount` do not apply to story media 
+Returns the IG Business/Creator account's currently-active stories. Meta keeps stories live for 24h.  Pass `includeExpired=true` to also get the stories Zernio archived before they expired: their media is copied into Zernio storage while the story is live, so `mediaUrl` and `thumbnailUrl` keep working after Meta deletes the story.  Archiving needs the insights permission and covers stories posted since the account was connected (hourly readings, a final one at 23h, then Meta's end-of-story numbers when its webhook arrives).  Limitations propagated from Meta (these are NOT bugs): - 24h window only - Live videos excluded - Reshared stories not returned - `mediaUrl` may be null if Meta flagged the story for copyright - `caption`, `likeCount`, `commentsCount` do not apply to story media 
 
 ### Parameters
 
@@ -278,6 +278,8 @@ Returns the IG Business/Creator account's currently-active stories. Meta keeps s
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** | The Instagram account ID | [required] |
+**include_expired** | Option<**bool**> | Also return archived stories that are no longer live, newest first after the live ones. Every item then carries `expired` and `metrics`. |  |[default to false]
+**limit** | Option<**i32**> | Maximum number of archived stories to read when `includeExpired=true` (live stories are always all returned). |  |[default to 100]
 
 ### Return type
 

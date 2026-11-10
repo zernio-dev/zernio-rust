@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **unread** | Option<**bool**> |  | [optional]
 **starred** | Option<**bool**> |  | [optional]
 **metadata** | Option<**std::collections::HashMap<String, String>**> |  | [optional]
+**tracking_id** | Option<**String**> | Set on a send with `trackOpens`, `trackLinks` or `trackReplies`; the email.* webhooks carry it. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

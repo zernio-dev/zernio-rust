@@ -2077,6 +2077,7 @@ docs/ListInstagramPages200ResponsePagesInner.md
 docs/ListInstagramPages200ResponsePagesInnerInstagramBusinessAccount.md
 docs/ListInstagramStories200Response.md
 docs/ListInstagramStories200ResponseDataInner.md
+docs/ListInstagramStories200ResponseDataInnerMetrics.md
 docs/ListInstagramTaggedMedia200Response.md
 docs/ListLeadForms200Response.md
 docs/ListLeads200Response.md
@@ -2125,6 +2126,7 @@ docs/ListQueueSlots200ResponseOneOf.md
 docs/ListRcsAgents200Response.md
 docs/ListRcsBrands200Response.md
 docs/ListRcsTestDevices200Response.md
+docs/ListScheduledEmails200Response.md
 docs/ListSequenceEnrollments200Response.md
 docs/ListSequenceEnrollments200ResponseEnrollmentsInner.md
 docs/ListSequences200Response.md
@@ -2564,6 +2566,7 @@ docs/ScheduledAutomationCheckActionsInner.md
 docs/ScheduledAutomationCheckMatchedInner.md
 docs/ScheduledAutomationDefinition.md
 docs/ScheduledAutomationDefinitionStepsInner.md
+docs/ScheduledEmail.md
 docs/SearchAdInterests200Response.md
 docs/SearchAdInterests200ResponseInterestsInner.md
 docs/SearchAdLibrary200Response.md
@@ -2638,6 +2641,7 @@ docs/SendDiscordDirectMessage200ResponseRecipient.md
 docs/SendDiscordDirectMessageRequest.md
 docs/SendDiscordDirectMessageRequestAttachmentsInner.md
 docs/SendEmailMessage201Response.md
+docs/SendEmailMessage202Response.md
 docs/SendEmailRequest.md
 docs/SendEmailRequestAttachmentsInner.md
 docs/SendEvents200Response.md
@@ -3233,6 +3237,7 @@ docs/WebhookAdsAccount.md
 docs/WebhookAdsSyncAccount.md
 docs/WebhookAdsSyncAdAccount.md
 docs/WebhookAutomationRef.md
+docs/WebhookEmailTrackedMessage.md
 docs/WebhookEventsApi.md
 docs/WebhookLog.md
 docs/WebhookPayloadAccountAdsInitialSyncCompleted.md
@@ -3353,6 +3358,14 @@ docs/WebhookPayloadConversationStarted.md
 docs/WebhookPayloadConversationStartedConversation.md
 docs/WebhookPayloadCreatorCampaign.md
 docs/WebhookPayloadCreatorCampaignCampaign.md
+docs/WebhookPayloadEmailLinkClicked.md
+docs/WebhookPayloadEmailLinkClickedClick.md
+docs/WebhookPayloadEmailOpened.md
+docs/WebhookPayloadEmailOpenedOpen.md
+docs/WebhookPayloadEmailSendFailed.md
+docs/WebhookPayloadEmailSendFailedScheduledEmail.md
+docs/WebhookPayloadEmailThreadReplied.md
+docs/WebhookPayloadEmailThreadRepliedReply.md
 docs/WebhookPayloadExternalPost.md
 docs/WebhookPayloadFile.md
 docs/WebhookPayloadFilePicked.md
@@ -5639,6 +5652,7 @@ src/models/list_instagram_pages_200_response_pages_inner.rs
 src/models/list_instagram_pages_200_response_pages_inner_instagram_business_account.rs
 src/models/list_instagram_stories_200_response.rs
 src/models/list_instagram_stories_200_response_data_inner.rs
+src/models/list_instagram_stories_200_response_data_inner_metrics.rs
 src/models/list_instagram_tagged_media_200_response.rs
 src/models/list_lead_forms_200_response.rs
 src/models/list_leads_200_response.rs
@@ -5687,6 +5701,7 @@ src/models/list_queue_slots_200_response_one_of.rs
 src/models/list_rcs_agents_200_response.rs
 src/models/list_rcs_brands_200_response.rs
 src/models/list_rcs_test_devices_200_response.rs
+src/models/list_scheduled_emails_200_response.rs
 src/models/list_sequence_enrollments_200_response.rs
 src/models/list_sequence_enrollments_200_response_enrollments_inner.rs
 src/models/list_sequences_200_response.rs
@@ -6112,6 +6127,7 @@ src/models/scheduled_automation_check_actions_inner.rs
 src/models/scheduled_automation_check_matched_inner.rs
 src/models/scheduled_automation_definition.rs
 src/models/scheduled_automation_definition_steps_inner.rs
+src/models/scheduled_email.rs
 src/models/search_ad_interests_200_response.rs
 src/models/search_ad_interests_200_response_interests_inner.rs
 src/models/search_ad_library_200_response.rs
@@ -6186,6 +6202,7 @@ src/models/send_discord_direct_message_200_response_recipient.rs
 src/models/send_discord_direct_message_request.rs
 src/models/send_discord_direct_message_request_attachments_inner.rs
 src/models/send_email_message_201_response.rs
+src/models/send_email_message_202_response.rs
 src/models/send_email_request.rs
 src/models/send_email_request_attachments_inner.rs
 src/models/send_events_200_response.rs
@@ -6769,6 +6786,7 @@ src/models/webhook_ads_account.rs
 src/models/webhook_ads_sync_account.rs
 src/models/webhook_ads_sync_ad_account.rs
 src/models/webhook_automation_ref.rs
+src/models/webhook_email_tracked_message.rs
 src/models/webhook_log.rs
 src/models/webhook_payload_account_ads_initial_sync_completed.rs
 src/models/webhook_payload_account_ads_initial_sync_completed_account.rs
@@ -6888,6 +6906,14 @@ src/models/webhook_payload_conversation_started.rs
 src/models/webhook_payload_conversation_started_conversation.rs
 src/models/webhook_payload_creator_campaign.rs
 src/models/webhook_payload_creator_campaign_campaign.rs
+src/models/webhook_payload_email_link_clicked.rs
+src/models/webhook_payload_email_link_clicked_click.rs
+src/models/webhook_payload_email_opened.rs
+src/models/webhook_payload_email_opened_open.rs
+src/models/webhook_payload_email_send_failed.rs
+src/models/webhook_payload_email_send_failed_scheduled_email.rs
+src/models/webhook_payload_email_thread_replied.rs
+src/models/webhook_payload_email_thread_replied_reply.rs
 src/models/webhook_payload_external_post.rs
 src/models/webhook_payload_file.rs
 src/models/webhook_payload_file_picked.rs
