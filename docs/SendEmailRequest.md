@@ -10,6 +10,9 @@ Name | Type | Description | Notes
 **bcc** | Option<[**Vec<models::EmailAddress>**](EmailAddress.md)> |  | [optional]
 **reply_to** | Option<[**Vec<models::EmailAddress>**](EmailAddress.md)> |  | [optional]
 **from_name** | Option<**String**> |  | [optional]
+**from** | Option<**String**> | Send from another address listed by `GET /v1/email/send-as`; on Outlook, declare a shared mailbox there first. An address not on the list answers 400, and Outlook refusing it at send time answers 403. Omitted, the mail leaves from the mailbox address. | [optional]
+**append_signature** | Option<**bool**> | Appends the signature of the sending address: its Zernio default first, else its Gmail signature. 400 when it has neither. | [optional]
+**signature_id** | Option<**String**> | Appends this Zernio signature instead. Wins over `appendSignature`. | [optional]
 **subject** | **String** |  | 
 **text** | Option<**String**> | Plain-text body. One of `text` or `html` is required. | [optional]
 **html** | Option<**String**> |  | [optional]

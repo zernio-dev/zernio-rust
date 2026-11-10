@@ -11,6 +11,11 @@ Name | Type | Description | Notes
 **doc_url** | Option<**String**> | Documentation page for resolving the error, when one applies. | [optional]
 **platform** | Option<**String**> | Upstream platform (e.g. meta, google, tiktok), present when type is platform_error. | [optional]
 **platform_error** | Option<**std::collections::HashMap<String, serde_json::Value>**> | Raw error payload from the upstream platform, passed through verbatim so integrators can read provider-specific codes. For Meta this includes error_subcode, error_user_title, and error_user_msg.  | [optional]
+**provider** | Option<**String**> | Email API: the mailbox provider the error came from (`google`, `microsoft`). | [optional]
+**provider_error** | Option<[**models::ErrorResponseProviderError**](ErrorResponseProviderError.md)> |  | [optional]
+**retryable** | Option<**bool**> | Email API: whether the same request can succeed if retried (with the same `Idempotency-Key` for sends). | [optional]
+**request_id** | Option<**String**> | Email API: the request id, also in the `X-Request-Id` header. Quote it when you contact support. | [optional]
+**docs_url** | Option<**String**> | Email API: where this `code` is documented. | [optional]
 **details** | Option<[**models::ErrorResponseDetails**](ErrorResponseDetails.md)> |  | [optional]
 **funding_url** | **String** | Dashboard link to Billing that opens the Add funds drawer (the add-card drawer first when there is no card). Send the user there, then retry. | 
 

@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **profile_id** | [**models::SocialAccountProfileId**](SocialAccountProfileId.md) |  | 
 **username** | Option<**String**> |  | [optional]
 **display_name** | Option<**String**> |  | [optional]
+**capabilities** | Option<[**models::EmailCapabilities**](EmailCapabilities.md)> |  | [optional]
 **platform_user_id** | Option<**String**> | The account's id on its platform, as the platform reports it to Zernio. Stable across reconnects, so use it to match an account against your own records.  - **Instagram Login accounts:** the app-scoped user id (the professional account id is in `metadata.instagramScopedId`). - **Instagram via Facebook Login:** the professional account id (`17841...`). - **TikTok:** the open_id of Zernio's TikTok app, which differs from the open_id any other app sees for the same user.  Either value can be passed back as `expectedPlatformUserId` on GET /v1/connect/{platform}.  | [optional]
 **scope_areas** | Option<**Vec<String>**> | The permission areas the connect requested: the `scopes` of GET /v1/connect/{platform}, or your OAuth app's areas. Null when the connect requested every area. | [optional]
 **oauth_app_id** | Option<**String**> | The id of your own OAuth app this account connected through (see /v1/connect/oauth-apps); null when it uses Zernio's app. | [optional]

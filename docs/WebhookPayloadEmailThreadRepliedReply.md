@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **from** | Option<[**models::EmailAddress**](EmailAddress.md)> |  | [optional]
 **received_at** | Option<**String**> |  | [optional]
 **count** | Option<**i32**> | Replies in the thread so far. | [optional]
+**clean** | Option<[**models::WebhookPayloadEmailThreadRepliedReplyClean**](WebhookPayloadEmailThreadRepliedReplyClean.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

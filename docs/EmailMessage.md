@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **provider** | Option<**Provider**> |  (enum: google, microsoft) | [optional]
 **folders** | Option<**Vec<String>**> |  | [optional]
 **from** | Option<[**models::EmailAddress**](EmailAddress.md)> |  | [optional]
+**sender** | Option<[**models::EmailAddress**](EmailAddress.md)> |  | [optional]
 **to** | Option<[**Vec<models::EmailAddress>**](EmailAddress.md)> |  | [optional]
 **cc** | Option<[**Vec<models::EmailAddress>**](EmailAddress.md)> |  | [optional]
 **bcc** | Option<[**Vec<models::EmailAddress>**](EmailAddress.md)> |  | [optional]
@@ -27,6 +28,9 @@ Name | Type | Description | Notes
 **labels** | Option<**Vec<String>**> | Gmail: the ids of the user labels on the message (names come from `GET /v1/email/labels`). Outlook: its category names. | [optional]
 **metadata** | Option<**std::collections::HashMap<String, String>**> |  | [optional]
 **tracking_id** | Option<**String**> | Set on a send with `trackOpens`, `trackLinks` or `trackReplies`; the email.* webhooks carry it. | [optional]
+**clean** | Option<[**models::EmailClean**](EmailClean.md)> |  | [optional]
+**draft_id** | Option<**String**> | On a mail sent from a draft (`POST /v1/email/drafts/{draftId}/send`): the draft it was. The sent mail has a new id. | [optional]
+**forwarded_from** | Option<**String**> | On a forward: the message it forwarded. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

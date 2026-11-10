@@ -76,9 +76,11 @@ Method | HTTP request | Description
 [**on_conversation_started**](WebhookEventsApi.md#on_conversation_started) | **POST** /conversation.started | Conversation started event
 [**on_creator_campaign_budget_exhausted**](WebhookEventsApi.md#on_creator_campaign_budget_exhausted) | **POST** /creator_campaign.budget_exhausted | Creator campaign budget exhausted event
 [**on_creator_campaign_closed**](WebhookEventsApi.md#on_creator_campaign_closed) | **POST** /creator_campaign.closed | Creator campaign closed event
+[**on_email_bounced**](WebhookEventsApi.md#on_email_bounced) | **POST** /email.bounced | Email bounced
 [**on_email_link_clicked**](WebhookEventsApi.md#on_email_link_clicked) | **POST** /email.link_clicked | Email link clicked
 [**on_email_opened**](WebhookEventsApi.md#on_email_opened) | **POST** /email.opened | Email opened
 [**on_email_send_failed**](WebhookEventsApi.md#on_email_send_failed) | **POST** /email.send_failed | Scheduled email failed
+[**on_email_sent**](WebhookEventsApi.md#on_email_sent) | **POST** /email.sent | Email sent
 [**on_email_thread_replied**](WebhookEventsApi.md#on_email_thread_replied) | **POST** /email.thread_replied | Email thread replied
 [**on_file_created**](WebhookEventsApi.md#on_file_created) | **POST** /file.created | File created
 [**on_file_deleted**](WebhookEventsApi.md#on_file_deleted) | **POST** /file.deleted | File deleted
@@ -2308,6 +2310,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## on_email_bounced
+
+> on_email_bounced(webhook_payload_email_bounced)
+Email bounced
+
+A delivery failure report for mail the mailbox sent arrived: the receiving server refused it for a recipient. Fires for every send from the mailbox, once per failed recipient. Delayed-delivery warnings and out-of-office replies do not fire it.  Act on `recommendedAction`: `remove` means the address does not take mail. Refusals on the sending side (`auth_failure`, `blocklisted`, `spam_blocked`, `policy_blocked`) never say `remove`. The report also arrives as `message.received`, and it does not count as a reply for `email.thread_replied`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_email_bounced** | [**WebhookPayloadEmailBounced**](WebhookPayloadEmailBounced.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## on_email_link_clicked
 
 > on_email_link_clicked(webhook_payload_email_link_clicked)
@@ -2398,12 +2430,42 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## on_email_sent
+
+> on_email_sent(webhook_payload_email_sent)
+Email sent
+
+A mail left through the email API. Exactly one event per mail, whichever path sent it: `source` is `send`, `reply`, `forward`, `draft` or `scheduled`. A scheduled draft carries both `scheduleId` and `draftId`.  Use it to record sends in your own system with the `metadata` you passed. The sent copy also arrives as `message.sent` in the inbox. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_email_sent** | [**WebhookPayloadEmailSent**](WebhookPayloadEmailSent.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## on_email_thread_replied
 
 > on_email_thread_replied(webhook_payload_email_thread_replied)
 Email thread replied
 
-Mail from someone other than the mailbox arrived in the thread of a message sent with `trackReplies: true`. Works on text and html sends. Auto-replies and bounce reports in the thread count as replies.  The reply also arrives as `message.received` with its full content. 
+Mail from someone other than the mailbox arrived in the thread of a message sent with `trackReplies: true`. Works on text and html sends. Auto-replies count as replies; bounce reports do not and fire `email.bounced` instead.  `reply.clean.text` is the reply without the quoted history, so an agent can act on it without reading the message. The reply also arrives as `message.received` with its full content. 
 
 ### Parameters
 

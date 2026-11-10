@@ -11,6 +11,11 @@ Name | Type | Description | Notes
 **doc_url** | Option<**String**> | Documentation page for resolving the error, when one applies. | [optional]
 **platform** | **Platform** |  (enum: whatsapp) | 
 **platform_error** | Option<[**models::WhatsAppTemplateLookupErrorPlatformError**](WhatsAppTemplateLookupErrorPlatformError.md)> |  | [optional]
+**provider** | Option<**String**> | Email API: the mailbox provider the error came from (`google`, `microsoft`). | [optional]
+**provider_error** | Option<[**models::ErrorResponseProviderError**](ErrorResponseProviderError.md)> |  | [optional]
+**retryable** | Option<**bool**> | Email API: whether the same request can succeed if retried (with the same `Idempotency-Key` for sends). | [optional]
+**request_id** | Option<**String**> | Email API: the request id, also in the `X-Request-Id` header. Quote it when you contact support. | [optional]
+**docs_url** | Option<**String**> | Email API: where this `code` is documented. | [optional]
 **details** | [**models::WhatsAppTemplateLookupErrorDetails**](WhatsAppTemplateLookupErrorDetails.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
