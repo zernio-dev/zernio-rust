@@ -4,6 +4,7 @@ All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**autocomplete_contacts**](ContactsApi.md#autocomplete_contacts) | **GET** /v1/contacts/autocomplete | Search people
 [**bulk_create_contacts**](ContactsApi.md#bulk_create_contacts) | **POST** /v1/contacts/bulk | Bulk create contacts
 [**create_contact**](ContactsApi.md#create_contact) | **POST** /v1/contacts | Create contact
 [**delete_contact**](ContactsApi.md#delete_contact) | **DELETE** /v1/contacts/{contactId} | Delete contact
@@ -13,6 +14,38 @@ Method | HTTP request | Description
 [**list_contacts**](ContactsApi.md#list_contacts) | **GET** /v1/contacts | List contacts
 [**update_contact**](ContactsApi.md#update_contact) | **PATCH** /v1/contacts/{contactId} | Update contact
 
+
+
+## autocomplete_contacts
+
+> models::AutocompleteContacts200Response autocomplete_contacts(account_id, q, limit)
+Search people
+
+Finds people for an address field, read live from a Google or Microsoft account. Nothing is stored.  With the contacts area it searches the user's address book. With the directory area it also searches coworkers and the people the user mails: Microsoft ranks them by relevance, Google adds its Workspace directory and other contacts.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | A Google or Microsoft account connected with the contacts or directory area. | [required] |
+**q** | **String** | What the user typed: a name or the start of an email address. | [required] |
+**limit** | Option<**i32**> |  |  |[default to 10]
+
+### Return type
+
+[**models::AutocompleteContacts200Response**](autocompleteContacts_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## bulk_create_contacts

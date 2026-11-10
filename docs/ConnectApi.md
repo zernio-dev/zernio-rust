@@ -4,6 +4,7 @@ All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**add_org_connection_mailbox**](ConnectApi.md#add_org_connection_mailbox) | **POST** /v1/org-connections/{orgConnectionId}/mailboxes | Add a mailbox from an organization connection
 [**assign_google_business_location**](ConnectApi.md#assign_google_business_location) | **POST** /v1/accounts/{accountId}/gmb-locations/assign | Assign Google Business Profile location to another profile
 [**complete_meta_ads_business_login**](ConnectApi.md#complete_meta_ads_business_login) | **GET** /v1/connect/meta-ads/callback | Complete Meta business login
 [**complete_telegram_connect**](ConnectApi.md#complete_telegram_connect) | **PATCH** /v1/connect/telegram | Check Telegram status
@@ -20,11 +21,14 @@ Method | HTTP request | Description
 [**connect_whats_app_embedded_signup**](ConnectApi.md#connect_whats_app_embedded_signup) | **POST** /v1/connect/whatsapp/embedded-signup | Connect WhatsApp from Embedded Signup
 [**connect_whop_ads_credentials**](ConnectApi.md#connect_whop_ads_credentials) | **POST** /v1/connect/whop-ads/credentials | Connect a Whop account
 [**connect_word_press_with_application_password**](ConnectApi.md#connect_word_press_with_application_password) | **POST** /v1/connect/wordpress/token | Connect self-hosted WordPress with an application password
+[**create_google_org_connection**](ConnectApi.md#create_google_org_connection) | **POST** /v1/connect/google/org | Start a Google Workspace organization connection
+[**create_microsoft_org_connection**](ConnectApi.md#create_microsoft_org_connection) | **POST** /v1/connect/microsoft/org | Start a Microsoft 365 organization connection
 [**create_o_auth_app**](ConnectApi.md#create_o_auth_app) | **POST** /v1/connect/oauth-apps | Add an OAuth app
 [**create_pinterest_board**](ConnectApi.md#create_pinterest_board) | **POST** /v1/accounts/{accountId}/pinterest-boards | Create Pinterest board
 [**create_platform_invite**](ConnectApi.md#create_platform_invite) | **POST** /v1/platform-invites | Create a connect link
 [**create_youtube_playlist**](ConnectApi.md#create_youtube_playlist) | **POST** /v1/accounts/{accountId}/youtube-playlists | Create YouTube playlist
 [**delete_o_auth_app**](ConnectApi.md#delete_o_auth_app) | **DELETE** /v1/connect/oauth-apps/{appId} | Remove an OAuth app
+[**delete_org_connection**](ConnectApi.md#delete_org_connection) | **DELETE** /v1/org-connections/{orgConnectionId} | Delete an organization connection
 [**get_connect_handoff**](ConnectApi.md#get_connect_handoff) | **GET** /v1/connect/handoffs/{handoffId} | Get a phone handoff
 [**get_connect_url**](ConnectApi.md#get_connect_url) | **GET** /v1/connect/{platform} | Get OAuth connect URL
 [**get_connect_welcome_screen**](ConnectApi.md#get_connect_welcome_screen) | **GET** /v1/connect/welcome-screen | Get the saved welcome screen
@@ -35,6 +39,7 @@ Method | HTTP request | Description
 [**get_hub_spot_connect_url**](ConnectApi.md#get_hub_spot_connect_url) | **GET** /v1/connect/hubspot | Get HubSpot OAuth connect URL
 [**get_linked_in_organizations**](ConnectApi.md#get_linked_in_organizations) | **GET** /v1/accounts/{accountId}/linkedin-organizations | List LinkedIn orgs
 [**get_o_auth_app**](ConnectApi.md#get_o_auth_app) | **GET** /v1/connect/oauth-apps/{appId} | Get an OAuth app
+[**get_org_connection**](ConnectApi.md#get_org_connection) | **GET** /v1/org-connections/{orgConnectionId} | Get an organization connection
 [**get_page_webhook_subscription**](ConnectApi.md#get_page_webhook_subscription) | **GET** /v1/accounts/{accountId}/webhook-subscription | Read an account's webhook subscription
 [**get_pending_o_auth_data**](ConnectApi.md#get_pending_o_auth_data) | **GET** /v1/connect/pending-data | Get pending OAuth data
 [**get_pinterest_boards**](ConnectApi.md#get_pinterest_boards) | **GET** /v1/accounts/{accountId}/pinterest-boards | List Pinterest boards
@@ -57,6 +62,8 @@ Method | HTTP request | Description
 [**list_instagram_pages**](ConnectApi.md#list_instagram_pages) | **GET** /v1/connect/instagram/select-account | List Pages with a linked Instagram account
 [**list_linked_in_organizations**](ConnectApi.md#list_linked_in_organizations) | **GET** /v1/connect/linkedin/organizations | List LinkedIn orgs
 [**list_o_auth_apps**](ConnectApi.md#list_o_auth_apps) | **GET** /v1/connect/oauth-apps | List your OAuth apps
+[**list_org_connection_users**](ConnectApi.md#list_org_connection_users) | **GET** /v1/org-connections/{orgConnectionId}/users | List an organization's users
+[**list_org_connections**](ConnectApi.md#list_org_connections) | **GET** /v1/org-connections | List organization connections
 [**list_pinterest_boards_for_selection**](ConnectApi.md#list_pinterest_boards_for_selection) | **GET** /v1/connect/pinterest/select-board | List Pinterest boards
 [**list_slack_channels**](ConnectApi.md#list_slack_channels) | **GET** /v1/connect/slack | List Slack channels for the channel picker
 [**list_snapchat_profiles**](ConnectApi.md#list_snapchat_profiles) | **GET** /v1/connect/snapchat/select-profile | List Snapchat profiles
@@ -77,11 +84,44 @@ Method | HTTP request | Description
 [**update_gmb_location**](ConnectApi.md#update_gmb_location) | **PUT** /v1/accounts/{accountId}/gmb-locations | Update Google Business Profile location
 [**update_linked_in_organization**](ConnectApi.md#update_linked_in_organization) | **PUT** /v1/accounts/{accountId}/linkedin-organization | Switch LinkedIn account type
 [**update_o_auth_app**](ConnectApi.md#update_o_auth_app) | **PATCH** /v1/connect/oauth-apps/{appId} | Update an OAuth app
+[**update_org_connection**](ConnectApi.md#update_org_connection) | **PATCH** /v1/org-connections/{orgConnectionId} | Update an organization connection
 [**update_pinterest_boards**](ConnectApi.md#update_pinterest_boards) | **PUT** /v1/accounts/{accountId}/pinterest-boards | Set default Pinterest board
 [**update_reddit_subreddits**](ConnectApi.md#update_reddit_subreddits) | **PUT** /v1/accounts/{accountId}/reddit-subreddits | Set default subreddit
 [**update_youtube_default_playlist**](ConnectApi.md#update_youtube_default_playlist) | **PUT** /v1/accounts/{accountId}/youtube-playlists | Set default YouTube playlist
+[**verify_org_connection**](ConnectApi.md#verify_org_connection) | **POST** /v1/org-connections/{orgConnectionId}/verify | Verify an organization connection
 [**vote_reddit_thing**](ConnectApi.md#vote_reddit_thing) | **POST** /v1/accounts/{accountId}/reddit-vote | Vote on a Reddit post or comment
 
+
+
+## add_org_connection_mailbox
+
+> models::InlineObject1 add_org_connection_mailbox(org_connection_id, add_org_connection_mailbox_request)
+Add a mailbox from an organization connection
+
+Adds one mailbox from an active organization connection, with no sign-in from its user. It becomes a `google` or `microsoft` account on the connection's profile and works with every email, calendar, files and contacts endpoint.  `201` for a new account, `200` when the address was already on the profile and now runs on the organization grant. `account.connected` fires. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**org_connection_id** | **String** |  | [required] |
+**add_org_connection_mailbox_request** | [**AddOrgConnectionMailboxRequest**](AddOrgConnectionMailboxRequest.md) |  | [required] |
+
+### Return type
+
+[**models::InlineObject1**](inline_object_1.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## assign_google_business_location
@@ -585,6 +625,66 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## create_google_org_connection
+
+> models::CreateGoogleOrgConnection201Response create_google_org_connection(create_google_org_connection_request)
+Start a Google Workspace organization connection
+
+Creates an organization connection for a Google Workspace domain. A super admin then delegates Zernio's client ID with the returned scopes, and you add mailboxes without each user signing in.  ### Flow  1. Add `setup.dnsRecord` (a TXT record) to the domain. It proves the domain's owner set up this connection. 2. A super admin adds `setup.clientId` with `setup.scopes` under domain-wide delegation in the Admin console. 3. Call `POST /v1/org-connections/{orgConnectionId}/verify` with any mailbox in the domain. 4. Add mailboxes with `POST /v1/org-connections/{orgConnectionId}/mailboxes`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_google_org_connection_request** | [**CreateGoogleOrgConnectionRequest**](CreateGoogleOrgConnectionRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateGoogleOrgConnection201Response**](createGoogleOrgConnection_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_microsoft_org_connection
+
+> models::CreateGoogleOrgConnection201Response create_microsoft_org_connection(create_microsoft_org_connection_request)
+Start a Microsoft 365 organization connection
+
+Creates an organization connection for a Microsoft 365 tenant. An administrator opens `setup.adminConsentUrl` and approves Zernio's application permissions once, then you add mailboxes without each user signing in.  After consent Microsoft sends the administrator to `redirectUrl` with `orgConnectionId`, `status` (`active`, `pending` or `denied`) and `tenant`.  Application permissions reach every mailbox in the tenant. Administrators can scope them with an Exchange Online application access policy or RBAC for Applications. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_microsoft_org_connection_request** | [**CreateMicrosoftOrgConnectionRequest**](CreateMicrosoftOrgConnectionRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateGoogleOrgConnection201Response**](createGoogleOrgConnection_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## create_o_auth_app
 
 > models::CreateOAuthApp201Response create_o_auth_app(create_o_auth_app_request)
@@ -738,6 +838,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## delete_org_connection
+
+> models::DeleteOrgConnection200Response delete_org_connection(org_connection_id)
+Delete an organization connection
+
+Deletes the connection. Mailboxes added from it stay on the profile and answer `401` `reconnect_required` until you disconnect them or connect them another way.  `mailboxAccountIds` lists them. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**org_connection_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::DeleteOrgConnection200Response**](deleteOrgConnection_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_connect_handoff
 
 > models::ConnectHandoff get_connect_handoff(handoff_id)
@@ -788,7 +918,7 @@ Name | Type | Description  | Required | Notes
 **expected_username** | Option<**String**> | Only connect if the authorized account's handle is this one (case-insensitive, a leading @ is ignored). Otherwise the flow ends with `error=account_mismatch` and `error_message` naming the handle that was authorized, and nothing is written.  Same coverage and transport as expectedPlatformUserId; when both are sent, both must match. Use this on a first connection, where you hold the handle the user typed but no Zernio id yet.  |  |
 **force_reauth** | Option<**bool**> | Instagram Login only (the default loginMethod); ignored elsewhere. Makes Instagram show its login page and ask for the credentials of the account to connect, even when another Instagram account is logged in on the device or app. Also hides the Facebook login option on that page.  Use it when the person connecting manages several Instagram accounts on one phone: otherwise Instagram logs in, and converts to a professional account, whichever account is active, before any consent screen. Pair it with expectedUsername to also refuse a wrong account at the end.  |  |[default to false]
 **redirect_url** | Option<**String**> | Your custom redirect URL after the connection completes. It MUST be an absolute http(s) URL or a custom app scheme for mobile deeplinks (e.g. myapp://callback). A relative path is rejected with 400 `INVALID_REDIRECT_URL`.  **Exit notice:** when `redirect_url` is an http(s) URL on another site (anything but zernio.com), every redirect of the flow lands first on `https://zernio.com/connect/continue?to=<your URL>`, a Zernio page that names your site and continues to it with one click. All params below reach your URL unchanged.  A custom app scheme (myapp://...) never goes through the notice. In headless mode the redirects we hand you (and the `redirect_url` returned by the selection endpoints) are notice URLs: pass them back or navigate to them as they are.  **X (twitter) length limit:** X caps the OAuth `state` at 500 characters and the redirect travels inside it (wrapped in the notice URL for an http(s) URL on another site). The URL-encoded form must be at most 258 characters for API callers, 310 for dashboard sessions.  In headless mode the appended `headless=true` counts toward that limit. A plain https URL on another site leaves about 165 to 190 characters of your own URL, depending on encoding. A longer one is rejected with 400 `INVALID_REDIRECT_URL`, and the error says by how much.  **Success params** are appended with the URL API, so an existing query string is preserved:  - Standard mode: connected={platform}&profileId=X&accountId=Y&username=Z. - Headless mode: OAuth data params for platforms requiring selection (e.g. LinkedIn orgs, Facebook pages). If no selection is needed, the account is created directly and the redirect includes accountId.  **Failure params:** the browser goes to the same redirect_url with `error` and `platform` appended (always present). `error_message`, `is_user_fixable`, `reason`, `dashboard_url`, `missing_scopes`, `error_reason` and the `platform_error*` params are conditional: treat them as optional.  Your own query params are kept on every redirect, but ours overwrite one of yours with the same name. On an error redirect we remove the internal `headless`, `adsConnect`, `adsScope`, `reconnectAccountId`, `expectedPlatformUserId` and `expectedUsername` markers added during the flow.  **Correlation** params appear on every redirect from an OAuth callback (success and failure) and on the `redirect_url` returned by the selection endpoints such as POST /v1/connect/facebook/select-page:  - `request_id`: the id we log that request under. Quote it when reporting a problem. - `stage`: where the flow ended. `authorize` = the platform's consent dialog returned an error or denial instead of a code. `callback` = we processed the returned code (success, a selection step, or a failure). - `stage` = `select_page`: the destination-selection endpoint (page, account, organization, board, location, profile or phone number) completed it.  **Error details:**  - `oauth_denied`: carries `error_message` and, when the platform sent them, its own `platform_error` (e.g. `access_denied`), `platform_error_reason` (e.g. `user_denied`) and `platform_error_description` (truncated to 500 characters). `is_user_fixable=true` when the platform reported that the user cancelled or declined. - `no_facebook_pages`: comes with `is_user_fixable=true`, an `error_message` telling the user to click \"Edit previous settings\" in Meta's dialog and tick the Page (or create one), and `error_reason` when Meta's token debug answered (values below). - `code_already_redeemed`: the same authorization code arrived more than once and an earlier request already processed it (the code is never sent to the platform twice). Not a failure: check GET /v1/accounts or wait for the `account.connected` webhook. - `missing_google_permissions` (YouTube, Google Business and Google Ads): the user unchecked permissions on Google's consent screen. Always with `is_user_fixable=true`. When Google reported granted scopes, `missing_scopes` lists the requested scopes not granted (comma-separated). Ask the user to connect again keeping every permission checked. - `no_youtube_channel`: Google authorized the account but it has no YouTube channel we can connect. Always with `is_user_fixable=true` and an `error_message`.  Usual causes of `no_youtube_channel`: the user picked their personal Google identity instead of the Brand Account in Google's account chooser, they only have YouTube Studio access (not Brand Account owner or manager), or the account has no channel yet.  `error_reason` values for `no_facebook_pages`:  - `pages_permission_declined`: the user declined the pages_show_list permission. - `no_pages_granted`: the permission was granted with no Page ticked. Meta reports a user who manages no Page the same way, so this covers both. - `granted_pages_not_listed`: Pages were ticked but Meta listed none the user can manage, and a direct read of each ticked Page returned no access token.  **Headless `userProfile`:** on headless Facebook success (`step=select_page`) and headless Instagram `facebook_login` success (`step=select_account`), `userProfile` is JSON percent-encoded once before being set as a query param, so it is encoded twice on the wire.  After your framework decodes the query string once, run one more decodeURIComponent (or equivalent), then JSON.parse it. `tempToken` and `connect_token` are plain values.  **Error values.** This list is NOT exhaustive and new values may be added at any time: treat an unrecognized value as a generic failure rather than matching exhaustively. Existing values are not renamed or removed without notice.  - OAuth and callback: `oauth_denied`, `invalid_callback`, `invalid_state`, `unsupported_platform`, `connection_failed`, `internal_error`, `token_exchange_failed`, `byok_config_error`, `personal_account_not_supported`, `missing_google_permissions`, `missing_tiktok_permissions`, `platform_requires_destination`, `reconnect_account_mismatch`, `account_mismatch`, `instagram_login_method_mismatch`, `invalid_request`, `code_already_redeemed`. - Access and limits: `profile_not_found`, `invalid_profile_id`, `access_denied`, `account_limit_exceeded`, `profile_limit_exceeded`, `payment_required`. - Destination selection: `no_facebook_pages`, `facebook_pages_error`, `no_google_locations`, `google_locations_error`, `google_permission_denied`, `no_snapchat_public_profiles`, `snapchat_profiles_error`, `no_youtube_channel`, `discord_no_guild`, `slack_no_team`. - WhatsApp: `whatsapp_error`, `one_whatsapp_per_profile`, `whatsapp_number_already_connected`, `whatsapp_number_pinned_to_profile`, `whatsapp_coexistence_not_registered`, `connection_cancelled`. - Google Ads (platform=googleads): `google_ads_auth_failed`, `google_ads_invalid_state`, `google_ads_config_error`, `google_ads_token_failed`, `google_ads_quota_exhausted`, `google_ads_callback_error`. - TikTok Ads (platform=tiktokads): `tiktok_ads_auth_failed`, `tiktok_ads_invalid_state`, `tiktok_ads_access_denied`, `tiktok_ads_config_error`, `tiktok_ads_token_failed`, `tiktok_ads_account_not_found`, `tiktok_ads_callback_error`. - X Ads (platform=xads): `x_ads_denied`, `x_ads_auth_failed`, `x_ads_config_error`, `x_ads_account_not_found`, `x_ads_state_error`, `x_ads_token_failed`, `x_ads_token_missing`, `x_ads_callback_error`. - Reddit Ads (platform=redditads): `reddit_ads_auth_failed`, `reddit_ads_invalid_state`, `reddit_ads_access_denied`, `reddit_ads_scope_not_granted`, `reddit_ads_no_ad_accounts`, `reddit_ads_callback_error`. - Microsoft Ads (platform=microsoftads): `microsoft_ads_auth_failed`, `microsoft_ads_invalid_state`, `microsoft_ads_access_denied`, `microsoft_ads_scope_not_granted`, `microsoft_ads_unknown_user`, `microsoft_ads_no_ad_accounts`, `microsoft_ads_callback_error`. - Shopify (platform=shopify): `shopify_auth_failed`, `shopify_config_error`, `shopify_invalid_state`, `shopify_invalid_hmac`, `shopify_invalid_shop`, `shopify_missing_scopes`, `shopify_callback_error`.  Notes:  1. On this endpoint every upstream OAuth error collapses into `oauth_denied`, with the provider's values in the `platform_error*` params. The dedicated ads flows differ: they use their own denial slugs, and `google_ads_auth_failed` and `tiktok_ads_auth_failed` may carry the provider's raw error string in `error_message`. 2. On the tiktok and twitter ads flows `platform` carries the ads platform id (`tiktokads`, `xads`), not the value in the request path. The googleads, redditads, microsoftads and shopify flows report `googleads`, `redditads`, `microsoftads` and `shopify`. 3. `missing_tiktok_permissions`: the TikTok authorization left out a permission the already-connected account needs, so nothing changed and it keeps working as before. User-fixable: connect again and accept every permission on TikTok's screen. 4. `instagram_login_method_mismatch`: an Instagram Login authorization landed on a profile whose Instagram account is connected through Facebook Login, so nothing changed. To refresh it, connect again with `loginMethod=facebook_login`. To move it to Instagram Login, disconnect it first.  |  |
-**scopes** | Option<**String**> | Comma-separated permission areas to request instead of the platform's full permission set.  **Values:** `posting`, `analytics`, `comments`, `messaging`, `ads`; on google and microsoft, `email`, `calendar`, `files`, `contacts`.  **Default:** omit it (what the dashboard does) to request everything the platform supports. Google and microsoft REQUIRE it (400 `INVALID_FIELD_VALUE` when absent) because their consent screens are reviewed per area.  When present, the consent dialog asks only for the scopes behind those areas, plus the scopes every connection needs (identity, token refresh, listing the pages, organizations or channels the user picks from).  - Scopes never asked for are absent from the account's `permissions`. The account keeps the requested areas in `scopeAreas`. - The health endpoints judge the account against those areas: an area never asked for reads `not_requested` and does not make it unhealthy, so an `analytics`-only account reports `canPost: false` with `status: healthy`. - A `posting`-only account cannot read analytics or the inbox until reconnected with more areas. - First comments need `comments`: a `posting`-only account publishes the post and skips the first comment. - Scopes in none of the areas (X likes, bookmarks and follows, Pinterest ads-only extras) are requested only when the parameter is omitted.  **Supported on** facebook, instagram (both login methods), linkedin, twitter, tiktok, youtube, threads, reddit, pinterest, googlebusiness and slack (via `GET /v1/connect/slack`).  **Rejected** with 400 `INVALID_FIELD_VALUE` (`param: scopes`) on bluesky, telegram, discord, snapchat and whatsapp (their dialog cannot be reduced), and for an empty list or an unknown area.  What each area asks for, per platform (Google scopes shortened to their last path segment):  | Platform | `posting` | `analytics` | `comments` | `messaging` | `ads` | Always requested | |---|---|---|---|---|---|---| | facebook | `pages_manage_posts` | `read_insights`, `pages_read_user_content` | `pages_manage_engagement`, `pages_read_user_content` | `pages_messaging` | `ads_management`, `ads_read`, `leads_retrieval`, `pages_manage_ads`, `instagram_basic`, `business_management` | `pages_show_list`, `pages_read_engagement`, `pages_manage_metadata` | | instagram (Instagram Login) | `instagram_business_content_publish` | `instagram_business_manage_insights` | `instagram_business_manage_comments` | `instagram_business_manage_messages` | none | `instagram_business_basic` | | instagram (`loginMethod=facebook_login`) | `instagram_content_publish` | `instagram_manage_insights` | `instagram_manage_comments` | `instagram_manage_messages` | `ads_management`, `ads_read`, `leads_retrieval`, `pages_manage_ads` | `instagram_basic`, `pages_show_list`, `pages_read_engagement`, `business_management`, `pages_messaging`, `pages_manage_metadata` | | linkedin | `w_member_social`, `w_organization_social`, `r_organization_social`, `r_organization_followers` | `r_member_postAnalytics`, `r_member_profileAnalytics`, `rw_organization_admin`, `r_organization_social`, `r_organization_followers` | `w_member_social`, `w_member_social_feed`, `w_organization_social`, `w_organization_social_feed`, `r_organization_social`, `r_organization_social_feed` | none | `r_ads`, `rw_ads`, `r_ads_reporting`, `r_marketing_leadgen_automation`, `rw_conversions` | `openid`, `profile`, `email`, `r_basicprofile`, `rw_organization_admin` | | twitter | `tweet.write`, `media.write` | (in the always-requested set) | `tweet.write`, `like.write`, `tweet.moderate.write` | `dm.read`, `dm.write`, `media.write` | none | `tweet.read`, `users.read`, `offline.access` | | tiktok | `video.publish`, `video.upload` | `user.info.stats`, `user.insights`, `video.list`, `video.insights` | `comment.list`, `comment.list.manage`, `video.list` | `message.list.read`, `message.list.send`, `message.list.manage` | none | `user.info.basic`, `user.info.username`, `user.info.profile`, `user.account.type`, `video.list` | | youtube | `youtube.upload` | `yt-analytics.readonly` | `youtube.force-ssl` | none | none | `youtube` | | threads | `threads_content_publish`, `threads_manage_replies`, `threads_delete` | `threads_manage_insights` | `threads_content_publish`, `threads_read_replies`, `threads_manage_replies`, `threads_delete` | none | none | `threads_basic` | | reddit | `submit`, `read`, `mysubreddits`, `flair`, `history`, `edit` | `read`, `history` | `read`, `history`, `edit`, `vote` | `privatemessages` | none | `identity` | | pinterest | `boards:write`, `pins:read`, `pins:write` | `pins:read`, `user_accounts:read` | none | none | `ads:read`, `ads:write`, `boards:write`, `pins:read`, `pins:write` | `boards:read`, `user_accounts:read` | | googlebusiness | `business.manage` | `business.manage` | `business.manage` | none | none | `business.manage`, `userinfo.profile`, `userinfo.email` | | slack | `chat:write`, `chat:write.public`, `chat:write.customize`, `files:write`, `files:read` | none | none | `chat:write`, `chat:write.customize`, `files:write`, `files:read`, `channels:history`, `groups:history`, `im:history`, `mpim:history`, `im:read`, `im:write`, `mpim:read`, `users:read`, `reactions:read`, `reactions:write` | none | `channels:join`, `channels:read`, `groups:read`, `team:read` |  Google and Microsoft accounts use the mailbox areas instead (`scopes` is required there):  | Platform | `email` | `calendar` | `files` | `contacts` | Always requested | |---|---|---|---|---|---| | google | `gmail.modify` | `calendar` | `drive.file` (only files Zernio created or the user picked, see the Files tag) | `contacts.readonly` | `openid`, `userinfo.email`, `userinfo.profile` | | microsoft | `Mail.ReadWrite`, `Mail.Send` | `Calendars.ReadWrite` | `Files.ReadWrite` | `Contacts.Read` | `openid`, `profile`, `email`, `offline_access`, `User.Read` |  Areas accumulate: reconnecting with more areas widens the grant, and `GET /v1/accounts/{accountId}/health` reports the result.  On tiktok, a connect without `posting` returns 409 `INVALID_RESOURCE_STATE` (`param: scopes`) when the profile already holds an account from Zernio's older TikTok app: that account can only be replaced by a grant that includes posting.  |  |
+**scopes** | Option<**String**> | Comma-separated permission areas to request instead of the platform's full permission set.  **Values:** `posting`, `analytics`, `comments`, `messaging`, `ads`; on google and microsoft, `email`, `calendar`, `files`, `contacts`, `directory`; on microsoft only, `shared_mailboxes`. `directory` (people search) works on microsoft, and on google only through your own OAuth app for now.  `shared_mailboxes` (Microsoft only) adds `Mail.ReadWrite.Shared` and `Mail.Send.Shared`, so the account can add shared mailboxes it has access to with `POST /v1/email/shared-mailboxes`. Pass it next to `email`. To add it to a connected account, reconnect with `scopes=email,shared_mailboxes`.  **Default:** omit it (what the dashboard does) to request everything the platform supports. Google and microsoft REQUIRE it (400 `INVALID_FIELD_VALUE` when absent) because their consent screens are reviewed per area.  When present, the consent dialog asks only for the scopes behind those areas, plus the scopes every connection needs (identity, token refresh, listing the pages, organizations or channels the user picks from).  - Scopes never asked for are absent from the account's `permissions`. The account keeps the requested areas in `scopeAreas`. - The health endpoints judge the account against those areas: an area never asked for reads `not_requested` and does not make it unhealthy, so an `analytics`-only account reports `canPost: false` with `status: healthy`. - A `posting`-only account cannot read analytics or the inbox until reconnected with more areas. - First comments need `comments`: a `posting`-only account publishes the post and skips the first comment. - Scopes in none of the areas (X likes, bookmarks and follows, Pinterest ads-only extras) are requested only when the parameter is omitted.  **Supported on** facebook, instagram (both login methods), linkedin, twitter, tiktok, youtube, threads, reddit, pinterest, googlebusiness and slack (via `GET /v1/connect/slack`).  **Rejected** with 400 `INVALID_FIELD_VALUE` (`param: scopes`) on bluesky, telegram, discord, snapchat and whatsapp (their dialog cannot be reduced), and for an empty list or an unknown area.  What each area asks for, per platform (Google scopes shortened to their last path segment):  | Platform | `posting` | `analytics` | `comments` | `messaging` | `ads` | Always requested | |---|---|---|---|---|---|---| | facebook | `pages_manage_posts` | `read_insights`, `pages_read_user_content` | `pages_manage_engagement`, `pages_read_user_content` | `pages_messaging` | `ads_management`, `ads_read`, `leads_retrieval`, `pages_manage_ads`, `instagram_basic`, `business_management` | `pages_show_list`, `pages_read_engagement`, `pages_manage_metadata` | | instagram (Instagram Login) | `instagram_business_content_publish` | `instagram_business_manage_insights` | `instagram_business_manage_comments` | `instagram_business_manage_messages` | none | `instagram_business_basic` | | instagram (`loginMethod=facebook_login`) | `instagram_content_publish` | `instagram_manage_insights` | `instagram_manage_comments` | `instagram_manage_messages` | `ads_management`, `ads_read`, `leads_retrieval`, `pages_manage_ads` | `instagram_basic`, `pages_show_list`, `pages_read_engagement`, `business_management`, `pages_messaging`, `pages_manage_metadata` | | linkedin | `w_member_social`, `w_organization_social`, `r_organization_social`, `r_organization_followers` | `r_member_postAnalytics`, `r_member_profileAnalytics`, `rw_organization_admin`, `r_organization_social`, `r_organization_followers` | `w_member_social`, `w_member_social_feed`, `w_organization_social`, `w_organization_social_feed`, `r_organization_social`, `r_organization_social_feed` | none | `r_ads`, `rw_ads`, `r_ads_reporting`, `r_marketing_leadgen_automation`, `rw_conversions` | `openid`, `profile`, `email`, `r_basicprofile`, `rw_organization_admin` | | twitter | `tweet.write`, `media.write` | (in the always-requested set) | `tweet.write`, `like.write`, `tweet.moderate.write` | `dm.read`, `dm.write`, `media.write` | none | `tweet.read`, `users.read`, `offline.access` | | tiktok | `video.publish`, `video.upload` | `user.info.stats`, `user.insights`, `video.list`, `video.insights` | `comment.list`, `comment.list.manage`, `video.list` | `message.list.read`, `message.list.send`, `message.list.manage` | none | `user.info.basic`, `user.info.username`, `user.info.profile`, `user.account.type`, `video.list` | | youtube | `youtube.upload` | `yt-analytics.readonly` | `youtube.force-ssl` | none | none | `youtube` | | threads | `threads_content_publish`, `threads_manage_replies`, `threads_delete` | `threads_manage_insights` | `threads_content_publish`, `threads_read_replies`, `threads_manage_replies`, `threads_delete` | none | none | `threads_basic` | | reddit | `submit`, `read`, `mysubreddits`, `flair`, `history`, `edit` | `read`, `history` | `read`, `history`, `edit`, `vote` | `privatemessages` | none | `identity` | | pinterest | `boards:write`, `pins:read`, `pins:write` | `pins:read`, `user_accounts:read` | none | none | `ads:read`, `ads:write`, `boards:write`, `pins:read`, `pins:write` | `boards:read`, `user_accounts:read` | | googlebusiness | `business.manage` | `business.manage` | `business.manage` | none | none | `business.manage`, `userinfo.profile`, `userinfo.email` | | slack | `chat:write`, `chat:write.public`, `chat:write.customize`, `files:write`, `files:read` | none | none | `chat:write`, `chat:write.customize`, `files:write`, `files:read`, `channels:history`, `groups:history`, `im:history`, `mpim:history`, `im:read`, `im:write`, `mpim:read`, `users:read`, `reactions:read`, `reactions:write` | none | `channels:join`, `channels:read`, `groups:read`, `team:read` |  Google and Microsoft accounts use the mailbox areas instead (`scopes` is required there):  | Platform | `email` | `calendar` | `files` | `contacts` | Always requested | |---|---|---|---|---|---| | google | `gmail.modify` | `calendar` | `drive.file` (only files Zernio created or the user picked, see the Files tag) | `contacts.readonly` | `openid`, `userinfo.email`, `userinfo.profile` | | microsoft | `Mail.ReadWrite`, `Mail.Send` | `Calendars.ReadWrite` | `Files.ReadWrite` | `Contacts.Read` | `openid`, `profile`, `email`, `offline_access`, `User.Read` |  Areas accumulate: reconnecting with more areas widens the grant, and `GET /v1/accounts/{accountId}/health` reports the result.  On tiktok, a connect without `posting` returns 409 `INVALID_RESOURCE_STATE` (`param: scopes`) when the profile already holds an account from Zernio's older TikTok app: that account can only be replaced by a grant that includes posting.  |  |
 **login_hint** | Option<**String**> | google and microsoft only: pre-fills the account picker with this address so the user lands on the right mailbox. |  |
 **headless** | Option<**bool**> | When true, the user is redirected to your redirect_url with raw OAuth data (code, state) instead of Zernio's default account selection UI. Use this to build a custom connect experience. |  |[default to false]
 **login_method** | Option<**String**> | Instagram only: which of the two Instagram connection methods to use. Ignored for every other platform.  - `instagram_login` (default when omitted): the Instagram Login dialog. The user authorizes their Instagram professional account directly, no Facebook Page required. Exception: if omitted and `reconnectAccountId` names an account connected with `facebook_login`, the reconnect keeps that method. - `facebook_login`: the Facebook Login dialog (\"Instagram API with Facebook Login\"). The user authorizes a Facebook Page with a linked Instagram professional account, and every API call for that account runs through the Page. Use it when the customer manages Instagram through a Page and expects the Facebook consent screen.  With `facebook_login` the user picks a Page, so the callback continues at the account-selection step, `/v1/connect/instagram/select-account`. The default `instagram_login` has no selection step and connects directly.  `facebook_login` supports `headless=true` like the other selection platforms. The callback redirects to your `redirect_url` with `profileId`, `tempToken`, `platform=instagram`, `step=select_account`, `userProfile` and `connect_token`.  `userProfile` is the Facebook user's profile, same shape and encoding as the Facebook `step=select_page` redirect. Pass `profileId`, `tempToken` and `connect_token` into the select-account endpoints to finish.  |  |[default to instagram_login]
@@ -1051,6 +1181,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::CreateOAuthApp201Response**](createOAuthApp_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_org_connection
+
+> models::CreateGoogleOrgConnection201Response get_org_connection(org_connection_id)
+Get an organization connection
+
+One organization connection with its status and setup instructions.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**org_connection_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::CreateGoogleOrgConnection201Response**](createGoogleOrgConnection_201_response.md)
 
 ### Authorization
 
@@ -1749,6 +1909,67 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_org_connection_users
+
+> models::ListOrgConnectionUsers200Response list_org_connection_users(org_connection_id, cursor)
+List an organization's users
+
+The organization's users, 100 per page, with whether each is allowed and the `accountId` of those already added.  Google needs `adminEmail` on the connection and the directory scope delegated. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**org_connection_id** | **String** |  | [required] |
+**cursor** | Option<**String**> |  |  |
+
+### Return type
+
+[**models::ListOrgConnectionUsers200Response**](listOrgConnectionUsers_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_org_connections
+
+> models::ListOrgConnections200Response list_org_connections(profile_id)
+List organization connections
+
+The Google Workspace and Microsoft 365 organization connections on a profile, newest first.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**profile_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::ListOrgConnections200Response**](listOrgConnections_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_pinterest_boards_for_selection
 
 > models::ListPinterestBoardsForSelection200Response list_pinterest_boards_for_selection(x_connect_token, profile_id, temp_token)
@@ -2366,6 +2587,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## update_org_connection
+
+> models::CreateGoogleOrgConnection201Response update_org_connection(org_connection_id, update_org_connection_request)
+Update an organization connection
+
+Changes the allowlist or the Google directory admin.  Mailboxes already added that a narrowed allowlist excludes answer `401` `reconnect_required` until it includes them again. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**org_connection_id** | **String** |  | [required] |
+**update_org_connection_request** | [**UpdateOrgConnectionRequest**](UpdateOrgConnectionRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateGoogleOrgConnection201Response**](createGoogleOrgConnection_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## update_pinterest_boards
 
 > models::ConnectBlueskyCredentials200Response update_pinterest_boards(account_id, update_pinterest_boards_request)
@@ -2446,6 +2698,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UpdateYoutubeDefaultPlaylist200Response**](updateYoutubeDefaultPlaylist_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## verify_org_connection
+
+> models::CreateGoogleOrgConnection201Response verify_org_connection(org_connection_id, verify_org_connection_request)
+Verify an organization connection
+
+Checks the administrator's grant and activates the connection.  Google: the domain's TXT record and a token for `email` with every delegated scope. Microsoft: a tenant token carrying every application permission the areas need.  `409` `org_grant_incomplete` says what is still missing. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**org_connection_id** | **String** |  | [required] |
+**verify_org_connection_request** | Option<[**VerifyOrgConnectionRequest**](VerifyOrgConnectionRequest.md)> |  |  |
+
+### Return type
+
+[**models::CreateGoogleOrgConnection201Response**](createGoogleOrgConnection_201_response.md)
 
 ### Authorization
 

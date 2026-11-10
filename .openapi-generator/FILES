@@ -146,12 +146,15 @@ docs/AddConversionAssociations200Response.md
 docs/AddConversionAssociations200ResponseFailedInner.md
 docs/AddConversionAssociationsRequest.md
 docs/AddDiscordMemberRole200Response.md
+docs/AddEmailSharedMailbox200Response.md
+docs/AddEmailSharedMailboxRequest.md
 docs/AddImessageGroupParticipant200Response.md
 docs/AddImessageGroupParticipantRequest.md
 docs/AddImessageSandboxContact201Response.md
 docs/AddImessageSandboxContactRequest.md
 docs/AddMessageReaction200Response.md
 docs/AddMessageReactionRequest.md
+docs/AddOrgConnectionMailboxRequest.md
 docs/AddRcsTestDevice201Response.md
 docs/AddRcsTestDeviceRequest.md
 docs/AddTrackingTagSharedAccount201Response.md
@@ -233,6 +236,10 @@ docs/AttachCampaignAssetsRequest.md
 docs/AttachNumberToSipTrunk200Response.md
 docs/AttachNumberToSipTrunkRequest.md
 docs/AutoRecharge.md
+docs/AutocompleteContacts200Response.md
+docs/AutocompleteContacts200ResponseDataInner.md
+docs/AutocompleteContacts200ResponseMeta.md
+docs/AutocompleteContacts200ResponseMetaSourcesInner.md
 docs/Automation.md
 docs/AutomationAction.md
 docs/AutomationActionAllOfAdAccount.md
@@ -813,6 +820,8 @@ docs/CreateGoogleBusinessMedia200Response.md
 docs/CreateGoogleBusinessMediaRequest.md
 docs/CreateGoogleBusinessPlaceAction200Response.md
 docs/CreateGoogleBusinessPlaceActionRequest.md
+docs/CreateGoogleOrgConnection201Response.md
+docs/CreateGoogleOrgConnectionRequest.md
 docs/CreateHighDemandPeriod201Response.md
 docs/CreateHighDemandPeriodRequest.md
 docs/CreateImapAccountRequest.md
@@ -855,6 +864,7 @@ docs/CreateMessagingAd200ResponseResultsInner.md
 docs/CreateMessagingAd201Response.md
 docs/CreateMessagingAdRequest.md
 docs/CreateMetaAdAccountRequest.md
+docs/CreateMicrosoftOrgConnectionRequest.md
 docs/CreateOAuthApp201Response.md
 docs/CreateOAuthAppRequest.md
 docs/CreatePayeeOnboardingLink200Response.md
@@ -1082,6 +1092,8 @@ docs/DeleteInboxConversation200ResponseData.md
 docs/DeleteInboxReviewReply200Response.md
 docs/DeleteInboxReviewReplyRequest.md
 docs/DeleteOAuthApp200Response.md
+docs/DeleteOrgConnection200Response.md
+docs/DeleteOrgConnection200ResponseData.md
 docs/DeleteSmsSenderId200Response.md
 docs/DeleteTestLead200Response.md
 docs/DeleteTrackingTagEvent200Response.md
@@ -1166,6 +1178,7 @@ docs/EmailMessage.md
 docs/EmailMessagePatch.md
 docs/EmailSendAs.md
 docs/EmailSendAsSignature.md
+docs/EmailSharedMailbox.md
 docs/EmailSignature.md
 docs/EmailThread.md
 docs/EnableSmsOnNumber200Response.md
@@ -1863,11 +1876,13 @@ docs/InitiateWhatsAppCall200Response.md
 docs/InitiateWhatsAppCallRequest.md
 docs/InlineObject.md
 docs/InlineObject1.md
+docs/InlineObject1Data.md
 docs/InlineObject2.md
 docs/InlineObject3.md
-docs/InlineObject3Details.md
 docs/InlineObject4.md
 docs/InlineObject4Details.md
+docs/InlineObject5.md
+docs/InlineObject5Details.md
 docs/InstagramAccountInsightsResponse.md
 docs/InstagramAccountInsightsResponseDateRange.md
 docs/InstagramAccountInsightsResponseMetricsValue.md
@@ -2130,6 +2145,7 @@ docs/ListEmailLabels200Response.md
 docs/ListEmailMessages200Response.md
 docs/ListEmailSendAs200Response.md
 docs/ListEmailSendAs200ResponseMeta.md
+docs/ListEmailSharedMailboxes200Response.md
 docs/ListEmailSignatures200Response.md
 docs/ListEmailThreads200Response.md
 docs/ListEventDestinations200Response.md
@@ -2217,6 +2233,9 @@ docs/ListMetaBusinessUsers200Response.md
 docs/ListMetaBusinesses200Response.md
 docs/ListOAuthApps200Response.md
 docs/ListOAuthApps200ResponsePagination.md
+docs/ListOrgConnectionUsers200Response.md
+docs/ListOrgConnectionUsers200ResponseDataInner.md
+docs/ListOrgConnections200Response.md
 docs/ListPageUsers200Response.md
 docs/ListPartnershipAdContent200Response.md
 docs/ListPartnershipAdContent200ResponseMediaInner.md
@@ -2428,6 +2447,9 @@ docs/OpenTrackingWindowRequest.md
 docs/OrderImessageSender202Response.md
 docs/OrderImessageSenderRequest.md
 docs/OrderImessageSenderRequestContact.md
+docs/OrgConnection.md
+docs/OrgConnectionSetup.md
+docs/OrgConnectionSetupDnsRecord.md
 docs/OwnedPhoneNumber.md
 docs/OwnedPhoneNumberFeatures.md
 docs/OwnedPhoneNumberProfileId.md
@@ -3231,6 +3253,7 @@ docs/UpdateLeadRequest.md
 docs/UpdateLinkedInOrganization200Response.md
 docs/UpdateLinkedInOrganizationRequest.md
 docs/UpdateOAuthAppRequest.md
+docs/UpdateOrgConnectionRequest.md
 docs/UpdatePinterestBoardsRequest.md
 docs/UpdatePostMetadata200Response.md
 docs/UpdatePostMetadataRequest.md
@@ -3363,6 +3386,7 @@ docs/ValueRuleSet.md
 docs/Verification.md
 docs/VerifyApi.md
 docs/VerifyCredential200Response.md
+docs/VerifyOrgConnectionRequest.md
 docs/VerifySmsRegistrationOtp200Response.md
 docs/VerifySmsRegistrationOtpRequest.md
 docs/VerifyWhatsAppCallerIdRequest.md
@@ -3927,12 +3951,15 @@ src/models/add_conversion_associations_200_response.rs
 src/models/add_conversion_associations_200_response_failed_inner.rs
 src/models/add_conversion_associations_request.rs
 src/models/add_discord_member_role_200_response.rs
+src/models/add_email_shared_mailbox_200_response.rs
+src/models/add_email_shared_mailbox_request.rs
 src/models/add_imessage_group_participant_200_response.rs
 src/models/add_imessage_group_participant_request.rs
 src/models/add_imessage_sandbox_contact_201_response.rs
 src/models/add_imessage_sandbox_contact_request.rs
 src/models/add_message_reaction_200_response.rs
 src/models/add_message_reaction_request.rs
+src/models/add_org_connection_mailbox_request.rs
 src/models/add_rcs_test_device_201_response.rs
 src/models/add_rcs_test_device_request.rs
 src/models/add_tracking_tag_shared_account_201_response.rs
@@ -4012,6 +4039,10 @@ src/models/attach_campaign_assets_request.rs
 src/models/attach_number_to_sip_trunk_200_response.rs
 src/models/attach_number_to_sip_trunk_request.rs
 src/models/auto_recharge.rs
+src/models/autocomplete_contacts_200_response.rs
+src/models/autocomplete_contacts_200_response_data_inner.rs
+src/models/autocomplete_contacts_200_response_meta.rs
+src/models/autocomplete_contacts_200_response_meta_sources_inner.rs
 src/models/automation.rs
 src/models/automation_action.rs
 src/models/automation_action_all_of_ad_account.rs
@@ -4576,6 +4607,8 @@ src/models/create_google_business_media_200_response.rs
 src/models/create_google_business_media_request.rs
 src/models/create_google_business_place_action_200_response.rs
 src/models/create_google_business_place_action_request.rs
+src/models/create_google_org_connection_201_response.rs
+src/models/create_google_org_connection_request.rs
 src/models/create_high_demand_period_201_response.rs
 src/models/create_high_demand_period_request.rs
 src/models/create_imap_account_request.rs
@@ -4618,6 +4651,7 @@ src/models/create_messaging_ad_200_response_results_inner.rs
 src/models/create_messaging_ad_201_response.rs
 src/models/create_messaging_ad_request.rs
 src/models/create_meta_ad_account_request.rs
+src/models/create_microsoft_org_connection_request.rs
 src/models/create_o_auth_app_201_response.rs
 src/models/create_o_auth_app_request.rs
 src/models/create_payee_onboarding_link_200_response.rs
@@ -4842,6 +4876,8 @@ src/models/delete_inbox_conversation_200_response_data.rs
 src/models/delete_inbox_review_reply_200_response.rs
 src/models/delete_inbox_review_reply_request.rs
 src/models/delete_o_auth_app_200_response.rs
+src/models/delete_org_connection_200_response.rs
+src/models/delete_org_connection_200_response_data.rs
 src/models/delete_sms_sender_id_200_response.rs
 src/models/delete_test_lead_200_response.rs
 src/models/delete_tracking_tag_event_200_response.rs
@@ -4924,6 +4960,7 @@ src/models/email_message.rs
 src/models/email_message_patch.rs
 src/models/email_send_as.rs
 src/models/email_send_as_signature.rs
+src/models/email_shared_mailbox.rs
 src/models/email_signature.rs
 src/models/email_thread.rs
 src/models/enable_sms_on_number_200_response.rs
@@ -5609,11 +5646,13 @@ src/models/initiate_whats_app_call_200_response.rs
 src/models/initiate_whats_app_call_request.rs
 src/models/inline_object.rs
 src/models/inline_object_1.rs
+src/models/inline_object_1_data.rs
 src/models/inline_object_2.rs
 src/models/inline_object_3.rs
-src/models/inline_object_3_details.rs
 src/models/inline_object_4.rs
 src/models/inline_object_4_details.rs
+src/models/inline_object_5.rs
+src/models/inline_object_5_details.rs
 src/models/instagram_account_insights_response.rs
 src/models/instagram_account_insights_response_date_range.rs
 src/models/instagram_account_insights_response_metrics_value.rs
@@ -5871,6 +5910,7 @@ src/models/list_email_labels_200_response.rs
 src/models/list_email_messages_200_response.rs
 src/models/list_email_send_as_200_response.rs
 src/models/list_email_send_as_200_response_meta.rs
+src/models/list_email_shared_mailboxes_200_response.rs
 src/models/list_email_signatures_200_response.rs
 src/models/list_email_threads_200_response.rs
 src/models/list_event_destinations_200_response.rs
@@ -5958,6 +5998,9 @@ src/models/list_meta_business_users_200_response.rs
 src/models/list_meta_businesses_200_response.rs
 src/models/list_o_auth_apps_200_response.rs
 src/models/list_o_auth_apps_200_response_pagination.rs
+src/models/list_org_connection_users_200_response.rs
+src/models/list_org_connection_users_200_response_data_inner.rs
+src/models/list_org_connections_200_response.rs
 src/models/list_page_users_200_response.rs
 src/models/list_partnership_ad_content_200_response.rs
 src/models/list_partnership_ad_content_200_response_media_inner.rs
@@ -6165,6 +6208,9 @@ src/models/open_tracking_window_request.rs
 src/models/order_imessage_sender_202_response.rs
 src/models/order_imessage_sender_request.rs
 src/models/order_imessage_sender_request_contact.rs
+src/models/org_connection.rs
+src/models/org_connection_setup.rs
+src/models/org_connection_setup_dns_record.rs
 src/models/owned_phone_number.rs
 src/models/owned_phone_number_features.rs
 src/models/owned_phone_number_profile_id.rs
@@ -6951,6 +6997,7 @@ src/models/update_lead_request.rs
 src/models/update_linked_in_organization_200_response.rs
 src/models/update_linked_in_organization_request.rs
 src/models/update_o_auth_app_request.rs
+src/models/update_org_connection_request.rs
 src/models/update_pinterest_boards_request.rs
 src/models/update_post_metadata_200_response.rs
 src/models/update_post_metadata_request.rs
@@ -7079,6 +7126,7 @@ src/models/value_rule_criterion.rs
 src/models/value_rule_set.rs
 src/models/verification.rs
 src/models/verify_credential_200_response.rs
+src/models/verify_org_connection_request.rs
 src/models/verify_sms_registration_otp_200_response.rs
 src/models/verify_sms_registration_otp_request.rs
 src/models/verify_whats_app_caller_id_request.rs

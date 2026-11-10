@@ -4,6 +4,7 @@ All URIs are relative to *https://zernio.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**add_email_shared_mailbox**](EmailApi.md#add_email_shared_mailbox) | **POST** /v1/email/shared-mailboxes | Add a shared mailbox
 [**cancel_scheduled_email**](EmailApi.md#cancel_scheduled_email) | **DELETE** /v1/email/messages/scheduled/{scheduleId} | Cancel a scheduled email
 [**create_email_draft**](EmailApi.md#create_email_draft) | **POST** /v1/email/drafts | Create a draft
 [**create_email_label**](EmailApi.md#create_email_label) | **POST** /v1/email/labels | Create a label
@@ -28,6 +29,7 @@ Method | HTTP request | Description
 [**list_email_labels**](EmailApi.md#list_email_labels) | **GET** /v1/email/labels | List labels
 [**list_email_messages**](EmailApi.md#list_email_messages) | **GET** /v1/email/messages | List email messages
 [**list_email_send_as**](EmailApi.md#list_email_send_as) | **GET** /v1/email/send-as | List send-as addresses
+[**list_email_shared_mailboxes**](EmailApi.md#list_email_shared_mailboxes) | **GET** /v1/email/shared-mailboxes | List shared mailboxes
 [**list_email_signatures**](EmailApi.md#list_email_signatures) | **GET** /v1/email/signatures | List signatures
 [**list_email_threads**](EmailApi.md#list_email_threads) | **GET** /v1/email/threads | List email threads
 [**list_scheduled_emails**](EmailApi.md#list_scheduled_emails) | **GET** /v1/email/messages/scheduled | List scheduled emails
@@ -40,6 +42,36 @@ Method | HTTP request | Description
 [**update_email_signature**](EmailApi.md#update_email_signature) | **PATCH** /v1/email/signatures/{signatureId} | Update a signature
 [**update_email_thread**](EmailApi.md#update_email_thread) | **PATCH** /v1/email/threads/{threadId} | Update every message in a thread
 
+
+
+## add_email_shared_mailbox
+
+> models::AddEmailSharedMailbox200Response add_email_shared_mailbox(add_email_shared_mailbox_request)
+Add a shared mailbox
+
+Adds an Outlook shared mailbox the connected user can open (Full Access in Exchange) as an account of its own on the same profile. It counts as a connected account.  The Microsoft account needs the `shared_mailboxes` area: connect or reconnect it with `scopes=email,shared_mailboxes`. Without it the call answers 412.  Zernio opens the mailbox before saving it. 403 `shared_mailbox_access_denied` means the user cannot open that address. Adding an address again returns the existing account with 200.  New mail is read every minute, because Microsoft sends no change notifications for shared mailboxes opened this way. Sending needs Send As or Send on Behalf on the mailbox. Remove it with `DELETE /v1/accounts/{accountId}`. Disconnecting the Microsoft account removes its shared mailboxes too. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**add_email_shared_mailbox_request** | [**AddEmailSharedMailboxRequest**](AddEmailSharedMailboxRequest.md) |  | [required] |
+
+### Return type
+
+[**models::AddEmailSharedMailbox200Response**](addEmailSharedMailbox_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## cancel_scheduled_email
@@ -772,6 +804,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListEmailSendAs200Response**](listEmailSendAs_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_email_shared_mailboxes
+
+> models::ListEmailSharedMailboxes200Response list_email_shared_mailboxes(account_id)
+List shared mailboxes
+
+The Outlook shared mailboxes added under this Microsoft account. Each one is an account: pass its `accountId` to any `/v1/email` endpoint.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
+
+### Return type
+
+[**models::ListEmailSharedMailboxes200Response**](listEmailSharedMailboxes_200_response.md)
 
 ### Authorization
 
