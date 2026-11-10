@@ -42,6 +42,7 @@ Name | Type | Description | Notes
 **payable_cents** | **i32** | What the campaign's creators can be paid now, summed over every participant's payable balance. | 
 **landing_url** | Option<**String**> | The page creator tracking links open. | [optional]
 **code_discount_percent** | Option<**i32**> | What each creator discount code takes off. | [optional]
+**auto_payout** | Option<[**models::CreatorCampaignAutoPayout**](CreatorCampaignAutoPayout.md)> |  | [optional]
 **pending_participant_count** | **i32** | Creators who asked to join through the open link and wait for a decision. Not counted in `participantCount`. | 
 **draft_counts** | [**models::CampaignDraftCounts**](CampaignDraftCounts.md) |  | 
 **sample_counts** | [**models::CampaignSampleCounts**](CampaignSampleCounts.md) |  | 

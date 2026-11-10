@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**String**> |  | [optional]
 **account_id** | Option<**String**> |  | [optional]
-**provider** | Option<**Provider**> |  (enum: google, microsoft) | [optional]
+**provider** | Option<**Provider**> |  (enum: google, microsoft, imap) | [optional]
 **subject** | Option<**String**> |  | [optional]
 **snippet** | Option<**String**> |  | [optional]
 **participants** | Option<[**Vec<models::EmailAddress>**](EmailAddress.md)> |  | [optional]

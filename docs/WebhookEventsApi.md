@@ -85,14 +85,17 @@ Method | HTTP request | Description
 [**on_contact_updated**](WebhookEventsApi.md#on_contact_updated) | **POST** /contact.updated | Contact updated
 [**on_conversation_control_changed**](WebhookEventsApi.md#on_conversation_control_changed) | **POST** /conversation.control_changed | Conversation control changed event
 [**on_conversation_started**](WebhookEventsApi.md#on_conversation_started) | **POST** /conversation.started | Conversation started event
+[**on_conversion_received**](WebhookEventsApi.md#on_conversion_received) | **POST** /conversion.received | Conversion received event
 [**on_creator_campaign_budget_exhausted**](WebhookEventsApi.md#on_creator_campaign_budget_exhausted) | **POST** /creator_campaign.budget_exhausted | Creator campaign budget exhausted event
 [**on_creator_campaign_closed**](WebhookEventsApi.md#on_creator_campaign_closed) | **POST** /creator_campaign.closed | Creator campaign closed event
 [**on_email_bounced**](WebhookEventsApi.md#on_email_bounced) | **POST** /email.bounced | Email bounced
+[**on_email_deleted**](WebhookEventsApi.md#on_email_deleted) | **POST** /email.deleted | Email deleted
 [**on_email_link_clicked**](WebhookEventsApi.md#on_email_link_clicked) | **POST** /email.link_clicked | Email link clicked
 [**on_email_opened**](WebhookEventsApi.md#on_email_opened) | **POST** /email.opened | Email opened
 [**on_email_send_failed**](WebhookEventsApi.md#on_email_send_failed) | **POST** /email.send_failed | Scheduled email failed
 [**on_email_sent**](WebhookEventsApi.md#on_email_sent) | **POST** /email.sent | Email sent
 [**on_email_thread_replied**](WebhookEventsApi.md#on_email_thread_replied) | **POST** /email.thread_replied | Email thread replied
+[**on_email_updated**](WebhookEventsApi.md#on_email_updated) | **POST** /email.updated | Email updated
 [**on_file_created**](WebhookEventsApi.md#on_file_created) | **POST** /file.created | File created
 [**on_file_deleted**](WebhookEventsApi.md#on_file_deleted) | **POST** /file.deleted | File deleted
 [**on_file_picked**](WebhookEventsApi.md#on_file_picked) | **POST** /file.picked | Files picked
@@ -2386,7 +2389,7 @@ Name | Type | Description  | Required | Notes
 > on_contact_deleted(webhook_payload_contact)
 Contact deleted
 
-A contact was deleted in Google Contacts or Outlook.  ### Effect  Zernio removes its email channel for that account; the contact stays when other channels remain. It arrives up to a day after the change, from the daily sync. 
+A contact was deleted in Google Contacts or Outlook.  ### Effect  Zernio removes its email channels for that account; the contact stays when other channels remain. It arrives up to 15 minutes after the change, from the sync. 
 
 ### Parameters
 
@@ -2506,7 +2509,7 @@ Name | Type | Description  | Required | Notes
 > on_contact_updated(webhook_payload_contact)
 Contact updated
 
-A contact sync added or changed a contact; `contact.id` is the Zernio contact id.  ### When it fires  It fires from the daily sync of a Google Contacts or Outlook account, so up to a day after the change. It also fires when a WhatsApp coexistence address book adds or renames a contact. 
+A contact sync added or changed a contact; `contact.id` is the Zernio contact id.  ### When it fires  It fires from the sync of a Google Contacts or Outlook account, which runs every 15 minutes, so up to 15 minutes after the change. It also fires when a WhatsApp coexistence address book adds or renames a contact. 
 
 ### Parameters
 
@@ -2536,7 +2539,7 @@ Name | Type | Description  | Required | Notes
 > on_conversation_control_changed(webhook_payload_conversation_control_changed)
 Conversation control changed event
 
-Control of a conversation moved under Meta's handover protocol (`messaging_handovers`).  ### Owner values  `control.owner` is `ai_agent` (Meta Business Agent, WhatsApp), `app` (you) or `other` (a WhatsApp partner app, or a receiver such as Page Inbox on Messenger and Instagram).  ### Control fields  `control.previousOwner` is `null` when no handover touched the thread. `control.ownerAppId` is the new owner's Meta app id when named (Page Inbox is `263902037430900`). `control.metadata` is the transferring app's note, verbatim.  ### WhatsApp  Meta Business Agent took the conversation, handed it to you, or another partner app took it. While `ai_agent` owns it, its replies arrive on `message.sent` with `source: \"meta_business_agent\"`.  ### Taking control on WhatsApp  Sending any message through the inbox takes control back. To hand it to the agent without sending, call `POST /v1/inbox/conversations/{conversationId}/thread-control` with `action: \"release\"`.  ### Facebook and Instagram  Another app on the Page passed the thread to you, or took or received it. While you are not the owner, sends answer `409` `not_thread_owner`.  ### Taking control on Facebook and Instagram  Call `POST /v1/inbox/conversations/{conversationId}/thread-control` with `action: \"take\"`, or `\"request\"` to ask the owner to pass it. Both answer 400 `platform_not_supported` on Instagram Login connections.  ### When it does not fire  A repeat report of the same owner fires nothing. A `request` changes nothing until the owner passes the thread.  ### Standby messages  While another app owns the conversation, inbound messages arrive on `message.received` with `metadata.standby: true`. 
+Control of a conversation moved: Meta Business Agent on WhatsApp, or Meta's conversation routing on Facebook and Instagram (`messaging_handovers`). On Instagram, Conversation Routing replaced the Handover Protocol in October 2025 and kept its thread-control events.  ### Owner values  `control.owner` is `ai_agent` (Meta Business Agent, WhatsApp), `app` (you) or `other` (a WhatsApp partner app, or a receiver such as Page Inbox on Messenger and Instagram).  ### Control fields  `control.previousOwner` is `null` when no handover touched the thread. `control.ownerAppId` is the new owner's Meta app id when named (Page Inbox is `263902037430900`). `control.metadata` is the transferring app's note, verbatim.  ### WhatsApp  Meta Business Agent took the conversation, handed it to you, or another partner app took it. While `ai_agent` owns it, its replies arrive on `message.sent` with `source: \"meta_business_agent\"`.  ### Taking control on WhatsApp  Sending any message through the inbox takes control back. To hand it to the agent without sending, call `POST /v1/inbox/conversations/{conversationId}/thread-control` with `action: \"release\"`.  ### Facebook and Instagram  Meta sent Zernio a `pass_thread_control` (another app passed the thread to you) or `take_thread_control` (another app took it from you) event. It fires once per change of the stored owner.  It does not fire on `release` or when two other apps move a thread between them (Meta sends nothing), nor for your own thread-control calls (their response carries the new owner).  While you are not the owner, sends answer `409` `not_thread_owner`.  ### Taking control on Facebook and Instagram  Call `POST /v1/inbox/conversations/{conversationId}/thread-control` with `action: \"take\"`, or `\"request\"` to ask the owner to pass it. Both answer 400 `platform_not_supported` on Instagram Login connections.  Meta accepts `take` only when the account has a default app set in conversation routing and the business has allowed Zernio to take control of conversations; otherwise it answers code 27.  ### When it does not fire  A repeat report of the same owner fires nothing. A `request` changes nothing until the owner passes the thread.  ### Standby messages  While another app owns the conversation, inbound messages arrive on `message.received` with `metadata.standby: true`. 
 
 ### Parameters
 
@@ -2574,6 +2577,36 @@ A new conversation began between a connected account and a contact, in either di
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_conversation_started** | [**WebhookPayloadConversationStarted**](WebhookPayloadConversationStarted.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_conversion_received
+
+> on_conversion_received(webhook_payload_conversion)
+Conversion received event
+
+Zernio stored an event: one sent to `POST /v1/events` or `POST /v1/ads/conversions`, or one a connected source sent for you (a lead form lead, a Shopify or WooCommerce order, a HubSpot deal). It fires again when a newer version of the same event is stored, such as an order that changed.  `conversion` has the fields of `GET /v1/events/{eventId}`, plus `source`, `campaign` (the campaign the event counts for, or null) and `campaignMatch` (why there is none). Personal data is never sent: `hasEmail`, `hasPhone` and `hasExternalId` only say what the event carried.  ### Deduplication  The event `id` follows the stored event and its version, so a resend of the same version carries the same `id`. Deduplicate on it.  ### Not sent for  Test events (they are never stored), corrections made with `PATCH` or `DELETE /v1/events/{eventId}`, and the hourly re-match that ties an earlier event to its campaign. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_conversion** | [**WebhookPayloadConversion**](WebhookPayloadConversion.md) |  | [required] |
 
 ### Return type
 
@@ -2664,6 +2697,36 @@ A delivery failure report for mail the mailbox sent arrived: the receiving serve
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_email_bounced** | [**WebhookPayloadEmailBounced**](WebhookPayloadEmailBounced.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_email_deleted
+
+> on_email_deleted(webhook_payload_email_deleted)
+Email deleted
+
+A message was deleted from the mailbox for good. Moving it to Trash is `email.updated` with `folder: \"trash\"`. IMAP mailboxes do not send it. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_email_deleted** | [**WebhookPayloadEmailDeleted**](WebhookPayloadEmailDeleted.md) |  | [required] |
 
 ### Return type
 
@@ -2814,6 +2877,36 @@ Mail from someone other than the mailbox arrived in the thread of a message sent
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_email_thread_replied** | [**WebhookPayloadEmailThreadReplied**](WebhookPayloadEmailThreadReplied.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_email_updated
+
+> on_email_updated(webhook_payload_email_updated)
+Email updated
+
+A message in the mailbox changed: it was read or marked unread, starred or flagged, labelled or categorized, archived, trashed or moved. Covers the Inbox, and Sent on Gmail. A change can arrive more than once; key on `email.messageId`.  Gmail reports exactly what changed in `changes`. Outlook reports the message as it is now, with `changes: null`. A message deleted for good fires `email.deleted` instead. IMAP mailboxes do not send it. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_email_updated** | [**WebhookPayloadEmailUpdated**](WebhookPayloadEmailUpdated.md) |  | [required] |
 
 ### Return type
 
@@ -3196,7 +3289,7 @@ Name | Type | Description  | Required | Notes
 > on_message_received(webhook_payload_message)
 Message received event
 
-A new message arrived in the inbox; `message.text`, `message.attachments[]` and `message.sender` describe it.  ### Standby  While another app owns the conversation it carries `metadata.standby: true`. Zernio runs no workflow or keyword automation on it. A bot must skip standby messages, or on WhatsApp it takes the conversation from the agent.  ### Interactive replies  Button and list taps, flow responses and orders arrive under `metadata` (`interactiveType`, `interactiveId`, `flowResponseData`, `order`). Only a referral that arrives without a message becomes `referral.received`.  ### Platform notes  New email from Google and Microsoft mailboxes arrives as this event. 
+A new message arrived in the inbox; `message.text`, `message.attachments[]` and `message.sender` describe it.  ### Standby  While another app owns the conversation it carries `metadata.standby: true`. Zernio runs no workflow or keyword automation on it. A bot must skip standby messages, or on WhatsApp it takes the conversation from the agent.  ### Interactive replies  Button and list taps, flow responses and orders arrive under `metadata` (`interactiveType`, `interactiveId`, `flowResponseData`, `order`). Only a referral that arrives without a message becomes `referral.received`.  ### Platform notes  New email from Google, Microsoft and IMAP mailboxes arrives as this event. 
 
 ### Parameters
 

@@ -87,7 +87,7 @@ Streams the bytes with `Content-Disposition: attachment`. Google Docs, Slides an
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **file_id** | **String** |  | [required] |
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 
 ### Return type
 
@@ -118,7 +118,7 @@ On Google Drive, a file Zernio neither created nor was given through Google Pick
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **file_id** | **String** |  | [required] |
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 
 ### Return type
 
@@ -149,7 +149,7 @@ Grants read access to anyone holding the link (Drive `anyone` permission, OneDri
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **file_id** | **String** |  | [required] |
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 
 ### Return type
 
@@ -179,7 +179,7 @@ Lists the children of `folderId` (the root by default), folders first.  With `q`
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 **folder_id** | Option<**String**> | Provider folder id; omit for the root. |  |
 **q** | Option<**String**> | Name search. |  |
 **cursor** | Option<**String**> |  |  |
@@ -214,7 +214,7 @@ Drive trash or the OneDrive recycle bin; nothing is destroyed and the user can r
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **file_id** | **String** |  | [required] |
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 
 ### Return type
 

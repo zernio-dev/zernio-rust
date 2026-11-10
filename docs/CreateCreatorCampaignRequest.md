@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **branding** | Option<[**models::CreatorCampaignBranding**](CreatorCampaignBranding.md)> |  | [optional]
 **landing_url** | Option<**String**> | The page creator tracking links open. Required unless `attribution` is `code`. | [optional]
 **code_discount_percent** | Option<**i32**> | What each creator's discount code takes off an order. Required unless `attribution` is `link`. | [optional]
+**auto_payout** | Option<[**models::CreatorCampaignAutoPayout**](CreatorCampaignAutoPayout.md)> |  | [optional]
 **join_approval** | Option<**JoinApproval**> | manual holds creators who join through the open link as `pending` until you approve them. Personal invites are never held. (enum: auto, manual) | [optional][default to Auto]
 **require_draft_approval** | Option<**bool**> | Creators upload a draft for review before publishing, and each submitted post must name an approved draft. | [optional][default to false]
 **store_account_id** | Option<**String**> | A connected Shopify or WooCommerce store account. On `commission` and smart `retainer` economics its orders pay commission: required there, and fixed once such a campaign leaves draft.  On any campaign creators can ask for free samples of its products (`sampleProductIds`). Changing it without `sampleProductIds` clears the sample products; null removes the store and the products.  | [optional]

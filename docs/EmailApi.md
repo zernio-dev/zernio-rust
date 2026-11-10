@@ -55,7 +55,7 @@ Cancels a send still waiting for its time and returns it with `status: cancelled
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **schedule_id** | **String** |  | [required] |
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 
 ### Return type
 
@@ -78,7 +78,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateEmailDraft201Response create_email_draft(create_email_draft_request, idempotency_key)
 Create a draft
 
-Saves a draft in the user's mailbox, where they see it in Gmail or Outlook. Recipients and subject can come later. `inReplyTo` makes a reply draft in that thread and `forwardOf` a forward draft with the original's attachments; the `kind` is fixed for the life of the draft.  Send it with `POST /v1/email/drafts/{draftId}/send`. Edits the user makes in their mail client are what goes out. Store the draft `id`, and pass its `version` as `If-Match` so an update or send applies only to the version you saw. 
+Saves a draft in the user's mailbox, where they see it in their mail app. Recipients and subject can come later. `inReplyTo` makes a reply draft in that thread and `forwardOf` a forward draft with the original's attachments; the `kind` is fixed for the life of the draft.  Send it with `POST /v1/email/drafts/{draftId}/send`. Edits the user makes in their mail client are what goes out. Store the draft `id`, and pass its `version` as `If-Match` so an update or send applies only to the version you saw. 
 
 ### Parameters
 
@@ -169,7 +169,7 @@ Name | Type | Description  | Required | Notes
 > models::ImapConnectResult create_imap_account(create_imap_account_request)
 Connect an IMAP mailbox
 
-Connects any IMAP/SMTP mailbox without the hosted page. Email and password are enough when discovery finds the servers. Every check runs before anything is stored; a failure answers 422 with the failing stage's code. An address already on the profile is updated in place and keeps its accountId.
+Connects any IMAP/SMTP mailbox without the hosted page. Email and password are enough when discovery finds the servers. Every check runs before anything is stored; a failure answers 422 with the failing stage's code. An address already on the profile is updated in place and keeps its accountId.  Send `Accept: application/x-ndjson` to stream one line per check as it runs, ending with a `result` line that holds the status and this body.
 
 ### Parameters
 
@@ -235,7 +235,7 @@ Delete a draft
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **draft_id** | **String** |  | [required] |
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 
 ### Return type
 
@@ -266,7 +266,7 @@ Deletes a Gmail user label or an Outlook category, by id or name (URL-encode a s
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **label_id** | **String** |  | [required] |
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 
 ### Return type
 
@@ -297,7 +297,7 @@ Removes an address declared with `POST /v1/email/send-as`. Addresses the provide
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **email** | **String** |  | [required] |
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 
 ### Return type
 
@@ -386,7 +386,7 @@ Streams the attachment bytes with its `Content-Type` and a `Content-Disposition`
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **attachment_id** | **String** |  | [required] |
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 **message_id** | **String** |  | [required] |
 
 ### Return type
@@ -450,7 +450,7 @@ The draft as it stands in the mailbox now, with its bodies. A draft deleted in t
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **draft_id** | **String** |  | [required] |
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 
 ### Return type
 
@@ -479,10 +479,10 @@ Get an email message
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **message_id** | **String** |  | [required] |
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 **include_headers** | Option<**bool**> | Include the raw internet headers under `headers`. |  |[default to false]
 **raw** | Option<**bool**> | Include the MIME source under `raw`. |  |[default to false]
-**clean** | Option<**bool**> | Add `cleanText`: the new text only, without quoted replies, forwarded history, signature or tracking pixels. Ready to hand to an LLM. |  |[default to false]
+**clean** | Option<**bool**> | Add a `clean` object: the new text without quoted replies, footers or tracking pixels, the `signature` on its own (it also stays in `text`), and a parsed `forwarded` header. Ready to hand to an LLM. |  |[default to false]
 
 ### Return type
 
@@ -539,8 +539,8 @@ Get an email thread with its messages
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **thread_id** | **String** |  | [required] |
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
-**clean** | Option<**bool**> | Add `cleanText` to every message: what each one added to the conversation, without the quoted history. |  |[default to false]
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
+**clean** | Option<**bool**> | Add a `clean` object to every message: the text each one added, without quoted replies, footers or tracking pixels, plus its `signature` and a parsed `forwarded` header. |  |[default to false]
 
 ### Return type
 
@@ -569,7 +569,7 @@ Get a scheduled email
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **schedule_id** | **String** |  | [required] |
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 
 ### Return type
 
@@ -599,7 +599,7 @@ Copies each Gmail send-as signature into a Zernio signature on that account, the
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 
 ### Return type
 
@@ -622,14 +622,14 @@ Name | Type | Description  | Required | Notes
 > models::ListEmailDrafts200Response list_email_drafts(account_id, limit, cursor)
 List drafts
 
-The mailbox's drafts, newest first, including drafts the user wrote in Gmail or Outlook. Drafts in the trash are left out. Rows carry no bodies on Google; get a draft to read them.
+The mailbox's drafts, newest first, including drafts the user wrote in their mail app. Drafts in the trash are left out. Rows carry no bodies on Google; get a draft to read them.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 **limit** | Option<**i32**> |  |  |[default to 25]
 **cursor** | Option<**String**> |  |  |
 
@@ -661,7 +661,7 @@ On Google, folders are Gmail labels (system labels carry `wellKnown`; `unreadCou
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 
 ### Return type
 
@@ -691,7 +691,7 @@ Gmail labels, system and user, or the Outlook category list. If an organization 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 
 ### Return type
 
@@ -721,7 +721,7 @@ Same filters and envelope as `GET /v1/email/threads`, one row per message. Bodie
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 **folder** | Option<**String**> |  |  |
 **unread** | Option<**bool**> |  |  |
 **starred** | Option<**bool**> |  |  |
@@ -767,7 +767,7 @@ The addresses a mailbox can send from, for `from`, each with the signature `appe
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 
 ### Return type
 
@@ -820,14 +820,14 @@ Name | Type | Description  | Required | Notes
 > models::ListEmailThreads200Response list_email_threads(account_id, folder, unread, starred, has_attachment, subject, from, to, cc, bcc, any_email, after, before, search_query_native, sort_order, cursor, limit)
 List email threads
 
-Threads of a connected Google or Microsoft mailbox, newest first. Every filter that the provider cannot apply server-side is applied to the fetched page instead and named in `meta.filteredClientSide`, so a filtered page can hold fewer than `limit` items while `pagination.hasMore` stays true.  On Google, folders are Gmail labels: `folder` takes a well-known name or a label id, `archive` means mail carrying none of the inbox, trash or spam labels, and `sortOrder=asc` reverses the fetched page (Gmail lists newest first only).  The account must have been connected with `scopes=email` (412 `account_scope_missing` otherwise). 
+Threads of a connected Google, Microsoft or IMAP mailbox, newest first. Every filter that the provider cannot apply server-side is applied to the fetched page instead and named in `meta.filteredClientSide`, so a filtered page can hold fewer than `limit` items while `pagination.hasMore` stays true.  On Google, folders are Gmail labels: `folder` takes a well-known name or a label id, `archive` means mail carrying none of the inbox, trash or spam labels, and `sortOrder=asc` reverses the fetched page (Gmail lists newest first only).  The account must have been connected with `scopes=email` (412 `account_scope_missing` otherwise). 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 **folder** | Option<**String**> | Well-known folder (`inbox`, `sent`, `drafts`, `trash`, `spam`, `archive`) or a provider folder id from `GET /v1/email/folders`. Default inbox. |  |
 **unread** | Option<**bool**> |  |  |
 **starred** | Option<**bool**> |  |  |
@@ -873,7 +873,7 @@ Sends made with `scheduledFor` on this mailbox, in send order. Sent, failed and 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 **status** | Option<**String**> |  |  |
 **cursor** | Option<**String**> | `pagination.nextCursor` of the previous page. |  |
 **limit** | Option<**i32**> |  |  |[default to 50]
@@ -931,7 +931,7 @@ Name | Type | Description  | Required | Notes
 > models::SendEmailMessage201Response send_email_draft(draft_id, send_email_draft_request, if_match, idempotency_key)
 Send a draft
 
-Sends the draft as it stands in the mailbox now, edits made in Gmail or Outlook included, and returns the sent message with `draftId`. The draft needs at least one recipient. A draft the user deleted or already sent answers 404 `draft_not_found`.  With `If-Match` it goes out only if it is still the version the approver saw (412 `draft_conflict` otherwise). If the user removed the open pixel or rewrote links, tracking is put back before it is sent. Fires `email.sent` with `source: draft`.  Tracking set when the draft was created applies, and its `metadata` comes back on the sent message. Same protection, caps and headers as sending. 
+Sends the draft as it stands in the mailbox now, edits made in their mail app included, and returns the sent message with `draftId`. The draft needs at least one recipient. A draft the user deleted or already sent answers 404 `draft_not_found`.  With `If-Match` it goes out only if it is still the version the approver saw (412 `draft_conflict` otherwise). If the user removed the open pixel or rewrote links, tracking is put back before it is sent. Fires `email.sent` with `source: draft`.  Tracking set when the draft was created applies, and its `metadata` comes back on the sent message. Same protection, caps and headers as sending. 
 
 ### Parameters
 
@@ -1001,7 +1001,7 @@ Move a message to trash
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **message_id** | **String** |  | [required] |
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 
 ### Return type
 

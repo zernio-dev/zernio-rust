@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **test** | Option<**bool**> | Always true when present: only a sample sent by POST /v1/webhooks/test with an event carries it. Real deliveries never do. | [optional]
 **event** | **Event** |  (enum: file.created, file.updated, file.deleted) | 
 **account** | [**models::WebhookPayloadCalendarEventAccount**](WebhookPayloadCalendarEventAccount.md) |  | 
-**file** | [**models::WebhookPayloadCalendarEventCalendarEvent**](WebhookPayloadCalendarEventCalendarEvent.md) |  | 
+**file** | [**models::WebhookPayloadFileFile**](WebhookPayloadFileFile.md) |  | 
 **timestamp** | **String** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

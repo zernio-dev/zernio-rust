@@ -25,6 +25,8 @@ Name | Type | Description | Notes
 **status** | Option<**Status**> |  (enum: confirmed, tentative, cancelled) | [optional]
 **ical_uid** | Option<**String**> |  | [optional]
 **master_event_id** | Option<**String**> |  | [optional]
+**r#type** | Option<**Type**> | `series` is a recurring master, `occurrence` one of its instances, and `exception` an instance changed on its own. Google flags an instance as an exception only when it was moved off its slot. (enum: single, series, occurrence, exception) | [optional]
+**original_start** | Option<**String**> | For an occurrence or exception, the start it has in the series pattern. | [optional]
 **html_link** | Option<**String**> |  | [optional]
 **read_only** | Option<**bool**> |  | [optional]
 **metadata** | Option<**std::collections::HashMap<String, String>**> |  | [optional]

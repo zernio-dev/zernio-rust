@@ -10,8 +10,10 @@ Method | HTTP request | Description
 [**create_conversion_destination**](ConversionsApi.md#create_conversion_destination) | **POST** /v1/accounts/{accountId}/conversion-destinations | Create a conversion destination
 [**create_custom_conversion_goal**](ConversionsApi.md#create_custom_conversion_goal) | **POST** /v1/ads/conversions/custom-goals | Create a custom conversion goal
 [**create_event_destination**](ConversionsApi.md#create_event_destination) | **POST** /v1/events/destinations | Add an event destination
+[**create_forwarding_rule**](ConversionsApi.md#create_forwarding_rule) | **POST** /v1/events/forwarding-rules | Add a forwarding rule
 [**delete_conversion_destination**](ConversionsApi.md#delete_conversion_destination) | **DELETE** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Delete a conversion destination
 [**delete_event_destination**](ConversionsApi.md#delete_event_destination) | **DELETE** /v1/events/destinations/{destinationId} | Remove an event destination
+[**delete_forwarding_rule**](ConversionsApi.md#delete_forwarding_rule) | **DELETE** /v1/events/forwarding-rules/{ruleId} | Remove a forwarding rule
 [**get_conversion_destination**](ConversionsApi.md#get_conversion_destination) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Get a conversion destination
 [**get_conversion_metrics**](ConversionsApi.md#get_conversion_metrics) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/metrics | Get attribution metrics
 [**get_conversions_quality**](ConversionsApi.md#get_conversions_quality) | **GET** /v1/ads/conversions/quality | Get Event Match Quality
@@ -23,8 +25,11 @@ Method | HTTP request | Description
 [**list_custom_conversion_goals**](ConversionsApi.md#list_custom_conversion_goals) | **GET** /v1/ads/conversions/custom-goals | List custom conversion goals
 [**list_event_destinations**](ConversionsApi.md#list_event_destinations) | **GET** /v1/events/destinations | List event destinations
 [**list_events**](ConversionsApi.md#list_events) | **GET** /v1/events | List stored events
+[**list_forwarding_rules**](ConversionsApi.md#list_forwarding_rules) | **GET** /v1/events/forwarding-rules | List forwarding rules
 [**remove_conversion_associations**](ConversionsApi.md#remove_conversion_associations) | **DELETE** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | Remove associated campaigns
 [**remove_custom_conversion_goal**](ConversionsApi.md#remove_custom_conversion_goal) | **DELETE** /v1/ads/conversions/custom-goals/{goalId} | Remove a custom conversion goal
+[**restate_event**](ConversionsApi.md#restate_event) | **PATCH** /v1/events/{eventId} | Change a stored event's value
+[**retract_event**](ConversionsApi.md#retract_event) | **DELETE** /v1/events/{eventId} | Retract a stored event
 [**send_conversions**](ConversionsApi.md#send_conversions) | **POST** /v1/ads/conversions | Send conversion events
 [**send_events**](ConversionsApi.md#send_events) | **POST** /v1/events | Send events to every destination
 [**update_ad_conversion_goals**](ConversionsApi.md#update_ad_conversion_goals) | **PATCH** /v1/ads/conversions/goals | Update account conversion goals
@@ -71,7 +76,7 @@ Name | Type | Description  | Required | Notes
 > models::AdjustConversions200Response adjust_conversions(adjust_conversions_request)
 Adjust uploaded conversions
 
-Retracts, restates the value of, or enhances conversions you already sent to Google Ads, for refunds or late customer data.  It adjusts conversions previously uploaded via `POST /v1/ads/conversions`: retract them, restate their value, or enhance them with first-party data. Requires the Ads add-on.  ### Google Ads only  Google handles adjustments through the classic Google Ads API (`ConversionAdjustmentUploadService`). The Data Manager `ingestEvents` path used for sending conversions is ingest-only. Meta and LinkedIn have no equivalent, so this endpoint returns `405` for those platforms.  ### Adjustment types  - `RETRACTION`: remove the conversion entirely (refund, chargeback, cancelled order, churn). - `RESTATEMENT`: change the conversion's value (upgrade / downgrade / partial refund). Send the corrected **total** value in `restatementValue` (not a delta). - `ENHANCEMENT`: attach first-party identifiers (hashed email / phone) to an existing conversion (enhanced conversions applied after the fact).  ### Identifying the original conversion  Per adjustment, send one of:  - `orderId`: the transaction ID you sent as `eventId` on the original conversion. Recommended, and **required** for `ENHANCEMENT`. - `gclid` + `conversionTime`: the click ID and the original conversion's time (unix seconds). Not available for `ENHANCEMENT`.  ### Other fields  - `destinationId` is the conversion action resource name, e.g. `customers/1234567890/conversionActions/987654321` (same value you send to `POST /v1/ads/conversions`). - PII in `user` is hashed with SHA-256 server-side (Gmail-specific normalization included). Send plaintext. - Times are unix seconds; we convert to Google's required `yyyy-MM-dd HH:mm:ss+00:00` format.  ### Limits  Up to 2000 adjustments per request. Partial failure is supported (inspect `adjustmentsFailed` / `failures[]`). 
+Retracts, restates the value of, or enhances conversions you already sent to Google Ads, for refunds or late customer data. To change Zernio's stored event too, and every platform at once, use `PATCH` or `DELETE /v1/events/{eventId}`.  It adjusts conversions previously uploaded via `POST /v1/ads/conversions`: retract them, restate their value, or enhance them with first-party data. Requires the Ads add-on.  ### Google Ads only  Google handles adjustments through the classic Google Ads API (`ConversionAdjustmentUploadService`). The Data Manager `ingestEvents` path used for sending conversions is ingest-only. Meta and LinkedIn have no equivalent, so this endpoint returns `405` for those platforms.  ### Adjustment types  - `RETRACTION`: remove the conversion entirely (refund, chargeback, cancelled order, churn). - `RESTATEMENT`: change the conversion's value (upgrade / downgrade / partial refund). Send the corrected **total** value in `restatementValue` (not a delta). - `ENHANCEMENT`: attach first-party identifiers (hashed email / phone) to an existing conversion (enhanced conversions applied after the fact).  ### Identifying the original conversion  Per adjustment, send one of:  - `orderId`: the transaction ID you sent as `eventId` on the original conversion. Recommended, and **required** for `ENHANCEMENT`. - `gclid` + `conversionTime`: the click ID and the original conversion's time (unix seconds). Not available for `ENHANCEMENT`.  ### Other fields  - `destinationId` is the conversion action resource name, e.g. `customers/1234567890/conversionActions/987654321` (same value you send to `POST /v1/ads/conversions`). - PII in `user` is hashed with SHA-256 server-side (Gmail-specific normalization included). Send plaintext. - Times are unix seconds; we convert to Google's required `yyyy-MM-dd HH:mm:ss+00:00` format.  ### Limits  Up to 2000 adjustments per request. Partial failure is supported (inspect `adjustmentsFailed` / `failures[]`). 
 
 ### Parameters
 
@@ -192,7 +197,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateEventDestination201Response create_event_destination(create_event_destination_request)
 Add an event destination
 
-Saves an ad platform destination for a profile, so events sent to `POST /v1/events` for that profile are forwarded to it. Pick `destinationId` from `GET /v1/accounts/{accountId}/conversion-destinations`. Set `eventNames` to forward only those events (for example only `Purchase`); leave it out to forward every event. 
+The first name of `POST /v1/events/forwarding-rules`, which saves the same rule. It keeps working and answers under `destination`.
 
 ### Parameters
 
@@ -204,6 +209,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::CreateEventDestination201Response**](createEventDestination_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_forwarding_rule
+
+> models::CreateForwardingRule201Response create_forwarding_rule(create_forwarding_rule_request)
+Add a forwarding rule
+
+Saves where a profile's events go: every event sent to `POST /v1/events` for that profile is then forwarded to this destination.  Pick `destinationId` from `GET /v1/accounts/{accountId}/conversion-destinations`. Set `eventNames` to forward only those events, such as only `Purchase`; leave it out to forward every event. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_forwarding_rule_request** | [**CreateForwardingRuleRequest**](CreateForwardingRuleRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateForwardingRule201Response**](createForwardingRule_201_response.md)
 
 ### Authorization
 
@@ -254,7 +289,7 @@ Name | Type | Description  | Required | Notes
 > models::DeleteSmsSenderId200Response delete_event_destination(destination_id)
 Remove an event destination
 
-Stops forwarding events to this destination. `destinationId` is the event destination `id`, not the platform destination.
+The first name of `DELETE /v1/events/forwarding-rules/{ruleId}`. `destinationId` here is the rule `id`, not the platform destination.
 
 ### Parameters
 
@@ -262,6 +297,36 @@ Stops forwarding events to this destination. `destinationId` is the event destin
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **destination_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::DeleteSmsSenderId200Response**](deleteSmsSenderId_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_forwarding_rule
+
+> models::DeleteSmsSenderId200Response delete_forwarding_rule(rule_id)
+Remove a forwarding rule
+
+Stops forwarding events to this rule's destination. Events already sent are not affected.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**rule_id** | **String** | The rule `id`. | [required] |
 
 ### Return type
 
@@ -572,7 +637,7 @@ Name | Type | Description  | Required | Notes
 > models::ListEventDestinations200Response list_event_destinations(profile_id)
 List event destinations
 
-Lists the ad platform destinations that receive events sent to `POST /v1/events`, for one profile or every profile you can access.
+The first name of `GET /v1/events/forwarding-rules`, which lists the same rules. It keeps working and answers under `destinations`.
 
 ### Parameters
 
@@ -619,6 +684,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListEvents200Response**](listEvents_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_forwarding_rules
+
+> models::ListForwardingRules200Response list_forwarding_rules(profile_id)
+List forwarding rules
+
+Lists the forwarding rules of one profile, or of every profile you can access. A rule sends a profile's events to one ad platform destination.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**profile_id** | Option<**String**> |  |  |
+
+### Return type
+
+[**models::ListForwardingRules200Response**](listForwardingRules_200_response.md)
 
 ### Authorization
 
@@ -685,6 +780,68 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::RemoveCustomConversionGoal200Response**](removeCustomConversionGoal_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## restate_event
+
+> models::RestateEvent200Response restate_event(event_id, restate_event_request)
+Change a stored event's value
+
+Changes the value of an event you already sent, for a partial refund or an upgrade. Send the corrected total, not a difference.  Zernio stores a new version of the event, so campaign results count the new value at once. It then passes the change to each destination the event reached: Google Ads restates the conversion, and platforms without a correction API report `not_supported` and keep their count. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**event_id** | **String** | The `eventId` the event was sent with. | [required] |
+**restate_event_request** | [**RestateEventRequest**](RestateEventRequest.md) |  | [required] |
+
+### Return type
+
+[**models::RestateEvent200Response**](restateEvent_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retract_event
+
+> models::RetractEvent200Response retract_event(event_id, profile_id)
+Retract a stored event
+
+Retracts an event you already sent, for a refund, a cancelled order or a lost deal. It stops counting in campaign results and ad rules.  Each destination the event reached is told where the platform allows it: Google Ads retracts the conversion, and the other platforms report `not_supported` and keep their count. Sending the same `eventId` again stores it anew. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**event_id** | **String** | The `eventId` the event was sent with. | [required] |
+**profile_id** | **String** | Profile the event belongs to. | [required] |
+
+### Return type
+
+[**models::RetractEvent200Response**](retractEvent_200_response.md)
 
 ### Authorization
 

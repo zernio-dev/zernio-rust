@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**create_calendar_event**](CalendarApi.md#create_calendar_event) | **POST** /v1/calendar/events | Create an event
 [**delete_calendar_event**](CalendarApi.md#delete_calendar_event) | **DELETE** /v1/calendar/events/{eventId} | Delete an event
 [**get_calendar_event**](CalendarApi.md#get_calendar_event) | **GET** /v1/calendar/events/{eventId} | Get an event
+[**list_calendar_event_instances**](CalendarApi.md#list_calendar_event_instances) | **GET** /v1/calendar/events/{eventId}/instances | List the occurrences of a recurring event
 [**list_calendar_events**](CalendarApi.md#list_calendar_events) | **GET** /v1/calendar/events | List events in a window
 [**list_calendars**](CalendarApi.md#list_calendars) | **GET** /v1/calendar/calendars | List calendars
 [**rsvp_calendar_event**](CalendarApi.md#rsvp_calendar_event) | **POST** /v1/calendar/events/{eventId}/rsvp | Respond to an invitation
@@ -50,6 +51,8 @@ Name | Type | Description  | Required | Notes
 
 > models::CalendarFreeBusy200Response calendar_free_busy(calendar_free_busy_request)
 Busy blocks for one or more accounts
+
+Reads busy time for up to 10 connected accounts, Google and Microsoft mixed, in parallel.  By default a Google account reads every calendar shown in Google Calendar, and a Microsoft account reads the mailbox's schedule. Name calendars with `accounts[].calendarIds`.  Check coworkers who never connected with `accounts[].emails`, read through that account (Google: up to 50 calendars and addresses per account; Microsoft: up to 19 coworkers, work accounts only).  An account that cannot be read gets `busy: null` and an `error`, and the others still answer. When no account can be read, the first error is returned as the response. 
 
 ### Parameters
 
@@ -106,7 +109,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_calendar_event
 
-> models::DeleteEmailDraft200Response delete_calendar_event(event_id, account_id, calendar_id)
+> models::DeleteEmailDraft200Response delete_calendar_event(event_id, account_id, calendar_id, notify_participants)
 Delete an event
 
 ### Parameters
@@ -115,8 +118,9 @@ Delete an event
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **event_id** | **String** |  | [required] |
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 **calendar_id** | Option<**String**> | The calendar holding the event (an id from GET /v1/calendar/calendars). Defaults to the primary calendar. |  |
+**notify_participants** | Option<**String**> | Who gets the cancellation email. Google only; `external` and `none` answer 400 on a Microsoft account. |  |[default to all]
 
 ### Return type
 
@@ -145,7 +149,7 @@ Get an event
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **event_id** | **String** |  | [required] |
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 **calendar_id** | Option<**String**> | The calendar holding the event (an id from GET /v1/calendar/calendars). Defaults to the primary calendar. |  |
 **timezone** | Option<**String**> |  |  |
 
@@ -165,19 +169,56 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## list_calendar_events
+## list_calendar_event_instances
 
-> models::ListCalendarEvents200Response list_calendar_events(account_id, from, to, calendar_id, title, location, show_cancelled, expand_recurring, ical_uid, sort_order, cursor, limit, timezone)
-List events in a window
+> models::ListCalendarEventInstances200Response list_calendar_event_instances(event_id, account_id, from, to, calendar_id, timezone, cursor, limit)
+List the occurrences of a recurring event
 
-Recurring series are expanded into their occurrences inside the window by default (`expandRecurring=false` lists the masters instead). `title` and `location` are substring matches applied to the fetched page.
+Lists the occurrences and exceptions of a series between `from` and `to`. Each one has its own `id` to read, update or delete just that occurrence, and `originalStart` for its place in the pattern.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**event_id** | **String** | The series (master) event id. | [required] |
+**account_id** | **String** |  | [required] |
+**from** | **String** |  | [required] |
+**to** | **String** |  | [required] |
+**calendar_id** | Option<**String**> | The calendar holding the event (an id from GET /v1/calendar/calendars). Defaults to the primary calendar. |  |
+**timezone** | Option<**String**> | IANA zone the `start` and `end` offsets are rendered in. |  |
+**cursor** | Option<**String**> |  |  |
+**limit** | Option<**i32**> |  |  |[default to 50]
+
+### Return type
+
+[**models::ListCalendarEventInstances200Response**](listCalendarEventInstances_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_calendar_events
+
+> models::ListCalendarEvents200Response list_calendar_events(account_id, from, to, calendar_id, title, location, show_cancelled, expand_recurring, ical_uid, sort_order, cursor, limit, timezone)
+List events in a window
+
+Recurring series are expanded into their occurrences inside the window by default (`expandRecurring=false` lists the masters instead, including series that started before `from` and still recur in the window). Events that overlap the window edges are included. `title` and `location` are substring matches applied to the fetched page.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 **from** | **String** |  | [required] |
 **to** | **String** |  | [required] |
 **calendar_id** | Option<**String**> | Defaults to the primary calendar. |  |
@@ -186,7 +227,7 @@ Name | Type | Description  | Required | Notes
 **show_cancelled** | Option<**bool**> |  |  |[default to false]
 **expand_recurring** | Option<**bool**> |  |  |[default to true]
 **ical_uid** | Option<**String**> |  |  |
-**sort_order** | Option<**String**> |  |  |[default to asc]
+**sort_order** | Option<**String**> | Order by start time across the whole window. On Google, `desc` reads the window in full, so a window over 2,500 events answers 400; narrow `from` and `to`. |  |[default to asc]
 **cursor** | Option<**String**> |  |  |
 **limit** | Option<**i32**> |  |  |[default to 50]
 **timezone** | Option<**String**> | IANA zone the `start` and `end` offsets are rendered in. Default UTC. |  |
@@ -219,7 +260,7 @@ The account must have been connected with `scopes=calendar` (412 `account_scope_
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+**account_id** | **String** | The connected Google, Microsoft or IMAP account. | [required] |
 
 ### Return type
 
@@ -242,7 +283,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateCalendarEvent201Response rsvp_calendar_event(event_id, rsvp_calendar_event_request)
 Respond to an invitation
 
-Accepts, declines or tentatively accepts on behalf of the mailbox and notifies the organizer.
+Accepts, declines or tentatively accepts on behalf of the mailbox and notifies the organizer, unless `sendResponse` is false.
 
 ### Parameters
 

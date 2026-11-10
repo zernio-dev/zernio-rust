@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**String**> | Gmail label id such as `Label_12`, or the Outlook category name. | [optional]
 **account_id** | Option<**String**> |  | [optional]
-**provider** | Option<**Provider**> |  (enum: google, microsoft) | [optional]
+**provider** | Option<**Provider**> |  (enum: google, microsoft, imap) | [optional]
 **name** | Option<**String**> | Gmail nests labels with a slash, as in `Hermia/Handled`. | [optional]
 **r#type** | Option<**Type**> |  (enum: system, user) | [optional]
 **color** | Option<[**models::EmailLabelColor**](EmailLabelColor.md)> |  | [optional]

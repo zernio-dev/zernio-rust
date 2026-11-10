@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **id** | Option<**String**> | The provider's message id. | [optional]
 **thread_id** | Option<**String**> |  | [optional]
 **account_id** | Option<**String**> |  | [optional]
-**provider** | Option<**Provider**> |  (enum: google, microsoft) | [optional]
+**provider** | Option<**Provider**> |  (enum: google, microsoft, imap) | [optional]
 **folders** | Option<**Vec<String>**> |  | [optional]
 **from** | Option<[**models::EmailAddress**](EmailAddress.md)> |  | [optional]
 **sender** | Option<[**models::EmailAddress**](EmailAddress.md)> |  | [optional]

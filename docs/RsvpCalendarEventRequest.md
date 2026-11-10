@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **calendar_id** | Option<**String**> | The calendar holding the event (an id from GET /v1/calendar/calendars). Defaults to the primary calendar. | [optional]
 **status** | **Status** |  (enum: accepted, declined, tentative) | 
 **comment** | Option<**String**> |  | [optional]
+**send_response** | Option<**bool**> | false records the response without emailing the organizer. | [optional][default to true]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
