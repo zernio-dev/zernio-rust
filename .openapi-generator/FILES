@@ -2099,6 +2099,9 @@ docs/ListCommerceProductMetafields200Response.md
 docs/ListCommerceProducts200Response.md
 docs/ListCommerceRedirects200Response.md
 docs/ListConnectedApps200Response.md
+docs/ListContactGroups200Response.md
+docs/ListContactGroups200ResponseDataInner.md
+docs/ListContactGroups200ResponseMeta.md
 docs/ListContacts200Response.md
 docs/ListContacts200ResponseContactsInner.md
 docs/ListContacts200ResponseFilters.md
@@ -5837,6 +5840,9 @@ src/models/list_commerce_product_metafields_200_response.rs
 src/models/list_commerce_products_200_response.rs
 src/models/list_commerce_redirects_200_response.rs
 src/models/list_connected_apps_200_response.rs
+src/models/list_contact_groups_200_response.rs
+src/models/list_contact_groups_200_response_data_inner.rs
+src/models/list_contact_groups_200_response_meta.rs
 src/models/list_contacts_200_response.rs
 src/models/list_contacts_200_response_contacts_inner.rs
 src/models/list_contacts_200_response_filters.rs

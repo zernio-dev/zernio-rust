@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**delete_contact**](ContactsApi.md#delete_contact) | **DELETE** /v1/contacts/{contactId} | Delete contact
 [**get_contact**](ContactsApi.md#get_contact) | **GET** /v1/contacts/{contactId} | Get contact
 [**get_contact_channels**](ContactsApi.md#get_contact_channels) | **GET** /v1/contacts/{contactId}/channels | List channels for a contact
+[**list_contact_groups**](ContactsApi.md#list_contact_groups) | **GET** /v1/contacts/groups | List contact groups
 [**list_contacts**](ContactsApi.md#list_contacts) | **GET** /v1/contacts | List contacts
 [**update_contact**](ContactsApi.md#update_contact) | **PATCH** /v1/contacts/{contactId} | Update contact
 
@@ -164,9 +165,39 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_contact_groups
+
+> models::ListContactGroups200Response list_contact_groups(account_id)
+List contact groups
+
+Lists the groups of a Google or Microsoft account's address book, read live from the provider: Google contact labels, and Outlook contact folders and categories. The account needs the contacts area.  Each group id is what synced contacts carry in their channel's metadata.groups, and what the group filter of GET /v1/contacts takes.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | A Google or Microsoft account connected with the contacts area. | [required] |
+
+### Return type
+
+[**models::ListContactGroups200Response**](listContactGroups_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_contacts
 
-> models::ListContacts200Response list_contacts(profile_id, account_id, search, tag, tags, platform, is_subscribed, limit, skip)
+> models::ListContacts200Response list_contacts(profile_id, account_id, search, tag, tags, platform, group, is_subscribed, limit, skip)
 List contacts
 
 List and search contacts for a profile. Supports filtering by tags, platform, subscription status, and text search on name, email and company.
@@ -182,6 +213,7 @@ Name | Type | Description  | Required | Notes
 **tag** | Option<**String**> |  |  |
 **tags** | Option<**String**> | Comma-separated tags, matches contacts carrying any of them |  |
 **platform** | Option<**String**> |  |  |
+**group** | Option<**String**> | A group id from GET /v1/contacts/groups, such as contactGroups/abc, folder:default or category:VIP. Returns the contacts the Google or Outlook contacts sync filed in that group on the account. Requires accountId. Memberships are not stored while content retention is off. |  |
 **is_subscribed** | Option<**String**> |  |  |
 **limit** | Option<**i32**> |  |  |[default to 50]
 **skip** | Option<**i32**> |  |  |[default to 0]
