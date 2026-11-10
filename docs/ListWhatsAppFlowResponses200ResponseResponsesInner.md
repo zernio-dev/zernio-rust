@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **flow_token** | Option<**String**> |  | [optional]
 **data** | Option<**serde_json::Value**> | Submitted field values (flow_token removed) | [optional]
 **raw** | Option<**String**> | Raw response_json string | [optional]
+**content_not_retained** | Option<**bool**> | True when this team does not retain content, so the content fields of this row are null. Identifiers and metadata stay. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

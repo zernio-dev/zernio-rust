@@ -631,6 +631,8 @@ docs/ConnectedAccount.md
 docs/ConnectedApp.md
 docs/ConnectedAppsApi.md
 docs/ContactsApi.md
+docs/ContentRetentionApi.md
+docs/ContentRetentionResponse.md
 docs/ConversationAdAttribution.md
 docs/ConversionAction.md
 docs/ConversionActionTagSnippetsInner.md
@@ -1049,6 +1051,7 @@ docs/DiscordPlatformDataEmbedsInner.md
 docs/DiscordPlatformDataEmbedsInnerAuthor.md
 docs/DiscordPlatformDataEmbedsInnerFieldsInner.md
 docs/DiscordPlatformDataEmbedsInnerFooter.md
+docs/DiscordPlatformDataEmbedsInnerImage.md
 docs/DiscordPlatformDataPoll.md
 docs/DiscordPlatformDataPollAnswersInner.md
 docs/DiscordPlatformDataPollAnswersInnerPollMedia.md
@@ -2506,6 +2509,7 @@ docs/ReplyToInboxPost400Response.md
 docs/ReplyToInboxPost400ResponseDetails.md
 docs/ReplyToInboxPostRequest.md
 docs/ReplyToInboxReview200Response.md
+docs/ReplyToInboxReview200ResponseReply.md
 docs/ReplyToInboxReviewRequest.md
 docs/ReplyToMention200Response.md
 docs/ReplyToMentionRequest.md
@@ -3018,6 +3022,7 @@ docs/UpdateConnectWelcomeScreenRequest.md
 docs/UpdateContact200Response.md
 docs/UpdateContact200ResponseContact.md
 docs/UpdateContactRequest.md
+docs/UpdateContentRetentionRequest.md
 docs/UpdateConversionAction200Response.md
 docs/UpdateConversionAction200ResponseAction.md
 docs/UpdateConversionActionRequest.md
@@ -3317,6 +3322,12 @@ docs/WebhookPayloadCallPermissionRequest.md
 docs/WebhookPayloadCallPermissionRequestPermission.md
 docs/WebhookPayloadCallReceived.md
 docs/WebhookPayloadCallReceivedCall.md
+docs/WebhookPayloadCallRecordingReady.md
+docs/WebhookPayloadCallRecordingReadyCall.md
+docs/WebhookPayloadCallRecordingReadyRecording.md
+docs/WebhookPayloadCallTranscriptSegment.md
+docs/WebhookPayloadCallTranscriptSegmentCall.md
+docs/WebhookPayloadCallTranscriptSegmentSegment.md
 docs/WebhookPayloadCampaignBudgetDepleted.md
 docs/WebhookPayloadCampaignBudgetDepletedAdObject.md
 docs/WebhookPayloadCampaignBudgetDepletedBudget.md
@@ -3374,6 +3385,9 @@ docs/WebhookPayloadFilePickedPickerFilesInner.md
 docs/WebhookPayloadLead.md
 docs/WebhookPayloadLeadAccount.md
 docs/WebhookPayloadLeadLead.md
+docs/WebhookPayloadMention.md
+docs/WebhookPayloadMentionAccount.md
+docs/WebhookPayloadMentionMention.md
 docs/WebhookPayloadMessage.md
 docs/WebhookPayloadMessageDeleted.md
 docs/WebhookPayloadMessageDeliveryStatus.md
@@ -3567,6 +3581,7 @@ src/apis/configuration.rs
 src/apis/connect_api.rs
 src/apis/connected_apps_api.rs
 src/apis/contacts_api.rs
+src/apis/content_retention_api.rs
 src/apis/conversions_api.rs
 src/apis/creator_campaigns_api.rs
 src/apis/creator_portal_api.rs
@@ -4229,6 +4244,7 @@ src/models/connect_word_press_with_application_password_request.rs
 src/models/connected.rs
 src/models/connected_account.rs
 src/models/connected_app.rs
+src/models/content_retention_response.rs
 src/models/conversation_ad_attribution.rs
 src/models/conversion_action.rs
 src/models/conversion_action_tag_snippets_inner.rs
@@ -4642,6 +4658,7 @@ src/models/discord_platform_data_embeds_inner.rs
 src/models/discord_platform_data_embeds_inner_author.rs
 src/models/discord_platform_data_embeds_inner_fields_inner.rs
 src/models/discord_platform_data_embeds_inner_footer.rs
+src/models/discord_platform_data_embeds_inner_image.rs
 src/models/discord_platform_data_poll.rs
 src/models/discord_platform_data_poll_answers_inner.rs
 src/models/discord_platform_data_poll_answers_inner_poll_media.rs
@@ -6068,6 +6085,7 @@ src/models/reply_to_inbox_post_400_response.rs
 src/models/reply_to_inbox_post_400_response_details.rs
 src/models/reply_to_inbox_post_request.rs
 src/models/reply_to_inbox_review_200_response.rs
+src/models/reply_to_inbox_review_200_response_reply.rs
 src/models/reply_to_inbox_review_request.rs
 src/models/reply_to_mention_200_response.rs
 src/models/reply_to_mention_request.rs
@@ -6572,6 +6590,7 @@ src/models/update_connect_welcome_screen_request.rs
 src/models/update_contact_200_response.rs
 src/models/update_contact_200_response_contact.rs
 src/models/update_contact_request.rs
+src/models/update_content_retention_request.rs
 src/models/update_conversion_action_200_response.rs
 src/models/update_conversion_action_200_response_action.rs
 src/models/update_conversion_action_request.rs
@@ -6865,6 +6884,12 @@ src/models/webhook_payload_call_permission_request.rs
 src/models/webhook_payload_call_permission_request_permission.rs
 src/models/webhook_payload_call_received.rs
 src/models/webhook_payload_call_received_call.rs
+src/models/webhook_payload_call_recording_ready.rs
+src/models/webhook_payload_call_recording_ready_call.rs
+src/models/webhook_payload_call_recording_ready_recording.rs
+src/models/webhook_payload_call_transcript_segment.rs
+src/models/webhook_payload_call_transcript_segment_call.rs
+src/models/webhook_payload_call_transcript_segment_segment.rs
 src/models/webhook_payload_campaign_budget_depleted.rs
 src/models/webhook_payload_campaign_budget_depleted_ad_object.rs
 src/models/webhook_payload_campaign_budget_depleted_budget.rs
@@ -6922,6 +6947,9 @@ src/models/webhook_payload_file_picked_picker_files_inner.rs
 src/models/webhook_payload_lead.rs
 src/models/webhook_payload_lead_account.rs
 src/models/webhook_payload_lead_lead.rs
+src/models/webhook_payload_mention.rs
+src/models/webhook_payload_mention_account.rs
+src/models/webhook_payload_mention_mention.rs
 src/models/webhook_payload_message.rs
 src/models/webhook_payload_message_deleted.rs
 src/models/webhook_payload_message_delivery_status.rs

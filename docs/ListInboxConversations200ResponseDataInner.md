@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **page_id** | Option<**String**> | The bare Facebook Page id behind the account, for Facebook and Instagram connected through Facebook Login. Null when the account has no Facebook Page. | [optional]
 **participant_id** | Option<**String**> |  | [optional]
 **participant_name** | Option<**String**> |  | [optional]
+**content_not_retained** | Option<**bool**> | True when this team does not retain content, so the content fields of this row are null. Identifiers and metadata stay. | [optional]
 **participant_picture** | Option<**String**> |  | [optional]
 **participant_verified_type** | Option<**ParticipantVerifiedType**> | X verified badge type. Only present for X conversations. (enum: blue, government, business, none) | [optional]
 **business_scoped_user_id** | Option<**String**> | WhatsApp only. Meta business-scoped user ID (BSUID), the stable identity anchor; present when Meta has sent it for this participant. | [optional]

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **status** | Option<**Status**> |  (enum: running, waiting, completed, exited, failed) | [optional]
 **current_node_id** | Option<**String**> |  | [optional]
 **waiting_for** | Option<[**models::ListWorkflowExecutions200ResponseExecutionsInnerWaitingFor**](ListWorkflowExecutions200ResponseExecutionsInnerWaitingFor.md)> |  | [optional]
-**variables** | Option<**std::collections::HashMap<String, serde_json::Value>**> |  | [optional]
+**variables** | Option<**std::collections::HashMap<String, serde_json::Value>**> | Empty once the run finishes when the team does not retain content. | [optional]
 **platform_identifier** | Option<**String**> |  | [optional]
 **conversation_id** | Option<**String**> | Null only while a comment-triggered run has not sent its private reply yet. | [optional]
 **step_count** | Option<**i32**> |  | [optional]

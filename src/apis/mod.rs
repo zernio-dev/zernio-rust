@@ -141,6 +141,7 @@ pub mod commerce_api;
 pub mod connect_api;
 pub mod connected_apps_api;
 pub mod contacts_api;
+pub mod content_retention_api;
 pub mod conversions_api;
 pub mod creator_campaigns_api;
 pub mod creator_portal_api;

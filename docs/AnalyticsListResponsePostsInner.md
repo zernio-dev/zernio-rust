@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **_id** | Option<**String**> |  | [optional]
 **late_post_id** | Option<**String**> | Original Zernio post ID if scheduled via Zernio | [optional]
 **content** | Option<**String**> |  | [optional]
+**content_not_retained** | Option<**bool**> | True when this team does not retain content, so the content fields of this row are null. Identifiers and metadata stay. | [optional]
 **scheduled_for** | Option<**String**> |  | [optional]
 **published_at** | Option<**String**> |  | [optional]
 **status** | Option<**String**> |  | [optional]

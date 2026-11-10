@@ -44,6 +44,8 @@ Method | HTTP request | Description
 [**on_call_failed**](WebhookEventsApi.md#on_call_failed) | **POST** /call.failed | Call failed event
 [**on_call_permission_request**](WebhookEventsApi.md#on_call_permission_request) | **POST** /call.permission_request | Call permission request reply event
 [**on_call_received**](WebhookEventsApi.md#on_call_received) | **POST** /call.received | Call received event
+[**on_call_recording_ready**](WebhookEventsApi.md#on_call_recording_ready) | **POST** /call.recording_ready | Call recording ready event
+[**on_call_transcript_segment**](WebhookEventsApi.md#on_call_transcript_segment) | **POST** /call.transcript_segment | Call transcript segment event
 [**on_campaign_budget_depleted**](WebhookEventsApi.md#on_campaign_budget_depleted) | **POST** /campaign.budget.depleted | Campaign budget depleted event
 [**on_campaign_created**](WebhookEventsApi.md#on_campaign_created) | **POST** /campaign.created | Campaign created event
 [**on_campaign_participant_joined**](WebhookEventsApi.md#on_campaign_participant_joined) | **POST** /campaign_participant.joined | Campaign participant joined event
@@ -83,6 +85,7 @@ Method | HTTP request | Description
 [**on_file_picked**](WebhookEventsApi.md#on_file_picked) | **POST** /file.picked | Files picked
 [**on_file_updated**](WebhookEventsApi.md#on_file_updated) | **POST** /file.updated | File updated
 [**on_lead_received**](WebhookEventsApi.md#on_lead_received) | **POST** /lead.received | Lead received event
+[**on_mention_received**](WebhookEventsApi.md#on_mention_received) | **POST** /mention.received | Mention received event
 [**on_message_deleted**](WebhookEventsApi.md#on_message_deleted) | **POST** /message.deleted | Message deleted event
 [**on_message_delivered**](WebhookEventsApi.md#on_message_delivered) | **POST** /message.delivered | Message delivered event
 [**on_message_edited**](WebhookEventsApi.md#on_message_edited) | **POST** /message.edited | Message edited event
@@ -1345,6 +1348,66 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## on_call_recording_ready
+
+> on_call_recording_ready(webhook_payload_call_recording_ready)
+Call recording ready event
+
+A call recording is ready to download.  ### When it fires  Only for teams with zero content retention, on calls with recording on, and only while a webhook listens to it. Zernio keeps no recording for these teams, and the copy behind the link expires after about 3 days. Download the file before `recording.expiresAt`.  ### Payload notes  `call.isVoicemail` tells a voicemail from a recorded call. If the recording could not be copied, no event fires and `call.ended` lists it in `callErrors`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_call_recording_ready** | [**WebhookPayloadCallRecordingReady**](WebhookPayloadCallRecordingReady.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_call_transcript_segment
+
+> on_call_transcript_segment(webhook_payload_call_transcript_segment)
+Call transcript segment event
+
+One final segment of a live call transcript.  ### When it fires  Only for teams with zero content retention, on calls with transcription on: once per final segment, while the call is live. Zernio stores no transcript for these teams, so it cannot be fetched later. Store each segment when it arrives.  ### Payload notes  `segment.text` is the final text, `segment.confidence` the recognition confidence and `segment.at` when it was transcribed. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_call_transcript_segment** | [**WebhookPayloadCallTranscriptSegment**](WebhookPayloadCallTranscriptSegment.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## on_campaign_budget_depleted
 
 > on_campaign_budget_depleted(webhook_payload_campaign_budget_depleted)
@@ -2490,7 +2553,7 @@ Name | Type | Description  | Required | Notes
 > on_lead_received(webhook_payload_lead)
 Lead received event
 
-A new lead was submitted against a Meta Lead Gen (Instant) form (ingested via the Page `leadgen` webhook), a Google Ads lead form or a LinkedIn Lead Gen Form (both read every 15 minutes). `lead.platform` names the network.  Leads older than 7 days when Zernio first reads them are stored without this event.  ### Payload notes  `lead.fields` maps question key to answer; multiple-choice values are the option key (for example `k1`), not the display label.  ### Provenance  `lead.formId`, `lead.adId` and `lead.campaignId` give provenance. `lead.adId` is null for organic or test leads.  ### Consents  `lead.consents` lists the answer to every custom disclaimer checkbox, for example `{ \"checkboxKey\": \"call_consent\", \"isChecked\": true }`. Route call and SMS consent into your CRM from it. Empty when the form has no checkboxes.  ### Checkbox keys  When no key was set on the checkbox, Meta derives `checkboxKey` from its text, so match on the full key. `GET /v1/ads/leads` and `GET /v1/ads/lead-forms/{formId}/leads` return the same array.  ### Deduplication  Deduplicate on `lead.leadgenId` (Meta's lead id) or the event `id`.  ### Routing  `account.profileId` names the Zernio profile of the Facebook account that received the lead, for multi-tenant routing. Always present, `null` only when no profile is on record.  ### Requires ads enabled  Needs ads enabled on the team. Zernio asks for `leads_retrieval` at Facebook consent only then; without it Meta refuses the Page's `leadgen` subscription. Accounts connected earlier need a reconnect.  ### Lost subscription  A Page can lose its `leadgen` subscription while other events keep arriving. `leadgen: false` (with a `warning`) on the Page's webhook subscription means leads are not reaching Zernio; re-subscribe the Page. 
+A new lead was submitted against a Meta Lead Gen (Instant) form or a TikTok Instant Form (both pushed by the network), or a Google Ads or LinkedIn lead form (read every 15 minutes). `lead.platform` names the network.  Leads older than 7 days when Zernio first reads them are stored without this event.  ### Payload notes  `lead.fields` maps question key to answer; multiple-choice values are the option key (for example `k1`), not the display label.  ### Provenance  `lead.formId`, `lead.adId` and `lead.campaignId` give provenance. `lead.adId` is null for organic or test leads.  ### Consents  `lead.consents` lists the answer to every custom disclaimer checkbox, for example `{ \"checkboxKey\": \"call_consent\", \"isChecked\": true }`. Route call and SMS consent into your CRM from it. Empty when the form has no checkboxes.  ### Checkbox keys  When no key was set on the checkbox, Meta derives `checkboxKey` from its text, so match on the full key. `GET /v1/ads/leads` and `GET /v1/ads/lead-forms/{formId}/leads` return the same array.  ### Deduplication  Deduplicate on `lead.leadgenId` (Meta's lead id) or the event `id`.  ### Routing  `account.profileId` names the Zernio profile of the Facebook account that received the lead, for multi-tenant routing. Always present, `null` only when no profile is on record.  ### Requires ads enabled  Needs ads enabled on the team. Zernio asks for `leads_retrieval` at Facebook consent only then; without it Meta refuses the Page's `leadgen` subscription. Accounts connected earlier need a reconnect.  ### Lost subscription  A Page can lose its `leadgen` subscription while other events keep arriving. `leadgen: false` (with a `warning`) on the Page's webhook subscription means leads are not reaching Zernio; re-subscribe the Page. 
 
 ### Parameters
 
@@ -2498,6 +2561,36 @@ A new lead was submitted against a Meta Lead Gen (Instant) form (ingested via th
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_lead** | [**WebhookPayloadLead**](WebhookPayloadLead.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_mention_received
+
+> on_mention_received(webhook_payload_mention)
+Mention received event
+
+A connected Instagram, Facebook or LinkedIn account was mentioned in a post, caption or comment.  ### When it fires  Once per mention, the first time Zernio sees it. Delivery is at most once: reconcile with `GET /v1/inbox/mentions`.  - Instagram and Facebook arrive in real time from the platform's webhook. - LinkedIn arrives from its webhook or from polling, so delivery can take minutes. A newly connected account can receive mentions from the last 48 hours once.  ### Payload notes  Carries the same fields as `GET /v1/inbox/mentions`. Fields a platform does not provide are null. A LinkedIn mention found by polling for a team that does not retain content has no author, and an Instagram mention has no content if the live read fails. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_mention** | [**WebhookPayloadMention**](WebhookPayloadMention.md) |  | [required] |
 
 ### Return type
 
