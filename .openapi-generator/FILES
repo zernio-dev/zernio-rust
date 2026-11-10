@@ -778,6 +778,9 @@ docs/CreateDiscordScheduledEventRequestEntityOneOf2.md
 docs/CreateDiscordThread200Response.md
 docs/CreateDiscordThread200ResponseData.md
 docs/CreateDiscordThreadRequest.md
+docs/CreateEmailLabel200Response.md
+docs/CreateEmailLabelRequest.md
+docs/CreateEmailLabelRequestColor.md
 docs/CreateEventDestination201Response.md
 docs/CreateEventDestinationRequest.md
 docs/CreateFilePickerSession201Response.md
@@ -1006,8 +1009,6 @@ docs/DeleteAdSet200Response.md
 docs/DeleteAdVideo200Response.md
 docs/DeleteAutomationTemplate200Response.md
 docs/DeleteBrandedCallingEnterprise200Response.md
-docs/DeleteCalendarEvent200Response.md
-docs/DeleteCalendarEvent200ResponseData.md
 docs/DeleteCommerceCatalogSync200Response.md
 docs/DeleteCommerceCollection200Response.md
 docs/DeleteCommerceDiscount200Response.md
@@ -1019,6 +1020,8 @@ docs/DeleteCommercePriceListPrices200Response.md
 docs/DeleteCommerceProductMetafields200Response.md
 docs/DeleteCommerceRedirect200Response.md
 docs/DeleteDiscordScheduledEvent200Response.md
+docs/DeleteEmailLabel200Response.md
+docs/DeleteEmailLabel200ResponseData.md
 docs/DeleteGoogleBusinessMedia200Response.md
 docs/DeleteGoogleBusinessPlaceAction200Response.md
 docs/DeleteGoogleBusinessReviewReply200Response.md
@@ -1088,6 +1091,8 @@ docs/EmailAddress.md
 docs/EmailApi.md
 docs/EmailAttachment.md
 docs/EmailFolder.md
+docs/EmailLabel.md
+docs/EmailLabelColor.md
 docs/EmailListMeta.md
 docs/EmailMessage.md
 docs/EmailMessagePatch.md
@@ -2017,6 +2022,7 @@ docs/ListDiscordPinnedMessages200Response.md
 docs/ListDiscordPinnedMessages200ResponseDataInner.md
 docs/ListDiscordScheduledEvents200Response.md
 docs/ListEmailFolders200Response.md
+docs/ListEmailLabels200Response.md
 docs/ListEmailMessages200Response.md
 docs/ListEmailThreads200Response.md
 docs/ListEventDestinations200Response.md
@@ -4389,6 +4395,9 @@ src/models/create_discord_scheduled_event_request_entity_one_of_2.rs
 src/models/create_discord_thread_200_response.rs
 src/models/create_discord_thread_200_response_data.rs
 src/models/create_discord_thread_request.rs
+src/models/create_email_label_200_response.rs
+src/models/create_email_label_request.rs
+src/models/create_email_label_request_color.rs
 src/models/create_event_destination_201_response.rs
 src/models/create_event_destination_request.rs
 src/models/create_file_picker_session_201_response.rs
@@ -4614,8 +4623,6 @@ src/models/delete_ad_set_200_response.rs
 src/models/delete_ad_video_200_response.rs
 src/models/delete_automation_template_200_response.rs
 src/models/delete_branded_calling_enterprise_200_response.rs
-src/models/delete_calendar_event_200_response.rs
-src/models/delete_calendar_event_200_response_data.rs
 src/models/delete_commerce_catalog_sync_200_response.rs
 src/models/delete_commerce_collection_200_response.rs
 src/models/delete_commerce_discount_200_response.rs
@@ -4627,6 +4634,8 @@ src/models/delete_commerce_price_list_prices_200_response.rs
 src/models/delete_commerce_product_metafields_200_response.rs
 src/models/delete_commerce_redirect_200_response.rs
 src/models/delete_discord_scheduled_event_200_response.rs
+src/models/delete_email_label_200_response.rs
+src/models/delete_email_label_200_response_data.rs
 src/models/delete_google_business_media_200_response.rs
 src/models/delete_google_business_place_action_200_response.rs
 src/models/delete_google_business_review_reply_200_response.rs
@@ -4694,6 +4703,8 @@ src/models/edit_post_request.rs
 src/models/email_address.rs
 src/models/email_attachment.rs
 src/models/email_folder.rs
+src/models/email_label.rs
+src/models/email_label_color.rs
 src/models/email_list_meta.rs
 src/models/email_message.rs
 src/models/email_message_patch.rs
@@ -5606,6 +5617,7 @@ src/models/list_discord_pinned_messages_200_response.rs
 src/models/list_discord_pinned_messages_200_response_data_inner.rs
 src/models/list_discord_scheduled_events_200_response.rs
 src/models/list_email_folders_200_response.rs
+src/models/list_email_labels_200_response.rs
 src/models/list_email_messages_200_response.rs
 src/models/list_email_threads_200_response.rs
 src/models/list_event_destinations_200_response.rs

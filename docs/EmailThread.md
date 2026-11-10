@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **message_ids** | Option<**Vec<String>**> |  | [optional]
 **draft_ids** | Option<**Vec<String>**> |  | [optional]
 **folders** | Option<**Vec<String>**> |  | [optional]
+**labels** | Option<**Vec<String>**> | Every label (Gmail) or category (Outlook) on any message of the thread. | [optional]
 **has_attachments** | Option<**bool**> |  | [optional]
 **has_drafts** | Option<**bool**> |  | [optional]
 **unread** | Option<**bool**> |  | [optional]

@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **headers** | Option<**std::collections::HashMap<String, String>**> | Custom `X-` headers only. `List-Unsubscribe` is dropped on Microsoft and reported in `metadata.droppedHeaders`. | [optional]
 **metadata** | Option<**std::collections::HashMap<String, String>**> |  | [optional]
 **scheduled_for** | Option<**String**> | Send later, between 1 minute and 30 days from now. The request answers 202 with the scheduled send; it leaves within a minute of this time through the same caps as an immediate send. List or cancel it under `/v1/email/messages/scheduled`. | [optional]
-**hold_as_draft** | Option<**bool**> | Reserved; currently rejected. | [optional]
+**hold_as_draft** | Option<**bool**> | Needs `scheduledFor`. Saves the email as a draft in the mailbox now and sends that draft at `scheduledFor`, with any edits the user made in Gmail or Outlook. A draft deleted or sent from the mailbox first fails the send (`email.send_failed`). Cancelling deletes the draft. | [optional]
 **track_opens** | Option<**bool**> | Adds an open pixel to the html and fires `email.opened`. Needs `html`. | [optional]
 **track_links** | Option<**bool**> | Rewrites every http(s) link in the html through a Zernio redirect and fires `email.link_clicked`. Needs `html`. | [optional]
 **track_replies** | Option<**bool**> | Fires `email.thread_replied` when someone else writes in this message's thread. Works with text or html. | [optional]

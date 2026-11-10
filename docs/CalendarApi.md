@@ -106,7 +106,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_calendar_event
 
-> models::DeleteCalendarEvent200Response delete_calendar_event(event_id, account_id, calendar_id)
+> models::DeleteEmailLabel200Response delete_calendar_event(event_id, account_id, calendar_id)
 Delete an event
 
 ### Parameters
@@ -120,7 +120,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::DeleteCalendarEvent200Response**](deleteCalendarEvent_200_response.md)
+[**models::DeleteEmailLabel200Response**](deleteEmailLabel_200_response.md)
 
 ### Authorization
 

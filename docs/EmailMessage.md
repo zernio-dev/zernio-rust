@@ -24,6 +24,7 @@ Name | Type | Description | Notes
 **date** | Option<**String**> |  | [optional]
 **unread** | Option<**bool**> |  | [optional]
 **starred** | Option<**bool**> |  | [optional]
+**labels** | Option<**Vec<String>**> | Gmail: the ids of the user labels on the message (names come from `GET /v1/email/labels`). Outlook: its category names. | [optional]
 **metadata** | Option<**std::collections::HashMap<String, String>**> |  | [optional]
 **tracking_id** | Option<**String**> | Set on a send with `trackOpens`, `trackLinks` or `trackReplies`; the email.* webhooks carry it. | [optional]
 

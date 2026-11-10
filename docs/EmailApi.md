@@ -5,18 +5,21 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**cancel_scheduled_email**](EmailApi.md#cancel_scheduled_email) | **DELETE** /v1/email/messages/scheduled/{scheduleId} | Cancel a scheduled email
+[**create_email_label**](EmailApi.md#create_email_label) | **POST** /v1/email/labels | Create a label
+[**delete_email_label**](EmailApi.md#delete_email_label) | **DELETE** /v1/email/labels/{labelId} | Delete a label
 [**download_email_attachment**](EmailApi.md#download_email_attachment) | **GET** /v1/email/attachments/{attachmentId} | Download an attachment
 [**get_email_message**](EmailApi.md#get_email_message) | **GET** /v1/email/messages/{messageId} | Get an email message
 [**get_email_thread**](EmailApi.md#get_email_thread) | **GET** /v1/email/threads/{threadId} | Get an email thread with its messages
 [**get_scheduled_email**](EmailApi.md#get_scheduled_email) | **GET** /v1/email/messages/scheduled/{scheduleId} | Get a scheduled email
 [**list_email_folders**](EmailApi.md#list_email_folders) | **GET** /v1/email/folders | List mailbox folders
+[**list_email_labels**](EmailApi.md#list_email_labels) | **GET** /v1/email/labels | List labels
 [**list_email_messages**](EmailApi.md#list_email_messages) | **GET** /v1/email/messages | List email messages
 [**list_email_threads**](EmailApi.md#list_email_threads) | **GET** /v1/email/threads | List email threads
 [**list_scheduled_emails**](EmailApi.md#list_scheduled_emails) | **GET** /v1/email/messages/scheduled | List scheduled emails
 [**reply_email_message**](EmailApi.md#reply_email_message) | **POST** /v1/email/messages/{messageId}/reply | Reply to a message
 [**send_email_message**](EmailApi.md#send_email_message) | **POST** /v1/email/messages | Send an email
 [**trash_email_message**](EmailApi.md#trash_email_message) | **DELETE** /v1/email/messages/{messageId} | Move a message to trash
-[**update_email_message**](EmailApi.md#update_email_message) | **PATCH** /v1/email/messages/{messageId} | Mark read or starred, or move a message
+[**update_email_message**](EmailApi.md#update_email_message) | **PATCH** /v1/email/messages/{messageId} | Mark read or starred, label, or move a message
 [**update_email_thread**](EmailApi.md#update_email_thread) | **PATCH** /v1/email/threads/{threadId} | Update every message in a thread
 
 
@@ -39,6 +42,67 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::SendEmailMessage202Response**](sendEmailMessage_202_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_email_label
+
+> models::CreateEmailLabel200Response create_email_label(create_email_label_request)
+Create a label
+
+Creates a Gmail label or an Outlook category. Safe to repeat: when the name already exists (case-insensitive) the existing label comes back with 200.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_email_label_request** | [**CreateEmailLabelRequest**](CreateEmailLabelRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateEmailLabel200Response**](createEmailLabel_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_email_label
+
+> models::DeleteEmailLabel200Response delete_email_label(label_id, account_id)
+Delete a label
+
+Deletes a Gmail user label or an Outlook category, by id or name (URL-encode a slash). Gmail removes the label from every message. Outlook keeps a deleted category on messages that already carry it; 412 when the organization blocks the category list.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**label_id** | **String** |  | [required] |
+**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+
+### Return type
+
+[**models::DeleteEmailLabel200Response**](deleteEmailLabel_200_response.md)
 
 ### Authorization
 
@@ -203,6 +267,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_email_labels
+
+> models::ListEmailLabels200Response list_email_labels(account_id)
+List labels
+
+Gmail labels, system and user, or the Outlook category list. If an organization blocks reading the Outlook list, it comes back empty and categories still apply to messages by name.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The connected Google or Microsoft account. | [required] |
+
+### Return type
+
+[**models::ListEmailLabels200Response**](listEmailLabels_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_email_messages
 
 > models::ListEmailMessages200Response list_email_messages(account_id, folder, unread, starred, has_attachment, subject, from, to, cc, bcc, any_email, after, before, search_query_native, sort_order, cursor, limit)
@@ -333,7 +427,7 @@ Name | Type | Description  | Required | Notes
 > models::SendEmailMessage201Response reply_email_message(message_id, reply_email_message_request)
 Reply to a message
 
-Replies inside the provider's thread: the provider builds the quoted original and threading headers, your `html` or `text` goes above the quote. `to`, `cc`, `bcc`, `replyTo`, `subject`, `headers` and `attachments` are honoured.  `scheduledFor` schedules the reply (202) and `trackOpens`, `trackLinks` and `trackReplies` track it, as on send; `holdAsDraft` is rejected. Same protection, caps and headers as sending. 
+Replies inside the provider's thread: the provider builds the quoted original and threading headers, your `html` or `text` goes above the quote. `to`, `cc`, `bcc`, `replyTo`, `subject`, `headers` and `attachments` are honoured.  `scheduledFor` schedules the reply (202) and `trackOpens`, `trackLinks` and `trackReplies` track it, as on send; `holdAsDraft` holds it as a reply draft in the thread until then. Same protection, caps and headers as sending. 
 
 ### Parameters
 
@@ -364,7 +458,7 @@ Name | Type | Description  | Required | Notes
 > models::SendEmailMessage201Response send_email_message(send_email_request)
 Send an email
 
-Sends from the connected mailbox and returns the stored sent copy.  The message is mirrored into the inbox (`message.sent` fires once) and counted against the mailbox's daily cap. The cap is reported in the `X-Zernio-Send-Limit`, `X-Zernio-Send-Remaining` and `X-Zernio-Send-Reset` response headers.  ### Sending limits  These mailboxes are for one-to-one mail, not bulk sends. Protection on every mailbox:  - Daily cap: Microsoft 1,000; Google Workspace 500; Gmail consumer 200. Reaching it answers 429 `email_send_cap_reached` with `details.cap`. - The same body reaching more than 50 distinct recipients within an hour pauses the mailbox with an escalating cooldown (429 `rate_limited`, `account.rate_limited` webhook).  ### Scheduling  With `scheduledFor` the request answers 202 with a `ScheduledEmail` instead of sending. The account and payment method are checked now; the caps, cooldowns and the send itself run at `scheduledFor`. A send that fails then fires `email.send_failed`. List, read and cancel scheduled sends under `/v1/email/messages/scheduled`.  ### Tracking  - `trackOpens` adds a 1x1 image to the html and fires `email.opened`. - `trackLinks` rewrites every http(s) link in the html through a Zernio redirect and fires `email.link_clicked`. - `trackReplies` fires `email.thread_replied` when someone else writes in the thread.  Tracking costs nothing extra. Opens are approximate: image proxies prefetch and image blocking hides them.  ### Other errors  - 402: Gmail sends need a payment method on the workspace. Reading, calendar and files do not. - 400: `holdAsDraft` is reserved and rejected; `trackOpens` or `trackLinks` without `html`; `scheduledFor` outside 1 minute to 30 days. 
+Sends from the connected mailbox and returns the stored sent copy.  The message is mirrored into the inbox (`message.sent` fires once) and counted against the mailbox's daily cap. The cap is reported in the `X-Zernio-Send-Limit`, `X-Zernio-Send-Remaining` and `X-Zernio-Send-Reset` response headers.  ### Sending limits  These mailboxes are for one-to-one mail, not bulk sends. Protection on every mailbox:  - Daily cap: Microsoft 1,000; Google Workspace 500; Gmail consumer 200. Reaching it answers 429 `email_send_cap_reached` with `details.cap`. - The same body reaching more than 50 distinct recipients within an hour pauses the mailbox with an escalating cooldown (429 `rate_limited`, `account.rate_limited` webhook).  ### Scheduling  With `scheduledFor` the request answers 202 with a `ScheduledEmail` instead of sending. The account and payment method are checked now; the caps, cooldowns and the send itself run at `scheduledFor`. A send that fails then fires `email.send_failed`. List, read and cancel scheduled sends under `/v1/email/messages/scheduled`.  ### Tracking  - `trackOpens` adds a 1x1 image to the html and fires `email.opened`. - `trackLinks` rewrites every http(s) link in the html through a Zernio redirect and fires `email.link_clicked`. - `trackReplies` fires `email.thread_replied` when someone else writes in the thread.  Tracking costs nothing extra. Opens are approximate: image proxies prefetch and image blocking hides them.  ### Other errors  - 402: Gmail sends need a payment method on the workspace. Reading, calendar and files do not. - 400: `holdAsDraft` without `scheduledFor`; `trackOpens` or `trackLinks` without `html`; `scheduledFor` outside 1 minute to 30 days. 
 
 ### Parameters
 
@@ -421,9 +515,9 @@ Name | Type | Description  | Required | Notes
 ## update_email_message
 
 > models::SendEmailMessage201Response update_email_message(message_id, email_message_patch)
-Mark read or starred, or move a message
+Mark read or starred, label, or move a message
 
-`folder` moves the message. On Google a move swaps the inbox, trash and spam labels and keeps every other label; `archive` removes the inbox label.
+`addLabels` and `removeLabels` tag the message without moving it. `folder` moves it: on Google a move files the mail in one place, so it drops the inbox, trash, spam and user labels it held; `archive` removes the inbox label.
 
 ### Parameters
 
@@ -454,7 +548,7 @@ Name | Type | Description  | Required | Notes
 > models::UpdateEmailThread200Response update_email_thread(thread_id, email_message_patch)
 Update every message in a thread
 
-Applies `unread`, `starred` or a `folder` move to each message of the thread.
+Applies `unread`, `starred`, `addLabels`, `removeLabels` or a `folder` move to each message of the thread.
 
 ### Parameters
 

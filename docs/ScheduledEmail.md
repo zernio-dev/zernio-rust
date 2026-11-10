@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **account_id** | Option<**String**> |  | [optional]
 **status** | Option<**Status**> |  (enum: scheduled, sending, sent, failed, cancelled) | [optional]
 **scheduled_for** | Option<**String**> |  | [optional]
+**hold_as_draft** | Option<**bool**> | True when the email waits as a draft in the mailbox and is sent as that draft stands at `scheduledFor`. | [optional]
+**draft_id** | Option<**String**> | The mailbox draft of a `holdAsDraft` send: the Gmail draft id, or the Outlook message id. `null` otherwise. | [optional]
 **to** | Option<[**Vec<models::EmailAddress>**](EmailAddress.md)> |  | [optional]
 **subject** | Option<**String**> | Empty on a reply that keeps the thread subject. `null` once the send finishes under zero content retention. | [optional]
 **content_not_retained** | Option<**bool**> | Present and `true` when the email content was dropped under [zero content retention](/security/zero-content-retention). | [optional]
