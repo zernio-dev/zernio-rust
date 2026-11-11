@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**get_hub_spot_settings**](AccountsApi.md#get_hub_spot_settings) | **GET** /v1/accounts/{accountId}/hubspot-settings | Get HubSpot account settings
 [**get_instagram_follow_status**](AccountsApi.md#get_instagram_follow_status) | **GET** /v1/accounts/{accountId}/follow-status/{userId} | Check whether an Instagram user follows the account
 [**get_slack_settings**](AccountsApi.md#get_slack_settings) | **GET** /v1/accounts/{accountId}/slack-settings | Get Slack account settings
+[**get_stripe_settings**](AccountsApi.md#get_stripe_settings) | **GET** /v1/accounts/{accountId}/stripe-settings | Get Stripe account settings
 [**get_tik_tok_creator_info**](AccountsApi.md#get_tik_tok_creator_info) | **GET** /v1/accounts/{accountId}/tiktok/creator-info | Get TikTok creator info
 [**grant_business_partner**](AccountsApi.md#grant_business_partner) | **POST** /v1/accounts/{accountId}/business-partners | Share the Page with a partner business
 [**list_accounts**](AccountsApi.md#list_accounts) | **GET** /v1/accounts | List accounts
@@ -25,6 +26,7 @@ Method | HTTP request | Description
 [**update_bluesky_settings**](AccountsApi.md#update_bluesky_settings) | **PATCH** /v1/accounts/{accountId}/bluesky-settings | Update Bluesky account settings
 [**update_hub_spot_settings**](AccountsApi.md#update_hub_spot_settings) | **PATCH** /v1/accounts/{accountId}/hubspot-settings | Update HubSpot account settings
 [**update_slack_settings**](AccountsApi.md#update_slack_settings) | **PATCH** /v1/accounts/{accountId}/slack-settings | Update Slack account settings
+[**update_stripe_settings**](AccountsApi.md#update_stripe_settings) | **PATCH** /v1/accounts/{accountId}/stripe-settings | Update Stripe account settings
 
 
 
@@ -295,6 +297,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetSlackSettings200Response**](getSlackSettings_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_stripe_settings
+
+> models::GetStripeSettings200Response get_stripe_settings(account_id)
+Get Stripe account settings
+
+Read a connected Stripe account and whether its sales go to the ad platforms.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::GetStripeSettings200Response**](getStripeSettings_200_response.md)
 
 ### Authorization
 
@@ -683,6 +715,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
  (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_stripe_settings
+
+> models::UpdateStripeSettings200Response update_stripe_settings(account_id, update_stripe_settings_request)
+Update Stripe account settings
+
+Turn sending Stripe sales to the ad platforms on or off for a connected Stripe account. Sales are always stored and counted in campaign results; this only decides whether they are also forwarded.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** |  | [required] |
+**update_stripe_settings_request** | [**UpdateStripeSettingsRequest**](UpdateStripeSettingsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateStripeSettings200Response**](updateStripeSettings_200_response.md)
 
 ### Authorization
 

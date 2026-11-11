@@ -1,0 +1,13 @@
+# AddAdConversionAssociationsRequest
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**account_id** | **String** | The connected ads account (SocialAccount ID). | 
+**ad_account_id** | **String** |  | 
+**campaign_ids** | **Vec<String>** |  | 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

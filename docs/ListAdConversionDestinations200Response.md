@@ -1,0 +1,12 @@
+# ListAdConversionDestinations200Response
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**platform** | Option<**Platform**> |  (enum: metaads, googleads, linkedinads, tiktokads, openaiads, pinterestads, redditads) | [optional]
+**destinations** | Option<[**Vec<models::ListAdConversionDestinations200ResponseDestinationsInner>**](ListAdConversionDestinations200ResponseDestinationsInner.md)> |  | [optional]
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

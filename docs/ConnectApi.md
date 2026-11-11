@@ -46,6 +46,7 @@ Method | HTTP request | Description
 [**get_reddit_flairs**](ConnectApi.md#get_reddit_flairs) | **GET** /v1/accounts/{accountId}/reddit-flairs | List subreddit flairs
 [**get_reddit_subreddits**](ConnectApi.md#get_reddit_subreddits) | **GET** /v1/accounts/{accountId}/reddit-subreddits | List Reddit subreddits
 [**get_shopify_connect_url**](ConnectApi.md#get_shopify_connect_url) | **GET** /v1/connect/shopify | Get Shopify OAuth connect URL
+[**get_stripe_connect_url**](ConnectApi.md#get_stripe_connect_url) | **GET** /v1/connect/stripe | Get Stripe connect URL
 [**get_subreddit_rules**](ConnectApi.md#get_subreddit_rules) | **GET** /v1/accounts/{accountId}/reddit-subreddits/{subreddit}/rules | Get subreddit rules
 [**get_telegram_connect_status**](ConnectApi.md#get_telegram_connect_status) | **GET** /v1/connect/telegram | Generate Telegram code
 [**get_webflow_connect_url**](ConnectApi.md#get_webflow_connect_url) | **GET** /v1/connect/webflow | Get Webflow OAuth URL
@@ -1398,6 +1399,38 @@ Name | Type | Description  | Required | Notes
 ### Authorization
 
 [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_stripe_connect_url
+
+> models::GetStripeConnectUrl200Response get_stripe_connect_url(profile_id, redirect_url, reconnect_account_id)
+Get Stripe connect URL
+
+Initiates Stripe Connect OAuth for the customer's own Stripe account, with read-only access. Stripe is a connect-only sales source: each paid charge becomes a `Purchase` event in `GET /v1/events` (source `stripe`), and refunds lower or retract it.  One Stripe account can be connected per profile. Connecting a different account to a profile that already has one redirects with `error=stripe_profile_has_account`.  ### Flow  1. Redirect the user to `authUrl`. 2. After authorization, Stripe returns the browser to Zernio's internal callback. 3. Zernio redirects to `redirect_url` (or the dashboard when omitted).  On success the redirect carries `connected=stripe`, `profileId`, `accountId` and `username` (the Stripe account name). On failure it carries `error`, `platform=stripe` and `error_message`.  To match a payment to the ad campaign behind it, set `zrn`, `gclid`, `fbclid` or `utm_*` keys (and optionally `landing_url`) in the metadata of the Checkout Session, PaymentIntent or subscription. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**profile_id** | **String** | Your Zernio profile ID (get from /v1/profiles). | [required] |
+**redirect_url** | Option<**String**> | Custom redirect after connection. Must be an absolute http(s) URL or custom app scheme such as `myapp://callback`; relative and unsafe URLs return 400. |  |
+**reconnect_account_id** | Option<**String**> | The Stripe connection being reconnected. The callback refuses to write to any other account. |  |
+
+### Return type
+
+[**models::GetStripeConnectUrl200Response**](getStripeConnectUrl_200_response.md)
+
+### Authorization
+
+[connectToken](../README.md#connectToken), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
