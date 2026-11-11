@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 **comment_reply_delay_seconds** | Option<**i32**> | Seconds to wait before posting the public comment reply. Send 0 to clear it. The reply never goes out before the DM. | [optional]
 **audience** | Option<[**models::CommentAutomationAudience**](CommentAutomationAudience.md)> |  | [optional]
 **follow_gate** | Option<[**models::CommentAutomationFollowGate**](CommentAutomationFollowGate.md)> |  | [optional]
-**is_active** | Option<**bool**> |  | [optional]
+**is_active** | Option<**bool**> | false pauses the automation. true on a paused automation resumes it for comments posted from that moment: comments left while it was paused get no DM. | [optional]
 **repeat_policy** | Option<[**models::CommentAutomationRepeatPolicy**](CommentAutomationRepeatPolicy.md)> |  | [optional]
 **dedupe_same_text_hours** | Option<**i32**> | Skip the DM when this recipient already received identical DM text (after personalisation) from this account, from any automation, within this many hours. The skip is logged with status skipped. Send null to clear. | [optional]
 **public_reply_policy** | Option<**PublicReplyPolicy**> | 'after_dm' posts commentReply only after a successful DM. 'always' posts it whatever the audience rule, dedupe or DM outcome: the moment a comment matches, or after commentReplyDelaySeconds when set (raised to dmDelaySeconds, so it never precedes the DM attempt). (enum: after_dm, always) | [optional]

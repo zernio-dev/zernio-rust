@@ -34,7 +34,7 @@ Name | Type | Description | Notes
 **actions** | Option<[**models::CommentAutomationActions**](CommentAutomationActions.md)> |  | [optional]
 **quick_replies** | Option<[**Vec<models::CommentAutomationQuickReply>**](CommentAutomationQuickReply.md)> | Opt-in quick-reply chips on the DM (up to 13). Chips do not render in Message Requests, where a first DM to a cold commenter lands, so prefer buttons for first contact. Mutually exclusive with buttons and template (400).  | [optional]
 **dm_media** | Option<[**models::CommentAutomationDmMedia**](CommentAutomationDmMedia.md)> |  | [optional]
-**is_active** | Option<**bool**> | Create the automation paused with false. | [optional][default to true]
+**is_active** | Option<**bool**> | Create the automation paused with false. Once switched on, it answers only comments posted from that moment. | [optional][default to true]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

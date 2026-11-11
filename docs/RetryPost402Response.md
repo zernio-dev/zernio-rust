@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **docs_url** | Option<**String**> | Email API: where this `code` is documented. | [optional]
 **details** | Option<[**models::ErrorResponseDetails**](ErrorResponseDetails.md)> |  | [optional]
 **funding_url** | **String** | Dashboard link to Billing that opens the Add funds drawer (the add-card drawer first when there is no card). Send the user there, then retry. | 
+**required_cents** | Option<**i32**> | Only when an item debited later (a phone number's first month, all numbers of the order) is refused: what the balance must hold, in cents. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
