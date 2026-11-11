@@ -1441,6 +1441,12 @@ docs/GetEmailThread200Response.md
 docs/GetEmailThread200ResponseData.md
 docs/GetEvent200Response.md
 docs/GetEvent200ResponseDeliveriesInner.md
+docs/GetEventsOverview200Response.md
+docs/GetEventsOverview200ResponsePlatformsInner.md
+docs/GetEventsOverview200ResponseSourcesInner.md
+docs/GetEventsOverview200ResponseToday.md
+docs/GetEventsOverview200ResponseWebsite.md
+docs/GetEventsOverview200ResponseWebsiteStepsInner.md
 docs/GetFacebookDemographics200Response.md
 docs/GetFacebookDemographics200ResponseDemographics.md
 docs/GetFacebookDemographics200ResponseDemographicsCountryInner.md
@@ -2163,6 +2169,8 @@ docs/ListEmailSignatures200Response.md
 docs/ListEmailThreads200Response.md
 docs/ListEventDestinations200Response.md
 docs/ListEvents200Response.md
+docs/ListEvents200ResponseEventsInner.md
+docs/ListEvents200ResponseEventsInnerAllOfDeliveriesInner.md
 docs/ListFacebookPages200Response.md
 docs/ListFacebookPages200ResponsePagesInner.md
 docs/ListFacebookTaggedPosts200Response.md
@@ -5238,6 +5246,12 @@ src/models/get_email_thread_200_response.rs
 src/models/get_email_thread_200_response_data.rs
 src/models/get_event_200_response.rs
 src/models/get_event_200_response_deliveries_inner.rs
+src/models/get_events_overview_200_response.rs
+src/models/get_events_overview_200_response_platforms_inner.rs
+src/models/get_events_overview_200_response_sources_inner.rs
+src/models/get_events_overview_200_response_today.rs
+src/models/get_events_overview_200_response_website.rs
+src/models/get_events_overview_200_response_website_steps_inner.rs
 src/models/get_facebook_demographics_200_response.rs
 src/models/get_facebook_demographics_200_response_demographics.rs
 src/models/get_facebook_demographics_200_response_demographics_country_inner.rs
@@ -5945,6 +5959,8 @@ src/models/list_email_signatures_200_response.rs
 src/models/list_email_threads_200_response.rs
 src/models/list_event_destinations_200_response.rs
 src/models/list_events_200_response.rs
+src/models/list_events_200_response_events_inner.rs
+src/models/list_events_200_response_events_inner_all_of_deliveries_inner.rs
 src/models/list_facebook_pages_200_response.rs
 src/models/list_facebook_pages_200_response_pages_inner.rs
 src/models/list_facebook_tagged_posts_200_response.rs
