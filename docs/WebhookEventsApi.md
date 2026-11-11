@@ -110,6 +110,7 @@ Method | HTTP request | Description
 [**on_message_read**](WebhookEventsApi.md#on_message_read) | **POST** /message.read | Message read event
 [**on_message_received**](WebhookEventsApi.md#on_message_received) | **POST** /message.received | Message received event
 [**on_message_sent**](WebhookEventsApi.md#on_message_sent) | **POST** /message.sent | Message sent event
+[**on_notification_sent**](WebhookEventsApi.md#on_notification_sent) | **POST** /notification.sent | Notification sent event
 [**on_phone_number_stock_available**](WebhookEventsApi.md#on_phone_number_stock_available) | **POST** /phone_number.stock_available | Phone-number stock available event
 [**on_post_authenticity_changed**](WebhookEventsApi.md#on_post_authenticity_changed) | **POST** /post.authenticity_changed | Post authenticity changed event
 [**on_post_cancelled**](WebhookEventsApi.md#on_post_cancelled) | **POST** /post.cancelled | Post cancelled event
@@ -3327,6 +3328,36 @@ A message was sent through the API, the dashboard, or the WhatsApp Business app 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_message_sent** | [**WebhookPayloadMessageSent**](WebhookPayloadMessageSent.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_notification_sent
+
+> on_notification_sent(webhook_payload_notification_sent)
+Notification sent event
+
+A notification we would email the account owner: a scheduled post failed to publish (`type: post_failed`), or a connected account was disconnected (`type: account_disconnected`). Built for agents: it carries the email's `subject` and `text`, references to the post or account, and the `actions` that act on it.  ### When it fires  Once for each such notification, in near real time, regardless of the user's email toggles, and even when the owner has no email address or the email is held back by the sender's limits. It fires alongside `post.failed` and `account.disconnected`, which stay as they are.  The user's notification channel (Slack or Telegram) follows the email toggles, so it only receives the alerts whose toggle is on.  - `post_failed`: once the failure is final (a permanent error, or a temporary one on its last retry), once per publish attempt that failed, for scheduled posts only (not \"post now\"). `refs.platforms` lists every platform that failed in that attempt. - `account_disconnected`: every time an account is disconnected, never for creator-profile accounts. `reason` says why.  ### Payload notes  `text` is the email body without the greeting. When your content retention is set to keep no content, the post text is replaced by `Content not retained` and each platform error by a generic description of its category.  ### How to act  Each entry of `actions` is a public API call with the ids already in the path: `retry_post` (`retryPost`, `POST /v1/posts/{postId}/retry`), `reconnect_account` (`getConnectUrl`, `GET /v1/connect/{platform}`) and `check_account` (`getAccountHealth`, `GET /v1/accounts/{accountId}/health`).  ### Who receives it  Endpoints subscribed to `notification.sent`. Scoped endpoints receive it for their profiles and accounts. Restricted keys need the `publishing` resource group. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_notification_sent** | [**WebhookPayloadNotificationSent**](WebhookPayloadNotificationSent.md) |  | [required] |
 
 ### Return type
 
