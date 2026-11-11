@@ -13,10 +13,12 @@ Method | HTTP request | Description
 [**connect_ads**](ConnectApi.md#connect_ads) | **GET** /v1/connect/{platform}/ads | Connect ads for a platform
 [**connect_bluesky_credentials**](ConnectApi.md#connect_bluesky_credentials) | **POST** /v1/connect/bluesky/credentials | Connect Bluesky account
 [**connect_discord_channel**](ConnectApi.md#connect_discord_channel) | **POST** /v1/connect/discord | Connect a Discord channel
+[**connect_line_credentials**](ConnectApi.md#connect_line_credentials) | **POST** /v1/connect/line/credentials | Connect LINE Official Account
 [**connect_open_ai_ads_credentials**](ConnectApi.md#connect_open_ai_ads_credentials) | **POST** /v1/connect/openai-ads/credentials | Connect an OpenAI Ads account
 [**connect_shopify_with_token**](ConnectApi.md#connect_shopify_with_token) | **POST** /v1/connect/shopify/token | Connect a Shopify store with a custom-app Admin token
 [**connect_slack_channel**](ConnectApi.md#connect_slack_channel) | **POST** /v1/connect/slack | Connect a Slack channel
 [**connect_webflow_with_site_token**](ConnectApi.md#connect_webflow_with_site_token) | **POST** /v1/connect/webflow/token | Connect Webflow with a site API token
+[**connect_wechat_credentials**](ConnectApi.md#connect_wechat_credentials) | **POST** /v1/connect/wechat/credentials | Connect WeChat Official Account
 [**connect_whats_app_credentials**](ConnectApi.md#connect_whats_app_credentials) | **POST** /v1/connect/whatsapp/credentials | Connect WhatsApp via credentials
 [**connect_whats_app_embedded_signup**](ConnectApi.md#connect_whats_app_embedded_signup) | **POST** /v1/connect/whatsapp/embedded-signup | Connect WhatsApp from Embedded Signup
 [**connect_whop_ads_credentials**](ConnectApi.md#connect_whop_ads_credentials) | **POST** /v1/connect/whop-ads/credentials | Connect a Whop account
@@ -50,6 +52,7 @@ Method | HTTP request | Description
 [**get_subreddit_rules**](ConnectApi.md#get_subreddit_rules) | **GET** /v1/accounts/{accountId}/reddit-subreddits/{subreddit}/rules | Get subreddit rules
 [**get_telegram_connect_status**](ConnectApi.md#get_telegram_connect_status) | **GET** /v1/connect/telegram | Generate Telegram code
 [**get_webflow_connect_url**](ConnectApi.md#get_webflow_connect_url) | **GET** /v1/connect/webflow | Get Webflow OAuth URL
+[**get_wechat_ip_whitelist**](ConnectApi.md#get_wechat_ip_whitelist) | **GET** /v1/connect/wechat/ip-whitelist | Get WeChat IP whitelist
 [**get_whats_app_sdk_config**](ConnectApi.md#get_whats_app_sdk_config) | **GET** /v1/connect/whatsapp/sdk-config | Get Embedded Signup SDK config
 [**get_wix_connect_url**](ConnectApi.md#get_wix_connect_url) | **GET** /v1/connect/wix | Get Wix site install URL
 [**get_word_press_auth_url**](ConnectApi.md#get_word_press_auth_url) | **GET** /v1/connect/wordpress | Get WordPress.com OAuth connect URL
@@ -385,6 +388,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## connect_line_credentials
+
+> models::ConnectLineCredentials200Response connect_line_credentials(connect_line_credentials_request)
+Connect LINE Official Account
+
+Connect a LINE Official Account with the Channel ID and Channel secret of its Messaging API channel (LINE Official Account Manager > Settings > Messaging API, also shown in the LINE Developers Console under the channel's Basic settings).  Zernio issues a channel access token, reads the bot's profile and sets the channel's webhook URL for you. A channel has one webhook URL, so if it already pointed somewhere else, that integration stops receiving events; the response names it in `webhook.previousUrl`.  Two settings stay on the customer's side, in LINE Official Account Manager > Settings > Response settings. `nextSteps` in the response lists them:  - Turn on Webhooks. Until it is on, LINE delivers nothing to Zernio. - Turn off auto-response and greeting messages.  Reconnecting the same channel on the same profile updates the existing account. To get your userId for the state parameter, call GET /v1/users which includes a currentUserId field. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**connect_line_credentials_request** | [**ConnectLineCredentialsRequest**](ConnectLineCredentialsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::ConnectLineCredentials200Response**](connectLineCredentials_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## connect_open_ai_ads_credentials
 
 > models::ConnectOpenAiAdsCredentials200Response connect_open_ai_ads_credentials(connect_open_ai_ads_credentials_request)
@@ -496,6 +529,36 @@ Name | Type | Description  | Required | Notes
 ### Authorization
 
 [connectToken](../README.md#connectToken), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## connect_wechat_credentials
+
+> models::ConnectWechatCredentials200Response connect_wechat_credentials(connect_wechat_credentials_request)
+Connect WeChat Official Account
+
+Connect a verified WeChat Official Account (Service Account) with its AppID and AppSecret (Weixin Official Accounts Platform > Settings and Development > Basic Configuration).  Before calling this, add every IP from GET /v1/connect/wechat/ip-whitelist to the account's API IP whitelist on the same page. WeChat refuses calls from any other IP, and this endpoint then returns 400 with code `wechat_ip_not_whitelisted`.  The response carries a Server URL, a Token and an EncodingAESKey. Paste them into Server Configuration on the same page, choose Safe mode for message encryption, and enable the configuration. Until then WeChat delivers nothing to Zernio.  Enabling Server Configuration turns off the auto-replies and menus set in the WeChat dashboard.  Reconnecting the same AppID on the same profile keeps the existing Token and EncodingAESKey, so nothing has to be pasted again. To get your userId for the state parameter, call GET /v1/users which includes a currentUserId field. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**connect_wechat_credentials_request** | [**ConnectWechatCredentialsRequest**](ConnectWechatCredentialsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::ConnectWechatCredentials200Response**](connectWechatCredentials_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -1523,6 +1586,33 @@ Name | Type | Description  | Required | Notes
 ### Authorization
 
 [connectToken](../README.md#connectToken), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_wechat_ip_whitelist
+
+> models::GetWechatIpWhitelist200Response get_wechat_ip_whitelist()
+Get WeChat IP whitelist
+
+The IPs Zernio calls WeChat from. Add all of them to the Official Account's API IP whitelist before calling POST /v1/connect/wechat/credentials.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::GetWechatIpWhitelist200Response**](getWechatIpWhitelist_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 

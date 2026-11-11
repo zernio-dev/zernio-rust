@@ -625,6 +625,9 @@ docs/ConnectHandoff.md
 docs/ConnectHandoffAccountsInner.md
 docs/ConnectHandoffError.md
 docs/ConnectHandoffLink.md
+docs/ConnectLineCredentials200Response.md
+docs/ConnectLineCredentials200ResponseWebhook.md
+docs/ConnectLineCredentialsRequest.md
 docs/ConnectOpenAiAdsCredentials200Response.md
 docs/ConnectOpenAiAdsCredentialsRequest.md
 docs/ConnectShopifyWithToken200Response.md
@@ -634,6 +637,9 @@ docs/ConnectSlackChannelRequest.md
 docs/ConnectWebflowWithSiteToken200Response.md
 docs/ConnectWebflowWithSiteToken200ResponseAccount.md
 docs/ConnectWebflowWithSiteTokenRequest.md
+docs/ConnectWechatCredentials200Response.md
+docs/ConnectWechatCredentials200ResponseServer.md
+docs/ConnectWechatCredentialsRequest.md
 docs/ConnectWelcomeScreen.md
 docs/ConnectWhatsAppCredentials200Response.md
 docs/ConnectWhatsAppCredentials200ResponseAccount.md
@@ -650,6 +656,7 @@ docs/Connected.md
 docs/ConnectedAccount.md
 docs/ConnectedApp.md
 docs/ConnectedAppsApi.md
+docs/ConnectedMessagingAccount.md
 docs/ContactsApi.md
 docs/ContentRetentionApi.md
 docs/ContentRetentionResponse.md
@@ -1685,6 +1692,7 @@ docs/GetWebflowConnectUrl200Response.md
 docs/GetWebhookLogs200Response.md
 docs/GetWebhookLogs200ResponsePagination.md
 docs/GetWebhookSettings200Response.md
+docs/GetWechatIpWhitelist200Response.md
 docs/GetWhatsAppBlockStatus200Response.md
 docs/GetWhatsAppBlockedUsers200Response.md
 docs/GetWhatsAppBlockedUsers200ResponseBlockedUsersInner.md
@@ -4425,6 +4433,9 @@ src/models/connect_handoff.rs
 src/models/connect_handoff_accounts_inner.rs
 src/models/connect_handoff_error.rs
 src/models/connect_handoff_link.rs
+src/models/connect_line_credentials_200_response.rs
+src/models/connect_line_credentials_200_response_webhook.rs
+src/models/connect_line_credentials_request.rs
 src/models/connect_open_ai_ads_credentials_200_response.rs
 src/models/connect_open_ai_ads_credentials_request.rs
 src/models/connect_shopify_with_token_200_response.rs
@@ -4434,6 +4445,9 @@ src/models/connect_slack_channel_request.rs
 src/models/connect_webflow_with_site_token_200_response.rs
 src/models/connect_webflow_with_site_token_200_response_account.rs
 src/models/connect_webflow_with_site_token_request.rs
+src/models/connect_wechat_credentials_200_response.rs
+src/models/connect_wechat_credentials_200_response_server.rs
+src/models/connect_wechat_credentials_request.rs
 src/models/connect_welcome_screen.rs
 src/models/connect_whats_app_credentials_200_response.rs
 src/models/connect_whats_app_credentials_200_response_account.rs
@@ -4449,6 +4463,7 @@ src/models/connect_word_press_with_application_password_request.rs
 src/models/connected.rs
 src/models/connected_account.rs
 src/models/connected_app.rs
+src/models/connected_messaging_account.rs
 src/models/content_retention_response.rs
 src/models/conversation_ad_attribution.rs
 src/models/conversion_action.rs
@@ -5474,6 +5489,7 @@ src/models/get_webflow_connect_url_200_response.rs
 src/models/get_webhook_logs_200_response.rs
 src/models/get_webhook_logs_200_response_pagination.rs
 src/models/get_webhook_settings_200_response.rs
+src/models/get_wechat_ip_whitelist_200_response.rs
 src/models/get_whats_app_block_status_200_response.rs
 src/models/get_whats_app_blocked_users_200_response.rs
 src/models/get_whats_app_blocked_users_200_response_blocked_users_inner.rs
