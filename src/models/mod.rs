@@ -2654,6 +2654,8 @@ pub mod get_automation_controls_200_response;
 pub use self::get_automation_controls_200_response::GetAutomationControls200Response;
 pub mod get_balance_200_response;
 pub use self::get_balance_200_response::GetBalance200Response;
+pub mod get_balance_200_response_held;
+pub use self::get_balance_200_response_held::GetBalance200ResponseHeld;
 pub mod get_balance_200_response_payout_locks_inner;
 pub use self::get_balance_200_response_payout_locks_inner::GetBalance200ResponsePayoutLocksInner;
 pub mod get_balance_200_response_pending_releases_inner;
