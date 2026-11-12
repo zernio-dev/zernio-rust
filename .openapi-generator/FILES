@@ -253,6 +253,7 @@ docs/AutomationAdFilterOneOf1.md
 docs/AutomationAdFilterOneOf2.md
 docs/AutomationAdFilterOneOf3.md
 docs/AutomationAdFilterOneOf4.md
+docs/AutomationAdFilterOneOf5.md
 docs/AutomationAlert.md
 docs/AutomationApproval.md
 docs/AutomationApprovalChange.md
@@ -535,6 +536,7 @@ docs/ChangelogApi.md
 docs/ChannelPicker.md
 docs/ChannelPickerChannelsInner.md
 docs/ChannelPickerTeam.md
+docs/ChannelType.md
 docs/CheckPhoneNumberAvailability200Response.md
 docs/CheckPhoneNumberAvailability200ResponseAreaAvailability.md
 docs/CheckPhoneNumberAvailability200ResponseAreaAvailabilityInStockInner.md
@@ -4124,6 +4126,7 @@ src/models/automation_ad_filter_one_of_1.rs
 src/models/automation_ad_filter_one_of_2.rs
 src/models/automation_ad_filter_one_of_3.rs
 src/models/automation_ad_filter_one_of_4.rs
+src/models/automation_ad_filter_one_of_5.rs
 src/models/automation_alert.rs
 src/models/automation_approval.rs
 src/models/automation_approval_change.rs
@@ -4398,6 +4401,7 @@ src/models/change_commerce_product_tags_request.rs
 src/models/channel_picker.rs
 src/models/channel_picker_channels_inner.rs
 src/models/channel_picker_team.rs
+src/models/channel_type.rs
 src/models/check_phone_number_availability_200_response.rs
 src/models/check_phone_number_availability_200_response_area_availability.rs
 src/models/check_phone_number_availability_200_response_area_availability_in_stock_inner.rs

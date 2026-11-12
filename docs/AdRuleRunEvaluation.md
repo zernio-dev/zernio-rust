@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **timezone** | Option<**String**> |  | [optional]
 **timezone_assumed** | Option<**bool**> |  | [optional]
 **currency** | Option<**String**> |  | [optional]
+**hourly_through** | Option<**String**> | Where the run's hourly windows ended. Absent on runs recorded before November 2026. | [optional]
 **matched** | Option<[**Vec<models::AdRuleObjectEvaluation>**](AdRuleObjectEvaluation.md)> |  | [optional]
 **actions** | Option<[**Vec<models::AdRuleRunEvaluationActionsInner>**](AdRuleRunEvaluationActionsInner.md)> |  | [optional]
 **notification** | Option<[**models::AdRuleRunEvaluationNotification**](AdRuleRunEvaluationNotification.md)> |  | [optional]

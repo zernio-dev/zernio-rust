@@ -5,6 +5,7 @@
 | Name | Description |
 |---- | -----|
 | BudgetLevel |  |
+| ChannelType |  |
 | DaysLive |  |
 | DaysSinceChange |  |
 | Ids |  |
