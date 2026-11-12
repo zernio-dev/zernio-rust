@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **id** | **String** |  | 
 **automation_id** | **String** |  | 
 **checked_at** | **String** |  | 
-**outcome** | **Outcome** |  (enum: triggered, no_match, cooldown, daily_limit, failed) | 
+**outcome** | **Outcome** | `paused`: the team used its free automation runs with no payment method on file, so the check did not run. `error` says why. (enum: triggered, no_match, cooldown, daily_limit, failed, paused) | 
 **evaluated** | **i32** | Posts judged. | 
 **analytics_synced_at** | Option<**String**> | The oldest analytics sync among the posts judged: their numbers are as of then. | 
 **matched** | [**Vec<models::ScheduledAutomationCheckMatchedInner>**](ScheduledAutomationCheckMatchedInner.md) | Up to 20 matching posts. | 

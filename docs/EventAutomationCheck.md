@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **id** | **String** |  | 
 **automation_id** | **String** |  | 
 **checked_at** | **String** |  | 
-**outcome** | **Outcome** |  (enum: triggered, no_match, cooldown, daily_limit, failed) | 
+**outcome** | **Outcome** | `paused`: the team used its free automation runs with no payment method on file, so the check did not run. `error` says why. (enum: triggered, no_match, cooldown, daily_limit, failed, paused) | 
 **evaluated** | **i32** |  | 
 **event** | Option<**String**> |  | 
 **event_id** | Option<**String**> |  | 
