@@ -1,0 +1,11 @@
+# CreateGoogleBusinessLocationRequestServiceAreaPlaces
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**place_infos** | Option<[**Vec<models::CreateGoogleBusinessLocationRequestServiceAreaPlacesPlaceInfosInner>**](CreateGoogleBusinessLocationRequestServiceAreaPlacesPlaceInfosInner.md)> |  | [optional]
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
