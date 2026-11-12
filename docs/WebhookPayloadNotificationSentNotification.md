@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**category** | **Category** | The email notification preference this notification belongs to. (enum: postFailures, accountIssues) | 
-**r#type** | **Type** |  (enum: post_failed, account_disconnected) | 
+**category** | **Category** | The email notification preference this notification belongs to. securityAlerts has no preference: it is always sent. (enum: postFailures, accountIssues, securityAlerts) | 
+**r#type** | **Type** |  (enum: post_failed, account_disconnected, api_key_handed_over) | 
 **subject** | **String** | The email subject. | 
 **text** | **String** | The email body as plain text, without the greeting. | 
 **url** | **String** | Dashboard link for the notification. | 

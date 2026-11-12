@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **name** | **String** |  | 
 **status** | **Status** |  (enum: active, paused) | 
 **trigger** | [**models::AutomationEventTrigger**](AutomationEventTrigger.md) |  | 
-**steps** | [**Vec<models::AutomationNotifyStep>**](AutomationNotifyStep.md) |  | 
+**steps** | [**Vec<models::AutomationNotifyStep>**](AutomationNotifyStep.md) | May be empty: an automation with no steps only records each event it matches as a check with outcome `triggered` and no action. `limits.cooldown` and `limits.maxChangesPerDay` count actions, so they do nothing for it. | 
 **limits** | Option<[**models::AutomationEventLimits**](AutomationEventLimits.md)> |  | [optional]
 **id** | **String** |  | 
 **kind** | **Kind** |  (enum: event) | 

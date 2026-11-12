@@ -65,6 +65,7 @@ Method | HTTP request | Description
 [**on_campaign_sample_declined**](WebhookEventsApi.md#on_campaign_sample_declined) | **POST** /campaign_sample.declined | Campaign sample declined event
 [**on_campaign_sample_requested**](WebhookEventsApi.md#on_campaign_sample_requested) | **POST** /campaign_sample.requested | Campaign sample requested event
 [**on_campaign_sample_shipped**](WebhookEventsApi.md#on_campaign_sample_shipped) | **POST** /campaign_sample.shipped | Campaign sample shipped event
+[**on_campaign_status_changed**](WebhookEventsApi.md#on_campaign_status_changed) | **POST** /campaign.status_changed | Campaign status changed event
 [**on_campaign_submission_approved**](WebhookEventsApi.md#on_campaign_submission_approved) | **POST** /campaign_submission.approved | Campaign submission approved event
 [**on_campaign_submission_flagged**](WebhookEventsApi.md#on_campaign_submission_flagged) | **POST** /campaign_submission.flagged | Campaign submission flagged event
 [**on_campaign_submission_pending_review**](WebhookEventsApi.md#on_campaign_submission_pending_review) | **POST** /campaign_submission.pending_review | Campaign submission pending review event
@@ -1995,6 +1996,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## on_campaign_status_changed
+
+> on_campaign_status_changed(webhook_payload_campaign_status_changed)
+Campaign status changed event
+
+A campaign Zernio already tracked changed its platform status or, on Google, the reasons behind it.  ### When it fires  Fires when the ads sync reads a tracked campaign with a different status than it stored, up to one sync interval late. Covers every ad network.  ### Status values  On Google, `status` is the campaign's `primary_status` (`ELIGIBLE`, `LIMITED`, `NOT_ELIGIBLE`, `PAUSED`, ...) and `reasons` its sorted `primary_status_reasons`, so a campaign turning budget limited fires. Elsewhere `status` is the campaign's own platform status (Meta `effective_status`) and `reasons` is empty.  ### When it does not fire  A campaign seen for the first time, or the same change from the same previous status again within an hour (a retried sync). A change made through Zernio, such as a pause, fires on the next sync, once the sync reads it from the platform. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_campaign_status_changed** | [**WebhookPayloadCampaignStatusChanged**](WebhookPayloadCampaignStatusChanged.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## on_campaign_submission_approved
 
 > on_campaign_submission_approved(webhook_payload_campaign_submission)
@@ -3350,7 +3381,7 @@ Name | Type | Description  | Required | Notes
 > on_notification_sent(webhook_payload_notification_sent)
 Notification sent event
 
-Built for agents. One event for every notification we would email the account owner: a scheduled post failed to publish (`type: post_failed`), or a connected account was disconnected (`type: account_disconnected`).  It carries the email's `subject` and `text`, references to the post or account, and the `actions` that resolve it, so an agent subscribes to one event and handles every notification the same way.  ### Agents or state sync  Subscribe to `notification.sent` when an agent or automation reads the alert and acts on it. Subscribe to `post.platform.failed`, `post.failed`, `post.partial` and `account.disconnected` when your system keeps post and account state in sync: they carry the structured post or account and fire on every state change.  ### When it fires  Once for each such notification, in near real time, regardless of the user's email toggles, and even when the owner has no email address or the email is held back by the sender's limits. It fires alongside `post.failed` and `account.disconnected`, which stay as they are.  The user's notification channel (Slack or Telegram) follows the email toggles, so it only receives the alerts whose toggle is on.  - `post_failed`: once the failure is final (a permanent error, or a temporary one on its last retry), once per publish attempt that failed, for scheduled posts only (not \"post now\"). `refs.platforms` lists every platform that failed in that attempt. - `account_disconnected`: every time an account is disconnected, never for creator-profile accounts. `reason` says why.  ### Payload notes  `text` is the email body without the greeting. When your content retention is set to keep no content, the post text is replaced by `Content not retained` and each platform error by a generic description of its category.  ### How to act  Each entry of `actions` is a public API call with the ids already in the path: `retry_post` (`retryPost`, `POST /v1/posts/{postId}/retry`), `reconnect_account` (`getConnectUrl`, `GET /v1/connect/{platform}`) and `check_account` (`getAccountHealth`, `GET /v1/accounts/{accountId}/health`).  ### Who receives it  Endpoints subscribed to `notification.sent`. Scoped endpoints receive it for their profiles and accounts. Restricted keys need the `publishing` resource group. 
+Built for agents. One event for every notification we would email the account owner: a scheduled post failed to publish (`type: post_failed`), a connected account was disconnected (`type: account_disconnected`), or a removed team member's recently used API key was handed to the owner (`type: api_key_handed_over`).  It carries the email's `subject` and `text`, references to the post or account, and the `actions` that resolve it, so an agent subscribes to one event and handles every notification the same way.  ### Agents or state sync  Subscribe to `notification.sent` when an agent or automation reads the alert and acts on it. Subscribe to `post.platform.failed`, `post.failed`, `post.partial` and `account.disconnected` when your system keeps post and account state in sync: they carry the structured post or account and fire on every state change.  ### When it fires  Once for each such notification, in near real time, regardless of the user's email toggles, and even when the owner has no email address or the email is held back by the sender's limits. It fires alongside `post.failed` and `account.disconnected`, which stay as they are.  The user's notification channel (Slack or Telegram) follows the email toggles, so it only receives the alerts whose toggle is on. The exception is `api_key_handed_over` (category `securityAlerts`), which has no toggle and is always delivered.  - `post_failed`: once the failure is final (a permanent error, or a temporary one on its last retry), once per publish attempt that failed, for scheduled posts only (not \"post now\"). `refs.platforms` lists every platform that failed in that attempt. - `account_disconnected`: every time an account is disconnected, never for creator-profile accounts. `reason` says why. - `api_key_handed_over`: once per API key, when a departing team member's key used in the last 7 days moves to the workspace owner. It stops working within 24 hours: create a new key and switch to it. `refs.apiKey` carries the key id, preview and expiry.  ### Payload notes  `text` is the email body without the greeting. When your content retention is set to keep no content, the post text is replaced by `Content not retained` and each platform error by a generic description of its category.  ### How to act  Each entry of `actions` is a public API call with the ids already in the path: `retry_post` (`retryPost`, `POST /v1/posts/{postId}/retry`), `reconnect_account` (`getConnectUrl`, `GET /v1/connect/{platform}`) and `check_account` (`getAccountHealth`, `GET /v1/accounts/{accountId}/health`).  ### Who receives it  Endpoints subscribed to `notification.sent`. Scoped endpoints receive it for their profiles and accounts. Restricted keys need the `publishing` resource group. 
 
 ### Parameters
 
