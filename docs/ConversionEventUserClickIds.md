@@ -13,6 +13,9 @@ Name | Type | Description | Notes
 **epik** | Option<**String**> | Pinterest click ID (the `epik` URL param or `_epik` cookie). Sent to Pinterest as `click_id`, not hashed. | [optional]
 **rdt_cid** | Option<**String**> | Reddit click ID (the `rdt_cid` URL param Reddit adds to ad clicks). Sent to Reddit as `click_id`, not hashed. | [optional]
 **rdt_uuid** | Option<**String**> | Reddit Pixel browser id (the `_rdt_uuid` first-party cookie). Sent to Reddit as `user.uuid`, not hashed. | [optional]
+**aleid** | Option<**String**> | Axon (AppLovin) click id (the `aleid` URL param Axon adds to ad clicks, kept by its pixel in the `_axeid` cookie). Sent to Axon as `user_data.aleid`, not hashed. | [optional]
+**alart** | Option<**String**> | Axon (AppLovin) attribution token (the `alart` URL param, `_axart` cookie). Sent to Axon as `user_data.alart`, not hashed. | [optional]
+**axwrt** | Option<**String**> | Axon Pixel browser id (the `_axwrt` cookie). Sent to Axon as `user_data.axwrt`, not hashed. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

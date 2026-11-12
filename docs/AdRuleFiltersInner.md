@@ -6,6 +6,7 @@
 |---- | -----|
 | BudgetLevel |  |
 | DaysLive |  |
+| DaysSinceChange |  |
 | Ids |  |
 | NameOrGoal |  |
 

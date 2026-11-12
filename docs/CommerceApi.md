@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**add_commerce_discount_codes**](CommerceApi.md#add_commerce_discount_codes) | **POST** /v1/commerce/discounts/{discountId}/codes | Add codes to a discount
 [**add_commerce_marketing_engagement**](CommerceApi.md#add_commerce_marketing_engagement) | **POST** /v1/commerce/marketing-activities/{remoteId}/engagements | Report daily engagement
 [**add_commerce_product_images**](CommerceApi.md#add_commerce_product_images) | **POST** /v1/commerce/products/{productId}/images | Add images
+[**cancel_commerce_order**](CommerceApi.md#cancel_commerce_order) | **POST** /v1/commerce/orders/{orderId}/cancel | Cancel an order
 [**change_commerce_collection_channels**](CommerceApi.md#change_commerce_collection_channels) | **POST** /v1/commerce/collections/{collectionId}/channels | Publish or unpublish a collection
 [**change_commerce_collection_products**](CommerceApi.md#change_commerce_collection_products) | **POST** /v1/commerce/collections/{collectionId}/products | Add or remove products in a collection
 [**change_commerce_inventory**](CommerceApi.md#change_commerce_inventory) | **POST** /v1/commerce/products/{productId}/inventory | Set or adjust stock
@@ -16,13 +17,16 @@ Method | HTTP request | Description
 [**create_commerce_catalog_sync**](CommerceApi.md#create_commerce_catalog_sync) | **POST** /v1/commerce/catalog-syncs | Sync a store into a Meta catalog
 [**create_commerce_collection**](CommerceApi.md#create_commerce_collection) | **POST** /v1/commerce/collections | Create a collection
 [**create_commerce_discount**](CommerceApi.md#create_commerce_discount) | **POST** /v1/commerce/discounts | Create a discount
+[**create_commerce_draft_order**](CommerceApi.md#create_commerce_draft_order) | **POST** /v1/commerce/draft-orders | Create a draft order
 [**create_commerce_menu**](CommerceApi.md#create_commerce_menu) | **POST** /v1/commerce/menus | Create a navigation menu
 [**create_commerce_metaobject**](CommerceApi.md#create_commerce_metaobject) | **POST** /v1/commerce/metaobjects | Create a metaobject
+[**create_commerce_order_edit**](CommerceApi.md#create_commerce_order_edit) | **POST** /v1/commerce/orders/{orderId}/edits | Edit an order
 [**create_commerce_page**](CommerceApi.md#create_commerce_page) | **POST** /v1/commerce/pages | Create a page
 [**create_commerce_product**](CommerceApi.md#create_commerce_product) | **POST** /v1/commerce/products | Create a product
 [**create_commerce_product_options**](CommerceApi.md#create_commerce_product_options) | **POST** /v1/commerce/products/{productId}/options | Add options
 [**create_commerce_product_variants**](CommerceApi.md#create_commerce_product_variants) | **POST** /v1/commerce/products/{productId}/variants | Add variants
 [**create_commerce_redirect**](CommerceApi.md#create_commerce_redirect) | **POST** /v1/commerce/redirects | Create a URL redirect
+[**create_commerce_refund**](CommerceApi.md#create_commerce_refund) | **POST** /v1/commerce/orders/{orderId}/refunds | Refund an order
 [**delete_commerce_catalog_sync**](CommerceApi.md#delete_commerce_catalog_sync) | **DELETE** /v1/commerce/catalog-syncs/{syncId} | Stop a catalog sync
 [**delete_commerce_collection**](CommerceApi.md#delete_commerce_collection) | **DELETE** /v1/commerce/collections/{collectionId} | Delete a collection
 [**delete_commerce_collection_metafields**](CommerceApi.md#delete_commerce_collection_metafields) | **DELETE** /v1/commerce/collections/{collectionId}/metafields | Delete collection metafields
@@ -39,7 +43,9 @@ Method | HTTP request | Description
 [**duplicate_commerce_product**](CommerceApi.md#duplicate_commerce_product) | **POST** /v1/commerce/products/{productId}/duplicate | Duplicate a product
 [**get_commerce_catalog_sync**](CommerceApi.md#get_commerce_catalog_sync) | **GET** /v1/commerce/catalog-syncs/{syncId} | Get a catalog sync
 [**get_commerce_collection**](CommerceApi.md#get_commerce_collection) | **GET** /v1/commerce/collections/{collectionId} | Get a collection
+[**get_commerce_customer**](CommerceApi.md#get_commerce_customer) | **GET** /v1/commerce/customers/{customerId} | Get a customer
 [**get_commerce_discount**](CommerceApi.md#get_commerce_discount) | **GET** /v1/commerce/discounts/{discountId} | Get a discount
+[**get_commerce_draft_order**](CommerceApi.md#get_commerce_draft_order) | **GET** /v1/commerce/draft-orders/{draftOrderId} | Get a draft order
 [**get_commerce_menu**](CommerceApi.md#get_commerce_menu) | **GET** /v1/commerce/menus/{menuId} | Get a navigation menu
 [**get_commerce_metaobject**](CommerceApi.md#get_commerce_metaobject) | **GET** /v1/commerce/metaobjects/{metaobjectId} | Get a metaobject
 [**get_commerce_order**](CommerceApi.md#get_commerce_order) | **GET** /v1/commerce/orders/{orderId} | Get an order
@@ -50,6 +56,7 @@ Method | HTTP request | Description
 [**list_commerce_channels**](CommerceApi.md#list_commerce_channels) | **GET** /v1/commerce/channels | List sales channels
 [**list_commerce_collection_metafields**](CommerceApi.md#list_commerce_collection_metafields) | **GET** /v1/commerce/collections/{collectionId}/metafields | List collection metafields
 [**list_commerce_collections**](CommerceApi.md#list_commerce_collections) | **GET** /v1/commerce/collections | List collections
+[**list_commerce_customers**](CommerceApi.md#list_commerce_customers) | **GET** /v1/commerce/customers | List customers
 [**list_commerce_discounts**](CommerceApi.md#list_commerce_discounts) | **GET** /v1/commerce/discounts | List discounts
 [**list_commerce_inventory**](CommerceApi.md#list_commerce_inventory) | **GET** /v1/commerce/inventory | Get a product's stock
 [**list_commerce_locations**](CommerceApi.md#list_commerce_locations) | **GET** /v1/commerce/locations | List locations
@@ -67,6 +74,7 @@ Method | HTTP request | Description
 [**reorder_commerce_collection_products**](CommerceApi.md#reorder_commerce_collection_products) | **POST** /v1/commerce/collections/{collectionId}/reorder | Reorder products in a collection
 [**reorder_commerce_product_images**](CommerceApi.md#reorder_commerce_product_images) | **POST** /v1/commerce/products/{productId}/images/reorder | Reorder images
 [**run_commerce_catalog_sync**](CommerceApi.md#run_commerce_catalog_sync) | **POST** /v1/commerce/catalog-syncs/{syncId}/run | Run a catalog sync now
+[**send_commerce_draft_order_invoice**](CommerceApi.md#send_commerce_draft_order_invoice) | **POST** /v1/commerce/draft-orders/{draftOrderId}/invoice | Send a draft order invoice
 [**set_commerce_collection_metafields**](CommerceApi.md#set_commerce_collection_metafields) | **PUT** /v1/commerce/collections/{collectionId}/metafields | Set collection metafields
 [**set_commerce_discount_active**](CommerceApi.md#set_commerce_discount_active) | **POST** /v1/commerce/discounts/{discountId}/state | Activate or deactivate a discount
 [**set_commerce_price_list_prices**](CommerceApi.md#set_commerce_price_list_prices) | **PUT** /v1/commerce/price-lists/{priceListId}/prices | Set fixed prices
@@ -163,6 +171,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::CreateCommerceProduct201Response**](createCommerceProduct_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## cancel_commerce_order
+
+> models::CancelCommerceOrder200Response cancel_commerce_order(order_id, cancel_commerce_order_request)
+Cancel an order
+
+Cancels an order, by default refunding it to the original payment methods and restocking it. Needs orders.cancel.  The platform cancels in the background. The call waits a few seconds: `200` with `cancelled: true` when it finished, `202` with `cancelled: false` when it is still running (the `commerce.order.updated` webhook reports the outcome). 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**order_id** | **String** | Platform-native order id. | [required] |
+**cancel_commerce_order_request** | [**CancelCommerceOrderRequest**](CancelCommerceOrderRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CancelCommerceOrder200Response**](cancelCommerceOrder_200_response.md)
 
 ### Authorization
 
@@ -450,6 +489,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## create_commerce_draft_order
+
+> models::CreateCommerceDraftOrder201Response create_commerce_draft_order(create_commerce_draft_order_request, idempotency_key)
+Create a draft order
+
+Creates a draft order for a customer, for a replacement, a phone order or a custom quote. Needs draft_orders.write.  Send the buyer its checkout link with the invoice endpoint; the draft becomes an order once they pay. Amounts in the response are in the currency the buyer pays in; custom prices you send are in the store currency. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_commerce_draft_order_request** | [**CreateCommerceDraftOrderRequest**](CreateCommerceDraftOrderRequest.md) |  | [required] |
+**idempotency_key** | Option<**String**> | A retry with the same key returns the first draft instead of creating another. |  |
+
+### Return type
+
+[**models::CreateCommerceDraftOrder201Response**](createCommerceDraftOrder_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## create_commerce_menu
 
 > models::CreateCommerceMenu201Response create_commerce_menu(create_commerce_menu_request)
@@ -497,6 +567,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::CreateCommerceMetaobject201Response**](createCommerceMetaobject_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_commerce_order_edit
+
+> models::CreateCommerceOrderEdit200Response create_commerce_order_edit(order_id, create_commerce_order_edit_request, idempotency_key)
+Edit an order
+
+Adds products to an order and changes or removes its lines. Needs orders.edit.  - Preview first with `validateOnly: true`: it returns the new totals and what the buyer would owe, and changes nothing. - A real edit needs an `Idempotency-Key` header (a UUID per edit): a retry with the same key never applies it twice. - When the edit raises the total, the buyer owes `outstanding`; `notifyCustomer` emails them the change. When it lowers it, refund the difference with the refunds endpoint. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**order_id** | **String** | Platform-native order id. | [required] |
+**create_commerce_order_edit_request** | [**CreateCommerceOrderEditRequest**](CreateCommerceOrderEditRequest.md) |  | [required] |
+**idempotency_key** | Option<**String**> | Required unless validateOnly is true. |  |
+
+### Return type
+
+[**models::CreateCommerceOrderEdit200Response**](createCommerceOrderEdit_200_response.md)
 
 ### Authorization
 
@@ -649,6 +751,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::CreateCommerceRedirect201Response**](createCommerceRedirect_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_commerce_refund
+
+> models::CreateCommerceRefund200Response create_commerce_refund(order_id, create_commerce_refund_request, idempotency_key)
+Refund an order
+
+Refunds line items, shipping or an amount of money to the buyer's original payment methods. Needs orders.refund.  - Preview first with `validateOnly: true`: it returns what the buyer gets back and to which payments, without refunding anything. - A real refund needs an `Idempotency-Key` header (a UUID per refund): a retry with the same key never refunds twice. - Every amount, sent or returned, is in the currency the buyer paid in, the one refunds are made in. Send `currency` to have a mismatch refused instead of guessed. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**order_id** | **String** | Platform-native order id. | [required] |
+**create_commerce_refund_request** | [**CreateCommerceRefundRequest**](CreateCommerceRefundRequest.md) |  | [required] |
+**idempotency_key** | Option<**String**> | Required unless validateOnly is true. A retry with the same key returns the first response and never refunds twice. |  |
+
+### Return type
+
+[**models::CreateCommerceRefund200Response**](createCommerceRefund_200_response.md)
 
 ### Authorization
 
@@ -1161,6 +1295,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_commerce_customer
+
+> models::GetCommerceCustomer200Response get_commerce_customer(customer_id, account_id)
+Get a customer
+
+One customer with their order count, total spent and default address. Needs customers.read.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**customer_id** | **String** | Platform-native customer id. | [required] |
+**account_id** | **String** | Connected store SocialAccount id. | [required] |
+
+### Return type
+
+[**models::GetCommerceCustomer200Response**](getCommerceCustomer_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_commerce_discount
 
 > models::CreateCommerceDiscount201Response get_commerce_discount(discount_id, account_id)
@@ -1179,6 +1344,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::CreateCommerceDiscount201Response**](createCommerceDiscount_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_commerce_draft_order
+
+> models::CreateCommerceDraftOrder201Response get_commerce_draft_order(draft_order_id, account_id)
+Get a draft order
+
+One draft order with its status, checkout link and, once paid, the order it became. Needs draft_orders.read.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**draft_order_id** | **String** | Platform-native draft order id. | [required] |
+**account_id** | **String** | Connected store SocialAccount id. | [required] |
+
+### Return type
+
+[**models::CreateCommerceDraftOrder201Response**](createCommerceDraftOrder_201_response.md)
 
 ### Authorization
 
@@ -1501,6 +1697,41 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_commerce_customers
+
+> models::ListCommerceCustomers200Response list_commerce_customers(account_id, limit, cursor, email, phone, search)
+List customers
+
+The store's customers, most recently updated first. Needs customers.read.  Find the customer behind a support ticket with `email`, `phone` or `search`, then read their orders with `GET /v1/commerce/orders?customerId=`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Connected store SocialAccount id. | [required] |
+**limit** | Option<**i32**> |  |  |[default to 20]
+**cursor** | Option<**String**> |  |  |
+**email** | Option<**String**> |  |  |
+**phone** | Option<**String**> |  |  |
+**search** | Option<**String**> | Free text matched against name, email and phone. |  |
+
+### Return type
+
+[**models::ListCommerceCustomers200Response**](listCommerceCustomers_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_commerce_discounts
 
 > models::ListCommerceDiscounts200Response list_commerce_discounts(account_id, limit, cursor, query)
@@ -1720,7 +1951,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_commerce_orders
 
-> models::ListCommerceOrders200Response list_commerce_orders(account_id, limit, cursor, created_after, created_before, updated_after)
+> models::ListCommerceOrders200Response list_commerce_orders(account_id, limit, cursor, created_after, created_before, updated_after, customer_id, email)
 List orders
 
 The store's orders in one format for every platform, with what an invoice needs. Needs orders.read.  Each order includes:  - line items with unit prices, discounts and tax per line - shipping and fee lines - billing details - payment status and refunds  ### Ordering and syncing  Newest order first. With `updatedAfter`, oldest change first, so a sync can page forward from its last seen `updatedAt`.  Start each sync a few minutes before the last `updatedAt` you saw and drop duplicates by `id`, since an order edited while you page can shift the list.  ### Limits  - Shopify returns at most 25 orders per page and, unless the store was granted access to all orders, only the last 60 days. - Buyer fields (`customer` and addresses) are null when the store's approval does not cover buyer data. 
@@ -1736,6 +1967,8 @@ Name | Type | Description  | Required | Notes
 **created_after** | Option<**String**> |  |  |
 **created_before** | Option<**String**> |  |  |
 **updated_after** | Option<**String**> | Only orders changed after this time, oldest change first. |  |
+**customer_id** | Option<**String**> | Only this customer's orders (`customer.id` on an order, or `id` from the customers endpoints). |  |
+**email** | Option<**String**> | Only orders placed with this email. Shopify only; WooCommerce answers 400 platform_not_supported. |  |
 
 ### Return type
 
@@ -2034,6 +2267,37 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## send_commerce_draft_order_invoice
+
+> models::CreateCommerceDraftOrder201Response send_commerce_draft_order_invoice(draft_order_id, send_commerce_draft_order_invoice_request)
+Send a draft order invoice
+
+Emails the buyer the draft's checkout link. The draft becomes an order when they pay. Needs draft_orders.write.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**draft_order_id** | **String** | Platform-native draft order id. | [required] |
+**send_commerce_draft_order_invoice_request** | [**SendCommerceDraftOrderInvoiceRequest**](SendCommerceDraftOrderInvoiceRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateCommerceDraftOrder201Response**](createCommerceDraftOrder_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

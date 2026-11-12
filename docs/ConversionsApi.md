@@ -48,6 +48,7 @@ Method | HTTP request | Description
 [**update_conversion_action**](ConversionsApi.md#update_conversion_action) | **PATCH** /v1/ads/conversions/actions/{actionId} | Update a conversion action's settings
 [**update_conversion_destination**](ConversionsApi.md#update_conversion_destination) | **PATCH** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Update a conversion destination
 [**update_custom_conversion_goal**](ConversionsApi.md#update_custom_conversion_goal) | **PATCH** /v1/ads/conversions/custom-goals/{goalId} | Update a custom conversion goal
+[**update_forwarding_rule**](ConversionsApi.md#update_forwarding_rule) | **PATCH** /v1/events/forwarding-rules/{ruleId} | Change a forwarding rule's API secret
 
 
 
@@ -989,7 +990,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_events
 
-> models::ListEvents200Response list_events(profile_id, limit, from, to, event_name, source, cursor)
+> models::ListEvents200Response list_events(profile_id, limit, from, to, event_name, source, platform, delivery_status, cursor)
 List stored events
 
 Lists the conversion events stored for a profile by `POST /v1/events`, newest first. Personal data is never returned: `hasEmail`, `hasPhone` and `hasExternalId` only say whether the event carried that identifier. Events sent with `testCode` are not stored, so they never appear here.  Paginate with `cursor`: pass the `nextCursor` of the previous page until it comes back `null`. 
@@ -1005,6 +1006,8 @@ Name | Type | Description  | Required | Notes
 **to** | Option<**String**> | Only events before this time (ISO 8601, on the event time). |  |
 **event_name** | Option<**String**> | Only events with this name, such as `Purchase`. |  |
 **source** | Option<**String**> | Only events from this source, such as `stripe` for the payments of a connected Stripe account. |  |
+**platform** | Option<**String**> | Only events sent to this ad platform, such as `metaads` or `googleads`. |  |
+**delivery_status** | Option<**String**> | Only events whose latest send to a destination (of `platform`, when given) was accepted (`sent`) or was not (`failed`: failed or still retrying). |  |
 **cursor** | Option<**String**> | `nextCursor` from the previous page. |  |
 
 ### Return type
@@ -1417,6 +1420,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UpdateCustomConversionGoal200Response**](updateCustomConversionGoal_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_forwarding_rule
+
+> models::CreateForwardingRule201Response update_forwarding_rule(rule_id, update_forwarding_rule_request)
+Change a forwarding rule's API secret
+
+Replaces the `apiSecret` of a rule whose destination needs one, such as a Google Analytics data stream's Measurement Protocol API secret. Before saving, Zernio sends one hit to Google's validation server; Google does not confirm the secret itself, so check GA4 Realtime after the next events. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**rule_id** | **String** | The rule `id`. | [required] |
+**update_forwarding_rule_request** | [**UpdateForwardingRuleRequest**](UpdateForwardingRuleRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateForwardingRule201Response**](createForwardingRule_201_response.md)
 
 ### Authorization
 

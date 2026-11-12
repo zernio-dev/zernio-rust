@@ -83,7 +83,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_analytics
 
-> models::GetAnalytics200Response get_analytics(post_id, platform, profile_id, account_id, source, from_date, to_date, limit, page, sort_by, order, tags)
+> models::GetAnalytics200Response get_analytics(post_id, platform, profile_id, account_id, source, from_date, to_date, limit, page, sort_by, order, tags, view)
 Get post analytics
 
 Returns analytics for posts. With postId, returns a single post. Without it, returns a paginated list with overview stats.  - Accepts both Zernio Post IDs and External Post IDs (auto-resolved). - fromDate defaults to 90 days ago if omitted, max range 366 days. - Single post lookups may return 202 (sync pending) or 424 (all platforms failed). - For follower stats, use /v1/accounts/follower-stats. - Accounts creators connected to your creator campaigns are left out, here and in every other analytics, follower-stats, account health, inbox and external posts read, unless the request names their profileId or accountId.  ### LinkedIn personal accounts  Analytics are only available for posts published through Zernio. LinkedIn's API only returns metrics for posts authored by the authenticated user. Organization/company page analytics work for all posts.  ### Facebook Page stories  Stories on a connected Page, published through Zernio or natively, are collected while they are live and returned like any other post (platformPostUrl points to the story). Metrics for a story published through Zernio are available on its Zernio post ID.  Their lifetime metrics refresh about hourly, with a final reading shortly before the story expires at 24 hours. After that the values stay at that last reading.  Mapping:  - impressions = story media views (Meta stopped accepting per-story impressions in October 2026, so impressions equals views) - reach = unique story media viewers - views = story media views - likes = story reactions - comments = story replies - shares = story shares - clicks: always 0, because Meta exposes no link-click metric for stories 
@@ -105,6 +105,7 @@ Name | Type | Description  | Required | Notes
 **sort_by** | Option<**String**> | Sort by date, engagement, or a specific metric. Platform-specific metrics (follows, reposts, reels_skip_rate, ig_reels_*, completion_rate, profile_views, website_clicks) sort a null value as 0. |  |[default to date]
 **order** | Option<**String**> | Sort order |  |[default to desc]
 **tags** | Option<**String**> | Comma-separated tags (at most 20). Lists only posts created through Zernio that carry every listed tag, matched exactly and case-sensitively. Up to 200 published posts can match within the date range; more returns 400 asking to narrow fromDate and toDate. Ignored when postId is set. |  |
+**view** | Option<**String**> | full returns the listing as before. summary leaves out the accounts list, each platform entry's copy of analytics, the impressionSources, audienceTypes, audienceCountries and retentionCurve maps, and mediaItems (thumbnailUrl stays). Ignored when postId is set. |  |[default to full]
 
 ### Return type
 

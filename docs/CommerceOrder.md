@@ -36,7 +36,7 @@ Name | Type | Description | Notes
 **shipping_lines** | Option<[**Vec<models::CommerceOrderChargeLine>**](CommerceOrderChargeLine.md)> |  | [optional]
 **fee_lines** | Option<[**Vec<models::CommerceOrderChargeLine>**](CommerceOrderChargeLine.md)> | WooCommerce fees. Always empty on Shopify. | [optional]
 **tax_lines** | Option<[**Vec<models::CommerceTaxLine>**](CommerceTaxLine.md)> | Order tax by rate, line items and shipping together. | [optional]
-**refunds** | Option<[**Vec<models::CommerceOrderRefundsInner>**](CommerceOrderRefundsInner.md)> |  | [optional]
+**refunds** | Option<[**Vec<models::CommerceOrderRefund>**](CommerceOrderRefund.md)> |  | [optional]
 **fulfillments** | Option<[**Vec<models::CommerceOrderFulfillmentsInner>**](CommerceOrderFulfillmentsInner.md)> |  | [optional]
 **platform_data** | Option<**std::collections::HashMap<String, serde_json::Value>**> | Platform-only fields. Null when the platform has none. | [optional]
 

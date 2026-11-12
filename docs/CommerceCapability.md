@@ -34,6 +34,12 @@
 | MarketsWrite | markets.write |
 | MarketingWrite | marketing.write |
 | OrdersRead | orders.read |
+| OrdersRefund | orders.refund |
+| OrdersCancel | orders.cancel |
+| CustomersRead | customers.read |
+| OrdersEdit | orders.edit |
+| DraftOrdersRead | draft_orders.read |
+| DraftOrdersWrite | draft_orders.write |
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
