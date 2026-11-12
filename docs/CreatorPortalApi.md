@@ -23,7 +23,7 @@ Method | HTTP request | Description
 
 ## create_creator_payout_login
 
-> models::StartCreatorPayouts200Response create_creator_payout_login(token)
+> models::CreateCreatorPayoutLogin200Response create_creator_payout_login(token)
 Open the creator's Stripe dashboard
 
 Returns a one-time link into the creator's Stripe Express dashboard, where they change bank details and see each payout. Only after the creator submitted their payout details. About 20 attempts per participant every 10 minutes. 
@@ -37,7 +37,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::StartCreatorPayouts200Response**](startCreatorPayouts_200_response.md)
+[**models::CreateCreatorPayoutLogin200Response**](createCreatorPayoutLogin_200_response.md)
 
 ### Authorization
 

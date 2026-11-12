@@ -824,6 +824,7 @@ docs/CreateConversionActionRequest.md
 docs/CreateConversionDestinationRequest.md
 docs/CreateCreatorCampaign201Response.md
 docs/CreateCreatorCampaignRequest.md
+docs/CreateCreatorPayoutLogin200Response.md
 docs/CreateCustomConversionGoalRequest.md
 docs/CreateCustomConversionRequest.md
 docs/CreateCustomField200Response.md
@@ -1741,6 +1742,8 @@ docs/GetWebhookLogs200Response.md
 docs/GetWebhookLogs200ResponsePagination.md
 docs/GetWebhookSettings200Response.md
 docs/GetWechatIpWhitelist200Response.md
+docs/GetWechatServerConfig200Response.md
+docs/GetWechatServerConfig200ResponseServer.md
 docs/GetWhatsAppBlockStatus200Response.md
 docs/GetWhatsAppBlockedUsers200Response.md
 docs/GetWhatsAppBlockedUsers200ResponseBlockedUsersInner.md
@@ -4699,6 +4702,7 @@ src/models/create_conversion_action_request.rs
 src/models/create_conversion_destination_request.rs
 src/models/create_creator_campaign_201_response.rs
 src/models/create_creator_campaign_request.rs
+src/models/create_creator_payout_login_200_response.rs
 src/models/create_custom_conversion_goal_request.rs
 src/models/create_custom_conversion_request.rs
 src/models/create_custom_field_200_response.rs
@@ -5609,6 +5613,8 @@ src/models/get_webhook_logs_200_response.rs
 src/models/get_webhook_logs_200_response_pagination.rs
 src/models/get_webhook_settings_200_response.rs
 src/models/get_wechat_ip_whitelist_200_response.rs
+src/models/get_wechat_server_config_200_response.rs
+src/models/get_wechat_server_config_200_response_server.rs
 src/models/get_whats_app_block_status_200_response.rs
 src/models/get_whats_app_blocked_users_200_response.rs
 src/models/get_whats_app_blocked_users_200_response_blocked_users_inner.rs

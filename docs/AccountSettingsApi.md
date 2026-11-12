@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**get_messenger_ice_breakers**](AccountSettingsApi.md#get_messenger_ice_breakers) | **GET** /v1/accounts/{accountId}/messenger-ice-breakers | Get FB ice breakers
 [**get_messenger_menu**](AccountSettingsApi.md#get_messenger_menu) | **GET** /v1/accounts/{accountId}/messenger-menu | Get persistent menu
 [**get_telegram_commands**](AccountSettingsApi.md#get_telegram_commands) | **GET** /v1/accounts/{accountId}/telegram-commands | Get TG bot commands
+[**get_wechat_server_config**](AccountSettingsApi.md#get_wechat_server_config) | **GET** /v1/accounts/{accountId}/wechat-server-config | Get WeChat server config
 [**set_instagram_ice_breakers**](AccountSettingsApi.md#set_instagram_ice_breakers) | **PUT** /v1/accounts/{accountId}/instagram-ice-breakers | Set IG ice breakers
 [**set_messenger_get_started**](AccountSettingsApi.md#set_messenger_get_started) | **PUT** /v1/accounts/{accountId}/messenger-get-started | Set FB Get Started button
 [**set_messenger_greeting**](AccountSettingsApi.md#set_messenger_greeting) | **PUT** /v1/accounts/{accountId}/messenger-greeting | Set FB greeting text
@@ -404,6 +405,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetTelegramCommands200Response**](getTelegramCommands_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_wechat_server_config
+
+> models::GetWechatServerConfig200Response get_wechat_server_config(account_id)
+Get WeChat server config
+
+Returns the Server URL, Token and EncodingAESKey of a connected WeChat Official Account: the same values the connect response carries, for pasting into Server Configuration in the Official Accounts Platform (Safe mode). The AppSecret is never returned.  Needs write access from a session or an API key: read-only team members, read-only API keys and OAuth access tokens get 403. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::GetWechatServerConfig200Response**](getWechatServerConfig_200_response.md)
 
 ### Authorization
 
