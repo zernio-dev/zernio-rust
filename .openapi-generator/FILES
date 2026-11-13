@@ -462,6 +462,7 @@ docs/CalendarEventFieldsReminders.md
 docs/CalendarEventFieldsRemindersOverridesInner.md
 docs/CalendarEventParticipantsInner.md
 docs/CalendarEventReminders.md
+docs/CalendarEventRemindersOverridesInner.md
 docs/CalendarFreeBusy200Response.md
 docs/CalendarFreeBusy200ResponseDataInner.md
 docs/CalendarFreeBusy200ResponseDataInnerCalendarsInner.md
@@ -4351,6 +4352,7 @@ src/models/calendar_event_fields_reminders.rs
 src/models/calendar_event_fields_reminders_overrides_inner.rs
 src/models/calendar_event_participants_inner.rs
 src/models/calendar_event_reminders.rs
+src/models/calendar_event_reminders_overrides_inner.rs
 src/models/calendar_free_busy_200_response.rs
 src/models/calendar_free_busy_200_response_data_inner.rs
 src/models/calendar_free_busy_200_response_data_inner_calendars_inner.rs

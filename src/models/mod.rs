@@ -878,6 +878,8 @@ pub mod calendar_event_participants_inner;
 pub use self::calendar_event_participants_inner::CalendarEventParticipantsInner;
 pub mod calendar_event_reminders;
 pub use self::calendar_event_reminders::CalendarEventReminders;
+pub mod calendar_event_reminders_overrides_inner;
+pub use self::calendar_event_reminders_overrides_inner::CalendarEventRemindersOverridesInner;
 pub mod calendar_free_busy_200_response;
 pub use self::calendar_free_busy_200_response::CalendarFreeBusy200Response;
 pub mod calendar_free_busy_200_response_data_inner;
