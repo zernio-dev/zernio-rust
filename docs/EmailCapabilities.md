@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **sync** | Option<[**models::EmailCapabilitiesSync**](EmailCapabilitiesSync.md)> |  | [optional]
+**sent_items** | Option<[**models::EmailCapabilitiesSentItems**](EmailCapabilitiesSentItems.md)> |  | [optional]
 **drafts** | Option<[**models::EmailCapabilitiesDrafts**](EmailCapabilitiesDrafts.md)> |  | [optional]
 **forward** | Option<[**models::EmailCapabilitiesForward**](EmailCapabilitiesForward.md)> |  | [optional]
 **send_as** | Option<[**models::EmailCapabilitiesSendAs**](EmailCapabilitiesSendAs.md)> |  | [optional]

@@ -1213,6 +1213,7 @@ docs/EmailCapabilitiesForward.md
 docs/EmailCapabilitiesLabels.md
 docs/EmailCapabilitiesScheduledSend.md
 docs/EmailCapabilitiesSendAs.md
+docs/EmailCapabilitiesSentItems.md
 docs/EmailCapabilitiesSignatures.md
 docs/EmailCapabilitiesSync.md
 docs/EmailClean.md
@@ -5086,6 +5087,7 @@ src/models/email_capabilities_forward.rs
 src/models/email_capabilities_labels.rs
 src/models/email_capabilities_scheduled_send.rs
 src/models/email_capabilities_send_as.rs
+src/models/email_capabilities_sent_items.rs
 src/models/email_capabilities_signatures.rs
 src/models/email_capabilities_sync.rs
 src/models/email_clean.rs

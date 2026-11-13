@@ -2350,6 +2350,8 @@ pub mod email_capabilities_scheduled_send;
 pub use self::email_capabilities_scheduled_send::EmailCapabilitiesScheduledSend;
 pub mod email_capabilities_send_as;
 pub use self::email_capabilities_send_as::EmailCapabilitiesSendAs;
+pub mod email_capabilities_sent_items;
+pub use self::email_capabilities_sent_items::EmailCapabilitiesSentItems;
 pub mod email_capabilities_signatures;
 pub use self::email_capabilities_signatures::EmailCapabilitiesSignatures;
 pub mod email_capabilities_sync;

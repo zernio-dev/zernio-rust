@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **integration_lane** | Option<**IntegrationLane**> | TikTok only. The TikTok integration the account is connected through: business (TikTok for Business, Accounts API) or developer (the original integration). Absent on other platforms. (enum: business, developer) | [optional]
 **send_cap** | Option<[**models::GetAccountHealth200ResponseSendCap**](GetAccountHealth200ResponseSendCap.md)> |  | [optional]
 **push** | Option<**Push**> | Google and Microsoft only: state of the provider change-notification subscriptions behind `message.received` and `calendar.event.*`. `pending` means a granted area has no live subscription yet (retried every 6 hours), `failed` that renewals keep failing (reconnect the account). (enum: active, pending, failed, not_applicable) | [optional]
+**sent_items_sync** | Option<**SentItemsSync**> | Microsoft only: how mail sent from the user's own mail client reaches `message.sent`. `poll` while Microsoft will not give Zernio a working Sent Items subscription for this mailbox (read every 5 minutes), `push` otherwise. (enum: push, poll) | [optional]
 **username** | Option<**String**> |  | [optional]
 **display_name** | Option<**String**> |  | [optional]
 **status** | Option<**Status**> | Overall health status (enum: healthy, warning, error) | [optional]
