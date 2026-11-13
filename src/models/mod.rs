@@ -2674,6 +2674,8 @@ pub mod get_ad_review_200_response_review_rejections_inner_content;
 pub use self::get_ad_review_200_response_review_rejections_inner_content::GetAdReview200ResponseReviewRejectionsInnerContent;
 pub mod get_ad_review_200_response_review_review_feedback;
 pub use self::get_ad_review_200_response_review_review_feedback::GetAdReview200ResponseReviewReviewFeedback;
+pub mod get_ad_rule_hourly_windows_200_response;
+pub use self::get_ad_rule_hourly_windows_200_response::GetAdRuleHourlyWindows200Response;
 pub mod get_ad_set_details_200_response;
 pub use self::get_ad_set_details_200_response::GetAdSetDetails200Response;
 pub mod get_ad_set_targeting_200_response;

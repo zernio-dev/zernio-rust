@@ -1377,6 +1377,7 @@ docs/GetAdReview200ResponseReviewPolicyTopicsInner.md
 docs/GetAdReview200ResponseReviewRejectionsInner.md
 docs/GetAdReview200ResponseReviewRejectionsInnerContent.md
 docs/GetAdReview200ResponseReviewReviewFeedback.md
+docs/GetAdRuleHourlyWindows200Response.md
 docs/GetAdSetDetails200Response.md
 docs/GetAdSetTargeting200Response.md
 docs/GetAdTrackingTags200Response.md
@@ -5250,6 +5251,7 @@ src/models/get_ad_review_200_response_review_policy_topics_inner.rs
 src/models/get_ad_review_200_response_review_rejections_inner.rs
 src/models/get_ad_review_200_response_review_rejections_inner_content.rs
 src/models/get_ad_review_200_response_review_review_feedback.rs
+src/models/get_ad_rule_hourly_windows_200_response.rs
 src/models/get_ad_set_details_200_response.rs
 src/models/get_ad_set_targeting_200_response.rs
 src/models/get_ad_tracking_tags_200_response.rs

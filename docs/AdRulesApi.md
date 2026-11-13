@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**create_ad_rule**](AdRulesApi.md#create_ad_rule) | **POST** /v1/ads/rules | Create an ad rule
 [**delete_ad_rule**](AdRulesApi.md#delete_ad_rule) | **DELETE** /v1/ads/rules/{ruleId} | Delete an ad rule
 [**get_ad_rule**](AdRulesApi.md#get_ad_rule) | **GET** /v1/ads/rules/{ruleId} | Get an ad rule
+[**get_ad_rule_hourly_windows**](AdRulesApi.md#get_ad_rule_hourly_windows) | **GET** /v1/ads/rules/hourly-windows | Check whether an ad account has hourly windows
 [**list_ad_rule_activity**](AdRulesApi.md#list_ad_rule_activity) | **GET** /v1/ads/rules/activity | List every change ad rules made
 [**list_ad_rule_alerts**](AdRulesApi.md#list_ad_rule_alerts) | **GET** /v1/ads/rules/{ruleId}/alerts | List a rule's alerts
 [**list_ad_rule_runs**](AdRulesApi.md#list_ad_rule_runs) | **GET** /v1/ads/rules/{ruleId}/runs | List an ad rule's runs
@@ -95,6 +96,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::CreateAdRule201Response**](createAdRule_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_ad_rule_hourly_windows
+
+> models::GetAdRuleHourlyWindows200Response get_ad_rule_hourly_windows(account_id, ad_account_id)
+Check whether an ad account has hourly windows
+
+Hourly windows (`last_complete_hour`, `last_3h`, `today_so_far`) read campaign totals hour by hour, which Zernio syncs only for some Meta and Google ad accounts.  On an ad account without them, an hourly condition always reads as unknown and never matches. `hourlyWindows` says which case applies. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The ads connection. | [required] |
+**ad_account_id** | **String** | The ad account on that connection. | [required] |
+
+### Return type
+
+[**models::GetAdRuleHourlyWindows200Response**](getAdRuleHourlyWindows_200_response.md)
 
 ### Authorization
 
