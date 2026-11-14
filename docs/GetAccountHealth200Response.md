@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **inbound_activity** | Option<[**models::InboundActivity**](InboundActivity.md)> |  | [optional]
 **messaging_restriction** | Option<[**models::GetAccountHealth200ResponseMessagingRestriction**](GetAccountHealth200ResponseMessagingRestriction.md)> |  | [optional]
 **platform_connection** | Option<[**models::GetAccountHealth200ResponsePlatformConnection**](GetAccountHealth200ResponsePlatformConnection.md)> |  | [optional]
+**line_webhook** | Option<[**models::GetAccountHealth200ResponseLineWebhook**](GetAccountHealth200ResponseLineWebhook.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
