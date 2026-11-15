@@ -5,8 +5,10 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**appeal_sms_registration**](SmsApi.md#appeal_sms_registration) | **POST** /v1/sms/registrations/{id}/appeal | Appeal a rejected campaign
+[**create_sms_opt_out**](SmsApi.md#create_sms_opt_out) | **POST** /v1/sms/opt-outs | Record an SMS opt-out
 [**create_sms_sender_id**](SmsApi.md#create_sms_sender_id) | **POST** /v1/sms/sender-ids | Create an alphanumeric sender ID
 [**deactivate_sms_registration**](SmsApi.md#deactivate_sms_registration) | **DELETE** /v1/sms/registrations/{id} | Deactivate a brand/campaign registration
+[**delete_sms_opt_out**](SmsApi.md#delete_sms_opt_out) | **DELETE** /v1/sms/opt-outs | Remove an SMS opt-out
 [**delete_sms_sender_id**](SmsApi.md#delete_sms_sender_id) | **DELETE** /v1/sms/sender-ids/{id} | Delete an alphanumeric sender ID
 [**disable_sms_on_number**](SmsApi.md#disable_sms_on_number) | **DELETE** /v1/phone-numbers/{id}/sms | Disable SMS on a number
 [**enable_sms_on_number**](SmsApi.md#enable_sms_on_number) | **POST** /v1/phone-numbers/{id}/sms | Enable SMS on a number
@@ -47,6 +49,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::AppealSmsRegistration200Response**](appealSmsRegistration_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_sms_opt_out
+
+> models::CreateSmsOptOut200Response create_sms_opt_out(sms_opt_out_request)
+Record an SMS opt-out
+
+Marks a recipient as opted out on one of your SMS numbers. Use it for opt-outs you collect yourself (for example keywords like UNSUB or REVOKE, which the carrier does not recognize). Sends from that number to the recipient are then refused with `409 recipient_opted_out`.  Idempotent. If the recipient is already opted out, the call succeeds and `source` keeps the original value (`inbound_stop` when they texted STOP). 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**sms_opt_out_request** | [**SmsOptOutRequest**](SmsOptOutRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateSmsOptOut200Response**](createSmsOptOut_200_response.md)
 
 ### Authorization
 
@@ -115,6 +147,36 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_sms_opt_out
+
+> models::DeleteSmsOptOut200Response delete_sms_opt_out(sms_opt_out_request)
+Remove an SMS opt-out
+
+Re-subscribes a recipient you opted out with `POST /v1/sms/opt-outs`. Succeeds as a no-op when the recipient is not opted out.  An opt-out the recipient made themselves (texting STOP) cannot be removed here: the carrier keeps blocking the number until they text START, so this returns `409 recipient_opted_out`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**sms_opt_out_request** | [**SmsOptOutRequest**](SmsOptOutRequest.md) |  | [required] |
+
+### Return type
+
+[**models::DeleteSmsOptOut200Response**](deleteSmsOptOut_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -245,7 +307,7 @@ Name | Type | Description  | Required | Notes
 > models::ListSmsOptOuts200Response list_sms_opt_outs(format, limit)
 List SMS opt-outs
 
-The recipients who opted out of SMS (replied STOP) across your numbers, most recent first. Compliance surface: you must be able to see and export your opt-out list. Read-only: a recipient is re-subscribed only by replying START. Pass `format=csv` to download a CSV instead of JSON. 
+The recipients who opted out of SMS across your numbers, most recent first: those who replied STOP and those you recorded with `POST /v1/sms/opt-outs`. `source` says which. Compliance surface: you must be able to see and export your opt-out list. Pass `format=csv` to download a CSV instead of JSON. 
 
 ### Parameters
 

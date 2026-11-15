@@ -2140,14 +2140,14 @@ Name | Type | Description  | Required | Notes
 > models::ListOrgConnections200Response list_org_connections(profile_id)
 List organization connections
 
-The Google Workspace and Microsoft 365 organization connections on a profile, newest first.
+The Google Workspace and Microsoft 365 organization connections, newest first. Pass `profileId` to list one profile; omit it to list every profile the API key can access (a profile-restricted key or team member only sees its own profiles).
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**profile_id** | **String** |  | [required] |
+**profile_id** | Option<**String**> | Limit the list to one profile. Omit to list across every accessible profile. |  |
 
 ### Return type
 

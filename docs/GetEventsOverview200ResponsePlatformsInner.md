@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**profile_id** | Option<**String**> | The profile the forwarding rule belongs to. | [optional]
 **account_id** | Option<**String**> |  | [optional]
 **platform** | Option<**String**> | Ad platform, such as `metaads` or `googleads`. | [optional]
 **account_name** | Option<**String**> |  | [optional]

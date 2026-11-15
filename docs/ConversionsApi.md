@@ -681,14 +681,14 @@ Name | Type | Description  | Required | Notes
 > models::GetEventsOverview200Response get_events_overview(profile_id)
 Get today's tracking overview
 
-How a profile's conversion tracking is doing today (UTC day): events stored, how many reached the ad platforms, each forwarding rule's destination, each event source and, when the profile has a tracking site, the site's funnel. Requires the Ads add-on. 
+How a profile's conversion tracking is doing today (UTC day): events stored, how many reached the ad platforms, each forwarding rule's destination, each event source and, when the profile has a tracking site, the site's funnel.  Without `profileId` it covers every profile you can access, summed across them. Requires the Ads add-on. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**profile_id** | **String** |  | [required] |
+**profile_id** | Option<**String**> | The profile to read. Omit to cover every profile you can access, summed across them. |  |
 
 ### Return type
 
@@ -993,14 +993,14 @@ Name | Type | Description  | Required | Notes
 > models::ListEvents200Response list_events(profile_id, limit, from, to, event_name, source, platform, delivery_status, cursor)
 List stored events
 
-Lists the conversion events stored for a profile by `POST /v1/events`, newest first. Personal data is never returned: `hasEmail`, `hasPhone` and `hasExternalId` only say whether the event carried that identifier. Events sent with `testCode` are not stored, so they never appear here.  Paginate with `cursor`: pass the `nextCursor` of the previous page until it comes back `null`. 
+Lists the conversion events stored by `POST /v1/events`, newest first: for one profile, or for every profile you can access when `profileId` is omitted.  Personal data is never returned: `hasEmail`, `hasPhone` and `hasExternalId` only say whether the event carried that identifier. Events sent with `testCode` are not stored, so they never appear here.  Paginate with `cursor`: pass the `nextCursor` of the previous page until it comes back `null`. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**profile_id** | **String** |  | [required] |
+**profile_id** | Option<**String**> | The profile to list. Omit to cover every profile you can access. |  |
 **limit** | Option<**i32**> |  |  |[default to 50]
 **from** | Option<**String**> | Only events at or after this time (ISO 8601, on the event time). |  |
 **to** | Option<**String**> | Only events before this time (ISO 8601, on the event time). |  |

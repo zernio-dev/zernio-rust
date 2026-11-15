@@ -964,6 +964,7 @@ docs/CreateSharedBudgetRequest.md
 docs/CreateSipTrunk201Response.md
 docs/CreateSipTrunk201ResponseTermination.md
 docs/CreateSipTrunkRequest.md
+docs/CreateSmsOptOut200Response.md
 docs/CreateSmsSenderId200Response.md
 docs/CreateSmsSenderIdRequest.md
 docs/CreateStandaloneAd200Response.md
@@ -1145,6 +1146,7 @@ docs/DeleteInboxReviewReplyRequest.md
 docs/DeleteOAuthApp200Response.md
 docs/DeleteOrgConnection200Response.md
 docs/DeleteOrgConnection200ResponseData.md
+docs/DeleteSmsOptOut200Response.md
 docs/DeleteSmsSenderId200Response.md
 docs/DeleteTestLead200Response.md
 docs/DeleteTrackingTagEvent200Response.md
@@ -3000,6 +3002,7 @@ docs/ShipCampaignSampleRequest.md
 docs/SlackApi.md
 docs/SlackPlatformData.md
 docs/SmsApi.md
+docs/SmsOptOutRequest.md
 docs/SmsRegistrationReviewRequest.md
 docs/SmsRegistrationReviewRequestPointsInner.md
 docs/SnapchatPlatformData.md
@@ -4848,6 +4851,7 @@ src/models/create_shared_budget_request.rs
 src/models/create_sip_trunk_201_response.rs
 src/models/create_sip_trunk_201_response_termination.rs
 src/models/create_sip_trunk_request.rs
+src/models/create_sms_opt_out_200_response.rs
 src/models/create_sms_sender_id_200_response.rs
 src/models/create_sms_sender_id_request.rs
 src/models/create_standalone_ad_200_response.rs
@@ -5026,6 +5030,7 @@ src/models/delete_inbox_review_reply_request.rs
 src/models/delete_o_auth_app_200_response.rs
 src/models/delete_org_connection_200_response.rs
 src/models/delete_org_connection_200_response_data.rs
+src/models/delete_sms_opt_out_200_response.rs
 src/models/delete_sms_sender_id_200_response.rs
 src/models/delete_test_lead_200_response.rs
 src/models/delete_tracking_tag_event_200_response.rs
@@ -6845,6 +6850,7 @@ src/models/share_sms_registration_request.rs
 src/models/shared_ad_account.rs
 src/models/ship_campaign_sample_request.rs
 src/models/slack_platform_data.rs
+src/models/sms_opt_out_request.rs
 src/models/sms_registration_review_request.rs
 src/models/sms_registration_review_request_points_inner.rs
 src/models/snapchat_platform_data.rs

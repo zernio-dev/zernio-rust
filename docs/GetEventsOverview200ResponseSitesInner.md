@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **site_id** | Option<**String**> |  | [optional]
+**profile_id** | Option<**String**> | The profile the site belongs to. | [optional]
 **hits_today** | Option<**i32**> | Hits today. | [optional]
 **last_active_on** | Option<[**String**](String.md)> | The last day in the past 7 with a hit. `null` when none. | [optional]
 
