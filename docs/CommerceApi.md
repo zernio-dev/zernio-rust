@@ -83,6 +83,7 @@ Method | HTTP request | Description
 [**update_commerce_discount**](CommerceApi.md#update_commerce_discount) | **PATCH** /v1/commerce/discounts/{discountId} | Update a discount
 [**update_commerce_menu**](CommerceApi.md#update_commerce_menu) | **PUT** /v1/commerce/menus/{menuId} | Replace a navigation menu
 [**update_commerce_metaobject**](CommerceApi.md#update_commerce_metaobject) | **PATCH** /v1/commerce/metaobjects/{metaobjectId} | Update a metaobject
+[**update_commerce_order**](CommerceApi.md#update_commerce_order) | **PATCH** /v1/commerce/orders/{orderId} | Update an order's shipping address
 [**update_commerce_page**](CommerceApi.md#update_commerce_page) | **PATCH** /v1/commerce/pages/{pageId} | Update a page
 [**update_commerce_product**](CommerceApi.md#update_commerce_product) | **PATCH** /v1/commerce/products/{productId} | Update a product
 [**update_commerce_product_prices**](CommerceApi.md#update_commerce_product_prices) | **POST** /v1/commerce/products/{productId}/price | Update variant prices
@@ -464,7 +465,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateCommerceDiscount201Response create_commerce_discount(create_commerce_discount_request)
 Create a discount
 
-Creates a code discount (buyers enter a code) or an automatic one (applied at checkout), as a percentage, a fixed amount or free shipping. It applies to every product unless productIds or collectionIds narrow it, and to every buyer. 
+Creates a code discount (buyers enter a code) or an automatic one (applied at checkout), as a percentage, a fixed amount or free shipping. It applies to every product unless productIds or collectionIds narrow it.  It applies to every buyer unless customerIds limits a code discount to chosen customers, for example a goodwill code only one shopper can use. 
 
 ### Parameters
 
@@ -1951,7 +1952,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_commerce_orders
 
-> models::ListCommerceOrders200Response list_commerce_orders(account_id, limit, cursor, created_after, created_before, updated_after, customer_id, email)
+> models::ListCommerceOrders200Response list_commerce_orders(account_id, limit, cursor, created_after, created_before, updated_after, customer_id, email, number)
 List orders
 
 The store's orders in one format for every platform, with what an invoice needs. Needs orders.read.  Each order includes:  - line items with unit prices, discounts and tax per line - shipping and fee lines - billing details - payment status and refunds  ### Ordering and syncing  Newest order first. With `updatedAfter`, oldest change first, so a sync can page forward from its last seen `updatedAt`.  Start each sync a few minutes before the last `updatedAt` you saw and drop duplicates by `id`, since an order edited while you page can shift the list.  ### Limits  - Shopify returns at most 25 orders per page and, unless the store was granted access to all orders, only the last 60 days. - Buyer fields (`customer` and addresses) are null when the store's approval does not cover buyer data. 
@@ -1969,6 +1970,7 @@ Name | Type | Description  | Required | Notes
 **updated_after** | Option<**String**> | Only orders changed after this time, oldest change first. |  |
 **customer_id** | Option<**String**> | Only this customer's orders (`customer.id` on an order, or `id` from the customers endpoints). |  |
 **email** | Option<**String**> | Only orders placed with this email. Shopify only; WooCommerce answers 400 platform_not_supported. |  |
+**number** | Option<**String**> | The order number a buyer quotes, with or without the \"#\" (`number` on an order). Shopify only; on WooCommerce the number is the order id, so read GET /v1/commerce/orders/{orderId} (this filter answers 400 platform_not_supported). |  |
 
 ### Return type
 
@@ -2538,6 +2540,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::CreateCommerceMetaobject201Response**](createCommerceMetaobject_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_commerce_order
+
+> models::GetCommerceOrder200Response update_commerce_order(order_id, update_commerce_order_request)
+Update an order's shipping address
+
+Replaces the order's shipping address, for a buyer who asks to fix it before the order ships. Needs orders.update. Items and quantities change through POST /v1/commerce/orders/{orderId}/edits.  The whole address is replaced: send every line, not only the one that changes. Fulfillments already shipped keep the address they were sent to. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**order_id** | **String** | Platform-native order id. | [required] |
+**update_commerce_order_request** | [**UpdateCommerceOrderRequest**](UpdateCommerceOrderRequest.md) |  | [required] |
+
+### Return type
+
+[**models::GetCommerceOrder200Response**](getCommerceOrder_200_response.md)
 
 ### Authorization
 

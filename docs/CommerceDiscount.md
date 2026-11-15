@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **minimum** | Option<[**models::CommerceDiscountMinimum**](CommerceDiscountMinimum.md)> |  | [optional]
 **usage_limit** | Option<**i32**> |  | [optional]
 **once_per_customer** | Option<**bool**> |  | [optional]
+**limited_to_customers** | Option<**bool**> | True when only the customers chosen at creation (customerIds) can use the code. | [optional]
 **usage_count** | Option<**i32**> |  | [optional]
 **starts_at** | Option<**String**> |  | [optional]
 **ends_at** | Option<**String**> |  | [optional]

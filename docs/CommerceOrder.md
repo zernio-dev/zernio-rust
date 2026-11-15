@@ -37,7 +37,7 @@ Name | Type | Description | Notes
 **fee_lines** | Option<[**Vec<models::CommerceOrderChargeLine>**](CommerceOrderChargeLine.md)> | WooCommerce fees. Always empty on Shopify. | [optional]
 **tax_lines** | Option<[**Vec<models::CommerceTaxLine>**](CommerceTaxLine.md)> | Order tax by rate, line items and shipping together. | [optional]
 **refunds** | Option<[**Vec<models::CommerceOrderRefund>**](CommerceOrderRefund.md)> |  | [optional]
-**fulfillments** | Option<[**Vec<models::CommerceOrderFulfillmentsInner>**](CommerceOrderFulfillmentsInner.md)> |  | [optional]
+**fulfillments** | Option<[**Vec<models::CommerceOrderFulfillmentsInner>**](CommerceOrderFulfillmentsInner.md)> | One entry per tracking number. A shipment without tracking still has one entry, with the tracking fields null. Always empty on WooCommerce. | [optional]
 **platform_data** | Option<**std::collections::HashMap<String, serde_json::Value>**> | Platform-only fields. Null when the platform has none. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

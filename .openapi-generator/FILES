@@ -3246,6 +3246,8 @@ docs/UpdateCommerceCollectionRequest.md
 docs/UpdateCommerceDiscountRequest.md
 docs/UpdateCommerceMenuRequest.md
 docs/UpdateCommerceMetaobjectRequest.md
+docs/UpdateCommerceOrderRequest.md
+docs/UpdateCommerceOrderRequestShippingAddress.md
 docs/UpdateCommercePageRequest.md
 docs/UpdateCommerceProductPricesRequest.md
 docs/UpdateCommerceProductPricesRequestVariantsInner.md
@@ -7085,6 +7087,8 @@ src/models/update_commerce_collection_request.rs
 src/models/update_commerce_discount_request.rs
 src/models/update_commerce_menu_request.rs
 src/models/update_commerce_metaobject_request.rs
+src/models/update_commerce_order_request.rs
+src/models/update_commerce_order_request_shipping_address.rs
 src/models/update_commerce_page_request.rs
 src/models/update_commerce_product_prices_request.rs
 src/models/update_commerce_product_prices_request_variants_inner.rs

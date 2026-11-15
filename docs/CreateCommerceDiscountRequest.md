@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **ends_at** | Option<**String**> |  | [optional]
 **product_ids** | Option<**Vec<String>**> |  | [optional]
 **collection_ids** | Option<**Vec<String>**> |  | [optional]
+**customer_ids** | Option<**Vec<String>**> | Only these customers can use the code (`customer.id` on an order, or `id` from the customers endpoints). Code discounts on Shopify only; WooCommerce answers 400. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
