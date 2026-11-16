@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **_id** | Option<**String**> |  | [optional]
 **phone_number** | Option<**String**> |  | [optional]
+**requested_phone_number** | Option<**String**> | The specific number you asked for at purchase (`phoneNumber` in the purchase body). Absent when you did not pick one. When it differs from `phoneNumber`, WhatsApp refused the picked number (it was likely registered on WhatsApp before), so a different number was issued. | [optional]
 **country** | Option<**String**> |  | [optional]
 **number_type** | Option<**String**> | For example local, mobile, national or toll_free. | [optional]
 **status** | Option<**Status**> |  (enum: pending_payment, pending_regulatory, regulatory_declined, provisioning, verifying, active, suspended, releasing, released) | [optional]

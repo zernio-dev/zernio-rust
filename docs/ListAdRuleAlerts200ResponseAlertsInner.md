@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **consecutive_matches** | **i32** |  | 
 **opened_at** | Option<**String**> |  | 
 **last_matched_at** | **String** |  | 
+**last_evaluated_at** | **String** | When a run last evaluated the object of this alert. Older than the latest run means that run did not evaluate it. | 
 **resolved_at** | Option<**String**> |  | 
 **resolved_reason** | Option<**ResolvedReason**> |  (enum: condition_cleared, action_applied, not_evaluated, automation_changed, automation_off, ) | 
 
