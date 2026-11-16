@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**on_account_connected**](WebhookEventsApi.md#on_account_connected) | **POST** /account.connected | Account connected event
 [**on_account_disconnected**](WebhookEventsApi.md#on_account_disconnected) | **POST** /account.disconnected | Account disconnected event
 [**on_account_permissions_changed**](WebhookEventsApi.md#on_account_permissions_changed) | **POST** /account.permissions_changed | Account permissions changed event
+[**on_account_privacy_request**](WebhookEventsApi.md#on_account_privacy_request) | **POST** /account.privacy_request | Store privacy request
 [**on_account_rate_limited**](WebhookEventsApi.md#on_account_rate_limited) | **POST** /account.rate_limited | Mailbox sending cooldown started
 [**on_ad_account_status_changed**](WebhookEventsApi.md#on_ad_account_status_changed) | **POST** /ad_account.status_changed | Ad account status changed event
 [**on_ad_created**](WebhookEventsApi.md#on_ad_created) | **POST** /ad.created | Ad created event
@@ -329,6 +330,36 @@ A publish on an account connected through your own OAuth app failed for a missin
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_account_permissions_changed** | [**WebhookPayloadAccountPermissionsChanged**](WebhookPayloadAccountPermissionsChanged.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_account_privacy_request
+
+> on_account_privacy_request(webhook_payload_account_privacy_request)
+Store privacy request
+
+A Shopify merchant asked to export or erase customer data, or the shop's data after uninstalling the app. Shopify sends these to the installed app, which is Zernio's, so we pass them on to you.  ### What to do  `privacyRequest.type` says which request it is. Export or erase your own copy of the data. Zernio handles its own copy.  ### Who receives it  A customer request goes to every account connected to the shop when it arrives. `shop_redact` arrives 48 hours after the uninstall, when the account is already disconnected, and goes to the accounts that were connected to the shop. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_account_privacy_request** | [**WebhookPayloadAccountPrivacyRequest**](WebhookPayloadAccountPrivacyRequest.md) |  | [required] |
 
 ### Return type
 

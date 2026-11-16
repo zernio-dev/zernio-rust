@@ -27,6 +27,7 @@ Method | HTTP request | Description
 [**get_conversions_quality**](ConversionsApi.md#get_conversions_quality) | **GET** /v1/ads/conversions/quality | Get Event Match Quality
 [**get_event**](ConversionsApi.md#get_event) | **GET** /v1/events/{eventId} | Get one stored event and its deliveries
 [**get_events_overview**](ConversionsApi.md#get_events_overview) | **GET** /v1/events/overview | Get today's tracking overview
+[**get_events_overview_daily**](ConversionsApi.md#get_events_overview_daily) | **GET** /v1/events/overview/daily | Get daily tracking figures
 [**get_tracking_site**](ConversionsApi.md#get_tracking_site) | **GET** /v1/tracking-sites/{siteId} | Get a tracking site
 [**list_ad_conversion_associations**](ConversionsApi.md#list_ad_conversion_associations) | **GET** /v1/ads/conversions/destinations/{destinationId}/associations | List associated campaigns
 [**list_ad_conversion_destinations**](ConversionsApi.md#list_ad_conversion_destinations) | **GET** /v1/ads/conversions/destinations | List conversion destinations
@@ -37,6 +38,7 @@ Method | HTTP request | Description
 [**list_conversion_destinations**](ConversionsApi.md#list_conversion_destinations) | **GET** /v1/accounts/{accountId}/conversion-destinations | List conversion destinations
 [**list_custom_conversion_goals**](ConversionsApi.md#list_custom_conversion_goals) | **GET** /v1/ads/conversions/custom-goals | List custom conversion goals
 [**list_event_destinations**](ConversionsApi.md#list_event_destinations) | **GET** /v1/events/destinations | List event destinations
+[**list_event_names**](ConversionsApi.md#list_event_names) | **GET** /v1/events/names | List stored event names
 [**list_events**](ConversionsApi.md#list_events) | **GET** /v1/events | List stored events
 [**list_forwarding_rules**](ConversionsApi.md#list_forwarding_rules) | **GET** /v1/events/forwarding-rules | List forwarding rules
 [**list_tracking_sites**](ConversionsApi.md#list_tracking_sites) | **GET** /v1/tracking-sites | List tracking sites
@@ -46,7 +48,7 @@ Method | HTTP request | Description
 [**restate_event**](ConversionsApi.md#restate_event) | **PATCH** /v1/events/{eventId} | Change a stored event's value
 [**retract_event**](ConversionsApi.md#retract_event) | **DELETE** /v1/events/{eventId} | Retract a stored event
 [**rotate_tracking_site_key**](ConversionsApi.md#rotate_tracking_site_key) | **POST** /v1/tracking-sites/{siteId}/rotate-key | Rotate a tracking site's key
-[**send_conversions**](ConversionsApi.md#send_conversions) | **POST** /v1/ads/conversions | Send conversion events
+[**send_conversions**](ConversionsApi.md#send_conversions) | **POST** /v1/ads/conversions | Send conversion events to one destination (legacy)
 [**send_events**](ConversionsApi.md#send_events) | **POST** /v1/events | Send events to every destination
 [**update_ad_conversion_destination**](ConversionsApi.md#update_ad_conversion_destination) | **PATCH** /v1/ads/conversions/destinations/{destinationId} | Update a conversion destination
 [**update_ad_conversion_goals**](ConversionsApi.md#update_ad_conversion_goals) | **PATCH** /v1/ads/conversions/goals | Update account conversion goals
@@ -773,6 +775,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_events_overview_daily
+
+> models::GetEventsOverviewDaily200Response get_events_overview_daily(profile_id, period)
+Get daily tracking figures
+
+The tracking figures of a period, day by day (UTC): events stored, events sent to the ad platforms and how many they accepted, plus the period's totals in the same shape as the overview's `today`.  An event sent to a destination counts once, on the day of its first send, by its latest outcome. Without `profileId` it covers every profile you can access. Requires the Ads add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**profile_id** | Option<**String**> | The profile to read. Omit to cover every profile you can access, summed across them. |  |
+**period** | Option<**String**> | The days to cover, each ending today (UTC): `today`, the last 7 days or the last 30 days. |  |[default to 7d]
+
+### Return type
+
+[**models::GetEventsOverviewDaily200Response**](getEventsOverviewDaily_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_tracking_site
 
 > models::CreateTrackingSite201Response get_tracking_site(site_id)
@@ -840,7 +873,7 @@ Name | Type | Description  | Required | Notes
 > models::ListAdConversionDestinations200Response list_ad_conversion_destinations(account_id)
 List conversion destinations
 
-Lists where an ad account can receive conversion events (pixels, conversion actions or rules), so you know where to send them.  Returns the list of pixels (Meta), conversion actions (Google), conversion rules (LinkedIn), pixels (OpenAI Ads, Reddit) or ad accounts (Pinterest) accessible to the connected ads account. Use the returned `id` as `destinationId` when posting to `POST /v1/ads/conversions`.  For Google and LinkedIn, each destination's `type` reflects the conversion type (PURCHASE, LEAD, SIGN_UP, etc.), and the event type is locked to the destination. For Meta, OpenAI Ads and Reddit, `type` is absent: pixels accept any event name per request.  For Reddit, the pixels of every ad account the connection reaches (only the scoped ones when the connection has an ad-account scope), each with the `adAccountId` that owns it. Reddit pixels are created in Reddit Ads Manager, not through Zernio.  For LinkedIn, destinations are returned across every sponsored ad account the connected token can access; the `adAccountId` field on each destination identifies the parent ad account and is required for subsequent CRUD calls (update, delete, associations, metrics). 
+Lists where an ad account can receive conversion events (pixels, conversion actions or rules), so you know where to send them.  Returns the list of pixels (Meta), conversion actions (Google), conversion rules (LinkedIn), pixels (OpenAI Ads, Reddit) or ad accounts (Pinterest) accessible to the connected ads account. Save the returned `id` as a destination with `POST /v1/events/destinations` (or pass it in `destinations` on `POST /v1/events`).  For Google and LinkedIn, each destination's `type` reflects the conversion type (PURCHASE, LEAD, SIGN_UP, etc.), and the event type is locked to the destination. For Meta, OpenAI Ads and Reddit, `type` is absent: pixels accept any event name per request.  For Reddit, the pixels of every ad account the connection reaches (only the scoped ones when the connection has an ad-account scope), each with the `adAccountId` that owns it. Reddit pixels are created in Reddit Ads Manager, not through Zernio.  For LinkedIn, destinations are returned across every sponsored ad account the connected token can access; the `adAccountId` field on each destination identifies the parent ad account and is required for subsequent CRUD calls (update, delete, associations, metrics). 
 
 ### Parameters
 
@@ -1072,6 +1105,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListEventDestinations200Response**](listEventDestinations_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_event_names
+
+> models::ListEventNames200Response list_event_names(profile_id)
+List stored event names
+
+The event names stored for a profile in the last 30 days, with how many events carry each, most used first. It includes custom names, such as a site's own events, so you can filter `GET /v1/events` by `eventName`.  Without `profileId` it covers every profile you can access. Retracted events are left out. Requires the Ads add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**profile_id** | Option<**String**> | The profile to read. Omit to cover every profile you can access. |  |
+
+### Return type
+
+[**models::ListEventNames200Response**](listEventNames_200_response.md)
 
 ### Authorization
 
@@ -1380,9 +1443,9 @@ Name | Type | Description  | Required | Notes
 ## send_conversions
 
 > models::SendConversions200Response send_conversions(send_conversions_request)
-Send conversion events
+Send conversion events to one destination (legacy)
 
-Sends conversion events, such as purchases or leads, from your server to an ad platform so it can attribute and optimize ads.  Relays one or more events to the target ad platform's native Conversions API. The platform is inferred from the provided `accountId`. Requires the Ads add-on.  ### Supported platforms  - Meta (`metaads`) via Graph API - Google Ads (`googleads`) via Data Manager API `ingestEvents` - LinkedIn (`linkedinads`) via `/rest/conversionEvents` - TikTok (`tiktokads`) via the Offline Events API `/offline/batch/` (OFFLINE conversions only) - OpenAI Ads (`openaiads`) via its Conversions API (a separate host, `bzr.openai.com`) - Pinterest (`pinterestads`) via `POST /v5/ad_accounts/{id}/events` - Reddit (`redditads`) via the Reddit Conversions API (`POST /api/v3/pixels/{pixelId}/conversion_events`)  ### `destinationId` per platform  - Meta: pixel (dataset) ID, e.g. `123456789012345` - Google: conversion action resource name, e.g. `customers/1234567890/conversionActions/987654321` - LinkedIn: conversion rule ID or URN, e.g. `104012` or `urn:lla:llaPartnerConversion:104012` - TikTok: Offline Event Set ID, e.g. `7057103914977558530` - OpenAI Ads: pixel wire id (numeric `pixel_id`, distinct from the internal pixel id), as returned by `GET /v1/ads/conversions/destinations` - Pinterest: numeric ad account id, e.g. `549755885175` (Pinterest attributes to the ad account, not to a tag) - Reddit: pixel id, e.g. `a2_abc123`, as returned by `GET /v1/ads/conversions/destinations` (any other shape returns 400)  Callers can list valid destinations via `GET /v1/ads/conversions/destinations`.  ### Pinterest notes  - Each event needs an `email`, or `ipAddress` plus `userAgent`. Others are listed in `failures` with code `INVALID_EVENT` and the rest are still sent. - `clickIds.epik` (the `_epik` cookie) is sent as `click_id`. - `actionSource` `web` stays `web`, offline sources become `offline`, and app events need `platformData.action_source` `app_android` or `app_ios`. - Pinterest answers per event, so one bad event does not fail its chunk (failures carry code `PINTEREST_EVENT_FAILED`). - `consent.adUserData: DENIED` sets `opt_out`. - The connected user needs a Business Access role on the ad account (403 otherwise).  ### Reddit notes  - Each event needs a match key: `clickIds.rdt_cid`, `clickIds.rdt_uuid`, `email`, `phone`, `externalId`, or `ipAddress` plus `userAgent`. - Reddit accepts events up to 7 days old. `eventTime` is unix SECONDS (a value more than an hour in the future is refused as milliseconds). - Events failing these checks are listed in `failures` with code `INVALID_EVENT` and the rest are still sent. - Email (lowercased, dots and `+tags` stripped from the local part), phone (E.164 with the leading `+`) and `externalId` are SHA-256 hashed. IP and user agent go plaintext. - `consent.adUserData: DENIED` sends no user fields. - `actionSource` maps to WEBSITE (`web`), APP (`app`) or OTHER, overridable with `platformData.action_source`. `platformData.order_id` is forwarded. - `testCode` is sent as Reddit's `test_id`.  Reddit errors:  - 403 `reconnect_required`: the connection was authorized without the `adsconversions` permission (reconnect via GET /v1/connect/redditads/ads). - 403 `insufficient_permissions`: the Reddit user has no role on the ad account that owns the pixel. - `REDDIT_REJECTED`: Reddit throttling and other rejections, reported per chunk in `failures`.  ### TikTok notes  This path sends OFFLINE conversions (in-store / CRM / call-center), not web-pixel events. Each event must carry an email or phone (TikTok requires at least one).  The connected TikTok ads account must have granted the Offline Events permission; older grants must reconnect.  ### OpenAI Ads notes  Requires a tracking tag (pixel) to already exist on the account. Returns 422 with code `TRACKING_TAG_REQUIRED` if `POST /v1/accounts/{accountId}/tracking-tags` hasn't been called yet.  ### Hashing  All PII (email, phone, names, external IDs) is hashed with SHA-256 server-side per each platform's normalization spec, including Google's Gmail-specific dot/plus-suffix stripping. Send plaintext.  LinkedIn `externalIds` are passed through as plaintext per LinkedIn's spec; only emails and phones are hashed.  For LinkedIn, the connected account must have been authorized after the Conversions API rollout (the OAuth grant must include `rw_conversions`). Older accounts must reconnect.  ### Batching  Batching is handled automatically. Per-platform caps:  - Meta: 1000 events per request; rejects the entire batch if any event is malformed. - Google: 2000. - LinkedIn: 5000, all-or-nothing per chunk. - OpenAI Ads: 1000 per request. Larger submissions are split into 1000-event chunks, each all-or-nothing (a malformed event fails every event in that chunk, not the whole request). - Reddit: works the same way as OpenAI Ads, in chunks of 1000.  ### Dedup  Pass a stable `eventId` on every event:  - Meta and LinkedIn use it to dedupe against browser-side pixel/Insight Tag events. - Google maps it to `transactionId`. - Reddit receives it as `conversion_id`, its dedup key against Reddit Pixel events.  ### `eventName` per platform  - Meta: free-form. Standard names (Purchase, Lead, ...) match Meta's built-in events; custom strings are accepted. - Google: ignored. The conversion action's category determines the event type. Send the standard name closest to your action for documentation, but the platform will not branch on it. - LinkedIn: ignored. The conversion rule's `type` (LEAD, PURCHASE, etc.) is locked to the destination at rule-creation time. Send the standard name for documentation; LinkedIn does not branch on it. - OpenAI Ads: a fixed subset of standard names maps 1:1 onto OpenAI's own event-type enum: Purchase, Lead, AddToCart, ViewContent, InitiateCheckout, CompleteRegistration, Subscribe, StartTrial, Schedule. Any other standard name or custom string is sent as `type: custom` with the name preserved. - Pinterest: standard names map onto Pinterest's (see below). Any other string is sent as is, so it matches an advertiser defined event of that name.  Pinterest name mapping:  - Purchase = `checkout` - AddToCart = `add_to_cart` - InitiateCheckout = `initiate_checkout` - AddPaymentInfo = `add_payment_info` - Lead = `lead` - CompleteRegistration = `signup` - Subscribe = `subscribe` - ViewContent = `view_content` - Search = `search` - PageView = `page_visit` 
+Legacy: use [`POST /v1/events`](/conversions/send-events) instead. It sends each event once to every saved destination, retries failures, stores the event and reports what each platform answered. This endpoint keeps working and is not being removed.  Sends conversion events, such as purchases or leads, from your server to one ad platform destination so it can attribute and optimize ads.  Relays one or more events to the target ad platform's native Conversions API. The platform is inferred from the provided `accountId`. Requires the Ads add-on.  ### Supported platforms  - Meta (`metaads`) via Graph API - Google Ads (`googleads`) via Data Manager API `ingestEvents` - LinkedIn (`linkedinads`) via `/rest/conversionEvents` - TikTok (`tiktokads`) via the Offline Events API `/offline/batch/` (OFFLINE conversions only) - OpenAI Ads (`openaiads`) via its Conversions API (a separate host, `bzr.openai.com`) - Pinterest (`pinterestads`) via `POST /v5/ad_accounts/{id}/events` - Reddit (`redditads`) via the Reddit Conversions API (`POST /api/v3/pixels/{pixelId}/conversion_events`)  ### `destinationId` per platform  - Meta: pixel (dataset) ID, e.g. `123456789012345` - Google: conversion action resource name, e.g. `customers/1234567890/conversionActions/987654321` - LinkedIn: conversion rule ID or URN, e.g. `104012` or `urn:lla:llaPartnerConversion:104012` - TikTok: Offline Event Set ID, e.g. `7057103914977558530` - OpenAI Ads: pixel wire id (numeric `pixel_id`, distinct from the internal pixel id), as returned by `GET /v1/ads/conversions/destinations` - Pinterest: numeric ad account id, e.g. `549755885175` (Pinterest attributes to the ad account, not to a tag) - Reddit: pixel id, e.g. `a2_abc123`, as returned by `GET /v1/ads/conversions/destinations` (any other shape returns 400)  Callers can list valid destinations via `GET /v1/ads/conversions/destinations`.  ### Pinterest notes  - Each event needs an `email`, or `ipAddress` plus `userAgent`. Others are listed in `failures` with code `INVALID_EVENT` and the rest are still sent. - `clickIds.epik` (the `_epik` cookie) is sent as `click_id`. - `actionSource` `web` stays `web`, offline sources become `offline`, and app events need `platformData.action_source` `app_android` or `app_ios`. - Pinterest answers per event, so one bad event does not fail its chunk (failures carry code `PINTEREST_EVENT_FAILED`). - `consent.adUserData: DENIED` sets `opt_out`. - The connected user needs a Business Access role on the ad account (403 otherwise).  ### Reddit notes  - Each event needs a match key: `clickIds.rdt_cid`, `clickIds.rdt_uuid`, `email`, `phone`, `externalId`, or `ipAddress` plus `userAgent`. - Reddit accepts events up to 7 days old. `eventTime` is unix SECONDS (a value more than an hour in the future is refused as milliseconds). - Events failing these checks are listed in `failures` with code `INVALID_EVENT` and the rest are still sent. - Email (lowercased, dots and `+tags` stripped from the local part), phone (E.164 with the leading `+`) and `externalId` are SHA-256 hashed. IP and user agent go plaintext. - `consent.adUserData: DENIED` sends no user fields. - `actionSource` maps to WEBSITE (`web`), APP (`app`) or OTHER, overridable with `platformData.action_source`. `platformData.order_id` is forwarded. - `testCode` is sent as Reddit's `test_id`.  Reddit errors:  - 403 `reconnect_required`: the connection was authorized without the `adsconversions` permission (reconnect via GET /v1/connect/redditads/ads). - 403 `insufficient_permissions`: the Reddit user has no role on the ad account that owns the pixel. - `REDDIT_REJECTED`: Reddit throttling and other rejections, reported per chunk in `failures`.  ### TikTok notes  This path sends OFFLINE conversions (in-store / CRM / call-center), not web-pixel events. Each event must carry an email or phone (TikTok requires at least one).  The connected TikTok ads account must have granted the Offline Events permission; older grants must reconnect.  ### OpenAI Ads notes  Requires a tracking tag (pixel) to already exist on the account. Returns 422 with code `TRACKING_TAG_REQUIRED` if `POST /v1/accounts/{accountId}/tracking-tags` hasn't been called yet.  ### Hashing  All PII (email, phone, names, external IDs) is hashed with SHA-256 server-side per each platform's normalization spec, including Google's Gmail-specific dot/plus-suffix stripping. Send plaintext.  LinkedIn `externalIds` are passed through as plaintext per LinkedIn's spec; only emails and phones are hashed.  For LinkedIn, the connected account must have been authorized after the Conversions API rollout (the OAuth grant must include `rw_conversions`). Older accounts must reconnect.  ### Batching  Batching is handled automatically. Per-platform caps:  - Meta: 1000 events per request; rejects the entire batch if any event is malformed. - Google: 2000. - LinkedIn: 5000, all-or-nothing per chunk. - OpenAI Ads: 1000 per request. Larger submissions are split into 1000-event chunks, each all-or-nothing (a malformed event fails every event in that chunk, not the whole request). - Reddit: works the same way as OpenAI Ads, in chunks of 1000.  ### Dedup  Pass a stable `eventId` on every event:  - Meta and LinkedIn use it to dedupe against browser-side pixel/Insight Tag events. - Google maps it to `transactionId`. - Reddit receives it as `conversion_id`, its dedup key against Reddit Pixel events.  ### `eventName` per platform  - Meta: free-form. Standard names (Purchase, Lead, ...) match Meta's built-in events; custom strings are accepted. - Google: ignored. The conversion action's category determines the event type. Send the standard name closest to your action for documentation, but the platform will not branch on it. - LinkedIn: ignored. The conversion rule's `type` (LEAD, PURCHASE, etc.) is locked to the destination at rule-creation time. Send the standard name for documentation; LinkedIn does not branch on it. - OpenAI Ads: a fixed subset of standard names maps 1:1 onto OpenAI's own event-type enum: Purchase, Lead, AddToCart, ViewContent, InitiateCheckout, CompleteRegistration, Subscribe, StartTrial, Schedule. Any other standard name or custom string is sent as `type: custom` with the name preserved. - Pinterest: standard names map onto Pinterest's (see below). Any other string is sent as is, so it matches an advertiser defined event of that name.  Pinterest name mapping:  - Purchase = `checkout` - AddToCart = `add_to_cart` - InitiateCheckout = `initiate_checkout` - AddPaymentInfo = `add_payment_info` - Lead = `lead` - CompleteRegistration = `signup` - Subscribe = `subscribe` - ViewContent = `view_content` - Search = `search` - PageView = `page_visit` 
 
 ### Parameters
 
@@ -1412,7 +1475,7 @@ Name | Type | Description  | Required | Notes
 > models::SendEvents200Response send_events(send_events_request, idempotency_key)
 Send events to every destination
 
-Sends conversion events once and forwards them to every ad platform destination saved for the profile (see `POST /v1/events/destinations`), or to the `destinations` given in the request. Requires the Ads add-on.  ### Forwarding  - Each destination receives the events exactly as `POST /v1/ads/conversions` would send them, so the per-platform notes there (hashing, batching, `eventName` semantics, dedup on `eventId`) apply here too. - A destination saved with `eventNames` only receives events with those names. - One destination failing never blocks the others: each one reports its own result.  ### Storage  Zernio also stores each event for the profile's reporting.  - Email, phone and `externalId` are stored only as SHA-256 hashes. - `sourceUrl` keeps only its origin, path and attribution parameters (`utm_*`, `gclid`, `fbclid`, `ttclid`, `li_fat_id`, `epik`, `rdt_cid`, `gbraid`, `wbraid`). - Events sent with `testCode` are forwarded but not stored. - Sending an event again with the same `eventId` replaces the stored one. - A stored `Purchase`, `Lead` or `QualifiedLead` tied to one of your campaigns (see `campaign` on each event) counts in `GET /v1/ads/campaign-results` and in ad rules as `sales` and `revenue`, `leads` or `qualified_leads`. 
+The recommended way to send conversions. Sends conversion events once and forwards them to every ad platform destination saved for the profile (see `POST /v1/events/destinations`), or to the `destinations` given in the request. Requires the Ads add-on.  ### Forwarding  - Each destination receives the events exactly as `POST /v1/ads/conversions` would send them, so the per-platform notes there (hashing, batching, `eventName` semantics, dedup on `eventId`) apply here too. - A destination saved with `eventNames` only receives events with those names. - One destination failing never blocks the others: each one reports its own result.  ### Storage  Zernio also stores each event for the profile's reporting.  - Email, phone and `externalId` are stored only as SHA-256 hashes. - `sourceUrl` keeps only its origin, path and attribution parameters (`utm_*`, `gclid`, `fbclid`, `ttclid`, `li_fat_id`, `epik`, `rdt_cid`, `gbraid`, `wbraid`). - Events sent with `testCode` are forwarded but not stored. - Sending an event again with the same `eventId` replaces the stored one. - A stored `Purchase`, `Lead` or `QualifiedLead` tied to one of your campaigns (see `campaign` on each event) counts in `GET /v1/ads/campaign-results` and in ad rules as `sales` and `revenue`, `leads` or `qualified_leads`. 
 
 ### Parameters
 

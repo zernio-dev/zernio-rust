@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **profile_id** | Option<**String**> | The profile the site belongs to. | [optional]
 **hits_today** | Option<**i32**> | Hits today. | [optional]
 **last_active_on** | Option<[**String**](String.md)> | The last day in the past 7 with a hit. `null` when none. | [optional]
+**totals** | Option<[**models::GetEventsOverview200ResponseSitesInnerTotals**](GetEventsOverview200ResponseSitesInnerTotals.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

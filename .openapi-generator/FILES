@@ -1324,6 +1324,7 @@ docs/GenerateKeywordIdeasRequest.md
 docs/GeoRestriction.md
 docs/GetAccountHealth200Response.md
 docs/GetAccountHealth200ResponseLineWebhook.md
+docs/GetAccountHealth200ResponseMailbox.md
 docs/GetAccountHealth200ResponseMessagingRestriction.md
 docs/GetAccountHealth200ResponsePermissions.md
 docs/GetAccountHealth200ResponsePermissionsPostingInner.md
@@ -1498,10 +1499,14 @@ docs/GetEvent200ResponseDeliveriesInner.md
 docs/GetEventsOverview200Response.md
 docs/GetEventsOverview200ResponsePlatformsInner.md
 docs/GetEventsOverview200ResponseSitesInner.md
+docs/GetEventsOverview200ResponseSitesInnerTotals.md
 docs/GetEventsOverview200ResponseSourcesInner.md
 docs/GetEventsOverview200ResponseToday.md
 docs/GetEventsOverview200ResponseWebsite.md
 docs/GetEventsOverview200ResponseWebsiteStepsInner.md
+docs/GetEventsOverviewDaily200Response.md
+docs/GetEventsOverviewDaily200ResponseDaysInner.md
+docs/GetEventsOverviewDaily200ResponseTotals.md
 docs/GetFacebookDemographics200Response.md
 docs/GetFacebookDemographics200ResponseDemographics.md
 docs/GetFacebookDemographics200ResponseDemographicsCountryInner.md
@@ -2226,6 +2231,8 @@ docs/ListEmailSharedMailboxes200Response.md
 docs/ListEmailSignatures200Response.md
 docs/ListEmailThreads200Response.md
 docs/ListEventDestinations200Response.md
+docs/ListEventNames200Response.md
+docs/ListEventNames200ResponseNamesInner.md
 docs/ListEvents200Response.md
 docs/ListEvents200ResponseEventsInner.md
 docs/ListEvents200ResponseEventsInnerAllOfDeliveriesInner.md
@@ -3091,6 +3098,7 @@ docs/TrackingSiteConsentMode.md
 docs/TrackingSiteCustomHostname.md
 docs/TrackingSiteCustomHostnameDnsRecord.md
 docs/TrackingSiteInstall.md
+docs/TrackingSitePeriodTotals.md
 docs/TrackingSiteSetup.md
 docs/TrackingTag.md
 docs/TrackingTagDiagnostic.md
@@ -3520,6 +3528,10 @@ docs/WebhookPayloadAccountDisconnected.md
 docs/WebhookPayloadAccountDisconnectedAccount.md
 docs/WebhookPayloadAccountPermissionsChanged.md
 docs/WebhookPayloadAccountPermissionsChangedAccount.md
+docs/WebhookPayloadAccountPrivacyRequest.md
+docs/WebhookPayloadAccountPrivacyRequestAccount.md
+docs/WebhookPayloadAccountPrivacyRequestPrivacyRequest.md
+docs/WebhookPayloadAccountPrivacyRequestPrivacyRequestCustomer.md
 docs/WebhookPayloadAccountRateLimited.md
 docs/WebhookPayloadAccountRateLimitedAccount.md
 docs/WebhookPayloadAdAccountStatusChanged.md
@@ -5221,6 +5233,7 @@ src/models/generate_keyword_ideas_request.rs
 src/models/geo_restriction.rs
 src/models/get_account_health_200_response.rs
 src/models/get_account_health_200_response_line_webhook.rs
+src/models/get_account_health_200_response_mailbox.rs
 src/models/get_account_health_200_response_messaging_restriction.rs
 src/models/get_account_health_200_response_permissions.rs
 src/models/get_account_health_200_response_permissions_posting_inner.rs
@@ -5395,10 +5408,14 @@ src/models/get_event_200_response_deliveries_inner.rs
 src/models/get_events_overview_200_response.rs
 src/models/get_events_overview_200_response_platforms_inner.rs
 src/models/get_events_overview_200_response_sites_inner.rs
+src/models/get_events_overview_200_response_sites_inner_totals.rs
 src/models/get_events_overview_200_response_sources_inner.rs
 src/models/get_events_overview_200_response_today.rs
 src/models/get_events_overview_200_response_website.rs
 src/models/get_events_overview_200_response_website_steps_inner.rs
+src/models/get_events_overview_daily_200_response.rs
+src/models/get_events_overview_daily_200_response_days_inner.rs
+src/models/get_events_overview_daily_200_response_totals.rs
 src/models/get_facebook_demographics_200_response.rs
 src/models/get_facebook_demographics_200_response_demographics.rs
 src/models/get_facebook_demographics_200_response_demographics_country_inner.rs
@@ -6108,6 +6125,8 @@ src/models/list_email_shared_mailboxes_200_response.rs
 src/models/list_email_signatures_200_response.rs
 src/models/list_email_threads_200_response.rs
 src/models/list_event_destinations_200_response.rs
+src/models/list_event_names_200_response.rs
+src/models/list_event_names_200_response_names_inner.rs
 src/models/list_events_200_response.rs
 src/models/list_events_200_response_events_inner.rs
 src/models/list_events_200_response_events_inner_all_of_deliveries_inner.rs
@@ -6955,6 +6974,7 @@ src/models/tracking_site_consent_mode.rs
 src/models/tracking_site_custom_hostname.rs
 src/models/tracking_site_custom_hostname_dns_record.rs
 src/models/tracking_site_install.rs
+src/models/tracking_site_period_totals.rs
 src/models/tracking_site_setup.rs
 src/models/tracking_tag.rs
 src/models/tracking_tag_diagnostic.rs
@@ -7375,6 +7395,10 @@ src/models/webhook_payload_account_disconnected.rs
 src/models/webhook_payload_account_disconnected_account.rs
 src/models/webhook_payload_account_permissions_changed.rs
 src/models/webhook_payload_account_permissions_changed_account.rs
+src/models/webhook_payload_account_privacy_request.rs
+src/models/webhook_payload_account_privacy_request_account.rs
+src/models/webhook_payload_account_privacy_request_privacy_request.rs
+src/models/webhook_payload_account_privacy_request_privacy_request_customer.rs
 src/models/webhook_payload_account_rate_limited.rs
 src/models/webhook_payload_account_rate_limited_account.rs
 src/models/webhook_payload_ad_account_status_changed.rs
