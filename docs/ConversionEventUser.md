@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **dob** | Option<**String**> | Meta advanced matching (db). YYYYMMDD; hashed server-side. Meta only. | [optional]
 **gender** | Option<**String**> | Meta advanced matching (ge). 'f' or 'm'; hashed server-side. Meta only. | [optional]
 **lead_id** | Option<**String**> | Meta lead ID from a Lead Ad submission, as a string. Required for Conversion Leads CRM events: send it with `actionSource: 'crm'` and `platformData: { event_source: 'crm', lead_event_source: '<CRM name>' }`. Forwarded unhashed to Meta's `user_data.lead_id`. Meta only.  | [optional]
+**visitor_id** | Option<**String**> | The Zernio tag's visitor id, from the `_zid` cookie the tag sets on your site. Zernio adds the click ids and browser ids of that visit that the event lacks, before storing and forwarding it.  Without it, Zernio finds the visit by the `email`, `phone` or `externalId` the tag saw. Ids you send always win. Never sent to a platform. Read only by `POST /v1/events`, for a profile with a tracking site.  | [optional]
 **click_ids** | Option<[**models::ConversionEventUserClickIds**](ConversionEventUserClickIds.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
