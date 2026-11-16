@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **enabled** | Option<**bool**> |  | [optional]
 **phone_number** | Option<**String**> |  | [optional]
 **pstn_forward_to** | Option<**String**> |  | [optional]
+**ring_in_browser** | Option<**bool**> |  | [optional]
 **recording_enabled** | Option<**bool**> |  | [optional]
 **transcription_enabled** | Option<**bool**> |  | [optional]
 **transcription_language** | Option<**TranscriptionLanguage**> |  (enum: auto, en, es) | [optional]

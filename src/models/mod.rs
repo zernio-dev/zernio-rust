@@ -1960,6 +1960,8 @@ pub mod create_voice_call_200_response;
 pub use self::create_voice_call_200_response::CreateVoiceCall200Response;
 pub mod create_voice_call_request;
 pub use self::create_voice_call_request::CreateVoiceCallRequest;
+pub mod create_voice_web_inbound_session_200_response;
+pub use self::create_voice_web_inbound_session_200_response::CreateVoiceWebInboundSession200Response;
 pub mod create_voice_web_session_200_response;
 pub use self::create_voice_web_session_200_response::CreateVoiceWebSession200Response;
 pub mod create_webhook_settings_request;

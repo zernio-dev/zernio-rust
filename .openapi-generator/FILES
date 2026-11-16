@@ -1013,6 +1013,7 @@ docs/CreateValueRuleSetRequest.md
 docs/CreateVerificationRequest.md
 docs/CreateVoiceCall200Response.md
 docs/CreateVoiceCallRequest.md
+docs/CreateVoiceWebInboundSession200Response.md
 docs/CreateVoiceWebSession200Response.md
 docs/CreateWebhookSettingsRequest.md
 docs/CreateWhatsAppDataset200Response.md
@@ -4900,6 +4901,7 @@ src/models/create_value_rule_set_request.rs
 src/models/create_verification_request.rs
 src/models/create_voice_call_200_response.rs
 src/models/create_voice_call_request.rs
+src/models/create_voice_web_inbound_session_200_response.rs
 src/models/create_voice_web_session_200_response.rs
 src/models/create_webhook_settings_request.rs
 src/models/create_whats_app_dataset_200_response.rs

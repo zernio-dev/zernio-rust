@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**attach_number_to_sip_trunk**](VoiceApi.md#attach_number_to_sip_trunk) | **POST** /v1/phone-numbers/{id}/sip-trunk | Attach a number to a SIP trunk
 [**create_sip_trunk**](VoiceApi.md#create_sip_trunk) | **POST** /v1/phone-numbers/sip-trunks | Create a SIP trunk
 [**create_voice_call**](VoiceApi.md#create_voice_call) | **POST** /v1/voice/calls | Place an outbound phone call
+[**create_voice_web_inbound_session**](VoiceApi.md#create_voice_web_inbound_session) | **POST** /v1/voice/calls/web/inbound | Register a browser to receive calls
 [**create_voice_web_session**](VoiceApi.md#create_voice_web_session) | **POST** /v1/voice/calls/web | Mint a browser softphone session
 [**delete_sip_trunk**](VoiceApi.md#delete_sip_trunk) | **DELETE** /v1/phone-numbers/sip-trunks/{id} | Delete a SIP trunk
 [**detach_number_from_sip_trunk**](VoiceApi.md#detach_number_from_sip_trunk) | **DELETE** /v1/phone-numbers/{id}/sip-trunk | Detach a number from its SIP trunk
@@ -112,6 +113,33 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_voice_web_inbound_session
+
+> models::CreateVoiceWebInboundSession200Response create_voice_web_inbound_session()
+Register a browser to receive calls
+
+Mints a login token for the `@telnyx/webrtc` SDK so a browser can receive inbound calls to numbers with `ringInBrowser` on.  The token belongs to one long-lived credential per number owner, so every registered tab (including teammates' with calls access) rings together. Tokens last about 24 hours; request a new one to re-register.  Dashboard sessions only: API keys and connector tokens get `403`. Returns `{ enabled: false }` when none of the owner's numbers ring in the browser. 
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::CreateVoiceWebInboundSession200Response**](createVoiceWebInboundSession_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
