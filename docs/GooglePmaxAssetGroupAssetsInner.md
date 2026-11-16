@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **resource_name** | **String** |  | 
 **field_type** | **String** | Google asset role, such as HEADLINE or LOGO. | 
 **status** | **String** |  | 
+**source** | Option<**String**> | Who added the asset: ADVERTISER, or AUTOMATICALLY_CREATED when Google generated it. Empty when Google does not say. | [optional]
 **text** | Option<**String**> |  | [optional]
 **image_url** | Option<**String**> |  | [optional]
 **youtube_video_id** | Option<**String**> |  | [optional]

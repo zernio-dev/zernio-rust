@@ -14,10 +14,12 @@ Method | HTTP request | Description
 [**create_custom_conversion_goal**](ConversionsApi.md#create_custom_conversion_goal) | **POST** /v1/ads/conversions/custom-goals | Create a custom conversion goal
 [**create_event_destination**](ConversionsApi.md#create_event_destination) | **POST** /v1/events/destinations | Add an event destination
 [**create_forwarding_rule**](ConversionsApi.md#create_forwarding_rule) | **POST** /v1/events/forwarding-rules | Add a forwarding rule
+[**create_tracking_site**](ConversionsApi.md#create_tracking_site) | **POST** /v1/tracking-sites | Turn on server-side tracking for a website
 [**delete_ad_conversion_destination**](ConversionsApi.md#delete_ad_conversion_destination) | **DELETE** /v1/ads/conversions/destinations/{destinationId} | Delete a conversion destination
 [**delete_conversion_destination**](ConversionsApi.md#delete_conversion_destination) | **DELETE** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Delete a conversion destination
 [**delete_event_destination**](ConversionsApi.md#delete_event_destination) | **DELETE** /v1/events/destinations/{destinationId} | Remove an event destination
 [**delete_forwarding_rule**](ConversionsApi.md#delete_forwarding_rule) | **DELETE** /v1/events/forwarding-rules/{ruleId} | Remove a forwarding rule
+[**delete_tracking_site**](ConversionsApi.md#delete_tracking_site) | **DELETE** /v1/tracking-sites/{siteId} | Delete a tracking site
 [**get_ad_conversion_destination**](ConversionsApi.md#get_ad_conversion_destination) | **GET** /v1/ads/conversions/destinations/{destinationId} | Get a conversion destination
 [**get_ad_conversion_metrics**](ConversionsApi.md#get_ad_conversion_metrics) | **GET** /v1/ads/conversions/destinations/{destinationId}/metrics | Get attribution metrics
 [**get_conversion_destination**](ConversionsApi.md#get_conversion_destination) | **GET** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Get a conversion destination
@@ -25,6 +27,7 @@ Method | HTTP request | Description
 [**get_conversions_quality**](ConversionsApi.md#get_conversions_quality) | **GET** /v1/ads/conversions/quality | Get Event Match Quality
 [**get_event**](ConversionsApi.md#get_event) | **GET** /v1/events/{eventId} | Get one stored event and its deliveries
 [**get_events_overview**](ConversionsApi.md#get_events_overview) | **GET** /v1/events/overview | Get today's tracking overview
+[**get_tracking_site**](ConversionsApi.md#get_tracking_site) | **GET** /v1/tracking-sites/{siteId} | Get a tracking site
 [**list_ad_conversion_associations**](ConversionsApi.md#list_ad_conversion_associations) | **GET** /v1/ads/conversions/destinations/{destinationId}/associations | List associated campaigns
 [**list_ad_conversion_destinations**](ConversionsApi.md#list_ad_conversion_destinations) | **GET** /v1/ads/conversions/destinations | List conversion destinations
 [**list_ad_conversion_goals**](ConversionsApi.md#list_ad_conversion_goals) | **GET** /v1/ads/conversions/goals | List account conversion goals
@@ -36,11 +39,13 @@ Method | HTTP request | Description
 [**list_event_destinations**](ConversionsApi.md#list_event_destinations) | **GET** /v1/events/destinations | List event destinations
 [**list_events**](ConversionsApi.md#list_events) | **GET** /v1/events | List stored events
 [**list_forwarding_rules**](ConversionsApi.md#list_forwarding_rules) | **GET** /v1/events/forwarding-rules | List forwarding rules
+[**list_tracking_sites**](ConversionsApi.md#list_tracking_sites) | **GET** /v1/tracking-sites | List tracking sites
 [**remove_ad_conversion_associations**](ConversionsApi.md#remove_ad_conversion_associations) | **DELETE** /v1/ads/conversions/destinations/{destinationId}/associations | Remove associated campaigns
 [**remove_conversion_associations**](ConversionsApi.md#remove_conversion_associations) | **DELETE** /v1/accounts/{accountId}/conversion-destinations/{destinationId}/associations | Remove associated campaigns
 [**remove_custom_conversion_goal**](ConversionsApi.md#remove_custom_conversion_goal) | **DELETE** /v1/ads/conversions/custom-goals/{goalId} | Remove a custom conversion goal
 [**restate_event**](ConversionsApi.md#restate_event) | **PATCH** /v1/events/{eventId} | Change a stored event's value
 [**retract_event**](ConversionsApi.md#retract_event) | **DELETE** /v1/events/{eventId} | Retract a stored event
+[**rotate_tracking_site_key**](ConversionsApi.md#rotate_tracking_site_key) | **POST** /v1/tracking-sites/{siteId}/rotate-key | Rotate a tracking site's key
 [**send_conversions**](ConversionsApi.md#send_conversions) | **POST** /v1/ads/conversions | Send conversion events
 [**send_events**](ConversionsApi.md#send_events) | **POST** /v1/events | Send events to every destination
 [**update_ad_conversion_destination**](ConversionsApi.md#update_ad_conversion_destination) | **PATCH** /v1/ads/conversions/destinations/{destinationId} | Update a conversion destination
@@ -49,6 +54,7 @@ Method | HTTP request | Description
 [**update_conversion_destination**](ConversionsApi.md#update_conversion_destination) | **PATCH** /v1/accounts/{accountId}/conversion-destinations/{destinationId} | Update a conversion destination
 [**update_custom_conversion_goal**](ConversionsApi.md#update_custom_conversion_goal) | **PATCH** /v1/ads/conversions/custom-goals/{goalId} | Update a custom conversion goal
 [**update_forwarding_rule**](ConversionsApi.md#update_forwarding_rule) | **PATCH** /v1/events/forwarding-rules/{ruleId} | Change a forwarding rule's API secret
+[**update_tracking_site**](ConversionsApi.md#update_tracking_site) | **PATCH** /v1/tracking-sites/{siteId} | Update a tracking site
 
 
 
@@ -356,6 +362,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## create_tracking_site
+
+> models::CreateTrackingSite201Response create_tracking_site(idempotency_key, create_tracking_site_request)
+Turn on server-side tracking for a website
+
+Creates a tracking site. With `storeAccountId`, Zernio installs its tag on the connected Shopify, WordPress (WooCommerce), Wix or Webflow store. With only `url`, paste the returned `install.snippet` into the site.  The ad accounts you picked for each connection get a forwarding rule, so website conversions reach them at once. `checks` shows each step; `setup.status` turns `ready` when all have passed. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**idempotency_key** | **String** | A unique key per site you create, such as a UUID. A retry with the same key and body returns the same site. | [required] |
+**create_tracking_site_request** | [**CreateTrackingSiteRequest**](CreateTrackingSiteRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateTrackingSite201Response**](createTrackingSite_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## delete_ad_conversion_destination
 
 > delete_ad_conversion_destination(account_id, destination_id, ad_account_id)
@@ -467,6 +504,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::DeleteSmsSenderId200Response**](deleteSmsSenderId_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_tracking_site
+
+> delete_tracking_site(site_id)
+Delete a tracking site
+
+Stops collecting at once, removes the tag from the connected store and releases the custom subdomain. Events already stored are kept.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**site_id** | **String** |  | [required] |
+
+### Return type
+
+ (empty response body)
 
 ### Authorization
 
@@ -693,6 +760,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetEventsOverview200Response**](getEventsOverview_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_tracking_site
+
+> models::CreateTrackingSite201Response get_tracking_site(site_id)
+Get a tracking site
+
+One site, with its snippet, its custom subdomain and the latest result of each setup check.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**site_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::CreateTrackingSite201Response**](createTrackingSite_201_response.md)
 
 ### Authorization
 
@@ -1056,6 +1153,38 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_tracking_sites
+
+> models::ListTrackingSites200Response list_tracking_sites(profile_id, limit, cursor)
+List tracking sites
+
+The websites whose visits and conversions Zernio collects, newest first. Pass `profileId` to list one profile's sites.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**profile_id** | Option<**String**> |  |  |
+**limit** | Option<**i32**> |  |  |[default to 50]
+**cursor** | Option<**String**> | `pagination.nextCursor` from the previous page. |  |
+
+### Return type
+
+[**models::ListTrackingSites200Response**](listTrackingSites_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## remove_ad_conversion_associations
 
 > models::RemoveAdConversionAssociations200Response remove_ad_conversion_associations(account_id, destination_id, ad_account_id, campaign_ids)
@@ -1204,6 +1333,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::RetractEvent200Response**](retractEvent_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## rotate_tracking_site_key
+
+> models::CreateTrackingSite201Response rotate_tracking_site_key(site_id, idempotency_key)
+Rotate a tracking site's key
+
+Issues a new `siteKey`. The old key keeps working for 7 days, so update the snippet on your site within that time.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**site_id** | **String** |  | [required] |
+**idempotency_key** | **String** | A unique key per rotation, such as a UUID. | [required] |
+
+### Return type
+
+[**models::CreateTrackingSite201Response**](createTrackingSite_201_response.md)
 
 ### Authorization
 
@@ -1451,6 +1611,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::CreateForwardingRule201Response**](createForwardingRule_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_tracking_site
+
+> models::CreateTrackingSite201Response update_tracking_site(site_id, update_tracking_site_request)
+Update a tracking site
+
+Changes the site's name, domains, consent mode or custom subdomain. Send at least one field.  `customHostname` sets a subdomain of the site, such as `t.brand.com`; create the CNAME in `customHostname.dnsRecord`. The snippet switches to it once its status is `active`. `null` removes it. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**site_id** | **String** |  | [required] |
+**update_tracking_site_request** | [**UpdateTrackingSiteRequest**](UpdateTrackingSiteRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateTrackingSite201Response**](createTrackingSite_201_response.md)
 
 ### Authorization
 
