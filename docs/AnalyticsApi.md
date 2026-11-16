@@ -1135,7 +1135,7 @@ Returns channel-scoped aggregate metrics from YouTube Analytics API v2. Saves yo
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** | The Zernio SocialAccount ID for the YouTube account. | [required] |
-**metrics** | Option<**String**> | Comma-separated list. Defaults to \"views,estimatedMinutesWatched,subscribersGained,subscribersLost\".  Live YouTube Analytics v2 metrics:   - views   - estimatedMinutesWatched   - averageViewDuration          (ratio - weighted mean computed across days)   - subscribersGained   - subscribersLost  Zernio-synthesized from daily follower snapshots (cross-platform parity):   - followers_gained   - followers_lost  |  |
+**metrics** | Option<**String**> | Comma-separated list. Defaults to \"views,estimatedMinutesWatched,subscribersGained,subscribersLost\".  Live YouTube Analytics v2 metrics:   - views   - estimatedMinutesWatched   - averageViewDuration          (ratio - weighted mean computed across days)   - subscribersGained   - subscribersLost   - likes   - comments   - shares  Zernio-synthesized from daily follower snapshots (cross-platform parity):   - followers_gained   - followers_lost  |  |
 **from_date** | Option<**String**> | Start date (YYYY-MM-DD). Defaults to 30 days ago. |  |
 **to_date** | Option<**String**> | End date (YYYY-MM-DD). Defaults to today. YouTube Analytics has a 2-3 day delay, so the fetch is internally clamped to 3 days ago; any requested range extending beyond that returns zero values for the tail days. The response's dateRange.until field reflects your requested value.  |  |
 **since** | Option<**String**> | Alias of fromDate, kept for existing callers |  |
