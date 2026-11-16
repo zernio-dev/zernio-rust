@@ -504,10 +504,10 @@ This endpoint does not need any parameter.
 
 ## list_voice_calls
 
-> models::ListVoiceCalls200Response list_voice_calls(status, direction, number, before, limit)
+> models::ListVoiceCalls200Response list_voice_calls(status, direction, number, before, limit, profile_id, external_id)
 List phone calls
 
-Your PSTN voice calls (inbound + outbound), newest first. Cursor pagination: pass the returned `nextCursor` as `before` for the next page. For a history that also includes WhatsApp calls, use `GET /v1/calls`. 
+Your PSTN voice calls (inbound + outbound), newest first. Cursor pagination: pass the returned `nextCursor` as `before` for the next page. For a history that also includes WhatsApp calls, use `GET /v1/calls`.  `profileId` or `externalId` lists one profile's calls: a call belongs to the profile of the account (number) it was placed on.  A profile-scoped API key or member only ever lists its own profiles' calls, with or without a filter (since 1.630.0). Full-access keys and sessions list the whole team's. 
 
 ### Parameters
 
@@ -519,6 +519,8 @@ Name | Type | Description  | Required | Notes
 **number** | Option<**String**> | Exact filter: calls involving this number (typically one of your DIDs). E.164, leading + optional. |  |
 **before** | Option<**String**> |  |  |
 **limit** | Option<**i32**> |  |  |[default to 50]
+**profile_id** | Option<**String**> | Only calls of this profile. Mutually exclusive with `externalId`. 404 when the profile is not in your team or outside a scoped key's profiles. |  |
+**external_id** | Option<**String**> | Same as `profileId`, naming the profile by the `externalId` you set on it. 404 when none of your visible profiles carries it; 400 when two of them do. |  |
 
 ### Return type
 

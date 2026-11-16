@@ -15,6 +15,8 @@ Name | Type | Description | Notes
 **auto_upgrade_enabled** | Option<**bool**> | Stripe-only. Always false for accounts on usage-based billing. | [optional]
 **limits** | Option<[**models::UsageStatsLimits**](UsageStatsLimits.md)> |  | [optional]
 **usage** | Option<[**models::UsageStatsUsage**](UsageStatsUsage.md)> |  | [optional]
+**profiles** | Option<[**Vec<models::UsageStatsProfilesInner>**](UsageStatsProfilesInner.md)> | Profile-scoped API keys and members only, without a filter: one block per profile the caller can see, shaped like `profile`. | [optional]
+**profile** | Option<[**models::UsageStatsProfile**](UsageStatsProfile.md)> |  | [optional]
 **spend** | Option<[**models::UsageStatsSpend**](UsageStatsSpend.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

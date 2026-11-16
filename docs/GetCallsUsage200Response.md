@@ -6,7 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **since** | Option<**String**> |  | [optional]
 **until** | Option<**String**> |  | [optional]
-**group_by** | Option<**GroupBy**> |  (enum: day, number, channel, ) | [optional]
+**group_by** | Option<**GroupBy**> |  (enum: day, number, channel, profile, ) | [optional]
+**profile** | Option<[**models::UsageProfileRef**](UsageProfileRef.md)> | Present with `profileId` / `externalId`: the profile the figures are scoped to. | [optional]
 **totals** | Option<[**models::GetCallsUsage200ResponseTotals**](GetCallsUsage200ResponseTotals.md)> |  | [optional]
 **groups** | Option<[**Vec<models::GetCallsUsage200ResponseGroupsInner>**](GetCallsUsage200ResponseGroupsInner.md)> | Present (possibly empty) when `groupBy` is set. | [optional]
 

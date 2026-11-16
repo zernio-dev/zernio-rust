@@ -4,7 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**key** | Option<**String**> | The group key: a `YYYY-MM-DD` UTC day, one of your numbers, or a channel. | [optional]
+**key** | Option<**String**> | The group key: a `YYYY-MM-DD` UTC day, one of your numbers, a channel, or a profile id. | [optional]
+**profile_id** | Option<**String**> | With `groupBy=profile` only: the profile id (same as `key`). | [optional]
+**external_id** | Option<**String**> | With `groupBy=profile` only: the externalId set on the profile, null when it has none. | [optional]
 **calls** | Option<**i32**> |  | [optional]
 **answered** | Option<**i32**> |  | [optional]
 **minutes** | Option<**f64**> |  | [optional]
