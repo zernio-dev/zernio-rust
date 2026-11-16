@@ -93,6 +93,7 @@ docs/AdRuleLevel.md
 docs/AdRuleLifecycle.md
 docs/AdRuleObjectEvaluation.md
 docs/AdRuleObjectEvaluationConditionsInner.md
+docs/AdRuleObjectEvaluationReadingsInner.md
 docs/AdRuleRun.md
 docs/AdRuleRunEvaluation.md
 docs/AdRuleRunEvaluationActionsInner.md
@@ -2605,6 +2606,10 @@ docs/ProductSeo.md
 docs/ProductVariant.md
 docs/ProductsApi.md
 docs/Profile.md
+docs/ProfileCallLimit.md
+docs/ProfileCallLimitsResponse.md
+docs/ProfileCallLimitsResponseProfile.md
+docs/ProfileCallLimitsResponseTeam.md
 docs/ProfileCreateResponse.md
 docs/ProfileDeleteResponse.md
 docs/ProfileGetResponse.md
@@ -4029,6 +4034,7 @@ src/models/ad_rule_level.rs
 src/models/ad_rule_lifecycle.rs
 src/models/ad_rule_object_evaluation.rs
 src/models/ad_rule_object_evaluation_conditions_inner.rs
+src/models/ad_rule_object_evaluation_readings_inner.rs
 src/models/ad_rule_run.rs
 src/models/ad_rule_run_evaluation.rs
 src/models/ad_rule_run_evaluation_actions_inner.rs
@@ -6491,6 +6497,10 @@ src/models/product_options_inner.rs
 src/models/product_seo.rs
 src/models/product_variant.rs
 src/models/profile.rs
+src/models/profile_call_limit.rs
+src/models/profile_call_limits_response.rs
+src/models/profile_call_limits_response_profile.rs
+src/models/profile_call_limits_response_team.rs
 src/models/profile_create_response.rs
 src/models/profile_delete_response.rs
 src/models/profile_get_response.rs

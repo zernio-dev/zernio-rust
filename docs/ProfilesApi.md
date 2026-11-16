@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**create_profile**](ProfilesApi.md#create_profile) | **POST** /v1/profiles | Create profile
 [**delete_profile**](ProfilesApi.md#delete_profile) | **DELETE** /v1/profiles/{profileId} | Delete profile
 [**get_profile**](ProfilesApi.md#get_profile) | **GET** /v1/profiles/{profileId} | Get profile
+[**get_profile_limits**](ProfilesApi.md#get_profile_limits) | **GET** /v1/profiles/{profileId}/limits | Get profile call limits
 [**list_profiles**](ProfilesApi.md#list_profiles) | **GET** /v1/profiles | List profiles
 [**update_profile**](ProfilesApi.md#update_profile) | **PUT** /v1/profiles/{profileId} | Update profile
 
@@ -103,6 +104,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_profile_limits
+
+> models::ProfileCallLimitsResponse get_profile_limits(profile_id)
+Get profile call limits
+
+Returns every voice call limit that applies to calls on this profile's numbers: the profile's own limits (set with `maxOutboundCallsPerHour`, `maxDailyCallSpendUsd` and `maxForwardedMinutesPerDay` on the profile) and the team limits they sit inside.  Each entry has the limit, what is used in its window and what remains. Spend entries are in billed USD, the unit `maxDailyCallSpendUsd` uses.  A null `limit` (and `remaining`) means the profile sets no limit there; only the team limits apply. Past any limit an outbound call returns 429 `call_limit_reached` and a forward to a phone goes to voicemail. A profile-scoped API key can read its own profile. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**profile_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::ProfileCallLimitsResponse**](ProfileCallLimitsResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_profiles
 
 > models::ProfilesListResponse list_profiles(include_over_limit, name, external_id, limit, skip)
@@ -142,7 +173,7 @@ Name | Type | Description  | Required | Notes
 > models::ProfileUpdateResponse update_profile(profile_id, update_profile_request)
 Update profile
 
-Updates a profile's name, description, color, default timezone, externalId, default status, or zero content retention.
+Updates a profile's name, description, color, default timezone, externalId, default status, zero content retention, or call limits.
 
 ### Parameters
 
