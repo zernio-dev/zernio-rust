@@ -226,7 +226,7 @@ Name | Type | Description  | Required | Notes
 
 ## complete_whats_app_phone_selection
 
-> models::CompleteWhatsAppPhoneSelection200Response complete_whats_app_phone_selection(complete_whats_app_phone_selection_request, x_connect_token)
+> models::CompleteWhatsAppPhoneSelection200Response complete_whats_app_phone_selection(complete_whats_app_phone_selection_request, x_connect_token, x_temp_token)
 Complete number selection
 
 Bind a specific WhatsApp phone number to the Zernio profile after the user picks one from `listWhatsAppPhoneNumbers`. Exchanges the short-lived OAuth token for a long-lived token, subscribes the WABA to webhooks, and creates the SocialAccount. 
@@ -238,6 +238,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **complete_whats_app_phone_selection_request** | [**CompleteWhatsAppPhoneSelectionRequest**](CompleteWhatsAppPhoneSelectionRequest.md) |  | [required] |
 **x_connect_token** | Option<**String**> | Alternative auth for API users' end customers |  |
+**x_temp_token** | Option<**String**> | The OAuth user token, in place of the tempToken query parameter. Prefer it: a query string is written to request logs along the way. |  |
 
 ### Return type
 
@@ -2267,7 +2268,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_whats_app_phone_numbers
 
-> models::ListWhatsAppPhoneNumbers200Response list_whats_app_phone_numbers(profile_id, temp_token, x_connect_token)
+> models::ListWhatsAppPhoneNumbers200Response list_whats_app_phone_numbers(profile_id, temp_token, x_temp_token, connect_flow, x_connect_token)
 List numbers for selection
 
 Fetch the WhatsApp phone numbers available across the user's WhatsApp Business Accounts (WABAs) after a headless OAuth flow.  WhatsApp OAuth grants access at the WABA level. When a connected WABA has 2 or more phone numbers, you must call this endpoint to list them and then `POST /v1/connect/whatsapp/select-phone-number` to bind one to the Zernio profile. Single-phone WABAs auto-complete during the OAuth callback and never reach this endpoint.  Use the `profileId` and `tempToken` returned in the headless redirect (`step=select_phone_number`).  Alternative: if you already know `wabaId` and `phoneNumberId` (e.g. from Meta Business Suite), use `connectWhatsAppCredentials` instead, which skips this two-step flow. 
@@ -2278,7 +2279,9 @@ Fetch the WhatsApp phone numbers available across the user's WhatsApp Business A
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **profile_id** | **String** | The Zernio profile ID from the headless redirect | [required] |
-**temp_token** | **String** | The temporary access token from the headless redirect | [required] |
+**temp_token** | Option<**String**> | The temporary access token from the headless redirect. Required unless sent in the X-Temp-Token header. |  |
+**x_temp_token** | Option<**String**> | The OAuth user token, in place of the tempToken query parameter. Prefer it: a query string is written to request logs along the way. |  |
+**connect_flow** | Option<**String**> | Set by the Zernio-hosted picker, whose user token stays in an httpOnly cookie. Integrators send tempToken instead. |  |
 **x_connect_token** | Option<**String**> | Alternative auth for API users' end customers (used when the bearer token is scoped to a different user) |  |
 
 ### Return type
