@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **shares** | Option<**i32**> |  | [optional]
 **follows** | Option<**i32**> |  | [optional]
 **profile_visits** | Option<**i32**> |  | [optional]
+**link_clicks** | Option<**i32**> | Taps on links in the story (the link sticker). Facebook Login accounts only; always 0 for Instagram Login accounts. Taps on other stickers (mentions, hashtags, locations) are not reported by Meta. | [optional]
 **last_updated** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

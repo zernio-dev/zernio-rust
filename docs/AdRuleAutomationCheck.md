@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **id** | **String** |  | 
 **automation_id** | **String** |  | 
 **checked_at** | **String** |  | 
-**outcome** | **Outcome** |  (enum: triggered, cooldown, no_match, failed) | 
+**outcome** | **Outcome** |  (enum: triggered, cooldown, daily_limit, no_match, failed, paused) | 
 **evaluated** | **i32** | Objects judged. | 
 **subjects** | [**Vec<models::AdRuleAutomationCheckSubjectsInner>**](AdRuleAutomationCheckSubjectsInner.md) |  | 
 **actions** | [**Vec<models::AdRuleAutomationCheckActionsInner>**](AdRuleAutomationCheckActionsInner.md) |  | 
