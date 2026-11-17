@@ -3756,6 +3756,8 @@ pub mod hide_inbox_comment_request;
 pub use self::hide_inbox_comment_request::HideInboxCommentRequest;
 pub mod hub_spot_settings;
 pub use self::hub_spot_settings::HubSpotSettings;
+pub mod hub_spot_settings_sync_issue;
+pub use self::hub_spot_settings_sync_issue::HubSpotSettingsSyncIssue;
 pub mod ids;
 pub use self::ids::Ids;
 pub mod imap_connect_result;

@@ -1926,6 +1926,7 @@ docs/HideAdCommentRequest.md
 docs/HideInboxComment200Response.md
 docs/HideInboxCommentRequest.md
 docs/HubSpotSettings.md
+docs/HubSpotSettingsSyncIssue.md
 docs/IMessageApi.md
 docs/Ids.md
 docs/ImapConnectResult.md
@@ -5851,6 +5852,7 @@ src/models/hide_ad_comment_request.rs
 src/models/hide_inbox_comment_200_response.rs
 src/models/hide_inbox_comment_request.rs
 src/models/hub_spot_settings.rs
+src/models/hub_spot_settings_sync_issue.rs
 src/models/ids.rs
 src/models/imap_connect_result.rs
 src/models/imap_connect_result_account.rs
