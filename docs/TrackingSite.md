@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **site_key** | Option<**String**> | Public key that names the site in the snippet, such as `zs_...`. | [optional]
 **domains** | Option<**Vec<String>**> |  | [optional]
 **custom_hostname** | Option<[**models::TrackingSiteCustomHostname**](TrackingSiteCustomHostname.md)> |  | [optional]
+**proxy** | Option<[**models::TrackingSiteProxy**](TrackingSiteProxy.md)> |  | [optional]
 **consent_mode** | Option<[**models::TrackingSiteConsentMode**](TrackingSiteConsentMode.md)> |  | [optional]
 **checks** | Option<[**Vec<models::TrackingSiteChecksInner>**](TrackingSiteChecksInner.md)> | One per setup step: `script` for the install, then one per ad account the site sends to, keyed by its platform and ids. | [optional]
 **setup** | Option<[**models::TrackingSiteSetup**](TrackingSiteSetup.md)> |  | [optional]

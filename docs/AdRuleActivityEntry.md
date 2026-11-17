@@ -11,8 +11,8 @@ Name | Type | Description | Notes
 **platform** | **String** |  | 
 **account_id** | **String** | The ads connection the rule runs on. | 
 **ad_account_id** | **String** |  | 
-**level** | **Level** |  (enum: campaign, adset) | 
-**object_id** | **String** | Platform ID of the campaign or ad set. | 
+**level** | **Level** |  (enum: campaign, adset, ad, keyword, search_term) | 
+**object_id** | **String** | Platform ID of the campaign, ad set or ad. A keyword is `{adGroupId}~{criterionId}`. | 
 **object_name** | Option<**String**> | Its name when the rule acted. | 
 **r#type** | **Type** |  (enum: pause, activate, adjust_budget, adjust_bid, adjust_target, reallocate_budget, duplicate, edit_name) | 
 **status** | **Status** |  (enum: done, skipped, failed) | 

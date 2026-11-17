@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**delete_ad_rule**](AdRulesApi.md#delete_ad_rule) | **DELETE** /v1/ads/rules/{ruleId} | Delete an ad rule
 [**get_ad_rule**](AdRulesApi.md#get_ad_rule) | **GET** /v1/ads/rules/{ruleId} | Get an ad rule
 [**get_ad_rule_hourly_windows**](AdRulesApi.md#get_ad_rule_hourly_windows) | **GET** /v1/ads/rules/hourly-windows | Check whether an ad account has hourly windows
+[**list_ad_account_rule_alerts**](AdRulesApi.md#list_ad_account_rule_alerts) | **GET** /v1/ads/rules/alerts | List an ad account's open alerts
 [**list_ad_rule_activity**](AdRulesApi.md#list_ad_rule_activity) | **GET** /v1/ads/rules/activity | List every change ad rules made
 [**list_ad_rule_alerts**](AdRulesApi.md#list_ad_rule_alerts) | **GET** /v1/ads/rules/{ruleId}/alerts | List a rule's alerts
 [**list_ad_rule_runs**](AdRulesApi.md#list_ad_rule_runs) | **GET** /v1/ads/rules/{ruleId}/runs | List an ad rule's runs
@@ -24,7 +25,7 @@ Method | HTTP request | Description
 > models::CreateAdRule201Response create_ad_rule(create_ad_rule_request)
 Create an ad rule
 
-Creates a rule that checks the campaigns, ad sets, ads, keywords or search terms of one ad account on a schedule and acts on each one that meets every condition.  Rules support Meta, Google, TikTok, LinkedIn, Pinterest, X and Reddit ads connections. Keyword and search term rules are Google only. Use `POST /v1/ads/rules/{ruleId}/preview` to see what a rule would match before enabling it.  ### Evaluation  Each object is evaluated on its own, over the ad account's calendar days. Campaigns, ad sets and ads read the metrics Zernio syncs; keywords and search terms are summed from the daily history Zernio keeps of them.  ### Actions  A rule can notify (the `ad_rule.triggered` webhook), and take at most one of:  - `pause` - `activate` - `adjust_budget`  A keyword rule can notify and pause; a search term rule only notifies.  ### Cooldown  After acting on an object, the rule leaves that object alone for `cooldownMinutes`. A rule that pauses, activates or adjusts budgets needs a cooldown at least as long as its schedule.  ### How `activate` works  `activate` only reactivates objects a rule paused, never ones you paused yourself, and only once the cooldown has passed since that pause.  If you reactivate and pause such an object yourself between two runs of a rule, Zernio cannot tell your pause from the rule's, and an `activate` rule may reactivate it. 
+Creates a rule that checks the campaigns, ad sets, ads, keywords or search terms of one ad account on a schedule and acts on each one that meets every condition.  Rules support Meta, Google, TikTok, LinkedIn, Pinterest, X and Reddit ads connections. Keyword and search term rules are Google only. Use `POST /v1/ads/rules/{ruleId}/preview` to see what a rule would match before enabling it.  ### Evaluation  Each object is evaluated on its own, over the ad account's calendar days. Campaigns, ad sets and ads read the metrics Zernio syncs; keywords and search terms are summed from the daily history Zernio keeps of them.  ### Actions  A rule can notify (the `ad_rule.triggered` webhook), and take at most one of:  - `pause` - `activate` - `adjust_budget` - `adjust_bid` - `adjust_target` - `reallocate_budget` - `duplicate` - `edit_name`  A keyword rule can notify and pause; a search term rule only notifies.  ### Cooldown  After acting on an object, the rule leaves that object alone for `cooldownMinutes`. A rule that changes ads (any action but `notify`) needs a cooldown at least as long as its schedule.  ### How `activate` works  `activate` only reactivates objects a rule paused, never ones you paused yourself (unless `includeManuallyPaused` is true), and only once the cooldown has passed since that pause.  A rule on set times (`schedule.times`) does not wait for the cooldown: it restarts only what a rule on set times paused, such as a morning restart after a night pause.  If you reactivate and pause such an object yourself between two runs of a rule, Zernio cannot tell your pause from the rule's, and an `activate` rule may reactivate it. 
 
 ### Parameters
 
@@ -140,12 +141,45 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_ad_account_rule_alerts
+
+> models::ListAdAccountRuleAlerts200Response list_ad_account_rule_alerts(account_id, ad_account_id, limit, cursor)
+List an ad account's open alerts
+
+The open alerts of every rule of one ad account, newest first, in one call: each alert names its rule in `ruleId`. Only `open` alerts are listed. For one rule's pending and resolved alerts, use `GET /v1/ads/rules/{ruleId}/alerts`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The connected ads account the rules run on. | [required] |
+**ad_account_id** | **String** | The platform ad account ID. | [required] |
+**limit** | Option<**i32**> |  |  |[default to 50]
+**cursor** | Option<**String**> | `nextCursor` from the previous page. |  |
+
+### Return type
+
+[**models::ListAdAccountRuleAlerts200Response**](listAdAccountRuleAlerts_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_ad_rule_activity
 
 > models::ListAdRuleActivity200Response list_ad_rule_activity(rule_id, account_id, r#type, from, to, limit, cursor)
 List every change ad rules made
 
-The permanent record of what your rules did: one entry per pause, reactivation or budget change (including skipped and failed attempts), newest first, across all rules of the profiles the key can reach. Entries stay after a rule is renamed or deleted; `ruleName` is the rule's name when it acted. 
+What your rules did over the last 31 days, newest first, across all rules of the profiles the key can reach.  There is one entry per change a rule made or tried: pause, reactivation, budget, bid or target change, copy or name tag. Skipped and failed attempts are included.  Entries stay for those 31 days after a rule is renamed or deleted; `ruleName` is the rule's name when it acted. 
 
 ### Parameters
 
@@ -214,7 +248,7 @@ Name | Type | Description  | Required | Notes
 > models::ListAdRuleRuns200Response list_ad_rule_runs(rule_id, limit, skip)
 List an ad rule's runs
 
-Lists a rule's scheduled runs, newest first: what each run evaluated, matched and did. Runs that changed something (or tried to) are kept permanently, also after the rule is deleted; runs that changed nothing are dropped after about 31 days. For every change across all rules, use `GET /v1/ads/rules/activity`. 
+Lists a rule's scheduled runs, newest first: what each run evaluated, matched and did. A run that matched nothing or did not happen (`no_match`, `paused`) is kept 7 days, any other run 31 days. For every change across all rules, use `GET /v1/ads/rules/activity`. 
 
 ### Parameters
 

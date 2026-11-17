@@ -1703,6 +1703,8 @@ docs/GetRedditFlairs200ResponseFlairsInner.md
 docs/GetRedditPostComments200Response.md
 docs/GetRedditSubreddits200Response.md
 docs/GetRedditSubreddits200ResponseSubredditsInner.md
+docs/GetSalesforceConnectUrl200Response.md
+docs/GetSalesforceSettings200Response.md
 docs/GetSequence200Response.md
 docs/GetSequence200ResponseSequence.md
 docs/GetSequence200ResponseSequenceStepsInner.md
@@ -2064,6 +2066,8 @@ docs/ListAccountSitelinks200Response.md
 docs/ListAccountSitelinks200ResponseSitelinksInner.md
 docs/ListAccountStructuredSnippets200Response.md
 docs/ListAccountStructuredSnippets200ResponseStructuredSnippetsInner.md
+docs/ListAdAccountRuleAlerts200Response.md
+docs/ListAdAccountRuleAlerts200ResponseAlertsInner.md
 docs/ListAdAccountUserInvitationApprovals200Response.md
 docs/ListAdAccountUserInvitations200Response.md
 docs/ListAdAccountUsers200Response.md
@@ -2807,6 +2811,8 @@ docs/RunGoogleAnalyticsRealtimeReportRequest.md
 docs/RunGoogleAnalyticsRealtimeReportRequestAllOfMinuteRangesInner.md
 docs/RunGoogleAnalyticsReportRequest.md
 docs/RunGoogleAnalyticsReportRequestAllOfDateRangesInner.md
+docs/SalesforceSettings.md
+docs/SalesforceSettingsSyncIssue.md
 docs/SavedTargetingAudience.md
 docs/ScheduleBroadcast200Response.md
 docs/ScheduleBroadcast200ResponseBroadcast.md
@@ -3110,6 +3116,7 @@ docs/TrackingSiteCustomHostname.md
 docs/TrackingSiteCustomHostnameDnsRecord.md
 docs/TrackingSiteInstall.md
 docs/TrackingSitePeriodTotals.md
+docs/TrackingSiteProxy.md
 docs/TrackingSiteSetup.md
 docs/TrackingTag.md
 docs/TrackingTagDiagnostic.md
@@ -3389,6 +3396,8 @@ docs/UpdateProfileRequest.md
 docs/UpdateQueueSlotRequest.md
 docs/UpdateRcsAgentRequest.md
 docs/UpdateRedditSubredditsRequest.md
+docs/UpdateSalesforceSettings200Response.md
+docs/UpdateSalesforceSettingsRequest.md
 docs/UpdateSequence200Response.md
 docs/UpdateSequence200ResponseSequence.md
 docs/UpdateSequenceRequest.md
@@ -5627,6 +5636,8 @@ src/models/get_reddit_flairs_200_response_flairs_inner.rs
 src/models/get_reddit_post_comments_200_response.rs
 src/models/get_reddit_subreddits_200_response.rs
 src/models/get_reddit_subreddits_200_response_subreddits_inner.rs
+src/models/get_salesforce_connect_url_200_response.rs
+src/models/get_salesforce_settings_200_response.rs
 src/models/get_sequence_200_response.rs
 src/models/get_sequence_200_response_sequence.rs
 src/models/get_sequence_200_response_sequence_steps_inner.rs
@@ -5973,6 +5984,8 @@ src/models/list_account_sitelinks_200_response.rs
 src/models/list_account_sitelinks_200_response_sitelinks_inner.rs
 src/models/list_account_structured_snippets_200_response.rs
 src/models/list_account_structured_snippets_200_response_structured_snippets_inner.rs
+src/models/list_ad_account_rule_alerts_200_response.rs
+src/models/list_ad_account_rule_alerts_200_response_alerts_inner.rs
 src/models/list_ad_account_user_invitation_approvals_200_response.rs
 src/models/list_ad_account_user_invitations_200_response.rs
 src/models/list_ad_account_users_200_response.rs
@@ -6702,6 +6715,8 @@ src/models/run_google_analytics_realtime_report_request.rs
 src/models/run_google_analytics_realtime_report_request_all_of_minute_ranges_inner.rs
 src/models/run_google_analytics_report_request.rs
 src/models/run_google_analytics_report_request_all_of_date_ranges_inner.rs
+src/models/salesforce_settings.rs
+src/models/salesforce_settings_sync_issue.rs
 src/models/saved_targeting_audience.rs
 src/models/schedule_broadcast_200_response.rs
 src/models/schedule_broadcast_200_response_broadcast.rs
@@ -7001,6 +7016,7 @@ src/models/tracking_site_custom_hostname.rs
 src/models/tracking_site_custom_hostname_dns_record.rs
 src/models/tracking_site_install.rs
 src/models/tracking_site_period_totals.rs
+src/models/tracking_site_proxy.rs
 src/models/tracking_site_setup.rs
 src/models/tracking_tag.rs
 src/models/tracking_tag_diagnostic.rs
@@ -7277,6 +7293,8 @@ src/models/update_profile_request.rs
 src/models/update_queue_slot_request.rs
 src/models/update_rcs_agent_request.rs
 src/models/update_reddit_subreddits_request.rs
+src/models/update_salesforce_settings_200_response.rs
+src/models/update_salesforce_settings_request.rs
 src/models/update_sequence_200_response.rs
 src/models/update_sequence_200_response_sequence.rs
 src/models/update_sequence_request.rs

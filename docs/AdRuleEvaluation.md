@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **currency** | Option<**String**> |  | 
 **hourly_through** | Option<**String**> | Where the hourly windows (`last_complete_hour`, `last_3h`, `today_so_far`) ended: the end of the latest hour a sync has settled. Null when the rule has none or they could not be read. | [optional]
 **matched** | **i32** | How many objects meet every condition. | 
-**objects** | [**Vec<models::AdRuleObjectEvaluation>**](AdRuleObjectEvaluation.md) | Every delivering campaign or ad set in scope (for an `activate` rule, the rule-paused ones it may reactivate). | 
+**objects** | [**Vec<models::AdRuleObjectEvaluation>**](AdRuleObjectEvaluation.md) | Every delivering campaign, ad set or ad in scope, or every serving keyword and listed search term (for an `activate` rule, the rule-paused objects it may reactivate). | 
 **groups** | Option<[**Vec<models::AdRuleEvaluationGroupsInner>**](AdRuleEvaluationGroupsInner.md)> | Each group's totals, for a rule with groups. Null otherwise. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

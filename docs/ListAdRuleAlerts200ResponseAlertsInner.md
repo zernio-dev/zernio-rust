@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
-**object_id** | **String** | Platform campaign, ad set or ad ID. | 
+**object_id** | **String** | Platform campaign, ad set or ad ID, or the id of the keyword or search term. | 
 **state** | **State** |  (enum: pending, open, resolved) | 
 **severity** | Option<**Severity**> |  (enum: warning, critical, ) | 
 **consecutive_matches** | **i32** |  | 

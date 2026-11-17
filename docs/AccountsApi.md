@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**get_follower_stats**](AccountsApi.md#get_follower_stats) | **GET** /v1/accounts/follower-stats | Get follower stats
 [**get_hub_spot_settings**](AccountsApi.md#get_hub_spot_settings) | **GET** /v1/accounts/{accountId}/hubspot-settings | Get HubSpot account settings
 [**get_instagram_follow_status**](AccountsApi.md#get_instagram_follow_status) | **GET** /v1/accounts/{accountId}/follow-status/{userId} | Check whether an Instagram user follows the account
+[**get_salesforce_settings**](AccountsApi.md#get_salesforce_settings) | **GET** /v1/accounts/{accountId}/salesforce-settings | Get Salesforce account settings
 [**get_slack_settings**](AccountsApi.md#get_slack_settings) | **GET** /v1/accounts/{accountId}/slack-settings | Get Slack account settings
 [**get_stripe_settings**](AccountsApi.md#get_stripe_settings) | **GET** /v1/accounts/{accountId}/stripe-settings | Get Stripe account settings
 [**get_tik_tok_creator_info**](AccountsApi.md#get_tik_tok_creator_info) | **GET** /v1/accounts/{accountId}/tiktok/creator-info | Get TikTok creator info
@@ -25,6 +26,7 @@ Method | HTTP request | Description
 [**update_account**](AccountsApi.md#update_account) | **PUT** /v1/accounts/{accountId} | Update account
 [**update_bluesky_settings**](AccountsApi.md#update_bluesky_settings) | **PATCH** /v1/accounts/{accountId}/bluesky-settings | Update Bluesky account settings
 [**update_hub_spot_settings**](AccountsApi.md#update_hub_spot_settings) | **PATCH** /v1/accounts/{accountId}/hubspot-settings | Update HubSpot account settings
+[**update_salesforce_settings**](AccountsApi.md#update_salesforce_settings) | **PATCH** /v1/accounts/{accountId}/salesforce-settings | Update Salesforce account settings
 [**update_slack_settings**](AccountsApi.md#update_slack_settings) | **PATCH** /v1/accounts/{accountId}/slack-settings | Update Slack account settings
 [**update_stripe_settings**](AccountsApi.md#update_stripe_settings) | **PATCH** /v1/accounts/{accountId}/stripe-settings | Update Stripe account settings
 
@@ -280,6 +282,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_salesforce_settings
+
+> models::GetSalesforceSettings200Response get_salesforce_settings(account_id)
+Get Salesforce account settings
+
+Read a connected Salesforce org and what Zernio syncs to it.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::GetSalesforceSettings200Response**](getSalesforceSettings_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_slack_settings
 
 > models::GetSlackSettings200Response get_slack_settings(account_id)
@@ -418,7 +450,7 @@ Name | Type | Description  | Required | Notes
 **platform** | Option<**String**> | Filter accounts by platform (e.g. \"instagram\", \"twitter\"). |  |
 **status** | Option<**String**> | Filter accounts by connection status. `connected` returns healthy accounts; `disconnected` returns accounts that need reconnection (per the same reconnection check surfaced in the dashboard). Omit to return accounts in any status. When combined with page/limit, pagination totals reflect the filtered result set.  |  |
 **search** | Option<**String**> | Case-insensitive match on the account username, display name or platform user id. A 24-character hexadecimal value is read as an account id and matches only that exact account. Combine with page/limit to paginate the matches. |  |
-**category** | Option<**String**> | Only accounts of this kind. ads = ad accounts (Meta, Google, LinkedIn, Pinterest, TikTok, X, OpenAI, Reddit, Microsoft), communication = WhatsApp, Telegram, Discord, Slack, iMessage, LINE and WeChat, blogs = Shopify and WordPress, crm = HubSpot, analytics = Google Analytics, social = every other platform. |  |
+**category** | Option<**String**> | Only accounts of this kind. ads = ad accounts (Meta, Google, LinkedIn, Pinterest, TikTok, X, OpenAI, Reddit, Microsoft), communication = WhatsApp, Telegram, Discord, Slack, iMessage, LINE and WeChat, blogs = Shopify and WordPress, crm = HubSpot and Salesforce, analytics = Google Analytics, social = every other platform. |  |
 **sort** | Option<**String**> | Sort an offset-paginated listing (page and limit) by account name, platform, profile name, status (accounts needing a reconnect first when ascending) or connection date. Ties keep the default order: platform, then newest first. |  |
 **order** | Option<**String**> | Direction for `sort`. |  |[default to asc]
 **include_over_limit** | Option<**bool**> | When true, includes accounts from over-limit profiles. |  |[default to false]
@@ -684,6 +716,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UpdateHubSpotSettings200Response**](updateHubSpotSettings_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_salesforce_settings
+
+> models::UpdateSalesforceSettings200Response update_salesforce_settings(account_id, update_salesforce_settings_request)
+Update Salesforce account settings
+
+Turn person creation, conversation logging or delivery marks on or off for a connected Salesforce org, or choose whether new people become Leads or Contacts. Send at least one field; omitted fields keep their value. Settings survive reconnecting the same org.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** |  | [required] |
+**update_salesforce_settings_request** | [**UpdateSalesforceSettingsRequest**](UpdateSalesforceSettingsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateSalesforceSettings200Response**](updateSalesforceSettings_200_response.md)
 
 ### Authorization
 

@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **has_email** | Option<**bool**> |  | [optional]
 **has_phone** | Option<**bool**> |  | [optional]
 **has_external_id** | Option<**bool**> |  | [optional]
+**paired_event_id** | Option<**String**> | In a `GET /v1/events` page: the other copy of the same conversion, when a website tag (`web`) and a server send both stored it under different event ids (same event name, a shared identifier, at most 30 minutes apart). `null` otherwise, and always `null` from `GET /v1/events/{eventId}`. | [optional]
 **ad** | Option<[**models::StoredEventAd**](StoredEventAd.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
