@@ -2044,7 +2044,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_linked_in_organizations
 
-> models::ListLinkedInOrganizations200Response list_linked_in_organizations(temp_token, org_ids)
+> models::ListLinkedInOrganizations200Response list_linked_in_organizations(org_ids, temp_token, x_temp_token)
 List LinkedIn orgs
 
 Fetch full LinkedIn organization details (logos, vanity names, websites) for custom UI. No authentication required, only the tempToken from OAuth.
@@ -2054,8 +2054,9 @@ Fetch full LinkedIn organization details (logos, vanity names, websites) for cus
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**temp_token** | **String** | The temporary LinkedIn access token from the OAuth redirect | [required] |
 **org_ids** | **String** | Comma-separated list of organization IDs to fetch details for (max 100) | [required] |
+**temp_token** | Option<**String**> | The temporary LinkedIn access token from the OAuth redirect. Required unless sent in the X-Temp-Token header. |  |
+**x_temp_token** | Option<**String**> | The OAuth user token, in place of the tempToken query parameter. Prefer it: a query string is written to request logs along the way. |  |
 
 ### Return type
 

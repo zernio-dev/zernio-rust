@@ -10,6 +10,9 @@
 | AutomationAdFilterOneOf3 | Narrows the ad objects checked, before any metric is read. &#x60;GET /v1/automations/catalog&#x60; lists the fields each subject accepts.  |
 | AutomationAdFilterOneOf4 | Narrows the ad objects checked, before any metric is read. &#x60;GET /v1/automations/catalog&#x60; lists the fields each subject accepts.  |
 | AutomationAdFilterOneOf5 | Narrows the ad objects checked, before any metric is read. &#x60;GET /v1/automations/catalog&#x60; lists the fields each subject accepts.  |
+| AutomationAdFilterOneOf6 | Narrows the ad objects checked, before any metric is read. &#x60;GET /v1/automations/catalog&#x60; lists the fields each subject accepts.  |
+| AutomationAdFilterOneOf7 | Narrows the ad objects checked, before any metric is read. &#x60;GET /v1/automations/catalog&#x60; lists the fields each subject accepts.  |
+| AutomationAdFilterOneOf8 | Narrows the ad objects checked, before any metric is read. &#x60;GET /v1/automations/catalog&#x60; lists the fields each subject accepts.  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

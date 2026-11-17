@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**kind** | **Kind** |  (enum: campaign, adset, ad) | 
+**kind** | **Kind** |  (enum: campaign, adset, ad, keyword, search_term) | 
 **id** | **String** |  | 
 **name** | **String** |  | 
 **campaign_id** | Option<**String**> |  | 

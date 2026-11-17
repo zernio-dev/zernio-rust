@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**each** | Option<**Each**> |  (enum: campaign, adset, ad) | [optional]
+**each** | Option<**Each**> |  (enum: campaign, adset, ad, keyword, search_term) | [optional]
 **platforms** | Option<**Vec<String>**> |  | [optional]
 **metrics** | Option<[**Vec<models::GetAutomationCatalog200ResponseSubjectsInnerMetricsInner>**](GetAutomationCatalog200ResponseSubjectsInnerMetricsInner.md)> |  | [optional]
 **steps** | Option<[**Vec<models::GetAutomationCatalog200ResponseSubjectsInnerStepsInner>**](GetAutomationCatalog200ResponseSubjectsInnerStepsInner.md)> |  | [optional]
