@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **aleid** | Option<**String**> | Axon (AppLovin) click id (the `aleid` URL param Axon adds to ad clicks, kept by its pixel in the `_axeid` cookie). Sent to Axon as `user_data.aleid`, not hashed. | [optional]
 **alart** | Option<**String**> | Axon (AppLovin) attribution token (the `alart` URL param, `_axart` cookie). Sent to Axon as `user_data.alart`, not hashed. | [optional]
 **axwrt** | Option<**String**> | Axon Pixel browser id (the `_axwrt` cookie). Sent to Axon as `user_data.axwrt`, not hashed. | [optional]
+**twclid** | Option<**String**> | X click ID (the `twclid` URL param X adds to ad clicks). Sent to X as a `twclid` identifier, not hashed. | [optional]
+**msclkid** | Option<**String**> | Microsoft Advertising click ID (the `msclkid` URL param Microsoft adds to ad clicks). Sent to Microsoft as `MicrosoftClickId`, not hashed. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

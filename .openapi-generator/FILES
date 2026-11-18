@@ -3155,6 +3155,7 @@ docs/TrackingSiteCustomHostnameDnsRecord.md
 docs/TrackingSiteInstall.md
 docs/TrackingSitePeriodTotals.md
 docs/TrackingSiteProxy.md
+docs/TrackingSiteProxyGoogleTagsInner.md
 docs/TrackingSiteSetup.md
 docs/TrackingTag.md
 docs/TrackingTagDiagnostic.md
@@ -7094,6 +7095,7 @@ src/models/tracking_site_custom_hostname_dns_record.rs
 src/models/tracking_site_install.rs
 src/models/tracking_site_period_totals.rs
 src/models/tracking_site_proxy.rs
+src/models/tracking_site_proxy_google_tags_inner.rs
 src/models/tracking_site_setup.rs
 src/models/tracking_tag.rs
 src/models/tracking_tag_diagnostic.rs

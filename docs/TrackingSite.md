@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **domains** | Option<**Vec<String>**> |  | [optional]
 **custom_hostname** | Option<[**models::TrackingSiteCustomHostname**](TrackingSiteCustomHostname.md)> |  | [optional]
 **proxy** | Option<[**models::TrackingSiteProxy**](TrackingSiteProxy.md)> |  | [optional]
+**google_tag_ids** | Option<**Vec<String>**> | The site's own Google tags (Tag Manager, GA4, Google Ads) its own-domain path relays to Google, so they load and measure from the site's domain. | [optional]
 **consent_mode** | Option<[**models::TrackingSiteConsentMode**](TrackingSiteConsentMode.md)> |  | [optional]
 **checks** | Option<[**Vec<models::TrackingSiteChecksInner>**](TrackingSiteChecksInner.md)> | One per setup step: `script` for the install, then one per ad account the site sends to, keyed by its platform and ids. | [optional]
 **setup** | Option<[**models::TrackingSiteSetup**](TrackingSiteSetup.md)> |  | [optional]

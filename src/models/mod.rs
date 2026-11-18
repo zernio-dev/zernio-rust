@@ -6160,6 +6160,8 @@ pub mod tracking_site_period_totals;
 pub use self::tracking_site_period_totals::TrackingSitePeriodTotals;
 pub mod tracking_site_proxy;
 pub use self::tracking_site_proxy::TrackingSiteProxy;
+pub mod tracking_site_proxy_google_tags_inner;
+pub use self::tracking_site_proxy_google_tags_inner::TrackingSiteProxyGoogleTagsInner;
 pub mod tracking_site_setup;
 pub use self::tracking_site_setup::TrackingSiteSetup;
 pub mod tracking_tag;
