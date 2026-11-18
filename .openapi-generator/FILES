@@ -835,6 +835,10 @@ docs/CreateConversionDestinationRequest.md
 docs/CreateCreatorCampaign201Response.md
 docs/CreateCreatorCampaignRequest.md
 docs/CreateCreatorPayoutLogin200Response.md
+docs/CreateCrmActivity201Response.md
+docs/CreateCrmActivityRequest.md
+docs/CreateCrmContact201Response.md
+docs/CreateCrmContactRequest.md
 docs/CreateCustomConversionGoalRequest.md
 docs/CreateCustomConversionRequest.md
 docs/CreateCustomField200Response.md
@@ -1096,6 +1100,13 @@ docs/CreatorPortalReferralOrdersInner.md
 docs/CreatorPortalReferralTotals.md
 docs/CreatorPortalSample.md
 docs/CreatorPortalSubmission.md
+docs/CrmActivity.md
+docs/CrmApi.md
+docs/CrmContact.md
+docs/CrmContactInput.md
+docs/CrmDeal.md
+docs/CrmNativePropertiesValue.md
+docs/CrmOwner.md
 docs/CrosspostDiscordMessage200Response.md
 docs/CtwaAdRequestBody.md
 docs/CtwaAdRequestBodyCitiesInner.md
@@ -1485,6 +1496,7 @@ docs/GetConversionsQuality200ResponseRowsInner.md
 docs/GetConversionsQuality200ResponseRowsInnerMatchKeysInner.md
 docs/GetCreatorPayouts200Response.md
 docs/GetCreatorPortal200Response.md
+docs/GetCrmDeal200Response.md
 docs/GetDailyMetrics200Response.md
 docs/GetDailyMetrics200ResponseDailyDataInner.md
 docs/GetDailyMetrics200ResponseDailyDataInnerMetrics.md
@@ -2223,6 +2235,8 @@ docs/ListContacts200ResponseFilters.md
 docs/ListContacts200ResponsePagination.md
 docs/ListConversionActions200Response.md
 docs/ListCreatorCampaigns200Response.md
+docs/ListCrmDeals200Response.md
+docs/ListCrmOwners200Response.md
 docs/ListCustomConversionGoals200Response.md
 docs/ListCustomFields200Response.md
 docs/ListCustomFields200ResponseFieldsInner.md
@@ -2836,6 +2850,7 @@ docs/SearchAvailablePhoneNumbers200Response.md
 docs/SearchAvailablePhoneNumbers200ResponseNumbersInner.md
 docs/SearchAvailableWhatsAppNumbers200Response.md
 docs/SearchAvailableWhatsAppNumbers200ResponseNumbersInner.md
+docs/SearchCrmContacts200Response.md
 docs/SearchDiscordGuildMembers200Response.md
 docs/SearchGoogleBusinessLocations200Response.md
 docs/SearchGoogleBusinessLocations200ResponseGoogleLocationsInner.md
@@ -3312,6 +3327,7 @@ docs/UpdateConversionAction200ResponseAction.md
 docs/UpdateConversionActionRequest.md
 docs/UpdateConversionDestinationRequest.md
 docs/UpdateCreatorCampaignRequest.md
+docs/UpdateCrmDealRequest.md
 docs/UpdateCustomConversionGoal200Response.md
 docs/UpdateCustomConversionGoalRequest.md
 docs/UpdateCustomField200Response.md
@@ -3917,6 +3933,7 @@ src/apis/content_retention_api.rs
 src/apis/conversions_api.rs
 src/apis/creator_campaigns_api.rs
 src/apis/creator_portal_api.rs
+src/apis/crm_api.rs
 src/apis/custom_fields_api.rs
 src/apis/discord_api.rs
 src/apis/email_api.rs
@@ -4778,6 +4795,10 @@ src/models/create_conversion_destination_request.rs
 src/models/create_creator_campaign_201_response.rs
 src/models/create_creator_campaign_request.rs
 src/models/create_creator_payout_login_200_response.rs
+src/models/create_crm_activity_201_response.rs
+src/models/create_crm_activity_request.rs
+src/models/create_crm_contact_201_response.rs
+src/models/create_crm_contact_request.rs
 src/models/create_custom_conversion_goal_request.rs
 src/models/create_custom_conversion_request.rs
 src/models/create_custom_field_200_response.rs
@@ -5037,6 +5058,12 @@ src/models/creator_portal_referral_orders_inner.rs
 src/models/creator_portal_referral_totals.rs
 src/models/creator_portal_sample.rs
 src/models/creator_portal_submission.rs
+src/models/crm_activity.rs
+src/models/crm_contact.rs
+src/models/crm_contact_input.rs
+src/models/crm_deal.rs
+src/models/crm_native_properties_value.rs
+src/models/crm_owner.rs
 src/models/crosspost_discord_message_200_response.rs
 src/models/ctwa_ad_request_body.rs
 src/models/ctwa_ad_request_body_cities_inner.rs
@@ -5421,6 +5448,7 @@ src/models/get_conversions_quality_200_response_rows_inner.rs
 src/models/get_conversions_quality_200_response_rows_inner_match_keys_inner.rs
 src/models/get_creator_payouts_200_response.rs
 src/models/get_creator_portal_200_response.rs
+src/models/get_crm_deal_200_response.rs
 src/models/get_daily_metrics_200_response.rs
 src/models/get_daily_metrics_200_response_daily_data_inner.rs
 src/models/get_daily_metrics_200_response_daily_data_inner_metrics.rs
@@ -6144,6 +6172,8 @@ src/models/list_contacts_200_response_filters.rs
 src/models/list_contacts_200_response_pagination.rs
 src/models/list_conversion_actions_200_response.rs
 src/models/list_creator_campaigns_200_response.rs
+src/models/list_crm_deals_200_response.rs
+src/models/list_crm_owners_200_response.rs
 src/models/list_custom_conversion_goals_200_response.rs
 src/models/list_custom_fields_200_response.rs
 src/models/list_custom_fields_200_response_fields_inner.rs
@@ -6743,6 +6773,7 @@ src/models/search_available_phone_numbers_200_response.rs
 src/models/search_available_phone_numbers_200_response_numbers_inner.rs
 src/models/search_available_whats_app_numbers_200_response.rs
 src/models/search_available_whats_app_numbers_200_response_numbers_inner.rs
+src/models/search_crm_contacts_200_response.rs
 src/models/search_discord_guild_members_200_response.rs
 src/models/search_google_business_locations_200_response.rs
 src/models/search_google_business_locations_200_response_google_locations_inner.rs
@@ -7212,6 +7243,7 @@ src/models/update_conversion_action_200_response_action.rs
 src/models/update_conversion_action_request.rs
 src/models/update_conversion_destination_request.rs
 src/models/update_creator_campaign_request.rs
+src/models/update_crm_deal_request.rs
 src/models/update_custom_conversion_goal_200_response.rs
 src/models/update_custom_conversion_goal_request.rs
 src/models/update_custom_field_200_response.rs

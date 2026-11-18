@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **waba_id** | Option<**String**> | WhatsApp Business Account id, when the SDK reported one | [optional]
 **phone_number_id** | Option<**String**> |  | [optional]
 **is_coexistence** | Option<**bool**> | Number is also live in the WhatsApp Business app | [optional]
-**expected_phone_number** | Option<**String**> | Rejects the connect when Meta returns a different number | [optional]
+**expected_phone_number** | Option<**String**> | Rejects the connect when Meta returns a different number (full international number). With a connect token minted with a pinned number, the pinned number applies instead. | [optional]
 **redirect_url** | Option<**String**> | Hosted signup page only. When present, the response also carries `redirectUrl`, the URL the user should land on, with the outcome mapped exactly like the redirect flow (success params, or `error` and `platform` with the same values).  Must be an absolute http(s) URL or a custom app scheme. The legacy spelling `redirectUrl` remains accepted as an alias.  | [optional]
 **echo_connect_token** | Option<**bool**> | Hosted signup page only. Append the connect token to the success redirect, as the redirect flow does for API-key callers. | [optional]
 

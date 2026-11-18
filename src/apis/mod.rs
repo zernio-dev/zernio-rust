@@ -145,6 +145,7 @@ pub mod content_retention_api;
 pub mod conversions_api;
 pub mod creator_campaigns_api;
 pub mod creator_portal_api;
+pub mod crm_api;
 pub mod custom_fields_api;
 pub mod discord_api;
 pub mod email_api;
