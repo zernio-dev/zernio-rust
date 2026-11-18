@@ -18,6 +18,7 @@ Method | HTTP request | Description
 [**connect_open_ai_ads_credentials**](ConnectApi.md#connect_open_ai_ads_credentials) | **POST** /v1/connect/openai-ads/credentials | Connect an OpenAI Ads account
 [**connect_shopify_with_token**](ConnectApi.md#connect_shopify_with_token) | **POST** /v1/connect/shopify/token | Connect a Shopify store with a custom-app Admin token
 [**connect_slack_channel**](ConnectApi.md#connect_slack_channel) | **POST** /v1/connect/slack | Connect a Slack channel
+[**connect_snapchat_ads_credentials**](ConnectApi.md#connect_snapchat_ads_credentials) | **POST** /v1/connect/snapchat-ads/credentials | Connect a Snapchat Ads pixel
 [**connect_webflow_with_site_token**](ConnectApi.md#connect_webflow_with_site_token) | **POST** /v1/connect/webflow/token | Connect Webflow with a site API token
 [**connect_wechat_credentials**](ConnectApi.md#connect_wechat_credentials) | **POST** /v1/connect/wechat/credentials | Connect WeChat Official Account
 [**connect_whats_app_credentials**](ConnectApi.md#connect_whats_app_credentials) | **POST** /v1/connect/whatsapp/credentials | Connect WhatsApp via credentials
@@ -534,6 +535,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
  (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## connect_snapchat_ads_credentials
+
+> models::ConnectSnapchatAdsCredentials200Response connect_snapchat_ads_credentials(connect_snapchat_ads_credentials_request)
+Connect a Snapchat Ads pixel
+
+Connect a Snap Pixel with its Pixel ID and a Conversions API token generated in Snapchat Ads Manager (Business Details, Conversions API Tokens, visible to Organization Admins).  Zernio checks the token against the pixel on Snap's validate endpoint before saving it. The account then receives the conversion events you forward to it (`POST /v1/events`, forwarding rules). Connecting the same pixel again replaces its token.  Requires the Ads add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**connect_snapchat_ads_credentials_request** | [**ConnectSnapchatAdsCredentialsRequest**](ConnectSnapchatAdsCredentialsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::ConnectSnapchatAdsCredentials200Response**](connectSnapchatAdsCredentials_200_response.md)
 
 ### Authorization
 

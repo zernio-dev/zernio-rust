@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**rollout** | Option<[**models::UpdateBusinessAgentSettingsRequestRollout**](UpdateBusinessAgentSettingsRequestRollout.md)> |  | [optional]
+**rollout** | Option<[**models::SetTagNewAds200Response**](SetTagNewAds200Response.md)> |  | [optional]
 **handoff** | Option<[**models::UpdateBusinessAgentSettingsRequestHandoff**](UpdateBusinessAgentSettingsRequestHandoff.md)> |  | [optional]
 **followup** | Option<[**models::UpdateBusinessAgentSettingsRequestFollowup**](UpdateBusinessAgentSettingsRequestFollowup.md)> |  | [optional]
 **ai_audience** | Option<**AiAudience**> |  (enum: EVERYONE, ALLOWLISTED_ONLY) | [optional]

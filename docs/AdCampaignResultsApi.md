@@ -7,10 +7,12 @@ Method | HTTP request | Description
 [**get_campaign_result_events**](AdCampaignResultsApi.md#get_campaign_result_events) | **GET** /v1/ads/campaign-results/events | List the events that count as campaign results
 [**get_campaign_results_totals**](AdCampaignResultsApi.md#get_campaign_results_totals) | **GET** /v1/ads/campaign-results/totals | Get your results totals
 [**get_campaign_results_upload**](AdCampaignResultsApi.md#get_campaign_results_upload) | **GET** /v1/ads/campaign-results/uploads/{uploadId} | Check a results upload
+[**get_tag_new_ads**](AdCampaignResultsApi.md#get_tag_new_ads) | **GET** /v1/ads/campaign-results/tag-new-ads | Get the Tag new ads setting
 [**list_campaign_result_metrics**](AdCampaignResultsApi.md#list_campaign_result_metrics) | **GET** /v1/ads/campaign-results/metrics | List your result metrics
 [**list_campaign_results**](AdCampaignResultsApi.md#list_campaign_results) | **GET** /v1/ads/campaign-results | List your results per campaign
 [**set_campaign_result_events**](AdCampaignResultsApi.md#set_campaign_result_events) | **PUT** /v1/ads/campaign-results/events | Choose the events that count as campaign results
 [**set_campaign_result_metric**](AdCampaignResultsApi.md#set_campaign_result_metric) | **PUT** /v1/ads/campaign-results/metrics/{key} | Name a result metric or define a formula
+[**set_tag_new_ads**](AdCampaignResultsApi.md#set_tag_new_ads) | **PUT** /v1/ads/campaign-results/tag-new-ads | Turn Tag new ads on or off
 [**upload_campaign_results**](AdCampaignResultsApi.md#upload_campaign_results) | **POST** /v1/ads/campaign-results | Upload your results per campaign
 
 
@@ -44,7 +46,7 @@ This endpoint does not need any parameter.
 
 ## get_campaign_results_totals
 
-> models::GetCampaignResultsTotals200Response get_campaign_results_totals(from_date, to_date, ad_account_ids)
+> models::GetCampaignResultsTotals200Response get_campaign_results_totals(from_date, to_date, model, ad_account_ids)
 Get your results totals
 
 Each metric you send summed over a date range across every campaign of the ad accounts your key can see, or of the ones you name. Each day counts its newest uploaded value only, plus the events sent to `POST /v1/events` that are tied to a campaign.  An event counts here up to 15 minutes after it arrives.  Formulas are not computed here, since they also read the platform's numbers: apply one to these totals and the account's spend for the same range, or read it per campaign from `GET /v1/ads/tree?results=true`. 
@@ -56,6 +58,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **from_date** | **String** |  | [required] |
 **to_date** | **String** | Inclusive. At most 400 days after `fromDate`. | [required] |
+**model** | Option<**String**> | Attribution model your stored sales and leads count under. `last_click` (default) counts each event whole for the campaign it matched. The others split it across the campaigns of its earlier touches, so counts and revenue can be fractional. Uploads read the same under every model. |  |[default to last_click]
 **ad_account_ids** | Option<**String**> | Comma-separated platform ad account ids, at most 100. Omit for every ad account your key can see. |  |
 
 ### Return type
@@ -104,6 +107,33 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_tag_new_ads
+
+> models::GetTagNewAds200Response get_tag_new_ads()
+Get the Tag new ads setting
+
+Whether new Meta and Google ads created through Zernio carry the Zernio ad tag (`zrn=<platform ad id>` on the landing URL) when the create request does not set `tracking.zernioTag`. Off until you turn it on. 
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::GetTagNewAds200Response**](getTagNewAds_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_campaign_result_metrics
 
 > models::ListCampaignResultMetrics200Response list_campaign_result_metrics()
@@ -133,7 +163,7 @@ This endpoint does not need any parameter.
 
 ## list_campaign_results
 
-> models::ListCampaignResults200Response list_campaign_results(from_date, to_date, campaign_ids, limit, cursor)
+> models::ListCampaignResults200Response list_campaign_results(from_date, to_date, model, campaign_ids, limit, cursor)
 List your results per campaign
 
 Your results summed per campaign over a date range, one entry per campaign with every metric it has, for the ad accounts your key can see. Each day counts its newest uploaded value only, plus the events sent to `POST /v1/events` that are tied to the campaign (`sales`, `revenue`, `leads`, `qualified_leads`).  An event counts here up to 15 minutes after it arrives.  Paginated by campaign: pass `nextCursor` back as `cursor` until it is null. 
@@ -145,6 +175,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **from_date** | **String** |  | [required] |
 **to_date** | **String** | Inclusive. At most 400 days after `fromDate`. | [required] |
+**model** | Option<**String**> | Attribution model your stored sales and leads count under. `last_click` (default) counts each event whole for the campaign it matched. The others split it across the campaigns of its earlier touches, so counts and revenue can be fractional. Uploads read the same under every model. |  |[default to last_click]
 **campaign_ids** | Option<**String**> | Comma-separated platform campaign ids, at most 500. Omit for all campaigns. |  |
 **limit** | Option<**i32**> | Campaigns per page. |  |[default to 100]
 **cursor** | Option<**String**> | `nextCursor` from the previous page. |  |
@@ -213,6 +244,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::SetCampaignResultMetric200Response**](setCampaignResultMetric_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## set_tag_new_ads
+
+> models::SetTagNewAds200Response set_tag_new_ads(set_tag_new_ads_request)
+Turn Tag new ads on or off
+
+With `enabled: true`, every new Meta and Google ad created through `POST /v1/ads/create` carries `zrn=<platform ad id>` on its landing URL, so the conversions it brings are tied to its campaign. A request that sets `tracking.zernioTag` keeps its own choice.  The same rules as `tracking.zernioTag` apply: lead forms, call ads, existing creatives and app promotion are skipped, and a Google ad is tagged only when it inherits no final URL suffix. Existing ads are never changed. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**set_tag_new_ads_request** | [**SetTagNewAdsRequest**](SetTagNewAdsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::SetTagNewAds200Response**](setTagNewAds_200_response.md)
 
 ### Authorization
 

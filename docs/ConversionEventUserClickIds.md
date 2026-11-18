@@ -18,6 +18,8 @@ Name | Type | Description | Notes
 **axwrt** | Option<**String**> | Axon Pixel browser id (the `_axwrt` cookie). Sent to Axon as `user_data.axwrt`, not hashed. | [optional]
 **twclid** | Option<**String**> | X click ID (the `twclid` URL param X adds to ad clicks). Sent to X as a `twclid` identifier, not hashed. | [optional]
 **msclkid** | Option<**String**> | Microsoft Advertising click ID (the `msclkid` URL param Microsoft adds to ad clicks). Sent to Microsoft as `MicrosoftClickId`, not hashed. | [optional]
+**sccid** | Option<**String**> | Snapchat click ID (the `ScCid` URL param Snap adds to ad clicks). Sent to Snapchat as `sc_click_id`, not hashed. | [optional]
+**scid** | Option<**String**> | Snap Pixel browser id (the `_scid` cookie). Sent to Snapchat as `sc_cookie1`, not hashed. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

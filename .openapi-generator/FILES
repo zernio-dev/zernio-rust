@@ -662,6 +662,8 @@ docs/ConnectShopifyWithToken200Response.md
 docs/ConnectShopifyWithToken200ResponseAccount.md
 docs/ConnectShopifyWithTokenRequest.md
 docs/ConnectSlackChannelRequest.md
+docs/ConnectSnapchatAdsCredentials200Response.md
+docs/ConnectSnapchatAdsCredentialsRequest.md
 docs/ConnectWebflowWithSiteToken200Response.md
 docs/ConnectWebflowWithSiteToken200ResponseAccount.md
 docs/ConnectWebflowWithSiteTokenRequest.md
@@ -991,6 +993,7 @@ docs/CreateStandaloneAdRequestAdditionalHeadlinesInner.md
 docs/CreateStandaloneAdRequestBehaviorsInner.md
 docs/CreateStandaloneAdRequestBrandIdentity.md
 docs/CreateStandaloneAdRequestCarouselCardsInner.md
+docs/CreateStandaloneAdRequestCarouselCardsInnerVideo.md
 docs/CreateStandaloneAdRequestCatalogIntroCardsInner.md
 docs/CreateStandaloneAdRequestCitiesInner.md
 docs/CreateStandaloneAdRequestCitiesInnerOneOf.md
@@ -1016,6 +1019,8 @@ docs/CreateTestLeadRequest.md
 docs/CreateTestLeadRequestFieldDataInner.md
 docs/CreateTopup201Response.md
 docs/CreateTopupRequest.md
+docs/CreateTrackingLink201Response.md
+docs/CreateTrackingLinkRequest.md
 docs/CreateTrackingSite201Response.md
 docs/CreateTrackingSiteRequest.md
 docs/CreateTrackingTag201Response.md
@@ -1492,6 +1497,8 @@ docs/GetContactChannels200Response.md
 docs/GetContactChannels200ResponseChannelsInner.md
 docs/GetContentDecay200Response.md
 docs/GetContentDecay200ResponseBucketsInner.md
+docs/GetConversionPaths200Response.md
+docs/GetConversionPaths200ResponsePathsInner.md
 docs/GetConversionsQuality200Response.md
 docs/GetConversionsQuality200ResponseRowsInner.md
 docs/GetConversionsQuality200ResponseRowsInnerMatchKeysInner.md
@@ -1676,6 +1683,9 @@ docs/GetLinkedInSupplyForecast200ResponseForecastInnerTimeSeriesInner.md
 docs/GetLinkedInSupplyForecast200ResponseForecastInnerTimeSeriesInnerAdForecastRange.md
 docs/GetLinkedInSupplyForecastRequest.md
 docs/GetLinkedInSupplyForecastRequestCompetingBid.md
+docs/GetLtvCohorts200Response.md
+docs/GetLtvCohorts200ResponseCohortsInner.md
+docs/GetLtvCohorts200ResponseCohortsInnerRevenue.md
 docs/GetMediaPresignedUrl200Response.md
 docs/GetMediaPresignedUrlRequest.md
 docs/GetMessageAttachment200Response.md
@@ -1742,6 +1752,7 @@ docs/GetStripeConnectUrl200Response.md
 docs/GetStripeSettings200Response.md
 docs/GetSubredditRules200Response.md
 docs/GetSubredditRules200ResponseRulesInner.md
+docs/GetTagNewAds200Response.md
 docs/GetTelegramCommands200Response.md
 docs/GetTelegramCommands200ResponseDataInner.md
 docs/GetTelegramConnectStatus200Response.md
@@ -1955,6 +1966,7 @@ docs/ImapConnectResultSettings.md
 docs/ImapConnectResultStages.md
 docs/ImapDiscovery.md
 docs/ImapDiscoveryAuth.md
+docs/ImapDiscoveryHostReplacementsInner.md
 docs/ImapDiscoveryImap.md
 docs/ImapDiscoveryPreflightInner.md
 docs/ImapDiscoveryProvider.md
@@ -2429,6 +2441,7 @@ docs/ListTikTokSmartPlusReviews200ResponseListing.md
 docs/ListTikTokSmartPlusReviews200ResponseListingError.md
 docs/ListTikTokSmartPlusReviews200ResponseReviewError.md
 docs/ListTopups200Response.md
+docs/ListTrackingLinks200Response.md
 docs/ListTrackingSites200Response.md
 docs/ListTrackingSites200ResponsePagination.md
 docs/ListTrackingTagEvents200Response.md
@@ -2491,6 +2504,7 @@ docs/MentionsApi.md
 docs/MessagesApi.md
 docs/MessagingAdsApi.md
 docs/MessagingCarouselCard.md
+docs/MessagingCarouselCardVideo.md
 docs/MessengerGreeting.md
 docs/MessengerIceBreakerLocale.md
 docs/MessengerIceBreakerLocaleCallToActionsInner.md
@@ -3059,6 +3073,8 @@ docs/SetMessengerMenuRequest.md
 docs/SetPartnershipAdPermission200Response.md
 docs/SetPartnershipAdPermissionRequest.md
 docs/SetRedditPostFlairRequest.md
+docs/SetTagNewAds200Response.md
+docs/SetTagNewAdsRequest.md
 docs/SetTelegramCommandsRequest.md
 docs/SetTelegramCommandsRequestCommandsInner.md
 docs/SetUpAdAccountBilling200Response.md
@@ -3154,6 +3170,10 @@ docs/TikTokReviewRejectionContent.md
 docs/TikTokSmartPlusAdLevelReview.md
 docs/TikTokSmartPlusMaterialReview.md
 docs/TikTokSmartPlusReviewStatus.md
+docs/TrackingLink.md
+docs/TrackingLinkCampaign.md
+docs/TrackingLinkDestination.md
+docs/TrackingLinksApi.md
 docs/TrackingSite.md
 docs/TrackingSiteChecksInner.md
 docs/TrackingSiteConsentMode.md
@@ -3306,7 +3326,6 @@ docs/UpdateBroadcastRequestTemplateVariableMappingValue.md
 docs/UpdateBusinessAgentSettingsRequest.md
 docs/UpdateBusinessAgentSettingsRequestFollowup.md
 docs/UpdateBusinessAgentSettingsRequestHandoff.md
-docs/UpdateBusinessAgentSettingsRequestRollout.md
 docs/UpdateCalendarEventRequest.md
 docs/UpdateCampaignAdSchedule200Response.md
 docs/UpdateCampaignAdScheduleRequest.md
@@ -3453,6 +3472,7 @@ docs/UpdateSequenceRequestStepsInnerTemplate.md
 docs/UpdateSlackSettingsRequest.md
 docs/UpdateStripeSettings200Response.md
 docs/UpdateStripeSettingsRequest.md
+docs/UpdateTrackingLinkRequest.md
 docs/UpdateTrackingSiteRequest.md
 docs/UpdateTrackingTagRequest.md
 docs/UpdateValueRuleSet200Response.md
@@ -4002,6 +4022,7 @@ src/apis/sequences_api.rs
 src/apis/slack_api.rs
 src/apis/sms_api.rs
 src/apis/support_assistant_api.rs
+src/apis/tracking_links_api.rs
 src/apis/tracking_tags_api.rs
 src/apis/treasury_api.rs
 src/apis/twitter_engagement_api.rs
@@ -4654,6 +4675,8 @@ src/models/connect_shopify_with_token_200_response.rs
 src/models/connect_shopify_with_token_200_response_account.rs
 src/models/connect_shopify_with_token_request.rs
 src/models/connect_slack_channel_request.rs
+src/models/connect_snapchat_ads_credentials_200_response.rs
+src/models/connect_snapchat_ads_credentials_request.rs
 src/models/connect_webflow_with_site_token_200_response.rs
 src/models/connect_webflow_with_site_token_200_response_account.rs
 src/models/connect_webflow_with_site_token_request.rs
@@ -4979,6 +5002,7 @@ src/models/create_standalone_ad_request_additional_headlines_inner.rs
 src/models/create_standalone_ad_request_behaviors_inner.rs
 src/models/create_standalone_ad_request_brand_identity.rs
 src/models/create_standalone_ad_request_carousel_cards_inner.rs
+src/models/create_standalone_ad_request_carousel_cards_inner_video.rs
 src/models/create_standalone_ad_request_catalog_intro_cards_inner.rs
 src/models/create_standalone_ad_request_cities_inner.rs
 src/models/create_standalone_ad_request_cities_inner_one_of.rs
@@ -5004,6 +5028,8 @@ src/models/create_test_lead_request.rs
 src/models/create_test_lead_request_field_data_inner.rs
 src/models/create_topup_201_response.rs
 src/models/create_topup_request.rs
+src/models/create_tracking_link_201_response.rs
+src/models/create_tracking_link_request.rs
 src/models/create_tracking_site_201_response.rs
 src/models/create_tracking_site_request.rs
 src/models/create_tracking_tag_201_response.rs
@@ -5472,6 +5498,8 @@ src/models/get_contact_channels_200_response.rs
 src/models/get_contact_channels_200_response_channels_inner.rs
 src/models/get_content_decay_200_response.rs
 src/models/get_content_decay_200_response_buckets_inner.rs
+src/models/get_conversion_paths_200_response.rs
+src/models/get_conversion_paths_200_response_paths_inner.rs
 src/models/get_conversions_quality_200_response.rs
 src/models/get_conversions_quality_200_response_rows_inner.rs
 src/models/get_conversions_quality_200_response_rows_inner_match_keys_inner.rs
@@ -5656,6 +5684,9 @@ src/models/get_linked_in_supply_forecast_200_response_forecast_inner_time_series
 src/models/get_linked_in_supply_forecast_200_response_forecast_inner_time_series_inner_ad_forecast_range.rs
 src/models/get_linked_in_supply_forecast_request.rs
 src/models/get_linked_in_supply_forecast_request_competing_bid.rs
+src/models/get_ltv_cohorts_200_response.rs
+src/models/get_ltv_cohorts_200_response_cohorts_inner.rs
+src/models/get_ltv_cohorts_200_response_cohorts_inner_revenue.rs
 src/models/get_media_presigned_url_200_response.rs
 src/models/get_media_presigned_url_request.rs
 src/models/get_message_attachment_200_response.rs
@@ -5722,6 +5753,7 @@ src/models/get_stripe_connect_url_200_response.rs
 src/models/get_stripe_settings_200_response.rs
 src/models/get_subreddit_rules_200_response.rs
 src/models/get_subreddit_rules_200_response_rules_inner.rs
+src/models/get_tag_new_ads_200_response.rs
 src/models/get_telegram_commands_200_response.rs
 src/models/get_telegram_commands_200_response_data_inner.rs
 src/models/get_telegram_connect_status_200_response.rs
@@ -5926,6 +5958,7 @@ src/models/imap_connect_result_settings.rs
 src/models/imap_connect_result_stages.rs
 src/models/imap_discovery.rs
 src/models/imap_discovery_auth.rs
+src/models/imap_discovery_host_replacements_inner.rs
 src/models/imap_discovery_imap.rs
 src/models/imap_discovery_preflight_inner.rs
 src/models/imap_discovery_provider.rs
@@ -6394,6 +6427,7 @@ src/models/list_tik_tok_smart_plus_reviews_200_response_listing.rs
 src/models/list_tik_tok_smart_plus_reviews_200_response_listing_error.rs
 src/models/list_tik_tok_smart_plus_reviews_200_response_review_error.rs
 src/models/list_topups_200_response.rs
+src/models/list_tracking_links_200_response.rs
 src/models/list_tracking_sites_200_response.rs
 src/models/list_tracking_sites_200_response_pagination.rs
 src/models/list_tracking_tag_events_200_response.rs
@@ -6451,6 +6485,7 @@ src/models/media_item.rs
 src/models/media_subtitle.rs
 src/models/media_upload_response.rs
 src/models/messaging_carousel_card.rs
+src/models/messaging_carousel_card_video.rs
 src/models/messenger_greeting.rs
 src/models/messenger_ice_breaker_locale.rs
 src/models/messenger_ice_breaker_locale_call_to_actions_inner.rs
@@ -7009,6 +7044,8 @@ src/models/set_messenger_menu_request.rs
 src/models/set_partnership_ad_permission_200_response.rs
 src/models/set_partnership_ad_permission_request.rs
 src/models/set_reddit_post_flair_request.rs
+src/models/set_tag_new_ads_200_response.rs
+src/models/set_tag_new_ads_request.rs
 src/models/set_telegram_commands_request.rs
 src/models/set_telegram_commands_request_commands_inner.rs
 src/models/set_up_ad_account_billing_200_response.rs
@@ -7101,6 +7138,9 @@ src/models/tik_tok_review_rejection_content.rs
 src/models/tik_tok_smart_plus_ad_level_review.rs
 src/models/tik_tok_smart_plus_material_review.rs
 src/models/tik_tok_smart_plus_review_status.rs
+src/models/tracking_link.rs
+src/models/tracking_link_campaign.rs
+src/models/tracking_link_destination.rs
 src/models/tracking_site.rs
 src/models/tracking_site_checks_inner.rs
 src/models/tracking_site_consent_mode.rs
@@ -7250,7 +7290,6 @@ src/models/update_broadcast_request_template_variable_mapping_value.rs
 src/models/update_business_agent_settings_request.rs
 src/models/update_business_agent_settings_request_followup.rs
 src/models/update_business_agent_settings_request_handoff.rs
-src/models/update_business_agent_settings_request_rollout.rs
 src/models/update_calendar_event_request.rs
 src/models/update_campaign_ad_schedule_200_response.rs
 src/models/update_campaign_ad_schedule_request.rs
@@ -7397,6 +7436,7 @@ src/models/update_sequence_request_steps_inner_template.rs
 src/models/update_slack_settings_request.rs
 src/models/update_stripe_settings_200_response.rs
 src/models/update_stripe_settings_request.rs
+src/models/update_tracking_link_request.rs
 src/models/update_tracking_site_request.rs
 src/models/update_tracking_tag_request.rs
 src/models/update_value_rule_set_200_response.rs

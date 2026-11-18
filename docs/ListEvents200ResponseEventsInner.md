@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **event_id** | Option<**String**> |  | [optional]
 **profile_id** | Option<**String**> | The profile the event was stored under. | [optional]
-**source** | Option<**String**> | Where the event came from: `api`, `relay`, `web`, `shopify`, `woocommerce`, `stripe`, `hubspot`, `salesforce`, `meta_leads`, `google_leads`, `linkedin_leads` or `tiktok_leads`. | [optional]
+**source** | Option<**String**> | Where the event came from: `api`, `relay`, `web`, `shopify`, `woocommerce`, `stripe`, `hubspot`, `salesforce`, `meta_leads`, `google_leads`, `linkedin_leads`, `tiktok_leads` or `postback` (an affiliate network's postback to a tracking link). | [optional]
 **event_name** | Option<**String**> |  | [optional]
 **event_time** | Option<**String**> |  | [optional]
 **received_at** | Option<**String**> |  | [optional]

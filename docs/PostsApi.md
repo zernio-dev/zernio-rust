@@ -203,7 +203,7 @@ Name | Type | Description  | Required | Notes
 **date_from** | Option<**String**> | Alias of fromDate, kept for existing callers |  |
 **date_to** | Option<**String**> | Alias of toDate, kept for existing callers |  |
 **include_hidden** | Option<**bool**> |  |  |[default to false]
-**search** | Option<**String**> | Search posts by text content. |  |
+**search** | Option<**String**> | Search posts by text content. Not available with `source=external` (400). |  |
 **tags** | Option<**String**> | Comma-separated tags (at most 20). Returns only posts carrying every listed tag, matched exactly and case-sensitively against the tags set when the post was created. An empty value means no tag filter. `tag` is accepted as an alias. |  |
 **sort_by** | Option<**String**> | Sort order for results. |  |[default to scheduled-desc]
 **account_id** | Option<**String**> | Filter posts to those published via a specific account (24-char hex ObjectId). |  |

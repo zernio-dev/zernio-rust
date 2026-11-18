@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**image_url** | **String** | Card image; uploaded to the ad account and referenced by hash. | 
+**image_url** | Option<**String**> | Image card: the card image, uploaded to the ad account and referenced by hash. | [optional]
+**video** | Option<[**models::CreateStandaloneAdRequestCarouselCardsInnerVideo**](CreateStandaloneAdRequestCarouselCardsInnerVideo.md)> |  | [optional]
 **link_url** | Option<**String**> | Card destination URL. Defaults to the top-level linkUrl, or Meta's lead-form link when leadGenFormId is set and neither is provided. | [optional]
 **headline** | Option<**String**> | Card headline, shown below the card image. | [optional]
 **description** | Option<**String**> | Card description, shown under the headline. | [optional]
