@@ -703,7 +703,7 @@ Name | Type | Description  | Required | Notes
 > models::UpdateHubSpotSettings200Response update_hub_spot_settings(account_id, update_hub_spot_settings_request)
 Update HubSpot account settings
 
-Turn contact sync, message logging or deal reporting on or off for a connected HubSpot portal. Send at least one field; omitted fields keep their value. Settings survive reconnecting the same portal.
+Turn contact sync, message logging, delivery status or deal reporting on or off for a connected HubSpot portal, or set defaults for the contact properties the portal requires. Send at least one field; omitted fields keep their value. Settings survive reconnecting the same portal.
 
 ### Parameters
 
