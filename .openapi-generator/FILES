@@ -1516,6 +1516,7 @@ docs/GetEmailThread200Response.md
 docs/GetEmailThread200ResponseData.md
 docs/GetEvent200Response.md
 docs/GetEvent200ResponseDeliveriesInner.md
+docs/GetEvent200ResponseTouchesInner.md
 docs/GetEventsOverview200Response.md
 docs/GetEventsOverview200ResponsePlatformsInner.md
 docs/GetEventsOverview200ResponseSitesInner.md
@@ -5495,6 +5496,7 @@ src/models/get_email_thread_200_response.rs
 src/models/get_email_thread_200_response_data.rs
 src/models/get_event_200_response.rs
 src/models/get_event_200_response_deliveries_inner.rs
+src/models/get_event_200_response_touches_inner.rs
 src/models/get_events_overview_200_response.rs
 src/models/get_events_overview_200_response_platforms_inner.rs
 src/models/get_events_overview_200_response_sites_inner.rs
