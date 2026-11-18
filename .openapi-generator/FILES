@@ -1469,6 +1469,7 @@ docs/GetCampaignConversionGoals200Response.md
 docs/GetCampaignDraft200Response.md
 docs/GetCampaignParticipant200Response.md
 docs/GetCampaignReport200Response.md
+docs/GetCampaignResultEvents200Response.md
 docs/GetCampaignResultsTotals200Response.md
 docs/GetCampaignResultsUpload200Response.md
 docs/GetCampaignResultsUpload200ResponseUnmatchedInner.md
@@ -1525,6 +1526,9 @@ docs/GetEventsOverview200ResponseWebsite.md
 docs/GetEventsOverview200ResponseWebsiteStepsInner.md
 docs/GetEventsOverviewDaily200Response.md
 docs/GetEventsOverviewDaily200ResponseDaysInner.md
+docs/GetEventsOverviewDaily200ResponsePixelMissedInner.md
+docs/GetEventsOverviewDaily200ResponsePlatformsInner.md
+docs/GetEventsOverviewDaily200ResponsePlatformsInnerDaysInner.md
 docs/GetEventsOverviewDaily200ResponseTotals.md
 docs/GetFacebookDemographics200Response.md
 docs/GetFacebookDemographics200ResponseDemographics.md
@@ -3026,6 +3030,8 @@ docs/SetBusinessAgentConnectorCredentialsRequest.md
 docs/SetBusinessAgentConnectorCredentialsRequestOneOf.md
 docs/SetBusinessAgentConnectorCredentialsRequestOneOf1.md
 docs/SetBusinessAgentConnectorCredentialsRequestOneOf2.md
+docs/SetCampaignResultEvents200Response.md
+docs/SetCampaignResultEventsRequest.md
 docs/SetCampaignResultMetric200Response.md
 docs/SetCampaignResultMetricRequest.md
 docs/SetCommentModerationRequest.md
@@ -5442,6 +5448,7 @@ src/models/get_campaign_conversion_goals_200_response.rs
 src/models/get_campaign_draft_200_response.rs
 src/models/get_campaign_participant_200_response.rs
 src/models/get_campaign_report_200_response.rs
+src/models/get_campaign_result_events_200_response.rs
 src/models/get_campaign_results_totals_200_response.rs
 src/models/get_campaign_results_upload_200_response.rs
 src/models/get_campaign_results_upload_200_response_unmatched_inner.rs
@@ -5498,6 +5505,9 @@ src/models/get_events_overview_200_response_website.rs
 src/models/get_events_overview_200_response_website_steps_inner.rs
 src/models/get_events_overview_daily_200_response.rs
 src/models/get_events_overview_daily_200_response_days_inner.rs
+src/models/get_events_overview_daily_200_response_pixel_missed_inner.rs
+src/models/get_events_overview_daily_200_response_platforms_inner.rs
+src/models/get_events_overview_daily_200_response_platforms_inner_days_inner.rs
 src/models/get_events_overview_daily_200_response_totals.rs
 src/models/get_facebook_demographics_200_response.rs
 src/models/get_facebook_demographics_200_response_demographics.rs
@@ -6969,6 +6979,8 @@ src/models/set_business_agent_connector_credentials_request.rs
 src/models/set_business_agent_connector_credentials_request_one_of.rs
 src/models/set_business_agent_connector_credentials_request_one_of_1.rs
 src/models/set_business_agent_connector_credentials_request_one_of_2.rs
+src/models/set_campaign_result_events_200_response.rs
+src/models/set_campaign_result_events_request.rs
 src/models/set_campaign_result_metric_200_response.rs
 src/models/set_campaign_result_metric_request.rs
 src/models/set_comment_moderation_request.rs

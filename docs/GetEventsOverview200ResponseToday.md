@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **sent** | Option<**i32**> | Event sends to a destination today, one per event and destination. | [optional]
 **accepted** | Option<**i32**> | Those whose latest send the platform accepted. | [optional]
 **matched** | Option<**i32**> | Today's events matched to an ad campaign. | [optional]
+**counted** | Option<**i32**> | Today's events that count as campaign results (see `GET /v1/ads/campaign-results/events`), the ones looked up for a campaign. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

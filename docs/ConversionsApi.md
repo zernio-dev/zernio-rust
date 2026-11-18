@@ -777,10 +777,10 @@ Name | Type | Description  | Required | Notes
 
 ## get_events_overview_daily
 
-> models::GetEventsOverviewDaily200Response get_events_overview_daily(profile_id, period)
+> models::GetEventsOverviewDaily200Response get_events_overview_daily(profile_id, period, event_name, sources, platform)
 Get daily tracking figures
 
-The tracking figures of a period, day by day (UTC): events stored, events sent to the ad platforms and how many they accepted, plus the period's totals in the same shape as the overview's `today`.  An event sent to a destination counts once, on the day of its first send, by its latest outcome. Without `profileId` it covers every profile you can access. Requires the Ads add-on. 
+The tracking figures of a period, day by day (UTC): events stored per event name, events sent to each ad platform and how many it accepted, the period's totals in the same shape as the overview's `today`, and how many website conversions each platform's browser pixel missed.  An event sent to a destination counts once, on the day of its first send, by its latest outcome. Without `profileId` it covers every profile you can access. `eventName`, `sources` and `platform` narrow every figure. Requires the Ads add-on. 
 
 ### Parameters
 
@@ -788,7 +788,10 @@ The tracking figures of a period, day by day (UTC): events stored, events sent t
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **profile_id** | Option<**String**> | The profile to read. Omit to cover every profile you can access, summed across them. |  |
-**period** | Option<**String**> | The days to cover, each ending today (UTC): `today`, the last 7 days or the last 30 days. |  |[default to 7d]
+**period** | Option<**String**> | The days to cover, each ending today (UTC): `today`, the last 7, 30 or 90 days. |  |[default to 7d]
+**event_name** | Option<**String**> | Only events of this name, such as `Purchase`. |  |
+**sources** | Option<**String**> | Comma-separated sources (`web`, `shopify`, `stripe`, `api`...). Only events from them. |  |
+**platform** | Option<**String**> | Only sends to this platform (`metaads`, `googleads`...), and only the events sent to it. |  |
 
 ### Return type
 

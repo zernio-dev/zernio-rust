@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **text** | Option<**String**> |  | [optional]
 **html** | Option<**String**> |  | [optional]
 **attachments** | Option<[**Vec<models::EmailAttachmentInput>**](EmailAttachmentInput.md)> |  | [optional]
-**headers** | Option<**std::collections::HashMap<String, String>**> | Custom `X-` headers only. | [optional]
+**headers** | Option<**std::collections::HashMap<String, String>**> | Same headers as on `POST /v1/email/messages`: `X-` names plus `List-Unsubscribe`, `List-Unsubscribe-Post`, `List-Id`, `Precedence` and `Auto-Submitted`. Outlook drafts leave out all but `X-` headers. | [optional]
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Kept with the draft and returned on the sent message and its email.* webhooks. | [optional]
 **in_reply_to** | Option<**String**> | Makes a reply draft in that message's thread, addressed and threaded like a reply. Not with `forwardOf`. | [optional]
 **reply_all** | Option<**bool**> | With `inReplyTo`: address every recipient of the original. Leave out `to`, `cc` and `bcc`. | [optional]
