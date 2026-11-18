@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **current_count** | Option<**i32**> |  | [optional]
 **limit** | Option<**i32**> |  | [optional]
 **retry_after_seconds** | Option<**i32**> |  | [optional]
-**scope** | Option<**Scope**> |  (enum: campaign-analytics, ad-analytics, ads-listings, post-analytics) | [optional]
+**scope** | Option<**Scope**> |  (enum: campaign-analytics, ad-analytics, ads-listings, post-analytics, account-insights, account_route) | [optional]
 **window** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
