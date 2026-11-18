@@ -40,11 +40,14 @@ Method | HTTP request | Description
 [**get_you_tube_daily_views**](AnalyticsApi.md#get_you_tube_daily_views) | **GET** /v1/analytics/youtube/daily-views | Get YouTube daily views
 [**get_you_tube_demographics**](AnalyticsApi.md#get_you_tube_demographics) | **GET** /v1/analytics/youtube/demographics | Get YouTube demographics
 [**get_you_tube_video_retention**](AnalyticsApi.md#get_you_tube_video_retention) | **GET** /v1/analytics/youtube/video-retention | Get YouTube video retention curve
+[**inspect_google_search_console_url**](AnalyticsApi.md#inspect_google_search_console_url) | **POST** /v1/analytics/googlesearchconsole/url-inspection | Inspect a URL in Google Search Console
 [**list_facebook_tagged_posts**](AnalyticsApi.md#list_facebook_tagged_posts) | **GET** /v1/accounts/{accountId}/facebook-tagged-posts | List the posts a Facebook Page is tagged in
 [**list_facebook_visitor_posts**](AnalyticsApi.md#list_facebook_visitor_posts) | **GET** /v1/accounts/{accountId}/facebook-visitor-posts | List visitor posts on a Facebook Page
+[**list_google_search_console_sitemaps**](AnalyticsApi.md#list_google_search_console_sitemaps) | **GET** /v1/analytics/googlesearchconsole/sitemaps | List Google Search Console sitemaps
 [**list_post_authenticity**](AnalyticsApi.md#list_post_authenticity) | **GET** /v1/analytics/authenticity | List authenticity scores
 [**list_tracking_windows**](AnalyticsApi.md#list_tracking_windows) | **GET** /v1/analytics/tracking | List tracking windows
 [**open_tracking_window**](AnalyticsApi.md#open_tracking_window) | **POST** /v1/analytics/tracking | Open a tracking window
+[**query_google_search_console_search_analytics**](AnalyticsApi.md#query_google_search_console_search_analytics) | **POST** /v1/analytics/googlesearchconsole/search-analytics | Query Google Search Console search analytics
 [**run_google_analytics_realtime_report**](AnalyticsApi.md#run_google_analytics_realtime_report) | **POST** /v1/analytics/googleanalytics/realtime | Run a Google Analytics (GA4) realtime report
 [**run_google_analytics_report**](AnalyticsApi.md#run_google_analytics_report) | **POST** /v1/analytics/googleanalytics/report | Run a Google Analytics (GA4) report
 [**sync_external_posts**](AnalyticsApi.md#sync_external_posts) | **POST** /v1/posts/sync-external | Sync an external post
@@ -1264,6 +1267,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## inspect_google_search_console_url
+
+> models::InspectGoogleSearchConsoleUrl200Response inspect_google_search_console_url(inspect_google_search_console_url_request)
+Inspect a URL in Google Search Console
+
+Google's index status for one URL of a connected site: whether it is indexed, its canonical, last crawl, robots and fetch state, mobile usability and rich results. Returns Google's `inspectionResult` as is.  The URL must belong to the connected site (any host under a Domain property, or starting with the URL prefix); any other URL returns 400 before Google is called. Google allows 2,000 inspections a day and 600 a minute per site; results are cached for one hour. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**inspect_google_search_console_url_request** | [**InspectGoogleSearchConsoleUrlRequest**](InspectGoogleSearchConsoleUrlRequest.md) |  | [required] |
+
+### Return type
+
+[**models::InspectGoogleSearchConsoleUrl200Response**](inspectGoogleSearchConsoleUrl_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_facebook_tagged_posts
 
 > models::ListFacebookTaggedPosts200Response list_facebook_tagged_posts(account_id, limit, cursor)
@@ -1315,6 +1348,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListFacebookVisitorPosts200Response**](listFacebookVisitorPosts_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_google_search_console_sitemaps
+
+> models::ListGoogleSearchConsoleSitemaps200Response list_google_search_console_sitemaps(account_id)
+List Google Search Console sitemaps
+
+The sitemaps submitted for a connected Search Console site, with when Google last read them, their errors and warnings and how many URLs each holds. Cached for 10 minutes. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | Zernio account ID of the Google Search Console connection. | [required] |
+
+### Return type
+
+[**models::ListGoogleSearchConsoleSitemaps200Response**](listGoogleSearchConsoleSitemaps_200_response.md)
 
 ### Authorization
 
@@ -1414,6 +1477,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::TrackingWindowResponse**](TrackingWindowResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## query_google_search_console_search_analytics
+
+> models::QueryGoogleSearchConsoleSearchAnalytics200Response query_google_search_console_search_analytics(query_google_search_console_search_analytics_request)
+Query Google Search Console search analytics
+
+Clicks, impressions, CTR and average position from Google Search for a connected Search Console site, through Google's `searchAnalytics.query`.  Group by any of `date`, `hour`, `query`, `page`, `country`, `device` and `searchAppearance`, and filter with Google's own filter groups. With no dimensions you get one row with the site's totals.  ### Dates  Dates are `YYYY-MM-DD` in Pacific time. `toDate` defaults to yesterday and `fromDate` to 27 days before `toDate`, the window every report takes. Unknown fields answer 400. Google keeps 16 months, and the last two or three days are still filling in unless you pass `dataState: all`.  ### Caching and quota  Identical requests on the same site are cached for 10 minutes. Google limits each site to 1,200 queries a minute; past it the request returns 429. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**query_google_search_console_search_analytics_request** | [**QueryGoogleSearchConsoleSearchAnalyticsRequest**](QueryGoogleSearchConsoleSearchAnalyticsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::QueryGoogleSearchConsoleSearchAnalytics200Response**](queryGoogleSearchConsoleSearchAnalytics_200_response.md)
 
 ### Authorization
 

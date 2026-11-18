@@ -40,6 +40,7 @@ Method | HTTP request | Description
 [**get_facebook_pages**](ConnectApi.md#get_facebook_pages) | **GET** /v1/accounts/{accountId}/facebook-page | List Facebook pages
 [**get_gmb_locations**](ConnectApi.md#get_gmb_locations) | **GET** /v1/accounts/{accountId}/gmb-locations | List Google Business Profile locations
 [**get_google_analytics_connect_url**](ConnectApi.md#get_google_analytics_connect_url) | **GET** /v1/connect/googleanalytics | Get Google Analytics OAuth connect URL
+[**get_google_search_console_connect_url**](ConnectApi.md#get_google_search_console_connect_url) | **GET** /v1/connect/googlesearchconsole | Get Google Search Console OAuth connect URL
 [**get_hub_spot_connect_url**](ConnectApi.md#get_hub_spot_connect_url) | **GET** /v1/connect/hubspot | Get HubSpot OAuth connect URL
 [**get_linked_in_organizations**](ConnectApi.md#get_linked_in_organizations) | **GET** /v1/accounts/{accountId}/linkedin-organizations | List LinkedIn orgs
 [**get_o_auth_app**](ConnectApi.md#get_o_auth_app) | **GET** /v1/connect/oauth-apps/{appId} | Get an OAuth app
@@ -67,6 +68,7 @@ Method | HTTP request | Description
 [**list_google_analytics_properties**](ConnectApi.md#list_google_analytics_properties) | **GET** /v1/connect/googleanalytics/properties | List Google Analytics properties for a pending connect
 [**list_google_business_categories**](ConnectApi.md#list_google_business_categories) | **GET** /v1/accounts/{accountId}/gmb-categories | List Google Business Profile categories
 [**list_google_business_locations**](ConnectApi.md#list_google_business_locations) | **GET** /v1/connect/googlebusiness/locations | List Google Business Profile locations
+[**list_google_search_console_sites**](ConnectApi.md#list_google_search_console_sites) | **GET** /v1/connect/googlesearchconsole/sites | List Search Console sites for a pending connect
 [**list_instagram_pages**](ConnectApi.md#list_instagram_pages) | **GET** /v1/connect/instagram/select-account | List Pages with a linked Instagram account
 [**list_linked_in_organizations**](ConnectApi.md#list_linked_in_organizations) | **GET** /v1/connect/linkedin/organizations | List LinkedIn orgs
 [**list_o_auth_apps**](ConnectApi.md#list_o_auth_apps) | **GET** /v1/connect/oauth-apps | List your OAuth apps
@@ -81,6 +83,7 @@ Method | HTTP request | Description
 [**select_facebook_page**](ConnectApi.md#select_facebook_page) | **POST** /v1/connect/facebook/select-page | Select Facebook page
 [**select_google_analytics_property**](ConnectApi.md#select_google_analytics_property) | **POST** /v1/connect/googleanalytics/select-property | Connect the chosen Google Analytics property
 [**select_google_business_location**](ConnectApi.md#select_google_business_location) | **POST** /v1/connect/googlebusiness/select-location | Select Google Business Profile location
+[**select_google_search_console_site**](ConnectApi.md#select_google_search_console_site) | **POST** /v1/connect/googlesearchconsole/select-site | Connect the chosen Search Console site
 [**select_instagram_account**](ConnectApi.md#select_instagram_account) | **POST** /v1/connect/instagram/select-account | Select the Page whose Instagram account to connect
 [**select_linked_in_organization**](ConnectApi.md#select_linked_in_organization) | **POST** /v1/connect/linkedin/select-organization | Select LinkedIn org
 [**select_pinterest_board**](ConnectApi.md#select_pinterest_board) | **POST** /v1/connect/pinterest/select-board | Select Pinterest board
@@ -1240,6 +1243,38 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_google_search_console_connect_url
+
+> models::GetGoogleAnalyticsConnectUrl200Response get_google_search_console_connect_url(profile_id, redirect_url, reconnect_account_id)
+Get Google Search Console OAuth connect URL
+
+Starts OAuth for Google Search Console. Each connected site becomes its own account with platform `googlesearchconsole`; it reads Google Search data and does not post.  Requested scope: `https://www.googleapis.com/auth/webmasters.readonly`.  ### Flow  Redirect the user to `authUrl`.  - **One verified site:** Zernio connects it and redirects to `redirect_url` (or the dashboard) with `connected=googlesearchconsole`, `profileId`, `accountId` and `username` (the site, such as `acme.com`). - **Several sites:** the user first picks one on a Zernio-hosted page, which then redirects the same way.  ### Your own site picker  Add `headless=true` to `redirect_url`. Zernio then redirects there with `step=select_site`, `profileId`, `platform=googlesearchconsole` and a `pendingDataToken` for `GET /v1/connect/googlesearchconsole/sites` and `POST /v1/connect/googlesearchconsole/select-site`.  ### Errors  On failure the redirect carries `error`, `platform=googlesearchconsole` and `error_message`. Errors include:  - `googlesearchconsole_scope_missing`: the user unticked Search Console access. - `googlesearchconsole_no_sites`: the Google account has no verified Search Console site. - `googlesearchconsole_no_refresh_token`: Google returned no refresh token; connect again. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**profile_id** | **String** | Your Zernio profile ID (get from /v1/profiles). | [required] |
+**redirect_url** | Option<**String**> | Custom redirect after connection. Must be an absolute http(s) URL or custom app scheme such as `myapp://callback`; relative and unsafe URLs return 400. |  |
+**reconnect_account_id** | Option<**String**> | Zernio account ID of the Google Search Console account being reconnected. Picking a different site then fails instead of adding a second account. |  |
+
+### Return type
+
+[**models::GetGoogleAnalyticsConnectUrl200Response**](getGoogleAnalyticsConnectUrl_200_response.md)
+
+### Authorization
+
+[connectToken](../README.md#connectToken), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_hub_spot_connect_url
 
 > models::GetHubSpotConnectUrl200Response get_hub_spot_connect_url(profile_id, redirect_url)
@@ -2075,6 +2110,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_google_search_console_sites
+
+> models::ListGoogleSearchConsoleSites200Response list_google_search_console_sites(pending_data_token)
+List Search Console sites for a pending connect
+
+For headless flows: lists the verified Search Console sites of a pending connect, so you can show your own picker.  ### Flow  1. The connect started with `redirect_url=...?headless=true`, and the Google account has several verified sites. 2. Zernio redirects to your `redirect_url` with `step=select_site`, `profileId`, `platform=googlesearchconsole` and a `pendingDataToken`. 3. Call this to list the sites and show your own picker. 4. Call `POST /v1/connect/googlesearchconsole/select-site`.  ### Token  - Listing does not consume the token. - A headless token passes through your own URLs, so it is honored only together with your API key (or connect token) for the same profile. - It expires after one hour. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**pending_data_token** | **String** | Token from the headless redirect. | [required] |
+
+### Return type
+
+[**models::ListGoogleSearchConsoleSites200Response**](listGoogleSearchConsoleSites_200_response.md)
+
+### Authorization
+
+[connectToken](../README.md#connectToken), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_instagram_pages
 
 > models::ListInstagramPages200Response list_instagram_pages(profile_id, temp_token, x_temp_token, connect_flow)
@@ -2503,6 +2568,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::SelectGoogleBusinessLocation200Response**](selectGoogleBusinessLocation_200_response.md)
+
+### Authorization
+
+[connectToken](../README.md#connectToken), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## select_google_search_console_site
+
+> models::SelectGoogleSearchConsoleSite200Response select_google_search_console_site(select_google_search_console_site_request)
+Connect the chosen Search Console site
+
+For headless flows. Connects the site the user picked as a `googlesearchconsole` account and returns where to send the user next.  - On success: your `redirect_url` with `connected=googlesearchconsole`, `profileId`, `accountId` and `username`. - When the connect was refused (for example a billing block): an `error`.  Consumes the `pendingDataToken`; a refused or failed attempt leaves it usable for a retry.  Send your API key (or connect token) for the same profile with a headless token. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**select_google_search_console_site_request** | [**SelectGoogleSearchConsoleSiteRequest**](SelectGoogleSearchConsoleSiteRequest.md) |  | [required] |
+
+### Return type
+
+[**models::SelectGoogleSearchConsoleSite200Response**](selectGoogleSearchConsoleSite_200_response.md)
 
 ### Authorization
 
