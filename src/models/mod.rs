@@ -2970,6 +2970,8 @@ pub mod get_event_200_response_deliveries_inner;
 pub use self::get_event_200_response_deliveries_inner::GetEvent200ResponseDeliveriesInner;
 pub mod get_event_200_response_touches_inner;
 pub use self::get_event_200_response_touches_inner::GetEvent200ResponseTouchesInner;
+pub mod get_event_200_response_touches_inner_detail;
+pub use self::get_event_200_response_touches_inner_detail::GetEvent200ResponseTouchesInnerDetail;
 pub mod get_events_accuracy_200_response;
 pub use self::get_events_accuracy_200_response::GetEventsAccuracy200Response;
 pub mod get_events_accuracy_200_response_destinations_inner;

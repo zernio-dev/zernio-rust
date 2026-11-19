@@ -6,6 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **spend** | Option<**f64**> | In the ad's currency. | [optional]
 **impressions** | Option<**i32**> |  | [optional]
+**reach** | Option<**i32**> | People who saw the ad. De-duplicated over the range on Meta and TikTok when the platform returns it; elsewhere the sum of each day's reach, which counts a person once per day. | [optional]
+**frequency** | Option<**f64**> | Average times each person saw the ad: `impressions / reach`. 0 when the platform reports no reach. | [optional]
 **clicks** | Option<**i32**> |  | [optional]
 **ctr** | Option<**f64**> | Percent. | [optional]
 **conversions** | Option<**f64**> | Results over the range (see AdMetrics.conversions). | [optional]

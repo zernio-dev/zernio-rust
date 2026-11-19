@@ -1526,6 +1526,7 @@ docs/GetEmailThread200ResponseData.md
 docs/GetEvent200Response.md
 docs/GetEvent200ResponseDeliveriesInner.md
 docs/GetEvent200ResponseTouchesInner.md
+docs/GetEvent200ResponseTouchesInnerDetail.md
 docs/GetEventsAccuracy200Response.md
 docs/GetEventsAccuracy200ResponseDestinationsInner.md
 docs/GetEventsAccuracy200ResponseDestinationsInnerDeliveries.md
@@ -5559,6 +5560,7 @@ src/models/get_email_thread_200_response_data.rs
 src/models/get_event_200_response.rs
 src/models/get_event_200_response_deliveries_inner.rs
 src/models/get_event_200_response_touches_inner.rs
+src/models/get_event_200_response_touches_inner_detail.rs
 src/models/get_events_accuracy_200_response.rs
 src/models/get_events_accuracy_200_response_destinations_inner.rs
 src/models/get_events_accuracy_200_response_destinations_inner_deliveries.rs

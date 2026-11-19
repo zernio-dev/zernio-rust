@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **category** | **Category** | The email notification preference this notification belongs to. securityAlerts has no preference: it is always sent. (enum: postFailures, accountIssues, securityAlerts) | 
-**r#type** | **Type** |  (enum: post_failed, account_disconnected, api_key_handed_over) | 
+**r#type** | **Type** |  (enum: post_failed, account_disconnected, conversions_failing, api_key_handed_over, whatsapp_inbound_lost) | 
 **subject** | **String** | The email subject. | 
 **text** | **String** | The email body as plain text, without the greeting. | 
 **url** | **String** | Dashboard link for the notification. | 
