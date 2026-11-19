@@ -5,6 +5,7 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**get_campaign_result_events**](AdCampaignResultsApi.md#get_campaign_result_events) | **GET** /v1/ads/campaign-results/events | List the events that count as campaign results
+[**get_campaign_result_profit**](AdCampaignResultsApi.md#get_campaign_result_profit) | **GET** /v1/ads/campaign-results/profit | Get your profit setting
 [**get_campaign_results_totals**](AdCampaignResultsApi.md#get_campaign_results_totals) | **GET** /v1/ads/campaign-results/totals | Get your results totals
 [**get_campaign_results_upload**](AdCampaignResultsApi.md#get_campaign_results_upload) | **GET** /v1/ads/campaign-results/uploads/{uploadId} | Check a results upload
 [**get_tag_new_ads**](AdCampaignResultsApi.md#get_tag_new_ads) | **GET** /v1/ads/campaign-results/tag-new-ads | Get the Tag new ads setting
@@ -12,6 +13,7 @@ Method | HTTP request | Description
 [**list_campaign_results**](AdCampaignResultsApi.md#list_campaign_results) | **GET** /v1/ads/campaign-results | List your results per campaign
 [**set_campaign_result_events**](AdCampaignResultsApi.md#set_campaign_result_events) | **PUT** /v1/ads/campaign-results/events | Choose the events that count as campaign results
 [**set_campaign_result_metric**](AdCampaignResultsApi.md#set_campaign_result_metric) | **PUT** /v1/ads/campaign-results/metrics/{key} | Name a result metric or define a formula
+[**set_campaign_result_profit**](AdCampaignResultsApi.md#set_campaign_result_profit) | **PUT** /v1/ads/campaign-results/profit | Set your margin and cost per order
 [**set_tag_new_ads**](AdCampaignResultsApi.md#set_tag_new_ads) | **PUT** /v1/ads/campaign-results/tag-new-ads | Turn Tag new ads on or off
 [**upload_campaign_results**](AdCampaignResultsApi.md#upload_campaign_results) | **POST** /v1/ads/campaign-results | Upload your results per campaign
 
@@ -31,6 +33,33 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**models::GetCampaignResultEvents200Response**](getCampaignResultEvents_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_campaign_result_profit
+
+> models::CampaignResultProfit get_campaign_result_profit()
+Get your profit setting
+
+The margin and cost per order your team's profit metrics use. Both are `null` until you set them. 
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::CampaignResultProfit**](CampaignResultProfit.md)
 
 ### Authorization
 
@@ -139,7 +168,7 @@ This endpoint does not need any parameter.
 > models::ListCampaignResultMetrics200Response list_campaign_result_metrics()
 List your result metrics
 
-The metric keys your team has sent, with their label and kind, then the formulas: your own and the built-in ones (`cac_percent`, `cost_per_sale`, `cost_per_qualified_lead`, `lead_to_sale`, `qualified_rate`). A new key appears as a `count` labelled from the key; name it, or define a formula, with `PUT /v1/ads/campaign-results/metrics/{key}`. 
+The metric keys your team has sent, with their label and kind, then the formulas: your own and the built-in ones (`cac_percent`, `cost_per_sale`, `cost_per_qualified_lead`, `lead_to_sale`, `qualified_rate`).  Once you set a margin with `PUT /v1/ads/campaign-results/profit`, the built-ins add `profit`, `poas` and `profit_after_ads`. A new key appears as a `count` labelled from the key; name it, or define a formula, with `PUT /v1/ads/campaign-results/metrics/{key}`. 
 
 ### Parameters
 
@@ -244,6 +273,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::SetCampaignResultMetric200Response**](setCampaignResultMetric_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## set_campaign_result_profit
+
+> models::CampaignResultProfit set_campaign_result_profit(set_campaign_result_profit_request)
+Set your margin and cost per order
+
+With a `marginPercent`, your team gets three built-in formulas, listed in `GET /v1/ads/campaign-results/metrics` and readable in `GET /v1/ads/campaign-results`, the Campaigns table and ad rules (`result:profit`), under every attribution model:  - `profit` = `revenue * marginPercent / 100 - sales * costPerOrder` - `poas` = `profit / spend` (profit on ad spend) - `profit_after_ads` = `profit - spend`  `revenue` and `sales` are the values counted from `Purchase` events or the ones you upload. `costPerOrder` is in each ad account's currency, the one its revenue is counted in. Values are rounded to 2 decimals. Send `marginPercent: null` to remove the profit metrics. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**set_campaign_result_profit_request** | [**SetCampaignResultProfitRequest**](SetCampaignResultProfitRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CampaignResultProfit**](CampaignResultProfit.md)
 
 ### Authorization
 

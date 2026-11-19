@@ -509,6 +509,7 @@ docs/CampaignReportParticipantsInner.md
 docs/CampaignReportSpend.md
 docs/CampaignReportViews.md
 docs/CampaignResultMetric.md
+docs/CampaignResultProfit.md
 docs/CampaignSample.md
 docs/CampaignSampleCounts.md
 docs/CampaignSampleShippingAddress.md
@@ -1525,7 +1526,12 @@ docs/GetEmailThread200ResponseData.md
 docs/GetEvent200Response.md
 docs/GetEvent200ResponseDeliveriesInner.md
 docs/GetEvent200ResponseTouchesInner.md
+docs/GetEventsAccuracy200Response.md
+docs/GetEventsAccuracy200ResponseDestinationsInner.md
+docs/GetEventsAccuracy200ResponseDestinationsInnerDeliveries.md
+docs/GetEventsAccuracy200ResponseDestinationsInnerMatch.md
 docs/GetEventsOverview200Response.md
+docs/GetEventsOverview200ResponseEventNamesInner.md
 docs/GetEventsOverview200ResponsePlatformsInner.md
 docs/GetEventsOverview200ResponseSitesInner.md
 docs/GetEventsOverview200ResponseSitesInnerTotals.md
@@ -1534,10 +1540,16 @@ docs/GetEventsOverview200ResponseToday.md
 docs/GetEventsOverview200ResponseWebsite.md
 docs/GetEventsOverview200ResponseWebsiteStepsInner.md
 docs/GetEventsOverviewDaily200Response.md
+docs/GetEventsOverviewDaily200ResponseBreakdown.md
+docs/GetEventsOverviewDaily200ResponseBreakdownCampaignsInner.md
+docs/GetEventsOverviewDaily200ResponseBreakdownEventsInner.md
+docs/GetEventsOverviewDaily200ResponseBreakdownSourcesInner.md
 docs/GetEventsOverviewDaily200ResponseDaysInner.md
 docs/GetEventsOverviewDaily200ResponsePixelMissedInner.md
+docs/GetEventsOverviewDaily200ResponsePixelMissedInnerDaysInner.md
 docs/GetEventsOverviewDaily200ResponsePlatformsInner.md
 docs/GetEventsOverviewDaily200ResponsePlatformsInnerDaysInner.md
+docs/GetEventsOverviewDaily200ResponsePrevious.md
 docs/GetEventsOverviewDaily200ResponseTotals.md
 docs/GetFacebookDemographics200Response.md
 docs/GetFacebookDemographics200ResponseDemographics.md
@@ -1753,6 +1765,8 @@ docs/GetStripeConnectUrl200Response.md
 docs/GetStripeSettings200Response.md
 docs/GetSubredditRules200Response.md
 docs/GetSubredditRules200ResponseRulesInner.md
+docs/GetSurveyAnswers200Response.md
+docs/GetSurveyAnswers200ResponseAnswersInner.md
 docs/GetTagNewAds200Response.md
 docs/GetTelegramCommands200Response.md
 docs/GetTelegramCommands200ResponseDataInner.md
@@ -1958,6 +1972,9 @@ docs/HideAdComment200Response.md
 docs/HideAdCommentRequest.md
 docs/HideInboxComment200Response.md
 docs/HideInboxCommentRequest.md
+docs/HubSpotContactProperty.md
+docs/HubSpotContactPropertyOptionsInner.md
+docs/HubSpotQualifiedLeads.md
 docs/HubSpotSettings.md
 docs/HubSpotSettingsSyncIssue.md
 docs/IMessageApi.md
@@ -2314,6 +2331,7 @@ docs/ListGoogleSearchConsoleSitemaps200ResponseMeta.md
 docs/ListGoogleSearchConsoleSites200Response.md
 docs/ListGoogleSearchConsoleSites200ResponseSitesInner.md
 docs/ListHighDemandPeriods200Response.md
+docs/ListHubSpotContactProperties200Response.md
 docs/ListImessageAudience200Response.md
 docs/ListImessageAvailableNumbers200Response.md
 docs/ListImessageAvailableNumbers200ResponseNumbersInner.md
@@ -3052,6 +3070,7 @@ docs/SetCampaignResultEvents200Response.md
 docs/SetCampaignResultEventsRequest.md
 docs/SetCampaignResultMetric200Response.md
 docs/SetCampaignResultMetricRequest.md
+docs/SetCampaignResultProfitRequest.md
 docs/SetCommentModerationRequest.md
 docs/SetCommerceDiscountActiveRequest.md
 docs/SetCommercePriceListPrices200Response.md
@@ -3127,6 +3146,7 @@ docs/StorePixelInstall.md
 docs/StorePixelInstallTagsInner.md
 docs/StoredEvent.md
 docs/StoredEventAd.md
+docs/StoredEventCampaign.md
 docs/StoredEventClickIds.md
 docs/StoredEventUtm.md
 docs/StripeSettings.md
@@ -3441,6 +3461,7 @@ docs/UpdateGoogleBusinessServicesRequestServiceItemsInnerPrice.md
 docs/UpdateGoogleBusinessServicesRequestServiceItemsInnerStructuredServiceItem.md
 docs/UpdateHubSpotSettings200Response.md
 docs/UpdateHubSpotSettingsRequest.md
+docs/UpdateHubSpotSettingsRequestQualifiedLeads.md
 docs/UpdateImessageGroup200Response.md
 docs/UpdateImessageGroupRequest.md
 docs/UpdateImessageSenderRequest.md
@@ -4533,6 +4554,7 @@ src/models/campaign_report_participants_inner.rs
 src/models/campaign_report_spend.rs
 src/models/campaign_report_views.rs
 src/models/campaign_result_metric.rs
+src/models/campaign_result_profit.rs
 src/models/campaign_sample.rs
 src/models/campaign_sample_counts.rs
 src/models/campaign_sample_shipping_address.rs
@@ -5532,7 +5554,12 @@ src/models/get_email_thread_200_response_data.rs
 src/models/get_event_200_response.rs
 src/models/get_event_200_response_deliveries_inner.rs
 src/models/get_event_200_response_touches_inner.rs
+src/models/get_events_accuracy_200_response.rs
+src/models/get_events_accuracy_200_response_destinations_inner.rs
+src/models/get_events_accuracy_200_response_destinations_inner_deliveries.rs
+src/models/get_events_accuracy_200_response_destinations_inner_match.rs
 src/models/get_events_overview_200_response.rs
+src/models/get_events_overview_200_response_event_names_inner.rs
 src/models/get_events_overview_200_response_platforms_inner.rs
 src/models/get_events_overview_200_response_sites_inner.rs
 src/models/get_events_overview_200_response_sites_inner_totals.rs
@@ -5541,10 +5568,16 @@ src/models/get_events_overview_200_response_today.rs
 src/models/get_events_overview_200_response_website.rs
 src/models/get_events_overview_200_response_website_steps_inner.rs
 src/models/get_events_overview_daily_200_response.rs
+src/models/get_events_overview_daily_200_response_breakdown.rs
+src/models/get_events_overview_daily_200_response_breakdown_campaigns_inner.rs
+src/models/get_events_overview_daily_200_response_breakdown_events_inner.rs
+src/models/get_events_overview_daily_200_response_breakdown_sources_inner.rs
 src/models/get_events_overview_daily_200_response_days_inner.rs
 src/models/get_events_overview_daily_200_response_pixel_missed_inner.rs
+src/models/get_events_overview_daily_200_response_pixel_missed_inner_days_inner.rs
 src/models/get_events_overview_daily_200_response_platforms_inner.rs
 src/models/get_events_overview_daily_200_response_platforms_inner_days_inner.rs
+src/models/get_events_overview_daily_200_response_previous.rs
 src/models/get_events_overview_daily_200_response_totals.rs
 src/models/get_facebook_demographics_200_response.rs
 src/models/get_facebook_demographics_200_response_demographics.rs
@@ -5760,6 +5793,8 @@ src/models/get_stripe_connect_url_200_response.rs
 src/models/get_stripe_settings_200_response.rs
 src/models/get_subreddit_rules_200_response.rs
 src/models/get_subreddit_rules_200_response_rules_inner.rs
+src/models/get_survey_answers_200_response.rs
+src/models/get_survey_answers_200_response_answers_inner.rs
 src/models/get_tag_new_ads_200_response.rs
 src/models/get_telegram_commands_200_response.rs
 src/models/get_telegram_commands_200_response_data_inner.rs
@@ -5957,6 +5992,9 @@ src/models/hide_ad_comment_200_response.rs
 src/models/hide_ad_comment_request.rs
 src/models/hide_inbox_comment_200_response.rs
 src/models/hide_inbox_comment_request.rs
+src/models/hub_spot_contact_property.rs
+src/models/hub_spot_contact_property_options_inner.rs
+src/models/hub_spot_qualified_leads.rs
 src/models/hub_spot_settings.rs
 src/models/hub_spot_settings_sync_issue.rs
 src/models/ids.rs
@@ -6306,6 +6344,7 @@ src/models/list_google_search_console_sitemaps_200_response_meta.rs
 src/models/list_google_search_console_sites_200_response.rs
 src/models/list_google_search_console_sites_200_response_sites_inner.rs
 src/models/list_high_demand_periods_200_response.rs
+src/models/list_hub_spot_contact_properties_200_response.rs
 src/models/list_imessage_audience_200_response.rs
 src/models/list_imessage_available_numbers_200_response.rs
 src/models/list_imessage_available_numbers_200_response_numbers_inner.rs
@@ -7029,6 +7068,7 @@ src/models/set_campaign_result_events_200_response.rs
 src/models/set_campaign_result_events_request.rs
 src/models/set_campaign_result_metric_200_response.rs
 src/models/set_campaign_result_metric_request.rs
+src/models/set_campaign_result_profit_request.rs
 src/models/set_comment_moderation_request.rs
 src/models/set_commerce_discount_active_request.rs
 src/models/set_commerce_price_list_prices_200_response.rs
@@ -7102,6 +7142,7 @@ src/models/store_pixel_install.rs
 src/models/store_pixel_install_tags_inner.rs
 src/models/stored_event.rs
 src/models/stored_event_ad.rs
+src/models/stored_event_campaign.rs
 src/models/stored_event_click_ids.rs
 src/models/stored_event_utm.rs
 src/models/stripe_settings.rs
@@ -7411,6 +7452,7 @@ src/models/update_google_business_services_request_service_items_inner_price.rs
 src/models/update_google_business_services_request_service_items_inner_structured_service_item.rs
 src/models/update_hub_spot_settings_200_response.rs
 src/models/update_hub_spot_settings_request.rs
+src/models/update_hub_spot_settings_request_qualified_leads.rs
 src/models/update_imessage_group_200_response.rs
 src/models/update_imessage_group_request.rs
 src/models/update_imessage_sender_request.rs

@@ -19,6 +19,7 @@ Method | HTTP request | Description
 [**grant_business_partner**](AccountsApi.md#grant_business_partner) | **POST** /v1/accounts/{accountId}/business-partners | Share the Page with a partner business
 [**list_accounts**](AccountsApi.md#list_accounts) | **GET** /v1/accounts | List accounts
 [**list_business_partners**](AccountsApi.md#list_business_partners) | **GET** /v1/accounts/{accountId}/business-partners | List partner businesses of the Page
+[**list_hub_spot_contact_properties**](AccountsApi.md#list_hub_spot_contact_properties) | **GET** /v1/accounts/{accountId}/hubspot-settings/contact-properties | List HubSpot contact properties
 [**list_tik_tok_commercial_music**](AccountsApi.md#list_tik_tok_commercial_music) | **GET** /v1/accounts/{accountId}/tiktok/commercial-music | List trending commercial music
 [**move_account_to_profile**](AccountsApi.md#move_account_to_profile) | **PATCH** /v1/accounts/{accountId} | Move account to another profile
 [**revoke_business_partner**](AccountsApi.md#revoke_business_partner) | **DELETE** /v1/accounts/{accountId}/business-partners | Revoke a partner business from the Page
@@ -512,6 +513,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_hub_spot_contact_properties
+
+> models::ListHubSpotContactProperties200Response list_hub_spot_contact_properties(account_id)
+List HubSpot contact properties
+
+The connected portal's visible contact properties, with the values of those that have a fixed list. Use it to pick the property and values of `qualifiedLeads`. Cached for 10 minutes.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::ListHubSpotContactProperties200Response**](listHubSpotContactProperties_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_tik_tok_commercial_music
 
 > models::ListTikTokCommercialMusic200Response list_tik_tok_commercial_music(account_id, country_code)
@@ -703,7 +734,7 @@ Name | Type | Description  | Required | Notes
 > models::UpdateHubSpotSettings200Response update_hub_spot_settings(account_id, update_hub_spot_settings_request)
 Update HubSpot account settings
 
-Turn contact sync, message logging, delivery status or deal reporting on or off for a connected HubSpot portal, or set defaults for the contact properties the portal requires. Send at least one field; omitted fields keep their value. Settings survive reconnecting the same portal.
+Turn contact sync, message logging, delivery status, deal reporting or qualified leads on or off for a connected HubSpot portal, or set defaults for the contact properties the portal requires. Send at least one field; omitted fields keep their value. Settings survive reconnecting the same portal.
 
 ### Parameters
 

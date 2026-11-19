@@ -23,6 +23,8 @@ Name | Type | Description | Notes
 **has_external_id** | Option<**bool**> |  | [optional]
 **paired_event_id** | Option<**String**> | In a `GET /v1/events` page: the other copy of the same conversion, when a website tag (`web`) and a server send both stored it under different event ids (same event name, a shared identifier, at most 30 minutes apart). `null` otherwise, and always `null` from `GET /v1/events/{eventId}`. | [optional]
 **ad** | Option<[**models::StoredEventAd**](StoredEventAd.md)> |  | [optional]
+**campaign** | Option<[**models::StoredEventCampaign**](StoredEventCampaign.md)> |  | [optional]
+**counted** | Option<**bool**> | `false` for a website (`web`) copy of an event name a server source also reported that day: the server copy counts in the overview and campaign results, and this one is kept but not counted. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

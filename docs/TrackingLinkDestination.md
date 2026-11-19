@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**url** | **String** | An https landing page. | 
+**url** | **String** | An https landing page. Each click adds its click id as `zcid`, and fills any parameter set to `{zcid}`, such as `sub1={zcid}` on an affiliate network's offer link. | 
 **weight** | **i32** | This page's share of clicks, relative to the other destinations' weights. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -27,9 +27,11 @@ Method | HTTP request | Description
 [**get_conversion_paths**](ConversionsApi.md#get_conversion_paths) | **GET** /v1/events/paths | List the touch paths that lead to conversions
 [**get_conversions_quality**](ConversionsApi.md#get_conversions_quality) | **GET** /v1/ads/conversions/quality | Get Event Match Quality
 [**get_event**](ConversionsApi.md#get_event) | **GET** /v1/events/{eventId} | Get one stored event and its deliveries
+[**get_events_accuracy**](ConversionsApi.md#get_events_accuracy) | **GET** /v1/events/accuracy | Get delivery accuracy per destination
 [**get_events_overview**](ConversionsApi.md#get_events_overview) | **GET** /v1/events/overview | Get today's tracking overview
 [**get_events_overview_daily**](ConversionsApi.md#get_events_overview_daily) | **GET** /v1/events/overview/daily | Get daily tracking figures
 [**get_ltv_cohorts**](ConversionsApi.md#get_ltv_cohorts) | **GET** /v1/events/ltv | Get buyer cohorts by first purchase month and first channel
+[**get_survey_answers**](ConversionsApi.md#get_survey_answers) | **GET** /v1/events/survey | Get post-purchase survey answers
 [**get_tracking_site**](ConversionsApi.md#get_tracking_site) | **GET** /v1/tracking-sites/{siteId} | Get a tracking site
 [**list_ad_conversion_associations**](ConversionsApi.md#list_ad_conversion_associations) | **GET** /v1/ads/conversions/destinations/{destinationId}/associations | List associated campaigns
 [**list_ad_conversion_destinations**](ConversionsApi.md#list_ad_conversion_destinations) | **GET** /v1/ads/conversions/destinations | List conversion destinations
@@ -780,6 +782,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_events_accuracy
+
+> models::GetEventsAccuracy200Response get_events_accuracy(profile_id, period)
+Get delivery accuracy per destination
+
+For each forwarding rule of a profile: what its destination received over a period, and how many of the profile's real sales reached it.  `deliveries` counts every event sent to the destination in the period, whatever its source, by the latest outcome of each. `accuracy` compares only sales: Shopify and WooCommerce orders and Stripe payments, as Elevar's Channel Accuracy does. Sales a rule leaves out by choice do not count against it.  Without `profileId` it covers every profile you can access. Requires the Ads add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**profile_id** | Option<**String**> | The profile to read. Omit to cover every profile you can access. |  |
+**period** | Option<**String**> | The window, ending now: `today` (since 00:00 UTC), or the last 7, 30 or 90 days. |  |[default to 7d]
+
+### Return type
+
+[**models::GetEventsAccuracy200Response**](getEventsAccuracy_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_events_overview
 
 > models::GetEventsOverview200Response get_events_overview(profile_id)
@@ -863,6 +896,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetLtvCohorts200Response**](getLtvCohorts_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_survey_answers
+
+> models::GetSurveyAnswers200Response get_survey_answers(from_date, to_date, profile_id)
+Get post-purchase survey answers
+
+How buyers said they heard about the store, from the \"How did you hear about us?\" block on the Shopify thank-you page. Each answer comes with its orders and their revenue.  Revenue is what the orders are worth now (refunds taken off), summed across currencies as sent. Without `profileId` it covers every profile you can access. Requires the Ads add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**from_date** | **String** | First day an answer was given. | [required] |
+**to_date** | **String** | Inclusive. At most 400 days after `fromDate`. | [required] |
+**profile_id** | Option<**String**> | The profile to read. Omit for every profile you can access. |  |
+
+### Return type
+
+[**models::GetSurveyAnswers200Response**](getSurveyAnswers_200_response.md)
 
 ### Authorization
 
@@ -1220,7 +1285,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_events
 
-> models::ListEvents200Response list_events(profile_id, limit, from, to, event_name, source, platform, delivery_status, cursor)
+> models::ListEvents200Response list_events(profile_id, limit, from, to, event_name, source, platform, delivery_status, from_ad, campaign_id, cursor)
 List stored events
 
 Lists the conversion events stored by `POST /v1/events`, newest first: for one profile, or for every profile you can access when `profileId` is omitted.  Personal data is never returned: `hasEmail`, `hasPhone` and `hasExternalId` only say whether the event carried that identifier. Events sent with `testCode` are not stored, so they never appear here.  Paginate with `cursor`: pass the `nextCursor` of the previous page until it comes back `null`. 
@@ -1238,6 +1303,8 @@ Name | Type | Description  | Required | Notes
 **source** | Option<**String**> | Only events from this source, such as `stripe` for the payments of a connected Stripe account. |  |
 **platform** | Option<**String**> | Only events sent to this ad platform, such as `metaads` or `googleads`. |  |
 **delivery_status** | Option<**String**> | Only events whose latest send to a destination (of `platform`, when given) was accepted (`sent`) or was not (`failed`: failed or still retrying). |  |
+**from_ad** | Option<**bool**> | `true`: only events carrying an ad click or a campaign (a gclid, gbraid or wbraid, a `zrn`, or a matched campaign). `false`: only the others. |  |
+**campaign_id** | Option<**String**> | Only events of this ad platform campaign id: matched to it, or behind a Google click of it. |  |
 **cursor** | Option<**String**> | `nextCursor` from the previous page. |  |
 
 ### Return type
@@ -1545,7 +1612,7 @@ Name | Type | Description  | Required | Notes
 > models::SendEvents200Response send_events(send_events_request, idempotency_key)
 Send events to every destination
 
-The recommended way to send conversions. Sends conversion events once and forwards them to every ad platform destination saved for the profile (see `POST /v1/events/destinations`), or to the `destinations` given in the request. Requires the Ads add-on.  ### Forwarding  - Each destination receives the events exactly as `POST /v1/ads/conversions` would send them, so the per-platform notes there (hashing, batching, `eventName` semantics, dedup on `eventId`) apply here too. - A destination saved with `eventNames` only receives events with those names. - One destination failing never blocks the others: each one reports its own result.  ### Storage  Zernio also stores each event for the profile's reporting.  - Email, phone and `externalId` are stored only as SHA-256 hashes. - `sourceUrl` keeps only its origin, path and attribution parameters (`utm_*`, `gclid`, `fbclid`, `ttclid`, `li_fat_id`, `epik`, `rdt_cid`, `gbraid`, `wbraid`). - Events sent with `testCode` are forwarded but not stored. - Sending an event again with the same `eventId` replaces the stored one. - A stored `Purchase`, `Lead` or `QualifiedLead` tied to one of your campaigns (see `campaign` on each event) counts in `GET /v1/ads/campaign-results` and in ad rules as `sales` and `revenue`, `leads` or `qualified_leads`. 
+The recommended way to send conversions. Sends conversion events once and forwards them to every ad platform destination saved for the profile (see `POST /v1/events/destinations`), or to the `destinations` given in the request. Requires the Ads add-on.  ### Forwarding  - Each destination receives the events exactly as `POST /v1/ads/conversions` would send them, so the per-platform notes there (hashing, batching, `eventName` semantics, dedup on `eventId`) apply here too. - A destination saved with `eventNames` only receives events with those names. - One destination failing never blocks the others: each one reports its own result.  ### Storage  Zernio also stores each event for the profile's reporting.  - Email, phone and `externalId` are stored only as SHA-256 hashes. - `sourceUrl` keeps only its origin, path and attribution parameters (`utm_*`, `zrn`, `zcid`, `gclid`, `gbraid`, `wbraid`, `fbclid`, `ttclid`, `twclid`, `msclkid`, `li_fat_id`, `epik`, `rdt_cid`, `oppref`, `aleid`, `alart`), each also under a `z`-prefixed copy such as `zgclid`. - Events sent with `testCode` are forwarded but not stored. - Sending an event again with the same `eventId` replaces the stored one. - A stored `Purchase`, `Lead` or `QualifiedLead` tied to one of your campaigns (see `campaign` on each event) counts in `GET /v1/ads/campaign-results` and in ad rules as `sales` and `revenue`, `leads` or `qualified_leads`. 
 
 ### Parameters
 
