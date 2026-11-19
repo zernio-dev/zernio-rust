@@ -1805,7 +1805,10 @@ docs/GetUser200ResponseUser.md
 docs/GetValueRuleSet200Response.md
 docs/GetVoiceCall200Response.md
 docs/GetVoiceCallEstimate200Response.md
+docs/GetVoiceCallEstimate200ResponseBillingIncrementSeconds.md
 docs/GetVoiceCallEstimate200ResponseBreakdown.md
+docs/GetVoiceCallEstimate200ResponseRates.md
+docs/GetVoiceCallEstimate200ResponseTrunk.md
 docs/GetWebflowConnectUrl200Response.md
 docs/GetWebhookLogs200Response.md
 docs/GetWebhookLogs200ResponsePagination.md
@@ -3624,6 +3627,8 @@ docs/VerifyWhatsAppCallerIdRequest.md
 docs/VerifyWhatsAppNumber200Response.md
 docs/VerifyWhatsAppNumberRequest.md
 docs/VoiceApi.md
+docs/VoiceCallLineRates.md
+docs/VoiceCallLineRatesNetworksInner.md
 docs/VoteRedditThingRequest.md
 docs/Webhook.md
 docs/WebhookAdsAccount.md
@@ -5833,7 +5838,10 @@ src/models/get_user_200_response_user.rs
 src/models/get_value_rule_set_200_response.rs
 src/models/get_voice_call_200_response.rs
 src/models/get_voice_call_estimate_200_response.rs
+src/models/get_voice_call_estimate_200_response_billing_increment_seconds.rs
 src/models/get_voice_call_estimate_200_response_breakdown.rs
+src/models/get_voice_call_estimate_200_response_rates.rs
+src/models/get_voice_call_estimate_200_response_trunk.rs
 src/models/get_webflow_connect_url_200_response.rs
 src/models/get_webhook_logs_200_response.rs
 src/models/get_webhook_logs_200_response_pagination.rs
@@ -7610,6 +7618,8 @@ src/models/verify_sms_registration_otp_request.rs
 src/models/verify_whats_app_caller_id_request.rs
 src/models/verify_whats_app_number_200_response.rs
 src/models/verify_whats_app_number_request.rs
+src/models/voice_call_line_rates.rs
+src/models/voice_call_line_rates_networks_inner.rs
 src/models/vote_reddit_thing_request.rs
 src/models/webhook.rs
 src/models/webhook_ads_account.rs
