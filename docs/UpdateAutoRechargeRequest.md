@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **to_cents** | Option<**i32**> | The back-to amount, in cents. At least $4 above belowCents, so at least $5. | [optional]
 **monthly_limit_cents** | Option<**i32**> | Most auto top-up may add per calendar month (UTC), before tax. At least the back-to amount (toCents) while auto top-up is on. Null for no limit. | [optional]
 **alert_below_cents** | Option<**i32**> | Email the billing owner once each time the balance drops below this. Null for no email. | [optional]
+**consent_wording** | Option<**String**> | The auto top-up line you showed the user, recorded as their consent: our line for the saved amounts (see getAutoRecharge), with or without VAT. Omit it to record our own line. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
