@@ -108,7 +108,7 @@ Method | HTTP request | Description
 
 ## add_org_connection_mailbox
 
-> models::InlineObject1 add_org_connection_mailbox(org_connection_id, add_org_connection_mailbox_request)
+> models::InlineObject2 add_org_connection_mailbox(org_connection_id, add_org_connection_mailbox_request)
 Add a mailbox from an organization connection
 
 Adds one mailbox from an active organization connection, with no sign-in from its user. It becomes a `google` or `microsoft` account on the connection's profile and works with every email, calendar, files and contacts endpoint.  `201` for a new account, `200` when the address was already on the profile and now runs on the organization grant. `account.connected` fires. 
@@ -123,7 +123,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::InlineObject1**](inline_object_1.md)
+[**models::InlineObject2**](inline_object_2.md)
 
 ### Authorization
 

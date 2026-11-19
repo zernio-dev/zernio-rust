@@ -282,7 +282,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_business_agent_connector
 
-> models::InlineObject delete_business_agent_connector(account_id, connector_id)
+> models::InlineObject1 delete_business_agent_connector(account_id, connector_id)
 Delete a connector
 
 ### Parameters
@@ -295,7 +295,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::InlineObject**](inline_object.md)
+[**models::InlineObject1**](inline_object_1.md)
 
 ### Authorization
 
@@ -311,7 +311,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_business_agent_connector_tool
 
-> models::InlineObject delete_business_agent_connector_tool(account_id, connector_id, tool_id)
+> models::InlineObject1 delete_business_agent_connector_tool(account_id, connector_id, tool_id)
 Delete a connector tool
 
 ### Parameters
@@ -325,7 +325,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::InlineObject**](inline_object.md)
+[**models::InlineObject1**](inline_object_1.md)
 
 ### Authorization
 
@@ -341,7 +341,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_business_agent_faq
 
-> models::InlineObject delete_business_agent_faq(account_id, faq_id)
+> models::InlineObject1 delete_business_agent_faq(account_id, faq_id)
 Delete a FAQ
 
 ### Parameters
@@ -354,7 +354,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::InlineObject**](inline_object.md)
+[**models::InlineObject1**](inline_object_1.md)
 
 ### Authorization
 
@@ -370,7 +370,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_business_agent_file
 
-> models::InlineObject delete_business_agent_file(account_id, file_id)
+> models::InlineObject1 delete_business_agent_file(account_id, file_id)
 Delete a knowledge file
 
 ### Parameters
@@ -383,7 +383,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::InlineObject**](inline_object.md)
+[**models::InlineObject1**](inline_object_1.md)
 
 ### Authorization
 
@@ -399,7 +399,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_business_agent_skill
 
-> models::InlineObject delete_business_agent_skill(account_id, skill_id)
+> models::InlineObject1 delete_business_agent_skill(account_id, skill_id)
 Delete a skill
 
 ### Parameters
@@ -412,7 +412,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::InlineObject**](inline_object.md)
+[**models::InlineObject1**](inline_object_1.md)
 
 ### Authorization
 
@@ -428,7 +428,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_business_agent_ui_skill
 
-> models::InlineObject delete_business_agent_ui_skill(account_id, ui_skill_id)
+> models::InlineObject1 delete_business_agent_ui_skill(account_id, ui_skill_id)
 Delete a UI skill
 
 ### Parameters
@@ -441,7 +441,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::InlineObject**](inline_object.md)
+[**models::InlineObject1**](inline_object_1.md)
 
 ### Authorization
 
@@ -457,7 +457,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_business_agent_website
 
-> models::InlineObject delete_business_agent_website(account_id, website_id)
+> models::InlineObject1 delete_business_agent_website(account_id, website_id)
 Remove a crawled website
 
 ### Parameters
@@ -470,7 +470,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::InlineObject**](inline_object.md)
+[**models::InlineObject1**](inline_object_1.md)
 
 ### Authorization
 
@@ -1206,7 +1206,7 @@ Name | Type | Description  | Required | Notes
 
 ## remove_business_agent_allowlist_entry
 
-> models::InlineObject remove_business_agent_allowlist_entry(account_id, entry_id)
+> models::InlineObject1 remove_business_agent_allowlist_entry(account_id, entry_id)
 Remove an allowlisted consumer
 
 ### Parameters
@@ -1219,7 +1219,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::InlineObject**](inline_object.md)
+[**models::InlineObject1**](inline_object_1.md)
 
 ### Authorization
 
@@ -1297,7 +1297,7 @@ Name | Type | Description  | Required | Notes
 
 ## reset_business_agent_business_information
 
-> models::InlineObject reset_business_agent_business_information(account_id)
+> models::InlineObject1 reset_business_agent_business_information(account_id)
 Reset business information
 
 ### Parameters
@@ -1309,7 +1309,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::InlineObject**](inline_object.md)
+[**models::InlineObject1**](inline_object_1.md)
 
 ### Authorization
 

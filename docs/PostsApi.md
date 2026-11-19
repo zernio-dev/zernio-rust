@@ -149,7 +149,7 @@ Name | Type | Description  | Required | Notes
 > models::PostGetResponse get_post(post_id)
 Get post
 
-Fetch a single post by ID. For published posts, this returns platformPostUrl for each platform. 
+Fetch a single post by ID. For published posts, this returns platformPostUrl for each platform.  To wait for a post to publish, subscribe to the `post.published`, `post.failed` and `post.partial` webhooks instead of polling this endpoint. Each event carries the post, so no follow-up read is needed. 
 
 ### Parameters
 
@@ -179,7 +179,7 @@ Name | Type | Description  | Required | Notes
 > models::PostsListResponse list_posts(page, limit, offset, cursor, fields, view, updated_since, source, status, platform, profile_id, created_by, from_date, to_date, date_from, date_to, include_hidden, search, tags, sort_by, account_id)
 List posts
 
-Returns a paginated list of posts. Published posts include platformPostUrl with the public URL on each platform. A query parameter that is not listed here returns 400 naming it and the accepted parameters, so a misspelled filter never silently returns the unfiltered list.
+Returns a paginated list of posts. Published posts include platformPostUrl with the public URL on each platform. A query parameter that is not listed here returns 400 naming it and the accepted parameters, so a misspelled filter never silently returns the unfiltered list.  To learn when posts publish or fail, subscribe to the `post.published`, `post.failed` and `post.partial` webhooks instead of re-reading this list. 
 
 ### Parameters
 
@@ -257,10 +257,10 @@ Name | Type | Description  | Required | Notes
 
 ## retry_post
 
-> models::PostRetryResponse retry_post(post_id)
+> models::PostRetryResponse retry_post(post_id, post_retry_request)
 Retry failed post
 
-Immediately retries publishing a failed post. Returns the updated post with its new status.
+Immediately retries publishing a failed or partial post and returns the updated post with a per-platform result.  - Without a body, every failed or pending platform is retried. - Pass `platforms` to retry only some of them, for example the one platform that failed on a partial post. Platforms not listed are left alone. - Prefer this over creating the post again, which posts a second time to the platforms that already published.  A retry never collides with its own post in the 24-hour duplicate-content check. It still answers 409 when another post with identical content published, or is about to publish, to the same account. 
 
 ### Parameters
 
@@ -268,6 +268,7 @@ Immediately retries publishing a failed post. Returns the updated post with its 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **post_id** | **String** |  | [required] |
+**post_retry_request** | Option<[**PostRetryRequest**](PostRetryRequest.md)> |  |  |
 
 ### Return type
 
@@ -279,7 +280,7 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -383,7 +384,7 @@ Name | Type | Description  | Required | Notes
 > models::PostUpdateResponse update_post(post_id, update_post_request)
 Update post
 
-Update an existing post. Draft, scheduled, failed, partial, and cancelled posts can be edited. Published posts can only have their recycling config updated.  To promote a draft to scheduled, send `isDraft: false` together with `scheduledFor` (or `publishNow: true`, or `queuedFromProfile`). If `isDraft` is omitted the post keeps its current draft status, so sending only `scheduledFor` to a draft returns 200 but the post remains a draft.  Non-draft updates run the same per-platform validation as post creation (media requirements, platform-specific field rules, etc.) against the resulting platforms, returning 400 on failure. 
+Update an existing post. Draft, scheduled, failed, partial, and cancelled posts can be edited. Published posts can only have their recycling config updated: to change the text of a live post, use `POST /v1/posts/{postId}/edit`.  To promote a draft to scheduled, send `isDraft: false` together with `scheduledFor` (or `publishNow: true`, or `queuedFromProfile`). If `isDraft` is omitted the post keeps its current draft status, so sending only `scheduledFor` to a draft returns 200 but the post remains a draft.  Non-draft updates run the same per-platform validation as post creation (media requirements, platform-specific field rules, etc.) against the resulting platforms, returning 400 on failure. 
 
 ### Parameters
 

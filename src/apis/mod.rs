@@ -171,6 +171,7 @@ pub mod media_api;
 pub mod mentions_api;
 pub mod messages_api;
 pub mod messaging_ads_api;
+pub mod metrics_api;
 pub mod phone_numbers_api;
 pub mod posts_api;
 pub mod product_catalogs_api;

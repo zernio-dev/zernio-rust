@@ -142,6 +142,7 @@ Method | HTTP request | Description
 [**on_sms_registration_status_updated**](WebhookEventsApi.md#on_sms_registration_status_updated) | **POST** /sms.registration.status_updated | SMS registration status updated event
 [**on_support_run_completed**](WebhookEventsApi.md#on_support_run_completed) | **POST** /support.run.completed | Support Assistant finished event
 [**on_support_run_failed**](WebhookEventsApi.md#on_support_run_failed) | **POST** /support.run.failed | Support Assistant failed event
+[**on_tracking_site_ready**](WebhookEventsApi.md#on_tracking_site_ready) | **POST** /tracking_site.ready | Tracking site ready event
 [**on_verification_approved**](WebhookEventsApi.md#on_verification_approved) | **POST** /verification.approved | Verification approved event
 [**on_verification_failed**](WebhookEventsApi.md#on_verification_failed) | **POST** /verification.failed | Verification failed event
 [**on_webhook_test**](WebhookEventsApi.md#on_webhook_test) | **POST** /webhook.test | Webhook test event
@@ -4290,6 +4291,36 @@ A support run failed or expired, and is not billed.  ### Payload notes  `run.sta
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_support_run** | [**WebhookPayloadSupportRun**](WebhookPayloadSupportRun.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_tracking_site_ready
+
+> on_tracking_site_ready(webhook_payload_tracking_site)
+Tracking site ready event
+
+A tracked website's tag is confirmed on it, so its `setup.status` turned `ready`.  ### When it fires  Once the store app or Tag Manager install put the tag on the site, or, for a pasted line (or a Webflow site waiting on its next publish), with the site's first visit that is not a bot. A visit after that fires nothing.  `trackingSite` is the site as `GET /v1/tracking-sites/{siteId}` returns it, without `proxy.secret`.  ### Deduplication  The event `id` follows the site and the moment its tag was confirmed. Deduplicate on it. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_tracking_site** | [**WebhookPayloadTrackingSite**](WebhookPayloadTrackingSite.md) |  | [required] |
 
 ### Return type
 
