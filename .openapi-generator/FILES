@@ -3173,6 +3173,9 @@ docs/TikTokSmartPlusReviewStatus.md
 docs/TrackingLink.md
 docs/TrackingLinkCampaign.md
 docs/TrackingLinkDestination.md
+docs/TrackingLinkStats.md
+docs/TrackingLinkStatsDestinationsInner.md
+docs/TrackingLinkStatsRevenueInner.md
 docs/TrackingLinksApi.md
 docs/TrackingSite.md
 docs/TrackingSiteChecksInner.md
@@ -7141,6 +7144,9 @@ src/models/tik_tok_smart_plus_review_status.rs
 src/models/tracking_link.rs
 src/models/tracking_link_campaign.rs
 src/models/tracking_link_destination.rs
+src/models/tracking_link_stats.rs
+src/models/tracking_link_stats_destinations_inner.rs
+src/models/tracking_link_stats_revenue_inner.rs
 src/models/tracking_site.rs
 src/models/tracking_site_checks_inner.rs
 src/models/tracking_site_consent_mode.rs

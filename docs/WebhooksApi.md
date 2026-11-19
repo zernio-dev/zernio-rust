@@ -80,7 +80,7 @@ Name | Type | Description  | Required | Notes
 > models::GetWebhookLogs200Response get_webhook_logs(limit, skip, status, event, webhook_id, event_id)
 List webhook delivery logs
 
-Retrieve recorded webhook delivery attempts for the authenticated user, most recent first.  A profile-scoped API key, or a team member limited to specific profiles, gets 403.  Logs are retained for 30 days. Supports filtering by status, event type, webhook ID, and event ID, plus offset-based pagination.  ### Restricted keys  For a restricted (zrk_) API key:  - Rows for events outside the key's resource groups are omitted (`pagination.total` may over-count). - An `event` filter naming such an event is rejected with 403.  ### Denylisted events  Events blocked by a subscription's own `disabledResourceGroups` are dropped before delivery, so they produce no log rows for anyone.  The exception is the five-minute tail after a denylist change, where an already-queued event can still be delivered and logged. 
+Retrieve recorded webhook delivery attempts for the authenticated user, most recent first.  Delivery logs carry full payloads, so only the account owner and admins (and their API keys) can read them. Any other team member, a profile-scoped API key, or a team member limited to specific profiles, gets 403.  Logs are retained for 30 days. Supports filtering by status, event type, webhook ID, and event ID, plus offset-based pagination.  ### Restricted keys  For a restricted (zrk_) API key:  - Rows for events outside the key's resource groups are omitted (`pagination.total` may over-count). - An `event` filter naming such an event is rejected with 403.  ### Denylisted events  Events blocked by a subscription's own `disabledResourceGroups` are dropped before delivery, so they produce no log rows for anyone.  The exception is the five-minute tail after a denylist change, where an already-queued event can still be delivered and logged. 
 
 ### Parameters
 
@@ -115,7 +115,7 @@ Name | Type | Description  | Required | Notes
 > models::GetWebhookSettings200Response get_webhook_settings()
 List webhooks
 
-Retrieve all configured webhooks for the authenticated user. Supports up to 50 webhooks per user. A profile-scoped API key, or a team member limited to specific profiles, gets 403.
+Retrieve all configured webhooks for the authenticated user. Supports up to 50 webhooks per user. A profile-scoped API key, or a team member limited to specific profiles, gets 403.  The signing `secret` is returned only to the account owner and admins (and their API keys). Other team members get each webhook without it. 
 
 ### Parameters
 
@@ -142,7 +142,7 @@ This endpoint does not need any parameter.
 > models::UnpublishPost200Response redeliver_webhook_event(redeliver_webhook_event_request)
 Redeliver a webhook event
 
-Replay a past delivery: the original payload is re-sent, byte for byte, to the subscription's current URL. The original event ID is preserved so your endpoint can dedupe, and the replay is recorded as a fresh attempt, so it shows up in `GET /v1/webhooks/logs` next to the delivery it replays.  Both `webhookId` and `eventId` come from a row of `GET /v1/webhooks/logs`. Because the stored payload is replayed as-is, a redelivery reflects the event as it was emitted, not the current state of the resource.  Only deliveries inside the 30-day log retention window can be replayed; past that the payload is gone and the request fails with a 422. Replays run the same resource-group checks as live delivery, against both the key's groups and the subscription's `disabledResourceGroups`.  A profile-scoped API key, or a team member limited to specific profiles, gets 403. 
+Replay a past delivery: the original payload is re-sent, byte for byte, to the subscription's current URL. The original event ID is preserved so your endpoint can dedupe, and the replay is recorded as a fresh attempt, so it shows up in `GET /v1/webhooks/logs` next to the delivery it replays.  Both `webhookId` and `eventId` come from a row of `GET /v1/webhooks/logs`. Because the stored payload is replayed as-is, a redelivery reflects the event as it was emitted, not the current state of the resource.  Only deliveries inside the 30-day log retention window can be replayed; past that the payload is gone and the request fails with a 422. Replays run the same resource-group checks as live delivery, against both the key's groups and the subscription's `disabledResourceGroups`.  Only the account owner and admins (and their API keys) can replay deliveries. Any other team member, a profile-scoped API key, or a team member limited to specific profiles, gets 403. 
 
 ### Parameters
 

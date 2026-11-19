@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**create_tracking_link**](TrackingLinksApi.md#create_tracking_link) | **POST** /v1/tracking-links | Create a tracking link
 [**delete_tracking_link**](TrackingLinksApi.md#delete_tracking_link) | **DELETE** /v1/tracking-links/{linkId} | Delete a tracking link
 [**get_tracking_link**](TrackingLinksApi.md#get_tracking_link) | **GET** /v1/tracking-links/{linkId} | Get a tracking link
+[**get_tracking_link_stats**](TrackingLinksApi.md#get_tracking_link_stats) | **GET** /v1/tracking-links/{linkId}/stats | Get a tracking link's results
 [**list_tracking_links**](TrackingLinksApi.md#list_tracking_links) | **GET** /v1/tracking-links | List tracking links
 [**rotate_tracking_link_postback_token**](TrackingLinksApi.md#rotate_tracking_link_postback_token) | **POST** /v1/tracking-links/{linkId}/rotate-postback-token | Rotate a tracking link's postback URL
 [**update_tracking_link**](TrackingLinksApi.md#update_tracking_link) | **PATCH** /v1/tracking-links/{linkId} | Update a tracking link
@@ -91,6 +92,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::CreateTrackingLink201Response**](createTrackingLink_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_tracking_link_stats
+
+> models::TrackingLinkStats get_tracking_link_stats(link_id, from_date, to_date)
+Get a tracking link's results
+
+Clicks, conversions and revenue of one link over a range of days (UTC), and its clicks per destination, the result of a split test. Clicks leave out bots.  Conversions are the link's postbacks plus website conversions carrying the click id of one of its clicks, less any retracted. The range is at most 90 days, the time clicks are kept. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**link_id** | **String** |  | [required] |
+**from_date** | **String** | First day of the range, `YYYY-MM-DD`. | [required] |
+**to_date** | **String** | Last day of the range, `YYYY-MM-DD`. | [required] |
+
+### Return type
+
+[**models::TrackingLinkStats**](TrackingLinkStats.md)
 
 ### Authorization
 

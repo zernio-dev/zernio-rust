@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **destinations** | Option<[**Vec<models::TrackingLinkDestination>**](TrackingLinkDestination.md)> |  | [optional]
 **campaign** | Option<[**models::TrackingLinkCampaign**](TrackingLinkCampaign.md)> |  | [optional]
 **url** | Option<**String**> | The link to put in ads, such as `https://t.brand.com/r/aB3dE5fG`. It uses the site's custom subdomain once that is active. | [optional]
-**postback_url** | Option<**String**> | The server-to-server postback URL to give the network. Replace `{clickid}`, `{payout}` and `{txid}` with the network's own macros. It holds a secret: rotate it with `POST /v1/tracking-links/{linkId}/rotate-postback-token` if it leaks. | [optional]
+**postback_url** | Option<**String**> | The server-to-server postback URL for the network, with its own macros in place of `{clickid}`, `{payout}` and `{txid}`. A `status` of `rejected`, `declined`, `refunded`, `reversed` or `chargeback` retracts the conversion; `pending` is ignored. It holds a secret: rotate it with `POST /v1/tracking-links/{linkId}/rotate-postback-token` if it leaks. | [optional]
 **created_at** | Option<**String**> |  | [optional]
 **updated_at** | Option<**String**> |  | [optional]
 
