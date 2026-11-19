@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **field_type** | **String** | Google asset role, such as HEADLINE or LOGO. | 
 **status** | **String** |  | 
 **source** | Option<**String**> | Who added the asset: ADVERTISER, or AUTOMATICALLY_CREATED when Google generated it. Empty when Google does not say. | [optional]
+**policy_summary** | [**models::GooglePmaxAssetGroupAssetsInnerPolicySummary**](GooglePmaxAssetGroupAssetsInnerPolicySummary.md) |  | 
 **text** | Option<**String**> |  | [optional]
 **image_url** | Option<**String**> |  | [optional]
 **youtube_video_id** | Option<**String**> |  | [optional]
