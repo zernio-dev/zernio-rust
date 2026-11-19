@@ -5,6 +5,7 @@ All URIs are relative to *https://zernio.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**delete_account**](AccountsApi.md#delete_account) | **DELETE** /v1/accounts/{accountId} | Disconnect account
+[**get_account**](AccountsApi.md#get_account) | **GET** /v1/accounts/{accountId} | Get account
 [**get_account_health**](AccountsApi.md#get_account_health) | **GET** /v1/accounts/{accountId}/health | Check account health
 [**get_account_posts**](AccountsApi.md#get_account_posts) | **GET** /v1/accounts/{accountId}/posts | List posts published on the platform
 [**get_all_accounts_health**](AccountsApi.md#get_all_accounts_health) | **GET** /v1/accounts/health | Check accounts health
@@ -63,6 +64,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_account
+
+> models::GetAccount200Response get_account(account_id)
+Get account
+
+Returns one connected account, in the same shape as an item of `GET /v1/accounts`.  The same access rules apply: a key or a team member limited to some profiles gets a 404 for an account outside them.  An account the list leaves out by default is still returned when you name it:  - one over the plan's profile limit - one on a creator profile - an ad account listed behind its ads login  A malformed `accountId` returns 400; an unknown account, or one you cannot access, returns 404. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::GetAccount200Response**](getAccount_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_account_health
 
 > models::GetAccountHealth200Response get_account_health(account_id)
@@ -95,10 +126,10 @@ Name | Type | Description  | Required | Notes
 
 ## get_account_posts
 
-> models::GetAccountPosts200Response get_account_posts(account_id)
+> models::GetAccountPosts200Response get_account_posts(account_id, limit, cursor)
 List posts published on the platform
 
-Returns the 25 most recent posts that exist on the platform for a connected account, read live from the platform API. This covers everything on the account, including posts that were never created through Zernio.  Use it to obtain the platform's own post id, which the analytics endpoints take as input. On YouTube the returned `id` is the video ID that `GET /v1/analytics/youtube/daily-views`, `/video-retention` and `/demographics` expect as `videoId`, so this endpoint is what backs a video picker in your own UI.  ### Platform-specific fields  Not every field applies to every platform. Absent fields are omitted from the response.  - `reactionCount`: Facebook and LinkedIn. - `shareCount`: platform dependent. - `cid`: the Bluesky content id needed to reply. - `subreddit`: Reddit only. - `title`, `description`, `link`, `boardId` and `boardOwnerUsername`: Pinterest only (the native Pin values; `message` keeps title and description joined). - `isOwner`: Pinterest and Facebook. On Pinterest, true for a Pin the account created and false for a Pin it saved from another user, so keep `isOwner: true` to import only its own Pins. On Facebook, false marks a collab post by another Page.  ### Expired tokens  The account's token is refreshed before the call when it has expired. When the refresh cannot recover it, the response is a 401 with code `TOKEN_EXPIRED` and the account has to be reconnected. 
+Returns the most recent posts that exist on the platform for a connected account, newest first, read live from the platform API. This covers everything on the account, including posts that were never created through Zernio.  ### Pagination  Returns `limit` posts (25 by default, up to 100). When `pagination.hasMore` is true, send `pagination.nextCursor` back as `cursor` for the next, older page, until `nextCursor` is null.  On X and TikTok only the newest page is available for now: `pagination.hasMore` is always false there.  Use it to obtain the platform's own post id, which the analytics endpoints take as input. On YouTube the returned `id` is the video ID that `GET /v1/analytics/youtube/daily-views`, `/video-retention` and `/demographics` expect as `videoId`, so this endpoint is what backs a video picker in your own UI.  ### Platform-specific fields  Not every field applies to every platform. Absent fields are omitted from the response.  - `reactionCount`: Facebook and LinkedIn. - `shareCount`: platform dependent. - `cid`: the Bluesky content id needed to reply. - `subreddit`: Reddit only. - `title`, `description`, `link`, `boardId` and `boardOwnerUsername`: Pinterest only (the native Pin values; `message` keeps title and description joined). - `isOwner`: Pinterest and Facebook. On Pinterest, true for a Pin the account created and false for a Pin it saved from another user, so keep `isOwner: true` to import only its own Pins. On Facebook, false marks a collab post by another Page.  ### Expired tokens  The account's token is refreshed before the call when it has expired. When the refresh cannot recover it, the response is a 401 with code `TOKEN_EXPIRED` and the account has to be reconnected. 
 
 ### Parameters
 
@@ -106,6 +137,8 @@ Returns the 25 most recent posts that exist on the platform for a connected acco
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | **String** |  | [required] |
+**limit** | Option<**i32**> | Page size. Values above the maximum return 400 rather than being clamped. |  |[default to 25]
+**cursor** | Option<**String**> | `pagination.nextCursor` of the previous page, sent back unchanged. An unreadable cursor returns 400. |  |
 
 ### Return type
 

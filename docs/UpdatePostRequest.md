@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **mentions** | Option<**Vec<String>**> |  | [optional]
 **crossposting_enabled** | Option<**bool**> |  | [optional]
 **metadata** | Option<**std::collections::HashMap<String, serde_json::Value>**> |  | [optional]
+**external_id** | Option<**String**> | Your own identifier for this post (see `externalId` on create). Send `null` to clear it. Also accepted on published posts. | [optional]
 **queued_from_profile** | Option<**String**> | Profile ID to schedule via queue. | [optional]
 **queue_id** | Option<**String**> | Specific queue ID to use when scheduling via queue. | [optional]
 **tiktok_settings** | Option<[**models::TikTokPlatformData**](TikTokPlatformData.md)> | Root-level TikTok settings applied to the TikTok platforms sent in the same request. Merged into each platform's platformSpecificData, with platform-specific settings taking precedence. Returns 400 if sent without a platforms array. | [optional]

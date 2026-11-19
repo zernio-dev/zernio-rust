@@ -12,6 +12,8 @@ Method | HTTP request | Description
 [**on_account_permissions_changed**](WebhookEventsApi.md#on_account_permissions_changed) | **POST** /account.permissions_changed | Account permissions changed event
 [**on_account_privacy_request**](WebhookEventsApi.md#on_account_privacy_request) | **POST** /account.privacy_request | Store privacy request
 [**on_account_rate_limited**](WebhookEventsApi.md#on_account_rate_limited) | **POST** /account.rate_limited | Mailbox sending cooldown started
+[**on_account_recovered**](WebhookEventsApi.md#on_account_recovered) | **POST** /account.recovered | Account publishing again
+[**on_account_restricted**](WebhookEventsApi.md#on_account_restricted) | **POST** /account.restricted | Account restricted from publishing
 [**on_ad_account_status_changed**](WebhookEventsApi.md#on_ad_account_status_changed) | **POST** /ad_account.status_changed | Ad account status changed event
 [**on_ad_created**](WebhookEventsApi.md#on_ad_created) | **POST** /ad.created | Ad created event
 [**on_ad_delivery_issue**](WebhookEventsApi.md#on_ad_delivery_issue) | **POST** /ad.delivery_issue | Ad delivery issue event
@@ -35,6 +37,8 @@ Method | HTTP request | Description
 [**on_balance_charged**](WebhookEventsApi.md#on_balance_charged) | **POST** /balance.charged | Balance charged event
 [**on_balance_empty**](WebhookEventsApi.md#on_balance_empty) | **POST** /balance.empty | Balance empty event
 [**on_balance_low**](WebhookEventsApi.md#on_balance_low) | **POST** /balance.low | Balance low event
+[**on_billing_publishing_blocked**](WebhookEventsApi.md#on_billing_publishing_blocked) | **POST** /billing.publishing_blocked | Publishing paused for a failed payment
+[**on_billing_publishing_unblocked**](WebhookEventsApi.md#on_billing_publishing_unblocked) | **POST** /billing.publishing_unblocked | Publishing resumed after payment
 [**on_branded_calling_identity_action_required**](WebhookEventsApi.md#on_branded_calling_identity_action_required) | **POST** /branded_calling.identity.action_required | Caller identity action required event
 [**on_branded_calling_identity_status_updated**](WebhookEventsApi.md#on_branded_calling_identity_status_updated) | **POST** /branded_calling.identity.status_updated | Caller identity status updated event
 [**on_branded_calling_number_status_updated**](WebhookEventsApi.md#on_branded_calling_number_status_updated) | **POST** /branded_calling.number.status_updated | Branded number status updated event
@@ -391,6 +395,66 @@ A Google or Microsoft mailbox was paused after sending one body to over 50 recip
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_account_rate_limited** | [**WebhookPayloadAccountRateLimited**](WebhookPayloadAccountRateLimited.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_account_recovered
+
+> on_account_recovered(webhook_payload_account_recovered)
+Account publishing again
+
+A publish succeeded on an account that `account.restricted` reported, so the restriction is lifted and publish-now posts to it are accepted again. A reconnect also lifts it; that sends `account.connected` instead. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_account_recovered** | [**WebhookPayloadAccountRecovered**](WebhookPayloadAccountRecovered.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_account_restricted
+
+> on_account_restricted(webhook_payload_account_restricted)
+Account restricted from publishing
+
+A social account failed its last three publishes with the same account-level error: the platform suspended or banned it, restricted or locked it, asks for an identity or security check, or stopped accepting its login.  ### When it fires  Once per restriction, on the third identical failure in a row. Further failures do not fire it again.  ### What changes  `POST /v1/posts` with `publishNow` (or a time already past) to this account answers 422 `account_restricted`, because it would fail the same way. Scheduled posts are still accepted.  Fix the account on the platform, then reconnect it to lift the check at once; otherwise the next successful publish lifts it (`account.recovered`). 24 hours after the last failure one publish-now is let through again. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_account_restricted** | [**WebhookPayloadAccountRestricted**](WebhookPayloadAccountRestricted.md) |  | [required] |
 
 ### Return type
 
@@ -1081,6 +1145,66 @@ Balance billing only. The balance dropped below the low-balance alert set on aut
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_payload_balance_low** | [**WebhookPayloadBalanceLow**](WebhookPayloadBalanceLow.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_billing_publishing_blocked
+
+> on_billing_publishing_blocked(webhook_payload_billing_publishing_blocked)
+Publishing paused for a failed payment
+
+A failed payment paused the billing owner's account. Until it is paid, every API call answers 402 `PAYMENT_REQUIRED` and posts that come due fail with \"Publishing blocked: payment failed\".  ### When it fires  Once per pause. `billing.reason` says why: the card was declined (`payment_failed`), there is no card (`no_payment_method`), or the billing address was refused (`invalid_billing_address`). Pay or replace the card at `billingUrl`.  ### Who receives it  The billing owner's endpoints. Restricted keys need the `money` resource group. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_billing_publishing_blocked** | [**WebhookPayloadBillingPublishingBlocked**](WebhookPayloadBillingPublishingBlocked.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## on_billing_publishing_unblocked
+
+> on_billing_publishing_unblocked(webhook_payload_billing_publishing_unblocked)
+Publishing resumed after payment
+
+The account paused by `billing.publishing_blocked` was paid: the API accepts calls again and scheduled posts publish. Posts that failed during the pause stay failed; retry them with `POST /v1/posts/{postId}/retry`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_payload_billing_publishing_unblocked** | [**WebhookPayloadBillingPublishingUnblocked**](WebhookPayloadBillingPublishingUnblocked.md) |  | [required] |
 
 ### Return type
 

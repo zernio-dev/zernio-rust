@@ -53,6 +53,7 @@ docs/AdKeyword.md
 docs/AdKeywordMetrics.md
 docs/AdKeywordQuality.md
 docs/AdLead.md
+docs/AdLeadAttribution.md
 docs/AdLeadConsent.md
 docs/AdLibraryApi.md
 docs/AdMetricRow.md
@@ -933,10 +934,13 @@ docs/CreateInboxLabel201Response.md
 docs/CreateInboxLabelRequest.md
 docs/CreateInviteToken201Response.md
 docs/CreateInviteTokenRequest.md
+docs/CreateLead200Response.md
+docs/CreateLead201Response.md
 docs/CreateLeadForm200Response.md
 docs/CreateLeadFormRequest.md
 docs/CreateLeadFormRequestPlatformSpecificData.md
 docs/CreateLeadFormRequestQuestionsInner.md
+docs/CreateLeadRequest.md
 docs/CreateMessagingAd200Response.md
 docs/CreateMessagingAd200ResponseResultsInner.md
 docs/CreateMessagingAd201Response.md
@@ -970,6 +974,8 @@ docs/CreatePost403Response.md
 docs/CreatePost404Response.md
 docs/CreatePost409Response.md
 docs/CreatePost409ResponseDetails.md
+docs/CreatePost422Response.md
+docs/CreatePost422ResponseDetails.md
 docs/CreatePost429Response.md
 docs/CreatePostRequest.md
 docs/CreatePostRequestPlatformsInner.md
@@ -1359,6 +1365,7 @@ docs/GenerateKeywordIdeas200Response.md
 docs/GenerateKeywordIdeas200ResponsePaging.md
 docs/GenerateKeywordIdeasRequest.md
 docs/GeoRestriction.md
+docs/GetAccount200Response.md
 docs/GetAccountHealth200Response.md
 docs/GetAccountHealth200ResponseLineWebhook.md
 docs/GetAccountHealth200ResponseMailbox.md
@@ -1371,6 +1378,7 @@ docs/GetAccountHealth200ResponsePlatformConnectionMetaError.md
 docs/GetAccountHealth200ResponseSendCap.md
 docs/GetAccountHealth200ResponseTokenStatus.md
 docs/GetAccountPosts200Response.md
+docs/GetAccountPosts200ResponsePagination.md
 docs/GetAccountPosts200ResponsePostsInner.md
 docs/GetAd200Response.md
 docs/GetAd200ResponseDarkPost.md
@@ -3717,6 +3725,11 @@ docs/WebhookPayloadAccountPrivacyRequestPrivacyRequest.md
 docs/WebhookPayloadAccountPrivacyRequestPrivacyRequestCustomer.md
 docs/WebhookPayloadAccountRateLimited.md
 docs/WebhookPayloadAccountRateLimitedAccount.md
+docs/WebhookPayloadAccountRecovered.md
+docs/WebhookPayloadAccountRecoveredRecovery.md
+docs/WebhookPayloadAccountRestricted.md
+docs/WebhookPayloadAccountRestrictedRestriction.md
+docs/WebhookPayloadAccountRestrictedRestrictionPlatformError.md
 docs/WebhookPayloadAdAccountStatusChanged.md
 docs/WebhookPayloadAdAccountStatusChangedAdAccount.md
 docs/WebhookPayloadAdAccountStatusChangedStatus.md
@@ -3767,6 +3780,10 @@ docs/WebhookPayloadBalanceEmpty.md
 docs/WebhookPayloadBalanceEmptyBalance.md
 docs/WebhookPayloadBalanceLow.md
 docs/WebhookPayloadBalanceLowBalance.md
+docs/WebhookPayloadBillingPublishingBlocked.md
+docs/WebhookPayloadBillingPublishingBlockedBilling.md
+docs/WebhookPayloadBillingPublishingUnblocked.md
+docs/WebhookPayloadBillingPublishingUnblockedBilling.md
 docs/WebhookPayloadCalendarEvent.md
 docs/WebhookPayloadCalendarEventAccount.md
 docs/WebhookPayloadCalendarEventCalendarEvent.md
@@ -4177,6 +4194,7 @@ src/models/ad_keyword.rs
 src/models/ad_keyword_metrics.rs
 src/models/ad_keyword_quality.rs
 src/models/ad_lead.rs
+src/models/ad_lead_attribution.rs
 src/models/ad_lead_consent.rs
 src/models/ad_metric_row.rs
 src/models/ad_metric_row_daily_inner.rs
@@ -5036,10 +5054,13 @@ src/models/create_inbox_label_201_response.rs
 src/models/create_inbox_label_request.rs
 src/models/create_invite_token_201_response.rs
 src/models/create_invite_token_request.rs
+src/models/create_lead_200_response.rs
+src/models/create_lead_201_response.rs
 src/models/create_lead_form_200_response.rs
 src/models/create_lead_form_request.rs
 src/models/create_lead_form_request_platform_specific_data.rs
 src/models/create_lead_form_request_questions_inner.rs
+src/models/create_lead_request.rs
 src/models/create_messaging_ad_200_response.rs
 src/models/create_messaging_ad_200_response_results_inner.rs
 src/models/create_messaging_ad_201_response.rs
@@ -5073,6 +5094,8 @@ src/models/create_post_403_response.rs
 src/models/create_post_404_response.rs
 src/models/create_post_409_response.rs
 src/models/create_post_409_response_details.rs
+src/models/create_post_422_response.rs
+src/models/create_post_422_response_details.rs
 src/models/create_post_429_response.rs
 src/models/create_post_request.rs
 src/models/create_post_request_platforms_inner.rs
@@ -5454,6 +5477,7 @@ src/models/generate_keyword_ideas_200_response.rs
 src/models/generate_keyword_ideas_200_response_paging.rs
 src/models/generate_keyword_ideas_request.rs
 src/models/geo_restriction.rs
+src/models/get_account_200_response.rs
 src/models/get_account_health_200_response.rs
 src/models/get_account_health_200_response_line_webhook.rs
 src/models/get_account_health_200_response_mailbox.rs
@@ -5466,6 +5490,7 @@ src/models/get_account_health_200_response_platform_connection_meta_error.rs
 src/models/get_account_health_200_response_send_cap.rs
 src/models/get_account_health_200_response_token_status.rs
 src/models/get_account_posts_200_response.rs
+src/models/get_account_posts_200_response_pagination.rs
 src/models/get_account_posts_200_response_posts_inner.rs
 src/models/get_ad_200_response.rs
 src/models/get_ad_200_response_dark_post.rs
@@ -7768,6 +7793,11 @@ src/models/webhook_payload_account_privacy_request_privacy_request.rs
 src/models/webhook_payload_account_privacy_request_privacy_request_customer.rs
 src/models/webhook_payload_account_rate_limited.rs
 src/models/webhook_payload_account_rate_limited_account.rs
+src/models/webhook_payload_account_recovered.rs
+src/models/webhook_payload_account_recovered_recovery.rs
+src/models/webhook_payload_account_restricted.rs
+src/models/webhook_payload_account_restricted_restriction.rs
+src/models/webhook_payload_account_restricted_restriction_platform_error.rs
 src/models/webhook_payload_ad_account_status_changed.rs
 src/models/webhook_payload_ad_account_status_changed_ad_account.rs
 src/models/webhook_payload_ad_account_status_changed_status.rs
@@ -7818,6 +7848,10 @@ src/models/webhook_payload_balance_empty.rs
 src/models/webhook_payload_balance_empty_balance.rs
 src/models/webhook_payload_balance_low.rs
 src/models/webhook_payload_balance_low_balance.rs
+src/models/webhook_payload_billing_publishing_blocked.rs
+src/models/webhook_payload_billing_publishing_blocked_billing.rs
+src/models/webhook_payload_billing_publishing_unblocked.rs
+src/models/webhook_payload_billing_publishing_unblocked_billing.rs
 src/models/webhook_payload_calendar_event.rs
 src/models/webhook_payload_calendar_event_account.rs
 src/models/webhook_payload_calendar_event_calendar_event.rs

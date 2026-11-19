@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **subcode** | Option<**i32**> | Meta error_subcode | [optional]
 **fbtrace_id** | Option<**String**> | Meta fbtrace_id, quote this in a Meta bug report | [optional]
 **r#type** | Option<**String**> | Meta error type (e.g. OAuthException) | [optional]
-**message** | Option<**String**> | TikTok error message | [optional]
+**message** | Option<**String**> | TikTok error message. On WhatsApp, Meta's own error text, set only when error carries Zernio's explanation instead (code 10, subcode 2593184). | [optional]
 **request_id** | Option<**String**> | TikTok request_id, quote this in a TikTok support ticket | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

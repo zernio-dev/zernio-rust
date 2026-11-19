@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**String**> | Zernio lead id. | [optional]
-**platform** | Option<**Platform**> | The ad network the lead came from. (enum: meta, google, linkedin, tiktok, ) | [optional]
+**platform** | Option<**Platform**> | The ad network the lead came from. `web` is a lead from your own form: a tracked website with lead capture on, or `POST /v1/leads`. (enum: meta, google, linkedin, tiktok, web, ) | [optional]
 **leadgen_id** | Option<**String**> | Meta lead id. On Google, the lead form submission id; on LinkedIn, the leadFormResponse id. | [optional]
 **form_id** | Option<**String**> |  | [optional]
 **form_name** | Option<**String**> |  | [optional]
@@ -27,6 +27,7 @@ Name | Type | Description | Notes
 **first_contacted_at** | Option<**String**> | When the first WhatsApp message to the lead was delivered. | [optional]
 **conversation_id** | Option<**String**> | The Inbox conversation a lead_received workflow opened with the lead. | [optional]
 **webhook_delivered_at** | Option<**String**> | Meta leads only. When the `lead.received` webhook was delivered; null while it has not been. | [optional]
+**attribution** | Option<[**models::AdLeadAttribution**](AdLeadAttribution.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

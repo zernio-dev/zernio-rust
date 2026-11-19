@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **mentions** | Option<**Vec<String>**> | Stored for reference only. Publishing does not create mentions from this field. | [optional]
 **visibility** | Option<**Visibility**> |  (enum: public, private, unlisted) | [optional]
 **metadata** | Option<**std::collections::HashMap<String, serde_json::Value>**> |  | [optional]
+**external_id** | Option<**String**> | Your own identifier for this post, as set on create or update. Absent when unset. Not unique: filter with `GET /v1/posts?externalId=`. | [optional]
 **recycling** | Option<[**models::RecyclingState**](RecyclingState.md)> |  | [optional]
 **recycled_from_post_id** | Option<**String**> | ID of the original post if this post was created via recycling | [optional]
 **queued_from_profile** | Option<**String**> | Profile ID if the post was scheduled via the queue | [optional]
