@@ -1366,6 +1366,7 @@ docs/GetAccountHealth200ResponseMessagingRestriction.md
 docs/GetAccountHealth200ResponsePermissions.md
 docs/GetAccountHealth200ResponsePermissionsPostingInner.md
 docs/GetAccountHealth200ResponsePlatformConnection.md
+docs/GetAccountHealth200ResponsePlatformConnectionMessagingBlockersInner.md
 docs/GetAccountHealth200ResponsePlatformConnectionMetaError.md
 docs/GetAccountHealth200ResponseSendCap.md
 docs/GetAccountHealth200ResponseTokenStatus.md
@@ -2694,9 +2695,9 @@ docs/PostMetricAuthenticity.md
 docs/PostMetricAuthenticityReasonsInner.md
 docs/PostMetricChange.md
 docs/PostMetricContent.md
-docs/PostMetricContentMediaItemsInner.md
 docs/PostMetricFormat.md
 docs/PostMetricGroup.md
+docs/PostMetricMediaItem.md
 docs/PostMetricRow.md
 docs/PostMetricRowBreakdownsValue.md
 docs/PostMetricRowSyncError.md
@@ -5460,6 +5461,7 @@ src/models/get_account_health_200_response_messaging_restriction.rs
 src/models/get_account_health_200_response_permissions.rs
 src/models/get_account_health_200_response_permissions_posting_inner.rs
 src/models/get_account_health_200_response_platform_connection.rs
+src/models/get_account_health_200_response_platform_connection_messaging_blockers_inner.rs
 src/models/get_account_health_200_response_platform_connection_meta_error.rs
 src/models/get_account_health_200_response_send_cap.rs
 src/models/get_account_health_200_response_token_status.rs
@@ -6767,9 +6769,9 @@ src/models/post_metric_authenticity.rs
 src/models/post_metric_authenticity_reasons_inner.rs
 src/models/post_metric_change.rs
 src/models/post_metric_content.rs
-src/models/post_metric_content_media_items_inner.rs
 src/models/post_metric_format.rs
 src/models/post_metric_group.rs
+src/models/post_metric_media_item.rs
 src/models/post_metric_row.rs
 src/models/post_metric_row_breakdowns_value.rs
 src/models/post_metric_row_sync_error.rs

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **content_not_retained** | Option<**bool**> |  | [optional]
 **thumbnail_url** | Option<**String**> |  | 
 **media_type** | Option<**String**> |  | 
-**media_items** | [**Vec<models::PostMetricContentMediaItemsInner>**](PostMetricContentMediaItemsInner.md) |  | 
+**media_items** | [**Vec<models::PostMetricMediaItem>**](PostMetricMediaItem.md) |  | 
 **video_duration_seconds** | Option<**f64**> |  | 
 **media_product_type** | Option<**String**> |  | [optional]
 **is_ai_generated** | Option<**bool**> |  | [optional]

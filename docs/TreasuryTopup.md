@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **created_at** | Option<**String**> |  | [optional]
 **succeeded_at** | Option<**String**> |  | [optional]
 **has_invoice** | Option<**bool**> | The paid payment has an invoice (getTopupInvoice): every balance top-up paid since 2026-11-05 (unless charged without one for a Stripe credit balance), and Checkout payments before 2026-10-29. Every paid payment has a card receipt (getTopupReceipt). | [optional]
+**bonus_cents** | Option<**i32**> | Bonus credit added with this payment and not taken back, in cents. Null when there is none. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
