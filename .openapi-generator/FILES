@@ -1076,6 +1076,11 @@ docs/CreateWhatsAppTemplateRequestLibraryTemplateButtonInputsInnerUrl.md
 docs/CreateWorkflow200Response.md
 docs/CreateWorkflow200ResponseWorkflow.md
 docs/CreateWorkflowRequest.md
+docs/CreateWorkspace201Response.md
+docs/CreateWorkspaceApiKey201Response.md
+docs/CreateWorkspaceApiKeyRequest.md
+docs/CreateWorkspaceRequest.md
+docs/CreateWorkspaceRequestApiKey.md
 docs/CreateYoutubePlaylist201Response.md
 docs/CreateYoutubePlaylist201ResponsePlaylist.md
 docs/CreateYoutubePlaylistRequest.md
@@ -1899,6 +1904,7 @@ docs/GetWorkflow200Response.md
 docs/GetWorkflow200ResponseWorkflow.md
 docs/GetWorkflowVersion200Response.md
 docs/GetWorkflowVersion200ResponseVersion.md
+docs/GetWorkspace200Response.md
 docs/GetYouTubeDailyViews400Response.md
 docs/GetYouTubeDailyViews403Response.md
 docs/GetYouTubeDailyViews500Response.md
@@ -2321,7 +2327,6 @@ docs/ListContactGroups200ResponseMeta.md
 docs/ListContacts200Response.md
 docs/ListContacts200ResponseContactsInner.md
 docs/ListContacts200ResponseFilters.md
-docs/ListContacts200ResponsePagination.md
 docs/ListConversionActions200Response.md
 docs/ListCreatorCampaigns200Response.md
 docs/ListCrmDeals200Response.md
@@ -2561,6 +2566,8 @@ docs/ListWorkflowVersions200Response.md
 docs/ListWorkflowVersions200ResponseVersionsInner.md
 docs/ListWorkflows200Response.md
 docs/ListWorkflows200ResponseWorkflowsInner.md
+docs/ListWorkspaces200Response.md
+docs/ListWorkspaces200ResponsePagination.md
 docs/ListedAccount.md
 docs/LogsApi.md
 docs/LookupSmsNumber200Response.md
@@ -3615,6 +3622,7 @@ docs/UpdateWhatsAppTemplateRequest.md
 docs/UpdateWorkflow200Response.md
 docs/UpdateWorkflow200ResponseWorkflow.md
 docs/UpdateWorkflowRequest.md
+docs/UpdateWorkspaceRequest.md
 docs/UpdateYoutubeDefaultPlaylist200Response.md
 docs/UpdateYoutubeDefaultPlaylistRequest.md
 docs/UploadAdImage201Response.md
@@ -4036,6 +4044,10 @@ docs/WorkflowExecutionEvent.md
 docs/WorkflowNode.md
 docs/WorkflowNodePosition.md
 docs/WorkflowsApi.md
+docs/Workspace.md
+docs/WorkspaceWithBilling.md
+docs/WorkspaceWithBillingAllOfBilling.md
+docs/WorkspacesApi.md
 docs/XApiOperation.md
 docs/XApiOperationTriggeredByInner.md
 docs/XApiPricing.md
@@ -4172,6 +4184,7 @@ src/apis/whats_app_phone_numbers_api.rs
 src/apis/whats_app_sandbox_api.rs
 src/apis/whats_app_templates_api.rs
 src/apis/workflows_api.rs
+src/apis/workspaces_api.rs
 src/lib.rs
 src/models/accept_conversation_request_200_response.rs
 src/models/accept_conversation_request_200_response_data.rs
@@ -5217,6 +5230,11 @@ src/models/create_whats_app_template_request_library_template_button_inputs_inne
 src/models/create_workflow_200_response.rs
 src/models/create_workflow_200_response_workflow.rs
 src/models/create_workflow_request.rs
+src/models/create_workspace_201_response.rs
+src/models/create_workspace_api_key_201_response.rs
+src/models/create_workspace_api_key_request.rs
+src/models/create_workspace_request.rs
+src/models/create_workspace_request_api_key.rs
 src/models/create_youtube_playlist_201_response.rs
 src/models/create_youtube_playlist_201_response_playlist.rs
 src/models/create_youtube_playlist_request.rs
@@ -6032,6 +6050,7 @@ src/models/get_workflow_200_response.rs
 src/models/get_workflow_200_response_workflow.rs
 src/models/get_workflow_version_200_response.rs
 src/models/get_workflow_version_200_response_version.rs
+src/models/get_workspace_200_response.rs
 src/models/get_you_tube_daily_views_400_response.rs
 src/models/get_you_tube_daily_views_403_response.rs
 src/models/get_you_tube_daily_views_500_response.rs
@@ -6439,7 +6458,6 @@ src/models/list_contact_groups_200_response_meta.rs
 src/models/list_contacts_200_response.rs
 src/models/list_contacts_200_response_contacts_inner.rs
 src/models/list_contacts_200_response_filters.rs
-src/models/list_contacts_200_response_pagination.rs
 src/models/list_conversion_actions_200_response.rs
 src/models/list_creator_campaigns_200_response.rs
 src/models/list_crm_deals_200_response.rs
@@ -6679,6 +6697,8 @@ src/models/list_workflow_versions_200_response.rs
 src/models/list_workflow_versions_200_response_versions_inner.rs
 src/models/list_workflows_200_response.rs
 src/models/list_workflows_200_response_workflows_inner.rs
+src/models/list_workspaces_200_response.rs
+src/models/list_workspaces_200_response_pagination.rs
 src/models/listed_account.rs
 src/models/lookup_sms_number_200_response.rs
 src/models/mark_conversation_read_200_response.rs
@@ -7710,6 +7730,7 @@ src/models/update_whats_app_template_request.rs
 src/models/update_workflow_200_response.rs
 src/models/update_workflow_200_response_workflow.rs
 src/models/update_workflow_request.rs
+src/models/update_workspace_request.rs
 src/models/update_youtube_default_playlist_200_response.rs
 src/models/update_youtube_default_playlist_request.rs
 src/models/upload_ad_image_201_response.rs
@@ -8117,6 +8138,9 @@ src/models/workflow_edge.rs
 src/models/workflow_execution_event.rs
 src/models/workflow_node.rs
 src/models/workflow_node_position.rs
+src/models/workspace.rs
+src/models/workspace_with_billing.rs
+src/models/workspace_with_billing_all_of_billing.rs
 src/models/x_api_operation.rs
 src/models/x_api_operation_triggered_by_inner.rs
 src/models/x_api_pricing.rs
