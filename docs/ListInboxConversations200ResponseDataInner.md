@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **whatsapp_username** | Option<**String**> | WhatsApp only. The participant's WhatsApp username (e.g. `jane.shop`, no leading @). Not a stable identifier, because users can change it: useful for display, not recommended as an identity anchor. Captured from inbound messages, so older threads fill in on their next inbound. | [optional]
 **last_message** | Option<**String**> |  | [optional]
 **updated_time** | Option<**String**> |  | [optional]
+**updated_at** | Option<**String**> | When Zernio last wrote this conversation (a new message, a status change, participant details). The key `updatedSince` filters and orders on. Absent on a conversation read live from the platform. | [optional]
 **status** | Option<**Status**> |  (enum: active, archived) | [optional]
 **unread_count** | Option<**i32**> | Number of unread incoming messages, capped at 1000. Read from a replica, so it can trail a conversation you just marked read by a few seconds. | [optional]
 **thread_control** | Option<**ThreadControl**> | Present once a handover has touched the thread (WhatsApp, Facebook, Instagram). ai_agent: Meta Business Agent answers (WhatsApp) and new inbound arrive flagged metadata.standby; app: you hold control; other: another app does (a WhatsApp partner, or a Messenger / Instagram receiver such as Page Inbox). Change it with POST /v1/inbox/conversations/{conversationId}/thread-control. (enum: app, ai_agent, other) | [optional]
