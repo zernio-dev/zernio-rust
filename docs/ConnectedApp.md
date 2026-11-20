@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **authorized_at** | Option<**String**> |  | [optional]
 **last_used_at** | Option<**String**> | Last time any of the client's live tokens authenticated a request. | [optional]
 **token_count** | Option<**i32**> | Live tokens held by the client (an active session is typically one access plus one refresh token). | [optional]
+**workspaces** | Option<[**Vec<models::UpdateFacebookPage200ResponseSelectedPage>**](UpdateFacebookPage200ResponseSelectedPage.md)> | The workspaces chosen when the app was authorized. Present only for accounts with workspaces enabled; empty for an app authorized before the choice existed. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

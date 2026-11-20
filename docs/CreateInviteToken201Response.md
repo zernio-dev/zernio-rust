@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **invited_profile_ids** | Option<**Vec<String>**> |  | [optional]
 **disabled_resource_groups** | Option<**Vec<String>**> |  | [optional]
 **expires_at** | Option<**String**> |  | [optional]
+**created_at** | Option<**String**> |  | [optional]
 **invite_url** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

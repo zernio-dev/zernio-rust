@@ -31,6 +31,7 @@ Method | HTTP request | Description
 [**preview_automation**](AutomationsApi.md#preview_automation) | **POST** /v1/automations/{automationId}/preview | Preview a saved automation
 [**preview_automation_draft**](AutomationsApi.md#preview_automation_draft) | **POST** /v1/automations/preview | Preview an unsaved automation
 [**reject_automation_approval**](AutomationsApi.md#reject_automation_approval) | **POST** /v1/automations/{automationId}/approvals/{approvalId}/reject | Reject an approval request
+[**take_over_automation**](AutomationsApi.md#take_over_automation) | **POST** /v1/automations/{automationId}/take-over | Take over an automation
 [**update_automation**](AutomationsApi.md#update_automation) | **PATCH** /v1/automations/{automationId} | Edit an automation
 [**update_automation_ad_account_controls**](AutomationsApi.md#update_automation_ad_account_controls) | **PATCH** /v1/automations/controls/ad-accounts | Update one ad account's controls
 [**update_automation_controls**](AutomationsApi.md#update_automation_controls) | **PATCH** /v1/automations/controls | Turn every ad automation off or on
@@ -865,6 +866,36 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## take_over_automation
+
+> models::TakeOverAutomation200Response take_over_automation(automation_id)
+Take over an automation
+
+Makes the caller the automation's owner, so its AI steps use the caller's own AI key. Only the owner or an admin of the active workspace can take over, from the dashboard.  When the member who made an automation leaves the workspace, its AI steps pause until it is taken over; every other step keeps running. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**automation_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::TakeOverAutomation200Response**](takeOverAutomation_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

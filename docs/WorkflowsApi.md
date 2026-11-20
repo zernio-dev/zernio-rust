@@ -16,6 +16,7 @@ Method | HTTP request | Description
 [**list_workflows**](WorkflowsApi.md#list_workflows) | **GET** /v1/workflows | List workflows
 [**pause_workflow**](WorkflowsApi.md#pause_workflow) | **POST** /v1/workflows/{workflowId}/pause | Pause workflow
 [**restore_workflow_version**](WorkflowsApi.md#restore_workflow_version) | **POST** /v1/workflows/{workflowId}/versions/{version}/restore | Restore a workflow version
+[**take_over_workflow**](WorkflowsApi.md#take_over_workflow) | **POST** /v1/workflows/{workflowId}/take-over | Take over a workflow
 [**trigger_api_call_workflow**](WorkflowsApi.md#trigger_api_call_workflow) | **POST** /v1/workflows/{workflowId}/trigger | Start an API-triggered workflow
 [**trigger_workflow**](WorkflowsApi.md#trigger_workflow) | **POST** /v1/workflows/{workflowId}/executions | Manually start a workflow run
 [**update_workflow**](WorkflowsApi.md#update_workflow) | **PATCH** /v1/workflows/{workflowId} | Update workflow
@@ -378,6 +379,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::RestoreWorkflowVersion200Response**](restoreWorkflowVersion_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## take_over_workflow
+
+> models::TakeOverWorkflow200Response take_over_workflow(workflow_id)
+Take over a workflow
+
+Makes the caller the workflow's owner, so its AI steps use the caller's own AI key. Only the owner or an admin of the active workspace can take over, from the dashboard.  When the member who made a workflow leaves the workspace, its AI steps pause (they take the error edge with \"{Name} left this workspace. Add a workspace AI key or take over this automation.\") and every other step keeps running; taking it over starts the AI steps again. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**workflow_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::TakeOverWorkflow200Response**](takeOverWorkflow_200_response.md)
 
 ### Authorization
 
