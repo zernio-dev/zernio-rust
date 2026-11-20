@@ -129,7 +129,7 @@ Deprecated alias of `/v1/phone-numbers/kyc`; same contract. New integrations sho
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **country** | **String** |  | [required] |
-**profile_id** | **String** |  | [required] |
+**profile_id** | Option<**String**> | Profile the order is for. When given, `reusable.options` only lists verifications held by numbers on this profile. A key or team member limited to some profiles must pass it to get any options. |  |
 
 ### Return type
 

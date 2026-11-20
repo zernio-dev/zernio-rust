@@ -310,7 +310,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_phone_number_kyc_form
 
-> models::GetPhoneNumberKycForm200Response get_phone_number_kyc_form(country, number_type)
+> models::GetPhoneNumberKycForm200Response get_phone_number_kyc_form(country, number_type, profile_id)
 Get KYC form spec
 
 For a Tier 3/4 country, the fields the end customer must provide (Telnyx regulatory requirements) before a number can be ordered: text, date, address, or file (document) per requirement. 
@@ -322,6 +322,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **country** | **String** |  | [required] |
 **number_type** | Option<**String**> | Requirements and reuse eligibility are per (country, type). Omitted = the country's default type. Pass the same value on the POST. |  |
+**profile_id** | Option<**String**> | Profile the order is for. When given, `reusable.options` only lists verifications held by numbers on this profile. A key or team member limited to some profiles must pass it to get any options. |  |
 
 ### Return type
 
