@@ -31,6 +31,12 @@ Name | Type | Description | Notes
 **unsupported** | Option<[**models::WebhookPayloadMessageMetadataUnsupported**](WebhookPayloadMessageMetadataUnsupported.md)> |  | [optional]
 **no_renderable_content** | Option<**bool**> | Instagram / Facebook Messenger only. Set when the message carries nothing an integrator can render: a `template` attachment with no text and no parseable content, or Meta's own `is_unsupported` flag.  Sibling of `unsupported` above (WhatsApp only, carries Meta's error code/title/details and unsupported type); this field has no error envelope, only the boolean.  Absence means \"not flagged\", never \"checked and renderable\".  | [optional]
 **tiktok_message_type** | Option<**String**> | TikTok only. The message type as TikTok reports it, forwarded verbatim (for example image, video, sticker, share_post, emoji, reaction, template).  Present on every TikTok DM that is not plain text. Those arrive with text empty and, for image, video, share_post, sticker and emoji, an attachment:  - share_post: type share, with the embed url and payload.videoId. - sticker/emoji: type sticker, url signed and expiring.  | [optional]
+**channel** | Option<**String**> | iMessage only. Delivery channel the message arrived on (imessage, sms, rcs or whatsapp). | [optional]
+**message_type** | Option<**String**> | iMessage only. Provider message type (for example text, audio, sticker). | [optional]
+**thread_id** | Option<**String**> | iMessage only. Id of the reply thread the message belongs to. | [optional]
+**language_code** | Option<**String**> | iMessage only. Language detected by the provider. | [optional]
+**transcript** | Option<**String**> | iMessage only. Provider transcription of a voice message. | [optional]
+**markdown_text** | Option<**String**> | iMessage only. Rich-text markup rendered to markdown; `text` stays plain. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

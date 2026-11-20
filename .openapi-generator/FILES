@@ -1923,9 +1923,15 @@ docs/GoogleAdLabelAssignments.md
 docs/GoogleAdsAccessRole.md
 docs/GoogleAdsHierarchyClient.md
 docs/GoogleAdsManagerLink.md
+docs/GoogleAdsPlatformQueryBody.md
 docs/GoogleAdsUserAccessInvitation.md
 docs/GoogleAdsUserAccessInvitationResult.md
 docs/GoogleAdsUserInvitationApproval.md
+docs/GoogleAnalyticsPlatformQueryBody.md
+docs/GoogleAnalyticsPlatformQueryBodyOneOf.md
+docs/GoogleAnalyticsPlatformQueryBodyOneOf1.md
+docs/GoogleAnalyticsPlatformQueryBodyOneOf1MinuteRangesInner.md
+docs/GoogleAnalyticsPlatformQueryBodyOneOfDateRangesInner.md
 docs/GoogleAnalyticsReport.md
 docs/GoogleAnalyticsReportDimensionHeadersInner.md
 docs/GoogleAnalyticsReportFields.md
@@ -2575,6 +2581,9 @@ docs/MessengerIceBreakerLocale.md
 docs/MessengerIceBreakerLocaleCallToActionsInner.md
 docs/MetaAdScheduleInner.md
 docs/MetaAdsPlatformData.md
+docs/MetaAdsPlatformQueryBody.md
+docs/MetaAdsPlatformQueryBodyFilteringInner.md
+docs/MetaAdsPlatformQueryBodyTimeIncrement.md
 docs/MetaAssignedUser.md
 docs/MetaBusinessUser.md
 docs/MetaCatalogProduct.md
@@ -2689,6 +2698,9 @@ docs/PinPostRequest.md
 docs/PinPostResponse.md
 docs/PinterestPlatformData.md
 docs/PlatformAnalytics.md
+docs/PlatformQueryPage.md
+docs/PlatformQueryPageMeta.md
+docs/PlatformQueryPagePagination.md
 docs/PlatformTarget.md
 docs/PlatformTargetAccountId.md
 docs/Pool.md
@@ -3257,6 +3269,7 @@ docs/TargetingSpecExcludedLocationsCitiesInner.md
 docs/TelegramPlatformData.md
 docs/TestWebhookRequest.md
 docs/ThreadsPlatformData.md
+docs/TikTokAdsPlatformQueryBody.md
 docs/TikTokDryRunVerdict.md
 docs/TikTokDryRunVerdictTiktokInner.md
 docs/TikTokPlatformData.md
@@ -6029,9 +6042,15 @@ src/models/google_ad_label_assignments.rs
 src/models/google_ads_access_role.rs
 src/models/google_ads_hierarchy_client.rs
 src/models/google_ads_manager_link.rs
+src/models/google_ads_platform_query_body.rs
 src/models/google_ads_user_access_invitation.rs
 src/models/google_ads_user_access_invitation_result.rs
 src/models/google_ads_user_invitation_approval.rs
+src/models/google_analytics_platform_query_body.rs
+src/models/google_analytics_platform_query_body_one_of.rs
+src/models/google_analytics_platform_query_body_one_of_1.rs
+src/models/google_analytics_platform_query_body_one_of_1_minute_ranges_inner.rs
+src/models/google_analytics_platform_query_body_one_of_date_ranges_inner.rs
 src/models/google_analytics_report.rs
 src/models/google_analytics_report_dimension_headers_inner.rs
 src/models/google_analytics_report_fields.rs
@@ -6669,6 +6688,9 @@ src/models/messenger_ice_breaker_locale.rs
 src/models/messenger_ice_breaker_locale_call_to_actions_inner.rs
 src/models/meta_ad_schedule_inner.rs
 src/models/meta_ads_platform_data.rs
+src/models/meta_ads_platform_query_body.rs
+src/models/meta_ads_platform_query_body_filtering_inner.rs
+src/models/meta_ads_platform_query_body_time_increment.rs
 src/models/meta_assigned_user.rs
 src/models/meta_business_user.rs
 src/models/meta_catalog_product.rs
@@ -6782,6 +6804,9 @@ src/models/pin_post_request.rs
 src/models/pin_post_response.rs
 src/models/pinterest_platform_data.rs
 src/models/platform_analytics.rs
+src/models/platform_query_page.rs
+src/models/platform_query_page_meta.rs
+src/models/platform_query_page_pagination.rs
 src/models/platform_target.rs
 src/models/platform_target_account_id.rs
 src/models/pool.rs
@@ -7337,6 +7362,7 @@ src/models/targeting_spec_excluded_locations_cities_inner.rs
 src/models/telegram_platform_data.rs
 src/models/test_webhook_request.rs
 src/models/threads_platform_data.rs
+src/models/tik_tok_ads_platform_query_body.rs
 src/models/tik_tok_dry_run_verdict.rs
 src/models/tik_tok_dry_run_verdict_tiktok_inner.rs
 src/models/tik_tok_platform_data.rs

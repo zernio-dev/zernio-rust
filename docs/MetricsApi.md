@@ -12,6 +12,10 @@ Method | HTTP request | Description
 [**get_insight_metrics**](MetricsApi.md#get_insight_metrics) | **GET** /v1/metrics/insights | Read live account or post insights from the platform
 [**get_metrics_catalog**](MetricsApi.md#get_metrics_catalog) | **GET** /v1/metrics/catalog | List the metrics, groupings and limits of each metrics endpoint
 [**get_post_metrics**](MetricsApi.md#get_post_metrics) | **GET** /v1/metrics/posts | Read post metrics by id, day by day, as a list, or grouped
+[**query_google_ads**](MetricsApi.md#query_google_ads) | **POST** /v1/metrics/platform-queries/google-ads | Run a Google Ads Query Language search on one customer
+[**query_google_analytics**](MetricsApi.md#query_google_analytics) | **POST** /v1/metrics/platform-queries/google-analytics | Run a GA4 standard or realtime report on one property
+[**query_meta_ads**](MetricsApi.md#query_meta_ads) | **POST** /v1/metrics/platform-queries/meta-ads | Run a Meta Marketing API insights query on one ad account
+[**query_tik_tok_ads**](MetricsApi.md#query_tik_tok_ads) | **POST** /v1/metrics/platform-queries/tiktok-ads | Run a TikTok Marketing API report on one advertiser
 
 
 
@@ -311,6 +315,126 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## query_google_ads
+
+> models::PlatformQueryPage query_google_ads(google_ads_platform_query_body)
+Run a Google Ads Query Language search on one customer
+
+Runs a GAQL `SELECT` on one Google Ads customer, read only. Without `adAccountId` it reads the connection's own customer.  Runs a native query on the platform with the account's own token and answers the platform's rows unchanged, with its own field names, plus its headers, counts and quota in `meta`. Use it for what `/v1/metrics/_*` does not store; the stored metrics stay cheaper and faster.  - Up to 120 reads per hour per platform target (the Zernio account plus the ad account or property); past it, 429 with `details.scope` `platform_query_target`.  - Up to 10 queries in flight per team.  - A query must answer within 25 seconds.  - An account of another source answers 400 on `accountId` with the route it belongs to.  - The next page goes in `cursor`, from `pagination.nextCursor`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**google_ads_platform_query_body** | [**GoogleAdsPlatformQueryBody**](GoogleAdsPlatformQueryBody.md) |  | [required] |
+
+### Return type
+
+[**models::PlatformQueryPage**](PlatformQueryPage.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## query_google_analytics
+
+> models::PlatformQueryPage query_google_analytics(google_analytics_platform_query_body)
+Run a GA4 standard or realtime report on one property
+
+Runs a GA4 `standard` report over up to 4 date ranges, paged, or a `realtime` report on the last 30 minutes. Needs the Analytics add-on.  Runs a native query on the platform with the account's own token and answers the platform's rows unchanged, with its own field names, plus its headers, counts and quota in `meta`. Use it for what `/v1/metrics/_*` does not store; the stored metrics stay cheaper and faster.  - Up to 120 reads per hour per platform target (the Zernio account plus the ad account or property); past it, 429 with `details.scope` `platform_query_target`.  - Up to 10 queries in flight per team.  - A query must answer within 25 seconds.  - An account of another source answers 400 on `accountId` with the route it belongs to.  - The next page goes in `cursor`, from `pagination.nextCursor`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**google_analytics_platform_query_body** | [**GoogleAnalyticsPlatformQueryBody**](GoogleAnalyticsPlatformQueryBody.md) |  | [required] |
+
+### Return type
+
+[**models::PlatformQueryPage**](PlatformQueryPage.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## query_meta_ads
+
+> models::PlatformQueryPage query_meta_ads(meta_ads_platform_query_body)
+Run a Meta Marketing API insights query on one ad account
+
+Reads Meta's insights for one ad account (`act_<n>`). Read its campaigns, ad sets or ads with `level` and `filtering` on the same ad account.  Runs a native query on the platform with the account's own token and answers the platform's rows unchanged, with its own field names, plus its headers, counts and quota in `meta`. Use it for what `/v1/metrics/_*` does not store; the stored metrics stay cheaper and faster.  - Up to 120 reads per hour per platform target (the Zernio account plus the ad account or property); past it, 429 with `details.scope` `platform_query_target`.  - Up to 10 queries in flight per team.  - A query must answer within 25 seconds.  - An account of another source answers 400 on `accountId` with the route it belongs to.  - The next page goes in `cursor`, from `pagination.nextCursor`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**meta_ads_platform_query_body** | [**MetaAdsPlatformQueryBody**](MetaAdsPlatformQueryBody.md) |  | [required] |
+
+### Return type
+
+[**models::PlatformQueryPage**](PlatformQueryPage.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## query_tik_tok_ads
+
+> models::PlatformQueryPage query_tik_tok_ads(tik_tok_ads_platform_query_body)
+Run a TikTok Marketing API report on one advertiser
+
+Runs a synchronous TikTok report (`BASIC` or `AUDIENCE`) for one advertiser at the data level asked.  Runs a native query on the platform with the account's own token and answers the platform's rows unchanged, with its own field names, plus its headers, counts and quota in `meta`. Use it for what `/v1/metrics/_*` does not store; the stored metrics stay cheaper and faster.  - Up to 120 reads per hour per platform target (the Zernio account plus the ad account or property); past it, 429 with `details.scope` `platform_query_target`.  - Up to 10 queries in flight per team.  - A query must answer within 25 seconds.  - An account of another source answers 400 on `accountId` with the route it belongs to.  - The next page goes in `cursor`, from `pagination.nextCursor`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**tik_tok_ads_platform_query_body** | [**TikTokAdsPlatformQueryBody**](TikTokAdsPlatformQueryBody.md) |  | [required] |
+
+### Return type
+
+[**models::PlatformQueryPage**](PlatformQueryPage.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
