@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**delete_ad_negative_keyword_list**](AdAccountsApi.md#delete_ad_negative_keyword_list) | **DELETE** /v1/ads/accounts/negative-keyword-lists/{listId} | Delete a negative keyword list
 [**delete_value_rule_set**](AdAccountsApi.md#delete_value_rule_set) | **DELETE** /v1/ads/value-rule-sets/{valueRuleSetId} | Delete a value rule set
 [**detach_ad_label**](AdAccountsApi.md#detach_ad_label) | **DELETE** /v1/ads/labels/{labelId}/assignments | Detach a Google Ads label
+[**edit_ad_negative_keyword_list_keywords**](AdAccountsApi.md#edit_ad_negative_keyword_list_keywords) | **PATCH** /v1/ads/accounts/negative-keyword-lists/{listId}/keywords | Add or remove negative list keywords
 [**get_ad_account_billing**](AdAccountsApi.md#get_ad_account_billing) | **GET** /v1/ads/accounts/billing | Get ad account billing
 [**get_ad_account_finance**](AdAccountsApi.md#get_ad_account_finance) | **GET** /v1/ads/accounts/finance | Ad account finances
 [**get_ad_account_health**](AdAccountsApi.md#get_ad_account_health) | **GET** /v1/ads/accounts/health | Check an ad account before creating ads
@@ -322,7 +323,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_ad_negative_keyword_list
 
-> models::CreateAdNegativeKeywordList201Response create_ad_negative_keyword_list(create_ad_negative_keyword_list_request)
+> models::CreateAdNegativeKeywordList201Response create_ad_negative_keyword_list(create_ad_negative_keyword_list_request, idempotency_key)
 Create a negative keyword list
 
 Creates a shared Google Ads negative keyword list, optionally with starting keywords; it is not attached to any campaign yet.  Creates one Google Ads shared negative keyword list with optional initial keywords in a single atomic mutation. Daily quota is reserved for every mutate item, so large batches may return 429 before any change. This operation is not idempotent. The list is not attached to any campaign. 
@@ -333,6 +334,7 @@ Creates a shared Google Ads negative keyword list, optionally with starting keyw
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_ad_negative_keyword_list_request** | [**CreateAdNegativeKeywordListRequest**](CreateAdNegativeKeywordListRequest.md) |  | [required] |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe.  - Same key + same body: replays the original response. - Same key + different body: 422. - Key still processing: 409.  A request cut off mid-handler (e.g. by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours.  On the Ads create, boost and duplicate endpoints, a same-body retry runs again once the cut-off request started more than 15 minutes ago.  |  |
 
 ### Return type
 
@@ -476,7 +478,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_ad_negative_keyword_list
 
-> models::DeleteAdNegativeKeywordList200Response delete_ad_negative_keyword_list(list_id, account_id, ad_account_id, customer_id, platform)
+> models::DeleteAdNegativeKeywordList200Response delete_ad_negative_keyword_list(list_id, account_id, idempotency_key, ad_account_id, customer_id, platform)
 Delete a negative keyword list
 
 Deletes a shared Google Ads negative keyword list; detach it from every campaign first.  Detach it from all campaigns first; an in-use list is rejected. Only NEGATIVE_KEYWORDS shared sets are supported. 
@@ -488,6 +490,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **list_id** | **String** |  | [required] |
 **account_id** | **String** |  | [required] |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe.  - Same key + same body: replays the original response. - Same key + different body: 422. - Key still processing: 409.  A request cut off mid-handler (e.g. by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours.  On the Ads create, boost and duplicate endpoints, a same-body retry runs again once the cut-off request started more than 15 minutes ago.  |  |
 **ad_account_id** | Option<**String**> |  |  |
 **customer_id** | Option<**String**> |  |  |
 **platform** | Option<**String**> |  |  |
@@ -571,6 +574,38 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## edit_ad_negative_keyword_list_keywords
+
+> models::ReplaceAdNegativeKeywordListKeywords200Response edit_ad_negative_keyword_list_keywords(list_id, edit_ad_negative_keyword_list_keywords_request, idempotency_key)
+Add or remove negative list keywords
+
+Adds and removes single keywords in a shared Google Ads negative keyword list without resending the full set, affecting every campaign that uses the list.  - `remove` matches by normalized text and match type, and wins over `add` for the same keyword. - Keywords already in the list are not added twice; keywords not in it are skipped on remove. - Creates and removals are applied atomically in one mutation.  ### Quota  Each create or removal consumes one daily operation; the entire batch must fit the remaining quota. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**list_id** | **String** |  | [required] |
+**edit_ad_negative_keyword_list_keywords_request** | [**EditAdNegativeKeywordListKeywordsRequest**](EditAdNegativeKeywordListKeywordsRequest.md) |  | [required] |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe.  - Same key + same body: replays the original response. - Same key + different body: 422. - Key still processing: 409.  A request cut off mid-handler (e.g. by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours.  On the Ads create, boost and duplicate endpoints, a same-body retry runs again once the cut-off request started more than 15 minutes ago.  |  |
+
+### Return type
+
+[**models::ReplaceAdNegativeKeywordListKeywords200Response**](replaceAdNegativeKeywordListKeywords_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1935,7 +1970,7 @@ Name | Type | Description  | Required | Notes
 
 ## replace_ad_negative_keyword_list_keywords
 
-> models::ReplaceAdNegativeKeywordListKeywords200Response replace_ad_negative_keyword_list_keywords(list_id, replace_ad_negative_keyword_list_keywords_request)
+> models::ReplaceAdNegativeKeywordListKeywords200Response replace_ad_negative_keyword_list_keywords(list_id, replace_ad_negative_keyword_list_keywords_request, idempotency_key)
 Replace negative list keywords
 
 Replaces all keywords in a shared Google Ads negative keyword list (or clears it), affecting every campaign that uses the list.  - Existing keywords are diffed by normalized text and match type. - Creates and removals are applied atomically in one mutation. Unchanged criteria retain their ids. - Send an empty keywords array to clear the list. - Changes affect every campaign using this list.  ### Quota  Each create or removal consumes one daily operation; the entire batch must fit the remaining quota. 
@@ -1947,6 +1982,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **list_id** | **String** |  | [required] |
 **replace_ad_negative_keyword_list_keywords_request** | [**ReplaceAdNegativeKeywordListKeywordsRequest**](ReplaceAdNegativeKeywordListKeywordsRequest.md) |  | [required] |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe.  - Same key + same body: replays the original response. - Same key + different body: 422. - Key still processing: 409.  A request cut off mid-handler (e.g. by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours.  On the Ads create, boost and duplicate endpoints, a same-body retry runs again once the cut-off request started more than 15 minutes ago.  |  |
 
 ### Return type
 
@@ -2243,7 +2279,7 @@ Name | Type | Description  | Required | Notes
 
 ## update_ad_negative_keyword_list
 
-> models::UpdateAdNegativeKeywordList200Response update_ad_negative_keyword_list(list_id, update_ad_negative_keyword_list_request)
+> models::UpdateAdNegativeKeywordList200Response update_ad_negative_keyword_list(list_id, update_ad_negative_keyword_list_request, idempotency_key)
 Rename a negative keyword list
 
 Renames a shared Google Ads negative keyword list without changing its keywords or the campaigns using it.  Keywords and campaign associations are unchanged. Use the keywords endpoint to edit the desired keyword set. 
@@ -2255,6 +2291,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **list_id** | **String** |  | [required] |
 **update_ad_negative_keyword_list_request** | [**UpdateAdNegativeKeywordListRequest**](UpdateAdNegativeKeywordListRequest.md) |  | [required] |
+**idempotency_key** | Option<**String**> | Optional client-generated unique key (e.g. a UUID) that makes retries safe.  - Same key + same body: replays the original response. - Same key + different body: 422. - Key still processing: 409.  A request cut off mid-handler (e.g. by a function timeout) can leave its key in progress, answering 409 until the key expires after 24 hours.  On the Ads create, boost and duplicate endpoints, a same-body retry runs again once the cut-off request started more than 15 minutes ago.  |  |
 
 ### Return type
 

@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **headlines** | Option<[**Vec<models::GoogleRsaHeadline>**](GoogleRsaHeadline.md)> | Google Search and Display only. Replaces the complete headline list. Search takes 3-15, Display 1-5 and rejects pinnedField; the count is checked once the ad's channel is known. No padding or truncation on update. | [optional]
 **descriptions** | Option<[**Vec<models::GoogleRsaDescription>**](GoogleRsaDescription.md)> | Google Search and Display only. Replaces the complete description list. Search takes 2-4, Display 1-5 and rejects pinnedField. No padding or truncation on update. | [optional]
 **final_urls** | Option<**Vec<String>**> | Google Search and Display only. Replaces final URLs. Omitted lists stay unchanged. For Performance Max use assetGroup.finalUrl. | [optional]
+**path1** | Option<**String**> | Google Search only. First display path shown after the domain in the ad URL. Send an empty string to clear it. | [optional]
+**path2** | Option<**String**> | Google Search only. Second display path, shown after path1. Google requires path1 when path2 is set. Send an empty string to clear it. | [optional]
 **asset_group** | Option<[**models::GooglePmaxAssetGroupUpdate**](GooglePmaxAssetGroupUpdate.md)> | Google Performance Max only. Replaces whole asset roles on the ad's asset group. Returns 422 on any other platform or channel. | [optional]
 **demand_gen** | Option<[**models::GoogleDemandGenUpdate**](GoogleDemandGenUpdate.md)> | Google Demand Gen only. Returns 422 on any other platform or channel. | [optional]
 **status** | Option<**Status**> |  (enum: active, paused) | [optional]

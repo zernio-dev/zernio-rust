@@ -36,6 +36,9 @@ docs/AdCampaignOptimizationGoal.md
 docs/AdCampaignResultsApi.md
 docs/AdCampaignsApi.md
 docs/AdCreative.md
+docs/AdCreativeAssetFeed.md
+docs/AdCreativeAssetFeedImagesInner.md
+docs/AdCreativeAssetFeedVideosInner.md
 docs/AdCreativeAssets.md
 docs/AdCreativeAssetsMarketingImagesInner.md
 docs/AdCreativeAssetsSquareMarketingImagesInner.md
@@ -1248,6 +1251,10 @@ docs/DuplicateAdSetRequest.md
 docs/DuplicateCommerceProductRequest.md
 docs/DuplicateWorkflow201Response.md
 docs/DuplicateWorkflow201ResponseWorkflow.md
+docs/EditAdNegativeKeywordListKeywordsRequest.md
+docs/EditCampaignNegativeKeywordListsRequest.md
+docs/EditCampaignNegativeKeywords200Response.md
+docs/EditCampaignNegativeKeywordsRequest.md
 docs/EditDiscordGuildRoleRequest.md
 docs/EditGoogleAssetGroupAssets200Response.md
 docs/EditGoogleAssetGroupAssetsRequest.md
@@ -1598,6 +1605,8 @@ docs/GetGmbAttributeMetadata200ResponseAttributeMetadataInner.md
 docs/GetGmbAttributeMetadata200ResponseAttributeMetadataInnerValueMetadataInner.md
 docs/GetGmbLocations200Response.md
 docs/GetGmbLocations200ResponseLocationsInner.md
+docs/GetGohighlevelConnectUrl200Response.md
+docs/GetGohighlevelSettings200Response.md
 docs/GetGoogleAnalyticsConnectUrl200Response.md
 docs/GetGoogleAnalyticsMetadata200Response.md
 docs/GetGoogleAnalyticsMetadata200ResponseDimensionsInner.md
@@ -1925,6 +1934,7 @@ docs/GmbPlaceActionsApi.md
 docs/GmbReviewsApi.md
 docs/GmbServicesApi.md
 docs/GmbVerificationsApi.md
+docs/GohighlevelSettings.md
 docs/GoogleAdLabel.md
 docs/GoogleAdLabelAssignments.md
 docs/GoogleAdsAccessRole.md
@@ -3521,6 +3531,8 @@ docs/UpdateFileRequest.md
 docs/UpdateForwardingRuleRequest.md
 docs/UpdateGmbLocation200Response.md
 docs/UpdateGmbLocationRequest.md
+docs/UpdateGohighlevelSettings200Response.md
+docs/UpdateGohighlevelSettingsRequest.md
 docs/UpdateGoogleAssetGroup200Response.md
 docs/UpdateGoogleAssetGroupRequest.md
 docs/UpdateGoogleBusinessAttributes200Response.md
@@ -4214,6 +4226,9 @@ src/models/ad_campaign.rs
 src/models/ad_campaign_budget.rs
 src/models/ad_campaign_optimization_goal.rs
 src/models/ad_creative.rs
+src/models/ad_creative_asset_feed.rs
+src/models/ad_creative_asset_feed_images_inner.rs
+src/models/ad_creative_asset_feed_videos_inner.rs
 src/models/ad_creative_assets.rs
 src/models/ad_creative_assets_marketing_images_inner.rs
 src/models/ad_creative_assets_square_marketing_images_inner.rs
@@ -5398,6 +5413,10 @@ src/models/duplicate_ad_set_request.rs
 src/models/duplicate_commerce_product_request.rs
 src/models/duplicate_workflow_201_response.rs
 src/models/duplicate_workflow_201_response_workflow.rs
+src/models/edit_ad_negative_keyword_list_keywords_request.rs
+src/models/edit_campaign_negative_keyword_lists_request.rs
+src/models/edit_campaign_negative_keywords_200_response.rs
+src/models/edit_campaign_negative_keywords_request.rs
 src/models/edit_discord_guild_role_request.rs
 src/models/edit_google_asset_group_assets_200_response.rs
 src/models/edit_google_asset_group_assets_request.rs
@@ -5745,6 +5764,8 @@ src/models/get_gmb_attribute_metadata_200_response_attribute_metadata_inner.rs
 src/models/get_gmb_attribute_metadata_200_response_attribute_metadata_inner_value_metadata_inner.rs
 src/models/get_gmb_locations_200_response.rs
 src/models/get_gmb_locations_200_response_locations_inner.rs
+src/models/get_gohighlevel_connect_url_200_response.rs
+src/models/get_gohighlevel_settings_200_response.rs
 src/models/get_google_analytics_connect_url_200_response.rs
 src/models/get_google_analytics_metadata_200_response.rs
 src/models/get_google_analytics_metadata_200_response_dimensions_inner.rs
@@ -6064,6 +6085,7 @@ src/models/get_youtube_captions_200_response_available_tracks_inner.rs
 src/models/get_youtube_captions_200_response_cues_inner.rs
 src/models/get_youtube_playlists_200_response.rs
 src/models/get_youtube_playlists_200_response_playlists_inner.rs
+src/models/gohighlevel_settings.rs
 src/models/google_ad_label.rs
 src/models/google_ad_label_assignments.rs
 src/models/google_ads_access_role.rs
@@ -7630,6 +7652,8 @@ src/models/update_file_request.rs
 src/models/update_forwarding_rule_request.rs
 src/models/update_gmb_location_200_response.rs
 src/models/update_gmb_location_request.rs
+src/models/update_gohighlevel_settings_200_response.rs
+src/models/update_gohighlevel_settings_request.rs
 src/models/update_google_asset_group_200_response.rs
 src/models/update_google_asset_group_request.rs
 src/models/update_google_business_attributes_200_response.rs

@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**get_all_accounts_health**](AccountsApi.md#get_all_accounts_health) | **GET** /v1/accounts/health | Check accounts health
 [**get_bluesky_settings**](AccountsApi.md#get_bluesky_settings) | **GET** /v1/accounts/{accountId}/bluesky-settings | Get Bluesky account settings
 [**get_follower_stats**](AccountsApi.md#get_follower_stats) | **GET** /v1/accounts/follower-stats | Get follower stats
+[**get_gohighlevel_settings**](AccountsApi.md#get_gohighlevel_settings) | **GET** /v1/accounts/{accountId}/gohighlevel-settings | Get GoHighLevel account settings
 [**get_hub_spot_settings**](AccountsApi.md#get_hub_spot_settings) | **GET** /v1/accounts/{accountId}/hubspot-settings | Get HubSpot account settings
 [**get_instagram_follow_status**](AccountsApi.md#get_instagram_follow_status) | **GET** /v1/accounts/{accountId}/follow-status/{userId} | Check whether an Instagram user follows the account
 [**get_salesforce_settings**](AccountsApi.md#get_salesforce_settings) | **GET** /v1/accounts/{accountId}/salesforce-settings | Get Salesforce account settings
@@ -27,6 +28,7 @@ Method | HTTP request | Description
 [**search_tik_tok_locations**](AccountsApi.md#search_tik_tok_locations) | **GET** /v1/accounts/{accountId}/tiktok/locations | Search TikTok location tags
 [**update_account**](AccountsApi.md#update_account) | **PUT** /v1/accounts/{accountId} | Update account
 [**update_bluesky_settings**](AccountsApi.md#update_bluesky_settings) | **PATCH** /v1/accounts/{accountId}/bluesky-settings | Update Bluesky account settings
+[**update_gohighlevel_settings**](AccountsApi.md#update_gohighlevel_settings) | **PATCH** /v1/accounts/{accountId}/gohighlevel-settings | Update GoHighLevel account settings
 [**update_hub_spot_settings**](AccountsApi.md#update_hub_spot_settings) | **PATCH** /v1/accounts/{accountId}/hubspot-settings | Update HubSpot account settings
 [**update_salesforce_settings**](AccountsApi.md#update_salesforce_settings) | **PATCH** /v1/accounts/{accountId}/salesforce-settings | Update Salesforce account settings
 [**update_slack_settings**](AccountsApi.md#update_slack_settings) | **PATCH** /v1/accounts/{accountId}/slack-settings | Update Slack account settings
@@ -241,6 +243,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::FollowerStatsResponse**](FollowerStatsResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_gohighlevel_settings
+
+> models::GetGohighlevelSettings200Response get_gohighlevel_settings(account_id)
+Get GoHighLevel account settings
+
+Read a connected GoHighLevel sub-account and what Zernio relays from it and writes back to it.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::GetGohighlevelSettings200Response**](getGohighlevelSettings_200_response.md)
 
 ### Authorization
 
@@ -749,6 +781,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
  (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_gohighlevel_settings
+
+> models::UpdateGohighlevelSettings200Response update_gohighlevel_settings(account_id, update_gohighlevel_settings_request)
+Update GoHighLevel account settings
+
+Turn the conversion relay, the write-back to GoHighLevel contacts or forwarding to the profile's ad platforms on or off for a connected GoHighLevel sub-account. Send at least one field; omitted fields keep their value. Settings survive reconnecting the same sub-account.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** |  | [required] |
+**update_gohighlevel_settings_request** | [**UpdateGohighlevelSettingsRequest**](UpdateGohighlevelSettingsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::UpdateGohighlevelSettings200Response**](updateGohighlevelSettings_200_response.md)
 
 ### Authorization
 
