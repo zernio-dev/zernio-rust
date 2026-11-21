@@ -40,7 +40,7 @@ Method | HTTP request | Description
 [**get_email_connect_url**](ConnectApi.md#get_email_connect_url) | **GET** /v1/connect/email | Get a hosted link to connect any mailbox
 [**get_facebook_pages**](ConnectApi.md#get_facebook_pages) | **GET** /v1/accounts/{accountId}/facebook-page | List Facebook pages
 [**get_gmb_locations**](ConnectApi.md#get_gmb_locations) | **GET** /v1/accounts/{accountId}/gmb-locations | List Google Business Profile locations
-[**get_gohighlevel_connect_url**](ConnectApi.md#get_gohighlevel_connect_url) | **GET** /v1/connect/gohighlevel | Get GoHighLevel OAuth connect URL
+[**get_gohighlevel_connect_url**](ConnectApi.md#get_gohighlevel_connect_url) | **GET** /v1/connect/gohighlevel | Get HighLevel OAuth connect URL
 [**get_google_analytics_connect_url**](ConnectApi.md#get_google_analytics_connect_url) | **GET** /v1/connect/googleanalytics | Get Google Analytics OAuth connect URL
 [**get_google_search_console_connect_url**](ConnectApi.md#get_google_search_console_connect_url) | **GET** /v1/connect/googlesearchconsole | Get Google Search Console OAuth connect URL
 [**get_hub_spot_connect_url**](ConnectApi.md#get_hub_spot_connect_url) | **GET** /v1/connect/hubspot | Get HubSpot OAuth connect URL
@@ -1246,9 +1246,9 @@ Name | Type | Description  | Required | Notes
 ## get_gohighlevel_connect_url
 
 > models::GetGohighlevelConnectUrl200Response get_gohighlevel_connect_url(profile_id, redirect_url)
-Get GoHighLevel OAuth connect URL
+Get HighLevel OAuth connect URL
 
-Initiates OAuth (authorization code, no PKCE) for the Zernio GoHighLevel Marketplace app. Each GoHighLevel sub-account (location) becomes one connected account with `platform: gohighlevel`. An agency that installs the app across its sub-accounts gets one connected account per installed sub-account.  ### Flow  1. Redirect the user to `authUrl` (GoHighLevel's install screen). 2. After the install, GoHighLevel returns the browser to Zernio's callback. 3. Zernio redirects to `redirect_url` (or the dashboard when omitted).  On success the redirect carries `connected=gohighlevel`, `profileId` and `accountId`. On failure it carries `error` (`gohighlevel_access_denied`, `gohighlevel_invalid_state` or `gohighlevel_connection_failed`), `platform=gohighlevel` and `error_message`.  Reconnecting the same sub-account on the same profile updates the stored connection in place and keeps its settings. 
+Initiates OAuth (authorization code, no PKCE) for the Zernio HighLevel Marketplace app. Each HighLevel sub-account (location) becomes one connected account with `platform: gohighlevel`. An agency that installs the app across its sub-accounts gets one connected account per installed sub-account.  ### Flow  1. Redirect the user to `authUrl` (HighLevel's install screen). 2. After the install, HighLevel returns the browser to Zernio's callback. 3. Zernio redirects to `redirect_url` (or the dashboard when omitted).  On success the redirect carries `connected=gohighlevel`, `profileId` and `accountId`. On failure it carries `error` (`gohighlevel_access_denied`, `gohighlevel_invalid_state` or `gohighlevel_connection_failed`), `platform=gohighlevel` and `error_message`.  Reconnecting the same sub-account on the same profile updates the stored connection in place and keeps its settings. 
 
 ### Parameters
 
