@@ -2088,6 +2088,8 @@ pub mod create_workflow_request;
 pub use self::create_workflow_request::CreateWorkflowRequest;
 pub mod create_workspace_201_response;
 pub use self::create_workspace_201_response::CreateWorkspace201Response;
+pub mod create_workspace_201_response_api_key_error;
+pub use self::create_workspace_201_response_api_key_error::CreateWorkspace201ResponseApiKeyError;
 pub mod create_workspace_api_key_201_response;
 pub use self::create_workspace_api_key_201_response::CreateWorkspaceApiKey201Response;
 pub mod create_workspace_api_key_request;

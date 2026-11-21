@@ -1077,6 +1077,7 @@ docs/CreateWorkflow200Response.md
 docs/CreateWorkflow200ResponseWorkflow.md
 docs/CreateWorkflowRequest.md
 docs/CreateWorkspace201Response.md
+docs/CreateWorkspace201ResponseApiKeyError.md
 docs/CreateWorkspaceApiKey201Response.md
 docs/CreateWorkspaceApiKeyRequest.md
 docs/CreateWorkspaceRequest.md
@@ -5231,6 +5232,7 @@ src/models/create_workflow_200_response.rs
 src/models/create_workflow_200_response_workflow.rs
 src/models/create_workflow_request.rs
 src/models/create_workspace_201_response.rs
+src/models/create_workspace_201_response_api_key_error.rs
 src/models/create_workspace_api_key_201_response.rs
 src/models/create_workspace_api_key_request.rs
 src/models/create_workspace_request.rs
