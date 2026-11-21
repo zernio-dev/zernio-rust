@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **last_name** | Option<**String**> |  | 
 **email** | Option<**String**> |  | 
 **phone** | Option<**String**> | The phone, else the mobile phone, as stored in the CRM. | 
-**company** | Option<**String**> | HubSpot `company`; Salesforce Lead `Company` or Contact Account name. | 
+**company** | Option<**String**> | HubSpot `company`; Salesforce Lead `Company` or Contact Account name; GoHighLevel `companyName`. | 
 **owner_id** | Option<**String**> |  | 
 **created_at** | Option<**String**> |  | 
 **updated_at** | Option<**String**> |  | 
