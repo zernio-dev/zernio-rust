@@ -746,7 +746,9 @@ docs/ConversationAdAttribution.md
 docs/ConversionAction.md
 docs/ConversionActionTagSnippetsInner.md
 docs/ConversionAuditAnswer.md
+docs/ConversionAuditAnswerNetworksInner.md
 docs/ConversionAuditAnswerPublicReport.md
+docs/ConversionAuditAnswerTopFixesInner.md
 docs/ConversionAuditApi.md
 docs/ConversionAuditMonitor.md
 docs/ConversionAuditMonitorAnswer.md
@@ -5004,7 +5006,9 @@ src/models/conversation_ad_attribution.rs
 src/models/conversion_action.rs
 src/models/conversion_action_tag_snippets_inner.rs
 src/models/conversion_audit_answer.rs
+src/models/conversion_audit_answer_networks_inner.rs
 src/models/conversion_audit_answer_public_report.rs
+src/models/conversion_audit_answer_top_fixes_inner.rs
 src/models/conversion_audit_monitor.rs
 src/models/conversion_audit_monitor_answer.rs
 src/models/conversion_audit_monitor_score_history_inner.rs

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **event_name** | **String** |  | 
 **event_time** | **String** |  | 
 **received_at** | **String** |  | 
-**source** | **String** | Who sent it: `api`, `relay`, a lead form (`meta_leads`, `google_leads`, `linkedin_leads`, `tiktok_leads`), a store (`shopify`, `woocommerce`), `stripe`, `hubspot`, `salesforce`, `web` or `postback` (an affiliate network's postback to a tracking link). | 
+**source** | **String** | Who sent it: `api`, `relay`, a lead form (`meta_leads`, `google_leads`, `linkedin_leads`, `tiktok_leads`, `form_leads`), a store (`shopify`, `woocommerce`), `stripe`, `hubspot`, `salesforce`, `gohighlevel`, `web` or `postback` (an affiliate network's postback to a tracking link). | 
 **action_source** | Option<**String**> |  | [optional]
 **value** | Option<**f64**> |  | [optional]
 **currency** | Option<**String**> |  | [optional]
