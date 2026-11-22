@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**audit_conversion_tracking**](ConversionAuditApi.md#audit_conversion_tracking) | **GET** /v1/conversion-audit | Audit a site's ad conversion tracking
 [**get_latest_conversion_audit**](ConversionAuditApi.md#get_latest_conversion_audit) | **GET** /v1/conversion-audit/latest | Get a host's latest stored conversion audit
+[**get_meta_conversion_audit**](ConversionAuditApi.md#get_meta_conversion_audit) | **GET** /v1/conversion-audit/meta-audit | Audit a connected Meta pixel from inside Events Manager
 
 
 
@@ -14,7 +15,7 @@ Method | HTTP request | Description
 > models::ConversionAuditAnswer audit_conversion_tracking(url)
 Audit a site's ad conversion tracking
 
-Scan any public URL for ad-platform conversion tracking, score how much conversion signal it leaks before the ad platforms see it, and get a fix prompt to hand to a coding agent.  The API key is optional. Without one, a caller's IP address gets 20 scans a minute. The Zernio MCP server always needs a key, because its sign-in covers the whole connection.  The scan fetches the page (SSRF-guarded) and its Google Tag Manager containers, and can render it in a headless browser. It finds every ad platform's browser pixel, checks for visible server-side (Conversions API) tracking, and estimates the signal lost to iOS/ATT, ad-blockers and short cookie windows.  The scan reads the page only and changes nothing on the site. Like the free page, it publishes the result as the host's public report.  Reading the result:  - `report.visibility: \"limited\"` means some pixels load through a tag manager or a store platform, so only part of the setup is visible from outside. It does not mean the tracking failed or is missing. - `status: \"warn\"` (browser-only) is the leak: the platform is tracked in the browser but not server-side. - `status: \"good\"` (server-side) means conversions reach the platform server-side, which recovers most of that signal. - `fixPrompt` is the same fix prompt the Conversion Leak Report page shows: this scan's findings, then the steps to send conversions server-side with `POST /v1/events` and to verify them. - `publicReport` links the host's public page on is-bleeding.com. A homepage scan that could read the site's pixels becomes that page's snapshot, the same as a scan on is-bleeding.com. Any other scan links the stored snapshot, taken at `scannedAt`, or returns null when the host has none.  Without a key, each IP address also shares one hourly ceiling with every other keyless caller. With a key, a user gets 60 scans a minute. 
+Scan any public URL for ad-platform conversion tracking, score how much conversion signal it leaks before the ad platforms see it, and get a fix prompt to hand to a coding agent.  The API key is optional. Without one, a caller's IP address gets 20 scans a minute. The Zernio MCP server always needs a key, because its sign-in covers the whole connection.  The scan fetches the page (SSRF-guarded) and its Google Tag Manager containers, and can render it in a headless browser. It finds every ad platform's browser pixel, checks for visible server-side (Conversions API) tracking, and estimates the signal lost to iOS/ATT, ad-blockers and short cookie windows.  The scan reads the page only and changes nothing on the site. Like the free page, it publishes the result as the host's public report.  Reading the result:  - `report.visibility: \"limited\"` means some pixels load through a tag manager or a store platform, so only part of the setup is visible from outside. It does not mean the tracking failed or is missing. - `status: \"warn\"` (browser-only) is the leak: the platform is tracked in the browser but not server-side. - `status: \"good\"` (server-side) means conversions reach the platform server-side, which recovers most of that signal. - `fixPrompt` is the same fix prompt the Conversion Leak Report page shows: this scan's findings, then the steps to send conversions server-side with `POST /v1/events` and to verify them. - To fix the leak with Zernio, follow https://docs.zernio.com/products/server-side-tracking/fix-with-agent: a tracking site, its tag, a forwarding rule per network to the pixel the page runs, then a rescan. A network turns `good` once the site's events reached that pixel in the last 7 days. - `publicReport` links the host's public page on is-bleeding.com. A homepage scan that could read the site's pixels becomes that page's snapshot, the same as a scan on is-bleeding.com. Any other scan links the stored snapshot, taken at `scannedAt`, or returns null when the host has none.  Without a key, each IP address also shares one hourly ceiling with every other keyless caller. With a key, a user gets 60 scans a minute. 
 
 ### Parameters
 
@@ -56,6 +57,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetLatestConversionAudit200Response**](getLatestConversionAudit_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_meta_conversion_audit
+
+> models::MetaDatasetAudit get_meta_conversion_audit(account_id, ad_account_id, pixel_id)
+Audit a connected Meta pixel from inside Events Manager
+
+The connected follow-up to the Conversion Leak Report. A page scan only sees the browser; this reads what Meta itself recorded for the ad account's pixel (dataset) with the connection's own token, over the last 7 days.  ### What it reads  - each event's volume per day, its last 24 hours and the last hour Meta counted it in - the share of each event that arrived through the Conversions API (server) rather than the browser pixel - Event Match Quality per event, with the coverage of every customer-information key Meta matched on (email, phone, external id, IP address, user agent, `fbp`, `fbc`, name and address fields) - the event_id, external_id and fbp deduplication coverage of browser and server copies, where an event has both - Meta's diagnostics for the dataset and its failed dataset checks - whether automatic advanced matching and first-party cookies are on  Each `findings` entry is a problem one of those numbers shows, with its fix and who makes it (`fix.by`):  - `zernio`: turning on Zernio server-side events or the Zernio site tag fixes it - `you`: a change in your site or API call - `meta`: a setting only Events Manager has  Meta does not return a business's verified domains or an Aggregated Event Measurement setup to this API, so both are listed under `unavailable`, with any read Meta refused.  `accountId` is a Meta ads connection (or the Facebook account it belongs to). Without `adAccountId`, the first selected ad account that has a pixel is audited; without `pixelId`, its most recently active pixel. The result is cached for 10 minutes per pixel. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The Meta ads connection to read with. | [required] |
+**ad_account_id** | Option<**String**> | The ad account whose pixel is audited. Must be selected on the connection. |  |
+**pixel_id** | Option<**String**> | One of the ad account's pixels (`datasets[].id`). |  |
+
+### Return type
+
+[**models::MetaDatasetAudit**](MetaDatasetAudit.md)
 
 ### Authorization
 

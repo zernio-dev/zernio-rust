@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**get_all_accounts_health**](AccountsApi.md#get_all_accounts_health) | **GET** /v1/accounts/health | Check accounts health
 [**get_bluesky_settings**](AccountsApi.md#get_bluesky_settings) | **GET** /v1/accounts/{accountId}/bluesky-settings | Get Bluesky account settings
 [**get_follower_stats**](AccountsApi.md#get_follower_stats) | **GET** /v1/accounts/follower-stats | Get follower stats
+[**get_gohighlevel_funnel_tracking**](AccountsApi.md#get_gohighlevel_funnel_tracking) | **GET** /v1/accounts/{accountId}/gohighlevel-funnel-tracking | Get HighLevel funnel tracking
 [**get_gohighlevel_settings**](AccountsApi.md#get_gohighlevel_settings) | **GET** /v1/accounts/{accountId}/gohighlevel-settings | Get HighLevel account settings
 [**get_hub_spot_settings**](AccountsApi.md#get_hub_spot_settings) | **GET** /v1/accounts/{accountId}/hubspot-settings | Get HubSpot account settings
 [**get_instagram_follow_status**](AccountsApi.md#get_instagram_follow_status) | **GET** /v1/accounts/{accountId}/follow-status/{userId} | Check whether an Instagram user follows the account
@@ -21,11 +22,15 @@ Method | HTTP request | Description
 [**grant_business_partner**](AccountsApi.md#grant_business_partner) | **POST** /v1/accounts/{accountId}/business-partners | Share the Page with a partner business
 [**list_accounts**](AccountsApi.md#list_accounts) | **GET** /v1/accounts | List accounts
 [**list_business_partners**](AccountsApi.md#list_business_partners) | **GET** /v1/accounts/{accountId}/business-partners | List partner businesses of the Page
+[**list_gohighlevel_audience_syncs**](AccountsApi.md#list_gohighlevel_audience_syncs) | **GET** /v1/accounts/{accountId}/gohighlevel-audiences | List HighLevel tag audience syncs
 [**list_hub_spot_contact_properties**](AccountsApi.md#list_hub_spot_contact_properties) | **GET** /v1/accounts/{accountId}/hubspot-settings/contact-properties | List HubSpot contact properties
 [**list_tik_tok_commercial_music**](AccountsApi.md#list_tik_tok_commercial_music) | **GET** /v1/accounts/{accountId}/tiktok/commercial-music | List trending commercial music
 [**move_account_to_profile**](AccountsApi.md#move_account_to_profile) | **PATCH** /v1/accounts/{accountId} | Move account to another profile
 [**revoke_business_partner**](AccountsApi.md#revoke_business_partner) | **DELETE** /v1/accounts/{accountId}/business-partners | Revoke a partner business from the Page
 [**search_tik_tok_locations**](AccountsApi.md#search_tik_tok_locations) | **GET** /v1/accounts/{accountId}/tiktok/locations | Search TikTok location tags
+[**send_gohighlevel_past_won_deals**](AccountsApi.md#send_gohighlevel_past_won_deals) | **POST** /v1/accounts/{accountId}/gohighlevel-won-deals-backfill | Send past HighLevel won deals as conversions
+[**start_gohighlevel_audience_sync**](AccountsApi.md#start_gohighlevel_audience_sync) | **POST** /v1/accounts/{accountId}/gohighlevel-audiences | Sync a HighLevel tag to ad audiences
+[**stop_gohighlevel_audience_sync**](AccountsApi.md#stop_gohighlevel_audience_sync) | **DELETE** /v1/accounts/{accountId}/gohighlevel-audiences/{syncId} | Stop a HighLevel tag audience sync
 [**update_account**](AccountsApi.md#update_account) | **PUT** /v1/accounts/{accountId} | Update account
 [**update_bluesky_settings**](AccountsApi.md#update_bluesky_settings) | **PATCH** /v1/accounts/{accountId}/bluesky-settings | Update Bluesky account settings
 [**update_gohighlevel_settings**](AccountsApi.md#update_gohighlevel_settings) | **PATCH** /v1/accounts/{accountId}/gohighlevel-settings | Update HighLevel account settings
@@ -33,6 +38,7 @@ Method | HTTP request | Description
 [**update_salesforce_settings**](AccountsApi.md#update_salesforce_settings) | **PATCH** /v1/accounts/{accountId}/salesforce-settings | Update Salesforce account settings
 [**update_slack_settings**](AccountsApi.md#update_slack_settings) | **PATCH** /v1/accounts/{accountId}/slack-settings | Update Slack account settings
 [**update_stripe_settings**](AccountsApi.md#update_stripe_settings) | **PATCH** /v1/accounts/{accountId}/stripe-settings | Update Stripe account settings
+[**verify_gohighlevel_funnel_tracking**](AccountsApi.md#verify_gohighlevel_funnel_tracking) | **POST** /v1/accounts/{accountId}/gohighlevel-funnel-tracking/verify | Check the Zernio tag on a HighLevel funnel page
 
 
 
@@ -243,6 +249,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::FollowerStatsResponse**](FollowerStatsResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_gohighlevel_funnel_tracking
+
+> models::GohighlevelFunnelTracking get_gohighlevel_funnel_tracking(account_id)
+Get HighLevel funnel tracking
+
+Get the Zernio tag for a connected HighLevel sub-account's funnels and websites, created on the first call, and the line to paste into each funnel's tracking code (the funnel's Settings, then Head tracking code).  Each funnel and website says whether it already carries the tag, and `live` whether the tag has sent its first visit. Visits on tagged pages tie ad clicks to the leads and sales HighLevel records.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The HighLevel account id from `listAccounts`. | [required] |
+
+### Return type
+
+[**models::GohighlevelFunnelTracking**](GohighlevelFunnelTracking.md)
 
 ### Authorization
 
@@ -578,6 +614,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_gohighlevel_audience_syncs
+
+> models::GohighlevelAudienceSyncOverview list_gohighlevel_audience_syncs(account_id)
+List HighLevel tag audience syncs
+
+List the tags of a connected HighLevel sub-account that Zernio keeps as customer list audiences on Meta and Reddit ad accounts, the ad accounts a tag can sync to (`targetChoices`), and the sub-account's tags. Pass a `targetChoices` entry to `startGohighlevelAudienceSync` to start a sync.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The HighLevel account id from `listAccounts`. | [required] |
+
+### Return type
+
+[**models::GohighlevelAudienceSyncOverview**](GohighlevelAudienceSyncOverview.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_hub_spot_contact_properties
 
 > models::ListHubSpotContactProperties200Response list_hub_spot_contact_properties(account_id)
@@ -719,6 +785,98 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::SearchTikTokLocations200Response**](searchTikTokLocations_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## send_gohighlevel_past_won_deals
+
+> models::SendGohighlevelPastWonDeals200Response send_gohighlevel_past_won_deals(account_id)
+Send past HighLevel won deals as conversions
+
+Send the opportunities a connected HighLevel sub-account won in the last 90 days through the conversion relay. Each is stored as a Purchase conversion and forwarded to the profile's ad platforms when `reportToAds` is on.  Each call sends up to 50 and skips deals Zernio already holds, so calling again goes on with the rest. `remaining` says how many are left. A deal that fails is picked again on the next call, so stop when a call sends none.  Returns `relay_off` when the conversion relay is off (`updateGohighlevelSettings`). Needs a read-write key.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The HighLevel account id from `listAccounts`. | [required] |
+
+### Return type
+
+[**models::SendGohighlevelPastWonDeals200Response**](sendGohighlevelPastWonDeals_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## start_gohighlevel_audience_sync
+
+> models::StartGohighlevelAudienceSync201Response start_gohighlevel_audience_sync(account_id, start_gohighlevel_audience_sync_request)
+Sync a HighLevel tag to ad audiences
+
+Keep every HighLevel contact with a tag as a customer list audience on one or more Meta or Reddit ad accounts of the profile. Take `targets` from `targetChoices` of `listGohighlevelAudienceSyncs`.  Zernio creates one audience per ad account and fills it within a few minutes. A contact joins or leaves as soon as the tag is added to or removed from it, and every 6 hours Zernio re-reads the tag. Emails and phones are hashed before upload.  A tag syncs once per sub-account; stop it to change its ad accounts. Needs a read-write key.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The HighLevel account id from `listAccounts`. | [required] |
+**start_gohighlevel_audience_sync_request** | [**StartGohighlevelAudienceSyncRequest**](StartGohighlevelAudienceSyncRequest.md) |  | [required] |
+
+### Return type
+
+[**models::StartGohighlevelAudienceSync201Response**](startGohighlevelAudienceSync_201_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## stop_gohighlevel_audience_sync
+
+> models::DeleteAccountGroup200Response stop_gohighlevel_audience_sync(account_id, sync_id)
+Stop a HighLevel tag audience sync
+
+Stop keeping a tag in sync. Its audiences stay on the ad accounts with their current members, so running ads keep their targeting; delete an audience with `deleteAdAudience`. Needs a read-write key.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The HighLevel account id from `listAccounts`. | [required] |
+**sync_id** | **String** | The sync id from `listGohighlevelAudienceSyncs`. | [required] |
+
+### Return type
+
+[**models::DeleteAccountGroup200Response**](deleteAccountGroup_200_response.md)
 
 ### Authorization
 
@@ -936,6 +1094,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::UpdateStripeSettings200Response**](updateStripeSettings_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## verify_gohighlevel_funnel_tracking
+
+> models::GohighlevelFunnelTracking verify_gohighlevel_funnel_tracking(account_id, verify_gohighlevel_funnel_tracking_request)
+Check the Zernio tag on a HighLevel funnel page
+
+Load a live funnel or website page and report whether it carries the sub-account's Zernio tag. A page that does adds its domain to the tag's domains, so visits there are tied to the contacts who fill its forms.  Returns the same funnel tracking state as `getGohighlevelFunnelTracking`, with `verified` set. Needs a read-write key.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_id** | **String** | The HighLevel account id from `listAccounts`. | [required] |
+**verify_gohighlevel_funnel_tracking_request** | [**VerifyGohighlevelFunnelTrackingRequest**](VerifyGohighlevelFunnelTrackingRequest.md) |  | [required] |
+
+### Return type
+
+[**models::GohighlevelFunnelTracking**](GohighlevelFunnelTracking.md)
 
 ### Authorization
 
