@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **msclkid** | Option<**String**> | Microsoft Advertising click ID (the `msclkid` URL param Microsoft adds to ad clicks). Sent to Microsoft as `MicrosoftClickId` (offline goals) or `userData.msclkid` (UET tags), not hashed. | [optional]
 **sccid** | Option<**String**> | Snapchat click ID (the `ScCid` URL param Snap adds to ad clicks). Sent to Snapchat as `sc_click_id`, not hashed. | [optional]
 **scid** | Option<**String**> | Snap Pixel browser id (the `_scid` cookie). Sent to Snapchat as `sc_cookie1`, not hashed. | [optional]
+**tblci** | Option<**String**> | Taboola click ID (the `tblci` URL param Taboola adds to ad clicks with its `{click_id}` macro). Sent to Taboola as `click-id`, not hashed. | [optional]
 **irclickid** | Option<**String**> | Impact partner click id (the `irclickid` URL param Impact adds to partner links). Sent to Impact as `ClickId`. | [optional]
 **awc** | Option<**String**> | Awin click id (the `awc` URL param Awin adds to publisher links). Sent to Awin as the order's `awc`. | [optional]
 **dclid** | Option<**String**> | Campaign Manager 360 / Display & Video 360 click ID (the `dclid` URL param). Sent to Floodlight as is. | [optional]

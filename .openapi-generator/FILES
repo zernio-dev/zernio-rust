@@ -710,6 +710,8 @@ docs/ConnectShopifyWithTokenRequest.md
 docs/ConnectSlackChannelRequest.md
 docs/ConnectSnapchatAdsCredentials200Response.md
 docs/ConnectSnapchatAdsCredentialsRequest.md
+docs/ConnectTaboolaAdsCredentials200Response.md
+docs/ConnectTaboolaAdsCredentialsRequest.md
 docs/ConnectTradeDeskAdsCredentials200Response.md
 docs/ConnectTradeDeskAdsCredentialsRequest.md
 docs/ConnectWebflowWithSiteToken200Response.md
@@ -4969,6 +4971,8 @@ src/models/connect_shopify_with_token_request.rs
 src/models/connect_slack_channel_request.rs
 src/models/connect_snapchat_ads_credentials_200_response.rs
 src/models/connect_snapchat_ads_credentials_request.rs
+src/models/connect_taboola_ads_credentials_200_response.rs
+src/models/connect_taboola_ads_credentials_request.rs
 src/models/connect_trade_desk_ads_credentials_200_response.rs
 src/models/connect_trade_desk_ads_credentials_request.rs
 src/models/connect_webflow_with_site_token_200_response.rs

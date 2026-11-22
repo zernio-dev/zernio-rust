@@ -23,6 +23,7 @@ Method | HTTP request | Description
 [**connect_shopify_with_token**](ConnectApi.md#connect_shopify_with_token) | **POST** /v1/connect/shopify/token | Connect a Shopify store with a custom-app Admin token
 [**connect_slack_channel**](ConnectApi.md#connect_slack_channel) | **POST** /v1/connect/slack | Connect a Slack channel
 [**connect_snapchat_ads_credentials**](ConnectApi.md#connect_snapchat_ads_credentials) | **POST** /v1/connect/snapchat-ads/credentials | Connect a Snapchat Ads pixel
+[**connect_taboola_ads_credentials**](ConnectApi.md#connect_taboola_ads_credentials) | **POST** /v1/connect/taboola-ads/credentials | Connect a Taboola account
 [**connect_trade_desk_ads_credentials**](ConnectApi.md#connect_trade_desk_ads_credentials) | **POST** /v1/connect/tradedesk-ads/credentials | Connect a Trade Desk tracking tag
 [**connect_webflow_with_site_token**](ConnectApi.md#connect_webflow_with_site_token) | **POST** /v1/connect/webflow/token | Connect Webflow with a site API token
 [**connect_wechat_credentials**](ConnectApi.md#connect_wechat_credentials) | **POST** /v1/connect/wechat/credentials | Connect WeChat Official Account
@@ -708,6 +709,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## connect_taboola_ads_credentials
+
+> models::ConnectTaboolaAdsCredentials200Response connect_taboola_ads_credentials(connect_taboola_ads_credentials_request)
+Connect a Taboola account
+
+Connect a Taboola advertiser account by its numeric Account ID from Taboola Realize. Taboola's S2S postback takes no credential, so nothing secret is stored and nothing is checked with Taboola.  The account then receives the conversion events you forward to it (`POST /v1/events`, forwarding rules). Each event needs the Taboola click ID (`clickIds.tblci`).  Taboola counts an event only when its name equals the Event Name of a conversion rule in Realize. Rename events in the forwarding rule when they differ.  Requires the Ads add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**connect_taboola_ads_credentials_request** | [**ConnectTaboolaAdsCredentialsRequest**](ConnectTaboolaAdsCredentialsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::ConnectTaboolaAdsCredentials200Response**](connectTaboolaAdsCredentials_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## connect_trade_desk_ads_credentials
 
 > models::ConnectTradeDeskAdsCredentials200Response connect_trade_desk_ads_credentials(connect_trade_desk_ads_credentials_request)
@@ -1199,7 +1230,7 @@ Name | Type | Description  | Required | Notes
 > models::GetAmazonAdsConnectUrl200Response get_amazon_ads_connect_url(profile_id, redirect_url, reconnect_account_id)
 Get Amazon Ads OAuth connect URL
 
-Starts Login with Amazon for Amazon Ads (scope `advertising::campaign_management`). The Amazon login becomes an account with platform `amazonads`; every advertiser profile it reaches, in the NA, EU and FE regions, is a conversions destination (`GET /v1/ads/conversions/destinations`).  **Not open yet:** this answers 503 `FEATURE_NOT_AVAILABLE` until Amazon approves Zernio for the Amazon Ads API. Ask support for early access.  Errors on the redirect: `amazonads_no_profiles` (the login reaches no advertiser), `amazonads_no_refresh_token`. 
+Starts Login with Amazon for Amazon Ads (scope `advertising::campaign_management`). The Amazon login becomes an account with platform `amazonads`; every advertiser profile it reaches, in the NA, EU and FE regions, is a conversions destination (`GET /v1/ads/conversions/destinations`).  Errors on the redirect: `amazonads_no_profiles` (the login reaches no advertiser), `amazonads_no_refresh_token`. 
 
 ### Parameters
 
