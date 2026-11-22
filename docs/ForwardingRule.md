@@ -11,6 +11,9 @@ Name | Type | Description | Notes
 **event_names** | Option<**Vec<String>**> | Event names forwarded to this destination; null forwards every event. | [optional]
 **sources** | Option<**Vec<Sources>**> | Event sources forwarded to this destination; null forwards events from every source. (enum: api, relay, hubspot, meta_leads, google_leads, linkedin_leads, tiktok_leads, shopify, woocommerce, stripe, web, salesforce, gohighlevel, postback, form_leads) | [optional]
 **api_secret_verified** | Option<**bool**> | Only when an `apiSecret` was saved by this request. Google Analytics never confirms a Measurement Protocol API secret, so it is `false` there: the first events in GA4 Realtime prove the secret is right. | [optional]
+**event_name_map** | Option<**std::collections::HashMap<String, String>**> | Renames events for this destination, such as `{ \"Lead\": \"Purchase\" }`; null sends every event under its own name. | [optional]
+**value_override** | Option<[**models::ForwardingRuleValueOverride**](ForwardingRuleValueOverride.md)> |  | [optional]
+**value_condition** | Option<[**models::ForwardingRuleValueCondition**](ForwardingRuleValueCondition.md)> |  | [optional]
 **created_at** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

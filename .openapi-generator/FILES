@@ -1422,6 +1422,8 @@ docs/FoodMenuLabel.md
 docs/FoodMenuSection.md
 docs/ForwardEmailRequest.md
 docs/ForwardingRule.md
+docs/ForwardingRuleValueCondition.md
+docs/ForwardingRuleValueOverride.md
 docs/FreeBusyError.md
 docs/FromASharedTemplate.md
 docs/FromAZernioTemplate.md
@@ -5672,6 +5674,8 @@ src/models/food_menu_label.rs
 src/models/food_menu_section.rs
 src/models/forward_email_request.rs
 src/models/forwarding_rule.rs
+src/models/forwarding_rule_value_condition.rs
+src/models/forwarding_rule_value_override.rs
 src/models/free_busy_error.rs
 src/models/from_a_shared_template.rs
 src/models/from_a_zernio_template.rs
