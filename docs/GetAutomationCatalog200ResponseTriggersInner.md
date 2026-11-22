@@ -4,11 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**kind** | **Kind** |  (enum: ad_rule, event, scheduled, sequence, comment) | 
-**r#type** | **String** | `schedule`, `enrollment`, a comment door such as `comment.keyword` (comment to DM), or the Zernio event name. | 
+**kind** | **Kind** |  (enum: ad_rule, event, scheduled, sequence, comment, workflow) | 
+**r#type** | **String** | `schedule`, `enrollment`, a comment door such as `comment.keyword` (comment to DM), a flow trigger such as `inbound_message`, or the Zernio event name. | 
 **label** | Option<**String**> | Event triggers only. | [optional]
 **subject** | Option<**String**> | What an event is about, such as `post` or `account`. | [optional]
-**scope** | Option<**serde_json::Value**> | Which of `profileId` and `accountIds` an event trigger needs. | [optional]
+**scope** | Option<**serde_json::Value**> | Which of `profileId`, `accountId`, `accountIds` and `platformPostId` the trigger needs. | [optional]
+**platforms** | Option<**Vec<String>**> | The platforms a sequence, comment to DM or flow trigger runs on. | [optional]
 **facts** | Option<[**Vec<models::GetAutomationCatalog200ResponseTriggersInnerFactsInner>**](GetAutomationCatalog200ResponseTriggersInnerFactsInner.md)> | The facts a `filter` can compare, for an event trigger. | [optional]
 **subjects** | Option<**Vec<serde_json::Value>**> | Scheduled trigger only: what it can check (`post`), with the facts of each. | [optional]
 **every** | Option<**Vec<String>**> |  | [optional]

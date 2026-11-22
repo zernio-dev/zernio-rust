@@ -312,6 +312,8 @@ docs/AutomationOneOf2.md
 docs/AutomationOneOf3.md
 docs/AutomationOneOf3AllOfEnrollments.md
 docs/AutomationOneOf4.md
+docs/AutomationOneOf4AllOfStats.md
+docs/AutomationOneOf5.md
 docs/AutomationPostSchedule.md
 docs/AutomationPostSubjects.md
 docs/AutomationPreview.md
@@ -1400,6 +1402,9 @@ docs/FileItem.md
 docs/FilePickerSession.md
 docs/FileShareLink.md
 docs/FilesApi.md
+docs/FlowAutomationDefinition.md
+docs/FlowAutomationDefinitionGraph.md
+docs/FlowAutomationDefinitionTrigger.md
 docs/FollowUser200Response.md
 docs/FollowUserRequest.md
 docs/FollowerStatsResponse.md
@@ -2634,6 +2639,7 @@ docs/ListWorkflowExecutionEvents200ResponseExecution.md
 docs/ListWorkflowExecutions200Response.md
 docs/ListWorkflowExecutions200ResponseExecutionsInner.md
 docs/ListWorkflowExecutions200ResponseExecutionsInnerWaitingFor.md
+docs/ListWorkflowExecutions200ResponsePagination.md
 docs/ListWorkflowVersions200Response.md
 docs/ListWorkflowVersions200ResponseVersionsInner.md
 docs/ListWorkflows200Response.md
@@ -3521,7 +3527,6 @@ docs/UpdateAutoRechargeRequest.md
 docs/UpdateAutomationAdAccountControlsRequest.md
 docs/UpdateAutomationControlsRequest.md
 docs/UpdateAutomationRequest.md
-docs/UpdateAutomationRequestLimits.md
 docs/UpdateAutomationRequestStepsInner.md
 docs/UpdateAutomationRequestSubjects.md
 docs/UpdateAutomationTemplateRequest.md
@@ -4578,6 +4583,8 @@ src/models/automation_one_of_2.rs
 src/models/automation_one_of_3.rs
 src/models/automation_one_of_3_all_of_enrollments.rs
 src/models/automation_one_of_4.rs
+src/models/automation_one_of_4_all_of_stats.rs
+src/models/automation_one_of_5.rs
 src/models/automation_post_schedule.rs
 src/models/automation_post_subjects.rs
 src/models/automation_preview.rs
@@ -5641,6 +5648,9 @@ src/models/fetch_google_business_verification_options_request.rs
 src/models/file_item.rs
 src/models/file_picker_session.rs
 src/models/file_share_link.rs
+src/models/flow_automation_definition.rs
+src/models/flow_automation_definition_graph.rs
+src/models/flow_automation_definition_trigger.rs
 src/models/follow_user_200_response.rs
 src/models/follow_user_request.rs
 src/models/follower_stats_response.rs
@@ -6860,6 +6870,7 @@ src/models/list_workflow_execution_events_200_response_execution.rs
 src/models/list_workflow_executions_200_response.rs
 src/models/list_workflow_executions_200_response_executions_inner.rs
 src/models/list_workflow_executions_200_response_executions_inner_waiting_for.rs
+src/models/list_workflow_executions_200_response_pagination.rs
 src/models/list_workflow_versions_200_response.rs
 src/models/list_workflow_versions_200_response_versions_inner.rs
 src/models/list_workflows_200_response.rs
@@ -7724,7 +7735,6 @@ src/models/update_auto_recharge_request.rs
 src/models/update_automation_ad_account_controls_request.rs
 src/models/update_automation_controls_request.rs
 src/models/update_automation_request.rs
-src/models/update_automation_request_limits.rs
 src/models/update_automation_request_steps_inner.rs
 src/models/update_automation_request_subjects.rs
 src/models/update_automation_template_request.rs

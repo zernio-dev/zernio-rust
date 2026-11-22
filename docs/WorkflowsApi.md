@@ -237,7 +237,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_workflow_executions
 
-> models::ListWorkflowExecutions200Response list_workflow_executions(workflow_id, status, limit, skip)
+> models::ListWorkflowExecutions200Response list_workflow_executions(workflow_id, status, limit, skip, cursor)
 List workflow runs
 
 Returns recent executions (runs) with their status, current node, and accumulated variables.
@@ -251,6 +251,7 @@ Name | Type | Description  | Required | Notes
 **status** | Option<**String**> |  |  |
 **limit** | Option<**i32**> |  |  |[default to 25]
 **skip** | Option<**i32**> |  |  |[default to 0]
+**cursor** | Option<**String**> | The previous page's pagination.nextCursor. Pages stay stable while runs start or end; skip applies after it. Page past the first 1000 runs with the cursor: a larger skip may be refused with 400. |  |
 
 ### Return type
 

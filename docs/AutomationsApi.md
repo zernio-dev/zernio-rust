@@ -168,7 +168,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateAutomation201Response create_automation(automation_definition, idempotency_key)
 Create an automation
 
-Creates an automation. Its shape picks the kind:  - **Ad rule**: a `schedule` over campaigns, ad sets, ads, Google keywords or Google search terms, with metric `conditions` and ad `steps`. It stays paused unless `status` is `active`; preview it first with `POST /v1/automations/preview`. - **Event**: a Zernio event in `trigger.type`, such as `post.failed`, with notify steps. It is on unless `status` is `paused`. - **Scheduled**: a `schedule` over a profile's posts, with notify steps and an optional boost. It is on unless `status` is `paused`. - **Sequence**: an `enrollment` trigger on one messaging account, with message steps sent over time. It is on unless `status` is `draft`. It needs what `/v1/sequences` needs: the inbox add-on and a key with the `messages` group. - **Comment to DM**: a comment door in `trigger.type`, such as `comment.keyword`, with a `graph` of the shapes `/v1/comment-automations` holds. It is on unless `status` is `paused`, and needs what `/v1/comment-automations` needs. A post that already has an active automation is a 409.  Everything an automation cannot hold is refused at once: the 400 lists every problem with its JSON path in `details.problems`. 
+Creates an automation. Its trigger picks the kind:  - **Ad rule**: a `schedule` over campaigns, ad sets, ads, Google keywords or Google search terms, with metric `conditions` and ad `steps`. It stays paused unless `status` is `active`; preview it first with `POST /v1/automations/preview`. - **Event**: a Zernio event in `trigger.type`, such as `post.failed`, with notify steps. It is on unless `status` is `paused`. - **Scheduled**: a `schedule` over a profile's posts, with notify steps and an optional boost. It is on unless `status` is `paused`. - **Sequence**: an `enrollment` trigger on one messaging account, with message steps sent over time. It is on unless `status` is `draft`. It needs what `/v1/sequences` needs: the inbox add-on and a key with the `messages` group. - **Comment to DM**: a comment door in `trigger.type`, such as `comment.keyword`, with a `graph` of the shapes `/v1/comment-automations` holds. It is on unless `status` is `paused`, and needs what `/v1/comment-automations` needs. A post that already has an active automation is a 409. - **Flow** (`kind` is `workflow`): a flow trigger such as `inbound_message` (or a `graph` whose trigger node names it) on one account, with the builder's `graph`. It is a draft unless `status` is `active`, which needs a complete graph; `paused` is refused. It needs the inbox add-on and a full-access key.  Everything an automation cannot hold is refused at once: the 400 lists every problem with its JSON path in `details.problems`. 
 
 ### Parameters
 
@@ -716,21 +716,22 @@ Name | Type | Description  | Required | Notes
 
 ## list_automations
 
-> models::ListAutomations200Response list_automations(account_id, ad_account_id, kind, limit, cursor)
+> models::ListAutomations200Response list_automations(account_id, ad_account_id, q, kind, limit, cursor)
 List automations
 
-Lists the automations on the profiles your key can reach, newest first, across every kind: ad rules, event automations, scheduled automations, sequences and comment to DM.  Sequences and comment to DM need what `/v1/sequences` and `/v1/comment-automations` need: the inbox add-on, and a key with the `messages` group; without them they are left out. 
+Lists the automations on the profiles your key can reach, newest first, across every kind: ad rules, event automations, scheduled automations, sequences, comment to DM and flows. One `cursor` pages them all.  Each kind is listed only for callers its own route lets read it; the others are left out, never an error:  - **Sequences and comment to DM** need the inbox add-on and a key with the `messages` group, as `/v1/sequences` and `/v1/comment-automations` do. - **Flows** need the inbox add-on and a full-access key, as `/v1/workflows` does. - **Ad rules, event and scheduled automations** need only access to their profile, as reading, pausing and deleting them does. Creating, editing, activating or previewing an ad rule needs the ads add-on. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**account_id** | Option<**String**> | Only automations on this account: the ads connection of an ad rule, or one of the `accountIds` of an event or scheduled automation. |  |
+**account_id** | Option<**String**> | Only automations on this account: the ads connection of an ad rule, one of the `accountIds` of an event or scheduled automation, or the account a sequence, comment to DM or flow runs on. |  |
 **ad_account_id** | Option<**String**> | Only ad rules checking this platform ad account. |  |
-**kind** | Option<**String**> | Only these kinds, comma separated: `ad_rule`, `event`, `scheduled`, `sequence`, `comment`. |  |
+**q** | Option<**String**> | Only automations whose name contains this text, ignoring case. `%` and `_` match themselves. |  |
+**kind** | Option<**String**> | Only these kinds, comma separated: `ad_rule`, `event`, `scheduled`, `sequence`, `comment`, `workflow`. |  |
 **limit** | Option<**i32**> |  |  |[default to 50]
-**cursor** | Option<**String**> | `nextCursor` from the previous page. |  |
+**cursor** | Option<**String**> | `nextCursor` from the previous page, sent back unchanged with the same `q`, `kind`, `accountId` and `adAccountId`.  Opaque: it holds the creation time and id of the page's last automation, and the next page is every kind's automations strictly older than it, so an automation created meanwhile never shifts or repeats a page.  |  |
 
 ### Return type
 
