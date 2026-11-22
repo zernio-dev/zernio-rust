@@ -12,13 +12,18 @@ Method | HTTP request | Description
 [**configure_tik_tok_ads_brand_identity**](ConnectApi.md#configure_tik_tok_ads_brand_identity) | **PATCH** /v1/connect/tiktok-ads | Set TikTok brand identity
 [**connect_ads**](ConnectApi.md#connect_ads) | **GET** /v1/connect/{platform}/ads | Connect ads for a platform
 [**connect_app_lovin_ads_credentials**](ConnectApi.md#connect_app_lovin_ads_credentials) | **POST** /v1/connect/applovin-ads/credentials | Connect an AppLovin Axon account
+[**connect_attentive_credentials**](ConnectApi.md#connect_attentive_credentials) | **POST** /v1/connect/attentive/credentials | Connect an Attentive company
+[**connect_awin_credentials**](ConnectApi.md#connect_awin_credentials) | **POST** /v1/connect/awin/credentials | Connect an Awin advertiser
 [**connect_bluesky_credentials**](ConnectApi.md#connect_bluesky_credentials) | **POST** /v1/connect/bluesky/credentials | Connect Bluesky account
 [**connect_discord_channel**](ConnectApi.md#connect_discord_channel) | **POST** /v1/connect/discord | Connect a Discord channel
+[**connect_impact_credentials**](ConnectApi.md#connect_impact_credentials) | **POST** /v1/connect/impact/credentials | Connect an Impact program
+[**connect_klaviyo_credentials**](ConnectApi.md#connect_klaviyo_credentials) | **POST** /v1/connect/klaviyo/credentials | Connect a Klaviyo account
 [**connect_line_credentials**](ConnectApi.md#connect_line_credentials) | **POST** /v1/connect/line/credentials | Connect LINE Official Account
 [**connect_open_ai_ads_credentials**](ConnectApi.md#connect_open_ai_ads_credentials) | **POST** /v1/connect/openai-ads/credentials | Connect an OpenAI Ads account
 [**connect_shopify_with_token**](ConnectApi.md#connect_shopify_with_token) | **POST** /v1/connect/shopify/token | Connect a Shopify store with a custom-app Admin token
 [**connect_slack_channel**](ConnectApi.md#connect_slack_channel) | **POST** /v1/connect/slack | Connect a Slack channel
 [**connect_snapchat_ads_credentials**](ConnectApi.md#connect_snapchat_ads_credentials) | **POST** /v1/connect/snapchat-ads/credentials | Connect a Snapchat Ads pixel
+[**connect_trade_desk_ads_credentials**](ConnectApi.md#connect_trade_desk_ads_credentials) | **POST** /v1/connect/tradedesk-ads/credentials | Connect a Trade Desk tracking tag
 [**connect_webflow_with_site_token**](ConnectApi.md#connect_webflow_with_site_token) | **POST** /v1/connect/webflow/token | Connect Webflow with a site API token
 [**connect_wechat_credentials**](ConnectApi.md#connect_wechat_credentials) | **POST** /v1/connect/wechat/credentials | Connect WeChat Official Account
 [**connect_whats_app_credentials**](ConnectApi.md#connect_whats_app_credentials) | **POST** /v1/connect/whatsapp/credentials | Connect WhatsApp via credentials
@@ -34,6 +39,8 @@ Method | HTTP request | Description
 [**create_youtube_playlist**](ConnectApi.md#create_youtube_playlist) | **POST** /v1/accounts/{accountId}/youtube-playlists | Create YouTube playlist
 [**delete_o_auth_app**](ConnectApi.md#delete_o_auth_app) | **DELETE** /v1/connect/oauth-apps/{appId} | Remove an OAuth app
 [**delete_org_connection**](ConnectApi.md#delete_org_connection) | **DELETE** /v1/org-connections/{orgConnectionId} | Delete an organization connection
+[**get_amazon_ads_connect_url**](ConnectApi.md#get_amazon_ads_connect_url) | **GET** /v1/connect/amazonads | Get Amazon Ads OAuth connect URL
+[**get_campaign_manager_connect_url**](ConnectApi.md#get_campaign_manager_connect_url) | **GET** /v1/connect/campaignmanager360 | Get Campaign Manager 360 OAuth connect URL
 [**get_connect_handoff**](ConnectApi.md#get_connect_handoff) | **GET** /v1/connect/handoffs/{handoffId} | Get a phone handoff
 [**get_connect_url**](ConnectApi.md#get_connect_url) | **GET** /v1/connect/{platform} | Get OAuth connect URL
 [**get_connect_welcome_screen**](ConnectApi.md#get_connect_welcome_screen) | **GET** /v1/connect/welcome-screen | Get the saved welcome screen
@@ -66,6 +73,7 @@ Method | HTTP request | Description
 [**get_youtube_playlists**](ConnectApi.md#get_youtube_playlists) | **GET** /v1/accounts/{accountId}/youtube-playlists | List YouTube playlists
 [**handle_o_auth_callback**](ConnectApi.md#handle_o_auth_callback) | **POST** /v1/connect/{platform} | Complete OAuth callback
 [**initiate_telegram_connect**](ConnectApi.md#initiate_telegram_connect) | **POST** /v1/connect/telegram | Connect Telegram directly
+[**list_campaign_manager_profiles**](ConnectApi.md#list_campaign_manager_profiles) | **GET** /v1/connect/campaignmanager360/profiles | List Campaign Manager 360 profiles for a pending connect
 [**list_facebook_pages**](ConnectApi.md#list_facebook_pages) | **GET** /v1/connect/facebook/select-page | List Facebook pages
 [**list_google_analytics_properties**](ConnectApi.md#list_google_analytics_properties) | **GET** /v1/connect/googleanalytics/properties | List Google Analytics properties for a pending connect
 [**list_google_business_categories**](ConnectApi.md#list_google_business_categories) | **GET** /v1/accounts/{accountId}/gmb-categories | List Google Business Profile categories
@@ -82,6 +90,7 @@ Method | HTTP request | Description
 [**list_whats_app_phone_numbers**](ConnectApi.md#list_whats_app_phone_numbers) | **GET** /v1/connect/whatsapp/select-phone-number | List numbers for selection
 [**resync_page_webhook_subscription**](ConnectApi.md#resync_page_webhook_subscription) | **POST** /v1/accounts/{accountId}/webhook-subscription | Re-subscribe an account to Zernio's webhooks
 [**search_google_business_locations**](ConnectApi.md#search_google_business_locations) | **POST** /v1/accounts/{accountId}/gmb-locations/search | Search existing Google listings
+[**select_campaign_manager_profile**](ConnectApi.md#select_campaign_manager_profile) | **POST** /v1/connect/campaignmanager360/select-profile | Connect the chosen Campaign Manager 360 profile
 [**select_facebook_page**](ConnectApi.md#select_facebook_page) | **POST** /v1/connect/facebook/select-page | Select Facebook page
 [**select_google_analytics_property**](ConnectApi.md#select_google_analytics_property) | **POST** /v1/connect/googleanalytics/select-property | Connect the chosen Google Analytics property
 [**select_google_business_location**](ConnectApi.md#select_google_business_location) | **POST** /v1/connect/googlebusiness/select-location | Select Google Business Profile location
@@ -369,6 +378,66 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## connect_attentive_credentials
+
+> models::ConnectAttentiveCredentials200Response connect_attentive_credentials(connect_attentive_credentials_request)
+Connect an Attentive company
+
+Connect Attentive with the API key of a custom app (Integrations, Custom apps) that can write Custom Events and eCommerce events.  Zernio reads the key's company from Attentive once to check it, then sends the events you forward to it to Attentive. Connecting the same company again replaces its key.  Requires the Ads add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**connect_attentive_credentials_request** | [**ConnectAttentiveCredentialsRequest**](ConnectAttentiveCredentialsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::ConnectAttentiveCredentials200Response**](connectAttentiveCredentials_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## connect_awin_credentials
+
+> models::ConnectAwinCredentials200Response connect_awin_credentials(connect_awin_credentials_request)
+Connect an Awin advertiser
+
+Connect Awin with your advertiser id and an API key (Settings, User settings, API credentials).  Zernio checks the key with one test order (`isTest`, not tracked by Awin) before saving it. Events sent with `testCode` reach Awin the same way.  Requires the Ads add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**connect_awin_credentials_request** | [**ConnectAwinCredentialsRequest**](ConnectAwinCredentialsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::ConnectAwinCredentials200Response**](connectAwinCredentials_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## connect_bluesky_credentials
 
 > models::ConnectBlueskyCredentials200Response connect_bluesky_credentials(connect_bluesky_credentials_request)
@@ -416,6 +485,66 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
  (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## connect_impact_credentials
+
+> models::ConnectImpactCredentials200Response connect_impact_credentials(connect_impact_credentials_request)
+Connect an Impact program
+
+Connect impact.com with an access token (Settings, API) that can read Campaigns and write Conversions, the program the conversions count in and the event type they count as.  Zernio lists the account's programs once to check the token, then sends the conversions you forward to it to `<programId>:<eventTypeId>`. Another event type of the same account is another forwarding rule with that `destinationId`.  Requires the Ads add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**connect_impact_credentials_request** | [**ConnectImpactCredentialsRequest**](ConnectImpactCredentialsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::ConnectImpactCredentials200Response**](connectImpactCredentials_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## connect_klaviyo_credentials
+
+> models::ConnectKlaviyoCredentials200Response connect_klaviyo_credentials(connect_klaviyo_credentials_request)
+Connect a Klaviyo account
+
+Connect Klaviyo with a private API key (Settings, API keys) that has the Events (write) and Accounts (read) scopes.  Zernio reads the key's account once to check it, then sends the events you forward to it (`POST /v1/events`, forwarding rules) to Klaviyo's Events API. Connecting the same account again replaces its key.  Requires the Ads add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**connect_klaviyo_credentials_request** | [**ConnectKlaviyoCredentialsRequest**](ConnectKlaviyoCredentialsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::ConnectKlaviyoCredentials200Response**](connectKlaviyoCredentials_200_response.md)
 
 ### Authorization
 
@@ -566,6 +695,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ConnectSnapchatAdsCredentials200Response**](connectSnapchatAdsCredentials_200_response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## connect_trade_desk_ads_credentials
+
+> models::ConnectTradeDeskAdsCredentials200Response connect_trade_desk_ads_credentials(connect_trade_desk_ads_credentials_request)
+Connect a Trade Desk tracking tag
+
+Connect a Trade Desk advertiser and the tracking tag your conversions count against, for the Real-Time Conversions API. The API takes no secret, so nothing secret is stored: get the Advertiser ID from Advertiser Preferences and ask your Trade Desk representative for a Real-Time Conversion tracking tag.  The Trade Desk does not check either id when it receives events, so a wrong id loses conversions silently: check the tag's conversions in The Trade Desk after the first sends. Connecting the same tag again replaces its advertiser.  Requires the Ads add-on. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**connect_trade_desk_ads_credentials_request** | [**ConnectTradeDeskAdsCredentialsRequest**](ConnectTradeDeskAdsCredentialsRequest.md) |  | [required] |
+
+### Return type
+
+[**models::ConnectTradeDeskAdsCredentials200Response**](connectTradeDeskAdsCredentials_200_response.md)
 
 ### Authorization
 
@@ -1026,6 +1185,70 @@ Name | Type | Description  | Required | Notes
 ### Authorization
 
 [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_amazon_ads_connect_url
+
+> models::GetAmazonAdsConnectUrl200Response get_amazon_ads_connect_url(profile_id, redirect_url, reconnect_account_id)
+Get Amazon Ads OAuth connect URL
+
+Starts Login with Amazon for Amazon Ads (scope `advertising::campaign_management`). The Amazon login becomes an account with platform `amazonads`; every advertiser profile it reaches, in the NA, EU and FE regions, is a conversions destination (`GET /v1/ads/conversions/destinations`).  **Not open yet:** this answers 503 `FEATURE_NOT_AVAILABLE` until Amazon approves Zernio for the Amazon Ads API. Ask support for early access.  Errors on the redirect: `amazonads_no_profiles` (the login reaches no advertiser), `amazonads_no_refresh_token`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**profile_id** | **String** | Your Zernio profile ID (get from /v1/profiles). | [required] |
+**redirect_url** | Option<**String**> | Custom redirect after connection. Must be an absolute http(s) URL or custom app scheme. |  |
+**reconnect_account_id** | Option<**String**> | Zernio account ID of the Amazon Ads account being reconnected. |  |
+
+### Return type
+
+[**models::GetAmazonAdsConnectUrl200Response**](getAmazonAdsConnectUrl_200_response.md)
+
+### Authorization
+
+[connectToken](../README.md#connectToken), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_campaign_manager_connect_url
+
+> models::GetGoogleAnalyticsConnectUrl200Response get_campaign_manager_connect_url(profile_id, redirect_url, reconnect_account_id)
+Get Campaign Manager 360 OAuth connect URL
+
+Starts Google OAuth for Campaign Manager 360 (Floodlight). Each connected CM360 user profile becomes an account with platform `campaignmanager360`; it receives the conversions you forward to its Floodlight activities and does not post.  Requested scopes: `https://www.googleapis.com/auth/datamanager` (conversions go through Google's Data Manager API) and `https://www.googleapis.com/auth/dfatrafficking` (only to list advertisers and Floodlight activities; Campaign Manager has no read-only trafficking scope).  ### Flow  Redirect the user to `authUrl`.  - **One CM360 user profile:** Zernio connects it and redirects to `redirect_url` (or the dashboard) with `connected=campaignmanager360`, `profileId`, `accountId` and `username`. - **Several:** the user first picks one on a Zernio-hosted page, which then redirects the same way.  Then list the Floodlight activities with `GET /v1/ads/conversions/destinations?accountId=...`.  ### Your own picker  Add `headless=true` to `redirect_url`. Zernio then redirects there with `step=select_profile`, `profileId`, `platform=campaignmanager360` and a `pendingDataToken` for `GET /v1/connect/campaignmanager360/profiles` and `POST /v1/connect/campaignmanager360/select-profile`.  ### Errors  On failure the redirect carries `error`, `platform=campaignmanager360` and `error_message`. Errors include:  - `campaignmanager360_scope_missing`: the user unticked one of the two permissions. - `campaignmanager360_no_profiles`: the Google account has no Campaign Manager 360 user profile. - `campaignmanager360_no_refresh_token`: Google returned no refresh token; connect again. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**profile_id** | **String** | Your Zernio profile ID (get from /v1/profiles). | [required] |
+**redirect_url** | Option<**String**> | Custom redirect after connection. Must be an absolute http(s) URL or custom app scheme such as `myapp://callback`; relative and unsafe URLs return 400. |  |
+**reconnect_account_id** | Option<**String**> | Zernio account ID of the Campaign Manager 360 account being reconnected. Picking a different CM360 profile then fails instead of adding a second account. |  |
+
+### Return type
+
+[**models::GetGoogleAnalyticsConnectUrl200Response**](getGoogleAnalyticsConnectUrl_200_response.md)
+
+### Authorization
+
+[connectToken](../README.md#connectToken), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -2051,6 +2274,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_campaign_manager_profiles
+
+> models::ListCampaignManagerProfiles200Response list_campaign_manager_profiles(pending_data_token)
+List Campaign Manager 360 profiles for a pending connect
+
+For headless flows: lists the Campaign Manager 360 user profiles (one per CM360 account) of a pending connect, so you can show your own picker.  - Listing does not consume the token. - A headless token is honored only together with your API key (or connect token) for the same profile. - It expires after one hour. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**pending_data_token** | **String** | Token from the headless redirect. | [required] |
+
+### Return type
+
+[**models::ListCampaignManagerProfiles200Response**](listCampaignManagerProfiles_200_response.md)
+
+### Authorization
+
+[connectToken](../README.md#connectToken), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_facebook_pages
 
 > models::ListFacebookPages200Response list_facebook_pages(profile_id, temp_token, x_temp_token, connect_flow, selection_token)
@@ -2555,6 +2808,36 @@ Name | Type | Description  | Required | Notes
 ### Authorization
 
 [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## select_campaign_manager_profile
+
+> models::SelectCampaignManagerProfile200Response select_campaign_manager_profile(select_campaign_manager_profile_request)
+Connect the chosen Campaign Manager 360 profile
+
+For headless flows. Connects the CM360 user profile the user picked as a `campaignmanager360` account and returns where to send the user next.  Consumes the `pendingDataToken`; a refused or failed attempt leaves it usable for a retry. Send your API key (or connect token) for the same profile with a headless token. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**select_campaign_manager_profile_request** | [**SelectCampaignManagerProfileRequest**](SelectCampaignManagerProfileRequest.md) |  | [required] |
+
+### Return type
+
+[**models::SelectCampaignManagerProfile200Response**](selectCampaignManagerProfile_200_response.md)
+
+### Authorization
+
+[connectToken](../README.md#connectToken), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 

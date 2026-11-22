@@ -682,6 +682,10 @@ docs/ConnectAds200ResponseOneOf1.md
 docs/ConnectApi.md
 docs/ConnectAppLovinAdsCredentials200Response.md
 docs/ConnectAppLovinAdsCredentialsRequest.md
+docs/ConnectAttentiveCredentials200Response.md
+docs/ConnectAttentiveCredentialsRequest.md
+docs/ConnectAwinCredentials200Response.md
+docs/ConnectAwinCredentialsRequest.md
 docs/ConnectBlueskyCredentials200Response.md
 docs/ConnectBlueskyCredentialsRequest.md
 docs/ConnectDiscordChannelRequest.md
@@ -689,6 +693,10 @@ docs/ConnectHandoff.md
 docs/ConnectHandoffAccountsInner.md
 docs/ConnectHandoffError.md
 docs/ConnectHandoffLink.md
+docs/ConnectImpactCredentials200Response.md
+docs/ConnectImpactCredentialsRequest.md
+docs/ConnectKlaviyoCredentials200Response.md
+docs/ConnectKlaviyoCredentialsRequest.md
 docs/ConnectLineCredentials200Response.md
 docs/ConnectLineCredentials200ResponseWebhook.md
 docs/ConnectLineCredentialsRequest.md
@@ -700,6 +708,8 @@ docs/ConnectShopifyWithTokenRequest.md
 docs/ConnectSlackChannelRequest.md
 docs/ConnectSnapchatAdsCredentials200Response.md
 docs/ConnectSnapchatAdsCredentialsRequest.md
+docs/ConnectTradeDeskAdsCredentials200Response.md
+docs/ConnectTradeDeskAdsCredentialsRequest.md
 docs/ConnectWebflowWithSiteToken200Response.md
 docs/ConnectWebflowWithSiteToken200ResponseAccount.md
 docs/ConnectWebflowWithSiteTokenRequest.md
@@ -1504,6 +1514,7 @@ docs/GetAllAccountsHealth200ResponseAccountsInnerAnalyticsSync.md
 docs/GetAllAccountsHealth200ResponseAccountsInnerMessagingRestriction.md
 docs/GetAllAccountsHealth200ResponseAccountsInnerPublishingRestriction.md
 docs/GetAllAccountsHealth200ResponseSummary.md
+docs/GetAmazonAdsConnectUrl200Response.md
 docs/GetAnalytics200Response.md
 docs/GetAnalytics400Response.md
 docs/GetAnalytics402Response.md
@@ -2342,6 +2353,8 @@ docs/ListCampaignAssets200ResponseStructuredSnippetsInner.md
 docs/ListCampaignDrafts200Response.md
 docs/ListCampaignLedger200Response.md
 docs/ListCampaignLedger200ResponsePagination.md
+docs/ListCampaignManagerProfiles200Response.md
+docs/ListCampaignManagerProfiles200ResponseProfilesInner.md
 docs/ListCampaignNegativeKeywords200Response.md
 docs/ListCampaignNegativeKeywords200ResponseKeywordsInner.md
 docs/ListCampaignOrders200Response.md
@@ -3094,6 +3107,9 @@ docs/SearchTweets200ResponseMeta.md
 docs/SearchTweets200ResponsePagination.md
 docs/SearchTweets200ResponseTweetsInner.md
 docs/SearchTweets200ResponseTweetsInnerAuthor.md
+docs/SelectCampaignManagerProfile200Response.md
+docs/SelectCampaignManagerProfile200ResponseAccount.md
+docs/SelectCampaignManagerProfileRequest.md
 docs/SelectFacebookPage200Response.md
 docs/SelectFacebookPage200ResponseAccount.md
 docs/SelectFacebookPage200ResponseFailedInner.md
@@ -3381,6 +3397,7 @@ docs/TrackingSiteCustomHostname.md
 docs/TrackingSiteCustomHostnameDnsRecord.md
 docs/TrackingSiteInstall.md
 docs/TrackingSitePeriodTotals.md
+docs/TrackingSitePixel.md
 docs/TrackingSiteProxy.md
 docs/TrackingSiteProxyGoogleTagsInner.md
 docs/TrackingSiteSetup.md
@@ -4919,6 +4936,10 @@ src/models/connect_ads_200_response_one_of.rs
 src/models/connect_ads_200_response_one_of_1.rs
 src/models/connect_app_lovin_ads_credentials_200_response.rs
 src/models/connect_app_lovin_ads_credentials_request.rs
+src/models/connect_attentive_credentials_200_response.rs
+src/models/connect_attentive_credentials_request.rs
+src/models/connect_awin_credentials_200_response.rs
+src/models/connect_awin_credentials_request.rs
 src/models/connect_bluesky_credentials_200_response.rs
 src/models/connect_bluesky_credentials_request.rs
 src/models/connect_discord_channel_request.rs
@@ -4926,6 +4947,10 @@ src/models/connect_handoff.rs
 src/models/connect_handoff_accounts_inner.rs
 src/models/connect_handoff_error.rs
 src/models/connect_handoff_link.rs
+src/models/connect_impact_credentials_200_response.rs
+src/models/connect_impact_credentials_request.rs
+src/models/connect_klaviyo_credentials_200_response.rs
+src/models/connect_klaviyo_credentials_request.rs
 src/models/connect_line_credentials_200_response.rs
 src/models/connect_line_credentials_200_response_webhook.rs
 src/models/connect_line_credentials_request.rs
@@ -4937,6 +4962,8 @@ src/models/connect_shopify_with_token_request.rs
 src/models/connect_slack_channel_request.rs
 src/models/connect_snapchat_ads_credentials_200_response.rs
 src/models/connect_snapchat_ads_credentials_request.rs
+src/models/connect_trade_desk_ads_credentials_200_response.rs
+src/models/connect_trade_desk_ads_credentials_request.rs
 src/models/connect_webflow_with_site_token_200_response.rs
 src/models/connect_webflow_with_site_token_200_response_account.rs
 src/models/connect_webflow_with_site_token_request.rs
@@ -5728,6 +5755,7 @@ src/models/get_all_accounts_health_200_response_accounts_inner_analytics_sync.rs
 src/models/get_all_accounts_health_200_response_accounts_inner_messaging_restriction.rs
 src/models/get_all_accounts_health_200_response_accounts_inner_publishing_restriction.rs
 src/models/get_all_accounts_health_200_response_summary.rs
+src/models/get_amazon_ads_connect_url_200_response.rs
 src/models/get_analytics_200_response.rs
 src/models/get_analytics_400_response.rs
 src/models/get_analytics_402_response.rs
@@ -6551,6 +6579,8 @@ src/models/list_campaign_assets_200_response_structured_snippets_inner.rs
 src/models/list_campaign_drafts_200_response.rs
 src/models/list_campaign_ledger_200_response.rs
 src/models/list_campaign_ledger_200_response_pagination.rs
+src/models/list_campaign_manager_profiles_200_response.rs
+src/models/list_campaign_manager_profiles_200_response_profiles_inner.rs
 src/models/list_campaign_negative_keywords_200_response.rs
 src/models/list_campaign_negative_keywords_200_response_keywords_inner.rs
 src/models/list_campaign_orders_200_response.rs
@@ -7288,6 +7318,9 @@ src/models/search_tweets_200_response_meta.rs
 src/models/search_tweets_200_response_pagination.rs
 src/models/search_tweets_200_response_tweets_inner.rs
 src/models/search_tweets_200_response_tweets_inner_author.rs
+src/models/select_campaign_manager_profile_200_response.rs
+src/models/select_campaign_manager_profile_200_response_account.rs
+src/models/select_campaign_manager_profile_request.rs
 src/models/select_facebook_page_200_response.rs
 src/models/select_facebook_page_200_response_account.rs
 src/models/select_facebook_page_200_response_failed_inner.rs
@@ -7570,6 +7603,7 @@ src/models/tracking_site_custom_hostname.rs
 src/models/tracking_site_custom_hostname_dns_record.rs
 src/models/tracking_site_install.rs
 src/models/tracking_site_period_totals.rs
+src/models/tracking_site_pixel.rs
 src/models/tracking_site_proxy.rs
 src/models/tracking_site_proxy_google_tags_inner.rs
 src/models/tracking_site_setup.rs

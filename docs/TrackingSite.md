@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **proxy** | Option<[**models::TrackingSiteProxy**](TrackingSiteProxy.md)> |  | [optional]
 **google_tag_ids** | Option<**Vec<String>**> | The site's own Google tags (Tag Manager, GA4, Google Ads) its own-domain path relays to Google, so they load and measure from the site's domain. | [optional]
 **consent_mode** | Option<[**models::TrackingSiteConsentMode**](TrackingSiteConsentMode.md)> |  | [optional]
+**pixels** | Option<[**Vec<models::TrackingSitePixel>**](TrackingSitePixel.md)> | The ad pixels the tag loads itself. In the EEA, UK and Switzerland none loads before the visitor accepts on the site's consent banner; elsewhere `consentMode` decides. | [optional]
+**consent_mode_bridge** | Option<**bool**> | The tag writes the answer on the site's consent banner into Google Consent Mode v2: denied by default in the EEA, UK and Switzerland, then updated. On for sites created from November 2026. | [optional]
 **checks** | Option<[**Vec<models::TrackingSiteChecksInner>**](TrackingSiteChecksInner.md)> | One per setup step: `script` for the install, then one per ad account the site sends to, keyed by its platform and ids. | [optional]
 **setup** | Option<[**models::TrackingSiteSetup**](TrackingSiteSetup.md)> |  | [optional]
 **created_at** | Option<**String**> |  | [optional]

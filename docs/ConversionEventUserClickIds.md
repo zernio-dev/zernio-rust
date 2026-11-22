@@ -17,9 +17,15 @@ Name | Type | Description | Notes
 **alart** | Option<**String**> | Axon (AppLovin) attribution token (the `alart` URL param, `_axart` cookie). Sent to Axon as `user_data.alart`, not hashed. | [optional]
 **axwrt** | Option<**String**> | Axon Pixel browser id (the `_axwrt` cookie). Sent to Axon as `user_data.axwrt`, not hashed. | [optional]
 **twclid** | Option<**String**> | X click ID (the `twclid` URL param X adds to ad clicks). Sent to X as a `twclid` identifier, not hashed. | [optional]
-**msclkid** | Option<**String**> | Microsoft Advertising click ID (the `msclkid` URL param Microsoft adds to ad clicks). Sent to Microsoft as `MicrosoftClickId`, not hashed. | [optional]
+**msclkid** | Option<**String**> | Microsoft Advertising click ID (the `msclkid` URL param Microsoft adds to ad clicks). Sent to Microsoft as `MicrosoftClickId` (offline goals) or `userData.msclkid` (UET tags), not hashed. | [optional]
 **sccid** | Option<**String**> | Snapchat click ID (the `ScCid` URL param Snap adds to ad clicks). Sent to Snapchat as `sc_click_id`, not hashed. | [optional]
 **scid** | Option<**String**> | Snap Pixel browser id (the `_scid` cookie). Sent to Snapchat as `sc_cookie1`, not hashed. | [optional]
+**irclickid** | Option<**String**> | Impact partner click id (the `irclickid` URL param Impact adds to partner links). Sent to Impact as `ClickId`. | [optional]
+**awc** | Option<**String**> | Awin click id (the `awc` URL param Awin adds to publisher links). Sent to Awin as the order's `awc`. | [optional]
+**dclid** | Option<**String**> | Campaign Manager 360 / Display & Video 360 click ID (the `dclid` URL param). Sent to Floodlight as is. | [optional]
+**tdid** | Option<**String**> | The Trade Desk browser id (TDID) from a TTD cookie sync. Sent to The Trade Desk as `adid` of type `TDID`. | [optional]
+**uid2** | Option<**String**> | A raw UID2 for the person, from your UID2 integration. Sent to The Trade Desk as `adid` of type `UID2`. | [optional]
+**uid2_token** | Option<**String**> | A UID2 token (encrypted, from the UID2 SDK on your site). Sent to The Trade Desk as `uid2_token`. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
