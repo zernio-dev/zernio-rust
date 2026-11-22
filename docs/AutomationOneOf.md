@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **String** |  | 
-**status** | **Status** |  (enum: active, paused) | 
+**status** | **Status** | Only a sequence can be a draft. (enum: draft, active, paused) | 
 **trigger** | [**models::AutomationScheduleTrigger**](AutomationScheduleTrigger.md) |  | 
 **subjects** | [**models::AutomationSubjects**](AutomationSubjects.md) |  | 
 **conditions** | [**models::AdRuleConditions**](AdRuleConditions.md) |  | 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **kind** | **Kind** |  (enum: ad_rule) | 
 **version** | **String** | Send it back as `If-Match` when editing, so an edit made after someone else saved is refused. | 
 **last_check_at** | **String** | Null until an ad rule first checks. Always null for event and scheduled automations; their checks list when they ran. | 
-**next_check_at** | **String** | Null while paused. Always null for event and scheduled automations. | 
+**next_check_at** | **String** | Null while paused. Always null for event, scheduled and sequence automations. | 
 **created_at** | **String** |  | 
 **updated_at** | **String** |  | 
 **template** | Option<[**models::AutomationRecordTemplate**](AutomationRecordTemplate.md)> |  | [optional]

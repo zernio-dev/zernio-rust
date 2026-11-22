@@ -168,7 +168,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateAutomation201Response create_automation(automation_definition, idempotency_key)
 Create an automation
 
-Creates an automation. Its shape picks the kind:  - **Ad rule**: a `schedule` over campaigns, ad sets, ads, Google keywords or Google search terms, with metric `conditions` and ad `steps`. It stays paused unless `status` is `active`; preview it first with `POST /v1/automations/preview`. - **Event**: a Zernio event in `trigger.type`, such as `post.failed`, with notify steps. It is on unless `status` is `paused`. - **Scheduled**: a `schedule` over a profile's posts, with notify steps and an optional boost. It is on unless `status` is `paused`.  Everything an automation cannot hold is refused at once: the 400 lists every problem with its JSON path in `details.problems`. 
+Creates an automation. Its shape picks the kind:  - **Ad rule**: a `schedule` over campaigns, ad sets, ads, Google keywords or Google search terms, with metric `conditions` and ad `steps`. It stays paused unless `status` is `active`; preview it first with `POST /v1/automations/preview`. - **Event**: a Zernio event in `trigger.type`, such as `post.failed`, with notify steps. It is on unless `status` is `paused`. - **Scheduled**: a `schedule` over a profile's posts, with notify steps and an optional boost. It is on unless `status` is `paused`. - **Sequence**: an `enrollment` trigger on one messaging account, with message steps sent over time. It is on unless `status` is `draft`. It needs what `/v1/sequences` needs: the inbox add-on and a key with the `messages` group. - **Comment to DM**: a comment door in `trigger.type`, such as `comment.keyword`, with a `graph` of the shapes `/v1/comment-automations` holds. It is on unless `status` is `paused`, and needs what `/v1/comment-automations` needs. A post that already has an active automation is a 409.  Everything an automation cannot hold is refused at once: the 400 lists every problem with its JSON path in `details.problems`. 
 
 ### Parameters
 
@@ -716,10 +716,10 @@ Name | Type | Description  | Required | Notes
 
 ## list_automations
 
-> models::ListAutomations200Response list_automations(account_id, ad_account_id, limit, cursor)
+> models::ListAutomations200Response list_automations(account_id, ad_account_id, kind, limit, cursor)
 List automations
 
-Lists the automations on the profiles your key can reach, newest first, across every kind: ad rules, event automations and scheduled automations. 
+Lists the automations on the profiles your key can reach, newest first, across every kind: ad rules, event automations, scheduled automations, sequences and comment to DM.  Sequences and comment to DM need what `/v1/sequences` and `/v1/comment-automations` need: the inbox add-on, and a key with the `messages` group; without them they are left out. 
 
 ### Parameters
 
@@ -728,6 +728,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **account_id** | Option<**String**> | Only automations on this account: the ads connection of an ad rule, or one of the `accountIds` of an event or scheduled automation. |  |
 **ad_account_id** | Option<**String**> | Only ad rules checking this platform ad account. |  |
+**kind** | Option<**String**> | Only these kinds, comma separated: `ad_rule`, `event`, `scheduled`, `sequence`, `comment`. |  |
 **limit** | Option<**i32**> |  |  |[default to 50]
 **cursor** | Option<**String**> | `nextCursor` from the previous page. |  |
 

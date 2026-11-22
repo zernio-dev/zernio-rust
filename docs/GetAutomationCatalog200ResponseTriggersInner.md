@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**kind** | **Kind** |  (enum: ad_rule, event, scheduled) | 
-**r#type** | **String** | `schedule`, or the Zernio event name. | 
+**kind** | **Kind** |  (enum: ad_rule, event, scheduled, sequence, comment) | 
+**r#type** | **String** | `schedule`, `enrollment`, a comment door such as `comment.keyword` (comment to DM), or the Zernio event name. | 
 **label** | Option<**String**> | Event triggers only. | [optional]
 **subject** | Option<**String**> | What an event is about, such as `post` or `account`. | [optional]
 **scope** | Option<**serde_json::Value**> | Which of `profileId` and `accountIds` an event trigger needs. | [optional]
