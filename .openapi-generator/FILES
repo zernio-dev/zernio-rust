@@ -705,6 +705,7 @@ docs/ConnectedApp.md
 docs/ConnectedAppsApi.md
 docs/ConnectedMessagingAccount.md
 docs/ConnectedStore.md
+docs/ConsentDrop.md
 docs/ContactsApi.md
 docs/ContentRetentionApi.md
 docs/ContentRetentionResponse.md
@@ -714,6 +715,9 @@ docs/ConversionActionTagSnippetsInner.md
 docs/ConversionAuditAnswer.md
 docs/ConversionAuditAnswerPublicReport.md
 docs/ConversionAuditApi.md
+docs/ConversionAuditMonitor.md
+docs/ConversionAuditMonitorAnswer.md
+docs/ConversionAuditMonitorScoreHistoryInner.md
 docs/ConversionAuditReport.md
 docs/ConversionAuditReportChecksInner.md
 docs/ConversionAuditReportChecksInnerVerify.md
@@ -863,6 +867,7 @@ docs/CreateContact200ResponseContact.md
 docs/CreateContactRequest.md
 docs/CreateConversionAction201Response.md
 docs/CreateConversionActionRequest.md
+docs/CreateConversionAuditMonitorRequest.md
 docs/CreateConversionDestinationRequest.md
 docs/CreateCreatorCampaign201Response.md
 docs/CreateCreatorCampaignRequest.md
@@ -1334,6 +1339,7 @@ docs/EstimateAdReachRequest.md
 docs/EventAutomationCheck.md
 docs/EventAutomationCheckSubject.md
 docs/EventAutomationDefinition.md
+docs/EventConsent.md
 docs/EventCorrection.md
 docs/EventDestination.md
 docs/Expired.md
@@ -1585,6 +1591,7 @@ docs/GetEventsAccuracy200ResponseDestinationsInnerMatch.md
 docs/GetEventsOverview200Response.md
 docs/GetEventsOverview200ResponseEventNamesInner.md
 docs/GetEventsOverview200ResponsePlatformsInner.md
+docs/GetEventsOverview200ResponsePlatformsInnerDroppedToday.md
 docs/GetEventsOverview200ResponseSitesInner.md
 docs/GetEventsOverview200ResponseSitesInnerTotals.md
 docs/GetEventsOverview200ResponseSourcesInner.md
@@ -2360,6 +2367,7 @@ docs/ListContacts200Response.md
 docs/ListContacts200ResponseContactsInner.md
 docs/ListContacts200ResponseFilters.md
 docs/ListConversionActions200Response.md
+docs/ListConversionAuditMonitors200Response.md
 docs/ListCreatorCampaigns200Response.md
 docs/ListCrmDeals200Response.md
 docs/ListCrmOwners200Response.md
@@ -3113,7 +3121,6 @@ docs/SendConversions200Response.md
 docs/SendConversions200ResponseFailuresInner.md
 docs/SendConversions200ResponseFailuresInnerCode.md
 docs/SendConversionsRequest.md
-docs/SendConversionsRequestConsent.md
 docs/SendDiscordDirectMessage200Response.md
 docs/SendDiscordDirectMessage200ResponseAccount.md
 docs/SendDiscordDirectMessage200ResponseRecipient.md
@@ -3129,7 +3136,6 @@ docs/SendEvents200ResponseDestinationsInner.md
 docs/SendEvents200ResponseDestinationsInnerFailuresInner.md
 docs/SendEvents202Response.md
 docs/SendEventsRequest.md
-docs/SendEventsRequestConsent.md
 docs/SendEventsRequestDestinationsInner.md
 docs/SendGohighlevelPastWonDeals200Response.md
 docs/SendInboxMessage200Response.md
@@ -4914,12 +4920,16 @@ src/models/connected_account.rs
 src/models/connected_app.rs
 src/models/connected_messaging_account.rs
 src/models/connected_store.rs
+src/models/consent_drop.rs
 src/models/content_retention_response.rs
 src/models/conversation_ad_attribution.rs
 src/models/conversion_action.rs
 src/models/conversion_action_tag_snippets_inner.rs
 src/models/conversion_audit_answer.rs
 src/models/conversion_audit_answer_public_report.rs
+src/models/conversion_audit_monitor.rs
+src/models/conversion_audit_monitor_answer.rs
+src/models/conversion_audit_monitor_score_history_inner.rs
 src/models/conversion_audit_report.rs
 src/models/conversion_audit_report_checks_inner.rs
 src/models/conversion_audit_report_checks_inner_verify.rs
@@ -5068,6 +5078,7 @@ src/models/create_contact_200_response_contact.rs
 src/models/create_contact_request.rs
 src/models/create_conversion_action_201_response.rs
 src/models/create_conversion_action_request.rs
+src/models/create_conversion_audit_monitor_request.rs
 src/models/create_conversion_destination_request.rs
 src/models/create_creator_campaign_201_response.rs
 src/models/create_creator_campaign_request.rs
@@ -5533,6 +5544,7 @@ src/models/estimate_ad_reach_request.rs
 src/models/event_automation_check.rs
 src/models/event_automation_check_subject.rs
 src/models/event_automation_definition.rs
+src/models/event_consent.rs
 src/models/event_correction.rs
 src/models/event_destination.rs
 src/models/expired.rs
@@ -5782,6 +5794,7 @@ src/models/get_events_accuracy_200_response_destinations_inner_match.rs
 src/models/get_events_overview_200_response.rs
 src/models/get_events_overview_200_response_event_names_inner.rs
 src/models/get_events_overview_200_response_platforms_inner.rs
+src/models/get_events_overview_200_response_platforms_inner_dropped_today.rs
 src/models/get_events_overview_200_response_sites_inner.rs
 src/models/get_events_overview_200_response_sites_inner_totals.rs
 src/models/get_events_overview_200_response_sources_inner.rs
@@ -6542,6 +6555,7 @@ src/models/list_contacts_200_response.rs
 src/models/list_contacts_200_response_contacts_inner.rs
 src/models/list_contacts_200_response_filters.rs
 src/models/list_conversion_actions_200_response.rs
+src/models/list_conversion_audit_monitors_200_response.rs
 src/models/list_creator_campaigns_200_response.rs
 src/models/list_crm_deals_200_response.rs
 src/models/list_crm_owners_200_response.rs
@@ -7280,7 +7294,6 @@ src/models/send_conversions_200_response.rs
 src/models/send_conversions_200_response_failures_inner.rs
 src/models/send_conversions_200_response_failures_inner_code.rs
 src/models/send_conversions_request.rs
-src/models/send_conversions_request_consent.rs
 src/models/send_discord_direct_message_200_response.rs
 src/models/send_discord_direct_message_200_response_account.rs
 src/models/send_discord_direct_message_200_response_recipient.rs
@@ -7296,7 +7309,6 @@ src/models/send_events_200_response_destinations_inner.rs
 src/models/send_events_200_response_destinations_inner_failures_inner.rs
 src/models/send_events_202_response.rs
 src/models/send_events_request.rs
-src/models/send_events_request_consent.rs
 src/models/send_events_request_destinations_inner.rs
 src/models/send_gohighlevel_past_won_deals_200_response.rs
 src/models/send_inbox_message_200_response.rs

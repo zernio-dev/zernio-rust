@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **destination_id** | Option<**String**> | The destination (pixel, dataset or conversion action) id, the same as the forwarding rule's destinationId. | [optional]
 **sent_today** | Option<**i32**> | Events the platform accepted today. | [optional]
 **failed_today** | Option<**i32**> | Events that failed for good today. | [optional]
+**dropped_today** | Option<[**models::GetEventsOverview200ResponsePlatformsInnerDroppedToday**](GetEventsOverview200ResponsePlatformsInnerDroppedToday.md)> |  | [optional]
 **last_sent_at** | Option<**String**> | Last accepted send in the last 30 days. | [optional]
 **last_event_name** | Option<**String**> | Name of the event in that send. | [optional]
 **last_error** | Option<**String**> | The platform's error on the last failed send in the last 30 days. | [optional]

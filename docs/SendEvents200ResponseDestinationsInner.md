@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **platform** | Option<**Platform**> |  (enum: metaads, googleads, linkedinads, tiktokads, openaiads, pinterestads, redditads) | [optional]
 **events_sent** | Option<**i32**> | Events the platform accepted. | [optional]
 **events_failed** | Option<**i32**> |  | [optional]
+**events_dropped** | Option<**i32**> | Events this destination did not get because the visitor did not consent (see Consent above). | [optional]
+**drops** | Option<[**Vec<models::ConsentDrop>**](ConsentDrop.md)> |  | [optional]
 **failures** | Option<[**Vec<models::SendEvents200ResponseDestinationsInnerFailuresInner>**](SendEvents200ResponseDestinationsInnerFailuresInner.md)> |  | [optional]
 **error** | Option<**String**> | Set when the destination could not be reached at all (account disconnected, unsupported platform, platform error). | [optional]
 **retrying** | Option<**bool**> | The destination failed for now (platform error, timeout, rate limit) and the send is queued for retries; its outcome shows on GET /v1/events/{eventId}. | [optional]
