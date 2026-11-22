@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **server_side** | **bool** | True only when a server-side path is proven: visible from the page, or verified through the Zernio account behind the site tag. | 
 **relayed_by** | Option<**RelayedBy**> | The only server path seen is the Zernio site tag relay; `serverSideVerified` says whether its delivery to this platform is proven. (enum: zernio-tag) | [optional]
 **server_side_verified** | Option<**bool**> | The Zernio site tag on the page belongs to an account whose destination for this platform accepted the site's events in the last 7 days. | [optional]
+**server_tool** | Option<**String**> | A third-party server-side tool installed on the site that may already send this platform's events (Elevar, Littledata, Stape), when its status is `likely`. Which platforms the tool feeds is not visible from the page. | [optional]
 **status** | **Status** | `good` = server-side, `warn` = browser-only (the leak), `missing` = not tracked, `not-firing` = the tag is installed but sent nothing during a full visit. (enum: good, warn, missing, not-firing) | 
 **estimated_loss_browser_only** | **f64** | Share of conversions typically lost when this platform runs browser-only, 0-1. | 
 **note** | **String** | Short explanation of the finding. | 
