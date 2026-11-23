@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **report** | [**models::ConversionAuditReport**](ConversionAuditReport.md) |  | 
-**networks** | [**Vec<models::ConversionAuditAnswerNetworksInner>**](ConversionAuditAnswerNetworksInner.md) | Each ad network with its final setup and leak, computed exactly as the public report page shows them, best setup first. | 
+**networks** | [**Vec<models::ConversionAuditAnswerNetworksInner>**](ConversionAuditAnswerNetworksInner.md) | Each ad network with its final setup and leak, computed exactly as the public report page shows them, best setup first. Empty when `report.scannerBlocked` is set: the scan could not see any network. | 
 **top_fixes** | [**Vec<models::ConversionAuditAnswerTopFixesInner>**](ConversionAuditAnswerTopFixesInner.md) | The few fixes that matter most, in the order the public report page lists them. | 
 **fix_prompt** | **String** | A prompt to paste into a coding agent. It lists the report's findings, then connecting Zernio, sending conversions server-side and verifying them. | 
 **public_report** | Option<[**models::ConversionAuditAnswerPublicReport**](ConversionAuditAnswerPublicReport.md)> |  | 

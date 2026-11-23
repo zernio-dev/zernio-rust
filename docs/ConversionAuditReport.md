@@ -9,12 +9,14 @@ Name | Type | Description | Notes
 **score** | **f64** | Conversion tracking score, 0-100. Higher means a more complete setup and less signal at risk. | 
 **grade** | **Grade** | Letter grade for the score. (enum: A, B, C, D, F) | 
 **score_range** | Option<[**models::ConversionAuditReportScoreRange**](ConversionAuditReportScoreRange.md)> |  | [optional]
-**estimated_signal_loss_pct** | **f64** | Average share of conversions at risk on the networks with no visible server-side path, 0-100. | 
+**estimated_signal_loss_pct** | **f64** | Share of the conversions across every network that fires which is at risk if the networks without a verified server path run browser-only, 0-100. A verified network counts as 0. Consent checks and tags that never fire are not counted here; `gradeReason` says how they affect the grade. | 
+**grade_reason** | Option<**String**> | One plain line tying the grade to `estimatedSignalLossPct`: whether the grade comes mostly from the conversions at risk or from what that share leaves out (consent, tags not firing, matching), named. Absent when the score lost no points. | [optional]
 **platforms** | [**Vec<models::ConversionAuditReportPlatformsInner>**](ConversionAuditReportPlatformsInner.md) | One finding per ad platform the scan looked for. | 
 **browser_only** | **bool** | True when every active platform is tracked browser-only. | 
 **consent_manager** | Option<**String**> | Consent manager found on the page, or null. | 
 **active_platform_count** | **i32** | How many ad platforms the scan found any tracking for. | 
 **visibility** | **Visibility** | `full` = pixels were visible, `limited` = tags load dynamically so not all are visible, `none` = nothing found. (enum: full, limited, none) | 
+**scanner_blocked** | Option<**bool**> | Always `true` when present: set when the site served our page fetch a bot wall and showed no pixel. The report is a partial, source-only read, so `score` and `grade` are placeholders, not a verdict, and `networks` is empty. | [optional]
 **site_signals** | **Vec<String>** | Site tech recognized (Shopify, WooCommerce, ...). | 
 **scan_mode** | Option<**ScanMode**> | `rendered` when a headless browser ran the page and its requests were checked, `static` for the page source only. (enum: static, rendered) | [optional]
 **limitations** | Option<**Vec<String>**> | What this scan could not see. | [optional]
