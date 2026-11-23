@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**platform** | Option<**Platform**> |  (enum: metaads, googleads, linkedinads, tiktokads, openaiads, pinterestads, redditads) | [optional]
+**platform** | Option<**Platform**> |  (enum: metaads, googleads, linkedinads, tiktokads, openaiads, pinterestads, redditads, applovinads, microsoftads, xads, snapchatads, taboolaads, googleanalytics, klaviyo, attentive, impact, awin, campaignmanager360, tradedeskads, amazonads) | [optional]
 **destinations** | Option<[**Vec<models::ListAdConversionDestinations200ResponseDestinationsInner>**](ListAdConversionDestinations200ResponseDestinationsInner.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

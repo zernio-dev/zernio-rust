@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **_id** | **String** |  | 
-**platform** | **Platform** |  (enum: tiktok, instagram, facebook, youtube, linkedin, twitter, threads, pinterest, reddit, bluesky, googlebusiness, telegram, snapchat, discord, slack, whatsapp, shopify, wordpress, wix, linkedinads, metaads, pinterestads, tiktokads, xads, googleads, openaiads, redditads, sms, phone, rcs, whopads, applovinads, snapchatads, taboolaads, klaviyo, attentive, impact, awin, google, microsoft, imap, hubspot, salesforce, webflow, googleanalytics, imessage, tiktokshop, microsoftads, line, wechat, googletagmanager, stripe, googlesearchconsole, campaignmanager360, tradedeskads, amazonads) | 
+**platform** | **Platform** |  (enum: tiktok, instagram, facebook, youtube, linkedin, twitter, threads, pinterest, reddit, bluesky, googlebusiness, telegram, snapchat, discord, slack, whatsapp, shopify, wordpress, wix, linkedinads, metaads, pinterestads, tiktokads, xads, googleads, openaiads, redditads, sms, phone, rcs, whopads, applovinads, snapchatads, taboolaads, klaviyo, attentive, impact, awin, google, microsoft, imap, hubspot, salesforce, webflow, googleanalytics, imessage, tiktokshop, microsoftads, line, wechat, googletagmanager, stripe, googlesearchconsole, campaignmanager360, tradedeskads, amazonads, gohighlevel) | 
 **profile_id** | [**models::SocialAccountProfileId**](SocialAccountProfileId.md) |  | 
 **username** | Option<**String**> |  | [optional]
 **display_name** | Option<**String**> |  | [optional]

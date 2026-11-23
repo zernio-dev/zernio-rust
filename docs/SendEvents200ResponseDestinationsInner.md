@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **account_id** | Option<**String**> |  | [optional]
 **destination_id** | Option<**String**> |  | [optional]
-**platform** | Option<**Platform**> |  (enum: metaads, googleads, linkedinads, tiktokads, openaiads, pinterestads, redditads) | [optional]
+**platform** | Option<**Platform**> |  (enum: metaads, googleads, linkedinads, tiktokads, openaiads, pinterestads, redditads, applovinads, microsoftads, xads, snapchatads, taboolaads, googleanalytics, klaviyo, attentive, impact, awin, campaignmanager360, tradedeskads, amazonads) | [optional]
 **events_sent** | Option<**i32**> | Events the platform accepted. | [optional]
 **events_failed** | Option<**i32**> |  | [optional]
 **events_dropped** | Option<**i32**> | Events this destination did not get because the visitor did not consent (see Consent above). | [optional]

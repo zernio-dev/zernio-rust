@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **account_id** | Option<**String**> |  | [optional]
 **destination_id** | Option<**String**> |  | [optional]
-**platform** | Option<**Platform**> |  (enum: metaads, googleads, linkedinads, tiktokads, openaiads, pinterestads, redditads, ) | [optional]
+**platform** | Option<**Platform**> |  (enum: metaads, googleads, linkedinads, tiktokads, openaiads, pinterestads, redditads, applovinads, microsoftads, xads, snapchatads, taboolaads, googleanalytics, klaviyo, attentive, impact, awin, campaignmanager360, tradedeskads, amazonads, ) | [optional]
 **status** | Option<**Status**> | `dropped`: not sent because the visitor did not consent; `errorCode` says why (`consent_denied` or `consent_missing`). (enum: sent, retrying, failed, dropped) | [optional]
 **attempt** | Option<**i32**> | Send attempt (1 = the first). | [optional]
 **error** | Option<**String**> |  | [optional]

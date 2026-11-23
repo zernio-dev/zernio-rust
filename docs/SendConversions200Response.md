@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**platform** | Option<**Platform**> |  (enum: metaads, googleads, linkedinads, tiktokads, openaiads, pinterestads, redditads) | [optional]
+**platform** | Option<**Platform**> |  (enum: metaads, googleads, linkedinads, tiktokads, openaiads, pinterestads, redditads, applovinads, microsoftads, xads, snapchatads, taboolaads, googleanalytics, klaviyo, attentive, impact, awin, campaignmanager360, tradedeskads, amazonads) | [optional]
 **events_received** | Option<**i32**> | Events accepted by the platform. | [optional]
 **events_failed** | Option<**i32**> | Events rejected (see failures). | [optional]
 **events_dropped** | Option<**i32**> | Events not sent because the visitor did not consent (see `consent`). | [optional]
